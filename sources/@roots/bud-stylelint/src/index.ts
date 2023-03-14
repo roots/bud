@@ -4,10 +4,8 @@
 /**
  * Add stylelint support to Bud
  *
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
- *
- * @packageDocumentation
+ * @see https://bud.js.org/extensions/bud-stylelint
+ * @see https://github.com/roots/bud/tree/main/sources/@roots/bud-styelint
  */
 
 import './types.js'

@@ -9,8 +9,6 @@ import format from '@roots/bud-support/pretty-format'
 class Project extends Service {
   /**
    * `build.after` hook callback
-   *
-   * @public
    */
   @bind
   public override async buildAfter?(bud: Bud) {

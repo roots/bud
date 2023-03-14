@@ -1,7 +1,5 @@
 /**
  * Base eslint config
- *
- * @public
  */
 module.exports = {
   extends: [`eslint:recommended`],

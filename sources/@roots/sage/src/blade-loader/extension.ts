@@ -10,7 +10,7 @@ import {label, plugin} from '@roots/bud-framework/extension/decorators'
 @plugin(BladeLoaderPlugin)
 export class BladeLoaderExtension extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   public override async register(bud: Bud) {
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>

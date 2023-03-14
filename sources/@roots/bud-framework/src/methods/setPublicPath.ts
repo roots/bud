@@ -2,9 +2,6 @@ import {sep} from 'node:path'
 
 import type {Bud} from '../bud.js'
 
-/**
- * @public
- */
 export interface setPublicPath {
   (publicPath: string | ((publicPath: string) => string)): Bud
 }

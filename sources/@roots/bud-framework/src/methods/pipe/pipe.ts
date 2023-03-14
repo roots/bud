@@ -12,9 +12,6 @@ interface Callback<T = any> {
   (input: T): Promise<T>
 }
 
-/**
- * @public
- */
 export interface pipe {
   <T = Bud>(fns: Array<Callback<T>>, value?: T): Promise<T>
 }

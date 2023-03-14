@@ -15,15 +15,11 @@ import {Service} from './service.js'
 export class Module extends Service {
   /**
    * Node require
-   *
-   * @public
    */
   public require: NodeRequire
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(args: () => Bud) {
     super(args)
@@ -35,9 +31,6 @@ export class Module extends Service {
 
   /**
    * Get `package.json` absolute path from a module signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async getDirectory(signifier: string, context?: string) {
@@ -51,9 +44,6 @@ export class Module extends Service {
 
   /**
    * Get `package.json` absolute path from a module signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async getManifestPath(pkgName: string) {
@@ -64,9 +54,6 @@ export class Module extends Service {
 
   /**
    * Read `package.json` manifest from a module signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async readManifest(signifier: string) {
@@ -79,9 +66,6 @@ export class Module extends Service {
 
   /**
    * Resolve a module path from its signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async resolve(
@@ -113,9 +97,6 @@ export class Module extends Service {
 
   /**
    * Import a module from its signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async import<T = any>(signifier: string): Promise<T> {
@@ -138,9 +119,6 @@ export class Module extends Service {
 
   /**
    * Import a module from its signifier
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async tryImport<T = any>(
@@ -162,9 +140,6 @@ export class Module extends Service {
 
   /**
    * Make context URL
-   *
-   * @param context  - context directory
-   * @returns
    */
   @bind
   protected makeContextURL(context?: string | URL): URL {

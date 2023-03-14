@@ -16,8 +16,6 @@ export {Options}
 export default class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
-   *
-   * @public
    */
   public plugin = {
     name: `CriticalCssWebpackPlugin`,
@@ -26,8 +24,6 @@ export default class CriticalCssWebpackPlugin {
 
   /**
    * Plugin options
-   *
-   * @public
    */
   public options: Options = {
     extract: true,
@@ -42,8 +38,6 @@ export default class CriticalCssWebpackPlugin {
 
   /**
    * Webpack lifecycle events
-   *
-   * @public
    */
   public webpack: {
     compiler: Webpack.Compiler
@@ -57,8 +51,6 @@ export default class CriticalCssWebpackPlugin {
    * Class constructor
    *
    * @param options - {@link Options}
-   *
-   * @public
    */
   public constructor(options?: Options) {
     options && Object.assign(this.options, options)
@@ -71,9 +63,6 @@ export default class CriticalCssWebpackPlugin {
    * Webpack compiler callback
    *
    * @param compiler - Webpack compiler
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async apply(compiler: Webpack.Compiler): Promise<void> {
@@ -87,9 +76,6 @@ export default class CriticalCssWebpackPlugin {
 
   /**
    * Compilation hook
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public compilation(compilation: Webpack.Compilation): void {
@@ -103,9 +89,6 @@ export default class CriticalCssWebpackPlugin {
 
   /**
    * Process assets
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async processAssets(

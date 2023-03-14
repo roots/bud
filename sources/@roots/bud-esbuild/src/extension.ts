@@ -48,10 +48,6 @@ export interface Options {
 
 /**
  * `BudEsbuild` configures Bud to process JS and TS with esbuild-loader
- *
- * @public
- * @decorator `@label`
- * @decorator `@options`
  */
 @label(`@roots/bud-esbuild`)
 @expose(`esbuild`)

@@ -23,13 +23,11 @@ export type OptionsMap = {
 export interface Connection {
   /**
    * Node server
-   * @public
    */
   instance: HttpServer | HttpsServer
 
   /**
    * Create server
-   * @public
    */
   createServer(app: any): Promise<Connection['instance']>
 
@@ -38,8 +36,6 @@ export interface Connection {
    *
    * @remarks
    * Node Server listen event
-   *
-   * @public
    */
   listen(): Promise<void>
 
@@ -48,8 +44,6 @@ export interface Connection {
    *
    * @remarks
    * Request handler
-   *
-   * @public
    */
   onListening(): void
 
@@ -58,8 +52,6 @@ export interface Connection {
    *
    * @remarks
    * Request handler
-   *
-   * @public
    */
   onRequest(
     req: IncomingMessage,
@@ -71,8 +63,6 @@ export interface Connection {
    *
    * @remarks
    * Error handler
-   *
-   * @public
    */
   onError(error: Error): void
 }

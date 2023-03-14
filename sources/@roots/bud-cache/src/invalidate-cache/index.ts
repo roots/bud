@@ -24,7 +24,7 @@ export default class InvalidateCacheExtension extends Extension {
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {

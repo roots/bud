@@ -4,8 +4,6 @@
 export interface ApplyPlugin {
   /**
    * Loose defined
-   *
-   * @public
    */
   [key: string]: any
 
@@ -13,8 +11,6 @@ export interface ApplyPlugin {
    * Apply callback
    *
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
-   *
-   * @public
    */
   apply: (...args: Array<any>) => unknown
 }

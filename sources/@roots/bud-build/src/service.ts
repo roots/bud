@@ -23,22 +23,16 @@ export class Build extends Service implements Base.Service {
 
   /**
    * Registered loaders
-   *
-   * @public
    */
   public loaders: Loaders = {} as Loaders
 
   /**
    * Registered rules
-   *
-   * @public
    */
   public rules: Rules = {} as Rules
 
   /**
    * Registered items
-   *
-   * @public
    */
   public items: Items = {} as Items
 

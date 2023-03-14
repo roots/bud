@@ -3,8 +3,6 @@
 
 /**
  * A high-level virtual filesystem.
- *
- * @packageDocumentation
  */
 
 import Filesystem from './filesystem.js'

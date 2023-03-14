@@ -8,16 +8,12 @@ import Base from '../shared/base.js'
 class Loader extends Base {
   /**
    * Factory returning the loader path
-   *
-   * @public
    */
   public src: string
   /**
    * Class constructor
    *
    * @param src - Either a factory returning a string or a literal string
-   *
-   * @public
    */
   public constructor(public override _app: () => Bud, src: string) {
     super(_app)

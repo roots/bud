@@ -137,7 +137,7 @@ export class Extension<
   ): Promise<unknown>
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   public async register?(
     app: Bud,

@@ -6,8 +6,6 @@
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- * @packageDocumentation
  */
 
 /* eslint-disable simple-import-sort/imports */

@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
   dependsOn,
   expose,
   label,
@@ -22,9 +21,8 @@ import {deprecated} from '@roots/bud-support/decorators'
 @expose(`sage`)
 export class Sage extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
-  @bind
   public override async register(bud: Bud) {
     bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
 

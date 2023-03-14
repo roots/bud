@@ -6,8 +6,6 @@
  *
  * @see https://github.com/roots/bud
  * @see https://github.com/roots/sage
- *
- * @packageDocumentation
  */
 
 import './types/index.js'

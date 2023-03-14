@@ -41,7 +41,7 @@ export default class ConsoleBuffer extends Service {
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {

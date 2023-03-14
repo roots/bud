@@ -41,7 +41,7 @@ interface Options {
 @expose(`postcss`)
 export class BudPostCss extends Extension<Options> {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register({build}: Bud): Promise<void> {

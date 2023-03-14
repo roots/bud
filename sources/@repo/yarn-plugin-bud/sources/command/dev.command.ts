@@ -27,9 +27,6 @@ export class Dev extends Command {
     ],
   }
 
-  /**
-   * @public
-   */
   public async execute() {
     await this.cli.run([`@bud`, `tsc`, `--force`])
 

@@ -31,22 +31,16 @@ import * as yml from './yml.js'
 export default class Filesystem {
   /**
    * FS Jetpack instance
-   *
-   * @public
    */
   public fs: FSJetpack = filesystem
 
   /**
    * Instances
-   *
-   * @public
    */
   public instances: Map<string, Filesystem> = new Map()
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(...pathParts: Array<string>) {
     this.fs =
@@ -58,10 +52,6 @@ export default class Filesystem {
    *
    * @param pathParts - (optional) path (or many path parts) to become new CWD. Could be absolute, or relative.
    *  If relative path given new CWD will be resolved basing on current CWD of this jetpack instance.
-   * @public
-   *
-   * @public
-   * @decorator {@link bind | bind}
    */
   @bind
   public make(...pathParts: string[]): Filesystem {
@@ -76,9 +66,6 @@ export default class Filesystem {
 
   /**
    * Create a {@link ReadStream}
-   *
-   * @public
-   * @decorator {@link bind | @bind}
    */
   @bind
   public async createReadStream(
@@ -90,9 +77,6 @@ export default class Filesystem {
 
   /**
    * Create a {@link WriteStream}
-   *
-   * @public
-   * @decorator {@link bind | @bind}
    */
   @bind
   public async createWriteStream(
@@ -108,9 +92,6 @@ export default class Filesystem {
    * @param path - the path to file.
    * @param data - data to append (can be `String` or `Buffer`).
    * @param options - options
-   *
-   * @public
-   * @decorator {@link bind}
    */
   @bind
   public async append(
@@ -129,7 +110,6 @@ export default class Filesystem {
    * @param from - path to location you want to copy.
    * @param to - path to destination location, where the copy should be placed.
    * @param options - copy options
-   * @public
    */
   public async copy(
     from: string,
@@ -146,7 +126,6 @@ export default class Filesystem {
    *
    * @param path - path to directory to examine
    * @param criteria - criteria to be met by the directory
-   * @public
    */
   public async dir(
     path: string,
@@ -167,7 +146,6 @@ export default class Filesystem {
    *  - `"dir"` if path is a directory.
    *  - `"file"` if path is a file.
    *  - `"other"` if none of the above.
-   * @public
    */
   public async exists(...path: Array<string>): Promise<ExistsResult> {
     const pathResults = await this.path(...path)
@@ -180,7 +158,6 @@ export default class Filesystem {
    * @remarks Returned paths are relative to current CWD of fs instance.
    *
    * @param options - search options
-   * @public
    */
   public async find(
     options?: FindOptions | string | Array<string>,
@@ -199,7 +176,6 @@ export default class Filesystem {
    *
    * @param path - path to inspect
    * @param options - inspect options
-   * @public
    */
   public async inspect(
     path: string,
@@ -213,7 +189,6 @@ export default class Filesystem {
    *
    * @param path - starting path to inspect
    * @param options - inspect options
-   * @public
    */
   public async inspectTree(
     path: string,
@@ -226,7 +201,6 @@ export default class Filesystem {
    * Lists the contents of directory. Equivalent of `fs.readdir`.
    *
    * @param path - directory to list
-   * @public
    */
   public async list(path?: string): Promise<string[] | undefined> {
     return await this.fs.listAsync(path)
@@ -238,7 +212,6 @@ export default class Filesystem {
    * @param from - path
    * @param to - path
    * @param options - move options
-   * @public
    */
   public async move(
     from: string,
@@ -265,7 +238,6 @@ export default class Filesystem {
    *
    * @param path - path to file
    * @param type - a custom return type (`utf8`, `json` or `buffer`)
-   * @public
    */
   public async read(path: string, type?: `utf8` | `buffer`): Promise<any> {
     if (type === `utf8`) return await this.fs.readAsync(path, type)
@@ -287,8 +259,6 @@ export default class Filesystem {
    * terminates gracefully without throwing, so you can use it as 'ensure path doesn't exist'.
    *
    * @param path - path to delete
-   * @public
-   * @decorator {@link bind | bind}
    */
   @bind
   public async remove(path?: string): Promise<Filesystem> {
@@ -302,9 +272,6 @@ export default class Filesystem {
    *
    * @param symlinkValue - path where symbolic link should point.
    * @param path -  where symbolic link should be put.
-   *
-   * @public
-   * @decorator {@link bind | bind}
    */
   public async symlink(
     symlinkValue: string,
@@ -324,9 +291,6 @@ export default class Filesystem {
    * @param path - path to file
    * @param data - {@link WritableData | data to write}
    * @param options - {@link json.WriteOptions | write options}
-   *
-   * @public
-   * @decorator {@link bind | bind}
    */
   @bind
   public async write(

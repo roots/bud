@@ -7366,15 +7366,12 @@ __metadata:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
     "@roots/bud-react": "*"
-    webpack: "*"
   peerDependenciesMeta:
     "@mdx-js/loader":
       optional: true
     "@roots/bud-babel":
       optional: true
     "@roots/bud-react":
-      optional: true
-    webpack:
       optional: true
   languageName: unknown
   linkType: soft
@@ -14812,9 +14809,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426, caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001462
-  resolution: "caniuse-lite@npm:1.0.30001462"
-  checksum: e4a57d7851eec65e7c9b6c11c4bbcecdc49d87b1b01bff3c15ea27efb05f959891b4c70ac169842067c134d6fa126d9ad5a91d0f85c7387c5bd912eaf41ea647
+  version: 1.0.30001466
+  resolution: "caniuse-lite@npm:1.0.30001466"
+  checksum: d81d0801f72162ebb7edb222cb48702f351e1a2d6acc9f340913f5b07e28c2105d1d2de9f0633c9b89e1aa1cd14f5d9154e270bf7b61296a7209745b32bdb01c
   languageName: node
   linkType: hard
 

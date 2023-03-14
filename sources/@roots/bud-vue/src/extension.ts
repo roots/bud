@@ -51,7 +51,7 @@ export default class Vue extends Extension<
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {

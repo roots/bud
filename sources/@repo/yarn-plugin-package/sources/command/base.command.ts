@@ -4,15 +4,12 @@ import {bind} from 'helpful-decorators'
 
 /**
  * Base class
- *
- * @internal
  */
 export abstract class Command extends BaseCommand {
   /**
    * Execute a series of tasks
    *
    * @param tasks - Any number of string commands
-   * @internal
    */
   @bind
   public async _$(...tasks: Array<string>): Promise<void> {
@@ -39,8 +36,6 @@ export abstract class Command extends BaseCommand {
    *
    * @remarks
    * Commands are executed in parallel
-   *
-   * @internal
    */
   @bind
   public async $(...tasks: Array<string>): Promise<void> {

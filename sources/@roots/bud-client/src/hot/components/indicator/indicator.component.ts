@@ -2,24 +2,20 @@ import {pulse} from './indicator.pulse.js'
 
 /**
  * Indicator web component
- * @public
  */
 export class Component extends HTMLElement {
   /**
    * Has component rendered
-   * @public
    */
   public rendered: boolean
 
   /**
    * Component name
-   * @public
    */
   public name: string = `bud-activity-indicator`
 
   /**
    * Root div querySelector selector
-   * @public
    */
   public get selector() {
     return `.${this.name}`
@@ -27,13 +23,11 @@ export class Component extends HTMLElement {
 
   /**
    * Timer
-   * @public
    */
   public hideTimeout: NodeJS.Timer
 
   /**
    * Get accessor: has errors
-   * @public
    */
   public get hasErrors(): boolean {
     return this.getAttribute(`has-errors`) == `true`
@@ -41,7 +35,6 @@ export class Component extends HTMLElement {
 
   /**
    * Get accessor: has warnings
-   * @public
    */
   public get hasWarnings(): boolean {
     return this.getAttribute(`has-warnings`) == `true`
@@ -49,7 +42,6 @@ export class Component extends HTMLElement {
 
   /**
    * Status indicator colors
-   * @public
    */
   public colors: Record<string, [number, number, number, number]> = {
     success: [4, 120, 87, 1],
@@ -60,7 +52,6 @@ export class Component extends HTMLElement {
 
   /**
    * Class constructor
-   * @public
    */
   public constructor() {
     super()
@@ -69,7 +60,6 @@ export class Component extends HTMLElement {
 
   /**
    * Render status indicator
-   * @public
    */
   public renderShadow() {
     const container = document.createElement(`div`)
@@ -117,7 +107,6 @@ export class Component extends HTMLElement {
 
   /**
    * Show status indicator
-   * @public
    */
   public show() {
     this.hideTimeout && clearTimeout(this.hideTimeout)
@@ -135,7 +124,6 @@ export class Component extends HTMLElement {
 
   /**
    * Status is pending
-   * @public
    */
   public onPending() {
     this.show()
@@ -151,7 +139,6 @@ export class Component extends HTMLElement {
 
   /**
    * Status is success
-   * @public
    */
   public onSuccess() {
     this.show()
@@ -167,7 +154,6 @@ export class Component extends HTMLElement {
 
   /**
    * Status is error
-   * @public
    */
   public onError() {
     this.show()
@@ -180,7 +166,6 @@ export class Component extends HTMLElement {
 
   /**
    * Status is warning
-   * @public
    */
   public onWarning() {
     this.show()

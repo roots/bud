@@ -9,8 +9,6 @@ export const injectEvents = (
    * @remarks
    * wraps EventSource in a function to allow for
    * mocking in tests
-   *
-   * @public
    */
   return class Events extends eventSource {
     /**

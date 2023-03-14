@@ -78,8 +78,7 @@
     "@mdx-js/loader": "*",
     "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "@roots/bud-react": "*",
-    "webpack": "*"
+    "@roots/bud-react": "*"
   },
   "peerDependenciesMeta": {
     "@mdx-js/loader": {
@@ -89,9 +88,6 @@
       "optional": true
     },
     "@roots/bud-react": {
-      "optional": true
-    },
-    "webpack": {
       "optional": true
     }
   },

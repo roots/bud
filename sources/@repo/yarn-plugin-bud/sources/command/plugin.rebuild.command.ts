@@ -27,9 +27,6 @@ export class Plugin extends Command {
     ],
   }
 
-  /**
-   * @public
-   */
   public async execute() {
     await this.$([
       `yarn`,

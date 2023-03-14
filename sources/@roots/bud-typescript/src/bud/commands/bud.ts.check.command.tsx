@@ -21,8 +21,6 @@ export class BudTSCheckCommand extends BudCommand {
 
   /**
    * Command execute
-   *
-   * @public
    */
   @bind
   public override async execute() {

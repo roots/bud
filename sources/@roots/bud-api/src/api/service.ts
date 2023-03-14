@@ -18,23 +18,16 @@ import * as methods from '../methods/index.js'
 export class Api extends ServiceContainer implements Contract {
   /**
    * Called methods
-   *
-   * @public
    */
   public trace: Contract['trace'] = []
 
   /**
    * Queued method calls
-   *
-   * @public
    */
   public queue: Contract['queue'] = []
 
   /**
    * `bootstrap` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async bootstrap?(_app: Bud) {
@@ -43,9 +36,6 @@ export class Api extends ServiceContainer implements Contract {
 
   /**
    * Bind a synchronous facade for use in configs
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public bindFacade(name: string, fn: CallableFunction) {
@@ -61,9 +51,6 @@ export class Api extends ServiceContainer implements Contract {
 
   /**
    * Call an api method directly
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async call(name: string, args: Array<any>): Promise<Bud> {
@@ -82,9 +69,6 @@ export class Api extends ServiceContainer implements Contract {
 
   /**
    * Execute all queued method calls
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async processQueue() {

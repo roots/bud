@@ -1,26 +1,20 @@
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
   expose,
   label,
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 
 /**
  * Bud stylelint extension
- *
- * @public
- * @decorator `@label`
- * @decorator `@plugin`
- * @decorator `@options`
- * @decorator `@expose`
  */
 @label(`@roots/bud-stylelint`)
+@expose(`stylelint`)
 @plugin(StylelintPlugin)
 @options<StylelintPlugin.Options>({context: app => app.path(`@src`)})
-@expose(`stylelint`)
 export default class BudStylelintWebpackPlugin extends Extension<
   StylelintPlugin.Options,
   StylelintPlugin
@@ -28,24 +22,36 @@ export default class BudStylelintWebpackPlugin extends Extension<
   /**
    * Fail build on stylelint error
    *
-   * @public
-   * @decorator `@bind`
+   * @deprecated - Use {@link Extension.set} instead
+   *
+   * @example
+   * ```js
+   * bud.stylelint.set(`failOnError`, true)
+   * ```
    */
-  @bind
+  @deprecated(`bud.stylelint`, `use bud.stylelint.set instead`, [
+    [`Fail on error`, `bud.stylelint.set(\`failOnError\`, true)`],
+  ])
   public failOnError(fail: boolean = true): this {
-    this.options.failOnError = fail
+    this.set(`failOnError`, fail)
     return this
   }
 
   /**
    * Fail build on stylelint warning
    *
-   * @public
-   * @decorator `@bind`
+   * @deprecated - Use {@link Extension.set} instead
+   *
+   * @example
+   * ```js
+   * bud.stylelint.set(`failOnWarning`, true)
+   * ```
    */
-  @bind
+  @deprecated(`bud.stylelint`, `use bud.stylelint.set instead`, [
+    [`Fail on warning`, `bud.stylelint.set(\`failOnWarning\`, true)`],
+  ])
   public failOnWarning(fail: boolean = true): this {
-    this.options.failOnWarning = fail
+    this.set(`failOnWarning`, fail)
     return this
   }
 }

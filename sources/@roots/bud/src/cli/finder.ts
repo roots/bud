@@ -13,13 +13,9 @@ import isString from '@roots/bud-support/lodash/isString'
  * Command finder class
  */
 export class Commands {
-  /**
-   * @public
-   */
   public static instance: Commands
 
   /**
-   * @internal
    */
   private constructor(
     public context: Partial<Context>,
@@ -39,8 +35,6 @@ export class Commands {
   }
 
   /**
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public async getCommands() {
@@ -49,8 +43,6 @@ export class Commands {
   }
 
   /**
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public async getRegistrationModulePaths(): Promise<Array<any>> {
@@ -61,8 +53,6 @@ export class Commands {
 
   /**
    * Get array of project dependency and devDependency signifiers
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public getProjectDependencySignifiers(): Array<string> {
@@ -74,8 +64,6 @@ export class Commands {
 
   /**
    * Find commands shipped with a given extension
-   * @decorator `@bind`
-   * @public
    */
   @bind
   public async findExtensionCommandPaths(paths: Array<string>) {
@@ -101,7 +89,6 @@ export class Commands {
 
   /**
    * Import and register commands with the clipanion app
-   * @decorator `@bind`
    */
   @bind
   public async registerExtensionCommandPaths(

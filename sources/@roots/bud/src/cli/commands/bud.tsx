@@ -139,18 +139,18 @@ export default class BudCommand extends Command<CommandContext> {
     this.renderer = new Renderer(process.stdout)
   }
 
-  public async makeBud<T extends BudCommand>(command: T) {
-    command.context.mode = command.mode ?? command.context.mode
+  public async makeBud<T extends BudCommand>(command?: T) {
+    this.context.mode = this.mode ?? this.context.mode
 
-    command.context.args = Object.entries({
-      ...command.context.args,
-      basedir: command.context.basedir,
-      debug: command.debug,
-      filter: command.filter,
-      log: command.log,
-      notify: command.notify,
-      target: command.filter,
-      verbose: command.verbose,
+    this.context.args = Object.entries({
+      ...this.context.args,
+      basedir: this.context.basedir,
+      debug: this.debug,
+      filter: this.filter,
+      log: this.log,
+      notify: this.notify,
+      target: this.filter,
+      verbose: this.verbose,
     })
       .filter(([k, v]) => v !== undefined)
       .reduce((acc, [k, v]) => {
@@ -158,40 +158,38 @@ export default class BudCommand extends Command<CommandContext> {
         return acc
       }, {} as Record<string, unknown>)
 
-    if (command.withArguments) {
-      command.context.args = await command.withArguments(
-        command.context.args,
-      )
+    if (this.withArguments) {
+      this.context.args = await this.withArguments(this.context.args)
     }
 
-    if (command.withContext) {
-      command.context = await command.withContext(command.context)
+    if (this.withContext) {
+      this.context = await this.withContext(this.context)
     }
 
-    if (command.context.mode === `development`) {
+    if (this.context.mode === `development`) {
       await import(`../env.development.js`)
     } else {
       await import(`../env.production.js`)
     }
 
-    const bud = await new Bud().lifecycle(command.context)
+    const bud = await new Bud().lifecycle(this.context)
 
-    bud.dashboard.setRenderer(this.renderer)
+    bud.dashboard?.setRenderer(this.renderer)
 
     if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
 
-    command.bud = bud
+    this.bud = bud
 
-    await command.applyBudEnv(command.bud)
-    await command.applyBudManifestOptions(command.bud)
-    await command.applyBudArguments(command.bud)
-    await command.bud.processConfigs()
+    await this.applyBudEnv(this.bud)
+    await this.applyBudManifestOptions(this.bud)
+    await this.applyBudArguments(this.bud)
+    await this.bud.processConfigs()
 
-    if (command.withBud) {
-      command.bud = await command.withBud(command.bud)
+    if (this.withBud) {
+      this.bud = await this.withBud(this.bud)
     }
 
-    await command.applyBudArguments(command.bud)
+    await this.applyBudArguments(this.bud)
   }
 
   @bind
@@ -288,8 +286,6 @@ export default class BudCommand extends Command<CommandContext> {
 
   /**
    * Apply context from argv
-   *
-   * @public
    */
   @bind
   public async applyBudArguments(bud: BudCommand[`bud`]) {

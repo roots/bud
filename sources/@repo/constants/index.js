@@ -4,8 +4,6 @@ import {fileURLToPath} from 'node:url'
 
 /**
  * Repo root path
- *
- * @public
  */
 // @ts-ignore
 export const REPO_PATH = (
@@ -18,29 +16,21 @@ export const REPO_PATH = (
 
 /**
  * Repo root manifest path
- *
- * @public
  */
 export const ROOT_MANIFEST_PATH = join(REPO_PATH, `package.json`)
 
 /*
  * Storage root path
- *
- * @public
  */
 export const STORAGE_PATH = join(REPO_PATH, `storage`)
 
 /**
  * Base public package tsconfig (CJS)
- *
- * @public
  */
 export const TS_CONFIG_PATH = join(REPO_PATH, `config`, `tsconfig.json`)
 
 /**
  * Proxy registry URL
- *
- * @public
  */
 export const REGISTRY_PROXY = `http://localhost:4873`
 

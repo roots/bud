@@ -54,7 +54,6 @@ export const serve: serve = async function (this: Bud, input, options) {
 
 /**
  * Process specification object
- * @public
  */
 const makeURLFromObject = async function (
   bud: Bud,

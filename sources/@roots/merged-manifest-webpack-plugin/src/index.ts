@@ -13,8 +13,6 @@ import type {Compiler, Stats} from 'webpack'
 export default class MergedManifestWebpackPlugin {
   /**
    * Plugin ident
-   *
-   * @public
    */
   public plugin = {
     name: `MergedManifestPlugin`,
@@ -22,36 +20,26 @@ export default class MergedManifestWebpackPlugin {
 
   /**
    * Directory where the manifest will be written.
-   *
-   * @public
    */
   public dir: string
 
   /**
    * Output file
-   *
-   * @public
    */
   public file = `entrypoints.json`
 
   /**
    * Entrypoints manifest
-   *
-   * @public
    */
   public entrypointsName = `entrypoints.json`
 
   /**
    * WordPress manifest
-   *
-   * @public
    */
   public wordpressName = `wordpress.json`
 
   /**
    * Plugin constructor
-   *
-   * @public
    */
   public constructor(options?: {
     entrypointsName?: string
@@ -65,7 +53,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public apply(compiler: Compiler): void {
@@ -75,7 +62,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public async done(_stats: Stats, callback): Promise<CallableFunction> {
@@ -134,7 +120,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public format(object: {
@@ -146,7 +131,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public isBuildable(): boolean {
@@ -157,7 +141,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public manifestPath(file: string): string {
@@ -165,7 +148,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public manifestExists(file: string): boolean {
@@ -173,7 +155,6 @@ export default class MergedManifestWebpackPlugin {
   }
 
   /**
-   * @public
    */
   @bind
   public async manifestContent(file: string): Promise<any> {

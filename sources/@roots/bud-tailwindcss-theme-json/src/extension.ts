@@ -10,18 +10,12 @@ import * as tailwindAdapter from './tailwind/index.js'
 
 /**
  * Acorn v2 public path fix
- *
- * @public
- * @decorator `@label`
  */
 @label(`@roots/bud-tailwindcss-theme-json`)
 @dependsOn([`@roots/bud-wordpress-theme-json`])
 export class TailwindThemeJSON extends Extension {
   /**
    * `register` callback
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public override async register(bud: Bud) {

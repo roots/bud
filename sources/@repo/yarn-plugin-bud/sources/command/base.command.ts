@@ -34,7 +34,6 @@ export abstract class Command extends BaseCommand {
 
   /**
    * Get project configuration
-   * @decorator `@bind`
    */
   @bind
   public async getConfiguration() {
@@ -48,7 +47,6 @@ export abstract class Command extends BaseCommand {
 
   /**
    * Get project info
-   * @decorator `@bind`
    */
   @bind
   public async getProject() {

@@ -16,9 +16,6 @@ import {Hooks} from '../base/base.js'
 export class AsyncHooks extends Hooks<AsyncStore> {
   /**
    * Set a value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public set<T extends keyof AsyncStore & string>(
@@ -39,9 +36,6 @@ export class AsyncHooks extends Hooks<AsyncStore> {
 
   /**
    * Set multiple values
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setRecords(map: Partial<AsyncCallback>): Bud {
@@ -51,9 +45,6 @@ export class AsyncHooks extends Hooks<AsyncStore> {
 
   /**
    * Get a value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async get<T extends keyof AsyncRegistry & string>(

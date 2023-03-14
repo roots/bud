@@ -3,8 +3,6 @@
 
 /**
  * Simple chainable interface for working with collections of data
- *
- * @packageDocumentation
  */
 
 import type {Repository} from './container.js'

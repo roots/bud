@@ -8,7 +8,6 @@
  *
  * @see https://bud.js.org
 
- * @packageDocumentation
  */
 
 import './types.js'

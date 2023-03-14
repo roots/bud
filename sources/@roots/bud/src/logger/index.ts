@@ -47,7 +47,6 @@ export class Logger {
    *
    * @param messages - any
    * @public
-   * @decorator `@bind`
    */
   @bind
   public format(...messages: Array<unknown>) {

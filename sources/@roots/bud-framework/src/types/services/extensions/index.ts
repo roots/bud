@@ -56,8 +56,6 @@ export interface Service extends BaseService {
 
   /**
    * Add an extension
-   *
-   * @public
    */
   add(
     extension:

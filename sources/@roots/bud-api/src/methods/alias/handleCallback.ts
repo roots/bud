@@ -4,9 +4,6 @@ import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
 import type {Parameters} from './types.js'
 
-/**
- * @public
- */
 export async function handleCallback(bud: Bud, input: Parameters) {
   const validation = await schema.callback.safeParseAsync(input[0])
   if (!validation.success)

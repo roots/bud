@@ -3,8 +3,6 @@
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- * @packageDocumentation
  */
 
 import './types.js'
