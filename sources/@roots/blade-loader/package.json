@@ -63,7 +63,7 @@
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "volta": {
     "extends": "../../../package.json"

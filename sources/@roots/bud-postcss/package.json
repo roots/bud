@@ -73,7 +73,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
     "@types/postcss-import": "14.0.0",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -91,7 +91,7 @@
     "postcss-loader": "*",
     "postcss-nested": "*",
     "postcss-preset-env": "*",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "peerDependenciesMeta": {
     "postcss": {
