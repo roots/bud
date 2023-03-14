@@ -69,7 +69,7 @@
     "critical": "5.0.4",
     "helpful-decorators": "2.1.0",
     "vinyl": "3.0.0",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "peerDependencies": {
     "critical": "*"

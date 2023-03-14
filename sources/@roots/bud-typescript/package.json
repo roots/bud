@@ -86,7 +86,7 @@
     "@types/node": "18.11.18",
     "@types/webpack-env": "1.18.0",
     "react-refresh": "^0.14.0",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

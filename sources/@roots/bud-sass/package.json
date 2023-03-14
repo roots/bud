@@ -91,7 +91,7 @@
     "@types/node": "18.11.18",
     "postcss": "8.4.21",
     "stylelint": "14.16.1",
-    "webpack": "5.75.0"
+    "webpack": "5.76.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
