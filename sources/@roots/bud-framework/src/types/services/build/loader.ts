@@ -14,19 +14,16 @@ export interface Loader extends Base {
 
   /**
    * Loader source factory
-   * @public
    */
   src: string
 
   /**
    * Set src
    * @param src - string
-   * @public
    */
   setSrc(src: string | ((app: Bud) => string)): Loader
   /**
    * Get src
-   * @public
    */
   getSrc(): string
 }

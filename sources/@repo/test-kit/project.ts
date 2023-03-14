@@ -36,8 +36,6 @@ interface Options {
  *  expect(project.assets['main.js'].length).toBeGreaterThan(10)
  *  ...
  * ```
- *
- * @internal
  */
 export class Project {
   public assets = {}
@@ -63,15 +61,11 @@ export class Project {
 
   /**
    * dir
-   *
-   * @public
    */
   public dir: string
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.label)
@@ -80,9 +74,6 @@ export class Project {
 
   /**
    * setup project
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public async setup(): Promise<Project> {
@@ -214,29 +205,17 @@ export class Project {
     return this
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public projectPath(...file: Array<string>) {
     return join(this.dir, ...file)
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async readJson(file: string) {
     const buffer = await fs.readFile(file)
     return json.parse(buffer.toString())
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async setPackageJson() {
     const packageJson = await this.readJson(
@@ -246,10 +225,6 @@ export class Project {
     Object.assign(this, {packageJson})
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async setManifest() {
     this.manifest = await this.readJson(
@@ -257,10 +232,6 @@ export class Project {
     )
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async setAssets(): Promise<void> {
     await Promise.all(
@@ -277,10 +248,6 @@ export class Project {
     )
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async setEntrypoints() {
     try {
@@ -292,10 +259,6 @@ export class Project {
     } catch (e) {}
   }
 
-  /**
-   * @public
-   * @decorator `@bind`
-   */
   @bind
   public async setModules() {
     try {

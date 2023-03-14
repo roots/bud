@@ -168,7 +168,7 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(_bud: Bud) {
@@ -187,7 +187,7 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * `boot` callback
+   * {@link Extension.boot}
    */
   @bind
   public override async boot(bud: Bud) {
@@ -206,7 +206,7 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * `configAfter` callback
+   * {@link Extension.configAfter}
    */
   @bind
   public override async configAfter(bud: Bud) {

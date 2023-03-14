@@ -3,8 +3,6 @@ import type {Config} from '@roots/bud-support/signale'
 
 /**
  * Instance configuration
- *
- * @internal
  */
 export const config: Config = {
   displayScope: true,

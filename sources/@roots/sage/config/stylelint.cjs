@@ -1,7 +1,5 @@
 /**
  * Sage stylelint config
- *
- * @public
  */
 module.exports = {
   extends: [

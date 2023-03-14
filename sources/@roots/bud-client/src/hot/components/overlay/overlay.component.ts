@@ -6,8 +6,6 @@ export class Component extends HTMLElement {
 
   /**
    * WHM payload
-   *
-   * @public
    */
   public payload: any
 

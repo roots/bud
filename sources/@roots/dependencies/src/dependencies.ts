@@ -7,18 +7,12 @@ import {Yarn} from './command/index.js'
 import type {IDependencyManager} from './index.js'
 
 export class Dependencies {
-  /**
-   * @public
-   */
   public constructor(
     public path: string,
     public onMessage?: (...args: any[]) => void,
     public onError?: (...args: any[]) => void,
   ) {}
 
-  /**
-   * @public
-   */
   public async getClient(): Promise<IDependencyManager> {
     return await this.isYarn().then(isYarn => {
       return isYarn
@@ -27,9 +21,6 @@ export class Dependencies {
     })
   }
 
-  /**
-   * @public
-   */
   public async isYarn(): Promise<boolean> {
     try {
       return await realpath(join(this.path, `yarn.lock`)).then(
@@ -44,7 +35,6 @@ export class Dependencies {
    * Get the latest version of a package from the npm registry
    *
    * @returns - Package version
-   * @public
    */
   public async getLatestVersion(signifier: string): Promise<string> {
     return await this.getClient().then(

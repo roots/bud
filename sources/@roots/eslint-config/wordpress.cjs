@@ -1,7 +1,5 @@
 /**
  * WordPress preset
- *
- * @public
  */
 module.exports = {
   extends: [`./react.cjs`],

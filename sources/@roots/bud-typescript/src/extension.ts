@@ -49,7 +49,7 @@ export default class BudTypeScript extends Extension {
   }
 
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -67,7 +67,7 @@ export default class BudTypeScript extends Extension {
   }
 
   /**
-   * `configAfter` callback
+   * {@link Extension.configAfter}
    */
   @bind
   public override async buildBefore(bud: Bud) {

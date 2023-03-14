@@ -189,7 +189,7 @@ export default class Cdn extends Extension<Options, null> {
   }
 
   /**
-   * `buildBefore` callback
+   * {@link Extension.buildBefore}
    */
   @bind
   public override async buildBefore(bud: Bud) {

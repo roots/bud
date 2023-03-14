@@ -10,18 +10,14 @@ import type {Bud} from '@roots/bud-framework'
  * for use in Acorn.
  */
 export default async function (bud: Bud) {
-  try {
-    if (bud.hasChildren) {
-      await Promise.all(
-        Object.values(bud.children).map(
-          async bud => await writeIfEnabled(bud),
-        ),
-      )
-    } else {
-      await writeIfEnabled(bud)
-    }
-  } catch (error) {
-    bud.error(error)
+  if (bud.hasChildren) {
+    await Promise.all(
+      Object.values(bud.children).map(
+        async bud => await writeIfEnabled(bud),
+      ),
+    )
+  } else {
+    await writeIfEnabled(bud)
   }
 }
 
@@ -36,10 +32,7 @@ const writeIfEnabled = async (bud: Bud) => {
 }
 
 const writeJson = async function (bud: Bud) {
-  const devUrl = bud.root.hooks.filter(
-    `dev.url`,
-    new URL(`http://0.0.0.0:3000`),
-  )
+  const devUrl = bud.root.server.publicUrl
   const proxyUrl = bud.root.hooks.filter(
     `dev.middleware.proxy.options.target`,
     new URL(`http://0.0.0.0`),

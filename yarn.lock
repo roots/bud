@@ -7419,15 +7419,12 @@ __metadata:
     "@roots/bud": "*"
     "@roots/bud-babel": "*"
     "@roots/bud-react": "*"
-    webpack: "*"
   peerDependenciesMeta:
     "@mdx-js/loader":
       optional: true
     "@roots/bud-babel":
       optional: true
     "@roots/bud-react":
-      optional: true
-    webpack:
       optional: true
   languageName: unknown
   linkType: soft

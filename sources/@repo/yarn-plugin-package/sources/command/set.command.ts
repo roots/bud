@@ -6,8 +6,6 @@ import {Command} from './base.command'
 
 /**
  * Base class
- *
- * @internal
  */
 export abstract class Set extends Command {
   public static paths: CommandClass['paths'] = [[`package`, `set`]]

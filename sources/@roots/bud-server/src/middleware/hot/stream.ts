@@ -14,7 +14,6 @@ export interface HotEventStream {
 
 /**
  * Response headers
- * @public
  */
 const headers = {
   'Access-Control-Allow-Origin': `*`,
@@ -27,19 +26,16 @@ const headers = {
 
 /**
  * Update interval
- * @public
  */
 const updateInterval = 1000
 
 /**
  * Registered clients
- * @public
  */
 let clients = {}
 
 /**
  * Current client identifier
- * @public
  */
 let currentClientId = 0
 
@@ -66,13 +62,11 @@ const closeClient = client => {
 export class HotEventStream {
   /**
    * hmr interval Timer
-   * @public
    */
   public interval: NodeJS.Timer
 
   /**
    * Class constructor
-   * @public
    */
   public constructor() {
     this.interval = setInterval(
@@ -83,7 +77,6 @@ export class HotEventStream {
 
   /**
    * Handle update message
-   * @public
    */
   public handle(
     req: IncomingMessage,
@@ -112,7 +105,6 @@ export class HotEventStream {
 
   /**
    * Broadcast to clients
-   * @public
    */
   public publish(payload: Partial<Payload>) {
     if (!payload) return
@@ -124,7 +116,6 @@ export class HotEventStream {
 
   /**
    * Close stream
-   * @public
    */
   public close() {
     clearInterval(this.interval)

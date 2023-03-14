@@ -12,64 +12,46 @@ export interface Item extends Base {
 
   /**
    * Identifier
-   *
-   * @public
    */
   ident: string
 
   /**
    * Key from {@link Loaders} registry
-   *
-   * @public
    */
   loader: `${keyof Loaders & string}` | Loader
 
   /**
    * Set the {@link Loaders} key
-   *
-   * @public
    */
   setLoader(loader: `${keyof Loaders & string}` | Loader): this
 
   /**
    * Get the associated {@link Loader} instance
-   *
-   * @public
    */
   getLoader(): Loader
 
   /**
    * Set the {@link Loaders} key
-   *
-   * @public
    */
   setIdent(ident: string): this
 
   /**
    * Get the associated {@link Ident} instance
-   *
-   * @public
    */
   getIdent(): string
 
   /**
    * Associated {@link Loader} options
-   *
-   * @public
    */
   options: Item.Options | ((app: Partial<Bud>) => Item.Options)
 
   /**
    * Set {@link Item.Options}
-   *
-   * @public
    */
   setOptions(factory: Item.Options | ((app: Bud) => Item.Options)): this
 
   /**
    * Get associated {@link Loader} options
-   *
-   * @public
    */
   getOptions(): Item.Options
 
@@ -78,15 +60,11 @@ export interface Item extends Base {
    *
    * @param options - Item.Options to merge
    * @returns void
-   *
-   * @public
    */
   mergeOptions(options: Item.Options): this
 
   /**
    * Makes final Item output
-   *
-   * @public
    */
   toWebpack(): Item.Output
 }
@@ -94,8 +72,6 @@ export interface Item extends Base {
 export namespace Item {
   /**
    * Item.Options interface
-   *
-   * @public
    */
   export interface Options {
     [key: string]: any
@@ -103,8 +79,6 @@ export namespace Item {
 
   /**
    * Constructor interface
-   *
-   * @public
    */
   export type ConstructorOptions = {
     loader?: Item['loader']
@@ -113,8 +87,6 @@ export namespace Item {
 
   /**
    * Output interface
-   *
-   * @public
    */
   export interface Output {
     /**

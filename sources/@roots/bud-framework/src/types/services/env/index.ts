@@ -6,8 +6,6 @@ import type {ServiceContainer} from '../../../service.js'
 export interface Env extends ServiceContainer {
   /**
    * Get public environment variables
-   *
-   * @public
    */
   getPublicEnv(): Record<string, any>
 

@@ -29,7 +29,7 @@ import type {Options} from './extension.js'
 @disabled
 export default class BudGzip extends Extension<Options, Plugin> {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {

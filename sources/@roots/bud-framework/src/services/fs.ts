@@ -22,8 +22,6 @@ export default class FileSystem extends FS {
 
   /**
    * Logger
-   *
-   * @public
    */
   public get logger() {
     const logger = this.app.context.logger.make(this.app.label, `fs`)
@@ -33,29 +31,21 @@ export default class FileSystem extends FS {
 
   /**
    * JSON handling
-   *
-   * @public
    */
   public json: typeof json = json
 
   /**
    * S3 instance
-   *
-   * @public
    */
   public s3: S3
 
   /**
    * YML handling
-   *
-   * @public
    */
   public yml: typeof yml = yml
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(public _app: () => Bud) {
     super(_app().context.basedir)
@@ -72,7 +62,6 @@ export default class FileSystem extends FS {
    * Set bucket
    *
    * @param bucket - {@link S3.bucket}
-   * @public
    */
   public setBucket(bucket: string) {
     this.app.after(async (bud: Bud) => {
@@ -86,7 +75,6 @@ export default class FileSystem extends FS {
    * Set credentials
    *
    * @param credentials - {@link S3.credentials}
-   * @public
    */
   public setCredentials(credentials: S3[`config`][`credentials`]) {
     this.app.after(async (bud: Bud) => {
@@ -100,7 +88,6 @@ export default class FileSystem extends FS {
    * Set endpoint
    *
    * @param options - upload options
-   * @public
    */
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
     this.app.after(async (bud: Bud) => {
@@ -114,7 +101,6 @@ export default class FileSystem extends FS {
    * Set S3 region
    *
    * @param options - upload options
-   * @public
    */
   public setRegion(region: S3[`config`][`region`]) {
     this.app.after(async (bud: Bud) => {
@@ -128,7 +114,6 @@ export default class FileSystem extends FS {
    * Upload files to S3
    *
    * @param options - upload options
-   * @public
    */
   public upload(options?: {
     source?: string

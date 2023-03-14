@@ -23,8 +23,6 @@ export class S3 {
 
   /**
    * constructor
-   *
-   * @public
    */
   public constructor() {
     this.config = new Config()
@@ -33,8 +31,6 @@ export class S3 {
 
   /**
    * S3 Client
-   *
-   * @public
    */
   @bind
   public async getClient(): Promise<S3Client> {
@@ -53,8 +49,6 @@ export class S3 {
 
   /**
    * Identifier (for loggers, etc)
-   *
-   * @public
    */
   public get ident() {
     const maybeEndpoint = this.config.get(`endpoint`)
@@ -84,9 +78,6 @@ export class S3 {
    * @param raw - Whether to return raw response
    * @returns The file contents
    * @throws Error - If the file does not exist
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
   @bind
   public async read(
@@ -127,9 +118,6 @@ export class S3 {
    * @returns S3 instance {@link S3}
    * @throws Error - If the file does not exist
    * @throws Error - If the file could not be deleted
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
   @bind
   public async delete(key: string) {
@@ -156,9 +144,6 @@ export class S3 {
    *
    * @param key - The file key
    * @returns boolean
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
   @bind
   public async exists(key: string) {
@@ -179,9 +164,6 @@ export class S3 {
    *
    * @param props - {@link Omit<ListObjectsCommandInput, `Bucket`> command input props}
    * @returns Array of file keys
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
   @bind
   public async list(
@@ -208,9 +190,6 @@ export class S3 {
    *
    * @param params - Either {@link PutObjectCommandInput} or the key and body
    * @returns S3 instance {@link S3}
-   *
-   * @public
-   * @decorator bind - {@link bind}
    */
   @bind
   public async write(

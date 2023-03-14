@@ -12,8 +12,6 @@ export interface Watcher {
 
   /**
    * Instance
-   *
-   * @public
    */
   instance: FSWatcher
 
@@ -29,15 +27,11 @@ export interface Watcher {
 
   /**
    * Logger
-   *
-   * @public
    */
   logger: any
 
   /**
    * Initialize watch files
-   *
-   * @public
    */
   watch(): Promise<FSWatcher>
 
@@ -45,7 +39,6 @@ export interface Watcher {
    * Watcher callback
    *
    * @param path - changed file
-   * @public
    */
   watcherCallback(path: string): unknown
 }

@@ -8,24 +8,20 @@ const stripAnsi = (body: string) =>
 
 /**
  * Overlay controller
- * @public
  */
 export class Controller {
   /**
    * Element
-   * @public
    */
   public element: HTMLElement
 
   /**
    * HMR update
-   * @public
    */
   public payload: Payload
 
   /**
    * Formatted error message
-   * @public
    */
   public get message(): string {
     return this.payload.errors?.reduce((a, c) => {
@@ -40,8 +36,6 @@ export class Controller {
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor() {
     this.update = this.update.bind(this)
@@ -50,8 +44,6 @@ export class Controller {
 
   /**
    * Append `bud-error` element to the DOM
-   *
-   * @public
    */
   public createError() {
     !document.body.querySelector(`bud-error`) &&
@@ -60,8 +52,6 @@ export class Controller {
 
   /**
    * Remove `bud-error` element from the DOM (if present)
-   *
-   * @public
    */
   public removeError() {
     document.body.querySelector(`bud-error`)?.remove()
@@ -69,8 +59,6 @@ export class Controller {
 
   /**
    * Update DOM
-   *
-   * @public
    */
   public update(payload: Payload): void {
     this.payload = payload

@@ -39,8 +39,6 @@ export interface Options {
 
   /**
    * Emit html with inlined runtime, script and style tags
-   *
-   * @public
    */
   emitHtml?: boolean
 }
@@ -61,8 +59,6 @@ export interface Options {
 export class EntrypointsWebpackPlugin {
   /**
    * Plugin compiler ident
-   *
-   * @public
    */
   protected plugin = {
     name: `EntrypointsManifestPlugin`,
@@ -71,44 +67,31 @@ export class EntrypointsWebpackPlugin {
 
   /**
    * Artifact filename
-   *
-   * @public
    */
   public name: string = `entrypoints.json`
 
   /**
    * Webpack compiler instance
-   *
-   * @public
    */
   public compiler: Webpack.Compiler
 
   /**
    * Webpack compilation instance
-   *
-   * @public
    */
   public compilation: Webpack.Compilation
 
   /**
    * Collected assets
-   *
-   * @public
    */
   public assets: Entry
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(public options: Options) {}
 
   /**
    * Webpack plugin API's `apply` hook
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public apply(compiler: Webpack.Compiler): void {
@@ -139,9 +122,6 @@ export class EntrypointsWebpackPlugin {
   /**
    * Runs through each entrypoint entry and adds to the
    * manifest
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public processAssets() {
@@ -170,9 +150,6 @@ export class EntrypointsWebpackPlugin {
 
   /**
    * Adds an entry to the manifest
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public addToManifest({
@@ -207,9 +184,6 @@ export class EntrypointsWebpackPlugin {
 
   /**
    * Get assets from an entrypoint
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getEntrypointFiles(entry: {

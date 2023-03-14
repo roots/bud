@@ -15,8 +15,6 @@ export default class Base implements BuildBase {
 
   /**
    * Constructor
-   *
-   * @public
    */
   public constructor(public _app: () => Bud) {}
 

@@ -20,16 +20,12 @@ export default class Extensions
 {
   /**
    * Registered extensions
-   *
-   * @public
    */
   // @ts-ignore
   public repository: Modules = {}
 
   /**
    * Resolved options
-   *
-   * @public
    */
   public options: Container<{
     allowlist: Array<string>
@@ -148,7 +144,7 @@ export default class Extensions
   }
 
   /**
-   * `buildBefore` callback
+   * {@link Extension.buildBefore}
    */
   @bind
   public override async buildBefore?() {
@@ -156,7 +152,7 @@ export default class Extensions
   }
 
   /**
-   * `buildBefore` callback
+   * {@link Extension.buildBefore}
    */
   @bind
   public override async buildAfter?() {

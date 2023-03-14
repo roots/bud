@@ -4,8 +4,6 @@ const config = require(`../../../../config/monorepo.config.cjs`)
 
 /**
  * Announcement bar config
- *
- * @public
  */
 const announcementBar = {
   id: `announcementBar-5`, // Increment on change
@@ -14,8 +12,6 @@ const announcementBar = {
 
 /**
  * Footer config
- *
- * @public
  */
 const footer = {
   style: `dark`,
@@ -71,8 +67,6 @@ const footer = {
 
 /**
  * Metaadata config
- *
- * @public
  */
 const metadata = [
   /**
@@ -173,8 +167,6 @@ const navbar = {
 
 /**
  * Prism theme config
- *
- * @public
  */
 const prism = {
   additionalLanguages: [`php`],

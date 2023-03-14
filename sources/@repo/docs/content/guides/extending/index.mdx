@@ -274,14 +274,10 @@ A plugin is defined as a newable class or function returning an object with an `
 ```ts title="extension.d.ts"
 /**
  * Webpack plugin.
- *
- * @public
  */
 export interface ApplyPlugin {
   /**
    * Loose defined
-   *
-   * @public
    */
   [key: string]: any
 
@@ -289,8 +285,6 @@ export interface ApplyPlugin {
    * Apply callback
    *
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
-   *
-   * @public
    */
   apply: (compiler?: Compiler) => unknown
 }
@@ -298,8 +292,6 @@ export interface ApplyPlugin {
 /**
  * Newable function or class that returns
  * an {@link ApplyPlugin} instance.
- *
- * @public
  */
 export interface ApplyPluginConstructor {
   new (...args: any[]): ApplyPlugin

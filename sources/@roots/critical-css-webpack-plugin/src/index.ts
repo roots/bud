@@ -1,7 +1,5 @@
 /**
  * CriticalCssWebpackPlugin
- *
- * @packageDocumentation
  */
 
 import type {Options} from './interface.js'

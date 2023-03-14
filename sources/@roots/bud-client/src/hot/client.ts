@@ -54,8 +54,6 @@ export const client = async (
 
   /**
    * Webpack HMR check handler
-   *
-   * @internal
    */
   const check = async () => {
     if (webpackHot.status() === `idle`) {
@@ -73,8 +71,6 @@ export const client = async (
 
   /**
    * Webpack HMR unaccepted module handler
-   *
-   * @internal
    */
   const onUnacceptedOrDeclined = (
     info: __WebpackModuleApi.HotNotifierInfo,
@@ -85,8 +81,6 @@ export const client = async (
 
   /**
    * Webpack HMR error handler
-   *
-   * @internal
    */
   const onErrored = (error: any) => {
     window.bud.controllers.map(controller =>
@@ -98,8 +92,6 @@ export const client = async (
 
   /**
    * Webpack HMR update handler
-   *
-   * @internal
    */
   const update = async () => {
     try {

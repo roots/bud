@@ -15,28 +15,21 @@ export type ConstructorOptions = Build.Item.ConstructorOptions
 class Item extends Base implements Build.Item {
   /**
    * Identifier
-   * @public
    */
   public ident: string
 
   /**
    * Loader
-   *
-   * @public
    */
   public loader: Loader | `${keyof Loaders & string}`
 
   /**
    * Loader options
-   *
-   * @public
    */
   public options: Build.Item['options']
 
   /**
    * Class constructor
-   *
-   * @public
    */
   public constructor(
     public override _app: () => Bud,
@@ -76,9 +69,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Get rule set item loader
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getLoader(): Loader {
@@ -89,9 +79,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Set rule set item loader
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setLoader(loader: Loader | `${keyof Loaders & string}`): this {
@@ -105,9 +92,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Get rule set item options
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getOptions(): Item['options'] {
@@ -116,9 +100,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Set rule set item options
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setOptions(options: Item['options']) {
@@ -128,9 +109,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Merge rule set item options
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public mergeOptions(options: Build.Item.Options): this {
@@ -144,9 +122,6 @@ class Item extends Base implements Build.Item {
 
   /**
    * Produce rule set item object for Webpack
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public toWebpack(): Build.Item.Output {

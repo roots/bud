@@ -4,9 +4,6 @@ import noop from '@roots/bud-support/lodash/noop'
 
 import type {Bud} from '../index.js'
 
-/**
- * @public
- */
 export interface when {
   (
     test:

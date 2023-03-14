@@ -180,7 +180,6 @@ export class Server extends Service implements BaseService {
 
   /**
    * Run development server
-   * @decorator `@bind`
    */
   @bind
   public async run() {

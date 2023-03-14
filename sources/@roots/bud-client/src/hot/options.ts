@@ -1,6 +1,5 @@
 /**
  * Client options
- * @public
  */
 let data: Options = {
   timeout: 2000,
@@ -15,14 +14,12 @@ let data: Options = {
 
 /**
  * Get client option
- * @public
  */
 const get = (name?: string, key?: string) =>
   key ? data[name][key] : data[name]
 
 /**
  * Set client data based on URL parameters
- * @public
  */
 const setFromParameters = (query: string): Options => {
   let parsedParams: Partial<Options> = {}

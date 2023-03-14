@@ -8,9 +8,6 @@ import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
 
 /**
  * `bud upgrade` command
- *
- * @public
- * @decorator `@dry`
  */
 @dry
 export default class BudUpgradeCommand extends BudCommand {

@@ -1,29 +1,24 @@
 /**
  * Activity indicator controller
- * @public
  */
 export class Controller {
   /**
    * DOM node
-   * @public
    */
   public node: HTMLElement
 
   /**
    * Active WHM payload
-   * @public
    */
   public payload = null
 
   /**
    * Timer handler
-   * @public
    */
   public timer: NodeJS.Timeout
 
   /**
    * Initialization
-   * @public
    */
   public constructor() {
     this.node = document.createElement(`bud-activity-indicator`)
@@ -32,8 +27,6 @@ export class Controller {
 
   /**
    * Append `bud-error` element to the DOM
-   *
-   * @public
    */
   public addNode() {
     if (document.body.querySelector(`bud-activity-indicator`)) {
@@ -47,8 +40,6 @@ export class Controller {
 
   /**
    * Remove `bud-error` element from the DOM (if present)
-   *
-   * @public
    */
   public removeNode() {
     document.body.querySelector(`bud-activity-indicator`)?.remove()
@@ -56,7 +47,6 @@ export class Controller {
 
   /**
    * Update activity indicator
-   * @public
    */
   public update(payload: Payload) {
     this.node.toggleAttribute(

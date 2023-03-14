@@ -42,8 +42,6 @@ export class BudImageminSvgo extends Extension {
 
   /**
    * {@link Extension.configAfter}
-   *
-   * @decorator `@bind`
    */
   @bind
   public override async configAfter(bud: Bud) {

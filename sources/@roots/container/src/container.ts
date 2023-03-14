@@ -28,15 +28,11 @@ export interface Repository extends Record<string, any> {}
 export default class Container<I = any> {
   /**
    * Identifier
-   *
-   * @public
    */
   public ident?: string = `container`
 
   /**
    * The container store
-   *
-   * @public
    */
   public repository: Record<string, any>
 
@@ -44,8 +40,6 @@ export default class Container<I = any> {
    * Class constructor
    *
    * @param repository - Key-value data store
-   *
-   * @public
    */
   public constructor(repository?: I) {
     this.setStore(repository ?? {})
@@ -58,9 +52,6 @@ export default class Container<I = any> {
    * ```js
    * container.all()
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public all() {
@@ -76,9 +67,6 @@ export default class Container<I = any> {
    *  new: ['store', 'contents'],
    * })
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public setStore(repository: Repository): this {
@@ -101,9 +89,6 @@ export default class Container<I = any> {
    *
    * @param values - Values to merge onto the container store
    * @returns The container instance
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public mergeStore(values: Repository): this {
@@ -121,9 +106,6 @@ export default class Container<I = any> {
    *
    * @param fn - Function to run on the repository
    * @returns The transformed repository
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public transformStore(transformFn: (value: any) => any): any {
@@ -139,9 +121,6 @@ export default class Container<I = any> {
    * ```js
    * container.mutate('key', currentValue => modifiedValue)
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public mutateStore(mutationFn: (value?: I) => I): this {
@@ -167,9 +146,6 @@ export default class Container<I = any> {
    * ```js
    * container.get(['container', 'container-item'])
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public get<T = any>(key: string | Array<string>) {
@@ -191,9 +167,6 @@ export default class Container<I = any> {
    * ```js
    * container.getEntries('key')
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getEntries<T = any>(key?: string): [string, ValueOf<T>][] {
@@ -218,9 +191,6 @@ export default class Container<I = any> {
    * ```js
    * container.getEntries('key')
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public fromEntries(entries: [string, any][]): this {
@@ -236,9 +206,6 @@ export default class Container<I = any> {
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public each(key: string, callFn: (key, value) => void): this {
@@ -258,9 +225,6 @@ export default class Container<I = any> {
    * ```js
    * container.withEntries('key', (key, value) => doSomething)
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public every(fn: (key: string, value: any) => any): this {
@@ -284,9 +248,6 @@ export default class Container<I = any> {
    * container.getValues()
    * // => returns values from entire store
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getValues(key?: string): any[] {
@@ -307,9 +268,6 @@ export default class Container<I = any> {
    * container.getKeys()
    * // => returns keys of container.repository
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getKeys(key?: string): string[] {
@@ -334,9 +292,6 @@ export default class Container<I = any> {
    * ```js
    * container.getMap()
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public getMap(key?: string): Map<string, any> {
@@ -361,9 +316,6 @@ export default class Container<I = any> {
    * ```js
    * container.set('key', value)
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public set(key: string | Array<string>, value: any): this {
@@ -379,9 +331,6 @@ export default class Container<I = any> {
    * ```js
    * container.unique('item')
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public unique(key: string): any {
@@ -411,9 +360,6 @@ export default class Container<I = any> {
    *
    * @param key - The key of the item to transform
    * @param fn - The function to transform the item with
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public transform(key: string, mutationFn: (value?: any) => any): any {
@@ -430,9 +376,6 @@ export default class Container<I = any> {
    *
    * @param key - The key of the item to mutate
    * @param mutationFn - The mutation function to run on the item
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public mutate(key: string, mutationFn: (value?: any) => any): this {
@@ -451,9 +394,6 @@ export default class Container<I = any> {
    *
    * @param key - The key of the item to merge
    * @param value - The value to merge with the existing value
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public merge(key: string, value: any): this {
@@ -493,9 +433,6 @@ export default class Container<I = any> {
    * container.has('my-key')
    * // true if container.repository['my-key'] exists
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public has(key: string): boolean {
@@ -512,9 +449,6 @@ export default class Container<I = any> {
    * container.remove('my-key')
    * // Remove container.repository['my-key']
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public remove(key: string): this {
@@ -531,9 +465,6 @@ export default class Container<I = any> {
    * container.is('my-key', {whatever: 'value'})
    * // True if container.repository['my-key'] === {whatever: 'value'}
    * ```
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public is(key: string, value: any): boolean {
@@ -548,9 +479,6 @@ export default class Container<I = any> {
    *
    * @param key - search key
    * @returns count of items
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public count(key?: string): number {
@@ -576,9 +504,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if the key's value is true
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isTrue(key: string): boolean {
@@ -596,9 +521,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if the key's value is false
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isFalse(key: string): boolean {
@@ -616,9 +538,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if the value is an array
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isArray(key: string): boolean {
@@ -636,9 +555,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is not an array
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotArray(key: string): boolean {
@@ -656,9 +572,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is a string
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isString(key: string): boolean {
@@ -676,9 +589,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is not a string
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotString(key: string): boolean {
@@ -696,9 +606,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is a number
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNumber(key: string): boolean {
@@ -716,9 +623,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is not a number
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotNumber(key: string): boolean {
@@ -753,9 +657,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check
    * @returns True if object is not null
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotNull(key: string): boolean {
@@ -774,9 +675,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check.
    * @returns True if the key is defined.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isDefined(key: string): boolean {
@@ -794,9 +692,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check.
    * @returns True if the key is not defined.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isUndefined(key: string): boolean {
@@ -814,9 +709,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check.
    * @returns True if object is a function.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isFunction(key: string): boolean {
@@ -834,9 +726,6 @@ export default class Container<I = any> {
    *
    * @param key - The key to check.
    * @returns True if object is not a function.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotFunction(key: string): boolean {
@@ -855,9 +744,6 @@ export default class Container<I = any> {
    * @param key - The key to check.
    * @param instance - The class to check.
    * @returns True if object is an instance of the class.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isInstanceOf(key: string, instance: any): boolean {
@@ -876,9 +762,6 @@ export default class Container<I = any> {
    * @param key - The key to check.
    * @param instance - The class to check against
    * @returns
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotInstanceOf(key: string, instance: any): boolean {
@@ -897,9 +780,6 @@ export default class Container<I = any> {
    * @param key - the key to check
    * @param instances - The classes to check against
    * @returns
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isInstanceOfAny(key: string, instances: any[]): boolean {
@@ -921,9 +801,6 @@ export default class Container<I = any> {
    * @param key - search key
    * @param instances - classes
    * @returns
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotInstanceOfAny(key: string, instances: any[]): boolean {
@@ -947,9 +824,6 @@ export default class Container<I = any> {
    *
    * @param key - search key
    * @returns True if object is empty.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isEmpty(key?: string): boolean {
@@ -974,9 +848,6 @@ export default class Container<I = any> {
    *
    * @param key - search key
    * @returns True if object is not empty.
-   *
-   * @public
-   * @decorator `@bind`
    */
   @bind
   public isNotEmpty(key: string): boolean {

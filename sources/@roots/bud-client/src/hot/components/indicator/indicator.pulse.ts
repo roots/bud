@@ -4,7 +4,6 @@ export interface pulse {
 
 /**
  * CSS animation for reload indicator
- * @public
  */
 export const pulse = (
   name: string,

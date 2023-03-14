@@ -58,7 +58,7 @@ export class Bud {
    * Parent {@link Bud} instance
    * @readonly
    */
-  public get root() {
+  public get root(): Bud {
     return this.context.root ?? this
   }
 

@@ -46,43 +46,31 @@ export interface Rule extends Base {
 
   /**
    * Test pattern
-   *
-   * @public
    */
   test: Options['test']
 
   /**
    * Get the value of `test`
-   *
-   * @public
    */
   getTest(): Output[`test`]
 
   /**
    * Set the value of `test`
-   *
-   * @public
    */
   setTest(test: Options['test']): this
 
   /**
    * Use item
-   *
-   * @public
    */
   use?: Options[`use`]
 
   /**
    * Get the value of `use`
-   *
-   * @public
    */
   getUse(): Array<`${keyof Items & string}` | Item>
 
   /**
    * Set the value of `use`
-   *
-   * @public
    */
   setUse(
     use:
@@ -94,22 +82,16 @@ export interface Rule extends Base {
 
   /**
    * Use item
-   *
-   * @public
    */
   exclude?: Options['exclude']
 
   /**
    * Get the value of `exclude`
-   *
-   * @public
    */
   getExclude(): Output['exclude']
 
   /**
    * Set the value of `exclude`
-   *
-   * @public
    */
   setExclude(
     excludes:
@@ -119,113 +101,81 @@ export interface Rule extends Base {
 
   /**
    * Include paths
-   *
-   * @public
    */
   include?: Options['include']
 
   /**
    * Get the value of `include`
-   *
-   * @public
    */
   getInclude(): Output['include']
 
   /**
    * Set the value of `include`
-   *
-   * @public
    */
   setInclude(value: Options['include']): this
 
   /**
    * Include paths
-   *
-   * @public
    */
   resourceQuery?: Output[`resourceQuery`] | undefined
 
   /**
    * Get the value of `resourceQuery`
-   *
-   * @public
    */
   getResourceQuery(): Output['resourceQuery']
 
   /**
    * Set the value of `resourceQuery`
-   *
-   * @public
    */
   setResourceQuery(value: Options[`resourceQuery`]): this
 
   /**
    * Type
-   *
-   * @public
    */
   type?: Options['type']
 
   /**
    * Get the value of `type`
-   *
-   * @public
    */
   getType(): Output['type']
 
   /**
    * Set the value of `type`
-   *
-   * @public
    */
   setType(type: Options['type']): this
 
   /**
    * Parser
-   *
-   * @public
    */
   parser?: Output['parser']
 
   /**
    * Get the value of `parser`
-   *
-   * @public
    */
   getParser(): Options['parser']
 
   /**
    * Set the value of `parser`
-   *
-   * @public
    */
   setParser(parser: Options['parser']): this
 
   /**
    * Generator
-   *
-   * @public
    */
   generator?: Options['generator']
 
   /**
    * Get the value of `generator`
-   *
-   * @public
    */
   getGenerator(): Output['generator']
 
   /**
    * Set the value of `generator`
-   *
-   * @public
    */
   setGenerator(Generator: Options['generator']): this
 
   /**
    * Returns final RuleSetRule
-   *
-   * @public
    */
   toWebpack(): Output
 }

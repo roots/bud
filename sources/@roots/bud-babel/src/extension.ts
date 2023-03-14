@@ -11,10 +11,6 @@ import type {LoaderOptions, Registry} from './types.js'
 
 /**
  * Babel support for `@roots/bud`
- *
- * @public
- * @decorator `@label`
- * @decorator `@expose`
  */
 @label(`@roots/bud-babel`)
 @expose(`babel`)

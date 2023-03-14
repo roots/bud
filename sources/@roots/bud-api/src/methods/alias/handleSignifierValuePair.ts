@@ -6,7 +6,6 @@ import type {Parameters} from './types.js'
 
 /**
  * Handle [string, string] values
- * @public
  */
 export async function handleSignifierValuePair(
   bud: Bud,
@@ -23,9 +22,6 @@ export async function handleSignifierValuePair(
   return bud
 }
 
-/**
- * @internal
- */
 async function getParameter(
   bud: Bud,
   parameters: Parameters,
