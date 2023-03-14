@@ -49,6 +49,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/cache-common@npm:4.15.0":
+  version: 4.15.0
+  resolution: "@algolia/cache-common@npm:4.15.0"
+  checksum: cd978571e4109cd0f401849e18cbe5337feea70a8bdc10bc5064e3b34edc4b14d9a04881fbaebd8dc14bc2a596eaa28d9e0bdaafc61e65a2de9e9754c0a6b84c
+  languageName: node
+  linkType: hard
+
 "@algolia/cache-in-memory@npm:4.13.1":
   version: 4.13.1
   resolution: "@algolia/cache-in-memory@npm:4.13.1"
@@ -91,6 +98,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/client-common@npm:4.15.0":
+  version: 4.15.0
+  resolution: "@algolia/client-common@npm:4.15.0"
+  dependencies:
+    "@algolia/requester-common": 4.15.0
+    "@algolia/transporter": 4.15.0
+  checksum: 6e0486480add63ed50cb70a2f92575feaf3158fa4e419d035a2f63ab4a6df3fc706d4c453f3cbb98a4b0ce0a3abf034011e7d3c043c02ef364ea5002c7059d2f
+  languageName: node
+  linkType: hard
+
 "@algolia/client-personalization@npm:4.13.1":
   version: 4.13.1
   resolution: "@algolia/client-personalization@npm:4.13.1"
@@ -99,6 +116,17 @@ __metadata:
     "@algolia/requester-common": 4.13.1
     "@algolia/transporter": 4.13.1
   checksum: 9a318235f54e9e0a9cc5a6b54d84fe2cfd78fdc616172ca9be4ace9519d89ac1c32025f7d365db349b48e23f7e9c2a46da7b24c435584f633e5f55050df340d4
+  languageName: node
+  linkType: hard
+
+"@algolia/client-search@npm:*":
+  version: 4.15.0
+  resolution: "@algolia/client-search@npm:4.15.0"
+  dependencies:
+    "@algolia/client-common": 4.15.0
+    "@algolia/requester-common": 4.15.0
+    "@algolia/transporter": 4.15.0
+  checksum: 7debc57667955cbd452442c0750a55e14fe70590b6c1ccd6e0b11785f5b355d1de9deb7e656ebeeef855794c4e3d678c7a2a14c9a3410ed0d033d48a98a46d02
   languageName: node
   linkType: hard
 
@@ -127,6 +155,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/logger-common@npm:4.15.0":
+  version: 4.15.0
+  resolution: "@algolia/logger-common@npm:4.15.0"
+  checksum: 3003ca5b9d604c77ab2ddbdbeef222544ea141cf5f996788339eca43c834cf468205f7a2e13b4e9ab18a55f7f0c492df0e685b787a0592d33b408f920abcb18c
+  languageName: node
+  linkType: hard
+
 "@algolia/logger-console@npm:4.13.1":
   version: 4.13.1
   resolution: "@algolia/logger-console@npm:4.13.1"
@@ -152,6 +187,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@algolia/requester-common@npm:4.15.0":
+  version: 4.15.0
+  resolution: "@algolia/requester-common@npm:4.15.0"
+  checksum: c8dc44e7a80096eb3444d6029ffcb064aff8e09e3c19f3f85ed9c3e84424157c409ce38ada8809d37bebf14a1f908de438dbb5a4cb3c59cff59670c6c89a9dca
+  languageName: node
+  linkType: hard
+
 "@algolia/requester-node-http@npm:4.13.1":
   version: 4.13.1
   resolution: "@algolia/requester-node-http@npm:4.13.1"
@@ -169,6 +211,17 @@ __metadata:
     "@algolia/logger-common": 4.13.1
     "@algolia/requester-common": 4.13.1
   checksum: c99451f37172ae499bf0aa83d32b1785b63744498c1978c274ddf865ae5a91c05d92570450ebb39ae91a3d4d4593415aaad9c93c4d78229ddc8ba8b42fb0ce3a
+  languageName: node
+  linkType: hard
+
+"@algolia/transporter@npm:4.15.0":
+  version: 4.15.0
+  resolution: "@algolia/transporter@npm:4.15.0"
+  dependencies:
+    "@algolia/cache-common": 4.15.0
+    "@algolia/logger-common": 4.15.0
+    "@algolia/requester-common": 4.15.0
+  checksum: fcb62132c6d8f12c5fc3147f6961bca673755685439c6c5e76353e400962ce146e2a72690861e29d7d507625d5394d08e1fc36d1dbdfdb3e6762e843c4f9d193
   languageName: node
   linkType: hard
 
@@ -14812,9 +14865,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001426, caniuse-lite@npm:^1.0.30001449":
-  version: 1.0.30001462
-  resolution: "caniuse-lite@npm:1.0.30001462"
-  checksum: e4a57d7851eec65e7c9b6c11c4bbcecdc49d87b1b01bff3c15ea27efb05f959891b4c70ac169842067c134d6fa126d9ad5a91d0f85c7387c5bd912eaf41ea647
+  version: 1.0.30001466
+  resolution: "caniuse-lite@npm:1.0.30001466"
+  checksum: d81d0801f72162ebb7edb222cb48702f351e1a2d6acc9f340913f5b07e28c2105d1d2de9f0633c9b89e1aa1cd14f5d9154e270bf7b61296a7209745b32bdb01c
   languageName: node
   linkType: hard
 
@@ -30150,6 +30203,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:*, react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react-dom@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+    scheduler: ^0.23.0
+  peerDependencies:
+    react: ^18.2.0
+  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:17.0.2, react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
@@ -30160,18 +30225,6 @@ __metadata:
   peerDependencies:
     react: 17.0.2
   checksum: 1c1eaa3bca7c7228d24b70932e3d7c99e70d1d04e13bb0843bbf321582bc25d7961d6b8a6978a58a598af2af496d1cedcfb1bf65f6b0960a0a8161cb8dab743c
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:18.2.0, react-dom@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react-dom@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    scheduler: ^0.23.0
-  peerDependencies:
-    react: ^18.2.0
-  checksum: 7d323310bea3a91be2965f9468d552f201b1c27891e45ddc2d6b8f717680c95a75ae0bc1e3f5cf41472446a2589a75aed4483aee8169287909fcd59ad149e8cc
   languageName: node
   linkType: hard
 
@@ -30352,6 +30405,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react@npm:*, react@npm:18.2.0, react@npm:^18.2.0":
+  version: 18.2.0
+  resolution: "react@npm:18.2.0"
+  dependencies:
+    loose-envify: ^1.1.0
+  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
+  languageName: node
+  linkType: hard
+
 "react@npm:17.0.2, react@npm:^17.0.1, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
@@ -30359,15 +30421,6 @@ __metadata:
     loose-envify: ^1.1.0
     object-assign: ^4.1.1
   checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
-  languageName: node
-  linkType: hard
-
-"react@npm:18.2.0, react@npm:^18.2.0":
-  version: 18.2.0
-  resolution: "react@npm:18.2.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 88e38092da8839b830cda6feef2e8505dec8ace60579e46aa5490fc3dc9bba0bd50336507dc166f43e3afc1c42939c09fe33b25fae889d6f402721dcd78fca1b
   languageName: node
   linkType: hard
 
@@ -34505,6 +34558,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"typescript@npm:*":
+  version: 4.9.5
+  resolution: "typescript@npm:4.9.5"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: ee000bc26848147ad423b581bd250075662a354d84f0e06eb76d3b892328d8d4440b7487b5a83e851b12b255f55d71835b008a66cbf8f255a11e4400159237db
+  languageName: node
+  linkType: hard
+
 "typescript@npm:4.9.4":
   version: 4.9.4
   resolution: "typescript@npm:4.9.4"
@@ -34522,6 +34585,16 @@ __metadata:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 3e4f061658e0c8f36c820802fa809e0fd812b85687a9a2f5430bc3d0368e37d1c9605c3ce9b39df9a05af2ece67b1d844f9f6ea8ff42819f13bcb80f85629af0
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@*#~builtin<compat/typescript>":
+  version: 4.9.5
+  resolution: "typescript@patch:typescript@npm%3A4.9.5#~builtin<compat/typescript>::version=4.9.5&hash=ad5954"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 8f6260acc86b56bfdda6004bc53f32ea548f543e8baef7071c8e34d29d292f3e375c8416556c8de10b24deef6933cd1c16a8233dc84a3dd43a13a13265d0faab
   languageName: node
   linkType: hard
 
@@ -36141,6 +36214,43 @@ __metadata:
   version: 0.5.0
   resolution: "webpack-virtual-modules@npm:0.5.0"
   checksum: 22b59257b55c89d11ae295b588b683ee9fdf3aeb591bc7b6f88ac1d69cb63f4fcb507666ea986866dfae161a1fa534ad6fb4e2ea91bbcd0a6d454368d7d4c64b
+  languageName: node
+  linkType: hard
+
+"webpack@npm:*":
+  version: 5.76.1
+  resolution: "webpack@npm:5.76.1"
+  dependencies:
+    "@types/eslint-scope": ^3.7.3
+    "@types/estree": ^0.0.51
+    "@webassemblyjs/ast": 1.11.1
+    "@webassemblyjs/wasm-edit": 1.11.1
+    "@webassemblyjs/wasm-parser": 1.11.1
+    acorn: ^8.7.1
+    acorn-import-assertions: ^1.7.6
+    browserslist: ^4.14.5
+    chrome-trace-event: ^1.0.2
+    enhanced-resolve: ^5.10.0
+    es-module-lexer: ^0.9.0
+    eslint-scope: 5.1.1
+    events: ^3.2.0
+    glob-to-regexp: ^0.4.1
+    graceful-fs: ^4.2.9
+    json-parse-even-better-errors: ^2.3.1
+    loader-runner: ^4.2.0
+    mime-types: ^2.1.27
+    neo-async: ^2.6.2
+    schema-utils: ^3.1.0
+    tapable: ^2.1.1
+    terser-webpack-plugin: ^5.1.3
+    watchpack: ^2.4.0
+    webpack-sources: ^3.2.3
+  peerDependenciesMeta:
+    webpack-cli:
+      optional: true
+  bin:
+    webpack: bin/webpack.js
+  checksum: b01fe0bc2dbca0e10d290ddb0bf81e807a031de48028176e2b21afd696b4d3f25ab9accdad888ef4a1f7c7f4d41f13d5bf2395b7653fdf3e5e3dafa54e56dab2
   languageName: node
   linkType: hard
 
