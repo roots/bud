@@ -6821,7 +6821,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/constants@workspace:*, @repo/constants@workspace:sources/@repo/constants":
+"@repo/constants@workspace:sources/@repo/constants":
   version: 0.0.0-use.local
   resolution: "@repo/constants@workspace:sources/@repo/constants"
   dependencies:
@@ -6856,7 +6856,7 @@ __metadata:
     react: 17.0.2
     react-dom: 17.0.2
     ts-node: 10.9.1
-    tslib: 2.4.1
+    tslib: 2.5.0
     typescript: 4.9.4
     url-loader: 4.1.1
     webpack: 5.75.0
@@ -6915,7 +6915,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@repo/test-kit@workspace:*, @repo/test-kit@workspace:sources/@repo/test-kit":
+"@repo/test-kit@workspace:sources/@repo/test-kit":
   version: 0.0.0-use.local
   resolution: "@repo/test-kit@workspace:sources/@repo/test-kit"
   dependencies:
@@ -6932,7 +6932,7 @@ __metadata:
     globby: 13.1.3
     helpful-decorators: 2.1.0
     json5: 2.2.3
-    tslib: 2.4.1
+    tslib: 2.5.0
     vitest: 0.28.5
   languageName: unknown
   linkType: soft
@@ -6959,7 +6959,7 @@ __metadata:
     lodash: 4.17.21
     ora: 6.1.2
     semver: 7.3.8
-    tslib: 2.4.1
+    tslib: 2.5.0
     typescript: 4.9.4
   languageName: unknown
   linkType: soft
@@ -6979,7 +6979,7 @@ __metadata:
     fs-extra: 11.1.0
     helpful-decorators: 2.1.0
     lodash-es: 4.17.21
-    tslib: 2.4.1
+    tslib: 2.5.0
     typescript: 4.9.4
     vitest: 0.28.5
   languageName: unknown
@@ -7485,7 +7485,7 @@ __metadata:
     "@types/js-yaml": 4.0.5
     "@types/node": 18.11.18
     execa: 7.0.0
-    tslib: 2.4.1
+    tslib: 2.5.0
   peerDependencies:
     "@roots/bud-support": "workspace:*"
     "@roots/container": "workspace:*"
@@ -8380,8 +8380,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud@workspace:sources/@roots/bud"
   dependencies:
-    "@repo/constants": "workspace:*"
-    "@repo/test-kit": "workspace:*"
+    "@repo/constants": "workspace:sources/@repo/constants"
+    "@repo/test-kit": "workspace:sources/@repo/test-kit"
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config"
     "@roots/bud-api": "workspace:sources/@roots/bud-api"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
@@ -8398,8 +8398,7 @@ __metadata:
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
-    tslib: 2.4.1
-    vitest: 0.29.2
+    tslib: 2.5.0
     webpack: 5.75.0
   peerDependencies:
     "@roots/browserslist-config": "workspace:*"
@@ -10946,17 +10945,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/expect@npm:0.29.2":
-  version: 0.29.2
-  resolution: "@vitest/expect@npm:0.29.2"
-  dependencies:
-    "@vitest/spy": 0.29.2
-    "@vitest/utils": 0.29.2
-    chai: ^4.3.7
-  checksum: 4366177b7b73da9e9779b789bbfafcf3541203ab6849d148527a5ce4d9e62601383d84efce4dbd2b55eee4bab17327ab20f6ccd9e9b6fb7d996ad8a477b564e0
-  languageName: node
-  linkType: hard
-
 "@vitest/runner@npm:0.28.1":
   version: 0.28.1
   resolution: "@vitest/runner@npm:0.28.1"
@@ -10979,17 +10967,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@vitest/runner@npm:0.29.2":
-  version: 0.29.2
-  resolution: "@vitest/runner@npm:0.29.2"
-  dependencies:
-    "@vitest/utils": 0.29.2
-    p-limit: ^4.0.0
-    pathe: ^1.1.0
-  checksum: 7778aa53dac58f741589a13b1faa2ade9856855eba2a9c885b29b6562c8a70e11ad07ddc9dc77ff8c8de0d4c6ab487a8ec44ffa8ef453e50d5e71a809d65c660
-  languageName: node
-  linkType: hard
-
 "@vitest/spy@npm:0.28.1":
   version: 0.28.1
   resolution: "@vitest/spy@npm:0.28.1"
@@ -11005,15 +10982,6 @@ __metadata:
   dependencies:
     tinyspy: ^1.0.2
   checksum: 3c5583ee3320f445682f06ec538ac9a13f5a1cf2ad08afbd7f714a651e97b93573bc4b6d5e0b2bd680ff4c10f1e45749213e6bf2c128af9f03cd378d66b143c7
-  languageName: node
-  linkType: hard
-
-"@vitest/spy@npm:0.29.2":
-  version: 0.29.2
-  resolution: "@vitest/spy@npm:0.29.2"
-  dependencies:
-    tinyspy: ^1.0.2
-  checksum: ad43b97c6f681e9bc09a10b522d0d7341f895136dde9b46ff0cc7444969a343b6ad430271338468012870bde14bc6ab18e18879390c3a7d86978228a54da34db
   languageName: node
   linkType: hard
 
@@ -11051,19 +11019,6 @@ __metadata:
     picocolors: ^1.0.0
     pretty-format: ^27.5.1
   checksum: db57a66550db8031ab8f1a815501ca5ef0b22134dcc0e989314469b58b1a17e2ea3bcad8f540a471a0d9318105aee5b0c1fe51293257898941d5113554875947
-  languageName: node
-  linkType: hard
-
-"@vitest/utils@npm:0.29.2":
-  version: 0.29.2
-  resolution: "@vitest/utils@npm:0.29.2"
-  dependencies:
-    cli-truncate: ^3.1.0
-    diff: ^5.1.0
-    loupe: ^2.3.6
-    picocolors: ^1.0.0
-    pretty-format: ^27.5.1
-  checksum: f6b0dd0c38475de74ae0d09b44ea6bc4ee9d192587f8c5a46edc33234653b036b230a238a3ed4c3c778ecfc3585037b4bf7a1fde83401941ce5c7105ce0b53d4
   languageName: node
   linkType: hard
 
@@ -14492,7 +14447,7 @@ __metadata:
     prettier: 2.8.3
     syncpack: 8.4.11
     ts-node: 10.9.1
-    tslib: 2.4.1
+    tslib: 2.5.0
     typescript: 4.9.4
     verdaccio: ^5.22.1
     vite: 4.0.4
@@ -34334,13 +34289,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.4.1":
-  version: 2.4.1
-  resolution: "tslib@npm:2.4.1"
-  checksum: 9ac0e4fd1033861f0b4f0d848dc3009ebcc3aa4757a06e8602a2d8a7aed252810e3540e54e70709f06c0f95311faa8584f769bcbede48aff785eb7e4d399b9ec
-  languageName: node
-  linkType: hard
-
 "tslib@npm:2.5.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
@@ -35693,22 +35641,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-node@npm:0.29.2":
-  version: 0.29.2
-  resolution: "vite-node@npm:0.29.2"
-  dependencies:
-    cac: ^6.7.14
-    debug: ^4.3.4
-    mlly: ^1.1.0
-    pathe: ^1.1.0
-    picocolors: ^1.0.0
-    vite: ^3.0.0 || ^4.0.0
-  bin:
-    vite-node: vite-node.mjs
-  checksum: e4980986de74751f7c3823b4a1b54f3d4f74273066ed5003cf3c283310c3cafd609f18517706c666a06ee07351b9c8409a75c5f6821e9cd6be56eac38d0e45d8
-  languageName: node
-  linkType: hard
-
 "vite@npm:4.0.4":
   version: 4.0.4
   resolution: "vite@npm:4.0.4"
@@ -35884,57 +35816,6 @@ __metadata:
   bin:
     vitest: vitest.mjs
   checksum: da08e78737536a4410f375dfe4b717adc001b2be29abf8d06c97074d7ccba336b83eb439351c9f3773bd3d30f3a0c517be0dd24c35e867e9cb930ffab953d336
-  languageName: node
-  linkType: hard
-
-"vitest@npm:0.29.2":
-  version: 0.29.2
-  resolution: "vitest@npm:0.29.2"
-  dependencies:
-    "@types/chai": ^4.3.4
-    "@types/chai-subset": ^1.3.3
-    "@types/node": "*"
-    "@vitest/expect": 0.29.2
-    "@vitest/runner": 0.29.2
-    "@vitest/spy": 0.29.2
-    "@vitest/utils": 0.29.2
-    acorn: ^8.8.1
-    acorn-walk: ^8.2.0
-    cac: ^6.7.14
-    chai: ^4.3.7
-    debug: ^4.3.4
-    local-pkg: ^0.4.2
-    pathe: ^1.1.0
-    picocolors: ^1.0.0
-    source-map: ^0.6.1
-    std-env: ^3.3.1
-    strip-literal: ^1.0.0
-    tinybench: ^2.3.1
-    tinypool: ^0.3.1
-    tinyspy: ^1.0.2
-    vite: ^3.0.0 || ^4.0.0
-    vite-node: 0.29.2
-    why-is-node-running: ^2.2.2
-  peerDependencies:
-    "@edge-runtime/vm": "*"
-    "@vitest/browser": "*"
-    "@vitest/ui": "*"
-    happy-dom: "*"
-    jsdom: "*"
-  peerDependenciesMeta:
-    "@edge-runtime/vm":
-      optional: true
-    "@vitest/browser":
-      optional: true
-    "@vitest/ui":
-      optional: true
-    happy-dom:
-      optional: true
-    jsdom:
-      optional: true
-  bin:
-    vitest: vitest.mjs
-  checksum: 8300eb9c7399ce8a8f873e21f62c8868c95380164d3a73f832428c179408cec8a138475162d1d0a945c7bcc050f9f08bbb0310f9ccb52c822b652e3e4c2bb0b2
   languageName: node
   linkType: hard
 

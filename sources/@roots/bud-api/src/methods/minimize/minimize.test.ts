@@ -33,19 +33,19 @@ describe(`bud.minimize`, () => {
   })
 
   it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
+    const logSpy = vi.spyOn(bud.api.logger, `success`)
     minimize()
     expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
+    const logSpy = vi.spyOn(bud.api.logger, `success`)
     minimize(true)
     expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
   })
 
   it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
+    const logSpy = vi.spyOn(bud.api.logger, `success`)
 
     minimize(false)
     expect(logSpy).toHaveBeenCalledWith(`minimize`, false)

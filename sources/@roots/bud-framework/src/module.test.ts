@@ -62,32 +62,11 @@ describe(`@roots/bud-framework`, () => {
     )
   })
 
-  it.skip(`should have an import fn that throws when pkg is unresolvable`, async () => {
+  it.skip(`should have an import fn that returns false when pkg is unresolvable`, async () => {
     const moduleInstance = new Module(() => bud)
-    let error
-    try {
-      await moduleInstance.import(`foo`)
-    } catch (e) {
-      error = e
-    }
-    expect(error).toBeInstanceOf(Error)
+    const val = await moduleInstance.import(`foo`)
+    expect(val).toBe(false)
   })
-
-  it(`should have an tryImport fn that returns the default export`, async () => {
-    const successSpy = vi.spyOn(moduleInstance.logger, `success`)
-
-    expect(await moduleInstance.tryImport(`@roots/bud`)).toEqual(
-      expect.objectContaining({Bud: expect.any(Function)}),
-    )
-    expect(successSpy).toHaveBeenCalled()
-  })
-
-  it(`should have an tryImport fn that throws when pkg is unresolvable`, async () => {
-    try {
-      expect(await moduleInstance.tryImport(`foo`)).not.toThrow()
-    } catch (e) {}
-  })
-
   it(`should have a makeContextURL fn that returns a URL when passed a URL`, async () => {
     const url = pathToFileURL(bud.context.basedir)
     expect(moduleInstance.makeContextURL(url)).toBe(url)

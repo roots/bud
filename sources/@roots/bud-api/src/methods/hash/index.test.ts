@@ -19,19 +19,19 @@ describe(`bud.hash`, () => {
   })
 
   it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
+    const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject()
     expect(successSpy).toHaveBeenCalledWith(`file hashing enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
+    const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject(true)
     expect(successSpy).toHaveBeenCalledWith(`file hashing enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
+    const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject(false)
     expect(successSpy).toHaveBeenCalledWith(`file hashing disabled`)
   })

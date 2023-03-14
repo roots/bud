@@ -301,26 +301,31 @@ export class Bud {
     return this
   }
 
+  @bind
   public log(...messages: any[]) {
     this.context.logger?.log(...messages)
     return this
   }
 
+  @bind
   public info(...messages: any[]) {
     this.context.logger?.info(...messages)
     return this
   }
 
+  @bind
   public success(...messages: any[]) {
     this.context.logger?.success(...messages)
     return this
   }
 
+  @bind
   public warn(...messages: any[]) {
     this.context.logger?.warn(...messages)
     return this
   }
 
+  @bind
   public error(...messages: Array<any>): Bud {
     this.context.logger?.error(...messages)
     return this

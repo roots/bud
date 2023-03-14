@@ -45,10 +45,15 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     if (extension.register) await extension.register(bud)
     await extension.boot(bud)
 
-    expect(resolveSpy).toHaveBeenNthCalledWith(1, `tailwindcss`)
+    expect(resolveSpy).toHaveBeenNthCalledWith(
+      1,
+      `tailwindcss`,
+      expect.stringContaining(`bud-tailwindcss/lib/extension/index.js`),
+    )
     expect(resolveSpy).toHaveBeenNthCalledWith(
       2,
       `tailwindcss/nesting/index.js`,
+      expect.stringContaining(`bud-tailwindcss/lib/extension/index.js`),
     )
   })
 

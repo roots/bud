@@ -243,7 +243,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "execa": "7.0.0",
-    "tslib": "2.4.1"
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud-support": "workspace:*",

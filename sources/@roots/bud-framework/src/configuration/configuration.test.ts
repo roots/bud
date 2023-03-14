@@ -55,7 +55,7 @@ describe(`@roots/bud-framework/configuration`, function () {
   })
 
   it(`calls dynamicConfig when config is dynamic`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
+    const logSpy = vi.spyOn(bud.context.logger, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
@@ -78,7 +78,7 @@ describe(`@roots/bud-framework/configuration`, function () {
   })
 
   it(`calls dynamicConfig when config is an object (not default export)`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
+    const logSpy = vi.spyOn(bud.context.logger, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
@@ -99,7 +99,7 @@ describe(`@roots/bud-framework/configuration`, function () {
   })
 
   it(`calls staticConfig when config is static`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
+    const logSpy = vi.spyOn(bud.context.logger, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 

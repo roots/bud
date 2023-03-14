@@ -14,8 +14,10 @@ describe(`@roots/bud/services/project`, () => {
   })
 
   it(`returns early if debug not set`, async () => {
+    if (!bud.isCLI()) throw new Error(`bud.isCLI() should return true`)
+
     bud.context.args.debug = false
-    const infoSpy = vi.spyOn(bud, `info`)
+    const infoSpy = vi.spyOn(project.logger, `info`)
     const pathSpy = vi.spyOn(bud, `path`)
 
     await project.buildAfter(bud)

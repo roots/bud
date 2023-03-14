@@ -34,7 +34,7 @@ class Configuration {
    */
   @bind
   public async dynamicConfig(description: any): Promise<unknown> {
-    this.bud.context.logger?.log(
+    this.bud.context?.logger?.log(
       `processing as dynamic configuration:`,
       description.name,
     )
@@ -50,7 +50,7 @@ class Configuration {
    */
   @bind
   public async staticConfig(description: File): Promise<unknown> {
-    this.bud.context.logger?.log(
+    this.bud.context?.logger?.log(
       `processing as static configuration:`,
       description.name,
     )
