@@ -1,4 +1,3 @@
-import {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
@@ -12,16 +11,20 @@ import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
-import {set} from '@roots/bud/instances'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
-const context = await getContext({basedir})
-set(basedir, new Bud())
+const context = await getContext({
+  basedir,
+  stdin: process.stdin,
+  stdout: process.stdout,
+  stderr: process.stderr,
+  colorDepth: 256,
+})
 
 const application = new Cli({
   binaryLabel: `bud`,
   binaryName: `bud`,
-  binaryVersion: `6.11.1`,
+  binaryVersion: context.manifest?.version ?? undefined,
   enableCapture: false,
   enableColors: true,
 })
@@ -49,12 +52,6 @@ await Commands.get(application, context)
       await Promise.all(fns.map(async fn => await fn(application))),
   )
 
-application.runExit(argv, {
-  ...context,
-  stdin: process.stdin,
-  stdout: process.stdout,
-  stderr: process.stderr,
-  colorDepth: 256,
-})
+application.runExit(argv, context)
 
 export {application, Builtins, Cli, CommandClass}
