@@ -183,10 +183,6 @@ export default class BudCommand extends Command<CommandContext> {
       if (!bud.isCLI()) return
 
       await this.applyBudEnv(bud)
-      await this.applyBudManifestOptions(bud)
-      await this.applyBudArguments(bud)
-
-      if (this.withBud) await this.withBud(bud)
       await bud.api.processQueue()
     })
 
