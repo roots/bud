@@ -5,7 +5,7 @@ import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
 /**
  * Context: env
  */
-export default ({basedir, ...overrides}) => {
+export default (basedir: string) => {
   /**
    * Apply process env
    */
@@ -28,7 +28,7 @@ export default ({basedir, ...overrides}) => {
       return join(basepath, segment)
     }, sep)
 
-  return {...data, ...(overrides ?? {})}
+  return data
 }
 
 /**

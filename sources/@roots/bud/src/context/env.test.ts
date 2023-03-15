@@ -22,7 +22,7 @@ describe(`@roots/bud/context/env`, () => {
   let env: Record<string, any>
 
   beforeEach(() => {
-    env = Env(context)
+    env = Env(context.basedir)
   })
 
   it(`.env env`, () => {

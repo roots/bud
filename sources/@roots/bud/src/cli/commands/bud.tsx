@@ -3,6 +3,7 @@ import {platform} from 'node:os'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import * as instances from '@roots/bud/instances'
 import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
@@ -172,24 +173,29 @@ export default class BudCommand extends Command<CommandContext> {
       await import(`../env.production.js`)
     }
 
-    const bud = await new Bud().lifecycle(this.context)
+    this.bud = instances.get(this.context.basedir) as Bud & {
+      context: CommandContext
+    }
+    await this.bud.lifecycle(this.context)
+    this.bud.dashboard?.setRenderer(this.renderer)
 
-    bud.dashboard?.setRenderer(this.renderer)
+    this.bud.hooks.action(`build.before`, async bud => {
+      if (!bud.isCLI()) return
 
-    if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
+      await this.applyBudEnv(bud)
+      await this.applyBudManifestOptions(bud)
+      await this.applyBudArguments(bud)
 
-    this.bud = bud
+      if (this.withBud) await this.withBud(bud)
+      await bud.api.processQueue()
+    })
 
     await this.applyBudEnv(this.bud)
     await this.applyBudManifestOptions(this.bud)
     await this.applyBudArguments(this.bud)
+
+    if (this.withBud) await this.withBud(this.bud)
     await this.bud.processConfigs()
-
-    if (this.withBud) {
-      this.bud = await this.withBud(this.bud)
-    }
-
-    await this.applyBudArguments(this.bud)
   }
 
   @bind

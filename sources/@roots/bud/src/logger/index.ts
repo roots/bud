@@ -1,7 +1,4 @@
-import commonPath from '@roots/bud-support/common-path'
 import {bind} from '@roots/bud-support/decorators'
-import {resolve} from '@roots/bud-support/import-meta-resolve'
-import prettyFormat from '@roots/bud-support/pretty-format'
 import Signale, {
   Instance,
   Options as SignaleOptions,
@@ -15,8 +12,6 @@ interface Options extends SignaleOptions {
 }
 
 export class Logger {
-  public commonPath: string = ``
-
   public declare instance: Instance
 
   public constructor(options: Options = {}) {
@@ -36,43 +31,8 @@ export class Logger {
   }
 
   @bind
-  public async setCommonPath(path: string) {
-    const sharedModulePath = await resolve(`webpack`, import.meta.url)
-    this.commonPath = commonPath([path, sharedModulePath]).commonDir
-    return this
-  }
-
-  /**
-   * Format logger messages
-   *
-   * @param messages - any
-   * @public
-   */
-  @bind
-  public format(...messages: Array<unknown>) {
-    return messages.map(message => {
-      if (typeof message !== `string`) {
-        try {
-          return prettyFormat(message, {
-            highlight: false,
-            maxDepth: 3,
-            printFunctionName: false,
-            printBasicPrototype: false,
-          })
-        } catch (e) {
-          return message
-        }
-      }
-
-      return message
-        .replaceAll(/file:\/\//g, ``)
-        .replaceAll(new RegExp(this.commonPath, `g`), ``)
-    })
-  }
-
-  @bind
   public log(...messages: Array<unknown>) {
-    this.instance.log(...this.format(...messages))
+    this.instance.log(...messages)
     return this
   }
   @bind
@@ -87,49 +47,35 @@ export class Logger {
   }
   @bind
   public success(...messages: Array<unknown>) {
-    this.instance.success(...this.format(...messages))
+    this.instance.success(...messages)
     return this
   }
   @bind
   public info(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
-    this.instance.info(...this.format(...messages))
+    this.instance.info(...messages)
     return this
   }
   @bind
   public warn(...messages: Array<unknown>) {
-    this.instance.warn(...this.format(...messages))
+    this.instance.warn(...messages)
     return this
   }
   @bind
   public error(...messages: Array<unknown>) {
-    this.instance.error(...this.format(...messages))
+    this.instance.error(...messages)
     return this
   }
   @bind
   public debug(...messages: Array<unknown>) {
     if (!argv.has(`verbose`)) return this
-    this.instance.debug(...this.format(...messages))
+    this.instance.debug(...messages)
     return this
   }
-  @bind
-  public fav(...messages: Array<unknown>) {
-    this.instance.fav(...this.format(...messages))
-    return this
-  }
-  @bind
-  public pending(...messages: Array<unknown>) {
-    this.instance.pending(...this.format(...messages))
-    return this
-  }
-  @bind
-  public star(...messages: Array<unknown>) {
-    this.instance.star(...this.format(...messages))
-    return this
-  }
+
   @bind
   public await(...messages: Array<unknown>) {
-    this.instance.await(...this.format(...messages))
+    this.instance.await(...messages)
     return this
   }
   @bind

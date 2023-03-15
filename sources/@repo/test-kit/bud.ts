@@ -17,19 +17,16 @@ export const factory = async (
   overrides?: Partial<Options.CommandContext>,
   run?: boolean,
 ): Promise<Bud> => {
-  const bud = await makeInstance(
-    {
-      basedir,
-      ...(overrides ?? {}),
-      args: {
-        dry: true,
-        log: false,
-        notify: false,
-        ...(overrides?.args ?? {}),
-      },
+  const bud = await makeInstance({
+    basedir,
+    ...(overrides ?? {}),
+    args: {
+      dry: true,
+      log: false,
+      notify: false,
+      ...(overrides?.args ?? {}),
     },
-    {cache: false, find: true},
-  )
+  })
 
   if (!bud.isCLI())
     throw new Error(`test error: bud is not a CLI instance`)

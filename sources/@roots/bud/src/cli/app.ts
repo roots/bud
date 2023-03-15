@@ -1,3 +1,4 @@
+import {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
@@ -11,14 +12,16 @@ import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext from '@roots/bud/context'
 import {argv, basedir} from '@roots/bud/context/argv'
+import {set} from '@roots/bud/instances'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 
-const context = await getContext({basedir}, {cache: true, find: true})
+const context = await getContext({basedir})
+set(basedir, new Bud())
 
 const application = new Cli({
   binaryLabel: `bud`,
   binaryName: `bud`,
-  binaryVersion: context.bud?.version ?? undefined,
+  binaryVersion: `6.11.1`,
   enableCapture: false,
   enableColors: true,
 })

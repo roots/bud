@@ -6,73 +6,54 @@ import getEnv from '@roots/bud/context/env'
 import getExtensions from '@roots/bud/context/extensions'
 import getManifest from '@roots/bud/context/manifest'
 import services from '@roots/bud/context/services'
-import type * as Factory from '@roots/bud/factory'
 import {Logger} from '@roots/bud/logger'
 import type {CommandContext, Context} from '@roots/bud-framework/options'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import omit from '@roots/bud-support/lodash/omit'
 
-let contexts: Record<string, Context> = {}
-
 export default async (
-  {basedir, ...overrides}: Partial<CommandContext>,
-  options: Factory.Options = {
-    cache: true,
-    find: false,
-  },
+  context: Partial<CommandContext>,
 ): Promise<Context> => {
-  if (!basedir) basedir = argv.basedir
-  if (options.cache && contexts[basedir]) return contexts[basedir]
+  if (!context.basedir) context.basedir = argv.basedir
 
-  const fs = new Filesystem(basedir)
+  const fs = new Filesystem(context.basedir)
 
-  let config: Context[`config`] | undefined
-  let env: Context[`env`] | undefined
-  let extensions: Context[`extensions`] | undefined
-  let manifest: Context[`manifest`] | undefined
-
-  if (options.find) {
-    env = getEnv({basedir, ...overrides})
-    config = await projectFiles.get({basedir, fs})
-    manifest = getManifest(config)
-  }
-
-  extensions = getExtensions(manifest, options.find)
+  let config = await projectFiles.get({basedir: context.basedir, fs})
+  let env = getEnv(context.basedir)
+  let manifest = getManifest(config)
+  let extensions = getExtensions(manifest)
 
   const logger = new Logger()
 
-  const context: Context = {
-    label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
-    basedir,
+  const instanceContext: Context = {
+    label: context?.label ?? manifest?.name ?? bud?.label ?? `default`,
+    basedir: context.basedir,
     // eslint-disable-next-line n/no-process-env
     bin: process.env.BUD_JS_BIN ?? `node`,
-    ...overrides,
-    mode: overrides?.mode ?? `production`,
-    env: {...(env ?? {}), ...(overrides?.env ?? {})},
-    config: {...(config ?? {}), ...(overrides?.config ?? {})},
-    services: [...(services ?? []), ...(overrides?.services ?? [])],
-    bud: {...(bud ?? {}), ...(overrides?.bud ?? {})},
-    manifest: {...(manifest ?? {}), ...(overrides?.manifest ?? {})},
+    ...context,
+    mode: context?.mode ?? `production`,
+    env: {...(env ?? {}), ...(context?.env ?? {})},
+    config: {...(config ?? {}), ...(context?.config ?? {})},
+    services: [...(services ?? []), ...(context?.services ?? [])],
+    bud: {...(bud ?? {}), ...(context?.bud ?? {})},
+    manifest: {...(manifest ?? {}), ...(context?.manifest ?? {})},
     extensions: {
       builtIn: [
         ...(extensions?.builtIn ?? []),
-        ...(overrides?.extensions?.builtIn ?? []),
+        ...(context?.extensions?.builtIn ?? []),
       ],
       discovered: [
         ...(extensions?.discovered ?? []),
-        ...(overrides?.extensions?.discovered ?? []),
+        ...(context?.extensions?.discovered ?? []),
       ],
     },
-    logger: overrides?.logger ?? logger,
+    logger: context?.logger ?? logger,
   }
 
-  context.logger.scope(context.label).debug(omit(context, `env`))
-  await context.logger.setCommonPath(context.basedir)
+  instanceContext.logger
+    .scope(instanceContext.label)
+    .log(`🏗️  Building ${instanceContext.label}`)
+    .debug(omit(instanceContext, `env`))
 
-  if (options.cache) {
-    contexts[basedir] = context
-    return contexts[basedir]
-  }
-
-  return context
+  return instanceContext
 }
