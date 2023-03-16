@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 /* eslint-disable no-console */
 // @ts-check
 
@@ -8,7 +9,7 @@ import {fileURLToPath} from 'node:url'
 import {execaCommandSync} from 'execa'
 
 try {
-  if (process.platform === `darwin`) {
+  if (process.platform === `darwin` && !process.env.CI) {
     const cwd = resolve(dirname(fileURLToPath(import.meta.url)), `..`)
     console.log(`[bud-framework] cwd:`, cwd)
 
@@ -31,7 +32,11 @@ try {
 
     if (results.exitCode !== 0) {
       console.log(`[bud-framework] notifier permissions could not be set`)
-      writeFileSync(join(cwd, `install.stderr.log`), results.stderr, `utf8`)
+      writeFileSync(
+        join(cwd, `install.stderr.log`),
+        results.stderr,
+        `utf8`,
+      )
     }
   }
 } catch (e) {}
