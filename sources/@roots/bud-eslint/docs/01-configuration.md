@@ -9,7 +9,6 @@ As a courtesy, there is a recommended eslint configuration available for you to 
 ```js title=".eslintrc.js"
 export default {
   root: true,
-  extends: [`@roots/bud-eslint/config`],
-  rules: {},
+  extends: ['@roots/eslint-config/recommended'],
 }
 ```
