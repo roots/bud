@@ -8534,6 +8534,7 @@ __metadata:
     "@types/node": 18.11.18
     webpack: 5.76.0
   peerDependencies:
+    "@roots/blade-loader": "*"
     "@roots/bud": "workspace:sources/@roots/bud"
   languageName: unknown
   linkType: soft

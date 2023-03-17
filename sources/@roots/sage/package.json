@@ -141,8 +141,8 @@
     "@types/node": "18.11.18"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/blade-loader": "workspace:sources/@roots/blade-loader",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -153,8 +153,8 @@
     "webpack": "5.76.0"
   },
   "peerDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/blade-loader": "*"
+    "@roots/blade-loader": "*",
+    "@roots/bud": "workspace:sources/@roots/bud"
   },
   "volta": {
     "extends": "../../../package.json"
