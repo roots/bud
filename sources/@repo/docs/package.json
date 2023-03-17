@@ -19,7 +19,7 @@
   ],
   "devDependencies": {
     "@docusaurus/core": "2.2.0",
-    "@docusaurus/module-type-aliases": "2.2.0",
+    "@docusaurus/module-type-aliases": "2.3.1",
     "@docusaurus/preset-classic": "2.2.0",
     "@docusaurus/remark-plugin-npm2yarn": "2.2.0",
     "@repo/constants": "workspace:sources/@repo/constants",
