@@ -4,7 +4,7 @@ title: Usage
 
 All paths are relative to `@src`. This can be changed with [the `context` parameter](#changing-context).
 
-## Copying a directory
+### Copying a directory
 
 Copy `@src/images` to `@dist/images`:
 
@@ -12,7 +12,7 @@ Copy `@src/images` to `@dist/images`:
 bud.copyDir(`images`)
 ```
 
-## Modifying the output path
+### Modifying the output path
 
 Copy `@src/images` to `@dist/example`.
 
@@ -20,7 +20,7 @@ Copy `@src/images` to `@dist/example`.
 bud.copyDir([`images`, `example`])
 ```
 
-## Changing context
+### Changing context
 
 Without specifying anything all paths are relative to `@src`.
 
@@ -32,7 +32,7 @@ Copy `vendor/images` to `@dist/images`:
 bud.copyDir(`images`, `vendor`)
 ```
 
-## Changing options
+### Changing options
 
 Any of the underlying options can be dialed in with an optional third parameter.
 

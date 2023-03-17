@@ -15,10 +15,7 @@ It pays to be more restrictive here. So while you could do the above it would be
 
 ```js title=bud.config.js
 export default async bud => {
-  bud.compilePaths([
-    bud.path(`@src`),
-    bud.path(`@modules`),
-  ])
+  bud.compilePaths([bud.path(`@src`), bud.path(`@modules`)])
 }
 ```
 
@@ -26,10 +23,7 @@ Even better to only target the modules which actually need it:
 
 ```js title=bud.config.js
 export default async bud => {
-  bud.compilePaths([
-    bud.path(`@src`),
-    bud.path(`@modules/swiper`),
-  ])
+  bud.compilePaths([bud.path(`@src`), bud.path(`@modules/swiper`)])
 }
 ```
 

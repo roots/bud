@@ -33,17 +33,6 @@ bud.hooks.on('build.externals', (externals = {}) => ({
 })
 ```
 
-## bud.hooks.fromMap
-
-Set multiple hooks at once with `bud.hooks.fromMap`.
-
-```ts
-bud.hooks.fromMap({
-  'build.node': false,
-  'build.resolve.extensions': (ext = new Set()) => ext.add('.mjml'),
-})
-```
-
 ## bud.hooks.filter
 
 Filters are registered with `bud.hooks.filter`.
@@ -70,16 +59,6 @@ bud.hooks.async('build.resolve.modules', async (paths = []) => [
 ```
 
 Callbacks for asynchronous hooks should be registered as asynchronous functions.
-
-## bud.hooks.fromAsyncMap
-
-Set multiple async hooks at once with `bud.hooks.fromAsyncMap`.
-
-```ts
-bud.hooks.fromAsyncMap({
-  'build.resolve.modules': async paths => [...paths, bud.path('@modules')],
-})
-```
 
 ## bud.hooks.action
 

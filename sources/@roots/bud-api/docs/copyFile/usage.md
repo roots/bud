@@ -4,7 +4,7 @@ title: Usage
 
 All paths are relative to `@src`. This can be changed with [the `context` parameter](#changing-context).
 
-## Copying a file
+### Copying a file
 
 Copy `@src/images/image.jpeg` to `@dist/images/image.jpeg`:
 
@@ -12,7 +12,7 @@ Copy `@src/images/image.jpeg` to `@dist/images/image.jpeg`:
 bud.copyFile(`images/image.jpeg`)
 ```
 
-## Modifying the output path
+### Modifying the output path
 
 Copy `@src/images/image.jpeg` to `@dist/example/image.jpeg`.
 
@@ -20,7 +20,7 @@ Copy `@src/images/image.jpeg` to `@dist/example/image.jpeg`.
 bud.copyFile([`images/image.jpeg`, `example/image.jpeg`])
 ```
 
-## Hashing copied files
+### Hashing copied files
 
 The standard way would be to replace the filename with `@file`:
 
@@ -28,7 +28,7 @@ The standard way would be to replace the filename with `@file`:
 bud.copyFile([`images/image.jpeg`, `images/@file`])
 ```
 
-## Changing context
+### Changing context
 
 You can pass a second parameter to specify base directory of the task (the `context`):
 
@@ -41,10 +41,7 @@ bud.copyFile(`images/image.jpeg`, `vendor`)
 Copy `vendor/images/image.jpeg` to `@dist/example/image.jpeg`
 
 ```typescript title=bud.config.js
-bud.copyFile(
-  [`images/image.jpeg`, `example/image.jpeg`],
-  `vendor`,
-)
+bud.copyFile([`images/image.jpeg`, `example/image.jpeg`], `vendor`)
 ```
 
 Copying from `node_modules/@roots/bud/README.md` to `@dist/README.md`:
