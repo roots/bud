@@ -7,6 +7,9 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
+/**
+ * WordPress preset options
+ */
 interface Options {
   hmr: boolean
   notify: boolean
@@ -36,7 +39,7 @@ export default class BudPresetWordPress extends Extension<Options> {
       await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
     }
 
-    bud.react.refresh.enable(false)
+    bud.react?.refresh?.enable(false)
   }
 
   /**

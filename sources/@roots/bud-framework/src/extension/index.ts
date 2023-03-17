@@ -43,6 +43,7 @@ export interface PublicExtensionApi<E extends Extension = Extension> {
   enabled: E['enabled']
   enable: E['enable']
   options: E['options']
+  label: E['label']
 }
 
 export type ExtensionLiteral = Partial<Extension>
@@ -504,7 +505,7 @@ export class Extension<
 
   /**
    * Disable extension
-   * @deprecated - pass `false` to {@link Extension.enable}
+   * @deprecated pass `false` to {@link Extension.enable}
    */
   @bind
   public disable() {

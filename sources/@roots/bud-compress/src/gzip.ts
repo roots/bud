@@ -33,26 +33,23 @@ export default class BudGzip extends Extension<Options, Plugin> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.api.bindFacade(`gzip`, this.config)
+    bud.api.bindFacade(`gzip`, this.config.bind(this))
   }
 
   /**
    * @deprecated Use `bud.compress.gzip.setOptions()` instead.
    */
-  @bind
-  @deprecated(
-    `bud.compress.gzip.config`,
-    `Use bud.compress.gzip.set instead`,
+  @deprecated(`bud.compress.gzip`, `Use bud.compress.gzip.set instead`, [
     [
-      [
-        `set deleteOriginalAssets`,
-        `bud.compress.gzip.set('deleteOriginalAssets', true)`,
-      ],
+      `set deleteOriginalAssets`,
+      `bud.compress.gzip.set('deleteOriginalAssets', true)`,
     ],
-  )
+  ])
   public async config(options?: Options): Promise<Bud> {
     this.enable()
     options && this.setOptions(options)
     return this.app
   }
 }
+
+export type {Options}

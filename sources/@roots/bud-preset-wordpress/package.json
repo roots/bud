@@ -47,18 +47,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./extension": {
-      "types": "./lib/extension.d.ts",
-      "import": "./lib/extension.js"
+      "import": "./lib/extension.js",
+      "default": "./lib/extension.js"
     },
     "./stylelint-config": {
-      "require": "./config/stylelint.cjs"
+      "require": "./config/stylelint.cjs",
+      "default": "./config/stylelint.cjs"
     },
     "./config/stylelint": {
-      "require": "./config/stylelint.cjs"
+      "require": "./config/stylelint.cjs",
+      "default": "./config/stylelint.cjs"
     }
   },
   "typesVersions": {
@@ -71,6 +73,9 @@
       ],
       "theme": [
         "./lib/theme.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
@@ -92,7 +97,7 @@
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-preset-recommend": "*",
     "@roots/bud-react": "*",
     "@roots/bud-tailwindcss-theme-json": "*",

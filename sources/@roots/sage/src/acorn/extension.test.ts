@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import Extension from './extension.js'
+import Extension from './index.js'
 
 describe(`@roots/sage/acorn`, () => {
   it(`should be constructable`, () => {

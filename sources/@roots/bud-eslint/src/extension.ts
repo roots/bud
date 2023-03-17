@@ -50,7 +50,9 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     this.set(`baseConfig`, flatConfig.module)
   }
 
-  @bind
+  /**
+   * @deprecated Use {@link Extension.set} instead
+   */
   @deprecated(`bud.eslint`, `Use bud.eslint.set instead`, [
     [`Enable autofix`, `bud.eslint.set('fix', true)`],
     [`Disable autofix`, `bud.eslint.set('fix', false)`],

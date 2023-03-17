@@ -36,8 +36,8 @@ export interface minimize {
 export const minimize: minimize = function (this: Bud, value = true) {
   this.hooks.on(`build.optimization.minimize`, value)
 
-  this.terser.enable(value)
-  this.minimizeCss.enable(value)
+  this.terser?.enable(value)
+  this.minimizeCss?.enable(value)
 
   this.success(`minimize`, value)
 

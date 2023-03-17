@@ -7,10 +7,12 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 
+import type AcornExtension from '../acorn/index.js'
+
 /**
  * roots/sage support extension
  *
- * @see https://bud.js.org/extensions/sage/
+ * @see {@link https://bud.js.org/extensions/sage}
  */
 @label(`@roots/sage`)
 @dependsOn([
@@ -20,6 +22,13 @@ import {deprecated} from '@roots/bud-support/decorators'
 ])
 @expose(`sage`)
 export class Sage extends Extension {
+  /**
+   * {@link Acorn}
+   */
+  public get acorn(): AcornExtension {
+    return this.app.extensions.get(`@roots/sage/acorn`)
+  }
+
   /**
    * {@link Extension.register}
    */
@@ -63,11 +72,11 @@ export class Sage extends Extension {
   /**
    * Set acorn version
    *
-   * @deprecated - This function is deprecated. It is unneeded; you can just remove the call.
+   * @deprecated This function is deprecated. It is unneeded; you can just remove the call.
    */
   @deprecated(
     `bud.sage`,
-    `This function is no longer needed and should be removed.`,
+    `This function is no longer needed and should be removed`,
   )
   public setAcornVersion(version: 'v2' | 'v3') {}
 }

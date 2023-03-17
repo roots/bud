@@ -71,7 +71,28 @@ export interface Server extends Service {
    */
   publicUrl: URL
 
-  setConnection: any
+  /**
+   * Proxy development server URL
+   */
+  proxyUrl: URL
+
+  /**
+   * Proxy development server URL
+   */
+  publicProxyUrl: URL
+
+  /**
+   * Set server connection
+   */
+  setConnection: (connection?: Connection) => Promise<Connection>
+
+  /**
+   * Inject client scripts
+   */
   injectScripts: any
+
+  /**
+   * Apply middleware
+   */
   applyMiddleware: any
 }
