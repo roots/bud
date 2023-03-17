@@ -1,5 +1,7 @@
 /// <reference types="@roots/bud-framework" />
 
+import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+
 import type BudCDN from './extensions/cdn/index.js'
 import type CleanWebpackPlugin from './extensions/clean-webpack-plugin/index.js'
 import type CopyWebpackPlugin from './extensions/copy-webpack-plugin/index.js'
@@ -17,15 +19,7 @@ declare module '@roots/bud-framework' {
   interface Bud {
     cdn: Modules[`@roots/bud-extensions/cdn`]
     esm: Modules[`@roots/bud-extensions/esm`]
-    manifest: {
-      get: WebpackManifestPlugin[`get`]
-      getOption: WebpackManifestPlugin[`getOption`]
-      getOptions: WebpackManifestPlugin[`getOptions`]
-      set: WebpackManifestPlugin[`set`]
-      setOption: WebpackManifestPlugin[`setOption`]
-      setOptions: WebpackManifestPlugin[`setOptions`]
-      enable: WebpackManifestPlugin[`enable`]
-    }
+    manifest: PublicExtensionApi<WebpackManifestPlugin>
   }
 
   interface Modules {
