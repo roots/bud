@@ -8577,7 +8577,7 @@ __metadata:
     "@types/wordpress__rich-text": 3.4.6
     "@wordpress/blocks": 12.2.0
     "@wordpress/data": 8.1.0
-    "@wordpress/hooks": 3.24.0
+    "@wordpress/hooks": 3.28.0
     "@wordpress/plugins": 5.5.0
     "@wordpress/rich-text": 6.4.0
   languageName: unknown
@@ -11678,7 +11678,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/hooks@npm:3.24.0, @wordpress/hooks@npm:^3.24.0":
+"@wordpress/hooks@npm:3.28.0, @wordpress/hooks@npm:^3.28.0":
+  version: 3.28.0
+  resolution: "@wordpress/hooks@npm:3.28.0"
+  dependencies:
+    "@babel/runtime": ^7.16.0
+  checksum: c65c2b001da52bbf460ddc24e82e308226b3309fed76124a57f9a9091adcde1a7f19ce9aa770c4b74b22b95d6f39e8b325857e975ddddfcc9081f3c4131b5c4c
+  languageName: node
+  linkType: hard
+
+"@wordpress/hooks@npm:^3.24.0":
   version: 3.24.0
   resolution: "@wordpress/hooks@npm:3.24.0"
   dependencies:
@@ -11702,15 +11711,6 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.16.0
   checksum: ee05543fcd29067b4eff6322636497b73e6bff914d0711f6f894278c2de33fb5d4616eb11d07b5fe85fce23eac4bb1377421d5d587eb11753a7993b5071dae77
-  languageName: node
-  linkType: hard
-
-"@wordpress/hooks@npm:^3.28.0":
-  version: 3.28.0
-  resolution: "@wordpress/hooks@npm:3.28.0"
-  dependencies:
-    "@babel/runtime": ^7.16.0
-  checksum: c65c2b001da52bbf460ddc24e82e308226b3309fed76124a57f9a9091adcde1a7f19ce9aa770c4b74b22b95d6f39e8b325857e975ddddfcc9081f3c4131b5c4c
   languageName: node
   linkType: hard
 
