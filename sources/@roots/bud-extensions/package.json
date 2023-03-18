@@ -47,16 +47,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./service": {
-      "types": "./lib/service/index.d.ts",
-      "import": "./lib/service/index.js"
+      "import": "./lib/service/index.js",
+      "default": "./lib/service/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     },
     "./*": {
-      "types": "./lib/extensions/*/index.d.ts",
-      "import": "./lib/extensions/*/index.js"
+      "import": "./lib/extensions/*/index.js",
+      "default": "./lib/extensions/*/index.js"
     }
   },
   "typesVersions": {
@@ -66,6 +70,9 @@
       ],
       "service": [
         "./lib/service/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ],
       "*": [
         "./lib/extensions/*/index.d.ts"

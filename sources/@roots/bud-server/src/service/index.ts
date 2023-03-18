@@ -73,6 +73,20 @@ export class Server extends Service implements BaseService {
   }
 
   /**
+   * Proxy URL
+   */
+  public get proxyUrl(): URL {
+    return this.app.hooks.filter(`dev.proxyUrl`, new URL(`http://0.0.0.0`))
+  }
+
+  /**
+   * External proxy URL
+   */
+  public get publicProxyUrl(): URL {
+    return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxyUrl)
+  }
+
+  /**
    * {@link Service.register}
    */
   @bind
@@ -97,7 +111,7 @@ export class Server extends Service implements BaseService {
     this.application.set(`x-powered-by`, false)
 
     bud.hooks.action(`server.before`, async () => {
-      await this.setConnection(bud)
+      await this.setConnection()
       await this.injectScripts()
       await bud.compiler.compile()
       await this.applyMiddleware()
@@ -109,16 +123,22 @@ export class Server extends Service implements BaseService {
    * Set connection
    */
   @bind
-  public async setConnection(bud: Bud) {
-    const isHttps = this.url.protocol === `https:`
+  public async setConnection(connection?: Connection) {
+    if (!connection) {
+      const isHttps = this.url.protocol === `https:`
 
-    this.connection = await bud.module
-      .import(
-        isHttps
-          ? `@roots/bud-server/server/https`
-          : `@roots/bud-server/server/http`,
-      )
-      .then(({Server}) => new Server(bud))
+      this.connection = await this.app.module
+        .import(
+          isHttps
+            ? `@roots/bud-server/server/https`
+            : `@roots/bud-server/server/http`,
+        )
+        .then(({Server}) => new Server(this.app))
+    } else {
+      this.connection = connection
+    }
+
+    return this.connection
   }
 
   /**

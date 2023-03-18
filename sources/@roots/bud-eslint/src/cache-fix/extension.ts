@@ -9,9 +9,9 @@ import type {MultiStats} from '@roots/bud-support/webpack'
 @label(`@roots/bud-eslint/cache-fix`)
 @when(
   bud =>
-    bud.eslint.enabled &&
+    bud.eslint?.enabled &&
     bud.cache.type === `filesystem` &&
-    bud.cache.enabled,
+    bud.cache?.enabled,
 )
 export class BudEslintCacheFix extends Extension {
   /**

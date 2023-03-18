@@ -19,7 +19,7 @@
   ],
   "devDependencies": {
     "@docusaurus/core": "2.2.0",
-    "@docusaurus/module-type-aliases": "2.2.0",
+    "@docusaurus/module-type-aliases": "2.3.1",
     "@docusaurus/preset-classic": "2.2.0",
     "@docusaurus/remark-plugin-npm2yarn": "2.2.0",
     "@repo/constants": "workspace:sources/@repo/constants",
@@ -38,7 +38,7 @@
     "webpack": "5.76.0"
   },
   "dependencies": {
-    "@docusaurus/theme-classic": "2.2.0",
+    "@docusaurus/theme-classic": "2.3.1",
     "@docusaurus/theme-common": "2.3.1",
     "axios": "1.3.2",
     "clsx": "1.2.1",

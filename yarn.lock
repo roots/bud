@@ -2903,7 +2903,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/plugin-transform-runtime@npm:7.19.6, @babel/plugin-transform-runtime@npm:^7.18.6":
+"@babel/plugin-transform-runtime@npm:7.21.0":
+  version: 7.21.0
+  resolution: "@babel/plugin-transform-runtime@npm:7.21.0"
+  dependencies:
+    "@babel/helper-module-imports": ^7.18.6
+    "@babel/helper-plugin-utils": ^7.20.2
+    babel-plugin-polyfill-corejs2: ^0.3.3
+    babel-plugin-polyfill-corejs3: ^0.6.0
+    babel-plugin-polyfill-regenerator: ^0.4.1
+    semver: ^6.3.0
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 6c9d655bef0caaf998984eea47145bd1a95cfcbad2901c5f31a73b32fa5d1748f5e7abeb962243bcd197d16b1d5a0c9f02198d174c1247de973bbd12559b3a4d
+  languageName: node
+  linkType: hard
+
+"@babel/plugin-transform-runtime@npm:^7.18.6":
   version: 7.19.6
   resolution: "@babel/plugin-transform-runtime@npm:7.19.6"
   dependencies:
@@ -4424,6 +4440,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@docusaurus/theme-classic@npm:2.3.1":
+  version: 2.3.1
+  resolution: "@docusaurus/theme-classic@npm:2.3.1"
+  dependencies:
+    "@docusaurus/core": 2.3.1
+    "@docusaurus/mdx-loader": 2.3.1
+    "@docusaurus/module-type-aliases": 2.3.1
+    "@docusaurus/plugin-content-blog": 2.3.1
+    "@docusaurus/plugin-content-docs": 2.3.1
+    "@docusaurus/plugin-content-pages": 2.3.1
+    "@docusaurus/theme-common": 2.3.1
+    "@docusaurus/theme-translations": 2.3.1
+    "@docusaurus/types": 2.3.1
+    "@docusaurus/utils": 2.3.1
+    "@docusaurus/utils-common": 2.3.1
+    "@docusaurus/utils-validation": 2.3.1
+    "@mdx-js/react": ^1.6.22
+    clsx: ^1.2.1
+    copy-text-to-clipboard: ^3.0.1
+    infima: 0.2.0-alpha.42
+    lodash: ^4.17.21
+    nprogress: ^0.2.0
+    postcss: ^8.4.14
+    prism-react-renderer: ^1.3.5
+    prismjs: ^1.28.0
+    react-router-dom: ^5.3.3
+    rtlcss: ^3.5.0
+    tslib: ^2.4.0
+    utility-types: ^3.10.0
+  peerDependencies:
+    react: ^16.8.4 || ^17.0.0
+    react-dom: ^16.8.4 || ^17.0.0
+  checksum: 273812924fc29b2316aff554ae0302509ebeaca5aa829b58253e74d22a66e69444f1c324a2d5e8e170e6c6f27dd0d6927e6c6a22a7e0c14567ff777d04a5b0c1
+  languageName: node
+  linkType: hard
+
 "@docusaurus/theme-common@npm:2.2.0":
   version: 2.2.0
   resolution: "@docusaurus/theme-common@npm:2.2.0"
@@ -4509,6 +4561,16 @@ __metadata:
     fs-extra: ^10.1.0
     tslib: ^2.4.0
   checksum: 7fe7d104fd094f2af2321986a86edef1eb8ab25415ea94ab1b242d08aec7627b3d5790001631621cd80c57c710714308aad5adfbf570cb74e0f01fda93b610be
+  languageName: node
+  linkType: hard
+
+"@docusaurus/theme-translations@npm:2.3.1":
+  version: 2.3.1
+  resolution: "@docusaurus/theme-translations@npm:2.3.1"
+  dependencies:
+    fs-extra: ^10.1.0
+    tslib: ^2.4.0
+  checksum: dd3796be63c4c946af789c3da18ed2704a2fa90d8e752ba2b780a124dc13369ba590218afad0ac4ea2342f7331ccb9eb1be086226c950b8384978d94a15c57ad
   languageName: node
   linkType: hard
 
@@ -4683,6 +4745,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@emotion/babel-plugin@npm:^11.10.6":
+  version: 11.10.6
+  resolution: "@emotion/babel-plugin@npm:11.10.6"
+  dependencies:
+    "@babel/helper-module-imports": ^7.16.7
+    "@babel/runtime": ^7.18.3
+    "@emotion/hash": ^0.9.0
+    "@emotion/memoize": ^0.8.0
+    "@emotion/serialize": ^1.1.1
+    babel-plugin-macros: ^3.1.0
+    convert-source-map: ^1.5.0
+    escape-string-regexp: ^4.0.0
+    find-root: ^1.1.0
+    source-map: ^0.5.7
+    stylis: 4.1.3
+  checksum: 3eed138932e8edf2598352e69ad949b9db3051a4d6fcff190dacbac9aa838d7ef708b9f3e6c48660625d9311dae82d73477ae4e7a31139feef5eb001a5528421
+  languageName: node
+  linkType: hard
+
 "@emotion/cache@npm:^11.10.5":
   version: 11.10.5
   resolution: "@emotion/cache@npm:11.10.5"
@@ -4737,12 +4818,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/react@npm:^11.10.5":
-  version: 11.10.5
-  resolution: "@emotion/react@npm:11.10.5"
+"@emotion/react@npm:^11.10.6":
+  version: 11.10.6
+  resolution: "@emotion/react@npm:11.10.6"
   dependencies:
     "@babel/runtime": ^7.18.3
-    "@emotion/babel-plugin": ^11.10.5
+    "@emotion/babel-plugin": ^11.10.6
     "@emotion/cache": ^11.10.5
     "@emotion/serialize": ^1.1.1
     "@emotion/use-insertion-effect-with-fallbacks": ^1.0.0
@@ -4750,14 +4831,11 @@ __metadata:
     "@emotion/weak-memoize": ^0.3.0
     hoist-non-react-statics: ^3.3.1
   peerDependencies:
-    "@babel/core": ^7.0.0
     react: ">=16.8.0"
   peerDependenciesMeta:
-    "@babel/core":
-      optional: true
     "@types/react":
       optional: true
-  checksum: 32b67b28e9b6d6c53b970072680697f04c2521441050bdeb19a1a7f0164af549b4dad39ff375eda1b6a3cf1cc86ba2c6fa55460ec040e6ebbca3e9ec58353cf7
+  checksum: 4762042e39126ffaffe76052dc65c9bb0ba6b8893013687ba3cc13ed4dd834c31597f1230684c3c078e90aecc13ab6cd0e3cde0dec8b7761affd2571f4d80019
   languageName: node
   linkType: hard
 
@@ -6834,10 +6912,10 @@ __metadata:
   resolution: "@repo/docs@workspace:sources/@repo/docs"
   dependencies:
     "@docusaurus/core": 2.2.0
-    "@docusaurus/module-type-aliases": 2.2.0
+    "@docusaurus/module-type-aliases": 2.3.1
     "@docusaurus/preset-classic": 2.2.0
     "@docusaurus/remark-plugin-npm2yarn": 2.2.0
-    "@docusaurus/theme-classic": 2.2.0
+    "@docusaurus/theme-classic": 2.3.1
     "@docusaurus/theme-common": 2.3.1
     "@repo/constants": "workspace:sources/@repo/constants"
     "@svgr/webpack": 6.5.1
@@ -7039,7 +7117,7 @@ __metadata:
   resolution: "@roots/bud-babel@workspace:sources/@roots/bud-babel"
   dependencies:
     "@babel/core": 7.20.12
-    "@babel/plugin-transform-runtime": 7.19.6
+    "@babel/plugin-transform-runtime": 7.21.0
     "@babel/preset-env": 7.20.2
     "@babel/runtime": 7.20.13
     "@roots/bud": "workspace:sources/@roots/bud"
@@ -7214,7 +7292,7 @@ __metadata:
   dependencies:
     "@emotion/babel-plugin": ^11.10.5
     "@emotion/css": ^11.10.5
-    "@emotion/react": ^11.10.5
+    "@emotion/react": ^11.10.6
     "@emotion/styled": ^11.10.5
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
@@ -7442,12 +7520,12 @@ __metadata:
     "@types/postcss-import": 14.0.0
     postcss: 8.4.21
     postcss-import: 15.1.0
-    postcss-loader: 7.0.2
+    postcss-loader: 7.1.0
     postcss-nested: 6.0.0
     postcss-preset-env: 8.0.0
     webpack: 5.76.0
   peerDependencies:
-    "@roots/bud": "*"
+    "@roots/bud": "workspace:sources/@roots/bud"
     postcss: "*"
     postcss-import: "*"
     postcss-loader: "*"
@@ -7518,7 +7596,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
   peerDependencies:
-    "@roots/bud": "*"
+    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-preset-recommend": "*"
     "@roots/bud-react": "*"
     "@roots/bud-tailwindcss-theme-json": "*"
@@ -8523,21 +8601,19 @@ __metadata:
   dependencies:
     "@roots/blade-loader": "workspace:sources/@roots/blade-loader"
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.11.18
+    webpack: 5.76.0
   peerDependencies:
-    "@roots/bud": "*"
-    "@roots/bud-preset-wordpress": "*"
-  peerDependenciesMeta:
-    "@roots/bud":
-      optional: true
-    "@roots/bud-preset-wordpress":
-      optional: true
+    "@roots/blade-loader": "*"
+    "@roots/bud": "workspace:sources/@roots/bud"
   languageName: unknown
   linkType: soft
 
@@ -8577,7 +8653,7 @@ __metadata:
     "@types/wordpress__rich-text": 3.4.6
     "@wordpress/blocks": 12.2.0
     "@wordpress/data": 8.1.0
-    "@wordpress/hooks": 3.24.0
+    "@wordpress/hooks": 3.28.0
     "@wordpress/plugins": 5.5.0
     "@wordpress/rich-text": 6.4.0
   languageName: unknown
@@ -11678,7 +11754,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/hooks@npm:3.24.0, @wordpress/hooks@npm:^3.24.0":
+"@wordpress/hooks@npm:3.28.0, @wordpress/hooks@npm:^3.28.0":
+  version: 3.28.0
+  resolution: "@wordpress/hooks@npm:3.28.0"
+  dependencies:
+    "@babel/runtime": ^7.16.0
+  checksum: c65c2b001da52bbf460ddc24e82e308226b3309fed76124a57f9a9091adcde1a7f19ce9aa770c4b74b22b95d6f39e8b325857e975ddddfcc9081f3c4131b5c4c
+  languageName: node
+  linkType: hard
+
+"@wordpress/hooks@npm:^3.24.0":
   version: 3.24.0
   resolution: "@wordpress/hooks@npm:3.24.0"
   dependencies:
@@ -11702,15 +11787,6 @@ __metadata:
   dependencies:
     "@babel/runtime": ^7.16.0
   checksum: ee05543fcd29067b4eff6322636497b73e6bff914d0711f6f894278c2de33fb5d4616eb11d07b5fe85fce23eac4bb1377421d5d587eb11753a7993b5071dae77
-  languageName: node
-  linkType: hard
-
-"@wordpress/hooks@npm:^3.28.0":
-  version: 3.28.0
-  resolution: "@wordpress/hooks@npm:3.28.0"
-  dependencies:
-    "@babel/runtime": ^7.16.0
-  checksum: c65c2b001da52bbf460ddc24e82e308226b3309fed76124a57f9a9091adcde1a7f19ce9aa770c4b74b22b95d6f39e8b325857e975ddddfcc9081f3c4131b5c4c
   languageName: node
   linkType: hard
 
@@ -16199,6 +16275,18 @@ __metadata:
     path-type: ^4.0.0
     yaml: ^1.10.0
   checksum: c53bf7befc1591b2651a22414a5e786cd5f2eeaa87f3678a3d49d6069835a9d8d1aef223728e98aa8fec9a95bf831120d245096db12abe019fecb51f5696c96f
+  languageName: node
+  linkType: hard
+
+"cosmiconfig@npm:^8.0.0":
+  version: 8.1.0
+  resolution: "cosmiconfig@npm:8.1.0"
+  dependencies:
+    import-fresh: ^3.2.1
+    js-yaml: ^4.1.0
+    parse-json: ^5.0.0
+    path-type: ^4.0.0
+  checksum: 78a1846acc4935ab4d928e3f768ee2ad2fddbec96377935462749206568423ff4757140ac7f2ccd1f547f86309b8448c04b26588848b5a1520f2e9741cdeecf0
   languageName: node
   linkType: hard
 
@@ -24017,6 +24105,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"klona@npm:^2.0.6":
+  version: 2.0.6
+  resolution: "klona@npm:2.0.6"
+  checksum: ac9ee3732e42b96feb67faae4d27cf49494e8a3bf3fa7115ce242fe04786788e0aff4741a07a45a2462e2079aa983d73d38519c85d65b70ef11447bbc3c58ce7
+  languageName: node
+  linkType: hard
+
 "known-css-properties@npm:^0.26.0":
   version: 0.26.0
   resolution: "known-css-properties@npm:0.26.0"
@@ -28790,17 +28885,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-loader@npm:7.0.2":
-  version: 7.0.2
-  resolution: "postcss-loader@npm:7.0.2"
+"postcss-loader@npm:7.1.0":
+  version: 7.1.0
+  resolution: "postcss-loader@npm:7.1.0"
   dependencies:
-    cosmiconfig: ^7.0.0
-    klona: ^2.0.5
+    cosmiconfig: ^8.0.0
+    klona: ^2.0.6
     semver: ^7.3.8
   peerDependencies:
     postcss: ^7.0.0 || ^8.0.1
     webpack: ^5.0.0
-  checksum: 2d251537d482eb751f812c96c8b515f46d7c9905cad7afab33f0f34872670619b7440cefc9e2babbf89fb11b4708850d522d79fa5ff788227587645e78f16638
+  checksum: 44e4018a8f2f81150f501a5ca56e59571d81c965b5a8581f5dbae5e55a113b79bde33c3de0d4397cbf36a3be0c24b7e7e37f0154b6e63df16185edd086d4e352
   languageName: node
   linkType: hard
 

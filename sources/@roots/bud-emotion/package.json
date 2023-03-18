@@ -79,7 +79,7 @@
   "dependencies": {
     "@emotion/babel-plugin": "^11.10.5",
     "@emotion/css": "^11.10.5",
-    "@emotion/react": "^11.10.5",
+    "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.5",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",

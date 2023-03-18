@@ -83,6 +83,10 @@ export interface Service extends BaseService {
     methodName: LifecycleMethods,
   ): Promise<this>
 
+  /**
+   * Run a lifecycle method on all dependencies of a given extension or
+   * extension signifier.
+   */
   runDependencies<K extends `${keyof Modules & string}`>(
     extension: Extension | K,
     methodName: LifecycleMethods,

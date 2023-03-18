@@ -9,11 +9,11 @@ import '@roots/bud-tailwindcss-theme-json/types'
 
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
-import type WP from './extension.js'
+import type BudPresetWordPress from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    wp: PublicExtensionApi<WP>
+    wp: PublicExtensionApi<BudPresetWordPress>
   }
   interface Modules {
     '@roots/bud-preset-wordpress': {}

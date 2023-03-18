@@ -47,12 +47,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "default": "./lib/index.js",
-      "types": "./lib/index.d.ts"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
-      "default": "./lib/types.d.ts",
-      "types": "./lib/types.d.ts"
+      "import": "./lib/types.d.ts",
+      "default": "./lib/types.d.ts"
     }
   },
   "typesVersions": {
@@ -69,23 +69,23 @@
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.11.18",
     "@types/postcss-import": "14.0.0",
     "webpack": "5.76.0"
   },
   "dependencies": {
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "postcss": "8.4.21",
     "postcss-import": "15.1.0",
-    "postcss-loader": "7.0.2",
+    "postcss-loader": "7.1.0",
     "postcss-nested": "6.0.0",
     "postcss-preset-env": "8.0.0"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "postcss": "*",
     "postcss-import": "*",
     "postcss-loader": "*",
