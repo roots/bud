@@ -49,103 +49,95 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./bud": {
-      "types": "./lib/bud.d.ts",
+      "import": "./lib/bud/index.js",
       "default": "./lib/bud.js"
     },
     "./configuration": {
-      "types": "./lib/configuration/index.d.ts",
+      "import": "./lib/configuration/index.js",
       "default": "./lib/configuration/index.js"
     },
     "./extension": {
-      "types": "./lib/extension/index.d.ts",
+      "import": "./lib/extension/index.js",
       "default": "./lib/extension/index.js"
     },
     "./extension/decorators": {
-      "types": "./lib/extension/decorators/index.d.ts",
+      "import": "./lib/extension/decorators/index.js",
       "default": "./lib/extension/decorators/index.js"
     },
     "./extension/decorators/*": {
-      "types": "./lib/extension/decorators/*.d.ts",
+      "import": "./lib/extension/decorators/*.js",
       "default": "./lib/extension/decorators/*.js"
     },
     "./logger": {
-      "types": "./lib/logger/index.d.ts",
+      "import": "./lib/logger/index.js",
       "default": "./lib/logger/index.js"
     },
     "./methods": {
-      "types": "./lib/methods/index.d.ts",
+      "import": "./lib/methods/index.js",
       "default": "./lib/methods/index.js"
     },
     "./methods/*": {
-      "types": "./lib/methods/*.d.ts",
+      "import": "./lib/methods/*.js",
       "default": "./lib/methods/*.js"
     },
     "./module": {
-      "types": "./lib/module.d.ts",
+      "import": "./lib/module.js",
       "default": "./lib/module.js"
     },
     "./options": {
-      "types": "./lib/types/options/index.d.ts",
+      "import": "./lib/types/options/index.js",
       "default": "./lib/types/options/index.js"
     },
     "./options/*": {
-      "types": "./lib/types/options/*.d.ts",
+      "import": "./lib/types/options/*.js",
       "default": "./lib/types/options/*.js"
     },
-    "./parsers": {
-      "types": "./lib/parsers/index.d.ts",
-      "default": "./lib/parsers/index.js"
-    },
-    "./parsers/*": {
-      "types": "./lib/parsers/*.d.ts",
-      "default": "./lib/parsers/*.js"
-    },
     "./registry": {
-      "types": "./lib/types/registry/index.d.ts",
+      "import": "./lib/types/registry/index.js",
       "default": "./lib/types/registry/index.js"
     },
     "./registry/*": {
-      "types": "./lib/types/registry/*.d.ts",
+      "import": "./lib/types/registry/*.js",
       "default": "./lib/types/registry/*.js"
     },
     "./service": {
-      "types": "./lib/service.d.ts",
+      "import": "./lib/service.js",
       "default": "./lib/service.js"
     },
     "./services": {
-      "types": "./lib/types/services/index.d.ts",
+      "import": "./lib/types/services/index.js",
       "default": "./lib/types/services/index.js"
     },
     "./services/api": {
-      "types": "./lib/services/api.d.ts",
+      "import": "./lib/services/api.js",
       "default": "./lib/services/api.js"
     },
     "./services/console": {
-      "types": "./lib/services/console.d.ts",
+      "import": "./lib/services/console.js",
       "default": "./lib/services/console.js"
     },
     "./services/fs": {
-      "types": "./lib/services/fs.d.ts",
+      "import": "./lib/services/fs.js",
       "default": "./lib/services/fs.js"
     },
     "./services/notifier": {
-      "types": "./lib/services/notifier/index.d.ts",
+      "import": "./lib/services/notifier/index.js",
       "default": "./lib/services/notifier/index.js"
     },
     "./services/build/*": {
-      "types": "./lib/types/services/build/*.d.ts",
+      "import": "./lib/types/services/build/*.js",
       "default": "./lib/types/services/build/*.js"
     },
     "./services/*": {
-      "types": "./lib/types/services/*/index.d.ts",
+      "import": "./lib/types/services/*.js",
       "default": "./lib/types/services/*/index.js"
     },
     "./value": {
-      "types": "./lib/value.d.ts",
+      "import": "./lib/value.js",
       "default": "./lib/value.js"
     }
   },

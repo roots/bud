@@ -54,75 +54,71 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./bud": {
-      "types": "./lib/bud/bud.d.ts",
-      "import": "./lib/bud/bud.js"
+      "import": "./lib/bud/bud.js",
+      "default": "./lib/bud/bud.js"
     },
     "./instances": {
-      "types": "./lib/instances.d.ts",
-      "import": "./lib/instances.js"
+      "import": "./lib/instances.js",
+      "default": "./lib/instances.js"
     },
     "./cli/*": {
-      "types": "./lib/cli/*.d.ts",
-      "import": "./lib/cli/*.js"
+      "import": "./lib/cli/*.js",
+      "default": "./lib/cli/*.js"
     },
     "./cli/commands/*": {
-      "types": "./lib/cli/commands/*.d.ts",
-      "import": "./lib/cli/commands/*.js"
+      "import": "./lib/cli/commands/*.js",
+      "default": "./lib/cli/commands/*.js"
     },
     "./cli/decorators": {
-      "types": "./lib/cli/decorators/index.d.ts",
-      "import": "./lib/cli/decorators/index.js"
+      "import": "./lib/cli/decorators/index.js",
+      "default": "./lib/cli/decorators/index.js"
     },
     "./cli/decorators/*": {
-      "types": "./lib/cli/decorators/*.d.ts",
-      "import": "./lib/cli/decorators/*.js"
+      "import": "./lib/cli/decorators/*.js",
+      "default": "./lib/cli/decorators/*.js"
     },
     "./cli/helpers/*": {
-      "types": "./lib/cli/helpers/*.d.ts",
-      "import": "./lib/cli/helpers/*.js"
+      "import": "./lib/cli/helpers/*.js",
+      "default": "./lib/cli/helpers/*.js"
     },
     "./context": {
-      "types": "./lib/context/index.d.ts",
-      "import": "./lib/context/index.js"
+      "import": "./lib/context/index.js",
+      "default": "./lib/context/index.js"
     },
     "./context/*": {
-      "types": "./lib/context/*.d.ts",
-      "import": "./lib/context/*.js"
+      "import": "./lib/context/*.js",
+      "default": "./lib/context/*.js"
     },
     "./factory": {
-      "types": "./lib/factory/index.d.ts",
-      "import": "./lib/factory/index.js"
+      "import": "./lib/factory/index.js",
+      "default": "./lib/factory/index.js"
     },
     "./factory/*": {
-      "types": "./lib/factory/*.d.ts",
-      "import": "./lib/factory/*.js"
+      "import": "./lib/factory/*.js",
+      "default": "./lib/factory/*.js"
     },
     "./logger": {
-      "types": "./lib/logger/index.d.ts",
-      "import": "./lib/logger/index.js"
+      "import": "./lib/logger/index.js",
+      "default": "./lib/logger/index.js"
     },
     "./services/*": {
-      "types": "./lib/services/*/index.d.ts",
-      "import": "./lib/services/*/index.js"
+      "import": "./lib/services/*/index.js",
+      "default": "./lib/services/*/index.js"
     },
     "./services/*/*": {
-      "types": "./lib/services/*/*.d.ts",
-      "import": "./lib/services/*/*.js"
+      "import": "./lib/services/*/*.js",
+      "default": "./lib/services/*/*.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     },
-    "./config/jsconfig.json": {
-      "default": "./config/jsconfig.json"
-    },
-    "./config/tsconfig.json": {
-      "default": "./config/tsconfig.json"
-    }
+    "./config/jsconfig.json": "./config/jsconfig.json",
+    "./config/tsconfig.json": "./config/tsconfig.json"
   },
   "typesVersions": {
     "*": {

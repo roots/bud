@@ -21,10 +21,12 @@ export const deprecated =
         chalk.yellow(`${method}.${key}`),
         `has been deprecated and will be removed in a future release.`,
       ]
+
       if (message)
         warning.push(
           `${message.replace(/\s(bud\..*)\s/, chalk.green(` $1 `))}:`,
         )
+
       if (examples.length)
         warning.push(
           ...examples.flatMap(([description, example]) => [

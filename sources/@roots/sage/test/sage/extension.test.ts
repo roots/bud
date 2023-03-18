@@ -79,7 +79,7 @@ describe(`@roots/sage`, async () => {
       true,
       expect.any(Function),
       expect.any(Function),
-      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
     expect(spy).toHaveBeenCalled()
   })
@@ -95,7 +95,7 @@ describe(`@roots/sage`, async () => {
       true,
       expect.any(Function),
       expect.any(Function),
-      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
     expect(spy).toHaveBeenCalledWith(`single`)
   })
@@ -112,7 +112,7 @@ describe(`@roots/sage`, async () => {
       true,
       expect.any(Function),
       expect.any(Function),
-      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
     expect(spy).toHaveBeenCalled()
     expect(devtoolSpy).not.toHaveBeenCalled()
@@ -129,7 +129,7 @@ describe(`@roots/sage`, async () => {
       false,
       expect.any(Function),
       expect.any(Function),
-      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`
+      `set minimize, hash, splitChunks in production and devtool in development (@roots\/sage)`,
     )
     expect(devtoolSpy).toHaveBeenCalled()
     expect(splitChunksSpy).not.toHaveBeenCalled()

@@ -40,19 +40,27 @@ export default class BudCriticalCss extends Extension<
   @bind
   public override async register(bud: Bud) {
     bud.extractCss = extractCss.bind(bud)
+
+    this.extract = this.extract.bind(this)
+    this.src = this.src.bind(this)
+    this.html = this.html.bind(this)
+    this.base = this.base.bind(this)
+    this.width = this.width.bind(this)
+    this.height = this.height.bind(this)
+    this.ignore = this.ignore.bind(this)
+    this.request = this.request.bind(this)
   }
 
   /**
    * Whether to extract styles
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('extract', true)
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Enable extract`, `bud.critical.set('extract', true)`],
     [`Disable extract`, `bud.critical.set('extract', false)`],
@@ -65,14 +73,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set source url
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('src', 'https://example.com')
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set src`, `bud.critical.set('src', 'https://example.com')`],
   ])
@@ -84,14 +91,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set markup to use as source
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('html', '<html>...</html>')
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set html`, `bud.critical.set('html', '<html>...</html>')`],
   ])
@@ -103,14 +109,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set base path
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('base', 'https://example.com/')
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set base`, `bud.critical.set('base', 'https://example.com/')`],
   ])
@@ -122,14 +127,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set browser width
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('width', 1920)
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set width`, `bud.critical.set('width', 1920)`],
   ])
@@ -141,14 +145,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set browser height
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('height', 1080)
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set height`, `bud.critical.set('height', 1080)`],
   ])
@@ -160,14 +163,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Ignore css
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('ignore', ['@font-face'])
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [`Set ignore`, `bud.critical.set('ignore', ['@font-face'])`],
   ])
@@ -179,14 +181,13 @@ export default class BudCriticalCss extends Extension<
   /**
    * Set request options
    *
-   * @deprecated use {@link BudCriticalCss.set} instead
+   * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
    * bud.critical.set('request', {https: {rejectUnauthorized: false}})
    * ```
    */
-  @bind
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
     [
       `Set request options`,

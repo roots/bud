@@ -32,15 +32,14 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.api.bindFacade(`brotli`, this.config)
+    bud.api.bindFacade(`brotli`, this.config.bind(this))
   }
 
   /**
    * @deprecated Use `bud.compress.brotli.setOptions()` instead.
    */
-  @bind
   @deprecated(
-    `bud.compress.brotli.config`,
+    `bud.compress.brotli`,
     `Use bud.compress.brotli.set instead`,
     [
       [

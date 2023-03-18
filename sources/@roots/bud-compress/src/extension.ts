@@ -21,7 +21,18 @@ export interface Options {
 }
 
 /**
- * Compression configuration
+ * Compress static assets
+ *
+ * @example
+ * ```js
+ * bud.compress.gzip
+ *  .enable()
+ *  .set('filename', '[name].gz[query]')
+ *
+ * bud.compress.brotli
+ *  .enable()
+ *  .set('filename', '[name].br[query]')
+ * ```
  */
 @label(`@roots/bud-compress`)
 @dependsOn([`@roots/bud-compress/brotli`, `@roots/bud-compress/gzip`])

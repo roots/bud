@@ -15,6 +15,7 @@ import '@roots/bud-api/types'
 import '@roots/bud-build/types'
 import '@roots/bud-cache/types'
 import '@roots/bud-entrypoints/types'
+import '@roots/bud-extensions/types'
 import '@roots/bud-terser/types'
 
 declare module '@roots/bud-framework' {

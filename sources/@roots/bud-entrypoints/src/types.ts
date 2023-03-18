@@ -1,20 +1,14 @@
 /// <reference types="@roots/bud-framework" />
 
+import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+
 import type {BudEntrypoints} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    entrypoints: {
-      get: BudEntrypoints[`get`]
-      getOption: BudEntrypoints[`getOption`]
-      getOptions: BudEntrypoints[`getOptions`]
-      set: BudEntrypoints[`set`]
-      setOption: BudEntrypoints[`setOption`]
-      setOptions: BudEntrypoints[`setOptions`]
-      enable: BudEntrypoints[`enable`]
-    }
+    entrypoints: PublicExtensionApi<BudEntrypoints>
   }
   interface Modules {
-    '@roots/bud-entrypoints': Bud[`entrypoints`]
+    '@roots/bud-entrypoints': BudEntrypoints
   }
 }

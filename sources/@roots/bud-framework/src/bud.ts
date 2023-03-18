@@ -193,12 +193,12 @@ export class Bud {
   public declare bindMethod: methods.bindMethod
 
   /**
-   * @deprecated - use {@link bud.fs.json | bud.fs.json}
+   * @deprecated Use {@link bud.fs.json | bud.fs.json}
    */
   public json: FS['json']
 
   /**
-   * @deprecated - use {@link bud.fs.yml | bud.fs.yml}
+   * @deprecated Use {@link bud.fs.yml | bud.fs.yml}
    */
   public yml: FS['yml']
 
@@ -260,6 +260,7 @@ export class Bud {
     )
 
     if (tap) await tap(this.get(context.label))
+
     await this.get(context.label)?.api.processQueue()
 
     return this

@@ -59,24 +59,26 @@ export function when(
   }
 
   const whenTrue = isArray(trueCase) ? trueCase : [trueCase ?? noop]
-  whenTrue.unshift(ctx =>
-    ctx.log(`bud.when`, description, `condition is true`),
-  )
+  whenTrue.unshift(ctx => ctx.log(`bud.when:`, description))
 
   const whenFalse = isArray(falseCase) ? falseCase : [falseCase ?? noop]
-  whenFalse.unshift(ctx =>
-    ctx.log(`bud.when`, description, `condition is false`),
-  )
+  whenFalse.unshift(ctx => ctx.log(`bud.when:`, description))
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
     const error = new Error(
-      `All supplied conditional values must be functions. If you intended to pass a function to be called conditionally, wrap it in an arrow function.\n\nExample: bud.when(() => true, () => bud.vendor())`,
+      [
+        `All supplied conditional values must be functions.`,
+        `If you intended to pass a function to be called conditionally, wrap it in an arrow function.`,
+        `\n\nExample: bud.when(() => true, () => bud.vendor())`,
+      ].join(` `),
     )
+
     if (description)
       error.message = error.message.concat(
         `\n\nCalled when trying to ${description}`,
       )
+
     error.message = error.message
       .concat(`\n\n`)
       .concat(error.stack.split(`\n`).slice(4, 5).join(`\n`).trim())

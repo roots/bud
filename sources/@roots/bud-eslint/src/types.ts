@@ -1,38 +1,22 @@
 /// <reference types="@roots/bud" />
 
+import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+
 import type BudEslintCacheFix from './cache-fix/index.js'
 import type {BudEslint} from './extension.js'
 
+interface BudEslintPublicApi extends PublicExtensionApi<BudEslint> {
+  cacheFix: BudEslint[`cacheFix`]
+  fix: BudEslint[`fix`]
+}
+
 declare module '@roots/bud-framework' {
   interface Bud {
-    eslint: {
-      /**
-       * Fix issues with persistent caching
-       */
-      cacheFix: BudEslint[`cacheFix`]
-      enable: BudEslint[`enable`]
-      enabled: BudEslint[`enabled`]
-      get: BudEslint[`get`]
-      getOption: BudEslint[`getOption`]
-      getOptions: BudEslint[`getOptions`]
-      set: BudEslint[`set`]
-      setOption: BudEslint[`setOption`]
-      setOptions: BudEslint[`setOptions`]
-
-      /**
-       * @deprecated - Use {@link Extension.set} instead
-       *
-       * @example
-       * ```js
-       * bud.eslint.set('fix', true)
-       * ```
-       */
-      fix: BudEslint[`fix`]
-    }
+    eslint: BudEslintPublicApi
   }
 
   interface Modules {
-    '@roots/bud-eslint': Bud[`eslint`]
+    '@roots/bud-eslint': BudEslintPublicApi
     '@roots/bud-eslint/cache-fix': BudEslintCacheFix
   }
 }

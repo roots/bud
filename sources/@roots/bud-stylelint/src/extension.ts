@@ -22,7 +22,7 @@ export default class BudStylelintWebpackPlugin extends Extension<
   /**
    * Fail build on stylelint error
    *
-   * @deprecated - Use {@link Extension.set} instead
+   * @deprecated Use {@link Extension.set} instead
    *
    * @example
    * ```js
@@ -40,7 +40,7 @@ export default class BudStylelintWebpackPlugin extends Extension<
   /**
    * Fail build on stylelint warning
    *
-   * @deprecated - Use {@link Extension.set} instead
+   * @deprecated Use {@link Extension.set} instead
    *
    * @example
    * ```js

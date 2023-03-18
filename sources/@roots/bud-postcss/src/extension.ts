@@ -6,6 +6,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import {deprecated} from '@roots/bud-support/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Plugin, Processor} from 'postcss'
@@ -263,6 +264,7 @@ export class BudPostCss extends Extension<Options> {
   public set syntax(syntax: string) {
     this.set(`postcssOptions.syntax`, syntax)
   }
+
   /**
    * Get `postcssOptions.syntax`
    *
@@ -273,6 +275,12 @@ export class BudPostCss extends Extension<Options> {
    * bud.postcss.get('postcssOptions.syntax')
    * ```
    */
+  @deprecated(`bud.postcss`, `Use bud.postcss.get instead`, [
+    [
+      `get value of postcssOptions.syntax`,
+      `bud.postcss.get('postcssOptions.syntax')`,
+    ],
+  ])
   public getSyntax(): string {
     return this.get(`postcssOptions.syntax`) as string
   }
@@ -286,6 +294,12 @@ export class BudPostCss extends Extension<Options> {
    * bud.postcss.set('postcssOptions.syntax', 'postcss-scss')
    * ```
    */
+  @deprecated(`bud.postcss`, `Use bud.postcss.set instead`, [
+    [
+      `set value of postcssOptions.syntax`,
+      `bud.postcss.set('postcssOptions.syntax', 'postcss-scss')`,
+    ],
+  ])
   public setSyntax(syntax: string): this {
     this.set(`postcssOptions.syntax`, syntax)
     return this
@@ -318,18 +332,25 @@ export class BudPostCss extends Extension<Options> {
    * bud.postcss.get('sourceMap')
    * ```
    */
+  @deprecated(`bud.postcss`, `Use bud.postcss.get instead`, [
+    [`get value of sourceMap`, `bud.postcss.get('sourceMap')`],
+  ])
   public getSourceMap(): boolean {
     return this.get(`sourceMap`)
   }
+
   /**
    * Set postcss-loader's `sourceMap` option
    * @deprecated use {@link BudPostCss.set}
    *
    * @example
    * ```js
-   * bud.postcss.set('postcssOptions.syntax', 'postcss-scss')
+   * bud.postcss.set('sourceMap', true)
    * ```
    */
+  @deprecated(`bud.postcss`, `Use bud.postcss.set instead`, [
+    [`set value of sourceMap`, `bud.postcss.set('sourceMap', true)`],
+  ])
   public setSourceMap(sourceMap: boolean): this {
     this.set(`sourceMap`, sourceMap)
     return this

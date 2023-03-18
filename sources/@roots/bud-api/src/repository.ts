@@ -268,7 +268,7 @@ export interface Repository {
    *
    * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
    *
-   * @deprecated use {@link Bud.template bud.html}
+   * @deprecated use {@link Bud.html bud.html}
    */
   template(...params: Html.Parameters): Bud
 
