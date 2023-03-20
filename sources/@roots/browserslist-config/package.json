@@ -72,7 +72,7 @@
   },
   "dependencies": {
     "browserslist": ">=4.21.4",
-    "execa": "7.0.0",
+    "execa": "7.1.1",
     "update-browserslist-db": ">=1.0.10"
   },
   "peerDependencies": {

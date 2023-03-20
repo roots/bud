@@ -234,7 +234,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
-    "execa": "7.0.0",
+    "execa": "7.1.1",
     "tslib": "2.4.1"
   },
   "peerDependencies": {
