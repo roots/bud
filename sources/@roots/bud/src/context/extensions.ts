@@ -1,6 +1,6 @@
-import * as argv from '@roots/bud/context/argv'
 import type {Modules} from '@roots/bud-framework'
 import type {Context} from '@roots/bud-framework/options'
+import args from '@roots/bud-support/utilities/args'
 
 const CORE_MODULES = [
   `@roots/bud-api`,
@@ -41,7 +41,7 @@ const extensions: Extensions = {
 }
 
 export default (manifest?: Context[`manifest`]) => {
-  if (!manifest || argv.has(`no-discovery`) || argv.has(`no-discover`))
+  if (!manifest || args[`no-disocvery`] || args[`no-discover`])
     return extensions
 
   Object.keys({
