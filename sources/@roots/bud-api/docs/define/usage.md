@@ -1,17 +1,8 @@
 ---
-title: bud.define
-description: Replace variables in app code and templates at compile time
+title: Usage
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
-import CodeBlock from '@theme/CodeBlock'
-
-Replace variables in your application code and templates at compile time.
-
-## Usage
-
-Call [bud.define](/docs/bud.define) and pass your definitions.
+Call **bud.define** and pass your definitions.
 
 ```ts title=bud.config.js
 bud.define({

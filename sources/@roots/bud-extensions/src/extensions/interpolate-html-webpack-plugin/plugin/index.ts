@@ -1,6 +1,9 @@
 import {bind} from '@roots/bud-support/decorators'
 import type {Plugin} from '@roots/bud-support/html-webpack-plugin'
-import type {Compiler} from '@roots/bud-support/webpack'
+import type {
+  Compiler,
+  WebpackPluginInstance,
+} from '@roots/bud-support/webpack'
 
 export interface Options {
   [key: string]: RegExp | string
