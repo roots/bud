@@ -7577,7 +7577,7 @@ __metadata:
     postcss: 8.4.21
     postcss-import: 15.1.0
     postcss-loader: 7.1.0
-    postcss-nested: 6.0.0
+    postcss-nested: 6.0.1
     postcss-preset-env: 8.0.0
     tslib: 2.5.0
     webpack: 5.76.2
@@ -28468,6 +28468,17 @@ __metadata:
   peerDependencies:
     postcss: ^8.2.14
   checksum: 2105dc52cd19747058f1a46862c9e454b5a365ac2e7135fc1015d67a8fe98ada2a8d9ee578e90f7a093bd55d3994dd913ba5ff1d5e945b4ed9a8a2992ecc8f10
+  languageName: node
+  linkType: hard
+
+"postcss-nested@npm:6.0.1":
+  version: 6.0.1
+  resolution: "postcss-nested@npm:6.0.1"
+  dependencies:
+    postcss-selector-parser: ^6.0.11
+  peerDependencies:
+    postcss: ^8.2.14
+  checksum: 7ddb0364cd797de01e38f644879189e0caeb7ea3f78628c933d91cc24f327c56d31269384454fc02ecaf503b44bfa8e08870a7c4cc56b23bc15640e1894523fa
   languageName: node
   linkType: hard
 
