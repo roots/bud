@@ -49,6 +49,10 @@ By default, **bud.js** treats code outside of [the `@src` directory](https://bud
 
 However, some authors may publish uncompiled source code with the expectation that you will transpile it as part of your build process. This function simplifies the process of configuring **bud.js** to handle these cases.
 
+### bud.config
+
+**bud.config** allows you to extend or modify the default Webpack configuration for your project.
+
 ### bud.copyDir
 
 **bud.copyDir** copies a directory to the [@dist directory](https://bud.js.org/docs/bud.path).
@@ -56,6 +60,10 @@ However, some authors may publish uncompiled source code with the expectation th
 ### bud.copyFile
 
 **bud.copyFile** copies a file to the [@dist directory](https://bud.js.org/docs/bud.path).
+
+### bud.define
+
+**bud.define** replaces variables in your application code and html templates at compile time.
 
 ### bud.entry
 

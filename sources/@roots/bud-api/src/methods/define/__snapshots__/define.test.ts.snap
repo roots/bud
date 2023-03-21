@@ -1,0 +1,8 @@
+// Vitest Snapshot v1
+
+exports[`bud.define > matches snapshot 1`] = `
+{
+  "APP_DESCRIPTION": "\\"test app description\\"",
+  "APP_TITLE": "\\"bud.js test app\\"",
+}
+`;
