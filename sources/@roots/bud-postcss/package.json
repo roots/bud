@@ -80,7 +80,7 @@
     "postcss": "8.4.21",
     "postcss-import": "15.1.0",
     "postcss-loader": "7.1.0",
-    "postcss-nested": "6.0.0",
+    "postcss-nested": "6.0.1",
     "postcss-preset-env": "8.0.0",
     "tslib": "2.5.0",
     "webpack": "5.76.2"
