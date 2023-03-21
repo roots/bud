@@ -132,6 +132,7 @@ export class Server extends Service implements BaseService {
           isHttps
             ? `@roots/bud-server/server/https`
             : `@roots/bud-server/server/http`,
+          import.meta.url,
         )
         .then(({Server}) => new Server(this.app))
     } else {
@@ -179,7 +180,10 @@ export class Server extends Service implements BaseService {
 
             try {
               /** import middleware */
-              const {factory} = await this.app.module.import(signifier)
+              const {factory} = await this.app.module.import(
+                signifier,
+                import.meta.url,
+              )
               /** save reference to middleware instance */
               this.appliedMiddleware[key] = factory(this.app)
               /** apply middleware */

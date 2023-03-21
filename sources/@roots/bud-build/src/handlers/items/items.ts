@@ -6,7 +6,7 @@ import type {Factory} from '../index.js'
 /**
  * CSS loader
  */
-export const css: Factory<Item> = ({makeItem}) =>
+export const css: Factory<Item> = async ({makeItem}) =>
   makeItem()
     .setIdent(`css`)
     .setLoader(`css`)
@@ -21,7 +21,7 @@ export const css: Factory<Item> = ({makeItem}) =>
 /**
  * CSS module loader
  */
-export const cssModule: Factory<Item> = ({makeItem}) =>
+export const cssModule: Factory<Item> = async ({makeItem}) =>
   makeItem()
     .setIdent(`cssModule`)
     .setLoader(`css`)
@@ -36,31 +36,31 @@ export const cssModule: Factory<Item> = ({makeItem}) =>
 /**
  * CSV loader
  */
-export const csv: Factory<Item> = ({makeItem}) =>
+export const csv: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`csv`).setIdent(`csv`)
 
 /**
  * HTML loader
  */
-export const html: Factory<Item> = ({makeItem}) =>
+export const html: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`html`).setIdent(`html`)
 
 /**
  * Style loader
  */
-export const style: Factory<Item> = ({makeItem}) =>
+export const style: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`style`).setIdent(`style`)
 
 /**
  * Markdown loader
  */
-export const md: Factory<Item> = ({makeItem}) =>
+export const md: Factory<Item> = async ({makeItem}) =>
   makeItem().setIdent(`md`).setLoader(`md`)
 
 /**
  * MiniCss loader
  */
-export const minicss: Factory<Item> = ({makeItem}) =>
+export const minicss: Factory<Item> = async ({makeItem}) =>
   makeItem()
     .setLoader(`minicss`)
     .setIdent(`minicss`)
@@ -71,23 +71,23 @@ export const minicss: Factory<Item> = ({makeItem}) =>
 /**
  * Raw loader
  */
-export const raw: Factory<Item> = ({makeItem}) =>
+export const raw: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`raw`).setIdent(`raw`)
 
 /**
  * File loader
  */
-export const file: Factory<Item> = ({makeItem}) =>
+export const file: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`file`).setIdent(`file`)
 
 /**
  * Xml loader
  */
-export const xml: Factory<Item> = ({makeItem}) =>
+export const xml: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`xml`).setIdent(`xml`)
 
 /**
  * Yml loader
  */
-export const yml: Factory<Item> = ({makeItem}) =>
+export const yml: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`yml`).setIdent(`yml`)

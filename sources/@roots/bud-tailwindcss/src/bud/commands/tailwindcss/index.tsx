@@ -43,17 +43,17 @@ export class BudTailwindCommand extends BudCommand {
       )
 
       const config =
-        this.bud.context.config[`tailwind.config.js`] ||
-        this.bud.context.config[`tailwind.config.cjs`] ||
-        this.bud.context.config[`tailwind.config.mjs`] ||
-        this.bud.context.config[`tailwind.config.ts`]
+        this.bud.context.files[`tailwind.config.js`] ||
+        this.bud.context.files[`tailwind.config.cjs`] ||
+        this.bud.context.files[`tailwind.config.mjs`] ||
+        this.bud.context.files[`tailwind.config.ts`]
 
       if (config?.path) {
         this.options.push(`--config`, this.bud.relPath(config.path))
       }
     }
 
-    this.text(`tailwindcss ${this.options.join(` `)}`)
+    this.context.stdout.write(`tailwindcss ${this.options.join(` `)}\n\n`)
 
     await this.$(this.bin, [tw, ...(this.options ?? [])])
   }

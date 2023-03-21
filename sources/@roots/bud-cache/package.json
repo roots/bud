@@ -47,20 +47,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./service": {
-      "types": "./lib/service/index.js",
-      "import": "./lib/service.js"
+      "import": "./lib/service.js",
+      "default": "./lib/service.js"
     },
     "./invalidate-cache": {
-      "types": "./lib/invalidate-cache/index.d.ts",
-      "import": "./lib/invalidate-cache/index.js"
+      "import": "./lib/invalidate-cache/index.js",
+      "default": "./lib/invalidate-cache/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -84,7 +84,8 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "strip-ansi": "7.0.1"
+    "strip-ansi": "7.0.1",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

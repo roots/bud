@@ -1,5 +1,4 @@
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import * as Ink from 'ink'
 
 export type Props = React.PropsWithChildren<{
   name: string

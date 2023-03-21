@@ -32,7 +32,10 @@ export class BudMDX extends Extension {
     )
 
     bud.build
-      .setLoader(`mdx`, await this.resolve(`@mdx-js/loader`))
+      .setLoader(
+        `mdx`,
+        await this.resolve(`@mdx-js/loader`, import.meta.url),
+      )
       .setItem(`mdx`, {
         loader: `mdx`,
         options: () => ({

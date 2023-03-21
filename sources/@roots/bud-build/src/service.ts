@@ -149,7 +149,7 @@ export class Build extends Service implements Base.Service {
    * Make loader
    */
   @bind
-  public makeLoader(src?: string): Loader {
+  public makeLoader(src?: string, definition?: string): Loader {
     return new Loader(() => this.app, src)
   }
 

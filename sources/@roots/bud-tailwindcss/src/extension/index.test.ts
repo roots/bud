@@ -45,17 +45,25 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     if (extension.register) await extension.register(bud)
     await extension.boot(bud)
 
-    expect(resolveSpy).toHaveBeenNthCalledWith(1, `tailwindcss`)
+    expect(resolveSpy).toHaveBeenNthCalledWith(
+      1,
+      `tailwindcss`,
+      expect.any(String),
+    )
     expect(resolveSpy).toHaveBeenNthCalledWith(
       2,
       `tailwindcss/nesting/index.js`,
+      expect.any(String),
     )
   })
 
   it(`should return a copy of the resolved config`, async () => {
     const configInitial = resolveConfig(
       await bud.module
-        .import(bud.context.config[`tailwind.config.cjs`].path)
+        .import(
+          bud.context.files[`tailwind.config.cjs`].path,
+          import.meta.url,
+        )
         .then(mod => mod.default ?? mod),
     )
 
@@ -65,7 +73,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should have source`, async () => {
-    expect(await extension.source).toBe(
+    expect(extension.source).toBe(
       await bud.module
         // @ts-ignore
         .import(extension.path)

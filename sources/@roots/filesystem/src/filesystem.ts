@@ -48,23 +48,6 @@ export default class Filesystem {
   }
 
   /**
-   * Returns Current Working Directory (CWD) for this instance of jetpack, or creates new jetpack object with given path as its internal CWD.
-   *
-   * @param pathParts - (optional) path (or many path parts) to become new CWD. Could be absolute, or relative.
-   *  If relative path given new CWD will be resolved basing on current CWD of this jetpack instance.
-   */
-  @bind
-  public make(...pathParts: string[]): Filesystem {
-    const key = join(...pathParts)
-    if (this.instances.has(key)) return this.instances.get(key)
-
-    const instance = new Filesystem(...pathParts)
-    this.instances.set(key, instance)
-
-    return this.instances.get(key)
-  }
-
-  /**
    * Create a {@link ReadStream}
    */
   @bind
@@ -309,8 +292,12 @@ export default class Filesystem {
       !options?.atomic &&
       !options?.mode
     ) {
-      await json.write(path, data, options)
+      if (path.endsWith(`.yml`) || path.endsWith(`.yaml`)) {
+        await yml.write(path, data)
+        return this
+      }
 
+      await json.write(path, data, options)
       return this
     }
 

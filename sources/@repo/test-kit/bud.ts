@@ -19,7 +19,7 @@ export const factory = async (
 ): Promise<Bud> => {
   const bud = await makeInstance({
     basedir,
-    ...(overrides ?? {}),
+    ...overrides,
     args: {
       dry: true,
       log: false,

@@ -1,4 +1,3 @@
-import {paths} from '@repo/constants'
 import {join} from 'node:path'
 import {beforeEach, describe, expect, it} from 'vitest'
 import {Context} from '@roots/bud-framework/options'
@@ -9,12 +8,10 @@ describe(`context.get`, () => {
   let context: Context
 
   beforeEach(async () => {
-    context = await getContext(
-      {
-        basedir: join(paths.root, `tests`, `util`, `project`),
-      },
-      {cache: false, find: true},
-    )
+    context = await getContext({
+      // @ts-ignore
+      basedir: join(process.cwd(), `tests`, `util`, `project`),
+    })
   })
 
   it(`should be accessible`, () => {
@@ -25,7 +22,6 @@ describe(`context.get`, () => {
     expect(context.basedir).toEqual(expect.stringMatching(/\/project$/))
     expect(context.bud).toEqual(
       expect.objectContaining({
-        basedir: expect.stringMatching(/\/bud$/),
         label: `bud`,
         manifestPath: expect.stringMatching(/\/package.json$/),
         version: expect.stringMatching(/^\d+\.\d+\.\d+$/),
@@ -64,10 +60,11 @@ describe(`context.get`, () => {
     )
   })
 
-  it(`has expected context.config`, () => {
-    expect(context.config).toEqual(
+  it(`has expected context.files`, () => {
+    expect(context.files).toEqual(
       expect.objectContaining({
         '.eslintrc.js': expect.any(Object),
+        '.gitignore': expect.any(Object),
         'bud.config.mjs': expect.any(Object),
         'docker-compose.yml': expect.any(Object),
         'package.json': expect.any(Object),

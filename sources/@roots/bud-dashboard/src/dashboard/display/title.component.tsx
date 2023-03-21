@@ -1,6 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import * as Ink from 'ink'
 
 interface Props
   extends React.PropsWithChildren<{

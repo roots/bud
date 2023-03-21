@@ -24,7 +24,10 @@ describe(`@roots/bud-sass`, () => {
       await extension.register(bud)
     } catch (e) {}
 
-    expect(resolveSpy).toHaveBeenCalledWith(`resolve-url-loader`)
+    expect(resolveSpy).toHaveBeenCalledWith(
+      expect.stringContaining(`resolve-url-loader`),
+      expect.any(String),
+    )
   })
 
   it(`should call setLoader when register is called`, async () => {

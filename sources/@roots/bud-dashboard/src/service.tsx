@@ -1,18 +1,16 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import React from '@roots/bud-support/react'
 import type {
   MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
+import chalk from 'chalk'
+import * as Ink from 'ink'
 
 import {Console} from './dashboard/console/index.js'
 
@@ -22,11 +20,6 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
  * Dashboard service
  */
 export class Dashboard extends Service implements Contract {
-  /**
-   * Renderer instance
-   */
-  public renderer?: any
-
   /**
    * Received stats
    */
@@ -40,15 +33,6 @@ export class Dashboard extends Service implements Contract {
   }
 
   /**
-   * Set renderer instance
-   */
-  @bind
-  public setRenderer(renderer: any): this {
-    this.renderer = renderer
-    return this
-  }
-
-  /**
    * Run dashboard
    */
   @bind
@@ -59,19 +43,6 @@ export class Dashboard extends Service implements Contract {
 
     if (this.silent) {
       this.logger.log(`dashboard called but --silent flag is set.`)
-      return this
-    }
-
-    if (isUndefined(this.renderer)) {
-      if (this.app.isCLI() && this.app.context.stdout) {
-        this.app.context.stdout.write(
-          stats.toString({
-            preset: `minimal`,
-            colors: true,
-          }),
-        )
-      }
-
       return this
     }
 
@@ -107,16 +78,12 @@ export class Dashboard extends Service implements Contract {
           ].flat()
         : [stats]
 
-      const Render = this.app.isProduction
-        ? this.renderer.once
-        : this.renderer.render
-
       const App =
         process.stdout.isTTY && !this.app.isProduction
           ? Dashboard.TTYApp
           : Dashboard.App
 
-      await Render(
+      Ink.render(
         <Ink.Box flexDirection="column" marginTop={1}>
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           <App
@@ -153,7 +120,7 @@ export class Dashboard extends Service implements Contract {
       colors: true,
     })
 
-    await this.renderer.text(stringCompilation)
+    await process.stdout.write(stringCompilation)
   }
 
   /**

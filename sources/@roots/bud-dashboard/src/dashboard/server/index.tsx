@@ -1,10 +1,9 @@
 // @ts-nocheck
 
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import Link from '@roots/bud-support/ink-link'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-import React from '@roots/bud-support/react'
+import * as Ink from 'ink'
+import React from 'react'
 
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'

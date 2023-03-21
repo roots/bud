@@ -46,15 +46,13 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./container": {
-      "types": "./lib/container.d.ts",
+      "import": "./lib/container.js",
       "default": "./lib/container.js"
     }
   },
@@ -68,14 +66,17 @@
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "type-fest": "3.5.0"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21"
+    "lodash": "4.17.21",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -60,32 +60,36 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
-      "types": "./lib/types/index.d.ts",
-      "import": "./lib/types/index.js"
+      "import": "./lib/types/index.js",
+      "default": "./lib/types/index.js"
     },
     "./bud/commands": {
-      "types": "./lib/bud/commands/index.d.ts",
-      "import": "./lib/bud/commands/index.js"
+      "import": "./lib/bud/commands/index.js",
+      "default": "./lib/bud/commands/index.js"
     },
     "./bud/commands/tailwindcss": {
-      "types": "./lib/bud/commands/tailwindcss/index.d.ts",
-      "import": "./lib/bud/commands/tailwindcss/index.js"
+      "import": "./lib/bud/commands/tailwindcss/index.js",
+      "default": "./lib/bud/commands/tailwindcss/index.js"
     },
     "./stylelint-config": {
-      "require": "./config/stylelint/default.cjs"
+      "require": "./config/stylelint/default.cjs",
+      "default": "./config/stylelint/default.cjs"
     },
     "./stylelint-config/scss": {
-      "require": "./config/stylelint/scss.cjs"
+      "require": "./config/stylelint/scss.cjs",
+      "default": "./config/stylelint/scss.cjs"
     },
     "./stylelint": {
-      "require": "./config/stylelint/default.cjs"
+      "require": "./config/stylelint/default.cjs",
+      "default": "./config/stylelint/default.cjs"
     },
     "./stylelint/scss": {
-      "require": "./config/stylelint/scss.cjs"
+      "require": "./config/stylelint/scss.cjs",
+      "default": "./config/stylelint/scss.cjs"
     }
   },
   "typesVersions": {
@@ -109,16 +113,18 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/tailwindcss": "3.1.0",
     "@types/webpack-virtual-modules": "0.1.1",
-    "webpack": "5.76.0"
+    "webpack": "5.76.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "postcss": "8.4.21",
     "tailwindcss": "3.2.7",
+    "tslib": "2.5.0",
     "webpack-virtual-modules": "0.5.0"
   },
   "peerDependencies": {

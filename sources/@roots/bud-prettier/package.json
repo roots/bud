@@ -49,29 +49,36 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    "types": "./lib/index.d.ts",
-    "import": "./lib/index.js"
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.d.ts",
+      "default": "./lib/types.d.ts"
+    }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/prettier": "2.7.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "prettier": "2.8.3"
+    "prettier": "2.8.3",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

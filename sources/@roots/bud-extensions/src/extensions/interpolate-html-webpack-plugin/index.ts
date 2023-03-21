@@ -30,10 +30,12 @@ export default class BudInterpolateHtmlExtension extends Extension<
   public override async make(bud: Bud) {
     const {InterpolateHtmlWebpackPlugin} = await bud.module.import(
       `@roots/bud-extensions/interpolate-html-webpack-plugin/plugin`,
+      import.meta.url,
     )
 
     const HTMLWebpackPlugin = await bud.module.import(
       `@roots/bud-support/html-webpack-plugin`,
+      import.meta.url,
     )
 
     return new InterpolateHtmlWebpackPlugin(

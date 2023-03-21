@@ -45,20 +45,28 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.mts",
       "require": "./lib/index.cjs",
       "default": "./lib/index.mjs"
     },
     "./lib/*": {
-      "types": "./lib/*.d.mts",
       "require": "./lib/*",
       "default": "./lib/*"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "./lib/*": [
+        "./lib/*"
+      ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/webpack-env": "1.18.0"
   },
   "peerDependencies": {
@@ -75,5 +83,8 @@
   },
   "volta": {
     "extends": "../../../package.json"
+  },
+  "dependencies": {
+    "tslib": "2.5.0"
   }
 }

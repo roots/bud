@@ -1,11 +1,10 @@
-import {createHash} from 'node:crypto'
-
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import isString from '@roots/bud-support/lodash/isString'
 import join from '@roots/bud-support/lodash/join'
+import {hash} from '@roots/bud-support/utilities/args'
 import type {Configuration} from '@roots/bud-support/webpack'
 
 import InvalidateCacheExtension from '../invalidate-cache/index.js'
@@ -55,18 +54,17 @@ export default class Cache
    * version
    */
   public get version(): string {
-    const args = this.app.fs.json.stringify(
-      this.app.isCLI() ? this.app.context.args : {},
-    )
-    const files = Object.values(this.app.context.config ?? {}).filter(
-      file => file?.bud && file.sha1,
-    )
-
     return this.app.hooks.filter(
       `build.cache.version`,
-      createHash(`sha1`)
-        .update(join(args, ...files.map(({module: {sha1}}) => sha1)))
-        .digest(`base64`),
+      join(
+        [
+          ...(Object.values(this.app.context.files ?? {})
+            .filter(file => file?.bud && file.sha1)
+            .map(({sha1}) => sha1) ?? []),
+          hash,
+        ],
+        `.`,
+      ),
     )
   }
   public set version(version: string) {
@@ -101,8 +99,11 @@ export default class Cache
           cacheDirectory: this.cacheDirectory,
           idleTimeout: 10000,
           idleTimeoutForInitialStore: 0,
-          profile: true,
-          version: this.version,
+          profile: false,
+          version: this.app.hooks.filter(
+            `build.cache.version`,
+            this.version,
+          ),
         }
   }
 

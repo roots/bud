@@ -6,8 +6,6 @@ import type {
   Context,
 } from '@roots/bud-framework/options'
 
-import * as argv from '../context/argv.js'
-
 /**
  * Create a {@link Bud} instance programatically
  *
@@ -26,10 +24,6 @@ import * as argv from '../context/argv.js'
 export async function factory(
   ctx: Partial<CLIContext | Context | CommandContext> = {},
 ): Promise<Bud> {
-  if (!ctx.basedir) ctx.basedir = argv.basedir ?? process.cwd()
-
-  const context = await getContext(ctx)
-
   const bud = new Bud()
-  return await bud.lifecycle(context)
+  return await bud.lifecycle(await getContext(ctx))
 }

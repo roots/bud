@@ -259,8 +259,8 @@ export default class Extensions
     }
 
     const extensionClass: Extension = fatalOnError
-      ? await this.app.module.import(signifier)
-      : await this.app.module.tryImport(signifier)
+      ? await this.app.module.import(signifier, import.meta.url)
+      : await this.app.module.tryImport(signifier, import.meta.url)
 
     if (!extensionClass) return
 

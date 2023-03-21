@@ -68,7 +68,7 @@ export interface Options {
   ts: ({context}) => ({
     loader: `tsx`,
     target: `es2015`,
-    tsconfigRaw: context.config?.[`tsconfig.json`]?.module ?? null,
+    tsconfigRaw: context.files?.[`tsconfig.json`]?.module ?? null,
   }),
 })
 export default class BudEsbuild extends Extension<Options> {
@@ -79,7 +79,10 @@ export default class BudEsbuild extends Extension<Options> {
   public override async register(bud: Bud) {
     bud.hooks
       .on(`build.resolve.extensions`, ext => ext.add(`.ts`).add(`.tsx`))
-      .build.setLoader(`esbuild`, await this.resolve(`esbuild-loader`))
+      .build.setLoader(
+        `esbuild`,
+        await this.resolve(`esbuild-loader`, import.meta.url),
+      )
       .setItem(`esbuild-js`, {
         loader: `esbuild`,
         options: () => this.options.js,

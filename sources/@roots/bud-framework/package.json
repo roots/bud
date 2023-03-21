@@ -53,16 +53,8 @@
       "default": "./lib/index.js"
     },
     "./bud": {
-      "import": "./lib/bud/index.js",
+      "import": "./lib/bud.js",
       "default": "./lib/bud.js"
-    },
-    "./configuration": {
-      "import": "./lib/configuration/index.js",
-      "default": "./lib/configuration/index.js"
-    },
-    "./extension": {
-      "import": "./lib/extension/index.js",
-      "default": "./lib/extension/index.js"
     },
     "./extension/decorators": {
       "import": "./lib/extension/decorators/index.js",
@@ -72,17 +64,13 @@
       "import": "./lib/extension/decorators/*.js",
       "default": "./lib/extension/decorators/*.js"
     },
-    "./logger": {
-      "import": "./lib/logger/index.js",
-      "default": "./lib/logger/index.js"
+    "./methods/*": {
+      "import": "./lib/methods/*.js",
+      "default": "./lib/methods/*.js"
     },
     "./methods": {
       "import": "./lib/methods/index.js",
       "default": "./lib/methods/index.js"
-    },
-    "./methods/*": {
-      "import": "./lib/methods/*.js",
-      "default": "./lib/methods/*.js"
     },
     "./module": {
       "import": "./lib/module.js",
@@ -139,6 +127,10 @@
     "./value": {
       "import": "./lib/value.js",
       "default": "./lib/value.js"
+    },
+    "./*": {
+      "import": "./lib/*/index.js",
+      "default": "./lib/*/index.js"
     }
   },
   "module": "./lib/index.js",
@@ -227,23 +219,15 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/js-yaml": "4.0.5",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
-    "execa": "7.0.0",
-    "tslib": "2.4.1"
-  },
-  "peerDependencies": {
-    "execa": ">=6.1.0"
-  },
-  "peerDependenciesMeta": {
-    "execa": {
-      "optional": true
-    }
+    "execa": "7.1.1",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs"

@@ -13,5 +13,8 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+  },
+  "dependencies": {
+    "tslib": "2.5.0"
   }
 }

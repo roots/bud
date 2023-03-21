@@ -6,7 +6,7 @@
  */
 
 /**
- * Import what you need
+ * Import from submodules
  */
 
 export default {}

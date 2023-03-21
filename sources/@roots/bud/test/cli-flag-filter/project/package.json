@@ -4,5 +4,8 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud"
+  },
+  "dependencies": {
+    "tslib": "2.5.0"
   }
 }

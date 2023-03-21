@@ -1,5 +1,4 @@
 export interface Logger {
-  instance: any
   time(label: string): Logger
   timeEnd(label: string): Logger
   make(...scope: Array<string>): Logger
@@ -10,5 +9,6 @@ export interface Logger {
   error(...messages: Array<unknown>): Logger
   info(...messages: Array<unknown>): Logger
   await(...messages: Array<unknown>): Logger
-  scope(...scopes: Array<string>): this
+  scope(...scopes: Array<string>): Logger
+  unscope(): Logger
 }

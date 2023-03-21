@@ -2,7 +2,7 @@
 /** @param {import('@roots/bud').Bud} bud */
 export default async bud => {
   bud
-  .assets(`fonts`)
+    .assets(`fonts`)
     // .assets([[`fonts`, `fontz`]])
     // .assets([[`fonts/test.otf`, `fontz/test.otf`]])
     // .copyDir([`fonts`, `vendor/fonts`])

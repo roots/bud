@@ -18,8 +18,10 @@ export interface makeRegister {
  * Register built-in {@link loaders}, {@link items} and {@link rules}
  */
 export async function register(bud: Bud) {
-  Object.entries(loaders).map(makeRegister(bud, bud.build.setLoader))
-  Object.entries(items).map(makeRegister(bud, bud.build.setItem))
+  await Promise.all([
+    ...Object.entries(loaders).map(makeRegister(bud, bud.build.setLoader)),
+    ...Object.entries(items).map(makeRegister(bud, bud.build.setItem)),
+  ])
 
   // this is a bit of a hack
   // that sets the base stylesheet loader
@@ -32,16 +34,17 @@ export async function register(bud: Bud) {
 }
 
 export const makeRegister: makeRegister =
-  ({build, hooks, isProduction, path}, setRule) =>
-  ([key, factory]) =>
+  ({build, hooks, isProduction, path, module: {resolve}}, setRule) =>
+  async ([key, factory]) =>
     setRule(
       key,
-      factory({
+      await factory({
         filter: hooks.filter,
         makeItem: build.makeItem,
         makeLoader: build.makeLoader,
         makeRule: build.makeRule,
         isProduction,
         path,
+        resolve,
       }),
     )

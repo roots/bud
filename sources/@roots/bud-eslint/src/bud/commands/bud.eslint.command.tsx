@@ -21,7 +21,7 @@ export class BudEslintCommand extends BudCommand {
     await this.bud.run()
 
     const eslint = join(
-      await this.bud.module.getDirectory(`eslint`),
+      await this.bud.module.getDirectory(`eslint`, import.meta.url),
       `bin`,
       `eslint.js`,
     )

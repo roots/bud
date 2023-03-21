@@ -59,10 +59,7 @@ export function when(
   }
 
   const whenTrue = isArray(trueCase) ? trueCase : [trueCase ?? noop]
-  whenTrue.unshift(ctx => ctx.log(`bud.when:`, description))
-
   const whenFalse = isArray(falseCase) ? falseCase : [falseCase ?? noop]
-  whenFalse.unshift(ctx => ctx.log(`bud.when:`, description))
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {

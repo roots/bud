@@ -59,11 +59,12 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin"
+    "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

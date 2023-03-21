@@ -1,6 +1,5 @@
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
 import type {StatsAsset} from '@roots/bud-support/webpack'
+import * as Ink from 'ink'
 
 import Title from '../display/title.component.js'
 import {color, size as formatSize} from '../format.js'

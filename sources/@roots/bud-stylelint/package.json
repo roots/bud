@@ -47,9 +47,26 @@
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "exports": {
-    ".": "./lib/index.js",
-    "./config": "./config/index.cjs",
-    "./extension": "./lib/extension.js"
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.cjs"
+    },
+    "./config": {
+      "require": "./config/index.cjs",
+      "default": "./config/index.js"
+    },
+    "./extension": {
+      "import": "./lib/extension.js",
+      "default": "./lib/extension.cjs"
+    },
+    "./bud/commands": {
+      "import": "./lib/bud/commands/index.js",
+      "default": "./lib/bud/commands/index.cjs"
+    },
+    "./types": {
+      "import": "./lib/types.d.ts",
+      "default": "./lib/types.d.ts"
+    }
   },
   "typesVersions": {
     "*": {
@@ -58,21 +75,25 @@
       ],
       "extension": [
         "./lib/extension.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "webpack": "5.76.0"
+    "@types/node": "18.15.5",
+    "webpack": "5.76.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "stylelint": "14.16.1",
     "stylelint-config-standard": "29.0.0",
-    "stylelint-webpack-plugin": "3.3.0"
+    "stylelint-webpack-plugin": "3.3.0",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

@@ -30,6 +30,7 @@ export default class BudHtmlWebpackPlugin extends Extension<
   public override async make(bud: Bud, options: Options) {
     const {Plugin} = await bud.module.import(
       `@roots/bud-support/html-webpack-plugin`,
+      import.meta.url,
     )
 
     return new Plugin(options)

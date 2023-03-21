@@ -11,9 +11,9 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import * as t from '@roots/bud-support/typanion'
+import * as Ink from 'ink'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
@@ -129,23 +129,12 @@ export default class BudCommand extends Command<CommandContext> {
     description: `Limit command to particular compilers`,
   })
 
-  public declare renderer: Renderer
-
   public async render(children: React.ReactElement) {
-    await this.renderer?.render(children)
+    await Ink?.render(children)
   }
 
   public async renderOnce(children: React.ReactElement) {
-    await this.renderer?.once(children)
-  }
-
-  public async text(text: string) {
-    await this.renderer?.text(text)
-  }
-
-  public constructor() {
-    super()
-    this.renderer = new Renderer(process.stdout)
+    await Ink?.render(children)
   }
 
   public async makeBud<T extends BudCommand>(command?: T) {
@@ -188,7 +177,6 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     await this.bud.lifecycle(this.context)
-    this.bud.dashboard?.setRenderer(this.renderer)
 
     this.bud.hooks.action(`build.before`, async bud => {
       if (!bud.isCLI()) return

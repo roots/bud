@@ -1,7 +1,6 @@
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import type {Bud} from '@roots/bud-framework'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import * as Ink from 'ink'
 
 export const checkDependencies = async (bud: Bud) => {
   if (isInternalDevelopmentEnv(bud)) return false
@@ -22,7 +21,7 @@ export const checkDependencies = async (bud: Bud) => {
     })
 
   mismatches?.length &&
-    bud.dashboard.renderer.once(
+    Ink.render(
       <Ink.Box flexDirection="column" marginY={1}>
         {mismatches.map(([k, v]: [string, string], key: number) => {
           return (

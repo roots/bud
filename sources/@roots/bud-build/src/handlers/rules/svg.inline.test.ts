@@ -7,13 +7,14 @@ describe(`svg-inline`, () => {
     const bud = await import(`@repo/test-kit/bud`).then(
       async ({factory}) => await factory(),
     )
-    const result = inlineSvg({
+    const result = await inlineSvg({
       filter: bud.hooks.filter,
       makeItem: bud.build.makeItem,
       makeLoader: bud.build.makeLoader,
       makeRule: bud.build.makeRule,
       isProduction: bud.isProduction,
       path: bud.path,
+      resolve: bud.module.resolve,
     })
 
     const webpackOutput = result.toWebpack()

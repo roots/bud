@@ -1,6 +1,6 @@
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
+import * as Ink from 'ink'
+import {useEffect, useState} from 'react'
 
 import type BudCommand from '../commands/bud.js'
 
@@ -33,8 +33,8 @@ const options: Array<[string, string, Array<string>]> = [
 ]
 
 export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
-  const [selected, setSelected] = React.useState(0)
-  const [running, setRunning] = React.useState(false)
+  const [selected, setSelected] = useState(0)
+  const [running, setRunning] = useState(false)
 
   Ink.useInput((key, input) => {
     if (running) return
@@ -53,7 +53,7 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
     }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (selected > options.length - 1) setSelected(0)
     if (selected < 0) setSelected(options.length - 1)
   }, [selected])

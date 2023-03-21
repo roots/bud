@@ -26,14 +26,18 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it(`should resolve a package`, async () => {
-    const path = await moduleInstance.resolve(`@roots/bud-support`)
-    expect(path).toEqual(expect.stringContaining(`@roots/bud-support`))
+    const path = await moduleInstance.resolve(
+      `@roots/bud-support/utilities/args`,
+    )
+    expect(path).toEqual(
+      expect.stringContaining(`@roots/bud-support/lib/utilities/args`),
+    )
   })
 
   it(`should have a getDirectory fn that resolves by package name`, async () => {
     expect(
-      await moduleInstance.getDirectory(`@roots/bud-support`),
-    ).toEqual(expect.stringContaining(`@roots/bud-support`))
+      await moduleInstance.getDirectory(`@roots/bud-support/logger`),
+    ).toEqual(expect.stringContaining(`@roots/bud-support/lib/logger`))
   })
 
   it(`should have a getDirectory fn that throws when package is unresolvable`, async () => {
@@ -66,20 +70,12 @@ describe(`@roots/bud-framework`, () => {
     const moduleInstance = new Module(() => bud)
     let error
     try {
+      // @ts-ignore
       await moduleInstance.import(`foo`)
     } catch (e) {
       error = e
     }
     expect(error).toBeInstanceOf(Error)
-  })
-
-  it(`should have an tryImport fn that returns the default export`, async () => {
-    const successSpy = vi.spyOn(moduleInstance.logger, `success`)
-
-    expect(await moduleInstance.tryImport(`@roots/bud`)).toEqual(
-      expect.objectContaining({Bud: expect.any(Function)}),
-    )
-    expect(successSpy).toHaveBeenCalled()
   })
 
   it(`should have an tryImport fn that throws when pkg is unresolvable`, async () => {

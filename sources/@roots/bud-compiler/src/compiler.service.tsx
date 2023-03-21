@@ -10,7 +10,6 @@ import type {
   ErrorWithSourceFile,
   SourceFile,
 } from '@roots/bud-support/open'
-import React from '@roots/bud-support/react'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import type webpack from '@roots/bud-support/webpack'
 import type {
@@ -19,6 +18,7 @@ import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
+import * as Ink from 'ink'
 
 /**
  * Wepback compilation controller class
@@ -49,7 +49,10 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    this.implementation = await this.app.module.import(`webpack`)
+    this.implementation = await this.app.module.import(
+      `webpack`,
+      import.meta.url,
+    )
     this.logger.log(`imported webpack`, this.implementation.version)
 
     this.config = !this.app.hasChildren
@@ -164,7 +167,7 @@ export class Compiler extends Service implements Contract.Service {
       group: this.app.label,
     })
 
-    await this.app.dashboard.renderer.once(
+    await Ink.render(
       <App.Error
         name="Compiler error"
         message={error.message}

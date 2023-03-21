@@ -47,36 +47,36 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./item": {
-      "types": "./lib/item/index.d.ts",
-      "import": "./lib/item/index.js"
+      "import": "./lib/item/index.js",
+      "default": "./lib/item/index.js"
     },
     "./items": {
-      "types": "./lib/handlers/items/items.d.ts",
-      "import": "./lib/handlers/items/items.js"
+      "import": "./lib/handlers/items/items.js",
+      "default": "./lib/handlers/items/items.js"
     },
     "./loader": {
-      "types": "./lib/loader/index.d.ts",
-      "import": "./lib/loader/index.js"
+      "import": "./lib/loader/index.js",
+      "default": "./lib/loader/index.js"
     },
     "./loaders": {
-      "types": "./lib/handlers/loaders/loaders.d.ts",
-      "import": "./lib/handlers/loaders/loaders.js"
+      "import": "./lib/handlers/loaders/loaders.js",
+      "default": "./lib/handlers/loaders/loaders.js"
     },
     "./rule": {
-      "types": "./lib/rule/index.d.ts",
-      "import": "./lib/rule/index.js"
+      "import": "./lib/rule/index.js",
+      "default": "./lib/rule/index.js"
     },
     "./rules": {
-      "types": "./lib/handlers/rules/index.d.ts",
-      "import": "./lib/handlers/rules/index.js"
+      "import": "./lib/handlers/rules/index.js",
+      "default": "./lib/handlers/rules/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "module": "./lib/index.js",
@@ -85,11 +85,12 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

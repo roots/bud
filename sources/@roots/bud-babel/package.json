@@ -46,12 +46,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -72,29 +72,30 @@
     "@types/babel__core": "7.20.0",
     "@types/babel__plugin-transform-runtime": "7.9.2",
     "@types/babel__preset-env": "7.9.2",
-    "@types/node": "18.11.18",
-    "webpack": "5.76.0"
+    "@types/node": "18.15.5",
+    "webpack": "5.76.2"
   },
   "dependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.3",
     "@babel/plugin-transform-runtime": "7.21.0",
     "@babel/preset-env": "7.20.2",
-    "@babel/runtime": "7.20.13",
+    "@babel/runtime": "7.21.0",
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "babel-loader": "9.1.2"
+    "babel-loader": "9.1.2",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@babel/core": "*",
     "@babel/plugin-transform-runtime": "*",
     "@babel/preset-env": "*",
     "@babel/runtime": "*",
-    "@roots/bud": "*",
     "@types/babel__core": "*",
     "@types/babel__plugin-transform-runtime": "*",
     "@types/babel__preset-env": "*",
-    "babel-loader": "*",
-    "webpack": "*"
+    "babel-loader": "*"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
@@ -109,9 +110,6 @@
     "@babel/runtime": {
       "optional": true
     },
-    "@roots/bud": {
-      "optional": true
-    },
     "@types/babel__core": {
       "optional": true
     },
@@ -122,9 +120,6 @@
       "optional": true
     },
     "babel-loader": {
-      "optional": true
-    },
-    "webpack": {
       "optional": true
     }
   },

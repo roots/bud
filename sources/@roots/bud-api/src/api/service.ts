@@ -1,9 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
 import type {Api as Contract} from '@roots/bud-framework/services'
-import chalk from '@roots/bud-support/chalk'
 import {bind} from '@roots/bud-support/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import chalk from 'chalk'
 
 import {factory} from '../facade/facade.factory.js'
 import * as methods from '../methods/index.js'

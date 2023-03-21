@@ -5,11 +5,10 @@ import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
-import React from '@roots/bud-support/react'
 import webpack from '@roots/bud-support/webpack'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
+import * as Ink from 'ink'
 
 import {Error} from '../components/Error.js'
 import {WinError} from '../components/WinError.js'
@@ -279,7 +278,7 @@ for a lot of edge cases so it might return a false positive.
     )
 
     const configFiles = (
-      this.bud.context.config ? Object.values(this.bud.context.config) : []
+      this.bud.context.files ? Object.values(this.bud.context.files) : []
     ).filter(({bud}) => bud)
     if (configFiles.length) {
       await this.renderOnce(

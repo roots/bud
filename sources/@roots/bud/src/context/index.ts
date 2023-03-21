@@ -1,39 +1,42 @@
 /* eslint-disable no-console */
-import * as argv from '@roots/bud/context/argv'
-import bud from '@roots/bud/context/bud'
-import * as projectFiles from '@roots/bud/context/config'
-import getEnv from '@roots/bud/context/env'
-import getExtensions from '@roots/bud/context/extensions'
-import getManifest from '@roots/bud/context/manifest'
-import services from '@roots/bud/context/services'
-import {Logger} from '@roots/bud/logger'
+import {join} from 'node:path'
+
 import type {CommandContext, Context} from '@roots/bud-framework/options'
-import {Filesystem} from '@roots/bud-support/filesystem'
-import omit from '@roots/bud-support/lodash/omit'
+import * as projectEnv from '@roots/bud-support/utilities/env'
+import * as projectFiles from '@roots/bud-support/utilities/files'
+import * as filesystem from '@roots/bud-support/utilities/filesystem'
+import logger from '@roots/bud-support/utilities/logger'
+import * as projectPaths from '@roots/bud-support/utilities/paths'
+
+import * as budContext from './bud.js'
+import getExtensions from './extensions.js'
+import services from './services.js'
 
 export default async (
   context: Partial<CommandContext>,
 ): Promise<Context> => {
-  if (!context.basedir) context.basedir = argv.basedir
+  let manifest: Context[`manifest`]
 
-  const fs = new Filesystem(context.basedir)
+  let paths = projectPaths.get(context?.basedir ?? process.cwd())
+  let fs = filesystem.get(paths.basedir)
 
-  let config = await projectFiles.get({basedir: context.basedir, fs})
-  let env = getEnv(context.basedir)
-  let manifest = getManifest(config)
-  let extensions = getExtensions(manifest)
+  let env: Context[`env`] = projectEnv.get(paths.basedir)
+  let bud: Context[`bud`] = await budContext.get(fs)
+  try {
+    manifest = await fs.read(join(paths.basedir, `package.json`))
+  } catch (e) {}
+  let files: Context[`files`] = await projectFiles.get(paths.basedir)
+  let extensions: Context[`extensions`] = getExtensions(manifest)
 
-  const logger = new Logger()
-
-  const instanceContext: Context = {
+  const instance: Context = {
+    ...(context ?? {}),
     label: context?.label ?? manifest?.name ?? bud?.label ?? `default`,
-    basedir: context.basedir,
     // eslint-disable-next-line n/no-process-env
     bin: process.env.BUD_JS_BIN ?? `node`,
-    ...context,
+    basedir: paths.basedir,
     mode: context?.mode ?? `production`,
     env: {...(env ?? {}), ...(context?.env ?? {})},
-    config: {...(config ?? {}), ...(context?.config ?? {})},
+    files: {...(files ?? {}), ...(context?.files ?? {})},
     services: [...(services ?? []), ...(context?.services ?? [])],
     bud: {...(bud ?? {}), ...(context?.bud ?? {})},
     manifest: {...(manifest ?? {}), ...(context?.manifest ?? {})},
@@ -48,12 +51,11 @@ export default async (
       ],
     },
     logger: context?.logger ?? logger,
-  }
+  } as Context
 
-  instanceContext.logger
-    .scope(instanceContext.label)
-    .log(`🏗️  Building ${instanceContext.label}`)
-    .debug(omit(instanceContext, `env`))
+  instance.logger.log(`🏗️  building ${instance.label}`)
+  instance.logger.log(`📂  basedir: ${instance.basedir}`)
+  instance.logger.log(`😎  version: ${instance.bud.version}`)
 
-  return instanceContext
+  return instance
 }

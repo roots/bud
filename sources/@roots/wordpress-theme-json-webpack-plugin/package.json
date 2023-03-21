@@ -44,11 +44,11 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./theme": {
-      "types": "./lib/theme.d.ts",
+      "import": "./lib/theme.js",
       "default": "./lib/theme.js"
     }
   },
@@ -64,14 +64,15 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.6",
-    "@types/node": "18.11.18"
+    "@types/lodash-es": "4.17.7",
+    "@types/node": "18.15.5"
   },
   "dependencies": {
-    "fs-extra": "11.1.0",
+    "fs-extra": "11.1.1",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "webpack": "5.76.0"
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

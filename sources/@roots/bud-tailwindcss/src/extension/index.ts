@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -32,9 +34,9 @@ export class BudTailwindCss extends Extension<Options> {
    * Config path
    */
   public get path(): string | undefined {
-    if (!this.app.context.config) return
+    if (!this.app.context.files) return
 
-    return Object.entries(this.app.context.config)?.find(([k, v]) =>
+    return Object.entries(this.app.context.files)?.find(([k, v]) =>
       k.startsWith(`tailwind.config`),
     )?.[1]?.absolutePath
   }
@@ -109,23 +111,28 @@ export class BudTailwindCss extends Extension<Options> {
    */
   @bind
   public override async register(_bud: Bud) {
-    this.dependencies.tailwindcss = await this.resolve(`tailwindcss`)
+    this.dependencies.tailwindcss = await this.resolve(
+      `tailwindcss`,
+      import.meta.url,
+    )
     this.dependencies.nesting = await this.resolve(
-      `tailwindcss/nesting/index.js`,
+      join(`tailwindcss`, `nesting`, `index.js`),
+      import.meta.url,
     )
 
-    if (this.path) {
-      try {
-        this.source = await import(this.path).then(m => m.default)
-        return
-      } catch (error) {}
-    }
-
-    this.source = {
-      ...(await import(`tailwindcss/defaultConfig.js`).then(
-        m => m.default,
-      )),
-    }
+    try {
+      this.source = this.path
+        ? await import(this.path).then(m => m.default)
+        : {
+            ...(await import(
+              await this.resolve(
+                join(`tailwindcss`, `defaultConfig.js`),
+                import.meta.url,
+              )
+            ).then(m => m.default)),
+          }
+      return
+    } catch (error) {}
   }
 
   /**
