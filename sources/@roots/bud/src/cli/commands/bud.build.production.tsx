@@ -7,7 +7,14 @@ import type {CommandContext} from './bud.js'
  * `bud build production` command
  */
 export default class BuildProductionCommand extends BuildCommand {
+  /**
+   * Command paths
+   */
   public static override paths = [[`build`, `production`], [`production`]]
+
+  /**
+   * Usage
+   */
   public static override usage = Command.Usage({
     category: `build`,
     description: `Compiles source assets in \`production\` mode.`,
@@ -19,12 +26,15 @@ export default class BuildProductionCommand extends BuildCommand {
     `,
     examples: [[`compile source assets`, `$0 build production`]],
   })
-  public override withSubcommandContext = async (
-    context: CommandContext,
-  ) => {
-    return {
-      ...context,
-      mode: `production` as `production`,
+
+  /**
+   * Subcommand context
+   */
+  public override withSubcommandContext: BuildCommand[`withSubcommandContext`] =
+    async (context: CommandContext) => {
+      return {
+        ...context,
+        mode: `production` as `production`,
+      }
     }
-  }
 }

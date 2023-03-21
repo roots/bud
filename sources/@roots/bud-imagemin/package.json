@@ -43,19 +43,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./sharp": {
-      "types": "./lib/sharp/index.d.ts",
+      "import": "./lib/sharp/index.js",
       "default": "./lib/sharp/index.js"
     },
     "./svgo": {
-      "types": "./lib/svgo/index.d.ts",
+      "import": "./lib/svgo/index.js",
       "default": "./lib/svgo/index.js"
     },
     "./types": {
-      "types": "./lib/types/index.d.ts",
+      "import": "./lib/types/index.js",
       "default": "./lib/types/index.js"
     }
   },
@@ -73,7 +73,7 @@
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -81,7 +81,8 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "image-minimizer-webpack-plugin": "^3.8.1",
     "sharp": "0.31.3",
-    "webpack": "5.76.0"
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "peerDependencies": {
     "@roots/bud": "*",

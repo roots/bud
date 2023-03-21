@@ -46,12 +46,12 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -68,11 +68,12 @@
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin"
+    "@roots/entrypoints-webpack-plugin": "workspace:sources/@roots/entrypoints-webpack-plugin",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "*"

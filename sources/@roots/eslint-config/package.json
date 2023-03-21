@@ -61,26 +61,27 @@
     "./sage": "./sage.cjs"
   },
   "devDependencies": {
-    "@babel/core": "7.20.12",
+    "@babel/core": "7.21.3",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.0",
-    "@types/eslint": "8.21.1",
+    "@types/eslint": "8.21.3",
     "@types/eslint-plugin-prettier": "^3.1.0",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/prettier": "2.7.2",
-    "eslint": "8.34.0",
+    "eslint": "8.36.0",
     "prettier": "2.8.3"
   },
   "dependencies": {
-    "@babel/eslint-parser": "7.19.1",
-    "@typescript-eslint/eslint-plugin": "5.48.0",
-    "@typescript-eslint/parser": "5.48.2",
-    "eslint-config-prettier": "8.5.0",
+    "@babel/eslint-parser": "7.21.3",
+    "@typescript-eslint/eslint-plugin": "5.56.0",
+    "@typescript-eslint/parser": "5.56.0",
+    "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-react-hooks": "4.6.0"
+    "eslint-plugin-react-hooks": "4.6.0",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@babel/core": "*",

@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type Webpack from '@roots/bud-support/webpack'
+import type {HotModuleReplacementPlugin} from 'webpack'
 
 /**
  * Hot module replacement plugin configuration
@@ -9,16 +9,14 @@ import type Webpack from '@roots/bud-support/webpack'
 @label(`@roots/bud-extensions/webpack-hot-module-replacement-plugin`)
 export default class BudHMR extends Extension<
   {},
-  Webpack.HotModuleReplacementPlugin
+  HotModuleReplacementPlugin
 > {
   /**
    * {@link Extension.make}
    */
   @bind
   public override async make() {
-    const {HotModuleReplacementPlugin} = await this.import(
-      `@roots/bud-support/webpack`,
-    )
+    const {HotModuleReplacementPlugin} = await this.import(`webpack`)
 
     return new HotModuleReplacementPlugin()
   }

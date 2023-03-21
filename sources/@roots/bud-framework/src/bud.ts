@@ -311,6 +311,13 @@ export class Bud {
       }
     }, Promise.resolve())
 
+    this.after(async bud => {
+      await bud.fs.write(bud.module.cacheLocation, {
+        version: bud.context.bud.version,
+        resolutions: bud.module.resolved,
+      })
+    })
+
     return this
   }
 

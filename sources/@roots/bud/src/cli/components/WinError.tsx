@@ -1,5 +1,3 @@
-import React from '@roots/bud-support/react'
-
 import {Error} from './Error.js'
 
 export const WinError = () => (

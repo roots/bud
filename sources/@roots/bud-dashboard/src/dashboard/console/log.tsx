@@ -1,5 +1,3 @@
-import React from '@roots/bud-support/react'
-
 import {Message} from './message.js'
 
 export interface LogProps {

@@ -47,24 +47,24 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./api": {
-      "types": "./lib/api/index.d.ts",
-      "import": "./lib/api/index.js"
+      "import": "./lib/api/index.js",
+      "default": "./lib/api/index.js"
     },
     "./methods": {
-      "types": "./lib/methods/index.d.ts",
-      "import": "./lib/methods/index.js"
+      "import": "./lib/methods/index.js",
+      "default": "./lib/methods/index.js"
     },
     "./methods/*": {
-      "types": "./lib/methods/*.d.ts",
-      "import": "./lib/methods/*.js"
+      "import": "./lib/methods/*.js",
+      "default": "./lib/methods/*.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -92,13 +92,16 @@
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container"
+    "@roots/container": "workspace:sources/@roots/container",
+    "chalk": "5.2.0",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

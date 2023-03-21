@@ -7,8 +7,7 @@ import type {Service as Contract} from '../../../service.js'
  */
 export interface Service extends Contract {
   silent: boolean
-  renderer?: any
-  setRenderer(renderer: any): this
+
   renderLog?: any
 
   /**

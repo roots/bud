@@ -48,23 +48,19 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./typecheck": {
-      "types": "./lib/typecheck/index.d.ts",
-      "import": "./lib/typecheck/index.js"
+      "import": "./lib/typecheck/index.js",
+      "default": "./lib/typecheck/index.js"
     },
     "./bud/commands": {
-      "types": "./lib/bud/commands/index.d.ts",
-      "import": "./lib/bud/commands/index.js"
+      "import": "./lib/bud/commands/index.js",
+      "default": "./lib/bud/commands/index.js"
     },
-    "./config/tsconfig.json": {
-      "default": "./config/tsconfig.json"
-    },
-    "./tsconfig/tsconfig.json": {
-      "default": "./config/tsconfig.json"
-    }
+    "./config/tsconfig.json": "./config/tsconfig.json",
+    "./tsconfig/tsconfig.json": "./config/tsconfig.json"
   },
   "typesVersions": {
     "*": {
@@ -83,10 +79,10 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/webpack-env": "1.18.0",
     "react-refresh": "^0.14.0",
-    "webpack": "5.76.0"
+    "webpack": "5.76.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
@@ -95,6 +91,7 @@
     "react-refresh-typescript": "2.0.7",
     "ts-loader": "^9.4.2",
     "ts-node": "10.9.1",
+    "tslib": "2.5.0",
     "typescript": "4.9.4"
   },
   "peerDependencies": {

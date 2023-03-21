@@ -9,7 +9,6 @@ import MergedManifestWebpackPlugin from '@roots/merged-manifest-webpack-plugin'
 @label(`@roots/bud-wordpress-manifests`)
 @plugin(MergedManifestWebpackPlugin)
 @dependsOn([
-  `@roots/bud-entrypoints`,
   `@roots/bud-wordpress-dependencies`,
   `@roots/bud-wordpress-externals`,
 ])

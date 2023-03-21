@@ -36,26 +36,27 @@
   ],
   "exports": {
     ".": {
-      "types": "./lib/plugin.d.ts",
-      "import": "./lib/plugin.js"
+      "import": "./lib/plugin.js",
+      "default": "./lib/plugin.js"
     },
     "./plugin": {
-      "types": "./lib/plugin.d.ts",
-      "import": "./lib/plugin.js"
+      "import": "./lib/plugin.js",
+      "default": "./lib/plugin.js"
     },
     "./module-loader": {
-      "types": "./lib/module-loader.d.cts",
-      "require": "./lib/module-loader.cjs"
+      "require": "./lib/module-loader.cjs",
+      "default": "./lib/module-loader.cjs"
     },
     "./asset-loader": {
-      "types": "./lib/asset-loader.d.cts",
-      "require": "./lib/asset-loader.cjs"
+      "require": "./lib/asset-loader.cjs",
+      "default": "./lib/asset-loader.cjs"
     }
   },
   "type": "module",
   "main": "./lib/plugin.js",
   "types": "./lib/plugin.d.ts",
   "devDependencies": {
+    "@babel/core": "7.21.3",
     "@skypack/package-check": "0.2.2",
     "babel-loader": "9.1.2",
     "memfs": "3.4.13"
@@ -63,7 +64,8 @@
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "webpack": "5.76.0"
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

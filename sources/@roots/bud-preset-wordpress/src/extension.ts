@@ -49,7 +49,10 @@ export default class BudPresetWordPress extends Extension<Options> {
     if (!options.hmr) return
 
     build
-      .setLoader(`@roots/wordpress-hmr/loader`)
+      .setLoader(
+        `@roots/wordpress-hmr/loader`,
+        await this.resolve(`@roots/wordpress-hmr/loader`, import.meta.url),
+      )
       .setItem(`@roots/wordpress-hmr/loader`, {
         loader: `@roots/wordpress-hmr/loader`,
         options: {

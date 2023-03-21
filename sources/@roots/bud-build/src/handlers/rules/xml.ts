@@ -1,6 +1,6 @@
 import type {Factory} from '../index.js'
 
-export const xml: Factory = ({filter, makeRule, path}) =>
+export const xml: Factory = async ({filter, makeRule, path}) =>
   makeRule()
     .setInclude([() => path()])
     .setTest(() => filter(`pattern.xml`))

@@ -5,7 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import webpack from '@roots/bud-support/webpack'
+import webpack from 'webpack'
 
 /**
  * Webpack provide plugin configuration

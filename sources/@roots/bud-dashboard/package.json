@@ -41,19 +41,17 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./app": {
-      "types": "./lib/app/index.d.ts",
+      "import": "./lib/app/index.js",
       "default": "./lib/app/index.js"
     },
     "./service": {
-      "types": "./lib/service.d.ts",
+      "import": "./lib/service.js",
       "default": "./lib/service.js"
     }
   },
@@ -70,15 +68,24 @@
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "ink-testing-library": "2.1.0"
+    "@types/node": "18.15.5",
+    "@types/react": "18.0.28",
+    "ink-testing-library": "3.0.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "human-readable": "0.2.1"
+    "chalk": "5.2.0",
+    "human-readable": "0.2.1",
+    "ink": "4.0.0",
+    "ink-text-input": "5.0.0",
+    "react": "18.2.0",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

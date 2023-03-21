@@ -3,6 +3,7 @@ import {platform} from 'node:os'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
+import * as instances from '@roots/bud/instances'
 import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
@@ -10,9 +11,9 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import Ink, {React, Renderer} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import * as t from '@roots/bud-support/typanion'
+import * as Ink from 'ink'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
@@ -98,20 +99,24 @@ export default class BudCommand extends Command<CommandContext> {
     },
   )
 
-  public cwd = Option.String(`--basedir,--cwd`, undefined, {
+  public basedir = Option.String(`--basedir,--cwd`, undefined, {
     description: `project base directory`,
     hidden: true,
   })
+
   public debug = Option.Boolean(`--debug`, undefined, {
     description: `Enable debug mode`,
   })
+
   public log = Option.Boolean(`--log`, undefined, {
     description: `Enable logging`,
     hidden: true,
   })
+
   public verbose = Option.Boolean(`--verbose`, undefined, {
     description: `Log verbose output`,
   })
+
   public mode = Option.String(`--mode`, undefined, {
     description: `Compilation mode`,
     validator: t.isOneOf([
@@ -119,29 +124,21 @@ export default class BudCommand extends Command<CommandContext> {
       t.isLiteral(`development`),
     ]),
   })
+
   public filter = Option.Array(`--filter`, undefined, {
     description: `Limit command to particular compilers`,
   })
 
-  public declare renderer: Renderer
   public async render(children: React.ReactElement) {
-    await this.renderer?.render(children)
-  }
-  public async renderOnce(children: React.ReactElement) {
-    await this.renderer?.once(children)
-  }
-  public async text(text: string) {
-    await this.renderer?.text(text)
+    await Ink?.render(children)
   }
 
-  public constructor() {
-    super()
-    this.renderer = new Renderer(process.stdout)
+  public async renderOnce(children: React.ReactElement) {
+    await Ink?.render(children)
   }
 
   public async makeBud<T extends BudCommand>(command?: T) {
     this.context.mode = this.mode ?? this.context.mode
-
     this.context.args = Object.entries({
       ...this.context.args,
       basedir: this.context.basedir,
@@ -153,10 +150,13 @@ export default class BudCommand extends Command<CommandContext> {
       verbose: this.verbose,
     })
       .filter(([k, v]) => v !== undefined)
-      .reduce((acc, [k, v]) => {
-        acc[k] = v
-        return acc
-      }, {} as Record<string, unknown>)
+      .reduce(
+        (acc, [k, v]) => ({
+          ...acc,
+          [k]: v,
+        }),
+        {},
+      ) as CommandContext[`args`]
 
     if (this.withArguments) {
       this.context.args = await this.withArguments(this.context.args)
@@ -172,24 +172,25 @@ export default class BudCommand extends Command<CommandContext> {
       await import(`../env.production.js`)
     }
 
-    const bud = await new Bud().lifecycle(this.context)
+    this.bud = instances.get() as Bud & {
+      context: CommandContext
+    }
 
-    bud.dashboard?.setRenderer(this.renderer)
+    await this.bud.lifecycle(this.context)
 
-    if (!bud.isCLI()) throw new Error(`problem instantiating bud`)
-
-    this.bud = bud
+    this.bud.hooks.action(`build.before`, async bud => {
+      if (!bud.isCLI()) return
+      await this.applyBudEnv(bud)
+      await bud.api.processQueue()
+    })
 
     await this.applyBudEnv(this.bud)
     await this.applyBudManifestOptions(this.bud)
     await this.applyBudArguments(this.bud)
+    await this.bud.api.processQueue()
+
+    if (this.withBud) await this.withBud(this.bud)
     await this.bud.processConfigs()
-
-    if (this.withBud) {
-      this.bud = await this.withBud(this.bud)
-    }
-
-    await this.applyBudArguments(this.bud)
   }
 
   @bind
@@ -205,65 +206,37 @@ export default class BudCommand extends Command<CommandContext> {
   }
 
   public async healthcheck(command: BudCommand) {
-    checkPackageManagerErrors(command.bud)
-    await checkDependencies(command.bud)
+    try {
+      checkPackageManagerErrors(command.bud)
+      await checkDependencies(command.bud)
+    } catch (e) {}
   }
 
   @bind
   public async applyBudEnv(bud: Bud) {
-    if (bud.env.isString(`APP_MODE`)) {
-      bud.hooks.on(`build.mode`, bud.env.get(`APP_MODE`))
-      bud.success(
-        `mode set to`,
-        bud.env.get(`APP_MODE`),
-        `from environment`,
+    bud
+      .when(bud.env.isString(`APP_MODE`), ({hooks}) =>
+        hooks.on(`build.mode`, bud.env.get(`APP_MODE`)),
       )
-    }
-    if (bud.env.isString(`APP_BASE_PATH`)) {
-      bud.context.basedir = bud.env.get(`APP_BASE_PATH`)
-      bud.success(
-        `project base path set to`,
-        bud.env.get(`APP_BASE_PATH`),
-        `from environment`,
+      .when(
+        bud.env.isString(`APP_BASE_PATH`),
+        bud => (bud.context.basedir = bud.env.get(`APP_BASE_PATH`)),
       )
-    }
-    if (bud.env.isString(`APP_PUBLIC_PATH`)) {
-      bud.hooks.on(
-        `build.output.publicPath`,
-        bud.env.get(`APP_PUBLIC_PATH`),
+      .when(bud.env.isString(`APP_PUBLIC_PATH`), ({hooks}) =>
+        hooks.on(
+          `build.output.publicPath`,
+          bud.env.get(`APP_PUBLIC_PATH`),
+        ),
       )
-      bud.success(
-        `public path set to`,
-        bud.env.get(`APP_PUBLIC_PATH`),
-        `from environment`,
+      .when(bud.env.isString(`APP_SRC_PATH`), ({hooks}) =>
+        hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`)),
       )
-    }
-    if (bud.env.isString(`APP_SRC_PATH`)) {
-      bud.hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`))
-      bud.success(
-        `src path set to`,
-        bud.env.get(`APP_SRC_PATH`),
-        `from environment`,
+      .when(bud.env.isString(`APP_DIST_PATH`), ({hooks}) =>
+        hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`)),
       )
-    }
-    if (bud.env.isString(`APP_DIST_PATH`)) {
-      bud.hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`))
-
-      bud.success(
-        `dist path set to`,
-        bud.env.get(`APP_DIST_PATH`),
-        `from environment`,
+      .when(bud.env.isString(`APP_STORAGE_PATH`), ({hooks}) =>
+        hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`)),
       )
-    }
-    if (bud.env.isString(`APP_STORAGE_PATH`)) {
-      bud.hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`))
-
-      bud.success(
-        `storage path set to`,
-        bud.env.get(`APP_STORAGE_PATH`),
-        `from environment`,
-      )
-    }
   }
 
   @bind
@@ -271,17 +244,19 @@ export default class BudCommand extends Command<CommandContext> {
     const {bud: manifest} = bud.context.manifest
     if (!manifest) return
 
-    if (isset(manifest.publicPath))
-      bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath)
-
-    if (isset(manifest.paths?.src))
-      bud.hooks.on(`location.@src`, manifest.bud.paths.src)
-
-    if (isset(manifest.paths?.dist))
-      bud.hooks.on(`location.@dist`, manifest.bud.paths.dist)
-
-    if (isset(manifest.paths?.storage))
-      bud.hooks.on(`location.@storage`, manifest.bud.paths.storage)
+    bud
+      .when(isset(manifest.publicPath), bud =>
+        bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath),
+      )
+      .when(isset(manifest.paths?.src), bud =>
+        bud.hooks.on(`location.@src`, manifest.bud.paths.src),
+      )
+      .when(isset(manifest.paths?.dist), bud =>
+        bud.hooks.on(`location.@dist`, manifest.bud.paths.dist),
+      )
+      .when(isset(manifest.paths?.storage), bud =>
+        bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
+      )
   }
 
   /**
@@ -291,11 +266,11 @@ export default class BudCommand extends Command<CommandContext> {
   public async applyBudArguments(bud: BudCommand[`bud`]) {
     const {args, logger} = bud.context
 
-    if (isset(args.input)) bud.setPath(`@src`, args.input)
-    if (isset(args.output)) bud.setPath(`@dist`, args.output)
-    if (isset(args.publicPath)) bud.setPublicPath(args.publicPath)
-    if (isset(args.storage)) bud.setPath(`@storage`, args.storage)
-    if (isset(args.modules)) bud.setPath(`@modules`, args.modules)
+    isset(args.input) && bud.setPath(`@src`, args.input)
+    isset(args.output) && bud.setPath(`@dist`, args.output)
+    isset(args.publicPath) && bud.setPublicPath(args.publicPath)
+    isset(args.storage) && bud.setPath(`@storage`, args.storage)
+    isset(args.modules) && bud.setPath(`@modules`, args.modules)
 
     if (isset(args.hot)) {
       bud.log(`disabling hot module replacement`)

@@ -2,13 +2,12 @@ import {relative} from 'node:path/posix'
 
 import type {Context} from '@roots/bud-framework/options/context'
 import figures from '@roots/bud-support/figures'
-import Ink from '@roots/bud-support/ink'
-import React from '@roots/bud-support/react'
 import type {
   StatsAsset,
   StatsChunkGroup,
   StatsCompilation,
 } from '@roots/bud-support/webpack'
+import * as Ink from 'ink'
 
 import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'

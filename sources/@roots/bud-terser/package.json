@@ -42,16 +42,20 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./bud/commands": {
+      "import": "./lib/bud/commands/index.js",
+      "default": "./lib/bud/commands/index.js"
     },
     "./css-minimizer": {
-      "types": "./lib/css-minimizer/index.d.ts",
-      "import": "./lib/css-minimizer/index.js"
+      "import": "./lib/css-minimizer/index.js",
+      "default": "./lib/css-minimizer/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
-      "import": "./lib/types.js"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -73,12 +77,14 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "terser-webpack-plugin": "5.3.6"
+    "terser-webpack-plugin": "5.3.7",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "peerDependencies": {
     "@roots/bud": "*",

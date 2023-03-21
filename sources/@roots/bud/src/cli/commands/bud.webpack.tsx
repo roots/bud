@@ -32,7 +32,7 @@ export default class BudWebpackCommand extends BudCommand {
       `webpack.js`,
     )
 
-    this.text(`\n\n$ ${this.bin} ${bin}\n\n`)
+    process.stdout.write(`\n\n$ ${this.bin} ${bin}\n\n`)
 
     await this.$(this.bin, [
       bin,

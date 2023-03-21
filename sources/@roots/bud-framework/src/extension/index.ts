@@ -462,14 +462,12 @@ export class Extension<
   ): Promise<string> {
     let modulePath: string
 
-    modulePath = await this.app.module.resolve(signifier)
-
-    if (!modulePath && context) {
+    try {
       modulePath = await this.app.module.resolve(signifier, context)
-    }
-
-    if (!modulePath) {
-      const error = new Error(`could not resolve ${signifier}`)
+    } catch (e) {
+      const error = new Error(
+        [`could not resolve ${signifier}`, e.message].join(`\n\n`),
+      )
       error.name = `Extension Dependency Error`
       throw error
     }
@@ -481,16 +479,12 @@ export class Extension<
    * Import ESM module
    */
   @bind
-  public async import<T = any>(signifier: string): Promise<T | undefined> {
+  public async import<T = any>(
+    signifier: string,
+    context?: string,
+  ): Promise<T | undefined> {
     try {
-      const path = await this.resolve(signifier)
-
-      if (!path) {
-        this.logger.error(`could not import`, signifier)
-        return
-      }
-
-      const result = await this.app.module.import(path)
+      const result = await this.app.module.import(signifier, context)
       if (!result) {
         this.logger.error(`could not import`, signifier)
         return

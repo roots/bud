@@ -1,4 +1,4 @@
-import type {EntryObject} from '@roots/bud-support/webpack'
+import type {EntryObject} from '@roots/bud-framework/types/config'
 
 export type {EntryObject}
 

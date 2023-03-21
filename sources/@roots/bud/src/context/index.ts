@@ -1,78 +1,61 @@
 /* eslint-disable no-console */
-import * as argv from '@roots/bud/context/argv'
-import bud from '@roots/bud/context/bud'
-import * as projectFiles from '@roots/bud/context/config'
-import getEnv from '@roots/bud/context/env'
-import getExtensions from '@roots/bud/context/extensions'
-import getManifest from '@roots/bud/context/manifest'
-import services from '@roots/bud/context/services'
-import type * as Factory from '@roots/bud/factory'
-import {Logger} from '@roots/bud/logger'
-import type {CommandContext, Context} from '@roots/bud-framework/options'
-import {Filesystem} from '@roots/bud-support/filesystem'
-import omit from '@roots/bud-support/lodash/omit'
+import {join} from 'node:path'
 
-let contexts: Record<string, Context> = {}
+import type {CommandContext, Context} from '@roots/bud-framework/options'
+import * as projectEnv from '@roots/bud-support/utilities/env'
+import * as projectFiles from '@roots/bud-support/utilities/files'
+import * as filesystem from '@roots/bud-support/utilities/filesystem'
+import logger from '@roots/bud-support/utilities/logger'
+import * as projectPaths from '@roots/bud-support/utilities/paths'
+
+import * as budContext from './bud.js'
+import getExtensions from './extensions.js'
+import services from './services.js'
 
 export default async (
-  {basedir, ...overrides}: Partial<CommandContext>,
-  options: Factory.Options = {
-    cache: true,
-    find: false,
-  },
+  context: Partial<CommandContext>,
 ): Promise<Context> => {
-  if (!basedir) basedir = argv.basedir
-  if (options.cache && contexts[basedir]) return contexts[basedir]
+  let manifest: Context[`manifest`]
 
-  const fs = new Filesystem(basedir)
+  let paths = projectPaths.get(context?.basedir ?? process.cwd())
+  let fs = filesystem.get(paths.basedir)
 
-  let config: Context[`config`] | undefined
-  let env: Context[`env`] | undefined
-  let extensions: Context[`extensions`] | undefined
-  let manifest: Context[`manifest`] | undefined
+  let env: Context[`env`] = projectEnv.get(paths.basedir)
+  let bud: Context[`bud`] = await budContext.get(fs)
+  try {
+    manifest = await fs.read(join(paths.basedir, `package.json`))
+  } catch (e) {}
+  let files: Context[`files`] = await projectFiles.get(paths.basedir)
+  let extensions: Context[`extensions`] = getExtensions(manifest)
 
-  if (options.find) {
-    env = getEnv({basedir, ...overrides})
-    config = await projectFiles.get({basedir, fs})
-    manifest = getManifest(config)
-  }
-
-  extensions = getExtensions(manifest, options.find)
-
-  const logger = new Logger()
-
-  const context: Context = {
-    label: overrides?.label ?? manifest?.name ?? bud?.label ?? `default`,
-    basedir,
+  const instance: Context = {
+    ...(context ?? {}),
+    label: context?.label ?? manifest?.name ?? bud?.label ?? `default`,
     // eslint-disable-next-line n/no-process-env
     bin: process.env.BUD_JS_BIN ?? `node`,
-    ...overrides,
-    mode: overrides?.mode ?? `production`,
-    env: {...(env ?? {}), ...(overrides?.env ?? {})},
-    config: {...(config ?? {}), ...(overrides?.config ?? {})},
-    services: [...(services ?? []), ...(overrides?.services ?? [])],
-    bud: {...(bud ?? {}), ...(overrides?.bud ?? {})},
-    manifest: {...(manifest ?? {}), ...(overrides?.manifest ?? {})},
+    basedir: paths.basedir,
+    mode: context?.mode ?? `production`,
+    env: {...(env ?? {}), ...(context?.env ?? {})},
+    files: {...(files ?? {}), ...(context?.files ?? {})},
+    services: [...(services ?? []), ...(context?.services ?? [])],
+    bud: {...(bud ?? {}), ...(context?.bud ?? {})},
+    manifest: {...(manifest ?? {}), ...(context?.manifest ?? {})},
     extensions: {
       builtIn: [
         ...(extensions?.builtIn ?? []),
-        ...(overrides?.extensions?.builtIn ?? []),
+        ...(context?.extensions?.builtIn ?? []),
       ],
       discovered: [
         ...(extensions?.discovered ?? []),
-        ...(overrides?.extensions?.discovered ?? []),
+        ...(context?.extensions?.discovered ?? []),
       ],
     },
-    logger: overrides?.logger ?? logger,
-  }
+    logger: context?.logger ?? logger,
+  } as Context
 
-  context.logger.scope(context.label).debug(omit(context, `env`))
-  await context.logger.setCommonPath(context.basedir)
+  instance.logger.log(`🏗️  building ${instance.label}`)
+  instance.logger.log(`📂  basedir: ${instance.basedir}`)
+  instance.logger.log(`😎  version: ${instance.bud.version}`)
 
-  if (options.cache) {
-    contexts[basedir] = context
-    return contexts[basedir]
-  }
-
-  return context
+  return instance
 }

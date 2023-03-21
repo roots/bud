@@ -81,7 +81,7 @@ export interface Service extends BaseService {
   /**
    * Make a {@link Loader} instance
    */
-  makeLoader(src?: string): Loader
+  makeLoader(name: string, definition?: string): Loader
 
   /**
    * Get a {@link Rule} instance

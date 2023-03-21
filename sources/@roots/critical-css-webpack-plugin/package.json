@@ -62,14 +62,15 @@
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
     "critical": "5.0.4",
     "helpful-decorators": "2.1.0",
+    "tslib": "2.5.0",
     "vinyl": "3.0.0",
-    "webpack": "5.76.0"
+    "webpack": "5.76.2"
   },
   "peerDependencies": {
     "critical": "*"

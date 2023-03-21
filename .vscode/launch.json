@@ -20,9 +20,10 @@
       "autoAttachChildProcesses": true,
       "skipFiles": ["<node_internals>/**", "**/node_modules/**"],
       "program": "${workspaceRoot}/node_modules/.bin/bud",
-      "args": ["build", "--basedir", "tests/util/project", "--log", "--verbose", "--ci"],
+      "args": ["build", "--log", "--verbose", "--ci"],
       "smartStep": true,
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "cwd": "${workspaceRoot}/tests/util/project"
     }
   ]
 }

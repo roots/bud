@@ -15,10 +15,14 @@ class Loader extends Base {
    *
    * @param src - Either a factory returning a string or a literal string
    */
-  public constructor(public override _app: () => Bud, src: string) {
+  public constructor(
+    public override _app: () => Bud,
+    src: string,
+    definition?: string,
+  ) {
     super(_app)
     this._app = _app
-    this.src = src
+    this.src = definition ?? src
   }
 
   public getSrc(): string {

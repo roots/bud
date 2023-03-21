@@ -10,7 +10,7 @@ export interface Context {
   basedir: string
   mode: 'development' | 'production'
   bud: Record<string, any>
-  config: Record<string, File>
+  files: Record<string, File>
   env: Record<string, string | undefined>
   extensions: {
     builtIn: Array<string>

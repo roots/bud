@@ -42,7 +42,7 @@ export default class BudSWC extends Extension<Options> {
     } catch (e) {}
 
     bud.build
-      .setLoader(`swc`, await this.resolve(`swc-loader`))
+      .setLoader(`swc`, await this.resolve(`swc-loader`, import.meta.url))
       .setItem(`swc`, {
         loader: bud.build.getLoader(`swc`),
         options: () => this.options,

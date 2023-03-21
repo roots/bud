@@ -42,63 +42,27 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
-    "./block": {
-      "types": "./lib/block.d.ts",
-      "default": "./lib/block.js"
-    },
-    "./blocks": {
-      "types": "./lib/blocks.d.ts",
-      "default": "./lib/blocks.js"
-    },
-    "./editor": {
-      "types": "./lib/editor.d.ts",
-      "default": "./lib/editor.js"
-    },
-    "./filter": {
-      "types": "./lib/filter.d.ts",
-      "default": "./lib/filter.js"
-    },
-    "./filters": {
-      "types": "./lib/filters.d.ts",
-      "default": "./lib/filters.js"
-    },
-    "./format": {
-      "types": "./lib/format.d.ts",
-      "default": "./lib/format.js"
-    },
-    "./formats": {
-      "types": "./lib/formats.d.ts",
-      "default": "./lib/formats.js"
-    },
     "./loader": {
-      "require": "./lib/loader.cjs"
+      "require": "./lib/loader.cjs",
+      "default": "./lib/loader.cjs"
     },
-    "./plugin": {
-      "types": "./lib/plugin.d.ts",
-      "default": "./lib/plugin.js"
-    },
-    "./plugins": {
-      "types": "./lib/plugins.d.ts",
-      "default": "./lib/plugins.js"
-    },
-    "./variation": {
-      "types": "./lib/variation.d.ts",
-      "default": "./lib/variation.js"
-    },
-    "./variations": {
-      "types": "./lib/variations.d.ts",
-      "default": "./lib/variations.js"
+    "./*": {
+      "import": "./lib/*.js",
+      "default": "./lib/*.js"
     }
   },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "dependencies": {
+    "tslib": "2.5.0"
+  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
+    "@types/node": "18.15.5",
+    "@types/react": "18.0.28",
     "@types/wordpress__blocks": "12.0.2",
     "@types/wordpress__data": "6.0.1",
     "@types/wordpress__plugins": "3.0.0",

@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -9,16 +11,10 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 import WebpackVirtualModules from 'webpack-virtual-modules'
-
-type ResolvedConfig = Partial<{
-  [K in keyof ThemeConfig as `${K & string}`]: ReturnType<ThemeConfig[K]>
-}>
 
 interface Options {
   generateImports?: Array<`${keyof ThemeConfig & string}`> | boolean
@@ -37,60 +33,21 @@ export class BudTailwindCss extends Extension<Options> {
   /**
    * Config path
    */
-  private get path(): string | undefined {
-    return (
-      this.app.context.config[`tailwind.config.js`]?.path ??
-      this.app.context.config[`tailwind.config.mjs`]?.path ??
-      this.app.context.config[`tailwind.config.cjs`]?.path
-    )
+  public get path(): string | undefined {
+    if (!this.app.context.files) return
+
+    return Object.entries(this.app.context.files)?.find(([k, v]) =>
+      k.startsWith(`tailwind.config`),
+    )?.[1]?.absolutePath
   }
 
   /**
    * Tailwind config (source)
    */
-  private declare source: Config | undefined
+  public declare source: Config | undefined
 
-  /**
-   * Tailwind config (resolved)
-   */
-  private declare config: ResolvedConfig | undefined
-
-  @bind
-  public getConfig(): BudTailwindCss[`config`] {
-    return this.config ?? undefined
-  }
-  /**
-   * Get config source module
-   */
-  @bind
-  public async getSource(): Promise<Config> {
-    let config: Config
-
-    if (this.path) {
-      try {
-        config = await this.app.module.import(this.path)
-        return config
-      } catch (error) {}
-    }
-
-    return defaultConfig
-  }
-
-  /**
-   * Resolved tailwind config
-   *
-   * @remarks
-   * 🚨 Any mutations to this object will be applied to the generated tailwindcss!
-   */
-  private declare theme:
-    | (ResolvedConfig & {
-        colors?: ResolvedConfig['colors']
-      })
-    | undefined
-
-  @bind
-  public getTheme() {
-    return this.theme
+  public get config() {
+    return {...(resolveConfig(this.source) ?? {})}
   }
 
   /**
@@ -102,16 +59,6 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * Keys that can be imported from `@tailwind` alias
-   */
-  public get importableKeys(): Array<string> {
-    const generateImports = this.get(`generateImports`)
-    return Array.isArray(generateImports)
-      ? generateImports
-      : Object.keys(this.theme)
-  }
-
-  /**
    * Resolve a tailwind config value
    */
   @bind
@@ -119,7 +66,7 @@ export class BudTailwindCss extends Extension<Options> {
     key: K,
     extendedOnly?: boolean,
   ): Config[K] {
-    const rawValue = get(this.theme, key)
+    const rawValue = get(this.config.theme, key)
 
     if (!rawValue) {
       throw new Error(
@@ -160,30 +107,32 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * Generate a static module for a tailwind theme key
-   */
-  @bind
-  public makeStaticModule(key: keyof ThemeConfig) {
-    return `export default ${JSON.stringify(get(this.theme, key))}\n`
-  }
-
-  /**
    * {@link Extension.register}
    */
   @bind
   public override async register(_bud: Bud) {
-    this.dependencies.tailwindcss = await this.resolve(`tailwindcss`)
+    this.dependencies.tailwindcss = await this.resolve(
+      `tailwindcss`,
+      import.meta.url,
+    )
     this.dependencies.nesting = await this.resolve(
-      `tailwindcss/nesting/index.js`,
+      join(`tailwindcss`, `nesting`, `index.js`),
+      import.meta.url,
     )
 
-    this.source = await this.getSource()
-
-    const resolvedConfig = resolveConfig(this.source)
-    if (!resolvedConfig) return
-
-    this.config = {...resolvedConfig}
-    this.theme = {...(this.config?.theme ?? {})}
+    try {
+      this.source = this.path
+        ? await import(this.path).then(m => m.default)
+        : {
+            ...(await import(
+              await this.resolve(
+                join(`tailwindcss`, `defaultConfig.js`),
+                import.meta.url,
+              )
+            ).then(m => m.default)),
+          }
+      return
+    } catch (error) {}
   }
 
   /**
@@ -206,56 +155,62 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
-    if (this.get(`generateImports`) === false) return
-
-    await bud.extensions.add({
-      label: `@roots/bud-tailwindcss/virtual-module`,
-      make: async () =>
-        new WebpackVirtualModules(
-          this.importableKeys.reduce(
-            (acc, key) => ({
-              ...acc,
-              [bud.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
-                this.makeStaticModule(key),
-            }),
-            {},
-          ),
-        ),
-    } as any)
-
-    bud.hooks.async(`build.resolve.alias`, async (aliases = {}) => ({
-      ...aliases,
-      [`@tailwind`]: `${bud.path(`@src`, `__bud`, `@tailwind`)}`,
-    }))
-  }
-
-  /**
    * Generate import mapping
-   * @deprecated Use {@link BudTailwindCss.set} instead
    *
    * @example
    * Generate colors import:
    *
    * ```js
-   * bud.tailwind.set(`generateImports`, [`colors`])
+   * bud.tailwind.generateImports([`colors`])
    * ```
    *
    * @example
    * Generate all imports:
    *
    * ```js
-   * bud.tailwind.set(`generateImports`, true)
+   * bud.tailwind.generateImports(true)
    * ```
    */
   @bind
   public async generateImports(
     imports?: Array<`${keyof ThemeConfig & string}`> | boolean,
   ) {
-    this.set(`generateImports`, !isUndefined(imports) ? imports : true)
+    const {theme} = this.config
+    const makeStaticModule = (key: keyof ThemeConfig) => {
+      const value = get(theme, key)
+
+      this.logger.log(`@tailwind/${key}: generating module`)
+      return `export default ${JSON.stringify(value)};`
+    }
+
+    this.app.hooks.action(`config.after`, async bud => {
+      const importableKeys = Array.isArray(imports)
+        ? imports
+        : Object.keys(theme)
+
+      const modules = importableKeys.reduce(
+        (acc, key) => ({
+          ...acc,
+          [this.app.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
+            makeStaticModule(key),
+        }),
+        {},
+      )
+
+      await this.app.extensions.add({
+        label: `@roots/bud-tailwindcss/virtual-module`,
+        make: async () => new WebpackVirtualModules(modules),
+      } as any)
+
+      this.app.hooks.async(
+        `build.resolve.alias`,
+        async (aliases = {}) => ({
+          ...aliases,
+          [`@tailwind`]: `${this.app.path(`@src`, `__bud`, `@tailwind`)}`,
+        }),
+      )
+    })
+
     return this
   }
 }

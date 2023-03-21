@@ -8,7 +8,7 @@ import _set from '@roots/bud-support/lodash/set'
  */
 let instances: Record<string, Bud> = {}
 
-const get = (key: string = process.cwd()): Bud => {
+const get = (key: string = `default`): Bud => {
   if (has(key)) {
     return _get(instances, key)
   }

@@ -20,7 +20,10 @@ export default class BudTypeCheckPlugin extends Extension<
    */
   @bind
   public override async register(bud: Bud) {
-    const typescriptPath = await this.resolve(`typescript`)
+    const typescriptPath = await this.resolve(
+      `typescript`,
+      import.meta.url,
+    )
 
     this.setOptions({
       async: true,

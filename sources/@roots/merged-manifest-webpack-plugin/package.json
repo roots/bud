@@ -52,12 +52,13 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "11.0.1",
-    "@types/node": "18.11.18"
+    "@types/node": "18.15.5"
   },
   "dependencies": {
-    "fs-extra": "11.1.0",
+    "fs-extra": "11.1.1",
     "helpful-decorators": "2.1.0",
-    "webpack": "5.76.0"
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

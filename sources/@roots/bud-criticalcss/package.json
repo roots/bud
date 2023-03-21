@@ -43,11 +43,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js",
       "default": "./lib/types.js"
     }
   },
@@ -66,7 +66,7 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
+    "@types/node": "18.15.5",
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
@@ -74,6 +74,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
     "critical": "5.0.4",
+    "tslib": "2.5.0",
     "vinyl": "3.0.0"
   },
   "peerDependencies": {

@@ -70,9 +70,8 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "@types/postcss-import": "14.0.0",
-    "webpack": "5.76.0"
+    "@types/node": "18.15.5",
+    "@types/postcss-import": "14.0.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
@@ -82,7 +81,9 @@
     "postcss-import": "15.1.0",
     "postcss-loader": "7.1.0",
     "postcss-nested": "6.0.0",
-    "postcss-preset-env": "8.0.0"
+    "postcss-preset-env": "8.0.0",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "peerDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -90,8 +91,7 @@
     "postcss-import": "*",
     "postcss-loader": "*",
     "postcss-nested": "*",
-    "postcss-preset-env": "*",
-    "webpack": "5.76.0"
+    "postcss-preset-env": "*"
   },
   "peerDependenciesMeta": {
     "postcss": {
@@ -107,9 +107,6 @@
       "optional": true
     },
     "postcss-preset-env": {
-      "optional": true
-    },
-    "webpack": {
       "optional": true
     }
   },

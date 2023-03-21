@@ -130,6 +130,8 @@ export const bootstrap = async function (
 
   initializeCoreUtilities(this)
 
+  await this.module.init(this)
+
   await Promise.all(
     this.context.services
       .filter(filterServices(this))

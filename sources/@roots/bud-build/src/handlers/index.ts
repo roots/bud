@@ -13,10 +13,11 @@ export interface Props {
   makeRule: Bud[`build`][`makeRule`]
   isProduction: Bud[`isProduction`]
   path: Bud[`path`]
+  resolve: Bud[`module`][`resolve`]
 }
 
 export interface Factory<T = Rule> {
-  (props: Props): T
+  (props: Props): Promise<T>
 }
 
 export {items, loaders, register, rules}

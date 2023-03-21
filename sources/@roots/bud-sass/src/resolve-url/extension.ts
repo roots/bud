@@ -12,7 +12,10 @@ export class BudResolveUrl extends Extension {
    */
   public override async register(bud: Bud) {
     bud.build
-      .setLoader(`resolveUrl`, await this.resolve(`resolve-url-loader`))
+      .setLoader(
+        `resolveUrl`,
+        await this.resolve(`resolve-url-loader`, import.meta.url),
+      )
       .setItem(`resolveUrl`, {
         loader: `resolveUrl`,
         options: ({path}) => ({root: path(`@src`), sourceMap: true}),

@@ -39,11 +39,11 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
    */
   @bind
   public override async register(bud: Bud) {
-    this.set(`eslintPath`, await this.resolve(`eslint`))
+    this.set(`eslintPath`, await this.resolve(`eslint`, import.meta.url))
 
     const findFlatConfig = ({name}) => name.includes(`eslint.config`)
 
-    const userConfigs = Object.values(bud.context.config)
+    const userConfigs = Object.values(bud.context.files)
     if (!userConfigs.some(findFlatConfig)) return
 
     const flatConfig = userConfigs.find(findFlatConfig)

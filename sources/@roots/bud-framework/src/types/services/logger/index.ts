@@ -1,6 +1,4 @@
 export interface Logger {
-  instance: any
-  setCommonPath(path: string): Promise<Logger>
   time(label: string): Logger
   timeEnd(label: string): Logger
   make(...scope: Array<string>): Logger
@@ -10,8 +8,7 @@ export interface Logger {
   warn(...messages: Array<unknown>): Logger
   error(...messages: Array<unknown>): Logger
   info(...messages: Array<unknown>): Logger
-  time(label: string): Logger
-  timeEnd(label: string): Logger
   await(...messages: Array<unknown>): Logger
-  scope(...scopes: Array<string>): this
+  scope(...scopes: Array<string>): Logger
+  unscope(): Logger
 }

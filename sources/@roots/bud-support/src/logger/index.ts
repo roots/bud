@@ -1,7 +1,3 @@
-import Signale from '@roots/bud-support/signale'
+import logger from '../utilities/logger.js'
 
-let instance = new Signale({
-  scope: `@roots/bud`,
-})
-
-export default instance
+export default logger

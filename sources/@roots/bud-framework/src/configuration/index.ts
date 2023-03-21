@@ -16,7 +16,7 @@ export const process = async (app: Bud) => {
     )
 
   const configuration = new Configuration(app)
-  const configs = Object.values(app.context.config).filter(({bud}) => bud)
+  const configs = Object.values(app.context.files).filter(({bud}) => bud)
 
   // process any queued api calls
   await app.api.processQueue()

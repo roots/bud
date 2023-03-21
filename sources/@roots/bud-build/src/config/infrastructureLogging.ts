@@ -1,3 +1,5 @@
+import logger from '@roots/bud-support/utilities/logger'
+
 import type {Factory} from './index.js'
 
 export const infrastructureLogging: Factory<
@@ -6,13 +8,22 @@ export const infrastructureLogging: Factory<
   bud.hooks.filter(`build.infrastructureLogging`, {
     console: bud.hooks.filter(`build.infrastructureLogging.console`, {
       ...console,
-      log: bud.context.logger.log,
-      info: bud.context.logger.info,
-      warn: bud.context.logger.warn,
-      error: bud.context.logger.error,
-      debug: bud.context.logger.debug,
-      time: bud.context.logger.time,
-      timeEnd: bud.context.logger.timeEnd,
+      log: (...args: any[]) => {
+        logger.scope(`webpack`).log(...args)
+        logger.scope(`bud.js`)
+      },
+      warn: (...args: any[]) => {
+        logger.scope(`webpack`).info(...args)
+        logger.scope(`bud.js`)
+      },
+      error: (...args: any[]) => {
+        logger.scope(`webpack`).error(...args)
+        logger.scope(`bud.js`)
+      },
+      info: (...args: any[]) => {
+        logger.scope(`webpack`).info(...args)
+        logger.scope(`bud.js`)
+      },
     }),
     level: bud.hooks.filter(`build.infrastructureLogging.level`, `log`),
   })

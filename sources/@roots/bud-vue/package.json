@@ -48,15 +48,15 @@
   "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    "./types": "./lib/types.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.js"
       ],
-      "extension": [
-        "./lib/extension.js"
+      "types": [
+        "./lib/types.js"
       ]
     }
   },
@@ -66,13 +66,14 @@
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "webpack": "5.76.0"
+    "@types/node": "18.15.5",
+    "webpack": "5.76.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@vue/compiler-sfc": "^3.2.45",
+    "@vue/compiler-sfc": "^3.2.47",
+    "tslib": "2.5.0",
     "vue": "^3.2.45",
     "vue-loader": "^17.0.1",
     "vue-style-loader": "^4.1.3",

@@ -30,7 +30,10 @@ export class BudSass extends Extension {
     this.setOptions({implementation, sourceMap: true})
 
     bud.build
-      .setLoader(`sass-loader`, await this.resolve(`sass-loader`))
+      .setLoader(
+        `sass-loader`,
+        await this.resolve(`sass-loader`, import.meta.url),
+      )
       .setItem(`sass`, {
         ident: `sass`,
         loader: `sass-loader`,

@@ -47,11 +47,11 @@ export class BudPostCss extends Extension<Options> {
   @bind
   public override async register({build}: Bud): Promise<void> {
     this.setPlugins({
-      import: await this.resolve(`postcss-import`),
-      nesting: await this.resolve(`postcss-nested`),
+      import: await this.resolve(`postcss-import`, import.meta.url),
+      nesting: await this.resolve(`postcss-nested`, import.meta.url),
       env: [
-        await this.resolve(`postcss-preset-env`).then(path =>
-          path.replace(`.mjs`, `.cjs`),
+        await this.resolve(`postcss-preset-env`, import.meta.url).then(
+          path => path.replace(`.mjs`, `.cjs`),
         ),
         {
           stage: 1,
@@ -63,7 +63,10 @@ export class BudPostCss extends Extension<Options> {
     })
 
     build
-      .setLoader(`postcss`, await this.resolve(`postcss-loader`))
+      .setLoader(
+        `postcss`,
+        await this.resolve(`postcss-loader`, import.meta.url),
+      )
       .setItem(`postcss`, {
         loader: `postcss`,
         options: () => ({

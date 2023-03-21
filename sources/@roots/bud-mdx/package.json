@@ -47,11 +47,11 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
     "./types": {
-      "types": "./lib/types.d.ts",
+      "import": "./lib/types.js",
       "default": "./lib/types.js"
     }
   },
@@ -61,18 +61,19 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.11.18",
-    "@types/react": "18.0.26",
-    "@types/react-dom": "18.0.10",
+    "@types/node": "18.15.5",
+    "@types/react": "18.0.28",
+    "@types/react-dom": "18.0.11",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "webpack": "5.76.0"
+    "react-dom": "18.2.0"
   },
   "dependencies": {
     "@mdx-js/loader": "^2.2.1",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react"
+    "@roots/bud-react": "workspace:sources/@roots/bud-react",
+    "tslib": "2.5.0",
+    "webpack": "5.76.2"
   },
   "peerDependencies": {
     "@mdx-js/loader": "*",

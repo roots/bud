@@ -7,16 +7,13 @@ import {factory} from './factory.js'
 
 describe(`@roots/bud/factory`, () => {
   test(`should merge overrides`, async () => {
-    const bud = await factory(
-      {
-        basedir: join(paths.tests, `util`, `project`),
-        args: {
-          dry: true,
-          log: false,
-        },
+    const bud = await factory({
+      basedir: join(paths.tests, `util`, `project`),
+      args: {
+        dry: true,
+        log: false,
       },
-      {cache: false, find: true},
-    )
+    })
 
     expect(bud.label).toBe(`@tests/project`)
   })

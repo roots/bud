@@ -64,10 +64,6 @@ describe(`filesystem`, () => {
     }
   })
 
-  it(`should make a new instance`, async () => {
-    expect(fs.make()).toBeInstanceOf(FS)
-  })
-
   it(`should call jetpack createWriteStream`, async () => {
     await fs.createWriteStream(`foo`)
     expect(jetpack.createWriteStream).toHaveBeenCalledWith(

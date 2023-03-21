@@ -10,10 +10,19 @@ import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext from '@roots/bud/context'
-import {argv, basedir} from '@roots/bud/context/argv'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
+import * as args from '@roots/bud-support/utilities/args'
+import * as paths from '@roots/bud-support/utilities/paths'
 
-const context = await getContext({basedir}, {cache: true, find: true})
+const {basedir} = paths.get(process.cwd())
+
+const context = await getContext({
+  basedir,
+  stdin: process.stdin,
+  stdout: process.stdout,
+  stderr: process.stderr,
+  colorDepth: 256,
+})
 
 const application = new Cli({
   binaryLabel: `bud`,
@@ -46,12 +55,6 @@ await Commands.get(application, context)
       await Promise.all(fns.map(async fn => await fn(application))),
   )
 
-application.runExit(argv, {
-  ...context,
-  stdin: process.stdin,
-  stdout: process.stdout,
-  stderr: process.stderr,
-  colorDepth: 256,
-})
+application.runExit(args.raw, context)
 
 export {application, Builtins, Cli, CommandClass}

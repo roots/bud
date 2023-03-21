@@ -58,7 +58,7 @@ export default class BudTypeScript extends Extension {
     )
 
     bud.build
-      .setLoader(`ts`, await this.resolve(`ts-loader`))
+      .setLoader(`ts`, await this.resolve(`ts-loader`, import.meta.url))
       .setItem(`ts`, {loader: `ts`})
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),

@@ -1,6 +1,6 @@
 import type {Factory} from '../index.js'
 
-export const inlineImage: Factory = ({filter, makeRule, path}) =>
+export const inlineImage: Factory = async ({filter, makeRule, path}) =>
   makeRule()
     .setTest(filter(`pattern.image`))
     .setInclude([() => path(`@src`)])

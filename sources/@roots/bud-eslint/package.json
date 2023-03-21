@@ -42,16 +42,16 @@
   "type": "module",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./cache-fix": {
-      "types": "./lib/cache-fix/index.d.ts",
-      "import": "./lib/cache-fix/index.js"
+      "import": "./lib/cache-fix/index.js",
+      "default": "./lib/cache-fix/index.js"
     },
     "./commands": {
-      "types": "./lib/bud/commands.d.ts",
-      "import": "./lib/bud/commands.js"
+      "import": "./lib/bud/commands.js",
+      "default": "./lib/bud/commands.js"
     }
   },
   "typesVersions": {
@@ -72,15 +72,16 @@
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "8.21.1",
-    "@types/node": "18.11.18",
-    "webpack": "5.76.0"
+    "@types/eslint": "8.21.3",
+    "@types/node": "18.15.5",
+    "webpack": "5.76.2"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "eslint": "8.34.0",
-    "eslint-webpack-plugin": "^3.2.0"
+    "eslint": "8.36.0",
+    "eslint-webpack-plugin": "^3.2.0",
+    "tslib": "2.5.0"
   },
   "peerDependencies": {
     "@roots/bud": "*",

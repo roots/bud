@@ -1,6 +1,6 @@
 import type {Factory} from '../index.js'
 
-export const cssModule: Factory = ({filter, makeRule, path}) =>
+export const cssModule: Factory = async ({filter, makeRule, path}) =>
   makeRule()
     .setTest(filter(`pattern.cssModule`))
     .setInclude([() => path(`@src`)])

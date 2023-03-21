@@ -60,8 +60,10 @@ export default class BudReact extends Extension {
 
     await this.ensureBabelIsLoaded()
 
-    const Preset = await this.resolve(`@babel/preset-react`)
-    bud.babel.setPreset(`@babel/preset-react`, Preset)
+    bud.babel.setPreset(
+      `@babel/preset-react`,
+      await this.resolve(`@babel/preset-react`, import.meta.url),
+    )
   }
 
   /**
@@ -70,6 +72,8 @@ export default class BudReact extends Extension {
   @bind
   public async ensureBabelIsLoaded() {
     if (this.app.extensions.has(`@roots/bud-babel`)) return
-    await this.app.extensions.add(await this.import(`@roots/bud-babel`))
+    await this.app.extensions.add(
+      await this.import(`@roots/bud-babel`, import.meta.url),
+    )
   }
 }
