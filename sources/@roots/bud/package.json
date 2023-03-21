@@ -172,6 +172,7 @@
     "@roots/bud-server": "workspace:sources/@roots/bud-server",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+    "chalk": "5.2.0",
     "ink": "4.0.0",
     "ink-text-input": "5.0.0",
     "react": "18.2.0",

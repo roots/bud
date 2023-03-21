@@ -9,7 +9,7 @@ import {
   production,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
-import type Plugin from '@roots/bud-support/terser-webpack-plugin'
+import type Plugin from 'terser-webpack-plugin'
 
 /**
  * `terser-webpack-plugin` options
