@@ -7145,6 +7145,7 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.15.5
+    chalk: 5.2.0
     tslib: 2.5.0
     webpack: 5.76.2
   languageName: unknown
@@ -7483,6 +7484,7 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.15.5
+    chalk: 5.2.0
     execa: 7.1.1
     tslib: 2.5.0
     webpack: 5.76.2
