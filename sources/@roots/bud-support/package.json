@@ -154,7 +154,7 @@
     "mini-svg-data-uri": "1.4.4",
     "minimist": "1.2.8",
     "node-notifier": "10.0.1",
-    "open": "8.4.0",
+    "open": "9.0.0",
     "open-editor": "4.0.0",
     "parse-semver": "1.1.1",
     "parse5": "7.1.2",
