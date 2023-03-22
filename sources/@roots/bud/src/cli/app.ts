@@ -3,8 +3,6 @@ import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
 import BudBuildProductionCommand from '@roots/bud/cli/commands/bud.build.production'
 import BudCleanCommand from '@roots/bud/cli/commands/bud.clean'
-import BudDoctorCommand from '@roots/bud/cli/commands/bud.doctor'
-import BudReplCommand from '@roots/bud/cli/commands/bud.repl'
 import BudUpgradeCommand from '@roots/bud/cli/commands/bud.upgrade'
 import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
@@ -12,12 +10,11 @@ import {Commands} from '@roots/bud/cli/finder'
 import getContext from '@roots/bud/context'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 import * as args from '@roots/bud-support/utilities/args'
-import * as paths from '@roots/bud-support/utilities/paths'
 
-const {basedir} = paths.get(process.cwd())
+import BudDoctorCommand from './commands/doctor/index.js'
+import BudReplCommand from './commands/repl/index.js'
 
 const context = await getContext({
-  basedir,
   stdin: process.stdin,
   stdout: process.stdout,
   stderr: process.stderr,

@@ -133,7 +133,7 @@ export default class BudCommand extends Command<CommandContext> {
     Ink?.render(children)
   }
 
-  public renderOnce(...children: Array<React.ReactElement>) {
+  public renderStatic(...children: Array<React.ReactElement>) {
     Ink?.render(
       <Ink.Static items={children}>
         {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
@@ -427,7 +427,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Display.Error name={error.name} message={error.message} />
           {isWindows() ? <WinError /> : null}
