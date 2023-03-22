@@ -129,12 +129,16 @@ export default class BudCommand extends Command<CommandContext> {
     description: `Limit command to particular compilers`,
   })
 
-  public async render(children: React.ReactElement) {
-    await Ink?.render(children)
+  public render(children: React.ReactElement) {
+    Ink?.render(children)
   }
 
-  public async renderOnce(children: React.ReactElement) {
-    await Ink?.render(children)
+  public renderOnce(...children: Array<React.ReactElement>) {
+    Ink?.render(
+      <Ink.Static items={children}>
+        {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
+      </Ink.Static>,
+    ).unmount()
   }
 
   public async makeBud<T extends BudCommand>(command?: T) {
@@ -388,8 +392,9 @@ export default class BudCommand extends Command<CommandContext> {
    * Handle errors
    */
   public override async catch(value: unknown) {
-    let error: Error
     process.exitCode = 1
+
+    let error: Error
 
     const normalizeError = (value: unknown): Error => {
       if (value instanceof Error) return value
@@ -406,9 +411,7 @@ export default class BudCommand extends Command<CommandContext> {
       }
     }
 
-    try {
-      error = normalizeError(value)
-    } catch (e) {}
+    error = normalizeError(value)
 
     if (this.bud?.notifier?.notify) {
       try {
@@ -424,13 +427,14 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      await this.renderOnce(
+      this.renderOnce(
         <Ink.Box flexDirection="column">
           <Display.Error name={error.name} message={error.message} />
-
           {isWindows() ? <WinError /> : null}
         </Ink.Box>,
       )
-    } catch (error) {}
+    } catch (error) {
+      this.bud.error(error)
+    }
   }
 }
