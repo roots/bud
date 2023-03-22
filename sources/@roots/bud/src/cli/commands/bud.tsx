@@ -133,8 +133,8 @@ export default class BudCommand extends Command<CommandContext> {
     Ink?.render(children)
   }
 
-  public renderStatic(...children: Array<React.ReactElement>) {
-    Ink?.render(
+  public async renderStatic(...children: Array<React.ReactElement>) {
+    return Ink?.render(
       <Ink.Static items={children}>
         {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
       </Ink.Static>,
@@ -195,6 +195,8 @@ export default class BudCommand extends Command<CommandContext> {
 
     if (this.withBud) await this.withBud(this.bud)
     await this.bud.processConfigs()
+
+    return this.bud
   }
 
   @bind
@@ -427,7 +429,7 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
-      this.renderStatic(
+      await this.renderStatic(
         <Ink.Box flexDirection="column">
           <Display.Error name={error.name} message={error.message} />
           {isWindows() ? <WinError /> : null}
