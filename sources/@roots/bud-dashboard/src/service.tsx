@@ -47,14 +47,14 @@ export class Dashboard extends Service implements Contract {
     }
 
     if (!this.app.isCLI() || this.app.context.args.ci === true) {
-      await this.renderString(stats)
+      this.renderString(stats)
       return this
     }
 
     try {
       await this.render(stats.toJson(this.app.hooks.filter(`build.stats`)))
     } catch (error) {
-      await this.renderString(stats)
+      this.renderString(stats)
     }
 
     return this
@@ -114,13 +114,13 @@ export class Dashboard extends Service implements Contract {
    * Render stats as a simple string
    */
   @bind
-  public async renderString(stats: MultiStats) {
+  public renderString(stats: MultiStats) {
     const stringCompilation = stats.toString({
       preset: `minimal`,
       colors: true,
     })
 
-    await process.stdout.write(stringCompilation)
+    process.stdout.write(stringCompilation)
   }
 
   /**

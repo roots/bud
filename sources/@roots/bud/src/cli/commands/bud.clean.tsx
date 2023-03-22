@@ -77,7 +77,7 @@ export default class BudCleanCommand extends BudCommand {
             .map(async child => {
               try {
                 await remove(child.path(`@dist`))
-                await this.renderOnce(
+                await this.renderStatic(
                   <Ink.Box>
                     <Ink.Text color="green">
                       ✔ emptied {child.path(`@dist`)}
@@ -92,7 +92,7 @@ export default class BudCleanCommand extends BudCommand {
       }
 
       await remove(this.bud.path(`@dist`))
-      await this.renderOnce(
+      await this.renderStatic(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.path(`@dist`)}
@@ -114,7 +114,7 @@ export default class BudCleanCommand extends BudCommand {
             .map(async child => {
               try {
                 await remove(child.cache.cacheDirectory)
-                await this.renderOnce(
+                await this.renderStatic(
                   <Ink.Box>
                     <Ink.Text color="green">
                       ✔ emptied {child.cache.cacheDirectory}
@@ -129,7 +129,7 @@ export default class BudCleanCommand extends BudCommand {
       }
 
       await remove(this.bud.cache.cacheDirectory)
-      await this.renderOnce(
+      await this.renderStatic(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.cache.cacheDirectory}
@@ -150,7 +150,7 @@ export default class BudCleanCommand extends BudCommand {
           .map(async child => {
             try {
               await remove(child.path(`@dist`))
-              await this.renderOnce(
+              await this.renderStatic(
                 <Ink.Box>
                   <Ink.Text color="green">
                     ✔ emptied {child.path(`@storage`)}
@@ -167,7 +167,7 @@ export default class BudCleanCommand extends BudCommand {
     try {
       await ensureDir(this.bud.path(`@storage`))
       await remove(this.bud.path(`@storage`))
-      await this.renderOnce(
+      await this.renderStatic(
         <Ink.Box>
           <Ink.Text color="green">
             ✔ emptied {this.bud.path(`@storage`)}

@@ -59,7 +59,7 @@ export default class BudViewCommand extends BudCommand {
 
     if (this.color) value = highlight(value)
 
-    await this.renderOnce(
+    await this.renderStatic(
       <Ink.Box>
         <Ink.Text color="magenta">
           {this.subject ?? `build.config`}

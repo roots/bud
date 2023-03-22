@@ -1,7 +1,4 @@
-import {dry} from '@roots/bud/cli/decorators'
 import type {Bud} from '@roots/bud-framework'
-import {bind} from '@roots/bud-framework/extension/decorators'
-import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
@@ -9,55 +6,13 @@ import * as Ink from 'ink'
 import TextInput from 'ink-text-input'
 import {useEffect, useState} from 'react'
 
-import BudCommand, {ArgsModifier} from './bud.js'
-
-/**
- * `bud repl`
- */
-@dry
-export default class BudReplCommand extends BudCommand {
-  public static override paths = [[`repl`]]
-  public static override usage = Command.Usage({
-    description: `Use bud in a repl`,
-    examples: [[`repl`, `$0 repl`]],
-  })
-  public override withArguments = ArgsModifier({dry: true})
-
-  public color = Option.Boolean(`--color,-c`, true, {
-    description: `use syntax highlighting`,
-  })
-
-  public indent = Option.String(`--indent,-i`, `1`, {
-    description: `indentation level`,
-    tolerateBoolean: false,
-  })
-
-  public depth = Option.String(`--depth,-d`, `1`, {
-    description: `recursion depth`,
-    tolerateBoolean: false,
-  })
-
-  /**
-   * Execute command
-   */
-  @bind
-  public override async execute() {
-    await this.makeBud(this)
-    await this.bud.run()
-
-    await this.render(
-      <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
-    )
-  }
-}
-
 interface ReplProps {
   app: Bud
   indent: string
   depth: string
 }
 
-const Repl = ({app, indent, depth}: ReplProps) => {
+export const Repl = ({app, indent, depth}: ReplProps) => {
   const [search, setSearch] = useState(``)
   const [result, setResult] = useState(``)
   const [paged, setPaged] = useState([])
