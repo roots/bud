@@ -34,6 +34,7 @@ export interface Constructor {
 }
 
 export interface PublicExtensionApi<E extends Extension = Extension> {
+  app: Bud
   get: E[`get`]
   set: E[`set`]
   getOption: E[`getOption`]

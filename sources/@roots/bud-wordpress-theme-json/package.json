@@ -46,12 +46,19 @@
     ".": {
       "import": "./lib/index.js",
       "default": "./lib/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "./types": [
+        "./lib/types.d.ts"
       ]
     }
   },
