@@ -44,24 +44,12 @@
     "wordpress.cjs"
   ],
   "exports": {
-    ".": {
-      "require": "./default.cjs"
-    },
-    "./default": {
-      "require": "./default.cjs"
-    },
-    "./broad": {
-      "require": "./last-3-versions.cjs"
-    },
-    "./current": {
-      "require": "./last-2-versions.cjs"
-    },
-    "./next": {
-      "require": "./next.cjs"
-    },
-    "./wordpress": {
-      "require": "./wordpress.cjs"
-    }
+    ".": "./default.cjs",
+    "./default": "./default.cjs",
+    "./broad": "./last-3-versions.cjs",
+    "./current": "./last-2-versions.cjs",
+    "./next": "./next.cjs",
+    "./wordpress": "./wordpress.cjs"
   },
   "main": "./index.cjs",
   "module": "./index.cjs",

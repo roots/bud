@@ -70,12 +70,13 @@ export class Compiler extends Service implements Contract.Service {
     await this.app.hooks.fire(`compiler.before`, this.app)
 
     if (this.app.isCLI() && this.app.context.args.dry) {
-      this.app.context.logger.timeEnd(`initialize`)
+      this.logger.timeEnd(`initialize`)
       this.logger.log(`running in dry mode. exiting early.`)
       return
     }
 
-    this.app.context.logger.timeEnd(`initialize`)
+    this.logger.timeEnd(`initialize`)
+    this.logger.await(`compilation`)
 
     this.instance = this.implementation(this.config)
 

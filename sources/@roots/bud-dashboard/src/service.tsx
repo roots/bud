@@ -85,7 +85,16 @@ export class Dashboard extends Service implements Contract {
 
       Ink.render(
         <Ink.Box flexDirection="column" marginTop={1}>
-          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
+          {this.app.consoleBuffer.messages?.length > 0 && (
+            <>
+              <Console
+                messages={this.app.consoleBuffer.fetchAndRemove()}
+              />
+              <Ink.Box>
+                <Ink.Text>{` `}</Ink.Text>
+              </Ink.Box>
+            </>
+          )}
           <App
             compilations={compilations.map(compilation => ({
               ...compilation,

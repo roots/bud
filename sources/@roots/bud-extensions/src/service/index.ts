@@ -189,7 +189,9 @@ export default class Extensions
    */
   @bind
   public set(value: Extension): this {
-    this.repository[value.label ?? randomUUID()] = value
+    const key = value.label ?? randomUUID()
+    this.repository[key] = value
+    this.logger.success(`set`, key)
 
     return this
   }
@@ -290,8 +292,6 @@ export default class Extensions
       )
 
     this.set(instance)
-
-    this.logger.success(instance.label, `imported and instantiated`)
 
     return instance
   }

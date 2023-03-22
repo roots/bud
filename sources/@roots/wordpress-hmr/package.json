@@ -41,17 +41,19 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./loader": {
-      "require": "./lib/loader.cjs",
-      "default": "./lib/loader.cjs"
-    },
-    "./*": {
-      "import": "./lib/*.js",
-      "default": "./lib/*.js"
+    ".": "./lib/index.js",
+    "./loader": "./lib/loader.cjs",
+    "./types": "./lib/types.js",
+    "./*": "./lib/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "/lib/index.d.ts"
+      ],
+      "types": [
+        "/lib/types.d.ts"
+      ]
     }
   },
   "module": "./lib/index.js",

@@ -53,9 +53,11 @@ export default async (
     logger: context?.logger ?? logger,
   } as Context
 
-  instance.logger.log(`🏗️  building ${instance.label}`)
-  instance.logger.log(`📂  basedir: ${instance.basedir}`)
-  instance.logger.log(`😎  version: ${instance.bud.version}`)
+  instance.logger.unscope()
+  instance.logger.log(`🏗️`, `building`, instance.label)
+  instance.logger.log(`📂`, `basedir`, instance.basedir)
+  instance.logger.log(`😎`, `version`, instance.bud.version)
+  instance.logger.scope(instance.label)
 
   return instance
 }

@@ -1,3 +1,5 @@
+import './types.js'
+
 export * as blocks from './blocks.js'
 export * as cache from './cache.js'
 export * as editor from './editor.js'

@@ -32,10 +32,11 @@ export abstract class BaseServer implements Connection {
   /**
    * Logger
    */
-  public get logger(): Bud[`context`][`logger`] {
+  public get logger(): any {
     return this.app.context.logger.scope(
+      `server`,
       this.constructor.name.toLowerCase(),
-    ) as Bud[`context`][`logger`]
+    )
   }
 
   /**

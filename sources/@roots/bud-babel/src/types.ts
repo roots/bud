@@ -1,4 +1,6 @@
-/// <reference types="@roots/bud-build" />
+import '@roots/bud'
+
+import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type BabelExtension from './extension.js'
 
@@ -11,6 +13,20 @@ export interface LoaderOptions {
   cacheIdentifier?: string
   cacheCompression?: boolean
   customize?: string
+}
+
+export interface BabelPublicApi
+  extends PublicExtensionApi<BabelExtension> {
+  plugins: BabelExtension[`plugins`]
+  presets: BabelExtension[`presets`]
+  setPlugin: BabelExtension[`setPlugin`]
+  setPreset: BabelExtension[`setPreset`]
+  unsetPlugin: BabelExtension[`unsetPlugin`]
+  unsetPreset: BabelExtension[`unsetPreset`]
+  setPlugins: BabelExtension[`setPlugins`]
+  setPresets: BabelExtension[`setPresets`]
+  setPluginOptions: BabelExtension[`setPluginOptions`]
+  setPresetOptions: BabelExtension[`setPresetOptions`]
 }
 
 /**
@@ -52,22 +68,14 @@ export interface Registry {
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    babel: {
-      plugins: BabelExtension[`plugins`]
-      presets: BabelExtension[`presets`]
-      setPlugin: BabelExtension[`setPlugin`]
-      setPreset: BabelExtension[`setPreset`]
-      unsetPlugin: BabelExtension[`unsetPlugin`]
-      unsetPreset: BabelExtension[`unsetPreset`]
-      setPlugins: BabelExtension[`setPlugins`]
-      setPresets: BabelExtension[`setPresets`]
-      setPluginOptions: BabelExtension[`setPluginOptions`]
-      setPresetOptions: BabelExtension[`setPresetOptions`]
-    }
+    /**
+     * Babel configuration
+     */
+    babel: BabelPublicApi
   }
 
   interface Modules {
-    '@roots/bud-babel': Bud[`babel`]
+    '@roots/bud-babel': BabelExtension
   }
 
   interface Loaders {

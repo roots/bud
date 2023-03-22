@@ -64,8 +64,8 @@
       "default": "./lib/bud/commands/index.cjs"
     },
     "./types": {
-      "import": "./lib/types.d.ts",
-      "default": "./lib/types.d.ts"
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {

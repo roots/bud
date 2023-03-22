@@ -5,19 +5,20 @@ import isEqual from '../lodash/isEqual/index.js'
 import set from '../lodash/set/index.js'
 import * as filesystem from './filesystem.js'
 import logger from './logger.js'
+import * as paths from './paths.js'
 
 let fs: Filesystem
 let files: Array<string> = []
 let data: {[key: string]: any} = {}
 
 const get = async (basedir: string) => {
+  const {storage} = paths.get(basedir)
   fs = filesystem.get(basedir)
 
   if (data && Object.entries(data).length) return data
 
   logger.scope(`fs`).log(`Initializing fs`)
-  logger.time(`listing files`)
-
+  logger.scope(`fs`).time(`listing files`)
   await fs
     .list(basedir)
     .then(res => files.push(...(res?.filter(Boolean) ?? [])))
@@ -25,13 +26,47 @@ const get = async (basedir: string) => {
   await fs
     .list(join(basedir, `config`))
     .then(res => files.push(...(res?.filter(Boolean) ?? [])))
+  logger.timeEnd(`listing files`)
 
+  logger.scope(`fs`).time(`inspecting project files`)
   await Promise.all(files?.map(fetchFileInfo))
-  logger.timeEnd(`listing files`).unscope()
-
-  logger.scope(`fs`).time(`importing project files`)
   await Promise.all(files?.map(importFiles))
-  logger.timeEnd(`importing project files`).unscope()
+  logger.scope(`fs`).timeEnd(`inspecting project files`)
+
+  const clearOutdatedResolutions = async () => {
+    try {
+      logger.await(`removing old module resolutions`)
+      await fs.remove(join(storage, `resolutions.yml`))
+      logger.success(`removing old module resolutions`)
+    } catch (err) {
+      logger.error(`error clearing outdated resolutions`, err)
+    }
+  }
+
+  if (await fs.exists(join(storage, `checksum.yml`))) {
+    logger.scope(`fs`).time(`validating module cache`)
+    const checksums = await fs.read(join(storage, `checksum.yml`))
+    const match =
+      checksums[`package.json`] === getValue(`package.json`, `sha1`)
+
+    if (!match) {
+      await clearOutdatedResolutions()
+    }
+    logger.success(`module cache is up to date`)
+    logger.timeEnd(`validating module cache`)
+  } else {
+    await clearOutdatedResolutions()
+  }
+
+  logger.scope(`fs`).time(`writing new checksums`)
+  await fs.write(
+    join(storage, `checksum.yml`),
+    Object.entries(data).reduce(
+      (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
+      {},
+    ),
+  )
+  logger.timeEnd(`writing new checksums`)
 
   return data
 }
@@ -50,7 +85,7 @@ async function fetchFileInfo(name: string) {
     if (!file) return
 
     logger.scope(`fs`).info(`Reading project file: ${name}`)
-    logger.unscope()
+    logger
 
     set(data, [name], file)
     set(data, [name, `path`], file.absolutePath)
