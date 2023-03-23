@@ -79,7 +79,6 @@ export class Compiler extends Service implements Contract.Service {
     this.logger.await(`compilation`)
 
     this.instance = this.implementation(this.config)
-
     this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
       await this.onStats(stats)
       await this.app.hooks.fire(`compiler.close`, this.app)
@@ -117,34 +116,43 @@ export class Compiler extends Service implements Contract.Service {
       this.stats.children
         ?.filter(child => child.errorsCount > 0)
         .forEach(child => {
-          const error = child.errors?.shift()
-          if (!error) return
-          this.app.notifier.notify({
-            title: makeNoticeTitle(child),
-            subtitle: error.file ? `Error in ${error.name}` : error.name,
-            message: stripAnsi(error.message),
-            open: error.file ? pathToFileURL(error.file) : ``,
-            group: `${this.app.label}-${child.name}`,
-          })
-          this.app.notifier.openEditor(error.file)
+          try {
+            const error = child.errors?.shift()
+            if (!error) return
+
+            this.app.notifier.notify({
+              title: makeNoticeTitle(child),
+              subtitle: error.file ? `Error in ${error.name}` : error.name,
+              message: stripAnsi(error.message),
+              open: error.file ? pathToFileURL(error.file) : ``,
+              group: `${this.app.label}-${child.name}`,
+            })
+            this.app.notifier.openEditor(error.file)
+          } catch (error) {
+            this.logger.error(error)
+          }
         })
     }
 
     this.stats.children
       ?.filter(child => child.errorsCount === 0)
       .forEach(child => {
-        this.app.notifier.notify({
-          title: makeNoticeTitle(child),
-          subtitle: `Build successful`,
-          message: child.modules
-            ? `${child.modules.length} modules compiled in ${duration(
-                child.time,
-              )}`
-            : `Compiled in ${duration(child.time)}`,
-          group: `${this.app.label}-${child.name}`,
-          open: this.app.server?.publicUrl.href,
-        })
-        this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
+        try {
+          this.app.notifier.notify({
+            title: makeNoticeTitle(child),
+            subtitle: `Build successful`,
+            message: child.modules
+              ? `${child.modules.length} modules compiled in ${duration(
+                  child.time,
+                )}`
+              : `Compiled in ${duration(child.time)}`,
+            group: `${this.app.label}-${child.name}`,
+            open: this.app.server?.publicUrl.href,
+          })
+          this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
+        } catch (error) {
+          this.logger.error(error)
+        }
       })
 
     await statsUpdate
@@ -162,19 +170,27 @@ export class Compiler extends Service implements Contract.Service {
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    this.app.notifier.notify({
-      subtitle: error.name,
-      message: error.message,
-      group: this.app.label,
-    })
+    try {
+      this.app.notifier.notify({
+        subtitle: error.name,
+        message: error.message,
+        group: this.app.label,
+      })
+    } catch (error) {
+      this.logger.error(error)
+    }
 
-    Ink.render(
-      <App.Error
-        name="Compiler error"
-        message={error.message}
-        stack={error.stack}
-      />,
-    )
+    try {
+      Ink.render(
+        <App.Error
+          name="Compiler error"
+          message={error.message}
+          stack={error.stack}
+        />,
+      )
+    } catch (error) {
+      this.logger.error(error)
+    }
   }
 
   /**

@@ -245,7 +245,7 @@ export class Bud {
     }
 
     this.log(`instantiating new bud instance`)
-    const child = await new Bud().lifecycle(context)
+    const child = await new this.implementation().lifecycle(context)
 
     if (!this.children) this.children = {[context.label]: child}
     else this.children[context.label] = child

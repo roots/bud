@@ -45,21 +45,28 @@
     "src"
   ],
   "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.js",
       "default": "./lib/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "devDependencies": {
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
