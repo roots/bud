@@ -2,6 +2,7 @@
 import {join} from 'node:path'
 
 import type {CommandContext, Context} from '@roots/bud-framework/options'
+import args from '@roots/bud-support/utilities/args'
 import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as filesystem from '@roots/bud-support/utilities/filesystem'
@@ -34,6 +35,7 @@ export default async (
     // eslint-disable-next-line n/no-process-env
     bin: process.env.BUD_JS_BIN ?? `node`,
     basedir: paths.basedir,
+    args: {...(context?.args ?? {}), ...(args ?? {})},
     mode: context?.mode ?? `production`,
     env: {...(env ?? {}), ...(context?.env ?? {})},
     files: {...(files ?? {}), ...(context?.files ?? {})},

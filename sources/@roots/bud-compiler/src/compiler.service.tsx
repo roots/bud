@@ -168,7 +168,7 @@ export class Compiler extends Service implements Contract.Service {
       group: this.app.label,
     })
 
-    await Ink.render(
+    Ink.render(
       <App.Error
         name="Compiler error"
         message={error.message}

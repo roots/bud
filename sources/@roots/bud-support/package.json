@@ -97,6 +97,9 @@
       ".": [
         "./lib/index.d.ts"
       ],
+      "utilities/*": [
+        "./lib/utilities/*.d.ts"
+      ],
       "*": [
         "./lib/*/index.d.ts"
       ]
