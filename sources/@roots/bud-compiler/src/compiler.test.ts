@@ -48,7 +48,7 @@ describe(`@roots/bud-compiler`, function () {
     bud.context.args.dry = true
     const logSpy = vi.spyOn(compiler.logger, `log`)
     await compiler.compile()
-    expect(logSpy).toHaveBeenCalledTimes(2)
+    expect(logSpy).toHaveBeenCalledTimes(3)
   })
 
   it(`should set done tap`, async () => {

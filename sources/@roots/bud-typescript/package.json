@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-typescript",
   "version": "0.0.0",
-  "description": "Adds Typescript support to Bud.",
+  "description": "Adds Typescript support to Bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -59,6 +59,10 @@
       "import": "./lib/bud/commands/index.js",
       "default": "./lib/bud/commands/index.js"
     },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
+    },
     "./config/tsconfig.json": "./config/tsconfig.json",
     "./tsconfig/tsconfig.json": "./config/tsconfig.json"
   },
@@ -69,6 +73,9 @@
       ],
       "typecheck": [
         "./lib/typecheck/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
       ]
     }
   },

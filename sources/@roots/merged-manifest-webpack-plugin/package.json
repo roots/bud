@@ -44,11 +44,22 @@
     "src"
   ],
   "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./types": "./lib/types.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "./types": [
+        "./lib/types.d.ts"
+      ]
+    }
+  },
   "module": "./lib/index.js",
   "types": "./lib/index.d.ts",
-  "exports": {
-    ".": "./lib/index.js"
-  },
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/fs-extra": "11.0.1",

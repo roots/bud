@@ -119,34 +119,34 @@
   "typesVersions": {
     "*": {
       ".": [
-        "lib/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "cli": [
-        "lib/cli/index.d.ts"
+        "./lib/cli/index.d.ts"
       ],
       "cli/commands": [
-        "lib/cli/commands/index.d.ts"
+        "./lib/cli/commands/index.d.ts"
       ],
       "cli/decorators": [
-        "lib/cli/decorators/index.d.ts"
+        "./lib/cli/decorators/index.d.ts"
       ],
       "context": [
-        "lib/context/index.d.ts"
+        "./lib/context/index.d.ts"
       ],
       "factory": [
-        "lib/factory/index.d.ts"
+        "./lib/factory/index.d.ts"
       ],
       "factory/*": [
-        "lib/factory/*.d.ts"
+        "./lib/factory/*.d.ts"
       ],
       "services": [
-        "lib/services/index.d.ts"
+        "./lib/services/index.d.ts"
       ],
       "services/*": [
-        "lib/services/*/index.d.ts"
+        "./lib/services/*/index.d.ts"
       ],
       "types": [
-        "lib/types.d.ts"
+        "./lib/types.d.ts"
       ]
     }
   },
@@ -174,6 +174,7 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "chalk": "5.2.0",
     "ink": "4.0.0",
+    "ink-spinner": "5.0.0",
     "ink-text-input": "5.0.0",
     "react": "18.2.0",
     "tslib": "2.5.0"

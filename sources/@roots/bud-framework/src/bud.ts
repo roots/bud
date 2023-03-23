@@ -245,7 +245,7 @@ export class Bud {
     }
 
     this.log(`instantiating new bud instance`)
-    const child = await new Bud().lifecycle(context)
+    const child = await new this.implementation().lifecycle(context)
 
     if (!this.children) this.children = {[context.label]: child}
     else this.children[context.label] = child
@@ -326,7 +326,7 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    this.context.logger.log(...messages)
+    this.context.logger.scope(this.label).log(...messages)
     return this
   }
 
@@ -335,7 +335,7 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    this.context.logger.info(...messages)
+    this.context.logger.scope(this.label).info(...messages)
     return this
   }
 
@@ -344,7 +344,7 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    this.context.logger.success(...messages)
+    this.context.logger.scope(this.label).success(...messages)
     return this
   }
 
@@ -353,7 +353,7 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.context.logger.warn(...messages)
+    this.context.logger.scope(this.label).warn(...messages)
     return this
   }
 
@@ -362,7 +362,7 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    this.context.logger.error(...messages)
+    this.context.logger.scope(this.label).error(...messages)
     return this
   }
 }

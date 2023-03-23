@@ -58,7 +58,7 @@ export class Module extends Service {
     const isForced = (bud as any).context.args?.force === true
     const isEnabled = (bud as any).context.args?.cache !== false
     this.cacheEnabled = !isForced && isEnabled
-    this.cacheLocation = join(paths.get().storage, `resolutions.cache.yml`)
+    this.cacheLocation = join(paths.get().storage, `resolutions.yml`)
 
     const cacheExists = !!(await bud.fs.exists(this.cacheLocation))
 

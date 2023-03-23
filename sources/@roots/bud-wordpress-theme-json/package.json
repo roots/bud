@@ -46,21 +46,28 @@
     ".": {
       "import": "./lib/index.js",
       "default": "./lib/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "./types": [
+        "./lib/types.d.ts"
       ]
     }
   },
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.5"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",

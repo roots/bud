@@ -10,13 +10,13 @@ import webpack from '@roots/bud-support/webpack'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 import * as Ink from 'ink'
 
-import {Error} from '../components/Error.js'
-import {WinError} from '../components/WinError.js'
-import {dry} from '../decorators/command.dry.js'
-import {isWindows} from '../helpers/isWindows.js'
+import {Error} from '../../components/Error.js'
+import {WinError} from '../../components/WinError.js'
+import {dry} from '../../decorators/command.dry.js'
+import {isWindows} from '../../helpers/isWindows.js'
 
 /**
- * `bud doctor` command
+ * bud doctor command
  */
 @dry
 export default class BudDoctorCommand extends BudCommand {
@@ -65,6 +65,8 @@ for a lot of edge cases so it might return a false positive.
    * Execute command
    */
   public override async execute() {
+    const {Doctor} = await import(`./Doctor.js`)
+
     try {
       const buildTimer = this.makeTimer()
       await this.makeBud(this)
@@ -75,31 +77,17 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (isWindows()) {
-      await this.renderOnce(<WinError />)
+      this.renderStatic(<WinError />)
     }
 
-    await this.renderOnce(
-      <Ink.Box marginTop={1}>
-        <Ink.Text underline>
-          {`Diagnosis for `}
-          {this.bud.context.manifest.name
-            ? this.bud.context.manifest.name
-            : this.bud.path()}
-        </Ink.Text>
-      </Ink.Box>,
-    )
+    const name = this.bud.context.manifest.name
+      ? this.bud.context.manifest.name
+      : this.bud.path()
 
-    await this.renderOnce(
-      <Ink.Text color={`dimWhite`}>
-        Completed a dry run of your project's build (executed in{` `}
-        {this.timings.build} seconds). If the information provided by this
-        command doesn't yield a solution consider running `yarn bud repl`
-        and exploring the finalized config (`bud.build.config`).
-      </Ink.Text>,
-    )
+    this.renderStatic(<Doctor name={name} timings={this.timings} />)
 
     if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="yellow">
             {figures.info} Detected compilation cache
@@ -123,38 +111,8 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    await this.renderOnce(
-      <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">
-          Checking system requirements{`\n`}
-        </Ink.Text>
-        <Ink.Box flexDirection="column">
-          <Ink.Text>
-            {process.version.match(/v1[6|7|8|9]/)
-              ? figures.tick
-              : figures.cross}
-            {` `}
-            node: {process.version}
-          </Ink.Text>
-          <Ink.Text>
-            {isWindows() ? figures.cross : figures.tick} os:{` `}
-            {process.platform}
-          </Ink.Text>
-        </Ink.Box>
-      </Ink.Box>,
-    )
-
-    if (!process.version.match(/v1[6|7|8|9]/)) {
-      await this.renderOnce(
-        <Error
-          name="Node version not supported"
-          message={`Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`}
-        />,
-      )
-    }
-
     if (this.bud.hasChildren) {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="blue">Child compilers{`\n`}</Ink.Text>
           {Object.values(this.bud.children).map((child, i) => (
@@ -173,7 +131,7 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    await this.renderOnce(
+    this.renderStatic(
       <Ink.Box flexDirection="column">
         <Ink.Text color="blue">Project paths</Ink.Text>
         <Ink.Text>{` `}</Ink.Text>
@@ -197,7 +155,7 @@ for a lot of edge cases so it might return a false positive.
       </Ink.Box>,
     )
 
-    await this.renderOnce(
+    this.renderStatic(
       <Ink.Box flexDirection="column">
         <Ink.Text color="blue">
           Checking versions of core packages
@@ -259,7 +217,7 @@ for a lot of edge cases so it might return a false positive.
       )
     } catch (e) {}
 
-    await this.renderOnce(
+    this.renderStatic(
       <Ink.Box flexDirection="column">
         <Ink.Text color="blue">
           Checking installed package compatibility{`\n`}
@@ -270,7 +228,7 @@ for a lot of edge cases so it might return a false positive.
       </Ink.Box>,
     )
 
-    await this.renderOnce(
+    this.renderStatic(
       <Ink.Box flexDirection="column">
         <Ink.Text color="blue">Mode</Ink.Text>
         <Ink.Text>{this.bud.mode}</Ink.Text>
@@ -281,7 +239,7 @@ for a lot of edge cases so it might return a false positive.
       this.bud.context.files ? Object.values(this.bud.context.files) : []
     ).filter(({bud}) => bud)
     if (configFiles.length) {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="blue">Bud configuration files{`\n`}</Ink.Text>
           {configFiles.map(({name, path}, i) => (
@@ -298,7 +256,7 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>,
       )
     } else {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="blue">Registered configurations{`\n`}</Ink.Text>
           <Ink.Text dimColor>
@@ -309,7 +267,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="blue">Config API calls{`\n`}</Ink.Text>
           <Ink.Text></Ink.Text>
@@ -331,7 +289,7 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>,
       )
     } catch (error) {
-      await this.renderOnce(
+      this.renderStatic(
         <Error
           name="Error analyzing called functions"
           message={error.message ?? error}
@@ -356,7 +314,7 @@ for a lot of edge cases so it might return a false positive.
         ),
       )
     } catch (error) {
-      await this.renderOnce(
+      this.renderStatic(
         <Error
           name={error.name ?? `Configuration error`}
           message={error.message ?? error}
@@ -366,7 +324,7 @@ for a lot of edge cases so it might return a false positive.
 
     if (this.bud.env) {
       try {
-        await this.renderOnce(
+        this.renderStatic(
           <Ink.Box flexDirection="column">
             <Ink.Text color="blue">Environment{`\n`}</Ink.Text>
             {this.bud.env.getEntries().map(([key, value]) => {
@@ -387,7 +345,7 @@ for a lot of edge cases so it might return a false positive.
           </Ink.Box>,
         )
       } catch (error) {
-        await this.renderOnce(
+        this.renderStatic(
           <Error name="Environment error" message={error.message} />,
         )
       }
@@ -395,20 +353,20 @@ for a lot of edge cases so it might return a false positive.
 
     if (this.enabledExtensions) {
       try {
-        await this.renderOnce(
+        this.renderStatic(
           <Ink.Box flexDirection="column">
             <Ink.Text color="blue">Enabled extensions{`\n`}</Ink.Text>
             {this.mapExtensions(this.enabledExtensions)}
           </Ink.Box>,
         )
-        await this.renderOnce(
+        this.renderStatic(
           <Ink.Box flexDirection="column">
             <Ink.Text color="blue">Disabled extensions{`\n`}</Ink.Text>
             {this.mapExtensions(this.disabledExtensions)}
           </Ink.Box>,
         )
       } catch (error) {
-        await this.renderOnce(
+        this.renderStatic(
           <Error name="Extensions" message={error.message ?? error} />,
         )
       }
@@ -421,7 +379,7 @@ for a lot of edge cases so it might return a false positive.
       this.entrypoints[0][1].import[0] === `index` &&
       !(await this.bud.fs.exists(this.bud.path(`@src/index.js`)))
     ) {
-      await this.renderOnce(
+      this.renderStatic(
         <Error
           name="Can't resolve application entrypoint"
           message={`No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
@@ -434,7 +392,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (this.mode === `development`) {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box flexDirection="column">
           <Ink.Text color="blue">Development server</Ink.Text>
           <Ink.Box flexDirection="row">
@@ -479,7 +437,7 @@ for a lot of edge cases so it might return a false positive.
     try {
       webpack.validate(this.configuration)
 
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box>
           <Ink.Text color="green">
             {figures.tick} webpack validated configuration
@@ -487,7 +445,7 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>,
       )
     } catch (error) {
-      await this.renderOnce(
+      this.renderStatic(
         <Ink.Box>
           <Ink.Text color="red">❌ {error?.message ?? error}</Ink.Text>
         </Ink.Box>,

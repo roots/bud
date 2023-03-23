@@ -35,7 +35,6 @@ const get = (basedir: string) => {
     }, sep)
 
   logger.scope(`env`).info(`Environment variables loaded`)
-  logger.unscope()
 
   return env
 }

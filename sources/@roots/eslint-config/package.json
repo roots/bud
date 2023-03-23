@@ -47,9 +47,6 @@
     "typescript.cjs",
     "wordpress.cjs"
   ],
-  "main": "./defaults.cjs",
-  "module": "./defaults.cjs",
-  "types": "./types.d.ts",
   "exports": {
     ".": "./defaults.cjs",
     "./defaults": "./defaults.cjs",
@@ -60,6 +57,9 @@
     "./wordpress": "./wordpress.cjs",
     "./sage": "./sage.cjs"
   },
+  "main": "./defaults.cjs",
+  "module": "./defaults.cjs",
+  "types": "./types.d.ts",
   "devDependencies": {
     "@babel/core": "7.21.3",
     "@skypack/package-check": "0.2.2",

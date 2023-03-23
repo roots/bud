@@ -60,7 +60,7 @@ export class EventHooks extends Hooks<EventsStore> {
     )
 
     this.app.hooks.logger.timeEnd(id)
-    this.app.hooks.logger.success(id, this.store[id].length, `hooks fired`)
+    this.app.hooks.logger.info(id, this.store[id].length, `hooks fired`)
 
     return this.app
   }

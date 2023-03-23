@@ -4,79 +4,73 @@ import Signale from 'signale'
 import args from './args.js'
 
 class Logger {
-  public logger: Signale.Signale
+  public instance: Signale.Signale
 
   public constructor() {
-    let options: Record<string, any> = {scope: `bud.js`}
-    if (args[`no-log`]) options.disabled = true
-    if (args[`log`]) options.logLevel = `log`
-    if (args[`verbose`]) options.logLevel = `info`
-    if (!args[`log`] && !args[`no-log`]) options.logLevel = `error`
-
-    this.logger = new Signale.Signale(options)
+    let options: Record<string, any> = {}
+    if (args.log === false) options.disabled = true
+    options.logLevel = args.verbose ? `info` : args.log ? `log` : `error`
+    this.instance = new Signale.Signale(options)
   }
 
-  @bind
-  public make(...scope: Array<string>) {
-    const logger = new Logger()
-    logger.scope(...scope)
-    return logger
-  }
   @bind
   public log(...messages: Array<unknown>) {
-    this.logger.log(...messages)
+    this.instance.log(...messages)
     return this
   }
   @bind
   public time(label: string) {
-    this.logger.time(label)
+    this.instance.time(label)
     return this
   }
   @bind
   public timeEnd(label: string) {
-    this.logger.timeEnd(label)
+    this.instance.timeEnd(label)
     return this
   }
+
   @bind
   public success(...messages: Array<unknown>) {
-    this.logger.success(...messages)
+    this.instance.success(...messages)
     return this
   }
+
   @bind
   public info(...messages: Array<unknown>) {
     if (!(`verbose` in args)) return this
-    this.logger.info(...messages)
+    this.instance.info(...messages)
     return this
   }
+
   @bind
   public warn(...messages: Array<unknown>) {
-    this.logger.warn(...messages)
+    this.instance.warn(...messages)
     return this
   }
   @bind
   public error(...messages: Array<unknown>) {
-    this.logger.error(...messages)
+    this.instance.error(...messages)
     return this
   }
   @bind
   public debug(...messages: Array<unknown>) {
     if (!(`verbose` in args)) return this
-    this.logger.debug(...messages)
+    this.instance.debug(...messages)
     return this
   }
   @bind
   public await(...messages: Array<unknown>) {
-    this.logger.await(...messages)
+    this.instance.await(...messages)
     return this
   }
   @bind
   public scope(...scopes: Array<string>) {
-    this.logger = this.logger.scope(...scopes)
+    this.instance = this.instance.scope(...scopes)
     return this
   }
   @bind
   public unscope() {
-    this.logger.unscope()
+    this.instance.unscope()
     return this
   }
 }

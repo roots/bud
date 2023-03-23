@@ -1,11 +1,10 @@
-/// <reference types="@roots/bud" />
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-preset-recommend" />
-/// <reference types="@roots/bud-react" />
-/// <reference types="@roots/bud-wordpress-manifests" />
-/// <reference types="@roots/bud-wordpress-theme-json" />
-
+import '@roots/bud/types'
+import '@roots/bud-preset-recommend/types'
+import '@roots/bud-react/types'
 import '@roots/bud-tailwindcss-theme-json/types'
+import '@roots/bud-wordpress-manifests/types'
+import '@roots/bud-wordpress-theme-json/types'
+import '@roots/wordpress-hmr/types'
 
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
@@ -15,6 +14,7 @@ declare module '@roots/bud-framework' {
   interface Bud {
     wp: PublicExtensionApi<BudPresetWordPress>
   }
+
   interface Modules {
     '@roots/bud-preset-wordpress': {}
     '@roots/bud-tailwind-theme-json'?: {}

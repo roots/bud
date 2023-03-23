@@ -58,7 +58,7 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "./types": [
+      "types": [
         "./lib/types.d.ts"
       ]
     }

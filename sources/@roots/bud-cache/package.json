@@ -68,10 +68,10 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "./service": [
+      "service": [
         "./lib/service.d.ts"
       ],
-      "./types": [
+      "types": [
         "./lib/types.d.ts"
       ]
     }

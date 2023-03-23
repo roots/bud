@@ -1,9 +1,10 @@
+import {createHash} from 'node:crypto'
+
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import isString from '@roots/bud-support/lodash/isString'
-import join from '@roots/bud-support/lodash/join'
 import {hash} from '@roots/bud-support/utilities/args'
 import type {Configuration} from '@roots/bud-support/webpack'
 
@@ -54,17 +55,15 @@ export default class Cache
    * version
    */
   public get version(): string {
+    const version = createHash(`sha1`)
+    version.update(hash)
+    Object.values(this.app.context.files ?? {})
+      .filter(file => file?.bud || file?.name?.includes(`package.json`))
+      .map(({sha1}) => version.update(sha1))
+
     return this.app.hooks.filter(
       `build.cache.version`,
-      join(
-        [
-          ...(Object.values(this.app.context.files ?? {})
-            .filter(file => file?.bud && file.sha1)
-            .map(({sha1}) => sha1) ?? []),
-          hash,
-        ],
-        `.`,
-      ),
+      version.digest(`base64`),
     )
   }
   public set version(version: string) {

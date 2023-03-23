@@ -1,7 +1,9 @@
+import type {Instance} from '@roots/bud-support/signale'
+
 export interface Logger {
+  instance: Instance
   time(label: string): Logger
   timeEnd(label: string): Logger
-  make(...scope: Array<string>): Logger
   debug(...messages: Array<unknown>): Logger
   log(...messages: Array<unknown>): Logger
   success(...messages: Array<unknown>): Logger

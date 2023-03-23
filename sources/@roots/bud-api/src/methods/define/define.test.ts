@@ -1,5 +1,4 @@
-import {factory} from '@repo/test-kit/bud'
-import type {Bud} from '@roots/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import {define as defineMethod} from './index.js'
@@ -29,5 +28,20 @@ describe(`bud.define`, function () {
       bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
         .options.DEFINED_KEY,
     ).toEqual(`DEFINED_VALUE`)
+  })
+
+  it(`adds PUBLIC_APP_TITLE from env`, async () => {
+    await bud.run()
+    expect(
+      bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
+        .options.APP_TITLE,
+    ).toBeDefined()
+  })
+
+  it(`matches snapshot`, () => {
+    expect(
+      bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
+        .options,
+    ).toMatchSnapshot()
   })
 })

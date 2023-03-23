@@ -1,5 +1,5 @@
-/// <reference types="@roots/bud" />
-/// <reference types="@roots/bud-preset-wordpress" />
+import '@roots/bud/types'
+import '@roots/bud-preset-wordpress/types'
 
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'

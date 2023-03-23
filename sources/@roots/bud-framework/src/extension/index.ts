@@ -2,8 +2,8 @@ import {bind} from '@roots/bud-support/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import lowerCase from '@roots/bud-support/lodash/lowerCase'
 import set from '@roots/bud-support/lodash/set'
-import type {Instance as Signale} from '@roots/bud-support/signale'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
@@ -34,12 +34,36 @@ export interface Constructor {
 }
 
 export interface PublicExtensionApi<E extends Extension = Extension> {
-  get: E[`get`]
-  set: E[`set`]
+  app: Bud
+  /**
+   * Set an option value
+   */
+  get: E[`getOption`]
   getOption: E[`getOption`]
-  setOption: E[`setOption`]
+
+  /**
+   * Set an option value
+   */
+  set: <K extends string>(
+    key: K,
+    value:
+      | this[`options`][K]
+      | ((value: this[`options`][K]) => this[`options`][K]),
+  ) => this
+
+  /**
+   * Set an option value
+   */
+  setOption: <K extends string>(
+    key: K,
+    value:
+      | this[`options`][K]
+      | ((value: this[`options`][K]) => this[`options`][K]),
+  ) => this
+
   getOptions: E[`getOptions`]
   setOptions: E[`setOptions`]
+
   enabled: E['enabled']
   enable: E['enable']
   options: E['options']
@@ -106,8 +130,14 @@ export class Extension<
   public label: keyof Modules & string
 
   /**
+   * Logger instance
    */
-  public logger: Signale
+  public get logger() {
+    return this.app.context.logger.scope(
+      this.app.label,
+      lowerCase(this.constructor.name),
+    )
+  }
 
   /**
    * Depends on
@@ -197,14 +227,6 @@ export class Extension<
     this._app = () => app
     Object.defineProperty(this, `app`, {
       get: (): Bud => this._app(),
-    })
-
-    Object.defineProperty(this, `logger`, {
-      get: () =>
-        app.context.logger.make(
-          this.app.label,
-          this.label ?? `anonymous extension`,
-        ),
     })
 
     const opts = this.options ?? {}
