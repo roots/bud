@@ -54,7 +54,7 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async call(name: string, args: Array<any>): Promise<Bud> {
-    this.app.log(chalk.blue(name), args)
+    this.logger.info(`api.call: ${chalk.cyan(name)}`, ...args)
 
     if (!this.has(name)) {
       throw new Error(`bud.api.call error: ${name} is not a function`)

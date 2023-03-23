@@ -9,7 +9,6 @@ describe(`bud.define`, function () {
 
   beforeEach(async () => {
     bud = await factory()
-    bud.bindMethod(`define`, defineMethod)
     define = defineMethod.bind(bud)
   })
 

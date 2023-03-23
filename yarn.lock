@@ -8247,6 +8247,7 @@ __metadata:
     tslib: 2.5.0
   peerDependencies:
     "@roots/bud": "*"
+    "@roots/bud-framework": "*"
     "@roots/bud-wordpress-dependencies": "*"
     "@roots/bud-wordpress-externals": "*"
     "@roots/merged-manifest-webpack-plugin": "*"

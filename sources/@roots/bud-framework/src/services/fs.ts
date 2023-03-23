@@ -23,10 +23,12 @@ export default class FileSystem extends FS {
   /**
    * Logger
    */
-  public get logger() {
-    const logger = this.app.context.logger.make(this.app.label, `fs`)
 
-    return logger
+  /**
+   * Logger instance
+   */
+  public get logger() {
+    return this.app.context.logger.scope(`fs`)
   }
 
   /**

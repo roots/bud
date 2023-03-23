@@ -70,19 +70,19 @@
   "typesVersions": {
     "*": {
       ".": [
-        "lib/index.d.ts"
+        "./lib/index.d.ts"
       ],
       "api": [
-        "lib/api/index.d.ts"
+        "./lib/api/index.d.ts"
       ],
       "methods": [
-        "lib/methods/index.d.ts"
+        "./lib/methods/index.d.ts"
       ],
       "methods/*": [
-        "lib/methods/*.d.ts"
+        "./lib/methods/*.d.ts"
       ],
       "types": [
-        "lib/types.d.ts"
+        "./lib/types.d.ts"
       ]
     }
   },

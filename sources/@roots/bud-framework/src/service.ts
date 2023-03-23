@@ -10,10 +10,12 @@ import type {
 import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
+  _app: () => Bud
+
   /**
    * Bud instance
    */
-  app?: Bud & {context: CommandContext | CLIContext | Context}
+  app: Bud & {context: CommandContext | CLIContext | Context}
 
   /**
    * Scoped logger
@@ -115,6 +117,8 @@ interface Contract {
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  */
 abstract class Base implements Partial<Contract> {
+  public declare _app: () => Bud
+
   /**
    * Lifecycle method: init
    *
@@ -211,16 +215,18 @@ abstract class Base implements Partial<Contract> {
   /**
    * Logger instance
    */
-  public logger: Logger
+  public get logger() {
+    return this.app.context.logger.scope(
+      this.app.label,
+      lowerCase(this.constructor.name),
+    )
+  }
 
   /**
    * Class constructor
    */
-  public constructor(public _app: () => Bud) {
-    this.logger = this.app.context.logger.make(
-      this.app.label,
-      lowerCase(this.constructor.name),
-    )
+  public constructor(_app: () => Bud) {
+    this._app = _app
   }
 }
 
@@ -249,7 +255,12 @@ abstract class BaseContainer
   /**
    * Logger instance
    */
-  public logger: Logger
+  public get logger() {
+    return this.app.context.logger.scope(
+      this.app.label,
+      lowerCase(this.constructor.name),
+    )
+  }
 
   /**
    * Lifecycle method: init
@@ -338,11 +349,6 @@ abstract class BaseContainer
    */
   public constructor(public _app: () => Bud) {
     super()
-
-    this.logger = this.app.context.logger.make(
-      this.app.label,
-      lowerCase(this.constructor.name),
-    )
   }
 }
 

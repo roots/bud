@@ -10,6 +10,8 @@
  *  @packageDocumentation
  */
 
+import './types.js'
+
 import {Dashboard} from './service.js'
 
 export default Dashboard

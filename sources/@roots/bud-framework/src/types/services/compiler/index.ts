@@ -8,12 +8,12 @@ import type {
   StatsError,
 } from '@roots/bud-support/webpack'
 
-import type {Service as BaseService} from '../../../service.js'
+import type {Contract} from '../../../service.js'
 
 /**
  * Compiler service
  */
-interface Service extends BaseService {
+interface Service extends Contract {
   /**
    * Compiler implementation
    */
@@ -24,6 +24,9 @@ interface Service extends BaseService {
    */
   instance: MultiCompiler
 
+  /**
+   * The compiler configuration
+   */
   config: Array<Configuration>
 
   /**

@@ -1,5 +1,5 @@
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-babel" />
+import '@roots/bud/types'
+import '@roots/bud-babel/types'
 
 declare module '@roots/bud-framework' {
   interface Modules {
