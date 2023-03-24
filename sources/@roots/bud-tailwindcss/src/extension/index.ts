@@ -50,6 +50,10 @@ export class BudTailwindCss extends Extension<Options> {
     return {...(resolveConfig(this.source) ?? {})}
   }
 
+  public get theme() {
+    return this.config.theme
+  }
+
   /**
    * Resolved paths
    */
