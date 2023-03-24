@@ -1,4 +1,5 @@
 import {createHash} from 'node:crypto'
+import {join} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
@@ -28,7 +29,7 @@ export default class Cache
   public get name(): string {
     return this.app.hooks.filter(
       `build.cache.name`,
-      this.app.hooks.filter(`build.name`, this.app.context.label),
+      this.app.hooks.filter(`build.name`, join(`webpack`, this.app.mode)),
     )
   }
   public set name(name: string) {
@@ -76,7 +77,7 @@ export default class Cache
   public get cacheDirectory(): string {
     return this.app.hooks.filter(
       `build.cache.cacheDirectory`,
-      this.app.path(`@storage`, this.app.label, `cache`, this.app.mode),
+      this.app.path(`@storage`, this.app.label, `cache`),
     )
   }
   public set cacheDirectory(directory: string) {

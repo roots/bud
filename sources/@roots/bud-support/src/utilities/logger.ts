@@ -9,8 +9,11 @@ class Logger {
   public constructor() {
     let options: Record<string, any> = {}
     if (args.log === false) options.disabled = true
-    options.logLevel = args.verbose ? `info` : args.log ? `log` : `error`
+    options.logLevel = args.verbose ? `info` : args.log ? `log` : `warn`
     this.instance = new Signale.Signale(options)
+    this.instance.config({
+      displayLabel: false,
+    })
   }
 
   @bind
@@ -18,11 +21,13 @@ class Logger {
     this.instance.log(...messages)
     return this
   }
+
   @bind
   public time(label: string) {
     this.instance.time(label)
     return this
   }
+
   @bind
   public timeEnd(label: string) {
     this.instance.timeEnd(label)
@@ -58,19 +63,21 @@ class Logger {
     this.instance.debug(...messages)
     return this
   }
+
   @bind
   public await(...messages: Array<unknown>) {
     this.instance.await(...messages)
     return this
   }
+
   @bind
   public scope(...scopes: Array<string>) {
     this.instance = this.instance.scope(...scopes)
     return this
   }
+
   @bind
   public unscope() {
-    this.instance.unscope()
     return this
   }
 }

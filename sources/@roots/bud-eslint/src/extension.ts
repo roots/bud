@@ -1,7 +1,6 @@
 import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
-  dependsOn,
   expose,
   label,
   options,
@@ -11,7 +10,7 @@ import {deprecated} from '@roots/bud-support/decorators'
 import type {Options} from 'eslint-webpack-plugin'
 import EslintPlugin from 'eslint-webpack-plugin'
 
-import type BudEslintCacheFix from './cache-fix/index.js'
+import BudEslintCacheFix from './cache-fix/index.js'
 
 /**
  * Eslint configuration
@@ -20,19 +19,20 @@ import type BudEslintCacheFix from './cache-fix/index.js'
 @expose(`eslint`)
 @plugin(EslintPlugin)
 @options<Options>({
-  extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
-  cacheLocation: app => app.path(`@storage`, app.label, `cache`, `eslint`),
-  fix: false,
+  cache: true,
+  cacheLocation: app => app.path(app.cache.cacheDirectory, `eslint.json`),
   context: app => app.path(),
+  extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
+  fix: false,
+  lintDirtyModulesOnly: app => app.isDevelopment,
   resolvePluginsRelativeTo: app => app.path(),
   threads: true,
 })
-@dependsOn([`@roots/bud-eslint/cache-fix`])
 export class BudEslint extends Extension<Options, EslintPlugin> {
   /**
-   * Persistent cache fix
+   * @deprecated This is no longer necessary. There was a fix upstream.
    */
-  public cacheFix: BudEslintCacheFix
+  public cacheFix: BudEslintCacheFix = new BudEslintCacheFix()
 
   /**
    * {@link Extension.register}
@@ -41,13 +41,65 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
   public override async register(bud: Bud) {
     this.set(`eslintPath`, await this.resolve(`eslint`, import.meta.url))
 
-    const findFlatConfig = ({name}) => name.includes(`eslint.config`)
+    if (!bud.context.files) return
 
-    const userConfigs = Object.values(bud.context.files)
-    if (!userConfigs.some(findFlatConfig)) return
+    const config = Object.values(bud.context.files).find(
+      ({file, name}) => file && name.includes(`eslint`),
+    )
 
-    const flatConfig = userConfigs.find(findFlatConfig)
-    this.set(`baseConfig`, flatConfig.module)
+    if (config) {
+      switch (config.dynamic) {
+        case true:
+          config.module = await this.import(config.path, import.meta.url)
+          break
+
+        default:
+          switch (config.extension) {
+            case `json`:
+              config.module = await bud.fs.json.read(config.path)
+              break
+
+            case `yml`:
+              config.module = await bud.fs.yml.read(config.path)
+              break
+
+            case `yaml`:
+              config.module = await bud.fs.yml.read(config.path)
+              break
+
+            default:
+              this.logger.warn(
+                `Unknown eslint config format.`,
+                `Please update \`${config.name}\` to use one of: js, cjs, mjs, json, yml.`,
+              )
+
+              try {
+                config.module = await bud.fs.json.read(config.path)
+                this.logger.warn(
+                  `Unknown eslint config format.`,
+                  `Parsed as json.`,
+                )
+              } catch (err) {
+                try {
+                  config.module = await bud.fs.yml.read(config.path)
+                  this.logger.warn(
+                    `Unknown eslint config format.`,
+                    `Parsed as yml.`,
+                  )
+                } catch (err) {
+                  this.logger.error(
+                    `Unknown eslint config format.`,
+                    `Could not parse ${config.name} as json or yml.`,
+                  )
+                }
+              }
+          }
+      }
+
+      if (config.module) {
+        this.set(`overrideConfig`, config.module).set(`useEslintrc`, false)
+      }
+    }
   }
 
   /**

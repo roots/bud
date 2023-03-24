@@ -16,9 +16,14 @@ export class EventHooks extends Hooks<EventsStore> {
     id: T,
     ...input: Array<(value: Events[T]) => Promise<unknown>>
   ): Bud {
-    if (!this.has(id)) this.store[id] = []
+    if (!(id in this.store)) this.store[id] = []
 
-    input.map(value => {
+    input.map((value, iteration) => {
+      this.app.hooks.logger.info(
+        `registered event callback for`,
+        id,
+        `(${iteration + 1}/${input.length})`,
+      )
       this.store[id].push(value as any)
     })
 
@@ -30,13 +35,7 @@ export class EventHooks extends Hooks<EventsStore> {
     id: T,
     value: Events[T],
   ): Promise<Bud> {
-    if (!this.has(id)) {
-      this.app.hooks.logger.info(
-        id,
-        `was called but no hooks registered for this event`,
-      )
-      return this.app
-    }
+    if (!(id in this.store) || !this.store[id].length) return this.app
 
     this.app.hooks.logger.time(id)
 
@@ -45,22 +44,14 @@ export class EventHooks extends Hooks<EventsStore> {
     await Promise.all(
       actions.map(async (action, iteration) => {
         try {
+          this.app.hooks.logger.await(id, `#${iteration + 1}`)
           await action(value as any)
         } catch (e) {
-          e.name = `bud.hooks.event.get error: ${id}`
-          e.message = [
-            `There was an error while running a hook for the "${id}" event.`,
-            `The error occurred in hook #${iteration}.`,
-            `The error message was:`,
-            e.message,
-          ].join(`\n`)
-          throw e
+          this.catch(e, id, iteration)
         }
       }),
     )
-
     this.app.hooks.logger.timeEnd(id)
-    this.app.hooks.logger.info(id, this.store[id].length, `hooks fired`)
 
     return this.app
   }

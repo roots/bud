@@ -4,6 +4,7 @@
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",

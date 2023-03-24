@@ -7465,19 +7465,16 @@ __metadata:
     "@types/eslint": 8.21.3
     "@types/node": 18.15.5
     eslint: 8.36.0
-    eslint-webpack-plugin: ^4.0.0
+    eslint-webpack-plugin: 4.0.0
     tslib: 2.5.0
     webpack: 5.76.2
   peerDependencies:
     "@roots/bud": "*"
     eslint: "*"
-    eslint-webpack-plugin: "*"
   peerDependenciesMeta:
     "@roots/bud":
       optional: true
     eslint:
-      optional: true
-    eslint-webpack-plugin:
       optional: true
   languageName: unknown
   linkType: soft
@@ -18197,7 +18194,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:^4.0.0":
+"eslint-webpack-plugin@npm:4.0.0":
   version: 4.0.0
   resolution: "eslint-webpack-plugin@npm:4.0.0"
   dependencies:

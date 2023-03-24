@@ -10,3 +10,7 @@ export const write = async (file: string, data: any): Promise<void> => {
   const source = yaml.dump(data, {skipInvalid: true})
   await fs.writeAsync(file, source)
 }
+
+export const parse = async (source: string) => {
+  return yaml.load(source)
+}
