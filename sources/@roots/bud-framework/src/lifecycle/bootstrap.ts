@@ -145,6 +145,8 @@ export const bootstrap = async function (
       .map(instantiateServices(this)),
   )
 
+  initialize(this)
+
   Object.entries(LIFECYCLE_EVENT_MAP).map(
     ([eventHandle, callbackName]: [
       keyof Registry.EventsStore,
@@ -191,6 +193,4 @@ export const bootstrap = async function (
       this.context.logger.timeEnd(`processing queued calls ${event}`)
     }
   }, Promise.resolve())
-
-  return initialize(this)
 }
