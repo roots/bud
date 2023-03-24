@@ -1,8 +1,8 @@
-import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import set from '@roots/bud-support/lodash/set'
+import chalk from 'chalk'
 
 import type {Bud} from '../bud.js'
 import * as methods from '../methods/index.js'
