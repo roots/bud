@@ -353,7 +353,7 @@ export default class Extensions
     try {
       await this.runDependencies(extension, methodName)
       const method = extension[`_${methodName}`]
-      await method()
+      if (method) await method()
       await this.app.api.processQueue()
 
       return this

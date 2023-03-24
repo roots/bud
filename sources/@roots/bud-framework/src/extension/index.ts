@@ -132,7 +132,9 @@ export class Extension<
    * Logger instance
    */
   public get logger() {
-    return this.app.context.logger.scope(this.app.label, this.label)
+    return this.app.context.logger.scope(
+      ...[this.app.label, this.label].filter(Boolean),
+    )
   }
 
   /**

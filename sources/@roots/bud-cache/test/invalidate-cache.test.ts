@@ -25,7 +25,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
     const extension = new Extension(bud)
 
     expect(extension.invalidationFile).toStrictEqual(
-      expect.stringContaining(`${bud.label}/cache/production/error.json`),
+      expect.stringContaining(`${bud.label}/cache/error.json`),
     )
   })
 

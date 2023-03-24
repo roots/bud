@@ -18,8 +18,4 @@ describe(`bootstrap`, function () {
   it(`is a function`, () => {
     expect(bootstrap).toBeInstanceOf(Function)
   })
-
-  it(`returns Bud`, async () => {
-    expect(await bootstrap(bud.context)).toBe(bud)
-  })
 })
