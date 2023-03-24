@@ -2,7 +2,6 @@ import {bind} from '@roots/bud-support/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import lowerCase from '@roots/bud-support/lodash/lowerCase'
 import set from '@roots/bud-support/lodash/set'
 
 import type {Bud} from '../bud.js'
@@ -134,8 +133,7 @@ export class Extension<
    */
   public get logger() {
     return this.app.context.logger.scope(
-      this.app.label,
-      lowerCase(this.constructor.name),
+      ...[this.app.label, this.label].filter(Boolean),
     )
   }
 

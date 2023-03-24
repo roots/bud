@@ -1,5 +1,8 @@
+import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import set from '@roots/bud-support/lodash/set'
+import chalk from 'chalk'
 
 import type {Bud} from '../bud.js'
 import * as methods from '../methods/index.js'
@@ -100,7 +103,11 @@ const instantiateServices =
     const label = camelCase(service.constructor.name)
 
     set(app, label, service)
-    app.success(`instantiated`, label, `from`, signifier)
+    app.log(
+      chalk.blue(`bud.${label}`),
+      figures.arrowLeft,
+      chalk.cyan(signifier),
+    )
     app.services.push(label)
   }
 
@@ -138,5 +145,52 @@ export const bootstrap = async function (
       .map(instantiateServices(this)),
   )
 
-  return initialize(this)
+  initialize(this)
+
+  Object.entries(LIFECYCLE_EVENT_MAP).map(
+    ([eventHandle, callbackName]: [
+      keyof Registry.EventsStore,
+      keyof Service,
+    ]) =>
+      this.services
+        .map(service => [service, this[service]])
+        .map(([label, service]) => {
+          if (!service) {
+            this.context.logger.error(
+              `service not found: ${label}`,
+              this.services,
+            )
+          }
+
+          if (!isFunction(service[callbackName])) return
+
+          this.hooks.action(
+            eventHandle,
+            service[callbackName].bind(service),
+          )
+          this.context.logger.info(
+            `${label}.${callbackName}`,
+            `bound to`,
+            eventHandle,
+          )
+        }),
+  )
+
+  await [
+    `init`,
+    `bootstrap`,
+    `bootstrapped`,
+    `register`,
+    `registered`,
+    `boot`,
+    `booted`,
+  ].reduce(async (promised, event: keyof Registry.EventsStore) => {
+    await promised
+    await this.hooks.fire(event, this)
+    if (this.api.processQueue && this.api?.queue?.length) {
+      this.context.logger.time(`processing queued calls ${event}`)
+      await this.api.processQueue()
+      this.context.logger.timeEnd(`processing queued calls ${event}`)
+    }
+  }, Promise.resolve())
 }

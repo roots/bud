@@ -3,7 +3,6 @@ import {ServiceContainer} from '@roots/bud-framework/service'
 import type {Api as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
-import chalk from 'chalk'
 
 import {factory} from '../facade/facade.factory.js'
 import * as methods from '../methods/index.js'
@@ -54,7 +53,7 @@ export class Api extends ServiceContainer implements Contract {
    */
   @bind
   public async call(name: string, args: Array<any>): Promise<Bud> {
-    this.logger.info(`api.call: ${chalk.cyan(name)}`, ...args)
+    this.logger.info(`bud.api.call: ${name}`, ...args)
 
     if (!this.has(name)) {
       throw new Error(`bud.api.call error: ${name} is not a function`)

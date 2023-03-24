@@ -99,9 +99,6 @@ export class Build extends Service implements Base.Service {
         ? input(this.makeRule())
         : this.makeRule(input as any)
 
-    this.logger.success(`set rule:`, name)
-    this.logger.info(`\n`, this.rules[name])
-
     return this
   }
 

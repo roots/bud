@@ -35,4 +35,17 @@ export abstract class Hooks<Store> {
   public has<T extends keyof Store & string>(path: T): boolean {
     return isUndefined(this.store[path]) === false
   }
+
+  @bind
+  public catch(e: Error, id?: string, iteration?: number): void {
+    this.app.hooks.logger.error(id)
+    e.name = `hooks error: ${id}`
+    e.message = [
+      `There was an error while running the ${id} hook`,
+      `The error occurred in hook #${iteration + 1}.`,
+      `The error message was:`,
+      e.message,
+    ].join(`\n`)
+    throw e
+  }
 }

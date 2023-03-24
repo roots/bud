@@ -16,13 +16,14 @@ class Project extends Service {
       bud.info(`not a CLI build. skipping project profile.`)
       return
     }
+
     if (!bud.context.args?.debug) {
       bud.info(`--debug not \`true\`. skipping fs write.`)
       return
     }
 
     try {
-      const path = bud.path(`@storage`, `debug`, bud.label, `profile.yml`)
+      const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
         basedir: bud.context.basedir,
@@ -53,8 +54,8 @@ class Project extends Service {
     try {
       const path = bud.path(
         `@storage`,
-        `debug`,
         bud.label,
+        `debug`,
         `build.config.yml`,
       )
       await bud.fs.write(path, bud.build.config)

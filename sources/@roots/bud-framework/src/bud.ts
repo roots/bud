@@ -1,17 +1,14 @@
 import {bind} from '@roots/bud-support/decorators'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
-import {bootstrap, LIFECYCLE_EVENT_MAP} from './lifecycle/bootstrap.js'
+import {bootstrap} from './lifecycle/bootstrap.js'
 import type * as methods from './methods/index.js'
 import type {Module} from './module.js'
-import type {Service} from './service.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
 import type * as Options from './types/options/index.js'
-import type * as Registry from './types/registry/index.js'
 import type Hooks from './types/services/hooks/index.js'
 import type * as Services from './types/services/index.js'
 import Value from './value.js'
@@ -269,47 +266,6 @@ export class Bud {
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
     await bootstrap.bind(this)({...context})
-
-    Object.entries(LIFECYCLE_EVENT_MAP).map(
-      ([eventHandle, callbackName]: [
-        keyof Registry.EventsStore,
-        keyof Service,
-      ]) =>
-        this.services
-          .map(service => [service, this[service]])
-          .map(([label, service]) => {
-            if (!service) {
-              this.error(`service not found: ${label}`, this.services)
-            }
-
-            if (!isFunction(service[callbackName])) return
-
-            this.hooks.action(
-              eventHandle,
-              service[callbackName].bind(service),
-            )
-            this.success(
-              `registered service callback:`,
-              `${label}.${callbackName}`,
-            )
-          }),
-    )
-
-    await [
-      `init`,
-      `bootstrap`,
-      `bootstrapped`,
-      `register`,
-      `registered`,
-      `boot`,
-      `booted`,
-    ].reduce(async (promised, event: keyof Registry.EventsStore) => {
-      await promised
-      await this.hooks.fire(event, this)
-      if (this.api?.processQueue) {
-        await this.api.processQueue()
-      }
-    }, Promise.resolve())
 
     this.after(async bud => {
       await bud.fs.write(bud.module.cacheLocation, {

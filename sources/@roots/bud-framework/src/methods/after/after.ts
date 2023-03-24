@@ -25,11 +25,7 @@ export const after: after = function (
       if (!errorHandler) throw error
       errorHandler(error)
     }
-
-    bud.success(`bud.after action executed`)
   })
-
-  bud.success(`bud.after: registered action`)
 
   return bud
 }

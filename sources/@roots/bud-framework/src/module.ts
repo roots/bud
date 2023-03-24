@@ -5,7 +5,6 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {bind} from '@roots/bud-support/decorators'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import * as paths from '@roots/bud-support/utilities/paths'
-import chalk from 'chalk'
 
 import type {Bud} from './bud.js'
 import {Service} from './service.js'
@@ -121,12 +120,10 @@ export class Module extends Service {
   ): Promise<string> {
     if (this.resolved[signifier]) {
       this.logger.info(
-        chalk.dim(
-          `[cache hit]`,
-          `resolved ${signifier} to ${this.app.root.relPath(
-            this.resolved[signifier],
-          )}`,
-        ),
+        `[cache hit]`,
+        `resolved ${signifier} to ${this.app.root.relPath(
+          this.resolved[signifier],
+        )}`,
       )
 
       return this.resolved[signifier]
@@ -138,11 +135,10 @@ export class Module extends Service {
       const path = await resolve(signifier, this.makeContextURL())
       const normal = normalize(fileURLToPath(path))
       this.logger.info(
-        chalk.dim(
-          `[cache miss]`,
-          `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
-        ),
+        `[cache miss]`,
+        `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
       )
+
       this.resolved[signifier] = normal
       return this.resolved[signifier]
     } catch (err) {
@@ -155,10 +151,8 @@ export class Module extends Service {
       const normal = normalize(fileURLToPath(path))
 
       this.logger.info(
-        chalk.dim(
-          `[cache miss]`,
-          `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
-        ),
+        `[cache miss]`,
+        `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
       )
 
       this.resolved[signifier] = normal
@@ -184,7 +178,7 @@ export class Module extends Service {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.info(chalk.dim(`imported ${signifier}`))
+      this.logger.info(`imported ${signifier}`)
       return result?.default ?? result
     } catch (err) {
       const error = new Error(
@@ -206,11 +200,11 @@ export class Module extends Service {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.info(chalk.dim(`imported ${signifier} (optional)`))
+      this.logger.info(`imported ${signifier} (optional)`)
       return result?.default ?? result
     } catch (err) {
       this.logger.info(
-        chalk.dim(`${signifier} could not be imported (optional)`),
+        `${signifier} could not be imported (optional)`,
         err,
       )
     }
