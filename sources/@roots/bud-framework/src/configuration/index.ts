@@ -1,3 +1,4 @@
+import {asError, BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 
 import type {Bud} from '../bud.js'
@@ -21,71 +22,125 @@ export const process = async (app: Bud) => {
   // process any queued api calls
   await app.api.processQueue()
 
-  try {
-    await Promise.all(
-      findConfigs(`base`, false).map(async description => {
-        app.log(`processing base configuration`, description.name)
-        try {
-          await configuration.run(description)
-        } catch (error) {
-          const err = new Error(error?.toString() ?? ``)
-          err.name = `Configuration Error: ${description.name}`
-          throw err
-        }
-      }),
-    ).then(async () => await app.api.processQueue())
+  await Promise.all(
+    findConfigs(`base`, false).map(async description => {
+      app.log(`processing base configuration`, description.name)
+      try {
+        await configuration.run(description)
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+      try {
+        await app.api.processQueue()
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+    }),
+  )
 
-    await Promise.all(
-      findConfigs(`base`, true).map(async description => {
-        app.log(`processing local configuration`, description.name)
-        try {
-          await configuration.run(description)
-        } catch (error) {
-          const err = new Error(error?.toString() ?? ``)
-          err.name = `Configuration Error: ${description.name}`
-          throw err
-        }
-      }),
-    ).then(async () => await app.api.processQueue())
+  await Promise.all(
+    findConfigs(`base`, true).map(async description => {
+      app.log(`processing local configuration`, description.name)
+      try {
+        await configuration.run(description)
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+      try {
+        await app.api.processQueue()
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+    }),
+  )
 
-    await Promise.all(
-      findConfigs(app.mode, false).map(async description => {
-        app.log(`processing ${app.mode} configuration`, description.name)
-        try {
-          await configuration.run(description)
-        } catch (error) {
-          const err = new Error(error?.toString() ?? ``)
-          err.name = `Configuration Error: ${description.name}`
-          throw err
-        }
-      }),
-    ).then(async () => await app.api.processQueue())
+  await Promise.all(
+    findConfigs(app.mode, false).map(async description => {
+      app.log(`processing ${app.mode} configuration`, description.name)
+      try {
+        await configuration.run(description)
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+      try {
+        await app.api.processQueue()
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+    }),
+  )
 
-    await Promise.all(
-      findConfigs(app.mode, true).map(async description => {
-        app.log(
-          `processing ${app.mode} local configuration`,
-          description.name,
-        )
-        try {
-          await configuration.run(description)
-        } catch (error) {
-          const err = new Error(error?.toString() ?? ``)
-          err.name = `Configuration Error: ${description.name}`
-          throw err
-        }
-      }),
-    ).then(async () => await app.api.processQueue())
-  } catch (error) {
-    throw error
-  }
+  await Promise.all(
+    findConfigs(app.mode, true).map(async description => {
+      app.log(
+        `processing ${app.mode} local configuration`,
+        description.name,
+      )
+      try {
+        await configuration.run(description)
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+      try {
+        await app.api.processQueue()
+      } catch (err) {
+        throw new ConfigError(`Error processing ${description.name}`, {
+          props: {
+            origin: BudError.normalize(err),
+            file: description,
+            thrownBy: `bud.processConfigs`,
+          },
+        })
+      }
+    }),
+  )
 
   try {
     await app.hooks.fire(`config.after`, app)
-  } catch (error) {
-    const err = new Error(error?.toString() ?? ``)
-    err.name = `Post configuration error`
-    throw err
+  } catch (err) {
+    throw new BudError(asError(err).message)
   }
 
   if (app.hasChildren) {
@@ -94,10 +149,8 @@ export const process = async (app: Bud) => {
         try {
           await child.api.processQueue()
           await child.hooks.fire(`config.after`, app)
-        } catch (error) {
-          const err = new Error(error?.toString() ?? ``)
-          err.name = `Post config: error processing ${child.label}`
-          throw err
+        } catch (err) {
+          throw new BudError(asError(err).message)
         }
       }),
     )

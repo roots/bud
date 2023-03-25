@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ImportError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -484,12 +485,14 @@ export class Extension<
 
     try {
       modulePath = await this.app.module.resolve(signifier, context)
-    } catch (e) {
-      const error = new Error(
-        [`could not resolve ${signifier}`, e.message].join(`\n\n`),
-      )
-      error.name = `Extension Dependency Error`
-      throw error
+    } catch (error) {
+      const cause = BudError.normalize(error)
+      throw new ImportError(`could not resolve ${signifier}`, {
+        props: {
+          thrownBy: this.label,
+          origin: cause,
+        },
+      })
     }
 
     return modulePath
@@ -505,15 +508,15 @@ export class Extension<
   ): Promise<T | undefined> {
     try {
       const result = await this.app.module.import(signifier, context)
-      if (!result) {
-        this.logger.error(`could not import`, signifier)
-        return
-      }
-
       this.logger.success(`imported`, signifier)
       return result?.default ?? result ?? undefined
     } catch (error) {
-      this.logger.error(`error importing`, signifier)
+      throw new ImportError(`could not import ${signifier}`, {
+        props: {
+          thrownBy: this.label,
+          origin: ImportError.normalize(error),
+        },
+      })
     }
   }
 

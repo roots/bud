@@ -7506,6 +7506,7 @@ __metadata:
     "@types/node": 18.15.5
     chalk: 5.2.0
     execa: 7.1.1
+    modern-errors: 5.5.4
     tslib: 2.5.0
     webpack: 5.76.2
   languageName: unknown
@@ -7992,6 +7993,7 @@ __metadata:
     mini-css-extract-plugin: 2.7.2
     mini-svg-data-uri: 1.4.4
     minimist: 1.2.8
+    modern-errors: 5.5.4
     node-notifier: 10.0.1
     open: 8.4.0
     open-editor: 4.0.0
@@ -17548,6 +17550,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"error-class-utils@npm:^2.4.0, error-class-utils@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "error-class-utils@npm:2.5.0"
+  checksum: 989ce179e1504d83068fc2b1d8bd684743210f4778ada46054adefe51b65ec38af69c2999f417a6a94e65a27d4450b198c5285be5c725461d7c744fe0778a5c7
+  languageName: node
+  linkType: hard
+
+"error-custom-class@npm:^8.4.0":
+  version: 8.4.0
+  resolution: "error-custom-class@npm:8.4.0"
+  dependencies:
+    error-class-utils: ^2.4.0
+  checksum: 802bb03229976c19d21b4b604e6d927ac1fc5f1a8e43fb8171e322d8caeafd9af26579b62a928f01300db4030e318d5a71398e75c46dab5290cd468790e6a794
+  languageName: node
+  linkType: hard
+
 "error-ex@npm:^1.3.1":
   version: 1.3.2
   resolution: "error-ex@npm:1.3.2"
@@ -19221,7 +19239,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"filter-obj@npm:^5.0.0":
+"filter-obj@npm:^5.0.0, filter-obj@npm:^5.1.0":
   version: 5.1.0
   resolution: "filter-obj@npm:5.1.0"
   checksum: ba7c24d9b2c0552ee87d268e07eca74483af61fb740545ffa809f7e9e5294de38cf163ecc55af0e8a40020af9a49512c32f4022de2a858b110420fc8bffa7c9c
@@ -22253,6 +22271,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-error-instance@npm:^1.3.0":
+  version: 1.6.0
+  resolution: "is-error-instance@npm:1.6.0"
+  checksum: 054c2e7f43baa63151c6a9102a315716f4f40845e8ee2e7703f1f8168eea16352bea2099e9c464a3e5ce57d9273cf056d1830e88398dc1dca8959b4827fb880b
+  languageName: node
+  linkType: hard
+
 "is-extendable@npm:^0.1.0, is-extendable@npm:^0.1.1":
   version: 0.1.1
   resolution: "is-extendable@npm:0.1.1"
@@ -22533,7 +22558,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-plain-obj@npm:^4.0.0":
+"is-plain-obj@npm:^4.0.0, is-plain-obj@npm:^4.1.0":
   version: 4.1.0
   resolution: "is-plain-obj@npm:4.1.0"
   checksum: 6dc45da70d04a81f35c9310971e78a6a3c7a63547ef782e3a07ee3674695081b6ca4e977fbb8efc48dae3375e0b34558d2bcd722aec9bddfa2d7db5b041be8ce
@@ -24765,6 +24790,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"merge-error-cause@npm:^3.5.0":
+  version: 3.5.0
+  resolution: "merge-error-cause@npm:3.5.0"
+  dependencies:
+    normalize-exception: ^2.11.0
+    set-error-class: ^1.5.0
+    set-error-props: ^4.0.0
+    wrap-error-message: ^1.0.0
+  checksum: 13ce7f173d136d9ae36cdae60ea492bc1ef3fa5a640167f12a0aa7106b2a7991895781edb88940e3cb2a90229f26986f2b8bdefe3e73386ac19ee1c6c3c88d2b
+  languageName: node
+  linkType: hard
+
 "merge-options@npm:^3.0.4":
   version: 3.0.4
   resolution: "merge-options@npm:3.0.4"
@@ -25564,6 +25601,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"modern-errors@npm:5.5.4":
+  version: 5.5.4
+  resolution: "modern-errors@npm:5.5.4"
+  dependencies:
+    error-class-utils: ^2.5.0
+    error-custom-class: ^8.4.0
+    filter-obj: ^5.1.0
+    is-plain-obj: ^4.1.0
+    merge-error-cause: ^3.5.0
+    normalize-exception: ^2.11.0
+    set-error-message: ^1.6.0
+    set-error-props: ^4.0.0
+    set-error-stack: ^1.0.0
+  checksum: fb4aaeb954fae5ef88cffa4a98623c7da6966dde82439f43daa2b895a8adf9aeccf0d3ce5d6faf402685707cd77c5b55ce5124e335b7ac6c4b62d2d78a754727
+  languageName: node
+  linkType: hard
+
 "module-definition@npm:^4.0.0":
   version: 4.0.0
   resolution: "module-definition@npm:4.0.0"
@@ -26213,6 +26267,16 @@ __metadata:
   bin:
     nopt: bin/nopt.js
   checksum: d35fdec187269503843924e0114c0c6533fb54bbf1620d0f28b4b60ba01712d6687f62565c55cc20a504eff0fbe5c63e22340c3fad549ad40469ffb611b04f2f
+  languageName: node
+  linkType: hard
+
+"normalize-exception@npm:^2.11.0":
+  version: 2.11.0
+  resolution: "normalize-exception@npm:2.11.0"
+  dependencies:
+    is-error-instance: ^1.3.0
+    is-plain-obj: ^4.1.0
+  checksum: db5ac8b522eaa0f3c4fea44ebb17714203641dad0e4b805742cdd6b4b2963117989c06e63d73ecf47027ce0ccf419ea6cc0b456e2b87c8fe8eb758d977e8bb25
   languageName: node
   linkType: hard
 
@@ -30193,6 +30257,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"redefine-property@npm:^1.0.0":
+  version: 1.0.2
+  resolution: "redefine-property@npm:1.0.2"
+  dependencies:
+    is-plain-obj: ^4.1.0
+  checksum: f9f632fe6f577585fa4c180f4697b80546100ca76e38bed53afaf45ad0f445150b60ae7aa53dfb4b4615671a30cffeffa9962b0396b517363735c6aa3ec1f5aa
+  languageName: node
+  linkType: hard
+
 "redent@npm:^3.0.0":
   version: 3.0.0
   resolution: "redent@npm:3.0.0"
@@ -31529,6 +31602,44 @@ __metadata:
   version: 2.5.1
   resolution: "set-cookie-parser@npm:2.5.1"
   checksum: b99c37f976e68ae6eb7c758bf2bbce1e60bb54e3eccedaa25f2da45b77b9cab58d90674cf9edd7aead6fbeac6308f2eb48713320a47ca120d0e838d0194513b6
+  languageName: node
+  linkType: hard
+
+"set-error-class@npm:^1.5.0":
+  version: 1.6.0
+  resolution: "set-error-class@npm:1.6.0"
+  dependencies:
+    normalize-exception: ^2.11.0
+  checksum: f534407228f78027c7433f34984b3bd58fd9f1c5f4e243e149e771f5f9d43f6ef872fdbc9179d68cbb561c91af7998e694af4e9a7ae20baa11c60a5b37476161
+  languageName: node
+  linkType: hard
+
+"set-error-message@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "set-error-message@npm:1.6.0"
+  dependencies:
+    normalize-exception: ^2.11.0
+  checksum: 41abbc0b6bf69b49f9a46760c4a8223020313e7678f8fbb8e54aff788c62c76de4545cdd650b7132a2c24b85f8adcb73e6bcdea6e620b909caff24f38d5e3cc0
+  languageName: node
+  linkType: hard
+
+"set-error-props@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "set-error-props@npm:4.0.0"
+  dependencies:
+    is-error-instance: ^1.3.0
+    is-plain-obj: ^4.1.0
+    redefine-property: ^1.0.0
+  checksum: 5d58751030bee0f223435066e1849dbdbc6ab0c58e21abf1d6871340f292e5e9b5d1c81cbffaaa5caf23ebb8d2241bb9eae9ffae1198060c6ddba957e53ad0e0
+  languageName: node
+  linkType: hard
+
+"set-error-stack@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "set-error-stack@npm:1.0.0"
+  dependencies:
+    normalize-exception: ^2.11.0
+  checksum: 1f896f93b7ef5038113edf5a0d381089b8482f3164b056060b046150a8484641385991f6a8fe5412a2cef83f9b6e58deeb20f8966d708c253777d93c713848d1
   languageName: node
   linkType: hard
 
@@ -36090,6 +36201,16 @@ __metadata:
     string-width: ^5.0.1
     strip-ansi: ^7.0.1
   checksum: 371733296dc2d616900ce15a0049dca0ef67597d6394c57347ba334393599e800bab03c41d4d45221b6bc967b8c453ec3ae4749eff3894202d16800fdfe0e238
+  languageName: node
+  linkType: hard
+
+"wrap-error-message@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "wrap-error-message@npm:1.0.0"
+  dependencies:
+    normalize-exception: ^2.11.0
+    set-error-message: ^1.6.0
+  checksum: d91a9e3c3f530b0380981eb1a973c0e95be620363fc3cafa1e97aece1559dcb22d0cfe2251e4d3fe6601868ac97eb8575a8c028d6e2b3bf96abfc8b6f24f228b
   languageName: node
   linkType: hard
 

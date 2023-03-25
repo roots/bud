@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError} from '@roots/bud-support/errors'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
@@ -38,14 +39,6 @@ export abstract class Hooks<Store> {
 
   @bind
   public catch(e: Error, id?: string, iteration?: number): void {
-    this.app.hooks.logger.error(id)
-    e.name = `hooks error: ${id}`
-    e.message = [
-      `There was an error while running the ${id} hook`,
-      `The error occurred in hook #${iteration + 1}.`,
-      `The error message was:`,
-      e.message,
-    ].join(`\n`)
-    throw e
+    throw new BudError(`problem running hook ${id}`, {cause: e})
   }
 }

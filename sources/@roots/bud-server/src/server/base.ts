@@ -9,6 +9,7 @@ import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
 import type {Connection} from '@roots/bud-framework/services/server'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ServerError} from '@roots/bud-support/errors'
 
 /**
  * Node server
@@ -106,8 +107,7 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public onError(error: Error) {
-    error.name = `bud.js server error`
-    error.message = error?.message ?? error.toString()
-    throw error
+    const cause = BudError.normalize(error)
+    throw new ServerError(cause.message, {cause})
   }
 }

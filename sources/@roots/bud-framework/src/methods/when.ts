@@ -1,3 +1,4 @@
+import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import noop from '@roots/bud-support/lodash/noop'
@@ -63,24 +64,14 @@ export function when(
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
-    const error = new Error(
+    throw new InputError(
       [
         `All supplied conditional values must be functions.`,
         `If you intended to pass a function to be called conditionally, wrap it in an arrow function.`,
         `\n\nExample: bud.when(() => true, () => bud.vendor())`,
       ].join(` `),
+      {props: {name: `bud.when`}},
     )
-
-    if (description)
-      error.message = error.message.concat(
-        `\n\nCalled when trying to ${description}`,
-      )
-
-    error.message = error.message
-      .concat(`\n\n`)
-      .concat(error.stack.split(`\n`).slice(4, 5).join(`\n`).trim())
-    error.name = `bud.when`
-    throw error
   }
 
   callTestCase(test) ? whenTrue.map(ctx.tap) : whenFalse.map(ctx.tap)

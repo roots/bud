@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import {InputError} from '@roots/bud-support/errors'
 
 /**
  * Handle malformed input
@@ -8,15 +9,10 @@ export function handleTypeError(
   label: string,
   {error}: Zod.SafeParseError<any>,
 ): never {
-  const x = `\u2717`
-
-  const err = new Error(
+  throw new InputError(
     error.issues
-      .map(issue => `${x} ${label} -> ${issue.path}: ${issue.message}`)
+      .map(issue => `${label} -> ${issue.path}: ${issue.message}`)
       .join(`\n\n`)
       .concat(`\n`),
   )
-
-  err.name = `Config error`
-  throw err
 }

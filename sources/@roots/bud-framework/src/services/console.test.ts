@@ -18,7 +18,7 @@ describe(`ConsoleBuffer`, () => {
     expect(consoleBuffer.restore).not.toBeDefined()
   })
 
-  it(`should store console.log to consoleBuffer.messages`, async () => {
+  it(`should store console.log to consoleBuffer.queue`, async () => {
     await consoleBuffer.register(bud)
 
     console.log(`log-test`)
@@ -26,6 +26,6 @@ describe(`ConsoleBuffer`, () => {
     console.error(`error-test`)
     console.warn(`warn-test`)
 
-    expect(consoleBuffer.messages).toMatchSnapshot()
+    expect(consoleBuffer.queue).toMatchSnapshot()
   })
 })

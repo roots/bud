@@ -1,8 +1,14 @@
-import {Error} from './Error.js'
+import {Error} from '@roots/bud-dashboard/app'
+import {BudError} from '@roots/bud-support/errors'
 
 export const WinError = () => (
   <Error
-    name="Windows is not supported"
-    message="Please install WSL: https://learn.microsoft.com/en-us/windows/wsl/install"
+    error={
+      new BudError(`Windows is not supported`, {
+        props: {
+          details: `Please install WSL: https://learn.microsoft.com/en-us/windows/wsl/install`,
+        },
+      })
+    }
   />
 )

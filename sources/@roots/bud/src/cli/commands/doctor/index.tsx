@@ -1,16 +1,17 @@
 /* eslint-disable react/no-unescaped-entities */
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {Error} from '@roots/bud-dashboard/app'
 import type {Extension} from '@roots/bud-framework'
 import type {CommandContext} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 import * as Ink from 'ink'
 
-import {Error} from '../../components/Error.js'
 import {WinError} from '../../components/WinError.js'
 import {dry} from '../../decorators/command.dry.js'
 import {isWindows} from '../../helpers/isWindows.js'
@@ -289,12 +290,7 @@ for a lot of edge cases so it might return a false positive.
         </Ink.Box>,
       )
     } catch (error) {
-      this.renderStatic(
-        <Error
-          name="Error analyzing called functions"
-          message={error.message ?? error}
-        />,
-      )
+      this.renderStatic(<Error error={BudError.normalize(error)} />)
     }
 
     try {
@@ -306,7 +302,7 @@ for a lot of edge cases so it might return a false positive.
       await Promise.all(
         Object.entries(this.bud.extensions.repository).map(
           async ([name, extension]: [string, Extension]) => {
-            if (await extension.isEnabled()) {
+            if (extension.isEnabled()) {
               return this.enabledExtensions.push([name, extension])
             }
             return this.disabledExtensions.push([name, extension])
@@ -314,12 +310,7 @@ for a lot of edge cases so it might return a false positive.
         ),
       )
     } catch (error) {
-      this.renderStatic(
-        <Error
-          name={error.name ?? `Configuration error`}
-          message={error.message ?? error}
-        />,
-      )
+      this.renderStatic(<Error error={BudError.normalize(error)} />)
     }
 
     if (this.bud.env) {
@@ -345,9 +336,7 @@ for a lot of edge cases so it might return a false positive.
           </Ink.Box>,
         )
       } catch (error) {
-        this.renderStatic(
-          <Error name="Environment error" message={error.message} />,
-        )
+        this.renderStatic(<Error error={BudError.normalize(error)} />)
       }
     }
 
@@ -366,9 +355,7 @@ for a lot of edge cases so it might return a false positive.
           </Ink.Box>,
         )
       } catch (error) {
-        this.renderStatic(
-          <Error name="Extensions" message={error.message ?? error} />,
-        )
+        this.renderStatic(<Error error={BudError.normalize(error)} />)
       }
     }
 
@@ -381,12 +368,17 @@ for a lot of edge cases so it might return a false positive.
     ) {
       this.renderStatic(
         <Error
-          name="Can't resolve application entrypoint"
-          message={`No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
-            `@src/index.js`,
-          )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
-            `@src/index.js`,
-          )}\`.`}
+          error={
+            new InputError(`No entrypoint specified`, {
+              props: {
+                details: `No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
+                  `@src/index.js`,
+                )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
+                  `@src/index.js`,
+                )}\`.`,
+              },
+            })
+          }
         />,
       )
     }
@@ -515,9 +507,8 @@ for a lot of edge cases so it might return a false positive.
     if (packageVersion !== this.bud.context.bud.version) {
       return (
         <Error
-          name={signifier}
-          message={`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}).
-          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`}
+          error={BudError.normalize(`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}).
+          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`)}
         />
       )
     } else {

@@ -3,6 +3,7 @@ import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import {bind} from '@roots/bud-support/decorators'
+import {ImportError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import * as paths from '@roots/bud-support/utilities/paths'
 
@@ -120,10 +121,9 @@ export class Module extends Service {
   ): Promise<string> {
     if (this.resolved[signifier]) {
       this.logger.info(
-        `[cache hit]`,
         `resolved ${signifier} to ${this.app.root.relPath(
           this.resolved[signifier],
-        )}`,
+        )} from cache`,
       )
 
       return this.resolved[signifier]
@@ -162,9 +162,10 @@ export class Module extends Service {
     }
 
     errors.push(`Could not resolve ${signifier} from ${context}`)
-    const error = new Error(errors.reverse().join(`\n\n`))
-    error.name = `Could not resolve ${signifier}`
-    throw error
+
+    throw new ImportError(`could not resolve ${signifier}`, {
+      cause: errors.reverse().join(`\n`),
+    })
   }
 
   /**
@@ -180,12 +181,13 @@ export class Module extends Service {
       const result = await import(modulePath)
       this.logger.info(`imported ${signifier}`)
       return result?.default ?? result
-    } catch (err) {
-      const error = new Error(
-        [`could not import ${signifier}`, err.toString()].join(`\n\n`),
-      )
-      error.name = `Module Import Error`
-      throw error
+    } catch (cause) {
+      throw new ImportError(`could not resolve ${signifier}`, {
+        props: {
+          details: `Could not resolve/import ${signifier}. Context: ${context}`,
+          origin: cause,
+        },
+      })
     }
   }
 

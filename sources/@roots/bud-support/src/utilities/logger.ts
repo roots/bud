@@ -1,45 +1,54 @@
+/* eslint-disable n/no-process-env */
 import {bind} from 'helpful-decorators'
-import Signale from 'signale'
+import Signale, {SignaleOptions} from 'signale'
 
+import isUndefined from '../lodash/isUndefined/index.js'
 import args from './args.js'
 
 class Logger {
   public instance: Signale.Signale
 
   public constructor() {
-    let options: Record<string, any> = {}
+    let options: SignaleOptions = {}
+
     if (args.log === false) options.disabled = true
     options.logLevel = args.verbose ? `info` : args.log ? `log` : `warn`
+
+    if (process.env) {
+      options.secrets = Object.entries(process.env)
+        .filter(
+          (
+            entry: [string, string | undefined],
+          ): entry is [string, string] =>
+            !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
+        )
+        .map(([k, v]): string => v)
+    }
+
     this.instance = new Signale.Signale(options)
-    this.instance.config({
-      displayLabel: false,
-    })
+    this.instance.config({displayLabel: false})
   }
 
   @bind
   public log(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     this.instance.log(...messages)
     return this
   }
 
   @bind
-  public time(label: string) {
-    if (!label) return this
+  public time(label: string = `default`) {
     this.instance.time(label)
     return this
   }
 
   @bind
-  public timeEnd(label: string) {
-    if (!label) return this
+  public timeEnd(label: string = `default`) {
     this.instance.timeEnd(label)
     return this
   }
 
   @bind
   public success(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     this.instance.success(...messages)
     return this
   }
@@ -47,26 +56,23 @@ class Logger {
   @bind
   public info(...messages: Array<unknown>) {
     if (!(`verbose` in args)) return this
-    if (messages.length === 0) return this
     this.instance.info(...messages)
     return this
   }
 
   @bind
   public warn(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     this.instance.warn(...messages)
     return this
   }
   @bind
   public error(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     this.instance.error(...messages)
     return this
   }
+
   @bind
   public debug(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     if (!(`verbose` in args)) return this
     this.instance.debug(...messages)
     return this
@@ -74,7 +80,6 @@ class Logger {
 
   @bind
   public await(...messages: Array<unknown>) {
-    if (messages.length === 0) return this
     this.instance.await(...messages)
     return this
   }
@@ -82,17 +87,19 @@ class Logger {
   @bind
   public scope(...scopes: Array<string>) {
     if (scopes.length === 0) return this
-    this.instance = this.instance.scope(...scopes)
+    this.instance = this.instance.scope(
+      ...(scopes.filter(Boolean) ?? [`bud.js`]),
+    )
     return this
   }
 
   @bind
   public unscope() {
+    this.instance.unscope()
     return this
   }
 }
 
-const logger = new Logger()
-
-export default logger
-export {Logger, logger as instance}
+let instance: Logger = new Logger()
+export default instance
+export {Logger, instance}

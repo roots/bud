@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
+import {InputError} from '@roots/bud-support/errors'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -213,11 +214,9 @@ export class Bud {
     tap?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot) {
-      const error = new Error(
-        `Child instances should be produced from the root context`,
+      throw new InputError(
+        `bud.make: must be called from the root context`,
       )
-      error.name = `ChildContextError`
-      throw error
     }
 
     const context: Options.Context = isString(request)

@@ -5,6 +5,7 @@ import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, CompilerError} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import type {
   ErrorWithSourceFile,
@@ -183,9 +184,19 @@ export class Compiler extends Service implements Contract.Service {
     try {
       Ink.render(
         <App.Error
-          name="Compiler error"
-          message={error.message}
-          stack={error.stack}
+          error={
+            new CompilerError(error.message, {
+              props: {
+                details: `This error was thrown by the webpack compiler itself. It is not the same as a syntax error. It is likely a missing or unresolvable build dependency.`,
+                thrownBy: `webpack`,
+                origin: BudError.normalize(error),
+                docs: new URL(`https://bud.js.org/`),
+                issues: new URL(
+                  `https://github.com/roots/bud/issues?q=is%3Aissue+is%3Aopen+label%3A"webpack+compiler"`,
+                ),
+              },
+            })
+          }
         />,
       )
     } catch (error) {

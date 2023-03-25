@@ -156,6 +156,7 @@
     "mini-css-extract-plugin": "2.7.2",
     "mini-svg-data-uri": "1.4.4",
     "minimist": "1.2.8",
+    "modern-errors": "5.5.4",
     "node-notifier": "10.0.1",
     "open": "8.4.0",
     "open-editor": "4.0.0",

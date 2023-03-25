@@ -227,6 +227,7 @@
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.2.0",
     "execa": "7.1.1",
+    "modern-errors": "5.5.4",
     "tslib": "2.5.0",
     "webpack": "5.76.2"
   },
