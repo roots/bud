@@ -1,3 +1,5 @@
+import {InputError} from '@roots/bud-support/errors'
+
 import type {Bud} from '../bud.js'
 
 export interface get {
@@ -21,8 +23,16 @@ export const get: get = function (label, tap) {
   !isRoot &&
     warn(`not root instance. returning from the context of ${root.label}`)
 
-  if (!root.children[label]) {
-    throw new Error(`${label} instance not found`)
+  if (!root.children?.[label]) {
+    throw new InputError(
+      `bud.get: bud.children['${label}'] is undefined`,
+      {
+        props: {
+          details: `There are no instances with the label "${label}" associated with this instance`,
+          thrownBy: `bud.get`,
+        },
+      },
+    )
   }
 
   root.success(`returning child instance:`, label)

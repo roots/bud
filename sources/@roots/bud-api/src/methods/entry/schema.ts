@@ -1,7 +1,5 @@
 import {z, ZodIssueCode} from '@roots/bud-support/zod'
 
-const docs = `\n\n usage docs: https://bud.js.org/docs/bud.entry`
-
 /**
  * Entrypoint signifier
  */
@@ -11,14 +9,14 @@ export const entrypointSignifier = z
       switch (error.code) {
         case ZodIssueCode.invalid_type:
           return {
-            message: `entrypoint signifier must be a string.${docs}`,
+            message: `entrypoint signifier must be a string`,
           }
         default:
           return {message: ctx.defaultError}
       }
     },
   })
-  .min(1, {message: `signifier must not be a blank string.${docs}`})
+  .min(1, {message: `signifier must not be a blank string`})
 
 /**
  * `import` key value
@@ -29,20 +27,20 @@ export const importItem = z
       switch (error.code) {
         case ZodIssueCode.invalid_type:
           return {
-            message: `import item must be a string.${docs}`,
+            message: `import item must be a string`,
           }
         default:
           return {message: ctx.defaultError}
       }
     },
   })
-  .min(1, {message: `imports cannot be a blank string.${docs}`})
+  .min(1, {message: `imports cannot be a blank string`})
 
 /**
  * `import` array
  */
 export const importArray = z.array(importItem).nonempty({
-  message: `imports array must not be empty.${docs}`,
+  message: `imports array must not be empty`,
 })
 
 /**
@@ -73,7 +71,7 @@ export const entrypointsRecord = z.record(
  */
 export const parameters = z.union([
   z.tuple([entrypointSignifier, importItem.or(importArray)], {
-    invalid_type_error: `invalid entrypoint.${docs}`,
+    invalid_type_error: `invalid entrypoint`,
   }),
   entrypointsRecord,
   inputRecord,

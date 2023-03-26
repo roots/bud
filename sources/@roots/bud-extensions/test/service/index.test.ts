@@ -123,7 +123,8 @@ describe(`@roots/bud-extensions`, () => {
     const extensions = new Extensions(() => bud)
     if (!extensions) throw new Error(`Extensions not found`)
 
-    if (!extensions.register) throw new Error(`Extensions.register not found`)
+    if (!extensions.register)
+      throw new Error(`Extensions.register not found`)
     await extensions.register(bud)
 
     if (!extensions.booted) throw new Error(`Extensions.booted not found`)

@@ -12,7 +12,7 @@
       "@roots/bud-support/lodash/*": ["./src/lodash/*/index.ts"],
       "@roots/bud-support/*": ["./src/*"]
     },
-    "types": ["express", "node", "react", "webpack"]
+    "types": ["express", "node", "react", "webpack", "modern-errors"]
   },
   "files": ["types.d.ts"],
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mts", "src/**/*.cts"],

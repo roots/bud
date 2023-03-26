@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, FileWriteError} from '@roots/bud-support/errors'
 import * as args from '@roots/bud-support/utilities/args'
 
 /**
@@ -34,6 +35,12 @@ class Project extends Service {
           `build.optimization.minimize`,
           undefined,
         ),
+        files: bud.context.files
+          ? Object.values(bud.context.files)?.map(file => ({
+              ...file,
+              module: !!file.module,
+            }))
+          : [],
         env: bud.env.getKeys(),
         children: bud.children ? Object.keys(bud.children) : [],
         args: bud.context?.args,
@@ -48,7 +55,12 @@ class Project extends Service {
 
       bud.success(`profile written to `, path)
     } catch (error) {
-      bud.error(`failed to write profile`, error)
+      throw new FileWriteError(`profile.yml`, {
+        props: {
+          details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
+          origin: BudError.normalize(error),
+        },
+      })
     }
 
     try {
@@ -62,7 +74,12 @@ class Project extends Service {
 
       bud.success(`webpack.output.yml written to`, path)
     } catch (error) {
-      bud.error(`failed to write webpack.output.yml`, error)
+      throw new FileWriteError(`webpack.output.yml`, {
+        props: {
+          details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
+          origin: BudError.normalize(error),
+        },
+      })
     }
   }
 }

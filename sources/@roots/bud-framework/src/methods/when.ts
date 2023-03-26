@@ -1,6 +1,8 @@
+import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import noop from '@roots/bud-support/lodash/noop'
+import chalk from 'chalk'
 
 import type {Bud} from '../index.js'
 
@@ -63,24 +65,19 @@ export function when(
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
-    const error = new Error(
-      [
-        `All supplied conditional values must be functions.`,
-        `If you intended to pass a function to be called conditionally, wrap it in an arrow function.`,
-        `\n\nExample: bud.when(() => true, () => bud.vendor())`,
-      ].join(` `),
+    throw new InputError(
+      `bud.when: all supplied conditionals must be functions`,
+      {
+        props: {
+          details: `\n  This is incorrect: bud.when(() => true, ${chalk.red(
+            `bud.vendor()`,
+          )}).\n  This is what you wanted: bud.when(() => true, ${chalk.green(
+            `() => bud.vendor()`,
+          )})`,
+          docs: new URL(`https://bud.js.org/docs/bud.when`),
+        },
+      },
     )
-
-    if (description)
-      error.message = error.message.concat(
-        `\n\nCalled when trying to ${description}`,
-      )
-
-    error.message = error.message
-      .concat(`\n\n`)
-      .concat(error.stack.split(`\n`).slice(4, 5).join(`\n`).trim())
-    error.name = `bud.when`
-    throw error
   }
 
   callTestCase(test) ? whenTrue.map(ctx.tap) : whenFalse.map(ctx.tap)

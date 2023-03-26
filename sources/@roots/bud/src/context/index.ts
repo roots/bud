@@ -63,3 +63,5 @@ export default async (
 
   return instance
 }
+
+export {Context, CommandContext}

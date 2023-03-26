@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import {InputError} from '@roots/bud-support/errors'
 
 /**
  * Handle fallthrough
@@ -7,7 +8,5 @@ export async function handleFallthroughError(
   bud: Bud,
   label: string,
 ): Promise<never> {
-  // this should never be called
-  bud.api.logger.error(label, `unhandled error`)
-  throw new Error()
+  throw new InputError(`Invalid input in ${label}`, {})
 }

@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-exit */
 import {platform} from 'node:os'
 
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
@@ -11,6 +12,7 @@ import type {
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, BudHandler} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import * as t from '@roots/bud-support/typanion'
 import * as Ink from 'ink'
@@ -195,7 +197,6 @@ export default class BudCommand extends Command<CommandContext> {
 
     if (this.withBud) await this.withBud(this.bud)
     await this.bud.processConfigs()
-
     return this.bud
   }
 
@@ -393,50 +394,36 @@ export default class BudCommand extends Command<CommandContext> {
   /**
    * Handle errors
    */
-  public override async catch(value: unknown) {
+  public override async catch(err: BudHandler) {
     process.exitCode = 1
 
-    let error: Error
-
-    const normalizeError = (value: unknown): Error => {
-      if (value instanceof Error) return value
-      if (isString(value)) return new Error(value.trim())
-
-      if (value instanceof Object) {
-        try {
-          if (isString(error.message))
-            return new Error(error.message.trim())
-          return new Error(JSON.stringify(value, null, 2))
-        } catch (error) {
-          return new Error(value.toString().trim())
-        }
-      }
-    }
-
-    error = normalizeError(value)
+    let error: BudHandler
+    if (isString(err)) error = BudError.normalize(err)
+    else if (err.isBudError) error = err
 
     if (this.bud?.notifier?.notify) {
       try {
         this.bud.notifier.notify({
           title: this.bud.label ?? `bud.js`,
-          subtitle: error.name ?? `Error`,
-          message: error.message,
+          subtitle: error?.name ?? `Error`,
+          message: error?.message,
           group: this.bud.label,
         })
-      } catch (error) {
-        // fallthrough
-      }
+      } catch (error) {}
     }
 
     try {
       await this.renderStatic(
         <Ink.Box flexDirection="column">
-          <Display.Error name={error.name} message={error.message} />
+          <Display.Error error={error} />
           {isWindows() ? <WinError /> : null}
         </Ink.Box>,
       )
-    } catch (error) {
-      this.bud.error(error)
+      if (this.bud.isProduction) process.exit(1)
+    } catch (e) {
+      if (error.message) process.stderr.write(error.message.concat(`\n`))
+      if (err.message) process.stderr.write(err.message.concat(`\n`))
+      if (this.bud.isProduction) process.exit(1)
     }
   }
 }

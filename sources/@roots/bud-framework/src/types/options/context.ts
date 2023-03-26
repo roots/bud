@@ -111,6 +111,6 @@ export interface File extends Omit<InspectResult, `type`> {
   dir: boolean
   symlink: boolean
   size: number
-  md5: string
+  sha1: string
   mode: number
 }

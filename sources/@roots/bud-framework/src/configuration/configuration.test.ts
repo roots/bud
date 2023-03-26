@@ -18,7 +18,7 @@ const testFileDescription: File = {
   type: `base`,
   symlink: false,
   size: 0,
-  md5: `abcdefg`,
+  sha1: `abcdefg`,
   mode: 0,
   module: undefined,
 }
@@ -29,7 +29,7 @@ describe(`@roots/bud-framework/configuration`, function () {
 
   beforeEach(async () => {
     bud = await factory()
-    configuration = new Configuration(bud)
+    configuration = new Configuration(bud as any)
   })
 
   it(`is constructable`, () => {

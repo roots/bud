@@ -1,20 +1,18 @@
 import {z} from '@roots/bud-support/zod'
 
-const docs = `usage docs: https://bud.js.org/docs/bud.alias`
-
 /**
  * Alias signifier
  */
 export const signifier = z
   .string()
-  .min(1, {message: `signifier must not be a blank string. ${docs}`})
+  .min(1, {message: `signifier must not be a blank string`})
 
 /**
  * Alias value
  */
 export const item = z
   .string()
-  .min(1, {message: `value must not be a blank string. ${docs}`})
+  .min(1, {message: `value must not be a blank string`})
 
 /**
  * Alias value
@@ -64,5 +62,5 @@ export const parameters = z
     z.tuple([records]),
   ])
   .refine(arr => arr.length < 3, {
-    message: `accepts a maximum of two parameters. ${docs}`,
+    message: `accepts a maximum of two parameters`,
   })

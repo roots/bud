@@ -11,10 +11,17 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 import WebpackVirtualModules from 'webpack-virtual-modules'
+
+interface BudTailwindVFile {
+  name: string
+  path: string | false
+  module: Config
+}
 
 interface Options {
   generateImports?: Array<`${keyof ThemeConfig & string}`> | boolean
@@ -31,25 +38,34 @@ interface Options {
 })
 export class BudTailwindCss extends Extension<Options> {
   /**
-   * Config path
+   * Tailwind config (path)
    */
-  public get path(): string | undefined {
-    if (!this.app.context.files) return
+  public get file(): BudTailwindVFile {
+    const fallback: BudTailwindVFile = {
+      name: `tailwind.config.cjs`,
+      path: false,
+      module: defaultConfig,
+    }
 
-    return Object.entries(this.app.context.files)?.find(([k, v]) =>
-      k.startsWith(`tailwind.config`),
-    )?.[1]?.absolutePath
+    if (!this.app.context.files) return fallback
+
+    return (
+      Object.values(this.app.context.files).find(file =>
+        file.name?.startsWith(`tailwind.config`),
+      ) ?? fallback
+    )
   }
 
   /**
-   * Tailwind config (source)
+   * Tailwind config (resolved)
    */
-  public declare source: Config | undefined
-
   public get config() {
-    return {...(resolveConfig(this.source) ?? {})}
+    return {...(resolveConfig(this.file.module) ?? {})}
   }
 
+  /**
+   * Tailwind theme (resolved)
+   */
   public get theme() {
     return this.config.theme
   }
@@ -87,12 +103,12 @@ export class BudTailwindCss extends Extension<Options> {
 
     if (!extendedOnly) return value
 
-    const src = this.source?.theme?.extend?.[key]
+    const src = this.file.module.theme?.extend?.[key]
 
     if (!src) {
       throw new Error(
-        `The key "${key}" is not extended in your tailwind config.\n\n${JSON.stringify(
-          this.source,
+        `The key "${key}" is not present in your tailwind \`theme.extend\` config.\n\n${JSON.stringify(
+          this.file?.module,
           null,
           2,
         )}`,
@@ -123,20 +139,6 @@ export class BudTailwindCss extends Extension<Options> {
       join(`tailwindcss`, `nesting`, `index.js`),
       import.meta.url,
     )
-
-    try {
-      this.source = this.path
-        ? await import(this.path).then(m => m.default)
-        : {
-            ...(await import(
-              await this.resolve(
-                join(`tailwindcss`, `defaultConfig.js`),
-                import.meta.url,
-              )
-            ).then(m => m.default)),
-          }
-      return
-    } catch (error) {}
   }
 
   /**
@@ -152,7 +154,7 @@ export class BudTailwindCss extends Extension<Options> {
 
     bud.postcss.setPlugins({
       nesting: this.dependencies.nesting,
-      tailwindcss: [this.dependencies.tailwindcss, this.path],
+      tailwindcss: [this.dependencies.tailwindcss, this.file.module],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)

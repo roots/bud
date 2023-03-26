@@ -23,7 +23,12 @@ export default class ConsoleBuffer extends Service {
   /**
    * Received messages
    */
-  public messages: MessagesCache = []
+  public queue: MessagesCache = []
+
+  /**
+   * Already processed messages
+   */
+  public stack: MessagesCache = []
 
   /**
    * Restore console function
@@ -35,9 +40,10 @@ export default class ConsoleBuffer extends Service {
   public restore?: () => any
 
   public fetchAndRemove() {
-    const messages = [...this.messages]
-    this.messages = []
-    return messages
+    const queue = [...this.queue]
+    this.queue = []
+    this.stack.push(...queue)
+    return queue
   }
 
   /**
@@ -58,13 +64,13 @@ export default class ConsoleBuffer extends Service {
 
       // Ignore messages that have been logged before
       if (
-        this.messages.some(
+        this.queue.some(
           stale => stale.message === message && stale.stream === stream,
         )
       )
         return
 
-      this.messages.push({stream, message})
+      this.queue.push({stream, message})
       this.app[stream === `stderr` ? `error` : `log`](message)
     })
   }

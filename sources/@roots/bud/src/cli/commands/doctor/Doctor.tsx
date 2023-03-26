@@ -1,8 +1,9 @@
 /* eslint-disable react/no-unescaped-entities */
+import {Error} from '@roots/bud-dashboard/app'
+import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from 'ink'
 
-import {Error} from '../../components/Error.js'
 import {isWindows} from '../../helpers/isWindows.js'
 
 export const Doctor = ({name, timings}) => {
@@ -41,8 +42,16 @@ const Process = () => {
 
         {!process.version.match(/v1[6|7|8|9]/) && (
           <Error
-            name="Node version not supported"
-            message={`Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`}
+            error={
+              new BudError(`node-version`, {
+                props: {
+                  details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
+                  docs: new URL(
+                    `https://bud.js.org/guides/getting-started`,
+                  ),
+                },
+              })
+            }
           />
         )}
       </Ink.Box>

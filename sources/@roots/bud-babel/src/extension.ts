@@ -5,6 +5,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import {InputError} from '@roots/bud-support/errors'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {LoaderOptions, Registry} from './types.js'
@@ -76,30 +77,22 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public override async register() {
-    try {
-      const presetEnv = await this.resolve(
-        `@babel/preset-env`,
-        import.meta.url,
-      )
-      if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
-    } catch (error) {
-      throw error
-    }
+    const presetEnv = await this.resolve(
+      `@babel/preset-env`,
+      import.meta.url,
+    )
+    if (presetEnv) this.setPreset(`@babel/preset-env`, presetEnv)
 
-    try {
-      const transformRuntime = await this.resolve(
-        `@babel/plugin-transform-runtime`,
-        import.meta.url,
-      )
+    const transformRuntime = await this.resolve(
+      `@babel/plugin-transform-runtime`,
+      import.meta.url,
+    )
 
-      if (transformRuntime)
-        this.setPlugin(`@babel/plugin-transform-runtime`, [
-          transformRuntime,
-          {helpers: false},
-        ])
-    } catch (error) {
-      throw error
-    }
+    if (transformRuntime)
+      this.setPlugin(`@babel/plugin-transform-runtime`, [
+        transformRuntime,
+        {helpers: false},
+      ])
   }
 
   /**
@@ -197,7 +190,15 @@ export default class BabelExtension extends Extension {
     }
 
     if (Array.isArray(name)) {
-      throw Error(`Babel plugin name must be a string.`)
+      throw new InputError(
+        `When defined without options the babel plugin name must be a string.`,
+        {
+          props: {
+            thrownBy: `bud.babel.setPlugin`,
+            docs: new URL(`https://bud.js.org/extensions/bud-babel`),
+          },
+        },
+      )
     }
 
     this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]

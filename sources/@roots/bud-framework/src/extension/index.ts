@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ImportError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -329,8 +330,7 @@ export class Extension<
       return false
     }
 
-    const enabled = await this.isEnabled()
-    if (enabled === false) {
+    if (this.isEnabled() === false) {
       return false
     }
 
@@ -339,28 +339,33 @@ export class Extension<
         this.logger.info(`apply prop found. return extension instance`)
         return this
       }
-    } catch (error) {
-      this.logger.error(`error instantiating plugin`, error)
-    }
 
-    try {
       if (!isUndefined(this.plugin)) {
         const plugin = new this.plugin(this.options)
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
-    } catch (err) {
-      this.logger.error(`error instantiating plugin`, err)
-    }
 
-    try {
       if (!isUndefined(this.make)) {
         const plugin = await this.make(this.app, this.options)
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
-    } catch (err) {
-      this.logger.error(`error calling make`, err)
+    } catch (error) {
+      const ident =
+        this.label ?? this.constructor?.name ?? `unknown_extension`
+
+      throw new BudError(`Error instantiating ${ident}`, {
+        props: {
+          details: `Check options for ${ident}`,
+          thrownBy: this.constructor.name,
+          origin: BudError.normalize(error),
+          docs: new URL(`https://bud.js.org/docs/extensions`),
+          issues: new URL(
+            `https://github.com/roots/bud/search?q=is:issue+${ident} in:title`,
+          ),
+        },
+      })
     }
   }
 
@@ -484,12 +489,14 @@ export class Extension<
 
     try {
       modulePath = await this.app.module.resolve(signifier, context)
-    } catch (e) {
-      const error = new Error(
-        [`could not resolve ${signifier}`, e.message].join(`\n\n`),
-      )
-      error.name = `Extension Dependency Error`
-      throw error
+    } catch (error) {
+      const cause = BudError.normalize(error)
+      throw new ImportError(`could not resolve ${signifier}`, {
+        props: {
+          thrownBy: this.label,
+          origin: cause,
+        },
+      })
     }
 
     return modulePath
@@ -505,15 +512,15 @@ export class Extension<
   ): Promise<T | undefined> {
     try {
       const result = await this.app.module.import(signifier, context)
-      if (!result) {
-        this.logger.error(`could not import`, signifier)
-        return
-      }
-
       this.logger.success(`imported`, signifier)
       return result?.default ?? result ?? undefined
     } catch (error) {
-      this.logger.error(`error importing`, signifier)
+      throw new ImportError(`could not import ${signifier}`, {
+        props: {
+          thrownBy: this.label,
+          origin: ImportError.normalize(error),
+        },
+      })
     }
   }
 

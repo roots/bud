@@ -9,6 +9,7 @@ export const get = (basedir?: string) => {
     logger.error(
       `filesystem not initialized. basedir arg required for initialization.`,
     )
+
   filesystem = new Filesystem(basedir as string)
 
   return filesystem

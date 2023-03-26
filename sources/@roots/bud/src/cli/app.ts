@@ -7,14 +7,16 @@ import BudUpgradeCommand from '@roots/bud/cli/commands/bud.upgrade'
 import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
-import getContext from '@roots/bud/context'
+import getContext, {Context} from '@roots/bud/context'
 import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
 import * as args from '@roots/bud-support/utilities/args'
 
 import BudDoctorCommand from './commands/doctor/index.js'
 import BudReplCommand from './commands/repl/index.js'
 
-const context = await getContext({
+let context: Partial<Context>
+
+context = await getContext({
   stdin: process.stdin,
   stdout: process.stdout,
   stderr: process.stderr,

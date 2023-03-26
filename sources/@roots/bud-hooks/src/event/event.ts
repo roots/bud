@@ -24,6 +24,7 @@ export class EventHooks extends Hooks<EventsStore> {
         id,
         `(${iteration + 1}/${input.length})`,
       )
+
       this.store[id].push(value as any)
     })
 
@@ -44,8 +45,13 @@ export class EventHooks extends Hooks<EventsStore> {
     await Promise.all(
       actions.map(async (action, iteration) => {
         try {
-          this.app.hooks.logger.await(id, `#${iteration + 1}`)
+          this.app.hooks.logger.await(
+            `executing callback ${iteration + 1}/${actions.length}`,
+          )
           await action(value as any)
+          this.app.hooks.logger.success(
+            `executing callback ${iteration + 1}/${actions.length}`,
+          )
         } catch (e) {
           this.catch(e, id, iteration)
         }

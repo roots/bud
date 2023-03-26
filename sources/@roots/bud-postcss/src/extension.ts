@@ -7,6 +7,7 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
+import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Plugin, Processor} from 'postcss'
@@ -194,10 +195,7 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
-    if (!this.plugins.has(plugin)) this.app.error(plugin, `does not exist`)
-
-    return this.plugins.has(plugin) &&
-      this.plugins.get(plugin).length &&
+    return this.plugins.get(plugin).length &&
       this.plugins.get(plugin).length > 1
       ? this.plugins.get(plugin).pop()
       : {}
@@ -214,7 +212,7 @@ export class BudPostCss extends Extension<Options> {
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
     if (!this.plugins.has(plugin)) {
-      this.app.error(plugin, `does not exist`)
+      throw new InputError(`${plugin} does not exist`)
     }
 
     this.plugins.set(plugin, [

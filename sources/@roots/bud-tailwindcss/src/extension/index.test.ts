@@ -61,7 +61,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     const configInitial = resolveConfig(
       await bud.module
         .import(
-          bud.context.files[`tailwind.config.cjs`].path,
+          bud.context.files[`tailwind.config.js`].path,
           import.meta.url,
         )
         .then(mod => mod.default ?? mod),
@@ -72,13 +72,8 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     )
   })
 
-  it(`should have source`, async () => {
-    expect(extension.source).toBe(
-      await bud.module
-        // @ts-ignore
-        .import(extension.path)
-        .then(mod => mod.default ?? mod),
-    )
+  it(`should have file`, async () => {
+    expect(extension.file).toBe(bud.context.files[`tailwind.config.js`])
   })
 
   it(`should resolve tailwind config values`, async () => {

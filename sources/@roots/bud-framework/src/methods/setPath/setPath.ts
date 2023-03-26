@@ -1,5 +1,7 @@
 import {isAbsolute} from 'node:path'
 
+import {InputError} from '@roots/bud-support/errors'
+
 import type {Bud} from '../../bud.js'
 import type {SyncRegistry} from '../../types/registry/index.js'
 import * as isType from './isType.js'
@@ -59,11 +61,13 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
     return this
   }
 
-  const error = new Error(
-    `Invalid parameters passed.\n\nDocs: https://bud.js.org/docs/bud.setPath`,
-  )
-  error.name = `bud.setPath`
-  throw error
+  throw new InputError(`Invalid parameters passed to bud.setPath`, {
+    props: {
+      isBudError: true,
+      thrownBy: `bud.setPath`,
+      docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+    },
+  })
 }
 
 /**

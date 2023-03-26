@@ -8,6 +8,7 @@ import type {
 import {inject} from '@roots/bud-server/inject'
 import type {Watcher} from '@roots/bud-server/server/watcher'
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ServerError} from '@roots/bud-support/errors'
 
 /**
  * Server service class
@@ -178,27 +179,25 @@ export class Server extends Service implements BaseService {
             )
               return
 
-            try {
-              /** import middleware */
-              const {factory} = await this.app.module.import(
-                signifier,
-                import.meta.url,
-              )
-              /** save reference to middleware instance */
-              this.appliedMiddleware[key] = factory(this.app)
-              /** apply middleware */
-              this.application.use(this.appliedMiddleware[key])
-            } catch (error) {
-              this.logger.error(
-                `Failed to apply middleware: ${key}`,
-                error,
-              )
-            }
+            /** import middleware */
+            const {factory} = await this.app.module.import(
+              signifier,
+              import.meta.url,
+            )
+            /** save reference to middleware instance */
+            this.appliedMiddleware[key] = factory(this.app)
+            /** apply middleware */
+            this.application.use(this.appliedMiddleware[key])
           },
         ),
       )
     } catch (error) {
-      throw error
+      throw new ServerError(`Error instantiating middleware`, {
+        props: {
+          thrownBy: `bud.server.applyMiddleware`,
+          origin: BudError.normalize(error),
+        },
+      })
     }
   }
 
