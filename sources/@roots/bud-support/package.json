@@ -158,7 +158,7 @@
     "minimist": "1.2.8",
     "modern-errors": "5.5.4",
     "node-notifier": "10.0.1",
-    "open": "8.4.0",
+    "open": "9.1.0",
     "open-editor": "4.0.0",
     "parse-semver": "1.1.1",
     "parse5": "7.1.2",
