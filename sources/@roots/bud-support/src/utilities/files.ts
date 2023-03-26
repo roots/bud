@@ -159,7 +159,7 @@ async function fetchFileInfo(name: string) {
   } catch (cause) {
     const error = new ImportError(`${file.name} could not be imported`)
     if (getValue(file.name, `bud`)) throw error
-    logger.scope(`fs`, name).warn(error)
+    logger.scope(`fs`, name).info(error)
   }
 }
 

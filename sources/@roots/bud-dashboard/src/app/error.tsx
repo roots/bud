@@ -1,8 +1,9 @@
 /* eslint-disable n/no-process-env */
+import cleanStack from '@roots/bud-support/clean-stack'
 import type {BudHandler} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
+import isString from '@roots/bud-support/lodash/isString'
 import * as Ink from 'ink'
-import cleanStack from '@roots/bud-support/clean-stack'
 
 export type Props = React.PropsWithChildren<{
   error: BudHandler
@@ -13,6 +14,23 @@ export const Error = ({error}: Props) => {
     return (
       <Ink.Box>
         <Ink.Text>An unknown error has occurred.</Ink.Text>
+      </Ink.Box>
+    )
+  }
+
+  if (isString(error)) {
+    return (
+      <Ink.Box flexDirection="column" paddingTop={1}>
+        <Ink.Text backgroundColor="red" color="white">
+          {` Error `}
+        </Ink.Text>
+        <Ink.Box marginTop={1}>
+          <Ink.Text>
+            <Ink.Text color="red">{figures.cross}</Ink.Text>
+            {` `}
+            {error}
+          </Ink.Text>
+        </Ink.Box>
       </Ink.Box>
     )
   }

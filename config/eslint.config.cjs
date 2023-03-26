@@ -49,11 +49,10 @@ module.exports = {
     `examples`,
     `sources/@repo/docs/build`,
     `sources/deprecated`,
+    `tests`,
     `sources/@repo/docs/content/dev/api`,
-    `storage`,
-    `tests/util`,
-    `tests/reproductions`,
     `sources/@repo/test-kit/compiled`,
+    `storage`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
@@ -78,7 +77,7 @@ module.exports = {
     [`n/callback-return`]: ERROR,
     [`n/no-missing-import`]: OFF,
     [`n/no-process-env`]: ERROR,
-    'n/no-unpublished-import': [
+    [`n/no-unpublished-import`]: [
       ERROR,
       {
         allowModules: [

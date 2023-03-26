@@ -188,11 +188,11 @@ export class Compiler extends Service implements Contract.Service {
             new CompilerError(error.message, {
               props: {
                 details: `This error was thrown by the webpack compiler itself. It is not the same as a syntax error. It is likely a missing or unresolvable build dependency.`,
+                stack: error.stack,
                 thrownBy: `webpack`,
-                origin: BudError.normalize(error),
                 docs: new URL(`https://bud.js.org/`),
                 issues: new URL(
-                  `https://github.com/roots/bud/issues?q=is%3Aissue+is%3Aopen+label%3A"webpack+compiler"`,
+                  `https://github.com/roots/bud/search?q=is:issue+"compiler" in:title`,
                 ),
               },
             })
@@ -200,7 +200,6 @@ export class Compiler extends Service implements Contract.Service {
         />,
       )
     } catch (error) {
-      this.app.error(error)
       throw BudError.normalize(error)
     }
   }
