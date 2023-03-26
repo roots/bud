@@ -30,5 +30,6 @@ export const sh: sh = function (
 
   child.stdout?.pipe(process.stdout)
   child.stderr?.pipe(process.stderr)
+
   return child
 }

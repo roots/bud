@@ -57,7 +57,7 @@ export const Error = ({error}: Props) => {
         <Ink.Box marginTop={1}>
           <Ink.Text>
             <Ink.Text color="blue">
-              {figures.arrowRight}
+              {figures.ellipsis}
               {` `}Details{` `}
             </Ink.Text>
 
@@ -66,40 +66,13 @@ export const Error = ({error}: Props) => {
         </Ink.Box>
       )}
 
-      {error.thrownBy && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
-              {figures.arrowRight}
-              {` `}Thrown by
-            </Ink.Text>
-            {` `}
-            <Ink.Text>{error.thrownBy}</Ink.Text>
-          </Ink.Text>
-        </Ink.Box>
-      )}
-
-      {error.file && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
-              {figures.arrowRight}
-              {` `}Related
-            </Ink.Text>
-            {` `}
-            <Ink.Text>
-              {error.file.name} ({error.file.path})
-            </Ink.Text>
-          </Ink.Text>
-        </Ink.Box>
-      )}
-
       {!error.origin && error.stack && (
         <Ink.Box marginTop={1} flexDirection="column">
           <Ink.Text color="blue">
-            {figures.arrowRight}
+            {figures.hamburger}
             {` `}Stack trace
           </Ink.Text>
+
           <Ink.Text dimColor>
             {cleanStack(error.stack, {
               basePath:

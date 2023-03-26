@@ -1,5 +1,4 @@
 import {bind} from '@roots/bud-support/decorators'
-import {BudError, ConfigError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -25,20 +24,9 @@ class Configuration {
   public async run(description: File): Promise<unknown> {
     if (!description.module) return
 
-    try {
-      return description.dynamic
-        ? await this.dynamicConfig(description)
-        : await this.staticConfig(description)
-    } catch (e) {
-      if (e.isBudError) throw e
-
-      throw new ConfigError(`Error processing ${description.name}`, {
-        props: {
-          origin: BudError.normalize(e),
-          file: description,
-        },
-      })
-    }
+    return description.dynamic
+      ? await this.dynamicConfig(description)
+      : await this.staticConfig(description)
   }
 
   /**

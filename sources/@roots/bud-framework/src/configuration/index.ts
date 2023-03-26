@@ -28,22 +28,20 @@ export const process = async (app: Bud) => {
       try {
         await configuration.run(description)
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
       try {
         await app.api.processQueue()
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
@@ -56,22 +54,20 @@ export const process = async (app: Bud) => {
       try {
         await configuration.run(description)
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
       try {
         await app.api.processQueue()
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
@@ -84,11 +80,10 @@ export const process = async (app: Bud) => {
       try {
         await configuration.run(description)
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
@@ -96,11 +91,10 @@ export const process = async (app: Bud) => {
       try {
         await app.api.processQueue()
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
@@ -116,22 +110,20 @@ export const process = async (app: Bud) => {
       try {
         await configuration.run(description)
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
       try {
         await app.api.processQueue()
       } catch (err) {
-        throw new ConfigError(`Error processing ${description.name}`, {
+        throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: BudError.normalize(err),
+            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
-            thrownBy: `bud.processConfigs`,
           },
         })
       }
@@ -141,7 +133,7 @@ export const process = async (app: Bud) => {
   try {
     await app.hooks.fire(`config.after`, app)
   } catch (err) {
-    throw new BudError(asError(err).message)
+    throw err.isBudError ? err : BudError.normalize(err)
   }
 
   if (app.hasChildren) {
