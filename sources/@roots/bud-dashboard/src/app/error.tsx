@@ -1,6 +1,8 @@
+/* eslint-disable n/no-process-env */
 import type {BudHandler} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from 'ink'
+import cleanStack from '@roots/bud-support/clean-stack'
 
 export type Props = React.PropsWithChildren<{
   error: BudHandler
@@ -64,7 +66,7 @@ export const Error = ({error}: Props) => {
           <Ink.Text>
             <Ink.Text color="blue">
               {figures.arrowRight}
-              {` `}Related file
+              {` `}Related
             </Ink.Text>
             {` `}
             <Ink.Text>
@@ -75,14 +77,22 @@ export const Error = ({error}: Props) => {
       )}
 
       {!error.origin && error.stack && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
-              {figures.arrowRight}
-              {` `}Stack trace
-            </Ink.Text>
-            {` `}
-            <Ink.Text dimColor>{error.stack}</Ink.Text>
+        <Ink.Box marginTop={1} flexDirection="column">
+          <Ink.Text color="blue">
+            {figures.arrowRight}
+            {` `}Stack trace
+          </Ink.Text>
+          <Ink.Text dimColor>
+            {cleanStack(error.stack, {
+              basePath:
+                process.env.PROJECT_CWD ??
+                process.env.INIT_CWD ??
+                process.cwd(),
+              pretty: true,
+            })
+              .split(`\n`)
+              .slice(1, 5)
+              .join(`\n`)}
           </Ink.Text>
         </Ink.Box>
       )}

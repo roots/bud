@@ -13,7 +13,6 @@ export default async bud => {
   // .assets([[`fonts/test.otf`, `fontz/test.otf`]])
   // .copyDir([`fonts`, `vendor/fonts`])
   // .copyFile(`fonts/test.otf`)
-
   // .copyFile(`test.otf`, `@src/fonts`)
   // .copyFile([`test.otf`, `fonts/special-@base`], `@src/fonts`)
   // .copyFile([`README.md`, `markdown/@file`], await bud.module.getDirectory(`@roots/bud`))
