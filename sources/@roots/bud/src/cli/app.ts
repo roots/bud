@@ -16,16 +16,12 @@ import BudReplCommand from './commands/repl/index.js'
 
 let context: Partial<Context>
 
-try {
-  context = await getContext({
-    stdin: process.stdin,
-    stdout: process.stdout,
-    stderr: process.stderr,
-    colorDepth: 256,
-  })
-} catch (e) {
-  throw e
-}
+context = await getContext({
+  stdin: process.stdin,
+  stdout: process.stdout,
+  stderr: process.stderr,
+  colorDepth: 256,
+})
 
 const application = new Cli({
   binaryLabel: `bud`,

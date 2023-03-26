@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import type {Configuration} from '@roots/bud-support/webpack'
 
@@ -13,8 +14,14 @@ export interface config {
 
 export const config: config = function (this: Bud, input): Bud {
   if (!input)
-    throw new Error(
+    throw new InputError(
       `config input must pass a callback function that returns a webpack configuration`,
+      {
+        props: {
+          thrownBy: `bud.config`,
+          docs: new URL(`https://bud.js.org/docs/bud.config`),
+        },
+      },
     )
 
   this.hooks.action(`build.after`, async app => {

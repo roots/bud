@@ -92,6 +92,7 @@ export const process = async (app: Bud) => {
           },
         })
       }
+
       try {
         await app.api.processQueue()
       } catch (err) {

@@ -60,11 +60,7 @@ export class Api extends ServiceContainer implements Contract {
       throw new InputError(`${name} is not a function`)
     }
 
-    try {
-      return await this.get(name).call(this.app, ...args)
-    } catch (error) {
-      throw new InputError(`Error calling bud.${name}`, {cause: error})
-    }
+    return await this.get(name).call(this.app, ...args)
   }
 
   /**

@@ -6,7 +6,15 @@ export type Props = React.PropsWithChildren<{
   error: BudHandler
 }>
 
-export const Error = ({children, error}: Props) => {
+export const Error = ({error}: Props) => {
+  if (!error) {
+    return (
+      <Ink.Box>
+        <Ink.Text>An unknown error has occurred.</Ink.Text>
+      </Ink.Box>
+    )
+  }
+
   return (
     <Ink.Box flexDirection="column" paddingTop={1}>
       <Ink.Text backgroundColor="red" color="white">
@@ -17,14 +25,18 @@ export const Error = ({children, error}: Props) => {
 
       {error.message ? (
         <Ink.Box marginTop={1}>
-          <Ink.Text>{error.message}</Ink.Text>
+          <Ink.Text>
+            <Ink.Text color="red">{figures.cross}</Ink.Text>
+            {` `}
+            {error.message}
+          </Ink.Text>
         </Ink.Box>
       ) : null}
 
       {error.details && (
         <Ink.Box marginTop={1}>
           <Ink.Text>
-            <Ink.Text color="cyan">
+            <Ink.Text color="blue">
               {figures.arrowRight}
               {` `}Details{` `}
             </Ink.Text>
@@ -37,7 +49,7 @@ export const Error = ({children, error}: Props) => {
       {error.thrownBy && (
         <Ink.Box marginTop={1}>
           <Ink.Text>
-            <Ink.Text color="cyan">
+            <Ink.Text color="blue">
               {figures.arrowRight}
               {` `}Thrown by
             </Ink.Text>
@@ -50,9 +62,9 @@ export const Error = ({children, error}: Props) => {
       {error.file && (
         <Ink.Box marginTop={1}>
           <Ink.Text>
-            <Ink.Text color="cyan">
+            <Ink.Text color="blue">
               {figures.arrowRight}
-              {` `}Related
+              {` `}Related file
             </Ink.Text>
             {` `}
             <Ink.Text>
@@ -62,15 +74,15 @@ export const Error = ({children, error}: Props) => {
         </Ink.Box>
       )}
 
-      {error.origin && (
-        <Ink.Box marginTop={1} flexDirection="column">
+      {!error.origin && error.stack && (
+        <Ink.Box marginTop={1}>
           <Ink.Text>
-            <Ink.Text color="cyan">
+            <Ink.Text color="blue">
               {figures.arrowRight}
-              {` `}Stack
+              {` `}Stack trace
             </Ink.Text>
             {` `}
-            <Ink.Text dimColor>{error.origin.stack}</Ink.Text>
+            <Ink.Text dimColor>{error.stack}</Ink.Text>
           </Ink.Text>
         </Ink.Box>
       )}
@@ -102,12 +114,11 @@ export const Error = ({children, error}: Props) => {
         </Ink.Box>
       )}
 
-      {children ? (
-        <>
-          <Ink.Text>{` `}</Ink.Text>
-          {children}
-        </>
-      ) : null}
+      {error.origin && (
+        <Ink.Box>
+          <Error error={error.origin} />
+        </Ink.Box>
+      )}
     </Ink.Box>
   )
 }

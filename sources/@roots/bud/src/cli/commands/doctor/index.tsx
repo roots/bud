@@ -68,14 +68,10 @@ for a lot of edge cases so it might return a false positive.
   public override async execute() {
     const {Doctor} = await import(`./Doctor.js`)
 
-    try {
-      const buildTimer = this.makeTimer()
-      await this.makeBud(this)
-      await this.bud.run()
-      this.timings.build = buildTimer()
-    } catch (e) {
-      throw e
-    }
+    const buildTimer = this.makeTimer()
+    await this.makeBud(this)
+    await this.bud.run()
+    this.timings.build = buildTimer()
 
     if (isWindows()) {
       this.renderStatic(<WinError />)

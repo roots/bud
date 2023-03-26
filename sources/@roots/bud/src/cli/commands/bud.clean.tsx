@@ -29,13 +29,13 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
-  public _cleanStorage = Option.Boolean(`@storage,storage`, false, {
+  public storageArg = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })
-  public _cleanOutput = Option.Boolean(`@dist,dist,output`, false, {
+  public outputArg = Option.Boolean(`@dist,dist,output`, false, {
     description: `empty @dist`,
   })
-  public _cleanCache = Option.Boolean(`@cache,cache`, false, {
+  public cacheArg = Option.Boolean(`@cache,cache`, false, {
     description: `empty @storage/cache`,
   })
 
@@ -46,18 +46,17 @@ export default class BudCleanCommand extends BudCommand {
     await this.makeBud(this)
     await this.healthcheck(this)
 
-    const cleanAll =
-      !this._cleanOutput && !this._cleanOutput && !this._cleanCache
+    const cleanAll = !this.outputArg && !this.storageArg && !this.cacheArg
 
-    if (this._cleanStorage || cleanAll) {
+    if (this.storageArg || cleanAll) {
       await this.cleanStorage()
     }
 
-    if (this._cleanOutput || cleanAll) {
+    if (this.outputArg || cleanAll) {
       await this.cleanOutput()
     }
 
-    if (this._cleanCache || cleanAll) {
+    if (this.cacheArg || cleanAll) {
       await this.cleanCache()
     }
   }
@@ -69,76 +68,60 @@ export default class BudCleanCommand extends BudCommand {
 
   @bind
   public async cleanOutput() {
-    try {
-      if (this.bud.hasChildren) {
-        return await Promise.all(
-          Object.values(this.bud.children)
-            .filter(this.filterCompiler)
-            .map(async child => {
-              try {
-                await remove(child.path(`@dist`))
-                await this.renderStatic(
-                  <Ink.Box>
-                    <Ink.Text color="green">
-                      ✔ emptied {child.path(`@dist`)}
-                    </Ink.Text>
-                  </Ink.Box>,
-                )
-              } catch (error) {
-                throw error
-              }
-            }),
-        )
-      }
-
-      await remove(this.bud.path(`@dist`))
-      await this.renderStatic(
-        <Ink.Box>
-          <Ink.Text color="green">
-            ✔ emptied {this.bud.path(`@dist`)}
-          </Ink.Text>
-        </Ink.Box>,
+    if (this.bud.hasChildren) {
+      return await Promise.all(
+        Object.values(this.bud.children)
+          .filter(this.filterCompiler)
+          .map(async child => {
+            await remove(child.path(`@dist`))
+            await this.renderStatic(
+              <Ink.Box>
+                <Ink.Text color="green">
+                  ✔ emptied {child.path(`@dist`)}
+                </Ink.Text>
+              </Ink.Box>,
+            )
+          }),
       )
-    } catch (error) {
-      throw error
     }
+
+    await remove(this.bud.path(`@dist`))
+    await this.renderStatic(
+      <Ink.Box>
+        <Ink.Text color="green">
+          ✔ emptied {this.bud.path(`@dist`)}
+        </Ink.Text>
+      </Ink.Box>,
+    )
   }
 
   @bind
   public async cleanCache() {
-    try {
-      if (this.bud.hasChildren) {
-        return await Promise.all(
-          Object.values(this.bud.children)
-            .filter(this.filterCompiler)
-            .map(async child => {
-              try {
-                await remove(child.cache.cacheDirectory)
-                await this.renderStatic(
-                  <Ink.Box>
-                    <Ink.Text color="green">
-                      ✔ emptied {child.cache.cacheDirectory}
-                    </Ink.Text>
-                  </Ink.Box>,
-                )
-              } catch (error) {
-                throw error
-              }
-            }),
-        )
-      }
-
-      await remove(this.bud.cache.cacheDirectory)
-      await this.renderStatic(
-        <Ink.Box>
-          <Ink.Text color="green">
-            ✔ emptied {this.bud.cache.cacheDirectory}
-          </Ink.Text>
-        </Ink.Box>,
+    if (this.bud.hasChildren) {
+      return await Promise.all(
+        Object.values(this.bud.children)
+          .filter(this.filterCompiler)
+          .map(async child => {
+            await remove(child.cache.cacheDirectory)
+            await this.renderStatic(
+              <Ink.Box>
+                <Ink.Text color="green">
+                  ✔ emptied {child.cache.cacheDirectory}
+                </Ink.Text>
+              </Ink.Box>,
+            )
+          }),
       )
-    } catch (error) {
-      throw error
     }
+
+    await remove(this.bud.cache.cacheDirectory)
+    await this.renderStatic(
+      <Ink.Box>
+        <Ink.Text color="green">
+          ✔ emptied {this.bud.cache.cacheDirectory}
+        </Ink.Text>
+      </Ink.Box>,
+    )
   }
 
   @bind
@@ -148,34 +131,26 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            try {
-              await remove(child.path(`@dist`))
-              await this.renderStatic(
-                <Ink.Box>
-                  <Ink.Text color="green">
-                    ✔ emptied {child.path(`@storage`)}
-                  </Ink.Text>
-                </Ink.Box>,
-              )
-            } catch (error) {
-              throw error
-            }
+            await remove(child.path(`@storage`))
+            await this.renderStatic(
+              <Ink.Box>
+                <Ink.Text color="green">
+                  ✔ emptied {child.path(`@storage`)}
+                </Ink.Text>
+              </Ink.Box>,
+            )
           }),
       )
     }
 
-    try {
-      await ensureDir(this.bud.path(`@storage`))
-      await remove(this.bud.path(`@storage`))
-      await this.renderStatic(
-        <Ink.Box>
-          <Ink.Text color="green">
-            ✔ emptied {this.bud.path(`@storage`)}
-          </Ink.Text>
-        </Ink.Box>,
-      )
-    } catch (error) {
-      throw error
-    }
+    await ensureDir(this.bud.path(`@storage`))
+    await remove(this.bud.path(`@storage`))
+    await this.renderStatic(
+      <Ink.Box>
+        <Ink.Text color="green">
+          ✔ emptied {this.bud.path(`@storage`)}
+        </Ink.Text>
+      </Ink.Box>,
+    )
   }
 }

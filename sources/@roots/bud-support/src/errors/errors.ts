@@ -2,6 +2,7 @@
 import ModernError, {InstanceOptions} from 'modern-errors'
 
 interface BudErrorProps {
+  isBudError: true
   details: string
   issues: URL
   instance: string
@@ -16,7 +17,9 @@ interface BudErrorProps {
   }
 }
 
-class BudHandler extends ModernError {
+const BudBaseError = ModernError.subclass(`BaseError`, {})
+
+class BudHandler extends BudBaseError {
   public declare thrownBy: string | false
   public declare instance: string | `default`
   public declare file: {
@@ -29,6 +32,7 @@ class BudHandler extends ModernError {
   public declare details: string | false
   public declare docs: URL | false
   public declare issues: URL | false
+  public isBudError = true
 
   public constructor(
     message: string,
@@ -42,6 +46,7 @@ class BudHandler extends ModernError {
     this.details = options?.props?.details ?? false
     this.issues = options?.props?.issues ?? false
     this.docs = options?.props?.docs ?? false
+    this.isBudError = true
   }
 
   public override get message(): string {
@@ -52,11 +57,9 @@ class BudHandler extends ModernError {
   }
 }
 
-const BudBaseError = ModernError.subclass(`UnknownError`, {
+const BudError = BudBaseError.subclass(`BudError`, {
   custom: BudHandler,
 })
-
-const BudError = BudBaseError.subclass(`BudError`, {})
 
 const ModuleError = BudError.subclass(`ModuleError`, {
   props: {

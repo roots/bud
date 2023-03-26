@@ -200,7 +200,8 @@ export class Compiler extends Service implements Contract.Service {
         />,
       )
     } catch (error) {
-      this.logger.error(error)
+      this.app.error(error)
+      throw BudError.normalize(error)
     }
   }
 

@@ -330,8 +330,7 @@ export class Extension<
       return false
     }
 
-    const enabled = await this.isEnabled()
-    if (enabled === false) {
+    if (this.isEnabled() === false) {
       return false
     }
 
@@ -340,28 +339,33 @@ export class Extension<
         this.logger.info(`apply prop found. return extension instance`)
         return this
       }
-    } catch (error) {
-      this.logger.error(`error instantiating plugin`, error)
-    }
 
-    try {
       if (!isUndefined(this.plugin)) {
         const plugin = new this.plugin(this.options)
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
-    } catch (err) {
-      this.logger.error(`error instantiating plugin`, err)
-    }
 
-    try {
       if (!isUndefined(this.make)) {
         const plugin = await this.make(this.app, this.options)
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
-    } catch (err) {
-      this.logger.error(`error calling make`, err)
+    } catch (error) {
+      const ident =
+        this.label ?? this.constructor?.name ?? `unknown_extension`
+
+      throw new BudError(`Error instantiating ${ident}`, {
+        props: {
+          details: `Check options for ${ident}`,
+          thrownBy: this.constructor.name,
+          origin: BudError.normalize(error),
+          docs: new URL(`https://bud.js.org/docs/extensions`),
+          issues: new URL(
+            `https://github.com/roots/bud/search?q=is:issue+${ident} in:title`,
+          ),
+        },
+      })
     }
   }
 
