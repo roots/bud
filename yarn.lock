@@ -8009,6 +8009,7 @@ __metadata:
     signale: 1.4.0
     strip-ansi: 7.0.1
     style-loader: 3.3.1
+    temp-dir: 3.0.0
     toml: 3.0.0
     tslib: 2.5.0
     typanion: 3.12.1
@@ -33316,6 +33317,13 @@ __metadata:
   dependencies:
     streamx: ^2.12.5
   checksum: 36bf7ce8bb5eb428ad7b14b695ee7fb0a02f09c1a9d8181cc42531208543a920b299d711bf78dad4ff9bcf36ac437ae8e138053734746076e3e0e7d6d76eef64
+  languageName: node
+  linkType: hard
+
+"temp-dir@npm:3.0.0":
+  version: 3.0.0
+  resolution: "temp-dir@npm:3.0.0"
+  checksum: 577211e995d1d584dd60f1469351d45e8a5b4524e4a9e42d3bdd12cfde1d0bb8f5898311bef24e02aaafb69514c1feb58c7b4c33dcec7129da3b0861a4ca935b
   languageName: node
   linkType: hard
 
