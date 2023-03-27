@@ -12,13 +12,13 @@
     "@types/lodash": "4.14.191",
     "@types/node": "18.15.10",
     "@types/semver": "7.3.13",
-    "@yarnpkg/builder": "3.2.7"
+    "@yarnpkg/builder": "4.0.0-rc.41"
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "3.5.0",
-    "@yarnpkg/core": "3.5.0",
-    "@yarnpkg/shell": "3.2.5",
+    "@yarnpkg/cli": "4.0.0-rc.41",
+    "@yarnpkg/core": "4.0.0-rc.41",
+    "@yarnpkg/shell": "4.0.0-rc.41",
     "clipanion": "3.2.0",
     "fs-extra": "11.1.1",
     "globby": "13.1.3",
