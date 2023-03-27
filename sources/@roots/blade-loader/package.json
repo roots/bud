@@ -65,7 +65,7 @@
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
-    "webpack": "5.76.2"
+    "webpack": "5.76.3"
   },
   "volta": {
     "extends": "../../../package.json"

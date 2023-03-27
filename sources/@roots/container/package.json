@@ -70,8 +70,8 @@
   "types": "./lib/index.d.ts",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "type-fest": "3.5.0"
+    "@types/node": "18.15.10",
+    "type-fest": "3.7.1"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

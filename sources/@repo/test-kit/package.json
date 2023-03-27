@@ -28,7 +28,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@types/fs-extra": "11.0.1",
-    "@types/node": "18.15.5",
+    "@types/node": "18.15.10",
     "chalk": "5.2.0",
     "execa": "7.1.1",
     "fs-extra": "11.1.1",

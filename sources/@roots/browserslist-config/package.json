@@ -59,10 +59,10 @@
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "browserslist": ">=4.21.4",
+    "browserslist": "4.21.5",
     "execa": "7.1.1",
     "tslib": "2.5.0",
-    "update-browserslist-db": ">=1.0.10"
+    "update-browserslist-db": "1.0.10"
   },
   "peerDependencies": {
     "browserslist": ">=4.21.4",
