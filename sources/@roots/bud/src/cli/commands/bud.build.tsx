@@ -75,7 +75,7 @@ export default class BudBuildCommand extends BudCommand {
   public esm = Option.Boolean(`--esm`, undefined, {
     description: `build as es modules`,
   })
-  public flush = Option.Boolean(`--flush,--force`, undefined, {
+  public force = Option.Boolean(`--force,--flush`, undefined, {
     description: `Force clearing bud internal cache`,
   })
   public hash = Option.Boolean(`--hash`, undefined, {
@@ -164,7 +164,7 @@ export default class BudBuildCommand extends BudCommand {
       devtool: this.devtool,
       editor: this.editor,
       esm: this.esm,
-      flush: this.flush,
+      force: this.force,
       hash: this.hash,
       html: this.html,
       immutable: this.immutable,

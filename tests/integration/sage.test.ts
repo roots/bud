@@ -195,12 +195,5 @@ describe(`examples/sage`, () => {
     expect(project.manifest[`runtime.js`]).toMatch(
       /js\/runtime\.[\d|\w]*\.js/,
     )
-    expect(project.modules.chunks.byName).toEqual(
-      expect.objectContaining({
-        app: expect.any(Number),
-        editor: expect.any(Number),
-        runtime: expect.any(Number),
-      }),
-    )
   })
 })

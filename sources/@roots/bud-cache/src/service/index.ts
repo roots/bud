@@ -58,6 +58,7 @@ export default class Cache
   public get version(): string {
     const version = createHash(`sha1`)
     version.update(hash)
+
     Object.values(this.app.context.files ?? {})
       .filter(file => file?.bud || file?.name?.includes(`package.json`))
       .map(({sha1}) => version.update(sha1))
@@ -67,6 +68,7 @@ export default class Cache
       version.digest(`base64`),
     )
   }
+
   public set version(version: string) {
     this.app.hooks.on(`build.cache.version`, version)
   }
@@ -77,7 +79,7 @@ export default class Cache
   public get cacheDirectory(): string {
     return this.app.hooks.filter(
       `build.cache.cacheDirectory`,
-      this.app.path(`@storage`, this.app.label, `cache`),
+      this.app.path(`@os-cache`, this.app.label, `cache`),
     )
   }
   public set cacheDirectory(directory: string) {

@@ -46,19 +46,13 @@ If you are referencing a github URL, note that you will need to include a branch
 import readme from 'github:roots/bud/main/README.md'
 ```
 
-If you are specifying any asset with a remote URL (e.g. an image) it will automatically convert it to a local module:
+If you are specifying any asset with a remote URL (e.g. an image) it will automatically convert it to a local module. For example, referencing an image in CSS will download that image to the store and map the URL to the local module:
 
 ```css title=app.css
 body {
   background-image: url('https://example.com/image.png');
 }
 ```
-
-## Add local module store to `.gitignore`
-
-Add `!.budfiles/[name]/modules` to your `.gitignore` file to version control the local copy of whatever remote assets you have pulled.
-
-This ensures your application can be built even if the original assets are not available.
 
 ## Import mapping
 
@@ -69,7 +63,7 @@ You can use `bud.imports` in `package.json` to map sources to application module
   "bud": {
     "imports": {
       "skypack": ["canvas-confetti"]
-    },
+    }
   }
 }
 ```
