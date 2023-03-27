@@ -147,6 +147,7 @@ export default class BudCleanCommand extends BudCommand {
     await remove(this.bud.path(`@storage`))
     await ensureDir(this.bud.path(`@tmp`))
     await remove(this.bud.path(`@tmp`))
+
     await this.renderStatic(
       <Ink.Box>
         <Ink.Text color="green">

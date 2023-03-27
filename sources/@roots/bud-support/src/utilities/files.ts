@@ -18,7 +18,7 @@ let paths: ReturnType<typeof getPaths>
 const get = async (basedir: string) => {
   if (data && Object.entries(data).length) return data
 
-  let inventory: Array<string> = []
+  let files: Array<string> = []
 
   fs = filesystem.get(basedir)
   paths = getPaths(basedir)
@@ -29,21 +29,21 @@ const get = async (basedir: string) => {
 
   await fs
     .list(basedir)
-    .then(res => inventory.push(...(res?.filter(Boolean) ?? [])))
+    .then(res => files.push(...(res?.filter(Boolean) ?? [])))
 
   await fs
     .list(join(basedir, `config`))
     .then(res =>
-      inventory.push(
+      files.push(
         ...((res?.filter(Boolean) ?? []).map(file =>
           join(`config`, file),
         ) ?? []),
       ),
     )
 
-  if (!inventory?.length) return
+  if (!files?.length) return
 
-  await Promise.all(inventory.map(fetchFileInfo))
+  await Promise.all(files.map(fetchFileInfo))
 
   if (await fs.exists(join(paths.tmp, `checksum.yml`))) {
     const checksums = await fs.read(join(paths.tmp, `checksum.yml`))
