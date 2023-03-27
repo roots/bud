@@ -31,16 +31,16 @@ export default async bud => {
 
 ## Reserved paths
 
-**bud.js** has a few path handles which fulfill a special role. We've already seen two of them:
+**bud.js** has a few path handles which fulfill a special role.
 
-| handle       | description           | default        |
-| ------------ | --------------------- | -------------- |
-| **@src**     | input directory       | `src`          |
-| **@dist**    | output directory      | `dist`         |
-| **@storage** | cache/build artifacts | `.budfiles`    |
-| **@modules** | modules directory     | `node_modules` |
+| handle       | description                      | default          |
+| ------------ | -------------------------------- | ---------------- |
+| **@src**     | source directory                 | `./src`          |
+| **@dist**    | destination directory            | `./dist`         |
+| **@storage** | cache/artifact storage directory | `./.budfiles`    |
+| **@modules** | modules directory                | `./node_modules` |
 
-These paths can be overridden but should not be removed or hijacked for something unrelated to what is described
+These paths can be overridden but should not be removed or hijacked for a purpose that differs from what is described.
 
 ### Globbing
 
