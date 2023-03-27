@@ -6,14 +6,7 @@ import fs from 'fs-extra'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 const exampleProjectDir = join(paths.root, `examples`, `react`)
-const tmpProjectDir = join(
-  paths.root,
-  `storage`,
-  `mocks`,
-  `yarn`,
-  `@examples`,
-  `cli`,
-)
+const tmpProjectDir = join(paths.root, `storage`, `cli`)
 
 describe.skip(`cli`, () => {
   beforeEach(async () => {

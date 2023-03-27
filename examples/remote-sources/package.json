@@ -1,6 +1,10 @@
 {
   "name": "@examples/remote-sources",
   "private": true,
+  "packageManager": "npm@8.19.2",
+  "engines": {
+    "node": "18.12.1"
+  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
@@ -13,8 +17,5 @@
     "@roots/bud": "latest",
     "@roots/bud-swc": "latest",
     "@roots/bud-tailwindcss": "latest"
-  },
-  "volta": {
-    "node": "18.12.1"
   }
 }

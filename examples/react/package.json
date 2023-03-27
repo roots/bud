@@ -1,6 +1,10 @@
 {
   "name": "@examples/react",
   "private": true,
+  "packageManager": "npm@8.19.2",
+  "engines": {
+    "node": "18.12.1"
+  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],

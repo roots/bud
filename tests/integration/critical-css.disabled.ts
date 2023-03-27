@@ -3,13 +3,12 @@ import * as fs from '@roots/bud-support/fs'
 import {join} from 'path'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-const run = pacman => () => {
+describe.skip(`critical-css`, () => {
   let project: Project
 
   beforeAll(async () => {
     project = await new Project({
       label: `@examples/critical-css`,
-      with: pacman,
     }).setup()
   })
 
@@ -22,9 +21,4 @@ const run = pacman => () => {
     )
     expect(artifact.toString()).toMatchSnapshot()
   })
-}
-
-describe(`critical-css`, () => {
-  describe(`npm`, run(`npm`))
-  describe(`yarn`, run(`yarn`))
-}, 240000)
+})

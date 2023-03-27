@@ -5,7 +5,6 @@ describe(`examples/basic`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/basic`,
-      with: `npm`,
     }).setup()
 
     expect(project.assets[`main.js`].length).toBeGreaterThan(10)

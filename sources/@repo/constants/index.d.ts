@@ -40,7 +40,7 @@ export declare const paths: {
   sources: string
   storage: string
   tests: string
-  mocks: string
+  fixtures: string
 }
 
 export declare const projectConfig: Record<string, any>

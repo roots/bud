@@ -5,7 +5,7 @@ import {join} from 'path'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 const exampleProjectDir = `${paths.root}/examples/node-api`
-const tmpProjectDir = `${paths.root}/storage/mocks/yarn/@examples/node-api`
+const tmpProjectDir = `${paths.root}/storage/fixtures/node-api`
 
 describe.skip(`node-api`, () => {
   beforeAll(async () => {

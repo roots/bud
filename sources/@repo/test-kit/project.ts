@@ -4,28 +4,25 @@ import {posix} from 'node:path'
 
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
-import {Filesystem, json} from '@roots/bud-support/filesystem'
-import {execa, ExecaChildProcess} from 'execa'
+import execa, {ExecaChildProcess} from '@roots/bud-support/execa'
+import {Filesystem} from '@roots/bud-support/filesystem'
 
 const {join} = posix
 
 interface Options {
   label: string
-  with: 'yarn' | 'npm'
   dist?: string
   mode?: 'development' | 'production'
   buildCommand?: [string, Array<string>]
 }
 
 /**
- * This class is used to represent an example project being used
- * as the subject of an integration test.
+ * This class is used in integration tests.
  *
  * @example
  * ```ts
  *  project = new Project({
  *    name: 'basic',
- *    with: 'yarn',
  *  })
 
  *  await project.setup()
@@ -69,9 +66,12 @@ export class Project {
    * Class constructor
    */
   public constructor(public options: Options) {
-    this.dir = join(paths.mocks, this.options.with, this.options.label)
+    this.dir = join(
+      paths.fixtures,
+      this.options.label.replace(`@examples/`, ``),
+    )
     this.options.dist = this.options.dist ?? `dist`
-    this.fs = new Filesystem(this.dir)
+    this.fs = new Filesystem()
   }
 
   /**
@@ -99,6 +99,10 @@ export class Project {
     try {
       return execa(bin, flags ?? [], {
         cwd: this.projectPath(),
+        shell: true,
+        env: {
+          NODE_ENV: `development`,
+        },
       })
     } catch (error) {
       throw new Error(error)
@@ -106,37 +110,19 @@ export class Project {
   }
 
   @bind
-  public async yarnInstall() {
-    await this.fs.write(this.projectPath(`yarn.lock`), ``)
+  public async install(): Promise<this> {
+    try {
+      await this.fs.copy(
+        join(
+          paths.root,
+          `examples`,
+          this.options.label.replace(`@examples/`, ``),
+        ),
+        this.projectPath(),
+        {overwrite: true},
+      )
+    } catch (e) {}
 
-    await this.fs.copy(
-      join(paths.sources, `@repo`, `test-kit`, `.yarnrc.stub.yml`),
-      this.projectPath(`.yarnrc.yml`),
-    )
-
-    const child = await this.$(`yarn`, [
-      `install`,
-      `--registry`,
-      REGISTRY_PROXY,
-      `--no-lockfile`,
-      `--no-cache`,
-      `--no-verify`,
-    ])
-
-    child.stdout &&
-      (await this.fs.write(
-        this.projectPath(`install.stdout.log`),
-        child.stdout,
-      ))
-    child.stderr &&
-      (await this.fs.write(
-        this.projectPath(`install.stderr.log`),
-        child.stderr,
-      ))
-  }
-
-  @bind
-  public async npmInstall() {
     const child = await this.$(`npm`, [
       `install`,
       `--registry`,
@@ -153,23 +139,6 @@ export class Project {
         this.projectPath(`install.stderr.log`),
         child.stderr,
       ))
-  }
-
-  @bind
-  public async install(): Promise<this> {
-    try {
-      await this.fs.remove(this.projectPath())
-    } catch (e) {}
-    try {
-      await this.fs.copy(
-        `./examples/${this.options.label.replace(`@examples/`, ``)}`,
-        this.projectPath(),
-      )
-    } catch (e) {}
-
-    this.options.with === `yarn`
-      ? await this.yarnInstall()
-      : await this.npmInstall()
 
     return this
   }
@@ -207,14 +176,8 @@ export class Project {
   }
 
   @bind
-  public async readJson(file: string) {
-    const buffer = await this.fs.read(file)
-    return json.parse(buffer.toString())
-  }
-
-  @bind
   public async setPackageJson() {
-    const packageJson = await this.readJson(
+    const packageJson = await this.fs.read(
       this.projectPath(`package.json`),
     )
 
@@ -223,7 +186,7 @@ export class Project {
 
   @bind
   public async setManifest() {
-    this.manifest = await this.readJson(
+    this.manifest = await this.fs.read(
       this.projectPath(this.options.dist, `manifest.json`),
     )
   }
@@ -247,7 +210,7 @@ export class Project {
   @bind
   public async setEntrypoints() {
     try {
-      const entrypoints = await this.readJson(
+      const entrypoints = await this.fs.read(
         this.projectPath(join(this.options.dist, `entrypoints.json`)),
       )
 
@@ -258,7 +221,7 @@ export class Project {
   @bind
   public async setModules() {
     try {
-      const modules = await this.readJson(
+      const modules = await this.fs.read(
         this.projectPath(
           join(`.budfiles`, this.options.label, `modules.json`),
         ),

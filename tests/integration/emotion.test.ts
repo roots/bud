@@ -5,7 +5,6 @@ describe(`examples/emotion`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/emotion`,
-      with: `npm`,
     }).setup()
 
     expect(project.manifest[`app.js`]).toBe(`js/app.js`)

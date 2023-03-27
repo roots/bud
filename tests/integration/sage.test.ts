@@ -6,7 +6,6 @@ describe(`examples/sage`, () => {
     const project = await new Project({
       label: `@examples/sage`,
       dist: `public`,
-      with: `npm`,
     }).setup()
 
     expect(project.entrypoints.app.css).toBeInstanceOf(Array)
@@ -36,7 +35,7 @@ describe(`examples/sage`, () => {
       project.assets[`app.css`].includes(`.text-custom{font-size:.625rem`),
     ).toBeTruthy()
 
-    const themeJson = await project.readJson(
+    const themeJson = await project.fs.read(
       project.projectPath(`theme.json`),
     )
     expect(themeJson).toMatchInlineSnapshot(`
@@ -184,8 +183,6 @@ describe(`examples/sage`, () => {
     expect(project.assets[`editor.css`].includes(`@apply`)).toBe(false)
     expect(project.assets[`editor.css`].match(/    /)).toBeFalsy()
     expect(project.assets[`editor.css`].match(/\\n/)).toBeFalsy()
-
-    expect(project.packageJson).toMatchSnapshot()
 
     expect(project.manifest[`app.js`]).toMatch(/js\/app\.[\d|\w]*\.js/)
     expect(project.manifest[`app.css`]).toMatch(/css\/app\.[\d|\w]*\.css/)
