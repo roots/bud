@@ -1,7 +1,7 @@
 import {join} from 'node:path'
 import {beforeAll, describe, expect, it} from 'vitest'
-import fs from '@roots/bud-support/fs-jetpack'
-import execa from '@roots/bud-support/execa'
+import fs from 'fs-jetpack'
+import {execa} from 'execa'
 import {paths} from '@repo/constants'
 
 describe(`--filter`, () => {

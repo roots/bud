@@ -4,8 +4,7 @@ import {posix} from 'node:path'
 
 import {paths, REGISTRY_PROXY} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
-import {json} from '@roots/bud-support/filesystem'
-import * as fs from '@roots/bud-support/fs'
+import {Filesystem, json} from '@roots/bud-support/filesystem'
 import {execa, ExecaChildProcess} from 'execa'
 
 const {join} = posix
@@ -64,12 +63,15 @@ export class Project {
    */
   public dir: string
 
+  public fs: Filesystem
+
   /**
    * Class constructor
    */
   public constructor(public options: Options) {
     this.dir = join(paths.mocks, this.options.with, this.options.label)
     this.options.dist = this.options.dist ?? `dist`
+    this.fs = new Filesystem(this.dir)
   }
 
   /**
@@ -105,9 +107,9 @@ export class Project {
 
   @bind
   public async yarnInstall() {
-    await fs.ensureFile(this.projectPath(`yarn.lock`))
+    await this.fs.write(this.projectPath(`yarn.lock`), ``)
 
-    await fs.copy(
+    await this.fs.copy(
       join(paths.sources, `@repo`, `test-kit`, `.yarnrc.stub.yml`),
       this.projectPath(`.yarnrc.yml`),
     )
@@ -122,16 +124,14 @@ export class Project {
     ])
 
     child.stdout &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`install.stdout.log`),
         child.stdout,
-        `utf8`,
       ))
     child.stderr &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`install.stderr.log`),
         child.stderr,
-        `utf8`,
       ))
   }
 
@@ -144,26 +144,24 @@ export class Project {
     ])
 
     child.stdout &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`install.stdout.log`),
         child.stdout,
-        `utf8`,
       ))
     child.stderr &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`install.stderr.log`),
         child.stderr,
-        `utf8`,
       ))
   }
 
   @bind
   public async install(): Promise<this> {
     try {
-      await fs.remove(this.projectPath())
+      await this.fs.remove(this.projectPath())
     } catch (e) {}
     try {
-      await fs.copy(
+      await this.fs.copy(
         `./examples/${this.options.label.replace(`@examples/`, ``)}`,
         this.projectPath(),
       )
@@ -190,16 +188,14 @@ export class Project {
         ])
 
     child.stdout &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`build.stdout.log`),
         child.stdout,
-        `utf8`,
       ))
     child.stderr &&
-      (await fs.writeFile(
+      (await this.fs.write(
         this.projectPath(`build.stderr.log`),
         child.stderr,
-        `utf8`,
       ))
 
     return this
@@ -212,7 +208,7 @@ export class Project {
 
   @bind
   public async readJson(file: string) {
-    const buffer = await fs.readFile(file)
+    const buffer = await this.fs.read(file)
     return json.parse(buffer.toString())
   }
 
@@ -237,7 +233,7 @@ export class Project {
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
-          const buffer = await fs.readFile(
+          const buffer = await this.fs.read(
             this.projectPath(this.options.dist, path),
           )
 

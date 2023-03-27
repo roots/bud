@@ -1,12 +1,14 @@
 import {join} from 'node:path'
 
 import {paths, projectConfig, REPO_PATH} from '@repo/constants'
-import * as fs from '@roots/bud-support/fs'
+import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import matter, {GrayMatterFile} from 'gray-matter'
 import {format} from 'prettier'
 
 import {templates} from './renderer/index.js'
+
+const fs = new Filesystem()
 
 type Chunks = Array<string> | Promise<Array<string>>
 type File = GrayMatterFile<string>
@@ -23,7 +25,7 @@ const getPath = (...filePath: string[]): string =>
  * Returns props for a template
  */
 const getProps = async (signifier: string) => {
-  const json = await fs.readJson(
+  const json = await Json.read(
     getPath(`sources`, signifier, `package.json`),
   )
   return {...json, projectConfig}
@@ -40,7 +42,7 @@ const generateReadme = async (signifier: string) => {
   ).then(
     async files =>
       await files.sort().reduce(async (files, path) => {
-        const body = await fs.readFile(path, `utf-8`)
+        const body = await fs.read(path, `utf8`)
         return [...(await files), matter(body)]
       }, Promise.resolve([])),
   )
@@ -59,10 +61,9 @@ const generateReadme = async (signifier: string) => {
   const data = await getProps(signifier)
   data.sections = await sections.reduce(topics(signifier), chunks)
 
-  await fs.writeFile(
+  await fs.write(
     getPath(`sources`, signifier, `README.md`),
     format(templates.core(data), {parser: `markdown`}),
-    `utf8`,
   )
 }
 
@@ -78,9 +79,9 @@ const partials: ForPackage<ChunkReducer<string>> =
     const chunks = await promised
 
     const file = matter(
-      await fs.readFile(
+      await fs.read(
         getPath(`sources/${signifier}/docs/${docsPath}`),
-        `utf-8`,
+        `utf8`,
       ),
     )
 
@@ -118,4 +119,4 @@ const data = {
   name: `bud.js`,
 }
 const readme = format(templates.root(data), {parser: `markdown`})
-await fs.writeFile(path, readme, `utf8`)
+await fs.write(path, readme)
