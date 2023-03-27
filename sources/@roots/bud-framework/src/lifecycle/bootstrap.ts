@@ -208,6 +208,7 @@ export const bootstrap = async function (
         {},
       ),
     )
+
     this.context.logger.timeEnd(`writing new checksums`)
 
     if (
