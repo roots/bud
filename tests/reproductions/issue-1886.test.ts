@@ -1,10 +1,15 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {describe, expect, it} from 'vitest'
-import {readFile} from '@roots/bud-support/fs'
+import {beforeAll, describe, expect, it} from 'vitest'
+import {Filesystem} from '@roots/bud-support/filesystem'
 
 describe('issue-1886', () => {
+  let fs: Filesystem
+  beforeAll(() => {
+    fs = new Filesystem()
+  })
+
   it('should generate webp from png included in js source', async () => {
     await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
@@ -14,7 +19,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    const image = await readFile(
+    const image = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -23,7 +28,7 @@ describe('issue-1886', () => {
         `images`,
         `generated.bud@1200x630.webp`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(image.length).toMatchInlineSnapshot('8377')
   })
@@ -37,7 +42,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    const dist = await readFile(
+    const dist = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -46,7 +51,7 @@ describe('issue-1886', () => {
         `images`,
         `generated.bud@1200x630.jpeg`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(dist.length).toMatchInlineSnapshot('16877')
   })
@@ -60,7 +65,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    const image = await readFile(
+    const image = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -69,7 +74,7 @@ describe('issue-1886', () => {
         `images`,
         `generated.bud-50@1200x630.webp`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(image.length).toMatchInlineSnapshot('6351')
   })
@@ -83,7 +88,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    const image = await readFile(
+    const image = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -92,7 +97,7 @@ describe('issue-1886', () => {
         `images`,
         `generated.bud-css@1200x630.webp`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(image.length).toMatchInlineSnapshot('8377')
   })

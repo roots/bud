@@ -89,8 +89,8 @@
   },
   "dependencies": {
     "@aws-sdk/abort-controller": "3.296.0",
-    "@aws-sdk/client-s3": "3.299.0",
-    "@aws-sdk/lib-storage": "3.299.0",
+    "@aws-sdk/client-s3": "3.300.0",
+    "@aws-sdk/lib-storage": "3.300.0",
     "@types/lodash-es": "4.17.7",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.3",

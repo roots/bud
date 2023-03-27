@@ -71,7 +71,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10",
-    "@types/react": "18.0.29"
+    "@types/react": "18.0.30"
   },
   "dependencies": {
     "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",

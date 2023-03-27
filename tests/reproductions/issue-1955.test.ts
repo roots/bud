@@ -2,9 +2,14 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
-import {readFile} from '@roots/bud-support/fs'
+import {Filesystem} from '@roots/bud-support/filesystem'
 
 describe('issue-1995', () => {
+  let fs: Filesystem
+  beforeAll(() => {
+    fs = new Filesystem()
+  })
+
   beforeAll(async () => {
     await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
       cwd: join(paths.tests, `reproductions`, `issue-1955`),
@@ -16,7 +21,7 @@ describe('issue-1995', () => {
   }, 30000)
 
   it('should generate app.js', async () => {
-    const file = await readFile(
+    const file = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -25,7 +30,7 @@ describe('issue-1995', () => {
         `js`,
         `app.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(file.length).toBeGreaterThan(0)
   })

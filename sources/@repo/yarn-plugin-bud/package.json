@@ -9,7 +9,7 @@
   "devDependencies": {
     "@types/fs-extra": "11.0.1",
     "@types/js-yaml": "4.0.5",
-    "@types/lodash": "4.14.191",
+    "@types/lodash": "4.14.192",
     "@types/node": "18.15.10",
     "@types/semver": "7.3.13",
     "@yarnpkg/builder": "4.0.0-rc.41"
