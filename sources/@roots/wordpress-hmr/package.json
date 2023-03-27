@@ -64,7 +64,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.5",
-    "@types/react": "18.0.28",
+    "@types/react": "18.0.29",
     "@types/wordpress__blocks": "12.0.2",
     "@types/wordpress__data": "6.0.1",
     "@types/wordpress__plugins": "3.0.0",

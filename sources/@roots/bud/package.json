@@ -155,7 +155,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.5",
-    "@types/react": "18.0.28"
+    "@types/react": "18.0.29"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
