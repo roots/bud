@@ -142,16 +142,12 @@ for a lot of edge cases so it might return a false positive.
           {this.bud.path(`@dist`).replace(this.bud.path(), `@project`)}
         </Ink.Text>
         <Ink.Text>
-          tmp:{` `}
-          {this.bud.path(`@tmp`).replace(this.bud.path(), `@project`)}
+          cache:{` `}
+          {this.bud.path(`@os-cache`)}
         </Ink.Text>
         <Ink.Text>
           storage:{` `}
           {this.bud.path(`@storage`).replace(this.bud.path(), `@project`)}
-        </Ink.Text>
-        <Ink.Text>
-          cache: {` `}
-          @project/{this.bud.relPath(this.bud.cache.cacheDirectory)}
         </Ink.Text>
       </Ink.Box>,
     )

@@ -147,9 +147,6 @@ export const bootstrap = async function (
   initialize(this)
   await this.module.init(this)
 
-  this.log(`tmpdir`, this.path(`@tmp`))
-  this.log(`cachedir`, this.module.cacheLocation)
-
   Object.entries(LIFECYCLE_EVENT_MAP).map(
     ([eventHandle, callbackName]: [
       keyof Registry.EventsStore,
@@ -205,7 +202,7 @@ export const bootstrap = async function (
 
     this.context.logger.scope(`fs`).time(`writing new checksums`)
     await this.fs.write(
-      this.path(`@tmp`, `checksum.yml`),
+      this.path(`@os-cache`, `checksum.yml`),
       Object.entries(this.context.files).reduce(
         (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
         {},
@@ -215,14 +212,14 @@ export const bootstrap = async function (
 
     if (
       (this.isCLI() && this.context.args.debug) ||
-      this.path(`@storage`) !== this.path(`@tmp`)
+      this.path(`@storage`) !== this.path(`@os-cache`)
     ) {
       const copyToTarget =
-        this.path(`@tmp`) === this.path(`@storage`)
+        this.path(`@os-cache`) === this.path(`@storage`)
           ? this.path(`.budfiles`)
           : this.path(`@storage`)
 
-      await this.fs.copy(this.path(`@tmp`), copyToTarget, {
+      await this.fs.copy(this.path(`@os-cache`), copyToTarget, {
         overwrite: true,
       })
     }

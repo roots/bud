@@ -29,7 +29,10 @@ export class Module extends Service {
    * Cache location
    */
   public get cacheLocation(): string {
-    return join(paths.get(this.app.context.basedir).tmp, `resolutions.yml`)
+    return join(
+      paths.get(this.app.context.basedir).cache,
+      `resolutions.yml`,
+    )
   }
 
   /**
