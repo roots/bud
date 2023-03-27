@@ -114,6 +114,7 @@ const instantiateServices =
 const initializeCoreUtilities = (bud: Bud) => {
   bud.fs = new FS(() => bud)
   bud.module = new Module(() => bud)
+
   Object.entries(methods).map(([fn, method]) => {
     bud[fn] = method.bind(bud)
   })
@@ -133,11 +134,9 @@ export const bootstrap = async function (
   this: Bud,
   context: Options.Context,
 ) {
-  this.context = {...context}
+  Object.assign(this, {}, {context})
 
   initializeCoreUtilities(this)
-
-  await this.module.init(this)
 
   await Promise.all(
     this.context.services
@@ -146,6 +145,10 @@ export const bootstrap = async function (
   )
 
   initialize(this)
+  await this.module.init(this)
+
+  this.log(`tmpdir`, this.path(`@tmp`))
+  this.log(`cachedir`, this.module.cacheLocation)
 
   Object.entries(LIFECYCLE_EVENT_MAP).map(
     ([eventHandle, callbackName]: [
@@ -193,4 +196,35 @@ export const bootstrap = async function (
       this.context.logger.timeEnd(`processing queued calls ${event}`)
     }
   }, Promise.resolve())
+
+  this.after(async bud => {
+    await bud.fs.write(bud.module.cacheLocation, {
+      version: bud.context.bud.version,
+      resolutions: bud.module.resolved,
+    })
+
+    this.context.logger.scope(`fs`).time(`writing new checksums`)
+    await this.fs.write(
+      this.path(`@tmp`, `checksum.yml`),
+      Object.entries(this.context.files).reduce(
+        (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
+        {},
+      ),
+    )
+    this.context.logger.timeEnd(`writing new checksums`)
+
+    if (
+      (this.isCLI() && this.context.args.debug) ||
+      this.path(`@storage`) !== this.path(`@tmp`)
+    ) {
+      const copyToTarget =
+        this.path(`@tmp`) === this.path(`@storage`)
+          ? this.path(`.budfiles`)
+          : this.path(`@storage`)
+
+      await this.fs.copy(this.path(`@tmp`), copyToTarget, {
+        overwrite: true,
+      })
+    }
+  })
 }

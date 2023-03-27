@@ -24,7 +24,7 @@ class Project extends Service {
     }
 
     try {
-      const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
+      const path = bud.path(`@tmp`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
         basedir: bud.context.basedir,
@@ -64,12 +64,7 @@ class Project extends Service {
     }
 
     try {
-      const path = bud.path(
-        `@storage`,
-        bud.label,
-        `debug`,
-        `build.config.yml`,
-      )
+      const path = bud.path(`@tmp`, bud.label, `debug`, `build.config.yml`)
       await bud.fs.write(path, bud.build.config)
 
       bud.success(`webpack.output.yml written to`, path)

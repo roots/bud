@@ -1,4 +1,5 @@
 import isString from '@roots/bud-support/lodash/isString'
+import * as paths from '@roots/bud-support/utilities/paths'
 
 import type {Bud} from '../bud.js'
 
@@ -40,17 +41,12 @@ export const initialize = (bud: Bud): Bud =>
         bud.isCLI() && isString(bud.context.args.input)
           ? bud.context.args.input
           : `src`,
-
       'location.@dist':
         bud.isCLI() && isString(bud.context.args.output)
           ? bud.context.args.output
           : `dist`,
-
-      'location.@storage':
-        bud.isCLI() && isString(bud.context.args.storage)
-          ? bud.context.args.storage
-          : `.budfiles`,
-
+      'location.@tmp': paths.get(bud.context.basedir).tmp,
+      'location.@storage': paths.get(bud.context.basedir).tmp,
       'location.@modules':
         bud.isCLI() && isString(bud.context.args.modules)
           ? bud.context.args.modules

@@ -8,6 +8,7 @@ export interface Locations {
   '@dist': string
   '@storage': string
   '@modules': string
+  '@tmp': string
 }
 
 export type Registry = {

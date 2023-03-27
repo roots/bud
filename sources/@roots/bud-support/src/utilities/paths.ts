@@ -1,37 +1,45 @@
+import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
+import temporaryDirectory from 'temp-dir'
+
+import {BudError} from '../errors/errors.js'
 import args from './args.js'
-import * as projectEnv from './env.js'
+import * as env from './env.js'
 
-const paths: Record<string, string> = {}
+interface paths {
+  basedir: string
+  tmp: string
+  hash: string
+}
 
-const get = (directory?: string): Record<string, string> => {
-  if (paths.basedir) return paths
+let paths: paths
+
+const get = (directory?: string): paths => {
+  if (paths) return paths
+
+  paths = {
+    basedir: ``,
+    tmp: ``,
+    hash: ``,
+  }
 
   if (!directory)
-    throw new Error(
-      `[bud] paths: directory is required if paths not already initialized`,
+    throw new BudError(
+      `paths: directory is required if paths not already initialized`,
+      {
+        props: {
+          details: `This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized. This is most likely a problem with bud.js.`,
+        },
+      },
     )
 
-  const env = projectEnv.get(directory)
+  const basearg =
+    args?.cwd ?? args?.basedir ?? env.get(directory)?.APP_BASE_PATH
 
-  const basearg = args?.cwd ?? args?.basedir ?? env.APP_BASE_PATH
   paths.basedir = basearg ? join(directory, basearg) : directory
-
-  paths.storage = join(
-    paths.basedir,
-    args?.storage ?? env.APP_STORAGE_PATH ?? `.budfiles`,
-  )
-
-  paths.src = join(
-    paths.basedir,
-    args.input ??
-      args?.[`i`] ??
-      args?.[`src`] ??
-      args?.[`@src`] ??
-      env.APP_SRC_PATH ??
-      `src`,
-  )
+  paths.hash = createHash(`sha1`).update(paths.basedir).digest(`base64`)
+  paths.tmp = join(temporaryDirectory, `bud`, paths.hash)
 
   return paths
 }

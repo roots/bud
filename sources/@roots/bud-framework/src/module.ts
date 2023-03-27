@@ -5,6 +5,7 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {bind} from '@roots/bud-support/decorators'
 import {ImportError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
+import args from '@roots/bud-support/utilities/args'
 import * as paths from '@roots/bud-support/utilities/paths'
 
 import type {Bud} from './bud.js'
@@ -27,12 +28,16 @@ export class Module extends Service {
   /**
    * Cache location
    */
-  public cacheLocation: string
+  public get cacheLocation(): string {
+    return join(paths.get(this.app.context.basedir).tmp, `resolutions.yml`)
+  }
 
   /**
    * Cache enabled
    */
-  public cacheEnabled: boolean
+  public cacheEnabled(): boolean {
+    return args.force !== true && args.cache !== false
+  }
 
   /**
    * Cache exists
@@ -55,11 +60,6 @@ export class Module extends Service {
    */
   @bind
   public override async init(bud: Bud) {
-    const isForced = (bud as any).context.args?.force === true
-    const isEnabled = (bud as any).context.args?.cache !== false
-    this.cacheEnabled = !isForced && isEnabled
-    this.cacheLocation = join(paths.get().storage, `resolutions.yml`)
-
     const cacheExists = !!(await bud.fs.exists(this.cacheLocation))
 
     if (this.cacheEnabled && cacheExists) {
