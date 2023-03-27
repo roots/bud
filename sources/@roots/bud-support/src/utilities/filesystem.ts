@@ -1,16 +1,17 @@
+import {BudError} from '../errors/errors.js'
 import {Filesystem} from '../filesystem/index.js'
-import logger from './logger.js'
 
 let filesystem: Filesystem
 
 export const get = (basedir?: string) => {
   if (filesystem) return filesystem
-  if (!basedir)
-    logger.error(
+
+  if (typeof basedir !== `string`)
+    throw new BudError(
       `filesystem not initialized. basedir arg required for initialization.`,
     )
 
-  filesystem = new Filesystem(basedir as string)
+  filesystem = new Filesystem(basedir)
 
   return filesystem
 }

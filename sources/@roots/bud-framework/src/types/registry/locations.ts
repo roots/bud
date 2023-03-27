@@ -8,6 +8,11 @@ export interface Locations {
   '@dist': string
   '@storage': string
   '@modules': string
+  '@os-cache': string
+  '@os-config': string
+  '@os-data': string
+  '@os-log': string
+  '@os-temp': string
 }
 
 export type Registry = {

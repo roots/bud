@@ -1,4 +1,5 @@
 import isString from '@roots/bud-support/lodash/isString'
+import * as paths from '@roots/bud-support/utilities/paths'
 
 import type {Bud} from '../bud.js'
 
@@ -40,28 +41,23 @@ export const initialize = (bud: Bud): Bud =>
         bud.isCLI() && isString(bud.context.args.input)
           ? bud.context.args.input
           : `src`,
-
       'location.@dist':
         bud.isCLI() && isString(bud.context.args.output)
           ? bud.context.args.output
           : `dist`,
-
-      'location.@storage':
-        bud.isCLI() && isString(bud.context.args.storage)
-          ? bud.context.args.storage
-          : `.budfiles`,
-
+      'location.@os-cache': paths.get(bud.context.basedir).cache,
+      'location.@os-config': paths.get(bud.context.basedir).config,
+      'location.@os-data': paths.get(bud.context.basedir).data,
+      'location.@os-log': paths.get(bud.context.basedir).log,
+      'location.@os-temp': paths.get(bud.context.basedir).temp,
+      'location.@storage': paths.get(bud.context.basedir).cache,
       'location.@modules':
         bud.isCLI() && isString(bud.context.args.modules)
           ? bud.context.args.modules
           : `node_modules`,
     })
-    .when(
-      bud.isDevelopment,
-      ({hooks}) =>
-        hooks.fromMap({
-          'dev.middleware.enabled': [`dev`, `hot`],
-        }),
-      undefined,
-      `enabled default middleware when in development mode`,
+    .when(bud.isDevelopment, ({hooks}) =>
+      hooks.fromMap({
+        'dev.middleware.enabled': [`dev`, `hot`],
+      }),
     )

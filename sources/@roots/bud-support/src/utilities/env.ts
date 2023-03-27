@@ -4,9 +4,13 @@ import {join, sep} from 'node:path'
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
 import logger from './logger.js'
 
-let env = process.env
+let env: Record<string, string> = {}
 
 const get = (basedir: string) => {
+  if (env && Object.entries(env).length) return env
+
+  Object.assign(env, {}, process.env)
+
   basedir
     .split(sep)
     .splice(1)
@@ -34,7 +38,7 @@ const get = (basedir: string) => {
       return path
     }, sep)
 
-  logger.scope(`env`).info(`Environment variables loaded`)
+  logger.scope(`env`).log(`Environment variables loaded`)
 
   return env
 }

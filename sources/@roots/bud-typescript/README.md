@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-typescript</strong></h1>
 
 <p align="center">
-  Adds Typescript support to Bud.
+  Adds Typescript support to Bud
 </p>
 
 ---

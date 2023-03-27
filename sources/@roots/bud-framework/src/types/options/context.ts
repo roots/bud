@@ -71,7 +71,7 @@ export interface CommandContext extends CLIContext {
     editor: string | boolean | undefined
     esm: boolean | undefined
     filter: Array<string> | undefined
-    flush: boolean | undefined
+    force: boolean | undefined
     hash: boolean | undefined
     hot: boolean | undefined
     html: boolean | string | undefined

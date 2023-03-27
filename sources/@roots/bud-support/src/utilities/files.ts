@@ -9,20 +9,24 @@ import isEqual from '../lodash/isEqual/index.js'
 import set from '../lodash/set/index.js'
 import * as filesystem from './filesystem.js'
 import logger from './logger.js'
-import * as paths from './paths.js'
+import {get as getPaths} from './paths.js'
 
 let fs: Filesystem
-let files: Array<string> = []
 let data: {[key: string]: any} = {}
+let paths: ReturnType<typeof getPaths>
 
 const get = async (basedir: string) => {
   if (data && Object.entries(data).length) return data
 
-  const {storage} = paths.get(basedir)
-  fs = filesystem.get(basedir)
+  let files: Array<string> = []
 
-  logger.scope(`fs`).log(`Initializing fs`)
-  logger.scope(`fs`).time(`listing files`)
+  fs = filesystem.get(basedir)
+  paths = getPaths(basedir)
+
+  logger.log(paths)
+
+  logger.scope(`fs`).time(`Initializing filesystem`)
+
   await fs
     .list(basedir)
     .then(res => files.push(...(res?.filter(Boolean) ?? [])))
@@ -31,49 +35,38 @@ const get = async (basedir: string) => {
     .list(join(basedir, `config`))
     .then(res =>
       files.push(
-        ...((res?.filter(Boolean) ?? []).map(file => `config/${file}`) ??
-          []),
+        ...((res?.filter(Boolean) ?? []).map(file =>
+          join(`config`, file),
+        ) ?? []),
       ),
     )
-  logger.timeEnd(`listing files`)
 
-  logger.scope(`fs`).time(`inspecting project files`)
-  await Promise.all(files?.map(fetchFileInfo))
-  logger.scope(`fs`).timeEnd(`inspecting project files`)
+  if (!files?.length) return
 
-  const clearOutdatedResolutions = async () => {
-    try {
-      logger.await(`removing old module resolutions`)
-      await fs.remove(join(storage, `resolutions.yml`))
-      logger.success(`removing old module resolutions`)
-    } catch (err) {
-      logger.error(`error clearing outdated resolutions`, err)
+  await Promise.all(files.map(fetchFileInfo))
+
+  if (await fs.exists(join(paths.cache, `checksum.yml`))) {
+    const checksums = await fs.read(join(paths.cache, `checksum.yml`))
+    if (!checksums) {
+      await fs.remove(join(paths.cache, `checksum.yml`))
+      return data
+    }
+
+    const match =
+      checksums[`package.json`] === getValue(`package.json`, `sha1`)
+
+    if (!match) {
+      try {
+        logger.await(`removing old module resolutions`)
+        await fs.remove(join(paths.cache, `resolutions.yml`))
+        logger.success(`removing old module resolutions`)
+      } catch (err) {
+        logger.error(`error clearing outdated resolutions`, err)
+      }
     }
   }
 
-  if (await fs.exists(join(storage, `checksum.yml`))) {
-    logger.scope(`fs`).time(`validating module cache`)
-
-    const checksums = await fs.read(join(storage, `checksum.yml`))
-    const match =
-      checksums[`package.json`] === getValue(`package.json`, `sha1`)
-    if (!match) await clearOutdatedResolutions()
-
-    logger.success(`module cache is up to date`)
-    logger.timeEnd(`validating module cache`)
-  } else {
-    await clearOutdatedResolutions()
-  }
-
-  logger.scope(`fs`).time(`writing new checksums`)
-  await fs.write(
-    join(storage, `checksum.yml`),
-    Object.entries(data).reduce(
-      (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
-      {},
-    ),
-  )
-  logger.timeEnd(`writing new checksums`)
+  logger.scope(`fs`).timeEnd(`Initializing filesystem`)
 
   return data
 }
@@ -106,7 +99,6 @@ async function fetchFileInfo(name: string) {
     [file.name, `bud`],
     file.name.includes(`bud`) && isEqual(file.type, `file`),
   )
-
   set(
     data,
     [file.name, `type`],
@@ -178,4 +170,4 @@ function getValue(name: string, prop?: string) {
   return data[name]?.[prop]
 }
 
-export {files, get, data}
+export {get, data}

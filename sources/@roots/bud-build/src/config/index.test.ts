@@ -28,10 +28,6 @@ describe(`bud.build.config`, function () {
 
     expect(cache.type).toStrictEqual(`filesystem`)
 
-    expect(cache.cacheDirectory).toStrictEqual(
-      expect.stringContaining(`.budfiles`),
-    )
-
     expect(cache.version).toStrictEqual(expect.any(String))
   })
 

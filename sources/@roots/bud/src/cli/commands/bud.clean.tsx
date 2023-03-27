@@ -36,7 +36,7 @@ export default class BudCleanCommand extends BudCommand {
     description: `empty @dist`,
   })
   public cacheArg = Option.Boolean(`@cache,cache`, false, {
-    description: `empty @storage/cache`,
+    description: `empty @cache`,
   })
 
   /**
@@ -114,7 +114,9 @@ export default class BudCleanCommand extends BudCommand {
       )
     }
 
-    await remove(this.bud.cache.cacheDirectory)
+    await ensureDir(this.bud.path(`@os-cache`))
+    await remove(this.bud.path(`@os-cache`))
+
     await this.renderStatic(
       <Ink.Box>
         <Ink.Text color="green">
@@ -145,6 +147,9 @@ export default class BudCleanCommand extends BudCommand {
 
     await ensureDir(this.bud.path(`@storage`))
     await remove(this.bud.path(`@storage`))
+    await ensureDir(this.bud.path(`@os-cache`))
+    await remove(this.bud.path(`@os-cache`))
+
     await this.renderStatic(
       <Ink.Box>
         <Ink.Text color="green">

@@ -182,7 +182,12 @@ export default class BudCommand extends Command<CommandContext> {
       context: CommandContext
     }
 
-    await this.bud.lifecycle(this.context)
+    try {
+      await this.bud.lifecycle(this.context)
+    } catch (err) {
+      if (err.isBudError) throw err
+      throw BudError.normalize(err)
+    }
 
     this.bud.hooks.action(`build.before`, async bud => {
       if (!bud.isCLI()) return
