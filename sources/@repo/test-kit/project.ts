@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable no-console */
 import {posix} from 'node:path'
 
-import {paths, REGISTRY_PROXY} from '@repo/constants'
+import {paths} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
 import execa, {ExecaChildProcess} from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
@@ -13,7 +12,7 @@ interface Options {
   label: string
   dist?: string
   mode?: 'development' | 'production'
-  buildCommand?: [string, Array<string>]
+  buildCommand?: [string, Array<string>?]
 }
 
 /**
@@ -46,19 +45,10 @@ export class Project {
 
   public manifest: {[key: string]: any} = {}
 
-  public modules: {
-    chunks: {
-      byName: any
-      bySource: any
-    }
-  }
-
-  public packageJson: Record<string, any> = {}
-
   /**
    * dir
    */
-  public dir: string
+  public directory: string
 
   public fs: Filesystem
 
@@ -66,7 +56,7 @@ export class Project {
    * Class constructor
    */
   public constructor(public options: Options) {
-    this.dir = join(
+    this.directory = join(
       paths.fixtures,
       this.options.label.replace(`@examples/`, ``),
     )
@@ -81,11 +71,8 @@ export class Project {
   public async setup(): Promise<Project> {
     await this.install()
     await this.build()
-
-    await this.setPackageJson()
     await this.setManifest()
     await this.setAssets()
-    await this.setModules()
     await this.setEntrypoints()
 
     return this
@@ -97,13 +84,7 @@ export class Project {
     flags: Array<string>,
   ): Promise<ExecaChildProcess> {
     try {
-      return execa(bin, flags ?? [], {
-        cwd: this.projectPath(),
-        shell: true,
-        env: {
-          NODE_ENV: `development`,
-        },
-      })
+      return execa(bin, flags ?? [], {cwd: this.projectPath()})
     } catch (error) {
       throw new Error(error)
     }
@@ -123,17 +104,19 @@ export class Project {
       )
     } catch (e) {}
 
-    const child = await this.$(`npm`, [
-      `install`,
-      `--registry`,
-      REGISTRY_PROXY,
-    ])
+    await this.fs.write(
+      this.projectPath(`.npmrc`),
+      `@roots:registry=http://localhost:4873\nnpm_config_force=true\n`,
+    )
+
+    const child = await this.$(`npm`, [`install`])
 
     child.stdout &&
       (await this.fs.write(
         this.projectPath(`install.stdout.log`),
         child.stdout,
       ))
+
     child.stderr &&
       (await this.fs.write(
         this.projectPath(`install.stderr.log`),
@@ -145,16 +128,12 @@ export class Project {
 
   @bind
   public async build() {
-    const child = this.options.buildCommand
-      ? await this.$(...this.options.buildCommand)
-      : await this.$(`node`, [
-          this.projectPath(`node_modules`, `.bin`, `bud`),
-          this.options.mode
-            ? this.options.mode === `production`
-              ? `build`
-              : `dev`
-            : `build`,
-        ])
+    this.options.buildCommand = this.options.buildCommand ?? [
+      `node`,
+      [this.projectPath(`node_modules`, `.bin`, `bud`), `build`],
+    ]
+
+    const child = await this.$(...this.options?.buildCommand)
 
     child.stdout &&
       (await this.fs.write(
@@ -172,16 +151,7 @@ export class Project {
 
   @bind
   public projectPath(...file: Array<string>) {
-    return join(this.dir, ...file)
-  }
-
-  @bind
-  public async setPackageJson() {
-    const packageJson = await this.fs.read(
-      this.projectPath(`package.json`),
-    )
-
-    Object.assign(this, {packageJson})
+    return join(this.directory, ...file)
   }
 
   @bind
@@ -215,19 +185,6 @@ export class Project {
       )
 
       Object.assign(this, {entrypoints})
-    } catch (e) {}
-  }
-
-  @bind
-  public async setModules() {
-    try {
-      const modules = await this.fs.read(
-        this.projectPath(
-          join(`.budfiles`, this.options.label, `modules.json`),
-        ),
-      )
-
-      Object.assign(this, {modules})
     } catch (e) {}
   }
 }
