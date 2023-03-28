@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {copy, remove} from 'fs-extra'
+import fs from 'fs-jetpack'
 import {join} from 'path'
 
 const rf = {
@@ -15,8 +15,8 @@ export const testPath = (...parts: Array<string>) =>
 
 export const copyDir = async (dir: string) => {
   try {
-    await remove(testPath(dir))
-    await copy(originalPath(dir), testPath(dir), rf)
+    await fs.removeAsync(testPath(dir))
+    await fs.copyAsync(originalPath(dir), testPath(dir), rf)
   } catch (error) {
     throw error
   }
@@ -24,7 +24,7 @@ export const copyDir = async (dir: string) => {
 
 export const copyOriginalSource = async (dir: string) => {
   try {
-    await copy(originalPath(dir, `src`), testPath(dir, `src`), rf)
+    await fs.copyAsync(originalPath(dir, `src`), testPath(dir, `src`), rf)
   } catch (error) {
     throw error
   }

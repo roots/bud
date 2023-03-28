@@ -83,40 +83,33 @@ export class Project {
     bin: string,
     flags: Array<string>,
   ): Promise<ExecaChildProcess> {
-    try {
-      return execa(bin, flags ?? [], {cwd: this.projectPath()})
-    } catch (error) {
-      throw new Error(error)
-    }
+    return await execa(bin, flags ?? [], {cwd: this.projectPath()})
   }
 
   @bind
   public async install(): Promise<this> {
-    try {
-      await this.fs.copy(
-        join(
-          paths.root,
-          `examples`,
-          this.options.label.replace(`@examples/`, ``),
-        ),
-        this.projectPath(),
-        {overwrite: true},
-      )
-    } catch (e) {}
+    await this.fs.copy(
+      join(
+        paths.root,
+        `examples`,
+        this.options.label.replace(`@examples/`, ``),
+      ),
+      this.projectPath(),
+      {overwrite: true},
+    )
 
     await this.fs.write(
       this.projectPath(`.npmrc`),
-      `@roots:registry=http://localhost:4873\nnpm_config_force=true\n`,
+      `@roots:registry=http://localhost:4873`,
     )
 
-    const child = await this.$(`npm`, [`install`])
+    const child = await this.$(`npm`, [`install`, `--no-package-lock`])
 
     child.stdout &&
       (await this.fs.write(
         this.projectPath(`install.stdout.log`),
         child.stdout,
       ))
-
     child.stderr &&
       (await this.fs.write(
         this.projectPath(`install.stderr.log`),
@@ -128,12 +121,12 @@ export class Project {
 
   @bind
   public async build() {
-    this.options.buildCommand = this.options.buildCommand ?? [
+    const build = this.options.buildCommand ?? [
       `node`,
       [this.projectPath(`node_modules`, `.bin`, `bud`), `build`],
     ]
 
-    const child = await this.$(...this.options?.buildCommand)
+    const child = await this.$(...build)
 
     child.stdout &&
       (await this.fs.write(

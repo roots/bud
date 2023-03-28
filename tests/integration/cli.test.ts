@@ -2,7 +2,7 @@ import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
 import {execa} from 'execa'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 const exampleProjectDir = join(paths.root, `examples`, `react`)
@@ -11,9 +11,9 @@ const tmpProjectDir = join(paths.root, `storage`, `cli`)
 describe.skip(`cli`, () => {
   beforeEach(async () => {
     try {
-      await fs.remove(tmpProjectDir)
-      await fs.copy(exampleProjectDir, tmpProjectDir)
-      await fs.writeFile(join(tmpProjectDir, `yarn.lock`), ``, `utf8`)
+      await fs.removeAsync(tmpProjectDir)
+      await fs.copyAsync(exampleProjectDir, tmpProjectDir)
+      await fs.writeAsync(join(tmpProjectDir, `yarn.lock`), ``)
       await execa(
         `yarn`,
         [`install`, `--registry=http://localhost:4873`],

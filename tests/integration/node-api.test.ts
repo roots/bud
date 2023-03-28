@@ -1,6 +1,6 @@
 import {paths} from '@repo/constants'
 import {execa} from 'execa'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {join} from 'path'
 import {beforeAll, describe, expect, it} from 'vitest'
 
@@ -29,23 +29,23 @@ describe.skip(`node-api`, () => {
 
   it(`package.json`, async () => {
     const artifact = (
-      await fs.readFile(join(tmpProjectDir, `package.json`), `utf8`)
-    ).toString()
+      await fs.readAsync(join(tmpProjectDir, `package.json`))
+    )?.toString()
 
     expect(artifact).toMatchSnapshot()
   })
 
   it(`dist/manifest.json`, async () => {
-    const artifact = await fs.readFile(
+    const artifact = await fs.readAsync(
       join(tmpProjectDir, `dist/manifest.json`),
     )
-    expect(artifact.toString()).toMatchSnapshot()
+    expect(artifact?.toString()).toMatchSnapshot()
   })
 
   it(`dist/app.js`, async () => {
-    const artifact = await fs.readFile(
+    const artifact = await fs.readAsync(
       join(tmpProjectDir, `dist/js/app.js`),
     )
-    expect(artifact.toString()).toMatchSnapshot()
+    expect(artifact?.toString()).toMatchSnapshot()
   })
 }, 240000)

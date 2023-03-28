@@ -1,5 +1,4 @@
-import {ExecaReturnValue} from 'execa'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
 import {
   afterEach,
@@ -43,7 +42,7 @@ describe(`html output of examples/swc`, () => {
 })
 
 const update = async () =>
-  await fs.writeFile(
+  await fs.writeAsync(
     testPath(`swc`, `src`, `index.js`),
     `\
 import './styles.css'
