@@ -8005,7 +8005,7 @@ __metadata:
     pretty-format: 29.4.1
     react: 18.2.0
     remark: 14.0.2
-    remark-html: 15.0.1
+    remark-html: 15.0.2
     remark-loader: 5.0.0
     signale: 1.4.0
     strip-ansi: 7.0.1
@@ -30528,16 +30528,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-html@npm:15.0.1":
-  version: 15.0.1
-  resolution: "remark-html@npm:15.0.1"
+"remark-html@npm:15.0.2":
+  version: 15.0.2
+  resolution: "remark-html@npm:15.0.2"
   dependencies:
     "@types/mdast": ^3.0.0
     hast-util-sanitize: ^4.0.0
     hast-util-to-html: ^8.0.0
     mdast-util-to-hast: ^12.0.0
     unified: ^10.0.0
-  checksum: da9a7ee71b470d21d4d74eb841fd6c340396ebe3e7488fc70d5471bf25bcaf2cb0a25a5d034ead1f1ac9612df2f703705acfd16e6f6b60696f40b788abf2b174
+  checksum: 1fe1bf1fd229f5ae999626f274b9e6a972c1406533f5e78392c1994e01ec35511d0d307a927bb22a828e51007c80f12f3befcea73e9f5f01db7bed229a989d54
   languageName: node
   linkType: hard
 

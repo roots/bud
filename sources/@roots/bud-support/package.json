@@ -168,7 +168,7 @@
     "pretty-format": "29.4.1",
     "react": "18.2.0",
     "remark": "14.0.2",
-    "remark-html": "15.0.1",
+    "remark-html": "15.0.2",
     "remark-loader": "5.0.0",
     "signale": "1.4.0",
     "strip-ansi": "7.0.1",
