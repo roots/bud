@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {ensureDir, pathExists, readJson, rm, writeJson} from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {join} from 'path'
 
 import {Command} from '../base.command'
@@ -34,31 +34,27 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
-      try {
-        await ensureDir(join(paths.root, `storage/mocks`))
-      } catch (e) {}
+    try {
+      await fs.removeAsync(join(paths.root, `storage/mocks`))
+    } catch (e) {}
 
-      try {
-        await rm(join(paths.root, `storage/mocks`), {recursive: true})
-      } catch (e) {}
+    await fs.removeAsync(join(paths.root, `storage`, `packages`))
 
-      await ensureDir(join(paths.root, `storage`, `packages`))
-      await rm(join(paths.root, `storage`, `packages`), {recursive: true})
+    const verdaccioDbExists = await fs.existsAsync(
+      join(paths.root, `storage`, `.verdaccio-db.json`),
+    )
 
-      const verdaccioDbExists = await pathExists(
+    if (verdaccioDbExists) {
+      const verdaccioDb = await fs.readAsync(
         join(paths.root, `storage`, `.verdaccio-db.json`),
+        `json`,
       )
+      verdaccioDb.list = []
 
-      if (verdaccioDbExists) {
-        const verdaccioDb = await readJson(
-          join(paths.root, `storage`, `.verdaccio-db.json`),
-        )
-        verdaccioDb.list = []
-
-        await writeJson(
-          `${paths.root}/storage/.verdaccio-db.json`,
-          verdaccioDb,
-        )
-      }
+      await fs.writeAsync(
+        `${paths.root}/storage/.verdaccio-db.json`,
+        verdaccioDb,
+      )
+    }
   }
 }

@@ -1,6 +1,6 @@
 import {paths} from '@repo/constants'
 import {execa} from 'execa'
-import fs from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {join} from 'path'
 import stripAnsi from 'strip-ansi'
 
@@ -40,7 +40,7 @@ const generateMarkdown = async (args: string[]) => {
 
   const path = join(paths.sources, `@repo/docs/generated/cli`, name)
 
-  await fs.writeFile(path, content)
+  await fs.writeAsync(path, content)
 }
 
 main()

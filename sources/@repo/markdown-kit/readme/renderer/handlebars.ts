@@ -1,5 +1,5 @@
 import {REPO_PATH} from '@repo/constants'
-import fs from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {globby} from 'globby'
 import Handlebars, {TemplateDelegate} from 'handlebars'
 
@@ -11,7 +11,7 @@ const sources = await globby([
 
 const partials = await sources.reduce(async (promised, path) => {
   const dictionary = await promised
-  const templateSource = await fs.readFile(path).then(String)
+  const templateSource = await fs.readAsync(path).then(String)
 
   return {
     ...dictionary,
