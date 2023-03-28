@@ -1,18 +1,5 @@
 {
   "name": "@repo/logger",
-  "private": true,
-  "packageManager": "yarn@3.2.4",
-  "type": "module",
-  "exports": {
-    ".": "./index.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./index.d.ts"
-      ]
-    }
-  },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@types/node": "18.15.10",
@@ -20,10 +7,23 @@
     "tslib": "2.5.0",
     "vitest": "0.29.7"
   },
-  "volta": {
-    "extends": "../../../package.json"
-  },
   "devDependencies": {
     "@types/signale": "1.4.4"
+  },
+  "exports": {
+    ".": "./index.js"
+  },
+  "packageManager": "yarn@3.2.4",
+  "private": true,
+  "type": "module",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./index.d.ts"
+      ]
+    }
+  },
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

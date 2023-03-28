@@ -1,13 +1,8 @@
 {
   "name": "@roots/bud-support",
-  "version": "0.0.0",
   "description": "Internal packages for @roots/bud",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-support"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,101 +19,6 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "bud"
-  ],
-  "engines": {
-    "node": ">=16"
-  },
-  "files": [
-    "lib"
-  ],
-  "type": "module",
-  "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./css-loader": {
-      "require": "./lib/css-loader/index.cjs",
-      "default": "./lib/css-loader/index.cjs"
-    },
-    "./csv-loader": {
-      "require": "./lib/csv-loader/index.cjs",
-      "default": "./lib/csv-loader/index.cjs"
-    },
-    "./file-loader": {
-      "require": "./lib/file-loader/index.cjs",
-      "default": "./lib/file-loader/index.cjs"
-    },
-    "./html-loader": {
-      "require": "./lib/html-loader/index.cjs",
-      "default": "./lib/html-loader/index.cjs"
-    },
-    "./remark-loader": {
-      "require": "./lib/remark-loader/index.cjs",
-      "default": "./lib/remark-loader/index.cjs"
-    },
-    "./style-loader": {
-      "require": "./lib/style-loader/index.cjs",
-      "default": "./lib/style-loader/index.cjs"
-    },
-    "./xml-loader": {
-      "require": "./lib/xml-loader/index.cjs",
-      "default": "./lib/xml-loader/index.cjs"
-    },
-    "./yml-loader": {
-      "require": "./lib/yml-loader/index.cjs",
-      "default": "./lib/yml-loader/index.cjs"
-    },
-    "./utilities/*": {
-      "import": "./lib/utilities/*.js",
-      "default": "./lib/utilities/*.js"
-    },
-    "./lodash-es/*": {
-      "import": "./lib/lodash-es/*.js",
-      "default": "./lib/lodash-es/*.js"
-    },
-    "./*": {
-      "import": "./lib/*/index.js",
-      "default": "./lib/*/index.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "utilities/*": [
-        "./lib/utilities/*.d.ts"
-      ],
-      "*": [
-        "./lib/*/index.d.ts"
-      ]
-    }
-  },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/cookie-parser": "1.4.3",
-    "@types/express": "4.17.17",
-    "@types/express-serve-static-core": "4.17.33",
-    "@types/file-loader": "^5.0.1",
-    "@types/lodash-es": "4.17.7",
-    "@types/minimist": "^1.2.2",
-    "@types/node-notifier": "8.0.2",
-    "@types/signale": "1.4.4",
-    "@types/webpack-manifest-plugin": "3.0.5"
-  },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "axios": "1.3.4",
@@ -180,5 +80,103 @@
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
     "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/cookie-parser": "1.4.3",
+    "@types/express": "4.17.17",
+    "@types/express-serve-static-core": "4.17.33",
+    "@types/file-loader": "^5.0.1",
+    "@types/lodash-es": "4.17.7",
+    "@types/minimist": "^1.2.2",
+    "@types/node-notifier": "8.0.2",
+    "@types/signale": "1.4.4",
+    "@types/webpack-manifest-plugin": "3.0.5"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./css-loader": {
+      "require": "./lib/css-loader/index.cjs",
+      "default": "./lib/css-loader/index.cjs"
+    },
+    "./csv-loader": {
+      "require": "./lib/csv-loader/index.cjs",
+      "default": "./lib/csv-loader/index.cjs"
+    },
+    "./file-loader": {
+      "require": "./lib/file-loader/index.cjs",
+      "default": "./lib/file-loader/index.cjs"
+    },
+    "./html-loader": {
+      "require": "./lib/html-loader/index.cjs",
+      "default": "./lib/html-loader/index.cjs"
+    },
+    "./remark-loader": {
+      "require": "./lib/remark-loader/index.cjs",
+      "default": "./lib/remark-loader/index.cjs"
+    },
+    "./style-loader": {
+      "require": "./lib/style-loader/index.cjs",
+      "default": "./lib/style-loader/index.cjs"
+    },
+    "./xml-loader": {
+      "require": "./lib/xml-loader/index.cjs",
+      "default": "./lib/xml-loader/index.cjs"
+    },
+    "./yml-loader": {
+      "require": "./lib/yml-loader/index.cjs",
+      "default": "./lib/yml-loader/index.cjs"
+    },
+    "./utilities/*": {
+      "import": "./lib/utilities/*.js",
+      "default": "./lib/utilities/*.js"
+    },
+    "./lodash-es/*": {
+      "import": "./lib/lodash-es/*.js",
+      "default": "./lib/lodash-es/*.js"
+    },
+    "./*": {
+      "import": "./lib/*/index.js",
+      "default": "./lib/*/index.js"
+    }
+  },
+  "files": [
+    "lib"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-support"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "utilities/*": [
+        "./lib/utilities/*.d.ts"
+      ],
+      "*": [
+        "./lib/*/index.d.ts"
+      ]
+    }
   }
 }

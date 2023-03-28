@@ -1,16 +1,16 @@
 {
   "name": "@tests/project",
-  "private": true,
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   },
+  "private": true,
+  "type": "module",
   "volta": {
     "node": "18.12.1"
   }

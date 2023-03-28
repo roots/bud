@@ -1,14 +1,14 @@
 {
   "name": "@repo/notifier",
-  "private": true,
+  "dependencies": {
+    "tslib": "2.5.0"
+  },
   "devDependencies": {
     "@types/node": "18.15.10",
     "vitest": "0.29.7"
   },
+  "private": true,
   "volta": {
     "extends": "../../../package.json"
-  },
-  "dependencies": {
-    "tslib": "2.5.0"
   }
 }

@@ -1,38 +1,11 @@
 {
   "name": "bud",
-  "packageManager": "yarn@3.3.1",
-  "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "volta": {
-    "node": "18.12.1",
-    "yarn": "1.22.19",
-    "npm": "8.19.2"
-  },
   "bud": {
     "extensions": {
       "discovery": false
     }
   },
-  "workspaces": {
-    "packages": [
-      "sources/@roots/*",
-      "sources/@repo/*",
-      "sources/@roots/*/test/**/*",
-      "sources/@roots/*/src/__fixtures__/*",
-      "examples/node-api",
-      "tests/util/project",
-      "tests/reproductions/*"
-    ]
-  },
-  "type": "module",
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
@@ -71,5 +44,29 @@
     "vite": "4.2.1",
     "vitest": "0.29.7",
     "webpack": "5.76.3"
+  },
+  "engines": {
+    "node": "18.12.1"
+  },
+  "license": "MIT",
+  "packageManager": "yarn@3.3.1",
+  "private": true,
+  "repository": "roots/bud.git",
+  "type": "module",
+  "volta": {
+    "node": "18.12.1",
+    "yarn": "1.22.19",
+    "npm": "8.19.2"
+  },
+  "workspaces": {
+    "packages": [
+      "sources/@roots/*",
+      "sources/@repo/*",
+      "sources/@roots/*/test/**/*",
+      "sources/@roots/*/src/__fixtures__/*",
+      "examples/node-api",
+      "tests/util/project",
+      "tests/reproductions/*"
+    ]
   }
 }

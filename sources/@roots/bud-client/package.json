@@ -2,12 +2,7 @@
   "name": "@roots/bud-client",
   "description": "Client scripts for @roots/bud",
   "version": "0.0.0",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-client"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -20,29 +15,18 @@
       "url": "https://github.com/retlehs"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "tslib": "2.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/webpack-env": "1.18.0"
   },
-  "keywords": [
-    "bud",
-    "bud-framework"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "main": "./lib/index.cjs",
-  "module": "./lib/index.mjs",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "require": "./lib/index.cjs",
@@ -53,22 +37,23 @@
       "default": "./lib/*"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "./lib/*": [
-        "./lib/*"
-      ]
-    }
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "@types/webpack-env": "1.18.0"
-  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "bud-framework"
+  ],
+  "license": "MIT",
+  "main": "./lib/index.cjs",
+  "module": "./lib/index.mjs",
   "peerDependencies": {
     "@roots/bud": "*",
     "@types/webpack-env": "*"
@@ -81,10 +66,23 @@
       "optional": true
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-client"
+  },
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "./lib/*": [
+        "./lib/*"
+      ]
+    }
+  },
   "volta": {
     "extends": "../../../package.json"
-  },
-  "dependencies": {
-    "tslib": "2.5.0"
   }
 }

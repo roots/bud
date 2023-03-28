@@ -1,7 +1,5 @@
 {
   "name": "@tests/issue-2126",
-  "type": "module",
-  "private": true,
   "bud": {
     "extensions": {
       "allowlist": [
@@ -18,5 +16,7 @@
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@roots/bud-vue": "workspace:sources/@roots/bud-vue",
     "@roots/sage": "workspace:sources/@roots/sage"
-  }
+  },
+  "private": true,
+  "type": "module"
 }

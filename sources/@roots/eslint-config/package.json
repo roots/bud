@@ -1,20 +1,8 @@
 {
   "name": "@roots/eslint-config",
-  "version": "0.0.0",
   "description": "eslint presets for roots projects",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-typescript"
-  },
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "license": "MIT",
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -31,46 +19,6 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "keywords": [
-    "bud",
-    "bud-extension"
-  ],
-  "engines": {
-    "node": ">=16"
-  },
-  "files": [
-    "babel.cjs",
-    "defaults.cjs",
-    "react.cjs",
-    "recommended.cjs",
-    "sage.cjs",
-    "typescript.cjs",
-    "wordpress.cjs"
-  ],
-  "exports": {
-    ".": "./defaults.cjs",
-    "./defaults": "./defaults.cjs",
-    "./babel": "./babel.cjs",
-    "./recommended": "./recommended.cjs",
-    "./typescript": "./typescript.cjs",
-    "./react": "./react.cjs",
-    "./wordpress": "./wordpress.cjs",
-    "./sage": "./sage.cjs"
-  },
-  "main": "./defaults.cjs",
-  "module": "./defaults.cjs",
-  "types": "./types.d.ts",
-  "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.0",
-    "@types/eslint": "8.21.3",
-    "@types/eslint-plugin-prettier": "^3.1.0",
-    "@types/node": "18.15.10",
-    "@types/prettier": "2.7.2",
-    "eslint": "8.36.0",
-    "prettier": "2.8.7"
-  },
   "dependencies": {
     "@babel/eslint-parser": "7.21.3",
     "@typescript-eslint/eslint-plugin": "5.57.0",
@@ -83,6 +31,50 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "tslib": "2.5.0"
   },
+  "devDependencies": {
+    "@babel/core": "7.21.3",
+    "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "7.20.0",
+    "@types/eslint": "8.21.3",
+    "@types/eslint-plugin-prettier": "^3.1.0",
+    "@types/node": "18.15.10",
+    "@types/prettier": "2.7.2",
+    "eslint": "8.36.0",
+    "prettier": "2.8.7"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "exports": {
+    ".": "./defaults.cjs",
+    "./defaults": "./defaults.cjs",
+    "./babel": "./babel.cjs",
+    "./recommended": "./recommended.cjs",
+    "./typescript": "./typescript.cjs",
+    "./react": "./react.cjs",
+    "./wordpress": "./wordpress.cjs",
+    "./sage": "./sage.cjs"
+  },
+  "files": [
+    "babel.cjs",
+    "defaults.cjs",
+    "react.cjs",
+    "recommended.cjs",
+    "sage.cjs",
+    "typescript.cjs",
+    "wordpress.cjs"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "license": "MIT",
+  "main": "./defaults.cjs",
+  "module": "./defaults.cjs",
   "peerDependencies": {
     "@babel/core": "*",
     "@babel/eslint-parser": "*",
@@ -146,6 +138,12 @@
       "optional": true
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-typescript"
+  },
+  "types": "./types.d.ts",
   "volta": {
     "extends": "../../../package.json"
   }

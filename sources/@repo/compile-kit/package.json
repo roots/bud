@@ -1,20 +1,5 @@
 {
   "name": "@repo/compile-kit",
-  "private": true,
-  "packageManager": "yarn@3.2.4",
-  "type": "module",
-  "engines": {
-    "node": ">=16.0.0"
-  },
-  "volta": {
-    "extends": "../../../package.json"
-  },
-  "exports": {
-    "./cjs": "./src/cjs.ts",
-    "./esm": "./src/esm.ts",
-    "./vendor": "./src/vendor/index.ts",
-    "./options": "./options.ts"
-  },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
@@ -31,5 +16,20 @@
   },
   "devDependencies": {
     "@types/npm-package-arg": "6.1.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "exports": {
+    "./cjs": "./src/cjs.ts",
+    "./esm": "./src/esm.ts",
+    "./vendor": "./src/vendor/index.ts",
+    "./options": "./options.ts"
+  },
+  "packageManager": "yarn@3.2.4",
+  "private": true,
+  "type": "module",
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

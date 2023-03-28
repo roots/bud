@@ -2,12 +2,7 @@
   "name": "@roots/bud-build",
   "description": "bud.js core module",
   "version": "0.0.0",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-build"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,27 +19,20 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "tslib": "2.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
   },
-  "keywords": [
-    "bud",
-    "bud-framework"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -79,19 +67,29 @@
       "default": "./lib/types.js"
     }
   },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "bud-framework"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-build"
+  },
+  "type": "module",
   "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "tslib": "2.5.0"
-  },
   "volta": {
     "extends": "../../../package.json"
   }

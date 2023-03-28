@@ -1,13 +1,8 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "0.0.0",
   "description": "Adds purgecss support to Bud",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-purgecss"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,47 +19,10 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "bud",
-    "bud-extension",
-    "purgecss"
-  ],
-  "engines": {
-    "node": ">=16"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "exports": {
-    ".": "./lib/index.js",
-    "./api": "./lib/api.js",
-    "./extension": "./lib/extension.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "api": [
-        "./lib/api.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ]
-    }
+  "dependencies": {
+    "@fullhuman/postcss-purgecss": "5.0.0",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "tslib": "2.5.0"
   },
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -72,11 +30,31 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10"
   },
-  "dependencies": {
-    "@fullhuman/postcss-purgecss": "5.0.0",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "tslib": "2.5.0"
+  "engines": {
+    "node": ">=16"
   },
+  "exports": {
+    ".": "./lib/index.js",
+    "./api": "./lib/api.js",
+    "./extension": "./lib/extension.js"
+  },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "purgecss"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
   "peerDependencies": {
     "@fullhuman/postcss-purgecss": "*",
     "@roots/bud": "*",
@@ -95,6 +73,26 @@
     },
     "postcss": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-purgecss"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "api": [
+        "./lib/api.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ]
     }
   },
   "volta": {

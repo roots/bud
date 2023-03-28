@@ -1,18 +1,18 @@
 {
   "name": "@examples/node-api",
-  "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "type": "module",
   "devDependencies": {
     "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "webpack-cli": "5.0.1"
-  }
+  },
+  "engines": {
+    "node": "18.12.1"
+  },
+  "packageManager": "npm@8.19.2",
+  "private": true,
+  "type": "module"
 }

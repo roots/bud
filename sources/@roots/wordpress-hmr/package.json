@@ -2,12 +2,7 @@
   "name": "@roots/wordpress-hmr",
   "description": "WordPress HMR scripts",
   "version": "0.0.0",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/wordpress-hmr"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -20,44 +15,6 @@
       "url": "https://github.com/retlehs"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "wordpress"
-  ],
-  "engines": {
-    "node": ">=16"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
-  "exports": {
-    ".": "./lib/index.js",
-    "./loader": "./lib/loader.cjs",
-    "./types": "./lib/types.js",
-    "./*": "./lib/*.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "/lib/index.d.ts"
-      ],
-      "types": [
-        "/lib/types.d.ts"
-      ]
-    }
-  },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "dependencies": {
     "tslib": "2.5.0"
   },
@@ -74,6 +31,47 @@
     "@wordpress/hooks": "3.29.0",
     "@wordpress/plugins": "5.6.0",
     "@wordpress/rich-text": "6.6.0"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./loader": "./lib/loader.cjs",
+    "./types": "./lib/types.js",
+    "./*": "./lib/*.js"
+  },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "wordpress"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-hmr"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "/lib/index.d.ts"
+      ],
+      "types": [
+        "/lib/types.d.ts"
+      ]
+    }
   },
   "volta": {
     "extends": "../../../package.json"
