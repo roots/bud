@@ -1,12 +1,8 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "0.0.0",
   "description": "Adds tailwindcss support to Bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-tailwindcss"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -37,27 +33,26 @@
       "url": "https://github.com/alexdanylyschyn"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "postcss": "8.4.21",
+    "tailwindcss": "3.2.7",
+    "tslib": "2.5.0",
+    "webpack-virtual-modules": "0.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/tailwindcss": "3.1.0",
+    "@types/webpack-virtual-modules": "0.1.1",
+    "webpack": "5.76.3"
   },
-  "keywords": [
-    "bud",
-    "bud-extension"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "config",
-    "docs",
-    "lib"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -92,6 +87,40 @@
       "default": "./config/stylelint/scss.cjs"
     }
   },
+  "files": [
+    "config",
+    "docs",
+    "lib"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "tailwindcss": "*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/bud": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-tailwindcss"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -106,37 +135,6 @@
       "bud/commands/tailwindcss": [
         "./lib/bud/commands/tailwindcss/index.d.ts"
       ]
-    }
-  },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "@types/tailwindcss": "3.1.0",
-    "@types/webpack-virtual-modules": "0.1.1",
-    "webpack": "5.76.2"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "postcss": "8.4.21",
-    "tailwindcss": "3.2.7",
-    "tslib": "2.5.0",
-    "webpack-virtual-modules": "0.5.0"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "tailwindcss": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
     }
   },
   "volta": {

@@ -3,11 +3,9 @@ import {describe, expect, it} from 'vitest'
 
 describe(`examples/sass`, () => {
   it(`should compile js and css as expected`, async () => {
-
-  const project = await new Project({
-    label: `@examples/sass`,
-    with: `npm`,
-  }).setup()
+    const project = await new Project({
+      label: `@examples/sass`,
+    }).setup()
 
     expect(project.assets[`main.css`].length).toBeGreaterThan(10)
     expect(project.assets[`main.css`].includes(`import`)).toBeFalsy()

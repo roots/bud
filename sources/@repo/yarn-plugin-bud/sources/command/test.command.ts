@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
-import {ensureDir, rm} from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {join} from 'path'
 
 import {Command} from './base.command'
@@ -69,15 +69,19 @@ export class TestRun extends Command {
    */
   public async setup() {
     this.log(`Preparing filesystem...`)
-    try {
-      await ensureDir(join(paths.root, `storage/mocks`))
-    } catch (e) {}
 
     try {
-      await rm(join(paths.root, `storage/mocks`), {recursive: true})
+      await fs.removeAsync(join(paths.root, `storage/mocks`))
     } catch (e) {}
 
-    await this.cli.run([`@bud`, `release`, `--tag`, `latest`, `--registry`, `http://localhost:4873`])
+    await this.cli.run([
+      `@bud`,
+      `release`,
+      `--tag`,
+      `latest`,
+      `--registry`,
+      `http://localhost:4873`,
+    ])
   }
 
   /**

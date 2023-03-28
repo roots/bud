@@ -1,13 +1,25 @@
 {
   "name": "@repo/compile-kit",
-  "private": true,
-  "packageManager": "yarn@3.2.4",
-  "type": "module",
+  "dependencies": {
+    "@repo/constants": "workspace:sources/@repo/constants",
+    "@repo/logger": "workspace:sources/@repo/logger",
+    "@types/lodash-es": "4.17.7",
+    "@types/node": "18.15.10",
+    "@vercel/ncc": "0.36.1",
+    "download-package-tarball": "1.0.7",
+    "fs-jetpack": "5.1.0",
+    "get-package-json-from-registry": "2.2.2",
+    "lodash-es": "4.17.21",
+    "npm-package-arg": "10.1.0",
+    "registry-info": "1.0.0",
+    "tslib": "2.5.0",
+    "vitest": "0.29.7"
+  },
+  "devDependencies": {
+    "@types/npm-package-arg": "6.1.1"
+  },
   "engines": {
     "node": ">=16.0.0"
-  },
-  "volta": {
-    "extends": "../../../package.json"
   },
   "exports": {
     "./cjs": "./src/cjs.ts",
@@ -15,23 +27,10 @@
     "./vendor": "./src/vendor/index.ts",
     "./options": "./options.ts"
   },
-  "dependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
-    "@types/fs-extra": "11.0.1",
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.15.5",
-    "@vercel/ncc": "0.36.0",
-    "download-package-tarball": "1.0.7",
-    "fs-extra": "11.1.1",
-    "get-package-json-from-registry": "2.2.2",
-    "lodash-es": "4.17.21",
-    "npm-package-arg": "10.1.0",
-    "registry-info": "1.0.0",
-    "tslib": "2.5.0",
-    "vitest": "0.28.5"
-  },
-  "devDependencies": {
-    "@types/npm-package-arg": "6.1.1"
+  "packageManager": "yarn@3.2.4",
+  "private": true,
+  "type": "module",
+  "volta": {
+    "extends": "../../../package.json"
   }
 }

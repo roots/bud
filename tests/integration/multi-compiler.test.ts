@@ -6,7 +6,6 @@ describe(`examples/multi-compiler`, () => {
     const project = await new Project({
       label: `@examples/multi-compiler`,
       dist: `plugin/dist`,
-      with: `npm`,
     }).setup()
 
     expect(project.assets[`plugin.js`].length).toBeGreaterThan(10)

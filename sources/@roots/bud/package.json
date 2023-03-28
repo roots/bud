@@ -1,8 +1,13 @@
 {
   "name": "@roots/bud",
-  "version": "0.0.0",
   "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
-  "homepage": "https://roots.io/bud",
+  "version": "0.0.0",
+  "bin": {
+    "bud": "./bin/bud.mjs",
+    "bund": "./bin/bund.mjs",
+    "ts-bud": "./bin/ts-bud.mjs"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,39 +24,36 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud"
+  "dependencies": {
+    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
+    "@roots/bud-client": "workspace:sources/@roots/bud-client",
+    "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
+    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
+    "@roots/bud-server": "workspace:sources/@roots/bud-server",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+    "chalk": "5.2.0",
+    "ink": "4.1.0",
+    "ink-spinner": "5.0.0",
+    "ink-text-input": "5.0.0",
+    "react": "18.2.0",
+    "tslib": "2.5.0"
   },
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/react": "18.0.30"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "bud",
-    "roots",
-    "webpack"
-  ],
   "engines": {
     "node": ">=16.0.0"
   },
-  "files": [
-    "bin",
-    "docs",
-    "lib",
-    "config"
-  ],
-  "bin": {
-    "bud": "./bin/bud.mjs",
-    "bund": "./bin/bund.mjs",
-    "ts-bud": "./bin/ts-bud.mjs"
-  },
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -116,69 +118,24 @@
     "./config/jsconfig.json": "./config/jsconfig.json",
     "./config/tsconfig.json": "./config/tsconfig.json"
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "cli": [
-        "./lib/cli/index.d.ts"
-      ],
-      "cli/commands": [
-        "./lib/cli/commands/index.d.ts"
-      ],
-      "cli/decorators": [
-        "./lib/cli/decorators/index.d.ts"
-      ],
-      "context": [
-        "./lib/context/index.d.ts"
-      ],
-      "factory": [
-        "./lib/factory/index.d.ts"
-      ],
-      "factory/*": [
-        "./lib/factory/*.d.ts"
-      ],
-      "services": [
-        "./lib/services/index.d.ts"
-      ],
-      "services/*": [
-        "./lib/services/*/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
+  "files": [
+    "bin",
+    "docs",
+    "lib",
+    "config"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "roots",
+    "webpack"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "@types/react": "18.0.28"
-  },
-  "dependencies": {
-    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-cache": "workspace:sources/@roots/bud-cache",
-    "@roots/bud-client": "workspace:sources/@roots/bud-client",
-    "@roots/bud-compiler": "workspace:sources/@roots/bud-compiler",
-    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
-    "@roots/bud-entrypoints": "workspace:sources/@roots/bud-entrypoints",
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
-    "@roots/bud-server": "workspace:sources/@roots/bud-server",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
-    "chalk": "5.2.0",
-    "ink": "4.0.0",
-    "ink-spinner": "5.0.0",
-    "ink-text-input": "5.0.0",
-    "react": "18.2.0",
-    "tslib": "2.5.0"
-  },
   "peerDependencies": {
     "@roots/browserslist-config": "*",
     "@roots/bud-api": "*",
@@ -240,6 +197,47 @@
     },
     "tslib": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "cli": [
+        "./lib/cli/index.d.ts"
+      ],
+      "cli/commands": [
+        "./lib/cli/commands/index.d.ts"
+      ],
+      "cli/decorators": [
+        "./lib/cli/decorators/index.d.ts"
+      ],
+      "context": [
+        "./lib/context/index.d.ts"
+      ],
+      "factory": [
+        "./lib/factory/index.d.ts"
+      ],
+      "factory/*": [
+        "./lib/factory/*.d.ts"
+      ],
+      "services": [
+        "./lib/services/index.d.ts"
+      ],
+      "services/*": [
+        "./lib/services/*/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {

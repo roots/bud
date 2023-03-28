@@ -5,7 +5,6 @@ describe(`examples/vue-typescript`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/vue-typescript`,
-      with: `npm`,
     }).setup()
 
     expect(project.manifest).toMatchSnapshot()

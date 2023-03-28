@@ -5,7 +5,6 @@ describe(`examples/postcss`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/postcss`,
-      with: `npm`,
     }).setup()
 
     expect(project.assets[`app.css`].length).toBeGreaterThan(10)

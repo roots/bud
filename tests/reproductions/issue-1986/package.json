@@ -1,7 +1,5 @@
 {
   "name": "@tests/issue-1986",
-  "type": "module",
-  "private": true,
   "bud": {
     "extensions": {
       "discovery": false
@@ -11,6 +9,8 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   },
+  "private": true,
+  "type": "module",
   "volta": {
     "node": "16.18.0"
   }

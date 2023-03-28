@@ -2,9 +2,14 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
-import {readFile} from '@roots/bud-support/fs'
+import {Filesystem} from '@roots/bud-support/filesystem'
 
-describe('issue-1886', () => {
+describe('issue-1890', () => {
+  let fs: Filesystem
+  beforeAll(() => {
+    fs = new Filesystem()
+  })
+
   it('should generate scripts', async () => {
     await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1890`),
@@ -14,7 +19,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1890`),
     })
 
-    const normalJs = await readFile(
+    const normalJs = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -23,9 +28,9 @@ describe('issue-1886', () => {
         `js`,
         `normal.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
-    const simpleJs = await readFile(
+    const simpleJs = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -34,9 +39,9 @@ describe('issue-1886', () => {
         `js`,
         `simple.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
-    const mixedNormalJs = await readFile(
+    const mixedNormalJs = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -45,9 +50,9 @@ describe('issue-1886', () => {
         `js`,
         `mixedNormal.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
-    const mixedSimpleJs = await readFile(
+    const mixedSimpleJs = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -56,13 +61,12 @@ describe('issue-1886', () => {
         `js`,
         `mixedSimple.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
 
     expect(normalJs.length).toBeGreaterThan(0)
     expect(simpleJs.length).toBeGreaterThan(0)
     expect(mixedNormalJs.length).toBeGreaterThan(0)
     expect(mixedSimpleJs.length).toBeGreaterThan(0)
-
   })
 }, 120000)

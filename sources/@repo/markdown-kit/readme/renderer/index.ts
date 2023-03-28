@@ -1,5 +1,5 @@
 import {REPO_PATH} from '@repo/constants'
-import fs from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {globby} from 'globby'
 import {format} from 'prettier'
 
@@ -13,7 +13,7 @@ const templates: {
   [key: string]: TemplateDelegate
 } = await sources.reduce(async (promised, path) => {
   const templates = await promised
-  const source = await fs.readFile(path).then(String)
+  const source = await fs.readAsync(path).then(String)
   const template = handlebars.compile(source)
 
   return {

@@ -1,7 +1,7 @@
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import fs from 'fs-extra'
+import * as fs from 'fs-jetpack'
 
 import {ncc} from './ncc.js'
 
@@ -18,6 +18,6 @@ export const compile = async ([input, output]: [
 
   try {
     const {code} = await ncc(join(paths.sources, input), config)
-    await fs.outputFile(join(paths.sources, output), code, `utf8`)
+    await fs.writeAsync(join(paths.sources, output), code, `utf8`)
   } catch (err) {}
 }

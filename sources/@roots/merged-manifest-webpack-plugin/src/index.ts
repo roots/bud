@@ -3,7 +3,7 @@
 
 import path from 'node:path'
 
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
 import type {Compiler, Stats} from 'webpack'
 
@@ -90,7 +90,7 @@ export default class MergedManifestWebpackPlugin {
       /**
        * Reduce aggregate manifest and write to file.
        */
-      await fs.outputFile(
+      await fs.writeAsync(
         this.manifestPath(this.file),
         this.format(
           Object.entries(entrypointsManifest).reduce(
@@ -111,7 +111,7 @@ export default class MergedManifestWebpackPlugin {
       /**
        * Remove wordpress.json manifest.
        */
-      await fs.remove(this.manifestPath(this.wordpressName))
+      await fs.removeAsync(this.manifestPath(this.wordpressName))
     } catch (err) {
       throw new Error(err)
     }
@@ -151,13 +151,13 @@ export default class MergedManifestWebpackPlugin {
    */
   @bind
   public manifestExists(file: string): boolean {
-    return fs.existsSync(this.manifestPath(file))
+    return !!fs.exists(this.manifestPath(file))
   }
 
   /**
    */
   @bind
   public async manifestContent(file: string): Promise<any> {
-    return await fs.readJson(this.manifestPath(file))
+    return await fs.readAsync(this.manifestPath(file), `json`)
   }
 }

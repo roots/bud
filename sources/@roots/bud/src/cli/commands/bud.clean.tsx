@@ -3,7 +3,6 @@ import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators'
-import {ensureDir, remove} from '@roots/bud-support/fs'
 import * as Ink from 'ink'
 
 /**
@@ -73,7 +72,7 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await remove(child.path(`@dist`))
+            await this.bud.fs.remove(child.path(`@dist`))
             await this.renderStatic(
               <Ink.Box>
                 <Ink.Text color="green">
@@ -85,7 +84,7 @@ export default class BudCleanCommand extends BudCommand {
       )
     }
 
-    await remove(this.bud.path(`@dist`))
+    await this.bud.fs.remove(this.bud.path(`@dist`))
     await this.renderStatic(
       <Ink.Box>
         <Ink.Text color="green">
@@ -102,7 +101,7 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await remove(child.cache.cacheDirectory)
+            await this.bud.fs.remove(child.cache.cacheDirectory)
             await this.renderStatic(
               <Ink.Box>
                 <Ink.Text color="green">
@@ -114,8 +113,7 @@ export default class BudCleanCommand extends BudCommand {
       )
     }
 
-    await ensureDir(this.bud.path(`@os-cache`))
-    await remove(this.bud.path(`@os-cache`))
+    await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
     await this.renderStatic(
       <Ink.Box>
@@ -133,7 +131,7 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await remove(child.path(`@storage`))
+            await this.bud.fs.remove(child.path(`@storage`))
             await this.renderStatic(
               <Ink.Box>
                 <Ink.Text color="green">
@@ -145,10 +143,8 @@ export default class BudCleanCommand extends BudCommand {
       )
     }
 
-    await ensureDir(this.bud.path(`@storage`))
-    await remove(this.bud.path(`@storage`))
-    await ensureDir(this.bud.path(`@os-cache`))
-    await remove(this.bud.path(`@os-cache`))
+    await this.bud.fs.remove(this.bud.path(`@storage`))
+    await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
     await this.renderStatic(
       <Ink.Box>

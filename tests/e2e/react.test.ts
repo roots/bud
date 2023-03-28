@@ -1,5 +1,5 @@
 import {ExecaReturnValue} from 'execa'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
 import {
   afterEach,
@@ -45,13 +45,13 @@ describe(`html output of examples/react`, () => {
     await page.waitForTimeout(12000)
 
     const target = await page.$(`.target`)
-    const text = await target.textContent()
+    const text = await target?.textContent()
     expect(text).toBe(`Noice.`)
   })
 })
 
 const update = async () =>
-  fs.writeFile(
+  await fs.writeAsync(
     testPath(`react`, `src`, `components`, `App.js`),
     `\
 import React from 'react'

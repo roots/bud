@@ -2,19 +2,7 @@
   "name": "@roots/wordpress-theme-json-webpack-plugin",
   "description": "Webpack plugin to help with wp_enqueue_script",
   "version": "0.0.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/wordpress-theme-json-webpack-plugin"
-  },
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "license": "MIT",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -27,21 +15,21 @@
       "url": "https://github.com/retlehs"
     }
   ],
-  "keywords": [
-    "webpack",
-    "wordpress"
-  ],
+  "dependencies": {
+    "fs-jetpack": "5.1.0",
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "4.17.7",
+    "@types/node": "18.15.10"
+  },
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -52,6 +40,28 @@
       "default": "./lib/theme.js"
     }
   },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "webpack",
+    "wordpress"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-theme-json-webpack-plugin"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -61,18 +71,6 @@
         "./lib/*.d.ts"
       ]
     }
-  },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.15.5"
-  },
-  "dependencies": {
-    "fs-extra": "11.1.1",
-    "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
-    "tslib": "2.5.0",
-    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

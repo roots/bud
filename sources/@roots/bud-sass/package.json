@@ -1,13 +1,8 @@
 {
   "name": "@roots/bud-sass",
-  "version": "0.0.0",
   "description": "Sass support for @roots/bud projects.",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-sass"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,27 +19,29 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "postcss-scss": "^4.0.6",
+    "resolve-url-loader": "5.0.0",
+    "sass": "^1.60.0",
+    "sass-loader": "^13.2.2",
+    "stylelint-config-recommended-scss": "^9.0.1",
+    "stylelint-scss": "^4.6.0",
+    "tslib": "2.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "postcss": "8.4.21",
+    "stylelint": "15.3.0",
+    "webpack": "5.76.3"
   },
-  "keywords": [
-    "roots",
-    "bud",
-    "sass"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "lib",
-    "config"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -67,44 +64,22 @@
       "default": "./config/stylelint.cjs"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ],
-      "resolve-url": [
-        "./lib/resolve-url/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
+  "files": [
+    "lib",
+    "config"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "roots",
+    "sass"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "postcss": "8.4.21",
-    "stylelint": "14.16.1",
-    "webpack": "5.76.2"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "postcss-scss": "^4.0.6",
-    "resolve-url-loader": "5.0.0",
-    "sass": "^1.58.1",
-    "sass-loader": "^13.2.1",
-    "stylelint-config-recommended-scss": "^8.0.0",
-    "stylelint-scss": "^4.3.0",
-    "tslib": "2.5.0"
-  },
   "peerDependencies": {
     "@roots/bud": "*",
     "postcss-scss": "*",
@@ -131,6 +106,29 @@
     },
     "stylelint-scss": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-sass"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "resolve-url": [
+        "./lib/resolve-url/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {

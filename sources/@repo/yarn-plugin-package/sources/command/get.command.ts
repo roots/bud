@@ -1,6 +1,7 @@
 import {CommandClass, Option} from 'clipanion'
-import * as fs from 'fs-extra'
+import * as fs from 'fs-jetpack'
 import {get, isString} from 'lodash-es'
+import {join} from 'path'
 
 import {Command} from './base.command'
 
@@ -22,7 +23,10 @@ export abstract class Get extends Command {
    * Command execute
    */
   public async execute() {
-    const json = await fs.readJson(`${this.context.cwd}/package.json`)
+    const json = await fs.readAsync(
+      join(this.context.cwd, `package.json`),
+      `json`,
+    )
     const value = get(json, this.property)
     const normal = isString(value) ? value : JSON.stringify(value)
 

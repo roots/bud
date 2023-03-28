@@ -8,29 +8,27 @@ module.exports = {
   filter: `^(?!@roots/).*$`,
   indent: `  `,
   overrides: true,
-  peer: false,
+  dependencyTypes: [`dev`, `prod`],
   pnpmOverrides: true,
   prod: true,
   resolutions: true,
   workspace: true,
-  semverGroups: [],
   semverRange: ``,
   versionGroups: [
     {
       dependencies: [`**`],
       packages: [`@repo/docs`],
-    },
-    {
-      dependencies: [`@types/react`, `react`, `react-dom`],
-      packages: [`@roots/bud-dashboard`, `@roots/bud`],
-    },
-    {
-      dependencies: [`**`],
-      packages: [`@roots/bud-support`],
+      label: `Docusaurus`,
     },
     {
       dependencies: [`**`],
       packages: [`issue-*`],
+      label: `Test code (fixtures)`,
+    },
+    {
+      dependencies: [`**`],
+      packages: [`@example/*`],
+      label: `Example code`,
     },
   ],
 }

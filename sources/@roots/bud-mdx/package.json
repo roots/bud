@@ -1,13 +1,8 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "0.0.0",
   "description": "mdx extension for @roots/bud projects",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-mdx"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,27 +19,27 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@mdx-js/loader": "^2.3.0",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-react": "workspace:sources/@roots/bud-react",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-build": "workspace:sources/@roots/bud-build",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/react": "18.0.30",
+    "@types/react-dom": "18.0.11",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
   },
-  "keywords": [
-    "bud",
-    "mdx"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -55,26 +50,22 @@
       "default": "./lib/types.js"
     }
   },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "mdx"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "@types/react": "18.0.28",
-    "@types/react-dom": "18.0.11",
-    "react": "18.2.0",
-    "react-dom": "18.2.0"
-  },
-  "dependencies": {
-    "@mdx-js/loader": "^2.2.1",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "tslib": "2.5.0",
-    "webpack": "5.76.2"
-  },
   "peerDependencies": {
     "@mdx-js/loader": "*",
     "@roots/bud": "*",
@@ -92,6 +83,13 @@
       "optional": true
     }
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-mdx"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
   "volta": {
     "extends": "../../../package.json"
   }

@@ -1,4 +1,4 @@
-export declare module global {
+declare module global {
   interface Window {
     roots: {
       register: {
@@ -10,4 +10,9 @@ export declare module global {
       }
     }
   }
+}
+
+declare module '@wordpress/data' {
+  export function dispatch(namespace: string): any
+  export function select(namespace: string): any
 }

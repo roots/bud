@@ -5,7 +5,6 @@ describe(`examples/vue-3`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/vue-3`,
-      with: `npm`,
     }).setup()
 
     expect(project.assets[`main.css`].length).toBeGreaterThan(10)

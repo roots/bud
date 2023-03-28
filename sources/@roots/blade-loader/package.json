@@ -1,20 +1,8 @@
 {
   "name": "@roots/blade-loader",
-  "version": "0.0.0",
   "description": "Blade loader",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/blade-loader"
-  },
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "license": "MIT",
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -22,18 +10,21 @@
       "url": "https://github.com/kellymears"
     }
   ],
-  "keywords": [
-    "roots",
-    "browserslist"
-  ],
+  "dependencies": {
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
+  },
+  "devDependencies": {
+    "@babel/core": "7.21.3",
+    "@skypack/package-check": "0.2.2",
+    "babel-loader": "9.1.2",
+    "memfs": "3.4.13"
+  },
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "src",
-    "lib",
-    "vendor"
-  ],
   "exports": {
     ".": {
       "import": "./lib/plugin.js",
@@ -52,21 +43,28 @@
       "default": "./lib/asset-loader.cjs"
     }
   },
-  "type": "module",
+  "files": [
+    "src",
+    "lib",
+    "vendor"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "browserslist",
+    "roots"
+  ],
+  "license": "MIT",
   "main": "./lib/plugin.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/blade-loader"
+  },
+  "type": "module",
   "types": "./lib/plugin.d.ts",
-  "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@skypack/package-check": "0.2.2",
-    "babel-loader": "9.1.2",
-    "memfs": "3.4.13"
-  },
-  "dependencies": {
-    "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
-    "tslib": "2.5.0",
-    "webpack": "5.76.2"
-  },
   "volta": {
     "extends": "../../../package.json"
   }

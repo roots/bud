@@ -2,8 +2,8 @@
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import * as fs from '@roots/bud-support/fs'
-import {execa} from '@roots/bud-support/execa'
+import * as fs from 'fs-jetpack'
+import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {
@@ -47,26 +47,13 @@ const runFixture = async target =>
   )
 
 const readOriginal = async target =>
-  await fs.readFile(
-    join(
-      ...baseParts,
-      target,
-      `dist`,
-      `css`,
-      `index.css`,
-    ),
+  await fs.readAsync(
+    join(...baseParts, target, `dist`, `css`, `index.css`),
     `utf8`,
   )
 
 const readCritical = async target =>
-  await fs.readFile(
-    join(
-      ...baseParts,
-      target,
-      `dist`,
-      `critical`,
-      `css`,
-      `index.css`,
-    ),
+  await fs.readAsync(
+    join(...baseParts, target, `dist`, `critical`, `css`, `index.css`),
     `utf8`,
   )

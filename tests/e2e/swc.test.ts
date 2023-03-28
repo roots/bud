@@ -1,14 +1,6 @@
-import {ExecaReturnValue} from 'execa'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
-import {
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from 'vitest'
+import {afterEach, beforeEach, describe, expect, it} from 'vitest'
 
 import {e2eBeforeAll, runDev} from './util/install'
 import {testPath} from './util/copy'
@@ -43,7 +35,7 @@ describe(`html output of examples/swc`, () => {
 })
 
 const update = async () =>
-  await fs.writeFile(
+  await fs.writeAsync(
     testPath(`swc`, `src`, `index.js`),
     `\
 import './styles.css'

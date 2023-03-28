@@ -2,12 +2,7 @@
   "name": "@roots/bud-compiler",
   "description": "Compilation handler",
   "version": "0.0.0",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-compiler"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,27 +19,24 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "ink": "4.1.0",
+    "react": "18.2.0",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/react": "18.0.30"
   },
-  "keywords": [
-    "bud",
-    "bud-framework"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -55,6 +47,29 @@
       "default": "./lib/types.js"
     }
   },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "bud-framework"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-compiler"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
   "typesVersions": {
     "*": {
       ".": [
@@ -64,23 +79,6 @@
         "./lib/types.d.ts"
       ]
     }
-  },
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "@types/react": "18.0.28"
-  },
-  "dependencies": {
-    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "ink": "4.0.0",
-    "react": "18.2.0",
-    "tslib": "2.5.0",
-    "webpack": "5.76.2"
   },
   "volta": {
     "extends": "../../../package.json"

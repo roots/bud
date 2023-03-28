@@ -1,6 +1,9 @@
 {
   "name": "@examples/basic",
   "private": true,
+  "engines": {
+    "node": "18.12.1"
+  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],

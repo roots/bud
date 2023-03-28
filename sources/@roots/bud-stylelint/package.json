@@ -1,12 +1,8 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "0.0.0",
   "description": "Adds stylelint support to Bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-stylelint"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -23,29 +19,23 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "stylelint": "15.3.0",
+    "stylelint-config-standard": "31.0.0",
+    "stylelint-webpack-plugin": "4.1.0",
+    "tslib": "2.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "webpack": "5.76.3"
   },
-  "keywords": [
-    "bud",
-    "bud-extension",
-    "stylelint"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "lib/",
-    "config/"
-  ],
-  "type": "module",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -68,33 +58,21 @@
       "default": "./lib/types.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "extension": [
-        "./lib/extension.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
+  "files": [
+    "lib/",
+    "config/"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5",
-    "webpack": "5.76.2"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "stylelint": "14.16.1",
-    "stylelint-config-standard": "29.0.0",
-    "stylelint-webpack-plugin": "3.3.0",
-    "tslib": "2.5.0"
-  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "stylelint"
+  ],
+  "license": "MIT",
+  "module": "./lib/index.js",
   "peerDependencies": {
     "@roots/bud": "*",
     "stylelint": "*",
@@ -117,6 +95,26 @@
     },
     "stylelint-webpack-plugin": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-stylelint"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {

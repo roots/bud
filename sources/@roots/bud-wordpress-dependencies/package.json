@@ -1,12 +1,8 @@
 {
   "name": "@roots/bud-wordpress-dependencies",
-  "version": "0.0.0",
   "description": "Webpack tools",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-wordpress-dependencies"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -23,10 +19,28 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",
+    "tslib": "2.5.0"
   },
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "exports": {
+    ".": "./lib/index.js",
+    "./types": "./lib/types.js"
+  },
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
@@ -35,41 +49,8 @@
     "bud",
     "bud-extension"
   ],
-  "engines": {
-    "node": ">=16"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "exports": {
-    ".": "./lib/index.js",
-    "./types": "./lib/types.js"
-  },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
-  },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/wordpress-dependencies-webpack-plugin": "workspace:sources/@roots/wordpress-dependencies-webpack-plugin",
-    "tslib": "2.5.0"
-  },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/wordpress-dependencies-webpack-plugin": "*"
@@ -80,6 +61,23 @@
     },
     "@roots/wordpress-dependencies-webpack-plugin": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-wordpress-dependencies"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {

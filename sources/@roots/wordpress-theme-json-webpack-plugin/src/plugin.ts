@@ -1,5 +1,5 @@
 import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
-import fs from 'fs-extra'
+import fs from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
 import omit from 'lodash/omit.js'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
@@ -79,7 +79,7 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   @bind
   public async done() {
     try {
-      await fs.writeFile(this.path, this.settings, `utf8`)
+      await fs.writeAsync(this.path, this.settings)
     } catch (err) {
       throw new Error(err)
     }

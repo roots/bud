@@ -2,12 +2,15 @@ import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it} from 'vitest'
-import fs from '@roots/bud-support/fs-jetpack'
+import {Filesystem} from '@roots/bud-support/filesystem'
 
 describe(`issue-1986`, () => {
   let child: ExecaReturnValue
+  let fs: Filesystem
 
   beforeAll(async () => {
+    fs = new Filesystem()
+
     try {
       await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
@@ -28,7 +31,7 @@ describe(`issue-1986`, () => {
 
   it(`should not generate app.css`, async () => {
     expect(
-      await fs.existsAsync(
+      await fs.exists(
         join(
           paths.tests,
           `reproductions`,

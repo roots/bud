@@ -1,10 +1,13 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {describe, expect, it} from 'vitest'
-import {readFile} from '@roots/bud-support/fs'
-
+import {beforeAll, describe, expect, it} from 'vitest'
+import {Filesystem} from '@roots/bud-support/filesystem'
 describe('issue-2126', () => {
+  let fs: Filesystem
+  beforeAll(() => {
+    fs = new Filesystem()
+  })
   it('should generate expected output', async () => {
     await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
       cwd: join(paths.tests, `reproductions`, `issue-2126`),
@@ -14,7 +17,7 @@ describe('issue-2126', () => {
       cwd: join(paths.tests, `reproductions`, `issue-2126`),
     })
 
-    const js = await readFile(
+    const js = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -23,11 +26,11 @@ describe('issue-2126', () => {
         `js`,
         `app.js`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(js.length).toBeLessThan(65000)
 
-    const css = await readFile(
+    const css = await fs.read(
       join(
         paths.tests,
         `reproductions`,
@@ -36,7 +39,7 @@ describe('issue-2126', () => {
         `css`,
         `app.css`,
       ),
-      `utf-8`,
+      `utf8`,
     )
     expect(css.includes(`body{width:100%}`)).toBeTruthy()
     expect(css.includes(`list-style-type:none`)).toBeTruthy()

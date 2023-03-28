@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`html output of examples/babel > rebuilds on change > rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box 1`] = `"rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box"`;
 

@@ -5,7 +5,6 @@
   },
   "include": [
     "./bud.ts",
-    "./integration.ts",
     "./project.ts"
   ],
   "references": [

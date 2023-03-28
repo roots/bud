@@ -1,6 +1,6 @@
 module.exports = async app =>
   app
-    .template({
+    .html({
       template: app.path('public/index.html'),
     })
     .entry({

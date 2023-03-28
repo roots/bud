@@ -5,7 +5,6 @@ describe(`examples/tailwindcss`, () => {
   it(`should compile js and css as expected`, async () => {
     const project = await new Project({
       label: `@examples/tailwindcss`,
-      with: `npm`,
     }).setup()
 
     expect(project.assets[`app.css`].includes(`@import`)).toBeFalsy()

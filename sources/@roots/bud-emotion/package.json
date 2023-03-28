@@ -1,13 +1,8 @@
 {
   "name": "@roots/bud-emotion",
-  "version": "0.0.0",
   "description": "CSS-in-JS for bud.js",
-  "homepage": "https://roots.io/bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-emotion"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -24,28 +19,27 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@emotion/babel-plugin": "^11.10.6",
+    "@emotion/css": "^11.10.6",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@swc/plugin-emotion": "2.5.51",
+    "tslib": "2.5.0"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "7.20.0",
+    "@types/node": "18.15.10"
   },
-  "keywords": [
-    "bud",
-    "bud-extension",
-    "emotion"
-  ],
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -56,36 +50,23 @@
       "default": "./lib/types.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
+  "homepage": "https://roots.io/bud",
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "emotion"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
-    "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.0",
-    "@types/node": "18.15.5"
-  },
-  "dependencies": {
-    "@emotion/babel-plugin": "^11.10.6",
-    "@emotion/css": "^11.10.6",
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.48",
-    "tslib": "2.5.0"
-  },
   "peerDependencies": {
     "@babel/core": "7.20.7",
     "@emotion/babel-plugin": "*",
@@ -124,6 +105,23 @@
     },
     "react": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-emotion"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {

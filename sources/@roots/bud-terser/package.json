@@ -1,12 +1,8 @@
 {
   "name": "@roots/bud-terser",
-  "version": "0.0.0",
   "description": "Adds terser support to Bud",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud",
-    "directory": "sources/@roots/bud-terser"
-  },
+  "version": "0.0.0",
+  "bugs": "https://github.com/roots/bud/issues",
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -23,23 +19,22 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "terser-webpack-plugin": "5.3.7",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
-  "keywords": [
-    "bud",
-    "bud-extension",
-    "terser"
-  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
   "engines": {
     "node": ">=16"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
-  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -58,34 +53,17 @@
       "default": "./lib/types.js"
     }
   },
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "css-minimizer": [
-        "./lib/css-minimizer/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
-    }
-  },
+  "files": [
+    "lib",
+    "src"
+  ],
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "terser"
+  ],
+  "license": "MIT",
   "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.5"
-  },
-  "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "terser-webpack-plugin": "5.3.7",
-    "tslib": "2.5.0",
-    "webpack": "5.76.2"
-  },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-support": "*",
@@ -100,6 +78,26 @@
     },
     "terser-webpack-plugin": {
       "optional": true
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-terser"
+  },
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "css-minimizer": [
+        "./lib/css-minimizer/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "volta": {
