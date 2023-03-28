@@ -4,14 +4,13 @@ import {join} from 'path'
 
 const rf = {
   overwrite: true,
-  recursive: true,
 }
 
 export const originalPath = (...parts: Array<string>) =>
   join(paths.root, `examples`, ...parts)
 
 export const testPath = (...parts: Array<string>) =>
-  join(paths.root, `storage`, `mocks`, `yarn`, `@examples`, ...parts)
+  join(paths.root, `storage`, `fixtures`, ...parts)
 
 export const copyDir = async (dir: string) => {
   try {
