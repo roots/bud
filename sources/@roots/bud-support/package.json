@@ -183,6 +183,6 @@
     "webpack-manifest-plugin": "5.0.0",
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
-    "zod": "3.20.6"
+    "zod": "3.21.4"
   }
 }
