@@ -24,14 +24,6 @@
     "./project": {
       "types": "./compiled/project.d.ts",
       "default": "./compiled/project.js"
-    },
-    "./mocks/*": {
-      "types": "./mocks/*.d.ts",
-      "default": "./mocks/*.js"
-    },
-    "./setupYarnIntegrationTest": {
-      "types": "./compiled/setupYarnIntegrationTest.d.ts",
-      "default": "./compiled/setupYarnIntegrationTest.js"
     }
   },
   "packageManager": "yarn@3.2.4",

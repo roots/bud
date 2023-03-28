@@ -1,3 +1,3 @@
 # @repo/test-kit
 
-Integration tests runners & jest helpers
+bud.js test suite helpers and utilities

@@ -3,7 +3,7 @@ import {posix} from 'node:path'
 
 import {paths} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
-import execa, {ExecaChildProcess} from '@roots/bud-support/execa'
+import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
 
 const {join} = posix
@@ -11,8 +11,15 @@ const {join} = posix
 interface Options {
   label: string
   dist?: string
-  mode?: 'development' | 'production'
   buildCommand?: [string, Array<string>?]
+}
+
+interface Entrypoints {
+  [key: string]: {
+    js: Array<string>
+    css: Array<string>
+    dependencies?: Array<string>
+  }
 }
 
 /**
@@ -21,7 +28,7 @@ interface Options {
  * @example
  * ```ts
  *  project = new Project({
- *    name: 'basic',
+ *    label: '@examples/basic',
  *  })
 
  *  await project.setup()
@@ -33,23 +40,29 @@ interface Options {
  * ```
  */
 export class Project {
-  public assets = {}
-
-  public entrypoints: {
-    [key: string]: {
-      js: Array<string>
-      css: Array<string>
-      dependencies?: Array<string>
-    }
-  } = {}
-
-  public manifest: {[key: string]: any} = {}
+  /**
+   * Manifest assets
+   */
+  public assets: Record<string, string> = {}
 
   /**
-   * dir
+   * entrypoints.json
+   */
+  public entrypoints: Entrypoints = {}
+
+  /**
+   * manifest.json
+   */
+  public manifest: Record<string, any> = {}
+
+  /**
+   * Directory
    */
   public directory: string
 
+  /**
+   * Filesystem
+   */
   public fs: Filesystem
 
   /**
@@ -78,56 +91,94 @@ export class Project {
     return this
   }
 
-  @bind
-  public async $(
-    bin: string,
-    flags: Array<string>,
-  ): Promise<ExecaChildProcess> {
-    return await execa(bin, flags ?? [], {cwd: this.projectPath()})
-  }
-
+  /**
+   * Install and setup integration test fixture
+   */
   @bind
   public async install(): Promise<this> {
-    await this.fs.copy(
-      join(
-        paths.root,
-        `examples`,
-        this.options.label.replace(`@examples/`, ``),
-      ),
-      this.projectPath(),
-      {overwrite: true},
-    )
+    /**
+     * Clean out existing files
+     */
+    try {
+      await this.fs.remove(this.directory)
+    } catch (e) {
+      throw e
+    }
 
-    await this.fs.write(
-      this.projectPath(`.npmrc`),
-      `@roots:registry=http://localhost:4873`,
-    )
+    /**
+     * Copy fixture files
+     */
+    try {
+      await this.fs.copy(
+        join(
+          paths.root,
+          `examples`,
+          this.options.label.replace(`@examples/`, ``),
+        ),
+        this.directory,
+        {overwrite: true},
+      )
+    } catch (e) {
+      throw e
+    }
 
-    const child = await this.$(`npm`, [`install`, `--no-package-lock`])
+    /**
+     * Write .npmrc
+     */
+    try {
+      await this.fs.write(
+        this.projectPath(`.npmrc`),
+        `@roots:registry=http://localhost:4873`,
+      )
+    } catch (e) {
+      throw e
+    }
 
-    child.stdout &&
-      (await this.fs.write(
-        this.projectPath(`install.stdout.log`),
-        child.stdout,
-      ))
-    child.stderr &&
-      (await this.fs.write(
-        this.projectPath(`install.stderr.log`),
-        child.stderr,
-      ))
+    /**
+     * Install dependencies
+     */
+    try {
+      const child = await execa(`npm`, [`install`], {
+        cwd: this.directory,
+      })
+      if (child?.stdout) {
+        await this.fs.write(
+          this.projectPath(`install.stdout.log`),
+          child.stdout,
+        )
+      }
+      if (child.stderr) {
+        await this.fs.write(
+          this.projectPath(`install.stderr.log`),
+          child.stderr,
+        )
+      }
+    } catch (e) {
+      throw e
+    }
 
     return this
   }
 
+  /**
+   * Build integration test fixture
+   */
   @bind
   public async build() {
+    /**
+     * Construct build command and args (default `bud build`)
+     */
     const build = this.options.buildCommand ?? [
       `node`,
       [this.projectPath(`node_modules`, `.bin`, `bud`), `build`],
     ]
 
-    const child = await this.$(...build)
-
+    /**
+     * Execute build command
+     */
+    const child = await execa(...build, {
+      cwd: this.directory,
+    })
     child.stdout &&
       (await this.fs.write(
         this.projectPath(`build.stdout.log`),
@@ -142,11 +193,17 @@ export class Project {
     return this
   }
 
+  /**
+   * Get the directory of the integration test fixture
+   */
   @bind
   public projectPath(...file: Array<string>) {
     return join(this.directory, ...file)
   }
 
+  /**
+   * Assign the `manifest.json` data to {@link this.manifest}
+   */
   @bind
   public async setManifest() {
     this.manifest = await this.fs.read(
@@ -154,6 +211,9 @@ export class Project {
     )
   }
 
+  /**
+   * Mapped data for {@link this.manifest} entries
+   */
   @bind
   public async setAssets(): Promise<void> {
     await Promise.all(
@@ -170,6 +230,9 @@ export class Project {
     )
   }
 
+  /**
+   * Set the `entrypoints.json` data to {@link this.entrypoints}
+   */
   @bind
   public async setEntrypoints() {
     try {

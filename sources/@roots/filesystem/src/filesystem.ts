@@ -51,10 +51,7 @@ export default class Filesystem {
    * Create a {@link ReadStream}
    */
   @bind
-  public async createReadStream(
-    path: string,
-    options?: any,
-  ): Promise<ReadStream> {
+  public createReadStream(path: string, options?: any): ReadStream {
     return this.fs.createReadStream(path, options)
   }
 
@@ -62,10 +59,10 @@ export default class Filesystem {
    * Create a {@link WriteStream}
    */
   @bind
-  public async createWriteStream(
+  public createWriteStream(
     path: PathLike,
     options?: BufferEncoding | CreateWriteStreamOptions,
-  ): Promise<WriteStream> {
+  ): WriteStream {
     return this.fs.createWriteStream(path, options)
   }
 
@@ -82,7 +79,7 @@ export default class Filesystem {
     data: AppendData,
     options?: AppendOptions,
   ): Promise<Filesystem> {
-    this.fs.appendAsync(path, data, options) // returns void
+    await this.fs.appendAsync(path, data, options) // returns void
 
     return this
   }
@@ -99,7 +96,7 @@ export default class Filesystem {
     to: string,
     options?: CopyOptions,
   ): Promise<Filesystem> {
-    this.fs.copyAsync(from, to, options) // returns void
+    await this.fs.copyAsync(from, to, options) // returns void
     return this
   }
 
@@ -245,7 +242,7 @@ export default class Filesystem {
    */
   @bind
   public async remove(path?: string): Promise<Filesystem> {
-    this.fs.removeAsync(path) // returns void
+    await this.fs.removeAsync(path) // returns void
 
     return this
   }
@@ -260,7 +257,7 @@ export default class Filesystem {
     symlinkValue: string,
     path: string,
   ): Promise<Filesystem> {
-    this.fs.symlinkAsync(symlinkValue, path) // returns void
+    await this.fs.symlinkAsync(symlinkValue, path) // returns void
 
     return this
   }
@@ -316,7 +313,7 @@ export default class Filesystem {
           : options.space,
       })
 
-    this.fs.writeAsync(path, data, writeProps) // returns void
+    await this.fs.writeAsync(path, data, writeProps) // returns void
 
     return this
   }
