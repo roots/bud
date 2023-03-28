@@ -7009,6 +7009,7 @@ __metadata:
     "@types/npm-package-arg": 6.1.1
     "@vercel/ncc": 0.36.1
     download-package-tarball: 1.0.7
+    fs-jetpack: 5.1.0
     get-package-json-from-registry: 2.2.2
     lodash-es: 4.17.21
     npm-package-arg: 10.1.0
