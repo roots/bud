@@ -366,6 +366,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@aws-sdk/abort-controller@npm:3.296.0":
+  version: 3.296.0
+  resolution: "@aws-sdk/abort-controller@npm:3.296.0"
+  dependencies:
+    "@aws-sdk/types": 3.296.0
+    tslib: ^2.5.0
+  checksum: bfaf89f703f3be0b2c79574e3bd67f7f8272c88e1f99edaba51fa592a70d82f391380fdec703d8b31eea5488b285797848f7c6d187e87872ec0faf2df8284d47
+  languageName: node
+  linkType: hard
+
 "@aws-sdk/chunked-blob-reader-native@npm:3.208.0":
   version: 3.208.0
   resolution: "@aws-sdk/chunked-blob-reader-native@npm:3.208.0"
@@ -1180,6 +1190,15 @@ __metadata:
   dependencies:
     tslib: ^2.3.1
   checksum: 0041a8c0924ec7ba4ff787ae329a80b3edb9ace43e38fe3656a1862ae5324427fb09836275c0962cbc80e3c34a6ee512a108a5c4e7997f29664e3e8930cffd80
+  languageName: node
+  linkType: hard
+
+"@aws-sdk/types@npm:3.296.0":
+  version: 3.296.0
+  resolution: "@aws-sdk/types@npm:3.296.0"
+  dependencies:
+    tslib: ^2.5.0
+  checksum: 3cff062f8cb08cd5473c40076ca06f8d93c80fa11e64a7c2d8273fcc0107e709e08a669779f9e3e70d35b3ae7fc3abafd2885f74fa9f8ba57042e5167f72bd2a
   languageName: node
   linkType: hard
 
@@ -8518,7 +8537,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/filesystem@workspace:sources/@roots/filesystem"
   dependencies:
-    "@aws-sdk/abort-controller": 3.226.0
+    "@aws-sdk/abort-controller": 3.296.0
     "@aws-sdk/client-s3": 3.241.0
     "@aws-sdk/lib-storage": 3.252.0
     "@skypack/package-check": 0.2.2
@@ -33997,7 +34016,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.0":
+"tslib@npm:2.5.0, tslib@npm:^2.5.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
