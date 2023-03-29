@@ -1,6 +1,13 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/typescript > should compile js and css as expected 1`] = `
+exports[`examples/typescript > should compile js and css as expected (bud) 1`] = `
+{
+  "app.js": "js/app.js",
+  "index.html": "index.html",
+}
+`;
+
+exports[`examples/typescript > should compile js and css as expected (ts-bud) 1`] = `
 {
   "app.js": "js/app.js",
   "index.html": "index.html",
