@@ -5,9 +5,11 @@ import envPaths from 'env-paths'
 
 import {BudError} from '../errors/errors.js'
 import args from './args.js'
-import * as env from './env.js'
+import * as envBootstrap from './env.js'
 
 const systemPaths = envPaths(`bud`)
+
+let env: ReturnType<typeof envBootstrap.get>
 
 interface paths {
   basedir: string
@@ -78,26 +80,37 @@ const get = (directory?: string): paths => {
       `paths: directory is required if paths not already initialized`,
       {
         props: {
-          details: `This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized. This is most likely a problem with bud.js.`,
+          issue: new URL(
+            `https://github.com/roots/bud/search?q=paths+error+is:issue`,
+          ),
+          details: `\
+This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized.
+This is most likely a problem with the internals of bud.js.`,
         },
       },
     )
 
-  const basearg =
-    args?.cwd ?? args?.basedir ?? env.get(directory)?.APP_BASE_PATH
+  env = envBootstrap.get(directory)
+
+  const basearg = args?.cwd ?? args?.basedir ?? env.APP_BASE_PATH
   const basedir = basearg ? join(directory, basearg) : directory
+
+  const storagearg =
+    args?.storage ?? args?.[`@storage`] ?? env.APP_STORAGE_PATH
+
+  const cache = storagearg
+    ? join(directory, storagearg)
+    : systemPaths.cache
+
   const hash = createHash(`sha1`).update(basedir).digest(`base64`)
 
   paths = {
     ...Object.entries(systemPaths).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key]: join(value, hash),
-      }),
-      {
-        basedir,
-        hash,
-      } as paths,
+      (acc, [key, value]) => {
+        if (key in acc) return acc
+        return {...acc, [key]: join(value, hash)}
+      },
+      {basedir, cache, hash} as paths,
     ),
   }
 

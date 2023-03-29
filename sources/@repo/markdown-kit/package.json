@@ -1,5 +1,18 @@
 {
   "name": "@repo/markdown-kit",
+  "private": true,
+  "packageManager": "yarn@3.2.4",
+  "type": "module",
+  "exports": {
+    "./readme": "./compiled/readme/index.js",
+    "./cli-examples": "./compiled/cli-examples/index.js"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "4.17.7",
+    "@types/node": "18.15.10",
+    "@types/prettier": "2.7.2",
+    "vitest": "0.29.7"
+  },
   "dependencies": {
     "@octokit/core": "4.2.0",
     "@octokit/plugin-paginate-rest": "6.0.0",
@@ -22,22 +35,9 @@
     "tslib": "2.5.0",
     "typescript": "4.9.5"
   },
-  "devDependencies": {
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.15.10",
-    "@types/prettier": "2.7.2",
-    "vitest": "0.29.7"
-  },
-  "exports": {
-    "./readme": "./compiled/readme/index.js",
-    "./cli-examples": "./compiled/cli-examples/index.js"
-  },
-  "packageManager": "yarn@3.2.4",
-  "private": true,
   "scripts": {
     "build": "yarn tsc -b"
   },
-  "type": "module",
   "volta": {
     "extends": "../../../package.json"
   }

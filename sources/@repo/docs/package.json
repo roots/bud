@@ -1,18 +1,15 @@
 {
   "name": "@repo/docs",
+  "private": true,
   "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
-  "browserslist": [
-    "extends @roots/browserslist-config/current"
-  ],
-  "dependencies": {
-    "@docusaurus/theme-classic": "2.4.0",
-    "@docusaurus/theme-common": "2.4.0",
-    "axios": "1.3.4",
-    "clsx": "1.2.1",
-    "docusaurus-lunr-search": "2.3.2",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "tslib": "2.5.0"
+  "engines": {
+    "node": "^16.3.0"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "/sources/docs"
   },
   "devDependencies": {
     "@docusaurus/core": "2.4.0",
@@ -34,15 +31,15 @@
     "url-loader": "4.1.1",
     "webpack": "5.76.3"
   },
-  "engines": {
-    "node": "^16.3.0"
-  },
-  "license": "MIT",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "/sources/docs"
+  "dependencies": {
+    "@docusaurus/theme-classic": "2.4.0",
+    "@docusaurus/theme-common": "2.4.0",
+    "axios": "1.3.4",
+    "clsx": "1.2.1",
+    "docusaurus-lunr-search": "2.3.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "tslib": "2.5.0"
   },
   "scripts": {
     "build": "docusaurus build"
@@ -50,5 +47,8 @@
   "volta": {
     "node": "18.12.1",
     "yarn": "1.22.19"
-  }
+  },
+  "browserslist": [
+    "extends @roots/browserslist-config/current"
+  ]
 }

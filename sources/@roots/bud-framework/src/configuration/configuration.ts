@@ -1,4 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ConfigError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -22,7 +23,14 @@ class Configuration {
    */
   @bind
   public async run(description: File): Promise<unknown> {
-    if (!description.module) return
+    if (!description?.module) {
+      throw new BudError(`No module found`, {
+        props: {
+          details: `There should be a module here. This is like an error with bud.js`,
+          file: description,
+        },
+      })
+    }
 
     return description.dynamic
       ? await this.dynamicConfig(description)
@@ -36,10 +44,22 @@ class Configuration {
   public async dynamicConfig(description: any): Promise<unknown> {
     this.bud.log(`processing as dynamic configuration:`, description.name)
 
-    const configCallable =
-      description.module?.default ?? description.module
+    this.bud.context.logger
+      .scope(this.bud.label, `config`)
+      .log(description.module)
 
-    return await configCallable(this.bud)
+    const config = description.module?.default ?? description.module
+
+    try {
+      return await config(this.bud)
+    } catch (cause) {
+      throw new ConfigError(`Error while executing ${description.name}`, {
+        props: {
+          file: description,
+          origin: BudError.normalize(cause),
+        },
+      })
+    }
   }
 
   /**

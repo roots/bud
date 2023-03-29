@@ -51,7 +51,7 @@ export class BudTailwindCss extends Extension<Options> {
 
     return (
       Object.values(this.app.context.files).find(file =>
-        file.name?.startsWith(`tailwind.config`),
+        file.name?.includes(`tailwind.config`),
       ) ?? fallback
     )
   }
@@ -71,14 +71,6 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * Resolved paths
-   */
-  public dependencies: {tailwindcss: string; nesting: string} = {
-    tailwindcss: null,
-    nesting: null,
-  }
-
-  /**
    * Resolve a tailwind config value
    */
   @bind
@@ -86,26 +78,42 @@ export class BudTailwindCss extends Extension<Options> {
     key: K,
     extendedOnly?: boolean,
   ): Config[K] {
-    const rawValue = get(this.config.theme, key)
+    if (!extendedOnly) {
+      const rawValue = get(this.config.theme, key)
 
-    if (!rawValue) {
+      if (!rawValue) {
+        throw new Error(
+          `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
+        )
+      }
+
+      const value = isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
+      if (!value) {
+        throw new Error(
+          `@roots/bud-tailwindcss: value for ${key} could not be resolved.`,
+        )
+      }
+
+      return value
+    }
+
+    if (!this.file.module) {
       throw new Error(
-        `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
+        `@roots/bud-tailwindcss: could not resolve a tailwind config but \`extendedOnly\` parameter is \`true\`.`,
+      )
+    }
+    if (!this.file.module.theme) {
+      throw new Error(
+        `@roots/bud-tailwindcss: could not resolve \`theme\` key in tailwind config but \`extendedOnly\` parameter is \`true\`.`,
+      )
+    }
+    if (!this.file.module.theme.extend) {
+      throw new Error(
+        `@roots/bud-tailwindcss: could not resolve \`theme.extend\` key in tailwind config but \`extendedOnly\` parameter is \`true\`.`,
       )
     }
 
-    const value = isFunction(rawValue) ? rawValue(pluginUtils) : rawValue
-    if (!value) {
-      throw new Error(
-        `@roots/bud-tailwindcss: value for ${key} could not be resolved.`,
-      )
-    }
-
-    if (!extendedOnly) return value
-
-    const src = this.file.module.theme?.extend?.[key]
-
-    if (!src) {
+    if (!this.file.module.theme.extend[key]) {
       throw new Error(
         `The key "${key}" is not present in your tailwind \`theme.extend\` config.\n\n${JSON.stringify(
           this.file?.module,
@@ -115,30 +123,8 @@ export class BudTailwindCss extends Extension<Options> {
       )
     }
 
-    const extended = isFunction(src) ? src(pluginUtils) : src
-
-    return Object.entries(value).reduce(
-      (a, [k, v]) => ({
-        ...a,
-        ...(Object.keys(extended).includes(k) ? {[k]: v} : {}),
-      }),
-      {},
-    )
-  }
-
-  /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register(_bud: Bud) {
-    this.dependencies.tailwindcss = await this.resolve(
-      `tailwindcss`,
-      import.meta.url,
-    )
-    this.dependencies.nesting = await this.resolve(
-      join(`tailwindcss`, `nesting`, `index.js`),
-      import.meta.url,
-    )
+    const value = this.file.module.theme.extend[key]
+    return isFunction(value) ? value(pluginUtils) : value
   }
 
   /**
@@ -153,8 +139,14 @@ export class BudTailwindCss extends Extension<Options> {
     }
 
     bud.postcss.setPlugins({
-      nesting: this.dependencies.nesting,
-      tailwindcss: [this.dependencies.tailwindcss, this.file.module],
+      nesting: await this.resolve(
+        join(`tailwindcss`, `nesting`, `index.js`),
+        import.meta.url,
+      ),
+      tailwindcss: [
+        await this.resolve(`tailwindcss`, import.meta.url),
+        this.file.path ?? this.file.module,
+      ],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)

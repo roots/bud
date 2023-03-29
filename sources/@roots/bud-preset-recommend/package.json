@@ -1,8 +1,10 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "description": "Recommended preset for Bud projects",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Recommended preset for Bud projects",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,23 +21,26 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "tslib": "2.5.0",
-    "webpack": "5.76.3"
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-preset-recommend"
   },
-  "engines": {
-    "node": ">=16"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "bud-preset"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -46,20 +51,32 @@
       "default": "./lib/types.js"
     }
   },
-  "files": [
-    "lib",
-    "src"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
+    }
   },
-  "keywords": [
-    "bud",
-    "bud-preset"
-  ],
-  "license": "MIT",
+  "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
+  },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-babel": "*",
@@ -82,23 +99,6 @@
     },
     "@roots/bud-swc": {
       "optional": true
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud",
-    "directory": "sources/@roots/bud-preset-recommend"
-  },
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
     }
   },
   "volta": {

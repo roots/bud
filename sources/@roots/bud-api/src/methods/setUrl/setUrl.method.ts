@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [`string` | URL | number]
+export type Parameters = [string | URL | number]
 
 export interface setUrl {
   (...parameters: Parameters): Bud

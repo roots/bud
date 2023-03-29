@@ -1,8 +1,10 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "description": "Webpack plugin to merge roots manifests.",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Webpack plugin to merge roots manifests.",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,45 +21,31 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "fs-jetpack": "5.1.0",
-    "helpful-decorators": "2.1.0",
-    "tslib": "2.5.0",
-    "webpack": "5.76.3"
-  },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js",
-    "./types": "./lib/types.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
+  "license": "MIT",
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "keywords": [
-    "manifest",
-    "webpack"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
     "directory": "sources/@roots/webpack-merged-manifest-plugin"
   },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "manifest",
+    "webpack"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
   "type": "module",
-  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./types": "./lib/types.js"
+  },
   "typesVersions": {
     "*": {
       ".": [
@@ -67,6 +55,18 @@
         "./lib/types.d.ts"
       ]
     }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "fs-jetpack": "5.1.0",
+    "helpful-decorators": "2.1.0",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
   "volta": {
     "extends": "../../../package.json"

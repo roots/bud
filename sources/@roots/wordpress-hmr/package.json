@@ -1,8 +1,10 @@
 {
   "name": "@roots/wordpress-hmr",
-  "description": "WordPress HMR scripts",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "WordPress HMR scripts",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -15,9 +17,45 @@
       "url": "https://github.com/retlehs"
     }
   ],
-  "dependencies": {
-    "tslib": "2.5.0"
+  "license": "MIT",
+  "homepage": "https://roots.io/bud",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-hmr"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "wordpress"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./loader": "./lib/loader.cjs",
+    "./types": "./lib/types.js",
+    "./*": "./lib/*.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "/lib/index.d.ts"
+      ],
+      "types": [
+        "/lib/types.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10",
@@ -32,46 +70,9 @@
     "@wordpress/plugins": "5.6.0",
     "@wordpress/rich-text": "6.6.0"
   },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js",
-    "./loader": "./lib/loader.cjs",
-    "./types": "./lib/types.js",
-    "./*": "./lib/*.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "homepage": "https://roots.io/bud",
-  "keywords": [
-    "wordpress"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/wordpress-hmr"
-  },
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "/lib/index.d.ts"
-      ],
-      "types": [
-        "/lib/types.d.ts"
-      ]
-    }
+  "dependencies": {
+    "react": "18.2.0",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

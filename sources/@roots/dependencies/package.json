@@ -1,8 +1,10 @@
 {
   "name": "@roots/dependencies",
-  "description": "Automated package installation",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Automated package installation",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,49 +21,47 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "helpful-decorators": "2.1.0",
-    "tslib": "2.5.0"
-  },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
+  "license": "MIT",
+  "homepage": "https://roots.io/bud",
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "homepage": "https://roots.io/bud",
-  "keywords": [
-    "dependencies",
-    "utility"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
     "directory": "sources/@roots/dependencies"
   },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "dependencies",
+    "utility"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
   "type": "module",
-  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ]
     }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "helpful-decorators": "2.1.0",
+    "tslib": "2.5.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -1,3 +1,3 @@
-import {application, Builtins, Cli, CommandClass} from '@roots/bud/cli/app'
+import {application, Builtins, Cli, CommandClass} from './app.js'
 
 export {application, Builtins, Cli, CommandClass}

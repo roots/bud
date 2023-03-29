@@ -5,6 +5,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from './configuration.js'
 import {File} from '../types/options/context.js'
+import {BudError} from '@roots/bud-support/errors'
 
 const testFileDescription: File = {
   name: `test.config.js`,
@@ -44,11 +45,15 @@ describe(`@roots/bud-framework/configuration`, function () {
     expect(configuration.bud).toBe(bud)
   })
 
-  it(`bails early when there is no module`, async () => {
+  it(`throws when there is no module`, async () => {
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
-    await configuration.run(testFileDescription)
+    try {
+      await configuration.run(testFileDescription)
+    } catch (e) {
+      expect(e).toBeInstanceOf(BudError)
+    }
 
     expect(dynamicSpy).not.toHaveBeenCalled()
     expect(staticSpy).not.toHaveBeenCalled()

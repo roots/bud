@@ -1,8 +1,10 @@
 {
   "name": "@roots/wordpress-dependencies-webpack-plugin",
-  "description": "Webpack plugin to help with wp_enqueue_script",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Webpack plugin to help with wp_enqueue_script",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,44 +21,42 @@
       "url": "https://github.com/QWp6t"
     }
   ],
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-dependencies-webpack-plugin"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "webpack",
+    "wordpress"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
   },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "webpack",
-    "wordpress"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/wordpress-dependencies-webpack-plugin"
-  },
-  "type": "module",
-  "types": "./lib/index.d.ts",
   "volta": {
     "extends": "../../../package.json"
   }
