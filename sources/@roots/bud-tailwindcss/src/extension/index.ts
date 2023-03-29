@@ -71,14 +71,6 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * Resolved paths
-   */
-  public dependencies: {tailwindcss: string; nesting: string} = {
-    tailwindcss: null,
-    nesting: null,
-  }
-
-  /**
    * Resolve a tailwind config value
    */
   @bind
@@ -127,21 +119,6 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register(_bud: Bud) {
-    this.dependencies.tailwindcss = await this.resolve(
-      `tailwindcss`,
-      import.meta.url,
-    )
-    this.dependencies.nesting = await this.resolve(
-      join(`tailwindcss`, `nesting`, `index.js`),
-      import.meta.url,
-    )
-  }
-
-  /**
    * {@link Extension.boot}
    */
   @bind
@@ -153,8 +130,14 @@ export class BudTailwindCss extends Extension<Options> {
     }
 
     bud.postcss.setPlugins({
-      nesting: this.dependencies.nesting,
-      tailwindcss: [this.dependencies.tailwindcss, this.file.module],
+      nesting: await this.resolve(
+        join(`tailwindcss`, `nesting`, `index.js`),
+        import.meta.url,
+      ),
+      tailwindcss: [
+        await this.resolve(`tailwindcss`, import.meta.url),
+        this.file.path ?? this.file.module,
+      ],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)

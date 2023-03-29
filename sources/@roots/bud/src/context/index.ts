@@ -23,10 +23,18 @@ export default async (
 
   let env: Context[`env`] = projectEnv.get(paths.basedir)
   let bud: Context[`bud`] = await budContext.get(fs)
+
   try {
     manifest = await fs.read(join(paths.basedir, `package.json`))
-  } catch (e) {}
+  } catch (e) {
+    logger.scope(`bootstrap`).warn(`📦`, `no package.json found`)
+  }
+
   let files: Context[`files`] = await projectFiles.get(paths.basedir)
+  Object.entries(files).map(([k, v]) =>
+    logger.scope(`bootstrap`).info(`file`, k, v),
+  )
+
   let extensions: Context[`extensions`] = getExtensions(manifest)
 
   const instance: Context = {
@@ -56,9 +64,11 @@ export default async (
   } as Context
 
   instance.logger.unscope()
-  instance.logger.log(`🏗️`, `building`, instance.label)
-  instance.logger.log(`📂`, `basedir`, instance.basedir)
-  instance.logger.log(`😎`, `version`, instance.bud.version)
+  instance.logger.scope(`bootstrap`).log(`🏗️`, `building`, instance.label)
+  instance.logger.scope(`bootstrap`).log(`📂`, `basedir`, instance.basedir)
+  instance.logger
+    .scope(`bootstrap`)
+    .log(`😎`, `version`, instance.bud.version)
   instance.logger.scope(instance.label)
 
   return instance

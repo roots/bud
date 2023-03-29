@@ -120,6 +120,23 @@ export const Error = ({error}: Props) => {
           <Error error={error.origin} />
         </Ink.Box>
       )}
+
+      {error.file && (
+        <Ink.Box marginTop={1} flexDirection="column">
+          <Ink.Text>
+            <Ink.Text color="blue">{figures.info}</Ink.Text>
+            {` `}File implicated by error
+          </Ink.Text>
+          <Ink.Text>{` `}</Ink.Text>
+          {Object.entries(error.file).map(([k, v], id) => (
+            <Ink.Text key={id}>
+              <Ink.Text color="blue">{k}</Ink.Text>
+              {` `}
+              <Ink.Text>{JSON.stringify(v)}</Ink.Text>
+            </Ink.Text>
+          ))}
+        </Ink.Box>
+      )}
     </Ink.Box>
   )
 }

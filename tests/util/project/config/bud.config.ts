@@ -1,6 +1,6 @@
-// @ts-check
-/** @param {import('@roots/bud').Bud} bud */
-export default async bud => {
+import type {Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
   bud
     .assets(`fonts`)
     .entry(`app`, [`scripts/app`, `styles/app`])
