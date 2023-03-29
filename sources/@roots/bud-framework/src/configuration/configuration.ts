@@ -1,10 +1,11 @@
 import {bind} from '@roots/bud-support/decorators'
+import {BudError, ConfigError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
 import isString from '@roots/bud-support/lodash/isString'
-import {BudError} from '@roots/bud-support/errors'
+
 import type {Bud} from '../bud.js'
 import type {File} from '../types/options/context.js'
 
@@ -22,7 +23,7 @@ class Configuration {
    */
   @bind
   public async run(description: File): Promise<unknown> {
-    if (!description.module) {
+    if (!description?.module) {
       throw new BudError(`No module found`, {
         props: {
           details: `There should be a module here. This is like an error with bud.js`,
@@ -43,12 +44,22 @@ class Configuration {
   public async dynamicConfig(description: any): Promise<unknown> {
     this.bud.log(`processing as dynamic configuration:`, description.name)
 
-    this.bud.context.logger.scope(`config`).log(description.module)
+    this.bud.context.logger
+      .scope(this.bud.label, `config`)
+      .log(description.module)
 
-    const configCallable =
-      description.module?.default ?? description.module
+    const config = description.module?.default ?? description.module
 
-    return await configCallable(this.bud)
+    try {
+      return await config(this.bud)
+    } catch (cause) {
+      throw new ConfigError(`Error while executing ${description.name}`, {
+        props: {
+          file: description,
+          origin: BudError.normalize(cause),
+        },
+      })
+    }
   }
 
   /**

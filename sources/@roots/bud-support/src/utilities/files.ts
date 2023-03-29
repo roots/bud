@@ -1,20 +1,36 @@
-import {join} from 'node:path'
+import {join, parse} from 'node:path'
 
 import omit from '@roots/bud-support/lodash/omit'
-import type {InspectResult} from 'fs-jetpack/types.js'
-import {transform} from 'sucrase'
+import {importFromString} from 'module-from-string'
 
 import {BudError, FileReadError, ImportError} from '../errors/index.js'
 import type {Filesystem} from '../filesystem/index.js'
+import _get from '../lodash/get/index.js'
 import isEqual from '../lodash/isEqual/index.js'
-import set from '../lodash/set/index.js'
+import _set from '../lodash/set/index.js'
 import * as filesystem from './filesystem.js'
 import logger from './logger.js'
 import {get as getPaths} from './paths.js'
 
 let fs: Filesystem
-let data: Record<string, any> = {}
+let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>
+let files: Array<string>
+
+interface File {
+  name: string
+  path: string
+  file?: boolean
+  dir?: boolean
+  symlink?: boolean
+  local?: boolean
+  bud?: boolean
+  parsed?: ReturnType<typeof parse>
+  dynamic?: boolean
+  static?: boolean
+  type?: `production` | `development` | `base`
+  module?: Record<string, any> | Function
+}
 
 /**
  * Get configuration files from project
@@ -28,14 +44,13 @@ const get = async (basedir: string) => {
   if (data && Object.entries(data).length) {
     logger.scope(`fs`).info(`Using cached filesystem data`)
     return data
+  } else {
+    logger.scope(`fs`).time(`Initializing filesystem`)
+    fs = filesystem.get(basedir)
+    paths = getPaths(basedir)
+    files = []
+    data = {}
   }
-
-  logger.scope(`fs`).time(`Initializing filesystem`)
-
-  let files: Array<string> = []
-
-  fs = filesystem.get(basedir)
-  paths = getPaths(basedir)
 
   await fs
     .list(basedir)
@@ -54,28 +69,7 @@ const get = async (basedir: string) => {
   if (!files?.length) return
 
   await Promise.all(files.map(fetchFileInfo))
-
-  if (await fs.exists(join(paths.cache, `checksum.yml`))) {
-    const checksums = await fs.read(join(paths.cache, `checksum.yml`))
-    if (!checksums) {
-      await fs.remove(join(paths.cache, `checksum.yml`))
-      return data
-    }
-
-    const match =
-      checksums[`package.json`] === getValue(`package.json`, `sha1`)
-
-    if (!match) {
-      try {
-        logger.await(`removing old module resolutions`)
-        await fs.remove(join(paths.cache, `resolutions.yml`))
-        logger.success(`removing old module resolutions`)
-      } catch (err) {
-        logger.error(`error clearing outdated resolutions`, err)
-      }
-    }
-  }
-
+  await updateChecksums()
   logger.scope(`fs`).timeEnd(`Initializing filesystem`)
 
   return data
@@ -86,156 +80,68 @@ const get = async (basedir: string) => {
  *
  * @param name - file name
  */
-async function fetchFileInfo(name: string) {
-  let file: InspectResult | undefined
-  if (name.endsWith(`.lock`) || name.includes(`-lock`)) return
+async function fetchFileInfo(filename: string) {
+  if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) return
 
-  file = await fs.inspect(name, {
+  const inspect = await fs.inspect(filename, {
     mode: true,
     absolutePath: true,
     symlinks: `follow`,
     checksum: `sha1`,
   })
 
-  if (!file) return
+  if (!inspect?.name || inspect.type === `dir` || !inspect.absolutePath) {
+    logger.info(
+      `Skipping`,
+      inspect?.name,
+      inspect?.type,
+      inspect?.absolutePath,
+    )
+    return
+  }
 
-  logger.scope(`fs`).info(`Reading project file: ${name}`)
-  set(data, [file.name], omit(file, `absolutePath`))
-  set(data, [file.name, `path`], file.absolutePath)
-  set(data, [file.name, `file`], isEqual(file.type, `file`))
-  set(data, [file.name, `dir`], isEqual(file.type, `dir`))
-  set(data, [file.name, `symlink`], isEqual(file.type, `symlink`))
-  set(data, [file.name, `local`], file.name.includes(`local`))
-  set(
-    data,
-    [file.name, `bud`],
-    file.name.includes(`bud`) && file.type === `file`,
-  )
-  set(
-    data,
-    [file.name, `type`],
-    file.name.includes(`production`)
-      ? `production`
-      : file.name.includes(`development`)
-      ? `development`
-      : `base`,
-  )
-  set(
-    data,
-    [file.name, `extension`],
-    getValue(file.name, `file`) ? file.name.split(`.`).pop() : null,
-  )
-  set(
-    data,
-    [file.name, `dynamic`],
-    isDynamicConfig(getValue(file.name, `extension`)),
-  )
-  set(
-    data,
-    [file.name, `static`],
-    isStaticConfig(getValue(file.name, `extension`)),
-  )
+  const file: File = {
+    ...omit(inspect, `absolutePath`),
+    path: inspect.absolutePath,
+    type: getFileType(inspect),
+    local: inspect.name.includes(`local`),
+    bud: inspect.name.includes(`bud`) && inspect.type === `file`,
+    file: isEqual(inspect.type, `file`),
+    dir: isEqual(inspect.type, `dir`),
+    symlink: isEqual(inspect.type, `symlink`),
+    parsed: parse(inspect.absolutePath),
+  }
+
+  Object.assign(file, {
+    dynamic: isDynamicConfig(file),
+    static: isStaticConfig(file),
+  })
 
   /**
    * Static config files
    */
-  try {
-    if (getValue(file.name, `static`)) {
-      set(
-        data,
-        [file.name, `module`],
-        await fs.read(getValue(file.name, `path`)),
-      )
+  if (file.static && file.file) {
+    try {
+      file.module = await fs.read(file.path)
+    } catch (cause) {
+      handleBudError(FileReadError, cause, file)
     }
-  } catch (cause) {
-    handleBudError(FileReadError, cause, file)
   }
-
-  /**
-   * Handle typescript transforms
-   */
-  getValue(file.name, `extension`)?.endsWith(`ts`) &&
-    (await transformTypescriptConfig(file))
 
   /**
    * Import dynamic config files
    */
-  try {
-    if (getValue(file.name, `dynamic`)) {
-      const code = await import(
-        getValue(file.name, `path`).replace(`.ts`, `.cjs`)
-      ).then(mod => mod?.default ?? mod)
-      set(data, [file.name, `module`], code)
+  if (file.dynamic && file.file) {
+    try {
+      file.module = await importFromString(await fs.read(file.path), {
+        transformOptions: {loader: `ts`},
+      })
+    } catch (cause) {
+      handleBudError(ImportError, cause, file)
     }
-  } catch (cause) {
-    handleBudError(ImportError, cause, file)
   }
 
-  /**
-   * Cleanup transformed typescript configs
-   */
-  getValue(file.name, `extension`)?.endsWith(`ts`) &&
-    (await cleanupTypescriptConfig(file))
-}
-
-/**
- * Returns true if the file is a static config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isStaticConfig(extension?: string | null) {
-  if (!extension) return false
-  return [`json`, `yml`, `yaml`].includes(extension)
-}
-
-/**
- * Returns true if the file is a dynamic config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isDynamicConfig(extension?: string | null) {
-  if (!extension) return false
-  return [`js`, `cjs`, `mjs`, `ts`, `cts`, `mts`].includes(extension)
-}
-
-/**
- * Get value for a given config file
- * or a given property of a given config file
- *
- * @param name
- * @param prop
- * @returns
- */
-function getValue(name: string, prop?: string) {
-  if (!prop) return data[name]
-  return data[name]?.[prop]
-}
-
-/**
- * Transform typescript config files
- * to commonjs
- *
- * @param file - file to transform
- * @returns void
- */
-async function transformTypescriptConfig(file: Record<string, any>) {
-  try {
-    const code = await fs.read(getValue(file.name, `path`), `utf8`)
-    await fs.write(
-      getValue(file.name, `path`).replace(`.ts`, `.cjs`),
-      transform(code, {
-        transforms: [`typescript`, `imports`],
-      }).code,
-    )
-  } catch (cause) {
-    handleBudError(ImportError, cause, file)
-  }
-}
-
-async function cleanupTypescriptConfig(file: Record<string, any>) {
-  await fs.remove(getValue(file.name, `path`).replace(`.ts`, `.cjs`))
+  Object.assign(data, {[file.name]: file})
 }
 
 /**
@@ -248,13 +154,10 @@ async function cleanupTypescriptConfig(file: Record<string, any>) {
 async function handleBudError(
   ErrorClass: typeof FileReadError | typeof ImportError,
   cause: unknown,
-  file: Record<string, any>,
+  file: File,
 ) {
-  /**
-   * Cleanup transformed typescript configs
-   * if error occured
-   */
-  await cleanupTypescriptConfig(file)
+  if (typeof file.name !== `string`) return
+  if (typeof file.dynamic !== `boolean`) return
 
   /**
    * Construct {@link BudError} object
@@ -266,7 +169,7 @@ async function handleBudError(
   })
 
   /* Throw if error occured in a bud config */
-  if (getValue(file.name, `bud`)) throw error
+  if (file.name?.includes(`.bud`)) throw error
 
   /* Otherwise, just log it */
   logger
@@ -274,11 +177,71 @@ async function handleBudError(
     .error(
       `This file causes an exception when ${
         file.dynamic ? `imported` : `read`
-      }`,
+      }: ${file.name}`,
       `\nSince ${file.name} does not appear to be a bud configuration file, bud.js is not throwing.`,
       `\nError follows:`,
       cause,
     )
+}
+
+/**
+ * Returns true if the file is a static config file
+ *
+ * @param extension - file extension
+ * @returns boolean
+ */
+function isStaticConfig(file?: File) {
+  if (!file?.parsed?.ext) return false
+  return [`.json`, `.yml`, `.yaml`].includes(file.parsed.ext)
+}
+
+/**
+ * Returns true if the file is a dynamic config file
+ *
+ * @param extension - file extension
+ * @returns boolean
+ */
+function isDynamicConfig(file?: File) {
+  if (!file?.parsed?.ext) return false
+  return [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`].includes(
+    file.parsed.ext,
+  )
+}
+
+/**
+ * Upate checksums for found configs
+ * @returns
+ */
+async function updateChecksums() {
+  if (await fs.exists(join(paths.cache, `checksum.yml`))) {
+    const checksums = await fs.read(join(paths.cache, `checksum.yml`))
+    if (!checksums) {
+      await fs.remove(join(paths.cache, `checksum.yml`))
+      return data
+    }
+
+    const match =
+      checksums[`package.json`] === _get(data, [`package.json`, `sha1`])
+
+    if (!match) {
+      try {
+        logger.await(`removing old module resolutions`)
+        await fs.remove(join(paths.cache, `resolutions.yml`))
+        logger.success(`removing old module resolutions`)
+      } catch (err) {
+        logger.error(`error clearing outdated resolutions`, err)
+      }
+    }
+  }
+}
+
+/**
+ * Returns string value representing if filename contains `.development`, `.production`, or neither
+ */
+function getFileType(file: {name?: string}) {
+  if (file.name?.includes(`production`)) return `production`
+  if (file.name?.includes(`development`)) return `development`
+  return `base`
 }
 
 export {get, data}

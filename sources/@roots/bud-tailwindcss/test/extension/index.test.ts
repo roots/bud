@@ -1,4 +1,4 @@
-import '../types/index.js'
+import '../../types/index.js'
 
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'

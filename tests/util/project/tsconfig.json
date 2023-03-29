@@ -1,5 +1,5 @@
 {
-  "extends": "@roots/bud/config/tsconfig.json",
+  "extends": "@roots/bud/config/tsconfig",
   "compilerOptions": {
     "paths": {
       "@scripts/*": ["./src/scripts/*"],
