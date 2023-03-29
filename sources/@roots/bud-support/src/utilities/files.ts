@@ -135,7 +135,7 @@ async function fetchFileInfo(filename: string) {
     try {
       file.module = await importFromString(await fs.read(file.path), {
         transformOptions: {loader: `ts`},
-      })
+      }).then(res => res?.default ?? res)
     } catch (cause) {
       handleBudError(ImportError, cause, file)
     }

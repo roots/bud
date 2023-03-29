@@ -1,10 +1,10 @@
-import '../../types/index.js'
+import '../../src/types/index.js'
 
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import BudTailwindCss from '@roots/bud-tailwindcss'
+import BudTailwindCss from '../../src/index.js'
 
 describe(`@roots/bud-tailwindcss extension`, () => {
   let bud: Bud
@@ -14,8 +14,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     bud = await factory()
     await bud.extensions.add(`@roots/bud-postcss`)
     extension = new BudTailwindCss(bud)
-
-    if (extension.register) await extension.register(bud)
+    if (extension.boot) await extension.boot(bud)
   })
 
   it(`basic checks`, () => {
@@ -42,16 +41,14 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     await bud.extensions.add(`@roots/bud-postcss`)
     const resolveSpy = vi.spyOn(bud.module, `resolve`)
 
-    if (extension.register) await extension.register(bud)
+    if (extension.boot) await extension.boot(bud)
     await extension.boot(bud)
 
-    expect(resolveSpy).toHaveBeenNthCalledWith(
-      1,
+    expect(resolveSpy).toHaveBeenCalledWith(
       `tailwindcss`,
       expect.any(String),
     )
-    expect(resolveSpy).toHaveBeenNthCalledWith(
-      2,
+    expect(resolveSpy).toHaveBeenCalledWith(
       `tailwindcss/nesting/index.js`,
       expect.any(String),
     )
@@ -59,12 +56,8 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   it(`should return a copy of the resolved config`, async () => {
     const configInitial = resolveConfig(
-      await bud.module
-        .import(
-          bud.context.files[`tailwind.config.js`].path,
-          import.meta.url,
-        )
-        .then(mod => mod.default ?? mod),
+      bud.context.files[`tailwind.config.ts`].module?.default ??
+        bud.context.files[`tailwind.config.ts`].module,
     )
 
     expect(extension.config.theme?.colors).not.toBe(
@@ -73,7 +66,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should have file`, async () => {
-    expect(extension.file).toBe(bud.context.files[`tailwind.config.js`])
+    expect(extension.file).toBe(bud.context.files[`tailwind.config.ts`])
   })
 
   it(`should resolve tailwind config values`, async () => {
