@@ -8,6 +8,7 @@ export default async (bud: Bud) => {
     .serve(3015)
     .splitChunks(false)
     .minimize(false)
+    .setPath(`@storage`, `.budfiles`)
 
   // .assets([[`fonts`, `fontz`]])
   // .assets([[`fonts/test.otf`, `fontz/test.otf`]])

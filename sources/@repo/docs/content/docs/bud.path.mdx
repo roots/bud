@@ -40,9 +40,9 @@ bud.path('@src/scripts/components')
 You can create your own handles for use in the **bud.path** function. But, the handles in this table are standard.
 Other parts of bud.js or its ecosystem may use these handles to reference project directories. So, while they may be freely modified as needed, they should not be removed or repurposed.
 
-## Internal handles
+## System path handles
 
-There are a few handles used internally by **bud.js**:
+These handles should be considered read-only.
 
 | handle         | description                                               |
 | -------------- | --------------------------------------------------------- |
@@ -51,5 +51,3 @@ There are a few handles used internally by **bud.js**:
 | **@os-data**   | absolute path to project folder in os data directory      |
 | **@os-log**    | absolute path to project folder in os log directory       |
 | **@os-config** | absolute path to project folder in os config directory    |
-
-These handles should be considered read-only.

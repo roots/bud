@@ -29,7 +29,7 @@ export interface Options {
 @expose(`cdn`)
 @options<Options>({
   allowedUris: new Set([/^http:\/\//, /^https:\/\//]),
-  cacheLocation: (app: Bud) => app.path(`@os-cache`, app.label, `modules`),
+  cacheLocation: (app: Bud) => app.path(`@storage`, app.label, `modules`),
   frozen: false,
   lockfileLocation: (app: Bud): string => app.path(`bud.lock`),
   proxy: ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),

@@ -58,7 +58,7 @@ export const Error = ({error}: Props) => {
           <Ink.Text>
             <Ink.Text color="blue">
               {figures.ellipsis}
-              {` `}Details{` `}
+              {` `}Error details{` `}
             </Ink.Text>
 
             <Ink.Text>{error.details}</Ink.Text>
@@ -122,19 +122,12 @@ export const Error = ({error}: Props) => {
       )}
 
       {error.file && (
-        <Ink.Box marginTop={1} flexDirection="column">
-          <Ink.Text>
-            <Ink.Text color="blue">{figures.info}</Ink.Text>
-            {` `}File implicated by error
+        <Ink.Box marginTop={1}>
+          <Ink.Text color="blue">
+            {figures.info}
+            {` `}See file{` `}
           </Ink.Text>
-          <Ink.Text>{` `}</Ink.Text>
-          {Object.entries(error.file).map(([k, v], id) => (
-            <Ink.Text key={id}>
-              <Ink.Text color="blue">{k}</Ink.Text>
-              {` `}
-              <Ink.Text>{JSON.stringify(v)}</Ink.Text>
-            </Ink.Text>
-          ))}
+          <Ink.Text>{error.file.path}</Ink.Text>
         </Ink.Box>
       )}
     </Ink.Box>

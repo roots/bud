@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-support/decorators'
-import {BudError, ConfigError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -53,12 +53,7 @@ class Configuration {
     try {
       return await config(this.bud)
     } catch (cause) {
-      throw new ConfigError(`Error while executing ${description.name}`, {
-        props: {
-          file: description,
-          origin: BudError.normalize(cause),
-        },
-      })
+      throw cause
     }
   }
 

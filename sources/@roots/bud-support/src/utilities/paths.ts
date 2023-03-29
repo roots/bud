@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto'
-import {join} from 'node:path'
+import {join, normalize} from 'node:path'
 
 import envPaths from 'env-paths'
 
@@ -12,64 +12,51 @@ const systemPaths = envPaths(`bud`)
 let env: ReturnType<typeof envBootstrap.get>
 
 interface paths {
-  basedir: string
+  /**
+   * Hash of paths
+   */
   hash: string
-  /**
-	Directory for data files.
-
-	Example locations (with the default `nodejs` suffix):
-
-	- macOS: `~/Library/Application Support/MyApp-nodejs`
-	- Windows: `%LOCALAPPDATA%\MyApp-nodejs\Data` (for example, `C:\Users\USERNAME\AppData\Local\MyApp-nodejs\Data`)
-	- Linux: `~/.local/share/MyApp-nodejs` (or `$XDG_DATA_HOME/MyApp-nodejs`)
-	*/
-  readonly data: string
 
   /**
-	Directory for data files.
-
-	Example locations (with the default `nodejs` suffix):
-
-	- macOS: `~/Library/Preferences/MyApp-nodejs`
-	- Windows: `%APPDATA%\MyApp-nodejs\Config` (for example, `C:\Users\USERNAME\AppData\Roaming\MyApp-nodejs\Config`)
-	- Linux: `~/.config/MyApp-nodejs` (or `$XDG_CONFIG_HOME/MyApp-nodejs`)
-	*/
-  readonly config: string
+   * Base directory for all paths
+   */
+  basedir: string
 
   /**
-	Directory for non-essential data files.
-
-	Example locations (with the default `nodejs` suffix):
-
-	- macOS: `~/Library/Caches/MyApp-nodejs`
-	- Windows: `%LOCALAPPDATA%\MyApp-nodejs\Cache` (for example, `C:\Users\USERNAME\AppData\Local\MyApp-nodejs\Cache`)
-	- Linux: `~/.cache/MyApp-nodejs` (or `$XDG_CACHE_HOME/MyApp-nodejs`)
-	*/
-  readonly cache: string
+   * Directory for temporary files
+   * @default os-cache
+   */
+  storage: string
 
   /**
-	Directory for log files.
-
-	Example locations (with the default `nodejs` suffix):
-
-	- macOS: `~/Library/Logs/MyApp-nodejs`
-	- Windows: `%LOCALAPPDATA%\MyApp-nodejs\Log` (for example, `C:\Users\USERNAME\AppData\Local\MyApp-nodejs\Log`)
-	- Linux: `~/.local/state/MyApp-nodejs` (or `$XDG_STATE_HOME/MyApp-nodejs`)
-	*/
-  readonly log: string
+   * OS reported directory for cache files
+   */
+  [`os-data`]: string
 
   /**
-	Directory for temporary files.
+   * OS reported directory for configuration files
+   */
+  [`os-config`]: string
 
-	Example locations (with the default `nodejs` suffix):
+  /**
+   * OS reported directory for cache files
+   */
+  [`os-cache`]: string
 
-	- macOS: `/var/folders/jf/f2twvvvs5jl_m49tf034ffpw0000gn/T/MyApp-nodejs`
-	- Windows: `%LOCALAPPDATA%\Temp\MyApp-nodejs` (for example, `C:\Users\USERNAME\AppData\Local\Temp\MyApp-nodejs`)
-	- Linux: `/tmp/USERNAME/MyApp-nodejs`
-	*/
-  readonly temp: string
+  /**
+   * OS reported directory for log files
+   */
+  [`os-log`]: string
+
+  /**
+   * OS reported directory for temporary files
+   */
+  [`os-temp`]: string
 }
 
+/**
+ * Cache paths
+ */
 let paths: paths
 
 const get = (directory?: string): paths => {
@@ -80,12 +67,12 @@ const get = (directory?: string): paths => {
       `paths: directory is required if paths not already initialized`,
       {
         props: {
-          issue: new URL(
-            `https://github.com/roots/bud/search?q=paths+error+is:issue`,
-          ),
           details: `\
 This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized.
 This is most likely a problem with the internals of bud.js.`,
+          issue: new URL(
+            `https://github.com/roots/bud/search?q=paths+error+is:issue`,
+          ),
         },
       },
     )
@@ -98,8 +85,8 @@ This is most likely a problem with the internals of bud.js.`,
   const storagearg =
     args?.storage ?? args?.[`@storage`] ?? env.APP_STORAGE_PATH
 
-  const cache = storagearg
-    ? join(directory, storagearg)
+  const storage = storagearg
+    ? normalize(join(directory, storagearg))
     : systemPaths.cache
 
   const hash = createHash(`sha1`).update(basedir).digest(`base64`)
@@ -107,10 +94,9 @@ This is most likely a problem with the internals of bud.js.`,
   paths = {
     ...Object.entries(systemPaths).reduce(
       (acc, [key, value]) => {
-        if (key in acc) return acc
-        return {...acc, [key]: join(value, hash)}
+        return {...acc, [`os-${key}`]: join(value, hash)}
       },
-      {basedir, cache, hash} as paths,
+      {basedir, storage, hash} as paths,
     ),
   }
 

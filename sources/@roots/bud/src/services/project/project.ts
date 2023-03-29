@@ -24,7 +24,7 @@ class Project extends Service {
     }
 
     try {
-      const path = bud.path(`@os-cache`, bud.label, `debug`, `profile.yml`)
+      const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
         basedir: bud.context.basedir,
@@ -65,7 +65,7 @@ class Project extends Service {
 
     try {
       const path = bud.path(
-        `@os-cache`,
+        `@storage`,
         bud.label,
         `debug`,
         `build.config.yml`,

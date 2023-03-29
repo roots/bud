@@ -79,7 +79,7 @@ export default class Cache
   public get cacheDirectory(): string {
     return this.app.hooks.filter(
       `build.cache.cacheDirectory`,
-      this.app.path(`@os-cache`, this.app.label, `cache`),
+      this.app.path(`@storage`, this.app.label, `cache`),
     )
   }
   public set cacheDirectory(directory: string) {

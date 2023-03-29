@@ -213,10 +213,11 @@ function isDynamicConfig(file?: File) {
  * @returns
  */
 async function updateChecksums() {
-  if (await fs.exists(join(paths.cache, `checksum.yml`))) {
-    const checksums = await fs.read(join(paths.cache, `checksum.yml`))
+  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
+    const checksums = await fs.read(join(paths.storage, `checksum.yml`))
+
     if (!checksums) {
-      await fs.remove(join(paths.cache, `checksum.yml`))
+      await fs.remove(join(paths.storage, `checksum.yml`))
       return data
     }
 
@@ -226,7 +227,7 @@ async function updateChecksums() {
     if (!match) {
       try {
         logger.await(`removing old module resolutions`)
-        await fs.remove(join(paths.cache, `resolutions.yml`))
+        await fs.remove(join(paths.storage, `resolutions.yml`))
         logger.success(`removing old module resolutions`)
       } catch (err) {
         logger.error(`error clearing outdated resolutions`, err)
