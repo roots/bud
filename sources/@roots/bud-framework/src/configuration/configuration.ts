@@ -1,13 +1,13 @@
-import {bind} from '@roots/bud-support/decorators'
-import {BudError, ConfigError} from '@roots/bud-support/errors'
-import get from '@roots/bud-support/lodash/get'
-import isArray from '@roots/bud-support/lodash/isArray'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isObject from '@roots/bud-support/lodash/isObject'
-import isString from '@roots/bud-support/lodash/isString'
+import { bind } from "@roots/bud-support/decorators";
+import { BudError } from "@roots/bud-support/errors";
+import get from "@roots/bud-support/lodash/get";
+import isArray from "@roots/bud-support/lodash/isArray";
+import isFunction from "@roots/bud-support/lodash/isFunction";
+import isObject from "@roots/bud-support/lodash/isObject";
+import isString from "@roots/bud-support/lodash/isString";
 
-import type {Bud} from '../bud.js'
-import type {File} from '../types/options/context.js'
+import type { Bud } from "../bud.js";
+import type { File } from "../types/options/context.js";
 
 /**
  * User config parser
@@ -29,12 +29,12 @@ class Configuration {
           details: `There should be a module here. This is like an error with bud.js`,
           file: description,
         },
-      })
+      });
     }
 
     return description.dynamic
       ? await this.dynamicConfig(description)
-      : await this.staticConfig(description)
+      : await this.staticConfig(description);
   }
 
   /**
@@ -42,23 +42,18 @@ class Configuration {
    */
   @bind
   public async dynamicConfig(description: any): Promise<unknown> {
-    this.bud.log(`processing as dynamic configuration:`, description.name)
+    this.bud.log(`processing as dynamic configuration:`, description.name);
 
     this.bud.context.logger
       .scope(this.bud.label, `config`)
-      .log(description.module)
+      .log(description.module);
 
-    const config = description.module?.default ?? description.module
+    const config = description.module?.default ?? description.module;
 
     try {
-      return await config(this.bud)
+      return await config(this.bud);
     } catch (cause) {
-      throw new ConfigError(`Error while executing ${description.name}`, {
-        props: {
-          file: description,
-          origin: BudError.normalize(cause),
-        },
-      })
+      throw cause;
     }
   }
 
@@ -67,56 +62,47 @@ class Configuration {
    */
   @bind
   public async staticConfig(description: File): Promise<unknown> {
-    this.bud.log(`processing as static configuration:`, description.name)
+    this.bud.log(`processing as static configuration:`, description.name);
 
     return await Promise.all(
       Object.entries(description.module).map(async ([key, value]) => {
-        await this.handleConfigEntry(this.bud, [key, value])
-      }),
-    )
+        await this.handleConfigEntry(this.bud, [key, value]);
+      })
+    );
   }
 
   @bind
-  public async handleConfigEntry(
-    obj: any,
-    [key, value]: [string, unknown],
-  ) {
-    if (!(key in obj)) return
+  public async handleConfigEntry(obj: any, [key, value]: [string, unknown]) {
+    if (!(key in obj)) return;
 
-    const request = obj[key]
-    const normalValue = isArray(value) ? value : [value]
+    const request = obj[key];
+    const normalValue = isArray(value) ? value : [value];
 
-    const parsedValue = normalValue.map(v => {
-      if (
-        isString(v) &&
-        (v.startsWith(`_app.`) || v.startsWith(`_bud.`))
-      ) {
+    const parsedValue = normalValue.map((v) => {
+      if (isString(v) && (v.startsWith(`_app.`) || v.startsWith(`_bud.`))) {
         return get(
           this.bud,
-          v.replace(`_app.`, ``).replace(`_bud.`, ``).trim(),
-        )
+          v.replace(`_app.`, ``).replace(`_bud.`, ``).trim()
+        );
       }
-      if (
-        isString(v) &&
-        (v.startsWith(`bud =>`) || v.startsWith(`app =>`))
-      ) {
-        return eval(v.trim())(this.bud)
+      if (isString(v) && (v.startsWith(`bud =>`) || v.startsWith(`app =>`))) {
+        return eval(v.trim())(this.bud);
       }
       if (isString(v) && v.startsWith(`=>`)) {
-        return eval(v.slice(3))
+        return eval(v.slice(3));
       }
-      return v
-    })
+      return v;
+    });
 
-    if (isFunction(request)) await request(...parsedValue)
+    if (isFunction(request)) await request(...parsedValue);
 
     if (isObject(request))
       await Promise.all(
         Object.entries(value).map(async ([key, value]) => {
-          return await this.handleConfigEntry(request, [key, value])
-        }),
-      )
+          return await this.handleConfigEntry(request, [key, value]);
+        })
+      );
   }
 }
 
-export default Configuration
+export default Configuration;

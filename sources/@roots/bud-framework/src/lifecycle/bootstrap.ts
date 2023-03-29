@@ -202,27 +202,12 @@ export const bootstrap = async function (
 
     this.context.logger.scope(`fs`).time(`writing new checksums`)
     await this.fs.write(
-      this.path(`@os-cache`, `checksum.yml`),
+      this.path(`@storage`, `checksum.yml`),
       Object.entries(this.context.files).reduce(
         (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
         {},
       ),
     )
-
     this.context.logger.timeEnd(`writing new checksums`)
-
-    if (
-      (this.isCLI() && this.context.args.debug) ||
-      this.path(`@storage`) !== this.path(`@os-cache`)
-    ) {
-      const copyToTarget =
-        this.path(`@os-cache`) === this.path(`@storage`)
-          ? this.path(`.budfiles`)
-          : this.path(`@storage`)
-
-      await this.fs.copy(this.path(`@os-cache`), copyToTarget, {
-        overwrite: true,
-      })
-    }
   })
 }

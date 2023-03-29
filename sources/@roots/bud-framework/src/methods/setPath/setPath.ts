@@ -51,6 +51,17 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
 
   /* Set path from key, value */
   if (isType.stringPair(parameters)) {
+    if (parameters[0] === `@storage`) {
+      throw new InputError(
+        `bud.setPath: @storage must be set by args or env`,
+        {
+          props: {
+            details: `the @storage path is set by the --storage argument or the BUD_STORAGE_PATH environment variable. It cannot be set after bud.js is bootstrapped.`,
+          },
+        },
+      )
+    }
+
     setHookValue(parameters)
     return this
   }

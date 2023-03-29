@@ -1,35 +1,35 @@
-import {join, parse} from 'node:path'
+import { join, parse } from "node:path";
 
-import omit from '@roots/bud-support/lodash/omit'
-import {importFromString} from 'module-from-string'
+import omit from "@roots/bud-support/lodash/omit";
+import { importFromString } from "module-from-string";
 
-import {BudError, FileReadError, ImportError} from '../errors/index.js'
-import type {Filesystem} from '../filesystem/index.js'
-import _get from '../lodash/get/index.js'
-import isEqual from '../lodash/isEqual/index.js'
-import _set from '../lodash/set/index.js'
-import * as filesystem from './filesystem.js'
-import logger from './logger.js'
-import {get as getPaths} from './paths.js'
+import { BudError, FileReadError, ImportError } from "../errors/index.js";
+import type { Filesystem } from "../filesystem/index.js";
+import _get from "../lodash/get/index.js";
+import isEqual from "../lodash/isEqual/index.js";
+import _set from "../lodash/set/index.js";
+import * as filesystem from "./filesystem.js";
+import logger from "./logger.js";
+import { get as getPaths } from "./paths.js";
 
-let fs: Filesystem
-let data: Record<string, any>
-let paths: ReturnType<typeof getPaths>
-let files: Array<string>
+let fs: Filesystem;
+let data: Record<string, any>;
+let paths: ReturnType<typeof getPaths>;
+let files: Array<string>;
 
 interface File {
-  name: string
-  path: string
-  file?: boolean
-  dir?: boolean
-  symlink?: boolean
-  local?: boolean
-  bud?: boolean
-  parsed?: ReturnType<typeof parse>
-  dynamic?: boolean
-  static?: boolean
-  type?: `production` | `development` | `base`
-  module?: Record<string, any> | Function
+  name: string;
+  path: string;
+  file?: boolean;
+  dir?: boolean;
+  symlink?: boolean;
+  local?: boolean;
+  bud?: boolean;
+  parsed?: ReturnType<typeof parse>;
+  dynamic?: boolean;
+  static?: boolean;
+  type?: `production` | `development` | `base`;
+  module?: Record<string, any> | Function;
 }
 
 /**
@@ -42,38 +42,37 @@ interface File {
  */
 const get = async (basedir: string) => {
   if (data && Object.entries(data).length) {
-    logger.scope(`fs`).info(`Using cached filesystem data`)
-    return data
+    logger.scope(`fs`).info(`Using cached filesystem data`);
+    return data;
   } else {
-    logger.scope(`fs`).time(`Initializing filesystem`)
-    fs = filesystem.get(basedir)
-    paths = getPaths(basedir)
-    files = []
-    data = {}
+    logger.scope(`fs`).time(`Initializing filesystem`);
+    fs = filesystem.get(basedir);
+    paths = getPaths(basedir);
+    files = [];
+    data = {};
   }
 
   await fs
     .list(basedir)
-    .then(res => files.push(...(res?.filter(Boolean) ?? [])))
+    .then((res) => files.push(...(res?.filter(Boolean) ?? [])));
 
   await fs
     .list(join(basedir, `config`))
-    .then(res =>
+    .then((res) =>
       files.push(
-        ...((res?.filter(Boolean) ?? []).map(file =>
-          join(`config`, file),
-        ) ?? []),
-      ),
-    )
+        ...((res?.filter(Boolean) ?? []).map((file) => join(`config`, file)) ??
+          [])
+      )
+    );
 
-  if (!files?.length) return
+  if (!files?.length) return;
 
-  await Promise.all(files.map(fetchFileInfo))
-  await updateChecksums()
-  logger.scope(`fs`).timeEnd(`Initializing filesystem`)
+  await Promise.all(files.map(fetchFileInfo));
+  await updateChecksums();
+  logger.scope(`fs`).timeEnd(`Initializing filesystem`);
 
-  return data
-}
+  return data;
+};
 
 /**
  * Get value for a given config file
@@ -81,23 +80,23 @@ const get = async (basedir: string) => {
  * @param name - file name
  */
 async function fetchFileInfo(filename: string) {
-  if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) return
+  if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) return;
 
   const inspect = await fs.inspect(filename, {
     mode: true,
     absolutePath: true,
     symlinks: `follow`,
     checksum: `sha1`,
-  })
+  });
 
   if (!inspect?.name || inspect.type === `dir` || !inspect.absolutePath) {
     logger.info(
       `Skipping`,
       inspect?.name,
       inspect?.type,
-      inspect?.absolutePath,
-    )
-    return
+      inspect?.absolutePath
+    );
+    return;
   }
 
   const file: File = {
@@ -110,21 +109,21 @@ async function fetchFileInfo(filename: string) {
     dir: isEqual(inspect.type, `dir`),
     symlink: isEqual(inspect.type, `symlink`),
     parsed: parse(inspect.absolutePath),
-  }
+  };
 
   Object.assign(file, {
     dynamic: isDynamicConfig(file),
     static: isStaticConfig(file),
-  })
+  });
 
   /**
    * Static config files
    */
   if (file.static && file.file) {
     try {
-      file.module = await fs.read(file.path)
+      file.module = await fs.read(file.path);
     } catch (cause) {
-      handleBudError(FileReadError, cause, file)
+      handleBudError(FileReadError, cause, file);
     }
   }
 
@@ -134,14 +133,14 @@ async function fetchFileInfo(filename: string) {
   if (file.dynamic && file.file) {
     try {
       file.module = await importFromString(await fs.read(file.path), {
-        transformOptions: {loader: `ts`},
-      }).then(res => res?.default ?? res)
+        transformOptions: { loader: `ts` },
+      }).then((res) => res?.default ?? res);
     } catch (cause) {
-      handleBudError(ImportError, cause, file)
+      handleBudError(ImportError, cause, file);
     }
   }
 
-  Object.assign(data, {[file.name]: file})
+  Object.assign(data, { [file.name]: file });
 }
 
 /**
@@ -154,10 +153,10 @@ async function fetchFileInfo(filename: string) {
 async function handleBudError(
   ErrorClass: typeof FileReadError | typeof ImportError,
   cause: unknown,
-  file: File,
+  file: File
 ) {
-  if (typeof file.name !== `string`) return
-  if (typeof file.dynamic !== `boolean`) return
+  if (typeof file.name !== `string`) return;
+  if (typeof file.dynamic !== `boolean`) return;
 
   /**
    * Construct {@link BudError} object
@@ -166,10 +165,10 @@ async function handleBudError(
     props: {
       origin: BudError.normalize(cause),
     },
-  })
+  });
 
   /* Throw if error occured in a bud config */
-  if (file.name?.includes(`.bud`)) throw error
+  if (file.name?.includes(`.bud`)) throw error;
 
   /* Otherwise, just log it */
   logger
@@ -180,8 +179,8 @@ async function handleBudError(
       }: ${file.name}`,
       `\nSince ${file.name} does not appear to be a bud configuration file, bud.js is not throwing.`,
       `\nError follows:`,
-      cause,
-    )
+      cause
+    );
 }
 
 /**
@@ -191,8 +190,8 @@ async function handleBudError(
  * @returns boolean
  */
 function isStaticConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
-  return [`.json`, `.yml`, `.yaml`].includes(file.parsed.ext)
+  if (!file?.parsed?.ext) return false;
+  return [`.json`, `.yml`, `.yaml`].includes(file.parsed.ext);
 }
 
 /**
@@ -202,10 +201,10 @@ function isStaticConfig(file?: File) {
  * @returns boolean
  */
 function isDynamicConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
+  if (!file?.parsed?.ext) return false;
   return [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`].includes(
-    file.parsed.ext,
-  )
+    file.parsed.ext
+  );
 }
 
 /**
@@ -213,23 +212,24 @@ function isDynamicConfig(file?: File) {
  * @returns
  */
 async function updateChecksums() {
-  if (await fs.exists(join(paths.cache, `checksum.yml`))) {
-    const checksums = await fs.read(join(paths.cache, `checksum.yml`))
+  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
+    const checksums = await fs.read(join(paths.storage, `checksum.yml`));
+
     if (!checksums) {
-      await fs.remove(join(paths.cache, `checksum.yml`))
-      return data
+      await fs.remove(join(paths.storage, `checksum.yml`));
+      return data;
     }
 
     const match =
-      checksums[`package.json`] === _get(data, [`package.json`, `sha1`])
+      checksums[`package.json`] === _get(data, [`package.json`, `sha1`]);
 
     if (!match) {
       try {
-        logger.await(`removing old module resolutions`)
-        await fs.remove(join(paths.cache, `resolutions.yml`))
-        logger.success(`removing old module resolutions`)
+        logger.await(`removing old module resolutions`);
+        await fs.remove(join(paths.storage, `resolutions.yml`));
+        logger.success(`removing old module resolutions`);
       } catch (err) {
-        logger.error(`error clearing outdated resolutions`, err)
+        logger.error(`error clearing outdated resolutions`, err);
       }
     }
   }
@@ -238,10 +238,10 @@ async function updateChecksums() {
 /**
  * Returns string value representing if filename contains `.development`, `.production`, or neither
  */
-function getFileType(file: {name?: string}) {
-  if (file.name?.includes(`production`)) return `production`
-  if (file.name?.includes(`development`)) return `development`
-  return `base`
+function getFileType(file: { name?: string }) {
+  if (file.name?.includes(`production`)) return `production`;
+  if (file.name?.includes(`development`)) return `development`;
+  return `base`;
 }
 
-export {get, data}
+export { get, data };

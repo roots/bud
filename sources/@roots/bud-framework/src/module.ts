@@ -30,7 +30,7 @@ export class Module extends Service {
    */
   public get cacheLocation(): string {
     return join(
-      paths.get(this.app.context.basedir).cache,
+      paths.get(this.app.context.basedir).storage,
       `resolutions.yml`,
     )
   }

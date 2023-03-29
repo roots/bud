@@ -100,6 +100,7 @@ class Logger {
   }
 }
 
-let instance: Logger = new Logger()
-export default instance
+let instance
+
+export default instance ?? (instance = new Logger())
 export {Logger, instance}
