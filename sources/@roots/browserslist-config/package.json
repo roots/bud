@@ -1,8 +1,10 @@
 {
   "name": "@roots/browserslist-config",
-  "description": "Browserslist configuration",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Browserslist configuration",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -15,27 +17,21 @@
       "url": "https://github.com/retlehs"
     }
   ],
-  "dependencies": {
-    "browserslist": "4.21.5",
-    "execa": "7.1.1",
-    "tslib": "2.5.0",
-    "update-browserslist-db": "1.0.10"
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@skypack/package-check": "0.2.2"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/browserslist-config"
   },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./default.cjs",
-    "./default": "./default.cjs",
-    "./broad": "./last-3-versions.cjs",
-    "./current": "./last-2-versions.cjs",
-    "./next": "./next.cjs",
-    "./wordpress": "./wordpress.cjs"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "browserslist",
+    "roots"
+  ],
   "files": [
     "default.cjs",
     "last-2-versions.cjs",
@@ -45,17 +41,27 @@
     "types.d.ts",
     "wordpress.cjs"
   ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "exports": {
+    ".": "./default.cjs",
+    "./default": "./default.cjs",
+    "./broad": "./last-3-versions.cjs",
+    "./current": "./last-2-versions.cjs",
+    "./next": "./next.cjs",
+    "./wordpress": "./wordpress.cjs"
   },
-  "keywords": [
-    "browserslist",
-    "roots"
-  ],
-  "license": "MIT",
+  "types": "./types.d.ts",
   "main": "./index.cjs",
   "module": "./index.cjs",
+  "devDependencies": {
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@skypack/package-check": "0.2.2"
+  },
+  "dependencies": {
+    "browserslist": "4.21.5",
+    "execa": "7.1.1",
+    "tslib": "2.5.0",
+    "update-browserslist-db": "1.0.10"
+  },
   "peerDependencies": {
     "browserslist": ">=4.21.5",
     "update-browserslist-db": "*"
@@ -68,15 +74,9 @@
       "optional": true
     }
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/browserslist-config"
-  },
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs"
   },
-  "types": "./types.d.ts",
   "volta": {
     "extends": "../../../package.json"
   }

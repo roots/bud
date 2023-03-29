@@ -1,21 +1,21 @@
 {
   "name": "@repo/constants",
-  "dependencies": {
-    "tslib": "2.5.0"
-  },
-  "devDependencies": {
-    "@types/node": "18.15.10",
-    "vitest": "0.29.7"
-  },
+  "private": true,
+  "packageManager": "yarn@3.2.4",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
       "default": "./index.js"
     }
   },
-  "packageManager": "yarn@3.2.4",
-  "private": true,
-  "type": "module",
+  "devDependencies": {
+    "@types/node": "18.15.10",
+    "vitest": "0.29.7"
+  },
+  "dependencies": {
+    "tslib": "2.5.0"
+  },
   "volta": {
     "extends": "../../../package.json"
   }

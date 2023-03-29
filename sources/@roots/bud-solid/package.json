@@ -1,8 +1,10 @@
 {
   "name": "@roots/bud-solid",
-  "description": "solid-js support for @roots/bud projects",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "solid-js support for @roots/bud projects",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,24 +21,28 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "@babel/plugin-syntax-jsx": "7.18.6",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "babel-preset-solid": "1.6.16",
-    "solid-js": "1.6.16",
-    "tslib": "2.5.0"
+  "license": "MIT",
+  "homepage": "https://roots.io/bud",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.0",
-    "@types/node": "18.15.10"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-solid"
   },
-  "engines": {
-    "node": ">=16"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "solid-js"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -47,22 +53,33 @@
       "default": "./lib/types.js"
     }
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
+    }
   },
-  "homepage": "https://roots.io/bud",
-  "keywords": [
-    "bud",
-    "solid-js"
-  ],
-  "license": "MIT",
+  "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
+  "devDependencies": {
+    "@babel/core": "7.21.3",
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/babel__core": "7.20.0",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "@babel/plugin-syntax-jsx": "7.18.6",
+    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "babel-preset-solid": "1.6.16",
+    "solid-js": "1.6.16",
+    "tslib": "2.5.0"
+  },
   "peerDependencies": {
     "@babel/plugin-syntax-jsx": "*",
     "@roots/bud": "*",
@@ -85,23 +102,6 @@
     },
     "solid-js": {
       "optional": true
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud",
-    "directory": "sources/@roots/bud-solid"
-  },
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
     }
   },
   "volta": {

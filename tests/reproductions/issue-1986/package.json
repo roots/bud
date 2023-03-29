@@ -1,16 +1,16 @@
 {
   "name": "@tests/issue-1986",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+  },
   "bud": {
     "extensions": {
       "discovery": false
     }
   },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
-  },
-  "private": true,
-  "type": "module",
   "volta": {
     "node": "16.18.0"
   }

@@ -1,18 +1,18 @@
 {
   "name": "issue-1955",
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
-  },
-  "dependencies": {
-    "react": "18.2.0"
-  },
+  "private": true,
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
   },
-  "private": true,
-  "type": "module"
+  "dependencies": {
+    "react": "18.2.0"
+  },
+  "bud": {
+    "extensions": {
+      "discovery": false
+    }
+  }
 }

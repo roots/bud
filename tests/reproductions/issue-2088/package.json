@@ -1,18 +1,18 @@
 {
   "name": "@tests/issue-2088",
-  "bud": {
-    "extensions": {
-      "allowlist": [
-        "@roots/bud-swc"
-      ]
-    }
-  },
+  "private": true,
+  "type": "module",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
   },
-  "private": true,
-  "type": "module"
+  "bud": {
+    "extensions": {
+      "allowlist": [
+        "@roots/bud-swc"
+      ]
+    }
+  }
 }

@@ -1,9 +1,9 @@
 {
   "name": "@tests/issue-1886",
+  "private": true,
+  "type": "module",
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-imagemin": "workspace:sources/@roots/bud-imagemin"
-  },
-  "private": true,
-  "type": "module"
+  }
 }

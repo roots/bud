@@ -1,11 +1,11 @@
 {
   "name": "@tests/bud-filter-flag",
-  "dependencies": {
-    "tslib": "2.5.0"
-  },
+  "private": true,
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud"
   },
-  "private": true,
-  "type": "module"
+  "dependencies": {
+    "tslib": "2.5.0"
+  }
 }

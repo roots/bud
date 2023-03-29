@@ -1,5 +1,14 @@
 {
   "name": "@tests/issue-2126",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
+    "@roots/bud-vue": "workspace:sources/@roots/bud-vue",
+    "@roots/sage": "workspace:sources/@roots/sage"
+  },
   "bud": {
     "extensions": {
       "allowlist": [
@@ -9,14 +18,5 @@
         "@roots/bud-vue"
       ]
     }
-  },
-  "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
-    "@roots/bud-vue": "workspace:sources/@roots/bud-vue",
-    "@roots/sage": "workspace:sources/@roots/sage"
-  },
-  "private": true,
-  "type": "module"
+  }
 }

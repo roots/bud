@@ -1,15 +1,15 @@
 {
   "name": "@tests/bud-criticalcss__extract-func",
-  "dependencies": {
-    "tslib": "2.5.0"
-  },
+  "private": true,
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
   },
-  "private": true,
+  "dependencies": {
+    "tslib": "2.5.0"
+  },
   "scripts": {
     "build": "bud build"
-  },
-  "type": "module"
+  }
 }

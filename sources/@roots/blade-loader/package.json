@@ -1,8 +1,10 @@
 {
   "name": "@roots/blade-loader",
-  "description": "Blade loader",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Blade loader",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -10,21 +12,27 @@
       "url": "https://github.com/kellymears"
     }
   ],
-  "dependencies": {
-    "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
-    "tslib": "2.5.0",
-    "webpack": "5.76.3"
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@babel/core": "7.21.3",
-    "@skypack/package-check": "0.2.2",
-    "babel-loader": "9.1.2",
-    "memfs": "3.4.13"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/blade-loader"
   },
-  "engines": {
-    "node": ">=16"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "browserslist",
+    "roots"
+  ],
+  "files": [
+    "src",
+    "lib",
+    "vendor"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/plugin.js",
@@ -43,28 +51,20 @@
       "default": "./lib/asset-loader.cjs"
     }
   },
-  "files": [
-    "src",
-    "lib",
-    "vendor"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "browserslist",
-    "roots"
-  ],
-  "license": "MIT",
-  "main": "./lib/plugin.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/blade-loader"
-  },
-  "type": "module",
   "types": "./lib/plugin.d.ts",
+  "main": "./lib/plugin.js",
+  "devDependencies": {
+    "@babel/core": "7.21.3",
+    "@skypack/package-check": "0.2.2",
+    "babel-loader": "9.1.2",
+    "memfs": "3.4.13"
+  },
+  "dependencies": {
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
+  },
   "volta": {
     "extends": "../../../package.json"
   }

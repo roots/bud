@@ -1,8 +1,10 @@
 {
   "name": "@roots/entrypoints-webpack-plugin",
-  "description": "Manifest with assets grouped by entrypoint",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Manifest with assets grouped by entrypoint",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,51 +21,49 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
-    "tslib": "2.5.0",
-    "webpack": "5.76.3"
-  },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.15.10"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
+  "license": "MIT",
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "keywords": [
-    "asset-manifest",
-    "webpack"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
     "directory": "sources/@roots/entrypoints-webpack-plugin"
   },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "asset-manifest",
+    "webpack"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
   "type": "module",
-  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js"
+  },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ]
     }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/lodash-es": "4.17.7",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
   "volta": {
     "extends": "../../../package.json"

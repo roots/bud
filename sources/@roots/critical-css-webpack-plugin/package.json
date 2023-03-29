@@ -1,8 +1,10 @@
 {
   "name": "@roots/critical-css-webpack-plugin",
-  "description": "Webpack plugin for generating critical-path CSS",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Webpack plugin for generating critical-path CSS",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,50 +21,31 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "critical": "5.0.4",
-    "helpful-decorators": "2.1.0",
-    "tslib": "2.5.0",
-    "vinyl": "3.0.0",
-    "webpack": "5.76.3"
-  },
-  "devDependencies": {
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "@types/vinyl": "2.0.7"
-  },
-  "engines": {
-    "node": ">=16"
-  },
-  "exports": {
-    ".": "./lib/index.js",
-    "./plugin": "./lib/plugin.js"
-  },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
+  "license": "MIT",
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
-  },
-  "keywords": [
-    "critical-css",
-    "webpack"
-  ],
-  "license": "MIT",
-  "module": "./lib/index.js",
-  "peerDependencies": {
-    "critical": "*"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
     "directory": "sources/@roots/bud-wordpress-manifests"
   },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "critical-css",
+    "webpack"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
   "type": "module",
-  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": "./lib/index.js",
+    "./plugin": "./lib/plugin.js"
+  },
   "typesVersions": {
     "*": {
       ".": [
@@ -72,6 +55,23 @@
         "./lib/plugin.d.ts"
       ]
     }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/vinyl": "2.0.7"
+  },
+  "dependencies": {
+    "critical": "5.0.4",
+    "helpful-decorators": "2.1.0",
+    "tslib": "2.5.0",
+    "vinyl": "3.0.0",
+    "webpack": "5.76.3"
+  },
+  "peerDependencies": {
+    "critical": "*"
   },
   "volta": {
     "extends": "../../../package.json"

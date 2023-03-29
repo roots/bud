@@ -1,8 +1,10 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "description": "Webpack tools",
   "version": "0.0.0",
-  "bugs": "https://github.com/roots/bud/issues",
+  "description": "Webpack tools",
+  "engines": {
+    "node": ">=16"
+  },
   "contributors": [
     {
       "name": "Kelly Mears",
@@ -19,22 +21,27 @@
       "url": "https://github.com/QWp6t"
     }
   ],
-  "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
-    "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
-    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
-    "tslib": "2.5.0"
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
   },
-  "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-wordpress-manifests"
   },
-  "engines": {
-    "node": ">=16"
-  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
   "exports": {
     ".": {
       "import": "./lib/index.js",
@@ -45,21 +52,31 @@
       "default": "./lib/types.js"
     }
   },
-  "files": [
-    "docs",
-    "lib",
-    "src"
-  ],
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
+    }
   },
-  "keywords": [
-    "bud",
-    "bud-extension"
-  ],
-  "license": "MIT",
+  "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
+  "devDependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10"
+  },
+  "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-wordpress-dependencies": "workspace:sources/@roots/bud-wordpress-dependencies",
+    "@roots/bud-wordpress-externals": "workspace:sources/@roots/bud-wordpress-externals",
+    "@roots/merged-manifest-webpack-plugin": "workspace:sources/@roots/merged-manifest-webpack-plugin",
+    "tslib": "2.5.0"
+  },
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-framework": "*",
@@ -79,23 +96,6 @@
     },
     "@roots/merged-manifest-webpack-plugin": {
       "optional": true
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-wordpress-manifests"
-  },
-  "type": "module",
-  "types": "./lib/index.d.ts",
-  "typesVersions": {
-    "*": {
-      ".": [
-        "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
-      ]
     }
   },
   "volta": {
