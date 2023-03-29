@@ -25,6 +25,7 @@ export const process = async (app: Bud) => {
   await Promise.all(
     findConfigs(`base`, false).map(async description => {
       app.log(`processing base configuration`, description.name)
+
       try {
         await configuration.run(description)
       } catch (err) {
@@ -35,6 +36,7 @@ export const process = async (app: Bud) => {
           },
         })
       }
+
       try {
         await app.api.processQueue()
       } catch (err) {
@@ -51,6 +53,7 @@ export const process = async (app: Bud) => {
   await Promise.all(
     findConfigs(`base`, true).map(async description => {
       app.log(`processing local configuration`, description.name)
+
       try {
         await configuration.run(description)
       } catch (err) {
@@ -61,6 +64,7 @@ export const process = async (app: Bud) => {
           },
         })
       }
+
       try {
         await app.api.processQueue()
       } catch (err) {
