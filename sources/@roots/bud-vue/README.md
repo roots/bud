@@ -40,7 +40,7 @@ You can disable the `runtimeOnly` default by adding the following to your config
 
 ```js
 export default async (bud) => {
-  bud.vue.runtimeOnly(false);
+  bud.vue.set('runtimeOnly', false);
 };
 ```
 
