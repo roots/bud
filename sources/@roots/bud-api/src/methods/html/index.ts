@@ -2,9 +2,11 @@ import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
 import type * as InterpolateHTMLExtension from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [
-  ((HTMLExtension.Options & InterpolateHTMLExtension.Options) | boolean)?,
-]
+type Options = HTMLExtension.Options & {
+  replace?: InterpolateHTMLExtension.Options
+}
+
+export type Parameters = [(Options | boolean)?]
 
 export interface html {
   (...options: Parameters): Promise<Bud>

@@ -48,52 +48,54 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     )
 
     if (config) {
-      switch (config.dynamic) {
-        case true:
-          config.module = await this.import(config.path, import.meta.url)
-          break
+      if (!config.module) {
+        switch (config.dynamic) {
+          case true:
+            config.module = await this.import(config.path, import.meta.url)
+            break
 
-        default:
-          switch (config.extension) {
-            case `json`:
-              config.module = await bud.fs.json.read(config.path)
-              break
-
-            case `yml`:
-              config.module = await bud.fs.yml.read(config.path)
-              break
-
-            case `yaml`:
-              config.module = await bud.fs.yml.read(config.path)
-              break
-
-            default:
-              this.logger.warn(
-                `Unknown eslint config format.`,
-                `Please update \`${config.name}\` to use one of: js, cjs, mjs, json, yml.`,
-              )
-
-              try {
+          default:
+            switch (config.extension) {
+              case `json`:
                 config.module = await bud.fs.json.read(config.path)
+                break
+
+              case `yml`:
+                config.module = await bud.fs.yml.read(config.path)
+                break
+
+              case `yaml`:
+                config.module = await bud.fs.yml.read(config.path)
+                break
+
+              default:
                 this.logger.warn(
                   `Unknown eslint config format.`,
-                  `Parsed as json.`,
+                  `Please update \`${config.name}\` to use one of: js, cjs, mjs, json, yml, yaml`,
                 )
-              } catch (err) {
+
                 try {
-                  config.module = await bud.fs.yml.read(config.path)
+                  config.module = await bud.fs.json.read(config.path)
                   this.logger.warn(
                     `Unknown eslint config format.`,
-                    `Parsed as yml.`,
+                    `Parsed as json.`,
                   )
                 } catch (err) {
-                  this.logger.error(
-                    `Unknown eslint config format.`,
-                    `Could not parse ${config.name} as json or yml.`,
-                  )
+                  try {
+                    config.module = await bud.fs.yml.read(config.path)
+                    this.logger.warn(
+                      `Unknown eslint config format.`,
+                      `Parsed as yml.`,
+                    )
+                  } catch (err) {
+                    this.logger.error(
+                      `Unknown eslint config format.`,
+                      `Could not parse ${config.name} as json or yml.`,
+                    )
+                  }
                 }
-              }
-          }
+            }
+        }
       }
 
       if (config.module) {

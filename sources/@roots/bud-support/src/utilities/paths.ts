@@ -1,66 +1,66 @@
-import { createHash } from "node:crypto";
-import { join, normalize } from "node:path";
+import {createHash} from 'node:crypto'
+import {join, normalize} from 'node:path'
 
-import envPaths from "env-paths";
+import envPaths from 'env-paths'
 
-import { BudError } from "../errors/errors.js";
-import args from "./args.js";
-import * as envBootstrap from "./env.js";
+import {BudError} from '../errors/errors.js'
+import args from './args.js'
+import * as envBootstrap from './env.js'
 
-const systemPaths = envPaths(`bud`);
+const systemPaths = envPaths(`bud`)
 
-let env: ReturnType<typeof envBootstrap.get>;
+let env: ReturnType<typeof envBootstrap.get>
 
 interface paths {
   /**
    * Hash of paths
    */
-  hash: string;
+  hash: string
 
   /**
    * Base directory for all paths
    */
-  basedir: string;
+  basedir: string
 
   /**
    * Directory for temporary files
    * @default os-cache
    */
-  storage: string;
+  storage: string
 
   /**
    * OS reported directory for cache files
    */
-  [`os-data`]: string;
+  [`os-data`]: string
 
   /**
    * OS reported directory for configuration files
    */
-  [`os-config`]: string;
+  [`os-config`]: string
 
   /**
    * OS reported directory for cache files
    */
-  [`os-cache`]: string;
+  [`os-cache`]: string
 
   /**
    * OS reported directory for log files
    */
-  [`os-log`]: string;
+  [`os-log`]: string
 
   /**
    * OS reported directory for temporary files
    */
-  [`os-temp`]: string;
+  [`os-temp`]: string
 }
 
 /**
  * Cache paths
  */
-let paths: paths;
+let paths: paths
 
 const get = (directory?: string): paths => {
-  if (paths) return paths;
+  if (paths) return paths
 
   if (!directory)
     throw new BudError(
@@ -71,36 +71,35 @@ const get = (directory?: string): paths => {
 This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized.
 This is most likely a problem with the internals of bud.js.`,
           issue: new URL(
-            `https://github.com/roots/bud/search?q=paths+error+is:issue`
+            `https://github.com/roots/bud/search?q=paths+error+is:issue`,
           ),
         },
-      }
-    );
+      },
+    )
 
-  env = envBootstrap.get(directory);
+  env = envBootstrap.get(directory)
 
-  const basearg = args?.cwd ?? args?.basedir ?? env.APP_BASE_PATH;
-  const basedir = basearg ? join(directory, basearg) : directory;
+  const basearg = args?.cwd ?? args?.basedir ?? env.APP_BASE_PATH
+  const basedir = basearg ? join(directory, basearg) : directory
+  const hash = createHash(`sha1`).update(basedir).digest(`base64`)
 
   const storagearg =
-    args?.storage ?? args?.[`@storage`] ?? env.APP_STORAGE_PATH;
+    args?.storage ?? args?.[`@storage`] ?? env.APP_STORAGE_PATH
 
   const storage = storagearg
     ? normalize(join(directory, storagearg))
-    : systemPaths.cache;
-
-  const hash = createHash(`sha1`).update(basedir).digest(`base64`);
+    : join(systemPaths.cache, hash)
 
   paths = {
     ...Object.entries(systemPaths).reduce(
       (acc, [key, value]) => {
-        return { ...acc, [`os-${key}`]: join(value, hash) };
+        return {...acc, [`os-${key}`]: join(value, hash)}
       },
-      { basedir, storage, hash } as paths
+      {basedir, storage, hash} as paths,
     ),
-  };
+  }
 
-  return paths;
-};
+  return paths
+}
 
-export { get };
+export {get}

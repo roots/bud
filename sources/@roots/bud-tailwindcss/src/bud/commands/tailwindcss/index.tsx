@@ -42,13 +42,13 @@ export class BudTailwindCommand extends BudCommand {
         ),
       )
 
-      const config =
-        this.bud.context.files[`tailwind.config.js`] ||
-        this.bud.context.files[`tailwind.config.cjs`] ||
-        this.bud.context.files[`tailwind.config.mjs`] ||
-        this.bud.context.files[`tailwind.config.ts`]
+      const config = this.bud.context.files
+        ? Object.values(this.bud.context.files)?.find(file =>
+            file.name.includes(`tailwind.config`),
+          )
+        : false
 
-      if (config?.path) {
+      if (config && config?.path) {
         this.options.push(`--config`, this.bud.relPath(config.path))
       }
     }
