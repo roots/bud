@@ -207,7 +207,9 @@ describe(`bud.html`, () => {
     const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
 
     const result = helpers.getInterpolatePluginOptions(bud, {
-      replace: {foo: `bar`},
+      replace: {
+        foo: `bar`,
+      },
     })
 
     expect(envSpy).toHaveBeenCalledOnce()

@@ -44,16 +44,31 @@ export class BudTailwindCss extends Extension<Options> {
     const fallback: BudTailwindVFile = {
       name: `tailwind.config.cjs`,
       path: false,
-      module: defaultConfig,
+      module: {
+        ...defaultConfig,
+        content: [
+          this.app.path(`@src`, `**`, `*.{js,ts,jsx,tsx,vue,html,php}`),
+        ],
+      },
     }
 
-    if (!this.app.context.files) return fallback
+    if (!this.app.context.files) {
+      this.logger.log(
+        `no config files registered to bud.js. using default config.`,
+      )
+      return fallback
+    }
 
-    return (
-      Object.values(this.app.context.files).find(file =>
-        file.name?.includes(`tailwind.config`),
-      ) ?? fallback
+    const foundConfig = Object.values(this.app.context.files).find(file =>
+      file.name?.includes(`tailwind.config`),
     )
+
+    if (!foundConfig) {
+      this.logger.log(`no tailwind config found. using default config.`)
+      return fallback
+    }
+
+    return foundConfig
   }
 
   /**

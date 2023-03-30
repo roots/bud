@@ -5,9 +5,9 @@ import {Octokit} from '@octokit/core'
 import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
 import {json, yml} from '@roots/bud-support/filesystem'
-import fs from '@roots/bud-support/fs-jetpack'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import sortBy from '@roots/bud-support/lodash/sortBy'
+import fs from 'fs-jetpack'
 
 import ignoredCommits from './ignored_sha.js'
 
@@ -75,7 +75,9 @@ async function getContributorsFromCommits(path) {
         .filter(({author}) => !author.login.includes(`bot`))
         .filter(({commit}) => {
           const message = commit.message.split(`\n`).shift()
-          return !message.startsWith(`chore`) && !message.startsWith(`🧹 chore`)
+          return (
+            !message.startsWith(`chore`) && !message.startsWith(`🧹 chore`)
+          )
         })
         .map(({author, commit}) => {
           contributors[author.login] = {
@@ -89,8 +91,10 @@ async function getContributorsFromCommits(path) {
           }
 
           if (
-            commit.author?.email && !commit.author.email.includes(`noreply`)
-          ) contributors[author.login].email = commit.author.email
+            commit.author?.email &&
+            !commit.author.email.includes(`noreply`)
+          )
+            contributors[author.login].email = commit.author.email
         })
     },
   )

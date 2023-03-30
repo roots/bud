@@ -52,13 +52,11 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   /* Set path from key, value */
   if (isType.stringPair(parameters)) {
     if (parameters[0] === `@storage`) {
-      throw new InputError(
-        `bud.setPath: @storage must be set by args or env`,
-        {
-          props: {
-            details: `the @storage path is set by the --storage argument or the BUD_STORAGE_PATH environment variable. It cannot be set after bud.js is bootstrapped.`,
-          },
-        },
+      this.warn(
+        `bud.setPath: @storage must be set by args or env\n\n`,
+        `The @storage path may be set by the \`--storage\` argument or the \`APP_STORAGE_PATH\` environment variable. It cannot be set after bud.js is bootstrapped.`,
+        `In the future this will throw an error.\n\nFor now, you may encounter problems with caching and other features which read and write to \`@storage\`, as there have
+        already been files written to ${this.path(`@storage`)}`,
       )
     }
 

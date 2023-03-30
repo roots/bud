@@ -1,6 +1,6 @@
 import {paths} from '@repo/constants'
 import {execa} from 'execa'
-import * as fs from 'fs-jetpack'
+import fs from 'fs-jetpack'
 import {join} from 'path'
 import stripAnsi from 'strip-ansi'
 
