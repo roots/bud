@@ -5,6 +5,7 @@ import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 import type BabelExtension from './extension.js'
 
 export interface LoaderOptions {
+  configFile?: boolean
   env?: Record<string, any>
   presets?: Array<[string, any?]>
   plugins?: Array<[string, any?]>
@@ -13,6 +14,7 @@ export interface LoaderOptions {
   cacheIdentifier?: string
   cacheCompression?: boolean
   customize?: string
+  targets?: any
 }
 
 export interface BabelPublicApi

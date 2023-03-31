@@ -134,6 +134,7 @@
     "dotenv": "16.0.3",
     "dotenv-expand": "10.0.0",
     "env-paths": "3.0.0",
+    "esbuild-wasm": "0.17.14",
     "execa": "7.1.1",
     "express": "4.18.2",
     "figures": "5.0.0",
@@ -153,7 +154,6 @@
     "mini-svg-data-uri": "1.4.4",
     "minimist": "1.2.8",
     "modern-errors": "5.5.4",
-    "module-from-string": "3.3.0",
     "node-notifier": "10.0.1",
     "open": "9.1.0",
     "open-editor": "4.0.0",
@@ -179,5 +179,13 @@
     "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
     "zod": "3.21.4"
+  },
+  "peerDependencies": {
+    "esbuild": "0.17.14"
+  },
+  "peerDependenciesMeta": {
+    "esbuild": {
+      "optional": true
+    }
   }
 }

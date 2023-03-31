@@ -45,16 +45,16 @@ export const initialize = (bud: Bud): Bud =>
         bud.isCLI() && isString(bud.context.args.output)
           ? bud.context.args.output
           : `dist`,
-      'location.@os-cache': paths.get(bud.context.basedir)[`os-cache`],
-      'location.@os-config': paths.get(bud.context.basedir)[`os-config`],
-      'location.@os-data': paths.get(bud.context.basedir)[`os-data`],
-      'location.@os-log': paths.get(bud.context.basedir)[`os-log`],
-      'location.@os-temp': paths.get(bud.context.basedir)[`os-temp`],
       'location.@storage': paths.get(bud.context.basedir)[`storage`],
       'location.@modules':
         bud.isCLI() && isString(bud.context.args.modules)
           ? bud.context.args.modules
           : `node_modules`,
+      'location.@os-cache': paths.get(bud.context.basedir)[`os-cache`],
+      'location.@os-config': paths.get(bud.context.basedir)[`os-config`],
+      'location.@os-data': paths.get(bud.context.basedir)[`os-data`],
+      'location.@os-log': paths.get(bud.context.basedir)[`os-log`],
+      'location.@os-temp': paths.get(bud.context.basedir)[`os-temp`],
     })
     .when(bud.isDevelopment, ({hooks}) =>
       hooks.fromMap({

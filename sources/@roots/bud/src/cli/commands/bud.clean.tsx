@@ -28,6 +28,10 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
+  public storage = Option.String(`--storage`, undefined, {
+    description: `Storage directory (relative to project)`,
+    env: `APP_PATH_STORAGE`,
+  })
   public storageArg = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })
@@ -119,6 +123,16 @@ export default class BudCleanCommand extends BudCommand {
       <Ink.Box>
         <Ink.Text color="green">
           ✔ emptied {this.bud.cache.cacheDirectory}
+        </Ink.Text>
+      </Ink.Box>,
+    )
+
+    await this.bud.fs.remove(this.bud.path(`@storage`, `conf`))
+
+    await this.renderStatic(
+      <Ink.Box>
+        <Ink.Text color="green">
+          ✔ emptied {this.bud.path(`@storage`, `conf`)}
         </Ink.Text>
       </Ink.Box>,
     )

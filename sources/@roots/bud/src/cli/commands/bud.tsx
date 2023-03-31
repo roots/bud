@@ -198,10 +198,11 @@ export default class BudCommand extends Command<CommandContext> {
     await this.applyBudEnv(this.bud)
     await this.applyBudManifestOptions(this.bud)
     await this.applyBudArguments(this.bud)
-    await this.bud.api.processQueue()
 
     if (this.withBud) await this.withBud(this.bud)
     await this.bud.processConfigs()
+
+    await this.applyBudArguments(this.bud)
     return this.bud
   }
 
@@ -281,7 +282,6 @@ export default class BudCommand extends Command<CommandContext> {
     isset(args.input) && bud.setPath(`@src`, args.input)
     isset(args.output) && bud.setPath(`@dist`, args.output)
     isset(args.publicPath) && bud.setPublicPath(args.publicPath)
-    isset(args.storage) && bud.setPath(`@storage`, args.storage)
     isset(args.modules) && bud.setPath(`@modules`, args.modules)
 
     if (isset(args.hot)) {
@@ -314,10 +314,11 @@ export default class BudCommand extends Command<CommandContext> {
      * - the parent (if children do not exist), or;
      * - all children but not the parent (if children exist)
      */
-    const override = (override: (bud: Bud) => void) =>
+    const override = (override: (bud: Bud) => void) => {
       bud.hasChildren
         ? Object.values(bud.children).map(child => override(child))
         : override(bud)
+    }
 
     if (isset(args.manifest)) {
       bud.log(`overriding manifest setting from cli`)
@@ -387,6 +388,13 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     await bud.api.processQueue()
+    if (bud.children) {
+      await Promise.all(
+        Object.values(bud.children).map(async ({api}) =>
+          api.processQueue(),
+        ),
+      )
+    }
   }
 
   /**
