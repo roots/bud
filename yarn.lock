@@ -9431,7 +9431,6 @@ __metadata:
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
