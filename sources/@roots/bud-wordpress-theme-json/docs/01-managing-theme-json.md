@@ -11,6 +11,7 @@ In order to emit the file you will need to enable the feature:
 ```ts title="bud.config.mjs"
 bud.wpjson.enable()
 ```
+> `theme.json` generation takes place only on initial build after `bud dev` or `bud build` is run.
 
 ### Managing generic `theme.json` values
 
