@@ -86,7 +86,6 @@
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "18.15.10",
     "@types/webpack-env": "1.18.0",
-    "react-refresh": "^0.14.0",
     "webpack": "5.76.3"
   },
   "dependencies": {
