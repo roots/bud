@@ -4,10 +4,6 @@
   If there is not an associated issue please consider creating one
 -->
 
-refers:
-
-- none
-
 ## Type of change
 
 **PATCH: backwards compatible change**
@@ -18,21 +14,3 @@ refers:
 **PATCH: backwards compatible change**
 **NONE: internal change**
 -->
-
-This PR includes breaking changes to the following core packages:
-
-- none
-
-This PR includes breaking changes to the follow extensions:
-
-- none
-
-## Dependencies
-
-### Adds
-
-- none
-
-### Removes
-
-- none
