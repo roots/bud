@@ -29,6 +29,7 @@ type Registry = Map<string, [string | Plugin | Processor, any?]>
 interface Options {
   sourceMap?: boolean
   postcssOptions?: {
+    config?: boolean
     syntax?: string
     parser?: string
     plugins?: InputList
@@ -39,29 +40,59 @@ interface Options {
  * PostCSS configuration
  */
 @label(`@roots/bud-postcss`)
-@options<Options>({})
+@options<Options>({
+  postcssOptions: {
+    config: false,
+  },
+})
 @expose(`postcss`)
 export class BudPostCss extends Extension<Options> {
+  /**
+   * Boolean representing if project has a postcss config file
+   */
+  public get overridenByProjectConfigFile() {
+    if (!this.app.context.files) return false
+
+    return Object.values(this.app.context.files).some(
+      file => file?.name?.includes(`postcss`) && file?.module,
+    )
+  }
+
+  /**
+   * PostCSS configuration options (if overridden by project config file)
+   */
+  public declare configFileOptions: Record<string, any> | undefined
+
   /**
    * {@link Extension.register}
    */
   @bind
-  public override async register({build}: Bud): Promise<void> {
-    this.setPlugins({
-      import: await this.resolve(`postcss-import`, import.meta.url),
-      nesting: await this.resolve(`postcss-nested`, import.meta.url),
-      env: [
-        await this.resolve(`postcss-preset-env`, import.meta.url).then(
-          path => path.replace(`.mjs`, `.cjs`),
-        ),
-        {
-          stage: 1,
-          features: {
-            'focus-within-pseudo-class': false,
+  public override async register({build, context}: Bud): Promise<void> {
+    if (!this.overridenByProjectConfigFile) {
+      this.setPlugins({
+        import: await this.resolve(`postcss-import`, import.meta.url),
+        nesting: await this.resolve(`postcss-nested`, import.meta.url),
+        env: [
+          await this.resolve(`postcss-preset-env`, import.meta.url).then(
+            path => path.replace(`.mjs`, `.cjs`),
+          ),
+          {
+            stage: 1,
+            features: {
+              'focus-within-pseudo-class': false,
+            },
           },
-        },
-      ],
-    })
+        ],
+      })
+    } else {
+      this.logger.log(
+        `PostCSS configuration is being overridden by project configuration file.`,
+      )
+      const file = Object.values(context.files).find(
+        ({name, module}) => name.includes(`postcss`) && module,
+      )
+      this.configFileOptions = file?.module?.default ?? file?.module
+    }
 
     build
       .setLoader(
@@ -71,7 +102,7 @@ export class BudPostCss extends Extension<Options> {
       .setItem(`postcss`, {
         loader: `postcss`,
         options: () => ({
-          postcssOptions: this.postcssOptions,
+          postcssOptions: this.configFileOptions || this.postcssOptions,
           sourceMap: this.get(`sourceMap`),
         }),
       })
@@ -101,6 +132,7 @@ export class BudPostCss extends Extension<Options> {
     this.plugins.has(`env`) && plugins.push(this.plugins.get(`env`))
 
     const options = {
+      config: this.get(`postcssOptions.config`),
       syntax: this.get(`postcssOptions.syntax`),
       parser: this.get(`postcssOptions.parser`),
       plugins: plugins.filter(Boolean),
@@ -137,6 +169,15 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public setPlugins(plugins: InputRecords | InputMap | InputList): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.setPlugins will not work as expected\n`,
+        `tried to set:`,
+        plugins,
+      )
+    }
+
     const pluginMap = (plugin: string | [string, any?]): [string, any?] =>
       Array.isArray(plugin) ? plugin : [plugin]
 
@@ -166,6 +207,16 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public setPlugin(name: string, plugin?: Input): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.setPlugin will not work as expected\n`,
+        `tried to set:`,
+        name,
+        plugin,
+      )
+    }
+
     if (isUndefined(plugin)) {
       this._plugins.set(name, [name])
       return this
@@ -185,6 +236,15 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public unsetPlugin(plugin: string) {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.unsetPlugin will not work as expected\n`,
+        `tried to unset:`,
+        plugin,
+      )
+    }
+
     this.plugins.has(plugin) && this.plugins.delete(plugin)
 
     return this
@@ -195,6 +255,14 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public getPluginOptions(plugin: string): Record<string, any> {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.getPluginOptions will not work as expected\n`,
+        `tried to get: ${plugin}`,
+      )
+    }
+
     return this.plugins.get(plugin).length &&
       this.plugins.get(plugin).length > 1
       ? this.plugins.get(plugin).pop()
@@ -211,6 +279,13 @@ export class BudPostCss extends Extension<Options> {
       | Record<string, any>
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.setPluginOptions will not work as expected`,
+      )
+    }
+
     if (!this.plugins.has(plugin)) {
       throw new InputError(`${plugin} does not exist`)
     }
@@ -230,6 +305,13 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public getPluginPath(plugin: string): string {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.getPluginPath will not work as expected`,
+      )
+    }
+
     return this.plugins.has(plugin) && this.plugins.get(plugin)?.length
       ? [...this.plugins.get(plugin)].shift()
       : this.plugins.get(plugin)
@@ -240,6 +322,13 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public setPluginPath(plugin: string, path: string): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.setPluginPath will not work as expected`,
+      )
+    }
+
     const target = this.plugins.get(plugin)
     const hasOptions = target.length && target.length > 1
 

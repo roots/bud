@@ -75,7 +75,10 @@ export class BudTailwindCss extends Extension<Options> {
    * Tailwind config (resolved)
    */
   public get config() {
-    return {...(resolveConfig(this.file.module) ?? {})}
+    return {
+      ...(resolveConfig(this.file.module.default ?? this.file.module) ??
+        {}),
+    }
   }
 
   /**
@@ -112,23 +115,25 @@ export class BudTailwindCss extends Extension<Options> {
       return value
     }
 
-    if (!this.file.module) {
+    const config = this.file.module?.default ?? this.file.module
+
+    if (!config) {
       throw new Error(
         `@roots/bud-tailwindcss: could not resolve a tailwind config but \`extendedOnly\` parameter is \`true\`.`,
       )
     }
-    if (!this.file.module.theme) {
+    if (!config.theme) {
       throw new Error(
         `@roots/bud-tailwindcss: could not resolve \`theme\` key in tailwind config but \`extendedOnly\` parameter is \`true\`.`,
       )
     }
-    if (!this.file.module.theme.extend) {
+    if (!config.theme.extend) {
       throw new Error(
         `@roots/bud-tailwindcss: could not resolve \`theme.extend\` key in tailwind config but \`extendedOnly\` parameter is \`true\`.`,
       )
     }
 
-    if (!this.file.module.theme.extend[key]) {
+    if (!config.theme.extend[key]) {
       throw new Error(
         `The key "${key}" is not present in your tailwind \`theme.extend\` config.\n\n${JSON.stringify(
           this.file?.module,
@@ -138,7 +143,7 @@ export class BudTailwindCss extends Extension<Options> {
       )
     }
 
-    const value = this.file.module.theme.extend[key]
+    const value = config.theme.extend[key]
     return isFunction(value) ? value(pluginUtils) : value
   }
 
@@ -160,7 +165,7 @@ export class BudTailwindCss extends Extension<Options> {
       ),
       tailwindcss: [
         await this.resolve(`tailwindcss`, import.meta.url),
-        this.file.path ?? this.file.module,
+        this.file.module?.default ?? this.file.module ?? this.file.path,
       ],
     })
 
@@ -225,5 +230,15 @@ export class BudTailwindCss extends Extension<Options> {
     })
 
     return this
+  }
+
+  public override async buildBefore() {
+    if (this.app.postcss.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `PostCSS configuration overridden by project config file.`,
+        `@roots/bud-tailwindcss configuration will not apply.`,
+        `You must manually configure PostCSS to use tailwindcss.`,
+      )
+    }
   }
 }

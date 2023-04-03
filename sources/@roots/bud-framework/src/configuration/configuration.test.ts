@@ -59,17 +59,16 @@ describe(`@roots/bud-framework/configuration`, function () {
     expect(staticSpy).not.toHaveBeenCalled()
   })
 
-  it(`calls dynamicConfig when config is dynamic`, async () => {
+  it(`calls dynamicConfig when config is a fn`, async () => {
     const logSpy = vi.spyOn(bud, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
+    const configFn = vi.fn()
 
     const testDynamicConfig = {
       ...testFileDescription,
       dynamic: true,
-      module: {
-        default: vi.fn(),
-      },
+      module: async () => configFn,
     }
     await configuration.run(testDynamicConfig)
 
@@ -78,28 +77,7 @@ describe(`@roots/bud-framework/configuration`, function () {
       testDynamicConfig.name,
     )
     expect(dynamicSpy).toHaveBeenCalledWith(testDynamicConfig)
-    expect(testDynamicConfig.module.default).toHaveBeenCalledWith(bud)
-    expect(staticSpy).not.toHaveBeenCalled()
-  })
-
-  it(`calls dynamicConfig when config is an object (not default export)`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
-    const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
-    const staticSpy = vi.spyOn(configuration, `staticConfig`)
-
-    const testDynamicConfig = {
-      ...testFileDescription,
-      dynamic: true,
-      module: vi.fn(),
-    }
-    await configuration.run(testDynamicConfig)
-
-    expect(logSpy).toHaveBeenCalledWith(
-      `processing as dynamic configuration:`,
-      testDynamicConfig.name,
-    )
-    expect(dynamicSpy).toHaveBeenCalledWith(testDynamicConfig)
-    expect(testDynamicConfig.module).toHaveBeenCalledWith(bud)
+    expect(configFn).toHaveBeenCalledWith(bud)
     expect(staticSpy).not.toHaveBeenCalled()
   })
 

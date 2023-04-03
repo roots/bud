@@ -5,9 +5,7 @@ import {
   dependsOn,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type BudReactRefresh from '../react-refresh/index.js'
 
@@ -16,26 +14,8 @@ import type BudReactRefresh from '../react-refresh/index.js'
  */
 @label(`@roots/bud-react`)
 @dependsOn([`@roots/bud-react/react-refresh`])
-@options({babel: undefined})
 @expose(`react`)
 export default class BudReact extends Extension {
-  /**
-   * Use babel
-   *
-   * @readonly
-   */
-  public get useBabel(): boolean {
-    if (!isUndefined(this.options.babel)) return this.options.babel
-
-    if (this.app.extensions.has(`@roots/bud-typescript`)) {
-      return this.app.extensions.get(`@roots/bud-typescript`).options.babel
-    }
-
-    if (this.app.extensions.has(`@roots/bud-swc`)) return false
-
-    return true
-  }
-
   /**
    * Accessor for `@roots/bud-react/react-refresh`
    *
@@ -55,25 +35,59 @@ export default class BudReact extends Extension {
    * registered and `@roots/bud-babel` is available.
    */
   @bind
-  public override async configAfter(bud: Bud) {
-    if (!this.useBabel) return
+  public override async boot(bud: Bud) {
+    if (
+      ![this.useSWC, this.useTypeScript, this.useBabel].some(
+        t => t === true,
+      )
+    ) {
+      this.logger.warn(`No supported compiler found.`)
+    }
 
-    await this.ensureBabelIsLoaded()
+    if (this.useSWC) {
+      this.app.swc.set(`jsc.transform.react.runtime`, `automatic`)
+    }
 
-    bud.babel.setPreset(
-      `@babel/preset-react`,
-      await this.resolve(`@babel/preset-react`, import.meta.url),
-    )
+    if (this.useBabel) {
+      this.app.babel.setPreset(
+        `@babel/preset-react`,
+        await this.resolve(`@babel/preset-react`, import.meta.url),
+      )
+    }
   }
 
   /**
-   * Ensure babel extension is loaded
+   * Use babel
+   *
+   * @readonly
    */
-  @bind
-  public async ensureBabelIsLoaded() {
-    if (this.app.extensions.has(`@roots/bud-babel`)) return
-    await this.app.extensions.add(
-      await this.import(`@roots/bud-babel`, import.meta.url),
-    )
+  public get useBabel(): boolean {
+    if (this.useTypeScript) return false
+    if (this.useSWC) return false
+    return this.app.extensions.has(`@roots/bud-babel`)
+  }
+
+  /**
+   * Use SWC
+   *
+   * @readonly
+   */
+  public get useSWC(): boolean {
+    return this.app.extensions.has(`@roots/bud-swc`)
+  }
+
+  /**
+   * Use TypeScript
+   *
+   * @readonly
+   */
+  public get useTypeScript(): boolean {
+    if (this.useSWC) return false
+
+    if (this.app.extensions.has(`@roots/bud-typescript`)) {
+      return this.app.extensions.get(`@roots/bud-typescript`).options.babel
+    }
+
+    return false
   }
 }

@@ -3,9 +3,11 @@
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "engines": {
-    "node": "18.12.1"
+    "node": "18.12.1",
+    "yarn": "1.22.19",
+    "npm": "8.19.2"
   },
-  "packageManager": "yarn@3.3.1",
+  "packageManager": "yarn@1.22.19",
   "license": "MIT",
   "repository": "roots/bud.git",
   "type": "module",
@@ -56,11 +58,6 @@
       "tests/util/project",
       "tests/reproductions/*"
     ]
-  },
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
   },
   "volta": {
     "node": "18.12.1",

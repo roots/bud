@@ -4,4 +4,3 @@
 process.env.BUD_JS_BIN = `node`
 
 import '../lib/cli/index.js'
-

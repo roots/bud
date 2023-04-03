@@ -101,11 +101,16 @@ const CompilerError = BudError.subclass(`CompilerError`, {
     issues: new URL(`https://github.com/roots/bud/issues`),
   },
 })
-
 const ServerError = BudError.subclass(`ServerError`, {
   props: {
     details: `Error in the bud.js development server`,
     docs: new URL(`https://bud.js.org/docs/bud.serve`),
+  },
+})
+const ExtensionError = BudError.subclass(`BudErrorError`, {
+  props: {
+    details: `Error in an extension`,
+    docs: new URL(`https://bud.js.org`),
   },
 })
 
@@ -114,6 +119,7 @@ export {
   BudError,
   ModuleError,
   ImportError,
+  ExtensionError,
   FileReadError,
   FileWriteError,
   InputError,

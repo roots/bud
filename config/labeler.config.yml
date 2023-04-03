@@ -41,6 +41,9 @@ yarn:
   - .yarn/**/*
   - .yarnrc.yml
 
+'@roots/blade-loader':
+  - sources/@roots/blade-loader/**/*
+
 '@roots/browserslist-config':
   - sources/@roots/browserslist-config/**/*
 
@@ -140,6 +143,9 @@ yarn:
 '@roots/bud-tailwindcss':
   - sources/@roots/bud-tailwindcss/**/*
 
+'@roots/bud-tailwindcss-theme-json':
+  - sources/@roots/bud-tailwindcss-theme-json/**/*
+
 '@roots/bud-terser':
   - sources/@roots/bud-terser/**/*
 
@@ -157,6 +163,9 @@ yarn:
 
 '@roots/bud-wordpress-manifests':
   - sources/@roots/bud-wordpress-manifests/**/*
+
+'@roots/bud-wordpress-theme-json':
+  - sources/@roots/bud-wordpress-theme-json/**/*
 
 '@roots/container':
   - sources/@roots/containersources/@roots/container/**/*
@@ -190,3 +199,6 @@ yarn:
 
 '@roots/wordpress-hmr':
   - sources/@roots/wordpress-hmr/**/*
+
+'@roots/wordpress-theme-json-webpack-plugin':
+  - sources/@roots/wordpress-theme-json-webpack-plugin/**/*
