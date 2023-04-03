@@ -174,7 +174,8 @@ async function fetchFileInfo(filename: string) {
     try {
       const getModuleValue = async () => {
         try {
-          logger.time(`loading ${file.name}`)
+          logger.scope(`fs`).time(`loading ${file.name}`)
+
           if ([`.ts`, `.cts`, `.mts`].includes(file.parsed.ext)) {
             if (!(await fs.exists(cachePath))) {
               logger
@@ -187,37 +188,24 @@ async function fetchFileInfo(filename: string) {
               await transformConfig({file, cachePath})
             }
 
-            logger.scope(`fs`).info(`copying ${cachePath} to ${tmpPath}`)
+            logger.scope(`fs`).info(`copying`, cachePath, `to`, tmpPath)
             await fs.copy(cachePath, tmpPath, {overwrite: true})
 
-            logger.scope(`fs`).info(`importing ${tmpPath}`)
+            logger.scope(`fs`).info(`importing`, tmpPath)
             const importValue = await import(tmpPath)
-
-            logger
-              .scope(`fs`)
-              .info(
-                importValue?.default
-                  ? `...importing default value`
-                  : `...importing as named module`,
-              )
 
             const value = importValue?.default ?? importValue
 
-            logger.scope(`fs`).info(`removing ${tmpPath}`)
+            logger.scope(`fs`).info(`removing`, tmpPath)
             await fs.remove(tmpPath)
-            logger.timeEnd(`loading ${file.name}`)
 
             return value
           }
 
           const importValue = await import(file.path)
-          logger
-            .scope(`fs`)
-            .info(
-              importValue?.default
-                ? `...importing default value`
-                : `...importing as named module`,
-            )
+
+          logger.scope(`fs`).timeEnd(`loading ${file.name}`)
+
           return importValue?.default ?? importValue
         } catch (cause) {
           await fs.remove(tmpPath)

@@ -19,9 +19,6 @@ export default class BudBabelRefresh extends Extension {
   public override async register(bud: Bud) {
     this.logger.log(`Registering react-refresh-babel transformer`)
 
-    if (!bud.react.useBabel) return
-    await bud.react.ensureBabelIsLoaded()
-
     bud.babel.setPlugin(
       `react-refresh/babel`,
       await this.resolve(`react-refresh/babel`, import.meta.url),
