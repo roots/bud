@@ -8,6 +8,12 @@ export default async (bud: Bud) => {
     .serve(3015)
     .splitChunks(false)
     .minimize(false)
+    .html({
+      template: bud.path(`@src`, `index.html`),
+      replace: {
+        noScript: `You need to enable JavaScript to run this app`,
+      },
+    })
 
   // .assets([[`fonts`, `fontz`]])
   // .assets([[`fonts/test.otf`, `fontz/test.otf`]])
