@@ -48,7 +48,14 @@ class Project extends Service {
         services: bud.context?.services,
         extensions: {
           context: bud.context?.extensions,
-          loaded: bud.extensions?.repository,
+          loaded: Object.entries(bud.extensions?.repository).map(
+            ([key, extension]) => ({
+              key,
+              label: extension.label,
+              meta: extension.meta,
+              options: extension.options,
+            }),
+          ),
         },
         resolutions: bud.module.resolved,
       })
