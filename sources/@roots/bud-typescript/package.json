@@ -91,40 +91,15 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "fork-ts-checker-webpack-plugin": "^7.3.0",
+    "fork-ts-checker-webpack-plugin": "7.3.0",
     "react-refresh-typescript": "2.0.8",
-    "ts-loader": "^9.4.2",
+    "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
     "tslib": "2.5.0",
     "typescript": "4.9.5"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "fork-ts-checker-webpack-plugin": "*",
-    "react-refresh-typescript": "*",
-    "ts-loader": "*",
-    "ts-node": "*",
-    "typescript": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "fork-ts-checker-webpack-plugin": {
-      "optional": true
-    },
-    "react-refresh-typescript": {
-      "optional": true
-    },
-    "ts-loader": {
-      "optional": true
-    },
-    "ts-node": {
-      "optional": true
-    },
-    "typescript": {
-      "optional": true
-    }
+    "@roots/bud": "workspace:sources/@roots/bud"
   },
   "volta": {
     "extends": "../../../package.json"
