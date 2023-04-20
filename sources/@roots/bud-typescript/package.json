@@ -91,7 +91,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "fork-ts-checker-webpack-plugin": "7.3.0",
+    "fork-ts-checker-webpack-plugin": "8.0.0",
     "react-refresh-typescript": "2.0.8",
     "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
