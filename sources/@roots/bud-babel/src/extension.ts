@@ -11,7 +11,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {LoaderOptions, Registry} from './types.js'
 
 /**
- * Babel support for `@roots/bud`
+ * Babel configuration
  */
 @label(`@roots/bud-babel`)
 @expose(`babel`)
@@ -28,6 +28,9 @@ export default class BabelExtension extends Extension {
     )
   }
 
+  /**
+   * Config file accessor
+   */
   public get configFile(): Record<string, any> {
     return Object.values(this.app.context.files).find(
       file =>
@@ -56,9 +59,18 @@ export default class BabelExtension extends Extension {
   public env: LoaderOptions[`env`] = {
     development: {compact: false},
   }
+  /**
+   * Get babel env value
+   */
   public getEnv(): LoaderOptions[`env`] {
     return this.env
   }
+  /**
+   * Set babel env value
+   *
+   * @param env - Babel env
+   * @returns this
+   */
   public setEnv(env: LoaderOptions[`env`]): this {
     this.env = env
     return this
@@ -99,6 +111,7 @@ export default class BabelExtension extends Extension {
           ...this.configFileOptions,
         }
       : {
+          ...baseOptions,
           presets: Object.values(this.presets),
           plugins: Object.values(this.plugins),
           env: this.env,
