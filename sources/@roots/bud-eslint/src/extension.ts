@@ -39,6 +39,9 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
    */
   @bind
   public override async register(bud: Bud) {
+    /**
+     * Resolve eslint
+     */
     this.set(`eslintPath`, await this.resolve(`eslint`, import.meta.url))
 
     if (!bud.context.files) return
@@ -48,58 +51,57 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     )
 
     if (config) {
-      if (!config.module) {
-        switch (config.dynamic) {
-          case true:
-            config.module = await this.import(config.path, import.meta.url)
-            break
-
-          default:
-            switch (config.extension) {
-              case `json`:
-                config.module = await bud.fs.json.read(config.path)
-                break
-
-              case `yml`:
-                config.module = await bud.fs.yml.read(config.path)
-                break
-
-              case `yaml`:
-                config.module = await bud.fs.yml.read(config.path)
-                break
-
-              default:
-                this.logger.warn(
-                  `Unknown eslint config format.`,
-                  `Please update \`${config.name}\` to use one of: js, cjs, mjs, json, yml, yaml`,
-                )
-
-                try {
-                  config.module = await bud.fs.json.read(config.path)
-                  this.logger.warn(
-                    `Unknown eslint config format.`,
-                    `Parsed as json.`,
-                  )
-                } catch (err) {
-                  try {
-                    config.module = await bud.fs.yml.read(config.path)
-                    this.logger.warn(
-                      `Unknown eslint config format.`,
-                      `Parsed as yml.`,
-                    )
-                  } catch (err) {
-                    this.logger.error(
-                      `Unknown eslint config format.`,
-                      `Could not parse ${config.name} as json or yml.`,
-                    )
-                  }
-                }
-            }
-        }
-      }
-
       if (config.module) {
         this.set(`overrideConfig`, config.module).set(`useEslintrc`, false)
+        return
+      }
+
+      switch (config.dynamic) {
+        case true:
+          config.module = await this.import(config.path, import.meta.url)
+          break
+
+        default:
+          switch (config.extension) {
+            case `json`:
+              config.module = await bud.fs.json.read(config.path)
+              break
+
+            case `yml`:
+              config.module = await bud.fs.yml.read(config.path)
+              break
+
+            case `yaml`:
+              config.module = await bud.fs.yml.read(config.path)
+              break
+
+            default:
+              this.logger.warn(
+                `Unknown eslint config format.`,
+                `Please update \`${config.name}\` to use one of: js, cjs, mjs, json, yml, yaml`,
+              )
+
+              try {
+                config.module = await bud.fs.json.read(config.path)
+                this.logger.warn(
+                  `Unknown eslint config format.`,
+                  `Parsed as json.`,
+                )
+              } catch (err) {
+                try {
+                  config.module = await bud.fs.yml.read(config.path)
+                  this.logger.warn(
+                    `Unknown eslint config format.`,
+                    `Parsed as yml.`,
+                  )
+                } catch (err) {
+                  this.logger.error(
+                    `Unknown eslint config format.`,
+                    `Could not parse ${config.name} as json or yml.`,
+                  )
+                }
+              }
+          }
       }
     }
   }
