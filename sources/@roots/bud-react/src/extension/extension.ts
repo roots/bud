@@ -22,17 +22,12 @@ export default class BudReact extends Extension {
    * @readonly
    */
   public get refresh(): BudReactRefresh {
-    return this.app.extensions.get(
-      `@roots/bud-react/react-refresh`,
-    ) as BudReactRefresh
+    return this.app.extensions.get(`@roots/bud-react/react-refresh`)
   }
 
   /**
    * {@link Extension.configAfter}
    *
-   * @remarks
-   * Adds the `@babel/preset-react` preset to babel if `@roots/bud-esbuild` is not
-   * registered and `@roots/bud-babel` is available.
    */
   @bind
   public override async boot(bud: Bud) {
@@ -85,7 +80,7 @@ export default class BudReact extends Extension {
     if (this.useSWC) return false
 
     if (this.app.extensions.has(`@roots/bud-typescript`)) {
-      return this.app.extensions.get(`@roots/bud-typescript`).options.babel
+      return !this.app.extensions.get(`@roots/bud-typescript`).get(`babel`)
     }
 
     return false

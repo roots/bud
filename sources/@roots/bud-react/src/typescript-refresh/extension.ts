@@ -27,13 +27,16 @@ export default class BudTypeScriptRefresh extends Extension {
   public async registerTransform(bud: Bud) {
     this.logger.log(`Registering react-refresh-typescript transformer`)
 
-    const transform = await this.import(`react-refresh-typescript`)
+    const transform = await this.import(
+      `react-refresh-typescript`,
+      import.meta.url,
+    )
+
+    const transformation = (_program: unknown) => ({before: [transform()]})
+    const callback = (_bud: Bud) => transformation
 
     bud.extensions
       .get(`@roots/bud-typescript`)
-      .setOption(`loader`, options => ({
-        ...(options ?? {}),
-        getCustomTransformers: {before: [transform()]},
-      }))
+      .set(`getCustomTransformers`, callback)
   }
 }

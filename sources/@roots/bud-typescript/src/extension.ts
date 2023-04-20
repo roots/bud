@@ -9,18 +9,27 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 import omit from '@roots/bud-support/lodash/omit'
+import type * as TsLoader from 'ts-loader'
+
+/**
+ * Typescript configuration options
+ */
+interface Options extends TsLoader.Options {
+  babel: boolean
+}
 
 /**
  * Typescript configuration
  */
 @label(`@roots/bud-typescript`)
 @expose(`typescript`)
-@options({
+@options<Options>({
   babel: false,
   transpileOnly: true,
+  configFile: `tsconfig.json`,
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
-export default class BudTypeScript extends Extension {
+export default class BudTypeScript extends Extension<Options> {
   /**
    * Typechecking controls
    */
@@ -53,12 +62,29 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
+    const loader = await this.resolve(`ts-loader`, import.meta.url)
+    const typescript = await this.resolve(`typescript`, import.meta.url)
+
+    /**
+     * If a tsconfig.json file is present we'll set the config option automatically.
+     */
+    if (bud.context.files[`tsconfig.json`])
+      this.set(`configFile`, bud.context.files[`tsconfig.json`].path)
+
+    /**
+     * Set the compiler and context options
+     */
+    this.set(`compiler`, typescript).set(`context`, bud.context.basedir)
+
+    /**
+     * Resolve .ts, .tsx, .jsx extensions
+     */
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
     )
 
     bud.build
-      .setLoader(`ts`, await this.resolve(`ts-loader`, import.meta.url))
+      .setLoader(`ts`, loader)
       .setItem(`ts`, {loader: `ts`})
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
@@ -71,8 +97,17 @@ export default class BudTypeScript extends Extension {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    this.set(`context`, bud.context.basedir)
+    /**
+     * Warn if no tsconfig.json was found or explicitly provided
+     */
+    if (!this.get(`configFile`))
+      this.logger.warn(
+        `No tsconfig.json found. You should create one in your project root or specify one with the \`configFile\` option.`,
+      )
 
+    /**
+     * The `babel` option is not a ts-loader option, so we'll omit it
+     */
     bud.build.items.ts.setOptions(omit(this.options, `babel`))
 
     const items = [bud.build.items.ts]

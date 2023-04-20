@@ -1,7 +1,5 @@
 import type {Readable, Writable} from 'node:stream'
 
-import type {InspectResult} from '@roots/filesystem/filesystem'
-
 import type {Bud} from '../../bud.js'
 import type {Logger} from '../services/logger/index.js'
 
@@ -98,7 +96,7 @@ export interface CommandContext extends CLIContext {
   bin?: `node` | `ts-node` | `bun`
 }
 
-export interface File extends Omit<InspectResult, `type`> {
+export interface File {
   name: string
   path: string
   bud: boolean
