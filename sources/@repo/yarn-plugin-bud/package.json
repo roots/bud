@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "4.0.0-rc.41",
+    "@yarnpkg/cli": "4.0.0-rc.42",
     "@yarnpkg/core": "4.0.0-rc.41",
     "@yarnpkg/shell": "4.0.0-rc.41",
     "clipanion": "3.2.0",

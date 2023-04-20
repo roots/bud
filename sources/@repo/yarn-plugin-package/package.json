@@ -7,7 +7,7 @@
     "@types/lodash-es": "4.17.7",
     "@types/node": "18.15.10",
     "@yarnpkg/builder": "4.0.0-rc.41",
-    "@yarnpkg/cli": "4.0.0-rc.41",
+    "@yarnpkg/cli": "4.0.0-rc.42",
     "@yarnpkg/core": "4.0.0-rc.41",
     "@yarnpkg/shell": "4.0.0-rc.41",
     "clipanion": "3.2.0",
