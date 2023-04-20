@@ -69,8 +69,7 @@
     "@types/babel__core": "7.20.0",
     "@types/babel__plugin-transform-runtime": "7.9.2",
     "@types/babel__preset-env": "7.9.2",
-    "@types/node": "18.15.10",
-    "webpack": "5.76.3"
+    "@types/node": "18.15.10"
   },
   "dependencies": {
     "@babel/core": "7.21.3",
@@ -78,47 +77,11 @@
     "@babel/preset-env": "7.20.2",
     "@babel/runtime": "7.21.0",
     "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-loader": "9.1.2",
-    "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@babel/core": "*",
-    "@babel/plugin-transform-runtime": "*",
-    "@babel/preset-env": "*",
-    "@babel/runtime": "*",
-    "@types/babel__core": "*",
-    "@types/babel__plugin-transform-runtime": "*",
-    "@types/babel__preset-env": "*",
-    "babel-loader": "*"
-  },
-  "peerDependenciesMeta": {
-    "@babel/core": {
-      "optional": true
-    },
-    "@babel/plugin-transform-runtime": {
-      "optional": true
-    },
-    "@babel/preset-env": {
-      "optional": true
-    },
-    "@babel/runtime": {
-      "optional": true
-    },
-    "@types/babel__core": {
-      "optional": true
-    },
-    "@types/babel__plugin-transform-runtime": {
-      "optional": true
-    },
-    "@types/babel__preset-env": {
-      "optional": true
-    },
-    "babel-loader": {
-      "optional": true
-    }
+    "tslib": "2.5.0",
+    "webpack": "5.76.3"
   },
   "volta": {
     "extends": "../../../package.json"
