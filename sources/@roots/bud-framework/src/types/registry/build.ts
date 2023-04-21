@@ -74,6 +74,7 @@ export interface Sync {
   profile: Configuration['profile']
   recordsPath: Configuration['recordsPath']
   'resolve.extensions': Set<string>
+  resolveLoader: Configuration['resolveLoader']
   snapshot: Configuration[`snapshot`]
   'snapshot.managedPaths': Configuration[`snapshot`][`managedPaths`]
 

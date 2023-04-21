@@ -33,22 +33,31 @@ export default class BudSWC extends Extension<Options> {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
-    try {
-      const config = await bud.fs.exists(`.swcrc`)
-      if (config === `file`) {
-        this.setOptions(bud.fs.json.parse(await bud.fs.read(`.swcrc`)))
-      }
-    } catch (e) {}
+  public override async register({build, context, fs, hooks}: Bud) {
+    const swcPath = await this.resolve(`@swc/core`, import.meta.url)
+    const loaderPath = await this.resolve(`swc-loader`, import.meta.url)
 
-    bud.build
-      .setLoader(`swc`, await this.resolve(`swc-loader`, import.meta.url))
-      .setItem(`swc`, {
-        loader: bud.build.getLoader(`swc`),
-        options: () => this.options,
-      })
+    if (context.files?.[`.swcrc`]) {
+      this.setOptions(
+        fs.json.parse(await fs.read(context.files[`.swcrc`].path)),
+      )
+    }
 
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+    hooks.on(`build.resolveLoader`, resolveLoader => ({
+      ...(resolveLoader ?? {}),
+      alias: {
+        ...resolveLoader?.alias,
+        '@swc/core': swcPath,
+        'swc-loader': loaderPath,
+      },
+    }))
+
+    build.setLoader(`swc`, loaderPath).setItem(`swc`, {
+      loader: build.getLoader(`swc`),
+      options: () => this.options,
+    })
+
+    hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
     )
   }

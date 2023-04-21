@@ -24,6 +24,7 @@ import {plugins} from './plugins.js'
 import {profile} from './profile.js'
 import {recordsPath} from './recordsPath.js'
 import {resolve} from './resolve.js'
+import {resolveLoader} from './resolveLoader.js'
 import {snapshot} from './snapshot.js'
 import {stats} from './stats.js'
 import {target} from './target.js'
@@ -52,6 +53,7 @@ export {
   profile,
   recordsPath,
   resolve,
+  resolveLoader,
   snapshot,
   stats,
   target,
