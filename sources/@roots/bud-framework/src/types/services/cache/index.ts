@@ -27,6 +27,11 @@ export interface Service extends BaseService {
   version: string
 
   /**
+   * Cache build dependencies
+   */
+  buildDependencies: Record<string, Array<string>>
+
+  /**
    * Cache directory
    */
   cacheDirectory: string

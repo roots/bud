@@ -47,7 +47,6 @@ export default class Cache
         : `filesystem`,
     )
   }
-
   public set type(type: 'memory' | 'filesystem') {
     this.app.hooks.on(`build.cache.type`, type)
   }
@@ -68,7 +67,6 @@ export default class Cache
       version.digest(`base64`),
     )
   }
-
   public set version(version: string) {
     this.app.hooks.on(`build.cache.version`, version)
   }
@@ -87,26 +85,43 @@ export default class Cache
   }
 
   /**
+   * Cache dependencies
+   */
+  public get buildDependencies(): Record<string, Array<string>> {
+    return this.app.hooks.filter(`build.cache.buildDependencies`, {
+      bud: [
+        this.app.context.files?.[`package.json`]?.path,
+        ...Object.values(this.app.context.files)
+          .filter(({bud}) => bud)
+          .map(({path}) => path),
+      ].filter(Boolean),
+    })
+  }
+  public set buildDependencies(
+    dependencies: Record<string, Array<string>>,
+  ) {
+    this.app.hooks.on(`build.cache.buildDependencies`, dependencies)
+  }
+
+  /**
    * Webpack configuration
    */
   public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
-    return this.type === `memory`
-      ? true
-      : {
-          name: this.name,
-          type: this.type,
-          store: `pack` as `pack`,
-          allowCollectingMemory: true,
-          cacheDirectory: this.cacheDirectory,
-          idleTimeout: 10000,
-          idleTimeoutForInitialStore: 0,
-          profile: false,
-          version: this.app.hooks.filter(
-            `build.cache.version`,
-            this.version,
-          ),
-        }
+    if (this.type === `memory`) return true
+
+    return {
+      name: this.name,
+      type: this.type,
+      store: `pack` as `pack`,
+      allowCollectingMemory: true,
+      buildDependencies: this.buildDependencies,
+      cacheDirectory: this.cacheDirectory,
+      idleTimeout: 10000,
+      idleTimeoutForInitialStore: 0,
+      profile: false,
+      version: this.app.hooks.filter(`build.cache.version`, this.version),
+    }
   }
 
   /**
