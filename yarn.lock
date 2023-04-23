@@ -8160,19 +8160,7 @@ __metadata:
     tslib: 2.5.0
     webpack: 5.76.3
   peerDependencies:
-    "@roots/bud": "*"
-    "@swc/core": "*"
-    "@swc/helpers": "*"
-    swc-loader: "*"
-  peerDependenciesMeta:
-    "@roots/bud":
-      optional: true
-    "@swc/core":
-      optional: true
-    "@swc/helpers":
-      optional: true
-    swc-loader:
-      optional: true
+    "@roots/bud": "workspace:sources/@roots/bud"
   languageName: unknown
   linkType: soft
 
