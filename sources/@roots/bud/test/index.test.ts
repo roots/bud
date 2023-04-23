@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {Bud, factory, get} from './index.js'
+import {Bud, factory, get} from '../src/index.js'
 
 describe(`@roots/bud`, () => {
   it(`should have a named Bud export`, () => {

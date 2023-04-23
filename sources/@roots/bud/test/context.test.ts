@@ -2,7 +2,7 @@ import {join} from 'node:path'
 import {beforeEach, describe, expect, it} from 'vitest'
 import {Context} from '@roots/bud-framework/options'
 
-import getContext from './index.js'
+import getContext from '../src/context/index.js'
 
 describe(`context.get`, () => {
   let context: Context
