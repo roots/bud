@@ -11,6 +11,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import isString from '@roots/bud-support/lodash/isString'
 import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
@@ -165,11 +166,24 @@ export class BudTailwindCss extends Extension<Options> {
       ),
       tailwindcss: [
         await this.resolve(`tailwindcss`, import.meta.url),
-        this.file.module?.default ?? this.file.module ?? this.file.path,
+        this.file.module ?? this.file.path,
       ],
     })
 
     this.logger.success(`postcss configured for tailwindcss`)
+
+    /**
+     * Add tailwind config to webpack cache dependencies
+     */
+    bud.hooks.on(`build.cache.buildDependencies`, paths => {
+      if (isString(this.file.path)) {
+        paths.tailwind = [this.file.path]
+        this.logger.success(
+          `tailwind config added to webpack build dependencies`,
+        )
+      }
+      return paths
+    })
   }
 
   /**

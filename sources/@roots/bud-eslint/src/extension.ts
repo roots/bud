@@ -51,11 +51,26 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     )
 
     if (config) {
+      /**
+       * Add eslint config to cache dependencies
+       */
+      bud.hooks.on(`build.cache.buildDependencies`, (deps = {}) => ({
+        ...deps,
+        eslint: [config.path],
+      }))
+
+      /**
+       * If eslint config was successfully imported during bootstrap, set the module as the `overrideConfig`.
+       */
       if (config.module) {
         this.set(`overrideConfig`, config.module).set(`useEslintrc`, false)
         return
       }
 
+      /**
+       * Otherwise, attempt to parse the config file as json or yml. If that fails, warn the user who may be
+       * using a deprecated config format (`.eslintrc`) and attempt to parse as json.
+       */
       switch (config.dynamic) {
         case true:
           config.module = await this.import(config.path, import.meta.url)
