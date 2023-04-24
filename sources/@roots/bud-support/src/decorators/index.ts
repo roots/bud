@@ -1,2 +1,2 @@
 export {deprecated} from './deprecated.js'
-export * from 'helpful-decorators'
+export {bind} from './bind.js'

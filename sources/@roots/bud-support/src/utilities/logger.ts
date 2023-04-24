@@ -1,7 +1,7 @@
 /* eslint-disable n/no-process-env */
-import {bind} from 'helpful-decorators'
 import Signale, {SignaleOptions} from 'signale'
 
+import {bind} from '../decorators/index.js'
 import isUndefined from '../lodash/isUndefined/index.js'
 import args from './args.js'
 

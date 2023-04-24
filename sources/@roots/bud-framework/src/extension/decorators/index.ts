@@ -1,4 +1,4 @@
-import {bind, once} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators'
 
 import {dependsOn} from './dependsOn.js'
 import {dependsOnOptional} from './dependsOnOptional.js'
@@ -19,7 +19,6 @@ export {
   disabled,
   expose,
   label,
-  once,
   options,
   plugin,
   production,

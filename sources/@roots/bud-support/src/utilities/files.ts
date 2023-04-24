@@ -241,9 +241,10 @@ async function transformConfig({
   cachePath: string
 }): Promise<any> {
   logger.time(`compiling ${file.name}`)
+
   if (!transformer) {
     transformer = await import(`../esbuild/index.js`).then(
-      async ({getImplementation}) => await getImplementation(),
+      async ({getImplementation}) => await getImplementation(file.path),
     )
   }
 
