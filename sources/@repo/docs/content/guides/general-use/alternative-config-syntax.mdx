@@ -111,15 +111,15 @@ JSON works by the same rules as yml and you can use json5 syntax (comments, non-
 
 ```json
 {
-  entry: ['app', ['app.js']],
-  runtime: [true],
-  assets: [['src/**/*.html']],
-  babel: {
-    setPluginOptions: [
+  "entry": ["app", ["app.js"]],
+  "runtime": [true],
+  "assets": [["src/**/*.html"]],
+  "babel": {
+    "setPluginOptions": [
       "@babel/plugin-transform-runtime",
-      {helpers: false, regenerator: false},
-    ],
-  },
+      {"helpers": false, "regenerator": false}
+    ]
+  }
 }
 ```
 

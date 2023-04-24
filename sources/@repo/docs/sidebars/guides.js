@@ -69,6 +69,7 @@ module.exports = {
         `general-use/esmodules`,
         `general-use/remote-sources`,
         `general-use/managing-dependencies`,
+        `general-use/pnpm`,
       ],
     },
     {

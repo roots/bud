@@ -1,0 +1,86 @@
+---
+title: pnpm compatibility
+description: Using pnpm with bud.js
+slug: pnpm
+sidebar_label: pnpm compatibility
+---
+
+:::info Experimental
+
+pnpm compatibility is a work-in-progress.
+
+:::
+
+We are working towards seamless compatibility with package managers utilizing alternative module resolution strategies like pnpm and yarn pnp. For now you will need to take a few extra steps.
+
+## Installation
+
+If you are using pnpm you will need to add `--public-hoist-pattern=*` to the instalation command.
+
+```
+pnpm install --public-hoist-pattern=*
+```
+
+bud.js largely relies on [module hoisting](https://maier.tech/posts/a-guide-to-understanding-how-yarn-hoists-dependencies-and-handles-conflicting-packages). This is not the default behavior for pnpm.
+
+## .pnpmfile.cjs compatibilty shim
+
+In addition to using the `public-hoist-pattern` flag, you will want to add the following `.pnpmfile.cjs` to your project root. If you have already ran an installation you will need to clear your
+lockfiles and `node_modules` in order for the shim to take effect.
+
+All bud.js modules come with batteries included but allow for overriding built-in dependencies with custom versions. However, this approach is in conflict with pnpm, which does not install peerDependencies marked as optional.
+The pnpm install hook removes peerDependencies from `@roots/*` packages unless they are listed specifically in the project `package.json`. This rectifies the issue.
+
+```typescript title=.pnpmfile.cjs
+const {dependencies, devDependencies} = require(`./package.json`)
+
+/**
+ * bud.js pnpm compatibility shim
+ *
+ * pnpm allows customizing the package installation process through special functions called hooks.
+ * These hooks can be defined in a .pnpmfile.cjs file, which should be located in the same directory
+ * as the lockfile. For example, in a monorepo with a shared lockfile, the .pnpmfile.cjs file should
+ * be placed in the root of the monorepo.
+ *
+ * @see {@link https://pnpm.io/pnpmfile} for more information on pnpmfile
+ */
+module.exports = {
+  hooks: {
+    /**
+     * This hook removes peerDependencies from @roots/* packages because
+     * pnpm does not install peerDependencies marked as optional by default.
+     * This behavior differs from npm and yarn, which install peerDependencies
+     * even if they are marked as optional.
+     */
+    readPackage(data) {
+      // Skip processing if the package is not a @roots/* package
+      if (!data.name.startsWith(`@roots`)) return data
+
+      // Skip processing if the package does not have peerDependencies
+      if (!data.peerDependencies) return data
+
+      // Filter out peerDependencies that are already listed as dependencies or devDependencies
+      const peerDependencies = Object.entries(data.peerDependencies)
+        .filter(
+          ([signifier]) =>
+            Object.keys(dependencies || {}).includes(signifier) ||
+            Object.keys(devDependencies || {}).includes(signifier),
+        )
+        .reduce(
+          (peerDependencies, [signifier, version]) => ({
+            ...peerDependencies,
+            [signifier]: version,
+          }),
+          {},
+        )
+
+      // Return the package data with the filtered peerDependencies
+      // and an empty peerDependenciesMeta object
+      return Object.assign(data, {
+        peerDependencies,
+        peerDependenciesMeta: {},
+      })
+    },
+  },
+}
+```
