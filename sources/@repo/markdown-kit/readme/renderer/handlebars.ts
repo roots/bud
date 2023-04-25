@@ -1,5 +1,5 @@
 import {REPO_PATH} from '@repo/constants'
-import * as fs from 'fs-jetpack'
+import fs from 'fs-jetpack'
 import {globby} from 'globby'
 import Handlebars, {TemplateDelegate} from 'handlebars'
 
