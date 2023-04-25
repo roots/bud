@@ -81,7 +81,7 @@
     "@emotion/styled": "^11.10.6",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/plugin-emotion": "2.5.51",
+    "@swc/plugin-emotion": "2.5.60",
     "tslib": "2.5.0"
   },
   "peerDependencies": {
