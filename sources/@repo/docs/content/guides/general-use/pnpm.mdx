@@ -29,7 +29,7 @@ In addition to using the `public-hoist-pattern` flag, you will want to add the f
 lockfiles and `node_modules` in order for the shim to take effect.
 
 All bud.js modules come with batteries included but allow for overriding built-in dependencies with custom versions. However, this approach is in conflict with pnpm, which does not install peerDependencies marked as optional.
-The pnpm install hook removes peerDependencies from `@roots/*` packages unless they are listed specifically in the project `package.json`. This rectifies the issue.
+The provided pnpm install hook removes peerDependencies from `@roots/*` packages unless they are listed specifically in the project `package.json`. This rectifies the issue.
 
 ```typescript title=.pnpmfile.cjs
 const {dependencies, devDependencies} = require(`./package.json`)

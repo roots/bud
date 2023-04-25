@@ -9,13 +9,35 @@ import TabItem from '@theme/TabItem'
 import CodeBlock from '@theme/CodeBlock'
 import YML from '!!raw-loader!@site/../../../examples/config-yml/bud.config.yml'
 
-In addition to `.js`, `.cjs` and `.mjs` configurations, **bud.js** supports configuration files authored with json5 and yml.
+In addition to `.js`, `.cjs` and `.mjs` configurations, **bud.js** supports configuration files authored with TypeScript, [json5](https://json5.org/) and yml.
 
-[TypeScript support is relatively easy to add.](#typescript)
+## TypeScript
+
+You can use TypeScript to configure your build regardless of if you are using TypeScript in your project. The config file is not typechecked.
+
+You can import the `Bud` types from `@roots/bud`.
+
+```ts
+import type {Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
+  // configure bud
+}
+```
+
+By default bud.js uses [esbuild-wasm](https://www.npmjs.com/package/esbuild-wasm) to transpile the config file when authored with TypeScript.
+
+If you prefer you can install [esbuild](https://www.npmjs.com/package/esbuild) and it will be used instead automatically.
+
+The esbuild team advises that using esbuild is faster than esbuild-wasm, but the benefit of esbuild-wasm is that it doesn't need to be compiled during installation.
+Additionally, results of the transform are cached, so either way the transformer is only invoked a single time.
+In our testing the extra installation time outweighs the performance gains.
 
 ## YML
 
-For instance, the equivalent of the following JS configuration:
+Each key is a reference to a `Bud` call. The supplied values are the arguments to that call.
+
+For instance, the equivalent of the following call to [bud.entry](/docs/bud.entry):
 
 ```js
 bud.entry('app', 'app.js')
@@ -125,11 +147,3 @@ JSON works by the same rules as yml and you can use json5 syntax (comments, non-
 
 If you are doing a lot of dynamic configuration you may find it easier to use YML or JS. Ultimately, it's your choice, but
 we recommend using yml over json for more complicated configs.
-
-## TypeScript
-
-You can use TypeScript to configure your build. In general we would recommend using JavaScript with typedoc comments, but TypeScript is supported.
-
-### ts-bud
-
-When configuring bud.js with TypeScript you must use `ts-bud` rather than the standard `bud` command.

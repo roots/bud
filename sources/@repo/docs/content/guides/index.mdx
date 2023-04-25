@@ -30,11 +30,9 @@ Add **@roots/bud** as a development dependency using your choice of package mana
 npm install @roots/bud --save-dev
 ```
 
-::: info
+:::info
 
-If you are using pnpm you will need to add `--public-hoist-pattern=*` to the instalation command.
-
-bud.js largely relies on [module hoisting](https://maier.tech/posts/a-guide-to-understanding-how-yarn-hoists-dependencies-and-handles-conflicting-packages). This is not the default behavior for pnpm.
+If you are using pnpm you will need to add `--public-hoist-pattern=*` to the installation command and [use our .pnpmfile.cjs compatibility shim](/guides/general-use/pnpm#pnpmfilecjs-compatibilty-shim).
 
 :::
 
