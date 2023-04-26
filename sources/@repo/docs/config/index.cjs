@@ -117,5 +117,11 @@ module.exports = {
       },
     ],
   ],
-  scripts: [{src: 'https://analytics.umami.is/script.js', defer: true, 'data-website-id': '1b6eddea-80b8-46fa-b237-ab32eeb44b68'}],
+  scripts: [
+    {
+      src: `https://analytics.umami.is/script.js`,
+      defer: true,
+      [`data-website-id`]: `1b6eddea-80b8-46fa-b237-ab32eeb44b68`,
+    },
+  ],
 }
