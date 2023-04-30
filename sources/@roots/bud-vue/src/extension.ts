@@ -57,15 +57,12 @@ export default class Vue extends Extension<
   public override async register(bud: Bud) {
     bud.build
       .setLoader(`vue`, await this.resolve(`vue-loader`, import.meta.url))
-      .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setLoader(
         `vue-style`,
         await this.resolve(`vue-style-loader`, import.meta.url),
       )
-      .setItem(`vue-style`, {
-        ident: `vue-style`,
-        loader: `vue-style`,
-      })
+      .setItem(`vue`, {ident: `vue`, loader: `vue`})
+      .setItem(`vue-style`, {ident: `vue-style`, loader: `vue-style`})
   }
 
   /**
@@ -98,7 +95,8 @@ export default class Vue extends Extension<
       config.module.rules = [
         {
           test: bud.hooks.filter(`pattern.vue`),
-          include: [bud.path(`@src`)],
+          include: [bud.path(`@src`), bud.path(`@modules`)],
+          exclude: [/node_modules/],
           use: [bud.build.items.vue.toWebpack()],
         },
         ...config.module.rules.flatMap(rule =>
