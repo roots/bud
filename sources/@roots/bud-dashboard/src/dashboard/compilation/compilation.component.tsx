@@ -74,6 +74,10 @@ const Compilation = ({
     0,
   )
 
+  const uncachedModuleCount = compilation.modules?.filter(
+    module => !module.cached,
+  )?.length
+
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
@@ -199,7 +203,9 @@ const Compilation = ({
 
       <Title final finalFigure={figures.lineUpRightArc}>
         <Ink.Text dimColor>
-          compiled {compilation.modules?.length} modules in{` `}
+          compiled {compilation.modules?.length} modules (
+          {compilation.modules?.length - uncachedModuleCount} cached) in
+          {` `}
           {duration(compilation.time) as string}
         </Ink.Text>
       </Title>
