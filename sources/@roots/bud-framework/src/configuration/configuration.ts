@@ -1,4 +1,4 @@
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isArray from '@roots/bud-support/lodash/isArray'

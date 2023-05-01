@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, FileWriteError} from '@roots/bud-support/errors'
 import * as args from '@roots/bud-support/utilities/args'
 

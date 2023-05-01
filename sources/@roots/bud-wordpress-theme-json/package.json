@@ -77,14 +77,6 @@
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin",
     "tslib": "2.5.0"
   },
-  "peerDependencies": {
-    "@roots/bud": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

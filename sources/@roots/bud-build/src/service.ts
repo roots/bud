@@ -1,7 +1,7 @@
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Configuration} from '@roots/bud-support/webpack'

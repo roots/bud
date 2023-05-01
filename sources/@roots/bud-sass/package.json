@@ -89,7 +89,6 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
@@ -99,6 +98,7 @@
     "webpack": "5.76.3"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
@@ -107,34 +107,6 @@
     "stylelint-config-recommended-scss": "^9.0.1",
     "stylelint-scss": "^4.6.0",
     "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "postcss-scss": "*",
-    "sass": "*",
-    "sass-loader": "*",
-    "stylelint-config-recommended-scss": "*",
-    "stylelint-scss": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "postcss-scss": {
-      "optional": true
-    },
-    "sass": {
-      "optional": true
-    },
-    "sass-loader": {
-      "optional": true
-    },
-    "stylelint-config-recommended-scss": {
-      "optional": true
-    },
-    "stylelint-scss": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

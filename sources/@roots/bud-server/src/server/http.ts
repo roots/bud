@@ -6,7 +6,7 @@ import {
 
 import type {Connection} from '@roots/bud-framework/services/server'
 import {BaseServer} from '@roots/bud-server/server/base'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * HTTP Server

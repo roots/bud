@@ -114,7 +114,6 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10",
     "@types/tailwindcss": "3.1.0",
@@ -122,6 +121,7 @@
     "webpack": "5.76.3"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
@@ -130,18 +130,6 @@
     "tailwindcss": "3.3.0",
     "tslib": "2.5.0",
     "webpack-virtual-modules": "0.5.0"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "tailwindcss": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "tailwindcss": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

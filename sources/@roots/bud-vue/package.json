@@ -87,34 +87,6 @@
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.7.14"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@vue/compiler-sfc": "*",
-    "vue": "*",
-    "vue-loader": "*",
-    "vue-style-loader": "*",
-    "vue-template-compiler": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "@vue/compiler-sfc": {
-      "optional": true
-    },
-    "vue": {
-      "optional": true
-    },
-    "vue-loader": {
-      "optional": true
-    },
-    "vue-style-loader": {
-      "optional": true
-    },
-    "vue-template-compiler": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

@@ -7,7 +7,7 @@ import type {
 } from '@roots/bud-framework/services/server'
 import {inject} from '@roots/bud-server/inject'
 import type {Watcher} from '@roots/bud-server/server/watcher'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
 
 /**

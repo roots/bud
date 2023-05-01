@@ -182,69 +182,6 @@
     "react": "18.2.0",
     "tslib": "2.5.0"
   },
-  "peerDependencies": {
-    "@roots/browserslist-config": "*",
-    "@roots/bud-api": "*",
-    "@roots/bud-build": "*",
-    "@roots/bud-cache": "*",
-    "@roots/bud-client": "*",
-    "@roots/bud-compiler": "*",
-    "@roots/bud-dashboard": "*",
-    "@roots/bud-entrypoints": "*",
-    "@roots/bud-extensions": "*",
-    "@roots/bud-framework": "*",
-    "@roots/bud-hooks": "*",
-    "@roots/bud-server": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-terser": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/browserslist-config": {
-      "optional": true
-    },
-    "@roots/bud-api": {
-      "optional": true
-    },
-    "@roots/bud-build": {
-      "optional": true
-    },
-    "@roots/bud-cache": {
-      "optional": true
-    },
-    "@roots/bud-client": {
-      "optional": true
-    },
-    "@roots/bud-compiler": {
-      "optional": true
-    },
-    "@roots/bud-dashboard": {
-      "optional": true
-    },
-    "@roots/bud-entrypoints": {
-      "optional": true
-    },
-    "@roots/bud-extensions": {
-      "optional": true
-    },
-    "@roots/bud-framework": {
-      "optional": true
-    },
-    "@roots/bud-hooks": {
-      "optional": true
-    },
-    "@roots/bud-server": {
-      "optional": true
-    },
-    "@roots/bud-support": {
-      "optional": true
-    },
-    "@roots/bud-terser": {
-      "optional": true
-    },
-    "tslib": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

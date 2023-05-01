@@ -69,42 +69,18 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-esbuild": "workspace:sources/@roots/bud-esbuild",
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-esbuild": "*",
-    "@roots/bud-postcss": "*",
-    "@roots/bud-swc": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "@roots/bud-babel": {
-      "optional": true
-    },
-    "@roots/bud-esbuild": {
-      "optional": true
-    },
-    "@roots/bud-postcss": {
-      "optional": true
-    },
-    "@roots/bud-swc": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

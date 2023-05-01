@@ -103,7 +103,9 @@ export default class Vue extends Extension<
           typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
         ),
       ]
+
       config.plugins.push(new VueLoaderPlugin())
+
       return config
     })
   }

@@ -5,7 +5,7 @@ import type {
   AsyncStore,
 } from '@roots/bud-framework/registry'
 import type Value from '@roots/bud-framework/value'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
 import {Hooks} from '../base/base.js'

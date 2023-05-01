@@ -1,7 +1,7 @@
 /// <reference types="@roots/bud-postcss" />
 
 import type {purgecss} from './api.js'
-import type * as purgeExtension from './extension.js'
+import type BudPurgeCSS from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -9,6 +9,6 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-purgecss': typeof purgeExtension
+    '@roots/bud-purgecss': BudPurgeCSS
   }
 }

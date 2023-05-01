@@ -1,7 +1,7 @@
 import BudCommand, {ArgsModifier} from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 import {detectPackageManager} from '../helpers/detectPackageManager.js'
 import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'

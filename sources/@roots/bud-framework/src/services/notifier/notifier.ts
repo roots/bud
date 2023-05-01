@@ -1,7 +1,7 @@
 import {platform} from 'node:os'
 
 import {Bud, Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
 import type {

@@ -77,28 +77,16 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10",
     "@types/prettier": "2.7.2"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "prettier": "2.8.7",
     "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "prettier": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "prettier": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

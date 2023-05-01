@@ -1,17 +1,20 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import postcss from '@roots/bud-postcss'
-import {purgecss} from './api.js'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import * as Extension from './extension.js'
+import {purgecss} from '../src/api.js'
+import BudPurgeCSS from '../src/extension.js'
 
 describe(`@roots/bud-purgecss`, () => {
   let bud: Bud
+  let Extension: BudPurgeCSS
 
   beforeEach(async () => {
     bud = await factory()
     await bud.build.make()
     await bud.extensions.add(postcss)
+    // @ts-ignore
+    Extension = new BudPurgeCSS(bud)
   })
 
   it(`should be constructable`, () => {
