@@ -79,14 +79,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "8.21.3",
+    "@types/eslint": "8.37.0",
     "@types/node": "18.15.10"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "eslint": "8.38.0",
+    "eslint": "8.39.0",
     "eslint-webpack-plugin": "4.0.1",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
