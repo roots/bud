@@ -1,7 +1,7 @@
 {
-  "name": "@roots/dependencies",
+  "name": "@roots/create-bud-app",
   "version": "0.0.0",
-  "description": "Automated package installation",
+  "description": "Create bud app",
   "engines": {
     "node": ">=16"
   },
@@ -10,20 +10,6 @@
       "name": "Kelly Mears",
       "email": "developers@tinypixel.dev",
       "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "url": "https://github.com/retlehs"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    },
-    {
-      "name": "Brandon",
-      "email": "brandon@tendency.me",
-      "url": "https://github.com/Log1x"
     }
   ],
   "license": "MIT",
@@ -35,21 +21,27 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/dependencies"
+    "directory": "sources/@roots/create-bud-app"
   },
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
-    "dependencies",
-    "utility"
+    "bud",
+    "create-bud-app",
+    "roots"
   ],
   "files": [
     "docs",
+    "templates",
     "lib",
     "src"
   ],
+  "bin": "./lib/index.js",
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
   },
   "typesVersions": {
     "*": {
@@ -62,10 +54,13 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
+    "@types/node": "18.15.10",
+    "type-fest": "3.7.1"
   },
   "dependencies": {
+    "enquirer": "2.3.6",
     "helpful-decorators": "2.1.0",
+    "lodash": "4.17.21",
     "tslib": "2.5.0"
   },
   "volta": {
