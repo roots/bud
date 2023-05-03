@@ -16,7 +16,7 @@ const prompt = new MultiSelect({
   ],
   result(answer: Array<Record<string, string>>) {
     return Object.entries(this.map(answer)).reduce(
-      (all, [name, value]) => [...all, {name, value}],
+      (all, [, value]) => [...all, value],
       [],
     )
   },
@@ -24,7 +24,9 @@ const prompt = new MultiSelect({
 
 export const run = async () => {
   try {
-    set(`transpilers`, await prompt.run())
+    const result = await prompt.run()
+    set(`transpilers`, result)
+    console.log(`Using`, ...result)
   } catch (error) {
     throw new Error()
   }

@@ -58,7 +58,9 @@
     "type-fest": "3.7.1"
   },
   "dependencies": {
+    "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "enquirer": "2.3.6",
+    "execa": "7.1.1",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tslib": "2.5.0"

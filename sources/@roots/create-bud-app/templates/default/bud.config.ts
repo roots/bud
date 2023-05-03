@@ -1,8 +1,8 @@
-import {Bud} from `@roots/bud`
+import type {Bud} from '@roots/bud'
 
 /**
  * bud.js configuration
  */
 export default async (bud: Bud) => {
-  bud.entry(`app`, `@src/index.ts`)
+  bud.entry(`app`, `index`)
 }

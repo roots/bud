@@ -1,11 +1,21 @@
 interface data {
+  name: string
+  username: string
   config: boolean
+  directory: string
+  license: string
+  pacman: string
   package: string
   transpilers: Array<string>
 }
 
 export const data: data = {
+  name: ``,
+  username: ``,
+  license: ``,
+  directory: ``,
   config: null,
+  pacman: ``,
   package: ``,
   transpilers: [],
 }

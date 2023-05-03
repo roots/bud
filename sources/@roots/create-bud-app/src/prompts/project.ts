@@ -26,16 +26,17 @@ const prompt = new Snippet({
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/\${username}/\${name}.git",
+    "url": "https://github.com/\${username}/\${name}.git"
   },
   "license": "\${license:MIT}",
+  "type": "module",
   "scripts": {
     "build": "bud build production",
     "dev": "bud build development",
     "ci": "bud build --no-cache"
   },
   "devDependencies": {
-    "@roots/bud": "latest",
+    "@roots/bud": "latest"
   }
 }
 `,
@@ -43,7 +44,18 @@ const prompt = new Snippet({
 
 export const run = async () => {
   try {
-    set(`package`, (await prompt.run()).result)
+    const {result, values} = await prompt.run()
+
+    set(`name`, values.name)
+    process.stdout.write(`Project name set to ${values.name} \n`)
+
+    set(`username`, values.username)
+    process.stdout.write(`Github username set to ${values.username} \n`)
+
+    set(`license`, values.license)
+    process.stdout.write(`License set to ${values.license} \n`)
+
+    set(`package`, result)
   } catch (error) {
     throw new Error(error)
   }
