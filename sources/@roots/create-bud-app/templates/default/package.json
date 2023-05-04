@@ -1,0 +1,20 @@
+{
+  "name": "{{name}}",
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/{{username}}/{{name}}.git"
+  },
+  "license": "{{license}}",
+  "type": "module",
+  "scripts": {
+    "build": "bud build production",
+    "dev": "bud build development",
+    "ci": "bud build --no-cache"
+  },
+  "devDependencies": {
+    "@roots/bud": "{{version}}"
+  }
+}

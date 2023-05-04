@@ -1,28 +1,15 @@
-/* eslint-disable n/no-process-env */
-import type {execa} from 'execa'
+import type CreateCommand from '../commands/create.js'
 
-export default async function install(sh: typeof execa) {
-  const {data} = await import(`../state.js`)
-
+export default async function buildTask(command: CreateCommand) {
   process.stdout.write(`Building project... \n`)
 
-  switch (data.pacman) {
+  switch (command.packageManager) {
     case `npm`:
-      await sh(`npx`, [`bud`, `build`, `production`], {
-        cwd: data.directory,
-        env: {
-          ...process.env,
-          NODE_ENV: `development`,
-        },
-      })
+      await command.sh(`npx`, [`bud`, `build`, `production`])
+      break
 
     case `yarn`:
-      await sh(`yarn`, [`bud`, `build`, `production`], {
-        cwd: data.directory,
-        env: {
-          ...process.env,
-          NODE_ENV: `development`,
-        },
-      })
+      await command.sh(`yarn`, [`bud`, `build`, `production`])
+      break
   }
 }

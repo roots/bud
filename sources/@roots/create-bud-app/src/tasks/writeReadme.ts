@@ -1,28 +1,26 @@
-import {dirname, join, resolve} from 'node:path'
-import {fileURLToPath} from 'node:url'
+import {join} from 'node:path'
 
-import type {Filesystem} from '@roots/filesystem'
+import type CreateCommand from '../commands/create.js'
+import templateEngine from '../utilities/templateEngine.js'
 
-export default async function writeReadme(fs: Filesystem) {
-  const {data} = await import(`../state.js`)
+export default async function writePackageManifest(
+  command: CreateCommand,
+) {
+  command.context.stdout.write(`Writing README.md... \n`)
 
-  process.stdout.write(`Installing README.md... \n`)
+  const source = await command.fs.read(
+    join(command.createRoot, `templates`, `default`, `README.md`),
+    `utf8`,
+  )
 
-  if (data.config) {
-    await fs.copy(
-      resolve(
-        process.cwd(),
-        join(
-          dirname(fileURLToPath(import.meta.url)),
-          `..`,
-          `..`,
-          `templates`,
-          `default`,
-          `README.md`,
-        ),
-      ),
-      join(data.directory, `README.md`),
-      {overwrite: true},
-    )
-  }
+  const template = templateEngine.compile(source)
+
+  const result = template({
+    name: command.name,
+    username: command.username,
+    license: command.license,
+    version: command.version,
+  })
+
+  await command.fs.write(`README.md`, result)
 }

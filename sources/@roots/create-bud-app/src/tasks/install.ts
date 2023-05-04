@@ -1,47 +1,34 @@
-/* eslint-disable n/no-process-env */
-import type {execa} from 'execa'
+/* eslint-disable no-console */
+import type CreateCommand from '../commands/create.js'
 
-import getLatestVersion from '../utilities/getLatestVersion.js'
+export default async function installTask(command: CreateCommand) {
+  process.stdout.write(`Installing dev dependencies... \n`)
 
-export default async function install(sh: typeof execa) {
-  const {data} = await import(`../state.js`)
-
-  const latest = await getLatestVersion()
-
-  process.stdout.write(`Installing dependencies... \n`)
-
-  switch (data.pacman) {
+  switch (command.packageManager) {
     case `npm`:
-      await sh(
-        data.pacman,
-        [
-          `install`,
-          ...data.transpilers.map(mapVersion(latest)),
-          `--dev-only`,
-        ],
-        {
-          cwd: data.directory,
-          env: {
-            ...process.env,
-            NODE_ENV: `development`,
-          },
-        },
-      )
+      await command.sh(`npm`, [
+        `install`,
+        ...command.support.map(mapVersion(command.version)),
+        `--save-dev`,
+      ])
+
+      break
+
     case `yarn`:
-      await sh(
-        data.pacman,
-        [`add`, ...data.transpilers.map(mapVersion(latest)), `--dev`],
-        {
-          cwd: data.directory,
-          env: {
-            ...process.env,
-            NODE_ENV: `development`,
-          },
-        },
-      )
+      await command.sh(`yarn`, [
+        `add`,
+        ...command.support.map(mapVersion(command.version)),
+        `--dev`,
+      ])
+
+      break
   }
 }
 
 function mapVersion(version: string): (signifier: string) => string {
-  return (signifier: string) => `${signifier}@${version}`
+  return (signifier: string) => {
+    return signifier.startsWith(`@roots`) && !signifier.includes(`@`)
+      ? `${signifier}@${version}`
+      : signifier
+  }
 }

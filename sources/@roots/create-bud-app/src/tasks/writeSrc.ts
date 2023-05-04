@@ -1,28 +1,19 @@
-import {dirname, join, resolve} from 'node:path'
-import {fileURLToPath} from 'node:url'
+import {join} from 'node:path'
 
-import type {Filesystem} from '@roots/filesystem'
+import type CreateCommand from '../commands/create.js'
 
-export default async function writeSrc(fs: Filesystem) {
-  const {data} = await import(`../state.js`)
+export default async function writeSrcTask(command: CreateCommand) {
+  command.context.stdout.write(`Writing src/**/*... \n`)
 
-  process.stdout.write(`Writing boilerplate source... \n`)
-
-  if (data.config) {
-    await fs.copy(
-      resolve(
-        process.cwd(),
-        join(
-          dirname(fileURLToPath(import.meta.url)),
-          `..`,
-          `..`,
-          `templates`,
-          `default`,
-          `src`,
-        ),
-      ),
-      join(data.directory, `src`),
-      {overwrite: true},
+  if (command.support.includes(`@roots/bud-react`)) {
+    await command.fs.copy(
+      join(command.createRoot, `templates`, `react`, `src`),
+      `src`,
+    )
+  } else {
+    await command.fs.copy(
+      join(command.createRoot, `templates`, `default`, `src`),
+      `src`,
     )
   }
 }

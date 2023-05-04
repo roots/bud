@@ -3,11 +3,11 @@ import {join} from 'node:path'
 import type CreateCommand from '../commands/create.js'
 import templateEngine from '../utilities/templateEngine.js'
 
-export default async function writeConfigTask(command: CreateCommand) {
-  command.context.stdout.write(`Writing bud.config.ts... \n`)
+export default async function writeTsConfig(command: CreateCommand) {
+  command.context.stdout.write(`Writing tsconfig.json... \n`)
 
   const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `bud.config.ts`),
+    join(command.createRoot, `templates`, `default`, `tsconfig.json`),
     `utf8`,
   )
 
@@ -20,5 +20,5 @@ export default async function writeConfigTask(command: CreateCommand) {
     version: command.version,
   })
 
-  await command.fs.write(`bud.config.ts`, result)
+  await command.fs.write(`tsconfig.json`, result)
 }

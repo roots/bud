@@ -1,13 +1,26 @@
-import type {Filesystem} from '@roots/filesystem'
+import {join} from 'node:path'
 
-export default async function writePackageManifest(fs: Filesystem) {
-  const {data} = await import(`../state.js`)
+import type CreateCommand from '../commands/create.js'
+import templateEngine from '../utilities/templateEngine.js'
 
-  process.stdout.write(`Writing package.json... \n`)
+export default async function writePackageManifest(
+  command: CreateCommand,
+) {
+  command.context.stdout.write(`Writing package.json... \n`)
 
-  await fs.write(`package.json`, data.package)
+  const source = await command.fs.read(
+    join(command.createRoot, `templates`, `default`, `package.json`),
+    `utf8`,
+  )
 
-  if (data.pacman === `yarn`) {
-    await fs.write(`yarn.lock`, ``)
-  }
+  const template = templateEngine.compile(source)
+
+  const result = template({
+    name: command.name,
+    username: command.username,
+    license: command.license,
+    version: command.version,
+  })
+
+  await command.fs.write(`package.json`, result)
 }

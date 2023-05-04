@@ -8504,11 +8504,14 @@ __metadata:
     "@roots/filesystem": "workspace:sources/@roots/filesystem"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.15.10
+    clipanion: 3.2.0
     enquirer: 2.3.6
     execa: 7.1.1
+    handlebars: 4.7.7
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.5.0
+    typanion: 3.12.1
     type-fest: 3.7.1
   bin:
     create-bud-app: ./lib/index.js

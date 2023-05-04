@@ -1,15 +1,9 @@
 import Confirm from 'enquirer/lib/prompts/confirm.js'
 
-import {set} from '../state.js'
+import type CreateCommand from '../commands/create.js'
 
-const config = new Confirm({
-  message: `Do you want to create a starter config (bud.config.ts)?`,
-})
-
-export const run = async () => {
-  try {
-    set(`config`, await config.run())
-  } catch (error) {
-    throw new Error(error)
-  }
-}
+export default (command: CreateCommand) =>
+  new Confirm({
+    message: `Do you want to create a starter config (bud.config.ts)?`,
+    initial: command.config,
+  })
