@@ -14,29 +14,14 @@ export default (command: CreateCommand) =>
     name: `css-transpiler`,
     message: `Add css transpiler support`,
     choices: Object.values(choices),
-    initial: getInitial(command),
+    initial: command.support.filter(s => choices[s]),
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,
     ) {
-      return Object.entries(this.map(answer)).reduce(
-        (all, [, value]) => [...all, value],
+      return Object.keys(this.map(answer)).reduce(
+        (all, support) => [...all, support],
         [],
       )
     },
   })
-
-const getInitial = (command: CreateCommand) => {
-  if (
-    !command.support.includes(`postcss`) &&
-    !command.support.includes(`sass`)
-  )
-    return [choices.postcss.name]
-
-  const value = []
-
-  command.support.includes(`postcss`) && value.push(choices.postcss.name)
-  command.support.includes(`sass`) && value.push(choices.sass.name)
-
-  return value
-}

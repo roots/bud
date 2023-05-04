@@ -15,32 +15,14 @@ export default (command: CreateCommand) =>
     name: `transpiler`,
     message: `Add transpiler support`,
     choices: Object.values(choices),
-    initial: getInitial(command),
+    initial: command.support.filter(s => choices[s]),
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,
     ) {
-      return Object.entries(this.map(answer)).reduce(
-        (all, [, value]) => [...all, value],
+      return Object.keys(this.map(answer)).reduce(
+        (all, support) => [...all, support],
         [],
       )
     },
   })
-
-const getInitial = (command: CreateCommand) => {
-  if (
-    !command.support.includes(`swc`) &&
-    !command.support.includes(`typescript`) &&
-    !command.support.includes(`babel`)
-  )
-    return [choices.swc]
-
-  const value = []
-
-  command.support.includes(`swc`) && value.push(choices.swc.name)
-  command.support.includes(`babel`) && value.push(choices.babel.name)
-  command.support.includes(`typescript`) &&
-    value.push(choices.typescript.name)
-
-  return value
-}

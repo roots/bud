@@ -9,6 +9,9 @@
   },
   "license": "{{license}}",
   "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
   "scripts": {
     "build": "bud build production",
     "dev": "bud build development",

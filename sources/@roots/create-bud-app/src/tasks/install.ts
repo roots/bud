@@ -8,7 +8,9 @@ export default async function installTask(command: CreateCommand) {
     case `npm`:
       await command.sh(`npm`, [
         `install`,
-        ...command.support.map(mapVersion(command.version)),
+        ...new Set(
+          command.support.map(mapVersion(command)).filter(Boolean),
+        ),
         `--save-dev`,
       ])
 
@@ -17,7 +19,9 @@ export default async function installTask(command: CreateCommand) {
     case `yarn`:
       await command.sh(`yarn`, [
         `add`,
-        ...command.support.map(mapVersion(command.version)),
+        ...new Set(
+          command.support.map(mapVersion(command)).filter(Boolean),
+        ),
         `--dev`,
       ])
 
@@ -25,10 +29,10 @@ export default async function installTask(command: CreateCommand) {
   }
 }
 
-function mapVersion(version: string): (signifier: string) => string {
-  return (signifier: string) => {
-    return signifier.startsWith(`@roots`) && !signifier.includes(`@`)
-      ? `${signifier}@${version}`
-      : signifier
+function mapVersion(command: CreateCommand): (key: string) => string {
+  return (key: string) => {
+    return command.extensions[key]
+      ? `${command.extensions[key]}@${command.version}`
+      : key
   }
 }

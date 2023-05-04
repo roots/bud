@@ -12,6 +12,7 @@ import createConfigPrompt from '../prompts/config.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
 import createProjectPrompt from '../prompts/project.js'
 import createCssSupportPrompt from '../prompts/support.css.js'
+import createEnvPrompt from '../prompts/support.env.js'
 import createFrameworkSupportPrompt from '../prompts/support.framework.js'
 import createJsSupportPrompt from '../prompts/support.js.js'
 import buildTask from '../tasks/build.js'
@@ -83,7 +84,7 @@ export default class CreateCommand extends Command {
    * --support
    */
   public support = Option.Array(`--support,-s`, [], {
-    description: `Support for various stack components (swc, ts, babel, esbuild, sass, postcss)`,
+    description: `Support for various stack components (swc, ts, babel, sass, postcss)`,
   })
 
   /**
@@ -104,6 +105,22 @@ export default class CreateCommand extends Command {
    * Filesystem instance
    */
   public fs: Filesystem
+
+  /**
+   * Map of supports to extensions
+   */
+  public extensions: Record<string, string> = {
+    babel: `@roots/bud-babel`,
+    emotion: `@roots/bud-emotion`,
+    postcss: `@roots/bud-postcss`,
+    react: `@roots/bud-react`,
+    sass: `@roots/bud-sass`,
+    swc: `@roots/bud-swc`,
+    tailwindcss: `@roots/bud-tailwindcss`,
+    typescript: `@roots/bud-typescript`,
+    wordpress: `@roots/bud-preset-wordpress`,
+    vue: `@roots/bud-vue`,
+  }
 
   /**
    * Run arbitrary shell commands
@@ -142,6 +159,16 @@ export default class CreateCommand extends Command {
     )
   }
 
+  public get hasReactCompatibleTranspiler() {
+    return [`swc`, `babel`, `typescript`].some(entry =>
+      this.support.includes(entry),
+    )
+  }
+
+  public get hasEmotionCompatibleTranspiler() {
+    return [`swc`, `babel`].some(entry => this.support.includes(entry))
+  }
+
   /**
    * Execute
    */
@@ -151,65 +178,29 @@ export default class CreateCommand extends Command {
 
     await this.header()
 
-    if (this.interactive) {
-      this.packageManager = await createPackageManagerPrompt(this).run()
-
-      const project = await createProjectPrompt(this).run()
-      this.name = project.name
-      this.username = project.username
-      this.license = project.license
-
-      this.support.push(...(await createJsSupportPrompt(this).run()))
-      this.support.push(...(await createCssSupportPrompt(this).run()))
-      this.support.push(
-        ...(await createFrameworkSupportPrompt(this).run()),
+    if (!this.interactive && !this.name) {
+      throw new Error(
+        `--name is required when running with --no-interactive`,
       )
-
-      if (this.config) {
-        this.config = await createConfigPrompt(this).run()
-      }
     }
 
-    if (this.support.includes(`@roots/bud-react`)) {
-      this.dependencies.push(`react`, `react-dom`)
-    }
-    if (this.support.includes(`@roots/bud-vue`)) {
-      this.dependencies.push(`vue`)
-    }
-    if (this.support.includes(`@roots/bud-tailwindcss`)) {
-      this.dependencies.push(`tailwindcss`)
-    }
+    if (this.interactive) await this.runPrompts()
 
-    this.fs = new Filesystem(this.directory)
+    await this.runTasks()
 
-    this.context.stdout.write(`\n`)
-
-    const hasPackageJSON = await this.fs.exists(`package.json`)
-    if (!hasPackageJSON) await writePackageManifest(this)
-
-    const hasReadme = await this.fs.exists(`README.md`)
-    if (!hasReadme) await writeReadme(this)
-
-    const hasConfig = await this.fs.exists(`bud.config.ts`)
-    if (!hasConfig && this.config !== false) await writeConfig(this)
-
-    await installTask(this)
-    await installProdTask(this)
-    await writeSrcTask(this)
-    await writeTsConfig(this)
-
-    if (this.support.includes(`@roots/bud-tailwindcss`)) {
-      await writeTailwindConfig(this)
-    }
-
-    await buildTask(this)
     await this.post()
   }
 
+  /**
+   * CLI header
+   */
   public async header() {
     this.context.stdout.write(`\ncreate-bud-app \n\n`)
   }
 
+  /**
+   * CLI final message
+   */
   public async post() {
     this.context.stdout.write(
       `\nProject ready for you to start building!\n\n`,
@@ -225,5 +216,132 @@ export default class CreateCommand extends Command {
       } bud build\` to compile your project for production.\n\n`,
     )
     this.context.stdout.write(`Happy hacking!\n\n`)
+  }
+
+  /**
+   * Run user prompts
+   */
+  public async runPrompts() {
+    this.packageManager = await createPackageManagerPrompt(this).run()
+
+    const projectPrompt = await createProjectPrompt(this).run()
+    const jsPrompt = createJsSupportPrompt(this)
+    const cssPrompt = createCssSupportPrompt(this)
+    const frameworkPrompt = createFrameworkSupportPrompt(this)
+    const envPrompt = createEnvPrompt(this)
+
+    this.name = projectPrompt.name
+    this.username = projectPrompt.username
+    this.license = projectPrompt.license
+
+    this.support.push(...(await envPrompt.run()))
+    this.support.push(...(await jsPrompt.run()))
+    this.support.push(...(await cssPrompt.run()))
+    this.support.push(...(await frameworkPrompt.run()))
+
+    if (this.config) {
+      this.config = await createConfigPrompt(this).run()
+    }
+
+    this.context.stdout.write(`\n`)
+  }
+
+  /**
+   * Run tasks
+   */
+  public async runTasks() {
+    if (this.support.includes(`react`)) {
+      this.dependencies.push(`react`, `react-dom`)
+
+      if (!this.hasReactCompatibleTranspiler) {
+        this.support.push(`swc`)
+        this.context.stdout.write(
+          `A JS compiler is required for React. We're defaulting to swc (@roots/bud-swc).\n\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`tailwindcss`)) {
+      this.dependencies.push(`tailwindcss`)
+
+      if (!this.support.includes(`postcss`)) {
+        this.support.push(`postcss`)
+        this.context.stdout.write(
+          `PostCSS is required for TailwindCSS. Adding postcss extension support (@roots/bud-postcss).\n\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`emotion`)) {
+      if (!this.hasEmotionCompatibleTranspiler) {
+        this.support.push(`swc`)
+        this.context.stdout.write(
+          `A compatible JS compiler is required for Emotion. We're defaulting to swc (@roots/bud-swc).\n\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`vue`)) this.dependencies.push(`vue`)
+
+    this.fs = new Filesystem(this.directory)
+
+    const hasPackageJSON = await this.fs.exists(`package.json`)
+    if (!hasPackageJSON) {
+      await writePackageManifest(this)
+    } else {
+      this.context.stdout.write(`package.json already exists. Skipping.\n`)
+    }
+
+    const hasReadme = await this.fs.exists(`README.md`)
+    if (!hasReadme) {
+      await writeReadme(this)
+    } else {
+      this.context.stdout.write(`README.md already exists. Skipping.\n`)
+    }
+
+    const hasSrc = await this.fs.exists(`src`)
+    if (!hasSrc) {
+      await writeSrcTask(this)
+    } else {
+      this.context.stdout.write(
+        `src directory already exists. Skipping.\n`,
+      )
+    }
+
+    const hasJsConfig = await this.fs.exists(`jsconfig.json`)
+    const hasTsConfig = await this.fs.exists(`tsconfig.json`)
+    if (!hasTsConfig && !hasJsConfig) {
+      await writeTsConfig(this)
+    } else {
+      this.context.stdout.write(
+        `tsconfig.json or jsconfig.json already exists. Skipping.\n`,
+      )
+    }
+
+    if (this.config) {
+      const hasConfig = await this.fs.exists(`bud.config.ts`)
+      if (!hasConfig) {
+        await writeConfig(this)
+      } else {
+        this.context.stdout.write(
+          `bud.config.ts already exists. Skipping.\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`tailwindcss`)) {
+      const hasTailwindConfig = await this.fs.exists(`tailwind.config.ts`)
+      if (!hasTailwindConfig) {
+        await writeTailwindConfig(this)
+      } else {
+        this.context.stdout.write(
+          `tailwind.config.ts already exists. Skipping.\n`,
+        )
+      }
+    }
+
+    await installTask(this)
+    await installProdTask(this)
+    await buildTask(this)
   }
 }

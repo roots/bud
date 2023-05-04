@@ -5,16 +5,13 @@ import MultiSelect from 'enquirer/lib/prompts/multiselect.js'
 import type CreateCommand from '../commands/create.js'
 
 const choices = {
-  react: {name: `react`, value: `@roots/bud-react`},
-  tailwindcss: {name: `tailwindcss`, value: `@roots/bud-tailwindcss`},
-  vue: {name: `vue`, value: `@roots/bud-vue`},
-  emotion: {name: `emotion`, value: `@roots/bud-emotion`},
+  wordpress: {name: `wordpress`, value: `@roots/bud-preset-wordpress`},
 }
 
 export default (command: CreateCommand) =>
   new MultiSelect({
-    name: `component-support`,
-    message: `Add support for libraries & frameworks`,
+    name: `env-support`,
+    message: `Add support for runtime environments`,
     choices: Object.values(choices),
     initial: command.support.filter(s => choices[s]),
     result(
