@@ -11,17 +11,20 @@ import isUndefined from 'lodash/isUndefined.js'
 import createConfigPrompt from '../prompts/config.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
 import createProjectPrompt from '../prompts/project.js'
+import createComponentsSupportPrompt from '../prompts/support.components.js'
 import createCssSupportPrompt from '../prompts/support.css.js'
 import createEnvPrompt from '../prompts/support.env.js'
-import createFrameworkSupportPrompt from '../prompts/support.framework.js'
 import createJsSupportPrompt from '../prompts/support.js.js'
+import createTestSupportPrompt from '../prompts/support.qa.js'
 import buildTask from '../tasks/build.js'
 import installTask from '../tasks/install.js'
 import installProdTask from '../tasks/install.prod.js'
 import writeConfig from '../tasks/writeConfig.js'
+import writeEslintConfig from '../tasks/writeEslintConfig.js'
 import writePackageManifest from '../tasks/writePackageManifest.js'
 import writeReadme from '../tasks/writeReadme.js'
 import writeSrcTask from '../tasks/writeSrc.js'
+import writeStylelintConfig from '../tasks/writeStylelintConfig.js'
 import writeTailwindConfig from '../tasks/writeTailwindConfig.js'
 import writeTsConfig from '../tasks/writeTsConfig.js'
 import getGitUser from '../utilities/getGitUser.js'
@@ -120,6 +123,8 @@ export default class CreateCommand extends Command {
     typescript: `@roots/bud-typescript`,
     wordpress: `@roots/bud-preset-wordpress`,
     vue: `@roots/bud-vue`,
+    eslint: `@roots/bud-eslint`,
+    stylelint: `@roots/bud-stylelint`,
   }
 
   /**
@@ -227,8 +232,9 @@ export default class CreateCommand extends Command {
     const projectPrompt = await createProjectPrompt(this).run()
     const jsPrompt = createJsSupportPrompt(this)
     const cssPrompt = createCssSupportPrompt(this)
-    const frameworkPrompt = createFrameworkSupportPrompt(this)
+    const frameworkPrompt = createComponentsSupportPrompt(this)
     const envPrompt = createEnvPrompt(this)
+    const testPrompt = createTestSupportPrompt(this)
 
     this.name = projectPrompt.name
     this.username = projectPrompt.username
@@ -238,6 +244,7 @@ export default class CreateCommand extends Command {
     this.support.push(...(await jsPrompt.run()))
     this.support.push(...(await cssPrompt.run()))
     this.support.push(...(await frameworkPrompt.run()))
+    this.support.push(...(await testPrompt.run()))
 
     if (this.config) {
       this.config = await createConfigPrompt(this).run()
@@ -336,6 +343,33 @@ export default class CreateCommand extends Command {
       } else {
         this.context.stdout.write(
           `tailwind.config.ts already exists. Skipping.\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`eslint`)) {
+      this.support.push(`@roots/eslint-config`)
+      const hasEslintConfig = (await this.fs.list()).some(file =>
+        file.includes(`eslint`),
+      )
+      if (!hasEslintConfig) {
+        await writeEslintConfig(this)
+      } else {
+        this.context.stdout.write(
+          `eslint config already exists. Skipping.\n`,
+        )
+      }
+    }
+
+    if (this.support.includes(`stylelint`)) {
+      const hasStylelintConfig = (await this.fs.list()).some(file =>
+        file.includes(`stylelint`),
+      )
+      if (!hasStylelintConfig) {
+        await writeStylelintConfig(this)
+      } else {
+        this.context.stdout.write(
+          `stylelint config already exists. Skipping.\n`,
         )
       }
     }

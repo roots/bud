@@ -1,5 +1,5 @@
 <template>
-  <div className="App">
+  <div className="app">
     <div className="header">
       <Logo />
       Edit <code>src/components/app.vue</code> and save to reload
@@ -14,9 +14,9 @@ import Logo from './logo.svg.vue'
 <style>
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+    Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
 }
 
 code {
@@ -24,7 +24,7 @@ code {
     monospace;
 }
 
-.App {
+.app {
   width: 100vw;
   max-width: 100vw;
   height: 100vh;
@@ -33,13 +33,13 @@ code {
   display: flex;
   justify-content: center;
   align-content: center;
-  background-color: rgba(4, 1, 17, 1);
+  background-color: rgb(4 1 17);
 
   & .logo {
     height: 30vmin;
     pointer-events: none;
     margin-bottom: 2rem;
-    animation: App-logo-spin infinite 20s linear;
+    animation: app-logo-spin infinite 20s linear;
   }
 
   & .header {
@@ -54,10 +54,11 @@ code {
   }
 }
 
-@keyframes App-logo-spin {
+@keyframes app-logo-spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
