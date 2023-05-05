@@ -12,6 +12,13 @@ export default async function writeSrcTask(command: CreateCommand) {
     )
   }
 
+  if (command.support.includes(`vue`)) {
+    return await command.fs.copy(
+      join(command.createRoot, `templates`, `vue`, `src`),
+      `src`,
+    )
+  }
+
   await command.fs.copy(
     join(command.createRoot, `templates`, `default`, `src`),
     `src`,
