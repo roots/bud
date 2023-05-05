@@ -1,12 +1,14 @@
 /* eslint-disable n/no-process-env */
 
-import {dirname, join, resolve} from 'node:path'
+import {dirname, join, normalize, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 import {Filesystem} from '@roots/filesystem'
 import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import isUndefined from 'lodash/isUndefined.js'
+import ora from 'ora'
+import {isArray, isLiteral, isOneOf} from 'typanion'
 
 import createConfigPrompt from '../prompts/config.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
@@ -17,23 +19,88 @@ import createEnvPrompt from '../prompts/support.env.js'
 import createJsSupportPrompt from '../prompts/support.js.js'
 import createTestSupportPrompt from '../prompts/support.qa.js'
 import buildTask from '../tasks/build.js'
-import installTask from '../tasks/install.js'
+import installDevTask from '../tasks/install.dev.js'
 import installProdTask from '../tasks/install.prod.js'
-import writeConfig from '../tasks/writeConfig.js'
-import writeEslintConfig from '../tasks/writeEslintConfig.js'
-import writePackageManifest from '../tasks/writePackageManifest.js'
-import writeReadme from '../tasks/writeReadme.js'
-import writeSrcTask from '../tasks/writeSrc.js'
-import writeStylelintConfig from '../tasks/writeStylelintConfig.js'
-import writeTailwindConfig from '../tasks/writeTailwindConfig.js'
-import writeTsConfig from '../tasks/writeTsConfig.js'
+import writeConfig from '../tasks/write.bud.config.js'
+import writeEslintConfig from '../tasks/write.eslint.config.js'
+import writeGitignoreConfigTask from '../tasks/write.gitignore.js'
+import writePackageManifest from '../tasks/write.package.js'
+import writePrettierConfig from '../tasks/write.prettier.config.js'
+import writeReadme from '../tasks/write.readme.js'
+import writeSrcTask from '../tasks/write.src.js'
+import writeStylelintConfig from '../tasks/write.stylelint.config.js'
+import writeTailwindConfig from '../tasks/write.tailwind.config.js'
+import writeTsConfig from '../tasks/write.tsconfig.js'
 import getGitUser from '../utilities/getGitUser.js'
 import getLatestVersion from '../utilities/getLatestVersion.js'
+
+type supports = Array<
+  | `swc`
+  | `typescript`
+  | `babel`
+  | `emotion`
+  | `sass`
+  | `postcss`
+  | `tailwindcss`
+  | `wordpress`
+  | `react`
+  | `vue`
+  | `eslint`
+  | `stylelint`
+  | `prettier`
+>
 
 /**
  * create-bud-app command
  */
 export default class CreateCommand extends Command {
+  /**
+   * The command path
+   */
+  public static override paths = [Command.Default]
+
+  /**
+   * The command usage
+   */
+  public static override usage = Command.Usage({
+    description: `Scaffolding tool for bud.js projects`,
+    details: `
+      This command scaffolds a new bud.js project. It can also be used to add support for
+      additional features to an existing project.
+    `,
+    examples: [
+      [`Scaffold project interactively`, `npx create-bud-app`],
+      [
+        `Scaffold project in a target directory`,
+        `npx create-bud-app my-project`,
+      ],
+      [
+        `Scaffold project non-interactively`,
+        `npx create-bud-app --no-interactive`,
+      ],
+      [
+        `Add additional dependencies`,
+        `npx create-bud-app --dependencies redux --dependencies react-router`,
+      ],
+      [
+        `Add additional devDependencies`,
+        `npx create-bud-app --devDependencies vitest`,
+      ],
+      [`Add support for swc`, `npx create-bud-app --support swc`],
+      [
+        `A complex non-interactive example`,
+        `npx create-bud-app my-project --no-interactive --support react --support swc --support postcss --support eslint --name example-project --package-manager yarn`,
+      ],
+    ],
+  })
+
+  /**
+   * --relativePath
+   */
+  public relativePath = Option.String({
+    required: false,
+  })
+
   /**
    * --cwd
    */
@@ -49,11 +116,33 @@ export default class CreateCommand extends Command {
   })
 
   /**
+   * --devDependencies
+   */
+  public devDependencies = Option.Array(
+    `--devDependencies,-dd`,
+    [`@roots/bud`],
+    {
+      description: `Development dependencies to install`,
+    },
+  )
+
+  /**
    * --dependencies
    */
   public dependencies = Option.Array(`--dependencies,-d`, [], {
-    description: `Runtime dependencies (e.g. react, vue)`,
+    description: `Runtime dependencies to install`,
   })
+
+  /**
+   * --description
+   */
+  public description = Option.String(
+    `--description,-desc`,
+    `bud.js application`,
+    {
+      description: `Project description`,
+    },
+  )
 
   /**
    * --interactive
@@ -86,8 +175,25 @@ export default class CreateCommand extends Command {
   /**
    * --support
    */
-  public support = Option.Array(`--support,-s`, [], {
-    description: `Support for various stack components (swc, ts, babel, sass, postcss)`,
+  public support: supports = Option.Array(`--support,-s`, [], {
+    description: `Support for various components`,
+    validator: isArray(
+      isOneOf([
+        isLiteral(`swc`),
+        isLiteral(`typescript`),
+        isLiteral(`babel`),
+        isLiteral(`emotion`),
+        isLiteral(`sass`),
+        isLiteral(`postcss`),
+        isLiteral(`tailwindcss`),
+        isLiteral(`wordpress`),
+        isLiteral(`react`),
+        isLiteral(`vue`),
+        isLiteral(`eslint`),
+        isLiteral(`stylelint`),
+        isLiteral(`prettier`),
+      ]),
+    ),
   })
 
   /**
@@ -131,7 +237,7 @@ export default class CreateCommand extends Command {
    * Run arbitrary shell commands
    */
   public async sh(command: string, args: string[]) {
-    return await execa(command, args, {
+    return execa(command, args, {
       cwd: this.directory,
       env: {
         ...process.env,
@@ -141,17 +247,10 @@ export default class CreateCommand extends Command {
   }
 
   /**
-   * Directory name
-   */
-  public get dirname() {
-    return this.name.includes(`/`) ? this.name.split(`/`).pop() : this.name
-  }
-
-  /**
    * Directory path
    */
   public get directory() {
-    return join(this.cwd, this.dirname)
+    return normalize(join(this.cwd, this.relativePath ?? `./`))
   }
 
   /**
@@ -164,14 +263,48 @@ export default class CreateCommand extends Command {
     )
   }
 
-  public get hasReactCompatibleTranspiler() {
-    return [`swc`, `babel`, `typescript`].some(entry =>
-      this.support.includes(entry),
-    )
+  /**
+   * Get file path for a project file
+   */
+  public projectPath(...args: Array<string>) {
+    return normalize(join(this.directory, ...args))
   }
 
+  /**
+   * File or files exist in project
+   */
+  public exists(...args: Array<string>) {
+    return args.some(arg => this.files.some(file => file.includes(arg)))
+  }
+
+  /**
+   * Project files
+   */
+  public files: Array<string> = []
+
+  /**
+   * Project has a react compatible transpiler selected for install
+   */
+  public get hasReactCompatibleTranspiler() {
+    const transpilers: supports = [`swc`, `babel`, `typescript`]
+    return transpilers.some(entry => this.support.includes(entry))
+  }
+
+  /**
+   * Project has an emotion compatible transpiler selected for install
+   */
   public get hasEmotionCompatibleTranspiler() {
-    return [`swc`, `babel`].some(entry => this.support.includes(entry))
+    const transpilers: supports = [`swc`, `babel`]
+    return transpilers.some(entry => this.support.includes(entry))
+  }
+
+  /**
+   * Create spinner instance
+   */
+  public createSpinner() {
+    return ora({
+      stream: this.context.stdout,
+    })
   }
 
   /**
@@ -227,19 +360,25 @@ export default class CreateCommand extends Command {
    * Run user prompts
    */
   public async runPrompts() {
-    this.packageManager = await createPackageManagerPrompt(this).run()
+    const projectPrompt = createProjectPrompt(this)
+    const info = await projectPrompt.run()
+    this.name = info.name
+    this.description = info.description
+    this.username = info.username
+    this.license = info.license
 
-    const projectPrompt = await createProjectPrompt(this).run()
+    this.fs = new Filesystem(this.directory)
+    this.files =
+      (await this.fs.list(`./`))?.map(s => s.toLowerCase()) ?? []
+
+    const packageManagerPrompt = createPackageManagerPrompt(this)
     const jsPrompt = createJsSupportPrompt(this)
     const cssPrompt = createCssSupportPrompt(this)
     const frameworkPrompt = createComponentsSupportPrompt(this)
     const envPrompt = createEnvPrompt(this)
     const testPrompt = createTestSupportPrompt(this)
 
-    this.name = projectPrompt.name
-    this.username = projectPrompt.username
-    this.license = projectPrompt.license
-
+    this.packageManager = await packageManagerPrompt.run()
     this.support.push(...(await envPrompt.run()))
     this.support.push(...(await jsPrompt.run()))
     this.support.push(...(await cssPrompt.run()))
@@ -257,13 +396,17 @@ export default class CreateCommand extends Command {
    * Run tasks
    */
   public async runTasks() {
+    if (this.files?.length) {
+      this.context.stdout.write(`${this.directory} is not empty.\n\n`)
+    }
+
     if (this.support.includes(`react`)) {
       this.dependencies.push(`react`, `react-dom`)
 
       if (!this.hasReactCompatibleTranspiler) {
         this.support.push(`swc`)
         this.context.stdout.write(
-          `A JS compiler is required for React. We're defaulting to swc (@roots/bud-swc).\n\n`,
+          `A compatible JS compiler is required for React. Adding swc (@roots/bud-swc).\n\n`,
         )
       }
     }
@@ -274,7 +417,7 @@ export default class CreateCommand extends Command {
       if (!this.support.includes(`postcss`)) {
         this.support.push(`postcss`)
         this.context.stdout.write(
-          `PostCSS is required for TailwindCSS. Adding postcss extension support (@roots/bud-postcss).\n\n`,
+          `PostCSS is required for TailwindCSS. Adding postcss (@roots/bud-postcss).\n\n`,
         )
       }
     }
@@ -283,76 +426,62 @@ export default class CreateCommand extends Command {
       if (!this.hasEmotionCompatibleTranspiler) {
         this.support.push(`swc`)
         this.context.stdout.write(
-          `A compatible JS compiler is required for Emotion. We're defaulting to swc (@roots/bud-swc).\n\n`,
+          `A compatible JS compiler is required for Emotion. Adding swc (@roots/bud-swc).\n\n`,
         )
       }
     }
 
     if (this.support.includes(`vue`)) this.dependencies.push(`vue`)
 
-    this.fs = new Filesystem(this.directory)
-
-    const hasPackageJSON = await this.fs.exists(`package.json`)
-    if (!hasPackageJSON) {
+    if (!this.exists(`package.json`)) {
       await writePackageManifest(this)
     } else {
       this.context.stdout.write(`package.json already exists. Skipping.\n`)
     }
 
-    const hasReadme = await this.fs.exists(`README.md`)
-    if (!hasReadme) {
+    if (!this.exists(`readme`)) {
       await writeReadme(this)
     } else {
-      this.context.stdout.write(`README.md already exists. Skipping.\n`)
+      this.context.stdout.write(`README already exists. Skipping.\n`)
     }
 
-    const hasSrc = await this.fs.exists(`src`)
-    if (!hasSrc) {
+    if (!this.exists(`src`)) {
       await writeSrcTask(this)
     } else {
       this.context.stdout.write(
-        `src directory already exists. Skipping.\n`,
+        `source directory already exists. Skipping.\n`,
       )
     }
 
-    const hasJsConfig = await this.fs.exists(`jsconfig.json`)
-    const hasTsConfig = await this.fs.exists(`tsconfig.json`)
-    if (!hasTsConfig && !hasJsConfig) {
+    if (!this.exists(`jsconfig`, `tsconfig`)) {
       await writeTsConfig(this)
     } else {
       this.context.stdout.write(
-        `tsconfig.json or jsconfig.json already exists. Skipping.\n`,
+        `tsconfig or jsconfig already exists. Skipping.\n`,
       )
     }
 
     if (this.config) {
-      const hasConfig = await this.fs.exists(`bud.config.ts`)
-      if (!hasConfig) {
+      if (!this.exists(`bud`)) {
         await writeConfig(this)
       } else {
-        this.context.stdout.write(
-          `bud.config.ts already exists. Skipping.\n`,
-        )
+        this.context.stdout.write(`bud config already exists. Skipping.\n`)
       }
     }
 
     if (this.support.includes(`tailwindcss`)) {
-      const hasTailwindConfig = await this.fs.exists(`tailwind.config.ts`)
-      if (!hasTailwindConfig) {
+      if (!this.exists(`tailwind`)) {
         await writeTailwindConfig(this)
       } else {
         this.context.stdout.write(
-          `tailwind.config.ts already exists. Skipping.\n`,
+          `tailwind config already exists. Skipping.\n`,
         )
       }
     }
 
     if (this.support.includes(`eslint`)) {
-      this.support.push(`@roots/eslint-config`)
-      const hasEslintConfig = (await this.fs.list()).some(file =>
-        file.includes(`eslint`),
-      )
-      if (!hasEslintConfig) {
+      this.devDependencies.push(`@roots/eslint-config`)
+      if (!this.exists(`eslint`)) {
         await writeEslintConfig(this)
       } else {
         this.context.stdout.write(
@@ -362,10 +491,7 @@ export default class CreateCommand extends Command {
     }
 
     if (this.support.includes(`stylelint`)) {
-      const hasStylelintConfig = (await this.fs.list()).some(file =>
-        file.includes(`stylelint`),
-      )
-      if (!hasStylelintConfig) {
+      if (!this.exists(`stylelint`)) {
         await writeStylelintConfig(this)
       } else {
         this.context.stdout.write(
@@ -374,7 +500,18 @@ export default class CreateCommand extends Command {
       }
     }
 
-    await installTask(this)
+    if (this.support.includes(`prettier`)) {
+      if (!this.exists(`prettier`)) {
+        await writePrettierConfig(this)
+      } else {
+        this.context.stdout.write(
+          `prettier config already exists. Skipping.\n`,
+        )
+      }
+    }
+
+    await writeGitignoreConfigTask(this)
+    await installDevTask(this)
     await installProdTask(this)
     await buildTask(this)
   }

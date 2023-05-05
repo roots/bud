@@ -3,24 +3,29 @@ import {join} from 'node:path'
 import type CreateCommand from '../commands/create.js'
 
 export default async function writeSrcTask(command: CreateCommand) {
-  command.context.stdout.write(`Writing src/**/*... \n`)
+  const spinner = command.createSpinner()
+  spinner.start(`Writing src/**/*...`)
 
   if (command.support.includes(`react`)) {
-    return await command.fs.copy(
+    await command.fs.copy(
       join(command.createRoot, `templates`, `react`, `src`),
       `src`,
     )
+    return spinner.succeed()
   }
 
   if (command.support.includes(`vue`)) {
-    return await command.fs.copy(
+    await command.fs.copy(
       join(command.createRoot, `templates`, `vue`, `src`),
       `src`,
     )
+    return spinner.succeed()
   }
 
   await command.fs.copy(
     join(command.createRoot, `templates`, `default`, `src`),
     `src`,
   )
+
+  spinner.succeed()
 }

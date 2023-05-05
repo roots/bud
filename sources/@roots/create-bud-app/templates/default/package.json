@@ -1,5 +1,6 @@
 {
   "name": "{{name}}",
+  "description": "{{description}}",
   "engines": {
     "node": ">=16"
   },
@@ -16,8 +17,5 @@
     "build": "bud build production",
     "dev": "bud build development",
     "ci": "bud build --no-cache"
-  },
-  "devDependencies": {
-    "@roots/bud": "{{version}}"
   }
 }

@@ -6,10 +6,11 @@ import templateEngine from '../utilities/templateEngine.js'
 export default async function writePackageManifest(
   command: CreateCommand,
 ) {
-  command.context.stdout.write(`Writing README.md... \n`)
+  const spinner = command.createSpinner()
+  spinner.start(`Writing tailwind.config.js...`)
 
   const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `README.md`),
+    join(command.createRoot, `templates`, `default`, `tailwind.config.ts`),
     `utf8`,
   )
 
@@ -22,5 +23,7 @@ export default async function writePackageManifest(
     version: command.version,
   })
 
-  await command.fs.write(`README.md`, result)
+  await command.fs.write(`tailwind.config.ts`, result)
+
+  spinner.succeed()
 }

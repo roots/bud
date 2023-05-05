@@ -2,7 +2,8 @@
 import type CreateCommand from '../commands/create.js'
 
 export default async function installTask(command: CreateCommand) {
-  process.stdout.write(`Installing runtime dependencies... \n`)
+  const spinner = command.createSpinner()
+  spinner.start(`Installing runtime dependencies...`)
 
   switch (command.packageManager) {
     case `npm`:
@@ -13,4 +14,6 @@ export default async function installTask(command: CreateCommand) {
       await command.sh(`yarn`, [`add`, ...command.dependencies])
       break
   }
+
+  spinner.succeed()
 }

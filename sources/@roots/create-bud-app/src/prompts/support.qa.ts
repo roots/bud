@@ -6,6 +6,7 @@ import type CreateCommand from '../commands/create.js'
 
 const choices = {
   eslint: {name: `eslint`, value: `@roots/bud-eslint`},
+  prettier: {name: `prettier`, value: `@roots/bud-prettier`},
   stylelint: {name: `stylelint`, value: `@roots/bud-stylelint`},
 }
 

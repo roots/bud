@@ -6,10 +6,11 @@ import templateEngine from '../utilities/templateEngine.js'
 export default async function writePackageManifest(
   command: CreateCommand,
 ) {
-  command.context.stdout.write(`Writing tailwind.config.ts... \n`)
+  const spinner = command.createSpinner()
+  spinner.start(`Writing package.json...`)
 
   const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `tailwind.config.ts`),
+    join(command.createRoot, `templates`, `default`, `package.json`),
     `utf8`,
   )
 
@@ -17,10 +18,13 @@ export default async function writePackageManifest(
 
   const result = template({
     name: command.name,
+    description: command.description,
     username: command.username,
     license: command.license,
     version: command.version,
   })
 
-  await command.fs.write(`tailwind.config.ts`, result)
+  await command.fs.write(`package.json`, result)
+
+  spinner.succeed()
 }

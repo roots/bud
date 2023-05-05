@@ -1,7 +1,8 @@
 import type CreateCommand from '../commands/create.js'
 
 export default async function buildTask(command: CreateCommand) {
-  process.stdout.write(`Building project... \n`)
+  const spinner = command.createSpinner()
+  spinner.start(`Building project...`)
 
   switch (command.packageManager) {
     case `npm`:
@@ -12,4 +13,6 @@ export default async function buildTask(command: CreateCommand) {
       await command.sh(`yarn`, [`bud`, `build`, `production`])
       break
   }
+
+  spinner.succeed()
 }

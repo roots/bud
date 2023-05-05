@@ -61,6 +61,10 @@
       "require": "./config/stylelint.cjs",
       "default": "./config/stylelint.cjs"
     },
+    "./stylelint": {
+      "require": "./config/stylelint.cjs",
+      "default": "./config/stylelint.cjs"
+    },
     "./config/stylelint": {
       "require": "./config/stylelint.cjs",
       "default": "./config/stylelint.cjs"

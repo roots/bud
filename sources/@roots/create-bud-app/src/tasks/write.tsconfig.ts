@@ -3,13 +3,12 @@ import {join} from 'node:path'
 import type CreateCommand from '../commands/create.js'
 import templateEngine from '../utilities/templateEngine.js'
 
-export default async function writePackageManifest(
-  command: CreateCommand,
-) {
-  command.context.stdout.write(`Writing package.json... \n`)
+export default async function writeTsConfig(command: CreateCommand) {
+  const spinner = command.createSpinner()
+  spinner.start(`Writing tsconfig.json...`)
 
   const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `package.json`),
+    join(command.createRoot, `templates`, `default`, `tsconfig.json`),
     `utf8`,
   )
 
@@ -22,5 +21,7 @@ export default async function writePackageManifest(
     version: command.version,
   })
 
-  await command.fs.write(`package.json`, result)
+  await command.fs.write(`tsconfig.json`, result)
+
+  spinner.succeed()
 }
