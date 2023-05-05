@@ -231,6 +231,7 @@ export default class CreateCommand extends Command {
     vue: `@roots/bud-vue`,
     eslint: `@roots/bud-eslint`,
     stylelint: `@roots/bud-stylelint`,
+    prettier: `@roots/bud-prettier`,
   }
 
   /**
@@ -510,7 +511,11 @@ export default class CreateCommand extends Command {
       }
     }
 
-    await writeGitignoreConfigTask(this)
+    if (!this.exists(`gitignore`)) {
+      await writeGitignoreConfigTask(this)
+    } else {
+      this.context.stdout.write(`gitignore already exists. Skipping.\n`)
+    }
     await installDevTask(this)
     await installProdTask(this)
     await buildTask(this)

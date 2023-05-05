@@ -5,15 +5,7 @@ export default async function writeStylelintConfigTask(
   command: CreateCommand,
 ) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing eslint.config.js...`)
-
-  const extensions = [`@roots/bud-eslint/config`]
-
-  command.support.includes(`sass`) &&
-    extensions.push(`@roots/bud-sass/eslint-config`)
-
-  command.support.includes(`tailwindcss`) &&
-    extensions.push(`@roots/bud-tailwindcss/eslint-config`)
+  spinner.start(`Writing prettier.config.cjs...`)
 
   await command.fs.write(
     `prettier.config.cjs`,
