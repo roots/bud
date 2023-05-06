@@ -64,8 +64,35 @@ export default class CreateCommand extends Command {
   public static override usage = Command.Usage({
     description: `Scaffolding tool for bud.js projects`,
     details: `
-      This command scaffolds a new bud.js project. It can also be used to add support for
-      additional features to an existing project.
+      This command interactively scaffolds a new bud.js project. It can also be used to add support for
+      additional features to an existing project. It supports:
+
+      \`babel\`, \`emotion\`, \`eslint\`, \`postcss\`, \`prettier\`, \`react\`, \`sass\`, \`stylelint\`, \`swc\`, \`tailwindcss\`, \`typescript\`, \`vue\`, \`wordpress\`
+
+      If ran on its own the command will attempt to build the project scaffolding in the current working directory:
+
+      \`npx @roots/create-bud-app\`
+
+      The command accepts an optional positional argument indicating the path to the directory you want to scaffold the project in. This path should be
+      expressed relative to the current working directory. The directory will be created if it does not exist.
+
+      \`npx @roots/create-bud-app my-project\`
+
+      If the directory is not empty the command will prompt you to confirm that you want to continue. You can skip this prompt by passing the \`--confirm-existing\` flag.
+
+      \`npx @roots/create-bud-app my-project --confirm-existing\`
+
+      By default, this command will not overwrite files which are in conflict. Run with the \`--overwrite\` flag to change this behavior.
+
+      \`npx @roots/create-bud-app my-project --overwrite\`
+
+      The command can be used non-interactively by passing the \`--no-interactive\` flag.
+
+      \`npx @roots/create-bud-app my-project --no-interactive\`
+
+      Command options which accept multiple values can be passed multiple times. For example, to add support for \`swc\` and \`postcss\`:
+
+      \`npx @roots/create-bud-app my-project --support swc --support postcss\`
     `,
     examples: [
       [`Scaffold project interactively`, `npx @roots/create-bud-app`],
@@ -184,6 +211,7 @@ export default class CreateCommand extends Command {
    */
   public packageManager = Option.String(`--package-manager,-p`, `npm`, {
     description: `Package manager`,
+    validator: isOneOf([isLiteral(`npm`), isLiteral(`yarn`)]),
   })
 
   /**
