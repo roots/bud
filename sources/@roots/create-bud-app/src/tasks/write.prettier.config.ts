@@ -7,10 +7,17 @@ export default async function writeStylelintConfigTask(
   const spinner = command.createSpinner()
   spinner.start(`Writing prettier.config.cjs...`)
 
-  await command.fs.write(
-    `prettier.config.cjs`,
-    formatSource(
-      `module.exports = {
+  if (!command.overwrite && command.exists(`prettier`)) {
+    return spinner.warn(
+      `prettier config already exists. skipping write task.`,
+    )
+  }
+
+  try {
+    await command.fs.write(
+      `.prettierrc.cjs`,
+      formatSource(
+        `module.exports = {
         bracketSpacing: false,
         tabWidth: 2,
         printWidth: 75,
@@ -26,8 +33,12 @@ export default async function writeStylelintConfigTask(
           },
         ],
       }`,
-    ),
-  )
+      ),
+    )
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

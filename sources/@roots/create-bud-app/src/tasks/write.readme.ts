@@ -7,24 +7,33 @@ export default async function writePackageManifest(
   command: CreateCommand,
 ) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing README.md...`)
+  spinner.start(`writing readme...`)
 
-  const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `README.md`),
-    `utf8`,
-  )
+  if (!command.overwrite && command.exists(`readme`)) {
+    return spinner.warn(`readme already exists. skipping write task.`)
+  }
 
-  const template = templateEngine.compile(source)
+  try {
+    const source = await command.fs.read(
+      join(command.createRoot, `templates`, `default`, `README.md`),
+      `utf8`,
+    )
 
-  const result = template({
-    name: command.name,
-    description: command.description,
-    username: command.username,
-    license: command.license,
-    version: command.version,
-  })
+    const template = templateEngine.compile(source)
 
-  await command.fs.write(`README.md`, result)
+    const result = template({
+      name: command.name,
+      description: command.description,
+      username: command.username,
+      license: command.license,
+      version: command.version,
+    })
+
+    await command.fs.write(`README.md`, result)
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

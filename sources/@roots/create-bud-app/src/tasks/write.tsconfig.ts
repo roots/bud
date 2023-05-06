@@ -5,23 +5,34 @@ import templateEngine from '../utilities/templateEngine.js'
 
 export default async function writeTsConfig(command: CreateCommand) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing tsconfig.json...`)
+  spinner.start(`Writing tsconfig...`)
 
-  const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `tsconfig.json`),
-    `utf8`,
-  )
+  if (!command.overwrite && command.exists(`tsconfig`, `jsconfig`)) {
+    return spinner.warn(
+      `tsconfig or jsconfig already exists. skipping write task.`,
+    )
+  }
 
-  const template = templateEngine.compile(source)
+  try {
+    const source = await command.fs.read(
+      join(command.createRoot, `templates`, `default`, `tsconfig.json`),
+      `utf8`,
+    )
 
-  const result = template({
-    name: command.name,
-    username: command.username,
-    license: command.license,
-    version: command.version,
-  })
+    const template = templateEngine.compile(source)
 
-  await command.fs.write(`tsconfig.json`, result)
+    const result = template({
+      name: command.name,
+      username: command.username,
+      license: command.license,
+      version: command.version,
+    })
+
+    await command.fs.write(`tsconfig.json`, result)
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

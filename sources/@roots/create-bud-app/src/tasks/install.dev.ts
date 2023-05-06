@@ -5,21 +5,26 @@ export default async function installTask(command: CreateCommand) {
   const spinner = command.createSpinner()
   spinner.start(`Installing development dependencies...`)
 
-  const formatSignifier = createSignifierFormatter(command)
+  try {
+    const formatSignifier = createSignifierFormatter(command)
 
-  const dependencies = new Set([
-    ...command.support.map(formatSignifier).filter(Boolean),
-    ...command.devDependencies.map(formatSignifier).filter(Boolean),
-  ])
+    const dependencies = new Set([
+      ...command.support.map(formatSignifier).filter(Boolean),
+      ...command.devDependencies.map(formatSignifier).filter(Boolean),
+    ])
 
-  switch (command.packageManager) {
-    case `npm`:
-      await command.sh(`npm`, [`install`, ...dependencies, `--save-dev`])
-      break
+    switch (command.packageManager) {
+      case `npm`:
+        await command.sh(`npm`, [`install`, ...dependencies, `--save-dev`])
+        break
 
-    case `yarn`:
-      await command.sh(`yarn`, [`add`, ...dependencies, `--dev`])
-      break
+      case `yarn`:
+        await command.sh(`yarn`, [`add`, ...dependencies, `--dev`])
+        break
+    }
+  } catch (error) {
+    spinner.fail()
+    throw error
   }
 
   spinner.succeed()

@@ -4,15 +4,24 @@ export default async function writeGitignoreConfigTask(
   command: CreateCommand,
 ) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing .gitignore...`)
+  spinner.start(`Writing gitignore...`)
 
-  await command.fs.write(
-    `.gitignore`,
-    `\
+  if (!command.overwrite && command.exists(`gitignore`)) {
+    return spinner.warn(`gitignore already exists. skipping write task.`)
+  }
+
+  try {
+    await command.fs.write(
+      `.gitignore`,
+      `\
 dist
 node_modules
   `,
-  )
+    )
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

@@ -9,22 +9,33 @@ export default async function writePackageManifest(
   const spinner = command.createSpinner()
   spinner.start(`Writing package.json...`)
 
-  const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `package.json`),
-    `utf8`,
-  )
+  if (!command.overwrite && command.exists(`package`)) {
+    return spinner.warn(
+      `package.json already exists. skipping write task.`,
+    )
+  }
 
-  const template = templateEngine.compile(source)
+  try {
+    const source = await command.fs.read(
+      join(command.createRoot, `templates`, `default`, `package.json`),
+      `utf8`,
+    )
 
-  const result = template({
-    name: command.name,
-    description: command.description,
-    username: command.username,
-    license: command.license,
-    version: command.version,
-  })
+    const template = templateEngine.compile(source)
 
-  await command.fs.write(`package.json`, result)
+    const result = template({
+      name: command.name,
+      description: command.description,
+      username: command.username,
+      license: command.license,
+      version: command.version,
+    })
+
+    await command.fs.write(`package.json`, result)
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

@@ -9,21 +9,37 @@ export default async function writePackageManifest(
   const spinner = command.createSpinner()
   spinner.start(`Writing tailwind.config.js...`)
 
-  const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `tailwind.config.ts`),
-    `utf8`,
-  )
+  if (!command.overwrite && command.exists(`tailwind`)) {
+    return spinner.warn(
+      `tailwind config already exists. skipping write task.`,
+    )
+  }
 
-  const template = templateEngine.compile(source)
+  try {
+    const source = await command.fs.read(
+      join(
+        command.createRoot,
+        `templates`,
+        `default`,
+        `tailwind.config.ts`,
+      ),
+      `utf8`,
+    )
 
-  const result = template({
-    name: command.name,
-    username: command.username,
-    license: command.license,
-    version: command.version,
-  })
+    const template = templateEngine.compile(source)
 
-  await command.fs.write(`tailwind.config.ts`, result)
+    const result = template({
+      name: command.name,
+      username: command.username,
+      license: command.license,
+      version: command.version,
+    })
+
+    await command.fs.write(`tailwind.config.ts`, result)
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

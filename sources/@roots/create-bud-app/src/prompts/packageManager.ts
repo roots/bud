@@ -12,7 +12,7 @@ const choices = {
 export default (command: CreateCommand) =>
   new Select({
     name: `packageManager`,
-    message: `Which package manager do you want to use?`,
+    message: `Select a package manager`,
     choices: Object.values(choices),
     initial: command.packageManager,
   })

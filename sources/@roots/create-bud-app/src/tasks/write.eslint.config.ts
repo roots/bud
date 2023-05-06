@@ -5,31 +5,42 @@ export default async function writeStylelintConfigTask(
   command: CreateCommand,
 ) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing eslint.config.js...`)
+  spinner.start(`Writing eslint config...`)
 
-  const extensions = [`@roots/eslint-config`]
+  if (!command.overwrite && command.exists(`eslint`)) {
+    return spinner.warn(
+      `eslint config already exists. skipping write task.`,
+    )
+  }
 
-  command.support.includes(`babel`) &&
-    extensions.push(`@roots/eslint-config/babel`)
+  try {
+    const extensions = [`@roots/eslint-config`]
 
-  command.support.includes(`typescript`) &&
-    extensions.push(`@roots/eslint-config/typescript`)
+    command.support.includes(`babel`) &&
+      extensions.push(`@roots/eslint-config/babel`)
 
-  command.support.includes(`react`) &&
-    extensions.push(`@roots/eslint-config/react`)
+    command.support.includes(`typescript`) &&
+      extensions.push(`@roots/eslint-config/typescript`)
 
-  command.support.includes(`wordpress`) &&
-    extensions.push(`@roots/eslint-config/wordpress`)
+    command.support.includes(`react`) &&
+      extensions.push(`@roots/eslint-config/react`)
 
-  await command.fs.write(
-    `eslint.config.js`,
-    formatSource(
-      `export default {
+    command.support.includes(`wordpress`) &&
+      extensions.push(`@roots/eslint-config/wordpress`)
+
+    await command.fs.write(
+      `eslint.config.js`,
+      formatSource(
+        `export default {
         root: true,
         extends: ${JSON.stringify(extensions, null, 2)}
     }`,
-    ),
-  )
+      ),
+    )
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 
   spinner.succeed()
 }

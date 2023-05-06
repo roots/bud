@@ -1,18 +1,15 @@
-import {sep} from 'node:path'
-
 import Form from 'enquirer/lib/prompts/form.js'
 
 import type CreateCommand from '../commands/create.js'
 
 export default (command: CreateCommand) =>
   new Form({
-    message: `Project details`,
+    message: `Provide project details`,
     choices: [
       {
         name: `name`,
         message: `Project name`,
-        initial:
-          command.name ?? command.relativePath?.split(sep).pop() ?? `app`,
+        initial: command.name,
       },
       {
         name: `description`,

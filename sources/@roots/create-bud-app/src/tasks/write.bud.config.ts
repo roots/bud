@@ -7,21 +7,30 @@ export default async function writeConfigTask(command: CreateCommand) {
   const spinner = command.createSpinner()
   spinner.start(`Writing bud.config.ts...`)
 
-  const source = await command.fs.read(
-    join(command.createRoot, `templates`, `default`, `bud.config.ts`),
-    `utf8`,
-  )
+  if (!command.overwrite && command.exists(`bud.config`)) {
+    return spinner.warn(`bud.config already exists. skipping write task.`)
+  }
 
-  const template = templateEngine.compile(source)
+  try {
+    const source = await command.fs.read(
+      join(command.createRoot, `templates`, `default`, `bud.config.ts`),
+      `utf8`,
+    )
 
-  const result = template({
-    name: command.name,
-    username: command.username,
-    license: command.license,
-    version: command.version,
-  })
+    const template = templateEngine.compile(source)
 
-  await command.fs.write(`bud.config.ts`, result)
+    const result = template({
+      name: command.name,
+      username: command.username,
+      license: command.license,
+      version: command.version,
+    })
 
-  spinner.succeed()
+    await command.fs.write(`bud.config.ts`, result)
+
+    spinner.succeed()
+  } catch (error) {
+    spinner.fail()
+    throw error
+  }
 }
