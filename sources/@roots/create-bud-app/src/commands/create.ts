@@ -8,8 +8,20 @@ import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import isUndefined from 'lodash/isUndefined.js'
 import ora from 'ora'
-import {isArray, isLiteral, isOneOf} from 'typanion'
 
+import confirmExistingFlag from '../flags/confirm-existing.js'
+import cwdFlag from '../flags/cwd.js'
+import dependenciesFlag from '../flags/dependencies.js'
+import descriptionFlag from '../flags/description.js'
+import devDependenciesFlag from '../flags/dev-dependencies.js'
+import interactiveFlag from '../flags/interactive.js'
+import licenseFlag from '../flags/license.js'
+import nameFlag from '../flags/name.js'
+import overwriteFlag from '../flags/overwrite.js'
+import packageManagerFlag from '../flags/package-manager.js'
+import supportFlag from '../flags/support.js'
+import usernameFlag from '../flags/username.js'
+import versionFlag from '../flags/version.js'
 import createConfirmPrompt from '../prompts/confirmExisting.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
 import createProjectPrompt from '../prompts/project.js'
@@ -31,23 +43,9 @@ import writeSrcTask from '../tasks/write.src.js'
 import writeStylelintConfigTask from '../tasks/write.stylelint.config.js'
 import writeTailwindConfigTask from '../tasks/write.tailwind.config.js'
 import writeTsConfigTask from '../tasks/write.tsconfig.js'
+import type {Supports} from '../types.js'
 import getGitUser from '../utilities/getGitUser.js'
 import getLatestVersion from '../utilities/getLatestVersion.js'
-
-type Supports =
-  | `swc`
-  | `typescript`
-  | `babel`
-  | `emotion`
-  | `sass`
-  | `postcss`
-  | `tailwindcss`
-  | `wordpress`
-  | `react`
-  | `vue`
-  | `eslint`
-  | `stylelint`
-  | `prettier`
 
 /**
  * create-bud-app command
@@ -131,126 +129,72 @@ export default class CreateCommand extends Command {
   /**
    * --relativePath
    */
-  public relativePath = Option.String({
-    required: false,
-  })
+  public relativePath = Option.String({required: false})
 
   /**
    * --confirm-existing
    */
-  public confirmExisting = Option.Boolean(`--confirm-existing,-c`, false, {
-    description: `Confirm usage in existing directory`,
-  })
+  public confirmExisting = confirmExistingFlag
 
   /**
    * --cwd
    */
-  public cwd = Option.String(`--cwd`, process.cwd(), {
-    description: `Current working directory`,
-  })
+  public cwd = cwdFlag
 
   /**
    * --devDependencies
    */
-  public devDependencies = Option.Array(
-    `--dev-dependencies,--devDependencies,-dd`,
-    [`@roots/bud`],
-    {
-      description: `Development dependencies to install`,
-    },
-  )
+  public devDependencies = devDependenciesFlag
 
   /**
    * --dependencies
    */
-  public dependencies = Option.Array(`--dependencies,-d`, [], {
-    description: `Runtime dependencies to install`,
-  })
+  public dependencies = dependenciesFlag
 
   /**
    * --description
    */
-  public description = Option.String(
-    `--description,-desc`,
-    `project bootstrapped with @roots/create-bud-app`,
-    {
-      description: `Project description`,
-    },
-  )
+  public description = descriptionFlag
 
   /**
    * --interactive
    */
-  public interactive = Option.Boolean(`--interactive,-i`, true, {
-    description: `Interactive mode`,
-  })
+  public interactive = interactiveFlag
 
   /**
    * --license
    */
-  public license = Option.String(`--license,-l`, `MIT`, {
-    description: `Project license`,
-  })
+  public license = licenseFlag
 
   /**
    * --name
    */
-  public name = Option.String(`--name,-n`, undefined, {
-    description: `Project name`,
-  })
+  public name = nameFlag
 
   /**
    * --overwrite
    */
-  public overwrite = Option.Boolean(`--overwrite,-o`, undefined, {
-    description: `Overwrite existing files`,
-  })
+  public overwrite = overwriteFlag
 
   /**
    * --package-manager
    */
-  public packageManager = Option.String(`--package-manager,-p`, `npm`, {
-    description: `Package manager`,
-    validator: isOneOf([isLiteral(`npm`), isLiteral(`yarn`)]),
-  })
+  public packageManager = packageManagerFlag
 
   /**
    * --support
    */
-  public support: Array<Supports> = Option.Array(`--support,-s`, [], {
-    description: `Support for various components`,
-    validator: isArray(
-      isOneOf([
-        isLiteral(`swc`),
-        isLiteral(`typescript`),
-        isLiteral(`babel`),
-        isLiteral(`emotion`),
-        isLiteral(`sass`),
-        isLiteral(`postcss`),
-        isLiteral(`tailwindcss`),
-        isLiteral(`wordpress`),
-        isLiteral(`react`),
-        isLiteral(`vue`),
-        isLiteral(`eslint`),
-        isLiteral(`stylelint`),
-        isLiteral(`prettier`),
-      ]),
-    ),
-  })
+  public support: Array<Supports> = supportFlag
 
   /**
    * --username
    */
-  public username = Option.String(`--username,-u`, undefined, {
-    description: `Github username`,
-  })
+  public username = usernameFlag
 
   /**
    * --version
    */
-  public version = Option.String(`--version,-v`, undefined, {
-    description: `Target bud.js version`,
-  })
+  public version = versionFlag
 
   /**
    * Filesystem instance
@@ -345,7 +289,7 @@ export default class CreateCommand extends Command {
    * Execute
    */
   public async execute() {
-    await this.header()
+    await this.before()
 
     this.fs = new Filesystem(this.directory)
     this.files =
@@ -370,40 +314,39 @@ export default class CreateCommand extends Command {
 
     if (this.interactive) await this.runPrompts()
 
+    this.context.stdout.write(`\n`)
+
     await this.runTasks()
 
-    await this.post()
+    this.context.stdout.write(`\n`)
 
-    return 0
+    await this.after()
   }
 
   /**
-   * CLI header
+   * CLI before
    */
-  public async header() {
-    this.context.stdout.write(
+  public async before() {
+    ;[
       `\n@roots/create-bud-app (preview release)\n\n`,
-    )
+      `Run \`npx @roots/create-bud-app --help\` for usage information.\n\n`,
+    ].map(message => this.context.stdout.write(message))
   }
 
   /**
-   * CLI final message
+   * CLI after
    */
-  public async post() {
-    this.context.stdout.write(
-      `\nProject ready for you to start building!\n\n`,
-    )
-    this.context.stdout.write(
+  public async after() {
+    ;[
+      `Project ready for you to start building!\n\n`,
       `Navigate to ${this.directory} and run \`${
         this.packageManager === `yarn` ? `yarn` : `npx`
       } bud dev\` to get started.\n\n`,
-    )
-    this.context.stdout.write(
       `When you are ready to deploy, run \`${
         this.packageManager === `yarn` ? `yarn` : `npx`
       } bud build\` to compile your project for production.\n\n`,
-    )
-    this.context.stdout.write(`Happy hacking!\n\n`)
+      `Happy hacking!\n\n`,
+    ].map(message => this.context.stdout.write(message))
   }
 
   /**
@@ -419,8 +362,6 @@ export default class CreateCommand extends Command {
     this.support.push(...(await createCssSupportPrompt(this).run()))
     this.support.push(...(await createComponentsSupportPrompt(this).run()))
     this.support.push(...(await createTestSupportPrompt(this).run()))
-
-    this.context.stdout.write(`\n`)
   }
 
   /**
@@ -473,6 +414,9 @@ export default class CreateCommand extends Command {
 
     await installDevDependenciesTask(this)
     await installProductionDependenciesTask(this)
+
+    this.context.stdout.write(`\n`)
+
     await buildTask(this)
   }
 }
