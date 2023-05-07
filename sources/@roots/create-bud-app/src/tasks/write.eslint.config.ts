@@ -4,6 +4,8 @@ import formatSource from '../utilities/formatSource.js'
 export default async function writeStylelintConfigTask(
   command: CreateCommand,
 ) {
+  if (!command.support.includes(`eslint`)) return
+
   const spinner = command.createSpinner()
   spinner.start(`Writing eslint config...`)
 

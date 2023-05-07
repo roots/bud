@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
+    "chalk": "5.2.0",
     "clipanion": "3.2.0",
     "enquirer": "2.3.6",
     "execa": "7.1.1",

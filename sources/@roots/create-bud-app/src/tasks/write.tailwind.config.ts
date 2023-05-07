@@ -6,6 +6,8 @@ import templateEngine from '../utilities/templateEngine.js'
 export default async function writePackageManifest(
   command: CreateCommand,
 ) {
+  if (!command.support.includes(`tailwindcss`)) return
+
   const spinner = command.createSpinner()
   spinner.start(`Writing tailwind.config.js...`)
 

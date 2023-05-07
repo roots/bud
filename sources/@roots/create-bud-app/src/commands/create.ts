@@ -1,13 +1,14 @@
 /* eslint-disable n/no-process-env */
 
-import {dirname, join, normalize, resolve, sep} from 'node:path'
+import {dirname, join, normalize, relative, resolve, sep} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 import {Filesystem} from '@roots/filesystem'
+import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import isUndefined from 'lodash/isUndefined.js'
-import ora from 'ora'
+import ora, {Options as OraOptions} from 'ora'
 
 import confirmExistingFlag from '../flags/confirm-existing.js'
 import cwdFlag from '../flags/cwd.js'
@@ -210,8 +211,11 @@ export default class CreateCommand extends Command {
   /**
    * Create spinner instance
    */
-  public createSpinner() {
-    return ora({stream: this.context.stdout})
+  public createSpinner(options: OraOptions = {}) {
+    return ora({
+      stream: this.context.stdout,
+      ...options,
+    })
   }
 
   /**
@@ -227,6 +231,8 @@ export default class CreateCommand extends Command {
   public async execute() {
     await this.before()
 
+    this.context.stdout.write(`\n\n`)
+
     this.fs = new Filesystem(this.directory)
     this.files =
       (await this.fs.list(`./`))?.map(s => s.toLowerCase()) ?? []
@@ -238,14 +244,27 @@ export default class CreateCommand extends Command {
 
     if (this.files.length && !this.confirmExisting && !this.overwrite) {
       if (!this.interactive) {
+        this.context.stderr.write(`Cannot proceed with scaffolding`)
+        this.context.stderr.write(`\n\n`)
         this.context.stderr.write(
-          `Cannot proceed with scaffolding\n\n${this.directory} is not empty and the --no-interactive flag is set.\n\nAppend the --confirm-existing flag to confirm your intent or --overwrite to allow overwriting of existing files.\n`,
+          `${this.directory} is not empty and the ${chalk.magenta(
+            `--no-interactive`,
+          )} flag is set.`,
+        )
+        this.context.stderr.write(`\n\n`)
+        this.context.stderr.write(
+          `Append the ${chalk.magenta(
+            `--confirm-existing`,
+          )} flag to confirm your intent or ${chalk.magenta(
+            `--overwrite`,
+          )} to allow overwriting of existing files.`,
         )
         return 1
       } else if (!(await createConfirmPrompt(this).run())) return
     }
 
     if (this.interactive) await this.runPrompts()
+    else this.context.stdout.write(`\n`)
 
     this.context.stdout.write(`\n`)
 
@@ -254,32 +273,47 @@ export default class CreateCommand extends Command {
     this.context.stdout.write(`\n`)
 
     await this.after()
+
+    this.context.stdout.write(`\n`)
   }
 
   /**
    * CLI before
    */
   public async before() {
-    ;[
-      `\n@roots/create-bud-app (preview release)\n\n`,
-      `Run \`npx @roots/create-bud-app --help\` for usage information.\n\n`,
-    ].map(message => this.context.stdout.write(message))
+    this.context.stdout.write(
+      `${chalk.blue(`\n@roots/create-bud-app`)} (preview release)`,
+    )
+    this.context.stdout.write(`\n\n`)
+    this.context.stdout.write(
+      `Run ${chalk.blue(
+        `npx @roots/create-bud-app --help`,
+      )} for usage information.`,
+    )
   }
 
   /**
    * CLI after
    */
   public async after() {
-    ;[
-      `Project ready for you to start building!\n\n`,
-      `Navigate to ${this.directory} and run \`${
-        this.packageManager === `yarn` ? `yarn` : `npx`
-      } bud dev\` to get started.\n\n`,
-      `When you are ready to deploy, run \`${
-        this.packageManager === `yarn` ? `yarn` : `npx`
-      } bud build\` to compile your project for production.\n\n`,
-      `Happy hacking!\n`,
-    ].map(message => this.context.stdout.write(message))
+    const pm = this.packageManager === `yarn` ? `yarn` : `npx`
+
+    this.context.stdout.write(
+      [
+        `🎉 Project ready for you to start building!`,
+        `${
+          this.relativePath
+            ? `Navigate to ${chalk.blueBright(
+                `./${relative(this.cwd, this.directory)}`,
+              )} and run`
+            : `Run`
+        } ${chalk.blueBright(`${pm} bud dev`)} to get started.`,
+        `When you are ready to deploy, run ${chalk.blueBright(
+          `${pm} bud build`,
+        )} to compile your project for production.`,
+        `Happy hacking!`,
+      ].join(`\n\n`),
+    )
   }
 
   /**
@@ -330,7 +364,9 @@ export default class CreateCommand extends Command {
       }
     }
 
-    if (this.support.includes(`vue`)) this.dependencies.push(`vue`)
+    if (this.support.includes(`vue`)) {
+      this.dependencies.push(`vue`)
+    }
 
     await writePackageJSONTask(this)
     await writeReadmeTask(this)
@@ -351,5 +387,10 @@ export default class CreateCommand extends Command {
     this.context.stdout.write(`\n`)
 
     await buildTask(this)
+
+    try {
+      // 😇
+      await this.sh(`open`, [`raycast://confetti`])
+    } catch (error) {}
   }
 }

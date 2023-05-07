@@ -8505,6 +8505,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.15.10
     "@types/prettier": 2.7.2
+    chalk: 5.2.0
     clipanion: 3.2.0
     enquirer: 2.3.6
     execa: 7.1.1
