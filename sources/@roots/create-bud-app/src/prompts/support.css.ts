@@ -11,8 +11,8 @@ const choices = {
 
 export default (command: CreateCommand) =>
   new MultiSelect({
-    name: `css-transpiler`,
-    message: `Add css transpiler support`,
+    name: `css-compiler`,
+    message: `Add css compiler support`,
     choices: Object.values(choices),
     initial: command.support.filter(s => choices[s]),
     result(

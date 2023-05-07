@@ -22,6 +22,7 @@ import packageManagerFlag from '../flags/package-manager.js'
 import supportFlag from '../flags/support.js'
 import usernameFlag from '../flags/username.js'
 import versionFlag from '../flags/version.js'
+import extensionsMap from '../mappedExtensions.js'
 import createConfirmPrompt from '../prompts/confirmExisting.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
 import createProjectPrompt from '../prompts/project.js'
@@ -51,14 +52,8 @@ import getLatestVersion from '../utilities/getLatestVersion.js'
  * create-bud-app command
  */
 export default class CreateCommand extends Command {
-  /**
-   * The command path
-   */
   public static override paths = [Command.Default]
 
-  /**
-   * The command usage
-   */
   public static override usage = Command.Usage({
     description: `Scaffolding tool for bud.js projects`,
     details: `
@@ -93,7 +88,10 @@ export default class CreateCommand extends Command {
       \`npx @roots/create-bud-app my-project --support swc --support postcss\`
     `,
     examples: [
-      [`Scaffold project interactively`, `npx @roots/create-bud-app`],
+      [
+        `Scaffold new project in interactive mode`,
+        `npx @roots/create-bud-app`,
+      ],
       [
         `Scaffold project non-interactively`,
         `npx @roots/create-bud-app --no-interactive`,
@@ -121,104 +119,42 @@ export default class CreateCommand extends Command {
       ],
       [
         `A complex non-interactive example`,
-        `npx @roots/create-bud-app my-project --no-interactive --support react --support swc --support postcss --support eslint --name example-project --package-manager yarn`,
+        `npx @roots/create-bud-app vanilla-app --no-interactive -p yarn -s swc -s postcss -d redux`,
       ],
     ],
   })
 
-  /**
-   * --relativePath
-   */
-  public relativePath = Option.String({required: false})
-
-  /**
-   * --confirm-existing
-   */
   public confirmExisting = confirmExistingFlag
 
-  /**
-   * --cwd
-   */
   public cwd = cwdFlag
 
-  /**
-   * --devDependencies
-   */
   public devDependencies = devDependenciesFlag
 
-  /**
-   * --dependencies
-   */
   public dependencies = dependenciesFlag
 
-  /**
-   * --description
-   */
   public description = descriptionFlag
 
-  /**
-   * --interactive
-   */
   public interactive = interactiveFlag
 
-  /**
-   * --license
-   */
   public license = licenseFlag
 
-  /**
-   * --name
-   */
   public name = nameFlag
 
-  /**
-   * --overwrite
-   */
   public overwrite = overwriteFlag
 
-  /**
-   * --package-manager
-   */
   public packageManager = packageManagerFlag
 
-  /**
-   * --support
-   */
-  public support: Array<Supports> = supportFlag
+  public support = supportFlag
 
-  /**
-   * --username
-   */
   public username = usernameFlag
 
-  /**
-   * --version
-   */
   public version = versionFlag
 
-  /**
-   * Filesystem instance
-   */
+  public relativePath = Option.String({required: false})
+
   public fs: Filesystem
 
-  /**
-   * Map of supports to extensions
-   */
-  public extensions: Record<`${Supports & string}`, string> = {
-    babel: `@roots/bud-babel`,
-    emotion: `@roots/bud-emotion`,
-    postcss: `@roots/bud-postcss`,
-    react: `@roots/bud-react`,
-    sass: `@roots/bud-sass`,
-    swc: `@roots/bud-swc`,
-    tailwindcss: `@roots/bud-tailwindcss`,
-    typescript: `@roots/bud-typescript`,
-    wordpress: `@roots/bud-preset-wordpress`,
-    vue: `@roots/bud-vue`,
-    eslint: `@roots/bud-eslint`,
-    stylelint: `@roots/bud-stylelint`,
-    prettier: `@roots/bud-prettier`,
-  }
+  public extensions = extensionsMap
 
   /**
    * Run arbitrary shell commands
@@ -251,13 +187,6 @@ export default class CreateCommand extends Command {
   }
 
   /**
-   * File or files exist in project
-   */
-  public exists(...args: Array<string>) {
-    return args.some(arg => this.files.some(file => file.includes(arg)))
-  }
-
-  /**
    * Project files
    */
   public files: Array<string> = []
@@ -286,6 +215,13 @@ export default class CreateCommand extends Command {
   }
 
   /**
+   * File or files exist in project
+   */
+  public exists(...args: Array<string>) {
+    return args.some(arg => this.files.some(file => file.includes(arg)))
+  }
+
+  /**
    * Execute
    */
   public async execute() {
@@ -306,10 +242,7 @@ export default class CreateCommand extends Command {
           `Cannot proceed with scaffolding\n\n${this.directory} is not empty and the --no-interactive flag is set.\n\nAppend the --confirm-existing flag to confirm your intent or --overwrite to allow overwriting of existing files.\n`,
         )
         return 1
-      } else {
-        const result = await createConfirmPrompt(this).run()
-        if (!result) return 0
-      }
+      } else if (!(await createConfirmPrompt(this).run())) return
     }
 
     if (this.interactive) await this.runPrompts()
@@ -345,7 +278,7 @@ export default class CreateCommand extends Command {
       `When you are ready to deploy, run \`${
         this.packageManager === `yarn` ? `yarn` : `npx`
       } bud build\` to compile your project for production.\n\n`,
-      `Happy hacking!\n\n`,
+      `Happy hacking!\n`,
     ].map(message => this.context.stdout.write(message))
   }
 
