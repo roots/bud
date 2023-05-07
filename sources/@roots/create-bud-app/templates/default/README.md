@@ -1,7 +1,5 @@
 # {{name}}
 
-> {{description}}
-
 This project was bootstrapped with [Create Bud App](https://github.com/roots/bud/tree/main/sources/@roots/create-bud-app).
 
 Consult [the bud documentation](https://bud.js.org) for information on configuring and using bud.js.
