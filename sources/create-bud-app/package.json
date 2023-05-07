@@ -1,7 +1,7 @@
 {
-  "name": "@roots/create-bud-app",
+  "name": "create-bud-app",
   "version": "0.0.0",
-  "description": "Create bud app",
+  "description": "Create bud app CLI",
   "engines": {
     "node": ">=16"
   },
@@ -64,6 +64,7 @@
     "clipanion": "3.2.0",
     "enquirer": "2.3.6",
     "execa": "7.1.1",
+    "figures": "5.0.0",
     "handlebars": "4.7.7",
     "lodash": "4.17.21",
     "ora": "6.3.0",

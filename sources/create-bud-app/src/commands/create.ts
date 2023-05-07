@@ -7,6 +7,7 @@ import {Filesystem} from '@roots/filesystem'
 import chalk from 'chalk'
 import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
+import figures from 'figures'
 import isUndefined from 'lodash/isUndefined.js'
 import ora, {Options as OraOptions} from 'ora'
 
@@ -15,16 +16,21 @@ import cwdFlag from '../flags/cwd.js'
 import dependenciesFlag from '../flags/dependencies.js'
 import descriptionFlag from '../flags/description.js'
 import devDependenciesFlag from '../flags/dev-dependencies.js'
+import htmlFlag from '../flags/html.js'
 import interactiveFlag from '../flags/interactive.js'
 import licenseFlag from '../flags/license.js'
 import nameFlag from '../flags/name.js'
 import overwriteFlag from '../flags/overwrite.js'
 import packageManagerFlag from '../flags/package-manager.js'
+import reactPresetFlag from '../flags/react.js'
+import recommendedPresetFlag from '../flags/recommended.js'
 import supportFlag from '../flags/support.js'
 import usernameFlag from '../flags/username.js'
 import versionFlag from '../flags/version.js'
+import wordpressPresetFlag from '../flags/wordpress.js'
 import extensionsMap from '../mappedExtensions.js'
 import createConfirmPrompt from '../prompts/confirmExisting.js'
+import createHtmlPrompt from '../prompts/html.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
 import createProjectPrompt from '../prompts/project.js'
 import createComponentsSupportPrompt from '../prompts/support.components.js'
@@ -65,62 +71,71 @@ export default class CreateCommand extends Command {
 
       If ran on its own the command will attempt to build the project scaffolding in the current working directory:
 
-      \`npx @roots/create-bud-app\`
+      \`npx create-bud-app\`
+
+      There are several presets which can be used to scaffold a project with support for common features:
+
+      \`npx create-bud-app --recommended\`
+
+      \`npx create-bud-app --wordpress\`
+
+      \`npx create-bud-app --react\`
 
       The command accepts an optional positional argument indicating the path to the directory you want to scaffold the project in. This path should be
       expressed relative to the current working directory. The directory will be created if it does not exist.
 
-      \`npx @roots/create-bud-app my-project\`
+      \`npx create-bud-app my-project\`
 
       If the directory is not empty the command will prompt you to confirm that you want to continue. You can skip this prompt by passing the \`--confirm-existing\` flag.
 
-      \`npx @roots/create-bud-app my-project --confirm-existing\`
+      \`npx create-bud-app my-project --confirm-existing\`
 
       By default, this command will not overwrite files which are in conflict. Run with the \`--overwrite\` flag to change this behavior.
 
-      \`npx @roots/create-bud-app my-project --overwrite\`
+      \`npx create-bud-app my-project --overwrite\`
 
       The command can be used non-interactively by passing the \`--no-interactive\` flag.
 
-      \`npx @roots/create-bud-app my-project --no-interactive\`
+      \`npx create-bud-app my-project --no-interactive\`
 
       Command options which accept multiple values can be passed multiple times. For example, to add support for \`swc\` and \`postcss\`:
 
-      \`npx @roots/create-bud-app my-project --support swc --support postcss\`
+      \`npx create-bud-app my-project --support swc --support postcss\`
     `,
     examples: [
-      [
-        `Scaffold new project in interactive mode`,
-        `npx @roots/create-bud-app`,
-      ],
+      [`Scaffold new project in interactive mode`, `npx create-bud-app`],
       [
         `Scaffold project non-interactively`,
-        `npx @roots/create-bud-app --no-interactive`,
+        `npx create-bud-app --no-interactive`,
+      ],
+      [
+        `Scaffold project with support for recommended features`,
+        `npx create-bud-app --recommended`,
       ],
       [
         `Scaffold project in a target directory`,
-        `npx @roots/create-bud-app my-project`,
+        `npx create-bud-app my-project`,
       ],
       [
         `Confirm intent to run scaffolder in a non-empty directory`,
-        `npx @roots/create-bud-app my-project --confirm-existing`,
+        `npx create-bud-app my-project --confirm-existing`,
       ],
       [
         `Allow scaffold to overwrite project files`,
-        `npx @roots/create-bud-app --overwrite`,
+        `npx create-bud-app --overwrite`,
       ],
-      [`Add support for swc`, `npx @roots/create-bud-app --support swc`],
+      [`Add support for swc`, `npx create-bud-app --support swc`],
       [
         `Add additional dependencies`,
-        `npx @roots/create-bud-app --dependencies redux --dependencies react-router`,
+        `npx create-bud-app --dependencies redux --dependencies react-router`,
       ],
       [
         `Add additional devDependencies`,
-        `npx @roots/create-bud-app --devDependencies vitest`,
+        `npx create-bud-app --devDependencies vitest`,
       ],
       [
         `A complex non-interactive example`,
-        `npx @roots/create-bud-app vanilla-app --no-interactive -p yarn -s swc -s postcss -d redux`,
+        `npx create-bud-app vanilla-app --no-interactive -p yarn -s swc -s postcss -d redux`,
       ],
     ],
   })
@@ -135,6 +150,8 @@ export default class CreateCommand extends Command {
 
   public description = descriptionFlag
 
+  public html = htmlFlag
+
   public interactive = interactiveFlag
 
   public license = licenseFlag
@@ -145,11 +162,17 @@ export default class CreateCommand extends Command {
 
   public packageManager = packageManagerFlag
 
+  public react = reactPresetFlag
+
+  public recommended = recommendedPresetFlag
+
   public support = supportFlag
 
   public username = usernameFlag
 
   public version = versionFlag
+
+  public wordpress = wordpressPresetFlag
 
   public relativePath = Option.String({required: false})
 
@@ -178,7 +201,7 @@ export default class CreateCommand extends Command {
   }
 
   /**
-   * Path to root of `@roots/create-bud-app`
+   * Path to root of `create-bud-app`
    */
   public get createRoot() {
     return resolve(
@@ -231,38 +254,6 @@ export default class CreateCommand extends Command {
   public async execute() {
     await this.before()
 
-    this.context.stdout.write(`\n\n`)
-
-    this.fs = new Filesystem(this.directory)
-    this.files =
-      (await this.fs.list(`./`))?.map(s => s.toLowerCase()) ?? []
-
-    this.name = this.name ?? this.relativePath?.split(sep).pop() ?? `app`
-
-    if (isUndefined(this.username)) this.username = await getGitUser(this)
-    if (isUndefined(this.version)) this.version = await getLatestVersion()
-
-    if (this.files.length && !this.confirmExisting && !this.overwrite) {
-      if (!this.interactive) {
-        this.context.stderr.write(`Cannot proceed with scaffolding`)
-        this.context.stderr.write(`\n\n`)
-        this.context.stderr.write(
-          `${this.directory} is not empty and the ${chalk.magenta(
-            `--no-interactive`,
-          )} flag is set.`,
-        )
-        this.context.stderr.write(`\n\n`)
-        this.context.stderr.write(
-          `Append the ${chalk.magenta(
-            `--confirm-existing`,
-          )} flag to confirm your intent or ${chalk.magenta(
-            `--overwrite`,
-          )} to allow overwriting of existing files.`,
-        )
-        return 1
-      } else if (!(await createConfirmPrompt(this).run())) return
-    }
-
     if (this.interactive) await this.runPrompts()
     else this.context.stdout.write(`\n`)
 
@@ -282,14 +273,83 @@ export default class CreateCommand extends Command {
    */
   public async before() {
     this.context.stdout.write(
-      `${chalk.blue(`\n@roots/create-bud-app`)} (preview release)`,
+      `${chalk.blue(`\ncreate-bud-app`)} (preview release)`,
     )
-    this.context.stdout.write(`\n\n`)
-    this.context.stdout.write(
-      `Run ${chalk.blue(
-        `npx @roots/create-bud-app --help`,
-      )} for usage information.`,
-    )
+
+    if (isUndefined(this.name))
+      this.name = this.relativePath?.split(sep).pop() ?? `app`
+    if (isUndefined(this.username)) this.username = await getGitUser(this)
+    if (isUndefined(this.version)) this.version = await getLatestVersion()
+
+    this.fs = new Filesystem(this.directory)
+    this.files =
+      (await this.fs.list(`./`))?.map(s => s.toLowerCase()) ?? []
+
+    if (this.interactive) {
+      this.context.stdout.write(`\n\n`)
+      this.context.stdout.write(
+        `Run ${chalk.blue(
+          `npx create-bud-app --help`,
+        )} for usage information.`,
+      )
+    }
+
+    if (this.wordpress) {
+      this.support.push(`wordpress`, `swc`, `postcss`)
+      this.html = false
+      this.interactive = false
+    }
+
+    if (this.recommended) {
+      this.support.push(`swc`, `postcss`)
+      this.interactive = false
+    }
+
+    if (this.react) {
+      this.support.push(`swc`, `postcss`, `react`)
+      this.interactive = false
+    }
+
+    /**
+     * Handle non-empty directory
+     */
+    if (this.files.length && !this.confirmExisting && !this.overwrite) {
+      /**
+       * Interactive users have a chance to enable
+       */
+      if (this.interactive) {
+        const confirmation = await createConfirmPrompt(this).run()
+        if (!confirmation) throw new Error(`User cancelled scaffolding`)
+        return
+      }
+
+      /**
+       * Non-interactive users are out of luck
+       */
+      this.context.stderr.write(`\n\n`)
+      this.context.stderr.write(`${chalk.red(figures.cross)} Error`)
+      this.context.stderr.write(`\n\n`)
+
+      this.context.stderr.write(
+        `Target directory ${chalk.blueBright(
+          `./${relative(this.cwd, this.directory)}`,
+        )} is not empty and the ${chalk.magenta(
+          `--no-interactive`,
+        )} flag is set.`,
+      )
+      this.context.stderr.write(`\n\n`)
+
+      this.context.stderr.write(
+        `Append the ${chalk.magenta(
+          `--confirm-existing`,
+        )} flag to confirm your intent or ${chalk.magenta(
+          `--overwrite`,
+        )} to allow overwriting of existing files.`,
+      )
+      this.context.stderr.write(`\n\n`)
+
+      throw new Error()
+    }
   }
 
   /**
@@ -329,6 +389,7 @@ export default class CreateCommand extends Command {
     this.support.push(...(await createCssSupportPrompt(this).run()))
     this.support.push(...(await createComponentsSupportPrompt(this).run()))
     this.support.push(...(await createTestSupportPrompt(this).run()))
+    this.html = await createHtmlPrompt(this).run()
   }
 
   /**

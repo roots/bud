@@ -73,7 +73,6 @@
     {"path": "../sources/@roots/bud-wordpress-manifests/tsconfig.json"},
     {"path": "../sources/@roots/bud-wordpress-theme-json/tsconfig.json"},
     {"path": "../sources/@roots/container/tsconfig.json"},
-    {"path": "../sources/@roots/create-bud-app/tsconfig.json"},
     {
       "path": "../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
     },
@@ -93,6 +92,7 @@
     {"path": "../sources/@roots/wordpress-hmr/tsconfig.json"},
     {
       "path": "../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
-    }
+    },
+    {"path": "../sources/create-bud-app/tsconfig.json"}
   ]
 }

@@ -12,8 +12,9 @@ export default async function writeConfigTask(command: CreateCommand) {
   }
 
   try {
+    const configType = command.html ? `spa` : `default`
     const source = await command.fs.read(
-      join(command.createRoot, `templates`, `default`, `bud.config.ts`),
+      join(command.createRoot, `templates`, configType, `bud.config.ts`),
       `utf8`,
     )
 

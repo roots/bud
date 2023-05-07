@@ -54,7 +54,8 @@
       "sources/@repo/*",
       "sources/@roots/*/test/**/*",
       "sources/@roots/*/src/__fixtures__/*",
-      "examples/node-api",
+      "sources/create-bud-app",
+      "examples/*",
       "tests/util/project",
       "tests/reproductions/*"
     ]
