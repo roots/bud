@@ -1,0 +1,10 @@
+export default {
+  root: true,
+  {{#if extends}}
+  extends: [
+    {{#each extends}}
+    '{{this}}',
+    {{/each}}
+  ],
+  {{/if}}
+}

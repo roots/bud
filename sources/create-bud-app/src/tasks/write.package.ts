@@ -17,7 +17,7 @@ export default async function writePackageManifest(
 
   try {
     const source = await command.fs.read(
-      join(command.createRoot, `templates`, `default`, `package.json`),
+      join(command.createRoot, `templates`, `package.json.hbs`),
       `utf8`,
     )
 

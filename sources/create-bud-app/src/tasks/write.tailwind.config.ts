@@ -19,12 +19,7 @@ export default async function writePackageManifest(
 
   try {
     const source = await command.fs.read(
-      join(
-        command.createRoot,
-        `templates`,
-        `default`,
-        `tailwind.config.ts`,
-      ),
+      join(command.createRoot, `templates`, `tailwind.config.js.hbs`),
       `utf8`,
     )
 

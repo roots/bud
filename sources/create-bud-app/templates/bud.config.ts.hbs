@@ -1,0 +1,11 @@
+import type {Bud} from '@roots/bud'
+
+/**
+ * bud.js configuration
+ */
+export default async (bud: Bud) => {
+  bud
+    .entry('app', ['index.{{scriptExtension}}', 'index.{{styleExtension}}'])
+    {{#if html }} .html() {{/if}}
+    {{#if proxy }} .setProxyUrl(`http://example.test`) {{/if}}
+}
