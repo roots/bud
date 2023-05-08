@@ -33,10 +33,11 @@ export default async function writeStylelintConfigTask(
     await command.fs.write(
       `eslint.config.js`,
       formatSource(
-        `export default {
-        root: true,
-        extends: ${JSON.stringify(extensions, null, 2)}
-    }`,
+        `export default {root: true, extends: ${JSON.stringify(
+          extensions,
+          null,
+          2,
+        )}}`,
       ),
     )
   } catch (error) {

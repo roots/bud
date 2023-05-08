@@ -7,7 +7,7 @@ export default async function writeStylelintConfigTask(
   if (!command.support.includes(`stylelint`)) return
 
   const spinner = command.createSpinner()
-  spinner.start(`Writing stylelint.config.js...`)
+  spinner.start(`Writing stylelint config...`)
 
   if (!command.overwrite && command.exists(`stylelint`)) {
     return spinner.warn(

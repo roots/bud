@@ -1,7 +1,5 @@
-import {join} from 'node:path'
-
 import type CreateCommand from '../commands/create.js'
-import templateEngine from '../utilities/templateEngine.js'
+import formatSource from '../utilities/formatSource.js'
 
 export default async function writeTsConfig(command: CreateCommand) {
   const spinner = command.createSpinner()
@@ -14,21 +12,46 @@ export default async function writeTsConfig(command: CreateCommand) {
   }
 
   try {
-    const source = await command.fs.read(
-      join(command.createRoot, `templates`, `default`, `tsconfig.json`),
-      `utf8`,
+    const types = [`@roots/bud`]
+
+    command.support.includes(`babel`) && types.push(`@roots/bud-babel`)
+    command.support.includes(`swc`) && types.push(`@roots/bud-swc`)
+    command.support.includes(`typescript`) &&
+      types.push(`@roots/bud-typescript`)
+    command.support.includes(`sass`) && types.push(`@roots/bud-sass`)
+    command.support.includes(`tailwindcss`) &&
+      types.push(`@roots/bud-tailwindcss`)
+    command.support.includes(`postcss`) && types.push(`@roots/bud-postcss`)
+    command.support.includes(`vue`) && types.push(`@roots/bud-vue`)
+    command.support.includes(`react`) && types.push(`@roots/bud-react`)
+    command.support.includes(`eslint`) && types.push(`@roots/bud-eslint`)
+    command.support.includes(`stylelint`) && types.push(`@roots/stylelint`)
+    command.support.includes(`wordpress`) &&
+      types.push(
+        `@roots/bud-preset-wordpress`,
+        `@roots/bud-wordpress-dependencies`,
+        `@roots/bud-wordpress-externals`,
+        `@roots/bud-wordpress-manifests`,
+      )
+
+    const source = `{
+      "extends": "@roots/bud/config/jsconfig.json",
+      "compilerOptions": {
+        "allowJs": true,
+        "paths": {
+          "@src/*": ["./src/*"]
+        },
+        "types": [${types.reduce((all, type) => `${all} "${type}",`, ``)}]
+      },
+      "include": ["./bud.config.ts", "./src"],
+      "exclude": ["./node_modules", "./dist"]
+    }
+    `
+
+    await command.fs.write(
+      `tsconfig.json`,
+      formatSource(source, {parser: `json`}),
     )
-
-    const template = templateEngine.compile(source)
-
-    const result = template({
-      name: command.name,
-      username: command.username,
-      license: command.license,
-      version: command.version,
-    })
-
-    await command.fs.write(`tsconfig.json`, result)
   } catch (error) {
     spinner.fail()
     throw error

@@ -4,7 +4,7 @@ import type CreateCommand from '../commands/create.js'
 
 export default async function writeSrcTask(command: CreateCommand) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing src/**/*...`)
+  spinner.start(`Writing src...`)
 
   if (!command.overwrite && command.exists(`src`)) {
     return spinner.warn(`src already exists. skipping write task.`)

@@ -26,7 +26,7 @@ import BudEslintCacheFix from './cache-fix/index.js'
   fix: false,
   lintDirtyModulesOnly: app => app.isDevelopment,
   resolvePluginsRelativeTo: app => app.path(),
-  threads: true,
+  threads: false,
 })
 export class BudEslint extends Extension<Options, EslintPlugin> {
   /**

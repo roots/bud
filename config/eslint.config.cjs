@@ -48,7 +48,7 @@ module.exports = {
     `**/node_modules`,
     `examples`,
     `sources/@repo/docs/build`,
-    `sources/deprecated`,
+    `**/create-bud-app/templates`,
     `tests`,
     `sources/@repo/docs/content/dev/api`,
     `sources/@repo/test-kit/compiled`,

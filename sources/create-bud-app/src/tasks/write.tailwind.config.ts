@@ -9,7 +9,7 @@ export default async function writePackageManifest(
   if (!command.support.includes(`tailwindcss`)) return
 
   const spinner = command.createSpinner()
-  spinner.start(`Writing tailwind.config.js...`)
+  spinner.start(`Writing tailwind config...`)
 
   if (!command.overwrite && command.exists(`tailwind`)) {
     return spinner.warn(

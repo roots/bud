@@ -5,14 +5,14 @@ import templateEngine from '../utilities/templateEngine.js'
 
 export default async function writeConfigTask(command: CreateCommand) {
   const spinner = command.createSpinner()
-  spinner.start(`Writing bud.config.ts...`)
+  spinner.start(`Writing bud config...`)
 
   if (!command.overwrite && command.exists(`bud.config`)) {
-    return spinner.warn(`bud.config already exists. skipping write task.`)
+    return spinner.warn(`bud config already exists. skipping write task.`)
   }
 
   try {
-    const configType = command.html ? `spa` : `default`
+    const configType = command.html ? `default` : `no-html`
     const source = await command.fs.read(
       join(command.createRoot, `templates`, configType, `bud.config.ts`),
       `utf8`,

@@ -2,12 +2,11 @@
   "extends": "@roots/bud/config/jsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "src",
     "paths": {
-      "@src/*": ["*"]
+      "@src/*": ["./src/*"]
     },
-    "types": ["@roots/bud", "@roots/bud-swc"]
+    "types": {{types}}
   },
-  "include": ["bud.config.ts", "src"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["./bud.config.ts", "./src"],
+  "exclude": ["./node_modules", "./dist"]
 }

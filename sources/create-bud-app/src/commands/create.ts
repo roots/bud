@@ -440,6 +440,10 @@ export default class CreateCommand extends Command {
       this.dependencies.push(`vue`)
     }
 
+    if (this.support.includes(`eslint`)) {
+      this.devDependencies.push(`@roots/eslint-config`)
+    }
+
     await writePackageJSONTask(this)
     await writeReadmeTask(this)
     await writeGitignoreConfigTask(this)

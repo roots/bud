@@ -30,12 +30,12 @@
     "roots"
   ],
   "files": [
-    "docs",
+    "bin",
     "templates",
     "lib",
     "src"
   ],
-  "bin": "./lib/index.js",
+  "bin": "./bin/create-bud-app.mjs",
   "type": "module",
   "exports": {
     ".": {
