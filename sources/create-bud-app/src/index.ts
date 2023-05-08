@@ -6,7 +6,7 @@ const [, , ...args] = process.argv
 
 const cli = new Cli({
   binaryLabel: `create-bud-app`,
-  binaryName: `npx @roots/create-bud-app`,
+  binaryName: `npx create-bud-app`,
   binaryVersion: `1.0.0`,
 })
 
