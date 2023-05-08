@@ -9,7 +9,7 @@
 <h1 align="center"><strong>create-bud-app</strong></h1>
 
 <p align="center">
-  Interactive project scaffolding
+  Get up and running fast with our interactive app scaffolding utility
 </p>
 
 ---
@@ -21,8 +21,6 @@ Creating a project is as simple as:
 ```sh
 npx create-bud-app
 ```
-
-You will be prompted for project details and asked what tools you would like to install. We recommend `swc` for js compilation and `postcss` for css preprocessing. No matter what you choose, you should end up with a buildable project 💪.
 
 ## Creating an App
 
@@ -59,11 +57,11 @@ my-app
     └── logo.svg
 ```
 
-Your actual project may look somewhat different depending on what you chosen to install.
+Your actual project may look somewhat different depending on what you chosen to install. For example, if you add support for `eslint`, you will wind up with an `eslint.config.js` file in your project root.
 
-## Using a preset
+## Installing from a preset
 
-There are several presets available via flags to quickly build popular project types:
+There are several presets available to quickly build popular project types:
 
 ### Recommended
 
@@ -83,11 +81,21 @@ npx create-bud-app --react
 
 ### WordPress
 
-Includes support for WordPress themes and plugins:
+Includes support for Typescript, ES6, and postcss for WordPress themes and plugins:
 
 ```sh
 npx create-bud-app --wordpress
 ```
+
+## Customizing presets
+
+Presets are installed non-interactively. If you want to customize a preset interactively use the `--customize` flag:
+
+```sh
+npx create-bud-app --wordpress --customize
+```
+
+This is nice if you want to use a preset but need to just make a couple changes to it.
 
 ## Safety overrides
 

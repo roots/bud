@@ -12,6 +12,7 @@ import isUndefined from 'lodash/isUndefined.js'
 import ora, {Options as OraOptions} from 'ora'
 
 import confirmExistingFlag from '../flags/confirm-existing.js'
+import customizeFlag from '../flags/customize.js'
 import cwdFlag from '../flags/cwd.js'
 import dependenciesFlag from '../flags/dependencies.js'
 import descriptionFlag from '../flags/description.js'
@@ -73,13 +74,17 @@ export default class CreateCommand extends Command {
 
       \`npx create-bud-app\`
 
-      There are several presets which can be used to scaffold a project with support for common features:
+      There are several presets which can be used to quickly scaffold a project with support for common features:
 
       \`npx create-bud-app --recommended\`
 
       \`npx create-bud-app --wordpress\`
 
       \`npx create-bud-app --react\`
+
+      Presets are installed non-interactively. If you want to customize the project you can use the \`--customize\` flag:
+
+      \`npx create-bud-app --wordpress --customize\`
 
       The command accepts an optional positional argument indicating the path to the directory you want to scaffold the project in. This path should be
       expressed relative to the current working directory. The directory will be created if it does not exist.
@@ -126,6 +131,10 @@ export default class CreateCommand extends Command {
       ],
       [`Add support for swc`, `npx create-bud-app --support swc`],
       [
+        `Skip html generation (for use with things like Laravel and WordPress)`,
+        `npx create-bud-app --no-html`,
+      ],
+      [
         `Add additional dependencies`,
         `npx create-bud-app --dependencies redux --dependencies react-router`,
       ],
@@ -141,6 +150,8 @@ export default class CreateCommand extends Command {
   })
 
   public confirmExisting = confirmExistingFlag
+
+  public customize = customizeFlag
 
   public cwd = cwdFlag
 
@@ -297,17 +308,17 @@ export default class CreateCommand extends Command {
     if (this.wordpress) {
       this.support.push(`wordpress`, `swc`, `postcss`)
       this.html = false
-      this.interactive = false
+      if (!this.customize) this.interactive = false
     }
 
     if (this.recommended) {
       this.support.push(`swc`, `postcss`)
-      this.interactive = false
+      if (!this.customize) this.interactive = false
     }
 
     if (this.react) {
       this.support.push(`swc`, `postcss`, `react`)
-      this.interactive = false
+      if (!this.customize) this.interactive = false
     }
 
     /**
