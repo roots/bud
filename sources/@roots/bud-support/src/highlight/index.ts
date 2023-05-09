@@ -4,7 +4,7 @@ import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'
 import scss from 'highlight.js/lib/languages/scss'
 import ts from 'highlight.js/lib/languages/typescript'
-import * as parse5 from 'parse5'
+import {parseFragment} from 'parse5'
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
 import {theme} from './theme.js'
@@ -45,7 +45,7 @@ const colorizeNode = (node: node): string => {
 
 const colorize = (code: string): string => {
   // @ts-ignore
-  const fragment = parse5.parseFragment(code, {treeAdapter: adapter})
+  const fragment = parseFragment(code, {treeAdapter: adapter})
   return fragment.childNodes
     .map(node => colorizeNode(node as any))
     .join(``)
@@ -61,8 +61,6 @@ const colorize = (code: string): string => {
 
 !hljs.listLanguages().includes(`scss`) &&
   hljs.registerLanguage(`scss`, scss)
-
-export default hljs
 
 export const highlight = (code: string): string =>
   colorize(

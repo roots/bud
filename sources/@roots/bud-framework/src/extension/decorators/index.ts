@@ -1,4 +1,4 @@
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 import {dependsOn} from './dependsOn.js'
 import {dependsOnOptional} from './dependsOnOptional.js'

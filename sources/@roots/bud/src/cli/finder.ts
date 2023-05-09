@@ -3,7 +3,7 @@ import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
 import type {Context} from '@roots/bud-framework/options'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'

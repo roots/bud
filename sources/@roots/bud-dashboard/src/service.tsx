@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import figures from '@roots/bud-support/figures'
 import isString from '@roots/bud-support/lodash/isString'
 import type {

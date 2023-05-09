@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import * as Ink from 'ink'
 
 /**

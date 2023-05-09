@@ -8,7 +8,7 @@ import type {Server as HttpsServer} from 'node:https'
 import type {Bud} from '@roots/bud-framework/bud'
 import type {Server} from '@roots/bud-framework/services'
 import type {Connection} from '@roots/bud-framework/services/server'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
 
 /**

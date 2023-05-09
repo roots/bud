@@ -75,9 +75,6 @@
     "vinyl": "3.0.0",
     "webpack": "5.76.3"
   },
-  "peerDependencies": {
-    "critical": "*"
-  },
   "volta": {
     "extends": "../../../package.json"
   }

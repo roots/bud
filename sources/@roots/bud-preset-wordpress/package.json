@@ -93,11 +93,11 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-preset-recommend": "workspace:sources/@roots/bud-preset-recommend",
     "@roots/bud-react": "workspace:sources/@roots/bud-react",
@@ -107,34 +107,6 @@
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr",
     "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-preset-recommend": "*",
-    "@roots/bud-react": "*",
-    "@roots/bud-tailwindcss-theme-json": "*",
-    "@roots/bud-wordpress-manifests": "*",
-    "@roots/wordpress-hmr": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "@roots/bud-preset-recommend": {
-      "optional": true
-    },
-    "@roots/bud-react": {
-      "optional": true
-    },
-    "@roots/bud-tailwindcss-theme-json": {
-      "optional": true
-    },
-    "@roots/bud-wordpress-manifests": {
-      "optional": true
-    },
-    "@roots/wordpress-hmr": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

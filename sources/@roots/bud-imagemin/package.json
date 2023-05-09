@@ -82,26 +82,10 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "image-minimizer-webpack-plugin": "^3.8.2",
+    "image-minimizer-webpack-plugin": "3.8.2",
     "sharp": "0.32.0",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "image-minimizer-webpack-plugin": "*",
-    "sharp": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "image-minimizer-webpack-plugin": {
-      "optional": true
-    },
-    "sharp": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

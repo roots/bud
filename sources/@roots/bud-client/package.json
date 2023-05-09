@@ -75,18 +75,6 @@
   "dependencies": {
     "tslib": "2.5.0"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@types/webpack-env": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "@types/webpack-env": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

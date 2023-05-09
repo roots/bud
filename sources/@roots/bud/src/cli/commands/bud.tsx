@@ -11,7 +11,7 @@ import type {
   Context,
 } from '@roots/bud-framework/options/context'
 import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudHandler} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import * as t from '@roots/bud-support/typanion'

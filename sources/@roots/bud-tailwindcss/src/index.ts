@@ -11,4 +11,5 @@
 import './types/index.js'
 
 import {BudTailwindCss} from './extension/index.js'
+
 export default BudTailwindCss

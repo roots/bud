@@ -19,6 +19,6 @@
 
 import './types.js'
 
-import * as purgeExtension from './extension.js'
+import BudPurgeCSS from './extension.js'
 
-export default purgeExtension
+export default BudPurgeCSS

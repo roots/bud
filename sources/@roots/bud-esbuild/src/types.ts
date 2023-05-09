@@ -3,9 +3,7 @@
 /// <reference types="@roots/bud" />
 /// <reference types="@roots/bud-framework" />
 
-import type {Item} from '@roots/bud-build/item'
-import type {Loader} from '@roots/bud-build/loader'
-import type {Rule} from '@roots/bud-build/rule'
+import type {Item, Loader, Rule} from '@roots/bud-build'
 
 import type Esbuild from './extension.js'
 

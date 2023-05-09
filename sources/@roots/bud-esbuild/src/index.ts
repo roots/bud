@@ -11,4 +11,5 @@
 import './types.js'
 
 import BudEsbuild from './extension.js'
+
 export default BudEsbuild

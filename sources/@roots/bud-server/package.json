@@ -103,14 +103,6 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "tslib": "2.5.0"
   },
-  "peerDependencies": {
-    "@roots/bud-client": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud-client": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

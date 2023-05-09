@@ -77,28 +77,10 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "postcss": "8.4.21",
     "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@fullhuman/postcss-purgecss": "*",
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
-    "postcss": "*"
-  },
-  "peerDependenciesMeta": {
-    "@fullhuman/postcss-purgecss": {
-      "optional": true
-    },
-    "@roots/bud": {
-      "optional": true
-    },
-    "@roots/bud-postcss": {
-      "optional": true
-    },
-    "postcss": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

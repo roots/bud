@@ -3,7 +3,7 @@ import {createServer, Server as HttpsServer} from 'node:https'
 
 import type {Connection} from '@roots/bud-framework/services/server'
 import {BaseServer} from '@roots/bud-server/server/base'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * HTTPS Server

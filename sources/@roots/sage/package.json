@@ -155,10 +155,6 @@
     "tslib": "2.5.0",
     "webpack": "5.76.3"
   },
-  "peerDependencies": {
-    "@roots/blade-loader": "*",
-    "@roots/bud": "workspace:sources/@roots/bud"
-  },
   "volta": {
     "extends": "../../../package.json"
   },

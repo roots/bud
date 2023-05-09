@@ -65,33 +65,17 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.15.10"
   },
   "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "esbuild-loader": "2.21.0",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
-  },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "esbuild-loader": "*",
-    "ts-node": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "esbuild-loader": {
-      "optional": true
-    },
-    "ts-node": {
-      "optional": true
-    }
   },
   "volta": {
     "extends": "../../../package.json"

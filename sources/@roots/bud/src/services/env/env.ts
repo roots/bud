@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud'
 import {ServiceContainer} from '@roots/bud-framework/service'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * Env service

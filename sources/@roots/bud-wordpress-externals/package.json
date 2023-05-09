@@ -73,18 +73,6 @@
     "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin",
     "tslib": "2.5.0"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/wordpress-externals-webpack-plugin": "*"
-  },
-  "peerDependenciesMeta": {
-    "@roots/bud": {
-      "optional": true
-    },
-    "@roots/wordpress-externals-webpack-plugin": {
-      "optional": true
-    }
-  },
   "volta": {
     "extends": "../../../package.json"
   }

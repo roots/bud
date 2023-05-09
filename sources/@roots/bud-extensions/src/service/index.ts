@@ -4,7 +4,7 @@ import type {Bud, Modules} from '@roots/bud-framework'
 import {ApplyPlugin, Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 

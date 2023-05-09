@@ -5,7 +5,7 @@ import type {
   Parser,
   Rule as Interface,
 } from '@roots/bud-framework/services/build/rule'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import type {RuleSetRule} from '@roots/bud-support/webpack'

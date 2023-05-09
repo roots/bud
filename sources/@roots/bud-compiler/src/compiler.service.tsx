@@ -4,7 +4,7 @@ import * as App from '@roots/bud-dashboard/app'
 import type {Bud} from '@roots/bud-framework/bud'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, CompilerError} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import type {
@@ -50,8 +50,12 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    this.implementation = await this.app.module.import(
+    const compilerPath = await this.app.module.resolve(
       `webpack`,
+      import.meta.url,
+    )
+    this.implementation = await this.app.module.import(
+      compilerPath,
       import.meta.url,
     )
     this.logger.log(`imported webpack`, this.implementation.version)

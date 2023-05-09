@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {ServiceContainer} from '@roots/bud-framework/service'
 import type {Api as Contract} from '@roots/bud-framework/services'
-import {bind} from '@roots/bud-support/decorators'
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
