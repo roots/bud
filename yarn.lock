@@ -7815,7 +7815,7 @@ __metadata:
     globby: 13.1.3
     highlight.js: 11.7.0
     html-loader: 4.2.0
-    html-webpack-plugin: 5.5.0
+    html-webpack-plugin: 5.5.1
     http-proxy-middleware: 3.0.0-beta.1
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
@@ -21844,7 +21844,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:5.5.0, html-webpack-plugin@npm:^5.5.0":
+"html-webpack-plugin@npm:5.5.1":
+  version: 5.5.1
+  resolution: "html-webpack-plugin@npm:5.5.1"
+  dependencies:
+    "@types/html-minifier-terser": ^6.0.0
+    html-minifier-terser: ^6.0.2
+    lodash: ^4.17.21
+    pretty-error: ^4.0.0
+    tapable: ^2.0.0
+  peerDependencies:
+    webpack: ^5.20.0
+  checksum: f4b43271171e6374b10a49b5231bbab94610a344d58f4f7d95cd130520feb474f98006e1ab71ea102c57fe5a107b273ff7c19e7e1bc2314d611dbb791fcc0a98
+  languageName: node
+  linkType: hard
+
+"html-webpack-plugin@npm:^5.5.0":
   version: 5.5.0
   resolution: "html-webpack-plugin@npm:5.5.0"
   dependencies:
