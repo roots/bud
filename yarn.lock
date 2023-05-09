@@ -7380,7 +7380,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.15.10
     "@types/react": 18.0.30
-    ink: 4.1.0
+    ink: 4.2.0
     react: 18.2.0
     tslib: 2.5.0
     webpack: 5.76.3
@@ -7430,7 +7430,7 @@ __metadata:
     "@types/react": 18.0.30
     chalk: 5.2.0
     human-readable: 0.2.1
-    ink: 4.1.0
+    ink: 4.2.0
     ink-testing-library: 3.0.0
     ink-text-input: 5.0.0
     react: 18.2.0
@@ -8050,7 +8050,7 @@ __metadata:
     "@types/node": 18.15.10
     "@types/react": 18.0.30
     chalk: 5.2.0
-    ink: 4.1.0
+    ink: 4.2.0
     ink-spinner: 5.0.0
     ink-text-input: 5.0.0
     react: 18.2.0
@@ -22396,9 +22396,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ink@npm:4.1.0":
-  version: 4.1.0
-  resolution: "ink@npm:4.1.0"
+"ink@npm:4.2.0":
+  version: 4.2.0
+  resolution: "ink@npm:4.2.0"
   dependencies:
     ansi-escapes: ^6.0.0
     auto-bind: ^5.0.1
@@ -22409,6 +22409,8 @@ __metadata:
     code-excerpt: ^4.0.0
     indent-string: ^5.0.0
     is-ci: ^3.0.1
+    is-lower-case: ^2.0.2
+    is-upper-case: ^2.0.2
     lodash: ^4.17.21
     patch-console: ^2.0.0
     react-reconciler: ^0.29.0
@@ -22431,7 +22433,7 @@ __metadata:
       optional: true
     react-devtools-core:
       optional: true
-  checksum: f854511b122764e4f49f93e8921cf70f0f2f9cfdaba0a0a765d3976b4146b732e4b6bdb1b3c01fb157c4ce952746a4f685cb7879ae386b8313be974e6e661726
+  checksum: feb42cd1de654e1d3be99040eadc4f130c21a653bf7a219d1f67df975c644f68a7be6372e8855cb09375d682716c38a354d473a03767744b08e2439f9cd4cacc
   languageName: node
   linkType: hard
 
@@ -23027,6 +23029,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-lower-case@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "is-lower-case@npm:2.0.2"
+  dependencies:
+    tslib: ^2.0.3
+  checksum: ba57dd1201e15fd9b590654736afccf1b3b68e919f40c23ef13b00ebcc639b1d9c2f81fe86415bff3e8eccffec459786c9ac9dc8f3a19cfa4484206c411c1d7d
+  languageName: node
+  linkType: hard
+
 "is-map@npm:^2.0.1, is-map@npm:^2.0.2":
   version: 2.0.2
   resolution: "is-map@npm:2.0.2"
@@ -23370,6 +23381,15 @@ __metadata:
   version: 1.2.0
   resolution: "is-unicode-supported@npm:1.2.0"
   checksum: 2d90b4b3ce622c1ecf7414b8954cc8f0483576d4d8e6892cbbdc1e2dd33d6126b1cf0319cf1549bee03d45f989b8b0de3309c879a9388a4fe6b8836f866ed86c
+  languageName: node
+  linkType: hard
+
+"is-upper-case@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "is-upper-case@npm:2.0.2"
+  dependencies:
+    tslib: ^2.0.3
+  checksum: cf4fd43c00c2e72cd5cff911923070b89f0933b464941bd782e2315385f80b5a5acd772db3b796542e5e3cfed735f4dffd88c54d62db1ebfc5c3daa7b1af2bc6
   languageName: node
   linkType: hard
 

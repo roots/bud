@@ -80,7 +80,7 @@
     "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "ink": "4.1.0",
+    "ink": "4.2.0",
     "react": "18.2.0",
     "tslib": "2.5.0",
     "webpack": "5.76.3"
