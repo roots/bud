@@ -1,0 +1,9 @@
+module.exports = {
+  extends: [
+    {{#if extends}}
+    {{#each extends}}
+    '{{this}}',
+    {{/each}}
+    {{/if}}
+  ]
+}

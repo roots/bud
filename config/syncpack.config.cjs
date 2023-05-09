@@ -61,7 +61,7 @@ module.exports = {
     },
     {
       dependencies: [`**`],
-      packages: [`@example/*`],
+      packages: [`@examples/*`],
       label: `Example code`,
     },
   ],

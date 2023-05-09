@@ -1,0 +1,21 @@
+{
+  "name": "{{name}}",
+  "description": "{{description}}",
+  "engines": {
+    "node": ">=16"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/{{username}}/{{name}}.git"
+  },
+  "license": "{{license}}",
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "scripts": {
+    "build": "bud build production",
+    "dev": "bud build development",
+    "ci": "bud build --no-cache"
+  }
+}

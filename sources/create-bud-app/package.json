@@ -1,0 +1,78 @@
+{
+  "name": "create-bud-app",
+  "version": "0.0.0",
+  "description": "Create bud app CLI",
+  "engines": {
+    "node": ">=16"
+  },
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://roots.io/bud",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/create-bud-app"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "create-bud-app",
+    "roots"
+  ],
+  "files": [
+    "bin",
+    "templates",
+    "lib",
+    "src"
+  ],
+  "bin": "./bin/create-bud-app.mjs",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.15.10",
+    "@types/prettier": "2.7.2",
+    "type-fest": "3.7.1"
+  },
+  "dependencies": {
+    "@roots/filesystem": "workspace:sources/@roots/filesystem",
+    "chalk": "5.2.0",
+    "clipanion": "3.2.0",
+    "enquirer": "2.3.6",
+    "execa": "7.1.1",
+    "figures": "5.0.0",
+    "handlebars": "4.7.7",
+    "lodash": "4.17.21",
+    "ora": "6.3.0",
+    "prettier": "2.8.7",
+    "tslib": "2.5.0",
+    "typanion": "3.12.1"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

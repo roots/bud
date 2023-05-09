@@ -92,6 +92,7 @@
     {"path": "../sources/@roots/wordpress-hmr/tsconfig.json"},
     {
       "path": "../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
-    }
+    },
+    {"path": "../sources/create-bud-app/tsconfig.json"}
   ]
 }

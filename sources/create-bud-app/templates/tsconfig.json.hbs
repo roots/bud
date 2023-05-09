@@ -1,0 +1,18 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+     {{#if types}}
+    "types": [
+    {{#each types}}
+      "{{this}}",
+    {{/each}}
+    ]
+    {{/if}
+  },
+  "include": ["./bud.config.ts", "./src"],
+  "exclude": ["./node_modules", "./dist"]
+}
