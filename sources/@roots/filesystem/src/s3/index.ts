@@ -7,10 +7,9 @@ import type {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3'
-import {bind} from 'helpful-decorators'
-import isString from 'lodash/isString.js'
 import * as mimetypes from 'mime-types'
 
+import {isString} from '../helpers.js'
 import {Client} from './client.js'
 import {Config} from './config.js'
 
@@ -27,12 +26,17 @@ export class S3 {
   public constructor() {
     this.config = new Config()
     this.client = new Client()
+    this.getClient = this.getClient.bind(this)
+    this.read = this.read.bind(this)
+    this.delete = this.delete.bind(this)
+    this.exists = this.exists.bind(this)
+    this.write = this.write.bind(this)
+    this.list = this.list.bind(this)
   }
 
   /**
    * S3 Client
    */
-  @bind
   public async getClient(): Promise<S3Client> {
     if (!this.config.credentials) {
       throw new Error(
@@ -79,7 +83,6 @@ export class S3 {
    * @returns The file contents
    * @throws Error - If the file does not exist
    */
-  @bind
   public async read(
     key: string,
     raw = false,
@@ -119,7 +122,6 @@ export class S3 {
    * @throws Error - If the file does not exist
    * @throws Error - If the file could not be deleted
    */
-  @bind
   public async delete(key: string) {
     try {
       const client = await this.getClient()
@@ -145,7 +147,6 @@ export class S3 {
    * @param key - The file key
    * @returns boolean
    */
-  @bind
   public async exists(key: string) {
     try {
       const files = (await this.list()) as Array<string>
@@ -165,7 +166,6 @@ export class S3 {
    * @param props - {@link Omit<ListObjectsCommandInput, `Bucket`> command input props}
    * @returns Array of file keys
    */
-  @bind
   public async list(
     props?: Omit<ListObjectsCommandInput, `Bucket`>,
   ): Promise<Array<string>> {
@@ -191,7 +191,6 @@ export class S3 {
    * @param params - Either {@link PutObjectCommandInput} or the key and body
    * @returns S3 instance {@link S3}
    */
-  @bind
   public async write(
     ...params:
       | [Omit<PutObjectCommandInput, `Bucket`>]

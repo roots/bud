@@ -21,9 +21,8 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types.js'
-import {bind} from 'helpful-decorators'
-import isNumber from 'lodash/isNumber.js'
 
+import {isNumber} from './helpers.js'
 import * as json from './json.js'
 import * as yml from './yml.js'
 
@@ -47,12 +46,28 @@ export default class Filesystem {
   public constructor(...pathParts: Array<string>) {
     this.fs =
       pathParts.length > 0 ? filesystem.cwd(...pathParts) : filesystem
+
+    this.append = this.append.bind(this)
+    this.copy = this.copy.bind(this)
+    this.createReadStream = this.createReadStream.bind(this)
+    this.createWriteStream = this.createWriteStream.bind(this)
+    this.dir = this.dir.bind(this)
+    this.exists = this.exists.bind(this)
+    this.find = this.find.bind(this)
+    this.inspect = this.inspect.bind(this)
+    this.inspectTree = this.inspectTree.bind(this)
+    this.list = this.list.bind(this)
+    this.move = this.move.bind(this)
+    this.path = this.path.bind(this)
+    this.read = this.read.bind(this)
+    this.remove = this.remove.bind(this)
+    this.symlink = this.symlink.bind(this)
+    this.write = this.write.bind(this)
   }
 
   /**
    * Create a {@link ReadStream}
    */
-  @bind
   public createReadStream(path: string, options?: any): ReadStream {
     return this.fs.createReadStream(path, options)
   }
@@ -60,7 +75,6 @@ export default class Filesystem {
   /**
    * Create a {@link WriteStream}
    */
-  @bind
   public createWriteStream(
     path: PathLike,
     options?: BufferEncoding | CreateWriteStreamOptions,
@@ -75,7 +89,6 @@ export default class Filesystem {
    * @param data - data to append (can be `String` or `Buffer`).
    * @param options - options
    */
-  @bind
   public async append(
     path: string,
     data: AppendData,
@@ -242,7 +255,6 @@ export default class Filesystem {
    *
    * @param path - path to delete
    */
-  @bind
   public async remove(path?: string): Promise<Filesystem> {
     await this.fs.removeAsync(path) // returns void
 
@@ -274,7 +286,6 @@ export default class Filesystem {
    * @param data - {@link WritableData | data to write}
    * @param options - {@link json.WriteOptions | write options}
    */
-  @bind
   public async write(
     path: string,
     data: WritableData,
