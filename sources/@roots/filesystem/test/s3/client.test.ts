@@ -1,7 +1,7 @@
 import {S3} from '@aws-sdk/client-s3'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Client} from './client.js'
+import {Client} from '../../src/s3/client.js'
 
 describe(`s3 client`, () => {
   let client

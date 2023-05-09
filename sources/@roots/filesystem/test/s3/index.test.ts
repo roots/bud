@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {S3} from './index.js'
+import {S3} from '../../src/s3/index.js'
 
 const mockSDKImplementation = {
   send: vi.fn(),
@@ -49,13 +49,13 @@ describe(`s3`, () => {
 
   it(`should return the ident for AWS`, async () => {
     s3.config.set(`region`, `us-west-1`)
-    s3.config.set(`endpoint`, null)
+    s3.config.set(`endpoint`, undefined)
     s3.config.set(`bucket`, `foo`)
     expect(s3.ident).toEqual(`foo (us-west-1)`)
   })
 
-  it(`should set s3 region`, async () => {
-    await s3.config.set(`region`, `foo`)
+  it(`should set s3 region`, () => {
+    s3.config.set(`region`, `foo`)
     expect(s3.config.set).toHaveBeenCalledWith(`region`, `foo`)
   })
 

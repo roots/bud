@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {FS} from './index.js'
+import {FS} from '../src/index.js'
 
 vi.mock(`fs-jetpack`, function () {
   return {
@@ -26,9 +26,9 @@ vi.mock(`fs-jetpack`, function () {
 })
 
 describe(`filesystem`, () => {
-  let fs
-  let jetpack
-  let json
+  let fs: any
+  let jetpack: any
+  let json: any
 
   beforeEach(async () => {
     vi.clearAllMocks()
@@ -50,7 +50,7 @@ describe(`filesystem`, () => {
       path: vi.fn(() => this),
       cwd: vi.fn(() => this),
     }
-    json = await import(`./json`).then(mock => {
+    json = await import(`../src/json.js`).then(mock => {
       json = mock
     })
 

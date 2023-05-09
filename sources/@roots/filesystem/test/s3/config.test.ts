@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Config} from './config.js'
+import {Config} from '../../src/s3/config.js'
 
 describe(`s3 config`, () => {
   let config

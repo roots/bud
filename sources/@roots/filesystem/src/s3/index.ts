@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable n/no-unpublished-import */
 import type {Readable} from 'node:stream'
 
 import type {

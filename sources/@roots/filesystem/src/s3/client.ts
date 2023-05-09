@@ -1,3 +1,4 @@
+/* eslint-disable n/no-unpublished-import */
 import type {S3Client, S3ClientConfig} from '@aws-sdk/client-s3'
 
 /**

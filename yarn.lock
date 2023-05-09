@@ -8272,7 +8272,6 @@ __metadata:
     "@types/tailwindcss": 3.1.0
     "@types/webpack-virtual-modules": 0.1.1
     postcss: 8.4.21
-    sucrase: 3.31.0
     tailwindcss: 3.3.0
     tslib: 2.5.0
     webpack: 5.76.3
@@ -34164,7 +34163,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sucrase@npm:3.31.0, sucrase@npm:^3.29.0":
+"sucrase@npm:^3.29.0":
   version: 3.31.0
   resolution: "sucrase@npm:3.31.0"
   dependencies:
