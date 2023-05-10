@@ -6,21 +6,16 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {ImportError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import args from '@roots/bud-support/utilities/args'
-import * as FS from '@roots/bud-support/utilities/filesystem'
 import logger from '@roots/bud-support/utilities/logger'
 import * as paths from '@roots/bud-support/utilities/paths'
 
 import type {Bud} from './bud.js'
+import {Service} from './service.js'
 
 /**
  * Module resolver
  */
-export class Module {
-  /**
-   * Filesystem
-   */
-  public fs: FS.Filesystem
-
+export class Module extends Service {
   /**
    * Node require
    */
@@ -35,7 +30,10 @@ export class Module {
    * Cache location
    */
   public get cacheLocation(): string {
-    return join(paths.get(this.basedir).storage, `resolutions.yml`)
+    return join(
+      paths.get(this.app.context.basedir).storage,
+      `resolutions.yml`,
+    )
   }
 
   /**
@@ -56,26 +54,24 @@ export class Module {
   /**
    * Class constructor
    */
-  public constructor(public basedir: string) {
-    this.require = createRequire(this.makeContextURL(this.basedir))
-    this.fs = FS.get(this.basedir)
+  public constructor(_app: () => Bud) {
+    super(_app)
   }
 
   /**
    * {@link Service.init}
    */
   @bind
-  public async init(bud: Bud) {
-    if (
-      this.cacheEnabled &&
-      !!(await this.fs.exists(this.cacheLocation))
-    ) {
+  public override async init(bud: Bud) {
+    this.require = createRequire(this.makeContextURL(bud.context.basedir))
+
+    if (this.cacheEnabled && !!(await bud.fs.exists(this.cacheLocation))) {
       logger
         .scope(`module`)
         .info(`cache is enabled and cached resolutions exist`)
 
       try {
-        const data = await FS.get().read(this.cacheLocation)
+        const data = await bud.fs.read(this.cacheLocation)
         if (data.version && data.version === bud.context?.bud?.version) {
           this.resolved = data.resolutions
           this.cacheValid = true
@@ -95,9 +91,9 @@ export class Module {
   @bind
   public async getDirectory(signifier: string, context?: string) {
     return await this.resolve(signifier, context)
-      .then(path => relative(context ?? this.basedir, path))
+      .then(path => relative(context ?? this.app.context.basedir, path))
       .then(path => path.split(signifier).shift())
-      .then(path => join(path as any, signifier))
+      .then(path => this.app.path(path as any, signifier))
   }
 
   /**
@@ -106,7 +102,7 @@ export class Module {
   @bind
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName).then(dir =>
-      join(dir, `package.json`),
+      this.app.path(dir, `package.json`),
     )
   }
 
@@ -117,7 +113,7 @@ export class Module {
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
       logger.scope(`module`).info(signifier, `manifest resolved to`, path)
-      return await this.fs.read(path)
+      return await this.app.fs.read(path)
     })
   }
 
@@ -134,7 +130,7 @@ export class Module {
         .scope(`module`)
         .info(
           `resolved ${signifier} to ${relative(
-            this.basedir,
+            this.app.context.basedir,
             this.resolved[signifier],
           )} from cache`,
         )
@@ -153,7 +149,10 @@ export class Module {
         .scope(`module`)
         .info(
           `[cache miss]`,
-          `resolved ${signifier} to ${relative(this.basedir, normal)}`,
+          `resolved ${signifier} to ${relative(
+            this.app.context.basedir,
+            normal,
+          )}`,
         )
 
       this.resolved[signifier] = normal
@@ -171,7 +170,10 @@ export class Module {
         .scope(`module`)
         .info(
           `[cache miss]`,
-          `resolved ${signifier} to ${relative(this.basedir, normal)}`,
+          `resolved ${signifier} to ${relative(
+            this.app.context.basedir,
+            normal,
+          )}`,
         )
 
       this.resolved[signifier] = normal
@@ -193,7 +195,7 @@ export class Module {
   @bind
   public async import<T = any>(
     signifier: string,
-    context: string,
+    context?: string,
   ): Promise<T> {
     try {
       const modulePath = await this.resolve(signifier, context)
@@ -238,7 +240,7 @@ export class Module {
     return (
       context ??
       (pathToFileURL(
-        join(this.basedir, `package.json`),
+        join(this.app.context.basedir, `package.json`),
       ) as unknown as string)
     )
   }
