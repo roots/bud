@@ -2,15 +2,13 @@
   "name": "@examples/emotion",
   "private": true,
   "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-emotion": "latest",
-    "@roots/bud-react": "latest"
+    "@roots/bud-react": "latest",
+    "@roots/bud-swc": "latest"
   }
 }

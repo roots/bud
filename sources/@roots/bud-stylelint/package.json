@@ -86,16 +86,16 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "webpack": "5.76.3"
+    "@types/node": "18.16.6",
+    "webpack": "5.82.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "stylelint": "15.3.0",
+    "stylelint": "15.6.1",
     "stylelint-config-standard": "31.0.0",
-    "stylelint-webpack-plugin": "4.1.0",
+    "stylelint-webpack-plugin": "4.1.1",
     "tslib": "2.5.0"
   },
   "volta": {

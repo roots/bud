@@ -88,9 +88,9 @@
     "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "18.15.10",
+    "@types/node": "18.16.6",
     "@types/webpack-env": "1.18.0",
-    "webpack": "5.76.3"
+    "webpack": "5.82.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -98,7 +98,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "fork-ts-checker-webpack-plugin": "7.3.0",
     "react-refresh": "0.14.0",
-    "react-refresh-typescript": "2.0.8",
+    "react-refresh-typescript": "2.0.9",
     "ts-loader": "9.4.2",
     "ts-node": "10.9.1",
     "tslib": "2.5.0",

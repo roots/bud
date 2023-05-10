@@ -74,8 +74,8 @@
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "webpack": "5.76.3"
+    "@types/node": "18.16.6",
+    "webpack": "5.82.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

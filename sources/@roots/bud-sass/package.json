@@ -96,20 +96,20 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "postcss": "8.4.21",
-    "stylelint": "15.3.0",
-    "webpack": "5.76.3"
+    "@types/node": "18.16.6",
+    "postcss": "8.4.23",
+    "stylelint": "15.6.1",
+    "webpack": "5.82.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
-    "sass": "^1.60.0",
+    "sass": "^1.62.1",
     "sass-loader": "^13.2.2",
     "stylelint-config-recommended-scss": "^9.0.1",
-    "stylelint-scss": "^4.6.0",
+    "stylelint-scss": "^4.7.0",
     "tslib": "2.5.0"
   },
   "volta": {

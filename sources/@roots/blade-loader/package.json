@@ -59,16 +59,16 @@
   "types": "./lib/plugin.d.ts",
   "main": "./lib/plugin.js",
   "devDependencies": {
-    "@babel/core": "7.21.3",
+    "@babel/core": "7.21.8",
     "@skypack/package-check": "0.2.2",
     "babel-loader": "9.1.2",
-    "memfs": "3.4.13"
+    "memfs": "3.5.1"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
-    "webpack": "5.76.3"
+    "webpack": "5.82.0"
   },
   "volta": {
     "extends": "../../../package.json"

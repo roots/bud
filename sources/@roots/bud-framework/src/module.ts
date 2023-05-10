@@ -6,6 +6,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {ImportError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import args from '@roots/bud-support/utilities/args'
+import logger from '@roots/bud-support/utilities/logger'
 import * as paths from '@roots/bud-support/utilities/paths'
 
 import type {Bud} from './bud.js'
@@ -38,8 +39,11 @@ export class Module extends Service {
   /**
    * Cache enabled
    */
-  public cacheEnabled(): boolean {
-    return args.force !== true && args.cache !== false
+  public get cacheEnabled(): boolean {
+    if (args.force === true) return false
+    if (args.cache === false) return false
+
+    return true
   }
 
   /**
@@ -50,12 +54,8 @@ export class Module extends Service {
   /**
    * Class constructor
    */
-  public constructor(args: () => Bud) {
-    super(args)
-
-    this.require = createRequire(
-      this.makeContextURL(this.app.root.context.basedir),
-    )
+  public constructor(_app: () => Bud) {
+    super(_app)
   }
 
   /**
@@ -63,21 +63,26 @@ export class Module extends Service {
    */
   @bind
   public override async init(bud: Bud) {
-    const cacheExists = !!(await bud.fs.exists(this.cacheLocation))
+    this.require = createRequire(this.makeContextURL(bud.context.basedir))
 
-    if (this.cacheEnabled && cacheExists) {
+    if (this.cacheEnabled && !!(await bud.fs.exists(this.cacheLocation))) {
+      logger
+        .scope(`module`)
+        .info(`cache is enabled and cached resolutions exist`)
+
       try {
         const data = await bud.fs.read(this.cacheLocation)
         if (data.version && data.version === bud.context?.bud?.version) {
           this.resolved = data.resolutions
           this.cacheValid = true
-        } else {
-          this.cacheValid = false
+          return
         }
       } catch (e) {
-        this.cacheValid = false
+        // noop
       }
     }
+
+    this.cacheValid = false
   }
 
   /**
@@ -86,11 +91,9 @@ export class Module extends Service {
   @bind
   public async getDirectory(signifier: string, context?: string) {
     return await this.resolve(signifier, context)
-      .then(path =>
-        relative(context ?? this.app.root.context.basedir, path),
-      )
+      .then(path => relative(context ?? this.app.context.basedir, path))
       .then(path => path.split(signifier).shift())
-      .then(path => this.app.root.path(path as any, signifier))
+      .then(path => this.app.path(path as any, signifier))
   }
 
   /**
@@ -99,7 +102,7 @@ export class Module extends Service {
   @bind
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName).then(dir =>
-      join(dir, `package.json`),
+      this.app.path(dir, `package.json`),
     )
   }
 
@@ -109,8 +112,8 @@ export class Module extends Service {
   @bind
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
-      this.logger.info(signifier, `manifest resolved to`, path)
-      return await this.app.fs.json.read(path)
+      logger.scope(`module`).info(signifier, `manifest resolved to`, path)
+      return await this.app.fs.read(path)
     })
   }
 
@@ -122,25 +125,35 @@ export class Module extends Service {
     signifier: string,
     context?: string,
   ): Promise<string> {
-    if (this.resolved[signifier]) {
-      this.logger.info(
-        `resolved ${signifier} to ${this.app.root.relPath(
-          this.resolved[signifier],
-        )} from cache`,
-      )
+    if (signifier in this.resolved) {
+      logger
+        .scope(`module`)
+        .info(
+          `resolved ${signifier} to ${relative(
+            this.app.context.basedir,
+            this.resolved[signifier],
+          )} from cache`,
+        )
 
       return this.resolved[signifier]
     }
+
+    logger.scope(`module`).info(`resolving ${signifier} from ${context}`)
 
     let errors = []
 
     try {
       const path = await resolve(signifier, this.makeContextURL())
       const normal = normalize(fileURLToPath(path))
-      this.logger.info(
-        `[cache miss]`,
-        `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
-      )
+      logger
+        .scope(`module`)
+        .info(
+          `[cache miss]`,
+          `resolved ${signifier} to ${relative(
+            this.app.context.basedir,
+            normal,
+          )}`,
+        )
 
       this.resolved[signifier] = normal
       return this.resolved[signifier]
@@ -153,10 +166,15 @@ export class Module extends Service {
 
       const normal = normalize(fileURLToPath(path))
 
-      this.logger.info(
-        `[cache miss]`,
-        `resolved ${signifier} to ${this.app.root.relPath(normal)}`,
-      )
+      logger
+        .scope(`module`)
+        .info(
+          `[cache miss]`,
+          `resolved ${signifier} to ${relative(
+            this.app.context.basedir,
+            normal,
+          )}`,
+        )
 
       this.resolved[signifier] = normal
       return this.resolved[signifier]
@@ -177,12 +195,12 @@ export class Module extends Service {
   @bind
   public async import<T = any>(
     signifier: string,
-    context: string,
+    context?: string,
   ): Promise<T> {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.info(`imported ${signifier}`)
+      logger.scope(`module`).info(`imported ${signifier}`)
       return result?.default ?? result
     } catch (cause) {
       throw new ImportError(`could not resolve ${signifier}`, {
@@ -205,13 +223,12 @@ export class Module extends Service {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      this.logger.info(`imported ${signifier} (optional)`)
+      logger.scope(`module`).info(`imported ${signifier} (optional)`)
       return result?.default ?? result
     } catch (err) {
-      this.logger.info(
-        `${signifier} could not be imported (optional)`,
-        err,
-      )
+      logger
+        .scope(`module`)
+        .info(`${signifier} could not be imported (optional)`, err)
     }
   }
 
@@ -223,7 +240,7 @@ export class Module extends Service {
     return (
       context ??
       (pathToFileURL(
-        this.app.root.path(`package.json`),
+        join(this.app.context.basedir, `package.json`),
       ) as unknown as string)
     )
   }

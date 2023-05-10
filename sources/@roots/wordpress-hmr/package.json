@@ -63,17 +63,17 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10",
-    "@types/react": "18.0.30",
+    "@types/node": "18.16.6",
+    "@types/react": "18.2.6",
     "@types/wordpress__blocks": "12.5.0",
     "@types/wordpress__data": "6.0.2",
     "@types/wordpress__plugins": "3.0.0",
-    "@types/wordpress__rich-text": "6.0.0",
-    "@wordpress/blocks": "12.8.0",
+    "@types/wordpress__rich-text": "6.4.0",
+    "@wordpress/blocks": "12.9.0",
     "@wordpress/data": "8.6.0",
-    "@wordpress/hooks": "3.29.0",
-    "@wordpress/plugins": "5.6.0",
-    "@wordpress/rich-text": "6.6.0"
+    "@wordpress/hooks": "3.32.0",
+    "@wordpress/plugins": "5.8.0",
+    "@wordpress/rich-text": "6.9.0"
   },
   "dependencies": {
     "react": "18.2.0",
