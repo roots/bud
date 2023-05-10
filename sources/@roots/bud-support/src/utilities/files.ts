@@ -51,7 +51,7 @@ interface File {
  */
 const get = async (basedir: string) => {
   if (data && Object.entries(data).length) {
-    logger.scope(`fs`).info(`Using cached filesystem data`)
+    logger.scope(`fs`).info(`Using existing instance data`)
     return data
   } else {
     logger.scope(`fs`).time(`Initializing filesystem`)

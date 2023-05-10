@@ -79,15 +79,15 @@
   "devDependencies": {
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.15.10"
+    "@types/node": "18.16.6"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "terser-webpack-plugin": "5.3.7",
+    "terser-webpack-plugin": "5.3.8",
     "tslib": "2.5.0",
-    "webpack": "5.76.3"
+    "webpack": "5.82.0"
   },
   "volta": {
     "extends": "../../../package.json"

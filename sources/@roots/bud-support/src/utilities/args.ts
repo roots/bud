@@ -19,7 +19,9 @@ let hash = createHash(`sha1`)
     Object.entries(args)
       .filter(([k, v]) => !UNCACHED_ARGS.includes(k))
       .flat(Infinity)
-      .join(`.`),
+      .join(`.`)
+      .concat(args[`_`]?.join(`.`))
+      .concat(process.argv[0]),
   )
   .digest(`base64`)
 

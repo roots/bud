@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@types/node": "18.15.10",
+    "@types/node": "18.16.6",
     "signale": "1.4.0",
     "tslib": "2.5.0",
     "vitest": "0.30.1"

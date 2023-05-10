@@ -19,7 +19,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.15.10",
+    "@types/node": "18.16.6",
     "@vercel/ncc": "0.36.1",
     "download-package-tarball": "1.0.7",
     "fs-jetpack": "5.1.0",

@@ -113,7 +113,7 @@ const instantiateServices =
 
 const initializeCoreUtilities = (bud: Bud) => {
   bud.fs = new FS(() => bud)
-  bud.module = new Module(() => bud)
+  bud.module = new Module(bud.context.basedir)
 
   Object.entries(methods).map(([fn, method]) => {
     bud[fn] = method.bind(bud)
