@@ -73,7 +73,7 @@
     "@wordpress/data": "8.6.0",
     "@wordpress/hooks": "3.32.0",
     "@wordpress/plugins": "5.8.0",
-    "@wordpress/rich-text": "6.9.0"
+    "@wordpress/rich-text": "6.10.0"
   },
   "dependencies": {
     "react": "18.2.0",
