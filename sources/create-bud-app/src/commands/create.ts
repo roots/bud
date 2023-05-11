@@ -443,7 +443,10 @@ export default class CreateCommand extends Command {
     if (this.support.includes(`eslint`)) {
       this.devDependencies.push(`@roots/eslint-config`)
 
-      if (this.support.includes(`swc`)) {
+      if (
+        this.support.includes(`swc`) &&
+        !this.support.includes(`typescript`)
+      ) {
         this.devDependencies.push(`typescript`)
       }
     }
