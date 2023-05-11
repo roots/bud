@@ -11,6 +11,7 @@ jobs:
         with:
           exempt-all-pr-milestones: true
           exempt-issue-label: in-progress
+          exempt-all-assignees: true
           stale-issue-message: Message to comment on stale issues. If none provided, will not mark issues stale
           stale-issue-label: stale
           stale-pr-message: Message to comment on stale PRs. If none provided, will not mark PRs stale
