@@ -7,9 +7,11 @@ jobs:
   stale:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/stale@v7
+      - uses: actions/stale@v8
         with:
           exempt-all-pr-milestones: true
+          exempt-issue-labels: in-progress, planned
+          exempt-all-assignees: true
           stale-issue-message: Message to comment on stale issues. If none provided, will not mark issues stale
           stale-issue-label: stale
           stale-pr-message: Message to comment on stale PRs. If none provided, will not mark PRs stale
