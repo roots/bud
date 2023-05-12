@@ -2,7 +2,7 @@ import type {Factory} from './index.js'
 
 export const resolve: Factory<`resolve`> = async bud => {
   const paths: Record<string, Array<string>> = {
-    ...(bud.context.files[`tsconfig.json`].module?.compilerOptions
+    ...(bud.context.files[`tsconfig.json`]?.module?.compilerOptions
       ?.paths ?? {}),
     ...(bud.context.files[`jsconfig.json`]?.module?.compilerOptions
       ?.paths ?? {}),
