@@ -57,8 +57,6 @@ export class TestRun extends Command {
         ...(this.requiresProxy ? [`run`] : []),
         ...this.passthrough,
       ],
-      {stdout: this.context.stdout, stderr: this.context.stderr},
-      true,
     ])
 
     await this.teardown()

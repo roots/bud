@@ -46,7 +46,6 @@ export class Lint extends Command {
         `--no-error-on-unmatched-pattern`,
         ...(this.passthrough ?? []),
       ],
-      {stderr: this.context.stderr},
     ])
   }
 }

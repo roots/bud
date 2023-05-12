@@ -57,9 +57,8 @@ export class Format extends Command {
         `./config/prettier.config.cjs`,
         `--ignore-unknown`,
         `--no-error-on-unmatched-pattern`,
-        ...this.passthrough ?? [],
+        ...(this.passthrough ?? []),
       ],
-      {stderr: this.context.stderr},
     ])
   }
 }
