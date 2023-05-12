@@ -17,9 +17,14 @@ import Base from '../shared/base.js'
  */
 class Rule extends Base implements Interface {
   /**
+   * RuleSetRule resolve
+   */
+  public resolve?: Options[`resolve`]
+
+  /**
    * RuleSetRule test
    */
-  public test: Options['test']
+  public test: Options[`test`]
 
   /**
    * RuleSetRule use
@@ -29,32 +34,32 @@ class Rule extends Base implements Interface {
   /**
    * RuleSetRule include
    */
-  public include?: Options['include']
+  public include?: Options[`include`]
 
   /**
    * RuleSetRule exclude
    */
-  public exclude?: Options['exclude']
+  public exclude?: Options[`exclude`]
 
   /**
    * RuleSetRule type
    */
-  public type?: Options['type']
+  public type?: Options[`type`]
 
   /**
    * RuleSetRule resourceQuery
    */
-  public resourceQuery?: Options['resourceQuery']
+  public resourceQuery?: Options[`resourceQuery`]
 
   /**
    * RuleSetRule parser
    */
-  public parser?: Options['parser']
+  public parser?: Options[`parser`]
 
   /**
    * RuleSetRule generator
    */
-  public generator?: Options['generator']
+  public generator?: Options[`generator`]
 
   /**
    * Class constructor
@@ -72,10 +77,27 @@ class Rule extends Base implements Interface {
     this.setType(options.type)
     this.setParser(options.parser)
     this.setGenerator(options.generator)
+    this.setResolve(options.resolve)
   }
 
   /**
-   * Test value
+   * Set resolve value
+   */
+  public getResolve(): Output[`resolve`] {
+    return this.unwrap(this.resolve)
+  }
+
+  /**
+   * Set resolve value
+   */
+  @bind
+  public setResolve(resolve: Options[`resolve`]): this {
+    this.resolve = resolve
+    return this
+  }
+
+  /**
+   * Get `test` value
    */
   @bind
   public getTest(): Output['test'] {
@@ -83,7 +105,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set test value
+   * Set `test` value
    */
   @bind
   public setTest(test: Options['test']): this {
@@ -92,7 +114,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get parser value
+   * Get `parser` value
    */
   @bind
   public getParser(): Output['parser'] {
@@ -100,7 +122,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set parser value
+   * Set `parser` value
    */
   @bind
   public setParser(parser: Interface['parser']): this {
@@ -109,7 +131,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get use value
+   * Get `use` value
    */
   @bind
   public getUse(): Options[`use`] {
@@ -117,7 +139,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set use value
+   * Set `use` value
    */
   @bind
   public setUse(
@@ -128,7 +150,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get include value
+   * Get `include` value
    */
   @bind
   public getInclude(): Array<string | RegExp> {
@@ -138,7 +160,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set include value
+   * Set `include` value
    */
   @bind
   public setInclude(includes: Options['include']): this {
@@ -147,24 +169,29 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get include value
+   * Get `include` value
    */
   @bind
   public getResourceQuery(): Output[`resourceQuery`] {
-    return this.resourceQuery
+    return isFunction(this.resourceQuery)
+      ? this.resourceQuery(this.app)
+      : this.resourceQuery
   }
 
   /**
-   * Set include value
+   * Set `include` value
    */
   @bind
   public setResourceQuery(query: Options['resourceQuery']): this {
-    this.resourceQuery = query
+    this.resourceQuery = isFunction(query)
+      ? query(this.resourceQuery)
+      : query
+
     return this
   }
 
   /**
-   * Get exclude value
+   * Get `exclude` value
    */
   @bind
   public getExclude(): Array<string | RegExp> {
@@ -185,7 +212,7 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get type value
+   * Get `type` value
    */
   @bind
   public getType(): string {
@@ -242,6 +269,7 @@ class Rule extends Base implements Interface {
       resourceQuery: this.getResourceQuery(),
       include: this.getInclude(),
       exclude: this.getExclude(),
+      resolve: this.getResolve(),
     }).reduce((a, [k, v]) => {
       if (v === undefined) return a
       return {...a, [k]: v}
