@@ -14,7 +14,11 @@ export class Lint extends Command {
   /**
    * Command paths
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `lint`], [`@bud`, `eslint`], [`lint`]]
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `lint`],
+    [`@bud`, `eslint`],
+    [`lint`],
+  ]
 
   /**
    * Command usage
@@ -40,7 +44,7 @@ export class Lint extends Command {
         `--config`,
         `./config/eslint.config.cjs`,
         `--no-error-on-unmatched-pattern`,
-        ...this.passthrough ?? [],
+        ...(this.passthrough ?? []),
       ],
       {stderr: this.context.stderr},
     ])
