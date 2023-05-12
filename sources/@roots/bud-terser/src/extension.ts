@@ -77,7 +77,12 @@ export class BudTerser extends Extension<Options> {
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      minimizers.push(new Terser.default(this.options))
+      minimizers = [
+        ...minimizers.filter(
+          minimizer => !(minimizer instanceof Terser.default),
+        ),
+        new Terser.default(this.options),
+      ]
       this.logger.success(`terser added to minimizers`, minimizers)
       return minimizers
     })
