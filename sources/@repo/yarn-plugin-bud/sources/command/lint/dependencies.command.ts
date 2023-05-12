@@ -3,19 +3,20 @@ import {CommandClass} from 'clipanion'
 import {Command} from '../base.command'
 
 /**
- * bud lint dependencies command class
+ * bud syncpack command class
  */
 export class LintDependencies extends Command {
   /**
    * Command name
    */
-  public static label = `@bud lint dependencies`
+  public static label = `@bud syncpack`
 
   /**
    * Command paths
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `lint`, `dependencies`],
+    [`@bud`, `syncpack`],
   ]
 
   /**
@@ -41,7 +42,6 @@ export class LintDependencies extends Command {
         `--config`,
         `./config/syncpack.config.cjs`,
       ],
-      {stderr: this.context.stderr},
     ])
   }
 }

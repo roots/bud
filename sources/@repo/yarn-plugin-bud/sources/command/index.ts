@@ -1,6 +1,5 @@
 import {Bud} from './bud.command'
 import {Clean} from './clean.command'
-import {Compile} from './compile.command'
 import {Deprecate} from './deprecate.command'
 import {Dev} from './dev.command'
 import {DocsDev} from './docs/dev.command'
@@ -18,13 +17,11 @@ import {RegistryStop} from './registry/stop.command'
 import {Release} from './release.command'
 import {TestRun} from './test.command'
 import {Tsc} from './tsc.command'
-import {Vendor} from './vendor.command'
 import {Version} from './version.command'
 
 export const Commands = {
   Bud,
   Clean,
-  Compile,
   Deprecate,
   Dev,
   Docs,
@@ -42,6 +39,5 @@ export const Commands = {
   Release,
   TestRun,
   Tsc,
-  Vendor,
   Version,
 }

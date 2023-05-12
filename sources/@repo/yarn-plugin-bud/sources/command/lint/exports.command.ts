@@ -16,6 +16,7 @@ export class LintExports extends Command {
    */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `lint`, `exports`],
+    [`@bud`, `package-check`],
   ]
 
   /**
@@ -33,6 +34,14 @@ export class LintExports extends Command {
    * Execute command
    */
   public async execute() {
-    await this.cli.run([`workspaces`, `foreach`, `--no-private`, `exec`, `yarn`, `run`, `package-check`])
+    await this.cli.run([
+      `workspaces`,
+      `foreach`,
+      `--no-private`,
+      `exec`,
+      `yarn`,
+      `run`,
+      `package-check`,
+    ])
   }
 }

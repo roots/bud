@@ -40,8 +40,6 @@ export class Pm2 extends Command {
       await this.$([
         `yarn`,
         [`pm2`, ...(this.passthrough ?? [])].filter(Boolean),
-        {stdout: this.context.stdout, stderr: this.context.stderr},
-        true,
       ])
     } catch (e) {}
   }
