@@ -57,8 +57,6 @@ export class Tsc extends Command {
     await this.$([
       `yarn`,
       [`tsc`, `-b`, this.tsconfig, ...this.passthrough],
-      {stderr: this.context.stderr, stdout: this.context.stdout},
-      false,
     ])
   }
 }

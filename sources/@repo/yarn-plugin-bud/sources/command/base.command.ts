@@ -110,9 +110,7 @@ export abstract class Command extends BaseCommand {
    */
   @bind
   public async $(
-    ...tasks: Array<
-      string | [string, Array<string>, Partial<UserOptions>?, boolean?]
-    >
+    ...tasks: Array<string | [string, Array<string>]>
   ): Promise<number> {
     let code = 0
 
@@ -122,51 +120,50 @@ export abstract class Command extends BaseCommand {
       tasks.map(async task => {
         if (!task) return
 
-        const [bin, args, options, disableSpinner] = Array.isArray(task)
-          ? task
-          : [task, [], {}, false]
+        const [bin, args] = Array.isArray(task) ? task : [task, []]
 
-        const ident = `${bin} ${args.join(` `)}`.replace(project.cwd, `.`)
-        if (!disableSpinner) {
-          this.spinner = ora({
-            stream: this.context.stdout,
-          })
-          this.spinner.start(ident)
+        const ident = `${bin} ${args?.join(` `)} `.replace(
+          project.cwd,
+          `.`,
+        )
+
+        const listener = data => {
+          data
+            .toString()
+            .split(`\n`)
+            .map(line => {
+              this.spinner.suffixText = `\n${line}`
+            })
         }
 
+        this.context.stdout.prependListener(`data`, listener)
+        this.context.stderr.prependListener(`data`, listener)
+
+        this.spinner = ora({
+          stream: this.context.stdout,
+        })
+        this.spinner.start(ident)
+
         try {
-          const result = await execute(bin, args, {
-            // @ts-ignore
-            stdout: `ignore`,
-            // @ts-ignore
-            stderr: `inherit`,
+          code = await execute(bin, args, {
             cwd: project.cwd,
-            ...(options ?? {}),
           })
 
-          if (result !== 0) {
-            code = result
-            throw new Error(`failed with code ${result}`)
+          if (code !== 0) {
+            throw new Error(`failed with code ${code}`)
           }
 
-          if (!disableSpinner) this.spinner.succeed()
+          this.spinner.succeed()
+          this.context.stdout.write(`\n`)
+          return
         } catch (e) {
-          if (!disableSpinner) this.spinner.fail()
+          this.spinner.fail()
+          this.context.stdout.write(`\n`)
           throw e
         }
       }),
     )
 
     return code
-  }
-
-  /**
-   * Try executing a shell command
-   */
-  public async tryExecuting(bin: string, args: string[], opts: any = {}) {
-    try {
-      const code = await this.$([bin, args, opts, true])
-      return code
-    } catch (e) {}
   }
 }

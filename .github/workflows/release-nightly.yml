@@ -8,24 +8,25 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18.12.1
+          node-version: 18.x
           cache: yarn
 
-      - name: yarn
-        run: yarn
+      - run: npm install -g npm
 
-      - name: set npmAuthToken
-        run: |
-          yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
+      - run: yarn
 
-      - name: Release nightly
-        run: yarn @bud release --tag nightly --registry https://registry.npmjs.org
+      - run: yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
+
+      - run: yarn @bud release --tag nightly --registry https://registry.npmjs.org
