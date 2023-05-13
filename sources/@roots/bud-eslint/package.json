@@ -80,7 +80,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/eslint": "8.37.0",
-    "@types/node": "18.16.6"
+    "@types/node": "18.16.8"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -89,7 +89,7 @@
     "eslint": "8.40.0",
     "eslint-webpack-plugin": "4.0.1",
     "tslib": "2.5.0",
-    "webpack": "5.82.0"
+    "webpack": "5.82.1"
   },
   "volta": {
     "extends": "../../../package.json"

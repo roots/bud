@@ -10,6 +10,7 @@ import type {
   StatsCompilation,
   StatsModule,
 } from '@roots/bud-support/webpack'
+import type {Handler} from 'express-serve-static-core'
 
 const middlewarePath = `/bud/hot`
 
@@ -25,7 +26,7 @@ export const factory: MiddlewareFactory = (app: Bud) => {
   return makeHandler(app.compiler.instance)
 }
 
-export const makeHandler = (compiler: MultiCompiler) => {
+export const makeHandler = (compiler: MultiCompiler): Handler => {
   const stream = new HotEventStream()
 
   const onInvalid = () => {

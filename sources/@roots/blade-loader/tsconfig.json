@@ -9,9 +9,8 @@
       "@roots/blade-loader/module-loader": ["./src/module-loader.cts"],
       "@roots/blade-loader/plugin": ["./src/plugin.ts"]
     },
-    "types": ["node"]
+    "verbatimModuleSyntax": false
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
-  "references": []
+  "exclude": ["./lib", "./node_modules", "**/*.test.ts"]
 }

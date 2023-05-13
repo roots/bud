@@ -1,8 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import {
-  createProxyMiddleware,
-  Options,
-} from '@roots/bud-support/http-proxy-middleware'
+import type {Options} from '@roots/bud-support/http-proxy-middleware'
+import {createProxyMiddleware} from '@roots/bud-support/http-proxy-middleware'
 
 import type {MiddlewareFactory} from '../index.js'
 import * as responseInterceptor from './responseInterceptor.js'

@@ -10,7 +10,8 @@ import type {
   CommandContext,
   Context,
 } from '@roots/bud-framework/options/context'
-import {BaseContext, Command, Option} from '@roots/bud-support/clipanion'
+import type {BaseContext} from '@roots/bud-support/clipanion'
+import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudHandler} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
@@ -402,6 +403,7 @@ export default class BudCommand extends Command<CommandContext> {
    */
   public async execute() {
     this.render(<Menu cli={this.cli} />)
+    await this.bud?.dashboard?.renderQueuedMessages()
   }
 
   /**

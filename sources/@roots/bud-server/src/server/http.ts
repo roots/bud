@@ -1,8 +1,5 @@
-import {
-  createServer,
-  RequestListener,
-  Server as HttpServer,
-} from 'node:http'
+import type {RequestListener, Server as HttpServer} from 'node:http'
+import {createServer} from 'node:http'
 
 import type {Connection} from '@roots/bud-framework/services/server'
 import {BaseServer} from '@roots/bud-server/server/base'

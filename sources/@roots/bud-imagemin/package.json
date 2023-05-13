@@ -76,7 +76,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.6"
+    "@types/node": "18.16.8"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
@@ -85,7 +85,7 @@
     "image-minimizer-webpack-plugin": "3.8.2",
     "sharp": "0.32.1",
     "tslib": "2.5.0",
-    "webpack": "5.82.0"
+    "webpack": "5.82.1"
   },
   "volta": {
     "extends": "../../../package.json"

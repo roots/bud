@@ -21,6 +21,7 @@ export const factory = async (
     basedir,
     ...overrides,
     args: {
+      force: true,
       dry: true,
       log: false,
       notify: false,
@@ -36,5 +37,5 @@ export const factory = async (
   return bud
 }
 
-export {Bud}
+export type {Bud}
 export const mockProject = {path: basedir}

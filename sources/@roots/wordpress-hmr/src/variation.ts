@@ -1,5 +1,5 @@
+import type {BlockVariation} from '@wordpress/blocks'
 import {
-  BlockVariation,
   registerBlockVariation,
   unregisterBlockVariation,
 } from '@wordpress/blocks'

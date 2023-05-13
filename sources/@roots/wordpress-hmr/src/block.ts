@@ -1,5 +1,5 @@
+import type {BlockConfiguration} from '@wordpress/blocks'
 import {
-  BlockConfiguration,
   getBlockType,
   registerBlockType,
   unregisterBlockType,

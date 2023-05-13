@@ -1,7 +1,8 @@
 import * as Ink from 'ink'
 import React from 'react'
 
-import {App, Props} from './index.js'
+import type {Props} from './index.js'
+import {App} from './index.js'
 
 export const TTYApp = (props: Props) => {
   const [displayServerInfo, setDisplayServerInfo] = React.useState(true)

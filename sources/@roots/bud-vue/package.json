@@ -74,16 +74,16 @@
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.6",
-    "webpack": "5.82.0"
+    "@types/node": "18.16.8",
+    "webpack": "5.82.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@vue/compiler-sfc": "^3.2.47",
+    "@vue/compiler-sfc": "^3.3.2",
     "tslib": "2.5.0",
-    "vue": "^3.2.47",
-    "vue-loader": "^17.1.0",
+    "vue": "^3.3.2",
+    "vue-loader": "^17.1.1",
     "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.7.14"
   },

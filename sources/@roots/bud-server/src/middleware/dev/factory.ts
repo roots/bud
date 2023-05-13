@@ -1,9 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 import type {MiddlewareFactory} from '@roots/bud-server/middleware'
-import WebpackDevMiddleware, {
+import type {
   IncomingMessage,
   ServerResponse,
 } from '@roots/bud-support/webpack-dev-middleware'
+import WebpackDevMiddleware from '@roots/bud-support/webpack-dev-middleware'
 
 export const factory: MiddlewareFactory = (app: Bud) =>
   WebpackDevMiddleware<IncomingMessage, ServerResponse>(

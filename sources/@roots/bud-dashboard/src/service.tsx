@@ -119,6 +119,19 @@ export class Dashboard extends Service implements Contract {
     } catch (error) {}
   }
 
+  public async renderQueuedMessages() {
+    Ink.render(
+      this.app.consoleBuffer.queue?.length > 0 && (
+        <>
+          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
+          <Ink.Box>
+            <Ink.Text>{` `}</Ink.Text>
+          </Ink.Box>
+        </>
+      ),
+    )
+  }
+
   /**
    * Render stats as a simple string
    */
