@@ -1267,21 +1267,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@aws-sdk/types@npm:3.329.0":
+"@aws-sdk/types@npm:3.329.0, @aws-sdk/types@npm:^3.222.0":
   version: 3.329.0
   resolution: "@aws-sdk/types@npm:3.329.0"
   dependencies:
     tslib: ^2.5.0
   checksum: 2bbcd8e6ba2f813dc220c60e7ac0fa0d0990d49f88030fd8235479586716016c8f9d7aeaf1f4c1a64694275f33690bd1dd4ed46e127983201061e063da73f426
-  languageName: node
-  linkType: hard
-
-"@aws-sdk/types@npm:^3.222.0":
-  version: 3.296.0
-  resolution: "@aws-sdk/types@npm:3.296.0"
-  dependencies:
-    tslib: ^2.5.0
-  checksum: 3cff062f8cb08cd5473c40076ca06f8d93c80fa11e64a7c2d8273fcc0107e709e08a669779f9e3e70d35b3ae7fc3abafd2885f74fa9f8ba57042e5167f72bd2a
   languageName: node
   linkType: hard
 
@@ -1398,11 +1389,11 @@ __metadata:
   linkType: hard
 
 "@aws-sdk/util-locate-window@npm:^3.0.0":
-  version: 3.183.0
-  resolution: "@aws-sdk/util-locate-window@npm:3.183.0"
+  version: 3.310.0
+  resolution: "@aws-sdk/util-locate-window@npm:3.310.0"
   dependencies:
-    tslib: ^2.3.1
-  checksum: c29899b440c148aa44a5d9322e06e4cf21644e47bee10555cf8db104d9d76b3985fa4da6e8ca92c137b0b739f7504a7d106e9da49e1d189b84f51f45c21b2204
+    tslib: ^2.5.0
+  checksum: d552ce5f0f836ecb13d7920ae650552c56706f26a5e8abf894ba471e18775a3791869bda95269153735bac9d211efc3ba78ea01c34428c3fed4318ac693a08bc
   languageName: node
   linkType: hard
 
@@ -1488,11 +1479,11 @@ __metadata:
   linkType: hard
 
 "@aws-sdk/util-utf8-browser@npm:^3.0.0":
-  version: 3.188.0
-  resolution: "@aws-sdk/util-utf8-browser@npm:3.188.0"
+  version: 3.259.0
+  resolution: "@aws-sdk/util-utf8-browser@npm:3.259.0"
   dependencies:
     tslib: ^2.3.1
-  checksum: dacd27164aa0835888434e080b67f04510e2281560540ff73496f2d0aa73b0b7f830ec08491b35c3a51bf6214615579182aff8727e151e54a74a97a197a2ac31
+  checksum: b6a1e580da1c9b62c749814182a7649a748ca4253edb4063aa521df97d25b76eae3359eb1680b86f71aac668e05cc05c514379bca39ebf4ba998ae4348412da8
   languageName: node
   linkType: hard
 
@@ -8780,7 +8771,6 @@ __metadata:
     "@aws-sdk/client-s3": 3.332.0
     "@skypack/package-check": 0.2.2
     "@types/js-yaml": 4.0.5
-    "@types/lodash-es": 4.17.7
     "@types/mime-types": 2.1.1
     "@types/node": 18.16.8
     "@types/safe-json-stringify": 1.1.2
@@ -35745,7 +35735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:2.5.0, tslib@npm:^2.4.1, tslib@npm:^2.5.0":
+"tslib@npm:2.5.0, tslib@npm:^2.3.1, tslib@npm:^2.4.1, tslib@npm:^2.5.0":
   version: 2.5.0
   resolution: "tslib@npm:2.5.0"
   checksum: ae3ed5f9ce29932d049908ebfdf21b3a003a85653a9a140d614da6b767a93ef94f460e52c3d787f0e4f383546981713f165037dc2274df212ea9f8a4541004e1
@@ -35759,7 +35749,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.3.1, tslib@npm:^2.4.0":
+"tslib@npm:^2.0.1, tslib@npm:^2.0.3, tslib@npm:^2.1.0, tslib@npm:^2.3.0, tslib@npm:^2.4.0":
   version: 2.4.0
   resolution: "tslib@npm:2.4.0"
   checksum: 8c4aa6a3c5a754bf76aefc38026134180c053b7bd2f81338cb5e5ebf96fefa0f417bff221592bf801077f5bf990562f6264fecbc42cd3309b33872cb6fc3b113
