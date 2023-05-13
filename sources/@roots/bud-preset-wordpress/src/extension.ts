@@ -6,6 +6,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import chalk from 'chalk'
+import figures from 'figures'
 
 /**
  * WordPress preset options
@@ -35,9 +37,10 @@ export default class BudPresetWordPress extends Extension<Options> {
    * {@link Extension.boot}
    */
   public override async boot(bud: Bud) {
-    if (bud.extensions.has(`@roots/bud-tailwindcss`)) {
+    await this.compilerCheck(bud)
+
+    if (bud.extensions.has(`@roots/bud-tailwindcss`))
       await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
-    }
 
     bud.react?.refresh?.enable(false)
   }
@@ -69,5 +72,83 @@ export default class BudPresetWordPress extends Extension<Options> {
       ...items,
       `@roots/wordpress-hmr/loader`,
     ])
+  }
+
+  /**
+   * Compiler check
+   *
+   * @todo remove in bud 7.0.0
+   */
+  public async compilerCheck({context}: Bud) {
+    const manifest = context?.files?.[`package.json`]?.module
+    if (!manifest) return
+
+    const explicitDependencies = Object.keys({
+      ...(manifest.dependencies ?? {}),
+      ...(manifest.devDependencies ?? {}),
+    })
+
+    const supportedCompilers = [
+      `@roots/sage`,
+      `@roots/bud-preset-recommend`,
+      `@roots/bud-babel`,
+      `@roots/bud-swc`,
+      `@roots/bud-typescript`,
+    ]
+
+    const hasInstalledCompiler = supportedCompilers.some(compiler =>
+      explicitDependencies.includes(compiler),
+    )
+
+    if (!hasInstalledCompiler) {
+      this.logger.warn(
+        `\n\n`,
+        chalk.yellow(`Action needed: no compiler installed`),
+        `\n\n`,
+
+        `Currently, ${chalk.blue(
+          `@roots/bud-preset-wordpress`,
+        )} includes ${chalk.blue(
+          `@roots/bud-preset-recommend`,
+        )} to provide compiler support.`,
+        `\n\n`,
+
+        `In bud > 7.0.0, ${chalk.blue(
+          `@roots/bud-preset-wordpress`,
+        )} will no longer include this preset.`,
+        `\n\n`,
+
+        `This is so users have a straightforward way to select their own compiler.`,
+        `\n\n`,
+
+        `At that time you will be required to explicitly install a compiler.`,
+        chalk.bold.underline(`This warning will become an error.`),
+        `\n\n`,
+
+        `For most projects we recommend installing`,
+        chalk.blue(`@roots/bud-preset-recommend`),
+        `which bundles swc and postcss support.`,
+        `\n\n`,
+
+        `Alternatively, you can install a compiler directly. Recommended options:`,
+        `\n\n`,
+
+        chalk.blue(figures.triangleRightSmall),
+        `${chalk.blue(`@roots/bud-swc`)}: supports ES6 and TypeScript`,
+        `\n`,
+        chalk.blue(figures.triangleRightSmall),
+        `${chalk.blue(
+          `@roots/bud-typescript`,
+        )}: supports ES6 and TypeScript`,
+        `\n`,
+        chalk.blue(figures.triangleRightSmall),
+        `${chalk.blue(`@roots/bud-babel`)}: supports ES6`,
+        `\n\n`,
+
+        `${figures.warning} If you are using postcss features and choose to install a compiler directly (as opposed to using the preset)`,
+        `\n`,
+        `you will also want to add ${chalk.blue(`@roots/bud-postcss`)}`,
+      )
+    }
   }
 }

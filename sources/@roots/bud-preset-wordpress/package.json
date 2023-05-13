@@ -106,6 +106,8 @@
     "@roots/bud-wordpress-manifests": "workspace:sources/@roots/bud-wordpress-manifests",
     "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr",
+    "chalk": "5.2.0",
+    "figures": "5.0.0",
     "tslib": "2.5.0"
   },
   "volta": {

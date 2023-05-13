@@ -8251,6 +8251,8 @@ __metadata:
     "@roots/wordpress-hmr": "workspace:sources/@roots/wordpress-hmr"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.6
+    chalk: 5.2.0
+    figures: 5.0.0
     tslib: 2.5.0
   languageName: unknown
   linkType: soft
@@ -9597,8 +9599,8 @@ __metadata:
   resolution: "@tests/project@workspace:tests/util/project"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-preset-wordpress": "workspace:sources/@roots/bud-preset-wordpress"
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
   languageName: unknown
   linkType: soft
