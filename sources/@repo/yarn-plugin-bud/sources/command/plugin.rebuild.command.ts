@@ -14,7 +14,9 @@ export class Plugin extends Command {
   /**
    * Command paths
    */
-  public static paths: CommandClass['paths'] = [[`@bud`, `plugin`, `rebuild`]]
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `plugin`, `rebuild`],
+  ]
 
   /**
    * Command usage
@@ -22,18 +24,10 @@ export class Plugin extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: ``,
-    examples: [
-      [`rebuild @bud yarn plugin`, `yarn @bud plugin rebuild`],
-    ],
+    examples: [[`rebuild @bud yarn plugin`, `yarn @bud plugin rebuild`]],
   }
 
   public async execute() {
-    await this.$([
-      `yarn`,
-      [`workspace`, `@repo/yarn-plugin-bud`, `build`],
-      {
-        stderr: process.stderr,
-      },
-    ])
+    await this.$([`yarn`, [`workspace`, `@repo/yarn-plugin-bud`, `build`]])
   }
 }

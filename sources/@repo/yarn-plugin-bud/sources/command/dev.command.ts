@@ -32,15 +32,9 @@ export class Dev extends Command {
 
     try {
       await Promise.all([
-        this.cli.run(
-          [`@bud`, `tsc`, `--watch`],
-        ),
-        this.cli.run(
-          [`@bud`, `test`, `unit`],
-        ),
-        this.cli.run(
-          [`@bud`, `docs`, `dev`],
-        ),
+        this.cli.run([`@bud`, `tsc`, `--watch`]),
+        this.cli.run([`@bud`, `test`, `unit`]),
+        this.cli.run([`@bud`, `docs`, `dev`]),
       ])
     } catch (e) {
       this.context.stderr.write(e)
