@@ -63,6 +63,10 @@ export default class Vue extends Extension<
       )
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setItem(`vue-style`, {ident: `vue-style`, loader: `vue-style`})
+
+    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+      extensions.add(`.vue`),
+    )
   }
 
   /**
@@ -71,10 +75,6 @@ export default class Vue extends Extension<
   @bind
   public override async configAfter(bud: Bud) {
     bud.alias(this.resolveAlias)
-
-    bud.hooks.fromMap({
-      'build.resolve.extensions': (ext = new Set()) => ext.add(`.vue`),
-    })
 
     bud.typescript?.set(`appendTsSuffixTo`, [
       bud.hooks.filter(`pattern.vue`),

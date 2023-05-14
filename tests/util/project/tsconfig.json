@@ -2,8 +2,9 @@
   "extends": "@roots/bud/config/tsconfig",
   "compilerOptions": {
     "paths": {
-      "@scripts/*": ["./src/scripts/*"],
-      "@styles/*": ["./src/styles/*"]
+      "@scripts": ["./src/scripts"],
+      "@styles": ["./src/styles"],
+      "@components": ["./src/scripts/components"],
     },
     "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
   },

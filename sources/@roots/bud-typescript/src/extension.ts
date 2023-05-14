@@ -66,10 +66,12 @@ export default class BudTypeScript extends Extension<Options> {
     const typescript = await this.resolve(`typescript`, import.meta.url)
 
     /**
-     * If a tsconfig.json file is present we'll set the config option automatically.
+     * If a tsconfig.json file is present
      */
-    if (bud.context.files[`tsconfig.json`])
+    if (bud.context.files[`tsconfig.json`]) {
+      // Set the tsconfig.json file path
       this.set(`configFile`, bud.context.files[`tsconfig.json`].path)
+    }
 
     /**
      * Set the compiler and context options
@@ -80,12 +82,22 @@ export default class BudTypeScript extends Extension<Options> {
      * Resolve .ts, .tsx, .jsx extensions
      */
     bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
-      extensions.add(`.ts`).add(`.jsx`).add(`.tsx`),
+      extensions
+        .add(`.ts`)
+        .add(`.jsx`)
+        .add(`.tsx`)
+        .add(`.mts`)
+        .add(`.cts`),
     )
 
     bud.build
       .setLoader(`ts`, loader)
-      .setItem(`ts`, {loader: `ts`})
+      .setItem(`ts`, {
+        loader: `ts`,
+        resolve: {
+          fullySpecified: false,
+        },
+      })
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
         include: [({path}) => path(`@src`)],
