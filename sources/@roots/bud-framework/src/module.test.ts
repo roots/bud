@@ -11,7 +11,7 @@ describe(`@roots/bud-framework`, () => {
   beforeEach(async () => {
     bud = await factory()
     instance = new Module(() => bud)
-    await instance.init(bud)
+    await instance.bootstrap(bud)
   })
 
   it(`should be instantiable`, () => {

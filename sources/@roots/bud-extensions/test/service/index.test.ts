@@ -127,8 +127,8 @@ describe(`@roots/bud-extensions`, () => {
       throw new Error(`Extensions.register not found`)
     await extensions.register(bud)
 
-    if (!extensions.booted) throw new Error(`Extensions.booted not found`)
-    await extensions.booted(bud)
+    if (!extensions.boot) throw new Error(`Extensions.boot not found`)
+    await extensions.boot(bud)
 
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
   })

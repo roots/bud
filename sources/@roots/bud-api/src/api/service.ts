@@ -30,7 +30,7 @@ export class Api extends ServiceContainer implements Contract {
    * `bootstrap` callback
    */
   @bind
-  public override async bootstrap?(_app: Bud) {
+  public override async bootstrap(_app: Bud) {
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 

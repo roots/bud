@@ -44,7 +44,7 @@ export class Build extends Service implements Base.Service {
    * `loaders`, `items`, and `rules` are instantiated dumbly
    * because it is painful to think about how to map the typings..
    */
-  public override register? = register.bind(this)
+  public override register = register.bind(this)
 
   /**
    * Make webpack configuration
