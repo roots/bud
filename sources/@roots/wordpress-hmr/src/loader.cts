@@ -1,4 +1,4 @@
-export default function (source: string) {
+module.exports = function (source: string) {
   let registerNotifyFalse = false
   const options = this.getOptions()
 

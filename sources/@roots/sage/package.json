@@ -140,7 +140,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.6"
+    "@types/node": "18.16.8"
   },
   "dependencies": {
     "@roots/blade-loader": "workspace:sources/@roots/blade-loader",
@@ -150,7 +150,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "tslib": "2.5.0",
-    "webpack": "5.82.0"
+    "webpack": "5.82.1"
   },
   "volta": {
     "extends": "../../../package.json"

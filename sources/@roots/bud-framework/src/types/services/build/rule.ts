@@ -14,21 +14,23 @@ export interface Parser extends Record<string, any> {}
  * Options interface
  */
 export interface Options {
-  test?: ((app: Bud) => Output['test']) | Output['test'] | undefined
-  use?: Array<Item | `${keyof Items & string}` | undefined> | undefined
-  include?:
-    | Array<((app: Bud) => string | RegExp) | string | RegExp>
-    | undefined
-  exclude?:
-    | Array<((app: Bud) => string | RegExp) | string | RegExp>
-    | undefined
-  type?: ((app: Bud) => Output['type']) | Output['type'] | undefined
-  parser?: ((app: Bud) => Output['parser']) | Output['parser'] | undefined
-  resourceQuery?: Output[`resourceQuery`] | undefined
-  generator?:
-    | ((app: Bud) => Output['generator'])
-    | Output['generator']
-    | undefined
+  test?: ((app: Bud) => Output[`test`]) | Output[`test`]
+
+  include?: Array<((app: Bud) => string | RegExp) | string | RegExp>
+
+  exclude?: Array<((app: Bud) => string | RegExp) | string | RegExp>
+
+  generator?: ((app: Bud) => Output[`generator`]) | Output[`generator`]
+
+  parser?: ((app: Bud) => Output[`parser`]) | Output[`parser`]
+
+  resourceQuery?: Output[`resourceQuery`]
+
+  resolve?: ((app: Bud) => Output[`resolve`]) | Output[`resolve`]
+
+  type?: ((app: Bud) => Output[`type`]) | Output[`type`]
+
+  use?: Array<Item | `${keyof Items & string}` | undefined>
 }
 
 /**
@@ -38,6 +40,7 @@ export interface Output extends RuleSetRule {
   include?: Array<RegExp | string>
   exclude?: Array<RegExp | string>
   test?: RegExp | string | Array<RegExp | string>
+  resourceQuery?: string | RegExp | Array<RegExp>
 }
 
 export interface Rule extends Base {
@@ -47,7 +50,7 @@ export interface Rule extends Base {
   /**
    * Test pattern
    */
-  test: Options['test']
+  test: Options[`test`]
 
   /**
    * Get the value of `test`
@@ -57,7 +60,7 @@ export interface Rule extends Base {
   /**
    * Set the value of `test`
    */
-  setTest(test: Options['test']): this
+  setTest(test: Options[`test`]): this
 
   /**
    * Use item
@@ -83,46 +86,61 @@ export interface Rule extends Base {
   /**
    * Use item
    */
-  exclude?: Options['exclude']
+  exclude?: Options[`exclude`]
 
   /**
    * Get the value of `exclude`
    */
-  getExclude(): Output['exclude']
+  getExclude(): Output[`exclude`]
 
   /**
    * Set the value of `exclude`
    */
   setExclude(
     excludes:
-      | Options['exclude']
-      | ((excludes: Options['exclude']) => Options['exclude']),
+      | Options[`exclude`]
+      | ((excludes: Options[`exclude`]) => Options[`exclude`]),
   ): this
+
+  /**
+   * Value of `resolve`
+   */
+  resolve?: Options[`resolve`]
+
+  /**
+   * Get the value of `resolve`
+   */
+  getResolve(): Output[`resolve`]
+
+  /**
+   * Set the value of `resolve`
+   */
+  setResolve(fullySpecfied: Options[`resolve`]): this
 
   /**
    * Include paths
    */
-  include?: Options['include']
+  include?: Options[`include`]
 
   /**
    * Get the value of `include`
    */
-  getInclude(): Output['include']
+  getInclude(): Output[`include`]
 
   /**
    * Set the value of `include`
    */
-  setInclude(value: Options['include']): this
+  setInclude(value: Options[`include`]): this
 
   /**
    * Include paths
    */
-  resourceQuery?: Output[`resourceQuery`] | undefined
+  resourceQuery?: Options[`resourceQuery`]
 
   /**
    * Get the value of `resourceQuery`
    */
-  getResourceQuery(): Output['resourceQuery']
+  getResourceQuery(): Output[`resourceQuery`]
 
   /**
    * Set the value of `resourceQuery`
@@ -132,47 +150,47 @@ export interface Rule extends Base {
   /**
    * Type
    */
-  type?: Options['type']
+  type?: Options[`type`]
 
   /**
    * Get the value of `type`
    */
-  getType(): Output['type']
+  getType(): Output[`type`]
 
   /**
    * Set the value of `type`
    */
-  setType(type: Options['type']): this
+  setType(type: Options[`type`]): this
 
   /**
    * Parser
    */
-  parser?: Output['parser']
+  parser?: Options[`parser`]
 
   /**
    * Get the value of `parser`
    */
-  getParser(): Options['parser']
+  getParser(): Options[`parser`]
 
   /**
    * Set the value of `parser`
    */
-  setParser(parser: Options['parser']): this
+  setParser(parser: Options[`parser`]): this
 
   /**
    * Generator
    */
-  generator?: Options['generator']
+  generator?: Options[`generator`]
 
   /**
    * Get the value of `generator`
    */
-  getGenerator(): Output['generator']
+  getGenerator(): Output[`generator`]
 
   /**
    * Set the value of `generator`
    */
-  setGenerator(Generator: Options['generator']): this
+  setGenerator(Generator: Options[`generator`]): this
 
   /**
    * Returns final RuleSetRule

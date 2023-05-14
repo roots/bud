@@ -1,4 +1,4 @@
-import type {Plugin} from '@wordpress/plugins'
+import type {WPPlugin} from '@wordpress/plugins'
 import {
   getPlugins,
   registerPlugin,
@@ -8,10 +8,10 @@ import {
 import type * as Filter from './filter.js'
 import {filterCallback} from './utility.js'
 
-export interface Props extends Plugin {
+export interface Props extends WPPlugin {
   name: string
   filters?: Filter.KeyedFilters
-  settings: Record<string, any>
+  settings: Omit<WPPlugin, `name`>
 }
 
 export const isRegistered = (name: string) => {

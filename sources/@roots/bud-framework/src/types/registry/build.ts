@@ -41,14 +41,20 @@ export interface Sync {
   node: Configuration['node']
   optimization: Configuration['optimization']
   'optimization.emitOnErrors': Configuration['optimization']['emitOnErrors']
+  'optimization.innerGraph': Configuration['optimization']['innerGraph']
+  'optimization.mergeDuplicateChunks': Configuration['optimization']['mergeDuplicateChunks']
   'optimization.minimize': Configuration['optimization']['minimize']
   'optimization.minimizer': Array<
     ((compiler: Compiler) => void) | {apply: any} | '...'
   >
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
+  'optimization.nodeEnv': Configuration['optimization']['nodeEnv']
+  'optimization.providedExports': Configuration['optimization']['providedExports']
   'optimization.removeEmptyChunks':
     | Configuration['optimization']['removeEmptyChunks']
+  'optimization.removeAvailableModules': Configuration['optimization']['removeAvailableModules']
   'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
+  'optimization.sideEffects': Configuration['optimization']['sideEffects']
   'optimization.splitChunks': Optimization.SplitChunks | false
   'optimization.usedExports': Configuration['optimization']['usedExports']
   output: Configuration['output']
@@ -74,6 +80,7 @@ export interface Sync {
   profile: Configuration['profile']
   recordsPath: Configuration['recordsPath']
   'resolve.extensions': Set<string>
+  'resolve.extensionAlias': Configuration['resolve']['extensionAlias']
   resolveLoader: Configuration['resolveLoader']
   snapshot: Configuration[`snapshot`]
   'snapshot.managedPaths': Configuration[`snapshot`][`managedPaths`]
@@ -93,9 +100,8 @@ export interface Async {
   plugins: Array<any>
   resolve: any
   'resolve.alias': {[index: string]: string | false | string[]} | undefined
-  'resolve.aliasFields':
-    | Configuration['resolve']['aliasFields']
-    | undefined
+  'resolve.aliasFields': Configuration['resolve']['aliasFields']
+  'resolve.extensionAlias': Configuration['resolve']['extensionAlias']
   'resolve.modules': Configuration['resolve']['modules'] | undefined
 }
 

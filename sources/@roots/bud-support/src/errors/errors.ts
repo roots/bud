@@ -1,5 +1,6 @@
 /* eslint-disable n/no-process-env */
-import ModernError, {InstanceOptions} from 'modern-errors'
+import type {InstanceOptions} from 'modern-errors'
+import ModernError from 'modern-errors'
 
 interface BudErrorProps {
   isBudError: true

@@ -9,10 +9,11 @@ import type {
   ServerOptions as HttpsServerOptions,
 } from 'node:https'
 
-export {HttpsServerOptions}
-export {HttpServerOptions}
+export type {HttpsServerOptions}
+export type {HttpServerOptions}
 
 export interface Options extends HttpsServerOptions, HttpServerOptions {}
+
 export type OptionsMap = {
   [K in keyof Options as `dev.options.${K & string}`]: Options[K]
 }

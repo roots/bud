@@ -20,5 +20,13 @@ export interface Service extends Contract {
    */
   render: any
 
+  /**
+   * Render queued messages
+   */
+  renderQueuedMessages(): Promise<void>
+
+  /**
+   * Render string to stdout
+   */
   renderString(stats: MultiStats): void
 }

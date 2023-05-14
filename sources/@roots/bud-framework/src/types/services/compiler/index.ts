@@ -76,4 +76,4 @@ export namespace Progress {
   export type Handler = ProgressPlugin['handler']
 }
 
-export {Service}
+export type {Service}

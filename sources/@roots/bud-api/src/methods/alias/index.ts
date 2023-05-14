@@ -9,7 +9,7 @@ import {isRecords} from './isRecords.js'
 import {isSignifierValuePair} from './isSignifierValuePair.js'
 import type {Parameters} from './types.js'
 
-export {Parameters}
+export type {Parameters}
 
 export interface alias {
   (...parameters: Parameters): Promise<Bud>

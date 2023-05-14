@@ -1,6 +1,7 @@
 import * as Ink from 'ink'
 
-import {Log, LogProps, Stderr, Stdout} from './log.js'
+import type {LogProps, Stderr, Stdout} from './log.js'
+import {Log} from './log.js'
 
 export interface Props {
   messages: Array<LogProps>
@@ -18,4 +19,4 @@ export const Console = ({messages}: Props) => {
   )
 }
 
-export {Log, LogProps, Stdout, Stderr}
+export type {Log, LogProps, Stdout, Stderr}

@@ -10,7 +10,8 @@ import type {Records} from './config/index.js'
 import {register} from './handlers/register.js'
 import {Item} from './item/index.js'
 import {Loader} from './loader/index.js'
-import {Options as RuleOptions, Rule} from './rule/index.js'
+import type {Options as RuleOptions} from './rule/index.js'
+import {Rule} from './rule/index.js'
 
 /**
  * Webpack configuration builder class

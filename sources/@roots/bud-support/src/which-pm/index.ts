@@ -1,4 +1,5 @@
-import {PathOrFileDescriptor, readFile, realpath} from 'node:fs'
+import type {PathOrFileDescriptor} from 'node:fs'
+import {readFile, realpath} from 'node:fs'
 import {join} from 'node:path'
 
 type Path = PathOrFileDescriptor & string

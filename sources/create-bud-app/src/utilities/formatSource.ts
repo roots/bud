@@ -1,4 +1,5 @@
-import {format, Options} from 'prettier'
+import type {Options} from 'prettier'
+import {format} from 'prettier'
 
 export default (code: string, options: Partial<Options> = {}) => {
   return format(code, {

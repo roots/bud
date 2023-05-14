@@ -1,7 +1,8 @@
 import {randomUUID} from 'node:crypto'
 
 import type {Bud, Modules} from '@roots/bud-framework'
-import {ApplyPlugin, Extension} from '@roots/bud-framework/extension'
+import type {ApplyPlugin} from '@roots/bud-framework/extension'
+import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'

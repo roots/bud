@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud'
-import args from '@roots/bud-support/utilities/args'
 
 export default async (bud: Bud) => {
   bud

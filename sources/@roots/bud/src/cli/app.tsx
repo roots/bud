@@ -7,9 +7,11 @@ import BudUpgradeCommand from '@roots/bud/cli/commands/bud.upgrade'
 import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
-import getContext, {Context} from '@roots/bud/context'
+import type {Context} from '@roots/bud/context'
+import getContext from '@roots/bud/context'
 import {Error} from '@roots/bud-dashboard/app'
-import {Builtins, Cli, CommandClass} from '@roots/bud-support/clipanion'
+import type {CommandClass} from '@roots/bud-support/clipanion'
+import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import * as args from '@roots/bud-support/utilities/args'
 import {render} from 'ink'
 
@@ -64,4 +66,5 @@ await Commands.get(application, context)
 
 application.runExit(args.raw, context)
 
-export {application, Builtins, Cli, CommandClass}
+export {application, Builtins, Cli}
+export type {CommandClass}

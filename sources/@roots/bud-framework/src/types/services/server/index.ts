@@ -9,7 +9,7 @@ import type * as Middleware from './middleware.js'
 import type {Server as Service} from './service.js'
 import type {Watcher} from './watcher.js'
 
-export {
+export type {
   Connection,
   HttpServerOptions,
   HttpsServerOptions,

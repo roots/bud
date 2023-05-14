@@ -2,14 +2,10 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib",
-    "paths": {
-      "@roots/bud-tailwindcss": ["./src/index.ts", "./src/index.tsx"],
-      "@roots/bud-tailwindcss/*": ["./src/*/index.ts", "./src/*/index.tsx"]
-    }
+    "outDir": "./lib"
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "./**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "./test"],
   "references": [
     {"path": "./../bud/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},

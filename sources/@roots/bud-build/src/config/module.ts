@@ -41,5 +41,9 @@ const getRules = ({filter, path, rules}: Props) => [
 const getNoParse = (filter: Props[`filter`]) =>
   filter(`build.module.noParse`, undefined)
 
+/**
+ * By leaving undefined, webpack will strongly cache parsed modules from node_modules
+ * but leave the rest. This is the default behavior.
+ */
 const getUnsafeCache = (filter: Props[`filter`]) =>
-  filter(`build.module.unsafeCache`, false)
+  filter(`build.module.unsafeCache`, undefined)
