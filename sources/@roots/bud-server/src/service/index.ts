@@ -91,7 +91,7 @@ export class Server extends Service implements BaseService {
    * {@link Service.register}
    */
   @bind
-  public override async register?(bud: Bud) {
+  public override async register(bud: Bud) {
     if (!bud.isDevelopment) return
 
     this.application = await import(`@roots/bud-support/express`).then(

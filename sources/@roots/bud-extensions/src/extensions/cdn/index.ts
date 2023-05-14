@@ -208,18 +208,18 @@ export default class Cdn extends Extension<Options, null> {
       if (key === `js` || key === `ts`) return
 
       rule.setInclude([
-        ...(!bud.build.rules[key].include
+        ...(!rule.include
           ? [bud.path()]
-          : Array.isArray(bud.build.rules[key].include)
-          ? bud.build.rules[key].include
+          : Array.isArray(rule.include)
+          ? rule.include
           : []),
         ...Array.from(this.allowedUris),
       ])
     })
 
-    const {NormalModuleReplacementPlugin} = await import(`webpack`).then(
-      m => m.default,
-    )
+    const NormalModuleReplacementPlugin = await import(
+      `webpack/lib/NormalModuleReplacementPlugin.js`
+    ).then(m => m.default)
 
     for (const [ident, url] of this.sources.entries()) {
       await bud.extensions.add({

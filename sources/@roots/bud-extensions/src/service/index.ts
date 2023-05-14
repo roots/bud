@@ -63,7 +63,7 @@ export default class Extensions
    * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
    */
   @bind
-  public override async register?(bud: Bud): Promise<void> {
+  public override async register(bud: Bud): Promise<void> {
     handleManifestSchemaWarning.bind(this)(bud)
   }
 
@@ -71,7 +71,7 @@ export default class Extensions
    * `booted` callback
    */
   @bind
-  public override async booted?(bud: Bud): Promise<void> {
+  public override async boot(bud: Bud): Promise<void> {
     const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {

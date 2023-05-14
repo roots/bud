@@ -52,17 +52,10 @@ export class Module extends Service {
   public cacheValid: boolean
 
   /**
-   * Class constructor
-   */
-  public constructor(_app: () => Bud) {
-    super(_app)
-  }
-
-  /**
    * {@link Service.init}
    */
   @bind
-  public override async init(bud: Bud) {
+  public override async bootstrap(bud: Bud) {
     this.require = createRequire(this.makeContextURL(bud.context.basedir))
 
     if (this.cacheEnabled && !!(await bud.fs.exists(this.cacheLocation))) {

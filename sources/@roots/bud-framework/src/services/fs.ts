@@ -1,16 +1,23 @@
 import {join} from 'node:path'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Filesystem as FS, json, yml} from '@roots/bud-support/filesystem'
+import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
+import type * as Service from '../service.js'
+
 /**
  * Filesystem service
  */
-export default class FileSystem extends FS {
+export default class FS extends Filesystem implements Service.Contract {
+  /**
+   * Service identifier
+   */
+  public label = `fs`
+
   /**
    * Access {@link Bud}
    *
@@ -19,10 +26,6 @@ export default class FileSystem extends FS {
   public get app(): Bud {
     return this._app()
   }
-
-  /**
-   * Logger
-   */
 
   /**
    * Logger instance
@@ -53,15 +56,32 @@ export default class FileSystem extends FS {
     super(_app().context.basedir)
   }
 
+  /**
+   * {@link Service.Contract.bootstrap}
+   */
   public async bootstrap(bud: Bud) {
-    const s3IsResolvable = await bud.module.resolve(
-      `@aws-sdk/client-s3`,
-      import.meta.url,
-    )
-    if (s3IsResolvable) {
-      this.s3 = new S3()
+    try {
+      const s3IsResolvable = await bud.module.resolve(
+        `@aws-sdk/client-s3`,
+        import.meta.url,
+      )
+      if (s3IsResolvable) {
+        this.s3 = new S3()
+      }
+    } catch (error) {
+      // fallthrough
     }
   }
+
+  /**
+   * Fulfills {@link Service.Contract.register}
+   */
+  public async register() {}
+
+  /**
+   * Fulfills {@link Service.Contract.boot}
+   */
+  public async boot() {}
 
   /**
    * Set bucket
@@ -164,6 +184,7 @@ export default class FileSystem extends FS {
         const manifestExists = await bud.fs.s3.exists(
           s3Path(`upload-manifest.json`),
         )
+
         const entries = Object.entries(
           manifestExists
             ? await bud.fs.s3
