@@ -1,3 +1,4 @@
+/* eslint-disable n/no-extraneous-import */
 import '@roots/bud/types'
 import '@roots/bud-preset-wordpress/types'
 
