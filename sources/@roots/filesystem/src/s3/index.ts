@@ -18,7 +18,14 @@ import {Config} from './config.js'
  * S3 API
  */
 export class S3 {
+  /**
+   * S3 configuration
+   */
   public config: Config
+
+  /**
+   * Client instance
+   */
   public client: Client
 
   /**
@@ -71,8 +78,8 @@ export class S3 {
    * Read a file from s3
    *
    * @remarks
-   * By default the raw response will be buffered to `utf8` before being returned. This can be
-   * disabled by setting `raw` to `true`.
+   * By default the raw response will be transformed to `utf8` before being returned.
+   * This can be disabled by setting `raw` to `true`.
    *
    * @param key - The file key
    * @param raw - Whether to return raw response

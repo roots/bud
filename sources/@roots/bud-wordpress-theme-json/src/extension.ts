@@ -10,10 +10,11 @@ import {
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
-import ThemeJsonWebpackPlugin, {
+import type {
   Options,
   Theme,
 } from '@roots/wordpress-theme-json-webpack-plugin'
+import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 
 /**
  * Callback function used to configure wordpress `theme.json`

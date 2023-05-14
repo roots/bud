@@ -5,7 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {ESBuildMinifyPlugin} from 'esbuild-loader'
+import {EsbuildPlugin} from 'esbuild-loader'
 
 /**
  * Esbuild options
@@ -121,7 +121,7 @@ export default class BudEsbuild extends Extension<Options> {
 
     this.app.hooks
       .on(`build.optimization.minimizer`, minimizer => [
-        new ESBuildMinifyPlugin(this.get(`minify`)),
+        new EsbuildPlugin(this.get(`minify`)),
       ])
       .build.setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),

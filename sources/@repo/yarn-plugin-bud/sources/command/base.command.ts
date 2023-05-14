@@ -128,20 +128,14 @@ export abstract class Command extends BaseCommand {
         )
 
         const listener = data => {
-          data
-            .toString()
-            .split(`\n`)
-            .map(line => {
-              this.spinner.suffixText = `\n${line}`
-            })
+          if (!data) return data
+          this.spinner.text = `${data.toString()}`
         }
 
         this.context.stdout.prependListener(`data`, listener)
         this.context.stderr.prependListener(`data`, listener)
 
-        this.spinner = ora({
-          stream: this.context.stdout,
-        })
+        this.spinner = ora()
         this.spinner.start(ident)
 
         try {
@@ -155,10 +149,12 @@ export abstract class Command extends BaseCommand {
 
           this.spinner.succeed()
           this.context.stdout.write(`\n`)
+          this.context.stdout.removeListener(`data`, listener)
           return
         } catch (e) {
           this.spinner.fail()
           this.context.stdout.write(`\n`)
+          this.context.stdout.removeListener(`data`, listener)
           throw e
         }
       }),

@@ -1,7 +1,2 @@
-import {
-  Notification,
-  NotificationCallback,
-  NotificationCenter,
-} from 'node-notifier'
-
-export {Notification, NotificationCallback, NotificationCenter}
+export {NotificationCenter} from 'node-notifier'
+export type {Notification, NotificationCallback} from 'node-notifier'

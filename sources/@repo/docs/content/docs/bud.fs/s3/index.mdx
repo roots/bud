@@ -7,16 +7,11 @@ sidebar_position: 1
 
 `bud.fs.s3` is a collection of utilities for working with the S3 cloud storage API.
 
-Several common operations are available through `bud.fs` directly (for convenience), but the full API is available through `bud.fs.s3`.
+You must install `@aws-sdk/client-s3` to use these features.
 
-## Aliased functions
-
-| Alias                   | Function                                                     |
-| ----------------------- | ------------------------------------------------------------ |
-| `bud.fs.setCredentials` | [`bud.fs.s3.setCredentials`](/docs/bud.fs/s3/setCredentials) |
-| `bud.fs.setEndpoint`    | [`bud.fs.s3.setEndpoint`](/docs/bud.fs/s3/setEndpoint)       |
-| `bud.fs.setRegion`      | [`bud.fs.s3.setRegion`](/docs/bud.fs/s3/setRegion)           |
-| `bud.fs.setBucket`      | [`bud.fs.s3.setBucket`](/docs/bud.fs/s3/setBucket)           |
+```npm2yarn
+yarn add @aws-sdk/client-s3 --dev
+```
 
 ## Setup
 

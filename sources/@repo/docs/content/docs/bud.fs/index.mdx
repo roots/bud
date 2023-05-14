@@ -30,7 +30,13 @@ Utilities for reading and writing yml. See [bud.fs.yml documentation](/docs/bud.
 
 `bud.fs` includes built-in support for working with remote files stored in S3. It is compatible with Digital Ocean Spaces.
 
-Example which will automatically upload `@dist` to S3 (and delete files from outdated builds):
+In order to use this feature you must first install the `@aws-sdk/client-s3` package:
+
+```npm2yarn
+yarn add @aws-sdk/client-s3
+```
+
+Once installed, you can set your credentials and bucket name in your bud configuration and do uploads:
 
 ```typescript
 bud.fs

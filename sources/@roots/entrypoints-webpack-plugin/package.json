@@ -62,13 +62,13 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.6"
+    "@types/node": "18.16.8"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
-    "webpack": "5.82.0"
+    "webpack": "5.82.1"
   },
   "volta": {
     "extends": "../../../package.json"

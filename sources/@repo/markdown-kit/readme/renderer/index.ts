@@ -3,7 +3,8 @@ import fs from 'fs-jetpack'
 import {globby} from 'globby'
 import {format} from 'prettier'
 
-import {Handlebars, handlebars, TemplateDelegate} from './handlebars.js'
+import type {TemplateDelegate} from './handlebars.js'
+import {Handlebars, handlebars} from './handlebars.js'
 
 const sources = await globby(
   `${REPO_PATH}/sources/@repo/markdown-kit/readme/templates/*.md`,

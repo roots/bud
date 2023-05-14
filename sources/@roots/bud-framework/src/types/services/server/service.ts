@@ -3,9 +3,9 @@ import type {Connection} from './connection.js'
 import type * as Middleware from './middleware.js'
 import type {Watcher} from './watcher.js'
 
-export {Connection}
-export {Middleware}
-export {Watcher}
+export type {Connection}
+export type {Middleware}
+export type {Watcher}
 
 /**
  * Application interface

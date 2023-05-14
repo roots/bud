@@ -1,8 +1,9 @@
-import '@roots/bud/types'
-import '@roots/bud-postcss/types'
+import '@roots/bud'
+import '@roots/bud-postcss'
 
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
-import type {BudTailwindCss} from '@roots/bud-tailwindcss/extension'
+
+import type {BudTailwindCss} from '../extension/index.js'
 
 interface Extension extends PublicExtensionApi<BudTailwindCss> {
   generateImports: BudTailwindCss['generateImports']

@@ -1,4 +1,5 @@
-import execa, {ExecaChildProcess, Options} from '@roots/bud-support/execa'
+import type {ExecaChildProcess, Options} from '@roots/bud-support/execa'
+import execa from '@roots/bud-support/execa'
 
 import type {Bud} from '../bud.js'
 

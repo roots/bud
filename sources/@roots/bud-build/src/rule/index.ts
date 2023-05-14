@@ -280,4 +280,4 @@ class Rule extends Base implements Interface {
 }
 
 export {Rule}
-export {Interface, Options, Output, Parser}
+export type {Interface, Options, Output, Parser}

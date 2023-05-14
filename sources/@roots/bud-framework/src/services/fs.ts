@@ -1,12 +1,12 @@
 import {join} from 'node:path'
 
+import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem as FS, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
-
 /**
  * Filesystem service
  */
@@ -51,13 +51,16 @@ export default class FileSystem extends FS {
    */
   public constructor(public _app: () => Bud) {
     super(_app().context.basedir)
+  }
 
-    this.s3 = new S3()
-
-    Object.assign(this.app, {
-      json: this.json,
-      yml: this.yml,
-    })
+  public async bootstrap(bud: Bud) {
+    const s3IsResolvable = await bud.module.resolve(
+      `@aws-sdk/client-s3`,
+      import.meta.url,
+    )
+    if (s3IsResolvable) {
+      this.s3 = new S3()
+    }
   }
 
   /**
@@ -66,6 +69,8 @@ export default class FileSystem extends FS {
    * @param bucket - {@link S3.bucket}
    */
   public setBucket(bucket: string) {
+    if (!this.s3) this.throwS3Error()
+
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`bucket`, bucket)
     })
@@ -79,6 +84,8 @@ export default class FileSystem extends FS {
    * @param credentials - {@link S3.credentials}
    */
   public setCredentials(credentials: S3[`config`][`credentials`]) {
+    if (!this.s3) this.throwS3Error()
+
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`credentials`, credentials)
     })
@@ -92,6 +99,8 @@ export default class FileSystem extends FS {
    * @param options - upload options
    */
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
+    if (!this.s3) this.throwS3Error()
+
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`endpoint`, endpoint)
     })
@@ -105,6 +114,8 @@ export default class FileSystem extends FS {
    * @param options - upload options
    */
   public setRegion(region: S3[`config`][`region`]) {
+    if (!this.s3) this.throwS3Error()
+
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`region`, region)
     })
@@ -123,6 +134,8 @@ export default class FileSystem extends FS {
     files?: string
     keep?: number | false
   }): this {
+    if (!this.s3) this.throwS3Error()
+
     const {source, files, keep, destination} = {
       source: isUndefined(options?.source)
         ? this.app.path(`@dist`)
@@ -222,5 +235,21 @@ export default class FileSystem extends FS {
     })
 
     return this
+  }
+
+  @bind
+  public throwS3Error() {
+    const dependencies = {
+      ...(this.app.context.files?.[`package.json`]?.module?.dependencies ??
+        {}),
+      ...(this.app.context.files?.[`package.json`]?.module
+        ?.devDependencies ?? {}),
+    }
+    if (!Object.keys(dependencies)?.includes(`@aws-sdk/client-s3`)) {
+      throw new Error(
+        `S3 is not available. Please install @aws-sdk/client-s3 to use this feature.`,
+      )
+    }
+    throw new Error(`S3 is not available.`)
   }
 }

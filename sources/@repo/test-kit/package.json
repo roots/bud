@@ -19,7 +19,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@types/node": "18.16.6",
+    "@types/node": "18.16.8",
     "chalk": "5.2.0",
     "execa": "7.1.1",
     "fs-jetpack": "5.1.0",

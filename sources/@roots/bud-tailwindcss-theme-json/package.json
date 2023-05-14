@@ -68,7 +68,7 @@
   "devDependencies": {
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.6"
+    "@types/node": "18.16.8"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

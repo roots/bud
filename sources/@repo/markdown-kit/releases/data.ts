@@ -84,4 +84,5 @@ if (!request?.data) {
 }
 if (!releases) releases = request?.data?.filter(filter).map(parse)
 
-export {releases, release}
+export {releases}
+export type {release}

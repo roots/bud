@@ -1,5 +1,6 @@
 import type {Cli} from '@roots/bud-support/clipanion'
-import {BudTailwindCommand} from '@roots/bud-tailwindcss/bud/commands/tailwindcss'
+
+import {BudTailwindCommand} from './tailwindcss/index.js'
 
 /**
  * Register bud cli command

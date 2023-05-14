@@ -76,7 +76,7 @@
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.0",
-    "@types/node": "18.16.6",
+    "@types/node": "18.16.8",
     "@types/react": "18.2.6"
   },
   "dependencies": {

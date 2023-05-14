@@ -2,7 +2,8 @@ import {join} from 'node:path/posix'
 
 import {paths} from '@repo/constants'
 
-import {release, releases} from './data.js'
+import type {release} from './data.js'
+import {releases} from './data.js'
 
 const getNewerVersions = (current: release): Array<release> =>
   releases

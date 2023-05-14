@@ -1,8 +1,5 @@
-import {
-  BlockStyle,
-  registerBlockStyle,
-  unregisterBlockStyle,
-} from '@wordpress/blocks'
+import type {BlockStyle} from '@wordpress/blocks'
+import {registerBlockStyle, unregisterBlockStyle} from '@wordpress/blocks'
 
 export interface Style extends BlockStyle {
   block: string

@@ -8,7 +8,7 @@ import Webpack from 'webpack'
 
 import type {Options} from './interface.js'
 
-export {Options}
+export type {Options}
 
 /**
  * CriticalCSSWebpackPlugin
