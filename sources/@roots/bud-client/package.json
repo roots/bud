@@ -51,6 +51,14 @@
     "./lib/*": {
       "require": "./lib/*",
       "default": "./lib/*"
+    },
+    "./dom-ready": {
+      "import": "./lib/helpers/dom-ready.mjs",
+      "default": "./lib/helpers/dom-ready.mjs"
+    },
+    "./lazy": {
+      "import": "./lib/helpers/lazy.mjs",
+      "default": "./lib/helpers/lazy.mjs"
     }
   },
   "typesVersions": {
@@ -60,6 +68,12 @@
       ],
       "./lib/*": [
         "./lib/*"
+      ],
+      "./dom-ready": [
+        "./lib/helpers/dom-ready.d.mts"
+      ],
+      "./lazy": [
+        "./lib/helpers/lazy.d.mts"
       ]
     }
   },
