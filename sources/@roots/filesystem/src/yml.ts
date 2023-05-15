@@ -1,16 +1,20 @@
-import fs from 'fs-jetpack'
-import yaml from 'js-yaml'
-
 export const read = async (file: string): Promise<any> => {
-  const source = await fs.readAsync(file, `utf8`)
-  return yaml.load(source)
+  const {load} = await import(`js-yaml`)
+  const read = await import(`fs-jetpack/lib/read.js`)
+
+  const source = await read.async(file, `utf8`)
+  return load(source)
 }
 
 export const write = async (file: string, data: any): Promise<void> => {
-  const source = yaml.dump(data, {skipInvalid: true})
-  await fs.writeAsync(file, source)
+  const {dump} = await import(`js-yaml`)
+  const write = await import(`fs-jetpack/lib/write.js`)
+
+  const source = dump(data, {skipInvalid: true})
+  await write.async(file, source)
 }
 
 export const parse = async (source: string) => {
-  return yaml.load(source)
+  const {load} = await import(`js-yaml`)
+  return load(source)
 }

@@ -21,6 +21,5 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-swc",
   "@roots/bud-tailwindcss",
   "@roots/bud-terser",
-  "@roots/bud-terser/css-minimizer",
 ]
 `;

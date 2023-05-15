@@ -193,12 +193,9 @@ export default class Extensions
    */
   @bind
   public set(value: Extension): this {
-    let name = value.label ?? randomUUID()
-    const key = this.has(name) ? `${name}-${randomUUID()}` : name
-
-    this.repository[key] = value
-
-    this.logger.success(`extension registered:`, name)
+    const id = value.label ?? randomUUID()
+    if (this.has(id)) return
+    this.repository[id] = value
 
     return this
   }

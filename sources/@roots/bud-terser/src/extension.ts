@@ -29,7 +29,6 @@ export type Options = Plugin.BasePluginOptions & {
 @options<Options>({
   extractComments: false,
   parallel: true,
-  exclude: /node_modules/,
   terserOptions: {
     compress: {
       drop_console: false,

@@ -42,7 +42,7 @@ export default class FS extends Filesystem implements Service.Contract {
   /**
    * S3 instance
    */
-  public s3: S3
+  public s3?: S3
 
   /**
    * YML handling

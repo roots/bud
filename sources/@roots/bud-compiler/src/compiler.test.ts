@@ -48,7 +48,9 @@ describe(`@roots/bud-compiler`, function () {
     bud.context.args.dry = true
     const logSpy = vi.spyOn(compiler.logger, `log`)
     await compiler.compile()
-    expect(logSpy).toHaveBeenCalledTimes(3)
+    expect(logSpy).toHaveBeenCalledWith(
+      `running in dry mode. exiting early.`,
+    )
   })
 
   it(`should set done tap`, async () => {

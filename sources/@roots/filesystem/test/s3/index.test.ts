@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {S3} from './index.js'
+import {S3} from '../../src/s3/index.js'
 
 const mockSDKImplementation = {
   send: vi.fn(),
