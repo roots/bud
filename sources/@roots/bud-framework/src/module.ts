@@ -4,10 +4,12 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ImportError} from '@roots/bud-support/errors'
+import figures from '@roots/bud-support/figures'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import args from '@roots/bud-support/utilities/args'
 import logger from '@roots/bud-support/utilities/logger'
 import * as paths from '@roots/bud-support/utilities/paths'
+import chalk from 'chalk'
 
 import type {Bud} from './bud.js'
 import {Service} from './service.js'
@@ -51,6 +53,13 @@ export class Module extends Service {
    */
   public cacheValid: boolean
 
+  public override get logger() {
+    if (this.app?.context?.logger && `scope` in this.app.context.logger)
+      return this.app.context.logger.scope(this.app.label, `module`)
+
+    return logger.scope(this.app.label, `module`)
+  }
+
   /**
    * {@link Service.init}
    */
@@ -59,9 +68,7 @@ export class Module extends Service {
     this.require = createRequire(this.makeContextURL(bud.context.basedir))
 
     if (this.cacheEnabled && !!(await bud.fs.exists(this.cacheLocation))) {
-      logger
-        .scope(`module`)
-        .info(`cache is enabled and cached resolutions exist`)
+      this.logger.info(`cache is enabled and cached resolutions exist`)
 
       try {
         const data = await bud.fs.read(this.cacheLocation)
@@ -105,7 +112,7 @@ export class Module extends Service {
   @bind
   public async readManifest(signifier: string) {
     return await this.getManifestPath(signifier).then(async path => {
-      logger.scope(`module`).info(signifier, `manifest resolved to`, path)
+      this.logger.info(signifier, `manifest resolved to`, path)
       return await this.app.fs.read(path)
     })
   }
@@ -118,68 +125,64 @@ export class Module extends Service {
     signifier: string,
     context?: string,
   ): Promise<string> {
-    if (signifier in this.resolved) {
-      logger
-        .scope(`module`)
-        .info(
-          `resolved ${signifier} to ${relative(
-            this.app.context.basedir,
-            this.resolved[signifier],
-          )} from cache`,
-        )
-
-      return this.resolved[signifier]
-    }
-
-    logger.scope(`module`).info(`resolving ${signifier} from ${context}`)
-
     let errors = []
 
-    try {
-      const path = await resolve(signifier, this.makeContextURL())
-      const normal = normalize(fileURLToPath(path))
-      logger
-        .scope(`module`)
-        .info(
-          `[cache miss]`,
-          `resolved ${signifier} to ${relative(
-            this.app.context.basedir,
-            normal,
-          )}`,
-        )
+    if (signifier in this.resolved) {
+      this.logger.info(
+        chalk.green(`[cache hit]`),
+        chalk.green(signifier),
+        figures.arrowRight,
+        chalk.blue(
+          relative(this.app.context.basedir, this.resolved[signifier]),
+        ),
+      )
 
-      this.resolved[signifier] = normal
       return this.resolved[signifier]
-    } catch (err) {
-      errors.push(err.toString())
     }
 
-    try {
-      const path = await resolve(signifier, this.makeContextURL(context))
+    this.logger.info(`resolving ${signifier} from ${context}`)
 
-      const normal = normalize(fileURLToPath(path))
+    const resolver = async (
+      signifier: string,
+      context: string,
+    ): Promise<string> => {
+      try {
+        const path = await resolve(signifier, context)
+        const normal = normalize(fileURLToPath(path))
+        this.resolved[signifier] = normal
 
-      logger
-        .scope(`module`)
-        .info(
-          `[cache miss]`,
-          `resolved ${signifier} to ${relative(
-            this.app.context.basedir,
-            normal,
-          )}`,
+        this.logger.log(
+          chalk.red(`[cache miss]`),
+          chalk.green(signifier),
+          figures.arrowRight,
+          chalk.blue(
+            relative(this.app.context.basedir, this.resolved[signifier]),
+          ),
         )
 
-      this.resolved[signifier] = normal
-      return this.resolved[signifier]
-    } catch (err) {
-      errors.push(err.toString())
+        return this.resolved[signifier]
+      } catch (err) {
+        errors.push(err.toString())
+      }
     }
 
-    errors.push(`Could not resolve ${signifier} from ${context}`)
+    const resolved = await resolver(signifier, this.makeContextURL())
+    if (resolved) return resolved
 
-    throw new ImportError(`could not resolve ${signifier}`, {
-      cause: errors.reverse().join(`\n`),
-    })
+    if (context) {
+      const resolved = await resolver(
+        signifier,
+        this.makeContextURL(context),
+      )
+      if (resolved) return resolved
+    }
+
+    if (!this.resolved[signifier]) {
+      errors.push(`Could not resolve ${signifier} from ${context}`)
+      throw new ImportError(`could not resolve ${signifier}`, {
+        cause: errors.reverse().join(`\n`),
+      })
+    }
   }
 
   /**
@@ -193,7 +196,7 @@ export class Module extends Service {
     try {
       const modulePath = await this.resolve(signifier, context)
       const result = await import(modulePath)
-      logger.scope(`module`).info(`imported ${signifier}`)
+      this.logger.info(`imported ${signifier}`)
       return result?.default ?? result
     } catch (cause) {
       throw new ImportError(`could not resolve ${signifier}`, {
@@ -202,26 +205,6 @@ export class Module extends Service {
           origin: cause,
         },
       })
-    }
-  }
-
-  /**
-   * Import a module from its signifier
-   */
-  @bind
-  public async tryImport<T = any>(
-    signifier: string,
-    context?: string,
-  ): Promise<T> | undefined | null {
-    try {
-      const modulePath = await this.resolve(signifier, context)
-      const result = await import(modulePath)
-      logger.scope(`module`).info(`imported ${signifier} (optional)`)
-      return result?.default ?? result
-    } catch (err) {
-      logger
-        .scope(`module`)
-        .info(`${signifier} could not be imported (optional)`, err)
     }
   }
 
