@@ -102,10 +102,13 @@ export default class Extensions
     if (
       !isUndefined(extensions.builtIn) &&
       Array.isArray(extensions.builtIn)
-    )
+    ) {
+      this.logger.time(`loading built-in extensions`)
       await Promise.all(
         extensions.builtIn.filter(Boolean).map(this.import),
       )
+      this.logger.timeEnd(`loading built-in extensions`)
+    }
 
     if (bud.isCLI() && !isUndefined(bud.context.args.discover)) {
       this.options.set(`discover`, bud.context.args.discover)
@@ -190,9 +193,12 @@ export default class Extensions
    */
   @bind
   public set(value: Extension): this {
-    const key = value.label ?? randomUUID()
+    let name = value.label ?? randomUUID()
+    const key = this.has(name) ? `${name}-${randomUUID()}` : name
+
     this.repository[key] = value
-    this.logger.success(`set`, key)
+
+    this.logger.success(`extension registered:`, name)
 
     return this
   }
@@ -244,16 +250,13 @@ export default class Extensions
   @bind
   public async import(
     signifier: string,
-    fatalOnError: boolean | number = true,
+    required: boolean | number = true,
   ): Promise<Extension> {
-    if (fatalOnError && this.unresolvable.has(signifier))
-      throw new Error(`Extension ${signifier} is not importable`)
-
-    this.logger.info(`importing`, signifier)
+    let instance: Extension
 
     if (signifier.startsWith(`.`)) {
       signifier = this.app.path(signifier)
-      this.logger.info(`path resolved to`, signifier)
+      this.logger.info(`relative extension path resolved to`, signifier)
     }
 
     if (this.has(signifier)) {
@@ -261,24 +264,38 @@ export default class Extensions
       return
     }
 
-    const extensionClass: Extension = fatalOnError
-      ? await this.app.module.import(signifier, import.meta.url)
-      : await this.app.module.tryImport(signifier, import.meta.url)
+    if (required && this.unresolvable.has(signifier)) {
+      throw new Error(`Extension ${signifier} is not importable`)
+    }
 
-    if (!extensionClass) return
+    this.logger.time(`loading ${signifier}`)
 
-    const instance = await this.instantiate(extensionClass)
-
-    if (instance.dependsOn)
-      await Promise.all(
-        Array.from(instance.dependsOn)
-          .filter(dependency => !this.has(dependency))
-          .map(async dependency => await this.import(dependency)),
+    try {
+      instance = await this.instantiate(
+        await this.app.module.import(signifier, import.meta.url),
       )
+    } catch (error) {
+      this.logger.timeEnd(`loading ${signifier}`)
+      if (required) throw error
+      else return
+    }
 
-    if (this.options.is(`discover`, true) && instance.dependsOnOptional)
+    const {
+      dependsOn: dependencies,
+      dependsOnOptional: optionalDependencies,
+    } = instance
+
+    if (!isUndefined(dependencies) && dependencies.size > 0) {
       await Promise.all(
-        Array.from(instance.dependsOnOptional)
+        Array.from(dependencies).map(
+          async dependency => await this.import(dependency, required),
+        ),
+      )
+    }
+
+    if (this.options.is(`discover`, true) && optionalDependencies)
+      await Promise.all(
+        Array.from(optionalDependencies)
           .filter(this.isAllowed)
           .filter(
             optionalDependency =>
@@ -293,6 +310,8 @@ export default class Extensions
       )
 
     this.set(instance)
+
+    this.logger.timeEnd(`loading ${signifier}`)
 
     return instance
   }

@@ -45,14 +45,14 @@ export class EventHooks extends Hooks<EventsStore> {
     await Promise.all(
       actions.map(async (action, iteration) => {
         try {
-          this.app.hooks.logger.await(
-            `executing callback ${iteration + 1}/${actions.length}`,
-          )
           await action(value as any)
-          this.app.hooks.logger.success(
+          this.app.hooks.logger.info(
             `executing callback ${iteration + 1}/${actions.length}`,
           )
         } catch (e) {
+          this.app.hooks.logger.error(
+            `executing callback ${iteration + 1}/${actions.length}`,
+          )
           this.catch(e, id, iteration)
         }
       }),
