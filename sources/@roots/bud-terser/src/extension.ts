@@ -1,8 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
-  bind,
-  dependsOn,
   expose,
   label,
   options,
@@ -27,11 +25,11 @@ export type Options = Plugin.BasePluginOptions & {
  * Terser configuration
  */
 @label(`@roots/bud-terser`)
-@dependsOn([`@roots/bud-terser/css-minimizer`])
 @expose(`terser`)
 @options<Options>({
   extractComments: false,
   parallel: true,
+  exclude: /node_modules/,
   terserOptions: {
     compress: {
       drop_console: false,
@@ -53,12 +51,19 @@ export class BudTerser extends Extension<Options> {
   /**
    * {@link Extension.buildBefore}
    */
-  @bind
   public override async buildBefore(bud: Bud) {
-    if (!this.enabled) {
-      this.logger.info(`minimizer disabled. skipping terser config.`)
-      return
-    }
+    await bud.extensions.add(
+      // @ts-ignore
+      await this.resolve(
+        `@roots/bud-terser/css-minimizer`,
+        import.meta.url,
+      ),
+    )
+
+    await bud.extensions
+      .get(`@roots/bud-terser/css-minimizer`)
+      // @ts-ignore This method isn't typed but it's there
+      .buildBefore(bud)
 
     const Terser = await import(`terser-webpack-plugin`)
 
@@ -91,7 +96,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * Drop console
    */
-  @bind
   public dropConsole(enable: boolean = true): this {
     this.set(`terserOptions.compress.drop_console`, enable)
     return this
@@ -100,7 +104,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * Drop comments
    */
-  @bind
   public dropComments(enable: boolean = true): this {
     this.set(`terserOptions.format.comments`, !enable)
     return this
@@ -109,7 +112,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * Drop debugger statements
    */
-  @bind
   public dropDebugger(enable: boolean = true): this {
     this.set(`terserOptions.compress.drop_debugger`, enable)
     return this
@@ -124,7 +126,6 @@ export class BudTerser extends Extension<Options> {
    * bud.terser.set(`terserOptions.mangle`, {})
    * ```
    */
-  @bind
   public mangle(mangle: Plugin.TerserOptions['mangle']): this {
     this.set(`terserOptions.mangle`, mangle)
     return this
@@ -133,7 +134,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * @deprecated Use {@link BudTerser.dropComments} instead
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.dropComments instead`, [
     [`Drop comments`, `bud.terser.dropComments()`],
     [`Preserve comments`, `bud.terser.dropComments(false)`],
@@ -150,7 +150,6 @@ export class BudTerser extends Extension<Options> {
   /**
    * @deprecated Use {@link BudTerser.dropDebugger} instead
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.dropDebugger instead`, [
     [`Drop debugger statements`, `bud.terser.dropDebugger()`],
     [`Preserve debugger statements`, `bud.terser.dropDebugger(false)`],
@@ -172,7 +171,6 @@ export class BudTerser extends Extension<Options> {
    * bud.terser.set(`terserOptions.minify`, () => {})
    * ```
    */
-  @bind
   @deprecated(`bud.terser`, `Use bud.terser.set instead`, [
     [
       `Set the minifier`,
