@@ -11,10 +11,10 @@ export async function handleRecords(bud: Bud, input: Parameters) {
   const validation = await schema.records.safeParseAsync(input[0])
   if (!validation.success) handleTypeError(bud, `bud.alias`, validation)
 
-  const aliases = await bud.hooks.filterAsync(`build.resolve.alias`, {
-    '@src': bud.path(`@src`),
-  })
-  bud.hooks.async(`build.resolve.alias`, {...aliases, ...validation.data})
+  bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
+    ...paths,
+    ...validation.data,
+  }))
 
   return bud
 }

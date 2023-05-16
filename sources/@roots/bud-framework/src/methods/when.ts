@@ -14,7 +14,6 @@ export interface when {
       | Array<((app: Bud) => boolean) | boolean>,
     trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
     falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
-    description?: string,
   ): Bud
 }
 
@@ -51,7 +50,6 @@ export function when(
     | Array<((app: Bud) => boolean) | boolean>,
   trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
   falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
-  description: string = ``,
 ): Bud {
   const ctx = this as Bud
 

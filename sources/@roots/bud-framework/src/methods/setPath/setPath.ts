@@ -86,17 +86,12 @@ const makeCallback =
   (bud: Bud) =>
   (pair: [string, string]): Bud => {
     const [key, value] = validate.stringPair(pair)
-    const normal = !isAbsolute(value) ? bud.relPath(value) : value
-
-    bud.log({
-      key,
-      value,
-      normal,
-    })
+    const normal = isAbsolute(value) ? bud.relPath(value) : value
 
     bud.hooks
       .on(`location.${key}` as keyof SyncRegistry, normal)
       .log(`${key} set to ${normal}`)
+      .info({key, value, normal})
 
     return bud
   }

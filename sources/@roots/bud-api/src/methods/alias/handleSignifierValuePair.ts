@@ -14,10 +14,10 @@ export async function handleSignifierValuePair(
   const signifier = await getParameter(bud, input, 0)
   const value = await getParameter(bud, input, 1)
 
-  const aliases = await bud.hooks.filterAsync(`build.resolve.alias`, {
-    '@src': bud.path(`@src`),
-  })
-  bud.hooks.async(`build.resolve.alias`, {...aliases, [signifier]: value})
+  bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
+    ...paths,
+    [signifier]: value,
+  }))
 
   return bud
 }
