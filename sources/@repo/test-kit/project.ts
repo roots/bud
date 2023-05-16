@@ -1,3 +1,4 @@
+/* eslint-disable n/no-process-env */
 /* eslint-disable no-console */
 import {posix} from 'node:path'
 
@@ -85,8 +86,35 @@ export class Project {
     await this.install()
     await this.build()
     await this.setManifest()
-    await this.setAssets()
-    await this.setEntrypoints()
+
+    /**
+     * Setup assets
+     */
+    try {
+      await Promise.all(
+        Object.entries(this.manifest).map(
+          async ([name, path]: [string, string]) => {
+            const buffer = await this.fs.read(
+              this.projectPath(this.options.dist, path),
+            )
+
+            this.assets[name] = buffer.toString()
+          },
+          Promise.resolve({}),
+        ),
+      )
+    } catch (e) {}
+
+    /**
+     * Setup entrypoints
+     */
+    try {
+      const entrypoints = await this.fs.read(
+        this.projectPath(join(this.options.dist, `entrypoints.json`)),
+      )
+
+      Object.assign(this, {entrypoints})
+    } catch (e) {}
 
     return this
   }
@@ -128,7 +156,10 @@ export class Project {
     try {
       await this.fs.write(
         this.projectPath(`.npmrc`),
-        `@roots:registry=http://localhost:4873`,
+        `\
+@roots:registry=http://localhost:4873
+workspaces=false
+`,
       )
     } catch (e) {
       throw e
@@ -138,15 +169,27 @@ export class Project {
      * Install dependencies
      */
     try {
-      const child = await execa(`npm`, [`install`], {
-        cwd: this.directory,
-      })
+      const child = await execa(
+        `npm`,
+        [
+          `install`,
+          `--cache`,
+          join(paths.storage, `cache`, `npm`),
+          `--registry`,
+          `http://localhost:4873`,
+        ],
+        {
+          cwd: this.directory,
+          env: {...process.env, NODE_ENV: `development`},
+        },
+      )
       if (child?.stdout) {
         await this.fs.write(
           this.projectPath(`install.stdout.log`),
           child.stdout,
         )
       }
+
       if (child.stderr) {
         await this.fs.write(
           this.projectPath(`install.stderr.log`),
@@ -170,7 +213,13 @@ export class Project {
      */
     const build = this.options.buildCommand ?? [
       `node`,
-      [this.projectPath(`node_modules`, `.bin`, `bud`), `build`],
+      [
+        this.projectPath(`node_modules`, `.bin`, `bud`),
+        `build`,
+        `--force`,
+        `--storage`,
+        `.storage`,
+      ],
     ]
 
     /**
@@ -228,19 +277,5 @@ export class Project {
         Promise.resolve({}),
       ),
     )
-  }
-
-  /**
-   * Set the `entrypoints.json` data to {@link this.entrypoints}
-   */
-  @bind
-  public async setEntrypoints() {
-    try {
-      const entrypoints = await this.fs.read(
-        this.projectPath(join(this.options.dist, `entrypoints.json`)),
-      )
-
-      Object.assign(this, {entrypoints})
-    } catch (e) {}
   }
 }

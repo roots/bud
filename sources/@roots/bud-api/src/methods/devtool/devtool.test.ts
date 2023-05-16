@@ -16,22 +16,22 @@ describe(`bud.devtool`, function () {
     vi.clearAllMocks()
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(method).toBeInstanceOf(Function)
   })
 
-  it(`returns bud`, async () => {
+  it(`should return bud`, async () => {
     const ret = await method()
     expect(ret).toBe(bud)
   })
 
-  it(`calls bud.hooks.on`, async () => {
+  it(`should call bud.hooks.on`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()
     expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
-  it(`calls bud.hooks.on`, async () => {
+  it(`should call bud.hooks.on`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()
     expect(onSpy).toHaveBeenCalledWith(
@@ -40,7 +40,7 @@ describe(`bud.devtool`, function () {
     )
   })
 
-  it(`calls bud.hooks.on with expected arguments`, async () => {
+  it(`should call bud.hooks.on with expected arguments`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(callback)
     expect(onSpy).toHaveBeenCalledWith(`build.devtool`, callback)

@@ -1,0 +1,4 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "include": ["./src"]
+}

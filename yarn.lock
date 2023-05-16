@@ -8142,9 +8142,11 @@ __metadata:
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.8
+    "@types/webpack-manifest-plugin": 3.0.5
     palette-webpack-plugin: 1.0.5
     tslib: 2.5.0
     webpack: 5.82.1
+    webpack-manifest-plugin: 5.0.0
   languageName: unknown
   linkType: soft
 
@@ -8218,7 +8220,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
-    "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
@@ -8522,6 +8523,7 @@ __metadata:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.8
@@ -8668,6 +8670,7 @@ __metadata:
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks"
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-server": "workspace:sources/@roots/bud-server"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
@@ -8733,10 +8736,12 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/lodash-es": 4.17.7
     "@types/node": 18.16.8
+    "@types/webpack-manifest-plugin": 3.0.5
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.5.0
     webpack: 5.82.1
+    webpack-manifest-plugin: 5.0.0
   languageName: unknown
   linkType: soft
 

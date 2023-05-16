@@ -13,7 +13,7 @@ describe(`bud.entry`, function () {
     entry = entryFn.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(entry).toBeInstanceOf(Function)
   })
 

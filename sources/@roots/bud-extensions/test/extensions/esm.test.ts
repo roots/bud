@@ -6,7 +6,7 @@ import {describe, expect, it, vi} from 'vitest'
 import extensionConstructor from '../../src/extensions/esm/index.js'
 
 describe(`@roots/bud-extensions/esm`, () => {
-  it(`is constructable`, () => {
+  it(`should be constructable`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })
 

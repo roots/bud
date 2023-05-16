@@ -41,6 +41,7 @@ interface Options {
  */
 @label(`@roots/bud-postcss`)
 @options<Options>({
+  sourceMap: true,
   postcssOptions: {
     config: false,
   },
@@ -94,6 +95,8 @@ export class BudPostCss extends Extension<Options> {
       this.configFileOptions = file?.module?.default ?? file?.module
     }
 
+    const implementation = await this.import(`postcss`, import.meta.url)
+
     build
       .setLoader(
         `postcss`,
@@ -102,7 +105,8 @@ export class BudPostCss extends Extension<Options> {
       .setItem(`postcss`, {
         loader: `postcss`,
         options: () => ({
-          postcssOptions: this.configFileOptions || this.postcssOptions,
+          implementation,
+          postcssOptions: this.configFileOptions ?? this.postcssOptions,
           sourceMap: this.get(`sourceMap`),
         }),
       })

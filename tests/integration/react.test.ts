@@ -20,6 +20,6 @@ describe(`examples/react`, () => {
       project.assets[`components/logo.svg`].includes(`<svg`),
     ).toBeTruthy()
     expect(project.manifest[`components/logo.svg`]).toMatchSnapshot()
-    expect(Object.keys(project.manifest)).toHaveLength(5)
+    expect(Object.keys(project.manifest)).toHaveLength(6)
   })
 })

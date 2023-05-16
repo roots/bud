@@ -1,13 +1,6 @@
 {
   "name": "@examples/tailwindcss",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "bud": {
     "extensions": {
       "denylist": [
@@ -16,7 +9,6 @@
     }
   },
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
     "@roots/bud-postcss": "latest",

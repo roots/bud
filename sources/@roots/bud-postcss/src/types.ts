@@ -1,8 +1,5 @@
-/// <reference types="@roots/bud" />
-
 /* eslint-disable n/no-unpublished-import */
-import type {Item} from '@roots/bud-build/item'
-import type {Loader} from '@roots/bud-build/loader'
+import type {Item, Loader} from '@roots/bud-build/'
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type {BudPostCss} from './extension.js'

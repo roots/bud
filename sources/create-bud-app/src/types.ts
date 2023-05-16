@@ -4,7 +4,6 @@ export type Supports =
   | `babel`
   | `emotion`
   | `sass`
-  | `postcss`
   | `tailwindcss`
   | `wordpress`
   | `react`

@@ -4,11 +4,11 @@ import {describe, expect, it} from 'vitest'
 import extensionConstructor from '../../src/extensions/clean-webpack-plugin/index.js'
 
 describe(`@roots/bud-extensions/clean-webpack-plugin`, () => {
-  it(`is an instance of Extension`, () => {
+  it(`should be an instance of Extension`, () => {
     expect(extensionConstructor).toBeInstanceOf(Function)
   })
 
-  it(`is enabled in production`, async () => {
+  it(`should be enabled in production`, async () => {
     let bud = await factory()
     let instance = new extensionConstructor(bud)
 
@@ -16,7 +16,7 @@ describe(`@roots/bud-extensions/clean-webpack-plugin`, () => {
     expect(await instance.isEnabled()).toBe(true)
   })
 
-  it(`is disable-able`, async () => {
+  it(`should be disable-able`, async () => {
     let bud = await factory()
     let instance = new extensionConstructor(bud)
 

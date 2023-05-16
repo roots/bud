@@ -1,6 +1,7 @@
 import {bind} from 'helpful-decorators'
 import uniq from 'lodash/uniq.js'
 import Webpack from 'webpack'
+import {getCompilerHooks} from 'webpack-manifest-plugin'
 
 import {HtmlEmitter} from './html.emitter.js'
 
@@ -94,7 +95,7 @@ export class EntrypointsWebpackPlugin {
    * Webpack plugin API's `apply` hook
    */
   @bind
-  public apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Webpack.Compiler) {
     this.assets = {}
 
     this.compiler = compiler
@@ -117,6 +118,12 @@ export class EntrypointsWebpackPlugin {
         )
       },
     )
+
+    const {beforeEmit} = getCompilerHooks(compiler)
+
+    beforeEmit.tap(this.name, manifest => {
+      return {...manifest, [`entrypoints.json`]: `entrypoints.json`}
+    })
   }
 
   /**

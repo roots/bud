@@ -114,6 +114,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
+    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.8",
     "@types/tailwindcss": "3.1.0",

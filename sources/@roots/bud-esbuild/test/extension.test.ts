@@ -23,11 +23,11 @@ describe(`@roots/bud-esbuild`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })
 
-  it(`has label prop`, () => {
+  it(`should have a label prop`, () => {
     expect(extension.label).toBe(`@roots/bud-esbuild`)
   })
 
-  it(`registers js ruleset item`, () => {
+  it(`should register js ruleset item`, () => {
     if (isUndefined(bud.build.rules.js)) {
       throw new Error()
     }
@@ -36,7 +36,7 @@ describe(`@roots/bud-esbuild`, () => {
     ])
   })
 
-  it(`registers js ruleset item options`, () => {
+  it(`should register js ruleset item options`, () => {
     if (isUndefined(bud.build.items[`esbuild-js`])) {
       throw new Error()
     }
@@ -45,7 +45,7 @@ describe(`@roots/bud-esbuild`, () => {
     )
   })
 
-  it(`resolves the esbuild loader`, () => {
+  it(`should resolve the esbuild loader`, () => {
     if (isUndefined(bud.build.items[`esbuild-js`])) {
       throw new Error()
     }
@@ -53,7 +53,7 @@ describe(`@roots/bud-esbuild`, () => {
     expect(bud.build.items[`esbuild-js`].getLoader()).toBeDefined()
   })
 
-  it(`registers ts ruleset item`, () => {
+  it(`should register the ts ruleset item`, () => {
     if (isUndefined(bud.build.rules[`ts`])) {
       throw new Error()
     }
@@ -62,7 +62,7 @@ describe(`@roots/bud-esbuild`, () => {
     ])
   })
 
-  it(`registers ts ruleset item options`, () => {
+  it(`should register the ts ruleset item options`, () => {
     if (isUndefined(bud.build.items[`esbuild-ts`])) {
       throw new Error()
     }
@@ -71,14 +71,14 @@ describe(`@roots/bud-esbuild`, () => {
     )
   })
 
-  it(`resolves the esbuild loader`, () => {
+  it(`should resolve the esbuild loader`, () => {
     if (isUndefined(bud.build.items[`esbuild-ts`])) {
       throw new Error()
     }
     expect(bud.build.items[`esbuild-ts`].getLoader()).toBeDefined()
   })
 
-  it(`registers esbuild loader`, () => {
+  it(`should register the esbuild loader`, () => {
     expect(bud.build.loaders.esbuild).toBeDefined()
   })
 
@@ -93,11 +93,11 @@ describe(`@roots/bud-esbuild`, () => {
       await bud.build.make()
     })
 
-    it(`is a method`, () => {
+    it(`should be a method`, () => {
       expect(extension.options).toBeDefined()
     })
 
-    it(`yields expected options`, async () => {
+    it(`should have expected values`, async () => {
       expect(extension.options).toEqual({
         minify: {
           css: true,
@@ -121,7 +121,7 @@ describe(`@roots/bud-esbuild`, () => {
     })
   })
 
-  describe(`does its job`, () => {
+  describe(`should do its job`, () => {
     let bud: Bud
 
     beforeEach(async () => {

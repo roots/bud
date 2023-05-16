@@ -1,23 +1,20 @@
 {
   "name": "@examples/markdown",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "bud": {
     "extensions": {
+      "discover": false,
       "allowlist": [
-        "@roots/bud-mdx",
-        "@roots/bud-swc"
+        "@roots/bud-react",
+        "@roots/bud-swc",
+        "@roots/bud-mdx"
       ]
     }
   },
   "devDependencies": {
     "@roots/bud": "latest",
+    "@roots/bud-react": "latest",
+    "@roots/bud-swc": "latest",
     "@roots/bud-mdx": "latest"
   }
 }

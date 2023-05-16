@@ -5,7 +5,6 @@ import MultiSelect from 'enquirer/lib/prompts/multiselect.js'
 import type CreateCommand from '../commands/create.js'
 
 const choices = {
-  postcss: {name: `postcss`, value: `@roots/bud-postcss`},
   sass: {name: `sass`, value: `@roots/bud-sass`},
 }
 

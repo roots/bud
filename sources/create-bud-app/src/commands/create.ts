@@ -69,7 +69,7 @@ export default class CreateCommand extends Command {
       This command interactively scaffolds a new bud.js project. It can also be used to add support for
       additional features to an existing project. It supports:
 
-      \`babel\`, \`emotion\`, \`eslint\`, \`postcss\`, \`prettier\`, \`react\`, \`sass\`, \`stylelint\`, \`swc\`, \`tailwindcss\`, \`typescript\`, \`vue\`, \`wordpress\`
+      \`babel\`, \`emotion\`, \`eslint\`, \`prettier\`, \`react\`, \`sass\`, \`stylelint\`, \`swc\`, \`tailwindcss\`, \`typescript\`, \`vue\`, \`wordpress\`
 
       If ran on its own the command will attempt to build the project scaffolding in the current working directory:
 
@@ -104,9 +104,9 @@ export default class CreateCommand extends Command {
 
       \`npx create-bud-app my-project --no-interactive\`
 
-      Command options which accept multiple values can be passed multiple times. For example, to add support for \`swc\` and \`postcss\`:
+      Command options which accept multiple values can be passed multiple times. For example, to add support for \`swc\`:
 
-      \`npx create-bud-app my-project --support swc --support postcss\`
+      \`npx create-bud-app my-project --support swc\`
     `,
     examples: [
       [`Scaffold new project in interactive mode`, `npx create-bud-app`],
@@ -145,7 +145,7 @@ export default class CreateCommand extends Command {
       ],
       [
         `A complex non-interactive example`,
-        `npx create-bud-app vanilla-app --no-interactive -p yarn -s swc -s postcss -d redux`,
+        `npx create-bud-app vanilla-app --no-interactive -p yarn -s swc -d redux`,
       ],
     ],
   })
@@ -307,18 +307,18 @@ export default class CreateCommand extends Command {
     }
 
     if (this.wordpress) {
-      this.support.push(`wordpress`, `swc`, `postcss`)
+      this.support.push(`wordpress`, `swc`)
       this.html = false
       if (!this.customize) this.interactive = false
     }
 
     if (this.recommended) {
-      this.support.push(`swc`, `postcss`)
+      this.support.push(`swc`)
       if (!this.customize) this.interactive = false
     }
 
     if (this.react) {
-      this.support.push(`swc`, `postcss`, `react`)
+      this.support.push(`swc`, `react`)
       if (!this.customize) this.interactive = false
     }
 
@@ -420,12 +420,6 @@ export default class CreateCommand extends Command {
 
     if (this.support.includes(`tailwindcss`)) {
       this.dependencies.push(`tailwindcss`)
-      if (!this.support.includes(`postcss`)) {
-        this.support.push(`postcss`)
-        this.createSpinner().warn(
-          `PostCSS is required for TailwindCSS. Adding postcss (@roots/bud-postcss).\n`,
-        )
-      }
     }
 
     if (this.support.includes(`emotion`)) {

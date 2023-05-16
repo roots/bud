@@ -3,11 +3,11 @@ import {describe, expect, it} from 'vitest'
 import {Bud} from './bud.js'
 
 describe(`Bud`, function () {
-  it(`is a class`, () => {
+  it(`should be a class`, () => {
     expect(Bud).toBeInstanceOf(Function)
   })
 
-  it(`is a constructor`, () => {
+  it(`should be a constructor`, () => {
     expect(new Bud()).toBeInstanceOf(Bud)
   })
 

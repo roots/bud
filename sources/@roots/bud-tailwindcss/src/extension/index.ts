@@ -4,7 +4,6 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOn,
   expose,
   label,
   options,
@@ -32,7 +31,6 @@ interface Options {
  * TailwindCSS configuration
  */
 @label(`@roots/bud-tailwindcss`)
-@dependsOn([`@roots/bud-postcss`])
 @expose(`tailwind`)
 @options<Options>({
   generateImports: false,
@@ -182,6 +180,7 @@ export class BudTailwindCss extends Extension<Options> {
           `tailwind config added to webpack build dependencies`,
         )
       }
+
       return paths
     })
   }

@@ -10,7 +10,7 @@ describe(`@roots/bud/services/env`, () => {
     bud = await factory()
   })
 
-  it(`is a container service`, async () => {
+  it(`should be a container service`, async () => {
     const bud = await factory()
     const instance = new Env(() => bud)
     expect(instance.constructor.name).toBe(`Env`)

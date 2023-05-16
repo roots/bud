@@ -7,6 +7,7 @@
 /// <reference types="@roots/bud-entrypoints" />
 /// <reference types="@roots/bud-extensions" />
 /// <reference types="@roots/bud-hooks" />
+/// <reference types="@roots/bud-postcss" />
 /// <reference types="@roots/bud-server" />
 /// <reference types="@roots/bud-terser" />
 

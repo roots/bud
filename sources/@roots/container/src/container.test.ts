@@ -1,22 +1,23 @@
 import {describe, expect, it, vi} from 'vitest'
 
 import Container from './index.js'
+import {Repository} from '../lib/container.js'
 
 describe(`container`, function () {
   describe(`constructor`, () => {
-    it(`is constructable`, () => {
+    it(`should be constructable`, () => {
       const container = new Container()
       expect(container).toBeInstanceOf(Container)
     })
   })
 
   describe(`get`, function () {
-    it(`returns undefined when no value is set`, () => {
+    it(`should return undefined when no value is set`, () => {
       const container = new Container()
       expect(container.get(`foo`)).toEqual(undefined)
     })
 
-    it(`returns the keyed value`, () => {
+    it(`should return the keyed value`, () => {
       const repo = {foo: `bar`}
       const container = new Container(repo)
       expect(container.get(`foo`)).toBe(`bar`)
@@ -24,7 +25,7 @@ describe(`container`, function () {
   })
 
   describe(`all`, function () {
-    it(`returns the raw repository`, () => {
+    it(`should return the raw repository`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container(repo)
 
@@ -33,13 +34,13 @@ describe(`container`, function () {
   })
 
   describe(`set`, function () {
-    it(`returns itself`, () => {
+    it(`should return itself`, () => {
       const container = new Container()
 
       expect(container.set(`foo`, `bar`)).toBeInstanceOf(Container)
     })
 
-    it(`sets a value`, () => {
+    it(`should set a value`, () => {
       const container = new Container().set(`foo`, `bar`)
 
       expect(container.get(`foo`)).toEqual(`bar`)
@@ -47,13 +48,13 @@ describe(`container`, function () {
   })
 
   describe(`has`, () => {
-    it(`returns true if item found`, () => {
+    it(`should return true if item found`, () => {
       const container = new Container().set(`foo`, `bar`)
 
       expect(container.has(`foo`)).toEqual(true)
     })
 
-    it(`returns false if item not found`, () => {
+    it(`should return false if item not found`, () => {
       const container = new Container().set(`foo`, `bar`)
 
       expect(container.has(`neverSet`)).toEqual(false)
@@ -61,14 +62,14 @@ describe(`container`, function () {
   })
 
   describe(`is`, function () {
-    it(`is: returns true if value equals predicate`, () => {
+    it(`should return true if value equals predicate`, () => {
       const repo = {test: 100}
       const container = new Container(repo)
 
       expect(container.is(`test`, 100)).toEqual(true)
     })
 
-    it(`is: returns false if value does not equal predicate`, () => {
+    it(`should return false if value does not equal predicate`, () => {
       const repo = {test: 100}
       const container = new Container(repo)
 
@@ -77,21 +78,21 @@ describe(`container`, function () {
   })
 
   describe(`isTrue`, function () {
-    it(`returns true if keyed value is true`, () => {
+    it(`should return true if keyed value is true`, () => {
       const repo = {test: true}
       const container = new Container(repo)
 
       expect(container.isTrue(`test`)).toEqual(true)
     })
 
-    it(`returns false if keyed value is false`, () => {
+    it(`should return false if keyed value is false`, () => {
       const repo = {test: false}
       const container = new Container(repo)
 
       expect(container.isTrue(`test`)).toEqual(false)
     })
 
-    it(`returns false if keyed value is not boolean`, () => {
+    it(`should return false if keyed value is not boolean`, () => {
       const repo = {test: `bar`}
       const container = new Container(repo)
 
@@ -100,21 +101,21 @@ describe(`container`, function () {
   })
 
   describe(`isFalse`, function () {
-    it(`returns true if keyed value is false`, () => {
+    it(`should return true if keyed value is false`, () => {
       const repo = {test: false}
       const container = new Container(repo)
 
       expect(container.isFalse(`test`)).toEqual(true)
     })
 
-    it(`returns false if keyed value is true`, () => {
+    it(`should return false if keyed value is true`, () => {
       const repo = {test: true}
       const container = new Container(repo)
 
       expect(container.isFalse(`test`)).toEqual(false)
     })
 
-    it(`returns false if keyed value is not boolean`, () => {
+    it(`should return false if keyed value is not boolean`, () => {
       const repo = {test: `bar`}
       const container = new Container(repo)
 
@@ -132,7 +133,7 @@ describe(`container`, function () {
   })
 
   describe(`isArray`, function () {
-    it(`returns true if value is an array`, () => {
+    it(`should return true if value is an array`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
@@ -141,14 +142,14 @@ describe(`container`, function () {
   })
 
   describe(`isDefined`, function () {
-    it(`returns true if value is set`, () => {
+    it(`should return true if value is set`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
       expect(container.isDefined(`foo`)).toEqual(true)
     })
 
-    it(`returns false if value is not set`, () => {
+    it(`should return false if value is not set`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
@@ -157,7 +158,7 @@ describe(`container`, function () {
   })
 
   describe(`isNotArray`, function () {
-    it(`returns true if value is not an array`, () => {
+    it(`should return true if value is not an array`, () => {
       const repo = {foo: `bar`}
       const container = new Container(repo)
 
@@ -166,7 +167,7 @@ describe(`container`, function () {
   })
 
   describe(`isString`, function () {
-    it(`returns true if value is a String`, () => {
+    it(`should return true if value is a String`, () => {
       const repo = {foo: `bar`}
       const container = new Container(repo)
 
@@ -175,7 +176,7 @@ describe(`container`, function () {
   })
 
   describe(`isNotString`, function () {
-    it(`returns true if value is a String`, () => {
+    it(`should return true if value is a String`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
@@ -184,7 +185,7 @@ describe(`container`, function () {
   })
 
   describe(`isNumber`, function () {
-    it(`returns true if value is not a String`, () => {
+    it(`should return true if value is not a String`, () => {
       const repo = {foo: 100}
       const container = new Container(repo)
 
@@ -193,7 +194,7 @@ describe(`container`, function () {
   })
 
   describe(`isNotNumber`, function () {
-    it(`returns true if value is not a Number`, () => {
+    it(`should return true if value is not a Number`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
@@ -202,7 +203,7 @@ describe(`container`, function () {
   })
 
   describe(`isNull`, function () {
-    it(`returns true if value is null`, () => {
+    it(`should return true if value is null`, () => {
       const repo = {foo: null}
       const container = new Container(repo)
 
@@ -211,7 +212,7 @@ describe(`container`, function () {
   })
 
   describe(`isNotNull`, function () {
-    it(`returns true if value is not null`, () => {
+    it(`should return true if value is not null`, () => {
       const repo = {foo: [`bar`, `whiz`]}
       const container = new Container(repo)
 
@@ -220,14 +221,14 @@ describe(`container`, function () {
   })
 
   describe(`getMap`, function () {
-    it(`returns an instance of Map`, () => {
+    it(`should return an instance of Map`, () => {
       const repo = {key: `value`, anotherKey: `value2`}
       const container = new Container(repo)
 
       expect(container.getMap()).toBeInstanceOf(Map)
     })
 
-    it(`returns Map with expected structure`, () => {
+    it(`should return Map with expected structure`, () => {
       const repo = {key: `value`, anotherKey: `value2`}
       const container = new Container(repo)
 
@@ -252,7 +253,7 @@ describe(`container`, function () {
   })
 
   describe(`setStore`, () => {
-    it(`sets the value of the repository property`, () => {
+    it(`should set the value of the repository property`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container(repo)
 
@@ -264,7 +265,7 @@ describe(`container`, function () {
   })
 
   describe(`mutateStore`, () => {
-    it(`callback receives the store value`, () => {
+    it(`should take a functional callback`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container(repo)
 
@@ -274,7 +275,7 @@ describe(`container`, function () {
       })
     })
 
-    it(`mutates the store using the provided callback`, () => {
+    it(`should mutate the store using the provided callback`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container(repo)
 
@@ -289,7 +290,7 @@ describe(`container`, function () {
   })
 
   describe(`each`, () => {
-    it(`executes callback for each match`, () => {
+    it(`should execute callback for each match`, () => {
       const repo = {
         foo: {
           test: `bar`,
@@ -306,7 +307,7 @@ describe(`container`, function () {
   })
 
   describe(`every`, () => {
-    it(`executes callback for every top level key`, () => {
+    it(`should execute callback for every top level key`, () => {
       const repo = {
         foo: {
           test: `bar`,
@@ -323,7 +324,7 @@ describe(`container`, function () {
   })
 
   describe(`transform`, () => {
-    it(`transforms a value using a callback`, () => {
+    it(`should transform a value using a callback`, () => {
       const repo = {foo: 10}
       const container = new Container(repo)
       const result = container.transform(`foo`, v => {
@@ -335,7 +336,7 @@ describe(`container`, function () {
   })
 
   describe(`mutate`, () => {
-    it(`mutate a value using a callback`, () => {
+    it(`should mutate a value using a callback`, () => {
       const repo = {foo: 10}
       const container = new Container(repo)
       container.mutate(`foo`, v => {
@@ -347,7 +348,7 @@ describe(`container`, function () {
   })
 
   describe(`mergeStore`, () => {
-    it(`merges a value with the repository property`, () => {
+    it(`should merge a value with the repository property`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container(repo)
 
@@ -371,7 +372,7 @@ describe(`container`, function () {
   })
 
   describe(`fromEntries`, () => {
-    it(`sets repo from entries`, () => {
+    it(`should set repo from entries`, () => {
       const repo = {foo: `bar`, ergo: `dox`}
       const container = new Container().fromEntries(Object.entries(repo))
 
@@ -380,7 +381,7 @@ describe(`container`, function () {
   })
 
   describe(`getKeys`, () => {
-    it(`returns array of keys`, () => {
+    it(`should return array of keys`, () => {
       const repo = {key: `value`, anotherKey: `value`}
       const container = new Container(repo)
 
@@ -389,7 +390,7 @@ describe(`container`, function () {
   })
 
   describe(`getValues`, () => {
-    it(`returns array of values`, () => {
+    it(`should return array of values`, () => {
       const repo = {key: `value`, anotherKey: `value2`}
       const container = new Container(repo)
 

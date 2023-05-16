@@ -1,10 +1,6 @@
 {
   "name": "@examples/emotion",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-emotion": "latest",

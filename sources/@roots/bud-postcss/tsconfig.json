@@ -7,7 +7,7 @@
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
-    {"path": "../bud/tsconfig.json"},
+    {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-support/tsconfig.json"},
   ]

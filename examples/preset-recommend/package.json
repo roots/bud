@@ -1,13 +1,6 @@
 {
   "name": "@examples/preset-recommend",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-preset-recommend": "latest"

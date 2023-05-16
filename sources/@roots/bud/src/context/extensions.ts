@@ -22,8 +22,6 @@ interface Extensions {
 
 const extensions: Extensions = {
   builtIn: [
-    `@roots/bud-entrypoints`,
-    `@roots/bud-terser`,
     `@roots/bud-extensions/cdn`,
     `@roots/bud-extensions/esm`,
     `@roots/bud-extensions/fix-style-only-entrypoints`,
@@ -36,6 +34,9 @@ const extensions: Extensions = {
     `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,
     `@roots/bud-extensions/webpack-manifest-plugin`,
     `@roots/bud-extensions/webpack-provide-plugin`,
+    `@roots/bud-entrypoints`,
+    `@roots/bud-postcss`,
+    `@roots/bud-terser`,
   ],
   discovered: [],
 }

@@ -6,17 +6,17 @@ import {describe, expect, it, test, vi} from 'vitest'
 import hmrExtension from '../../src/extensions/webpack-hot-module-replacement-plugin/index.js'
 
 describe(`webpack-hot-module-replacement-plugin`, () => {
-  it(`is an instance of Extension`, () => {
+  it(`should be an instance of Extension`, () => {
     expect(hmrExtension).toBeInstanceOf(Function)
   })
 
-  it(`is an instance of Extension`, async () => {
+  it(`should be an instance of Extension`, async () => {
     const bud = await factory()
     const extension = new hmrExtension(bud)
     expect(extension).toBeInstanceOf(Extension)
   })
 
-  it(`is not enabled in production`, async () => {
+  it(`should be not enabled in production`, async () => {
     vi.clearAllMocks()
     const bud = await factory({mode: `production`})
 
@@ -26,7 +26,7 @@ describe(`webpack-hot-module-replacement-plugin`, () => {
     expect(await extension.isEnabled()).toBe(false)
   })
 
-  it(`is enabled in development`, async () => {
+  it(`should be enabled in development`, async () => {
     vi.restoreAllMocks()
 
     const bud = await factory({mode: `development`})

@@ -13,7 +13,7 @@ describe(`examples/emotion`, () => {
     expect(project.manifest[`components/logo.svg`]).toBe(
       `components/logo.svg`,
     )
-    expect(Object.keys(project.manifest).length).toBe(5)
+    expect(Object.keys(project.manifest).length).toBe(6)
 
     expect(project.assets[`app.js`].length).toBeGreaterThan(10)
     expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()

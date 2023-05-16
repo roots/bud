@@ -15,7 +15,7 @@ describe(`bud.entry`, function () {
     vi.clearAllMocks()
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(externals).toBeInstanceOf(Function)
   })
 

@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   expose,
@@ -18,10 +17,11 @@ export class BudEntrypoints extends Extension<
   /**
    * {@label Extension.make}
    */
-  public override async make?(bud: Bud, options: Options) {
-    const {EntrypointsWebpackPlugin} = await this.import(
-      `@roots/entrypoints-webpack-plugin`,
+  public override async make?() {
+    const {EntrypointsWebpackPlugin} = await import(
+      `@roots/entrypoints-webpack-plugin`
     )
-    return new EntrypointsWebpackPlugin(options)
+
+    return new EntrypointsWebpackPlugin(this.options)
   }
 }

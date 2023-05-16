@@ -5,7 +5,7 @@ import {describe, expect, it, vi} from 'vitest'
 import {use as subject} from './index.js'
 
 describe(`use`, () => {
-  it(`is a function`, async () => {
+  it(`should be a function`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -20,7 +20,7 @@ describe(`use`, () => {
     expect(use).toBeInstanceOf(Function)
   })
 
-  it(`returns bud`, async () => {
+  it(`should return bud`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -40,7 +40,7 @@ describe(`use`, () => {
     ).toBe(bud)
   })
 
-  it(`registers an imported extension`, async () => {
+  it(`should register an imported extension`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -62,7 +62,7 @@ describe(`use`, () => {
     ).toBe(true)
   })
 
-  it(`registers an inline extension`, async () => {
+  it(`should register an inline extension`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -88,7 +88,7 @@ describe(`use`, () => {
     )
   })
 
-  it(`registers an anonymous extension`, async () => {
+  it(`should register an anonymous extension`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -107,7 +107,7 @@ describe(`use`, () => {
     expect(addSpy).toHaveBeenCalledTimes(2)
   })
 
-  it(`registers a webpack plugin`, async () => {
+  it(`should register a webpack plugin`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -127,7 +127,7 @@ describe(`use`, () => {
     ).toBe(true)
   })
 
-  it.skip(`registers an inline webpack plugin`, async () => {
+  it.skip(`should register an inline webpack plugin`, async () => {
     const bud = await factory()
 
     const use = subject.bind(bud)
@@ -143,7 +143,7 @@ describe(`use`, () => {
     expect(Object.keys(bud.extensions.repository)).toHaveLength(2)
   })
 
-  it(`registers an imported webpack plugin`, async () => {
+  it(`should register an imported webpack plugin`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -161,7 +161,7 @@ describe(`use`, () => {
     ).toBe(true)
   })
 
-  it(`registers multiple extensions`, async () => {
+  it(`should register multiple extensions`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions
@@ -187,7 +187,7 @@ describe(`use`, () => {
     ).toBe(true)
   })
 
-  it(`adds an apply plugin to the config`, async () => {
+  it(`should add an apply plugin to the config`, async () => {
     const bud = await factory()
 
     bud.extensions.repository = {} as any // reset extensions

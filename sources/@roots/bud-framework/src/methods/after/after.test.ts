@@ -12,11 +12,11 @@ describe(`bud.after`, function () {
     after = subject.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(after).toBeInstanceOf(Function)
   })
 
-  it(`returns Bud`, async () => {
+  it(`should return Bud`, async () => {
     const value = after(async () => {})
     expect(value).toBe(bud)
   })

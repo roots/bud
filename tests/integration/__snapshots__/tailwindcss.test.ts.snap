@@ -4,6 +4,7 @@ exports[`examples/tailwindcss > should compile js and css as expected 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
+  "entrypoints.json": "entrypoints.json",
   "index.html": "index.html",
 }
 `;

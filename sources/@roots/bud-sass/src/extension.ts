@@ -3,7 +3,6 @@ import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
-  dependsOnOptional,
   expose,
   label,
   options,
@@ -14,7 +13,6 @@ import {
  */
 @label(`@roots/bud-sass`)
 @dependsOn([`@roots/bud-sass/resolve-url`])
-@dependsOnOptional([`@roots/bud-postcss`])
 @options({
   implementation: null,
   sourceMap: true,
@@ -25,11 +23,11 @@ export class BudSass extends Extension {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
+  public override async register({build, hooks}: Bud) {
     const implementation = await this.import(`sass`)
     this.setOptions({implementation, sourceMap: true})
 
-    bud.build
+    build
       .setLoader(
         `sass-loader`,
         await this.resolve(`sass-loader`, import.meta.url),
@@ -44,7 +42,7 @@ export class BudSass extends Extension {
         include: [app => app.path(`@src`)],
       })
 
-    bud.hooks.on(`build.resolve.extensions`, ext =>
+    hooks.on(`build.resolve.extensions`, ext =>
       ext.add(`.scss`).add(`.sass`),
     )
   }
@@ -53,20 +51,11 @@ export class BudSass extends Extension {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot(bud: Bud) {
-    if (bud.postcss) {
-      bud.postcss.set(`postcssOptions.syntax`, `postcss-scss`)
-    }
-
-    bud.build.rules.sass.setUse(() =>
-      [
-        bud.build.items.precss,
-        bud.build.items.css,
-        bud.build.items.postcss,
-        bud.build.items.resolveUrl,
-        bud.build.items.sass,
-      ].filter(Boolean),
-    )
+  public override async boot({build, postcss}: Bud) {
+    postcss.set(`postcssOptions.syntax`, `postcss-scss`)
+    build
+      .getRule(`sass`)
+      .setUse([`precss`, `css`, `postcss`, `resolveUrl`, `sass`])
   }
 
   /**

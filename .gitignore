@@ -6,6 +6,7 @@
 
 coverage
 storage/**/*
+!storage/package.json
 
 # Yarn
 **/*.log

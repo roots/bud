@@ -10,7 +10,6 @@ export default Option.Array(`--support,-s`, [], {
       isLiteral(`babel`),
       isLiteral(`emotion`),
       isLiteral(`sass`),
-      isLiteral(`postcss`),
       isLiteral(`tailwindcss`),
       isLiteral(`wordpress`),
       isLiteral(`react`),

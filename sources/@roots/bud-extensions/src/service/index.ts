@@ -105,34 +105,32 @@ export default class Extensions
     ) {
       this.logger.time(`loading built-in extensions`)
       await Promise.all(
-        extensions.builtIn.filter(Boolean).map(this.import),
+        extensions.builtIn
+          .filter(Boolean)
+          .map(async extension => await this.import(extension, true)),
       )
       this.logger.timeEnd(`loading built-in extensions`)
     }
 
-    if (bud.isCLI() && !isUndefined(bud.context.args.discover)) {
-      this.options.set(`discover`, bud.context.args.discover)
-    }
-
     if (
-      this.options.is(`discover`, true) &&
+      this.options.isTrue(`discover`) &&
       this.options.isEmpty(`allowlist`) &&
       !isUndefined(extensions.discovered) &&
       Array.isArray(extensions.discovered)
     )
       await Promise.all(
-        extensions.discovered
-          .filter(Boolean)
-          .filter(this.isAllowed)
-          .map(this.import),
+        extensions.discovered.map(
+          async (extension: string) => await this.import(extension, true),
+        ),
       )
     else if (this.options.isNotEmpty(`allowlist`))
       await Promise.all(
         this.options
           .get(`allowlist`)
-          .filter(Boolean)
-          .filter(this.isAllowed)
-          .map(this.import),
+          .map(
+            async (extension: string) =>
+              await this.import(extension, true),
+          ),
       )
 
     await this.runAll(`register`)
@@ -251,30 +249,44 @@ export default class Extensions
   ): Promise<Extension> {
     let instance: Extension
 
-    if (signifier.startsWith(`.`)) {
-      signifier = this.app.path(signifier)
-      this.logger.info(`relative extension path resolved to`, signifier)
-    }
-
-    if (this.has(signifier)) {
-      this.logger.info(signifier, `extension already imported`)
+    if (!required && !this.isAllowed(signifier)) {
+      this.logger.info(signifier, `is not alowed.`, `skipping.`)
       return
     }
 
-    if (required && this.unresolvable.has(signifier)) {
-      throw new Error(`Extension ${signifier} is not importable`)
+    if (this.has(signifier)) {
+      this.logger.info(signifier, `already registered. skipping.`)
+      return
+    }
+    if (this.unresolvable.has(signifier)) {
+      if (required)
+        throw new Error(
+          `Already attempted to import ${signifier}  and failed.`,
+        )
+
+      this.logger.info(
+        `Already attempted to import ${signifier}  and failed.`,
+      )
+
+      return
     }
 
     this.logger.time(`loading ${signifier}`)
 
+    const modulePath = signifier.startsWith(`.`)
+      ? this.app.path(signifier)
+      : signifier
+
     try {
       instance = await this.instantiate(
-        await this.app.module.import(signifier, import.meta.url),
+        await this.app.module.import(modulePath, import.meta.url),
       )
+      this.set(instance)
     } catch (error) {
+      this.unresolvable.add(signifier)
       this.logger.timeEnd(`loading ${signifier}`)
       if (required) throw error
-      else return
+      return
     }
 
     const {
@@ -283,30 +295,28 @@ export default class Extensions
     } = instance
 
     if (!isUndefined(dependencies) && dependencies.size > 0) {
-      await Promise.all(
-        Array.from(dependencies).map(
-          async dependency => await this.import(dependency, required),
-        ),
+      await Array.from(dependencies).reduce(
+        async (promised, dependency) => {
+          await promised
+          await this.import(dependency, true)
+        },
+        Promise.resolve(),
       )
     }
 
-    if (this.options.is(`discover`, true) && optionalDependencies)
-      await Promise.all(
-        Array.from(optionalDependencies)
-          .filter(this.isAllowed)
-          .filter(
-            optionalDependency =>
-              !this.unresolvable.has(optionalDependency),
-          )
-          .filter(optionalDependency => !this.has(optionalDependency))
-          .map(async optionalDependency => {
-            await this.import(optionalDependency, false)
-            if (!this.has(optionalDependency))
-              this.unresolvable.add(optionalDependency)
-          }),
+    if (
+      this.options.isTrue(`discover`) &&
+      !isUndefined(optionalDependencies) &&
+      optionalDependencies.size > 0
+    ) {
+      await Array.from(optionalDependencies).reduce(
+        async (promised, dependency) => {
+          await promised
+          await this.import(dependency, false)
+        },
+        Promise.resolve(),
       )
-
-    this.set(instance)
+    }
 
     this.logger.timeEnd(`loading ${signifier}`)
 
@@ -456,7 +466,7 @@ export default class Extensions
   public async make(): Promise<ApplyPlugin[]> {
     return await Promise.all(
       Object.values(this.repository).map(async extension =>
-        extension.apply ? extension : await extension._make(),
+        `apply` in extension ? extension : await extension._make(),
       ),
     ).then(
       (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>

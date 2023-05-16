@@ -3,6 +3,7 @@
 exports[`examples/typescript > should compile js and css as expected (bud) 1`] = `
 {
   "app.js": "js/app.js",
+  "entrypoints.json": "entrypoints.json",
   "index.html": "index.html",
 }
 `;
@@ -10,6 +11,7 @@ exports[`examples/typescript > should compile js and css as expected (bud) 1`] =
 exports[`examples/typescript > should compile js and css as expected (ts-bud) 1`] = `
 {
   "app.js": "js/app.js",
+  "entrypoints.json": "entrypoints.json",
   "index.html": "index.html",
 }
 `;

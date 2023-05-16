@@ -14,12 +14,12 @@ describe(`bud.glob`, function () {
     globSync = source.globSync.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(source.glob).toBeInstanceOf(Function)
     expect(source.globSync).toBeInstanceOf(Function)
   })
 
-  it(`returns glob results from string param`, async () => {
+  it(`should return glob results from string param`, async () => {
     const results = await glob(`@src/**/*.js`)
     const syncResults = globSync(`@src/**/*.js`)
 
@@ -38,7 +38,7 @@ describe(`bud.glob`, function () {
     )
   })
 
-  it(`calls bud.success and bud.info`, async () => {
+  it(`should call bud.success and bud.info`, async () => {
     const infoSpy = vi.spyOn(bud, `info`)
     const successSpy = vi.spyOn(bud, `success`)
 
@@ -48,7 +48,7 @@ describe(`bud.glob`, function () {
     expect(successSpy).toHaveBeenCalledOnce()
   })
 
-  it(`returns glob results from array`, async () => {
+  it(`should return glob results from array`, async () => {
     const results = await glob([`src/**/*.js`, `src/**/app.*`])
 
     expect(results).toEqual(
@@ -60,7 +60,7 @@ describe(`bud.glob`, function () {
     )
   })
 
-  it(`returns glob results from array (sync)`, () => {
+  it(`should return glob results from array (sync)`, () => {
     const syncResults = globSync([`src/**/*.js`, `src/**/app.*`])
     expect(syncResults).toEqual(
       expect.arrayContaining([
@@ -71,7 +71,7 @@ describe(`bud.glob`, function () {
     )
   })
 
-  it(`returns glob results from variadic params`, async () => {
+  it(`should return glob results from variadic params`, async () => {
     const results = await glob(`src/**/*.js`, `src/**/app.*`)
     const syncResults = globSync(`src/**/*.js`, `src/**/app.*`)
 
@@ -91,7 +91,7 @@ describe(`bud.glob`, function () {
     )
   })
 
-  it(`returns glob results with negation`, async () => {
+  it(`should return glob results with negation`, async () => {
     const results = await glob(`!**/main.js`, `src/**/*.js`)
     const syncResults = globSync(`!**/main.js`, `src/**/*.js`)
 

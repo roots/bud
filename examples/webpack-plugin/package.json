@@ -1,15 +1,7 @@
 {
   "name": "@examples/webpack-plugin",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest"
   }
 }

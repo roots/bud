@@ -159,44 +159,9 @@ export class Extension<
   }
 
   /**
-   * `init` callback
-   */
-  public async init?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  /**
-   * {@link Extension.register}
-   */
-  public async register?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  /**
-   * `boot` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
-   */
-  public async boot?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  /**
    * `configAfter` callback
    */
   public async configAfter?(
-    app: Bud,
-    options?: ExtensionOptions,
-  ): Promise<unknown>
-
-  /**
-   * `buildBefore` callback
-   */
-  public async buildBefore?(
     app: Bud,
     options?: ExtensionOptions,
   ): Promise<unknown>
@@ -255,6 +220,10 @@ export class Extension<
     this.logger.success(`registered`)
   }
 
+  public async register(bud: Bud, options?: ExtensionOptions) {
+    this.logger.info(`register callback not implemented`)
+  }
+
   /**
    * `boot` callback handler
    */
@@ -274,6 +243,10 @@ export class Extension<
     this.logger.success(`booted`)
   }
 
+  public async boot(bud: Bud, options?: ExtensionOptions) {
+    this.logger.info(`boot callback not implemented`)
+  }
+
   /**
    * `buildBefore` callback handler
    */
@@ -289,6 +262,10 @@ export class Extension<
     this.meta[`buildBefore`] = true
 
     await this.buildBefore(this.app, this.options)
+  }
+
+  public async buildBefore(bud: Bud, options?: ExtensionOptions) {
+    this.logger.info(`buildBefore callback not implemented`)
   }
 
   /**

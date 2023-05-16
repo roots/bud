@@ -5,15 +5,14 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
-import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
+import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 
 /**
  * Manifest configuration
  */
 @label(`@roots/bud-extensions/webpack-manifest-plugin`)
 @expose(`manifest`)
-@plugin(Plugin)
+@plugin(WebpackManifestPlugin)
 @options({
   fileName: `manifest.json`,
   writeToFileEmit: true,
@@ -21,6 +20,6 @@ import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
     (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
 })
 export default class BudManifestExtension extends Extension<
-  Options,
-  Plugin
+  WebpackManifestPlugin[`options`],
+  WebpackManifestPlugin
 > {}

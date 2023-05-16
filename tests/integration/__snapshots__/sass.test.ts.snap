@@ -4,6 +4,7 @@ exports[`examples/sass > should compile js and css as expected 1`] = `"body,html
 
 exports[`examples/sass > should compile js and css as expected 2`] = `
 {
+  "entrypoints.json": "entrypoints.json",
   "main.css": "css/main.css",
 }
 `;

@@ -14,21 +14,21 @@ describe(`bud.setPath`, () => {
     setPath = subject.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(setPath).toBeInstanceOf(Function)
   })
 
-  it(`returns Bud`, () => {
+  it(`should return Bud`, () => {
     expect(setPath(`@src`, `test`)).toBe(bud)
   })
 
-  it(`sets a path`, () => {
+  it(`should set a path`, () => {
     const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
     setPath(`@src`, `test`)
     expect(hooksOnSpy).toHaveBeenCalled()
   })
 
-  it(`sets context when only a string is passed`, () => {
+  it(`should set context when only a string is passed`, () => {
     setPath(`/test`)
     expect(bud.context.basedir).toBe(`/test`)
   })
@@ -51,7 +51,7 @@ describe(`bud.setPath`, () => {
     }
   })
 
-  it(`sets multiple paths`, () => {
+  it(`should set multiple paths`, () => {
     bud.relPath = vi.fn(() => `test-return`)
     const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
 

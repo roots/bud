@@ -12,18 +12,18 @@ describe(`bud.pipe`, function () {
     pipe = subject.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(pipe).toBeInstanceOf(Function)
   })
 
-  it(`returns Bud when initial value is \`undefined\``, async () => {
+  it(`should return Bud when initial value is \`undefined\``, async () => {
     const callback = vi.fn(async value => value)
     const value = await pipe([callback], undefined)
     expect(callback).toHaveBeenCalledWith(bud)
     expect(value).toBe(bud)
   })
 
-  it(`pipes value`, async () => {
+  it(`should pipe value`, async () => {
     const callback = vi.fn(async v => `${v}!`)
     const value = await pipe([callback, callback, callback], `test`)
 

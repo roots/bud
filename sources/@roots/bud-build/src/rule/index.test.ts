@@ -10,19 +10,19 @@ describe(`Build Rule`, function () {
     bud = await factory()
   })
 
-  it(`is constructable`, () => {
+  it(`should be constructable`, () => {
     const rule = {test: /.foo$/}
     expect(new Rule(() => bud, rule)).toBeInstanceOf(Rule)
   })
 
-  it(`make`, () => {
+  it(`should return expected value from rule.make`, () => {
     const rule = {test: /.foo$/}
     expect(new Rule(() => bud, rule).toWebpack()).toEqual({
       test: /.foo$/,
     })
   })
 
-  it(`getUse`, () => {
+  it(`should return expected value from rule.getUse`, () => {
     const input = [`md`]
     const rule = new Rule(() => bud, {
       test: /.foo$/,
@@ -33,7 +33,7 @@ describe(`Build Rule`, function () {
     expect(rule.getUse()).toEqual(input)
   })
 
-  it(`setUse`, () => {
+  it(`should return expected value from rule.setUse`, () => {
     const input = [`raw`, `md`]
     const rule = new Rule(() => bud, {test: /.foo$/})
     // @ts-ignore
@@ -42,14 +42,14 @@ describe(`Build Rule`, function () {
     expect(rule.use).toEqual(input)
   })
 
-  it(`getTest`, () => {
+  it(`should return expected value from rule.getTest`, () => {
     const input = /.foo$/
     const rule = new Rule(() => bud, {test: input})
 
     expect(rule.getTest()).toEqual(input)
   })
 
-  it(`setTest`, () => {
+  it(`should return expected value from rule.setTest`, () => {
     const input = () => /.js$/
     const rule = new Rule(() => bud, {test: /.foo$/})
     rule.setTest(input)
@@ -57,7 +57,7 @@ describe(`Build Rule`, function () {
     expect(rule.test).toEqual(input)
   })
 
-  it(`getExclude`, () => {
+  it(`should return expected value from rule.getExclude`, () => {
     const definition = {
       test: /.foo$/,
       exclude: [/.bar$/],
@@ -68,7 +68,7 @@ describe(`Build Rule`, function () {
     expect(rule.exclude).toEqual(definition.exclude)
   })
 
-  it(`setExclude from fn`, () => {
+  it(`should return expected value from rule.setExclude (fn arg)`, () => {
     const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutationFn = () => [/.js$/]
@@ -77,7 +77,7 @@ describe(`Build Rule`, function () {
     expect(rule.getExclude()).toEqual([/.js$/])
   })
 
-  it(`setExclude from obj`, () => {
+  it(`should return expected value from rule.setExclude (obj arg)`, () => {
     const rule = new Rule(() => bud, {test: /.foo$/})
 
     const mutation = [/.js$/]

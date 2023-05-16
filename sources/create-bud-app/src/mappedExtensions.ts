@@ -6,7 +6,6 @@ import type {Supports} from './types.js'
 const supportedExtensions: Record<`${Supports & string}`, string> = {
   babel: `@roots/bud-babel`,
   emotion: `@roots/bud-emotion`,
-  postcss: `@roots/bud-postcss`,
   react: `@roots/bud-react`,
   sass: `@roots/bud-sass`,
   swc: `@roots/bud-swc`,

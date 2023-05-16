@@ -14,11 +14,11 @@ describe(`@roots/bud-extensions`, () => {
     extensions = new Extensions(() => bud)
   })
 
-  it(`is constructable`, async () => {
+  it(`should be constructable`, async () => {
     expect(extensions).toBeInstanceOf(Extensions)
   })
 
-  it(`add fn registers a module`, async () => {
+  it(`should add fn registers a module`, async () => {
     extensions.repository = {} as any
 
     const options = {test: `foo`}

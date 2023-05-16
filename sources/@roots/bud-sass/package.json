@@ -72,6 +72,10 @@
     "./stylelint": {
       "require": "./config/stylelint.cjs",
       "default": "./config/stylelint.cjs"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -94,7 +98,6 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.8",
     "postcss": "8.4.23",
@@ -104,6 +107,7 @@
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
     "sass": "^1.62.1",

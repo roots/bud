@@ -33,19 +33,19 @@ describe(`@roots/bud-framework/configuration`, function () {
     configuration = new Configuration(bud as any)
   })
 
-  it(`is constructable`, () => {
+  it(`should be constructable`, () => {
     expect(configuration).toBeInstanceOf(Configuration)
   })
 
-  it(`has a run method`, async () => {
+  it(`should have a run method`, async () => {
     expect(configuration.run).toBeInstanceOf(Function)
   })
 
-  it(`has a run method`, async () => {
+  it(`should have a run method`, async () => {
     expect(configuration.bud).toBe(bud)
   })
 
-  it(`throws when there is no module`, async () => {
+  it(`should throw when there is no module`, async () => {
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
@@ -59,7 +59,7 @@ describe(`@roots/bud-framework/configuration`, function () {
     expect(staticSpy).not.toHaveBeenCalled()
   })
 
-  it(`calls dynamicConfig when config is a fn`, async () => {
+  it(`should call dynamicConfig when config is a fn`, async () => {
     const logSpy = vi.spyOn(bud, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
@@ -81,7 +81,7 @@ describe(`@roots/bud-framework/configuration`, function () {
     expect(staticSpy).not.toHaveBeenCalled()
   })
 
-  it(`calls staticConfig when config is static`, async () => {
+  it(`should call staticConfig when config is static`, async () => {
     const logSpy = vi.spyOn(bud, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)

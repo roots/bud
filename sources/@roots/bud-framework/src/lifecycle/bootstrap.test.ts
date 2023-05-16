@@ -15,7 +15,7 @@ describe(`bootstrap`, function () {
     bootstrap = subject.bind(bud)
   })
 
-  it(`is a function`, () => {
+  it(`should be a function`, () => {
     expect(bootstrap).toBeInstanceOf(Function)
   })
 })
