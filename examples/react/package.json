@@ -5,7 +5,6 @@
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
-    "@roots/bud-postcss": "latest",
     "@roots/bud-react": "latest"
   }
 }

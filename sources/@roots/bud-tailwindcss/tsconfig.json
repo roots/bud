@@ -9,6 +9,7 @@
   "references": [
     {"path": "./../bud/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
-    {"path": "./../bud-postcss/tsconfig.json"}
+    {"path": "./../bud-postcss/tsconfig.json"},
+    {"path": "./../bud-sass/tsconfig.json"}
   ]
 }

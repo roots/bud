@@ -1,3 +1,5 @@
+/// <reference types="@roots/bud-framework" />
+/// <reference types="@roots/bud" />
 /// <reference types="@roots/bud-postcss" />
 
 import type {Item, Loader, Rule} from '@roots/bud-build'

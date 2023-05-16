@@ -3,8 +3,7 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud": "workspace:sources/@roots/bud"
   },
   "bud": {
     "extensions": {

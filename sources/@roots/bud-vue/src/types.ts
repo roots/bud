@@ -1,5 +1,5 @@
+/// <reference types="@roots/bud-framework" />
 /// <reference types="@roots/bud" />
-/// <reference types="@roots/bud-postcss" />
 /// <reference types="@roots/bud-sass" />
 /// <reference types="@roots/bud-typescript" />
 

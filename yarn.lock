@@ -9590,7 +9590,6 @@ __metadata:
   resolution: "@tests/issue-1986@workspace:tests/reproductions/issue-1986"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
   languageName: unknown
   linkType: soft
 
@@ -9610,7 +9609,6 @@ __metadata:
   resolution: "@tests/issue-2126@workspace:tests/reproductions/issue-2126"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@roots/bud-sass": "workspace:sources/@roots/bud-sass"
     "@roots/bud-vue": "workspace:sources/@roots/bud-vue"
     "@roots/sage": "workspace:sources/@roots/sage"
