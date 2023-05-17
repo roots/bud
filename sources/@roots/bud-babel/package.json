@@ -74,7 +74,7 @@
     "@types/babel__core": "7.20.0",
     "@types/babel__plugin-transform-runtime": "7.9.2",
     "@types/babel__preset-env": "7.9.2",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "@babel/core": "7.21.8",
@@ -86,7 +86,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "babel-loader": "9.1.2",
     "tslib": "2.5.0",
-    "webpack": "5.82.1"
+    "webpack": "5.83.0"
   },
   "volta": {
     "extends": "../../../package.json"

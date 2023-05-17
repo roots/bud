@@ -96,10 +96,10 @@
     "@roots/bud-build": "workspace:sources/@roots/bud-build",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "postcss": "8.4.23",
-    "stylelint": "15.6.1",
-    "webpack": "5.82.1"
+    "stylelint": "15.6.2",
+    "webpack": "5.83.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

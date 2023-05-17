@@ -5,18 +5,18 @@
   "main": "./sources/index.ts",
   "dependencies": {
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.8",
-    "@yarnpkg/builder": "4.0.0-rc.43",
-    "@yarnpkg/cli": "4.0.0-rc.43",
-    "@yarnpkg/core": "4.0.0-rc.43",
-    "@yarnpkg/shell": "4.0.0-rc.43",
+    "@types/node": "18.16.12",
+    "@yarnpkg/builder": "4.0.0-rc.44",
+    "@yarnpkg/cli": "4.0.0-rc.44",
+    "@yarnpkg/core": "4.0.0-rc.44",
+    "@yarnpkg/shell": "4.0.0-rc.44",
     "clipanion": "3.2.0",
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
     "lodash-es": "4.17.21",
     "tslib": "2.5.0",
     "typescript": "5.0.4",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   },
   "scripts": {
     "build": "builder build plugin"

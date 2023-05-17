@@ -88,7 +88,7 @@
     "@roots/bud-api": "workspace:sources/@roots/bud-api",
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",

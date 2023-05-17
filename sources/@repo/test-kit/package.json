@@ -19,7 +19,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "chalk": "5.2.0",
     "execa": "7.1.1",
     "fs-jetpack": "5.1.0",
@@ -27,7 +27,7 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "tslib": "2.5.0",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   },
   "volta": {
     "extends": "../../../package.json"
