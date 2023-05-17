@@ -88,7 +88,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/mime-types": "2.1.1",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "@types/safe-json-stringify": "1.1.2"
   },
   "dependencies": {

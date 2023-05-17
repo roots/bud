@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "@types/prettier": "2.7.2",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   },
   "dependencies": {
     "@octokit/core": "4.2.0",

@@ -61,12 +61,12 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "lodash": "4.17.21",
     "tslib": "2.5.0",
-    "webpack": "5.82.1"
+    "webpack": "5.83.0"
   },
   "volta": {
     "extends": "../../../package.json"

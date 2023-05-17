@@ -222,7 +222,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
@@ -230,9 +230,8 @@
     "@roots/filesystem": "workspace:sources/@roots/filesystem",
     "chalk": "5.2.0",
     "execa": "7.1.1",
-    "modern-errors": "5.5.4",
     "tslib": "2.5.0",
-    "webpack": "5.82.1"
+    "webpack": "5.83.0"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs"

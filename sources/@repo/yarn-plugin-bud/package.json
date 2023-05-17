@@ -6,22 +6,22 @@
   "devDependencies": {
     "@types/js-yaml": "4.0.5",
     "@types/lodash": "4.14.194",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "@types/semver": "7.5.0",
-    "@yarnpkg/builder": "4.0.0-rc.43"
+    "@yarnpkg/builder": "4.0.0-rc.44"
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "4.0.0-rc.43",
-    "@yarnpkg/core": "4.0.0-rc.43",
-    "@yarnpkg/shell": "4.0.0-rc.43",
+    "@yarnpkg/cli": "4.0.0-rc.44",
+    "@yarnpkg/core": "4.0.0-rc.44",
+    "@yarnpkg/shell": "4.0.0-rc.44",
     "clipanion": "3.2.0",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.4",
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "lodash": "4.17.21",
-    "ora": "6.3.0",
+    "ora": "6.3.1",
     "semver": "7.5.1",
     "tslib": "2.5.0",
     "typescript": "5.0.4"

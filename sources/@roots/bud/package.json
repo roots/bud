@@ -157,7 +157,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "@types/react": "18.2.6"
   },
   "dependencies": {

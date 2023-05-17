@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
+import {InputError} from '@roots/bud-support/errors'
 
-import {handleFallthroughError} from '../../errors/handleFallthroughError.js'
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
 import type {Parameters} from './types.js'
@@ -17,5 +17,7 @@ export async function handleFallthrough(
     return handleTypeError(bud, `bud.alias`, validation)
 
   // this should never be called
-  return handleFallthroughError(bud, `bud.alias`)
+  throw new InputError(
+    `bud.alias received invalid input: ${JSON.stringify(input, null, 2)}`,
+  )
 }

@@ -10,8 +10,8 @@
     }
   },
   "devDependencies": {
-    "@types/node": "18.16.8",
-    "vitest": "0.31.0"
+    "@types/node": "18.16.12",
+    "vitest": "0.31.1"
   },
   "dependencies": {
     "tslib": "2.5.0"

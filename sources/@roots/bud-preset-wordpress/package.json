@@ -94,7 +94,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

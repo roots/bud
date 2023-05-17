@@ -74,7 +74,7 @@
     "@babel/core": "7.21.8",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.0",
-    "@types/node": "18.16.8"
+    "@types/node": "18.16.12"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.21.4",

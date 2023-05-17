@@ -18,10 +18,10 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:sources/@repo/constants",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "signale": "1.4.0",
     "tslib": "2.5.0",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   },
   "volta": {
     "extends": "../../../package.json"

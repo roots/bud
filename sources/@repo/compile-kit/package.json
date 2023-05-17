@@ -19,7 +19,7 @@
     "@repo/constants": "workspace:sources/@repo/constants",
     "@repo/logger": "workspace:sources/@repo/logger",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "@vercel/ncc": "0.36.1",
     "download-package-tarball": "1.0.7",
     "fs-jetpack": "5.1.0",
@@ -28,7 +28,7 @@
     "npm-package-arg": "10.1.0",
     "registry-info": "1.0.0",
     "tslib": "2.5.0",
-    "vitest": "0.31.0"
+    "vitest": "0.31.1"
   },
   "volta": {
     "extends": "../../../package.json"

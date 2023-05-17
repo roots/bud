@@ -86,7 +86,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.8",
+    "@types/node": "18.16.12",
     "palette-webpack-plugin": "1.0.5"
   },
   "dependencies": {
@@ -95,7 +95,7 @@
     "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "tslib": "2.5.0",
-    "webpack": "5.82.1"
+    "webpack": "5.83.0"
   },
   "volta": {
     "extends": "../../../package.json"
