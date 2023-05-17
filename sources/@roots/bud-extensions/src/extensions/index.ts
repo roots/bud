@@ -6,6 +6,7 @@ import BudFixStyleOnlyEntrypoints from './fix-style-only-entrypoints/index.js'
 import HtmlWebpackPlugin from './html-webpack-plugin/index.js'
 import InterpolateHtmlPlugin from './interpolate-html-webpack-plugin/index.js'
 import MiniCssExtractPlugin from './mini-css-extract-plugin/index.js'
+import BudTsConfigValues from './tsconfig-values/index.js'
 import WebpackDefinePlugin from './webpack-define-plugin/index.js'
 import WebpackHotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin/index.js'
 import WebpackManifestPlugin from './webpack-manifest-plugin/index.js'
@@ -15,6 +16,7 @@ export {
   BudCDN,
   BudESM,
   BudFixStyleOnlyEntrypoints,
+  BudTsConfigValues,
   CleanWebpackPlugin,
   CopyWebpackPlugin,
   HtmlWebpackPlugin,

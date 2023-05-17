@@ -36,6 +36,7 @@ const extensions: Extensions = {
     `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,
     `@roots/bud-extensions/webpack-manifest-plugin`,
     `@roots/bud-extensions/webpack-provide-plugin`,
+    `@roots/bud-extensions/tsconfig-values`,
   ],
   discovered: [],
 }

@@ -5,7 +5,7 @@ export const development = <Type extends {new (...args: any[]): any}>(
   constructor: Type,
 ) =>
   class extends constructor {
-    public declare enabled: boolean
+    public enabled: boolean
 
     public constructor(...args: any[]) {
       super(...args)

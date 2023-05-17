@@ -35,25 +35,6 @@ export class Sage extends Extension {
   public override async register(bud: Bud) {
     bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
 
-    const compilerOptions =
-      bud.context.files[`tsconfig.json`]?.module?.compilerOptions ??
-      bud.context.files[`jsconfig.json`]?.module?.compilerOptions
-
-    const aliases = compilerOptions?.paths
-      ? Object.entries(compilerOptions.paths)
-          .map(([k, v]: [string, Array<string>]) => [k, v[0]])
-          .map(tuple => tuple.map((str: string) => str.replace(`/*`, ``)))
-          .reduce(
-            (acc, [key, value]): Record<string, string> => ({
-              ...(acc ?? {}),
-              [key]: compilerOptions.baseUrl
-                ? bud.path(compilerOptions.baseUrl, value)
-                : bud.path(value),
-            }),
-            {},
-          )
-      : {}
-
     /* Set paths */
     bud.setPath({
       '@src': `resources`,
@@ -63,7 +44,6 @@ export class Sage extends Extension {
       '@styles': `@src/styles`,
       '@views': `@src/views`,
       '@dist': `public`,
-      ...aliases,
     })
 
     /* Set aliases */
@@ -73,7 +53,6 @@ export class Sage extends Extension {
       '@scripts': bud.path(`@scripts`),
       '@styles': bud.path(`@styles`),
       '@views': bud.path(`@views`),
-      ...aliases,
     })
 
     /* Set runtime single */
