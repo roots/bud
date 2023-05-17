@@ -1,13 +1,18 @@
 {
   "extends": "@roots/bud/config/tsconfig.json",
   "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist",
     "paths": {
-      "@scripts": ["./src/scripts"],
-      "@styles": ["./src/styles"],
-      "@components": ["./src/scripts/components"],
+      "@scripts/*": ["scripts/*"],
+      "@styles/*": ["styles/*"],
+      "@components/*": ["scripts/components/*"],
     },
     "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
   },
-  "include": ["./src", "./config"],
-  "exclude": ["./node_modules"]
+  "files": ["./config/bud.config.ts", "./config/tailwind.config.ts"],
+  "include": ["./src"],
+  "bud": {
+    "useCompilerOptions": true
+  }
 }

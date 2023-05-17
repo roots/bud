@@ -28,14 +28,13 @@ describe(`bud.alias`, () => {
     const asyncSpy = vi.spyOn(bud.hooks, `async`)
     await alias({'@foo': bud.path(`@src`, `foo`)})
 
-    expect(asyncSpy).toHaveBeenCalledWith(`build.resolve.alias`, {
-      '@src': bud.path(`@src`),
-      '@foo': bud.path(`@src`, `foo`),
-    })
+    expect(asyncSpy).toHaveBeenCalledWith(
+      `build.resolve.alias`,
+      expect.any(Function),
+    )
 
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
     expect(value).toEqual({
-      '@src': bud.path(`@src`),
       '@foo': bud.path(`@src`, `foo`),
     })
   })
@@ -45,7 +44,7 @@ describe(`bud.alias`, () => {
     await alias('test', 'test')
     expect(asyncSpy).toHaveBeenCalledWith(
       `build.resolve.alias`,
-      expect.objectContaining({test: `test`}),
+      expect.any(Function),
     )
   })
 
@@ -54,7 +53,6 @@ describe(`bud.alias`, () => {
     const value = await bud.hooks.filterAsync(`build.resolve.alias`)
 
     expect(value).toEqual({
-      '@src': bud.path(`@src`),
       '@foo': bud.path(`@src/foo`),
     })
   })

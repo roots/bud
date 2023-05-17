@@ -74,9 +74,6 @@ describe(`bud.build.config`, function () {
   it(`should have expected resolve.alias default`, async () => {
     expect(build.config.resolve?.alias).toEqual({
       '@src': bud.path(`@src`),
-      '@scripts': bud.path(`@src/scripts`),
-      '@styles': bud.path(`@src/styles`),
-      '@components': bud.path(`@src`, `scripts`, `components`),
     })
   })
 

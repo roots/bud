@@ -1,28 +1,11 @@
 import type {Factory} from './index.js'
 
 export const resolve: Factory<`resolve`> = async bud => {
-  const paths: Record<string, Array<string>> = {
-    ...(bud.context.files[`tsconfig.json`]?.module?.compilerOptions
-      ?.paths ?? {}),
-    ...(bud.context.files[`jsconfig.json`]?.module?.compilerOptions
-      ?.paths ?? {}),
-  }
-
-  const aliases = Object.entries(paths).reduce(
-    (acc, [key, tsConfValue]): Record<string, string> => {
-      const value = tsConfValue[0]
-
-      if (key.includes(`*`) || value.includes(`*`)) {
-        return acc
-      }
-
-      return {...acc, [key]: bud.path(value)}
-    },
-    {'@src': bud.path(`@src`)},
-  )
-
   return await bud.hooks.filterAsync(`build.resolve`, {
-    alias: await bud.hooks.filterAsync(`build.resolve.alias`, aliases),
+    alias: {
+      [`@src`]: bud.path(`@src`),
+      ...(await bud.hooks.filterAsync(`build.resolve.alias`, {})),
+    },
     extensionAlias: await bud.hooks.filterAsync(
       `build.resolve.extensionAlias`,
       {

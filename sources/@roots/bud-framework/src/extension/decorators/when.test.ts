@@ -2,8 +2,8 @@ import {describe, expect, it} from 'vitest'
 
 import {when} from './when'
 
-@when(() => true)
 // @ts-ignore
+@when(() => true)
 class TestClass {}
 
 describe(`when`, () => {
