@@ -13,6 +13,12 @@ export const get = (basedir?: string) => {
 
   filesystem = new Filesystem(basedir)
 
+  /**
+   * change directory to basedir
+   * for process.cwd() to work as expected
+   */
+  process.chdir(basedir)
+
   return filesystem
 }
 
