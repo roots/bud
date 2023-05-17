@@ -53,6 +53,10 @@
       "import": "./lib/app/index.js",
       "default": "./lib/app/index.js"
     },
+    "./console": {
+      "import": "./lib/console/index.js",
+      "default": "./lib/console/index.js"
+    },
     "./service": {
       "import": "./lib/service.js",
       "default": "./lib/service.js"
@@ -69,6 +73,9 @@
       ],
       "app": [
         "./lib/app/index.d.ts"
+      ],
+      "console": [
+        "./lib/console/index.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

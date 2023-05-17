@@ -15,6 +15,8 @@ export default async (bud: Bud) => {
       },
     })
 
+  console.log(`foo`, `bar`)
+
   // .assets([[`fonts`, `fontz`]])
   // .assets([[`fonts/test.otf`, `fontz/test.otf`]])
   // .copyDir([`fonts`, `vendor/fonts`])
