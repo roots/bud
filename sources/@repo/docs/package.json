@@ -12,10 +12,10 @@
     "directory": "/sources/docs"
   },
   "devDependencies": {
-    "@docusaurus/core": "2.4.0",
-    "@docusaurus/module-type-aliases": "2.4.0",
-    "@docusaurus/preset-classic": "2.4.0",
-    "@docusaurus/remark-plugin-npm2yarn": "2.4.0",
+    "@docusaurus/core": "2.4.1",
+    "@docusaurus/module-type-aliases": "2.4.1",
+    "@docusaurus/preset-classic": "2.4.1",
+    "@docusaurus/remark-plugin-npm2yarn": "2.4.1",
     "@repo/constants": "workspace:sources/@repo/constants",
     "@svgr/webpack": "8.0.1",
     "@tsconfig/docusaurus": "1.0.7",
@@ -32,8 +32,8 @@
     "webpack": "5.82.1"
   },
   "dependencies": {
-    "@docusaurus/theme-classic": "2.4.0",
-    "@docusaurus/theme-common": "2.4.0",
+    "@docusaurus/theme-classic": "2.4.1",
+    "@docusaurus/theme-common": "2.4.1",
     "axios": "1.4.0",
     "clsx": "1.2.1",
     "docusaurus-lunr-search": "2.3.2",
