@@ -1,0 +1,73 @@
+version: 0.0.0
+resolutions:
+  '@aws-sdk/client-s3': >-
+    /Users/kellymears/code/git/roots/bud/node_modules/@aws-sdk/client-s3/dist-cjs/index.js
+  '@roots/bud-support/css-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/css-loader/index.cjs
+  '@roots/bud-support/csv-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/csv-loader/index.cjs
+  '@roots/bud-support/file-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/file-loader/index.cjs
+  '@roots/bud-support/html-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/html-loader/index.cjs
+  '@roots/bud-support/remark-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/remark-loader/index.cjs
+  '@roots/bud-support/style-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/style-loader/index.cjs
+  '@roots/bud-support/xml-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/xml-loader/index.cjs
+  '@roots/bud-support/yml-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/yml-loader/index.cjs
+  '@roots/bud-entrypoints': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-entrypoints/lib/index.js
+  '@roots/bud-terser': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-terser/lib/index.js
+  '@roots/bud-extensions/cdn': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/cdn/index.js
+  '@roots/bud-extensions/esm': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/esm/index.js
+  '@roots/bud-extensions/fix-style-only-entrypoints': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/fix-style-only-entrypoints/index.js
+  '@roots/bud-extensions/clean-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/clean-webpack-plugin/index.js
+  '@roots/bud-extensions/copy-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/copy-webpack-plugin/index.js
+  '@roots/bud-extensions/html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/html-webpack-plugin/index.js
+  '@roots/bud-extensions/interpolate-html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/interpolate-html-webpack-plugin/index.js
+  '@roots/bud-extensions/mini-css-extract-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/mini-css-extract-plugin/index.js
+  '@roots/bud-extensions/webpack-define-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-define-plugin/index.js
+  '@roots/bud-extensions/webpack-hot-module-replacement-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-hot-module-replacement-plugin/index.js
+  '@roots/bud-extensions/webpack-manifest-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-manifest-plugin/index.js
+  '@roots/bud-extensions/webpack-provide-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-provide-plugin/index.js
+  '@roots/bud-extensions/tsconfig-values': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/tsconfig-values/index.js
+  '@roots/bud-terser/css-minimizer': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-terser/lib/css-minimizer/index.js
+  '@roots/bud-react': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-react/lib/index.js
+  '@roots/bud-swc': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-swc/lib/index.js
+  '@roots/bud-tailwindcss': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-tailwindcss/lib/index.js
+  '@roots/bud-react/react-refresh': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-react/lib/react-refresh/index.js
+  '@roots/bud-postcss': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-postcss/lib/index.js
+  swc-loader: /Users/kellymears/code/git/roots/bud/node_modules/swc-loader/src/index.js
+  postcss-loader: /Users/kellymears/code/git/roots/bud/node_modules/postcss-loader/dist/cjs.js
+  postcss-import: /Users/kellymears/code/git/roots/bud/node_modules/postcss-import/index.js
+  postcss-nested: /Users/kellymears/code/git/roots/bud/node_modules/postcss-nested/index.js
+  postcss-preset-env: >-
+    /Users/kellymears/code/git/roots/bud/node_modules/postcss-preset-env/dist/index.mjs
+  tailwindcss/nesting/index.js: >-
+    /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/nesting/index.js
+  tailwindcss: /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/lib/index.js
+  webpack: /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js
+  /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js: /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js
+  '@roots/bud-support/html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/html-webpack-plugin/index.js
+  '@roots/bud-extensions/interpolate-html-webpack-plugin/plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/interpolate-html-webpack-plugin/plugin/index.js

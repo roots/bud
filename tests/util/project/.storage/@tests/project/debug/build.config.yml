@@ -1,0 +1,340 @@
+bail: true
+cache:
+  name: webpack/production
+  type: filesystem
+  store: pack
+  allowCollectingMemory: true
+  buildDependencies:
+    bud:
+      - /Users/kellymears/code/git/roots/bud/tests/util/project/package.json
+      - >-
+        /Users/kellymears/code/git/roots/bud/tests/util/project/config/bud.config.ts
+    tailwind:
+      - >-
+        /Users/kellymears/code/git/roots/bud/tests/util/project/config/tailwind.config.ts
+  cacheDirectory: >-
+    /Users/kellymears/code/git/roots/bud/tests/util/project/.storage/@tests/project/cache
+  idleTimeout: 10000
+  idleTimeoutForInitialStore: 0
+  profile: false
+  version: hk4DwrlaKAwLcLhiXFqSaqoKSWU=
+context: /Users/kellymears/code/git/roots/bud/tests/util/project/src
+dependencies: []
+devtool: false
+entry:
+  app:
+    import:
+      - scripts/app
+      - styles/app
+infrastructureLogging:
+  console: {}
+  level: log
+mode: production
+module:
+  rules:
+    - include:
+        - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+      parser:
+        requireEnsure: false
+    - oneOf:
+        - type: json
+          parser: {}
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/xml-loader/index.cjs
+              ident: xml
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/csv-loader/index.cjs
+              ident: csv
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/yml-loader/index.cjs
+              ident: yml
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/html-loader/index.cjs
+              ident: html
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: json
+          parser: {}
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/resource
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/resource
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/resource
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/inline
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/inline
+          generator: {}
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: asset/inline
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/node_modules/mini-css-extract-plugin/dist/loader.js
+              options: {}
+              ident: minicss
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/css-loader/index.cjs
+              options:
+                importLoaders: 1
+                modules: true
+                sourceMap: false
+              ident: cssModule
+            - loader: postcss-loader
+              options:
+                postcssOptions:
+                  config: false
+                  plugins:
+                    - >-
+                      /Users/kellymears/code/git/roots/bud/node_modules/postcss-import/index.js
+                    - >-
+                      /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/nesting/index.js
+                    - &ref_3
+                      - >-
+                        /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/lib/index.js
+                      - content:
+                          - ./src/index.html
+                          - ./src/**/*.js
+                        theme:
+                          extend:
+                            colors:
+                              primary: red
+                        plugins: []
+                    - &ref_4
+                      - >-
+                        /Users/kellymears/code/git/roots/bud/node_modules/postcss-preset-env/dist/index.cjs
+                      - stage: 1
+                        features:
+                          focus-within-pseudo-class: false
+              ident: postcss
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - use:
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/node_modules/mini-css-extract-plugin/dist/loader.js
+              options: {}
+              ident: minicss
+            - loader: >-
+                /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/css-loader/index.cjs
+              options:
+                importLoaders: 1
+                modules: false
+                sourceMap: false
+              ident: css
+            - loader: postcss-loader
+              options:
+                postcssOptions:
+                  config: false
+                  plugins:
+                    - >-
+                      /Users/kellymears/code/git/roots/bud/node_modules/postcss-import/index.js
+                    - >-
+                      /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/nesting/index.js
+                    - *ref_3
+                    - *ref_4
+              ident: postcss
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        - type: javascript/auto
+          use:
+            - loader: swc-loader
+              options: &ref_6
+                jsc:
+                  experimental:
+                    plugins: []
+                    cacheRoot: >-
+                      /Users/kellymears/code/git/roots/bud/tests/util/project/.storage/@tests/project/cache/swc
+                  parser:
+                    syntax: typescript
+                    tsx: true
+                    decorators: true
+                    dynamicImport: true
+                  transform:
+                    react:
+                      runtime: automatic
+                minify: false
+              ident: swc
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+          resolve:
+            fullySpecified: false
+        - use:
+            - loader: swc-loader
+              options: *ref_6
+              ident: swc
+          include:
+            - /Users/kellymears/code/git/roots/bud/tests/util/project/src
+          resolve:
+            fullySpecified: false
+name: '@tests/project'
+node: false
+optimization:
+  emitOnErrors: false
+  innerGraph: true
+  mergeDuplicateChunks: true
+  minimize: false
+  minimizer: []
+  moduleIds: named
+  nodeEnv: production
+  removeEmptyChunks: true
+  removeAvailableModules: false
+  runtimeChunk: false
+  sideEffects: true
+  splitChunks: false
+  providedExports: true
+  usedExports: true
+output:
+  assetModuleFilename: '[path][name][ext]'
+  chunkFilename: js/dynamic/[name].chunk.js
+  clean: true
+  filename: js/[name].js
+  module: false
+  path: /Users/kellymears/code/git/roots/bud/tests/util/project/dist
+  publicPath: auto
+  scriptType: false
+  uniqueName: '@roots/bud'
+parallelism: 90
+performance: false
+profile: true
+recordsPath: >-
+  /Users/kellymears/code/git/roots/bud/tests/util/project/.storage/@tests/project/modules.json
+resolveLoader:
+  alias:
+    swc-loader: /Users/kellymears/code/git/roots/bud/node_modules/swc-loader/src/index.js
+    postcss-loader: >-
+      /Users/kellymears/code/git/roots/bud/node_modules/postcss-loader/dist/cjs.js
+snapshot:
+  immutablePaths: []
+  managedPaths:
+    - /Users/kellymears/code/git/roots/bud/tests/util/project/node_modules
+  buildDependencies:
+    timestamp: true
+  module:
+    timestamp: true
+  resolve:
+    timestamp: true
+  resolveBuildDependencies:
+    timestamp: true
+stats:
+  all: false
+  assets: true
+  children: false
+  entrypoints: true
+  errors: true
+  errorsCount: true
+  hash: true
+  outputPath: true
+  modules: true
+  timings: true
+  warnings: true
+  warningsCount: true
+target: >-
+  browserslist:/Users/kellymears/code/git/roots/bud/tests/util/project/package.json
+resolve:
+  alias:
+    '@src': /Users/kellymears/code/git/roots/bud/tests/util/project/src
+    '@scripts': /Users/kellymears/code/git/roots/bud/tests/util/project/src/scripts
+    '@styles': /Users/kellymears/code/git/roots/bud/tests/util/project/src/styles
+    '@components': >-
+      /Users/kellymears/code/git/roots/bud/tests/util/project/src/scripts/components
+  extensionAlias:
+    .js:
+      - .ts
+      - .tsx
+      - .js
+    .mjs:
+      - .mts
+      - .mtx
+      - .mjs
+  extensions:
+    - .js
+    - .mjs
+    - .jsx
+    - .cjs
+    - .css
+    - .ts
+    - .tsx
+    - .mts
+    - .cts
+  modules:
+    - src
+    - node_modules
+plugins:
+  - userOptions:
+      template: /Users/kellymears/code/git/roots/bud/tests/util/project/src/index.html
+    version: 5
+  - replacements:
+      APP_TITLE: bud.js test app
+      APP_DESCRIPTION: test app description
+      noScript: You need to enable JavaScript to run this app
+    name: interpolate-html-webpack-plugin
+  - options:
+      filename: css/[name].css
+      ignoreOrder: false
+      runtime: true
+      chunkFilename: css/[name].css
+    runtimeOptions:
+      linkType: text/css
+  - definitions:
+      APP_TITLE: '"bud.js test app"'
+      APP_DESCRIPTION: '"test app description"'
+  - {}
+  - patterns:
+      - from: fonts/**/*
+        to: '[path][name][ext]'
+        context: /Users/kellymears/code/git/roots/bud/tests/util/project/src
+        noErrorOnMissing: true
+        globOptions:
+          dot: false
+    options: {}
+  - options:
+      assetHookStage: .inf
+      basePath: ''
+      fileName: manifest.json
+      filter: null
+      map: null
+      publicPath: ''
+      sort: null
+      useEntryKeys: false
+      useLegacyEmit: false
+      writeToFileEmit: true
+  - dangerouslyAllowCleanPatternsOutsideProject: false
+    dry: false
+    verbose: false
+    cleanStaleWebpackAssets: true
+    protectWebpackAssets: true
+    cleanAfterEveryBuildPatterns: []
+    cleanOnceBeforeBuildPatterns:
+      - '**/*'
+    currentAssets: []
+    initialClean: false
+    outputPath: ''
+  - options:
+      emitHtml: false
+    plugin:
+      name: EntrypointsManifestPlugin
+      stage: .inf
+    name: entrypoints.json

@@ -45,7 +45,6 @@ export class BudEslint extends Extension<Options, EslintPlugin> {
     this.set(`eslintPath`, await this.resolve(`eslint`, import.meta.url))
 
     if (!bud.context.files) return
-
     const config = Object.values(bud.context.files).find(
       ({file, name}) => file && name.includes(`eslint`),
     )

@@ -1,0 +1,38 @@
+{
+  "HtmlWebpackCompiler": [
+    {
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0-0": 563
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0-0": 563
+        },
+        "usedIds": [
+          563
+        ]
+      },
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": []
+      }
+    }
+  ],
+  "chunks": {
+    "byName": {
+      "app": 143
+    },
+    "bySource": {
+      "0 ../../../../node_modules/swc-loader/src/index.js??swc!./scripts/app.js ./components/main.js": 913,
+      "0 app": 143
+    },
+    "usedIds": [
+      143,
+      913
+    ]
+  },
+  "modules": {
+    "byIdentifier": {},
+    "usedIds": []
+  }
+}

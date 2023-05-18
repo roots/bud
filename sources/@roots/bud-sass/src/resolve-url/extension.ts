@@ -10,15 +10,24 @@ export class BudResolveUrl extends Extension {
   /**
    * {@link Extension.register}
    */
-  public override async register(bud: Bud) {
-    bud.build
-      .setLoader(
-        `resolveUrl`,
-        await this.resolve(`resolve-url-loader`, import.meta.url),
-      )
-      .setItem(`resolveUrl`, {
-        loader: `resolveUrl`,
-        options: ({path}) => ({root: path(`@src`), sourceMap: true}),
-      })
+  public override async register({build, hooks}: Bud) {
+    /** Source loader */
+    const loader = await this.resolve(
+      `resolve-url-loader`,
+      import.meta.url,
+    )
+    if (!loader) return this.logger.error(`resolve-url-loader not found`)
+
+    /** Set loader alias */
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      [`resolve-url-loader`]: loader,
+    }))
+
+    /** Setup rule */
+    build.setLoader(`resolve-url`, loader).setItem(`resolve-url`, {
+      loader: `resolve-url`,
+      options: ({path}) => ({root: path(`@src`), sourceMap: true}),
+    })
   }
 }

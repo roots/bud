@@ -1,0 +1,636 @@
+basedir: /Users/kellymears/code/git/roots/bud/tests/util/project
+mode: production
+isCLI: true
+bud: 0.0.0
+minimize: false
+files:
+  - name: .env
+    type: base
+    size: 128
+    mode: 33188
+    sha1: fcaca18d0d59f3e9b8da38726a40af5892c9b4f7
+    path: /Users/kellymears/code/git/roots/bud/tests/util/project/.env
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project
+      base: .env
+      ext: ''
+      name: .env
+    extension: ''
+    dynamic: false
+    static: false
+    module: false
+  - name: .gitignore
+    type: base
+    size: 26
+    mode: 33188
+    sha1: 6fc649d9aaf3c5d32f21cba0d65796dbff622e5d
+    path: /Users/kellymears/code/git/roots/bud/tests/util/project/.gitignore
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project
+      base: .gitignore
+      ext: ''
+      name: .gitignore
+    extension: ''
+    dynamic: false
+    static: false
+    module: false
+  - name: bud.config.ts
+    type: base
+    size: 835
+    mode: 33188
+    sha1: 063c9a20d31edc8912ba5218a7d8de2212641939
+    path: >-
+      /Users/kellymears/code/git/roots/bud/tests/util/project/config/bud.config.ts
+    local: false
+    bud: true
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project/config
+      base: bud.config.ts
+      ext: .ts
+      name: bud.config
+    extension: ts
+    dynamic: true
+    static: false
+    module: true
+  - name: package.json
+    type: base
+    size: 447
+    mode: 33188
+    sha1: bf84e6d7ca359bcc13a8c2762b0216348fb5a9cc
+    path: /Users/kellymears/code/git/roots/bud/tests/util/project/package.json
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project
+      base: package.json
+      ext: .json
+      name: package
+    extension: json
+    dynamic: false
+    static: true
+    module: true
+  - name: tsconfig.json
+    type: base
+    size: 502
+    mode: 33188
+    sha1: f4cb4776b3ba7e85638b70c797b0563465e6bda0
+    path: /Users/kellymears/code/git/roots/bud/tests/util/project/tsconfig.json
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project
+      base: tsconfig.json
+      ext: .json
+      name: tsconfig
+    extension: json
+    dynamic: false
+    static: true
+    module: true
+  - name: eslint.config.js
+    type: base
+    size: 102
+    mode: 33188
+    sha1: b9b64fd575d75acfc0075f83e8027910210b74da
+    path: >-
+      /Users/kellymears/code/git/roots/bud/tests/util/project/config/eslint.config.js
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project/config
+      base: eslint.config.js
+      ext: .js
+      name: eslint.config
+    extension: js
+    dynamic: true
+    static: false
+    module: true
+  - name: tailwind.config.ts
+    type: base
+    size: 170
+    mode: 33188
+    sha1: c19e3c514a230eb5e6def73cce7862c7a0efec5d
+    path: >-
+      /Users/kellymears/code/git/roots/bud/tests/util/project/config/tailwind.config.ts
+    local: false
+    bud: false
+    file: true
+    dir: false
+    symlink: false
+    parsed:
+      root: /
+      dir: /Users/kellymears/code/git/roots/bud/tests/util/project/config
+      base: tailwind.config.ts
+      ext: .ts
+      name: tailwind.config
+    extension: ts
+    dynamic: true
+    static: false
+    module: true
+env:
+  - TERM_SESSION_ID
+  - SSH_AUTH_SOCK
+  - LC_TERMINAL_VERSION
+  - COLORFGBG
+  - ITERM_PROFILE
+  - XPC_FLAGS
+  - LANG
+  - PWD
+  - SHELL
+  - __CFBundleIdentifier
+  - TERM_PROGRAM_VERSION
+  - TERM_PROGRAM
+  - PATH
+  - LC_TERMINAL
+  - COLORTERM
+  - COMMAND_MODE
+  - TERM
+  - TERMINFO_DIRS
+  - HOME
+  - TMPDIR
+  - USER
+  - XPC_SERVICE_NAME
+  - LOGNAME
+  - __CF_USER_TEXT_ENCODING
+  - ITERM_SESSION_ID
+  - ITERM_INJECT_SHELL_INTEGRATION
+  - SHLVL
+  - OLDPWD
+  - CONFIG
+  - VOLTA_HOME
+  - PYENV_ROOT
+  - COMPOSER_HOME
+  - CARGO_ROOT
+  - BUN_INSTALL
+  - GPG_TTY
+  - EDITOR
+  - VISUAL
+  - STARSHIP_CONFIG
+  - CARROT_FONT_AWESOME_TOKEN
+  - GITHUB_TOKEN
+  - XDG_CACHE_HOME
+  - XDG_CONFIG_HOME
+  - XDG_DATA_HOME
+  - XDG_STATE_HOME
+  - STARSHIP_SHELL
+  - STARSHIP_SESSION_KEY
+  - HOMEBREW_PREFIX
+  - HOMEBREW_CELLAR
+  - HOMEBREW_REPOSITORY
+  - MANPATH
+  - INFOPATH
+  - AUTOJUMP_SOURCED
+  - AUTOJUMP_ERROR_PATH
+  - _
+  - BERRY_BIN_FOLDER
+  - INIT_CWD
+  - PROJECT_CWD
+  - npm_execpath
+  - npm_node_execpath
+  - npm_package_name
+  - npm_package_version
+  - npm_package_json
+  - npm_config_user_agent
+  - TEST
+  - PUBLIC_APP_TITLE
+  - PUBLIC_APP_DESCRIPTION
+  - APP_MODULE_PATH
+children: []
+args:
+  _:
+    - build
+  log: true
+  verbose: true
+  debug: true
+  storage: .storage
+  basedir: /Users/kellymears/code/git/roots/bud/tests/util/project
+  notify: true
+args_raw:
+  - build
+  - '--log'
+  - '--verbose'
+  - '--debug'
+  - '--storage'
+  - .storage
+services:
+  - '@roots/bud/services/env'
+  - '@roots/bud-hooks'
+  - '@roots/bud-api'
+  - '@roots/bud-build'
+  - '@roots/bud-cache'
+  - '@roots/bud-compiler'
+  - '@roots/bud-dashboard'
+  - '@roots/bud-extensions'
+  - '@roots/bud-server'
+  - '@roots/bud/services/project'
+  - '@roots/bud-framework/services/console'
+  - '@roots/bud-framework/services/notifier'
+extensions:
+  context:
+    builtIn:
+      - '@roots/bud-entrypoints'
+      - '@roots/bud-terser'
+      - '@roots/bud-extensions/cdn'
+      - '@roots/bud-extensions/esm'
+      - '@roots/bud-extensions/fix-style-only-entrypoints'
+      - '@roots/bud-extensions/clean-webpack-plugin'
+      - '@roots/bud-extensions/copy-webpack-plugin'
+      - '@roots/bud-extensions/html-webpack-plugin'
+      - '@roots/bud-extensions/interpolate-html-webpack-plugin'
+      - '@roots/bud-extensions/mini-css-extract-plugin'
+      - '@roots/bud-extensions/webpack-define-plugin'
+      - '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
+      - '@roots/bud-extensions/webpack-manifest-plugin'
+      - '@roots/bud-extensions/webpack-provide-plugin'
+      - '@roots/bud-extensions/tsconfig-values'
+    discovered:
+      - '@roots/bud-react'
+      - '@roots/bud-swc'
+      - '@roots/bud-tailwindcss'
+  loaded:
+    - key: '@roots/bud-cache/invalidate-cache'
+      label: '@roots/bud-cache/invalidate-cache'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+    - key: '@roots/bud-extensions/cdn'
+      label: '@roots/bud-extensions/cdn'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        cacheLocation: >-
+          /Users/kellymears/code/git/roots/bud/tests/util/project/.storage/@tests/project/modules
+        frozen: false
+        lockfileLocation: /Users/kellymears/code/git/roots/bud/tests/util/project/bud.lock
+        proxy: false
+        upgrade: true
+    - key: '@roots/bud-extensions/esm'
+      label: '@roots/bud-extensions/esm'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+    - key: '@roots/bud-extensions/html-webpack-plugin'
+      label: '@roots/bud-extensions/html-webpack-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        template: /Users/kellymears/code/git/roots/bud/tests/util/project/src/index.html
+    - key: '@roots/bud-extensions/interpolate-html-webpack-plugin'
+      label: '@roots/bud-extensions/interpolate-html-webpack-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        APP_TITLE: bud.js test app
+        APP_DESCRIPTION: test app description
+        noScript: You need to enable JavaScript to run this app
+    - key: '@roots/bud-extensions/mini-css-extract-plugin'
+      label: '@roots/bud-extensions/mini-css-extract-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        filename: css/[name].css
+    - key: '@roots/bud-extensions/webpack-define-plugin'
+      label: '@roots/bud-extensions/webpack-define-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        APP_TITLE: '"bud.js test app"'
+        APP_DESCRIPTION: '"test app description"'
+    - key: '@roots/bud-extensions/tsconfig-values'
+      label: '@roots/bud-extensions/tsconfig-values'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        extends: '@roots/bud/config/tsconfig.json'
+        compilerOptions:
+          baseUrl: ./src
+          outDir: ./dist
+          paths:
+            '@scripts/*':
+              - scripts/*
+            '@styles/*':
+              - styles/*
+            '@components/*':
+              - scripts/components/*
+          types:
+            - node
+            - webpack-env
+            - '@roots/bud'
+            - '@roots/bud-swc'
+            - '@roots/bud-tailwindcss'
+        files:
+          - ./config/bud.config.ts
+          - ./config/tailwind.config.ts
+        include:
+          - ./src
+        bud:
+          useCompilerOptions: true
+    - key: '@roots/bud-extensions/webpack-provide-plugin'
+      label: '@roots/bud-extensions/webpack-provide-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+    - key: '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
+      label: '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+    - key: '@roots/bud-extensions/fix-style-only-entrypoints'
+      label: '@roots/bud-extensions/fix-style-only-entrypoints'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+    - key: '@roots/bud-extensions/copy-webpack-plugin'
+      label: '@roots/bud-extensions/copy-webpack-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        patterns:
+          - from: fonts/**/*
+            to: '[path][name][ext]'
+            context: /Users/kellymears/code/git/roots/bud/tests/util/project/src
+            noErrorOnMissing: true
+            globOptions:
+              dot: false
+    - key: '@roots/bud-extensions/webpack-manifest-plugin'
+      label: '@roots/bud-extensions/webpack-manifest-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        fileName: manifest.json
+        writeToFileEmit: true
+        publicPath: ''
+    - key: '@roots/bud-extensions/clean-webpack-plugin'
+      label: '@roots/bud-extensions/clean-webpack-plugin'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        cleanStaleWebpackAssets: true
+        protectWebpackAssets: true
+        cleanOnceBeforeBuildPatterns:
+          - '**/*'
+    - key: '@roots/bud-entrypoints'
+      label: '@roots/bud-entrypoints'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        emitHtml: false
+    - key: '@roots/bud-terser/css-minimizer'
+      label: '@roots/bud-terser/css-minimizer'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        minimizerOptions:
+          preset:
+            - default
+            - discardComments:
+                removeAll: true
+    - key: '@roots/bud-terser'
+      label: '@roots/bud-terser'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        extractComments: false
+        parallel: true
+        terserOptions:
+          compress:
+            drop_console: false
+            drop_debugger: true
+            defaults: true
+            unused: true
+          format:
+            ascii_only: true
+            comments: false
+          mangle:
+            safari10: true
+    - key: '@roots/bud-swc'
+      label: '@roots/bud-swc'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        jsc:
+          experimental:
+            plugins: []
+            cacheRoot: >-
+              /Users/kellymears/code/git/roots/bud/tests/util/project/.storage/@tests/project/cache/swc
+          parser:
+            syntax: typescript
+            tsx: true
+            decorators: true
+            dynamicImport: true
+          transform:
+            react:
+              runtime: automatic
+        minify: false
+    - key: '@roots/bud-postcss'
+      label: '@roots/bud-postcss'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        postcssOptions:
+          config: false
+    - key: '@roots/bud-tailwindcss'
+      label: '@roots/bud-tailwindcss'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        generateImports: false
+    - key: '@roots/bud-react/react-refresh'
+      label: '@roots/bud-react/react-refresh'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options:
+        overlay: false
+        esModule: true
+    - key: '@roots/bud-react'
+      label: '@roots/bud-react'
+      meta:
+        register: true
+        boot: true
+        configAfter: true
+        buildBefore: true
+        buildAfter: false
+      options: {}
+resolutions:
+  '@aws-sdk/client-s3': >-
+    /Users/kellymears/code/git/roots/bud/node_modules/@aws-sdk/client-s3/dist-cjs/index.js
+  '@roots/bud-support/css-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/css-loader/index.cjs
+  '@roots/bud-support/csv-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/csv-loader/index.cjs
+  '@roots/bud-support/file-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/file-loader/index.cjs
+  '@roots/bud-support/html-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/html-loader/index.cjs
+  '@roots/bud-support/remark-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/remark-loader/index.cjs
+  '@roots/bud-support/style-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/style-loader/index.cjs
+  '@roots/bud-support/xml-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/xml-loader/index.cjs
+  '@roots/bud-support/yml-loader': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/yml-loader/index.cjs
+  '@roots/bud-entrypoints': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-entrypoints/lib/index.js
+  '@roots/bud-terser': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-terser/lib/index.js
+  '@roots/bud-extensions/cdn': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/cdn/index.js
+  '@roots/bud-extensions/esm': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/esm/index.js
+  '@roots/bud-extensions/fix-style-only-entrypoints': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/fix-style-only-entrypoints/index.js
+  '@roots/bud-extensions/clean-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/clean-webpack-plugin/index.js
+  '@roots/bud-extensions/copy-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/copy-webpack-plugin/index.js
+  '@roots/bud-extensions/html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/html-webpack-plugin/index.js
+  '@roots/bud-extensions/interpolate-html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/interpolate-html-webpack-plugin/index.js
+  '@roots/bud-extensions/mini-css-extract-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/mini-css-extract-plugin/index.js
+  '@roots/bud-extensions/webpack-define-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-define-plugin/index.js
+  '@roots/bud-extensions/webpack-hot-module-replacement-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-hot-module-replacement-plugin/index.js
+  '@roots/bud-extensions/webpack-manifest-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-manifest-plugin/index.js
+  '@roots/bud-extensions/webpack-provide-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/webpack-provide-plugin/index.js
+  '@roots/bud-extensions/tsconfig-values': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/tsconfig-values/index.js
+  '@roots/bud-terser/css-minimizer': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-terser/lib/css-minimizer/index.js
+  '@roots/bud-react': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-react/lib/index.js
+  '@roots/bud-swc': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-swc/lib/index.js
+  '@roots/bud-tailwindcss': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-tailwindcss/lib/index.js
+  '@roots/bud-react/react-refresh': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-react/lib/react-refresh/index.js
+  '@roots/bud-postcss': /Users/kellymears/code/git/roots/bud/sources/@roots/bud-postcss/lib/index.js
+  swc-loader: /Users/kellymears/code/git/roots/bud/node_modules/swc-loader/src/index.js
+  postcss-loader: /Users/kellymears/code/git/roots/bud/node_modules/postcss-loader/dist/cjs.js
+  postcss-import: /Users/kellymears/code/git/roots/bud/node_modules/postcss-import/index.js
+  postcss-nested: /Users/kellymears/code/git/roots/bud/node_modules/postcss-nested/index.js
+  postcss-preset-env: >-
+    /Users/kellymears/code/git/roots/bud/node_modules/postcss-preset-env/dist/index.mjs
+  tailwindcss/nesting/index.js: >-
+    /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/nesting/index.js
+  tailwindcss: /Users/kellymears/code/git/roots/bud/node_modules/tailwindcss/lib/index.js
+  webpack: /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js
+  /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js: /Users/kellymears/code/git/roots/bud/node_modules/webpack/lib/index.js
+  '@roots/bud-support/html-webpack-plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-support/lib/html-webpack-plugin/index.js
+  '@roots/bud-extensions/interpolate-html-webpack-plugin/plugin': >-
+    /Users/kellymears/code/git/roots/bud/sources/@roots/bud-extensions/lib/extensions/interpolate-html-webpack-plugin/plugin/index.js

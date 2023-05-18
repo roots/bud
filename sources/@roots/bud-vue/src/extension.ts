@@ -54,8 +54,20 @@ export default class Vue extends Extension<
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
-    bud.build
+  public override async register({build, hooks}: Bud) {
+    const loader = await this.resolve(`vue-loader`, import.meta.url)
+    if (!loader) return this.logger.error(`vue-loader not found`)
+
+    const style = await this.resolve(`vue-style-loader`, import.meta.url)
+    if (!style) return this.logger.error(`vue-style-loader not found`)
+
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      [`vue-loader`]: loader,
+      [`vue-style-loader`]: style,
+    }))
+
+    build
       .setLoader(`vue`, await this.resolve(`vue-loader`, import.meta.url))
       .setLoader(
         `vue-style`,
@@ -64,7 +76,7 @@ export default class Vue extends Extension<
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setItem(`vue-style`, {ident: `vue-style`, loader: `vue-style`})
 
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+    hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.vue`),
     )
   }
