@@ -1,13 +1,9 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {describe, expect, it} from 'vitest'
 
-import BudPostCss from './index.js'
+import BudPostCss from '../src/index.js'
 
-const resetPlugins = (bud: Bud) =>
-  bud.postcss
-    .set(`import`, undefined)
-    .set(`env`, undefined)
-    .set(`nesting`, undefined)
+const resetPlugins = (bud: Bud) => bud.postcss.set(`plugins`, {})
 
 describe(`@roots/bud-postcss`, () => {
   it(`label`, async () => {
@@ -24,7 +20,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugins({foo: [`bar`]})
 
-    expect(bud.postcss.get(`foo`)).toStrictEqual([`bar`])
+    expect(bud.postcss.get(`plugins.foo`)).toStrictEqual([`bar`])
   })
 
   it(`setPlugins from map`, async () => {
@@ -35,7 +31,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
 
-    expect(bud.postcss.get(`bang`)).toStrictEqual([`bop`])
+    expect(bud.postcss.get(`plugins.bang`)).toStrictEqual([`bop`])
   })
 
   it(`getPluginOptions`, async () => {
@@ -59,7 +55,7 @@ describe(`@roots/bud-postcss`, () => {
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
 
     bud.postcss.setPluginOptions(`bang`, {})
-    expect(bud.postcss.get(`bang`)).toStrictEqual([`bop`, {}])
+    expect(bud.postcss.get(`plugins.bang`)).toStrictEqual([`bop`, {}])
   })
 
   it(`setPluginOptions (callback)`, async () => {
@@ -99,7 +95,7 @@ describe(`@roots/bud-postcss`, () => {
     bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
     bud.postcss.setPluginPath(`bang`, `newPath`)
 
-    expect(bud.postcss.get(`bang`)?.[0]).toStrictEqual(`newPath`)
+    expect(bud.postcss.get(`plugins.bang`)?.[0]).toStrictEqual(`newPath`)
   })
 
   it(`unsetPlugin`, async () => {
@@ -156,7 +152,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugin(`boop`)
 
-    expect(bud.postcss.get(`boop`)).toEqual(
+    expect(bud.postcss.get(`plugins.boop`)).toEqual(
       expect.arrayContaining([expect.stringContaining(`boop`)]),
     )
   })
@@ -170,7 +166,7 @@ describe(`@roots/bud-postcss`, () => {
     const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, signifier)
 
-    expect(bud.postcss.get(`env`)).toEqual(
+    expect(bud.postcss.get(`plugins.env`)).toEqual(
       expect.arrayContaining([expect.stringContaining(signifier)]),
     )
   })
@@ -184,7 +180,7 @@ describe(`@roots/bud-postcss`, () => {
     const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, [signifier, {option: `value`}])
 
-    expect(bud.postcss.get(`env`)).toEqual(
+    expect(bud.postcss.get(`plugins.env`)).toEqual(
       expect.arrayContaining([
         expect.stringContaining(signifier),
         expect.objectContaining({option: `value`}),

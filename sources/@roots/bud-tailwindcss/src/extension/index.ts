@@ -160,20 +160,19 @@ export class BudTailwindCss extends Extension<Options> {
     }
 
     bud.postcss
-      .set(
+      .setPlugin(
         `nesting`,
         await this.resolve(
           join(`tailwindcss`, `nesting`, `index.js`),
           import.meta.url,
         ),
       )
-      .set(`tailwindcss`, [
+      .setPlugin(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
         this.file.module ?? this.file.path,
       ])
-      .set(`order`, [`import`, `nesting`, `tailwindcss`, `env`])
-
-    this.logger.success(`postcss configured for tailwindcss`)
+      .use([`import`, `nesting`, `tailwindcss`, `env`])
+      .logger.success(`postcss configured for tailwindcss`)
 
     /**
      * Add tailwind config to webpack cache dependencies

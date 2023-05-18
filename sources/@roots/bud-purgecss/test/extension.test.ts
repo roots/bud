@@ -36,9 +36,8 @@ describe(`@roots/bud-purgecss`, () => {
 
   it(`should add plugin to the postcss plugins repository`, () => {
     purgecss.bind(bud)({content: [`**/*.html`]})
-    expect(bud.postcss.get(`purgecss`)).toStrictEqual([
-      `@fullhuman/postcss-purgecss`,
-      {content: [`**/*.html`]},
-    ])
+    expect(bud.postcss.getPluginOptions(`purgecss`)).toStrictEqual({
+      content: [`**/*.html`],
+    })
   })
 })

@@ -6,9 +6,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {deprecated} from '@roots/bud-support/decorators'
+import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import {InputError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Plugin, Processor} from 'postcss'
 
@@ -64,13 +63,13 @@ export class BudPostCss extends Extension<Options> {
         file => file?.name?.includes(`postcss`) && file?.module,
       )
     ) {
-      this.set(`import`, [
+      this.setPlugin(`import`, [
         await this.resolve(`postcss-import`, import.meta.url),
       ])
-        .set(`nesting`, [
+        .setPlugin(`nesting`, [
           await this.resolve(`postcss-nested`, import.meta.url),
         ])
-        .set(`env`, [
+        .setPlugin(`env`, [
           await this.resolve(`postcss-preset-env`, import.meta.url).then(
             path => path.replace(`.mjs`, `.cjs`),
           ),
@@ -81,7 +80,7 @@ export class BudPostCss extends Extension<Options> {
             },
           },
         ])
-        .set(`order`, [`import`, `nesting`, `env`])
+        .use([`import`, `nesting`, `env`])
     } else {
       this.logger.log(
         `PostCSS configuration is being overridden by project configuration file.`,
@@ -120,7 +119,7 @@ export class BudPostCss extends Extension<Options> {
 
     if (!options?.plugins?.length) {
       options.plugins = this.get(`order`)
-        .map(name => this.get(name))
+        .map(name => this.get(`plugins.${name}`))
         .filter(Boolean) as InputList
     }
 
@@ -157,16 +156,18 @@ export class BudPostCss extends Extension<Options> {
     }
 
     const pluginMap = (plugin: string | [string, any?]): [string, any?] =>
-      Array.isArray(plugin) ? plugin : [plugin]
+      Array.isArray(plugin) && plugin.length > 1
+        ? plugin
+        : [Array.isArray(plugin) ? plugin[0] : plugin, undefined]
 
     if (Array.isArray(plugins)) {
-      plugins.map(pluginMap).forEach(plugin => this.set(...plugin))
+      plugins.map(pluginMap).forEach(plugin => this.setPlugin(...plugin))
       return this
     }
 
     if (plugins instanceof Map) {
       Array.from(plugins.entries()).forEach(plugin => {
-        this.set(...plugin)
+        this.setPlugin(...plugin)
       })
 
       return this
@@ -174,9 +175,29 @@ export class BudPostCss extends Extension<Options> {
 
     Object.entries(plugins)
       .map(pluginMap)
-      .forEach(plugin => this.set(...plugin))
+      .forEach(plugin => this.setPlugin(...plugin))
 
     return this
+  }
+
+  /**
+   * Get a plugin
+   */
+  @bind
+  public getPlugin(name: string): [string | Plugin | Processor, any?] {
+    if (this.get(`postcssOptions.config`)) {
+      this.logger.warn(
+        `PostCSS configuration is being overridden by project configuration file.\n`,
+        `bud.postcss.setPlugin will not work as expected\n`,
+        `tried to get:`,
+        name,
+      )
+    }
+
+    return this.get(`plugins.${name}`) as [
+      string | Plugin | Processor,
+      any?,
+    ]
   }
 
   /**
@@ -195,16 +216,14 @@ export class BudPostCss extends Extension<Options> {
     }
 
     if (isUndefined(plugin)) {
-      this.set(name, [name])
-      return this
+      plugin = [name, undefined]
     }
 
-    if (Array.isArray(plugin)) {
-      this.set(name, plugin)
-      return this
+    if (!Array.isArray(plugin)) {
+      plugin = [plugin, undefined]
     }
 
-    this.set(name, [plugin])
+    this.set(`plugins.${name}`, plugin)
     return this
   }
 
@@ -222,7 +241,7 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    this.set(name, undefined)
+    this.set(`plugins.${name}`, undefined)
 
     return this
   }
@@ -241,7 +260,7 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    const plugin: any = this.get(name)
+    const plugin: any = this.get(`plugins.${name}`)
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
     return plugin.length && plugin.length > 1 ? plugin[1] : {}
   }
@@ -263,15 +282,17 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    const plugin = this.get(name)
+    const plugin = this.getPlugin(name)
 
     if (!plugin) {
       throw new InputError(`${name} does not exist`)
     }
 
-    this.set(name, [
+    this.setPlugin(name, [
       this.getPluginPath(name),
-      isFunction(options) ? options(this.getPluginOptions(name)) : options,
+      typeof options === `function`
+        ? options(this.getPluginOptions(name))
+        : options,
     ])
 
     return this
@@ -289,7 +310,7 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    const plugin: any = this.get(name)
+    const plugin: any = this.get(`plugins.${name}`)
     return plugin && plugin?.length ? [...plugin][0] : plugin
   }
 
@@ -305,11 +326,11 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    const plugin: any = this.get(name)
+    const plugin: any = this.get(`plugins.${name}`)
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
 
     const hasOptions = plugin.length && plugin.length > 1
-    this.set(name, hasOptions ? [path, plugin[1]] : [path])
+    this.set(`plugins.${name}`, hasOptions ? [path, plugin[1]] : [path])
 
     return this
   }
