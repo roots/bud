@@ -110,10 +110,10 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should call postcss.setPlugins`, async () => {
-    const setPluginsSpy = vi.spyOn(bud.postcss, `setPlugins`)
+    const setSpy = vi.spyOn(bud.postcss, `set`)
 
     await extension.boot(bud)
 
-    expect(setPluginsSpy).toHaveBeenCalled()
+    expect(setSpy).toHaveBeenCalled()
   })
 })

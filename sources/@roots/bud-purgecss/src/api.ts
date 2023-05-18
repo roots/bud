@@ -83,10 +83,9 @@ export interface Extractors {
  * ```
  */
 export const purgecss: purge = function (userOptions) {
-  this.postcss.setPlugin(`purgecss`, [
-    `@fullhuman/postcss-purgecss`,
-    userOptions,
-  ])
+  this.postcss
+    .setPlugin(`purgecss`, [`@fullhuman/postcss-purgecss`, userOptions])
+    .use(plugins => [...plugins, `purgecss`])
 
   return this
 }
