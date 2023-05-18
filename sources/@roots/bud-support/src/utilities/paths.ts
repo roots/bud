@@ -102,4 +102,4 @@ This is most likely a problem with the internals of bud.js.`,
   return paths
 }
 
-export {get}
+export {get, paths}
