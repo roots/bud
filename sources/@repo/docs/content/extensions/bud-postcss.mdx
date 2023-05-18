@@ -14,7 +14,7 @@ import {Install} from '@site/src/docs/Install'
 
 ## Usage
 
-By default, **@roots/bud-postcss** includes the following plugins, registered with postcss in this order:
+By default, **@roots/bud-postcss** includes the following plugins, registered with PostCSS in this order:
 
 | Order | Key       | Plugin                                                      |
 | ----- | --------- | ----------------------------------------------------------- |
@@ -24,14 +24,14 @@ By default, **@roots/bud-postcss** includes the following plugins, registered wi
 
 If this works for you, great! No need to keep reading.
 
-Should you need something more specialized, you can configure postcss in your bud config file or a
-standard postcss config file.
+Should you need something more specialized, you can configure PostCSS in your bud config file or a
+standard PostCSS config file.
 
-Note that by using a postcss config file you will be overriding the bud.js options API.
+Note that by using a PostCSS config file you will be overriding the bud.js options API.
 
-## Overriding postcss options directly
+## Overriding PostCSS options directly
 
-You can set the postcss options directly using `bud.postcss.set`.
+You can set the PostCSS options directly using `bud.postcss.set`.
 
 PostCss options are contained in the `postcssOptions` key.
 
@@ -43,7 +43,7 @@ bud.postcss.set(`postcssOptions`, {
 ```
 
 Doing it this way is quick and easy but you are fully overriding the default settings. It's best to use this method only
-if you are comfortable with postcss and know what you are doing.
+if you are comfortable with PostCSS and know what you are doing.
 
 If you want to just change a single option you can use dot syntax:
 
@@ -110,11 +110,7 @@ bud.postcss.use([
 You can also use a callback:
 
 ```typescript title=bud.config.js
-bud.postcss.use(plugins => [
-  ...plugins.splice(0, 2),
-  'example-postcss-plugin',
-  ...plugins,
-])
+bud.postcss.use(plugins => [...plugins, 'example-postcss-plugin'])
 ```
 
 ## Override plugin options
@@ -129,7 +125,7 @@ bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 
 ## Override plugin path
 
-You can modify the path for a postcss plugin using **bud.postcss.setPluginPath**.
+You can modify the path for a PostCSS plugin using **bud.postcss.setPluginPath**.
 
 The first parameter is the plugin key and the second is the new path to assign.
 
@@ -142,12 +138,8 @@ bud.postcss.setPluginPath(
 
 ## Remove a plugin
 
-You may remove a plugin by calling **bud.postcss.removePlugin** with the plugin key.
+You may remove a plugin by calling **bud.postcss.unsetPlugin** with the plugin key.
 
 ```typescript title=bud.config.js
-bud.postcss.removePlugin(`import`)
+bud.postcss.unsetPlugin(`import`)
 ```
-
-## Internals
-
-Most of these functions are just wrappers around the bud.js extensions options API with some added guard rails.
