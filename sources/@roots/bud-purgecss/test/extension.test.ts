@@ -1,3 +1,5 @@
+import '../src/index.js'
+
 import {Bud, factory} from '@repo/test-kit/bud'
 import postcss from '@roots/bud-postcss'
 import {beforeEach, describe, expect, it} from 'vitest'
@@ -34,6 +36,9 @@ describe(`@roots/bud-purgecss`, () => {
 
   it(`should add plugin to the postcss plugins repository`, () => {
     purgecss.bind(bud)({content: [`**/*.html`]})
-    expect(bud.postcss.plugins.has(`purgecss`)).toBe(true)
+    expect(bud.postcss.get(`purgecss`)).toStrictEqual([
+      `@fullhuman/postcss-purgecss`,
+      {content: [`**/*.html`]},
+    ])
   })
 })

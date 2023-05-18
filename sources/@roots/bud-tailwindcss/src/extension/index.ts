@@ -159,16 +159,19 @@ export class BudTailwindCss extends Extension<Options> {
       )
     }
 
-    bud.postcss.setPlugins({
-      nesting: await this.resolve(
-        join(`tailwindcss`, `nesting`, `index.js`),
-        import.meta.url,
-      ),
-      tailwindcss: [
+    bud.postcss
+      .set(
+        `nesting`,
+        await this.resolve(
+          join(`tailwindcss`, `nesting`, `index.js`),
+          import.meta.url,
+        ),
+      )
+      .set(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
         this.file.module ?? this.file.path,
-      ],
-    })
+      ])
+      .set(`order`, [`import`, `nesting`, `tailwindcss`, `env`])
 
     this.logger.success(`postcss configured for tailwindcss`)
 
@@ -247,7 +250,7 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   public override async buildBefore() {
-    if (this.app.postcss.overridenByProjectConfigFile) {
+    if (this.app.postcss.get(`postcssOptions.config`)) {
       this.logger.warn(
         `PostCSS configuration overridden by project config file.`,
         `@roots/bud-tailwindcss configuration will not apply.`,
