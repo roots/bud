@@ -70,6 +70,7 @@ export default class ConsoleBuffer extends Service {
       )
         return
 
+      // Push to queue
       this.queue.push({stream, message})
       this.app[stream === `stderr` ? `error` : `log`](message)
     })

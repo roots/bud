@@ -12,7 +12,7 @@ import type {
 import chalk from 'chalk'
 import * as Ink from 'ink'
 
-import {Console} from './dashboard/console/index.js'
+import {Console} from './console/index.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 

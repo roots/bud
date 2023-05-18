@@ -5,6 +5,7 @@ import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instances from '@roots/bud/instances'
+import {Console} from '@roots/bud-dashboard/console'
 import {Bud} from '@roots/bud-framework'
 import type {
   CommandContext,
@@ -428,8 +429,13 @@ export default class BudCommand extends Command<CommandContext> {
     }
 
     try {
+      const queuedMessages =
+        this.bud?.consoleBuffer?.fetchAndRemove() ?? []
+
       await this.renderStatic(
         <Ink.Box flexDirection="column">
+          <Console messages={queuedMessages} />
+
           <Display.Error error={error} />
           {isWindows() ? <WinError /> : null}
         </Ink.Box>,
