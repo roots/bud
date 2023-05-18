@@ -85,7 +85,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "terser-webpack-plugin": "5.3.8",
+    "terser-webpack-plugin": "5.3.9",
     "tslib": "2.5.0",
     "webpack": "5.83.0"
   },
