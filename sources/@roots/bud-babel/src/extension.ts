@@ -6,6 +6,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import {InputError} from '@roots/bud-support/errors'
+import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {LoaderOptions, Registry} from './types.js'
@@ -105,34 +106,55 @@ export default class BabelExtension extends Extension {
       configFile: false,
     }
 
-    return this.overridenByProjectConfigFile
-      ? {
-          ...baseOptions,
-          ...this.configFileOptions,
-        }
-      : {
-          ...baseOptions,
-          presets: Object.values(this.presets),
-          plugins: Object.values(this.plugins),
-          env: this.env,
-          root: this.root,
-          targets:
-            this.app.context.files[`package.json`].module.browserslist ??
-            `defaults`,
-        }
+    if (this.overridenByProjectConfigFile) {
+      return {
+        ...baseOptions,
+        ...this.configFileOptions,
+      }
+    }
+
+    return {
+      ...baseOptions,
+      presets: Object.values(this.presets),
+      plugins: Object.values(this.plugins),
+      env: this.env,
+      root: this.root,
+      targets:
+        this.app.context.files[`package.json`].module.browserslist ??
+        `defaults`,
+    }
   }
 
   /**
    * {@link Extension.register}
    */
   @bind
-  public override async register() {
+  public override async register({build, hooks}: Bud) {
+    const loader = await this.resolve(`babel-loader`, import.meta.url)
+    if (!loader) throw new Error(`babel-loader not found`)
+    hooks.on(`build.resolveLoader.alias`, (alias = {}) => ({
+      ...alias,
+      [`babel-loader`]: loader,
+    }))
+
     if (this.overridenByProjectConfigFile) {
       this.logger.log(
         `Babel configuration is being overridden by project configuration file.`,
       )
+
       this.configFileOptions =
         this.configFile.module.default ?? this.configFile.module
+
+      hooks.on(`build.cache.buildDependencies`, paths => {
+        if (isString(this.configFile)) {
+          paths.babel = [this.configFile]
+          this.logger.success(
+            `babel config added to webpack build dependencies`,
+          )
+        }
+        return paths
+      })
+
       return
     }
 
@@ -146,31 +168,17 @@ export default class BabelExtension extends Extension {
       `@babel/plugin-transform-runtime`,
       import.meta.url,
     )
-
     if (transformRuntime)
       this.setPlugin(`@babel/plugin-transform-runtime`, [
         transformRuntime,
         {helpers: false},
       ])
-  }
 
-  /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
-    const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) return this.logger.error(`Babel loader not found`)
-
-    bud.build.setLoader(`babel`, loader).setItem(`babel`, {
+    build.setLoader(`babel`, `babel-loader`).setItem(`babel`, {
       loader: `babel`,
       options: () => this.loaderOptions,
     })
-
-    bud.build.rules.js.setUse((items = []) => [
-      bud.build.items.babel,
-      ...items,
-    ])
+    build.rules.js.setUse((items = []) => [`babel`, ...items])
   }
 
   /**

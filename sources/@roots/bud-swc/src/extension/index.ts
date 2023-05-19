@@ -34,7 +34,6 @@ export default class BudSWC extends Extension<Options> {
    */
   @bind
   public override async register({build, context, fs, hooks}: Bud) {
-    const swcPath = await this.resolve(`@swc/core`, import.meta.url)
     const loaderPath = await this.resolve(`swc-loader`, import.meta.url)
 
     if (context.files?.[`.swcrc`]) {
@@ -43,17 +42,14 @@ export default class BudSWC extends Extension<Options> {
       )
     }
 
-    hooks.on(`build.resolveLoader`, resolveLoader => ({
-      ...(resolveLoader ?? {}),
-      alias: {
-        ...resolveLoader?.alias,
-        '@swc/core': swcPath,
-        'swc-loader': loaderPath,
-      },
+    /** set loader alias */
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      'swc-loader': loaderPath,
     }))
 
-    build.setLoader(`swc`, loaderPath).setItem(`swc`, {
-      loader: build.getLoader(`swc`),
+    build.setLoader(`swc`, `swc-loader`).setItem(`swc`, {
+      loader: `swc`,
       options: () => this.options,
     })
 

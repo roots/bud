@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit/bud'
 import {BudResolveUrl} from '../src/resolve-url/extension.js'
 
-describe(`@roots/bud-sass`, () => {
-  let bud
-  let extension
+describe(`@roots/bud-sass/resolve-url`, () => {
+  let bud: Bud
+  let extension: BudResolveUrl
 
   beforeEach(async () => {
     vi.restoreAllMocks()
@@ -49,9 +49,9 @@ describe(`@roots/bud-sass`, () => {
     } catch (e) {}
 
     expect(setItemSpy).toHaveBeenCalledWith(
-      `resolveUrl`,
+      `resolve-url`,
       expect.objectContaining({
-        loader: `resolveUrl`,
+        loader: `resolve-url`,
         options: expect.any(Function),
       }),
     )

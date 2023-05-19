@@ -61,27 +61,30 @@ export default class BudTypeScript extends Extension<Options> {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
+  public override async register({build, context, hooks}: Bud) {
     const loader = await this.resolve(`ts-loader`, import.meta.url)
+    if (!loader) return this.logger.error(`ts-loader not found`)
+
     const typescript = await this.resolve(`typescript`, import.meta.url)
+    if (!typescript) return this.logger.error(`typescript not found`)
 
     /**
      * If a tsconfig.json file is present
      */
-    if (bud.context.files[`tsconfig.json`]) {
+    if (context.files[`tsconfig.json`]) {
       // Set the tsconfig.json file path
-      this.set(`configFile`, bud.context.files[`tsconfig.json`].path)
+      this.set(`configFile`, context.files[`tsconfig.json`].path)
     }
 
     /**
      * Set the compiler and context options
      */
-    this.set(`compiler`, typescript).set(`context`, bud.context.basedir)
+    this.set(`compiler`, typescript).set(`context`, context.basedir)
 
     /**
      * Resolve .ts, .tsx, .jsx extensions
      */
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
+    hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions
         .add(`.ts`)
         .add(`.jsx`)
@@ -90,7 +93,12 @@ export default class BudTypeScript extends Extension<Options> {
         .add(`.cts`),
     )
 
-    bud.build
+    hooks.on(`build.resolveLoader.alias`, (alias = {}) => ({
+      ...alias,
+      [`ts-loader`]: loader,
+    }))
+
+    build
       .setLoader(`ts`, loader)
       .setItem(`ts`, {
         loader: `ts`,
@@ -108,7 +116,7 @@ export default class BudTypeScript extends Extension<Options> {
    * {@link Extension.configAfter}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async buildBefore({build}: Bud) {
     /**
      * Warn if no tsconfig.json was found or explicitly provided
      */
@@ -120,13 +128,13 @@ export default class BudTypeScript extends Extension<Options> {
     /**
      * The `babel` option is not a ts-loader option, so we'll omit it
      */
-    bud.build.items.ts.setOptions(omit(this.options, `babel`))
+    build.items.ts.setOptions(omit(this.options, `babel`))
 
-    const items = [bud.build.items.ts]
-    if (this.get(`babel`) && bud.build.items.babel)
-      items.unshift(bud.build.items.babel)
+    const items = [build.items.ts]
+    if (this.get(`babel`) && `babel` in build.items.babel)
+      items.unshift(build.items.babel)
 
-    bud.build.rules.ts.setUse(items)
-    bud.build.rules.js.setUse(items)
+    build.rules.ts.setUse(items)
+    build.rules.js.setUse(items)
   }
 }

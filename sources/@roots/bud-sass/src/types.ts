@@ -23,12 +23,12 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    resolveUrl: Build.Loader
+    'resolve-url': Build.Loader
     'sass-loader': Build.Loader
   }
 
   interface Items {
-    resolveUrl: Build.Item
+    'resolve-url': Build.Item
     sass: Build.Item
   }
 

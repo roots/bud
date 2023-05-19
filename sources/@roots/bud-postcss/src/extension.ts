@@ -8,6 +8,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import {InputError} from '@roots/bud-support/errors'
+import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import type {Plugin, Processor} from 'postcss'
 
@@ -56,7 +57,35 @@ export class BudPostCss extends Extension<Options> {
    * {@link Extension.register}
    */
   @bind
-  public override async register({build, context}: Bud): Promise<void> {
+  public override async register({
+    build,
+    context,
+    hooks,
+  }: Bud): Promise<void> {
+    const loader = await this.resolve(`postcss-loader`, import.meta.url)
+    if (!loader) throw new Error(`postcss-loader not found`)
+
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      [`postcss-loader`]: loader,
+    }))
+
+    build
+      .setLoader(
+        `postcss`,
+        await this.resolve(`postcss-loader`, import.meta.url),
+      )
+      .setItem(`postcss`, {
+        loader: `postcss`,
+        options: () => ({
+          postcssOptions: this.configFileOptions ?? this.postcssOptions,
+          sourceMap: this.get(`sourceMap`),
+        }),
+      })
+
+    build.rules.css.setUse((items = []) => [...items, `postcss`])
+    build.rules.cssModule?.setUse((items = []) => [...items, `postcss`])
+
     if (
       !context.files ||
       !Object.values(context.files).some(
@@ -86,26 +115,20 @@ export class BudPostCss extends Extension<Options> {
         `PostCSS configuration is being overridden by project configuration file.`,
       )
       this.set(`postcssOptions.config`, true)
-      this.configFileOptions = Object.values(this.app.context.files).find(
+
+      const config = Object.values(context.files).find(
         file => file?.name?.includes(`postcss`) && file?.module,
-      )?.module
-    }
-
-    build
-      .setLoader(
-        `postcss`,
-        await this.resolve(`postcss-loader`, import.meta.url),
       )
-      .setItem(`postcss`, {
-        loader: `postcss`,
-        options: () => ({
-          postcssOptions: this.configFileOptions ?? this.postcssOptions,
-          sourceMap: this.get(`sourceMap`),
-        }),
-      })
 
-    build.rules.css.setUse((items = []) => [...items, `postcss`])
-    build.rules.cssModule?.setUse((items = []) => [...items, `postcss`])
+      if (isString(config.path))
+        hooks.on(`build.cache.buildDependencies`, paths => ({
+          ...paths,
+          postcss: [config.path],
+        }))
+
+      if (!isUndefined(config.module))
+        this.configFileOptions = config.module.default ?? config.module
+    }
   }
 
   /**
@@ -139,6 +162,14 @@ export class BudPostCss extends Extension<Options> {
   ) {
     this.set(`order`, order)
     return this
+  }
+
+  /**
+   * Get plugins
+   */
+  @bind
+  public getPlugins() {
+    return this.get(`plugins`) as InputRecords
   }
 
   /**

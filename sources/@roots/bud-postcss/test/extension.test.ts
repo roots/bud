@@ -13,6 +13,12 @@ describe(`@roots/bud-postcss`, () => {
     expect(bud.postcss.label).toBe(`@roots/bud-postcss`)
   })
 
+  it(`getPlugins`, async () => {
+    const bud = await factory()
+    await bud.extensions.add(BudPostCss)
+    expect(bud.postcss.getPlugins()).toBe(bud.postcss.get(`plugins`))
+  })
+
   it(`setPlugins from obj`, async () => {
     const bud = await factory()
     await bud.extensions.add(BudPostCss)

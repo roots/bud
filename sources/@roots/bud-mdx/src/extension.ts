@@ -26,27 +26,27 @@ export class BudMDX extends Extension {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
-    bud.hooks.on(`build.resolve.extensions`, ext =>
-      ext.add(`.md`).add(`.mdx`),
-    )
+  public override async register({build, hooks}: Bud) {
+    const loader = await this.resolve(`@mdx-js/loader`, import.meta.url)
+    if (!loader) return this.logger.error(`MDX loader not found`)
 
-    bud.build
-      .setLoader(
-        `mdx`,
-        await this.resolve(`@mdx-js/loader`, import.meta.url),
-      )
-      .setItem(`mdx`, {
-        loader: `mdx`,
-        options: () => ({
-          rehypePlugins: this.get(`rehypePlugins`)
-            ? Object.values(this.get(`rehypePlugins`))
-            : [],
-          remarkPlugins: this.get(`remarkPlugins`)
-            ? Object.values(this.get(`remarkPlugins`))
-            : [],
-        }),
-      })
+    hooks.on(`build.resolve.extensions`, ext => ext.add(`.md`).add(`.mdx`))
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      [`@mdx-js/loader`]: loader,
+    }))
+
+    build.setLoader(`mdx`, `@mdx-js/loader`).setItem(`mdx`, {
+      loader: `mdx`,
+      options: () => ({
+        rehypePlugins: this.get(`rehypePlugins`)
+          ? Object.values(this.get(`rehypePlugins`))
+          : [],
+        remarkPlugins: this.get(`remarkPlugins`)
+          ? Object.values(this.get(`remarkPlugins`))
+          : [],
+      }),
+    })
   }
 
   /**

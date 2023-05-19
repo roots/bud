@@ -10,11 +10,12 @@ import type {BudPostCss} from './extension.js'
 interface PublicPostCssApi extends PublicExtensionApi<BudPostCss> {
   postcssOptions: BudPostCss[`postcssOptions`]
   getPlugin: BudPostCss[`getPlugin`]
+  setPlugin: BudPostCss[`setPlugin`]
   getPluginPath: BudPostCss[`getPluginPath`]
   setPluginPath: BudPostCss[`setPluginPath`]
   getPluginOptions: BudPostCss[`getPluginOptions`]
   setPluginOptions: BudPostCss[`setPluginOptions`]
-  setPlugin: BudPostCss[`setPlugin`]
+  getPlugins: BudPostCss[`getPlugins`]
   setPlugins: BudPostCss[`setPlugins`]
   unsetPlugin: BudPostCss[`unsetPlugin`]
   use: BudPostCss[`use`]

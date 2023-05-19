@@ -48,8 +48,23 @@ export default class BudPresetWordPress extends Extension<Options> {
   /**
    * {@link Extension.buildBefore}
    */
-  public override async buildBefore({build}, options: Options) {
+  public override async buildBefore({build, hooks}, options: Options) {
+    /** Bail if hmr option is false */
     if (!options.hmr) return
+
+    /** Source loader */
+    const loader = await this.resolve(
+      `@roots/wordpress-hmr/loader`,
+      import.meta.url,
+    )
+    /** Bail if unresolvable */
+    if (!loader) return this.logger.error(`HMR loader not found`)
+
+    /** Set loader alias */
+    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+      ...aliases,
+      [`@roots/wordpress-hmr/loader`]: loader,
+    }))
 
     build
       .setLoader(

@@ -12,8 +12,8 @@ export class BladeLoaderExtension extends Extension {
   /**
    * {@link Extension.register}
    */
-  public override async register(bud: Bud) {
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
+  public override async register({hooks}: Bud) {
+    hooks.on(`build.resolve.extensions`, (extensions = new Set([])) =>
       extensions.add(`.blade.php`),
     )
   }

@@ -82,9 +82,14 @@ export interface Sync {
   'resolve.extensions': Set<string>
   'resolve.extensionAlias': Configuration['resolve']['extensionAlias']
   resolveLoader: Configuration['resolveLoader']
+  'resolveLoader.alias': Configuration[`resolveLoader`][`alias`]
   snapshot: Configuration[`snapshot`]
+  'snapshot.buildDependencies': Configuration[`snapshot`][`buildDependencies`]
+  'snapshot.immutablePaths': Configuration[`snapshot`][`immutablePaths`]
   'snapshot.managedPaths': Configuration[`snapshot`][`managedPaths`]
-
+  'snapshot.module': Configuration[`snapshot`][`module`]
+  'snapshot.resolveBuildDependencies': Configuration[`snapshot`][`resolveBuildDependencies`]
+  'snapshot.resolve': Configuration[`snapshot`][`resolve`]
   stats: StatsOptions
   'stats.preset': string
   target: Configuration['target']
