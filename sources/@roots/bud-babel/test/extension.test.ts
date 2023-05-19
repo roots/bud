@@ -20,10 +20,6 @@ describe(`@roots/bud-babel`, () => {
     expect(BabelInstance.register).toBeDefined()
   })
 
-  it(`should have configAfter method`, async () => {
-    expect(BabelInstance.configAfter).toBeDefined()
-  })
-
   it(`config class shoudl have setPlugins`, async () => {
     expect(BabelInstance.setPlugins).toBeInstanceOf(Function)
   })

@@ -8,7 +8,8 @@ import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 import type {BudPostCss} from './extension.js'
 
 interface PublicPostCssApi extends PublicExtensionApi<BudPostCss> {
-  overridenByProjectConfigFile: BudPostCss[`overridenByProjectConfigFile`]
+  postcssOptions: BudPostCss[`postcssOptions`]
+  getPlugin: BudPostCss[`getPlugin`]
   setPlugin: BudPostCss[`setPlugin`]
   getPluginPath: BudPostCss[`getPluginPath`]
   setPluginPath: BudPostCss[`setPluginPath`]
@@ -17,7 +18,7 @@ interface PublicPostCssApi extends PublicExtensionApi<BudPostCss> {
   getPlugins: BudPostCss[`getPlugins`]
   setPlugins: BudPostCss[`setPlugins`]
   unsetPlugin: BudPostCss[`unsetPlugin`]
-  plugins: BudPostCss[`plugins`]
+  use: BudPostCss[`use`]
   getSyntax: BudPostCss[`getSyntax`]
   setSyntax: BudPostCss[`setSyntax`]
   getSourceMap: BudPostCss[`getSourceMap`]

@@ -14,7 +14,7 @@ import {Install} from '@site/src/docs/Install'
 
 ## Usage
 
-By default, **@roots/bud-postcss** includes the following plugins, registered with postcss in this order:
+By default, **@roots/bud-postcss** includes the following plugins, registered with PostCSS in this order:
 
 | Order | Key       | Plugin                                                      |
 | ----- | --------- | ----------------------------------------------------------- |
@@ -22,41 +22,95 @@ By default, **@roots/bud-postcss** includes the following plugins, registered wi
 | 2.    | 'nesting' | [postcss-nested](https://github.com/postcss/postcss-nested) |
 | 3.    | 'env'     | [postcss-preset-env](https://preset-env.cssdb.org/)         |
 
-If this works for you, great! No need to keep reading. But, should you need something more specialized,
-you can configure it in your bud config file or a postcss.config.js file in your project's root directory.
+If this works for you, great! No need to keep reading.
 
-Any additional plugins you may want to add will be added between `nesting` and `env`.
-This is, generally, what you want, but there instructions included below for overriding this behavior.
+Should you need something more specialized, you can configure PostCSS in your bud config file or a
+standard PostCSS config file.
 
-## Add a plugin
+Note that by using a PostCSS config file you will be overriding the bud.js options API.
 
-You can add a plugin with **bud.postcss.setPlugin**. This function takes up to two parameters.
+## Overriding PostCSS options directly
 
-The first parameter is required. It is the name for the plugin.
-If it is the only parameter being passed, it should be the module signifier.
+You can set the PostCSS options directly using `bud.postcss.set`.
+
+PostCss options are contained in the `postcssOptions` key.
 
 ```typescript title=bud.config.js
-bud.postcss.setPlugin('example-postcss-plugin')
+bud.postcss.set(`postcssOptions`, {
+  parser: `sugarss`,
+  plugins: [`postcss-import`, `postcss-nested`, `postcss-preset-env`],
+})
 ```
 
-The second parameter is optional and multivariate.
+Doing it this way is quick and easy but you are fully overriding the default settings. It's best to use this method only
+if you are comfortable with PostCSS and know what you are doing.
 
-Use a string to specify the plugin's resolvable path:
+If you want to just change a single option you can use dot syntax:
+
+```typescript title=bud.config.js
+bud.postcss.set(`postcssOptions.parser`, `sugarss`)
+```
+
+This allows the default options to be merged with your new options.
+
+## Adding a plugin
+
+Adding a plugin with the API is a two step process:
+
+1. Register the plugin
+2. Add it to the plugin order
+
+Let's look at how this is done using `tailwindcss` as an example.
+
+```typescript title=bud.config.js
+bud.postcss
+  /** Register the tailwindcss/nesting plugin */
+  .setPlugin(`tailwindcss/nesting`)
+  /** Register the tailwindcss plugin and options */
+  .setPlugin(`tailwindcss`)
+  /** Specify which registered plugins you want to use, in the order they should be added */
+  .use([`import`, `tailwindcss/nesting`, `tailwindcss`, `env`])
+```
+
+### Step 1. Registration
+
+```typescript title=bud.config.js
+bud.postcss.setPlugin(`example-postcss-plugin`)
+```
+
+If you want to be specific about how to resolve a plugin, you can pass a second parameter.
 
 ```typescript title=bud.config.js
 bud.postcss.setPlugin(
-  'example-postcss-plugin',
-  bud.path('./directory/example.js'),
+  `example-postcss-plugin`,
+  bud.path(`@modules/example-postcss-plugin/lib/index.js`),
 )
 ```
 
-Use an array to set any associated options alongside the resolvable path.
+If you want to pass along options with the plugin, you can do so by passing an array.
 
 ```typescript title=bud.config.js
-bud.postcss.setPlugin('example-postcss-plugin', [
-  bud.path('./directory/example.js'),
+bud.postcss.setPlugin(`example-postcss-plugin`, [
+  `example-postcss-plugin`,
   {stage: 1},
 ])
+```
+
+### Step 2. Add the plugin
+
+```typescript title=bud.config.js
+bud.postcss.use([
+  `import`,
+  `nesting`,
+  `example-postcss-plugin`, // our new plugin
+  'env',
+])
+```
+
+You can also use a callback:
+
+```typescript title=bud.config.js
+bud.postcss.use(plugins => [...plugins, 'example-postcss-plugin'])
 ```
 
 ## Override plugin options
@@ -69,9 +123,9 @@ The first parameter is the plugin key and the second is the options object.
 bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 ```
 
-## Override plugin resolution
+## Override plugin path
 
-You can modify the path for a postcss plugin using **bud.postcss.setPluginPath**.
+You can modify the path for a PostCSS plugin using **bud.postcss.setPluginPath**.
 
 The first parameter is the plugin key and the second is the new path to assign.
 
@@ -82,90 +136,10 @@ bud.postcss.setPluginPath(
 )
 ```
 
-## Add multiple plugins
-
-You can add multiple postcss plugins using **bud.postcss.setPlugins**.
-
-### Using an object
-
-```typescript title=bud.config.js
-bud.postcss.setPlugins({
-  ['tailwindcss']: await bud.module.resolve('tailwindcss'),
-  ['nesting']: await bud.module.resolve('tailwindcss/nesting/index.js'),
-})
-```
-
-### Using a Map
-
-```typescript title=bud.config.js
-bud.postcss.setPlugins(
-  new Map([])
-    .set('tailwindcss', await bud.module.resolve('tailwindcss'))
-    .set('nesting', [
-      await bud.module.resolve('tailwindcss/nesting/index.js'),
-    ]),
-)
-```
-
-### Using an array
-
-```typescript title=bud.config.js
-bud.postcss.setPlugins([
-  ['tailwindcss', await bud.module.resolve('tailwindcss')],
-  ['nesting', await bud.module.resolve('tailwindcss/nesting/index.js')],
-])
-```
-
 ## Remove a plugin
 
-You may remove a plugin with **bud.postcss.unsetPlugin**.
+You may remove a plugin by calling **bud.postcss.unsetPlugin** with the plugin key.
 
 ```typescript title=bud.config.js
-bud.postcss.unsetPlugin('import')
+bud.postcss.unsetPlugin(`import`)
 ```
-
-## Plugin ordering
-
-**@roots/bud-postcss** loosely attempts to enforce a particular plugin load order.
-
-It will always attempt to load plugins in this order:
-
-| Order | Description                     | Default              |
-| ----- | ------------------------------- | -------------------- |
-| 1     | `import` implementation         | `postcss-import`     |
-| 2     | `nesting` implementation        | `postcss-nested`     |
-| ...3  | all other plugins as registered | none                 |
-| 4     | `env` implementation            | `postcss-preset-env` |
-
-The reason bud.js gets so hands-on here is to provide a reasonable default which people can build on without needing to splice in their own plugins manually.
-If this is a problem for your project, the most direct way to override this is to hook a function to `postcss.plugins` which returns an array of plugin values:
-
-```typescript title=bud.config.js
-bud.hooks.on('postcss.plugins', () => {
-  return [
-    bud.postcss.get('import'),
-    // ... plugins, in the order you wish to load them
-  ]
-})
-```
-
-## Working with the plugin registry directly
-
-**@roots/bud-postcss** stores PostCSS plugins as a `Map`. You can work with this `Map` directly using **bud.postcss.plugins**.
-
-```typescript title=bud.config.js
-export default async bud => {
-  bud.postcss.plugins.set('import', [
-    await module.resolve('postcss-import'),
-    {...options},
-  ])
-
-  bud.postcss.plugins.get('import')
-
-  bud.postcss.plugins.delete('import')
-
-  bud.postcss.plugins.clear()
-}
-```
-
-When you `get` something, you can hopefully rely on it being a `tuple` with the plugin in the first position and the options in the second. The plugin might be a string (resolveable path) or a module.

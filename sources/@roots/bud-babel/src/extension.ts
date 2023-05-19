@@ -107,16 +107,6 @@ export default class BabelExtension extends Extension {
     }
 
     if (this.overridenByProjectConfigFile) {
-      this.app.hooks.on(`build.cache.buildDependencies`, paths => {
-        if (isString(this.configFile)) {
-          paths.babel = [this.configFile]
-          this.logger.success(
-            `babel config added to webpack build dependencies`,
-          )
-        }
-        return paths
-      })
-
       return {
         ...baseOptions,
         ...this.configFileOptions,
@@ -140,12 +130,31 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public override async register({build, hooks}: Bud) {
+    const loader = await this.resolve(`babel-loader`, import.meta.url)
+    if (!loader) throw new Error(`babel-loader not found`)
+    hooks.on(`build.resolveLoader.alias`, (alias = {}) => ({
+      ...alias,
+      [`babel-loader`]: loader,
+    }))
+
     if (this.overridenByProjectConfigFile) {
       this.logger.log(
         `Babel configuration is being overridden by project configuration file.`,
       )
+
       this.configFileOptions =
         this.configFile.module.default ?? this.configFile.module
+
+      hooks.on(`build.cache.buildDependencies`, paths => {
+        if (isString(this.configFile)) {
+          paths.babel = [this.configFile]
+          this.logger.success(
+            `babel config added to webpack build dependencies`,
+          )
+        }
+        return paths
+      })
+
       return
     }
 
@@ -165,18 +174,11 @@ export default class BabelExtension extends Extension {
         {helpers: false},
       ])
 
-    const loader = await this.resolve(`babel-loader`, import.meta.url)
-    if (!loader) return this.logger.error(`Babel loader not found`)
-
-    hooks.on(`build.resolveLoader`, (aliases = {}) => ({
-      ...aliases,
-      [`babel-loader`]: loader,
-    }))
     build.setLoader(`babel`, `babel-loader`).setItem(`babel`, {
       loader: `babel`,
       options: () => this.loaderOptions,
     })
-    build.rules.js.setUse((items = []) => [build.items.babel, ...items])
+    build.rules.js.setUse((items = []) => [`babel`, ...items])
   }
 
   /**

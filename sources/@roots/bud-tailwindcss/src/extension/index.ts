@@ -159,18 +159,20 @@ export class BudTailwindCss extends Extension<Options> {
       )
     }
 
-    bud.postcss.setPlugins({
-      nesting: await this.resolve(
-        join(`tailwindcss`, `nesting`, `index.js`),
-        import.meta.url,
-      ),
-      tailwindcss: [
+    bud.postcss
+      .setPlugin(
+        `nesting`,
+        await this.resolve(
+          join(`tailwindcss`, `nesting`, `index.js`),
+          import.meta.url,
+        ),
+      )
+      .setPlugin(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
         this.file.module ?? this.file.path,
-      ],
-    })
-
-    this.logger.success(`postcss configured for tailwindcss`)
+      ])
+      .use([`import`, `nesting`, `tailwindcss`, `env`])
+      .logger.success(`postcss configured for tailwindcss`)
 
     /**
      * Add tailwind config to webpack cache dependencies
@@ -247,7 +249,7 @@ export class BudTailwindCss extends Extension<Options> {
   }
 
   public override async buildBefore() {
-    if (this.app.postcss.overridenByProjectConfigFile) {
+    if (this.app.postcss.get(`postcssOptions.config`)) {
       this.logger.warn(
         `PostCSS configuration overridden by project config file.`,
         `@roots/bud-tailwindcss configuration will not apply.`,
