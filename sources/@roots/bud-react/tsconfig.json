@@ -7,7 +7,7 @@
     "module": "esnext",
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts"],
+  "exclude": ["test"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-babel/tsconfig.json"},

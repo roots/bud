@@ -1,8 +1,11 @@
+import basedir from '@roots/bud/cli/flags/basedir'
 import debug from '@roots/bud/cli/flags/debug'
+import dry from '@roots/bud/cli/flags/dry'
 import filter from '@roots/bud/cli/flags/filter'
 import log from '@roots/bud/cli/flags/log'
 import mode from '@roots/bud/cli/flags/mode'
 import notify from '@roots/bud/cli/flags/notify'
+import silent from '@roots/bud/cli/flags/silent'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
@@ -92,10 +95,11 @@ export default class BudCommand extends Command<CLIContext> {
     context: Context,
   ) => Promise<Context>
 
-  public basedir = Option.String(`--basedir,--cwd`, undefined, {
-    description: `project base directory`,
-    hidden: true,
-  })
+  public basedir = basedir
+
+  public dry = dry
+
+  public silent = silent
 
   public debug = debug
 
@@ -122,11 +126,13 @@ export default class BudCommand extends Command<CLIContext> {
   public async makeBud() {
     const context = {
       basedir: this.basedir,
+      dry: this.dry,
       debug: this.debug,
       filter: this.filter,
       log: this.log,
       mode: this.mode,
       notify: this.notify,
+      silent: this.silent,
       target: this.filter,
       verbose: this.verbose,
       ...omit(this.context, [`stdin`, `stdout`, `stderr`, `colorDepth`]),
@@ -136,7 +142,6 @@ export default class BudCommand extends Command<CLIContext> {
       this.context,
       this.withContext ? await this.withContext(context) : context,
     )
-
     await import(`../env.${this.context.mode}.js`)
 
     this.bud = instances.get()

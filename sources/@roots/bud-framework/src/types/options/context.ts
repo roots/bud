@@ -3,10 +3,17 @@ import type {Logger} from '../services/logger/index.js'
 
 /**
  * Bud context object
+ *
+ * @remarks
+ * The context object is constructing during bootstrapping. You shouldn't modify
+ * or reference this object unless you know what you're doing and are okay with updating
+ * your code when the context object changes between releases.
+ *
+ * @internal
  */
 export interface Context {
   /**
-   * argv
+   * All received positional arguments
    */
   _?: Record<string, any>
 
@@ -17,6 +24,7 @@ export interface Context {
    * In the case of a nested bud.js instance, this will be the parent bud.js instance.
    */
   root?: Bud
+
   /**
    * Bud.js instance dependencies
    *
@@ -26,6 +34,7 @@ export interface Context {
    * defined child instances.
    */
   dependsOn?: Array<string>
+
   /**
    * The instance label
    *
@@ -33,6 +42,7 @@ export interface Context {
    * Can be accessed via {@link Bud.label}
    */
   label?: string
+
   /**
    * The instance base directory
    *
@@ -40,6 +50,7 @@ export interface Context {
    * Set with `--basedir` or `--cwd` CLI flags
    */
   basedir: string
+
   /**
    * The build mode
    *
@@ -47,6 +58,7 @@ export interface Context {
    * Set with `--mode` CLI flag.
    */
   mode: 'development' | 'production'
+
   /**
    * Information on the installed version of bud.js
    */
@@ -124,6 +136,7 @@ export interface Context {
    * @remarks
    * Use {@link Bud.path} and {@link Bud.setPath} to interact with bud.js paths.
    *
+   * @remarks
    * This is a record of paths that are set by default or by flags/env. It is not
    * necesssarily a complete or accurate representation of the paths that are
    * available to bud.js.
@@ -141,6 +154,7 @@ export interface Context {
 
     /**
      * Directory for temporary files
+     *
      * @default os-cache
      */
     storage: string
@@ -239,6 +253,7 @@ export interface Context {
     | `hidden-cheap-source-map`
     | `hidden-cheap-module-source-map`
     | `hidden-source-map`
+
   /**
    * Discover option
    *
@@ -246,6 +261,7 @@ export interface Context {
    * Set with `--no-discover` CLI flag.
    */
   discover?: boolean
+
   /**
    * Dry option
    *
@@ -253,6 +269,7 @@ export interface Context {
    * Set with `--dry` CLI flag.
    */
   dry?: boolean
+
   /**
    * Output directory
    *
@@ -260,6 +277,7 @@ export interface Context {
    * Set with `--output` CLI flag.
    */
   output?: string
+
   /**
    * Open editor on error
    *
@@ -267,6 +285,7 @@ export interface Context {
    * Set with `--editor` CLI flag.
    */
   editor?: string | boolean
+
   /**
    * ESM option
    *
@@ -274,6 +293,7 @@ export interface Context {
    * Set with `--esm` CLI flag.
    */
   esm?: boolean
+
   /**
    * Filter option
    *
@@ -284,6 +304,7 @@ export interface Context {
    * Set with `--filter` CLI flag.
    */
   filter?: Array<string>
+
   /**
    * Force option
    *
@@ -291,15 +312,79 @@ export interface Context {
    * Set with the `--force` CLI flag.
    */
   force?: boolean
+
+  /**
+   * Hash option
+   *
+   * @remarks
+   * Set with the `--hash` CLI flag.
+   */
   hash?: boolean
+
+  /**
+   * Hot option
+   *
+   * @remarks
+   * Set with the `--hot` CLI flag.
+   */
   hot?: boolean
+
+  /**
+   * HTML option
+   *
+   * @remarks
+   * Set with the `--html` CLI flag.
+   */
   html?: boolean | string
+
+  /**
+   * Immutable option
+   *
+   * @remarks
+   * Set with the `--immutable` CLI flag.
+   */
   immutable?: boolean
+
+  /**
+   * Indicator option
+   *
+   * @remarks
+   * Set with the `--indicator` CLI flag.
+   */
   indicator?: boolean
+
+  /**
+   * Input option
+   *
+   * @remarks
+   * Set with the `--input` CLI flag.
+   */
   input?: string
+
+  /**
+   * Log option
+   *
+   * @remarks
+   * Set with the `--log` CLI flag.
+   */
   log?: boolean
+
+  /**
+   * Minimize option
+   *
+   * @remarks
+   * Set with the `--minimize` CLI flag.
+   */
   minimize?: boolean
+
+  /**
+   * Modules option
+   *
+   * @remarks
+   * Set with the `--modules` CLI flag.
+   */
   modules?: string
+
   /**
    * Notify option
    *
@@ -307,20 +392,86 @@ export interface Context {
    * Set with the `--notify` CLI flag.
    */
   notify?: boolean
+
+  /**
+   * Overlay option
+   *
+   * @remarks
+   * Set with the `--overlay` CLI flag.
+   */
   overlay?: boolean
+
+  /**
+   * Public path option
+   *
+   * @remarks
+   * Set with the `--publicPath` CLI flag.
+   */
   publicPath?: string
+
+  /**
+   * Port option
+   *
+   * @remarks
+   * Set with the `--port` CLI flag.
+   */
   port?: string
+
+  /**
+   * Proxy option
+   *
+   * @remarks
+   * Set with the `--proxy` CLI flag.
+   */
   proxy?: string
+
+  /**
+   * Reload option
+   *
+   * @remarks
+   * Set with the `--reload` CLI flag.
+   */
   reload?: boolean
+
+  /**
+   * Runtime option
+   *
+   * @remarks
+   * Set with the `--runtime` CLI flag.
+   */
   runtime?: `single` | `multiple` | boolean
+
+  /**
+   * Silent option
+   *
+   * @remarks
+   * Set with the `--silent` CLI flag.
+   */
+  silent?: boolean
+
+  /**
+   * Split chunks option
+   *
+   * @remarks
+   * Set with the `--splitChunks` CLI flag.
+   */
   splitChunks?: boolean
+
+  /**
+   * Storage option
+   *
+   * @remarks
+   * Set with the `--storage` CLI flag.
+   */
   storage?: string
+
   /**
    * Target option
    *
    * @todo Is this used anywhere?
    */
   target?: Array<string>
+
   /**
    * Use option
    *
@@ -330,6 +481,7 @@ export interface Context {
    * Set with the `--use` CLI flag.
    */
   use?: Array<string>
+
   /**
    * Verbose logging option
    *
@@ -337,6 +489,7 @@ export interface Context {
    * Set with `--verbose` CLI flag.
    */
   verbose?: boolean
+
   /**
    * Bin option
    *
@@ -350,18 +503,81 @@ export interface Context {
  * Virtual file system file
  */
 export interface File {
+  /**
+   * Filename
+   */
   name: string
+  /**
+   * Absolute filepath
+   */
   path: string
+  /**
+   * Is a bud configuration file
+   *
+   * @remarks
+   * File name contains `bud`.
+   */
   bud: boolean
+  /**
+   * Is a local configuration file
+   *
+   * @remarks
+   * File name includes `.local`.
+   */
   local: boolean
+  /**
+   * Is a dynamic configuration file
+   *
+   * @remarks
+   * File extension is `.cjs`, `mjs`, `.js` or `.ts`
+   */
   dynamic: boolean
+
+  /**
+   * File extension
+   */
   extension: string | null
+
+  /**
+   * Target environment config
+   *
+   * @remarks
+   * File name includes `.production` or `.development`
+   */
   type: `production` | `development` | `base`
+
+  /**
+   * Module (if file is a dynamic configuration file)
+   */
   module: any
+
+  /**
+   * Is a `file` (as opposed to a directory)
+   */
   file: boolean
+
+  /**
+   * Is a `directory` (as opposed to a file)
+   */
   dir: boolean
+
+  /**
+   * Is a symlink
+   */
   symlink: boolean
+
+  /**
+   * File size
+   */
   size: number
+
+  /**
+   * SHA1 hash of file contents
+   */
   sha1: string
+
+  /**
+   * File mode
+   */
   mode: number
 }

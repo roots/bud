@@ -21,7 +21,7 @@ export class BudTSCCommand extends BudCommand {
     await this.bud.run()
 
     const tsc = join(
-      await this.bud.module.getDirectory(`tsc`),
+      await this.bud.module.getDirectory(`typescript`, import.meta.url),
       `bin`,
       `tsc`,
     )

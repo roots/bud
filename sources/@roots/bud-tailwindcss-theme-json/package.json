@@ -67,7 +67,6 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss",
-    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12"
   },
@@ -75,6 +74,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-wordpress-theme-json": "workspace:sources/@roots/bud-wordpress-theme-json",
     "tslib": "2.5.0"
   },
   "volta": {

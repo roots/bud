@@ -84,7 +84,7 @@ export class Module extends Service {
   @bind
   public async getDirectory(signifier: string, context?: string) {
     return await this.resolve(signifier, context)
-      .then(path => relative(context ?? this.app.context.basedir, path))
+      .then(path => relative(this.app.context.basedir, path))
       .then(path => path.split(signifier).shift())
       .then(path => this.app.path(path as any, signifier))
   }

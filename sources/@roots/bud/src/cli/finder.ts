@@ -4,7 +4,6 @@ import {fileURLToPath} from 'node:url'
 
 import type {Context} from '@roots/bud-framework/options'
 import {bind} from '@roots/bud-support/decorators/bind'
-import globby from '@roots/bud-support/globby'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'
 
@@ -49,7 +48,9 @@ export class Commands {
   public async getRegistrationModulePaths(): Promise<Array<any>> {
     return await this.resolveExtensionCommandPaths(
       this.getProjectDependencySignifiers(),
-    ).then(this.findExtensionCommandPaths)
+    )
+      .then(this.findExtensionCommandPaths)
+      .then(this.resolveExtensionCommandPaths)
   }
 
   /**
@@ -67,15 +68,10 @@ export class Commands {
    * Find commands shipped with a given extension
    */
   @bind
-  public async findExtensionCommandPaths(paths: Array<string>) {
-    return await Promise.all(
-      paths
-        .map(dirname)
-        .map(
-          async path =>
-            await globby(join(path, join(`bud`, `commands`, `index.js`))),
-        ),
-    ).then(results => results.flat())
+  public findExtensionCommandPaths(paths: Array<string>) {
+    return paths
+      .map(dirname)
+      .map(path => join(path, join(`bud`, `commands`, `index.js`)))
   }
 
   public async resolveExtensionCommandPaths(paths: Array<string>) {

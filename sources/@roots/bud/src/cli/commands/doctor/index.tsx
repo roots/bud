@@ -46,7 +46,7 @@ for a lot of edge cases so it might return a false positive.
    * {@link Command.withContext}
    */
   public override withContext = async (context: Context) => {
-    return {...context, cache: false, dry: true}
+    return {...context, cache: false, dry: true, silent: true}
   }
 
   public configuration: webpack.Configuration
@@ -75,6 +75,7 @@ for a lot of edge cases so it might return a false positive.
     const buildTimer = this.makeTimer()
     await this.makeBud()
     await this.bud.run()
+
     this.timings.build = buildTimer()
 
     if (isWindows()) {
@@ -171,61 +172,6 @@ for a lot of edge cases so it might return a false positive.
         {await this.packageCheck(`@roots/bud-hooks`)}
         {await this.packageCheck(`@roots/bud-server`)}
         {await this.packageCheck(`@roots/bud-support`)}
-      </Ink.Box>,
-    )
-
-    const check =
-      (top = false) =>
-      async ([signifier, version]) => {
-        if (!top) {
-          this.resolvedDependencies[signifier] = version
-        }
-
-        try {
-          const path = await this.bud.module.getManifestPath(signifier)
-          if (!path) return
-
-          const manifest = await this.bud.fs.json.read(path)
-          if (!manifest.dependencies) return
-
-          Object.entries(manifest.dependencies).forEach(
-            ([signifier, version]: [string, string]) => {
-              this.resolvedDependencies[signifier] = version
-            },
-          )
-
-          await Promise.all(
-            Object.entries(manifest.dependencies)
-              .filter(([signifier]) => signifier.startsWith(`@roots`))
-              .flatMap(check()),
-          )
-        } catch (e) {}
-      }
-
-    try {
-      await Promise.all(
-        [
-          ...(this.bud.context.manifest?.dependencies
-            ? Object.entries(this.bud.context.manifest.dependencies)
-            : []),
-          ...(this.bud.context.manifest?.devDependencies
-            ? Object.entries(this.bud.context.manifest.devDependencies)
-            : []),
-        ]
-          .filter(Boolean)
-          .filter(([signifier]) => signifier.startsWith(`@roots`))
-          .map(check(true)),
-      )
-    } catch (e) {}
-
-    this.renderStatic(
-      <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">
-          Checking installed package compatibility{`\n`}
-        </Ink.Text>
-        {Object.entries(this.resolvedDependencies).map(
-          this.formatDepCheck,
-        )}
       </Ink.Box>,
     )
 

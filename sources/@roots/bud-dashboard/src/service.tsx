@@ -29,7 +29,7 @@ export class Dashboard extends Service implements Contract {
    * Is silent?
    */
   public get silent() {
-    return this.app.context.log === false
+    return this.app.context.silent === true
   }
 
   /**

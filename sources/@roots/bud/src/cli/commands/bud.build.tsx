@@ -4,7 +4,6 @@ import ci from '@roots/bud/cli/flags/ci'
 import clean from '@roots/bud/cli/flags/clean'
 import devtool from '@roots/bud/cli/flags/devtool'
 import discover from '@roots/bud/cli/flags/discover'
-import dry from '@roots/bud/cli/flags/dry'
 import editor from '@roots/bud/cli/flags/editor'
 import esm from '@roots/bud/cli/flags/esm'
 import force from '@roots/bud/cli/flags/force'
@@ -20,7 +19,7 @@ import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
 import type {Context} from '@roots/bud-framework/options/context'
-import {Command} from '@roots/bud-support/clipanion'
+import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
  * `bud build` command
@@ -60,7 +59,9 @@ export default class BudBuildCommand extends BudCommand {
 
   public discover = discover
 
-  public dry = dry
+  public override dry = Option.Boolean(`--dry`, false, {
+    description: `run in dry mode`,
+  })
 
   public editor = editor
 
@@ -83,6 +84,10 @@ export default class BudBuildCommand extends BudCommand {
   public publicPath = publicPath
 
   public runtime = runtime
+
+  public override silent = Option.Boolean(`--silent`, false, {
+    description: `suppress stdout output`,
+  })
 
   public splitChunks = splitChunks
 
@@ -117,6 +122,7 @@ export default class BudBuildCommand extends BudCommand {
       minimize: this.minimize,
       publicPath: this.publicPath,
       runtime: this.runtime,
+      silent: this.silent,
       splitChunks: this.splitChunks,
       storage: this.storage,
       target: this.filter,
