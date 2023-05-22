@@ -11,44 +11,36 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Setup
-        uses: actions/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
-          node-version: 18.12.1
+          node-version: 18.x
           cache: yarn
 
-      - name: yarn
-        run: yarn
+      - run: yarn
 
-      - name: set npmAuthToken
-        run: |
+      - run: |
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - name: Release v${{ github.event.inputs.version }}
-        run: yarn @bud release --tag latest --version ${{ github.event.inputs.version }} --registry https://registry.npmjs.org
+      - run: |
+          yarn @bud release --tag latest --version ${{ github.event.inputs.version }} --registry https://registry.npmjs.org
 
-      - name: Reset npmAuthToken
-        run: yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
+      - run: |
+          yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
 
-      - name: Configure Git
-        run: |
+      - run: |
           git config user.name "Roots Ladybud"
           git config user.email "<>"
 
-      - name: Create v${{ github.event.inputs.version }} branch
-        run: git checkout -b v${{ github.event.inputs.version }}
+      - run: git checkout -b v${{ github.event.inputs.version }}
 
-      - name: Commit v${{ github.event.inputs.version }}
-        run: |
+      - run: |
           git commit -am "chore: Bump @roots/bud to v${{ github.event.inputs.version }}"
           git push -u origin v${{ github.event.inputs.version }}
 
-      - name: Tag v${{ github.event.inputs.version }}
-        run: |
+      - run: |
           git tag v${{ github.event.inputs.version }}
           git push --tags
