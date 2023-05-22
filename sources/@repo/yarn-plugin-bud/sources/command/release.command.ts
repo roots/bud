@@ -95,11 +95,7 @@ export class Release extends Command {
     await this.$([`yarn`, [`@bud`, `version`, this.version]])
 
     await this.$(
-      `yarn workspaces foreach --no-private npm publish --access public --tag ${
-        this.tag
-      } ${
-        this.registry !== `http://localhost:4873` ? `--provenance` : ``
-      }`,
+      `yarn workspaces foreach --no-private npm publish --access public --tag ${this.tag}`,
     )
 
     await this.$([`yarn`, [`@bud`, `version`, `0.0.0`]])
