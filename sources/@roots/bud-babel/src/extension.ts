@@ -143,7 +143,7 @@ export default class BabelExtension extends Extension {
       )
 
       this.configFileOptions =
-        this.configFile.module.default ?? this.configFile.module
+        this.configFile.module?.default ?? this.configFile.module
 
       hooks.on(`build.cache.buildDependencies`, paths => {
         if (isString(this.configFile)) {

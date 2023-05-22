@@ -125,38 +125,38 @@ export class Module extends Service {
         .scope(`module`)
         .info(`[cache hit] ${signifier} => ${this.resolved[signifier]}`)
 
-      return get(this.resolved, signifier)
+      return get(this.resolved, [signifier])
     }
 
     logger.scope(`module`).info(`resolving`, signifier)
 
     try {
       const path = await resolve(signifier, this.makeContextURL())
-      set(this.resolved, signifier, normalize(fileURLToPath(path)))
+      set(this.resolved, [signifier], normalize(fileURLToPath(path)))
 
       logger
         .scope(`module`)
         .info(
           `[cache miss]`,
-          `resolved ${signifier} to ${get(this.resolved, signifier)}`,
+          `resolved ${signifier} to ${get(this.resolved, [signifier])}`,
         )
 
-      return get(this.resolved, signifier)
+      return get(this.resolved, [signifier])
     } catch (err) {
       errors.push(err.toString())
     }
 
     try {
       const path = await resolve(signifier, this.makeContextURL())
-      set(this.resolved, signifier, normalize(fileURLToPath(path)))
+      set(this.resolved, [signifier], normalize(fileURLToPath(path)))
       logger
         .scope(`module`)
         .info(
           `[cache miss]`,
-          `resolved ${signifier} to ${get(this.resolved, signifier)}`,
+          `resolved ${signifier} to ${get(this.resolved, [signifier])}`,
         )
 
-      return get(this.resolved, signifier)
+      return get(this.resolved, [signifier])
     } catch (err) {
       errors.push(err.toString())
     }
@@ -177,7 +177,7 @@ export class Module extends Service {
     context?: string,
   ): Promise<T> {
     if (signifier in this.resolved) {
-      const m = await import(get(this.resolved, signifier))
+      const m = await import(get(this.resolved, [signifier]))
       return m?.default ?? m
     }
 

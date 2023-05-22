@@ -65,7 +65,7 @@ export const minicss: Factory<Item> = async ({makeItem}) =>
     .setLoader(`minicss`)
     .setIdent(`minicss`)
     .setOptions(app => ({
-      publicPath: app.hooks.filter(`build.output.publicPath`),
+      publicPath: app.publicPath(),
     }))
 
 /**

@@ -77,7 +77,7 @@ export class BudTailwindCss extends Extension<Options> {
    */
   public get config() {
     return {
-      ...(resolveConfig(this.file.module.default ?? this.file.module) ??
+      ...(resolveConfig(this.file.module?.default ?? this.file.module) ??
         {}),
     }
   }

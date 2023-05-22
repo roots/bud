@@ -13,5 +13,8 @@
   },
   "browserslist": [
     "extends @roots/browserslist-config"
-  ]
+  ],
+  "dependencies": {
+    "@tailwindcss/forms": "0.5.3"
+  }
 }
