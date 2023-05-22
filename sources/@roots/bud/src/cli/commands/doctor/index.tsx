@@ -2,7 +2,7 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Error} from '@roots/bud-dashboard/app'
 import type {Extension} from '@roots/bud-framework'
-import type {CommandContext} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/options'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
@@ -41,8 +41,12 @@ for a lot of edge cases so it might return a false positive.
       [`Check compiled configuration against webpack`, `$0 doctor`],
     ],
   })
-  public override withArguments = async (args: CommandContext[`args`]) => {
-    return {...args, cache: false, dry: true}
+
+  /**
+   * {@link Command.withContext}
+   */
+  public override withContext = async (context: Context) => {
+    return {...context, cache: false, dry: true}
   }
 
   public configuration: webpack.Configuration
@@ -69,7 +73,7 @@ for a lot of edge cases so it might return a false positive.
     const {Doctor} = await import(`./Doctor.js`)
 
     const buildTimer = this.makeTimer()
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
     this.timings.build = buildTimer()
 

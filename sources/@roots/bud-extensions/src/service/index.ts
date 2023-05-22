@@ -75,14 +75,10 @@ export default class Extensions
     const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
-      const {
-        discover: _discover,
-        discovery: _discovery,
-        allowlist,
-        denylist,
-      } = manifest.bud.extensions
-
-      const discover = _discover ?? _discovery
+      const {allowlist, denylist} = manifest.bud.extensions
+      const discover =
+        manifest.bud.extensions.discover ??
+        manifest.bud.extensions.discovery
 
       if (!isUndefined(discover)) this.options.set(`discover`, discover)
       if (!isUndefined(allowlist))
@@ -90,38 +86,57 @@ export default class Extensions
       if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
     }
 
-    if (manifest?.[this.app.label]?.extensions) {
-      const {discover, allowlist, denylist} =
-        manifest[this.app.label].extensions
+    if (manifest?.bud?.[this.app.label]?.extensions) {
+      const {allowlist, denylist} = manifest.bud[this.app.label].extensions
+
+      const discover =
+        manifest.bud[this.app.label].extensions.discover ??
+        manifest.bud[this.app.label].extensions.discovery
+
       if (!isUndefined(discover)) this.options.set(`discover`, discover)
       if (!isUndefined(allowlist))
-        this.options.merge(`allowlist`, allowlist)
-      if (!isUndefined(denylist)) this.options.merge(`denylist`, denylist)
+        this.options.set(`allowlist`, (allowed = []) => [
+          ...allowed,
+          ...allowlist,
+        ])
+      if (!isUndefined(denylist))
+        this.options.set(`denylist`, (denied = []) => [
+          ...denied,
+          ...allowlist,
+        ])
     }
 
     if (
-      !isUndefined(extensions.builtIn) &&
+      !isUndefined(extensions?.builtIn) &&
       Array.isArray(extensions.builtIn)
     )
       await Promise.all(
-        extensions.builtIn.filter(Boolean).map(this.import),
+        extensions.builtIn
+          .filter(Boolean)
+          .map(
+            async signifier =>
+              await this.import(signifier, true, `@roots/bud`),
+          ),
       )
 
-    if (bud.isCLI() && !isUndefined(bud.context.args.discover)) {
-      this.options.set(`discover`, bud.context.args.discover)
+    if (!isUndefined(bud.context.discover)) {
+      this.options.set(`discover`, bud.context.discover)
     }
 
     if (
       this.options.is(`discover`, true) &&
       this.options.isEmpty(`allowlist`) &&
-      !isUndefined(extensions.discovered) &&
+      !isUndefined(extensions?.discovered) &&
       Array.isArray(extensions.discovered)
     )
       await Promise.all(
         extensions.discovered
           .filter(Boolean)
           .filter(this.isAllowed)
-          .map(this.import),
+          .map(
+            async signifier =>
+              await this.import(signifier, true, this.app.label),
+          ),
       )
     else if (this.options.isNotEmpty(`allowlist`))
       await Promise.all(
@@ -129,7 +144,10 @@ export default class Extensions
           .get(`allowlist`)
           .filter(Boolean)
           .filter(this.isAllowed)
-          .map(this.import),
+          .map(
+            async (signifier: string) =>
+              await this.import(signifier, true, this.app.label),
+          ),
       )
 
     await this.runAll(`register`)
@@ -244,12 +262,11 @@ export default class Extensions
   @bind
   public async import(
     signifier: string,
-    fatalOnError: boolean | number = true,
+    required: boolean | number = true,
+    context: string,
   ): Promise<Extension> {
-    if (fatalOnError && this.unresolvable.has(signifier))
+    if (required && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
-
-    this.logger.info(`importing`, signifier)
 
     if (signifier.startsWith(`.`)) {
       signifier = this.app.path(signifier)
@@ -257,23 +274,33 @@ export default class Extensions
     }
 
     if (this.has(signifier)) {
-      this.logger.info(signifier, `extension already imported`)
-      return
+      this.logger.info(signifier, `already imported`)
+      return this.get(signifier)
     }
 
-    const extensionClass: Extension = fatalOnError
-      ? await this.app.module.import(signifier, import.meta.url)
-      : await this.app.module.tryImport(signifier, import.meta.url)
+    let extension: Extension
 
-    if (!extensionClass) return
+    try {
+      this.logger.await(`import`, signifier)
+      extension = await this.app.module.import(signifier, import.meta.url)
+      this.logger.success(`import`, signifier)
+    } catch (error) {
+      this.unresolvable.add(signifier)
+      if (required) throw error
+    }
 
-    const instance = await this.instantiate(extensionClass)
+    if (!extension) return
+
+    const instance = await this.instantiate(extension)
 
     if (instance.dependsOn)
       await Promise.all(
         Array.from(instance.dependsOn)
           .filter(dependency => !this.has(dependency))
-          .map(async dependency => await this.import(dependency)),
+          .map(
+            async dependency =>
+              await this.import(dependency, true, signifier),
+          ),
       )
 
     if (this.options.is(`discover`, true) && instance.dependsOnOptional)
@@ -286,7 +313,7 @@ export default class Extensions
           )
           .filter(optionalDependency => !this.has(optionalDependency))
           .map(async optionalDependency => {
-            await this.import(optionalDependency, false)
+            await this.import(optionalDependency, false, signifier)
             if (!this.has(optionalDependency))
               this.unresolvable.add(optionalDependency)
           }),
@@ -391,16 +418,17 @@ export default class Extensions
     extension: Extension | K,
     methodName: Contract.LifecycleMethods,
   ): Promise<void> {
-    extension =
+    const instance: Extension =
       typeof extension === `string` ? this.get(extension) : extension
 
-    if (extension.dependsOn) {
-      await Array.from(extension.dependsOn)
+    if (instance.dependsOn) {
+      await Array.from(instance.dependsOn)
         .filter(this.isAllowed)
         .filter((signifier: K) => !this.unresolvable.has(signifier))
         .reduce(async (promised, signifier: K) => {
           await promised
-          if (!this.has(signifier)) await this.import(signifier)
+          if (!this.has(signifier))
+            await this.import(signifier, true, instance.label)
 
           if (
             this.get(signifier) &&
@@ -410,13 +438,14 @@ export default class Extensions
         }, Promise.resolve())
     }
 
-    if (this.options.is(`discover`, true) && extension.dependsOnOptional)
-      await Array.from(extension.dependsOnOptional)
+    if (this.options.is(`discover`, true) && instance.dependsOnOptional)
+      await Array.from(instance.dependsOnOptional)
         .filter(this.isAllowed)
         .filter((signifier: K) => !this.unresolvable.has(signifier))
         .reduce(async (promised, signifier: K) => {
           await promised
-          if (!this.has(signifier)) await this.import(signifier, false)
+          if (!this.has(signifier))
+            await this.import(signifier, false, instance.label)
           if (!this.has(signifier)) {
             this.unresolvable.add(signifier)
             return

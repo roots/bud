@@ -24,7 +24,7 @@ export class BudTSCheckCommand extends BudCommand {
    */
   @bind
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     const tsc = join(

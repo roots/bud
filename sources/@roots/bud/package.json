@@ -84,6 +84,10 @@
       "import": "./lib/cli/decorators/*.js",
       "default": "./lib/cli/decorators/*.js"
     },
+    "./cli/flags": {
+      "import": "./lib/cli/flags/index.js",
+      "default": "./lib/cli/flags/index.js"
+    },
     "./cli/helpers/*": {
       "import": "./lib/cli/helpers/*.js",
       "default": "./lib/cli/helpers/*.js"
@@ -132,6 +136,9 @@
       ],
       "cli/decorators": [
         "./lib/cli/decorators/index.d.ts"
+      ],
+      "cli/flags": [
+        "./lib/cli/flags/index.d.ts"
       ],
       "context": [
         "./lib/context/index.d.ts"

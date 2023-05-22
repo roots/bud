@@ -30,7 +30,7 @@ export default class InvalidateCacheExtension extends Extension {
   public override async register(bud: Bud) {
     const invalidate = await bud.fs?.exists(this.invalidationFile)
 
-    if (invalidate || (bud.isCLI() && bud.context.args.force)) {
+    if (invalidate || bud.context.force) {
       await bud.fs.remove(this.invalidationFile)
       await bud.fs.remove(bud.cache.cacheDirectory)
     }

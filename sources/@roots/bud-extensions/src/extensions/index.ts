@@ -9,6 +9,7 @@ import MiniCssExtractPlugin from './mini-css-extract-plugin/index.js'
 import BudTsConfigValues from './tsconfig-values/index.js'
 import WebpackDefinePlugin from './webpack-define-plugin/index.js'
 import WebpackHotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin/index.js'
+import BudWebpackLifecyclePlugin from './webpack-lifecycle-plugin/index.js'
 import WebpackManifestPlugin from './webpack-manifest-plugin/index.js'
 import WebpackProvidePlugin from './webpack-provide-plugin/index.js'
 
@@ -24,6 +25,7 @@ export {
   MiniCssExtractPlugin,
   WebpackDefinePlugin,
   WebpackHotModuleReplacementPlugin,
+  BudWebpackLifecyclePlugin,
   WebpackManifestPlugin,
   WebpackProvidePlugin,
 }

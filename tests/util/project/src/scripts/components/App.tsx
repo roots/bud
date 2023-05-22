@@ -1,12 +1,12 @@
-import logo from './logo.svg'
+import logo from '@components/logo.svg'
 
 export const App = () => {
   return (
-    <div className="App">
-      <div className="text-center header">
-        <img src={logo} className="logo" alt="logo" />
-        Edit <code>src/components/App.js</code> and save to reload
-      </div>
+    <div className="app">
+      <img src={logo} className="logo" alt="logo" />
+      <span className="justify-center inline-block text-center align-middle">
+        Edit src/components/app.tsx and save to reload
+      </span>
     </div>
   )
 }

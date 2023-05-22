@@ -50,7 +50,7 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async configAfter(bud: Bud) {
-    if (bud.isCLI() && bud.context.args.hot === false) return
+    if (bud.context.hot === false) return
 
     if (!this.transformExtension) {
       const signifier = bud.react.useBabel

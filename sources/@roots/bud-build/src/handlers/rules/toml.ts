@@ -7,4 +7,6 @@ export const toml: Factory = async ({filter, makeRule, path}) =>
     .setType(`json`)
     .setInclude([() => path()])
     .setTest(() => filter(`pattern.toml`))
-    .setParser({parse: tomlParser.parse})
+    .setParser({
+      parse: tomlParser.parse,
+    })

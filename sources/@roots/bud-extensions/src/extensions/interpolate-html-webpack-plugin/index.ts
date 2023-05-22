@@ -17,7 +17,10 @@ export type {Options}
  * Interpolate html webpack plugin configuration
  */
 @label(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-@options<Options>({})
+@options<Options>({
+  APP_TITLE: app => app.label,
+  NO_SCRIPT: `You need to enable JavaScript to run this app`,
+})
 @disabled
 export default class BudInterpolateHtmlExtension extends Extension<
   Options,
@@ -41,11 +44,11 @@ export default class BudInterpolateHtmlExtension extends Extension<
     return new InterpolateHtmlWebpackPlugin(
       HTMLWebpackPlugin.Plugin.getHooks,
       {
+        ...(this.options ?? {}),
         ...(bud.extensions.get(
           `@roots/bud-extensions/webpack-define-plugin`,
         )?.options ?? {}),
         ...(bud.env.getPublicEnv() ?? {}),
-        ...(this.options ?? {}),
       },
     )
   }

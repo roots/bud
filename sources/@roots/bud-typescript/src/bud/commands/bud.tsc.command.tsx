@@ -17,7 +17,7 @@ export class BudTSCCommand extends BudCommand {
   public options = Option.Proxy({name: `tsc passthrough options`})
 
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     const tsc = join(

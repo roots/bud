@@ -17,7 +17,7 @@ export class BudEslintCommand extends BudCommand {
   public options = Option.Proxy({name: `eslint passthrough options`})
 
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     const eslint = join(

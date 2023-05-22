@@ -31,9 +31,9 @@ describe(`bud.html`, () => {
       `@roots/bud-extensions/interpolate-html-webpack-plugin`,
     )
     htmlEnableSpy = vi.spyOn(htmlPlugin, `enable`)
-    htmlSetOptionsSpy = vi.spyOn(htmlPlugin, `setOptions`)
+    htmlSetOptionsSpy = vi.spyOn(htmlPlugin, `set`)
     interpolateEnableSpy = vi.spyOn(interpolatePlugin, `enable`)
-    interpolateSetOptionsSpy = vi.spyOn(interpolatePlugin, `setOptions`)
+    interpolateSetOptionsSpy = vi.spyOn(interpolatePlugin, `set`)
 
     html = source.html.bind(bud)
   })
@@ -50,14 +50,9 @@ describe(`bud.html`, () => {
     const returned = await html(false)
 
     expect(htmlEnableSpy).toHaveBeenCalledWith(false)
-    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      helpers.defaultHtmlPluginOptions,
+    Object.entries(helpers.defaultHtmlPluginOptions).forEach(v =>
+      expect(htmlSetOptionsSpy).toHaveBeenCalledWith(...v),
     )
-    expect(interpolateEnableSpy).toHaveBeenCalledWith(false)
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-    })
 
     expect(returned).toBe(bud)
   })
@@ -66,14 +61,9 @@ describe(`bud.html`, () => {
     const returned = await html(true)
 
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
-    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      helpers.defaultHtmlPluginOptions,
+    Object.entries(helpers.defaultHtmlPluginOptions).forEach(v =>
+      expect(htmlSetOptionsSpy).toHaveBeenCalledWith(...v),
     )
-    expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-    })
 
     expect(returned).toBe(bud)
   })
@@ -82,14 +72,9 @@ describe(`bud.html`, () => {
     const returned = await html()
 
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
-    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      helpers.defaultHtmlPluginOptions,
+    Object.entries(helpers.defaultHtmlPluginOptions).forEach(v =>
+      expect(htmlSetOptionsSpy).toHaveBeenCalledWith(...v),
     )
-    expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-    })
 
     expect(returned).toBe(bud)
   })
@@ -98,14 +83,9 @@ describe(`bud.html`, () => {
     const returned = await html({})
 
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
-    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      helpers.defaultHtmlPluginOptions,
+    Object.entries(helpers.defaultHtmlPluginOptions).forEach(v =>
+      expect(htmlSetOptionsSpy).toHaveBeenCalledWith(...v),
     )
-    expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-    })
 
     expect(returned).toBe(bud)
   })
@@ -114,33 +94,20 @@ describe(`bud.html`, () => {
     await html({template: `test`, replace: {foo: `bar`}})
 
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-      foo: `bar`,
-    })
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith(`foo`, `bar`)
     expect(htmlEnableSpy).toHaveBeenCalledWith(true)
     expect(budPathSpy).toHaveBeenCalledWith(`test`)
     expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        template: expect.stringMatching(/\/test$/),
-      }),
+      `template`,
+      bud.path(`test`),
     )
   })
 
   it(`should leave absolute paths alone when passed as options.template`, async () => {
     await html({template: `/test`, replace: {foo: `bar`}})
 
-    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith({
-      APP_DESCRIPTION: `test app description`,
-      APP_TITLE: `bud.js test app`,
-      foo: `bar`,
-    })
-    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        template: expect.stringMatching(/\/test$/),
-      }),
-    )
+    expect(interpolateSetOptionsSpy).toHaveBeenCalledWith(`foo`, `bar`)
+    expect(htmlSetOptionsSpy).toHaveBeenCalledWith(`template`, `/test`)
   })
 
   it(`getHtmlPluginOptions returns normalized options with \`template\` when it is not included`, async () => {
@@ -192,33 +159,5 @@ describe(`bud.html`, () => {
   it(`getHtmlPluginOptions returns absolutized path from options.template`, async () => {
     helpers.getHtmlPluginOptions(bud, {template: `foo`})
     expect(budPathSpy).toHaveBeenCalledWith(`foo`)
-  })
-
-  it.each([true, false, undefined, {}])(
-    `getInterpolatePluginOptions calls bud env`,
-    async value => {
-      const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
-      helpers.getInterpolatePluginOptions(bud, value)
-      expect(envSpy).toHaveBeenCalledOnce()
-    },
-  )
-
-  it(`appends options.replace values to publicEnv`, async () => {
-    const envSpy = vi.spyOn(bud.env, `getPublicEnv`)
-
-    const result = helpers.getInterpolatePluginOptions(bud, {
-      replace: {
-        foo: `bar`,
-      },
-    })
-
-    expect(envSpy).toHaveBeenCalledOnce()
-    expect(result).toEqual(
-      expect.objectContaining({
-        foo: `bar`,
-        APP_DESCRIPTION: `test app description`,
-        APP_TITLE: `bud.js test app`,
-      }),
-    )
   })
 }, 60000)

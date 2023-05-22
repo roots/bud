@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, FileWriteError} from '@roots/bud-support/errors'
+import omit from '@roots/bud-support/lodash/omit'
 import * as args from '@roots/bud-support/utilities/args'
 
 /**
@@ -13,50 +14,26 @@ class Project extends Service {
    */
   @bind
   public override async buildAfter?(bud: Bud) {
-    if (!bud.isCLI()) {
-      bud.info(`not a CLI build. skipping project profile.`)
-      return
-    }
-
-    if (!bud.context.args?.debug) {
-      bud.info(`--debug not \`true\`. skipping fs write.`)
-      return
-    }
+    if (!bud.context.debug)
+      return bud.info(`--debug not \`true\`. skipping fs write.`)
 
     try {
       const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
-        basedir: bud.context.basedir,
-        mode: bud.mode,
-        isCLI: bud.isCLI(),
-        bud: bud.context.bud.version,
-        minimize: bud.hooks.filter(
-          `build.optimization.minimize`,
-          undefined,
-        ),
-        files: bud.context.files
-          ? Object.values(bud.context.files)?.map(file => ({
-              ...file,
-              module: !!file.module,
-            }))
-          : [],
+        ...omit(bud.context, [`env`, `logger`, `stdout`, `stderr`]),
+        args: args.raw,
         env: bud.env.getKeys(),
         children: bud.children ? Object.keys(bud.children) : [],
-        args: bud.context?.args,
-        args_raw: args.raw,
         services: bud.context?.services,
-        extensions: {
-          context: bud.context?.extensions,
-          loaded: Object.entries(bud.extensions?.repository).map(
-            ([key, extension]) => ({
-              key,
-              label: extension.label,
-              meta: extension.meta,
-              options: extension.options,
-            }),
-          ),
-        },
+        loaded: Object.entries(bud.extensions?.repository).map(
+          ([key, extension]) => ({
+            key,
+            label: extension.label,
+            meta: extension.meta,
+            options: extension.options,
+          }),
+        ),
         resolutions: bud.module.resolved,
       })
 

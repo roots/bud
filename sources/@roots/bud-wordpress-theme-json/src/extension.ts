@@ -69,6 +69,12 @@ export class WordPressThemeJSON extends Extension<
   ThemeJsonWebpackPlugin
 > {
   @bind
+  public override async register() {}
+
+  @bind
+  public override async boot() {}
+
+  @bind
   public settings(
     input?:
       | Mutator

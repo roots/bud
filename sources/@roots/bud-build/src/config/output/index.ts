@@ -18,7 +18,7 @@ export const output: Factory<`output`> = async ({
     filename: filename({filter, relPath}),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
-    pathinfo: filter(`build.output.pathinfo`),
+    pathinfo: filter(`build.output.pathinfo`, false),
     publicPath: filter(`build.output.publicPath`, `auto`),
     scriptType: filter(
       `build.output.scriptType`,

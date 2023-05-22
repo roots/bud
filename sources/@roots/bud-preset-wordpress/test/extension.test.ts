@@ -1,6 +1,7 @@
-import '@roots/bud'
-import '@roots/bud-preset-wordpress'
+import '../src/index.js'
+
 import '@roots/bud-tailwindcss'
+import '@roots/bud-wordpress-theme-json'
 
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'

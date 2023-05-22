@@ -11,8 +11,6 @@
     "react": "18.2.0"
   },
   "bud": {
-    "extensions": {
-      "discovery": false
-    }
+    "extensions": {}
   }
 }

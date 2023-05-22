@@ -1,4 +1,4 @@
-import type {MultiStats} from '@roots/bud-support/webpack'
+import type {Compilation, MultiStats} from '@roots/bud-support/webpack'
 
 import type {Bud} from '../../bud.js'
 
@@ -18,6 +18,7 @@ export interface Events {
   'compiler.stats': MultiStats
   'compiler.error': Error
   'project.write': Bud
+  'compilation.afterEmit': Compilation
   'config.after': Bud
   run: Bud
   'server.before': Bud

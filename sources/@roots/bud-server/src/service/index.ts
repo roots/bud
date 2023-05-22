@@ -166,18 +166,11 @@ export class Server extends Service implements BaseService {
    */
   @bind
   public async applyMiddleware() {
-    if (this.app.isCLI() && this.app.context.args.dry) return
-
     try {
       await Promise.all(
         Object.entries(this.enabledMiddleware).map(
           async ([key, signifier]) => {
-            if (
-              this.app.isCLI() &&
-              this.app.context.args.hot === false &&
-              key === `hot`
-            )
-              return
+            if (this.app.context.hot === false && key === `hot`) return
 
             /** import middleware */
             const {factory} = await this.app.module.import(
@@ -208,7 +201,7 @@ export class Server extends Service implements BaseService {
   public async run() {
     await this.app.hooks.fire(`server.before`, this.app)
 
-    if (!this.app.isCLI() || !this.app.context.args.dry) {
+    if (this.app.context.dry !== true) {
       await this.connection.createServer(this.application)
       await this.connection.listen()
     }

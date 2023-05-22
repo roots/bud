@@ -1,4 +1,6 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
+import color from '@roots/bud/cli/flags/color'
+import indent from '@roots/bud/cli/flags/indent'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import get from '@roots/bud-support/lodash/get'
@@ -9,7 +11,14 @@ import * as Ink from 'ink'
  * `bud view` command
  */
 export default class BudViewCommand extends BudCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[`view`]]
+
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     description: `Explore bud object`,
     examples: [
@@ -18,33 +27,23 @@ export default class BudViewCommand extends BudCommand {
     ],
   })
 
-  public color = Option.Boolean(`--color,-c`, true, {
-    description: `use syntax highlighting`,
-  })
+  public color = color
 
-  public indent = Option.String(`--indent,-i`, `2`, {
-    description: `indentation level`,
-    tolerateBoolean: true,
-  })
+  public indent = indent
 
+  /**
+   * Positional
+   */
   public subject = Option.String({name: `subject`, required: false})
 
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     let value = this.subject ? get(this.bud, this.subject) : this.bud
     let indent = 0
 
     switch (this.indent) {
-      case true:
-        indent = 2
-        break
-
-      case false:
-        indent = 0
-        break
-
       case undefined:
         indent = 2
         break

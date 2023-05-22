@@ -12,8 +12,7 @@ describe(`ConsoleBuffer`, () => {
   })
 
   it(`should not patch the console in ci`, async () => {
-    if (!bud.isCLI()) throw new Error(`bud.isCLI() returned false`)
-    bud.context.args.ci = true
+    bud.context.ci = true
 
     await consoleBuffer.register(bud)
     expect(consoleBuffer.restore).not.toBeDefined()

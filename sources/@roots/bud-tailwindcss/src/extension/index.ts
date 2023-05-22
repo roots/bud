@@ -180,6 +180,7 @@ export class BudTailwindCss extends Extension<Options> {
     bud.hooks.on(`build.cache.buildDependencies`, paths => {
       if (isString(this.file.path)) {
         paths.tailwind = [this.file.path]
+
         this.logger.success(
           `tailwind config added to webpack build dependencies`,
         )

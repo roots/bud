@@ -3,8 +3,8 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {development} from './development'
 
-@development
 // @ts-ignore
+@development
 class TestClass {
   public app: Bud
   public constructor(bud: Bud) {

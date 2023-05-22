@@ -111,12 +111,14 @@ export const client = async (
   }
 
   /* Instantiate indicator, overlay */
-  await components.make(options)
+  try {
+    await components.make(options)
+  } catch (error) {}
 
   /* Instantiate eventSource */
   const events = injectEvents(EventSource).make(options)
 
-  if (!window.bud.listeners[options.name]) {
+  if (!window.bud.listeners?.[options.name]) {
     window.bud.listeners[options.name] = async payload => {
       if (!payload) return
 

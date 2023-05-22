@@ -3,16 +3,12 @@ import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest'
 
 import * as hot from './index.js'
 
-vi.mock(`@roots/bud-compiler`)
-
 describe(`@roots/bud-server/middleware/hot`, () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory({mode: `development`})
   })
-
-  afterAll(async () => bud.close())
 
   it(`should be a function`, () => {
     expect(hot.factory).toBeDefined()

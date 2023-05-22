@@ -1,21 +1,16 @@
 import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  dependsOn,
-  label,
-} from '@roots/bud-framework/extension/decorators'
+import {bind, label} from '@roots/bud-framework/extension/decorators'
 
 import * as tailwindAdapter from './tailwind/index.js'
 
 /**
- * Acorn v2 public path fix
+ * Support Tailwind values in {@link Bud.wpjson}
  */
 @label(`@roots/bud-tailwindcss-theme-json`)
-@dependsOn([`@roots/bud-wordpress-theme-json`])
 export class TailwindThemeJSON extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
@@ -30,6 +25,9 @@ export class TailwindThemeJSON extends Extension {
     )
   }
 
+  /**
+   * Use tailwind colors in theme.json
+   */
   public useTailwindColors(
     this: Bud[`wpjson`],
     extendOnly?: boolean,
@@ -47,6 +45,9 @@ export class TailwindThemeJSON extends Extension {
     return this.enable()
   }
 
+  /**
+   * Use tailwind fontFamily in theme.json
+   */
   public useTailwindFontFamily(
     this: Bud[`wpjson`],
     extendOnly?: boolean,
@@ -72,6 +73,9 @@ export class TailwindThemeJSON extends Extension {
     return this.enable()
   }
 
+  /**
+   * Use tailwind fontSize in theme.json
+   */
   public useTailwindFontSize(
     this: Bud[`wpjson`],
     extendOnly?: boolean,
