@@ -80,7 +80,7 @@
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.83.1"
   },
   "volta": {
     "extends": "../../../package.json"

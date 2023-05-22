@@ -104,7 +104,7 @@
     "@roots/container": "workspace:sources/@roots/container",
     "chalk": "5.2.0",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.83.1"
   },
   "volta": {
     "extends": "../../../package.json"

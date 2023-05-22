@@ -88,7 +88,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "compression-webpack-plugin": "10.0.0",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.83.1"
   },
   "volta": {
     "extends": "../../../package.json"

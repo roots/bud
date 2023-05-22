@@ -7759,7 +7759,7 @@ __metadata:
     tslib: 2.5.0
     typescript: 5.0.4
     url-loader: 4.1.1
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -7895,7 +7895,7 @@ __metadata:
     lodash: 4.17.21
     memfs: 3.5.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -7925,7 +7925,7 @@ __metadata:
     "@types/node": 18.16.12
     chalk: 5.2.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -7947,7 +7947,7 @@ __metadata:
     "@types/node": 18.16.12
     babel-loader: 9.1.2
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8003,7 +8003,7 @@ __metadata:
     ink: 4.2.0
     react: 18.2.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8018,7 +8018,7 @@ __metadata:
     "@types/node": 18.16.12
     compression-webpack-plugin: 10.0.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8055,7 +8055,7 @@ __metadata:
     ink-text-input: 5.0.1
     react: 18.2.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8108,7 +8108,7 @@ __metadata:
     "@types/node": 18.16.12
     esbuild-loader: 3.0.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8125,7 +8125,7 @@ __metadata:
     eslint: 8.40.0
     eslint-webpack-plugin: 4.0.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8141,7 +8141,7 @@ __metadata:
     "@types/node": 18.16.12
     palette-webpack-plugin: 1.0.5
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8157,7 +8157,7 @@ __metadata:
     chalk: 5.2.0
     execa: 7.1.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8185,7 +8185,7 @@ __metadata:
     image-minimizer-webpack-plugin: 3.8.2
     sharp: 0.32.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8206,7 +8206,7 @@ __metadata:
     react: 18.2.0
     react-dom: 18.2.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8227,7 +8227,7 @@ __metadata:
     postcss-nested: 6.0.1
     postcss-preset-env: 8.3.2
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8244,7 +8244,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8322,7 +8322,7 @@ __metadata:
     react-dom: 18.2.0
     react-refresh: 0.14.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8345,7 +8345,7 @@ __metadata:
     stylelint-config-recommended-scss: ^11.0.0
     stylelint-scss: ^5.0.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8393,7 +8393,7 @@ __metadata:
     stylelint-config-standard: 33.0.0
     stylelint-webpack-plugin: 4.1.1
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8465,7 +8465,7 @@ __metadata:
     tslib: 2.5.0
     typanion: 3.12.1
     type-fest: 3.10.0
-    webpack: 5.83.0
+    webpack: 5.83.1
     webpack-dev-middleware: 6.1.1
     webpack-manifest-plugin: 5.0.0
     xml-loader: 1.2.1
@@ -8492,7 +8492,7 @@ __metadata:
     "@types/node": 18.16.12
     swc-loader: 0.2.3
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8527,7 +8527,7 @@ __metadata:
     sucrase: 3.32.0
     tailwindcss: 3.3.2
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
     webpack-virtual-modules: 0.5.0
   languageName: unknown
   linkType: soft
@@ -8544,7 +8544,7 @@ __metadata:
     "@types/node": 18.16.12
     terser-webpack-plugin: 5.3.9
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8567,7 +8567,7 @@ __metadata:
     ts-node: 10.9.1
     tslib: 2.5.0
     typescript: 5.0.4
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8589,7 +8589,7 @@ __metadata:
     vue-loader: ^17.1.1
     vue-style-loader: ^4.1.3
     vue-template-compiler: ^2.7.14
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8707,7 +8707,7 @@ __metadata:
     helpful-decorators: 2.1.0
     tslib: 2.5.0
     vinyl: 3.0.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8732,7 +8732,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8798,7 +8798,7 @@ __metadata:
     fs-jetpack: 5.1.0
     helpful-decorators: 2.1.0
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8815,7 +8815,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8828,7 +8828,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8840,7 +8840,7 @@ __metadata:
     "@types/node": 18.16.12
     lodash: 4.17.21
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -8875,7 +8875,7 @@ __metadata:
     helpful-decorators: 2.1.0
     lodash: 4.17.21
     tslib: 2.5.0
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -14843,7 +14843,7 @@ __metadata:
     verdaccio: ^5.24.1
     vite: 4.3.7
     vitest: 0.31.1
-    webpack: 5.83.0
+    webpack: 5.83.1
   languageName: unknown
   linkType: soft
 
@@ -37379,9 +37379,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack@npm:5.83.0":
-  version: 5.83.0
-  resolution: "webpack@npm:5.83.0"
+"webpack@npm:5.83.1":
+  version: 5.83.1
+  resolution: "webpack@npm:5.83.1"
   dependencies:
     "@types/eslint-scope": ^3.7.3
     "@types/estree": ^1.0.0
@@ -37412,7 +37412,7 @@ __metadata:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: cc611ab2db1fa60ec3f9b1aeb62998aafb8def4d3dd9b78d1314e01483d7e2dfafa66e1ba0aabc684164837713041c68a127994ae38eda42db933796fbb43067
+  checksum: 219d5ef50380bc0fd3702ed17feddf13819d8173b78f7a5b857dc74ac177e63d1f79c050792754411cc088bbc02e0971b989efddadbb8e393cf27d64c0ad9ff8
   languageName: node
   linkType: hard
 
