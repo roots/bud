@@ -1,4 +1,5 @@
 import basedir from '@roots/bud/cli/flags/basedir'
+import color from '@roots/bud/cli/flags/color'
 import debug from '@roots/bud/cli/flags/debug'
 import dry from '@roots/bud/cli/flags/dry'
 import filter from '@roots/bud/cli/flags/filter'
@@ -97,6 +98,8 @@ export default class BudCommand extends Command<CLIContext> {
 
   public basedir = basedir
 
+  public color = color
+
   public dry = dry
 
   public silent = silent
@@ -126,6 +129,7 @@ export default class BudCommand extends Command<CLIContext> {
   public async makeBud() {
     const context = {
       basedir: this.basedir,
+      color: this.color,
       dry: this.dry,
       debug: this.debug,
       filter: this.filter,

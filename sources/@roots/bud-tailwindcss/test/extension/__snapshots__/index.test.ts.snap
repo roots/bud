@@ -320,6 +320,8 @@ exports[`@roots/bud-tailwindcss extension > should throw when key does not exist
       }
     }
   },
-  \\"plugins\\": []
+  \\"plugins\\": [
+    null
+  ]
 }"
 `;

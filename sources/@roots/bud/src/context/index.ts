@@ -45,8 +45,8 @@ export default async (
   let extensions: Context[`extensions`] = getExtensions(manifest)
 
   const instance: Context = {
-    ...(context ?? {}),
     ...(args ?? {}),
+    ...(context ?? {}),
     label: context?.label ?? manifest?.name ?? bud?.label ?? `default`,
     // eslint-disable-next-line n/no-process-env
     bin: process.env.BUD_JS_BIN ?? `node`,

@@ -1,5 +1,4 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
-import color from '@roots/bud/cli/flags/color'
 import indent from '@roots/bud/cli/flags/indent'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
@@ -26,8 +25,6 @@ export default class BudViewCommand extends BudCommand {
       [`view`, `$0 view env store`],
     ],
   })
-
-  public color = color
 
   public indent = indent
 
