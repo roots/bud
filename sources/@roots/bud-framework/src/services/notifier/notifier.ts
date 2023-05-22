@@ -66,21 +66,21 @@ export class Notifier extends Service {
    * True if notifications are enabled
    */
   public get notificationsEnabled(): boolean {
-    return this.app.isCLI() && this.app?.context.args.notify === true
+    return this.app?.context.notify === true
   }
 
   /**
    * True if editor opening is enabled
    */
   public get openEditorEnabled(): boolean {
-    return this.app.isCLI() && this.app?.context.args.editor === true
+    return this.app?.context.editor === true
   }
 
   /**
    * True if browser opening is enabled
    */
   public get openBrowserEnabled(): boolean {
-    return this.app.isCLI() && this.app?.context.args.browser === true
+    return this.app?.context.browser === true
   }
 
   /**

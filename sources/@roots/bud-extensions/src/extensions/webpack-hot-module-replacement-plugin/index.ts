@@ -26,7 +26,7 @@ export default class BudHMR extends Extension<
    */
   public override when(bud: Bud) {
     if (bud.isProduction) return false
-    if (bud.isCLI() && bud.context.args.hot === false) return false
+    if (bud.context.hot === false) return false
 
     return true
   }

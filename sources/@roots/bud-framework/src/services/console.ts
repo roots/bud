@@ -13,7 +13,7 @@ type MessagesCache = Array<{
 }>
 
 /**
- * ConsoleBuffer service class
+ * ConsoleBuffer {@link Service}
  *
  * @remarks
  * Intercepts console function calls and emits them using the bud logger.
@@ -39,6 +39,12 @@ export default class ConsoleBuffer extends Service {
    */
   public restore?: () => any
 
+  /**
+   * Fetch and remove
+   *
+   * @remarks
+   * Transfers messages from {@link ConsoleBuffer.queue} to {@link ConsoleBuffer.stack}
+   */
   public fetchAndRemove() {
     const queue = [...this.queue]
     this.queue = []
@@ -47,11 +53,11 @@ export default class ConsoleBuffer extends Service {
   }
 
   /**
-   * {@link Extension.register}
+   * {@link Service.register}
    */
   @bind
   public override async register(bud: Bud) {
-    if (!bud.isCLI() || (bud.isCLI() && bud.context.args?.ci)) return
+    if (bud.context.ci) return
 
     // Patch the console, and assign the restore function
     this.restore = patchConsole((stream, data) => {

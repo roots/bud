@@ -7,7 +7,14 @@
       "@roots/bud": ["./src/index.ts"],
       "@roots/bud/*": ["./src/*"]
     },
-    "types": ["@roots/bud-framework", "react"]
+    "types": [
+      "@roots/bud-api",
+      "@roots/bud-build",
+      "@roots/bud-cache",
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "react"
+    ]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],

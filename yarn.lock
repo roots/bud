@@ -8439,7 +8439,7 @@ __metadata:
     html-webpack-plugin: 5.5.1
     http-proxy-middleware: 3.0.0-beta.1
     human-readable: 0.2.1
-    import-meta-resolve: 3.0.0
+    import-meta-resolve: 2.2.2
     json5: 2.2.3
     lodash: 4.17.21
     mini-css-extract-plugin: 2.7.5
@@ -9471,6 +9471,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tailwindcss/forms@npm:0.5.3":
+  version: 0.5.3
+  resolution: "@tailwindcss/forms@npm:0.5.3"
+  dependencies:
+    mini-svg-data-uri: ^1.2.3
+  peerDependencies:
+    tailwindcss: ">=3.0.0 || >= 3.0.0-alpha.1"
+  checksum: 9eddb4dbd06d01b1068138ff52a54ed0e35a28e7bfd3c72e226fc28658ecd92a9c078c4abe9c83db090984672040644d7ae2e035933fb619dd703df1d87aa275
+  languageName: node
+  linkType: hard
+
 "@tannin/compile@npm:^1.1.0":
   version: 1.1.0
   resolution: "@tannin/compile@npm:1.1.0"
@@ -9621,6 +9632,7 @@ __metadata:
     "@roots/bud-react": "workspace:sources/@roots/bud-react"
     "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
     "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+    "@tailwindcss/forms": 0.5.3
   languageName: unknown
   linkType: soft
 
@@ -14819,7 +14831,7 @@ __metadata:
     eslint-plugin-react-hooks: 4.6.0
     eslint-plugin-simple-import-sort: 10.0.0
     execa: 7.1.1
-    import-meta-resolve: 3.0.0
+    import-meta-resolve: 2.2.2
     lodash: 4.17.21
     playwright: 1.33.0
     pm2: ^5.3.0
@@ -22651,10 +22663,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-meta-resolve@npm:3.0.0":
-  version: 3.0.0
-  resolution: "import-meta-resolve@npm:3.0.0"
-  checksum: d0428cd14915ee0093b995dc5bbc70bd01cc668822f52b62af98f728e5d6a08724f07e6aa9f5fae002d5eecbf6ec2cdcd379bf4869dd1b353bd080693f91e394
+"import-meta-resolve@npm:2.2.2":
+  version: 2.2.2
+  resolution: "import-meta-resolve@npm:2.2.2"
+  checksum: 3a5910a6f914b5f06b307d7d1c25710bc56f12e21e923d5b2180dd0d53c6c2d51e7b55df26f168b63f5670babcaca9422b7a9429e877bbb8c1997d79bd65882b
   languageName: node
   linkType: hard
 
@@ -26320,7 +26332,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-svg-data-uri@npm:1.4.4":
+"mini-svg-data-uri@npm:1.4.4, mini-svg-data-uri@npm:^1.2.3":
   version: 1.4.4
   resolution: "mini-svg-data-uri@npm:1.4.4"
   bin:

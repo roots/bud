@@ -12,7 +12,7 @@ describe(`notifier`, () => {
     vi.mock('open', () => ({default: vi.fn()}))
     vi.mock('open-editor', () => ({default: vi.fn()}))
 
-    bud = await factory({args: {notify: true}})
+    bud = await factory({notify: true})
     notifier = new Notifier(() => bud)
     await notifier.boot(bud)
     notifier.notify = vi.fn()

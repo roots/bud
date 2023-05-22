@@ -1,6 +1,7 @@
 import {join} from 'node:path'
 
-import {Bud, Extension} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   label,
   options,

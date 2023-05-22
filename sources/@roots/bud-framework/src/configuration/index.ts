@@ -8,6 +8,9 @@ import Configuration from './configuration.js'
  * Process configurations
  */
 export const process = async (app: Bud) => {
+  const configuration = new Configuration(app)
+  const configs = Object.values(app.context.files).filter(({bud}) => bud)
+
   const findConfigs = (ofType: string, isLocal: boolean) =>
     sortBy(
       configs
@@ -15,9 +18,6 @@ export const process = async (app: Bud) => {
         .filter(({local}) => local === isLocal),
       `name`,
     )
-
-  const configuration = new Configuration(app)
-  const configs = Object.values(app.context.files).filter(({bud}) => bud)
 
   // process any queued api calls
   await app.api.processQueue()

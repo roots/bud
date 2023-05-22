@@ -29,7 +29,7 @@ export class Dashboard extends Service implements Contract {
    * Is silent?
    */
   public get silent() {
-    return this.app.isCLI() && this.app.context.args.log === false
+    return this.app.context.silent === true
   }
 
   /**
@@ -46,7 +46,7 @@ export class Dashboard extends Service implements Contract {
       return this
     }
 
-    if (!this.app.isCLI() || this.app.context.args.ci === true) {
+    if (this.app.context.ci === true) {
       this.renderString(stats)
       return this
     }

@@ -1,6 +1,7 @@
 import {randomUUID} from 'node:crypto'
 import {dirname, join, parse} from 'node:path'
 
+import type * as esbuild from '@roots/bud-support/esbuild'
 import omit from '@roots/bud-support/lodash/omit'
 
 import {BudError, FileReadError, ImportError} from '../errors/index.js'
@@ -18,7 +19,7 @@ const COMPATIBLE_EXTENSIONS = [...DYNAMIC_EXTENSIONS, ...STATIC_EXTENSIONS]
 
 const uid = randomUUID() // prevents conflicting fs operations when testing
 
-let transformer: any
+let transformer: esbuild.transformer
 let fs: Filesystem
 let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>
@@ -253,6 +254,9 @@ async function transformConfig({
     platform: `node`,
     outfile: cachePath,
   })
+
+  file.path = cachePath
+
   logger.timeEnd(`compiling ${file.name}`)
 }
 

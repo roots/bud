@@ -21,10 +21,7 @@ export class Bud {
   /**
    * Context
    */
-  public context:
-    | Options.CommandContext
-    | Options.CLIContext
-    | Options.Context
+  public context: Options.Context
 
   /**
    * Implementation
@@ -90,13 +87,6 @@ export class Bud {
    */
   public get isChild(): boolean {
     return this.root.label !== this.label
-  }
-
-  /**
-   * True when current instance has context set by CLI
-   */
-  public isCLI(): this is Bud & {context: Options.CommandContext} {
-    return `args` in this.context
   }
 
   /**
@@ -224,9 +214,8 @@ export class Bud {
       : {...this.context, ...request, root: this}
 
     if (
-      this.isCLI() &&
-      !isUndefined(this.context.args.filter) &&
-      !this.context.args.filter.includes(context.label)
+      !isUndefined(this.context.filter) &&
+      !this.context.filter.includes(context.label)
     ) {
       this.log(
         `skipping child instance based on --filter flag:`,

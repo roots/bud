@@ -10,7 +10,7 @@ describe(`@roots/bud-server`, () => {
   beforeEach(async () => {
     bud = await factory({mode: `development`})
 
-    expect(bud.context.args.dry).toBe(true)
+    expect(bud.context.dry).toBe(true)
     expect(bud.mode).toBe(`development`)
 
     instance = new Server(() => bud)

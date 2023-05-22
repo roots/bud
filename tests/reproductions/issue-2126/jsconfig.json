@@ -1,8 +1,7 @@
 {
   "extends": "@roots/bud/config/jsconfig.json",
   "compilerOptions": {
-    "types": ["@roots/bud-vue"]
+    "types": ["@roots/bud", "@roots/bud-vue"]
   },
-  "include": ["resources", "bud.config.js"],
-  "exclude": ["node_modules", "dist"]
+  "include": ["resources", "bud.config.js"]
 }

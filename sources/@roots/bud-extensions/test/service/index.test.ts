@@ -38,6 +38,7 @@ describe(`@roots/bud-extensions`, () => {
 
     const instance = extensions.get(`mock_extension` as keyof Modules)
     if (!instance) throw new Error(`Extension not found`)
+    if (!(`label` in instance)) throw new Error(`Label not found`)
 
     expect(instance.label).toBe(`mock_extension`)
 

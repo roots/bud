@@ -33,9 +33,7 @@ describe(`proxy middleware`, () => {
   })
 
   it(`should have logger when --log flag is used`, async () => {
-    if (bud.isCLI()) {
-      bud.context.args.log = true
-    }
+    bud.context.log = true
 
     // @ts-ignore
     expect(middleware.makeOptions(bud).logger).toBe(logger)

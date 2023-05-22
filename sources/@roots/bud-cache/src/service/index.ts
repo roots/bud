@@ -42,8 +42,8 @@ export default class Cache
   public get type(): 'memory' | 'filesystem' {
     return this.app.hooks.filter(
       `build.cache.type`,
-      this.app.isCLI() && isString(this.app.context.args.cache)
-        ? this.app.context.args.cache
+      isString(this.app.context.cache)
+        ? this.app.context.cache
         : `filesystem`,
     )
   }

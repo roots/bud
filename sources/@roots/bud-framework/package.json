@@ -59,6 +59,10 @@
       "import": "./lib/bud.js",
       "default": "./lib/bud.js"
     },
+    "./extension": {
+      "import": "./lib/extension/index.js",
+      "default": "./lib/extension/index.js"
+    },
     "./extension/decorators": {
       "import": "./lib/extension/decorators/index.js",
       "default": "./lib/extension/decorators/index.js"

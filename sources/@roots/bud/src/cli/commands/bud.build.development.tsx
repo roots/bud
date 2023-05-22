@@ -1,22 +1,38 @@
-import {Option} from '@roots/bud/cli/commands/bud'
 import BuildCommand from '@roots/bud/cli/commands/bud.build'
-import type {CommandContext} from '@roots/bud-framework/options'
+import browser from '@roots/bud/cli/flags/browser'
+import hot from '@roots/bud/cli/flags/hot'
+import indicator from '@roots/bud/cli/flags/indicator'
+import overlay from '@roots/bud/cli/flags/overlay'
+import port from '@roots/bud/cli/flags/port'
+import proxy from '@roots/bud/cli/flags/proxy'
+import reload from '@roots/bud/cli/flags/reload'
+import type {Context} from '@roots/bud-framework/options'
 
 /**
  * `bud build development` command
  */
 export default class BuildDevelopmentCommand extends BuildCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [
     [`build`, `development`],
     [`dev`],
     [`development`],
   ]
+
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = BuildCommand.Usage({
     category: `build`,
+
     description: `Compiles source assets in \`development\` mode.`,
+
     details: `\
       \`bud build development\` compiles source assets in \`development\` mode.
     `,
+
     examples: [
       [`compile source and serve`, `$0 build development`],
       [
@@ -34,52 +50,30 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
-  public hot = Option.Boolean(`--hot`, undefined, {
-    description: `Enable hot module replacement`,
-  })
+  public browser = browser
 
-  public port = Option.String(`--port`, undefined, {
-    description: `Port to serve on`,
-  })
+  public hot = hot
 
-  public proxy = Option.String(`--proxy`, undefined, {
-    description: `Proxy request URL`,
-  })
+  public overlay = overlay
 
-  public reload = Option.Boolean(`--reload`, undefined, {
-    description: `Reload browser on unrecoverable errors`,
-  })
+  public port = port
 
-  public overlay = Option.Boolean(`--overlay`, undefined, {
-    description: `Display error overlay in the browser`,
-  })
+  public proxy = proxy
 
-  public indicator = Option.Boolean(`--indicator`, undefined, {
-    description: `Display status in the browser`,
-  })
+  public reload = reload
 
-  public browser = Option.String(`--browser`, undefined, {
-    description: `Open browser on successful development build.`,
-    tolerateBoolean: true,
-  })
+  public indicator = indicator
 
-  public override withSubcommandContext = async (
-    context: CommandContext,
-  ) => {
+  /**
+   * {@link Command.withSubcommandContext}
+   */
+  public override withSubcommandContext = async (context: Context) => {
     return {
       ...context,
-      mode: `development` as `development`,
-    }
-  }
-
-  public override withSubcommandArguments = async (
-    args: CommandContext[`args`],
-  ) => {
-    return {
-      ...args,
       browser: this.browser,
       hot: this.hot,
       indicator: this.indicator,
+      mode: `development` as `development`,
       overlay: this.overlay,
       port: this.port,
       proxy: this.proxy,

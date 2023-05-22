@@ -73,7 +73,8 @@ export interface Service extends BaseService {
 
   import<K extends `${keyof Modules}`>(
     signifier: K,
-    fatalOnError?: boolean,
+    fatalOnError: boolean,
+    context: string,
   ): Promise<Extension>
 
   runAll(methodName: LifecycleMethods): Promise<Array<void>>

@@ -14,6 +14,7 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-extensions/tsconfig-values",
   "@roots/bud-extensions/webpack-define-plugin",
   "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
+  "@roots/bud-extensions/webpack-lifecycle-plugin",
   "@roots/bud-extensions/webpack-manifest-plugin",
   "@roots/bud-extensions/webpack-provide-plugin",
   "@roots/bud-postcss",

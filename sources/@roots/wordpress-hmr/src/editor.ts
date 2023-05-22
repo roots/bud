@@ -38,7 +38,7 @@ export const load = ({
 
     context?.keys().forEach((key: string) => {
       const raw = context(key)
-      const source = raw.default || raw
+      const source = raw.default ?? raw
 
       if (cache.is(key, source)) return
       if (cache.has(key)) api.unregister(cache.get(key))

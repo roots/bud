@@ -1,16 +1,43 @@
-import type {CommandContext} from '@roots/bud/cli/commands/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import cache from '@roots/bud/cli/flags/cache'
+import ci from '@roots/bud/cli/flags/ci'
+import clean from '@roots/bud/cli/flags/clean'
+import devtool from '@roots/bud/cli/flags/devtool'
+import discover from '@roots/bud/cli/flags/discover'
+import editor from '@roots/bud/cli/flags/editor'
+import esm from '@roots/bud/cli/flags/esm'
+import force from '@roots/bud/cli/flags/force'
+import hash from '@roots/bud/cli/flags/hash'
+import html from '@roots/bud/cli/flags/html'
+import immutable from '@roots/bud/cli/flags/immutable'
+import input from '@roots/bud/cli/flags/input'
+import minimize from '@roots/bud/cli/flags/minimize'
+import output from '@roots/bud/cli/flags/output'
+import publicPath from '@roots/bud/cli/flags/publicPath'
+import runtime from '@roots/bud/cli/flags/runtime'
+import splitChunks from '@roots/bud/cli/flags/splitChunks'
+import storage from '@roots/bud/cli/flags/storage'
+import use from '@roots/bud/cli/flags/use'
+import type {Context} from '@roots/bud-framework/options/context'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import * as t from '@roots/bud-support/typanion'
 
 /**
- * Build command
+ * `bud build` command
  */
 export default class BudBuildCommand extends BudCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[`build`]]
+
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     category: `build`,
+
     description: `Compile source assets`,
+
     details: `\
       \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
 
@@ -18,144 +45,66 @@ export default class BudBuildCommand extends BudCommand {
 
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
+
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  public cache = Option.String(`--cache`, undefined, {
-    description: `Utilize compiler's filesystem cache`,
-    tolerateBoolean: true,
-    validator: t.isOneOf([
-      t.isLiteral(`filesystem`),
-      t.isLiteral(`memory`),
-      t.isLiteral(true),
-      t.isLiteral(false),
-    ]),
-    env: `APP_CACHE`,
+  public cache = cache
+
+  public ci = ci
+
+  public clean = clean
+
+  public devtool = devtool
+
+  public discover = discover
+
+  public override dry = Option.Boolean(`--dry`, false, {
+    description: `run in dry mode`,
   })
 
-  public clean = Option.Boolean(`--clean`, undefined, {
-    description: `Clean artifacts and distributables prior to compilation`,
+  public editor = editor
+
+  public esm = esm
+
+  public force = force
+
+  public hash = hash
+
+  public html = html
+
+  public immutable = immutable
+
+  public input = input
+
+  public minimize = minimize
+
+  public output = output
+
+  public publicPath = publicPath
+
+  public runtime = runtime
+
+  public override silent = Option.Boolean(`--silent`, false, {
+    description: `suppress stdout output`,
   })
 
-  public devtool = Option.String(`--devtool`, undefined, {
-    description: `Set devtool option`,
-    validator: t.isOneOf([
-      t.isLiteral(false),
-      t.isLiteral(`eval`),
-      t.isLiteral(`eval-cheap-source-map`),
-      t.isLiteral(`eval-cheap-module-source-map`),
-      t.isLiteral(`eval-source-map`),
-      t.isLiteral(`cheap-source-map`),
-      t.isLiteral(`cheap-module-source-map`),
-      t.isLiteral(`source-map`),
-      t.isLiteral(`inline-cheap-source-map`),
-      t.isLiteral(`inline-cheap-module-source-map`),
-      t.isLiteral(`inline-source-map`),
-      t.isLiteral(`eval-nosources-cheap-source-map`),
-      t.isLiteral(`eval-nosources-cheap-modules-source-map`),
-      t.isLiteral(`eval-nosources-source-map`),
-      t.isLiteral(`inline-nosources-cheap-source-map`),
-      t.isLiteral(`inline-nosources-cheap-module-source-map`),
-      t.isLiteral(`inline-nosources-source-map`),
-      t.isLiteral(`nosources-cheap-source-map`),
-      t.isLiteral(`nosources-cheap-module-source-map`),
-      t.isLiteral(`hidden-nosources-cheap-source-map`),
-      t.isLiteral(`hidden-nosources-cheap-module-source-map`),
-      t.isLiteral(`hidden-nosources-source-map`),
-      t.isLiteral(`hidden-cheap-source-map`),
-      t.isLiteral(`hidden-cheap-module-source-map`),
-      t.isLiteral(`hidden-source-map`),
-    ]),
-    env: `APP_DEVTOOL`,
-  })
-  public editor = Option.String(`--editor`, undefined, {
-    description: `Open editor to file containing errors on unsuccessful development build`,
-    tolerateBoolean: true,
-  })
-  public esm = Option.Boolean(`--esm`, undefined, {
-    description: `build as es modules`,
-  })
-  public force = Option.Boolean(`--force,--flush`, undefined, {
-    description: `Force clearing bud internal cache`,
-  })
-  public hash = Option.Boolean(`--hash`, undefined, {
-    description: `Hash compiled filenames`,
-  })
-  public html = Option.String(`--html`, undefined, {
-    description: `Generate an html template`,
-    tolerateBoolean: true,
-  })
-  public immutable = Option.Boolean(`--immutable`, undefined, {
-    description: `bud.http: immutable module lockfile`,
-  })
-  public discover = Option.Boolean(`--discover,--discovery`, undefined, {
-    description: `Automatically register extensions`,
-  })
-  public manifest = Option.Boolean(`--manifest`, undefined, {
-    description: `Generate a manifest of compiled assets`,
-  })
-  public minimize = Option.Boolean(`--minimize`, undefined, {
-    description: `Minimize compiled assets`,
-  })
-  public input = Option.String(`--input,-i,--@src,--src`, undefined, {
-    description: `Source directory (relative to project)`,
-    env: `APP_PATH_INPUT`,
-  })
-  public output = Option.String(`--output,-o,--@dist,--dist`, undefined, {
-    description: `Distribution directory (relative to project)`,
-    env: `APP_PATH_OUTPUT`,
-  })
-  public publicPath = Option.String(`--publicPath`, undefined, {
-    description: `public path of emitted assets`,
-    env: `APP_PUBLIC_PATH`,
-  })
-  public runtime: `single` | `multiple` | boolean = Option.String(
-    `--runtime`,
-    undefined,
-    {
-      description: `Set runtime chunk`,
-      validator: t.isOneOf([
-        t.isLiteral(`single`),
-        t.isLiteral(`multiple`),
-        t.isBoolean(),
-      ]),
-      tolerateBoolean: true,
-    },
-  )
-  public splitChunks = Option.Boolean(
-    `--splitChunks,--vendor`,
-    undefined,
-    {
-      description: `Separate vendor bundle`,
-    },
-  )
-  public storage = Option.String(`--storage`, undefined, {
-    description: `Storage directory (relative to project)`,
-    env: `APP_PATH_STORAGE`,
-  })
-  public ci = Option.Boolean(`--ci`, undefined, {
-    description: `Simple build summaries for CI`,
-  })
-  public use = Option.Array(`--use`, undefined, {
-    description: `Enable an extension`,
-  })
+  public splitChunks = splitChunks
 
-  public override withContext = async (context: CommandContext) => {
-    if (this.withSubcommandContext) {
+  public storage = storage
+
+  public use = use
+
+  /**
+   * {@link Command.withContext}
+   */
+  public override withContext = async (context: Context) => {
+    if (`withSubcommandContext` in this) {
       context = await this.withSubcommandContext(context)
-    }
-    return context
-  }
-
-  public override withArguments = async (
-    args: BudCommand[`bud`][`context`][`args`],
-  ) => {
-    if (this.withSubcommandArguments) {
-      args = await this.withSubcommandArguments(args)
     }
 
     return {
-      ...args,
+      ...context,
       cache: this.cache,
       ci: this.ci,
       clean: this.clean,
@@ -170,11 +119,10 @@ export default class BudBuildCommand extends BudCommand {
       immutable: this.immutable,
       input: this.input,
       output: this.output,
-      manifest: this.manifest,
       minimize: this.minimize,
-      mode: this.mode,
       publicPath: this.publicPath,
       runtime: this.runtime,
+      silent: this.silent,
       splitChunks: this.splitChunks,
       storage: this.storage,
       target: this.filter,
@@ -183,11 +131,12 @@ export default class BudBuildCommand extends BudCommand {
   }
 
   /**
-   * Execute command
+   * {@link Command.execute}
    */
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.healthcheck(this)
-    await this.bud.run()
+    await this.bud?.run()
+    await this.bud?.dashboard?.renderQueuedMessages()
   }
 }

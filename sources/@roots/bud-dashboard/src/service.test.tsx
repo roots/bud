@@ -4,16 +4,13 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import Dashboard from './index.js'
 
-describe(`Dashboard`, () => {
+describe(`@roots/bud-dashboard`, () => {
   let bud: Bud
   let dashboard: Dashboard
 
   beforeEach(async () => {
     bud = await factory()
-    if (bud.isCLI()) {
-      bud.context.args.log = true
-    } else throw new Error(`bud.isCli() should be true`)
-
+    bud.context.log = true
     dashboard = new Dashboard(() => bud)
   })
 

@@ -9,10 +9,8 @@ describe(`@roots/bud/factory`, () => {
   test(`should merge overrides`, async () => {
     const bud = await factory({
       basedir: join(paths.tests, `util`, `project`),
-      args: {
-        dry: true,
-        log: false,
-      },
+      dry: true,
+      log: false,
     })
 
     expect(bud.label).toBe(`@tests/project`)

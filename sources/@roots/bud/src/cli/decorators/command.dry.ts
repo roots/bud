@@ -3,9 +3,9 @@ export function dry(constructor: any): any {
     public constructor() {
       super()
 
-      const fn = this.withArguments?.bind(this) ?? (value => value)
+      const fn = this.withContext?.bind(this) ?? (value => value)
 
-      this.withArguments = async (args: any) => {
+      this.withContext = async (args: any) => {
         args = await fn(args)
         return {...args, dry: true}
       }

@@ -1,12 +1,19 @@
+import {type build} from 'esbuild-wasm'
 import {resolve} from 'import-meta-resolve'
 
 import logger from '../logger/index.js'
 
 let path: string
 
-let transformer: typeof import('esbuild-wasm')
+interface transformer {
+  build: typeof build
+}
 
-export const getImplementation = async (context: string) => {
+let transformer: transformer
+
+export const getImplementation = async (
+  context: string,
+): Promise<transformer> => {
   if (transformer) return transformer
 
   const sources: Array<[string, string]> = [
@@ -28,6 +35,8 @@ export const getImplementation = async (context: string) => {
 
   return transformer
 }
+
+export {transformer}
 
 async function trySource(signifier: string, context: any) {
   try {

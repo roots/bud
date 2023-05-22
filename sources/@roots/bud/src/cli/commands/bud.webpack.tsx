@@ -9,8 +9,14 @@ import {Command, Option} from '@roots/bud-support/clipanion'
  */
 @dry
 export default class BudWebpackCommand extends BudCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[`webpack`]]
 
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     description: `Webpack CLI passthrough`,
     category: `tools`,
@@ -20,10 +26,10 @@ export default class BudWebpackCommand extends BudCommand {
   public options = Option.Proxy({name: `webpack passthrough options`})
 
   /**
-   * Command execute
+   * {@link Command.execute}
    */
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     const bin = join(
@@ -32,7 +38,7 @@ export default class BudWebpackCommand extends BudCommand {
       `webpack.js`,
     )
 
-    process.stdout.write(`\n\n$ ${this.bin} ${bin}\n\n`)
+    this.context.stdout.write(`\n\n$ ${this.bin} ${bin}\n\n`)
 
     await this.$(this.bin, [
       bin,

@@ -1,8 +1,8 @@
 import {describe, expect, it} from 'vitest'
 
-import Extension from './extension.js'
+import Extension from '../../src/index.js'
 
-describe(`@roots/bud-react/react-refresh`, () => {
+describe(`@roots/bud-react/babel-refresh`, () => {
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })

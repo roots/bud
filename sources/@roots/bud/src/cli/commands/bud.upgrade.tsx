@@ -1,4 +1,4 @@
-import BudCommand, {ArgsModifier} from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -11,7 +11,14 @@ import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
  */
 @dry
 export default class BudUpgradeCommand extends BudCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[`upgrade`], [`version`, `set`]]
+
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     description: `Set bud.js version`,
     details: `
@@ -35,14 +42,22 @@ export default class BudUpgradeCommand extends BudCommand {
       ],
     ],
   })
-  public override withArguments = ArgsModifier({dry: true})
 
+  /**
+   * Request a specific version of bud.js
+   */
   public version = Option.String({required: false})
 
+  /**
+   * Use an alternative registry
+   */
   public registry = Option.String(`--registry`, undefined, {
     description: `custom registry`,
   })
 
+  /**
+   * Package manager
+   */
   public get pacman(): `yarn` | `npm` {
     const pacman = detectPackageManager(this.bud)
     if (pacman === false) throw new Error(`Package manager is ambiguous`)
@@ -54,7 +69,7 @@ export default class BudUpgradeCommand extends BudCommand {
   }
 
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.healthcheck(this)
     await this.bud.run()
 

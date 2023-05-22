@@ -34,6 +34,7 @@ const extensions: Extensions = {
     `@roots/bud-extensions/mini-css-extract-plugin`,
     `@roots/bud-extensions/webpack-define-plugin`,
     `@roots/bud-extensions/webpack-hot-module-replacement-plugin`,
+    `@roots/bud-extensions/webpack-lifecycle-plugin`,
     `@roots/bud-extensions/webpack-manifest-plugin`,
     `@roots/bud-extensions/webpack-provide-plugin`,
     `@roots/bud-extensions/tsconfig-values`,
@@ -42,8 +43,7 @@ const extensions: Extensions = {
 }
 
 export default (manifest?: Context[`manifest`]) => {
-  if (!manifest || args[`no-disocvery`] || args[`no-discover`])
-    return extensions
+  if (!manifest || args.discovery === false) return extensions
 
   Object.keys({
     ...(manifest?.devDependencies ?? {}),

@@ -11,6 +11,7 @@ import type MiniCssExtractPlugin from './extensions/mini-css-extract-plugin/inde
 import type BudTsConfigValues from './extensions/tsconfig-values/index.js'
 import type WebpackDefinePlugin from './extensions/webpack-define-plugin/index.js'
 import type WebpackHotModuleReplacementPlugin from './extensions/webpack-hot-module-replacement-plugin/index.js'
+import type BudWebpackLifecyclePlugin from './extensions/webpack-lifecycle-plugin/index.js'
 import type WebpackManifestPlugin from './extensions/webpack-manifest-plugin/index.js'
 import type WebpackProvidePlugin from './extensions/webpack-provide-plugin/index.js'
 
@@ -34,6 +35,7 @@ declare module '@roots/bud-framework' {
     '@roots/bud-extensions/tsconfig-values': BudTsConfigValues
     '@roots/bud-extensions/webpack-define-plugin': WebpackDefinePlugin
     '@roots/bud-extensions/webpack-hot-module-replacement-plugin': WebpackHotModuleReplacementPlugin
+    '@roots/bud-extensions/webpack-lifecycle-plugin': BudWebpackLifecyclePlugin
     '@roots/bud-extensions/webpack-manifest-plugin': WebpackManifestPlugin
     '@roots/bud-extensions/webpack-provide-plugin': WebpackProvidePlugin
   }

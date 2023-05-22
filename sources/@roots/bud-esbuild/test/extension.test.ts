@@ -115,7 +115,7 @@ describe(`@roots/bud-esbuild`, () => {
         ts: {
           loader: `tsx`,
           target: `es2015`,
-          tsconfigRaw: expect.any(Object),
+          tsconfig: expect.stringContaining(`tsconfig.json`),
         },
       })
     })

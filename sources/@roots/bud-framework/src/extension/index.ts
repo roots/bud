@@ -4,6 +4,7 @@ import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
+import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
@@ -26,7 +27,7 @@ export interface ApplyPlugin {
   /**
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
    */
-  apply: (...args: any[]) => unknown
+  apply?(...args: any[]): unknown
 }
 
 export interface Constructor {
@@ -92,8 +93,16 @@ export class Extension<
   /**
    * {@link ApplyPlugin.apply}
    */
-  public declare apply?: ApplyPlugin[`apply`]
+  public apply?(compiler: Compiler): unknown
 
+  /**
+   * Is extension enabled
+   *
+   * @remarks
+   * The following methods are skipped if `enabled` is false:
+   * - {@link Extension.buildBefore}
+   * - {@link Extension.make}
+   */
   public enabled: boolean = true
 
   /**
@@ -127,7 +136,7 @@ export class Extension<
   /**
    * The module name
    */
-  public label: keyof Modules & string
+  public label: `${keyof Modules & string}`
 
   /**
    * Logger instance
@@ -513,7 +522,7 @@ export class Extension<
     try {
       const result = await this.app.module.import(signifier, context)
       this.logger.success(`imported`, signifier)
-      return result?.default ?? result ?? undefined
+      return result
     } catch (error) {
       throw new ImportError(`could not import ${signifier}`, {
         props: {

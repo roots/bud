@@ -12,7 +12,7 @@ import type {Bud} from '../bud.js'
 export const initialize = (bud: Bud): Bud =>
   bud.hooks
     .fromMap({
-      'feature.hash': () => false,
+      'feature.hash': () => bud.context.hash,
     })
     .hooks.fromMap({
       'pattern.js': /\.(mjs|jsx?)$/,
@@ -37,19 +37,16 @@ export const initialize = (bud: Bud): Bud =>
       'pattern.json5': /\.json5$/,
     })
     .hooks.fromMap({
-      'location.@src':
-        bud.isCLI() && isString(bud.context.args.input)
-          ? bud.context.args.input
-          : `src`,
-      'location.@dist':
-        bud.isCLI() && isString(bud.context.args.output)
-          ? bud.context.args.output
-          : `dist`,
+      'location.@src': isString(bud.context.input)
+        ? bud.context.input
+        : `src`,
+      'location.@dist': isString(bud.context.output)
+        ? bud.context.output
+        : `dist`,
       'location.@storage': paths.get(bud.context.basedir)[`storage`],
-      'location.@modules':
-        bud.isCLI() && isString(bud.context.args.modules)
-          ? bud.context.args.modules
-          : `node_modules`,
+      'location.@modules': isString(bud.context.modules)
+        ? bud.context.modules
+        : `node_modules`,
       'location.@os-cache': paths.get(bud.context.basedir)[`os-cache`],
       'location.@os-config': paths.get(bud.context.basedir)[`os-config`],
       'location.@os-data': paths.get(bud.context.basedir)[`os-data`],

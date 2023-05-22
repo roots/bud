@@ -1,9 +1,15 @@
 #root {
-  @apply text-indigo-500;
-
-  background: url(@src/images/nested/image.jpeg);
+  @apply flex flex-wrap flex-col justify-around h-full w-full bg-white bg-opacity-50;
 }
 
-.icon {
-  background: url(@src/svg/icon.svg);
+.app {
+  @apply flex flex-wrap flex-col w-full text-white;
+}
+
+.app img {
+  @apply w-32 h-32 flex flex-col align-middle justify-center mx-auto my-4;
+}
+
+.app span {
+  @apply text-center;
 }

@@ -28,6 +28,9 @@ class Logger {
 
     this.instance = new Signale.Signale(options)
     this.instance.config({displayLabel: false})
+    if (args.silent && !args.log && !args.verbose) {
+      this.instance.disable()
+    }
   }
 
   @bind

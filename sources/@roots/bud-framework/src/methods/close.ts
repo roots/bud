@@ -20,7 +20,7 @@ export interface close {
  * bud.close()
  * ```
  */
-export function close(onComplete?: any) {
+export function close(onComplete?: () => unknown) {
   const application = this as Bud
 
   try {

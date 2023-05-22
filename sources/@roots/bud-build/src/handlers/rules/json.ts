@@ -7,4 +7,6 @@ export const json: Factory = async ({filter, makeRule, path}) =>
     .setType(`json`)
     .setInclude([() => path()])
     .setTest(filter(`pattern.json`))
-    .setParser({parse: json5.parse})
+    .setParser({
+      parse: json5.parse,
+    })

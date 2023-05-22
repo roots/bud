@@ -14,25 +14,19 @@ export const repoPath = (...path: Array<string>) =>
 export const basedir = repoPath(`tests`, `util`, `project`)
 
 export const factory = async (
-  overrides?: Partial<Options.CommandContext>,
-  run?: boolean,
+  overrides: Partial<Options.Context> = {},
 ): Promise<Bud> => {
   const bud = await makeInstance({
     basedir,
+    force: true,
+    dry: true,
+    log: false,
+    notify: false,
+    mode: `production`,
     ...overrides,
-    args: {
-      force: true,
-      dry: true,
-      log: false,
-      notify: false,
-      ...(overrides?.args ?? {}),
-    },
   })
 
-  if (!bud.isCLI())
-    throw new Error(`test error: bud is not a CLI instance`)
-
-  if (run) await bud.run()
+  await bud.run()
 
   return bud
 }

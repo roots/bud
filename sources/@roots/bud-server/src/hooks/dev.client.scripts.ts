@@ -37,31 +37,25 @@ export const proxyClickInterceptor = (app: Bud) => {
  * @returns string
  */
 export const hmrClient = (app: Bud) => {
-  if (app.isCLI() && app.context.args.hot === false) return
+  if (app.context.hot === false) return
 
   const params = new URLSearchParams({
     name: app.label,
 
     indicator:
-      !app.isCLI() ||
-      isUndefined(app.context.args.indicator) ||
-      isNull(app.context.args.indicator)
+      isUndefined(app.context.indicator) || isNull(app.context.indicator)
         ? `true`
-        : app.context.args.indicator.toString(),
+        : app.context.indicator.toString(),
 
     overlay:
-      !app.isCLI() ||
-      isUndefined(app.context.args.overlay) ||
-      isNull(app.context.args.overlay)
+      isUndefined(app.context.overlay) || isNull(app.context.overlay)
         ? `true`
-        : app.context.args.overlay.toString(),
+        : app.context.overlay.toString(),
 
     reload:
-      !app.isCLI() ||
-      isUndefined(app.context.args.reload) ||
-      isNull(app.context.args.reload)
+      isUndefined(app.context.reload) || isNull(app.context.reload)
         ? `true`
-        : app.context.args.reload.toString(),
+        : app.context.reload.toString(),
   })
 
   return `@roots/bud-client/lib/hot/index.mjs?${params.toString()}`

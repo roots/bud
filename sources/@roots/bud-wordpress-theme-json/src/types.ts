@@ -1,5 +1,3 @@
-import '@roots/bud/types'
-
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type {WordPressThemeJSON} from './extension.js'
@@ -10,7 +8,7 @@ import type {WordPressThemeJSON} from './extension.js'
  * @see {@link https://bud.js.org/extensions/sage/theme.json/}
  * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/}
  */
-interface WPJSONApi extends PublicExtensionApi<WordPressThemeJSON> {
+type WPJSONApi = PublicExtensionApi<WordPressThemeJSON> & {
   /**
    * ## bud.wpjson.settings
    *
@@ -26,7 +24,7 @@ interface WPJSONApi extends PublicExtensionApi<WordPressThemeJSON> {
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindColors?: (value?: boolean, extendOnly?: boolean) => this
+  useTailwindColors?: (value?: boolean, extendOnly?: boolean) => WPJSONApi
 
   /**
    * ## bud.wpjson.useTailwindFontFamily
@@ -36,7 +34,10 @@ interface WPJSONApi extends PublicExtensionApi<WordPressThemeJSON> {
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontFamily?: (value?: boolean, extendOnly?: boolean) => this
+  useTailwindFontFamily?: (
+    value?: boolean,
+    extendOnly?: boolean,
+  ) => WPJSONApi
 
   /**
    * ## bud.wpjson.useTailwindFontSize
@@ -46,7 +47,10 @@ interface WPJSONApi extends PublicExtensionApi<WordPressThemeJSON> {
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontSize?: (value?: boolean, extendOnly?: boolean) => this
+  useTailwindFontSize?: (
+    value?: boolean,
+    extendOnly?: boolean,
+  ) => WPJSONApi
 }
 
 declare module '@roots/bud-framework' {
@@ -56,5 +60,6 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-wordpress-theme-json': WPJSONApi
+    '@roots/bud-tailwindcss-theme-json'?: any
   }
 }

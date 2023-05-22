@@ -16,7 +16,7 @@ export class BudPrettierCommand extends BudCommand {
   public options = Option.Proxy({name: `prettier passthrough options`})
 
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.bud.run()
 
     const prettier = join(

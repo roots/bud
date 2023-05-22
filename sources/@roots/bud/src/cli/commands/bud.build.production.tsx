@@ -1,19 +1,19 @@
 import {Command} from '@roots/bud-support/clipanion'
 
 import BuildCommand from './bud.build.js'
-import type {CommandContext} from './bud.js'
+import type {Context} from './bud.js'
 
 /**
  * `bud build production` command
  */
 export default class BuildProductionCommand extends BuildCommand {
   /**
-   * Command paths
+   * {@link Command.paths}
    */
   public static override paths = [[`build`, `production`], [`production`]]
 
   /**
-   * Usage
+   * {@link Command.usage}
    */
   public static override usage = Command.Usage({
     category: `build`,
@@ -28,10 +28,10 @@ export default class BuildProductionCommand extends BuildCommand {
   })
 
   /**
-   * Subcommand context
+   * {@link BuildCommand.withSubcommandContext}
    */
   public override withSubcommandContext: BuildCommand[`withSubcommandContext`] =
-    async (context: CommandContext) => {
+    async (context: Context) => {
       return {
         ...context,
         mode: `production` as `production`,

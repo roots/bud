@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/command.dry'
+import storage from '@roots/bud/cli/flags/storage'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import * as Ink from 'ink'
@@ -28,38 +29,39 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
-  public storage = Option.String(`--storage`, undefined, {
-    description: `Storage directory (relative to project)`,
-    env: `APP_PATH_STORAGE`,
-  })
-  public storageArg = Option.Boolean(`@storage,storage`, false, {
+  public storage = storage
+
+  public storagePositional = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })
-  public outputArg = Option.Boolean(`@dist,dist,output`, false, {
+  public outputPositional = Option.Boolean(`@dist,dist,output`, false, {
     description: `empty @dist`,
   })
-  public cacheArg = Option.Boolean(`@cache,cache`, false, {
+  public cachePositional = Option.Boolean(`@cache,cache`, false, {
     description: `empty @cache`,
   })
 
   /**
-   * Execute command
+   * {@link Command.execute}
    */
   public override async execute() {
-    await this.makeBud(this)
+    await this.makeBud()
     await this.healthcheck(this)
 
-    const cleanAll = !this.outputArg && !this.storageArg && !this.cacheArg
+    const cleanAll =
+      !this.outputPositional &&
+      !this.storagePositional &&
+      !this.cachePositional
 
-    if (this.storageArg || cleanAll) {
+    if (this.storagePositional || cleanAll) {
       await this.cleanStorage()
     }
 
-    if (this.outputArg || cleanAll) {
+    if (this.outputPositional || cleanAll) {
       await this.cleanOutput()
     }
 
-    if (this.cacheArg || cleanAll) {
+    if (this.cachePositional || cleanAll) {
       await this.cleanCache()
     }
   }

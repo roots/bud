@@ -7,45 +7,47 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
-import type * as Service from '../service.js'
+import type {Contract} from '../service.js'
 
 /**
- * Filesystem service
+ * {@link Filesystem} service
  */
-export default class FS extends Filesystem implements Service.Contract {
+export default class FS extends Filesystem implements Contract {
   /**
-   * Service identifier
+   * {@link Contract.label}
    */
   public label = `fs`
 
   /**
-   * Access {@link Bud}
-   *
-   * @public @readonly
+   * {@link Contract.app}
    */
   public get app(): Bud {
     return this._app()
   }
 
   /**
-   * Logger instance
+   * {@link Contract.logger}
    */
   public get logger() {
     return this.app.context.logger.scope(`fs`)
   }
 
   /**
-   * JSON handling
+   * JSON
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/json}
    */
   public json: typeof json = json
 
   /**
-   * S3 instance
+   * S3
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3}
    */
   public s3: S3
 
   /**
-   * YML handling
+   * @see {@link https://bud.js.org/docs/bud.fs/yml}
    */
   public yml: typeof yml = yml
 
@@ -57,9 +59,9 @@ export default class FS extends Filesystem implements Service.Contract {
   }
 
   /**
-   * {@link Service.Contract.bootstrap}
+   * {@link Contract.bootstrap}
    */
-  public async bootstrap(bud: Bud) {
+  public async register(bud: Bud) {
     try {
       const s3IsResolvable = await bud.module.resolve(
         `@aws-sdk/client-s3`,
@@ -74,12 +76,12 @@ export default class FS extends Filesystem implements Service.Contract {
   }
 
   /**
-   * Fulfills {@link Service.Contract.register}
+   * Fulfills {@link Contract.bootstrap}
    */
-  public async register() {}
+  public async bootstrap() {}
 
   /**
-   * Fulfills {@link Service.Contract.boot}
+   * Fulfills {@link Contract.boot}
    */
   public async boot() {}
 
@@ -87,6 +89,8 @@ export default class FS extends Filesystem implements Service.Contract {
    * Set bucket
    *
    * @param bucket - {@link S3.bucket}
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setBucket(bucket: string) {
     if (!this.s3) this.throwS3Error()
@@ -102,6 +106,8 @@ export default class FS extends Filesystem implements Service.Contract {
    * Set credentials
    *
    * @param credentials - {@link S3.credentials}
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setCredentials(credentials: S3[`config`][`credentials`]) {
     if (!this.s3) this.throwS3Error()
@@ -116,7 +122,9 @@ export default class FS extends Filesystem implements Service.Contract {
   /**
    * Set endpoint
    *
-   * @param options - upload options
+   * @param endpoint - S3 endpoint
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
     if (!this.s3) this.throwS3Error()
@@ -131,7 +139,9 @@ export default class FS extends Filesystem implements Service.Contract {
   /**
    * Set S3 region
    *
-   * @param options - upload options
+   * @param region - S3 region
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setRegion(region: S3[`config`][`region`]) {
     if (!this.s3) this.throwS3Error()
@@ -147,6 +157,8 @@ export default class FS extends Filesystem implements Service.Contract {
    * Upload files to S3
    *
    * @param options - upload options
+   *
+   * @see {@link https://bud.js.org/docs/bud.fs/s3#uploading-files}
    */
   public upload(options?: {
     source?: string
@@ -258,6 +270,9 @@ export default class FS extends Filesystem implements Service.Contract {
     return this
   }
 
+  /**
+   * Throw S3 error
+   */
   @bind
   public throwS3Error() {
     const dependencies = {
