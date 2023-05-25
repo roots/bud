@@ -102,7 +102,7 @@
     "ink-text-input": "5.0.1",
     "react": "18.2.0",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.84.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -71,7 +71,7 @@
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.84.0"
   },
   "volta": {
     "extends": "../../../package.json"

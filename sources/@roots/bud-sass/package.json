@@ -99,7 +99,7 @@
     "@types/node": "18.16.12",
     "postcss": "8.4.23",
     "stylelint": "15.6.2",
-    "webpack": "5.83.0"
+    "webpack": "5.84.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
