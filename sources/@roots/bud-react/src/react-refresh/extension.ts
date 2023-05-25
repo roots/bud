@@ -9,6 +9,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import {ExtensionError} from '@roots/bud-support/errors'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -20,8 +21,10 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @plugin(RefreshPlugin)
 @options<Options>({
   overlay: false,
-  esModule: (app: Bud) =>
-    app.context.files[`package.json`]?.module?.type === `module`,
+  esModule: new Value(
+    (app: Bud) =>
+      app.context.files[`package.json`]?.module?.type === `module`,
+  ),
 })
 @development
 export default class BudReactRefresh extends Extension<

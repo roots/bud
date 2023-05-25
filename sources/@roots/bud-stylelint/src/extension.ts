@@ -5,6 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import {deprecated} from '@roots/bud-support/decorators'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 
@@ -14,7 +15,9 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 @label(`@roots/bud-stylelint`)
 @expose(`stylelint`)
 @plugin(StylelintPlugin)
-@options<StylelintPlugin.Options>({context: app => app.path(`@src`)})
+@options<StylelintPlugin.Options>({
+  context: new Value(({path}) => path(`@src`)),
+})
 export default class BudStylelintWebpackPlugin extends Extension<
   StylelintPlugin.Options,
   StylelintPlugin

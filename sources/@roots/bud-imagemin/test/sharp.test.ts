@@ -17,8 +17,6 @@ describe(`@roots/bud-imagemin/sharp`, () => {
 
   it(`should be constructable`, () => {
     expect(sharp).toBeInstanceOf(BudImageminSharp)
-    expect(sharp.implementation).not.toBeDefined()
-    expect(sharp.generators).not.toBeDefined()
   })
 
   it(`should assign sharp.implementation on init`, async () => {

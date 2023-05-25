@@ -5,6 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import type {Options, Plugin} from '@roots/bud-support/html-webpack-plugin'
 
 export type {Options}
@@ -17,7 +18,7 @@ export type {Options}
   filename: `index.html`,
   inject: true,
   template: `auto`,
-  publicPath: app => app.publicPath(),
+  publicPath: new Value(app => app.publicPath()),
 })
 @disabled
 export default class BudHtmlWebpackPlugin extends Extension<

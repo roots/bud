@@ -63,17 +63,11 @@ export class BudTerser extends Extension<Options> {
     const Terser = await import(`terser-webpack-plugin`)
 
     if (bud.extensions.has(`@roots/bud-swc`)) {
-      const value = (_bud: Bud) => Terser.swcMinify
-      const callback = (_minify: Options[`minify`]) => value
-      this.set(`minify`, callback)
+      this.set(`minify`, () => Terser.swcMinify)
     } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
-      const value = (_bud: Bud) => Terser.esbuildMinify
-      const callback = (_minify: Options[`minify`]) => value
-      this.set(`minify`, callback)
+      this.set(`minify`, () => Terser.esbuildMinify)
     } else {
-      const value = (_bud: Bud) => Terser.terserMinify
-      const callback = (_minify: Options[`minify`]) => value
-      this.set(`minify`, callback)
+      this.set(`minify`, () => Terser.terserMinify)
     }
 
     bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {

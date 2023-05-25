@@ -1,12 +1,16 @@
-export default class Value<T> {
+interface Value<T> {
+  identity: T
+}
+
+class Value<T> {
   public constructor(public identity: T) {}
 
   public get() {
     return this.identity
   }
 
-  public set(value: T) {
-    this.identity = value
+  public set(identity: T) {
+    this.identity = identity
   }
 
   public static make<T>(value: T) {
@@ -25,3 +29,5 @@ export default class Value<T> {
     return Value.is(value) ? typeof value.identity : typeof value
   }
 }
+
+export default Value

@@ -7,6 +7,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
@@ -29,10 +30,14 @@ export interface Options {
 @expose(`cdn`)
 @options<Options>({
   allowedUris: new Set([/^http:\/\//, /^https:\/\//]),
-  cacheLocation: (app: Bud) => app.path(`@storage`, app.label, `modules`),
+  cacheLocation: new Value(({label, path}) =>
+    path(`@storage`, label, `modules`),
+  ),
   frozen: false,
-  lockfileLocation: (app: Bud): string => app.path(`bud.lock`),
-  proxy: ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
+  lockfileLocation: new Value(({path}) => path(`bud.lock`)),
+  proxy: new Value(
+    ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
+  ),
   upgrade: true,
 })
 @disabled

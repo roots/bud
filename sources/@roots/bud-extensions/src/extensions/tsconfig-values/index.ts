@@ -6,7 +6,6 @@ import {
   disabled,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
 
@@ -17,7 +16,6 @@ type Options = Record<string, any>
  */
 @label(`@roots/bud-extensions/tsconfig-values`)
 @expose(`tsconfig`)
-@options<Options>({})
 @disabled
 export default class BudTsConfigValues extends Extension<Options> {
   /**

@@ -6,6 +6,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import {deprecated} from '@roots/bud-support/decorators'
 import type {Options} from 'eslint-webpack-plugin'
 import EslintPlugin from 'eslint-webpack-plugin'
@@ -20,12 +21,14 @@ import BudEslintCacheFix from './cache-fix/index.js'
 @plugin(EslintPlugin)
 @options<Options>({
   cache: true,
-  cacheLocation: app => app.path(app.cache.cacheDirectory, `eslint.json`),
-  context: app => app.path(),
+  cacheLocation: new Value(({cache, path}) =>
+    path(cache.cacheDirectory, `eslint.json`),
+  ),
+  context: new Value(({path}) => path()),
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
   fix: false,
-  lintDirtyModulesOnly: app => app.isDevelopment,
-  resolvePluginsRelativeTo: app => app.path(),
+  lintDirtyModulesOnly: new Value(({isDevelopment}) => isDevelopment),
+  resolvePluginsRelativeTo: new Value(({path}) => path()),
   threads: false,
 })
 export class BudEslint extends Extension<Options, EslintPlugin> {

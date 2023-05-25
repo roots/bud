@@ -5,6 +5,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
 import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 
@@ -16,8 +17,9 @@ import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 @plugin(Plugin)
 @options<Options>({
   fileName: `manifest.json`,
-  publicPath: ({hooks}: Bud) =>
+  publicPath: new Value(({hooks}: Bud) =>
     (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
+  ),
 })
 export default class BudManifestExtension extends Extension<
   Options,

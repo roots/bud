@@ -6,6 +6,6 @@ export const options =
     class extends constructor {
       public constructor(...args: any[]) {
         super(...args)
-        this.optionsMap = options
+        this._options = options
       }
     }

@@ -57,8 +57,8 @@ export class BudSass extends Extension {
         options: () => this.options,
       })
       .setRule(`sass`, {
-        test: (app: Bud) => app.hooks.filter(`pattern.sass`),
-        include: [app => app.path(`@src`)],
+        test: ({hooks}) => hooks.filter(`pattern.sass`),
+        include: [({path}) => path(`@src`)],
       })
   }
 

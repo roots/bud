@@ -7,6 +7,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-framework/value'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
@@ -41,7 +42,7 @@ export interface Mutator {
  */
 @label(`@roots/bud-wordpress-theme-json`)
 @options({
-  path: ({path}) => path(`./theme.json`),
+  path: new Value(({path}) => path(`./theme.json`)),
   settings: {
     color: {
       custom: false,

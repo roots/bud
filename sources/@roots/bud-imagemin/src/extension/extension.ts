@@ -6,12 +6,10 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import type {
-  SharpEncodeOptions,
-  SvgoEncodeOptions,
-} from 'image-minimizer-webpack-plugin/types/utils.js'
 
 import type {Generator} from '../index.js'
+import type * as BudImageminSharp from '../sharp/sharp.js'
+import type * as BudImageminSvgo from '../svgo/svgo.js'
 
 /**
  * Image minimizer configuration
@@ -20,22 +18,35 @@ import type {Generator} from '../index.js'
 @expose(`imagemin`)
 @dependsOn([`@roots/bud-imagemin/sharp`, `@roots/bud-imagemin/svgo`])
 export class BudImageminExtension extends Extension {
+  /**
+   * Sharp options
+   */
   public declare sharp: Bud[`imagemin`][`sharp`]
+
+  /**
+   * Svgo options
+   */
   public declare svgo: Bud[`imagemin`][`svgo`]
 
   /**
    * Set encoder options
    */
   @bind
-  public encode<K extends keyof SharpEncodeOptions>(
-    ...params:
-      | [key: K, value: SharpEncodeOptions[K]]
-      | [key: `svg`, value: SvgoEncodeOptions]
+  public encode<
+    K extends `${(keyof BudImageminSharp.EncodeOptions | `svg`) & string}`,
+  >(
+    ...params: K extends keyof BudImageminSharp.EncodeOptions
+      ? [K, BudImageminSharp.EncodeOptions[K]]
+      : [`svg`, BudImageminSvgo.EncodeOptions]
   ) {
     const [key, value] = params
-    key === `svg`
-      ? this.svgo.setOptions(value)
-      : this.sharp.setEncodeOptions(key, value)
+
+    if (key === `svg`) {
+      this.svgo.setEncodeOptions(value)
+    } else {
+      this.sharp.encode(key, value)
+    }
+
     return this
   }
 
@@ -44,11 +55,14 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public lossless() {
-    this.sharp.setEncodeOptions(`jpeg`, {quality: 100})
-    this.sharp.setEncodeOptions(`webp`, {lossless: true})
-    this.sharp.setEncodeOptions(`avif`, {lossless: true})
-    this.sharp.setEncodeOptions(`png`, {})
-    this.sharp.setEncodeOptions(`gif`, {})
+    this.encode(`svg`, {})
+
+    this.sharp.encode(`jpeg`, {quality: 100})
+    this.sharp.encode(`webp`, {lossless: true})
+    this.sharp.encode(`avif`, {lossless: true})
+    this.sharp.encode(`png`, {})
+    this.sharp.encode(`gif`, {})
+
     return this
   }
 
@@ -56,7 +70,7 @@ export class BudImageminExtension extends Extension {
    * Add a generator preset
    */
   @bind
-  public addPreset<K extends keyof SharpEncodeOptions>(
+  public addPreset<K extends keyof BudImageminSharp.Options>(
     ...params: [key: K, value: Partial<Generator>]
   ) {
     this.sharp.setGenerator(...params)
@@ -71,36 +85,34 @@ export class BudImageminExtension extends Extension {
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
 
-    bud.extensions
-      .get(`@roots/bud-extensions/webpack-manifest-plugin`)
-      .setOption(`generate`, () => () => (_seed, files, _entrypoints) => {
-        return files.reduce((acc, file) => {
-          const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
+    bud.manifest.setOption(`generate`, () => (_, files) => {
+      return files.reduce((acc, file) => {
+        const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
 
-          if (match) {
-            const [_, width, height, rest] = match
-            const as = rest.split(`.`).pop()
-            return {
-              ...acc,
+        if (match) {
+          const [_, width, height, rest] = match
+          const as = rest.split(`.`).pop()
+          return {
+            ...acc,
 
-              /**
-               * Prevent overwriting of full resolution
-               *
-               * Not sure that this behaves exactly as expected. But, it's
-               * more predictable in practice than leaving it unhandled.
-               */
-              ...(!acc[`${file.name}?as=${as}`]
-                ? {[`${file.name}?as=${as}`]: file.path}
-                : {}),
+            /**
+             * Prevent overwriting of full resolution
+             *
+             * Not sure that this behaves exactly as expected. But, it's
+             * more predictable in practice than leaving it unhandled.
+             */
+            ...(!acc[`${file.name}?as=${as}`]
+              ? {[`${file.name}?as=${as}`]: file.path}
+              : {}),
 
-              [`${file.name}?as=${as}&width=${width}`]: file.path,
-              [`${file.name}?as=${as}&width=${width}&height=${height}`]:
-                file.path,
-            }
+            [`${file.name}?as=${as}&width=${width}`]: file.path,
+            [`${file.name}?as=${as}&width=${width}&height=${height}`]:
+              file.path,
           }
+        }
 
-          return {...acc, [file.name]: file.path}
-        }, {})
-      })
+        return {...acc, [file.name]: file.path}
+      }, {})
+    })
   }
 }
