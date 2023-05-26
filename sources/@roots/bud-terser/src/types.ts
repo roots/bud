@@ -1,34 +1,35 @@
-import type {BudMinimizeCss} from './css-minimizer/extension.js'
-import type {BudTerser} from './extension.js'
+import type {
+  PublicExtensionApi,
+  WithOptions,
+} from '@roots/bud-framework/extension'
+
+import type {
+  BudMinimizeCss,
+  Options as CssOptions,
+} from './css-minimizer/extension.js'
+import type {BudTerser, Options} from './extension.js'
+
+interface TerserExtension
+  extends PublicExtensionApi<BudTerser>,
+    WithOptions<BudTerser, Options> {
+  dropConsole: BudTerser[`dropConsole`]
+  dropDebugger: BudTerser[`dropDebugger`]
+  dropComments: BudTerser[`dropComments`]
+  debugger: BudTerser[`debugger`] // @deprecated
+}
+
+interface TerserStylesExtension
+  extends PublicExtensionApi<BudMinimizeCss>,
+    WithOptions<BudMinimizeCss, CssOptions> {}
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    minimizeCss: {
-      get: BudMinimizeCss[`get`]
-      getOption: BudMinimizeCss[`getOption`]
-      getOptions: BudMinimizeCss[`getOptions`]
-      set: BudMinimizeCss[`set`]
-      setOption: BudMinimizeCss[`setOption`]
-      setOptions: BudMinimizeCss[`setOptions`]
-      enable: BudMinimizeCss[`enable`]
-    }
-    terser: {
-      get: BudTerser[`get`]
-      getOption: BudTerser[`getOption`]
-      getOptions: BudTerser[`getOptions`]
-      set: BudTerser[`set`]
-      setOption: BudTerser[`setOption`]
-      setOptions: BudTerser[`setOptions`]
-      enable: BudTerser[`enable`]
-      dropConsole: BudTerser[`dropConsole`]
-      dropDebugger: BudTerser[`dropDebugger`]
-      dropComments: BudTerser[`dropComments`]
-      debugger: BudTerser[`debugger`]
-    }
+    minimizeCss: TerserStylesExtension
+    terser: TerserExtension
   }
 
   interface Modules {
-    '@roots/bud-terser': Bud[`terser`]
-    '@roots/bud-terser/css-minimizer': Bud[`minimizeCss`]
+    '@roots/bud-terser': TerserExtension
+    '@roots/bud-terser/css-minimizer': TerserStylesExtension
   }
 }

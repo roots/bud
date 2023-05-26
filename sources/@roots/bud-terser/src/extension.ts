@@ -1,5 +1,7 @@
-import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionsCallback,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
@@ -30,6 +32,7 @@ export type Options = Plugin.BasePluginOptions & {
 @dependsOn([`@roots/bud-terser/css-minimizer`])
 @expose(`terser`)
 @options<Options>({
+  minify: undefined,
   extractComments: false,
   parallel: true,
   terserOptions: {
@@ -51,10 +54,92 @@ export type Options = Plugin.BasePluginOptions & {
 @production
 export class BudTerser extends Extension<Options> {
   /**
+   * extractComments value
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
+   */
+  public declare extractComments: Options['extractComments']
+  /**
+   * Get extractComments
+   * @returns boolean
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
+   */
+  public declare getExtractComments: () => Options['extractComments']
+  /**
+   * Set extractComments
+   * @param enabled boolean
+   * @returns this
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
+   */
+  public declare setExtractComments: (
+    enabled: OptionsCallback<Options, 'extractComments'>,
+  ) => this
+
+  /**
+   * parallel value
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
+   */
+  public declare parallel: Options['parallel']
+  /**
+   * Get parallel
+   * @returns boolean
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
+   */
+  public declare getParallel: () => Options['parallel']
+  /**
+   * Set parallel
+   * @param enabled boolean
+   * @returns this
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
+   */
+  public declare setParallel: (
+    enabled: OptionsCallback<Options, 'parallel'>,
+  ) => this
+
+  /**
+   * minify value
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare minify: Options['minify']
+  /**
+   * Get minify
+   * @returns boolean
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare getMinify: () => Options['minify']
+  /**
+   * Set minify
+   * @param enabled boolean
+   * @returns this
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare setMinify: (
+    minify: OptionsCallback<Options, 'minify'>,
+  ) => this
+
+  public declare include: Options['include']
+  public declare getInclude: () => Options['include']
+  public declare setInclude: (
+    include: OptionsCallback<Options, 'include'>,
+  ) => this
+
+  public declare exclude: Options['exclude']
+  public declare getExclude: () => Options['exclude']
+  public declare setExclude: (
+    exclude: OptionsCallback<Options, 'exclude'>,
+  ) => this
+
+  /** @todo conflict */
+  // public declare terserOptions: Options['terserOptions']
+  public declare getTerserOptions: () => Options['terserOptions']
+  public declare setTerserOptions: (
+    options: OptionsCallback<Options, 'terserOptions'>,
+  ) => this
+
+  /**
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async buildBefore({extensions, hooks}) {
     if (!this.enabled) {
       this.logger.info(`minimizer disabled. skipping terser config.`)
       return
@@ -62,15 +147,18 @@ export class BudTerser extends Extension<Options> {
 
     const Terser = await import(`terser-webpack-plugin`)
 
-    if (bud.extensions.has(`@roots/bud-swc`)) {
-      this.set(`minify`, () => Terser.swcMinify)
-    } else if (bud.extensions.has(`@roots/bud-esbuild`)) {
-      this.set(`minify`, () => Terser.esbuildMinify)
+    if (extensions.has(`@roots/bud-swc`)) {
+      const minifier = Terser.swcMinify
+      this.setMinify(() => minifier)
+    } else if (extensions.has(`@roots/bud-esbuild`)) {
+      const minifier = Terser.esbuildMinify
+      this.setMinify(() => minifier)
     } else {
-      this.set(`minify`, () => Terser.terserMinify)
+      const minifier = Terser.terserMinify
+      this.setMinify(() => minifier)
     }
 
-    bud.hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
+    hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
       minimizers = [
         ...minimizers.filter(
           minimizer => !(minimizer instanceof Terser.default),
@@ -170,11 +258,11 @@ export class BudTerser extends Extension<Options> {
   @deprecated(`bud.terser`, `Use bud.terser.set instead`, [
     [
       `Set the minifier`,
-      `bud.terser.set('terserOptions.minify', () => () => minifier)`,
+      `bud.terser.set('terserOptions.minify', () => minifier)`,
     ],
   ])
   public setMinifier(minify: any): this {
-    this.set(`terserOptions.minify`, minify)
+    this.set(`minify`, minify)
     return this
   }
 

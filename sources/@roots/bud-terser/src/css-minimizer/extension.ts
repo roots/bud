@@ -1,5 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionsCallback,
+  type WithOptions,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   expose,
@@ -12,12 +16,21 @@ import type {
   Plugin,
 } from '@roots/bud-support/css-minimizer-webpack-plugin'
 
+export interface Options extends BasePluginOptions {
+  minimizerOptions: any
+}
+
 /**
  * Terser css minimizer configuration
  */
 @label(`@roots/bud-terser/css-minimizer`)
 @expose(`minimizeCss`)
-@options({
+@options<Options>({
+  warningsFilter: undefined,
+  test: undefined,
+  include: undefined,
+  exclude: undefined,
+  parallel: true,
   minimizerOptions: {
     preset: [
       `default`,
@@ -30,7 +43,46 @@ import type {
   },
 })
 @production
-export class BudMinimizeCss extends Extension<BasePluginOptions, Plugin> {
+export class BudMinimizeCss
+  extends Extension<Options, Plugin>
+  implements WithOptions<BudMinimizeCss, Options>
+{
+  public declare warningsFilter: Options['warningsFilter']
+  public declare getWarningsFilter: () => Options['warningsFilter']
+  public declare setWarningsFilter: (
+    filter: OptionsCallback<Options, 'warningsFilter'>,
+  ) => BudMinimizeCss
+
+  public declare test: Options['test']
+  public declare getTest: () => Options['test']
+  public declare setTest: (
+    test: OptionsCallback<Options, 'test'>,
+  ) => BudMinimizeCss
+
+  public declare include: Options['include']
+  public declare getInclude: () => Options['include']
+  public declare setInclude: (
+    include: OptionsCallback<Options, 'include'>,
+  ) => BudMinimizeCss
+
+  public declare exclude: Options['exclude']
+  public declare getExclude: () => Options['exclude']
+  public declare setExclude: (
+    exclude: OptionsCallback<Options, 'exclude'>,
+  ) => BudMinimizeCss
+
+  public declare parallel: Options['parallel']
+  public declare getParallel: () => Options['parallel']
+  public declare setParallel: (
+    parallel: OptionsCallback<Options, 'parallel'>,
+  ) => BudMinimizeCss
+
+  public declare minimizerOptions: Options['minimizerOptions']
+  public declare getMinimizerOptions: () => Options['minimizerOptions']
+  public declare setMinimizerOptions: (
+    minimizerOptions: OptionsCallback<Options, 'minimizerOptions'>,
+  ) => BudMinimizeCss
+
   /**
    * {@link Extension.buildBefore}
    */

@@ -1,3 +1,8 @@
 export default async bud => {
-  bud.html().entry('app', 'app.js').eslint.set(`fix`, true)
+  bud.entry('app', 'app.js')
+
+  bud.eslint
+    .setFix(true)
+    .setFailOnWarning(false)
+    .setFailOnError(bud.isProduction)
 }

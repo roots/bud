@@ -24,6 +24,32 @@ export type OptionsCallback<
   K extends `${keyof Options & string}`,
 > = OptionsMap<T>[K] | ((value: T[K]) => T[K])
 
+export type OptionSetter<
+  Extension,
+  Options,
+  Property extends `${keyof Options & string}`,
+> = (value: OptionsCallback<Options, Property>) => Extension
+
+export type OptionGetter<
+  Options extends Record<string, any>,
+  Property extends `${keyof Options & string}`,
+> = () => Options[Property]
+
+export type OptionAccessor<
+  Options extends Record<string, any>,
+  Property extends `${keyof Options & string}`,
+> = Options[Property]
+
+export type Option<
+  Extension,
+  Options extends Record<string, any>,
+  Property extends `${keyof Options & string}`,
+> = {
+  get: OptionGetter<Options, Property>
+  set: OptionSetter<Extension, Options, Property>
+  value: OptionAccessor<Options, Property>
+}
+
 export interface Meta {
   register: boolean
   boot: boolean
@@ -46,8 +72,22 @@ export interface Constructor {
   new (...args: any[]): Extension
 }
 
+export type WithOptions<
+  E extends Extension = Extension,
+  O extends Options = Options,
+> = {
+  [K in keyof O as `get${Capitalize<K & string>}`]: () => O[K]
+} & {
+  [K in keyof O as `set${Capitalize<K & string>}`]: (
+    value: OptionsCallback<O, `${K & string}`>,
+  ) => E
+} & {
+  [K in keyof O as `${K & string}`]: O[K]
+}
+
 export interface PublicExtensionApi<E extends Extension = Extension> {
   app: Bud
+
   /**
    * Set an option value
    */
@@ -362,10 +402,10 @@ export class Extension<
   @bind
   public getOptions(): ExtensionOptions {
     return Object.entries(this._options).reduce((acc, [key, value]) => {
-      return {
-        ...acc,
-        [key]: value instanceof Value ? value.get()(this.app) : value,
-      }
+      const unwrapped =
+        value instanceof Value ? value.get()(this.app) : value
+      if (isUndefined(unwrapped)) return acc
+      return {...acc, [key]: unwrapped}
     }, {} as ExtensionOptions)
   }
 

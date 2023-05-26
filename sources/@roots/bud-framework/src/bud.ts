@@ -3,6 +3,7 @@ import {InputError} from '@roots/bud-support/errors'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import logger from '@roots/bud-support/logger'
 
 import {bootstrap} from './lifecycle/bootstrap.js'
 import type * as methods from './methods/index.js'
@@ -46,7 +47,7 @@ export class Bud {
    * @readonly
    */
   public get label() {
-    return this.context.label
+    return this.context?.label
   }
 
   /**
@@ -54,7 +55,7 @@ export class Bud {
    * @readonly
    */
   public get root(): Bud {
-    return this.context.root ?? this
+    return this.context?.root ?? this
   }
 
   /**
@@ -78,7 +79,7 @@ export class Bud {
    * @readonly
    */
   public get isRoot(): boolean {
-    return this.root.label === this.label
+    return this.root?.context?.label === this.context?.label
   }
 
   /**
@@ -86,7 +87,7 @@ export class Bud {
    * @readonly
    */
   public get isChild(): boolean {
-    return this.root.label !== this.label
+    return this.root?.context?.label !== this.context?.label
   }
 
   /**
@@ -262,7 +263,7 @@ export class Bud {
    */
   @bind
   public log(...messages: any[]) {
-    this.context.logger.scope(this.label).log(...messages)
+    logger.scope(this.label).log(...messages)
     return this
   }
 
@@ -271,7 +272,7 @@ export class Bud {
    */
   @bind
   public info(...messages: any[]) {
-    this.context.logger.scope(this.label).info(...messages)
+    logger.scope(this.label).info(...messages)
     return this
   }
 
@@ -280,7 +281,7 @@ export class Bud {
    */
   @bind
   public success(...messages: any[]) {
-    this.context.logger.scope(this.label).success(...messages)
+    logger.scope(this.label).success(...messages)
     return this
   }
 
@@ -289,7 +290,7 @@ export class Bud {
    */
   @bind
   public warn(...messages: any[]) {
-    this.context.logger.scope(this.label).warn(...messages)
+    logger.scope(this.label).warn(...messages)
     return this
   }
 
@@ -298,7 +299,7 @@ export class Bud {
    */
   @bind
   public error(...messages: Array<any>): Bud {
-    this.context.logger.scope(this.label).error(...messages)
+    logger.scope(this.label).error(...messages)
     return this
   }
 }
