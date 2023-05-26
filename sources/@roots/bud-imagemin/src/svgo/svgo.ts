@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework/extension'
+import {Extension, type Option} from '@roots/bud-framework/extension'
 import {
   bind,
   label,
@@ -42,23 +42,47 @@ export type Options = PathedEncodeOptions & OptionsObject
 @label(`@roots/bud-imagemin/svgo`)
 @options<Options>({encodeOptions: {}})
 export class BudImageminSvgo extends Extension<Options> {
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare encodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['value']
+
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare setEncodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['set']
+
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare getEncodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['get']
+
+  /**
+   * Implementation
+   */
   public implementation: typeof Plugin.svgoMinify
 
-  @bind
-  public setEncodeOptions(value: EncodeOptions) {
-    Object.entries(value).forEach(
-      <K extends keyof EncodeOptions>([k, v]: [K, EncodeOptions[K]]) => {
-        this.encode(k, v)
-      },
-    )
-  }
-
+  /**
+   * Set encode options
+   */
   @bind
   public encode<K extends keyof EncodeOptions & string>(
     key: K,
     value: EncodeOptions[K],
   ) {
-    this.set(`encodeOptions.${key}`, value as any)
+    this.setEncodeOptions(options => ({...options, [key]: value}))
   }
 
   /**
@@ -73,18 +97,15 @@ export class BudImageminSvgo extends Extension<Options> {
    * {@link Extension.configAfter}
    */
   @bind
-  public override async configAfter({hooks}) {
-    hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
-      ...minimizer,
-      new Plugin({
-        test: hooks.filter(`pattern.svg`),
-        minimizer: {
+  public override async configAfter({hooks, imagemin}) {
+    this.getEncodeOptions() &&
+      hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
+        ...minimizer,
+        imagemin.makePluginInstance({
+          test: hooks.filter(`pattern.svg`),
           implementation: this.implementation,
-          options: {
-            encodeOptions: this.get(`encodeOptions`) ?? {},
-          },
-        },
-      }),
-    ])
+          options: this.options,
+        }),
+      ])
   }
 }

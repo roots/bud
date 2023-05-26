@@ -6,6 +6,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import Plugin from 'image-minimizer-webpack-plugin'
 
 import type {Generator} from '../index.js'
 import type * as BudImageminSharp from '../sharp/sharp.js'
@@ -113,6 +114,16 @@ export class BudImageminExtension extends Extension {
 
         return {...acc, [file.name]: file.path}
       }, {})
+    })
+  }
+
+  /**
+   * Make image minimizer plugin instance
+   */
+  public makePluginInstance({test, implementation, options}) {
+    return new Plugin({
+      test,
+      minimizer: {implementation, options},
     })
   }
 }

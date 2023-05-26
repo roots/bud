@@ -1,4 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -43,8 +42,14 @@ export type Options = OptionsObject & PathedEncodeOptions
 @label(`@roots/bud-imagemin/sharp`)
 @options<Options>({encodeOptions: {}})
 export class BudImageminSharp extends Extension<Options> {
+  /**
+   * Configured generators
+   */
   public generators: GeneratorMap = new Map()
 
+  /**
+   * Implementation
+   */
   public implementation: typeof Plugin.sharpGenerate
 
   /**
@@ -81,12 +86,14 @@ export class BudImageminSharp extends Extension<Options> {
   @bind
   public setGenerator(
     preset: string,
-    generator: Partial<Generator>,
+    generator: Omit<Generator, 'implementation'>,
   ): this {
+    if (!this.generators) this.generators = new Map()
+
     this.generators.set(preset, {
-      preset: generator?.preset ?? preset,
+      preset,
+      implementation: this.implementation,
       filename: `[path]generated.[name]@[width]x[height][ext]`,
-      implementation: generator?.implementation ?? Plugin.sharpGenerate,
       ...generator,
     })
 
@@ -98,44 +105,10 @@ export class BudImageminSharp extends Extension<Options> {
    */
   @bind
   public override async register() {
-    this.generators = new Map()
     this.implementation = Plugin.sharpMinify
 
     this.setGenerator(`webp`, {
-      options: {
-        encodeOptions: {webp: {}},
-      },
+      options: {encodeOptions: {webp: {}}},
     })
-  }
-
-  /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
-    this.configureBudMinimizer(bud)
-    if (this.generators.size > 0) this.configureBudGenerators(bud)
-  }
-
-  @bind
-  public configureBudGenerators({hooks}: Bud) {
-    hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
-      ...minimizers,
-      new Plugin({generator: [...this.generators.values()]}),
-    ])
-  }
-
-  @bind
-  public configureBudMinimizer({hooks}: Bud) {
-    hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
-      ...minimizers,
-      new Plugin({
-        test: hooks.filter(`pattern.image`),
-        minimizer: {
-          implementation: this.implementation,
-          options: this.options,
-        },
-      }),
-    ])
   }
 }

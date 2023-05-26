@@ -1,4 +1,4 @@
-import {join} from 'node:path'
+import {isAbsolute, join} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
 import {
@@ -108,10 +108,25 @@ export default class BudTsConfigValues extends Extension<Options> {
     options: OptionsCallback<Options, 'exclude'>,
   ) => this
 
+  public get tsConfigSource(): Options | undefined {
+    return (
+      this.app.context.files[`tsconfig.json`]?.module ??
+      this.app.context.files[`jsconfig.json`]?.module
+    )
+  }
+
+  public get derivedBaseDir(): string | undefined {
+    return (
+      this.getCompilerOptions()?.rootDir ??
+      this.getCompilerOptions()?.baseUrl
+    )
+  }
+
   /**
    * bud value
    */
   public declare bud: Options['bud']
+
   /**
    * Get bud
    * @returns tsconfig.bud value
@@ -128,57 +143,56 @@ export default class BudTsConfigValues extends Extension<Options> {
    * {@link Extension.register}
    */
   public override async register(bud: Bud) {
-    const tsConfig: Options =
-      bud.context.files[`tsconfig.json`]?.module ??
-      bud.context.files[`jsconfig.json`]?.module
+    const tsConfig = this.tsConfigSource
 
-    if (tsConfig?.compilerOptions)
+    if (this.tsConfigSource?.compilerOptions)
       this.setCompilerOptions(tsConfig.compilerOptions)
-    if (tsConfig?.include) this.setInclude(tsConfig.include)
-    if (tsConfig?.exclude) this.setExclude(tsConfig.exclude)
-    if (tsConfig?.bud) this.setBud(tsConfig.bud)
 
-    if (this.getBud()?.useCompilerOptions) this.enable()
+    if (this.tsConfigSource?.include) this.setInclude(tsConfig.include)
+    if (this.tsConfigSource?.exclude) this.setExclude(tsConfig.exclude)
+    if (this.tsConfigSource?.bud) this.setBud(tsConfig.bud)
+
+    if (this.bud?.useCompilerOptions === true) this.enable()
   }
 
   /**
    * {@link Extension.buildBefore}
    */
   public override async configAfter(bud: Bud) {
-    if (!this.enabled) return
-
-    const baseDir =
-      this.getCompilerOptions()?.rootDir ??
-      this.getCompilerOptions()?.baseUrl
-    if (baseDir) {
+    if (this.derivedBaseDir) {
       this.logger.log(
-        `setting @src dir as specified in jsconfig/tsconfig: ${baseDir}`,
+        `setting @src dir as specified in jsconfig/tsconfig: ${this.derivedBaseDir}`,
       )
-      bud.setPath({'@src': baseDir})
+      bud.setPath({'@src': this.derivedBaseDir})
     }
 
-    const outDir = this.getCompilerOptions()?.outDir
-    if (outDir) {
+    if (this.compilerOptions?.outDir) {
       this.logger.log(
-        `setting @dist dir as specified in jsconfig/tsconfig: ${outDir}`,
+        `setting @dist dir as specified in jsconfig/tsconfig: ${this.compilerOptions.outDir}`,
       )
-      bud.setPath({'@dist': outDir})
+      bud.setPath({'@dist': this.compilerOptions.outDir})
     }
 
-    const paths = this.getCompilerOptions()?.paths
-    if (paths) {
-      ;[
-        bud.setPath,
+    if (this.compilerOptions?.paths) {
+      const normalPaths = this.normalizePaths(this.compilerOptions.paths)
+      bud
+        .setPath(normalPaths)
         // @ts-ignore
-        bud.alias,
-      ].forEach(fn => fn(this.resolvePaths(paths)))
+        .alias(
+          Object.entries(normalPaths).reduce(
+            (a, [k, v]) => ({
+              ...a,
+              [k]: this.makeAbsolute(v),
+            }),
+            {},
+          ),
+        )
     }
 
-    const include = this.getInclude()
-    if (include) {
+    if (this.include) {
       const directories = (
         await Promise.all(
-          include.map(async (path: string) => {
+          this.include.map(async (path: string) => {
             const type = await bud.fs.exists(path)
             return type === `dir` && !path.match(/^\.?\/?config/)
               ? path
@@ -187,36 +201,37 @@ export default class BudTsConfigValues extends Extension<Options> {
         )
       ).filter(isString)
 
-      if (directories)
+      directories &&
         // @ts-ignore
-        bud.compilePaths(directories.map((path: string) => bud.path(path)))
+        bud.compilePaths(directories.map(dir => bud.path(dir)))
     }
   }
 
   @bind
   public makeAbsolute(path: string): string {
-    const baseDir =
-      this.getCompilerOptions()?.rootDir ??
-      this.getCompilerOptions()?.baseUrl
-
-    return baseDir ? join(baseDir, path) : path
+    return isAbsolute(path) ? path : this.app.path(path)
   }
 
   @bind
-  public resolvePaths(
+  public normalizePaths(
     paths: Options['compilerOptions']['paths'],
   ): Record<string, string> | undefined {
     if (!paths) return
 
-    return Object.entries(paths)
+    const normalPaths = Object.entries(paths)
       .map(([k, v]: [string, Array<string>]) => [k, v[0]])
       .map(tuple => tuple.map((str: string) => str.replace(`/*`, ``)))
       .reduce(
         (acc, [key, value]) => ({
           ...acc,
-          [key]: this.makeAbsolute(value),
+          [key]: this.derivedBaseDir
+            ? join(this.derivedBaseDir, value)
+            : value,
         }),
         {},
       )
+
+    this.logger.log(`normalized paths`, normalPaths)
+    return normalPaths
   }
 }

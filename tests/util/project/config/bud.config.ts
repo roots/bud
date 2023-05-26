@@ -1,6 +1,6 @@
 export default async bud => {
   bud
-    .entry(`app`, [`scripts/app`, `styles/app`])
+    .entry(`app`, [`@scripts/app`, `@styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)
     .splitChunks(false)
