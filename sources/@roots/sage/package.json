@@ -150,7 +150,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "@roots/container": "workspace:sources/@roots/container",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.84.1"
   },
   "volta": {
     "extends": "../../../package.json"
