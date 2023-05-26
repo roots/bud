@@ -1,4 +1,5 @@
-import {Extension} from '@roots/bud-framework/extension'
+import type {Bud} from '@roots/bud-framework'
+import {Extension, type OptionsMap} from '@roots/bud-framework/extension'
 import {
   expose,
   label,
@@ -7,21 +8,70 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import Value from '@roots/bud-framework/value'
 import {deprecated} from '@roots/bud-support/decorators'
-import StylelintPlugin from 'stylelint-webpack-plugin'
+import Plugin from 'stylelint-webpack-plugin'
+
+export interface Options extends Plugin.Options {}
 
 /**
  * Bud stylelint extension
  */
 @label(`@roots/bud-stylelint`)
 @expose(`stylelint`)
-@plugin(StylelintPlugin)
-@options<StylelintPlugin.Options>({
+@plugin(Plugin)
+@options<Options>({
+  cache: new Value(({context, env}) => !context.ci && !env.isTrue(`CI`)),
+  cacheLocation: new Value(({cache, path}) =>
+    path(cache.cacheDirectory, `stylelint`),
+  ),
+  config: undefined,
   context: new Value(({path}) => path(`@src`)),
+  failOnWarning: false,
+  failOnError: new Value(({isProduction}) => isProduction),
+  fix: false,
+  stylelintPath: undefined,
 })
 export default class BudStylelintWebpackPlugin extends Extension<
-  StylelintPlugin.Options,
-  StylelintPlugin
+  Options,
+  Plugin
 > {
+  public declare cache: Options['cache']
+  public declare getCache: () => Options['cache']
+  public declare setCache: (cache: OptionsMap<Options>['cache']) => this
+
+  public declare config: Options['config']
+  public declare setConfig: (config: OptionsMap<Options>['config']) => this
+  public declare getConfig: () => Options['config']
+
+  public declare context: string
+  public declare getContext: () => string
+  public declare setContext: (
+    context: OptionsMap<Options>['context'],
+  ) => this
+
+  public declare cacheLocation: Options['cacheLocation']
+  public declare getCacheLocation: () => Options[`cacheLocation`]
+  public declare setCacheLocation: (
+    location: OptionsMap<Options>[`cacheLocation`],
+  ) => this
+
+  public declare fix: Options['fix']
+  public declare getFix: () => Options[`fix`]
+  public declare setFix: (fix: OptionsMap<Options>[`fix`]) => this
+
+  public declare stylelintPath: Options['stylelintPath']
+  public declare getStylelintPath: () => Options[`stylelintPath`]
+  public declare setStylelintPath: (
+    path: OptionsMap<Options>[`stylelintPath`],
+  ) => this
+
+  public override async register({context}: Bud) {
+    const config = Object.values(context.files ?? {}).find(({name}) =>
+      name.includes(`stylelint`),
+    )?.module
+
+    config && this.setConfig(config)
+  }
+
   /**
    * Fail build on stylelint error
    *

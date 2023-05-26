@@ -1,5 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  DynamicOption,
+  Extension,
+  type OptionsCallback,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
@@ -8,6 +12,7 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import omit from '@roots/bud-support/lodash/omit'
 import type * as TsLoader from 'ts-loader'
 
@@ -16,6 +21,31 @@ import type * as TsLoader from 'ts-loader'
  */
 interface Options extends TsLoader.Options {
   babel: boolean
+  silent: boolean
+  logLevel: TsLoader.Options['logLevel']
+  logInfoToStdOut: boolean
+  instance: string
+  compiler: string
+  configFile: string
+  context: string
+  transpileOnly: boolean
+  ignoreDiagnostics: number[]
+  reportFiles: string[]
+  errorFormatter: TsLoader.Options['errorFormatter']
+  onlyCompileBundledFiles: boolean
+  colors: boolean
+  compilerOptions: TsLoader.Options['compilerOptions']
+  appendTsSuffixTo: (RegExp | string)[]
+  appendTsxSuffixTo: (RegExp | string)[]
+  happyPackMode: boolean
+  getCustomTransformers: TsLoader.Options['getCustomTransformers']
+  experimentalWatchApi: boolean
+  allowTsInNodeModules: boolean
+  experimentalFileCaching: boolean
+  projectReferences: boolean
+  resolveModuleName: TsLoader.Options['resolveModuleName']
+  resolveTypeReferenceDirective: TsLoader.Options['resolveTypeReferenceDirective']
+  useCaseSensitiveFileNames?: boolean
 }
 
 /**
@@ -24,9 +54,12 @@ interface Options extends TsLoader.Options {
 @label(`@roots/bud-typescript`)
 @expose(`typescript`)
 @options<Options>({
+  appendTsSuffixTo: [],
+  appendTsxSuffixTo: [],
   babel: false,
   transpileOnly: true,
   configFile: `tsconfig.json`,
+  context: new DynamicOption(({path}) => path()),
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
 export default class BudTypeScript extends Extension<Options> {
@@ -53,9 +86,45 @@ export default class BudTypeScript extends Extension<Options> {
     [`Disable babel`, `bud.typescript.set('babel', false)`],
   ])
   public useBabel(enable: boolean = true): this {
-    this.set(`babel`, enable)
+    this.setBabel(enable)
     return this
   }
+
+  public declare appendTsSuffixTo: Options['appendTsSuffixTo']
+  public declare getAppendTsSuffixTo: () => Options['appendTsSuffixTo']
+  public declare setAppendTsSuffixTo: (
+    suffixes: OptionsCallback<Options, 'appendTsSuffixTo'>,
+  ) => this
+
+  public declare appendTsxSuffixTo: Options['appendTsxSuffixTo']
+  public declare getAppendTsxSuffixTo: () => Options['appendTsxSuffixTo']
+  public declare setAppendTsxSuffixTo: (
+    suffixes: OptionsCallback<Options, 'appendTsxSuffixTo'>,
+  ) => this
+
+  public declare babel: Options['babel']
+  public declare getBabel: () => Options['babel']
+  public declare setBabel: (
+    enable: OptionsCallback<Options, 'babel'>,
+  ) => this
+
+  public declare transpileOnly: Options['transpileOnly']
+  public declare getTranspileOnly: () => Options['transpileOnly']
+  public declare setTranspileOnly: (
+    enable: OptionsCallback<Options, 'transpileOnly'>,
+  ) => this
+
+  public declare configFile: Options['configFile']
+  public declare getConfigFile: () => Options['configFile']
+  public declare setConfigFile: (
+    enable: OptionsCallback<Options, 'configFile'>,
+  ) => this
+
+  public declare context: Options['context']
+  public declare getContext: () => Options['context']
+  public declare setContext: (
+    enable: OptionsCallback<Options, 'context'>,
+  ) => this
 
   /**
    * {@link Extension.register}
@@ -73,13 +142,13 @@ export default class BudTypeScript extends Extension<Options> {
      */
     if (context.files[`tsconfig.json`]) {
       // Set the tsconfig.json file path
-      this.set(`configFile`, context.files[`tsconfig.json`].path)
+      this.setConfigFile(context.files[`tsconfig.json`].path)
     }
 
     /**
      * Set the compiler and context options
      */
-    this.set(`compiler`, typescript).set(`context`, context.basedir)
+    this.setContext(context.basedir)
 
     /**
      * Resolve .ts, .tsx, .jsx extensions
@@ -99,9 +168,14 @@ export default class BudTypeScript extends Extension<Options> {
     }))
 
     build
-      .setLoader(`ts`, loader)
+      .setLoader(`ts`, `ts-loader`)
       .setItem(`ts`, {
         loader: `ts`,
+        options: () =>
+          Object.entries(omit(this.options, `babel`) ?? {}).reduce(
+            (a, [k, v]) => (isUndefined(v) ? a : {...a, [k]: v}),
+            {},
+          ),
         resolve: {
           fullySpecified: false,
         },
@@ -109,6 +183,7 @@ export default class BudTypeScript extends Extension<Options> {
       .setRule(`ts`, {
         test: ({hooks}) => hooks.filter(`pattern.ts`),
         include: [({path}) => path(`@src`)],
+        use: [`ts`],
       })
   }
 
@@ -120,19 +195,14 @@ export default class BudTypeScript extends Extension<Options> {
     /**
      * Warn if no tsconfig.json was found or explicitly provided
      */
-    if (!this.get(`configFile`))
+    if (!this.getConfigFile())
       this.logger.warn(
         `No tsconfig.json found. You should create one in your project root or specify one with the \`configFile\` option.`,
       )
 
-    /**
-     * The `babel` option is not a ts-loader option, so we'll omit it
-     */
-    build.items.ts.setOptions(omit(this.options, `babel`))
-
-    const items = [build.items.ts]
+    const items: [`ts`, `babel`?] = [`ts`]
     if (this.get(`babel`) && `babel` in build.items.babel)
-      items.unshift(build.items.babel)
+      items.unshift(`babel`)
 
     build.rules.ts.setUse(items)
     build.rules.js.setUse(items)

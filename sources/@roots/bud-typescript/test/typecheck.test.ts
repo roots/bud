@@ -33,7 +33,6 @@ describe(`@roots/bud-typescript/typecheck`, () => {
             syntactic: true,
           },
           mode: `readonly`,
-          typescriptPath: expect.stringMatching(/typescript\.js$/),
         }),
       }),
     )

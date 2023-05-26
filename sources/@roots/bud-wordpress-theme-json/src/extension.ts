@@ -1,4 +1,5 @@
 import {Extension} from '@roots/bud-framework'
+import type {OptionsMap} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -70,12 +71,6 @@ export class WordPressThemeJSON extends Extension<
   ThemeJsonWebpackPlugin
 > {
   @bind
-  public override async register() {}
-
-  @bind
-  public override async boot() {}
-
-  @bind
   public settings(
     input?:
       | Mutator
@@ -105,4 +100,13 @@ export class WordPressThemeJSON extends Extension<
 
     return this
   }
+
+  public declare getSettings: () => Options['settings']
+  public declare setSettings: (
+    settings: OptionsMap<Options>['settings'],
+  ) => this
+
+  public declare path: Options['path']
+  public declare getPath: () => Options['path']
+  public declare setPath: (path: OptionsMap<Options>['path']) => this
 }

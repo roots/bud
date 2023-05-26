@@ -8,6 +8,7 @@
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
+  "type": "module",
   "devDependencies": {
     "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",

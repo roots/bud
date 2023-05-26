@@ -81,7 +81,7 @@ export class BudImageminSvgo extends Extension<Options> {
         minimizer: {
           implementation: this.implementation,
           options: {
-            encodeOptions: this.options.encodeOptions ?? {},
+            encodeOptions: this.get(`encodeOptions`) ?? {},
           },
         },
       }),

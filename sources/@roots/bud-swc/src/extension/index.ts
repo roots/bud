@@ -13,6 +13,7 @@ import type {Options} from '@swc/core'
  * SWC extension
  */
 @label(`@roots/bud-swc`)
+@expose(`swc`)
 @options<Options>({
   jsc: {
     experimental: {
@@ -27,7 +28,6 @@ import type {Options} from '@swc/core'
   },
   minify: false,
 })
-@expose(`swc`)
 export default class BudSWC extends Extension<Options> {
   /**
    * {@link Extension.register}
@@ -36,7 +36,7 @@ export default class BudSWC extends Extension<Options> {
   public override async register({build, context, fs, hooks}: Bud) {
     const loaderPath = await this.resolve(`swc-loader`, import.meta.url)
 
-    if (context.files?.[`.swcrc`]) {
+    if (context.files?.[`.swcrc`]?.path) {
       const cfg = fs.json.parse(
         await fs.read(context.files[`.swcrc`].path),
       )

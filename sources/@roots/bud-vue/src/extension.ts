@@ -20,7 +20,7 @@ interface Options {
  * Vue configuration
  */
 @label(`@roots/bud-vue`)
-@options({runtimeOnly: true})
+@options<Options>({runtimeOnly: true})
 @expose(`vue`)
 export default class Vue extends Extension<
   Options,
@@ -30,6 +30,9 @@ export default class Vue extends Extension<
    * Resolved version
    */
   public declare version: string
+
+  public declare setRuntimeOnly: (enabled: boolean) => this
+  public declare getRuntimeOnly: () => boolean
 
   /**
    * Set `runtimeOnly` option
@@ -88,9 +91,7 @@ export default class Vue extends Extension<
   public override async configAfter(bud: Bud) {
     bud.alias(this.resolveAlias)
 
-    bud.typescript?.set(`appendTsSuffixTo`, [
-      bud.hooks.filter(`pattern.vue`),
-    ])
+    bud.typescript?.setAppendTsSuffixTo([bud.hooks.filter(`pattern.vue`)])
   }
 
   /**

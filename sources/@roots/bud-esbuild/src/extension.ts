@@ -52,7 +52,7 @@ export interface Options {
  */
 @label(`@roots/bud-esbuild`)
 @expose(`esbuild`)
-@options<Options>({
+@options({
   minify: new Value(app => ({
     css: true,
     include: [
@@ -87,16 +87,19 @@ export default class BudEsbuild extends Extension<Options> {
       [`esbuild-loader`]: loader,
     }))
 
-    build
-      .setLoader(`esbuild`, `esbuild-loader`)
-      .setItem(`esbuild-js`, {
-        loader: `esbuild`,
-        options: () => this.options.js,
-      })
-      .setItem(`esbuild-ts`, {
-        loader: `esbuild`,
-        options: () => this.options.ts,
-      })
+    build.setLoader(`esbuild`, `esbuild-loader`)
+
+    build.setItem(`esbuild-js`, {
+      loader: `esbuild`,
+      options: () => this.get(`js`),
+    })
+
+    build.setItem(`esbuild-ts`, {
+      loader: `esbuild`,
+      options: () => this.get(`ts`),
+    })
+
+    build.getRule(`js`).setUse(items => [...items, `esbuild-js`])
   }
 
   /**

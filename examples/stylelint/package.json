@@ -1,5 +1,5 @@
 {
-  "name": "@examples/eslint",
+  "name": "@examples/stylelint",
   "private": true,
   "packageManager": "npm@8.19.2",
   "type": "module",
@@ -10,8 +10,9 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
+    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-eslint": "latest",
-    "@roots/bud-preset-recommend": "latest"
+    "@roots/bud-stylelint": "latest",
+    "@roots/stylelint-config": "latest"
   }
 }

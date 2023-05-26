@@ -19,6 +19,11 @@ export type OptionsMap<T extends Options> = {
   [K in keyof T as `${K & string}`]?: Value<(app: Bud) => T[K]> | T[K]
 }
 
+export type OptionsCallback<
+  T extends Options,
+  K extends `${keyof Options & string}`,
+> = OptionsMap<T>[K] | ((value: T[K]) => T[K])
+
 export interface Meta {
   register: boolean
   boot: boolean
@@ -118,7 +123,17 @@ export class Extension<
    * Extension options
    */
   public _options: OptionsMap<ExtensionOptions> = {}
-  public options: ExtensionOptions = {} as ExtensionOptions
+  /**
+   * Extension options
+   */
+  public optionsMap: OptionsMap<ExtensionOptions> = {}
+
+  /**
+   * Extension options
+   *
+   * @readonly
+   */
+  public readonly options: ExtensionOptions
 
   /**
    * Extension meta
@@ -346,15 +361,12 @@ export class Extension<
 
   @bind
   public getOptions(): ExtensionOptions {
-    const result = Object.entries(this._options).reduce(
-      (acc, [key, value]) => {
-        const result = {...acc, [key]: this.get(key)}
-        return result
-      },
-      {} as ExtensionOptions,
-    )
-    this.logger.info(`returning options`, `=>`)
-    return result
+    return Object.entries(this._options).reduce((acc, [key, value]) => {
+      return {
+        ...acc,
+        [key]: value instanceof Value ? value.get()(this.app) : value,
+      }
+    }, {} as ExtensionOptions)
   }
 
   /**
@@ -371,9 +383,7 @@ export class Extension<
    */
   @bind
   public getOption<K extends string>(key: K): ExtensionOptions[K] {
-    const value = get(this._options, key)
-    const result = value instanceof Value ? value.get()(this.app) : value
-    return result
+    return get(this.options, key)
   }
   public get = this.getOption
 
@@ -383,16 +393,10 @@ export class Extension<
   @bind
   public setOption<K extends string>(
     key: K,
-    valueOrCallback:
-      | ExtensionOptions[K]
-      | ((value: ExtensionOptions[K]) => ExtensionOptions[K])
-      | (Value<(app: Bud) => ExtensionOptions[K]> &
-          OptionsMap<ExtensionOptions>[K]),
+    valueOrCallback: OptionsCallback<ExtensionOptions, K>,
   ): this {
     if (valueOrCallback instanceof Value) {
-      // set will really mess up class objects
-      // so value doesn't support dot notation
-      this._options[key] = valueOrCallback
+      this._options[key] = valueOrCallback as any
       return this
     }
 
@@ -483,3 +487,5 @@ export class Extension<
     return this.enabled
   }
 }
+
+export {Value as DynamicOption}

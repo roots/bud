@@ -22,8 +22,8 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @options<Options>({
   overlay: false,
   esModule: new Value(
-    (app: Bud) =>
-      app.context.files[`package.json`]?.module?.type === `module`,
+    ({context}) =>
+      context.files[`package.json`]?.module?.type === `module`,
   ),
 })
 @development

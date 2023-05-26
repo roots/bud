@@ -123,6 +123,6 @@ describe(`@roots/bud-sass/extension`, () => {
     sass.set(`additionalData`, undefined)
     sass.registerGlobal(code)
 
-    expect(sass.get(`additionalData`).split(`\n`)).toStrictEqual(code)
+    expect(sass.get(`additionalData`)?.split(`\n`)).toStrictEqual(code)
   })
 })

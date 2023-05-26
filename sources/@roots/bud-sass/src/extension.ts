@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionsCallback,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
@@ -9,18 +12,25 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
+interface Options {
+  implementation?: any
+  sourceMap?: boolean
+  additionalData?: string
+}
+
 /**
  * Sass configuration
  */
 @label(`@roots/bud-sass`)
 @dependsOn([`@roots/bud-sass/resolve-url`])
 @dependsOnOptional([`@roots/bud-postcss`])
-@options({
-  implementation: null,
+@options<Options>({
+  additionalData: undefined,
+  implementation: undefined,
   sourceMap: true,
 })
 @expose(`sass`)
-export class BudSass extends Extension {
+export class BudSass extends Extension<Options> {
   /**
    * {@link Extension.register}
    */
@@ -67,9 +77,7 @@ export class BudSass extends Extension {
    */
   @bind
   public override async boot(bud: Bud) {
-    if (bud.postcss) {
-      bud.postcss.set(`postcssOptions.syntax`, `postcss-scss`)
-    }
+    bud.postcss?.setSyntax(`postcss-scss`)
 
     bud.build.rules.sass.setUse(() =>
       [
@@ -81,6 +89,12 @@ export class BudSass extends Extension {
       ].filter(Boolean),
     )
   }
+
+  public declare getAdditionalData: () => Options['additionalData']
+
+  public declare setAdditionalData: (
+    data: OptionsCallback<Options, `additionalData`>,
+  ) => BudSass
 
   /**
    * Register global stylsheet
@@ -94,15 +108,19 @@ export class BudSass extends Extension {
    * ```
    */
   @bind
-  public registerGlobal(data: string | Array<string>): this {
-    return this.set(`additionalData`, (value = ``) => {
-      const code = (Array.isArray(data) ? data : [data])
+  public registerGlobal(additionalData: string | Array<string>): this {
+    this.setAdditionalData((data = ``) => {
+      const code = (
+        Array.isArray(additionalData) ? additionalData : [additionalData]
+      )
         .map(str => str.trim())
         .filter(Boolean)
         .join(`\n`)
 
-      return value.concat(code)
+      return data.concat(code)
     })
+
+    return this
   }
 
   /**
