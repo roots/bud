@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension, type OptionsMap} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type StrictPublicExtensionApi,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -23,6 +26,8 @@ export interface Options {
   upgrade: boolean
 }
 
+interface Api extends StrictPublicExtensionApi<Cdn, Options> {}
+
 /**
  * Http modules configuration
  */
@@ -41,7 +46,7 @@ export interface Options {
   upgrade: true,
 })
 @disabled
-export default class Cdn extends Extension<Options, null> {
+export default class Cdn extends Extension<Options> implements Api {
   /**
    * CDN key to URL mapping
    */
@@ -71,37 +76,29 @@ export default class Cdn extends Extension<Options, null> {
     return this
   }
 
-  public declare cacheLocation: Options['cacheLocation']
-  public declare getCacheLocation: () => Options['cacheLocation']
-  public declare setCacheLocation: (
-    location: OptionsMap<Options>['cacheLocation'],
-  ) => this
+  public declare allowedUris: Api['allowedUris']
+  public declare getAllowedUris: Api['getAllowedUris']
+  public declare setAllowedUris: Api['setAllowedUris']
 
-  public declare frozen: Options['frozen']
-  public declare getFrozen: () => Options['frozen']
-  public declare setFrozen: (location: Options['frozen']) => this
+  public declare cacheLocation: Api['cacheLocation']
+  public declare getCacheLocation: Api['getCacheLocation']
+  public declare setCacheLocation: Api['setCacheLocation']
 
-  public declare lockfileLocation: Options['lockfileLocation']
-  public declare getLockfileLocation: () => Options['lockfileLocation']
-  public declare setLockfileLocation: (
-    location: OptionsMap<Options>['lockfileLocation'],
-  ) => this
+  public declare frozen: Api['frozen']
+  public declare getFrozen: Api['getFrozen']
+  public declare setFrozen: Api['setFrozen']
 
-  public declare proxy: Options['proxy']
-  public declare getProxy: () => Options['proxy']
-  public declare setProxy: (location: OptionsMap<Options>['proxy']) => this
+  public declare lockfileLocation: Api['lockfileLocation']
+  public declare getLockfileLocation: Api['getLockfileLocation']
+  public declare setLockfileLocation: Api['setLockfileLocation']
 
-  public declare upgrade: Options['upgrade']
-  public declare getUpgrade: () => Options['upgrade']
-  public declare setUpgrade: (
-    upgrade: OptionsMap<Options>['upgrade'],
-  ) => this
+  public declare proxy: Api['proxy']
+  public declare getProxy: Api['getProxy']
+  public declare setProxy: Api['setProxy']
 
-  public declare allowedUris: Options['allowedUris']
-  public declare getAllowedUris: () => Options['allowedUris']
-  public declare setAllowedUris: (
-    allowedUris: OptionsMap<Options>['allowedUris'],
-  ) => this
+  public declare upgrade: Api['upgrade']
+  public declare getUpgrade: Api['getUpgrade']
+  public declare setUpgrade: Api['setUpgrade']
 
   /**
    * Prevent bud from fetching updated modules

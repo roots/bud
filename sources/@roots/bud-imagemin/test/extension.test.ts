@@ -46,13 +46,16 @@ describe(`@roots/bud-imagemin`, () => {
   it(`should set encode options`, async () => {
     await bud.extensions.add(`@roots/bud-imagemin/sharp`)
     await bud.extensions.add(`@roots/bud-imagemin/svgo`)
+
     await imagemin.register(bud)
-    imagemin.sharp.setOptions({})
-    imagemin.svgo.setOptions({})
+
+    imagemin.sharp.setEncodeOptions({})
+    imagemin.svgo.setEncodeOptions({})
+
     imagemin.encode(`jpeg`, {quality: 10})
 
-    expect(imagemin.sharp.options.encodeOptions).toEqual({
-      jpeg: {quality: 10},
+    expect(imagemin.sharp.options.encodeOptions?.jpeg).toEqual({
+      quality: 10,
     })
   })
 })

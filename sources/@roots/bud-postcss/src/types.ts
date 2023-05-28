@@ -3,11 +3,12 @@
 /* eslint-disable n/no-unpublished-import */
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {StrictPublicExtensionApi as PublicExtensionApi} from '@roots/bud-framework/extension'
 
-import type {BudPostCss} from './extension.js'
+import type {BudPostCss, Options} from './extension.js'
 
-interface PublicPostCssApi extends PublicExtensionApi<BudPostCss> {
+interface PublicPostCssApi
+  extends PublicExtensionApi<BudPostCss, Options> {
   postcssOptions: BudPostCss[`postcssOptions`]
   config: BudPostCss[`config`]
   plugins: BudPostCss[`plugins`]

@@ -1,20 +1,19 @@
-/// <reference types="@roots/bud" />
-
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
-
-import type {BudEslint} from './extension.js'
-
-interface BudEslintPublicApi extends PublicExtensionApi<BudEslint> {
-  cacheFix: BudEslint[`cacheFix`]
-  fix: BudEslint[`fix`]
-}
+import {type Api, type BudEslint} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    eslint: BudEslintPublicApi
+    eslint: Api & BudEslint
   }
-
   interface Modules {
-    '@roots/bud-eslint': BudEslintPublicApi
+    '@roots/bud-eslint': BudEslint
+  }
+}
+
+declare module '@roots/bud' {
+  interface Bud {
+    eslint: Api & BudEslint
+  }
+  interface Modules {
+    '@roots/bud-eslint': BudEslint
   }
 }

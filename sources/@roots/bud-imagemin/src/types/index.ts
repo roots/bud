@@ -17,14 +17,12 @@ interface BudImagemin extends PublicExtensionApi<BudImageminExtension> {
 interface BudSharp extends PublicExtensionApi<BudImageminSharpExtension> {
   get: BudImageminSharpExtension['get']
   generators: BudImageminSharpExtension['generators']
-  implementation: BudImageminSharpExtension['implementation']
   encode: BudImageminSharpExtension['encode']
   setEncodeOptions: BudImageminSharpExtension['setEncodeOptions']
   setGenerator: BudImageminSharpExtension['setGenerator']
 }
 
 interface BudSvgo extends PublicExtensionApi<BudImageminSvgo> {
-  implementation: BudImageminSvgo['implementation']
   encode: BudImageminSvgo['encode']
   setEncodeOptions: BudImageminSvgo['setEncodeOptions']
 }

@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import {
   Extension,
-  type OptionsCallback,
+  type OptionCallbackValue,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -93,7 +93,7 @@ export class BudSass extends Extension<Options> {
   public declare getAdditionalData: () => Options['additionalData']
 
   public declare setAdditionalData: (
-    data: OptionsCallback<Options, `additionalData`>,
+    data: OptionCallbackValue<Options, `additionalData`>,
   ) => BudSass
 
   /**

@@ -2,7 +2,7 @@
 
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
-import type BudStylelint from './extension.js'
+import type {default as BudStylelint} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

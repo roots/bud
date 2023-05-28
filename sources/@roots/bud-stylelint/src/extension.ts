@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension, type OptionsMap} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionCallbackValue,
+} from '@roots/bud-framework/extension'
 import {
   expose,
   label,
@@ -36,32 +39,36 @@ export default class BudStylelintWebpackPlugin extends Extension<
 > {
   public declare cache: Options['cache']
   public declare getCache: () => Options['cache']
-  public declare setCache: (cache: OptionsMap<Options>['cache']) => this
+  public declare setCache: (
+    cache: OptionCallbackValue<Options, `cache`>,
+  ) => this
 
   public declare config: Options['config']
-  public declare setConfig: (config: OptionsMap<Options>['config']) => this
+  public declare setConfig: (
+    config: OptionCallbackValue<Options, `config`>,
+  ) => this
   public declare getConfig: () => Options['config']
 
   public declare context: string
   public declare getContext: () => string
   public declare setContext: (
-    context: OptionsMap<Options>['context'],
+    context: OptionCallbackValue<Options, `context`>,
   ) => this
 
   public declare cacheLocation: Options['cacheLocation']
   public declare getCacheLocation: () => Options[`cacheLocation`]
   public declare setCacheLocation: (
-    location: OptionsMap<Options>[`cacheLocation`],
+    location: OptionCallbackValue<Options, `cacheLocation`>,
   ) => this
 
   public declare fix: Options['fix']
   public declare getFix: () => Options[`fix`]
-  public declare setFix: (fix: OptionsMap<Options>[`fix`]) => this
+  public declare setFix: (fix: OptionCallbackValue<Options, `fix`>) => this
 
   public declare stylelintPath: Options['stylelintPath']
   public declare getStylelintPath: () => Options[`stylelintPath`]
   public declare setStylelintPath: (
-    path: OptionsMap<Options>[`stylelintPath`],
+    path: OptionCallbackValue<Options, `stylelintPath`>,
   ) => this
 
   public override async register({context}: Bud) {

@@ -44,10 +44,10 @@ export class BudImageminExtension extends Extension {
 
     if (key === `svg`) {
       this.svgo.setEncodeOptions(value)
-    } else {
-      this.sharp.encode(key, value)
+      return this
     }
 
+    this.sharp.encode(key, value)
     return this
   }
 
@@ -83,47 +83,61 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
+    // Retrieve the sharp and svgo extensions from the Bud object
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
 
-    bud.manifest.setOption(`generate`, () => (_, files) => {
-      return files.reduce((acc, file) => {
-        const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
+    // Set the 'generate' option in the manifest to a function that processes an array of files
+    // and generates an object mapping filenames to file paths with additional query parameters.
+    bud.manifest.setOption(
+      `generate`,
+      () => (_: unknown, files: Array<{name: string; path: string}>) => {
+        return files.reduce((records, {path, name}) => {
+          // Try to match the path with a specific pattern that looks for generated files
+          const match = path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
 
-        if (match) {
+          // If the path does not match the pattern, add the name and path to the accumulator (records) object
+          if (!match) return {...records, [name]: path}
+
+          // If the match is successful, extract the width, height, and rest of the path
           const [_, width, height, rest] = match
           const as = rest.split(`.`).pop()
+
+          // Create new keys with the name and query parameters for 'as', 'width' and 'height',
+          // and associate them with the file path.
+          const widthOnlyQueryName = `${name}?as=${as}&width=${width}`
+          const widthAndHeightQueryName = `${name}?as=${as}&width=${width}&height=${height}`
+
+          // If the key with 'as' query parameter doesn't exist, add it to the records
+          if (!records[`${name}?as=${as}`])
+            records[`${name}?as=${as}`] = path
+
           return {
-            ...acc,
-
-            /**
-             * Prevent overwriting of full resolution
-             *
-             * Not sure that this behaves exactly as expected. But, it's
-             * more predictable in practice than leaving it unhandled.
-             */
-            ...(!acc[`${file.name}?as=${as}`]
-              ? {[`${file.name}?as=${as}`]: file.path}
-              : {}),
-
-            [`${file.name}?as=${as}&width=${width}`]: file.path,
-            [`${file.name}?as=${as}&width=${width}&height=${height}`]:
-              file.path,
+            ...records,
+            // Add the name with 'width' query parameter and its associated path
+            [widthOnlyQueryName]: path,
+            // Add the name with 'width' and 'height' query parameters and its associated path
+            [widthAndHeightQueryName]: path,
           }
-        }
-
-        return {...acc, [file.name]: file.path}
-      }, {})
-    })
+        }, {}) // Initialize the accumulator (records) as an empty object
+      },
+    )
   }
 
   /**
    * Make image minimizer plugin instance
    */
-  public makePluginInstance({test, implementation, options}) {
+  public makePluginInstance({
+    test,
+    implementation,
+    generator = undefined,
+    options,
+  }) {
     return new Plugin({
       test,
-      minimizer: {implementation, options},
+      ...(generator
+        ? {generator}
+        : {minimizer: {implementation, options: options ?? {}}}),
     })
   }
 }

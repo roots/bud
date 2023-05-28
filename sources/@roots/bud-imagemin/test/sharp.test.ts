@@ -19,11 +19,6 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp).toBeInstanceOf(BudImageminSharp)
   })
 
-  it(`should assign sharp.implementation on init`, async () => {
-    await sharp.register()
-    expect(sharp.implementation).toBe(Plugin.sharpMinify)
-  })
-
   it(`should create sharp.generators map on init`, async () => {
     await sharp.register()
     expect(sharp.generators).toBeInstanceOf(Map)
@@ -62,61 +57,5 @@ describe(`@roots/bud-imagemin/sharp`, () => {
       options: definition.options,
     })
     expect(result).toBe(sharp)
-  })
-
-  it(`should call build.optimization.minimizer hook from sharp.configureBudMinimizer()`, async () => {
-    await sharp.register()
-
-    const onSpy = vi.spyOn(bud.hooks, `on`)
-    sharp.configureBudMinimizer(bud)
-
-    expect(onSpy).toHaveBeenCalledWith(
-      `build.optimization.minimizer`,
-      expect.any(Function),
-    )
-  })
-
-  it(`should call sharp.configureBudMinimizer`, async () => {
-    await sharp.register()
-
-    const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
-    await sharp.configAfter(bud)
-
-    expect(configureBudMinimizer).toHaveBeenCalled()
-  })
-
-  it(`should not call sharp.configureBudGenerators when there are no generators`, async () => {
-    await sharp.register()
-    sharp.generators.clear()
-    expect(sharp.generators.size).toBe(0)
-
-    const configureBudGenerators = vi.spyOn(
-      sharp,
-      `configureBudGenerators`,
-    )
-    const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
-    const onSpy = vi.spyOn(bud.hooks, `on`)
-    await sharp.configAfter(bud)
-
-    expect(configureBudGenerators).not.toHaveBeenCalled()
-    expect(configureBudMinimizer).toHaveBeenCalledOnce()
-    expect(onSpy).toHaveBeenCalledOnce()
-  })
-
-  it(`should call sharp.configureBudGenerators when there are generators`, async () => {
-    await sharp.register()
-    expect(sharp.generators.size).toBe(1)
-
-    const configureBudMinimizer = vi.spyOn(sharp, `configureBudMinimizer`)
-    const configureBudGenerators = vi.spyOn(
-      sharp,
-      `configureBudGenerators`,
-    )
-    const onSpy = vi.spyOn(bud.hooks, `on`)
-    await sharp.configAfter(bud)
-
-    expect(configureBudGenerators).toHaveBeenCalledOnce()
-    expect(configureBudMinimizer).toHaveBeenCalledOnce()
-    expect(onSpy).toHaveBeenCalledTimes(2)
   })
 })

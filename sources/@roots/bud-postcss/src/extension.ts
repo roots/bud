@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension, type OptionsMap} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionCallbackValue,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   expose,
@@ -24,7 +27,7 @@ type InputRecords = Record<string, Input>
 /**
  * PostCSS configuration options
  */
-interface Options {
+export interface Options {
   sourceMap?: boolean
   postcssOptions?: {
     config?: boolean
@@ -181,7 +184,7 @@ export class BudPostCss extends Extension<KeyedOptions> {
    * This method will overwrite the bud.postcss API options. Use with caution!
    */
   public declare setPostcssOptions: (
-    options: OptionsMap<Options>['postcssOptions'],
+    options: OptionCallbackValue<Options, `postcssOptions`>,
   ) => this
 
   /**
@@ -382,20 +385,24 @@ export class BudPostCss extends Extension<KeyedOptions> {
    * ```
    */
   public declare setSourceMap: (
-    sourceMap: OptionsMap<Options>['sourceMap'],
+    sourceMap: OptionCallbackValue<Options, `sourceMap`>,
   ) => this
 
   public declare order: Options['order']
 
   public declare getOrder: () => Options['order']
 
-  public declare setOrder: (order: OptionsMap<Options>['order']) => this
+  public declare setOrder: (
+    order: OptionCallbackValue<Options, `order`>,
+  ) => this
 
   public declare config: Options['config']
 
   public declare getConfig: () => Options['config']
 
-  public declare setConfig: (config: OptionsMap<Options>['config']) => this
+  public declare setConfig: (
+    config: OptionCallbackValue<Options, `config`>,
+  ) => this
 
   /**
    * `postcssOptions.syntax`
@@ -426,7 +433,9 @@ export class BudPostCss extends Extension<KeyedOptions> {
    * bud.postcss.set('postcssOptions.syntax', 'postcss-scss')
    * ```
    */
-  public declare setSyntax: (syntax: OptionsMap<Options>[`syntax`]) => this
+  public declare setSyntax: (
+    syntax: OptionCallbackValue<Options, `syntax`>,
+  ) => this
 
   /**
    * Get plugins

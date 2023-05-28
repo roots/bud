@@ -25,13 +25,16 @@ export type EncodeOptions = {
   png?: PngOptions
   webp?: WebpOptions
 }
+
 export type PathedEncodeOptions = {
   [K in keyof EncodeOptions as `encodeOptions.${K &
     string}`]?: EncodeOptions[K]
 }
+
 export interface OptionsObject {
   [`encodeOptions`]?: EncodeOptions
 }
+
 export type Options = OptionsObject & PathedEncodeOptions
 
 /**
@@ -45,12 +48,38 @@ export class BudImageminSharp extends Extension<Options> {
   /**
    * Configured generators
    */
-  public generators: GeneratorMap = new Map()
+  public generators: GeneratorMap
 
   /**
-   * Implementation
+   * {@link Extension.register}
    */
-  public implementation: typeof Plugin.sharpGenerate
+  @bind
+  public override async register() {
+    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
+  }
+
+  /**
+   * {@link Extension.configAfter}
+   */
+  @bind
+  public override async configAfter({hooks, imagemin}) {
+    hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
+      ...minimizers,
+      imagemin.makePluginInstance({
+        test: hooks.filter(`pattern.image`),
+        implementation: Plugin.sharpMinify,
+        options: this.options,
+      }),
+    ])
+
+    this.generators.size &&
+      hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
+        ...minimizers,
+        imagemin.makePluginInstance({
+          generator: [...this.generators.values()],
+        }),
+      ])
+  }
 
   /**
    * Set encode options
@@ -77,6 +106,7 @@ export class BudImageminSharp extends Extension<Options> {
         this.encode(key, value)
       },
     )
+
     return this
   }
 
@@ -92,23 +122,11 @@ export class BudImageminSharp extends Extension<Options> {
 
     this.generators.set(preset, {
       preset,
-      implementation: this.implementation,
+      implementation: Plugin.sharpGenerate,
       filename: `[path]generated.[name]@[width]x[height][ext]`,
       ...generator,
     })
 
     return this
-  }
-
-  /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register() {
-    this.implementation = Plugin.sharpMinify
-
-    this.setGenerator(`webp`, {
-      options: {encodeOptions: {webp: {}}},
-    })
   }
 }

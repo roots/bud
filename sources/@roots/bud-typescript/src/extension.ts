@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import {
   DynamicOption,
   Extension,
-  type OptionsCallback,
+  type OptionCallbackValue,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -57,9 +57,10 @@ interface Options extends TsLoader.Options {
   appendTsSuffixTo: [],
   appendTsxSuffixTo: [],
   babel: false,
-  transpileOnly: true,
+  compilerOptions: undefined,
   configFile: `tsconfig.json`,
   context: new DynamicOption(({path}) => path()),
+  transpileOnly: true,
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
 export default class BudTypeScript extends Extension<Options> {
@@ -93,37 +94,43 @@ export default class BudTypeScript extends Extension<Options> {
   public declare appendTsSuffixTo: Options['appendTsSuffixTo']
   public declare getAppendTsSuffixTo: () => Options['appendTsSuffixTo']
   public declare setAppendTsSuffixTo: (
-    suffixes: OptionsCallback<Options, 'appendTsSuffixTo'>,
+    suffixes: OptionCallbackValue<Options, 'appendTsSuffixTo'>,
   ) => this
 
   public declare appendTsxSuffixTo: Options['appendTsxSuffixTo']
   public declare getAppendTsxSuffixTo: () => Options['appendTsxSuffixTo']
   public declare setAppendTsxSuffixTo: (
-    suffixes: OptionsCallback<Options, 'appendTsxSuffixTo'>,
+    suffixes: OptionCallbackValue<Options, 'appendTsxSuffixTo'>,
   ) => this
 
   public declare babel: Options['babel']
   public declare getBabel: () => Options['babel']
   public declare setBabel: (
-    enable: OptionsCallback<Options, 'babel'>,
+    enable: OptionCallbackValue<Options, 'babel'>,
   ) => this
 
-  public declare transpileOnly: Options['transpileOnly']
-  public declare getTranspileOnly: () => Options['transpileOnly']
-  public declare setTranspileOnly: (
-    enable: OptionsCallback<Options, 'transpileOnly'>,
+  public declare compilerOptions: Options['compilerOptions']
+  public declare getCompilerOptions: () => Options['compilerOptions']
+  public declare setCompilerOptions: (
+    enable: OptionCallbackValue<Options, 'compilerOptions'>,
   ) => this
 
   public declare configFile: Options['configFile']
   public declare getConfigFile: () => Options['configFile']
   public declare setConfigFile: (
-    enable: OptionsCallback<Options, 'configFile'>,
+    enable: OptionCallbackValue<Options, 'configFile'>,
   ) => this
 
   public declare context: Options['context']
   public declare getContext: () => Options['context']
   public declare setContext: (
-    enable: OptionsCallback<Options, 'context'>,
+    enable: OptionCallbackValue<Options, 'context'>,
+  ) => this
+
+  public declare transpileOnly: Options['transpileOnly']
+  public declare getTranspileOnly: () => Options['transpileOnly']
+  public declare setTranspileOnly: (
+    enable: OptionCallbackValue<Options, 'transpileOnly'>,
   ) => this
 
   /**

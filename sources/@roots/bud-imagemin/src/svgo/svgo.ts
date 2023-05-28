@@ -70,9 +70,20 @@ export class BudImageminSvgo extends Extension<Options> {
   >['get']
 
   /**
-   * Implementation
+   * {@link Extension.configAfter}
    */
-  public implementation: typeof Plugin.svgoMinify
+  @bind
+  public override async configAfter({hooks, imagemin}) {
+    this.encodeOptions &&
+      hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
+        ...minimizer,
+        imagemin.makePluginInstance({
+          test: hooks.filter(`pattern.svg`),
+          implementation: Plugin.svgoMinify,
+          options: this.options,
+        }),
+      ])
+  }
 
   /**
    * Set encode options
@@ -83,29 +94,5 @@ export class BudImageminSvgo extends Extension<Options> {
     value: EncodeOptions[K],
   ) {
     this.setEncodeOptions(options => ({...options, [key]: value}))
-  }
-
-  /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register() {
-    this.implementation = Plugin.svgoMinify
-  }
-
-  /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter({hooks, imagemin}) {
-    this.getEncodeOptions() &&
-      hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
-        ...minimizer,
-        imagemin.makePluginInstance({
-          test: hooks.filter(`pattern.svg`),
-          implementation: this.implementation,
-          options: this.options,
-        }),
-      ])
   }
 }

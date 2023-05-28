@@ -1,17 +1,17 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-import {BudTerser} from './extension.js'
+import BudMinimize from '../src/index.js'
 
 describe(`@roots/bud-terser`, () => {
-  let bud
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
     // @ts-ignore
     bud.extensions.repository = {}
-    await bud.extensions.add(BudTerser)
+    await bud.extensions.add(BudMinimize)
   })
 
   it(`has label prop`, () => {

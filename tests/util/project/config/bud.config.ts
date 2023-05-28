@@ -1,4 +1,6 @@
-export default async bud => {
+import {type Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
   bud
     .entry(`app`, [`@scripts/app`, `@styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])

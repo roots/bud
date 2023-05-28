@@ -15,27 +15,27 @@ export type Options<T = Record<string, any>> = {
   [K in keyof T as `${K & string}`]?: T[K]
 }
 
-export type OptionsMap<T extends Options> = {
-  [K in keyof T as `${K & string}`]?: Value<(app: Bud) => T[K]> | T[K]
+export type InternalOptionsValues<T extends Options> = {
+  [K in keyof T as `${K & string}`]: Value<(app: Bud) => T[K]> | T[K]
 }
 
-export type OptionsCallback<
+export type OptionCallbackValue<
   T extends Options,
   K extends `${keyof Options & string}`,
-> = OptionsMap<T>[K] | ((value: T[K]) => T[K])
+> = InternalOptionsValues<T>[K] | ((value: T[K]) => T[K])
 
-export type OptionSetter<
+type OptionSetter<
   Extension,
   Options,
   Property extends `${keyof Options & string}`,
-> = (value: OptionsCallback<Options, Property>) => Extension
+> = (value: OptionCallbackValue<Options, Property>) => Extension
 
-export type OptionGetter<
+type OptionGetter<
   Options extends Record<string, any>,
   Property extends `${keyof Options & string}`,
 > = () => Options[Property]
 
-export type OptionAccessor<
+type OptionAccessor<
   Options extends Record<string, any>,
   Property extends `${keyof Options & string}`,
 > = Options[Property]
@@ -73,54 +73,47 @@ export interface Constructor {
 }
 
 export type WithOptions<
-  E extends Extension = Extension,
-  O extends Options = Options,
+  Ext extends Extension,
+  Opt extends Options = Options,
 > = {
-  [K in keyof O as `get${Capitalize<K & string>}`]: () => O[K]
+  [Prop in keyof Opt as `get${Capitalize<Prop & string>}`]: () => Opt[Prop]
 } & {
-  [K in keyof O as `set${Capitalize<K & string>}`]: (
-    value: OptionsCallback<O, `${K & string}`>,
-  ) => E
+  [Prop in keyof Opt as `set${Capitalize<Prop & string>}`]: (
+    value: OptionCallbackValue<Opt, `${Prop & string}`>,
+  ) => Ext
 } & {
-  [K in keyof O as `${K & string}`]: O[K]
+  [K in keyof Opt as `${K & string}`]: Opt[K]
 }
 
-export interface PublicExtensionApi<E extends Extension = Extension> {
-  app: Bud
-
-  /**
-   * Set an option value
-   */
+export type StrictPublicExtensionApi<
+  E extends Extension,
+  O extends Options,
+> = {
+  app: E[`app`]
+  label: E['label']
+  options: E['options']
+  enabled: E['enabled']
   get: E[`getOption`]
   getOption: E[`getOption`]
-
-  /**
-   * Set an option value
-   */
-  set: <K extends string>(
-    key: K,
-    value:
-      | this[`options`][K]
-      | ((value: this[`options`][K]) => this[`options`][K]),
-  ) => this
-
-  /**
-   * Set an option value
-   */
-  setOption: <K extends string>(
-    key: K,
-    value:
-      | this[`options`][K]
-      | ((value: this[`options`][K]) => this[`options`][K]),
-  ) => this
-
+  set: E[`set`]
+  setOption: E[`setOption`]
   getOptions: E[`getOptions`]
   setOptions: E[`setOptions`]
-
-  enabled: E['enabled']
   enable: E['enable']
-  options: E['options']
+} & WithOptions<E, O>
+
+export type PublicExtensionApi<E extends Extension = Extension> = {
+  app: E[`app`]
   label: E['label']
+  options: E['options']
+  enabled: E['enabled']
+  get: E[`getOption`]
+  getOption: E[`getOption`]
+  set: E[`set`]
+  setOption: E[`setOption`]
+  getOptions: E[`getOptions`]
+  setOptions: E[`setOptions`]
+  enable: E['enable']
 }
 
 export type ExtensionLiteral = Partial<Extension>
@@ -162,11 +155,7 @@ export class Extension<
   /**
    * Extension options
    */
-  public _options: OptionsMap<ExtensionOptions> = {}
-  /**
-   * Extension options
-   */
-  public optionsMap: OptionsMap<ExtensionOptions> = {}
+  public _options: Partial<InternalOptionsValues<ExtensionOptions>> = {}
 
   /**
    * Extension options
@@ -413,7 +402,9 @@ export class Extension<
    * Set extension options
    */
   @bind
-  public setOptions(value: OptionsMap<ExtensionOptions>): this {
+  public setOptions(
+    value: Partial<InternalOptionsValues<ExtensionOptions>>,
+  ): this {
     this._options = value
     return this
   }
@@ -433,7 +424,7 @@ export class Extension<
   @bind
   public setOption<K extends string>(
     key: K,
-    valueOrCallback: OptionsCallback<ExtensionOptions, K>,
+    valueOrCallback: OptionCallbackValue<ExtensionOptions, K>,
   ): this {
     if (valueOrCallback instanceof Value) {
       this._options[key] = valueOrCallback as any

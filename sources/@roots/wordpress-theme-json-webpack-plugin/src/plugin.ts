@@ -9,6 +9,21 @@ import type {Compiler, WebpackPluginInstance} from 'webpack'
  */
 export interface Options {
   /**
+   * Emit path
+   */
+  path: string
+
+  /**
+   * Warning comment about the file being generated.
+   */
+  __generated__?: string
+
+  /**
+   * JSON schema URI for theme.json.
+   */
+  $schema?: string
+
+  /**
    * WordPress `settings`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
@@ -21,9 +36,24 @@ export interface Options {
   customTemplates?: Theme.GlobalSettingsAndStyles['customTemplates']
 
   /**
-   * Emit path
+   * Version of theme.json to use.
    */
-  path: string
+  version?: 2
+
+  /**
+   * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
+   */
+  styles?: Theme.GlobalSettingsAndStyles['styles']
+
+  /**
+   * Additional metadata for template parts defined in the parts folder.
+   */
+  templateParts?: Theme.GlobalSettingsAndStyles['templateParts']
+
+  /**
+   * An array of pattern slugs to be registered from the Pattern Directory.
+   */
+  patterns?: Theme.GlobalSettingsAndStyles['patterns']
 }
 
 /**
@@ -42,12 +72,17 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    */
   public get settings(): string {
     return JSON.stringify(
-      {
+      Object.entries({
         __generated__: `⚠️ This file is generated. Do not edit.`,
         $schema: `https://schemas.wp.org/trunk/theme.json`,
         version: 2,
         ...omit(this.options, `path`),
-      },
+      }).reduce((a, [k, v]) => {
+        if (v !== undefined) {
+          a[k] = v
+        }
+        return a
+      }, {}),
       null,
       2,
     )

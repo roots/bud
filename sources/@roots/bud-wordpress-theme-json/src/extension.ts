@@ -1,5 +1,7 @@
-import {Extension} from '@roots/bud-framework'
-import type {OptionsMap} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type StrictPublicExtensionApi,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -31,6 +33,9 @@ export interface Mutator {
     | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
 }
 
+interface Api
+  extends StrictPublicExtensionApi<WordPressThemeJSON, Options> {}
+
 /**
  * WordPress theme.json configuration
  *
@@ -42,8 +47,14 @@ export interface Mutator {
  * ```
  */
 @label(`@roots/bud-wordpress-theme-json`)
-@options({
+@options<Options>({
   path: new Value(({path}) => path(`./theme.json`)),
+  __generated__: undefined,
+  customTemplates: undefined,
+  patterns: undefined,
+  styles: undefined,
+  templateParts: undefined,
+  version: undefined,
   settings: {
     color: {
       custom: false,
@@ -66,11 +77,12 @@ export interface Mutator {
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
 @disabled
-export class WordPressThemeJSON extends Extension<
-  Options,
-  ThemeJsonWebpackPlugin
-> {
+export class WordPressThemeJSON
+  extends Extension<Options, ThemeJsonWebpackPlugin>
+  implements Api
+{
   @bind
+  // @ts-ignore
   public settings(
     input?:
       | Mutator
@@ -101,12 +113,30 @@ export class WordPressThemeJSON extends Extension<
     return this
   }
 
-  public declare getSettings: () => Options['settings']
-  public declare setSettings: (
-    settings: OptionsMap<Options>['settings'],
-  ) => this
+  public declare getSettings: Api['getSettings']
+  public declare setSettings: Api['setSettings']
 
-  public declare path: Options['path']
-  public declare getPath: () => Options['path']
-  public declare setPath: (path: OptionsMap<Options>['path']) => this
+  public declare path: Api['path']
+  public declare getPath: Api['getPath']
+  public declare setPath: Api['setPath']
+
+  public declare customTemplates: Api['customTemplates']
+  public declare getCustomTemplates: Api['getCustomTemplates']
+  public declare setCustomTemplates: Api['setCustomTemplates']
+
+  public declare patterns: Api['patterns']
+  public declare getPatterns: Api['getPatterns']
+  public declare setPatterns: Api['setPatterns']
+
+  public declare styles: Api['styles']
+  public declare getStyles: Api['getStyles']
+  public declare setStyles: Api['setStyles']
+
+  public declare templateParts: Api['templateParts']
+  public declare getTemplateParts: Api['getTemplateParts']
+  public declare setTemplateParts: Api['setTemplateParts']
+
+  public declare version: Api['version']
+  public declare getVersion: Api['getVersion']
+  public declare setVersion: Api['setVersion']
 }
