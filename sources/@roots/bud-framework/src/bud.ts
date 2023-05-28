@@ -1,24 +1,31 @@
 import {bind} from '@roots/bud-support/decorators/bind'
 import {InputError} from '@roots/bud-support/errors'
-import isNull from '@roots/bud-support/lodash/isNull'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 
 import {bootstrap} from './lifecycle/bootstrap.js'
-import type * as methods from './methods/index.js'
+import type methods from './methods/index.js'
 import type {Module} from './module.js'
 import type ConsoleBuffer from './services/console.js'
 import type FS from './services/fs.js'
 import type * as Options from './types/options/index.js'
 import type Hooks from './types/services/hooks/index.js'
 import type * as Services from './types/services/index.js'
-import Value from './value.js'
 
 /**
  * Bud core class
  */
 export class Bud {
+  /**
+   * Label
+   * @readonly
+   */
+  public get label() {
+    return this.context?.label
+  }
+
   /**
    * Context
    */
@@ -43,27 +50,11 @@ export class Bud {
   }
 
   /**
-   * Label
-   * @readonly
-   */
-  public get label() {
-    return this.context?.label
-  }
-
-  /**
-   * Parent {@link Bud} instance
-   * @readonly
-   */
-  public get root(): Bud {
-    return this.context?.root ?? this
-  }
-
-  /**
    * True when {@link Bud.mode} is `production`
    * @readonly
    */
   public get isProduction(): boolean {
-    return this.mode == `production`
+    return this.mode === `production`
   }
 
   /**
@@ -71,7 +62,20 @@ export class Bud {
    * @readonly
    */
   public get isDevelopment(): boolean {
-    return this.mode == `development`
+    return this.mode === `development`
+  }
+
+  /**
+   * {@link Bud} instances
+   */
+  public readonly children: Record<string, Bud> = {}
+
+  /**
+   * Parent {@link Bud} instance
+   * @readonly
+   */
+  public get root(): Bud {
+    return this.context?.root ?? this
   }
 
   /**
@@ -91,110 +95,115 @@ export class Bud {
   }
 
   /**
-   * {@link Bud} instances
-   */
-  public children?: Record<string, Bud> | undefined
-
-  /**
    * True when child compilers
    * @readonly
    */
   public get hasChildren(): boolean {
-    return (
-      !isUndefined(this.children) &&
-      !isNull(this.children) &&
-      Object.entries(this.children).length > 0
-    )
+    return Object.entries(this.children).length > 0
   }
 
-  public consoleBuffer: ConsoleBuffer
+  public readonly services: Array<`${keyof Services.Registry & string}`> =
+    []
 
-  public fs: FS
+  public declare readonly consoleBuffer: ConsoleBuffer
 
-  public module: Module
+  public declare readonly fs: FS
 
-  public services: Array<string> = []
+  public declare readonly module: Module
 
-  public api: Services.Api
+  public declare readonly api: Services.Api
 
-  public build: Services.Build.Service
+  public declare readonly build: Services.Build.Service
 
-  public cache: Services.Cache.Service
+  public declare readonly cache: Services.Cache.Service
 
-  public compiler: Services.Compiler.Service
+  public declare readonly compiler: Services.Compiler.Service
 
-  public dashboard: Services.Dashboard.Service
+  public declare readonly dashboard: Services.Dashboard.Service
 
-  public env: Services.Env
+  public declare readonly env: Services.Env
 
-  public extensions: Services.Extensions.Service
+  public declare readonly extensions: Services.Extensions.Service
 
-  public hooks: Hooks
+  public declare readonly hooks: Hooks
 
-  public notifier: Services.Notifier
+  public declare readonly notifier: Services.Notifier
 
-  public project: Services.Project.Service
+  public declare readonly project: Services.Project.Service
 
-  public server: Services.Server.Service
+  public declare readonly server: Services.Server.Service
 
-  public declare after: methods.after
+  public declare readonly after: typeof methods.after
 
-  public declare maybeCall: methods.maybeCall
+  public declare readonly maybeCall: typeof methods.maybeCall
 
-  public declare close: methods.close
+  public declare readonly close: typeof methods.close
 
-  public declare container: methods.container
+  public declare readonly container: typeof methods.container
 
-  public declare get: methods.get
+  public declare readonly get: typeof methods.get
 
-  public declare glob: methods.glob
+  public declare readonly glob: typeof methods.glob
 
-  public declare globSync: methods.globSync
+  public declare readonly globSync: typeof methods.globSync
 
-  public declare path: methods.path
+  public declare readonly path: typeof methods.path
 
-  public declare pipe: methods.pipe
+  public declare readonly pipe: typeof methods.pipe
 
-  public declare processConfigs: methods.processConfigs
+  public declare readonly processConfigs: typeof methods.processConfigs
 
-  public declare publicPath: methods.publicPath
+  public declare readonly publicPath: typeof methods.publicPath
 
-  public declare relPath: methods.relPath
+  public declare readonly relPath: typeof methods.relPath
 
-  public declare run: methods.run
+  public declare readonly run: typeof methods.run
 
-  public declare setPath: methods.setPath
+  public declare readonly setPath: typeof methods.setPath
 
-  public declare setPublicPath: methods.setPublicPath
+  public declare readonly setPublicPath: typeof methods.setPublicPath
 
-  public declare sequence: methods.sequence
+  public declare readonly sequence: typeof methods.sequence
 
-  public declare sequenceSync: methods.sequenceSync
+  public declare readonly sequenceSync: typeof methods.sequenceSync
 
-  public declare sh: methods.sh
+  public declare readonly sh: typeof methods.sh
 
-  public declare tap: methods.tap
+  public declare readonly tap: typeof methods.tap
 
-  public declare tapAsync: methods.tapAsync
+  public declare readonly tapAsync: typeof methods.tapAsync
 
-  public declare when: methods.when
-
-  public declare bindMethod: methods.bindMethod
+  public declare readonly when: typeof methods.when
 
   /**
    * @deprecated Use {@link bud.fs.json | bud.fs.json}
+   * @readonly
    */
-  public json: FS['json']
+  public readonly json: FS['json']
 
   /**
    * @deprecated Use {@link bud.fs.yml | bud.fs.yml}
+   * @readonly
    */
-  public yml: FS['yml']
+  public readonly yml: FS['yml']
 
   /**
-   * Value helper
+   * Set a value on the current instance
+   * @param key - key
+   * @param value - value
+   * @param bind - bind value to current instance (default: true, if bindable)
    */
-  public value = Value
+  public set<K extends `${keyof Bud & string}`>(
+    key: K,
+    value: Bud[K],
+    bind: boolean = true,
+  ): Bud {
+    if (bind && isFunction(value) && `bind` in value) {
+      return Object.assign(this, {[key]: value.bind(this)})
+    }
+
+    return Object.assign(this, {[key]: value})
+  }
 
   /**
    * Creates a child with `bud.create` but returns the parent instance
@@ -231,10 +240,8 @@ export class Bud {
     }
 
     this.log(`instantiating new bud instance`)
-    const child = await new this.implementation().lifecycle(context)
-
-    if (!this.children) this.children = {[context.label]: child}
-    else this.children[context.label] = child
+    this.children[context.label] =
+      await new this.implementation().lifecycle(context)
 
     this.get(context.label).hooks.on(
       `build.dependencies`,
@@ -254,12 +261,53 @@ export class Bud {
 
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
-    await bootstrap.bind(this)({...context})
+    Object.assign(this, {}, {context})
+    await bootstrap.bind(this)()
+
     return this
   }
 
   /**
-   * Log a message
+   * Bootstrap the application
+   */
+  @bind
+  public async bootstrap() {
+    await this.executeServiceCallbacks(`bootstrap`)
+  }
+
+  /**
+   * Register application services
+   */
+  @bind
+  public async register() {
+    await this.executeServiceCallbacks(`register`)
+  }
+
+  /**
+   * Boot application services
+   */
+  @bind
+  public async boot() {
+    await this.executeServiceCallbacks(`boot`)
+  }
+
+  /**
+   * Execute service callbacks for a given stage
+   *
+   * @param stage - `bootstrap`, `register`, or `boot`
+   * @returns Bud (promise)
+   */
+  @bind
+  public async executeServiceCallbacks(
+    stage: `bootstrap` | `register` | `boot`,
+  ): Promise<Bud> {
+    await this.hooks.fire(stage, this)
+    if (this.api?.queue?.length) await this.api.processQueue()
+    return this
+  }
+
+  /**
+   * Log message
    */
   @bind
   public log(...messages: any[]) {
@@ -268,7 +316,7 @@ export class Bud {
   }
 
   /**
-   * Log an `info` level message
+   * Log info
    */
   @bind
   public info(...messages: any[]) {
@@ -277,7 +325,7 @@ export class Bud {
   }
 
   /**
-   * Log a `success` level message
+   * Log success
    */
   @bind
   public success(...messages: any[]) {
@@ -286,7 +334,7 @@ export class Bud {
   }
 
   /**
-   * Log a `warning` level message
+   * Log warning
    */
   @bind
   public warn(...messages: any[]) {
@@ -295,7 +343,7 @@ export class Bud {
   }
 
   /**
-   * Log an error
+   * Log error
    */
   @bind
   public error(...messages: Array<any>): Bud {

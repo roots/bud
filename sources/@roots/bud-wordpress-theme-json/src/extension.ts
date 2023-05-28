@@ -1,4 +1,5 @@
 import {
+  DynamicOption,
   Extension,
   type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
@@ -10,7 +11,6 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
@@ -33,8 +33,19 @@ export interface Mutator {
     | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
 }
 
-interface Api
-  extends StrictPublicExtensionApi<WordPressThemeJSON, Options> {}
+type Api = StrictPublicExtensionApi<
+  WordPressThemeJSON,
+  Options & Record<string, unknown>
+> & {
+  path: Options['path']
+  generated?: Options['__generated__']
+  customTemplates?: Options['customTemplates']
+  patterns?: Options['patterns']
+  styles?: Options['styles']
+  templateParts?: Options['templateParts']
+  version?: Options['version']
+  settings?: Options['settings']
+}
 
 /**
  * WordPress theme.json configuration
@@ -48,7 +59,7 @@ interface Api
  */
 @label(`@roots/bud-wordpress-theme-json`)
 @options<Options>({
-  path: new Value(({path}) => path(`./theme.json`)),
+  path: DynamicOption.make(({path}) => path(`./theme.json`)),
   __generated__: undefined,
   customTemplates: undefined,
   patterns: undefined,

@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import * as source from './glob.js'
+import * as source from '../../../src/methods/glob/glob.js'
 
 describe(`bud.glob`, function () {
   let bud: Bud

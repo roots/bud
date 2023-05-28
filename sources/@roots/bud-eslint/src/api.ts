@@ -2,17 +2,30 @@ import {
   Extension,
   type StrictPublicExtensionApi as PublicExtensionApi,
 } from '@roots/bud-framework/extension'
-import type {Options} from 'eslint-webpack-plugin'
+import type {Options as EslintPluginOptions} from 'eslint-webpack-plugin'
 import Plugin from 'eslint-webpack-plugin'
 
-export type {Options}
+export type Options = EslintPluginOptions &
+  Record<string, unknown> & {
+    failOnWarning: EslintPluginOptions['failOnWarning']
+    failOnError: EslintPluginOptions['failOnError']
+    cache: EslintPluginOptions['cache']
+    cacheLocation: EslintPluginOptions['cacheLocation']
+    context: EslintPluginOptions['context']
+    extensions: EslintPluginOptions['extensions']
+    fix: EslintPluginOptions['fix']
+    lintDirtyModulesOnly: EslintPluginOptions['lintDirtyModulesOnly']
+    resolvePluginsRelativeTo: EslintPluginOptions['resolvePluginsRelativeTo']
+    formatter: EslintPluginOptions['formatter']
+    threads: EslintPluginOptions['threads']
+    useEslintrc: EslintPluginOptions['useEslintrc']
+    eslintPath: EslintPluginOptions['eslintPath']
+    overrideConfig: EslintPluginOptions['overrideConfig']
+  }
 
 export type Api = PublicExtensionApi<BudEslintPublicApi, Options>
 
-export class BudEslintPublicApi
-  extends Extension<Options, Plugin>
-  implements Api
-{
+export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**
    * {@link Options.failOnWarning}
    */

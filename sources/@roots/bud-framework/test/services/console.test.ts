@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it} from 'vitest'
-import ConsoleBuffer from './console.js'
+import ConsoleBuffer from '../../src/services/console.js'
 
 describe(`ConsoleBuffer`, () => {
   let bud: any

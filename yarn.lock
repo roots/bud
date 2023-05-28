@@ -8337,6 +8337,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
+    "@types/sass-loader": 8.0.5
     postcss: 8.4.23
     postcss-scss: ^4.0.6
     resolve-url-loader: 5.0.0
@@ -10264,6 +10265,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/node-sass@npm:*":
+  version: 4.11.3
+  resolution: "@types/node-sass@npm:4.11.3"
+  dependencies:
+    "@types/node": "*"
+  checksum: 6205b95d6c2a215fefcdfba283f4f237bbe95b088119bd00503171b84762d15f6b9b11fe424407f38ac7b8174b20bb4cd137466550f4a49961f3ac54e6ed4812
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:*, @types/node@npm:^17.0.5":
   version: 17.0.27
   resolution: "@types/node@npm:17.0.27"
@@ -10493,6 +10503,18 @@ __metadata:
   version: 1.1.2
   resolution: "@types/safe-json-stringify@npm:1.1.2"
   checksum: 2dabb5b02bf32fc1a0e7f51f4e66c22778b811790e9d433a39389941f1719dab4b9287ee658134b3985e5b2c716786b3d614ddb6cf842d4d43906584085bb03f
+  languageName: node
+  linkType: hard
+
+"@types/sass-loader@npm:8.0.5":
+  version: 8.0.5
+  resolution: "@types/sass-loader@npm:8.0.5"
+  dependencies:
+    "@types/node": "*"
+    "@types/node-sass": "*"
+    "@types/webpack": ^4
+    sass: ^1.45.0
+  checksum: d9d52698174c7dac03b2b1ee00bb881e970900f78a4995a3d51187b51d372e4285578eb0d99447437e890c35bf76687a678d2cfc602038f074b582bbd539c4d7
   languageName: node
   linkType: hard
 
@@ -32678,7 +32700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.62.1":
+"sass@npm:^1.45.0, sass@npm:^1.62.1":
   version: 1.62.1
   resolution: "sass@npm:1.62.1"
   dependencies:

@@ -9,7 +9,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'stylelint-webpack-plugin'
 
@@ -22,14 +22,14 @@ export interface Options extends Plugin.Options {}
 @expose(`stylelint`)
 @plugin(Plugin)
 @options<Options>({
-  cache: new Value(({context, env}) => !context.ci && !env.isTrue(`CI`)),
-  cacheLocation: new Value(({cache, path}) =>
+  cache: Value.make(({context, env}) => !context.ci && !env.isTrue(`CI`)),
+  cacheLocation: Value.make(({cache, path}) =>
     path(cache.cacheDirectory, `stylelint`),
   ),
   config: undefined,
-  context: new Value(({path}) => path(`@src`)),
+  context: Value.make(({path}) => path(`@src`)),
   failOnWarning: false,
-  failOnError: new Value(({isProduction}) => isProduction),
+  failOnError: Value.make(({isProduction}) => isProduction),
   fix: false,
   stylelintPath: undefined,
 })

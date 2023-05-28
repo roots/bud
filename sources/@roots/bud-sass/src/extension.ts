@@ -1,22 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
-import {
-  Extension,
-  type OptionCallbackValue,
-} from '@roots/bud-framework/extension'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   dependsOn,
   dependsOnOptional,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
 
-interface Options {
-  implementation?: any
-  sourceMap?: boolean
-  additionalData?: string
-}
+import {type BudSassApi, BudSassOptions} from './options.js'
 
 /**
  * Sass configuration
@@ -24,28 +16,23 @@ interface Options {
 @label(`@roots/bud-sass`)
 @dependsOn([`@roots/bud-sass/resolve-url`])
 @dependsOnOptional([`@roots/bud-postcss`])
-@options<Options>({
-  additionalData: undefined,
-  implementation: undefined,
-  sourceMap: true,
-})
 @expose(`sass`)
-export class BudSass extends Extension<Options> {
+export class BudSass extends BudSassOptions {
   /**
    * {@link Extension.register}
    */
   @bind
   public override async register({build, hooks}: Bud) {
     /** Source loader */
-    const loader = await this.resolve(`sass-loader`, import.meta.url)
+    const loader = await this.resolve(`sass-loader`)
     if (!loader) return this.logger.error(`sass-loader not found`)
 
     /** Source sass implementation */
-    const implementation = await this.import(`sass`)
-    if (!implementation) return this.logger.error(`sass not found`)
-
-    /** Set options */
-    this.setOptions({implementation, sourceMap: true})
+    const implementation = await this.import(`sass`, import.meta.url)
+    if (!implementation) {
+      return this.logger.error(`sass not found`)
+    }
+    this.setImplementation(implementation)
 
     /** Set loader alias */
     hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
@@ -60,10 +47,10 @@ export class BudSass extends Extension<Options> {
 
     /** Setup rule */
     build
-      .setLoader(`sass-loader`, loader)
+      .setLoader(`sass`, `sass-loader`)
       .setItem(`sass`, {
         ident: `sass`,
-        loader: `sass-loader`,
+        loader: `sass`,
         options: () => this.options,
       })
       .setRule(`sass`, {
@@ -76,81 +63,19 @@ export class BudSass extends Extension<Options> {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot(bud: Bud) {
-    bud.postcss?.setSyntax(`postcss-scss`)
+  public override async boot({build, postcss}) {
+    postcss?.setSyntax(`postcss-scss`)
 
-    bud.build.rules.sass.setUse(() =>
+    build.rules.sass.setUse(() =>
       [
-        bud.build.items[`precss`],
-        bud.build.items[`css`],
-        bud.build.items[`postcss`],
-        bud.build.items[`resolve-url`],
-        bud.build.items[`sass`],
+        build.items[`precss`],
+        build.items[`css`],
+        build.items[`postcss`],
+        build.items[`resolve-url`],
+        build.items[`sass`],
       ].filter(Boolean),
     )
   }
-
-  public declare getAdditionalData: () => Options['additionalData']
-
-  public declare setAdditionalData: (
-    data: OptionCallbackValue<Options, `additionalData`>,
-  ) => BudSass
-
-  /**
-   * Register global stylsheet
-   *
-   * @remarks
-   * Used to register styles which are included globally
-   *
-   * @example
-   * ```ts
-   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
-   * ```
-   */
-  @bind
-  public registerGlobal(additionalData: string | Array<string>): this {
-    this.setAdditionalData((data = ``) => {
-      const code = (
-        Array.isArray(additionalData) ? additionalData : [additionalData]
-      )
-        .map(str => str.trim())
-        .filter(Boolean)
-        .join(`\n`)
-
-      return data.concat(code)
-    })
-
-    return this
-  }
-
-  /**
-   * Import a partial globally
-   *
-   * @remarks
-   * Used to import a partial globally (such as a `variables.scss` file)
-   *
-   * @example
-   * With a single module signifier:
-   * ```ts
-   * bud.sass.importGlobal('styles/variables.scss')
-   * ```
-   *
-   * @example
-   * With an array of module signifiers:
-   * ```ts
-   * bud.sass.importGlobal([
-   *  'styles/variables.scss',
-   *  'styles/mixins.scss',
-   * ])
-   * ```
-   */
-  @bind
-  public importGlobal(data: string | Array<string>): this {
-    const globals = (Array.isArray(data) ? data : [data])
-      .map(str => str.trim())
-      .filter(Boolean)
-      .map(item => `@import "${item}";`)
-
-    return this.registerGlobal(globals)
-  }
 }
+
+export {type BudSassApi}

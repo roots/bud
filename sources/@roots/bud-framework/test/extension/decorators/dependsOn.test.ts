@@ -1,13 +1,14 @@
 import {describe, expect, it} from 'vitest'
 
-import {dependsOn} from './dependsOn.js'
+import {dependsOn} from '../../../src/extension/decorators/dependsOn.js'
 
-@dependsOn([`foo`])
 // @ts-ignore
+@dependsOn([`foo`])
 class TestClass {}
 
 describe(`dependsOn`, () => {
   it(`should return a decorator`, () => {
+    // @ts-ignore
     expect(dependsOn([`foo`])).toBeInstanceOf(Function)
   })
 

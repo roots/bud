@@ -34,11 +34,7 @@ describe(`@roots/bud-sass/extension`, () => {
     const setSpy = vi.spyOn(sass, `set`)
 
     sass.registerGlobal(`$primary-color: #ff0000;`)
-
-    expect(setSpy).toHaveBeenCalledWith(
-      `additionalData`,
-      expect.any(Function),
-    )
+    expect(sass.get(`additionalData`)).toBe(`$primary-color: #ff0000;`)
   })
 
   it(`should call setLoader`, async () => {
@@ -46,7 +42,7 @@ describe(`@roots/bud-sass/extension`, () => {
     await sass.register(bud)
 
     expect(setLoaderSpy).toHaveBeenCalledWith(
-      `sass-loader`,
+      `sass`,
       expect.stringContaining(`sass-loader`),
     )
   })
@@ -59,7 +55,7 @@ describe(`@roots/bud-sass/extension`, () => {
     expect(setItemSpy).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
-        loader: expect.stringContaining(`sass-loader`),
+        loader: `sass`,
         options: expect.any(Function),
       }),
     )
@@ -101,17 +97,12 @@ describe(`@roots/bud-sass/extension`, () => {
   it(`should add global to \`additionalData\``, () => {
     sass.set(`additionalData`, undefined)
 
-    const setSpy = vi.spyOn(sass, `set`)
-
     sass.registerGlobal(`$foo: rgba(0, 0, 0, 1);`)
 
-    expect(setSpy).toHaveBeenCalledWith(
-      `additionalData`,
-      expect.any(Function),
-    )
     expect(sass.getOption(`additionalData`)).toBe(
       `$foo: rgba(0, 0, 0, 1);`,
     )
+    expect(sass.options.additionalData).toBe(`$foo: rgba(0, 0, 0, 1);`)
   })
 
   it(`should import partials from an array`, () => {
@@ -123,6 +114,8 @@ describe(`@roots/bud-sass/extension`, () => {
     sass.set(`additionalData`, undefined)
     sass.registerGlobal(code)
 
-    expect(sass.get(`additionalData`)?.split(`\n`)).toStrictEqual(code)
+    sass.additionalData
+
+    expect(sass.options.additionalData?.split(`\n`)).toStrictEqual(code)
   })
 })

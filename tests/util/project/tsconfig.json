@@ -10,7 +10,7 @@
     },
     "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
   },
-  "files": ["./config/bud.config.js", "./config/tailwind.config.ts"],
+  "files": ["./config/bud.config.ts", "./config/tailwind.config.ts"],
   "include": ["./src"],
   "bud": {
     "useCompilerOptions": true

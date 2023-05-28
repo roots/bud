@@ -1,4 +1,4 @@
-import '../../types.js'
+import '../../../src/types.js'
 
 import {factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it} from 'vitest'
@@ -48,9 +48,8 @@ describe(`bud.bundle`, () => {
 
   describe(`when hashing is enabled`, () => {
     it(`should include the hash in the \`filename\` property`, async () => {
+      bud.context.hash = true
       await instance(`react`, [`react`, `react-dom`])
-        .hash()
-        .api.processQueue()
 
       expect(
         bud.hooks.filter(`build.optimization.splitChunks`).cacheGroups

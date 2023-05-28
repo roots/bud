@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {pipe as subject} from './pipe.js'
+import {pipe as subject} from '../../../src/methods/pipe/pipe.js'
 
 describe(`bud.pipe`, function () {
   let pipe: subject

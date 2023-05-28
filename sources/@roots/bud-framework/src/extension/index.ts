@@ -4,11 +4,11 @@ import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
+import Value from '@roots/bud-support/value'
 import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
-import Value from '../value.js'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = Record<string, any>> = {
@@ -73,8 +73,8 @@ export interface Constructor {
 }
 
 export type WithOptions<
-  Ext extends Extension,
-  Opt extends Options = Options,
+  Ext extends unknown,
+  Opt extends Record<string, unknown>,
 > = {
   [Prop in keyof Opt as `get${Capitalize<Prop & string>}`]: () => Opt[Prop]
 } & {
@@ -86,25 +86,26 @@ export type WithOptions<
 }
 
 export type StrictPublicExtensionApi<
-  E extends Extension,
-  O extends Options,
+  E,
+  O extends Record<string, unknown>,
 > = {
-  app: E[`app`]
-  label: E['label']
-  options: E['options']
-  enabled: E['enabled']
-  get: E[`getOption`]
-  getOption: E[`getOption`]
-  set: E[`set`]
-  setOption: E[`setOption`]
-  getOptions: E[`getOptions`]
-  setOptions: E[`setOptions`]
-  enable: E['enable']
+  app: Bud
+  options: O
+  enabled: boolean
+  get: <K extends string>(key: K) => O[K]
+  set: <K extends string>(
+    key: K,
+    value: O[K] | ((value: O[K]) => O[K]),
+  ) => StrictPublicExtensionApi<E, O>
+  getOptions: () => O
+  setOptions: (
+    O: Partial<InternalOptionsValues<O>>,
+  ) => StrictPublicExtensionApi<E, O>
+  enable: () => StrictPublicExtensionApi<E, O>
 } & WithOptions<E, O>
 
 export type PublicExtensionApi<E extends Extension = Extension> = {
   app: E[`app`]
-  label: E['label']
   options: E['options']
   enabled: E['enabled']
   get: E[`getOption`]
@@ -519,4 +520,4 @@ export class Extension<
   }
 }
 
-export {Value as DynamicOption}
+export {Value as DynamicOption, Value}

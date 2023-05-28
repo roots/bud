@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {when} from './when'
+import {when} from '../../../src/extension/decorators/when'
 
 // @ts-ignore
 @when(() => true)

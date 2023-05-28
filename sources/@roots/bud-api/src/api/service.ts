@@ -46,7 +46,7 @@ export class Api extends ServiceContainer implements Contract {
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.bindMethod(name, factory(this.app, name))
+    this.app.set(name as any, factory(this.app, name))
   }
 
   /**

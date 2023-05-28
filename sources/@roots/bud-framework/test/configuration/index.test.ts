@@ -1,10 +1,10 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import * as configuration from './index.js'
+import * as configuration from '../../src/configuration/index.js'
 
 describe(`bud.configuration`, function () {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     vi.clearAllMocks()

@@ -8,12 +8,24 @@ import type {
   Plugin,
 } from '@roots/bud-support/css-minimizer-webpack-plugin'
 
-interface Options extends BasePluginOptions {
-  minimizerOptions: any
+type Options = BasePluginOptions & {
+  warningsFilter: BasePluginOptions['warningsFilter']
+  test: BasePluginOptions['test']
+  include: BasePluginOptions['include']
+  exclude: BasePluginOptions['exclude']
+  parallel: BasePluginOptions['parallel']
+  minimizerOptions: Plugin.MinimizerOptions<any>
 }
 
 interface Api
-  extends StrictPublicExtensionApi<BudMinimizeCssConfig, Options> {}
+  extends StrictPublicExtensionApi<BudMinimizeCssConfig, Options> {
+  warningsFilter: Options['warningsFilter']
+  test: Options['test']
+  include: Options['include']
+  exclude: Options['exclude']
+  parallel: Options['parallel']
+  minimizerOptions: Options['minimizerOptions']
+}
 
 @options<Options>({
   warningsFilter: undefined,

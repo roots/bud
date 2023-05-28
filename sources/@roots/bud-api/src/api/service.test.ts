@@ -33,7 +33,7 @@ describe(`@roots/bud-api`, () => {
 
   it(`should call bud.bindMethod when \`bindFacade\` is called`, async () => {
     const setSpy = vi.spyOn(api, `set`)
-    const bindSpy = vi.spyOn(bud, `bindMethod`)
+    const bindSpy = vi.spyOn(bud, `set`)
     const testFn = () => true
 
     api.bindFacade(`test`, testFn)

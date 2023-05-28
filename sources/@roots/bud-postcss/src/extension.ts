@@ -27,7 +27,7 @@ type InputRecords = Record<string, Input>
 /**
  * PostCSS configuration options
  */
-export interface Options {
+export type Options = {
   sourceMap?: boolean
   postcssOptions?: {
     config?: boolean
@@ -41,7 +41,7 @@ export interface Options {
   syntax?: string
   parser?: string
 }
-type KeyedPostCssOptions<T = keyof Options['postcssOptions']> = {
+type KeyedPostCssOptions = {
   [K in keyof Options[`postcssOptions`] as `postcssOptions.${K &
     string}`]: Options['postcssOptions'][K]
 }

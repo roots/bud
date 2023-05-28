@@ -10,7 +10,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 
 export type {Options}
 
@@ -19,7 +19,7 @@ export type {Options}
  */
 @label(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
 @options<Options>({
-  APP_TITLE: new Value(app => app.label),
+  APP_TITLE: Value.make(app => app.label),
   NO_SCRIPT: `You need to enable JavaScript to run this app`,
 })
 @disabled

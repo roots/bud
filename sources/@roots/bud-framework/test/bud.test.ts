@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {Bud} from './bud.js'
+import {Bud} from '../src/bud.js'
 
 describe(`Bud`, function () {
   it(`is a class`, () => {

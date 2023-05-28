@@ -1,10 +1,10 @@
-import '../index.js'
+import '../../src/index.js'
 
 import {Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Configuration from './configuration.js'
-import {File} from '../types/options/context.js'
+import Configuration from '../../src/configuration/configuration.js'
+import {File} from '../../src/types/options/context.js'
 import {BudError} from '@roots/bud-support/errors'
 
 const testFileDescription: File = {

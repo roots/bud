@@ -34,7 +34,7 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
   const test = normalize(matcher ?? name)
 
   this.hooks.on(`build.optimization.splitChunks`, splitChunks => {
-    const template = this.hooks.filter(`feature.hash`)
+    const template = this.context.hash
       ? `[name].[contenthash].js`
       : `[name].js`
 

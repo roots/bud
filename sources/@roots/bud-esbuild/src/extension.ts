@@ -5,7 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 import {EsbuildPlugin} from 'esbuild-loader'
 
 /**
@@ -53,7 +53,7 @@ export interface Options {
 @label(`@roots/bud-esbuild`)
 @expose(`esbuild`)
 @options({
-  minify: new Value(app => ({
+  minify: Value.make(app => ({
     css: true,
     include: [
       app.hooks.filter(`pattern.css`),
@@ -62,11 +62,11 @@ export interface Options {
     ],
     exclude: app.hooks.filter(`pattern.modules`),
   })),
-  js: new Value(() => ({
+  js: Value.make(() => ({
     loader: `jsx`,
     target: `es2015`,
   })),
-  ts: new Value(({context}) => ({
+  ts: Value.make(({context}) => ({
     loader: `tsx`,
     target: `es2015`,
     tsconfig: context.files?.[`tsconfig.json`]?.path ?? null,

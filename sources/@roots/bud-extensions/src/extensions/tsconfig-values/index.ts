@@ -14,25 +14,25 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
 
-interface CompilerOptions {
+type CompilerOptions = {
   rootDir?: string
   baseUrl?: string
   outDir?: string
   paths?: Record<string, Array<string>>
 }
 
-interface BudOptions {
+type BudOptions = {
   useCompilerOptions?: boolean
 }
 
-interface Options {
+type Options = {
   compilerOptions?: CompilerOptions
   include?: Array<string>
   exclude?: Array<string>
   bud?: BudOptions
 }
 
-interface Api extends PublicExtensionApi<BudTsConfigValues, Options> {}
+type Api = PublicExtensionApi<BudTsConfigValues, Options>
 
 /**
  * The BudTsConfigValues class configures the bud.js application using settings

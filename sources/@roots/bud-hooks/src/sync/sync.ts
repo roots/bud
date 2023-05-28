@@ -4,9 +4,9 @@ import type {
   SyncRegistry,
   SyncStore,
 } from '@roots/bud-framework/registry'
-import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import Value from '@roots/bud-support/value'
 
 import {Hooks} from '../base/base.js'
 
@@ -23,11 +23,7 @@ export class SyncHooks extends Hooks<SyncStore> {
     ...input: Array<SyncCallback[T]>
   ): Bud {
     if (!this.has(id)) this.store[id] = []
-
-    input.map(this.app.value.make).map((value: Value<SyncCallback[T]>) => {
-      if (typeof value.get() === `function`) this.store[id].push(value)
-      else this.store[id] = [value]
-    })
+    this.store[id].push(...input.flatMap(Value.make))
 
     return this.app
   }
@@ -45,14 +41,14 @@ export class SyncHooks extends Hooks<SyncStore> {
    * Get a value
    */
   @bind
-  public get<T extends `${keyof SyncRegistry & string}`>(
+  public get<T extends keyof SyncRegistry & string>(
     id: T,
-    fallback?: SyncCallback[T],
-  ) {
-    return [this.app.value.make(fallback), ...(this.store[id] ?? [])]
-      .map(this.app.value.get)
-      .reduce((accumulated, current) =>
-        isFunction(current) ? current(accumulated) : current,
-      )
+    fallback?: SyncRegistry[T],
+  ): SyncRegistry[T] {
+    return [Value.make(fallback), ...(this.store[id] ?? [])]
+      .map(Value.get)
+      .reduce((accumulated, current) => {
+        return isFunction(current) ? current(accumulated) : current
+      })
   }
 }

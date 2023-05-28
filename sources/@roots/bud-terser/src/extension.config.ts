@@ -13,7 +13,7 @@ import type Plugin from 'terser-webpack-plugin'
  * `terser-webpack-plugin` options
  */
 interface Options extends Plugin.BasePluginOptions {
-  minify?: Plugin.MinimizerImplementation<any>
+  minify: Plugin.MinimizerImplementation<any>
   include: RegExp
   exclude: RegExp
   extractComments: boolean
@@ -21,7 +21,7 @@ interface Options extends Plugin.BasePluginOptions {
   terserOptions?: Plugin.MinimizerOptions<any>
 }
 
-type Api = StrictPublicExtensionApi<BudTerserConfigApi, Options>
+type Api = StrictPublicExtensionApi<BudTerserConfigApi, Partial<Options>>
 
 /**
  * Terser configuration

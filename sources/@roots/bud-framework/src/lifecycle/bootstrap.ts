@@ -6,13 +6,11 @@ import set from '@roots/bud-support/lodash/set'
 import chalk from 'chalk'
 
 import type {Bud} from '../bud.js'
-import * as methods from '../methods/index.js'
+import methods from '../methods/index.js'
 import {Module} from '../module.js'
 import type {Service} from '../service.js'
 import FS from '../services/fs.js'
-import type * as Options from '../types/options/index.js'
 import type * as Registry from '../types/registry/index.js'
-import {initialize} from './init.js'
 
 /**
  * Define the list of lifecycle events that are handled by the system
@@ -135,15 +133,9 @@ const instantiateServices =
  *
  * @returns Promise<void>
  */
-export const bootstrap = async function (
-  this: Bud,
-  context: Options.Context,
-) {
-  Object.assign(this, {}, {context})
-  this.services = []
-
-  Object.entries(methods).map(([handle, callable]) => {
-    this[handle] = callable.bind(this)
+export const bootstrap = async function (this: Bud) {
+  Object.entries(methods).map(([handle, value]) => {
+    this.set(handle as `${keyof Bud & string}`, value)
   })
 
   this.context.logger.time(`initialize`)
@@ -154,7 +146,51 @@ export const bootstrap = async function (
       .map(instantiateServices(this)),
   )
 
-  initialize(this)
+  this.hooks
+    .fromMap({
+      'pattern.js': /\.(mjs|jsx?)$/,
+      'pattern.ts': /\.(tsx?)$/,
+      'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
+      'pattern.sassModule': /\.module\.(scss|sass)$/,
+      'pattern.css': /(?!.*\.module)\.css$/,
+      'pattern.cssModule': /\.module\.css$/,
+      'pattern.font': /\.(ttf|otf|eot|woff2?|ico)$/,
+      'pattern.html': /\.(html?)$/,
+      'pattern.image': /\.(png|jpe?g|gif|webp)$/,
+      'pattern.modules': /(node_modules|bower_components)/,
+      'pattern.svg': /\.svg$/,
+      'pattern.vue': /\.vue$/,
+      'pattern.md': /\.md$/,
+      'pattern.toml': /\.toml$/,
+      'pattern.webp': /\.webp$/,
+      'pattern.yml': /\.ya?ml$/,
+      'pattern.xml': /\.xml$/,
+      'pattern.csv': /\.(csv|tsv)$/,
+      'pattern.json': /\.json$/,
+      'pattern.json5': /\.json5$/,
+    })
+    .hooks.fromMap({
+      'location.@src': isString(this.context.input)
+        ? this.context.input
+        : `src`,
+      'location.@dist': isString(this.context.output)
+        ? this.context.output
+        : `dist`,
+      'location.@storage': this.context.paths.storage,
+      'location.@modules': isString(this.context.modules)
+        ? this.context.modules
+        : `node_modules`,
+      'location.@os-cache': this.context.paths[`os-cache`],
+      'location.@os-config': this.context.paths[`os-config`],
+      'location.@os-data': this.context.paths[`os-data`],
+      'location.@os-log': this.context.paths[`os-log`],
+      'location.@os-temp': this.context.paths[`os-temp`],
+    })
+    .when(this.isDevelopment, ({hooks}) =>
+      hooks.fromMap({
+        'dev.middleware.enabled': [`dev`, `hot`],
+      }),
+    )
 
   Object.entries(LIFECYCLE_EVENT_MAP).map(
     ([eventHandle, callbackName]: [

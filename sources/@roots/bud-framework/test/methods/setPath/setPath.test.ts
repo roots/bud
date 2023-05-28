@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {setPath as subject} from './setPath.js'
+import {setPath as subject} from '../../../src/methods/setPath/setPath.js'
 
 describe(`bud.setPath`, () => {
   let bud: Bud

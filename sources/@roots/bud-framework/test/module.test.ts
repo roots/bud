@@ -2,7 +2,7 @@ import {factory} from '@repo/test-kit/bud'
 import {pathToFileURL} from 'url'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Module} from './module.js'
+import {Module} from '../src/module.js'
 
 describe(`@roots/bud-framework`, () => {
   let bud

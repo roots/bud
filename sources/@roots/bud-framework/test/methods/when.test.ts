@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {when as source} from './when'
+import {when as source} from '../../src/methods/when'
 
 describe(`bud.when`, () => {
   let bud: Bud

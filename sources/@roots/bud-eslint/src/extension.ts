@@ -8,7 +8,7 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 import Plugin from 'eslint-webpack-plugin'
 
 import {type Api, BudEslintPublicApi, type Options} from './api.js'
@@ -21,19 +21,19 @@ import {type Api, BudEslintPublicApi, type Options} from './api.js'
 @plugin(Plugin)
 @options<Options>({
   cache: true,
-  cacheLocation: new Value(({cache, path}) =>
+  cacheLocation: Value.make(({cache, path}) =>
     path(cache.cacheDirectory, `eslint.json`),
   ),
-  context: new Value(({path}) => path()),
+  context: Value.make(({path}) => path()),
   eslintPath: undefined,
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
-  failOnError: new Value(({isProduction}) => isProduction),
-  failOnWarning: new Value(({isProduction}) => isProduction),
+  failOnError: Value.make(({isProduction}) => isProduction),
+  failOnWarning: Value.make(({isProduction}) => isProduction),
   fix: false,
   formatter: `stylish`,
-  lintDirtyModulesOnly: new Value(({isDevelopment}) => isDevelopment),
+  lintDirtyModulesOnly: Value.make(({isDevelopment}) => isDevelopment),
   overrideConfig: undefined,
-  resolvePluginsRelativeTo: new Value(({path}) => path()),
+  resolvePluginsRelativeTo: Value.make(({path}) => path()),
   threads: false,
   useEslintrc: true,
 })

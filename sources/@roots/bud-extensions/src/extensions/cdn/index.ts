@@ -10,14 +10,14 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Http modules configuration options
  */
-export interface Options {
+export type Options = {
   allowedUris?: Set<string | RegExp | ((uri: string) => boolean)>
   cacheLocation: false | string
   frozen: boolean
@@ -26,7 +26,7 @@ export interface Options {
   upgrade: boolean
 }
 
-interface Api extends StrictPublicExtensionApi<Cdn, Options> {}
+type Api = StrictPublicExtensionApi<Cdn, Options>
 
 /**
  * Http modules configuration
@@ -35,12 +35,12 @@ interface Api extends StrictPublicExtensionApi<Cdn, Options> {}
 @expose(`cdn`)
 @options<Options>({
   allowedUris: new Set([/^http:\/\//, /^https:\/\//]),
-  cacheLocation: new Value(({label, path}) =>
+  cacheLocation: Value.make(({label, path}) =>
     path(`@storage`, label, `modules`),
   ),
   frozen: false,
-  lockfileLocation: new Value(({path}) => path(`bud.lock`)),
-  proxy: new Value(
+  lockfileLocation: Value.make(({path}) => path(`bud.lock`)),
+  proxy: Value.make(
     ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
   ),
   upgrade: true,

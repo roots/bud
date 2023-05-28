@@ -2,7 +2,7 @@ import {join} from 'node:path'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
-import {path as subject} from './path.js'
+import {path as subject} from '../../../src/methods/path/path.js'
 
 describe(`bud.path`, () => {
   let bud: Bud
@@ -40,13 +40,13 @@ describe(`bud.path`, () => {
     expect(path(`@path`)).toEqual(join(bud.context.basedir, `[path]`))
   })
   it(`resolves @hash`, async () => {
-    bud.hooks.on(`feature.hash`, true)
+    bud.context.hash = true
     expect(path(`@hash`)).toEqual(
       join(bud.context.basedir, `[contenthash:6]`),
     )
   })
   it(`resolves @hash to empty string when disabled`, async () => {
-    bud.hooks.on(`feature.hash`, false)
+    bud.context.hash = false
     expect(path(`@hash`)).toEqual(
       join(bud.context.basedir, `[contenthash:6]`),
     )

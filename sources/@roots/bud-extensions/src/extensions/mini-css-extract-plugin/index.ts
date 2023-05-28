@@ -5,7 +5,7 @@ import {
   plugin,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-framework/value'
+import Value from '@roots/bud-support/value'
 import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
 import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
 
@@ -18,7 +18,7 @@ import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
   /**
    * css output filename
    */
-  filename: new Value(({relPath}) => relPath(`css`, `@name.css`)),
+  filename: Value.make(({relPath}) => relPath(`css`, `@name.css`)),
 })
 @production
 export default class MiniCssExtract extends Extension<Options, Plugin> {}

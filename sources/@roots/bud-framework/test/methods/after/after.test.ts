@@ -1,11 +1,11 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {after as subject} from './after.js'
+import {after as subject} from '../../../src/methods/after/after.js'
 
 describe(`bud.after`, function () {
   let after: subject
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     bud = await factory()

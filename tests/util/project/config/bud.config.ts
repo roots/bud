@@ -1,3 +1,4 @@
+import '@roots/bud-sass/types'
 import {type Bud} from '@roots/bud'
 
 export default async (bud: Bud) => {
@@ -5,8 +6,6 @@ export default async (bud: Bud) => {
     .entry(`app`, [`@scripts/app`, `@styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)
-    .splitChunks(false)
-    .minimize(false)
     .html()
 
   // .assets([[`fonts`, `fontz`]])

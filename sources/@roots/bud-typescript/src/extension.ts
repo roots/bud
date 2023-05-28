@@ -59,7 +59,7 @@ interface Options extends TsLoader.Options {
   babel: false,
   compilerOptions: undefined,
   configFile: `tsconfig.json`,
-  context: new DynamicOption(({path}) => path()),
+  context: DynamicOption.make(({path}) => path()),
   transpileOnly: true,
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])

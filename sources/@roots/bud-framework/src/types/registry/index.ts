@@ -1,4 +1,5 @@
-import type Value from '../../value.js'
+import type Value from '@roots/bud-support/value'
+
 import type * as Build from './build.js'
 import type * as Dev from './dev.js'
 import type {Events} from './events.js'
@@ -24,10 +25,7 @@ type SyncCallback = {
 
 type SyncStore = {
   [K in keyof SyncRegistry as `${K & string}`]?: Array<
-    Value<
-      | ((current?: SyncRegistry[K] | undefined) => SyncRegistry[K])
-      | SyncRegistry[K]
-    >
+    Value<SyncCallback[K]>
   >
 }
 

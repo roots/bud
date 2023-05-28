@@ -5,17 +5,11 @@ export type Parameters = [
 ]
 
 export interface hash {
-  (this: Bud, ...value: Parameters): Bud
+  (...value: Parameters): Bud
 }
 
-export const hash: hash = function (
-  this: Bud,
-  value:
-    | boolean
-    | undefined
-    | ((hash: boolean | undefined) => boolean) = true,
-) {
-  this.hooks.on(`feature.hash`, value)
+export const hash: hash = function (this: Bud, value = true) {
+  this.context.hash = this.maybeCall(value, this.context.hash)
   this.success(`file hashing ${value ? `enabled` : `disabled`}`)
 
   return this

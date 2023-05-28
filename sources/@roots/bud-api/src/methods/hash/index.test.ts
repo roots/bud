@@ -1,11 +1,11 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {hash} from './index.js'
 
 describe(`bud.hash`, () => {
-  let bud
-  let subject
+  let bud: Bud
+  let subject: typeof hash
 
   beforeEach(async () => {
     bud = await factory()

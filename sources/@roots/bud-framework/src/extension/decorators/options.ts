@@ -36,8 +36,8 @@ export const options =
           if (noPropertyDefined(this, key)) {
             // Define a property on the Extension instance with getter and setter methods.
             Object.defineProperty(this, key, {
-              get: () => this.get(key),
-              set: value => this.set(key, value),
+              get: () => this.getOption(key),
+              set: value => this.setOption(key, value),
             })
           }
 
@@ -49,7 +49,7 @@ export const options =
             // Define a setter method on the Extension instance.
             Object.defineProperty(this, setFn, {
               value: (value: any) => {
-                this.set(key, value)
+                this.setOption(key, value)
                 return this
               },
             })

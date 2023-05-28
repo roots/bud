@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {Bud, Extension, Service, ServiceContainer} from './index.js'
+import {Bud, Extension, Service, ServiceContainer} from '../src/index.js'
 
 describe(`@roots/bud-framework`, () => {
   it(`should have a Bud export`, () => {

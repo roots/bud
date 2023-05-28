@@ -1,0 +1,14 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "module": "esnext",
+    "target": "esnext",
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-postcss", "@roots/bud-sass"]
+  },
+  "files": ["./bud.config.ts"],
+  "include": ["./src"],
+  "exclude": ["./dist"]
+}
