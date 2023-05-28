@@ -9,15 +9,6 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import type Plugin from 'terser-webpack-plugin'
 
-import type * as BudMinimizeCss from './css-minimizer/index.js'
-
-declare module '@roots/bud-framework' {
-  interface Bud {
-    terser: Api
-    minimizeCss: BudMinimizeCss.Api
-  }
-}
-
 /**
  * `terser-webpack-plugin` options
  */

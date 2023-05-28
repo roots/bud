@@ -9,12 +9,6 @@ import {
 
 import {type Api, BudTerserConfigApi} from './extension.config.js'
 
-declare module '@roots/bud-framework' {
-  interface Modules {
-    '@roots/bud-terser': BudTerser
-  }
-}
-
 /**
  * Terser configuration
  */
