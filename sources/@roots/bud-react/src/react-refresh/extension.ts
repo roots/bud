@@ -9,10 +9,10 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-support/value'
 import {ExtensionError} from '@roots/bud-support/errors'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import Value from '@roots/bud-support/value'
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin configuration

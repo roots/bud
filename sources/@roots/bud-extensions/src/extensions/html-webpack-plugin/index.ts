@@ -5,8 +5,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-support/value'
 import type {Options, Plugin} from '@roots/bud-support/html-webpack-plugin'
+import Value from '@roots/bud-support/value'
 
 export type {Options}
 

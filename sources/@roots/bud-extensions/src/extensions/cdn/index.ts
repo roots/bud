@@ -10,9 +10,9 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-support/value'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import Value from '@roots/bud-support/value'
 
 /**
  * Http modules configuration options

@@ -9,8 +9,8 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-support/value'
 import {deprecated} from '@roots/bud-support/decorators'
+import Value from '@roots/bud-support/value'
 import Plugin from 'stylelint-webpack-plugin'
 
 export interface Options extends Plugin.Options {}
