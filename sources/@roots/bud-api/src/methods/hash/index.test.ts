@@ -13,9 +13,15 @@ describe(`bud.hash`, () => {
   })
 
   it(`should call bud.hooks.on when called`, () => {
-    const onSpy = vi.spyOn(bud.hooks, `on`)
+    bud.context.hash = false
     subject()
-    expect(onSpy).toHaveBeenCalled()
+    expect(bud.context.hash).toBe(true)
+
+    subject(false)
+    expect(bud.context.hash).toBe(false)
+
+    subject(hash => !hash)
+    expect(bud.context.hash).toBe(true)
   })
 
   it(`should call bud.success to log param`, () => {
