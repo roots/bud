@@ -3,6 +3,7 @@ import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import set from '@roots/bud-support/lodash/set'
+import logger from '@roots/bud-support/logger'
 import chalk from 'chalk'
 
 import type {Bud} from '../bud.js'
@@ -138,7 +139,7 @@ export const bootstrap = async function (this: Bud) {
     this.set(handle as `${keyof Bud & string}`, value)
   })
 
-  this.context.logger.time(`initialize`)
+  logger.time(`initialize`)
 
   await Promise.all(
     [FS, Module, ...this.context.services]
@@ -201,10 +202,7 @@ export const bootstrap = async function (this: Bud) {
         .map(service => [service, this[service]])
         .map(([label, service]) => {
           if (!service) {
-            this.context.logger.error(
-              `service not found: ${label}`,
-              this.services,
-            )
+            logger.error(`service not found: ${label}`, this.services)
           }
 
           if (!isFunction(service[callbackName])) return
@@ -214,11 +212,7 @@ export const bootstrap = async function (this: Bud) {
             service[callbackName].bind(service),
           )
 
-          this.context.logger.info(
-            `${label}.${callbackName}`,
-            `bound to`,
-            eventHandle,
-          )
+          logger.info(`${label}.${callbackName}`, `bound to`, eventHandle)
         }),
   )
 
@@ -227,9 +221,9 @@ export const bootstrap = async function (this: Bud) {
       await promised
       await this.hooks.fire(event, this)
       if (this.api.processQueue && this.api?.queue?.length) {
-        this.context.logger.time(`processing queued calls ${event}`)
+        logger.time(`processing queued calls ${event}`)
         await this.api.processQueue()
-        this.context.logger.timeEnd(`processing queued calls ${event}`)
+        logger.timeEnd(`processing queued calls ${event}`)
       }
     },
     Promise.resolve(),
@@ -244,7 +238,7 @@ export const bootstrap = async function (this: Bud) {
       resolutions: bud.module.resolved,
     })
 
-    this.context.logger.scope(`fs`).time(`writing new checksums`)
+    logger.scope(`fs`).time(`writing new checksums`)
 
     await this.fs.write(
       this.path(`@storage`, `checksum.yml`),
@@ -253,6 +247,6 @@ export const bootstrap = async function (this: Bud) {
         {},
       ),
     )
-    this.context.logger.scope(`fs`).timeEnd(`writing new checksums`)
+    logger.scope(`fs`).timeEnd(`writing new checksums`)
   })
 }

@@ -11,7 +11,7 @@ import args from '@roots/bud-support/utilities/args'
 import logger from '@roots/bud-support/utilities/logger'
 import {paths} from '@roots/bud-support/utilities/paths'
 
-import type {Bud} from './bud.js'
+import {type Bud} from './bud.js'
 import {Service} from './service.js'
 
 /**

@@ -104,7 +104,13 @@ class Logger {
   }
 }
 
-let instance
+let instance = undefined
 
-export default instance ?? (instance = new Logger())
+export const initialize = () => {
+  instance = new Logger()
+  instance.log(`logger initialized`)
+  return instance
+}
+
+export default instance ?? initialize()
 export {Logger, instance}

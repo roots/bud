@@ -1,5 +1,4 @@
 import type {Bud} from '../../bud.js'
-import type {Logger} from '../services/logger/index.js'
 
 /**
  * Bud context object
@@ -122,13 +121,6 @@ export interface Context {
    * Services from this array are imported and instantiated during {@link Bud.lifecycle}
    */
   services: Array<string>
-  /**
-   * Logger instance
-   *
-   * @remarks
-   * Can be accessed with {@link Bud.log}, {@link Bud.info}, etc.
-   */
-  logger: Logger
 
   /**
    * Initial paths

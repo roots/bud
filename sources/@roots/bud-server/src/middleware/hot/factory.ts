@@ -5,6 +5,7 @@ import type {MiddlewareFactory} from '@roots/bud-server/middleware'
 import type {Payload} from '@roots/bud-server/middleware/hot'
 import {HotEventStream} from '@roots/bud-server/middleware/hot'
 import type {RequestHandler} from '@roots/bud-support/express'
+import loggerInstance from '@roots/bud-support/logger'
 import type {
   MultiCompiler,
   StatsCompilation,
@@ -16,13 +17,10 @@ const middlewarePath = `/bud/hot`
 
 let latestStats = null
 let closed = false
-let logger: Bud[`context`][`logger`]
+let logger: typeof loggerInstance
 
 export const factory: MiddlewareFactory = (app: Bud) => {
-  logger = app.context.logger.scope(
-    app.label,
-    `hmr`,
-  ) as Bud[`context`][`logger`]
+  logger = loggerInstance.scope(app.label, `hmr`) as typeof logger
   return makeHandler(app.compiler.instance)
 }
 

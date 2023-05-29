@@ -8335,6 +8335,7 @@ __metadata:
     "@roots/bud-build": "workspace:sources/@roots/bud-build"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
     "@types/sass-loader": 8.0.5

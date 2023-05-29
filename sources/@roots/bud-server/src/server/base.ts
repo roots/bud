@@ -10,6 +10,7 @@ import type {Server} from '@roots/bud-framework/services'
 import type {Connection} from '@roots/bud-framework/services/server'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
+import logger from '@roots/bud-support/logger'
 
 /**
  * Node server
@@ -34,10 +35,7 @@ export abstract class BaseServer implements Connection {
    * Logger
    */
   public get logger(): any {
-    return this.app.context.logger.scope(
-      `server`,
-      this.constructor.name.toLowerCase(),
-    )
+    return logger.scope(`server`, this.constructor.name.toLowerCase())
   }
 
   /**

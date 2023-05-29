@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json.schemastore.org/package.json",
+  "$id": "https://bud.js.org/package.json",
+  "title": "package.json",
+  "description": "JSON schema for bud.js package.json files",
+  "definitions": {
+    "extensions": {
+      "title": "bud.js extension options",
+      "description": "Options related to bud.js extensions",
+      "type": "object",
+      "properties": {
+        "discover": {
+          "title": "Discover extensions",
+          "description": "Option to automatically discover extensions",
+          "type": "boolean",
+          "default": true
+        },
+        "allowlist": {
+          "title": "allowlist",
+          "description": "Allow for specific extensions to be loaded",
+          "type": "array",
+          "uniqueItems": true
+        },
+        "denylist": {
+          "title": "denylist",
+          "description": "Disallow specific extensions to be loaded",
+          "type": "array",
+          "uniqueItems": true
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "bud": {
+      "title": "Project options",
+      "description": "bud.js options",
+      "type": "object",
+      "properties": {
+        "extensions": {
+          "$ref": "#/definitions/extensions"
+        }
+      },
+      "patternProperties": {
+        "^.*$": {
+          "title": "Instance options",
+          "description": "bud.js instance options",
+          "type": "object",
+          "properties": {
+            "extensions": {
+              "$ref": "#/definitions/extensions"
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

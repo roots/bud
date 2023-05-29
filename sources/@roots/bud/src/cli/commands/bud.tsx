@@ -21,6 +21,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudHandler} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import omit from '@roots/bud-support/lodash/omit'
+import logger from '@roots/bud-support/logger'
 import * as Ink from 'ink'
 
 import * as Display from '../components/Error.js'
@@ -150,7 +151,7 @@ export default class BudCommand extends Command<CLIContext> {
 
     this.bud = instances.get()
 
-    this.context.logger.info(`bud.js configured with`, context)
+    logger.info(`bud.js configured with`, context)
 
     try {
       await this.bud.lifecycle(
@@ -268,7 +269,7 @@ export default class BudCommand extends Command<CLIContext> {
    */
   @bind
   public async applyBudArguments(bud: BudCommand[`bud`]) {
-    const {logger, ...context} = bud.context
+    const {context} = bud
 
     isset(context.input) && bud.setPath(`@src`, context.input)
     isset(context.output) && bud.setPath(`@dist`, context.output)

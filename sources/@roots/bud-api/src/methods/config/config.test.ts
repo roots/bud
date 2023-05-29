@@ -4,7 +4,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {config as configFn} from './index.js'
 
 const mockBud = {
-  bindMethod: vi.fn(() => null),
+  set: vi.fn(() => null),
   hooks: {
     action: vi.fn(() => null),
   },

@@ -4,6 +4,7 @@ import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
+import logger from '@roots/bud-support/logger'
 import Value from '@roots/bud-support/value'
 import type {Compiler} from 'webpack'
 
@@ -119,6 +120,8 @@ export type PublicExtensionApi<E extends Extension = Extension> = {
 
 export type ExtensionLiteral = Partial<Extension>
 
+export type * as Logger from '@roots/bud-support/logger'
+
 /**
  * Bud extension
  */
@@ -184,10 +187,8 @@ export class Extension<
   /**
    * Logger instance
    */
-  public get logger() {
-    return this.app.context.logger.scope(
-      ...[this.app.label, this.label].filter(Boolean),
-    )
+  public get logger(): any {
+    return logger.scope(...[this.app.label, this.label].filter(Boolean))
   }
 
   /**
@@ -211,7 +212,7 @@ export class Extension<
    * @param options - Extension options
    * @param app - Bud instance
    */
-  public async boot(app: Bud, options?: ExtensionOptions): Promise<any> {}
+  public async boot(app: Bud): Promise<any> {}
 
   /**
    * `configAfter` callback
@@ -221,12 +222,12 @@ export class Extension<
   /**
    * `buildBefore` callback
    */
-  public async buildBefore?(app: Bud): Promise<unknown>
+  public async buildBefore?(app: Bud): Promise<any>
 
   /**
    * `buildAfter` callback
    */
-  public async buildAfter?(app: Bud): Promise<unknown>
+  public async buildAfter?(app: Bud): Promise<any>
 
   /**
    * `make` callback

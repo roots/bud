@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 import {paths} from '@repo/constants'
+import {execute} from '@yarnpkg/shell'
 import {CommandClass, Option} from 'clipanion'
 import * as fs from 'fs-jetpack'
 import {join} from 'path'
@@ -48,16 +49,21 @@ export class TestRun extends Command {
   public async execute() {
     if (this.requiresProxy) await this.setup()
 
-    await this.$([
-      `yarn`,
-      [
+    try {
+      const code = await execute(`yarn`, [
         `vitest`,
         `--config`,
         join(paths.root, `config/vitest.${this.configuration}.config.ts`),
         ...(this.requiresProxy ? [`run`] : []),
         ...this.passthrough,
-      ],
-    ])
+      ])
+      if (code !== 0) {
+        throw new Error(`Tests failed`)
+      }
+    } catch (e) {
+      await this.teardown()
+      throw e
+    }
 
     await this.teardown()
   }

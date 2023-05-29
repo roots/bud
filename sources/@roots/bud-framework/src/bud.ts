@@ -37,6 +37,11 @@ export class Bud {
   public implementation: new () => Bud
 
   /**
+   * {@link Bud} instances
+   */
+  public readonly children: Record<string, Bud> = {}
+
+  /**
    * Compilation mode
    *
    * @remarks
@@ -64,11 +69,6 @@ export class Bud {
   public get isDevelopment(): boolean {
     return this.mode === `development`
   }
-
-  /**
-   * {@link Bud} instances
-   */
-  public readonly children: Record<string, Bud> = {}
 
   /**
    * Parent {@link Bud} instance
@@ -234,7 +234,7 @@ export class Bud {
       return this
     }
 
-    if (this.children && this.children[context.label]) {
+    if (this.children[context.label]) {
       this.log(`returning requested child instance:`, context.label)
       return this.get(context.label)
     }
