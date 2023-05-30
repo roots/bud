@@ -43,13 +43,14 @@
     "lib",
     "src"
   ],
+  "type": "module",
   "exports": {
     ".": {
-      "require": "./lib/index.cjs",
-      "default": "./lib/index.mjs"
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
     },
     "./lib/*": {
-      "require": "./lib/*",
+      "import": "./lib/*",
       "default": "./lib/*"
     }
   },
@@ -64,7 +65,6 @@
     }
   },
   "types": "./lib/index.d.ts",
-  "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
   "devDependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

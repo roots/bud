@@ -38,14 +38,8 @@ describe(`@roots/sage`, async () => {
   it(`should register errything`, async () => {
     const hooksSpy = vi.spyOn(bud.hooks, `on`)
     const setPathSpy = vi.spyOn(bud, `setPath`)
-    const aliasSpy = vi.spyOn(bud, `alias`)
 
     await sage.register(bud)
-    expect(hooksSpy).toHaveBeenNthCalledWith(
-      1,
-      `build.output.uniqueName`,
-      `@roots/bud/sage/${bud.label}`,
-    )
 
     expect(setPathSpy).toHaveBeenCalledWith({
       '@src': `resources`,
@@ -57,13 +51,10 @@ describe(`@roots/sage`, async () => {
       '@views': `@src/views`,
     })
 
-    expect(aliasSpy).toHaveBeenCalledWith({
-      '@fonts': bud.path(`@fonts`),
-      '@images': bud.path(`@images`),
-      '@scripts': bud.path(`@scripts`),
-      '@styles': bud.path(`@styles`),
-      '@views': bud.path(`@views`),
-    })
+    expect(hooksSpy).toHaveBeenCalledWith(
+      `build.output.uniqueName`,
+      `@roots/bud/sage/${bud.label}`,
+    )
   })
 
   it(`should call bud.hash in production`, async () => {
@@ -86,21 +77,6 @@ describe(`@roots/sage`, async () => {
       expect.any(Function),
     )
     expect(spy).toHaveBeenCalled()
-  })
-
-  it(`should call bud.runtime('single') in production`, async () => {
-    const bud = await factory({mode: `production`})
-    expect(bud.isProduction).toBe(true)
-
-    const whenSpy = vi.spyOn(bud, `when`)
-    const spy = vi.spyOn(bud, `runtime`)
-    await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(
-      true,
-      expect.any(Function),
-      expect.any(Function),
-    )
-    expect(spy).toHaveBeenCalledWith(`single`)
   })
 
   it(`should call bud.splitChunks in production`, async () => {

@@ -11,8 +11,6 @@
   ],
   "devDependencies": {
     "@roots/bud": "latest",
-    "@roots/bud-eslint": "latest",
-    "@roots/bud-framework": "latest",
-    "@roots/bud-preset-recommend": "latest"
+    "@roots/bud-eslint": "latest"
   }
 }

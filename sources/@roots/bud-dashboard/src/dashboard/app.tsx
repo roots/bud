@@ -1,9 +1,11 @@
 import {platform} from 'node:os'
 
+import figures from '@roots/bud-support/figures'
 import * as Ink from 'ink'
 
 import Compilation from './compilation/compilation.component.js'
 import type {Props} from './index.js'
+import Messages from './messages/messages.component.js'
 import {Server} from './server/index.js'
 
 const App = ({
@@ -56,6 +58,24 @@ const App = ({
 
       {compilations.map((compilation, id) => (
         <Ink.Box key={id} flexDirection="column" paddingBottom={1}>
+          {compilation.errors && (
+            <Messages
+              type="error"
+              color="red"
+              messages={compilation.errors}
+              figure={figures.cross}
+            />
+          )}
+
+          {compilation.warnings && (
+            <Messages
+              type="warning"
+              color="yellow"
+              messages={compilation.warnings}
+              figure={figures.warning}
+            />
+          )}
+
           <Compilation
             compilation={compilation}
             context={context}

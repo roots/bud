@@ -20,20 +20,22 @@ describe(`bud.glob`, function () {
   })
 
   it(`returns glob results from string param`, async () => {
-    const results = await glob(`@src/**/*.js`)
-    const syncResults = globSync(`@src/**/*.js`)
-
-    expect(results).toEqual(
+    const results = glob(`@src/**/*.tsx`)
+    expect(results).toBeInstanceOf(Promise)
+    expect(await results).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/index.tsx`),
+        expect.stringContaining(`scripts/scripts.tsx`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
 
+    const syncResults = globSync(`@src/**/*.tsx`)
     expect(syncResults).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/index.tsx`),
+        expect.stringContaining(`scripts/scripts.tsx`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
   })
@@ -42,64 +44,68 @@ describe(`bud.glob`, function () {
     const infoSpy = vi.spyOn(bud, `info`)
     const successSpy = vi.spyOn(bud, `success`)
 
-    await glob([`src/**/*.js`, `src/**/app.*`])
+    await glob([`src/**/*.tsx`, `src/**/app.*`])
 
     expect(infoSpy).toHaveBeenCalledOnce()
     expect(successSpy).toHaveBeenCalledOnce()
   })
 
   it(`returns glob results from array`, async () => {
-    const results = await glob([`src/**/*.js`, `src/**/app.*`])
+    const results = await glob([`src/**/*.tsx`, `src/**/app.*`])
 
     expect(results).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
+        expect.stringContaining(`scripts/index.tsx`),
         expect.stringContaining(`styles/app.css`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
   })
 
   it(`returns glob results from array (sync)`, () => {
-    const syncResults = globSync([`src/**/*.js`, `src/**/app.*`])
+    const syncResults = globSync([`src/**/*.tsx`, `src/**/app.*`])
     expect(syncResults).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
+        expect.stringContaining(`scripts/index.tsx`),
         expect.stringContaining(`styles/app.css`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
   })
 
   it(`returns glob results from variadic params`, async () => {
-    const results = await glob(`src/**/*.js`, `src/**/app.*`)
-    const syncResults = globSync(`src/**/*.js`, `src/**/app.*`)
+    const results = await glob(`src/**/*.tsx`, `src/**/app.*`)
+    const syncResults = globSync(`src/**/*.tsx`, `src/**/app.*`)
 
     expect(results).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
+        expect.stringContaining(`scripts/index.tsx`),
         expect.stringContaining(`styles/app.css`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
     expect(syncResults).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/app.js`),
+        expect.stringContaining(`scripts/index.tsx`),
         expect.stringContaining(`styles/app.css`),
-        expect.stringContaining(`scripts/components/main.js`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
   })
 
   it(`returns glob results with negation`, async () => {
-    const results = await glob(`!**/main.js`, `src/**/*.js`)
-    const syncResults = globSync(`!**/main.js`, `src/**/*.js`)
+    const results = await glob(`!**/index.tsx`, `src/**/*.tsx`)
+    const syncResults = globSync(`!**/index.tsx`, `src/**/*.tsx`)
 
     expect(results).toEqual(
-      expect.arrayContaining([expect.stringContaining(`scripts/app.js`)]),
+      expect.arrayContaining([
+        expect.stringContaining(`scripts/index.tsx`),
+      ]),
     )
     expect(syncResults).toEqual(
-      expect.arrayContaining([expect.stringContaining(`scripts/app.js`)]),
+      expect.arrayContaining([
+        expect.stringContaining(`scripts/index.tsx`),
+      ]),
     )
   })
 })

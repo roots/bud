@@ -64,7 +64,7 @@ describe(`bud.build.config`, function () {
   })
 
   it(`should have expected optimization.runtimeChunk default`, async () => {
-    expect(build.config.optimization?.runtimeChunk).toBe(false)
+    expect(build.config.optimization?.runtimeChunk).toBe(`single`)
   })
 
   it(`should have expected profile default`, async () => {
@@ -80,9 +80,7 @@ describe(`bud.build.config`, function () {
   it(`should have expected resolve.extensions default`, async () => {
     expect(build.config.resolve?.extensions?.sort()).toEqual(
       expect.arrayContaining([
-        `.cjs`,
         `.css`,
-        `.cts`,
         `.js`,
         `.jsx`,
         `.mjs`,

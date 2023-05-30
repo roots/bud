@@ -6,6 +6,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import merge from '@roots/bud-support/lodash/merge'
 
 import type BudReactRefresh from '../react-refresh/index.js'
 
@@ -40,7 +41,9 @@ export default class BudReact extends Extension {
     }
 
     if (this.useSWC) {
-      this.app.swc.set(`jsc.transform.react.runtime`, `automatic`)
+      bud.swc.setJsc(
+        merge(bud.swc.jsc, {transform: {react: {runtime: `automatic`}}}),
+      )
     }
 
     if (this.useBabel) {

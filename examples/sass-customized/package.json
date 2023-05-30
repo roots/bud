@@ -1,5 +1,6 @@
 {
   "name": "@examples/sass-customized",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",
   "packageManager": "npm@8.19.2",

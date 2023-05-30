@@ -1,65 +1,25 @@
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import '@roots/bud'
 
-import type {WordPressThemeJSON} from './extension.js'
-
-/**
- * Generate a WordPress `theme.json`
- *
- * @see {@link https://bud.js.org/extensions/sage/theme.json/}
- * @see {@link https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/}
- */
-type WPJSONApi = PublicExtensionApi<WordPressThemeJSON> & {
-  /**
-   * ## bud.wpjson.settings
-   *
-   * Define `theme.json` settings using an options object or callback
-   */
-  settings: WordPressThemeJSON[`settings`]
-
-  /**
-   * ## bud.wpjson.useTailwindColors
-   *
-   * Source `theme.json` color values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindColors?: (value?: boolean, extendOnly?: boolean) => WPJSONApi
-
-  /**
-   * ## bud.wpjson.useTailwindFontFamily
-   *
-   * Source `theme.json` fontFamily values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindFontFamily?: (
-    value?: boolean,
-    extendOnly?: boolean,
-  ) => WPJSONApi
-
-  /**
-   * ## bud.wpjson.useTailwindFontSize
-   *
-   * Source `theme.json` fontSize values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindFontSize?: (
-    value?: boolean,
-    extendOnly?: boolean,
-  ) => WPJSONApi
-}
+import type {Api, WordPressThemeJSON} from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    wpjson: WPJSONApi
+    wpjson: Api
   }
 
   interface Modules {
-    '@roots/bud-wordpress-theme-json': WPJSONApi
-    '@roots/bud-tailwindcss-theme-json'?: any
+    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
+    '@roots/bud-tailwindcss-theme-json?': any
+  }
+}
+
+declare module '@roots/bud' {
+  interface Bud {
+    wpjson: Api
+  }
+
+  interface Modules {
+    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
+    '@roots/bud-tailwindcss-theme-json?': any
   }
 }

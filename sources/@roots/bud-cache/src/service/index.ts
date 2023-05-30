@@ -119,7 +119,7 @@ export default class Cache
       cacheDirectory: this.cacheDirectory,
       idleTimeout: 10000,
       idleTimeoutForInitialStore: 0,
-      profile: false,
+      profile: this.app.context.debug === true,
       version: this.app.hooks.filter(`build.cache.version`, this.version),
     }
   }

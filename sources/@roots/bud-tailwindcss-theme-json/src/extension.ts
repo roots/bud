@@ -29,12 +29,19 @@ export class TailwindThemeJSON extends Extension {
    * Use tailwind colors in theme.json
    */
   public useTailwindColors(this: any, extendOnly?: boolean): any {
-    this.set(
-      `settings.color.palette`,
-      tailwindAdapter.palette.transform(
-        this.app.tailwind.resolveThemeValue(`colors`, extendOnly),
+    const palette = tailwindAdapter.palette.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`colors`, extendOnly)},
       ),
     )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
+      color: {
+        ...(settings.color ?? {}),
+        palette,
+      },
+    }))
 
     return this.enable()
   }
@@ -43,20 +50,19 @@ export class TailwindThemeJSON extends Extension {
    * Use tailwind fontFamily in theme.json
    */
   public useTailwindFontFamily(this: any, extendOnly?: boolean): any {
-    this.set(
-      `settings.typography.fontFamilies`,
-      tailwindAdapter.fontFamily.transform(
-        Object.assign(
-          {},
-          {
-            ...this.app.tailwind.resolveThemeValue(
-              `fontFamily`,
-              extendOnly,
-            ),
-          },
-        ),
+    const fontFamilies = tailwindAdapter.fontFamily.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`fontFamily`, extendOnly)},
       ),
     )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
+      typography: {
+        ...(settings.typography ?? {}),
+        fontFamilies,
+      },
+    }))
 
     return this.enable()
   }
@@ -65,17 +71,19 @@ export class TailwindThemeJSON extends Extension {
    * Use tailwind fontSize in theme.json
    */
   public useTailwindFontSize(this: any, extendOnly?: boolean): any {
-    this.set(
-      `settings.typography.fontSizes`,
-      tailwindAdapter.fontSize.transform(
-        Object.assign(
-          {},
-          {
-            ...this.app.tailwind.resolveThemeValue(`fontSize`, extendOnly),
-          },
-        ),
+    const fontSizes = tailwindAdapter.fontSize.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`fontSize`, extendOnly)},
       ),
     )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
+      typography: {
+        ...(settings.typography ?? {}),
+        fontSizes,
+      },
+    }))
 
     return this.enable()
   }

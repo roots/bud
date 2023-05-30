@@ -2,19 +2,17 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "importHelpers": false,
-    "module": "es2020",
     "rootDir": "./src",
     "sourceMap": false,
     "outDir": "./lib",
-    "target": "es6",
-    "verbatimModuleSyntax": false
+    "verbatimModuleSyntax": true,
   },
   "files": [
     "src/types/index.d.ts"
   ],
-  "include": ["./src/**/*.ts", "./src/**/*.mts", "./src/**/*.cts"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/__fixtures__"],
+  "include": ["src"],
   "references": [
     {"path": "./../bud/tsconfig.json"},
+    {"path": "./../bud-api/tsconfig.json"}
   ]
 }

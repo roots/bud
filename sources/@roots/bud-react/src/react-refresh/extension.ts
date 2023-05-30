@@ -1,7 +1,7 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import type {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types.js'
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   development,
@@ -12,7 +12,6 @@ import {
 import {ExtensionError} from '@roots/bud-support/errors'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import Value from '@roots/bud-support/value'
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin configuration
@@ -21,7 +20,7 @@ import Value from '@roots/bud-support/value'
 @plugin(RefreshPlugin)
 @options<Options>({
   overlay: false,
-  esModule: Value.make(
+  esModule: DynamicOption.make(
     ({context}) =>
       context.files[`package.json`]?.module?.type === `module`,
   ),

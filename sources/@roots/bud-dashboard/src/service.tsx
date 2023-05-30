@@ -1,20 +1,24 @@
 /* eslint-disable no-console */
+import {sep} from 'node:path'
+
 import {Service} from '@roots/bud-framework/service'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
 import {bind} from '@roots/bud-support/decorators/bind'
-import figures from '@roots/bud-support/figures'
 import isString from '@roots/bud-support/lodash/isString'
+import stripAnsi from '@roots/bud-support/strip-ansi'
 import type {
   MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-support/webpack'
-import chalk from 'chalk'
-import * as Ink from 'ink'
+import {Box, render, Text} from 'ink'
 
 import {Console} from './console/index.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
+
+const tagInnerChilds = ({children}: StatsCompilation) =>
+  children.map(child => ({...child, isChild: true}))
 
 /**
  * Dashboard service
@@ -31,6 +35,8 @@ export class Dashboard extends Service implements Contract {
   public get silent() {
     return this.app.context.silent === true
   }
+
+  public hashes = new Set<string>()
 
   /**
    * Run dashboard
@@ -68,33 +74,29 @@ export class Dashboard extends Service implements Contract {
     try {
       const Dashboard = await import(`./dashboard/index.js`)
 
-      const tagInnerChilds = ({children}: StatsCompilation) =>
-        children.map(child => ({...child, isChild: true}))
+      if (this.hashes.has(stats.hash)) return
+      this.hashes.add(stats.hash)
 
       const compilations: Compilations = stats.children?.length
         ? [
             ...stats.children,
             ...stats.children?.map(tagInnerChilds),
           ].flat()
-        : [stats]
+        : stats
+        ? [stats]
+        : []
 
       const App =
         process.stdout.isTTY && !this.app.isProduction
           ? Dashboard.TTYApp
           : Dashboard.App
 
-      Ink.render(
-        <Ink.Box flexDirection="column" marginTop={1}>
-          {this.app.consoleBuffer.queue?.length > 0 && (
-            <>
-              <Console
-                messages={this.app.consoleBuffer.fetchAndRemove()}
-              />
-              <Ink.Box>
-                <Ink.Text>{` `}</Ink.Text>
-              </Ink.Box>
-            </>
-          )}
+      render(
+        <Box flexDirection="column" marginTop={1}>
+          <>
+            <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
+          </>
+
           <App
             compilations={compilations.map(compilation => ({
               ...compilation,
@@ -114,19 +116,19 @@ export class Dashboard extends Service implements Contract {
             publicProxyUrl={this.app.hooks.filter(`dev.publicProxyUrl`)}
             watchFiles={this.app.server?.watcher?.files}
           />
-        </Ink.Box>,
+        </Box>,
       )
     } catch (error) {}
   }
 
   public async renderQueuedMessages() {
-    Ink.render(
+    render(
       this.app.consoleBuffer.queue?.length > 0 && (
         <>
           <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          <Ink.Box>
-            <Ink.Text>{` `}</Ink.Text>
-          </Ink.Box>
+          <Box>
+            <Text>{` `}</Text>
+          </Box>
         </>
       ),
     )
@@ -180,10 +182,11 @@ export class Dashboard extends Service implements Contract {
               .map(ln => ln.replaceAll(/\[.*\]/g, ``))
               /* Replace project path with . */
               .map(ln =>
-                ln.replaceAll(new RegExp(this.app.path(), `g`), `.`),
+                ln.replaceAll(
+                  new RegExp(this.app.path().concat(sep), `g`),
+                  `.`,
+                ),
               )
-              /* Add left padding and vert line */
-              .map(ln => `${chalk.dim(figures.lineVertical)} ${ln}`)
 
               /* Discard empty lines */
               .filter(
@@ -192,13 +195,14 @@ export class Dashboard extends Service implements Contract {
                   ![``, ` `, `\n`].includes(ln) &&
                   !ln.match(/^\s*$/),
               )
+              .map(stripAnsi)
 
               /* Reform message */
               .join(`\n`),
           }))
       )
     } catch (error) {
-      throw error
+      return errors
     }
   }
 }

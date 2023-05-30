@@ -25,18 +25,18 @@ export type OptionCallbackValue<
   K extends `${keyof Options & string}`,
 > = InternalOptionsValues<T>[K] | ((value: T[K]) => T[K])
 
-type OptionSetter<
+export type OptionSetter<
   Extension,
   Options,
   Property extends `${keyof Options & string}`,
 > = (value: OptionCallbackValue<Options, Property>) => Extension
 
-type OptionGetter<
+export type OptionGetter<
   Options extends Record<string, any>,
   Property extends `${keyof Options & string}`,
 > = () => Options[Property]
 
-type OptionAccessor<
+export type OptionAccessor<
   Options extends Record<string, any>,
   Property extends `${keyof Options & string}`,
 > = Options[Property]
@@ -73,37 +73,32 @@ export interface Constructor {
   new (...args: any[]): Extension
 }
 
-export type WithOptions<
-  Ext extends unknown,
-  Opt extends Record<string, unknown>,
-> = {
-  [Prop in keyof Opt as `get${Capitalize<Prop & string>}`]: () => Opt[Prop]
+export type WithOptions<Context, Options> = {
+  [Prop in keyof Options as `get${Capitalize<
+    Prop & string
+  >}`]: () => Options[Prop]
 } & {
-  [Prop in keyof Opt as `set${Capitalize<Prop & string>}`]: (
-    value: OptionCallbackValue<Opt, `${Prop & string}`>,
-  ) => Ext
+  [Prop in keyof Options as `set${Capitalize<Prop & string>}`]: (
+    value: OptionCallbackValue<Options, `${Prop & string}`>,
+  ) => Context
 } & {
-  [K in keyof Opt as `${K & string}`]: Opt[K]
+  [K in keyof Options as `${K & string}`]: Options[K]
 }
 
-export type StrictPublicExtensionApi<
-  E,
-  O extends Record<string, unknown>,
-> = {
+export type StrictPublicExtensionApi<Context, Opts extends Options> = {
   app: Bud
-  options: O
+  options: Opts
   enabled: boolean
-  get: <K extends string>(key: K) => O[K]
-  set: <K extends string>(
+  logger: typeof logger
+  get: <K extends `${keyof Opts & string}`>(key: K) => Opts[K]
+  set: <K extends `${keyof Opts & string}`>(
     key: K,
-    value: O[K] | ((value: O[K]) => O[K]),
-  ) => StrictPublicExtensionApi<E, O>
-  getOptions: () => O
-  setOptions: (
-    O: Partial<InternalOptionsValues<O>>,
-  ) => StrictPublicExtensionApi<E, O>
-  enable: () => StrictPublicExtensionApi<E, O>
-} & WithOptions<E, O>
+    value: Opts[K] | ((value: Opts[K]) => Opts[K]),
+  ) => Context
+  getOptions: () => Opts
+  setOptions: (O: Partial<InternalOptionsValues<Opts>>) => Context
+  enable: () => Context
+} & WithOptions<Context, Opts>
 
 export type PublicExtensionApi<E extends Extension = Extension> = {
   app: E[`app`]

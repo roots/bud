@@ -14,24 +14,21 @@ describe(`@roots/bud-tailwindcss extension`, () => {
     bud = await factory()
     await bud.extensions.add(`@roots/bud-postcss`)
     extension = new BudTailwindCss(bud)
-    if (extension.boot) await extension.boot(bud)
+    await extension.register(bud)
+    await extension.boot(bud)
   })
 
   it(`basic checks`, () => {
     expect(extension.label).toBe(`@roots/bud-tailwindcss`)
     expect(extension.getOptions()).toEqual(extension.options)
-    expect(extension.options.generateImports).toBe(
-      extension.get(`generateImports`),
-    )
   })
 
-  it(`should not call extensions.add when generateImports is false`, async () => {
-    extension.setOption(`generateImports`, false)
+  it(`should not call extensions.add when imports is false`, async () => {
+    extension.generateImports(false)
     const extensionsAddSpy = vi.spyOn(bud.extensions, `add`)
 
     await extension.boot(bud)
 
-    expect(extension.options.generateImports).toBe(false)
     expect(extensionsAddSpy).not.toHaveBeenCalled()
   })
 
@@ -60,13 +57,17 @@ describe(`@roots/bud-tailwindcss extension`, () => {
         bud.context.files[`tailwind.config.ts`].module,
     )
 
-    expect(extension.config.theme?.colors).not.toBe(
+    expect(extension.resolvedConfig).not.toBe(configInitial)
+    expect(extension.resolvedConfig?.theme).not.toBe(configInitial?.theme)
+    expect(extension.resolvedConfig?.theme?.colors).not.toBe(
       configInitial?.theme?.colors,
     )
   })
 
   it(`should have file`, async () => {
-    expect(extension.file).toBe(bud.context.files[`tailwind.config.ts`])
+    expect(extension.configPath).toBe(
+      bud.context.files[`tailwind.config.ts`].path,
+    )
   })
 
   it(`should resolve tailwind config values`, async () => {
@@ -98,6 +99,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
     extension.generateImports([`colors`])
     await bud.hooks.fire(`config.after`, bud)
+    await bud.hooks.fire(`build.before`, bud)
     expect(addExtensionSpy).toHaveBeenCalled()
   })
 
@@ -110,7 +112,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should call postcss.setPlugins`, async () => {
-    const setSpy = vi.spyOn(bud.postcss, `set`)
+    const setSpy = vi.spyOn(bud.postcss, `setPlugin`)
 
     await extension.boot(bud)
 

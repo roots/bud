@@ -23,7 +23,7 @@ import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 /**
  * Callback function used to configure wordpress `theme.json`
  */
-export interface Mutator {
+interface Mutator {
   (
     json:
       | Partial<Theme.GlobalSettingsAndStyles['settings']>
@@ -44,7 +44,42 @@ type Api = StrictPublicExtensionApi<
   styles?: Options['styles']
   templateParts?: Options['templateParts']
   version?: Options['version']
-  settings?: Options['settings']
+  /**
+   * ## bud.wpjson.settings
+   *
+   * Define `theme.json` settings using an options object or callback
+   */
+  settings: WordPressThemeJSON[`settings`]
+
+  /**
+   * ## bud.wpjson.useTailwindColors
+   *
+   * Source `theme.json` color values from `tailwind.config.js`
+   *
+   * @note
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   */
+  useTailwindColors?: (value?: boolean, extendOnly?: boolean) => Api
+
+  /**
+   * ## bud.wpjson.useTailwindFontFamily
+   *
+   * Source `theme.json` fontFamily values from `tailwind.config.js`
+   *
+   * @note
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   */
+  useTailwindFontFamily?: (value?: boolean, extendOnly?: boolean) => Api
+
+  /**
+   * ## bud.wpjson.useTailwindFontSize
+   *
+   * Source `theme.json` fontSize values from `tailwind.config.js`
+   *
+   * @note
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   */
+  useTailwindFontSize?: (value?: boolean, extendOnly?: boolean) => Api
 }
 
 /**
@@ -88,7 +123,7 @@ type Api = StrictPublicExtensionApi<
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
 @disabled
-export class WordPressThemeJSON
+class WordPressThemeJSON
   extends Extension<Options, ThemeJsonWebpackPlugin>
   implements Api
 {
@@ -116,10 +151,7 @@ export class WordPressThemeJSON
       ? this.options.settings
       : input
 
-    this.setOption(
-      `settings`,
-      value instanceof Container ? value.all() : value,
-    )
+    this.setSettings(value instanceof Container ? value.all() : value)
 
     return this
   }
@@ -151,3 +183,5 @@ export class WordPressThemeJSON
   public declare getVersion: Api['getVersion']
   public declare setVersion: Api['setVersion']
 }
+
+export {WordPressThemeJSON, type Api}

@@ -4,7 +4,6 @@ export const js: Factory = async ({filter, makeRule, path}) =>
   makeRule()
     .setTest(filter(`pattern.js`))
     .setInclude([() => path(`@src`)])
-    .setType(`javascript/auto`)
     .setResolve({
       fullySpecified: false,
     })

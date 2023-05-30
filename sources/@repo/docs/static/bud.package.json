@@ -1,6 +1,6 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "$id": "https://bud.js.org/package.json",
+  "$id": "https://bud.js.org/bud.package.json",
   "title": "package.json",
   "description": "JSON schema for bud.js package.json files",
   "definitions": {

@@ -2,6 +2,6 @@ export default {
   root: true,
   extends: ['@roots/eslint-config'],
   rules: {
-    'no-console': ['error', {allow: ['warn', 'error']}],
+    'no-unused-vars': 2,
   },
 }

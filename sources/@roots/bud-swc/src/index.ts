@@ -10,6 +10,6 @@
 
 import './types/index.js'
 
-import BudSWC from './extension/index.js'
+import {BudSWC} from './extension/index.js'
 
 export default BudSWC

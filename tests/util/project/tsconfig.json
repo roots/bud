@@ -13,6 +13,6 @@
   "files": ["./config/bud.config.ts", "./config/tailwind.config.ts"],
   "include": ["./src"],
   "bud": {
-    "useCompilerOptions": true
+    "useCompilerOptions": false
   }
 }

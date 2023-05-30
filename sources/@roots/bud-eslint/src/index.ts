@@ -8,5 +8,6 @@
  * @see https://github.com/roots/bud
  */
 
-export type * as Types from './types.js'
+import './types.js'
+
 export {BudEslint as default} from './extension.js'

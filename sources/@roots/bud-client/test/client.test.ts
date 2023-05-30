@@ -1,12 +1,14 @@
+import '../src/types/index.d.ts'
+
 /* eslint-disable no-console */
 /**
  * @vitest-environment jsdom
  */
 import {describe, expect, it, vi} from 'vitest'
 
-import {client} from './client.js'
-import {injectEvents} from './events.js'
-import * as options from './options.js'
+import {client} from '../src/hot/client.js'
+import {injectEvents} from '../src/hot/events.js'
+import * as options from '../src/hot/options.js'
 
 // @ts-ignore
 global.EventSource = class Events {
