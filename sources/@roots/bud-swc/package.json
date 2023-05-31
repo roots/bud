@@ -75,7 +75,7 @@
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@swc/core": "1.3.42",
+    "@swc/core": "1.3.61",
     "@swc/helpers": "0.5.1",
     "swc-loader": "0.2.3",
     "tslib": "2.5.0",
