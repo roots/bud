@@ -56,19 +56,19 @@ describe(`bud.glob`, function () {
     expect(results).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
-        expect.stringContaining(`styles/app.css`),
+        expect.stringContaining(`scripts/scripts.tsx`),
         expect.stringContaining(`scripts/components/app.tsx`),
+        expect.stringContaining(`styles/app.css`),
       ]),
     )
-  })
 
-  it(`returns glob results from array (sync)`, () => {
     const syncResults = globSync([`src/**/*.tsx`, `src/**/app.*`])
     expect(syncResults).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
-        expect.stringContaining(`styles/app.css`),
+        expect.stringContaining(`scripts/scripts.tsx`),
         expect.stringContaining(`scripts/components/app.tsx`),
+        expect.stringContaining(`styles/app.css`),
       ]),
     )
   })
@@ -80,15 +80,17 @@ describe(`bud.glob`, function () {
     expect(results).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
-        expect.stringContaining(`styles/app.css`),
+        expect.stringContaining(`scripts/scripts.tsx`),
         expect.stringContaining(`scripts/components/app.tsx`),
+        expect.stringContaining(`styles/app.css`),
       ]),
     )
     expect(syncResults).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
-        expect.stringContaining(`styles/app.css`),
+        expect.stringContaining(`scripts/scripts.tsx`),
         expect.stringContaining(`scripts/components/app.tsx`),
+        expect.stringContaining(`styles/app.css`),
       ]),
     )
   })
@@ -99,12 +101,14 @@ describe(`bud.glob`, function () {
 
     expect(results).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/index.tsx`),
+        expect.stringContaining(`scripts/scripts.tsx`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
     expect(syncResults).toEqual(
       expect.arrayContaining([
-        expect.stringContaining(`scripts/index.tsx`),
+        expect.stringContaining(`scripts/scripts.tsx`),
+        expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
   })
