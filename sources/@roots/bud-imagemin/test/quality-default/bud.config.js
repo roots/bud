@@ -1,4 +1,1 @@
-export default async bud =>
-  bud
-    .persist(false)
-    .minimize()
+export default async bud => bud.minimize()

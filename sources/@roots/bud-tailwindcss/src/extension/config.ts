@@ -1,7 +1,6 @@
 import {bind} from '@roots/bud-framework/extension/decorators'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
-import defaultConfig from 'tailwindcss/defaultConfig.js'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
@@ -19,29 +18,32 @@ class BudTailwindConfig extends BudTailwindOptionsApi {
    * Source tailwind config module and path
    */
   @bind
-  public async sourceConfigModule(): Promise<void> {
-    if (!this.app.context.files) {
-      this.logger.log(
-        `no config files registered to bud.js. using fallback.`,
-      )
-      this.setConfig(defaultConfig)
-      this.setResolvedConfig(resolveConfig(defaultConfig))
-    }
-
+  public async sourceConfig(): Promise<void> {
     const foundConfig = Object.values(this.app.context.files).find(file =>
       file.name?.includes(`tailwind.config`),
     )
 
-    if (!foundConfig) {
-      this.logger.log(`no tailwind config found. using fallback.`)
-      this.setConfig(defaultConfig)
-      this.setResolvedConfig(resolveConfig(defaultConfig))
-      return
+    if (foundConfig) {
+      !this.configPath && this.setConfigPath(foundConfig.path)
+      !this.config && this.setConfig({...foundConfig.module})
+    } else {
+      !this.configPath &&
+        this.setConfigPath(
+          await this.resolve(
+            `tailwindcss/defaultConfig.js`,
+            import.meta.url,
+          ),
+        )
     }
 
-    this.setConfigPath(foundConfig.path)
-    this.setConfig(foundConfig.module)
-    this.setResolvedConfig(resolveConfig(foundConfig.module))
+    if (!this.config) {
+      const config = await this.import(this.configPath, import.meta.url)
+      this.setConfig({...config.default})
+    }
+
+    if (!this.resolvedConfig) {
+      this.setResolvedConfig({...resolveConfig({...this.config})})
+    }
   }
 
   /**
@@ -50,9 +52,9 @@ class BudTailwindConfig extends BudTailwindOptionsApi {
   @bind
   public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
     key: K,
-    extended?: boolean,
+    extendedOnly?: boolean,
   ): Config[K] {
-    if (extended) {
+    if (extendedOnly) {
       if (!this.config?.theme?.extend)
         throw new Error(
           `@roots/bud-tailwindcss: cannot resolve extended theme value when no extended theme config is set.`,
@@ -100,17 +102,17 @@ class BudTailwindConfig extends BudTailwindOptionsApi {
     imports: Array<`${keyof ThemeConfig & string}`> | boolean = true,
   ) {
     const makeStaticModule = (key: keyof ThemeConfig) => {
-      const value = get(theme, key)
+      const value = get(this.resolvedConfig.theme, key)
       this.logger.log(`@tailwind/${key}: generating module`)
       return `export default ${JSON.stringify(value)};`
     }
 
-    const {theme} = this.resolvedConfig
-
     this.app.hooks.action(`config.after`, async bud => {
+      await this.sourceConfig()
+
       const importableKeys = Array.isArray(imports)
         ? imports
-        : Object.keys(theme)
+        : Object.keys(this.resolvedConfig.theme)
 
       const modules = importableKeys.reduce(
         (acc, key) => ({

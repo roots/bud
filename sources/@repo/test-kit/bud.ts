@@ -18,9 +18,10 @@ export const factory = async (
 ): Promise<Bud> => {
   const bud = await makeInstance({
     basedir,
+    cache: false,
     force: true,
     dry: true,
-    log: false,
+    silent: true,
     notify: false,
     mode: `production`,
     ...overrides,

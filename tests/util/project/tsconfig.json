@@ -6,13 +6,19 @@
     "paths": {
       "@scripts/*": ["scripts/*"],
       "@styles/*": ["styles/*"],
-      "@components/*": ["scripts/components/*"],
+      "@components/*": ["scripts/components/*"]
     },
-    "types": ["node", "webpack-env", "@roots/bud", "@roots/bud-swc", "@roots/bud-tailwindcss"]
+    "types": [
+      "node",
+      "webpack-env",
+      "@roots/bud",
+      "@roots/bud-swc",
+      "@roots/bud-tailwindcss"
+    ],
   },
-  "files": ["./config/bud.config.ts", "./config/tailwind.config.ts"],
+  "files": ["./types.d.ts", "./config/bud.config.ts", "./config/tailwind.config.ts"],
   "include": ["./src"],
   "bud": {
-    "useCompilerOptions": false
+    "useCompilerOptions": true
   }
 }

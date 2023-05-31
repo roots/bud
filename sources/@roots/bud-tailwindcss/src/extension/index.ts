@@ -26,9 +26,17 @@ class BudTailwindCss extends BudTailwindConfig {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
-    await this.sourceConfigModule()
-    this.logger.debug(this.options)
+  public override async register() {
+    await this.sourceConfig()
+  }
+
+  /**
+   * {@link Extension.buildBefore}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    bud.postcss.setPluginOptions(`tailwindcss`, this.config)
+    this.logger.info(`final config`, JSON.stringify(this.config, null, 2))
   }
 
   /**

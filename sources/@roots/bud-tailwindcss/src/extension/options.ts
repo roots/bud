@@ -9,7 +9,7 @@ import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 type Options = {
   resolvedConfig?: ReturnType<typeof resolveConfig>
   config: Config
-  configPath: string | undefined
+  configPath: string
 }
 
 type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<

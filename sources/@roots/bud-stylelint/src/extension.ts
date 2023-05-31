@@ -1,9 +1,9 @@
-import type {Bud} from '@roots/bud-framework'
 import {
   Extension,
   type OptionCallbackValue,
 } from '@roots/bud-framework/extension'
 import {
+  bind,
   expose,
   label,
   options,
@@ -13,7 +13,11 @@ import {deprecated} from '@roots/bud-support/decorators'
 import Value from '@roots/bud-support/value'
 import Plugin from 'stylelint-webpack-plugin'
 
-export interface Options extends Plugin.Options {}
+export type Options = Plugin.Options & {
+  config?: Plugin.Options & {
+    plugins?: Plugin.Options[`config`][`plugins`] & Array<unknown>
+  }
+}
 
 /**
  * Bud stylelint extension
@@ -22,15 +26,35 @@ export interface Options extends Plugin.Options {}
 @expose(`stylelint`)
 @plugin(Plugin)
 @options<Options>({
+  /** {@link Options.cache} */
   cache: Value.make(({context, env}) => !context.ci && !env.isTrue(`CI`)),
+
+  /** {@link Options.cacheLocation} */
   cacheLocation: Value.make(({cache, path}) =>
     path(cache.cacheDirectory, `stylelint`),
   ),
-  config: undefined,
+
+  /** {@link Options.config} */
+  config: Value.make(
+    ({context}) =>
+      Object.values(context.files ?? {}).find(({name}) =>
+        name.includes(`stylelint`),
+      )?.module ?? undefined,
+  ),
+
+  /** {@link Options.context} */
   context: Value.make(({path}) => path(`@src`)),
-  failOnWarning: false,
+
+  /** {@link Options.failOnError} */
   failOnError: Value.make(({isProduction}) => isProduction),
+
+  /** {@link Options.failOnWarning} */
+  failOnWarning: false,
+
+  /** {@link Options.failOnError} */
   fix: false,
+
+  /** {@link Options.stylelintPath} */
   stylelintPath: undefined,
 })
 export default class BudStylelintWebpackPlugin extends Extension<
@@ -70,13 +94,92 @@ export default class BudStylelintWebpackPlugin extends Extension<
   public declare setStylelintPath: (
     path: OptionCallbackValue<Options, `stylelintPath`>,
   ) => this
+  /**
+   * Set stylelint config rules
+   */
+  @bind
+  public setRules(
+    rules:
+      | Options[`config`][`rules`]
+      | ((
+          rules: Options[`config`][`rules`],
+        ) => Options[`config`][`rules`]),
+  ) {
+    this.setConfig((config = {}) => {
+      return typeof rules === `function`
+        ? {...config, rules: rules(config.rules)}
+        : {...config, rules: {...config.rules, ...rules}}
+    })
+    return this
+  }
 
-  public override async register({context}: Bud) {
-    const config = Object.values(context.files ?? {}).find(({name}) =>
-      name.includes(`stylelint`),
-    )?.module
+  /**
+   * Set stylelint config plugins
+   */
+  @bind
+  public setPlugins(
+    plugins:
+      | Options[`config`][`plugins`]
+      | ((
+          plugins: Options[`config`][`plugins`],
+        ) => Options[`config`][`plugins`]),
+  ) {
+    this.setConfig((config = {}) => {
+      const normalizedPlugins = Array.isArray(plugins)
+        ? plugins
+        : [plugins]
+      if (!Array.isArray(config.plugins)) config.plugins = [config.plugins]
 
-    config && this.setConfig(config)
+      return typeof plugins === `function`
+        ? {...config, plugins: plugins(config.plugins)}
+        : {...config, plugins: [...config.plugins, ...normalizedPlugins]}
+    })
+    return this
+  }
+
+  @bind
+  public setFiles(
+    files:
+      | Options[`config`][`files`]
+      | ((
+          files: Options[`config`][`files`],
+        ) => Options[`config`][`files`]),
+  ) {
+    this.setConfig((config = {}) => {
+      return typeof files === `function`
+        ? {...config, files: files(config.files)}
+        : {...config, files: [...config.files, ...files]}
+    })
+    return this
+  }
+
+  /**
+   * Extend config
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(['@roots/eslint-config'])
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(configs => [...configs, '@roots/eslint-config'])
+   * ```
+   */
+  @bind
+  public extends(
+    config:
+      | Options[`config`][`extends`]
+      | ((
+          configs: Options[`config`][`extends`],
+        ) => Options[`config`][`extends`]),
+  ) {
+    this.setConfig((current = {}) => {
+      return typeof config === `function`
+        ? {...current, extends: config(current.extends)}
+        : {...current, extends: [...(current?.extends ?? []), ...config]}
+    })
+    return this
   }
 
   /**

@@ -1,12 +1,9 @@
 ---
 title: Getting started
-description: ⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+description: How to install and use bud.js
 sidebar_label: Getting started
 slug: getting-started
 ---
-
-import {Hero} from '@site/src/components/hero'
-import {Card} from '@site/src/components/card'
 
 **bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
 
@@ -32,7 +29,7 @@ npm install @roots/bud --save-dev
 
 :::info
 
-If you are using pnpm you will need to add `--public-hoist-pattern=*` to the installation command and [use our .pnpmfile.cjs compatibility shim](/guides/general-use/pnpm#pnpmfilecjs-compatibilty-shim).
+If you are using pnpm add `--public-hoist-pattern=*` to the installation command and [use our .pnpmfile.cjs compatibility shim](/guides/general-use/pnpm#pnpmfilecjs-compatibilty-shim).
 
 :::
 
@@ -49,11 +46,11 @@ For information on customizing the build for your application see the [configura
 
 The [configuration basics](configure) guide has more information on how to add extensions, but most of them start and end with installing a package.
 
-For example, you can add babel and postcss support by
-installing [@roots/bud-babel](/extensions/bud-babel) and [@roots/bud-postcss](/extensions/bud-postcss/):
+For example, you can add swc and postcss support by
+installing [@roots/bud-swc](/extensions/bud-swc) and [@roots/bud-postcss](/extensions/bud-postcss/):
 
 ```bash npm2yarn
-npm install @roots/bud-babel @roots/bud-postcss --save-dev
+npm install @roots/bud-swc @roots/bud-postcss --save-dev
 ```
 
 Consult the [extensions directory](/extensions/) for available first-party extensions.

@@ -3,7 +3,6 @@ import {type Bud} from '@roots/bud'
 
 export default async (bud: Bud) => {
   bud
-    .alias(`@components`, bud.path(`@src`, `scripts`, `components`))
     .entry(`app`, [`scripts/index`, `styles/app`])
     .watch([bud.path(`@src`, `*.html`), bud.path(`@src`, `images`)])
     .serve(3015)

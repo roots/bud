@@ -28,14 +28,19 @@ import {type Api, BudEslintPublicApi, type Options} from './api.js'
   eslintPath: undefined,
   extensions: [`js`, `jsx`, `ts`, `tsx`, `vue`],
   failOnError: Value.make(({isProduction}) => isProduction),
-  failOnWarning: Value.make(({isProduction}) => isProduction),
+  failOnWarning: false,
   fix: false,
   formatter: `stylish`,
   lintDirtyModulesOnly: Value.make(({isDevelopment}) => isDevelopment),
-  overrideConfig: undefined,
+  overrideConfig: Value.make(
+    ({context}) =>
+      Object.values(context.files).find(
+        ({file, name}) => file && name.includes(`eslint`),
+      )?.module ?? undefined,
+  ),
   resolvePluginsRelativeTo: Value.make(({path}) => path()),
   threads: false,
-  useEslintrc: true,
+  useEslintrc: false,
 })
 class BudEslint extends BudEslintPublicApi implements Api {
   /**
@@ -57,7 +62,7 @@ class BudEslint extends BudEslintPublicApi implements Api {
    * {@link Extension.register}
    */
   @bind
-  public override async register({context, when}: Bud) {
+  public override async register({context, hooks}: Bud) {
     /**
      * Resolve eslint
      */
@@ -68,34 +73,19 @@ class BudEslint extends BudEslintPublicApi implements Api {
     }
 
     /**
-     * If no files are present, we can bail early
-     */
-    if (!context.files) return
-
-    /**
-     * Find eslint {@link config.module}
+     * Add {@link config.path} to cache dependencies if available
      */
     const config = Object.values(context.files).find(
       ({file, name}) => file && name.includes(`eslint`),
     )
-
-    /**
-     * Add {@link config.path} to cache dependencies if available
-     */
-    when(!!config.path, ({hooks}) =>
+    if (config) {
       hooks.on(`build.cache.buildDependencies`, (deps = {}) => ({
         ...deps,
         eslint: [config.path],
-      })),
-    )
-
-    /**
-     * Set {@link Options.overrideConfig} using {@link config.module}
-     * if available
-     */
-    when(!!config.module, () =>
-      this.setOverrideConfig(config.module).setUseEslintrc(false),
-    )
+      }))
+    } else {
+      this.setUseEslintrc(true)
+    }
   }
 }
 

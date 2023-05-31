@@ -2,6 +2,7 @@ import {
   Extension,
   type StrictPublicExtensionApi as PublicExtensionApi,
 } from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
 import type {Options as EslintPluginOptions} from 'eslint-webpack-plugin'
 import Plugin from 'eslint-webpack-plugin'
 
@@ -23,7 +24,36 @@ export type Options = EslintPluginOptions &
     overrideConfig: EslintPluginOptions['overrideConfig']
   }
 
-export type Api = PublicExtensionApi<BudEslintPublicApi, Options>
+export type Api = PublicExtensionApi<BudEslintPublicApi, Options> & {
+  config: Options[`overrideConfig`]
+  getConfig(): Api[`overrideConfig`]
+  setConfig(config: Api[`overrideConfig`]): Api
+  rules: Options[`overrideConfig`][`rules`]
+  setRules(
+    rules:
+      | Options[`overrideConfig`][`rules`]
+      | ((
+          rules: Options[`overrideConfig`][`rules`],
+        ) => Options[`overrideConfig`][`rules`]),
+  ): Api
+  getRules(): Api[`overrideConfig`][`rules`]
+  plugins: Options[`overrideConfig`][`plugins`]
+  setPlugins(
+    plugins:
+      | Options[`overrideConfig`][`plugins`]
+      | ((
+          plugins: Options[`overrideConfig`][`plugins`],
+        ) => Options[`overrideConfig`][`plugins`]),
+  ): Api
+  getPlugins(): Api[`overrideConfig`][`plugins`]
+  extends(
+    config:
+      | Api[`overrideConfig`][`extends`]
+      | ((
+          configs: Api[`overrideConfig`][`extends`],
+        ) => Api[`overrideConfig`][`extends`]),
+  ): Api
+}
 
 export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**
@@ -228,4 +258,209 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
    * {@link Options.overrideConfig}
    */
   public declare setOverrideConfig: Api['setOverrideConfig']
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public get config() {
+    return this.overrideConfig
+  }
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public getConfig() {
+    return this.config
+  }
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public setConfig(
+    config:
+      | Api['overrideConfig']
+      | ((config: Api['overrideConfig']) => Api['overrideConfig']),
+  ) {
+    this.setOverrideConfig(config)
+    return this
+  }
+
+  /**
+   * Get eslint rules
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.rules)
+   * ```
+   */
+  public get rules(): Api[`overrideConfig`][`rules`] {
+    return this.overrideConfig.rules
+  }
+
+  /**
+   * Set eslint rules
+   *
+   * @example
+   * ```js
+   * bud.eslint.rules = {
+   *  'no-console': 'off',
+   * }
+   * ```
+   */
+  public set rules(rules: Api[`overrideConfig`][`rules`]) {
+    this.setOverrideConfig((config = {}) => {
+      return {...config, rules: {...config.rules, ...rules}}
+    })
+  }
+
+  /**
+   * Get eslint rules
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.getRules())
+   * ```
+   */
+  @bind
+  public getRules() {
+    return this.rules
+  }
+
+  /**
+   * Set eslint config rules
+   *
+   * @example
+   * ```js
+   * bud.eslint.setRules({
+   *   'no-console': 'off',
+   * })
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.eslint.setRules(rules => ({
+   *   ...rules,
+   *  'no-console': 'off',
+   * }))
+   * ```
+   */
+  @bind
+  public setRules(
+    rules:
+      | Options[`overrideConfig`][`rules`]
+      | ((
+          rules: Options[`overrideConfig`][`rules`],
+        ) => Options[`overrideConfig`][`rules`]),
+  ) {
+    this.setOverrideConfig((config = {}) => {
+      return typeof rules === `function`
+        ? {...config, rules: rules(config.rules)}
+        : {...config, rules: {...(config.rules ?? {}), ...rules}}
+    })
+    return this
+  }
+
+  /**
+   * Get eslint plugins
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.plugins)
+   * ```
+   */
+  public get plugins(): Api[`overrideConfig`][`plugins`] {
+    return this.overrideConfig.plugins
+  }
+
+  /**
+   * Set eslint plugins
+   *
+   * @example
+   * ```js
+   * bud.eslint.plugins = {
+   *  'no-console': 'off',
+   * }
+   * ```
+   */
+  public set plugins(plugins: Api[`overrideConfig`][`plugins`]) {
+    this.setOverrideConfig((config = {}) => {
+      return {...config, plugins: [...(config?.plugins ?? []), ...plugins]}
+    })
+  }
+
+  /**
+   * Get eslint plugins
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.getPlugins())
+   * ```
+   */
+  @bind
+  public getPlugins() {
+    return this.plugins
+  }
+
+  /**
+   * Set eslint config plugins
+   *
+   * @example
+   * ```js
+   * bud.eslint.setPlugins({
+   *   'no-console': 'off',
+   * })
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.eslint.setPlugins(plugins => ({
+   *   ...plugins,
+   *  'no-console': 'off',
+   * }))
+   * ```
+   */
+  @bind
+  public setPlugins(
+    plugins:
+      | Options[`overrideConfig`][`plugins`]
+      | ((
+          plugins: Options[`overrideConfig`][`plugins`],
+        ) => Options[`overrideConfig`][`plugins`]),
+  ) {
+    this.setOverrideConfig((config = {}) => {
+      return typeof plugins === `function`
+        ? {...config, plugins: plugins(config.plugins)}
+        : {...config, plugins: [...(config?.plugins ?? []), ...plugins]}
+    })
+    return this
+  }
+
+  /**
+   * Extend config
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(['@roots/eslint-config'])
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(configs => [...configs, '@roots/eslint-config'])
+   * ```
+   */
+  @bind
+  public extends(
+    config:
+      | Api[`overrideConfig`][`extends`]
+      | ((
+          configs: Api[`overrideConfig`][`extends`],
+        ) => Api[`overrideConfig`][`extends`]),
+  ) {
+    this.setConfig((current = {}) => {
+      return typeof config === `function`
+        ? {...current, extends: config(current.extends)}
+        : {...current, extends: [...(current?.extends ?? []), ...config]}
+    })
+    return this
+  }
 }

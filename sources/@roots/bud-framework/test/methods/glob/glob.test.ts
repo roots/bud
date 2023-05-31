@@ -75,8 +75,6 @@ describe(`bud.glob`, function () {
 
   it(`returns glob results from variadic params`, async () => {
     const results = await glob(`src/**/*.tsx`, `src/**/app.*`)
-    const syncResults = globSync(`src/**/*.tsx`, `src/**/app.*`)
-
     expect(results).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
@@ -85,6 +83,8 @@ describe(`bud.glob`, function () {
         expect.stringContaining(`styles/app.css`),
       ]),
     )
+
+    const syncResults = globSync(`src/**/*.tsx`, `src/**/app.*`)
     expect(syncResults).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/index.tsx`),
@@ -97,7 +97,6 @@ describe(`bud.glob`, function () {
 
   it(`returns glob results with negation`, async () => {
     const results = await glob(`!**/index.tsx`, `src/**/*.tsx`)
-    const syncResults = globSync(`!**/index.tsx`, `src/**/*.tsx`)
 
     expect(results).toEqual(
       expect.arrayContaining([
@@ -105,6 +104,8 @@ describe(`bud.glob`, function () {
         expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
+
+    const syncResults = globSync(`!**/index.tsx`, `src/**/*.tsx`)
     expect(syncResults).toEqual(
       expect.arrayContaining([
         expect.stringContaining(`scripts/scripts.tsx`),

@@ -11,10 +11,10 @@ describe(`@roots/bud-imagemin test projects`, () => {
   beforeAll(async () => {
     await Promise.all(
       [`quality-50`, `quality-default`].map(async dir => {
-        await execa(`yarn`, [`bud`, `clean`], {
+        await execa(`yarn`, [`bud`, `clean`, `--silent`], {
           cwd: join(testDirectory, dir),
         })
-        await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+        await execa(`yarn`, [`bud`, `build`, `--silent`, `--no-cache`], {
           cwd: join(testDirectory, dir),
         })
       }),
