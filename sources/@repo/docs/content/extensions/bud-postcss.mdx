@@ -4,23 +4,23 @@ description: 'postcss support for bud.js projects'
 sidebar_label: '@roots/bud-postcss'
 ---
 
-import {Install} from '@site/src/docs/Install'
-
-[PostCSS](https://postcss.org) can be added by installing the **@roots/bud-postcss** extension.
+This extension adds [PostCSS](https://postcss.org) support.
 
 ## Installation
 
-<Install packages="@roots/bud-postcss" />
+```npm2yarn
+yarn add @roots/bud-postcss --dev
+```
 
 ## Usage
 
 By default, **@roots/bud-postcss** includes the following plugins, registered with PostCSS in this order:
 
-| Order | Key       | Plugin                                                      |
-| ----- | --------- | ----------------------------------------------------------- |
-| 1.    | 'import'  | [postcss-import](https://github.com/postcss/postcss-import) |
-| 2.    | 'nesting' | [postcss-nested](https://github.com/postcss/postcss-nested) |
-| 3.    | 'env'     | [postcss-preset-env](https://preset-env.cssdb.org/)         |
+| Order | Plugin                                                      |
+| ----- | ----------------------------------------------------------- |
+| 1.    | [postcss-import](https://github.com/postcss/postcss-import) |
+| 2.    | [postcss-nested](https://github.com/postcss/postcss-nested) |
+| 3.    | [postcss-preset-env](https://preset-env.cssdb.org/)         |
 
 If this works for you, great! No need to keep reading.
 
@@ -31,38 +31,30 @@ Note that by using a PostCSS config file you will be overriding the bud.js optio
 
 ## Overriding PostCSS options directly
 
-You can set the PostCSS options directly using `bud.postcss.set`.
+You can set the PostCSS options directly using `bud.postcss.setPostCssOptions`.
 
-PostCss options are contained in the `postcssOptions` key.
+It's best to use this method only if you are comfortable with PostCSS and know what you are doing.
 
-```typescript title=bud.config.js
-bud.postcss.set(`postcssOptions`, {
+```ts title=bud.config.js
+bud.postcss.setPostCssOptions({
   parser: `sugarss`,
   plugins: [`postcss-import`, `postcss-nested`, `postcss-preset-env`],
 })
 ```
 
-Doing it this way is quick and easy but you are fully overriding the default settings. It's best to use this method only
-if you are comfortable with PostCSS and know what you are doing.
-
-If you want to just change a single option you can use dot syntax:
-
-```typescript title=bud.config.js
-bud.postcss.set(`postcssOptions.parser`, `sugarss`)
-```
-
-This allows the default options to be merged with your new options.
+Doing it this way is to-the-point but you are fully overriding the default settings.
+Other bud.js extensions related to PostCSS will likely not work.
 
 ## Adding a plugin
 
 Adding a plugin with the API is a two step process:
 
-1. Register the plugin
-2. Add it to the plugin order
+1. [Register the plugin](#step-1-registration)
+2. [Add it to the plugin order](#step-2-add-the-plugin)
 
 Let's look at how this is done using `tailwindcss` as an example.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss
   /** Register the tailwindcss/nesting plugin */
   .setPlugin(`tailwindcss/nesting`)
@@ -74,13 +66,13 @@ bud.postcss
 
 ### Step 1. Registration
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.setPlugin(`example-postcss-plugin`)
 ```
 
 If you want to be specific about how to resolve a plugin, you can pass a second parameter.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.setPlugin(
   `example-postcss-plugin`,
   bud.path(`@modules/example-postcss-plugin/lib/index.js`),
@@ -89,7 +81,7 @@ bud.postcss.setPlugin(
 
 If you want to pass along options with the plugin, you can do so by passing an array.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.setPlugin(`example-postcss-plugin`, [
   `example-postcss-plugin`,
   {stage: 1},
@@ -98,18 +90,18 @@ bud.postcss.setPlugin(`example-postcss-plugin`, [
 
 ### Step 2. Add the plugin
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.use([
-  `import`,
-  `nesting`,
+  `postcss-import`,
+  `postcss-nesting`,
   `example-postcss-plugin`, // our new plugin
-  'env',
+  'postcss-preset-env',
 ])
 ```
 
 You can also use a callback:
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.use(plugins => [...plugins, 'example-postcss-plugin'])
 ```
 
@@ -119,7 +111,7 @@ You can modify options for a plugin using **bud.postcss.setPluginOptions**.
 
 The first parameter is the plugin key and the second is the options object.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 ```
 
@@ -129,7 +121,7 @@ You can modify the path for a PostCSS plugin using **bud.postcss.setPluginPath**
 
 The first parameter is the plugin key and the second is the new path to assign.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.setPluginPath(
   'example-postcss-plugin',
   bud.path('./lib/my-plugin.js'),
@@ -140,6 +132,40 @@ bud.postcss.setPluginPath(
 
 You may remove a plugin by calling **bud.postcss.unsetPlugin** with the plugin key.
 
-```typescript title=bud.config.js
+```ts title=bud.config.js
 bud.postcss.unsetPlugin(`import`)
+```
+
+## Additional options
+
+| Option      | Type      | Default     |
+| ----------- | --------- | ----------- |
+| `parser`    | `string`  | `undefined` |
+| `sourceMap` | `boolean` | `true`      |
+| `syntax`    | `string`  | `undefined` |
+
+Each option has an associated getter and setter.
+
+### bud.postcss.parser
+
+The parser option is used to specify the parser to use for the PostCSS processor.
+
+```ts
+bud.postcss.setParser(`postcss-sass`)
+```
+
+### bud.postcss.sourceMap
+
+The sourceMap option is used to specify whether or not to generate a source map.
+
+```ts
+bud.postcss.setSourceMap(false)
+```
+
+### bud.postcss.syntax
+
+The syntax option is used to specify the syntax to use for the PostCSS processor.
+
+```ts
+bud.postcss.setSyntax(`sugarss`)
 ```

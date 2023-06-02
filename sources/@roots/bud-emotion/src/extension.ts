@@ -24,7 +24,10 @@ export class BudEmotion extends Extension<{}, null> {
 
     if (`swc` in bud) {
       const swcPlugin = await this.resolve(`@swc/plugin-emotion`)
-      bud.swc.plugins((plugins = []) => [...plugins, [swcPlugin, {}]])
+      bud.swc.setExperimentalPlugins((plugins = []) => [
+        ...plugins,
+        [swcPlugin, {}],
+      ])
     }
   }
 }

@@ -23,8 +23,8 @@ describe(`@roots/bud-swc`, () => {
 
   it(`should add a plugin`, async () => {
     const extension = new BudSWCExtension(bud)
-    extension.plugins(plugins => {
-      plugins.push([`test`, {}])
+    extension.setPlugins((plugins = []) => {
+      plugins.push([`test` as any, {}])
       return plugins
     })
     expect(extension.options?.jsc?.experimental?.plugins?.[0]).toEqual([

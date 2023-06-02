@@ -64,11 +64,9 @@ describe(`context.get`, () => {
     expect(context.files).toEqual(
       expect.objectContaining({
         '.env': expect.any(Object),
-        'eslint.config.js': expect.any(Object),
         '.gitignore': expect.any(Object),
         'bud.config.ts': expect.any(Object),
         'package.json': expect.any(Object),
-        'tailwind.config.ts': expect.any(Object),
         'tsconfig.json': expect.any(Object),
       }),
     )

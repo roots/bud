@@ -1,3 +1,4 @@
+import '@roots/bud-postcss'
 import '../../src/types/index.js'
 
 import resolveConfig from 'tailwindcss/resolveConfig.js'

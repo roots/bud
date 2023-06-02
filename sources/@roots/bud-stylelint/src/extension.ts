@@ -26,35 +26,20 @@ export type Options = Plugin.Options & {
 @expose(`stylelint`)
 @plugin(Plugin)
 @options<Options>({
-  /** {@link Options.cache} */
   cache: Value.make(({context, env}) => !context.ci && !env.isTrue(`CI`)),
-
-  /** {@link Options.cacheLocation} */
   cacheLocation: Value.make(({cache, path}) =>
     path(cache.cacheDirectory, `stylelint`),
   ),
-
-  /** {@link Options.config} */
   config: Value.make(
     ({context}) =>
       Object.values(context.files ?? {}).find(({name}) =>
         name.includes(`stylelint`),
       )?.module ?? undefined,
   ),
-
-  /** {@link Options.context} */
   context: Value.make(({path}) => path(`@src`)),
-
-  /** {@link Options.failOnError} */
   failOnError: Value.make(({isProduction}) => isProduction),
-
-  /** {@link Options.failOnWarning} */
   failOnWarning: false,
-
-  /** {@link Options.failOnError} */
   fix: false,
-
-  /** {@link Options.stylelintPath} */
   stylelintPath: undefined,
 })
 export default class BudStylelintWebpackPlugin extends Extension<

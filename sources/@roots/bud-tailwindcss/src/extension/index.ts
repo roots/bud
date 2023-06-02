@@ -11,9 +11,9 @@ import {
 import isString from '@roots/bud-support/lodash/isString'
 
 import {
-  BudTailwindConfig,
+  BudTailwindOptionsApi,
   type BudTailwindOptionsPublicInterface,
-} from './config.js'
+} from './options.js'
 
 /**
  * TailwindCSS configuration
@@ -21,22 +21,13 @@ import {
 @label(`@roots/bud-tailwindcss`)
 @dependsOn([`@roots/bud-postcss`])
 @expose(`tailwind`)
-class BudTailwindCss extends BudTailwindConfig {
+class BudTailwindCss extends BudTailwindOptionsApi {
   /**
    * {@link Extension.register}
    */
   @bind
-  public override async register() {
+  public override async register(_bud: Bud) {
     await this.sourceConfig()
-  }
-
-  /**
-   * {@link Extension.buildBefore}
-   */
-  @bind
-  public override async buildBefore(bud: Bud) {
-    bud.postcss.setPluginOptions(`tailwindcss`, this.config)
-    this.logger.info(`final config`, JSON.stringify(this.config, null, 2))
   }
 
   /**
@@ -60,7 +51,7 @@ class BudTailwindCss extends BudTailwindConfig {
       )
       .setPlugin(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
-        this.config,
+        this.config ?? this.configPath,
       ])
       .use([`import`, `nesting`, `tailwindcss`, `env`])
 
@@ -79,6 +70,13 @@ class BudTailwindCss extends BudTailwindConfig {
 
       return paths
     })
+  }
+
+  @bind
+  public override async configAfter(bud: Bud) {
+    this.setResolvedConfig(this.resolveConfig())
+    bud.postcss.setPluginOptions(`tailwindcss`, this.config)
+    this.logger.info(`final config`, JSON.stringify(this.config, null, 2))
   }
 }
 

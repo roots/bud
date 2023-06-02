@@ -5,7 +5,7 @@ export default async (bud: Bud) => {
 
   bud.eslint
     .extends([`@roots/eslint-config`])
-    .setRules({'no-console': `error`})
+    .setRules({'no-console': `warn`})
     .setFailOnError(bud.isProduction)
     .setFailOnWarning(false)
     .setFix(true)

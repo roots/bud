@@ -5,7 +5,7 @@ import type {
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    tailwind: BudTailwindOptionsPublicInterface
+    tailwind: BudTailwindOptionsPublicInterface & BudTailwindCss
   }
 
   interface Modules {

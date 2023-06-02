@@ -1,5 +1,5 @@
 {
-  "extends": "@roots/bud/config/tsconfig.json",
+  "extends": ["@roots/bud/config/tsconfig.json"],
   "compilerOptions": {
     "baseUrl": "./src",
     "outDir": "./dist",
@@ -16,7 +16,7 @@
       "@roots/bud-tailwindcss"
     ],
   },
-  "files": ["./types.d.ts", "./config/bud.config.ts", "./config/tailwind.config.ts"],
+  "files": ["./types.d.ts", "./config/bud.config.ts"],
   "include": ["./src"],
   "bud": {
     "useCompilerOptions": true

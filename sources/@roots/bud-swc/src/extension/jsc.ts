@@ -18,40 +18,32 @@ import type {Options} from '@swc/core'
  * different file types but still using the same general config.
  */
 type JSCOptions = Options[`jsc`] & {
-  parser:
-    | (Options[`jsc`][`parser`] & {
-        syntax: `ecmascript`
-        jsx: boolean
-      })
-    | (Options[`jsc`][`parser`] & {
-        syntax: `typescript`
-        tsx: boolean
-      })
-  loose?: boolean
-  transform?: Options[`jsc`][`transform`]
+  parser: Options[`jsc`][`parser`]
+  loose: boolean
+  transform: Options[`jsc`][`transform`]
   /**
    * Use `@swc/helpers` instead of inline helpers.
    */
-  externalHelpers?: Options[`jsc`][`externalHelpers`]
+  externalHelpers: Options[`jsc`][`externalHelpers`]
   /**
    * Defaults to `es3` (which enabled **all** pass).
    */
-  target?: Options[`jsc`][`target`]
+  target: Options[`jsc`][`target`]
   /**
    * Keep class names.
    */
-  keepClassNames?: Options[`jsc`][`keepClassNames`]
-  experimental?: Options[`jsc`][`experimental`]
-  baseUrl?: Options[`jsc`][`baseUrl`]
-  paths?: Options[`jsc`][`paths`]
-  minify?: Options[`jsc`][`minify`]
-  preserveAllComments?: Options[`jsc`][`preserveAllComments`]
-} & Record<string, unknown>
+  keepClassNames: Options[`jsc`][`keepClassNames`]
+  experimental: Options[`jsc`][`experimental`]
+  baseUrl: Options[`jsc`][`baseUrl`]
+  paths: Options[`jsc`][`paths`]
+  minify: Options[`jsc`][`minify`]
+  preserveAllComments: Options[`jsc`][`preserveAllComments`]
+}
 
 type BudJSCPublicInterface = StrictPublicExtensionApi<
   BudJSCApi,
   JSCOptions
-> & {}
+>
 
 @options<JSCOptions>({
   baseUrl: undefined,
@@ -148,6 +140,18 @@ class BudJSCApi extends Extension<JSCOptions> {
     JSCOptions,
     `preserveAllComments`
   >
+
+  public setPlugins(
+    plugins:
+      | JSCOptions[`experimental`][`plugins`]
+      | ((
+          plugins?: JSCOptions[`experimental`][`plugins`],
+        ) => JSCOptions[`experimental`][`plugins`]),
+  ) {
+    this.setExperimental((experimental = {}) => ({
+      ...experimental,
+    }))
+  }
 }
 
-export {BudJSCApi, type BudJSCPublicInterface, type Options}
+export {BudJSCApi, type BudJSCPublicInterface, type JSCOptions}

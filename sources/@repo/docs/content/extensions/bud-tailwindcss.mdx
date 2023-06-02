@@ -1,18 +1,92 @@
 ---
+title: '@roots/bud-tailwindcss'
+description: 'Extension providing tailwindcss support to bud.js projects'
 sidebar_label: '@roots/bud-tailwindcss'
 ---
-
-import {Install} from '@site/src/docs/Install'
-
-# @roots/bud-tailwindcss
 
 [TailwindCSS](https://tailwindcss.com) support can be added by installing the [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension.
 
 ## Installation
 
-<Install packages="@roots/bud-tailwindcss" />
+```npm2yarn
+yarn add @roots/bud-tailwindcss --dev
+```
 
-## Using tailwind values in JS files
+## Configuration
+
+By default the bud.js tailwind implementation requires no configuration.
+
+If you wish to customize the tailwind configuration you can create a tailwind config file.
+
+bud.js allows for you to write your tailwind config in CommonJS, ESM, TypeScript, JSON or YML. This file should be placed in the root of your project or the project `./config` directory.
+
+### Configuring tailwind with `bud.tailwind`
+
+You can configure tailwind directly in your bud configuration file using `bud.tailwind.setConfig`.
+
+```ts title=bud.config.js
+bud.tailwind.setConfig({
+  content: [bud.path(`@src/**/*.{ts,php}`)],
+  theme: {},
+  plugins: [],
+})
+```
+
+`bud.tailwind.setConfig` is just one method available to help you configure tailwindcss.
+
+### Set content
+
+You can set the tailwindcss `content` option with `bud.tailwind.setContent`.
+
+```ts title=bud.config.js
+bud.tailwind.setContent([bud.path(`@src/**/*.{ts,php}`)])
+```
+
+### Set theme
+
+You can set the tailwindcss `theme` option with `bud.tailwind.setTheme`.
+
+```ts title=bud.config.js
+bud.tailwind.setTheme({
+  colors: {primary: `#000000`},
+})
+```
+
+### Extend theme
+
+You can extend the tailwindcss `theme` option with `bud.tailwind.extendTheme`.
+
+```ts title=bud.config.js
+bud.tailwind.extendTheme({
+  colors: {primary: `#000000`},
+})
+```
+
+This is usually preferred over `bud.tailwind.setTheme` as it will merge your theme with the default tailwindcss theme.
+
+### Set plugins
+
+You can set the tailwindcss `plugins` option with `bud.tailwind.setPlugins`.
+
+```ts title=bud.config.js
+import forms from '@tailwindcss/forms'
+
+export default async bud => {
+  bud.tailwind.setPlugins([forms])
+}
+```
+
+## Using tailwind values in build config files
+
+You can use resolved tailwind values in your bud config files by referencing `bud.tailwind.theme`.
+
+```ts title=bud.config.js
+export default async bud => {
+  console.log(`colors`, bud.tailwind.theme.colors)
+}
+```
+
+## Using tailwind values in JS source
 
 bud.js can be configured to allow for you to import tailwind theme values using the (virtual) `@tailwind/*` alias.
 
@@ -34,17 +108,15 @@ Generating the imports can be memory intensive and increase build times, so it i
 bud.tailwind.generateImports()
 ```
 
-Better to generate imports only for specific keys (much less memory intensive):
+Better to generate imports only for specific keys:
 
 ```ts
 bud.tailwind.generateImports([`colors`, `fontFamily`])
 ```
 
-This is a lot better than trying to import the actual `tailwind.config.js` file to read these values as the values are fully resolved (merged with `defaultTheme`, plugins applied, etc.)
+This is a much better than trying to import the actual tailwind config file to read these values for two reasons:
 
-And it's a lot better than importing `tailwindcss/resolveConfig` and doing it in the app code because of transitive dependencies.
-
-Lastly, it's better than pre-compiling a static json file because these values are tree-shakeable. The entire generated json for the default tailwind config is ~100kb.
-The above example adds ~5kb to the overall bundle (and only because tailwind has so many default colors). If you use terser ([bud.minify](https://bud.js.org/docs/bud.minimize)) the difference is entirely negligible.
+1. the values are fully resolved (merged with preset tailwindcss theme values, plugins applied, etc.)
+2. there is less impact on the overall bundle size
 
 If you don't import from `@tailwind/*` nothing is added to the bundle (even if the imports are generated)

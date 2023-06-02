@@ -7,7 +7,6 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import merge from '@roots/bud-support/lodash/merge'
-import type {Options} from '@swc/core'
 
 import {BudJSCApi, type BudJSCPublicInterface} from './jsc.js'
 import {BudSWCApi, type BudSWCPublicInterface} from './options.js'
@@ -19,21 +18,27 @@ import {BudSWCApi, type BudSWCPublicInterface} from './options.js'
 @expose(`swc`)
 class BudSWC extends BudSWCApi {
   /**
+   * Typescript specific configuration
+   */
+  public declare typescript: BudJSCPublicInterface
+
+  /**
+   * Ecmascript specific configuration
+   */
+  public declare ecmascript: BudJSCPublicInterface
+
+  /**
    * {@link Extension.register}
    */
   @bind
   public override async register(bud: Bud) {
-    this.ecmascript = new BudJSCApi(
-      bud,
-    ) as unknown as BudJSCPublicInterface
+    this.ecmascript = new BudJSCApi(bud)
     this.ecmascript.setParser({
       syntax: `ecmascript`,
       jsx: true,
     })
 
-    this.typescript = new BudJSCApi(
-      bud,
-    ) as unknown as BudJSCPublicInterface
+    this.typescript = new BudJSCApi(bud)
     this.typescript.setParser({
       syntax: `typescript`,
       tsx: true,
@@ -47,10 +52,10 @@ class BudSWC extends BudSWCApi {
       if (swcrc) this.setOptions(swcrc)
     }
 
-    /** set loader alias */
-    bud.hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
-      ...aliases,
-      'swc-loader': loader,
+    this.setExperimental(experimental => ({
+      ...experimental,
+      cacheRoot:
+        experimental?.cacheRoot ?? join(bud.cache.cacheDirectory, `swc`),
     }))
 
     bud.build
@@ -70,15 +75,15 @@ class BudSWC extends BudSWCApi {
           }),
       })
 
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
-      extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
-    )
-
-    this.set(
-      `jsc.experimental.cacheRoot` as any,
-      (cacheRoot: string) =>
-        cacheRoot ?? join(bud.cache.cacheDirectory, `swc`),
-    )
+    /** set loader alias */
+    bud.hooks
+      .on(`build.resolveLoader.alias`, (aliases = {}) => ({
+        ...aliases,
+        'swc-loader': loader,
+      }))
+      .hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+        extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
+      )
   }
 
   /**
@@ -105,31 +110,6 @@ class BudSWC extends BudSWCApi {
     hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
       extensions.add(`.ts`).add(`.jsx`).add(`.tsx`).add(`.mts`),
     )
-  }
-
-  /**
-   * Set SWC plugins
-   */
-  @bind
-  public plugins(
-    input:
-      | Options[`jsc`][`experimental`][`plugins`]
-      | ((
-          input: Options[`jsc`][`experimental`][`plugins`],
-        ) => Options[`jsc`][`experimental`][`plugins`]),
-  ) {
-    const value =
-      typeof input === `function`
-        ? input(this.options?.jsc?.experimental?.plugins ?? [])
-        : input
-
-    this.setJsc(jsc => ({
-      ...(jsc ?? {}),
-      experimental: {
-        ...(jsc?.experimental ?? {}),
-        plugins: [...(jsc?.experimental?.plugins ?? []), ...(value ?? [])],
-      },
-    }))
   }
 }
 

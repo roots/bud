@@ -20,6 +20,11 @@ export type InternalOptionsValues<T extends Options> = {
   [K in keyof T as `${K & string}`]: Value<(app: Bud) => T[K]> | T[K]
 }
 
+export type OptionCallback<
+  T extends Options,
+  K extends `${keyof Options & string}`,
+> = T[K] | ((value: T[K]) => T[K])
+
 export type OptionCallbackValue<
   T extends Options,
   K extends `${keyof Options & string}`,
