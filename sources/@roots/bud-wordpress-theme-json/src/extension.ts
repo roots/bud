@@ -38,12 +38,12 @@ type Api = StrictPublicExtensionApi<
   Options & Record<string, unknown>
 > & {
   path: Options['path']
-  generated?: Options['__generated__']
-  customTemplates?: Options['customTemplates']
-  patterns?: Options['patterns']
-  styles?: Options['styles']
-  templateParts?: Options['templateParts']
-  version?: Options['version']
+  generated: Options['__generated__']
+  customTemplates: Options['customTemplates']
+  patterns: Options['patterns']
+  styles: Options['styles']
+  templateParts: Options['templateParts']
+  version: Options['version']
   /**
    * ## bud.wpjson.settings
    *
@@ -59,7 +59,7 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindColors?: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindColors: (value?: boolean, extendOnly?: boolean) => Api
 
   /**
    * ## bud.wpjson.useTailwindFontFamily
@@ -69,7 +69,7 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontFamily?: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindFontFamily: (value?: boolean, extendOnly?: boolean) => Api
 
   /**
    * ## bud.wpjson.useTailwindFontSize
@@ -79,7 +79,7 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontSize?: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindFontSize: (value?: boolean, extendOnly?: boolean) => Api
 }
 
 /**

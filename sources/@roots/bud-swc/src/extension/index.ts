@@ -32,25 +32,18 @@ class BudSWC extends BudSWCApi {
    */
   @bind
   public override async register(bud: Bud) {
-    this.ecmascript = new BudJSCApi(bud)
-    this.ecmascript.setParser({
+    const loader = await this.resolve(`swc-loader`, import.meta.url)
+    if (!loader) throw new Error(`@roots/bud-swc: swc-loader not found`)
+
+    this.ecmascript = new BudJSCApi(bud).setParser({
       syntax: `ecmascript`,
       jsx: true,
     })
 
-    this.typescript = new BudJSCApi(bud)
-    this.typescript.setParser({
+    this.typescript = new BudJSCApi(bud).setParser({
       syntax: `typescript`,
       tsx: true,
     })
-
-    const loader = await this.resolve(`swc-loader`, import.meta.url)
-
-    const swcrcPath = bud.context.files?.[`.swcrc`]?.path
-    if (swcrcPath) {
-      const swcrc = bud.fs.json.parse(await bud.fs.read(swcrcPath))
-      if (swcrc) this.setOptions(swcrc)
-    }
 
     this.setExperimental(experimental => ({
       ...experimental,
@@ -84,6 +77,15 @@ class BudSWC extends BudSWCApi {
       .hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
         extensions.add(`.ts`).add(`.tsx`).add(`.jsx`),
       )
+
+    /**
+     * Override options with .swcrc, if available
+     */
+    const swcrcPath = bud.context.files?.[`.swcrc`]?.path
+    if (swcrcPath) {
+      const swcrc = bud.fs.json.parse(await bud.fs.read(swcrcPath))
+      if (swcrc) this.setOptions(swcrc)
+    }
   }
 
   /**

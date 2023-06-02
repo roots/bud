@@ -26,7 +26,7 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
   getTheme(): ThemeConfig
   getTheme<K extends keyof ThemeConfig & string>(
     key?: `${K}`,
-  ): ThemeConfig[K]
+  ): K extends ThemeConfig ? ThemeConfig[K] : ThemeConfig
   setTheme(theme: ThemeConfig): BudTailwindOptionsPublicInterface
   setTheme<K extends keyof ThemeConfig & string>(
     key: K,
