@@ -32,19 +32,15 @@ npm install @roots/bud-swc --save-dev
 
 ## Configuration
 
-**@roots/bud-swc** works with zero configuration. If you want hot module reloading in React projects you will need to install [@roots/bud-react](https://bud.js.org/extensions/bud-react) along with this extension:
+**@roots/bud-swc** works with zero configuration. But there is a robust and developer friendly configuration API should you need to make a modification to the provided defaults.
 
-```npm2yarn
-yarn add @roots/bud-react --dev
-```
-
-### Configuration with .swcrc
+## Configuration with .swcrc
 
 Including a `.swcrc` config file in the root of your project will replace all default options.
 
-Be aware that extensions may still modify the options even if you use `.swcrc`. For example, [@roots/bud-react](https://bud.js.org/extensions/bud-react) will modify the `jsc.transform` option to support react refresh if `bud.react.refresh` is enabled.
+This is not recommended if you want to use other extensions which manipulate swc options (like **@roots/bud-react** and **@roots/bud-emotion**).
 
-### JSC configuration
+## Configuration with `bud.swc`
 
 You can configure `jsc` with the `bud.swc.setJsc` method:
 
@@ -61,9 +57,9 @@ bud.swc.setJsc((jsc = {}) => ({
 }));
 ```
 
-Many properties from `jsc` have additional helper methods exposed to set them without needing to use a callback with `bud.swc.setJsc`.
+Many `jsc` options have associated helper methods which don't require using `bud.swc.setJsc` directly. These should be preferred over `bud.swc.setJsc` whenenver possible.
 
-#### jsc.baseUrl
+### jsc.baseUrl
 
 Use the `bud.swc.setBaseUrl` method to configure `jsc.baseUrl`
 
@@ -71,7 +67,7 @@ Use the `bud.swc.setBaseUrl` method to configure `jsc.baseUrl`
 bud.swc.setBaseUrl(`/base/url/`);
 ```
 
-#### jsc.externalHelpers
+### jsc.externalHelpers
 
 Use the `bud.swc.setExternalHelpers` method to configure `jsc.externalHelpers`
 
@@ -79,7 +75,7 @@ Use the `bud.swc.setExternalHelpers` method to configure `jsc.externalHelpers`
 bud.swc.setExternalHelpers(true);
 ```
 
-#### jsc.experimental
+### jsc.experimental
 
 Use the `bud.swc.setExperimental` method to configure `jsc.experimental`
 
@@ -89,7 +85,7 @@ bud.swc.setExperimental({ plugins: [] });
 
 If you want to set `jsc.experimental.plugins` you may wish to use the [`bud.swc.setPlugins` method](#plugins).
 
-#### jsc.loose
+### jsc.loose
 
 Use the `bud.swc.setLoose` method to configure `jsc.loose`
 
@@ -97,7 +93,7 @@ Use the `bud.swc.setLoose` method to configure `jsc.loose`
 bud.swc.setLoose(true);
 ```
 
-#### jsc.minify
+### jsc.minify
 
 Use the `bud.swc.setMinify` method to configure `jsc.minify`
 
@@ -105,7 +101,7 @@ Use the `bud.swc.setMinify` method to configure `jsc.minify`
 bud.swc.setMinify(true);
 ```
 
-#### jsc.parser
+### jsc.parser
 
 To configure the parser you can use [bud.swc.setParser].
 
@@ -117,7 +113,7 @@ bud.swc.setParser({ decorators: false });
 
 Note that `jsx.parser.syntax`, `jsc.parser.jsx` and `jsc.parser.tsx` will be overwritten by [syntax specific configuration](#syntax-specific-configuration). You should change those options using `bud.swc.ecmascript.setParser` or `bud.swc.typescript.setParser` instead of using the base options.
 
-#### jsc.preserveAllComments
+### jsc.preserveAllComments
 
 Use the `bud.swc.preserveAllComments` method to oconfigure `jsc.preserveAllComments`
 
@@ -125,7 +121,7 @@ Use the `bud.swc.preserveAllComments` method to oconfigure `jsc.preserveAllComme
 bud.swc.preserveAllComments(false);
 ```
 
-#### jsc.target
+### jsc.target
 
 Use the `bud.swc.setTarget` method to configure `jsc.target`
 
@@ -133,7 +129,7 @@ Use the `bud.swc.setTarget` method to configure `jsc.target`
 bud.swc.setTarget(`es5`);
 ```
 
-#### jsc.transform
+### jsc.transform
 
 Use the `bud.swc.setTransform` method to configure `jsc.transform`
 
@@ -141,7 +137,7 @@ Use the `bud.swc.setTransform` method to configure `jsc.transform`
 bud.swc.setTransform({});
 ```
 
-### Syntax specific jsc configuration
+## Syntax specific jsc configuration
 
 SWC supports both `ecmascript` and `TypeScript`. If you want to make changes to the `jsc` config which are only applied to a specific syntax, you can make overrides using `bud.swc.ecmascript` and `bud.swc.typescript`, respectively.
 
@@ -150,7 +146,9 @@ bud.swc.ecmascript.setKeepClassNames(true);
 bud.swc.typescript.setKeepClassNames(false);
 ```
 
-### Plugins
+All of the above `jsc.*` options work the same way as detailed above.
+
+## Plugins
 
 Use the `bud.swc.setPlugins` method to configure `experimental.plugins`:
 
@@ -162,7 +160,7 @@ bud.swc.setPlugins([["some-swc-plugin", {}]]);
 bud.swc.setPlugins((plugins = []) => [...plugins, ["some-swc-plugin", {}]]);
 ```
 
-### Env
+## Env
 
 Use the `bud.swc.setEnv` method to configure swc `env` options:
 
@@ -172,7 +170,7 @@ bud.swc.setEnv({
 });
 ```
 
-### Source maps
+## Source maps
 
 Use the `bud.swc.setSourceMaps` method to configure the swc `sourceMaps` option:
 

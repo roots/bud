@@ -113,7 +113,7 @@ bud.eslint.setFix(true);
 There is a recommended eslint configuration available for you to use as a starting point.
 
 ```npm2yarn
-yarn add @roots/eslint-config --dev
+npm install @roots/eslint-config --dev-only
 ```
 
 Once installed you can add it to the `extends` array in your eslint config:
