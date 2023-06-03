@@ -16,7 +16,7 @@ import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
 import type {
   Options,
-  Theme,
+  Schema,
 } from '@roots/wordpress-theme-json-webpack-plugin'
 import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 
@@ -26,11 +26,11 @@ import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 interface Mutator {
   (
     json:
-      | Partial<Theme.GlobalSettingsAndStyles['settings']>
-      | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>,
+      | Partial<Schema.SettingsAndStyles['settings']>
+      | Container<Partial<Schema.SettingsAndStyles['settings']>>,
   ):
-    | Partial<Theme.GlobalSettingsAndStyles['settings']>
-    | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
+    | Partial<Schema.SettingsAndStyles['settings']>
+    | Container<Partial<Schema.SettingsAndStyles['settings']>>
 }
 
 type Api = StrictPublicExtensionApi<
@@ -132,8 +132,8 @@ class WordPressThemeJSON
   public settings(
     input?:
       | Mutator
-      | Container<Partial<Theme.GlobalSettingsAndStyles['settings']>>
-      | Partial<Theme.GlobalSettingsAndStyles['settings']>
+      | Container<Partial<Schema.SettingsAndStyles['settings']>>
+      | Partial<Schema.SettingsAndStyles['settings']>
       | boolean,
     raw?: boolean,
   ): this {

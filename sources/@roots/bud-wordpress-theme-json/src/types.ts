@@ -1,5 +1,3 @@
-import '@roots/bud'
-
 import type {Api, WordPressThemeJSON} from './extension.js'
 
 declare module '@roots/bud-framework' {

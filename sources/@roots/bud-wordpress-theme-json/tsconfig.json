@@ -3,12 +3,12 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "types": ["@roots/bud-framework", "@roots/bud"]
   },
   "include": ["src"],
-  "types": ["@roots/bud", "@roots/bud-framework"],
   "references": [
-    {"path": "../bud/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
+    {"path": "../bud/tsconfig.json"},
     {"path": "../wordpress-theme-json-webpack-plugin/tsconfig.json"}
   ]
 }

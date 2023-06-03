@@ -27,13 +27,13 @@ export interface Options {
    * WordPress `settings`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  settings?: Partial<Theme.GlobalSettingsAndStyles['settings']>
+  settings?: Partial<Theme.SettingsAndStyles['settings']>
 
   /**
    * WordPress `customTemplates`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
-  customTemplates?: Theme.GlobalSettingsAndStyles['customTemplates']
+  customTemplates?: Theme.SettingsAndStyles['customTemplates']
 
   /**
    * Version of theme.json to use.
@@ -43,17 +43,17 @@ export interface Options {
   /**
    * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
    */
-  styles?: Theme.GlobalSettingsAndStyles['styles']
+  styles?: Theme.SettingsAndStyles['styles']
 
   /**
    * Additional metadata for template parts defined in the parts folder.
    */
-  templateParts?: Theme.GlobalSettingsAndStyles['templateParts']
+  templateParts?: Theme.SettingsAndStyles['templateParts']
 
   /**
    * An array of pattern slugs to be registered from the Pattern Directory.
    */
-  patterns?: Theme.GlobalSettingsAndStyles['patterns']
+  patterns?: Theme.SettingsAndStyles['patterns']
 }
 
 /**
