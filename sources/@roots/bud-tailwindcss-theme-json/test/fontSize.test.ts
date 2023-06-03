@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {fontSize} from './index.js'
+import {fontSize} from '../src/tailwind/index.js'
 
 const mockFontSize: fontSize.TailwindSize = {
   lg: `1.25rem`,

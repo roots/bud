@@ -4,7 +4,7 @@ export interface TailwindFontFamily {
   [key: string]: Array<string> | string
 }
 export type WordPressFonts =
-  Theme.GlobalSettingsAndStyles['settings']['typography']['fontFamilies']
+  Theme.SettingsAndStyles['settings']['typography']['fontFamilies']
 
 /**
  * Make a color name from a color label
