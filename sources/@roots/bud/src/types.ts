@@ -8,14 +8,14 @@
 /// <reference types="@roots/bud-extensions" />
 /// <reference types="@roots/bud-hooks" />
 /// <reference types="@roots/bud-server" />
-/// <reference types="@roots/bud-terser" />
+/// <reference types="@roots/bud-minify" />
 
 import '@roots/bud-api/types'
 import '@roots/bud-build/types'
 import '@roots/bud-cache/types'
 import '@roots/bud-entrypoints/types'
 import '@roots/bud-extensions/types'
-import '@roots/bud-terser/types'
+import '@roots/bud-minify/types'
 
 declare module '@roots/bud-framework' {
   interface Bud {}

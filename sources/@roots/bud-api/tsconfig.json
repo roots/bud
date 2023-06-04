@@ -15,7 +15,7 @@
     {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-support/tsconfig.json"},
-    {"path": "../bud-terser/tsconfig.json"},
+    {"path": "../bud-minify/tsconfig.json"},
     {"path": "../container/tsconfig.json"}
   ]
 }

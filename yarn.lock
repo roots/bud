@@ -7947,8 +7947,8 @@ __metadata:
   dependencies:
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-minify": "workspace:sources/@roots/bud-minify"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
@@ -8163,8 +8163,8 @@ __metadata:
   resolution: "@roots/bud-extensions@workspace:sources/@roots/bud-extensions"
   dependencies:
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-minify": "workspace:sources/@roots/bud-minify"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@roots/container": "workspace:sources/@roots/container"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
@@ -8235,6 +8235,26 @@ __metadata:
     "@types/react-dom": 18.2.4
     react: 18.2.0
     react-dom: 18.2.0
+    tslib: 2.5.0
+    webpack: 5.83.0
+  languageName: unknown
+  linkType: soft
+
+"@roots/bud-minify@workspace:sources/@roots/bud-minify":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-minify@workspace:sources/@roots/bud-minify"
+  dependencies:
+    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
+    "@roots/bud-support": "workspace:sources/@roots/bud-support"
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc"
+    "@skypack/package-check": 0.2.2
+    "@types/node": 18.16.12
+    css-minimizer-webpack-plugin: 5.0.0
+    lightningcss: 1.20.0
+    lightningcss-loader: 2.1.0
+    terser: 5.17.7
+    terser-webpack-plugin: 5.3.9
     tslib: 2.5.0
     webpack: 5.83.0
   languageName: unknown
@@ -8564,9 +8584,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-terser@workspace:sources/@roots/bud-terser":
+"@roots/bud-terser@workspace:sources/deprecated/bud-terser":
   version: 0.0.0-use.local
-  resolution: "@roots/bud-terser@workspace:sources/@roots/bud-terser"
+  resolution: "@roots/bud-terser@workspace:sources/deprecated/bud-terser"
   dependencies:
     "@roots/bud": "workspace:sources/@roots/bud"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
@@ -8697,9 +8717,9 @@ __metadata:
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework"
     "@roots/bud-hooks": "workspace:sources/@roots/bud-hooks"
+    "@roots/bud-minify": "workspace:sources/@roots/bud-minify"
     "@roots/bud-server": "workspace:sources/@roots/bud-server"
     "@roots/bud-support": "workspace:sources/@roots/bud-support"
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.12
     "@types/react": 18.2.6
@@ -15289,9 +15309,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001400, caniuse-lite@npm:^1.0.30001407, caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001464":
-  version: 1.0.30001491
-  resolution: "caniuse-lite@npm:1.0.30001491"
-  checksum: ce8e1343dd2ba058902b58dffa7f3695fd251a7ef51a7f0903ab8e62b32becd9f7f590cbebb3f1966cdfff0c2fc8e7154ac116e0b39730bd2f2e17103f5e6c3b
+  version: 1.0.30001494
+  resolution: "caniuse-lite@npm:1.0.30001494"
+  checksum: 770b742ebba6076da72e94f979ef609bbc855369d1b937c52227935d966b11c3b02baa6511fba04a804802b6eb22af0a2a4a82405963bbb769772530e6be7a8e
   languageName: node
   linkType: hard
 
@@ -17921,6 +17941,15 @@ __metadata:
   version: 7.0.1
   resolution: "detect-indent@npm:7.0.1"
   checksum: cbf3f0b1c3c881934ca94428e1179b26ab2a587e0d719031d37a67fb506d49d067de54ff057cb1e772e75975fed5155c01cd4518306fee60988b1486e3fc7768
+  languageName: node
+  linkType: hard
+
+"detect-libc@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "detect-libc@npm:1.0.3"
+  bin:
+    detect-libc: ./bin/detect-libc.js
+  checksum: daaaed925ffa7889bd91d56e9624e6c8033911bb60f3a50a74a87500680652969dbaab9526d1e200a4c94acf80fc862a22131841145a0a8482d60a99c24f4a3e
   languageName: node
   linkType: hard
 
@@ -24871,6 +24900,109 @@ __metadata:
     process-warning: ^2.0.0
     set-cookie-parser: ^2.4.1
   checksum: 8744ba4a43f19e82b6e51a67d1b0b2b789b96ad54e120bfc1a985cd0c05a2ba136510f2abf23c82e913ab791bcb115e820cdbdeb3a02e1b4d05c670d95d5a8c8
+  languageName: node
+  linkType: hard
+
+"lightningcss-darwin-arm64@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-darwin-arm64@npm:1.20.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"lightningcss-darwin-x64@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-darwin-x64@npm:1.20.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"lightningcss-linux-arm-gnueabihf@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-linux-arm-gnueabihf@npm:1.20.0"
+  conditions: os=linux & cpu=arm
+  languageName: node
+  linkType: hard
+
+"lightningcss-linux-arm64-gnu@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-linux-arm64-gnu@npm:1.20.0"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"lightningcss-linux-arm64-musl@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-linux-arm64-musl@npm:1.20.0"
+  conditions: os=linux & cpu=arm64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"lightningcss-linux-x64-gnu@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-linux-x64-gnu@npm:1.20.0"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"lightningcss-linux-x64-musl@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-linux-x64-musl@npm:1.20.0"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
+"lightningcss-loader@npm:2.1.0":
+  version: 2.1.0
+  resolution: "lightningcss-loader@npm:2.1.0"
+  dependencies:
+    browserslist: ^4.21.4
+    lightningcss: ^1.16.0
+    webpack-sources: ^3.2.3
+  peerDependencies:
+    webpack: ">=5"
+  checksum: 7597fa113d6c7ee43c4280806c72f7cb1d3fe18122df4e170cefbf5c4e7a788cca4ce1a935a3f0f5244c36abb4dcb09de74e3008aaf7ebe1b541c3fd558d1a63
+  languageName: node
+  linkType: hard
+
+"lightningcss-win32-x64-msvc@npm:1.20.0":
+  version: 1.20.0
+  resolution: "lightningcss-win32-x64-msvc@npm:1.20.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"lightningcss@npm:1.20.0, lightningcss@npm:^1.16.0":
+  version: 1.20.0
+  resolution: "lightningcss@npm:1.20.0"
+  dependencies:
+    detect-libc: ^1.0.3
+    lightningcss-darwin-arm64: 1.20.0
+    lightningcss-darwin-x64: 1.20.0
+    lightningcss-linux-arm-gnueabihf: 1.20.0
+    lightningcss-linux-arm64-gnu: 1.20.0
+    lightningcss-linux-arm64-musl: 1.20.0
+    lightningcss-linux-x64-gnu: 1.20.0
+    lightningcss-linux-x64-musl: 1.20.0
+    lightningcss-win32-x64-msvc: 1.20.0
+  dependenciesMeta:
+    lightningcss-darwin-arm64:
+      optional: true
+    lightningcss-darwin-x64:
+      optional: true
+    lightningcss-linux-arm-gnueabihf:
+      optional: true
+    lightningcss-linux-arm64-gnu:
+      optional: true
+    lightningcss-linux-arm64-musl:
+      optional: true
+    lightningcss-linux-x64-gnu:
+      optional: true
+    lightningcss-linux-x64-musl:
+      optional: true
+    lightningcss-win32-x64-msvc:
+      optional: true
+  checksum: 633594543fd297f1f7a10d3472d5e55f65b0d8707254d1d975dc37b36208c6ef4c4d9d0f391f7fb1e7b2547f0c7b06bbc0aa31575ebb16917a2d1ff9cc25183e
   languageName: node
   linkType: hard
 

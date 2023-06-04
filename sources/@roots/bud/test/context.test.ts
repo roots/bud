@@ -29,7 +29,7 @@ describe(`context.get`, () => {
     )
     expect(context.extensions.builtIn).toEqual(
       expect.arrayContaining([
-        `@roots/bud-terser`,
+        `@roots/bud-minify`,
         `@roots/bud-extensions/cdn`,
         `@roots/bud-extensions/esm`,
         `@roots/bud-extensions/fix-style-only-entrypoints`,

@@ -1,7 +1,7 @@
 {
-  "name": "@roots/bud-api",
+  "name": "@roots/bud-minify",
   "version": "0.0.0",
-  "description": "bud.js core module",
+  "description": "CSS and JS minification for bud.js",
   "engines": {
     "node": ">=16"
   },
@@ -27,25 +27,19 @@
     }
   ],
   "license": "MIT",
-  "homepage": "https://roots.io/bud",
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "sources/@roots/bud-api"
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-minify"
   },
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "bud-framework"
+    "bud-extension"
   ],
   "files": [
     "lib",
-    "src",
-    "vendor"
+    "src"
   ],
   "type": "module",
   "exports": {
@@ -53,17 +47,13 @@
       "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
-    "./api": {
-      "import": "./lib/api/index.js",
-      "default": "./lib/api/index.js"
+    "./minify-css": {
+      "import": "./lib/minify-css/index.js",
+      "default": "./lib/minify-css/index.js"
     },
-    "./methods": {
-      "import": "./lib/methods/index.js",
-      "default": "./lib/methods/index.js"
-    },
-    "./methods/*": {
-      "import": "./lib/methods/*.js",
-      "default": "./lib/methods/*.js"
+    "./minify-js": {
+      "import": "./lib/minify-js/index.js",
+      "default": "./lib/minify-js/index.js"
     },
     "./types": {
       "import": "./lib/types.js",
@@ -75,14 +65,11 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "api": [
-        "./lib/api/index.d.ts"
+      "minify-js": [
+        "./lib/minify-js/index.d.ts"
       ],
-      "methods": [
-        "./lib/methods/index.d.ts"
-      ],
-      "methods/*": [
-        "./lib/methods/*.d.ts"
+      "minify-css": [
+        "./lib/minify-css/index.d.ts"
       ],
       "types": [
         "./lib/types.d.ts"
@@ -92,17 +79,19 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
-    "@roots/bud-minify": "workspace:sources/@roots/bud-minify",
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12"
   },
   "dependencies": {
-    "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
+    "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container",
-    "chalk": "5.2.0",
+    "css-minimizer-webpack-plugin": "5.0.0",
+    "lightningcss": "1.20.0",
+    "lightningcss-loader": "2.1.0",
+    "terser": "5.17.7",
+    "terser-webpack-plugin": "5.3.9",
     "tslib": "2.5.0",
     "webpack": "5.83.0"
   },

@@ -55,6 +55,7 @@
       "sources/@roots/*/test/**/*",
       "sources/@roots/*/src/__fixtures__/*",
       "sources/create-bud-app",
+      "sources/deprecated/bud-terser",
       "tests/util/project",
       "tests/reproductions/*"
     ]

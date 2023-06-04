@@ -19,6 +19,7 @@ class BudMinimize extends Extension {
    * JS minimizer configuration
    */
   public js: BudMinimizeJSPublicInterface
+
   /**
    * CSS minimizer configuration
    */

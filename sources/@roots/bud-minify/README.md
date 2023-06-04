@@ -6,47 +6,61 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/bud-terser</strong></h1>
+<h1 align="center"><strong>@roots/bud-minify</strong></h1>
 
 <p align="center">
-  Adds terser support to Bud
+  CSS and JS minification for bud.js
 </p>
 
 ---
 
 ## Installation
 
-Install **@roots/bud-terser** to your project.
+Install **@roots/bud-minify** to your project.
 
 Yarn:
 
 ```sh
-yarn add @roots/bud-terser --dev
+yarn add @roots/bud-minify --dev
 ```
 
 npm:
 
 ```sh
-npm install @roots/bud-terser --save-dev
+npm install @roots/bud-minify --save-dev
 ```
-
-The **@roots/bud-terser** extension is pre-installed and enabled by default for production builds.
 
 ## Options
 
-| Option            | type                                                         | Default                            |
-| :---------------- | :----------------------------------------------------------- | :--------------------------------- |
-| `minify`          | `TerserWebpackPlugin.MinimizerImplementation<TerserOptions>` | `TerserWebpackPlugin.terserMinify` |
-| `include`         | `TerserWebpackPlugin.BasePluginOptions['include']`           | `undefined`                        |
-| `exclude`         | `TerserWebpackPlugin.BasePluginOptions['exclude']`           | `undefined`                        |
-| `extractComments` | `TerserWebpackPlugin.BasePluginOptions['extractComments']`   | `false`                            |
-| `parallel`        | `TerserWebpackPlugin.BasePluginOptions['parallel']`          | `true`                             |
-| `terserOptions`   | `TerserWebpackPlugin.TerserOptions`                          | `[object]`                         |
+## bud.minify.js
+
+| Option            | type                                                | Default     |
+| :---------------- | :-------------------------------------------------- | :---------- |
+| `minify`          | `TerserPlugin.MinimizerImplementation`              | `terser`    |
+| `include`         | `TerserPlugin.BasePluginOptions['include']`         | `undefined` |
+| `exclude`         | `TerserPlugin.BasePluginOptions['exclude']`         | `undefined` |
+| `extractComments` | `TerserPlugin.BasePluginOptions['extractComments']` | `false`     |
+| `parallel`        | `TerserPlugin.BasePluginOptions['parallel']`        | `true`      |
+| `terserOptions`   | `TerserPlugin.TerserOptions`                        | `[object]`  |
 
 - When [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) is installed the swc minifier function will be used.
 - When [@roots/bud-esbuild](https://bud.js.org/extensions/bud-esbuild) is installed the esbuild minifier function will be used.
 
-## API
+## bud.minify.css
+
+| Option             | type                                                       | Default        |
+| :----------------- | :--------------------------------------------------------- | :------------- |
+| `minify`           | `CSSMinimizerPlugin.MinimizerImplementation`               | `lightningcss` |
+| `test`             | `CSSMinimizerPlugin.BasePluginOptions['test']`             | `undefined`    |
+| `include`          | `CSSMinimizerPlugin.BasePluginOptions['include']`          | `undefined`    |
+| `exclude`          | `CSSMinimizerPlugin.BasePluginOptions['exclude']`          | `undefined`    |
+| `parallel`         | `CSSMinimizerPlugin.BasePluginOptions['parallel']`         | `true`         |
+| `minimizerOptions` | `CSSMinimizerPlugin.BasePluginOptions['minimizerOptions']` | `[object]`     |
+
+- When [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) is installed swc is used to minify css.
+- When [@roots/bud-esbuild](https://bud.js.org/extensions/bud-esbuild) is installed esbuild is used to minify css.
+
+## bud.minify.js
 
 ### bud.minify.js.getInclude
 
@@ -141,7 +155,7 @@ bud.minify.js.setTerserOptions((options) => ({
 
 ### bud.minify.js.dropComments
 
-Drop comments from output:
+Remove comments from output:
 
 ```typescript
 export default async (bud) => {
@@ -151,7 +165,7 @@ export default async (bud) => {
 
 ### bud.minify.js.dropConsole
 
-Drop `console.*` statements from output.
+Remove `console.*` statements from output.
 
 ```typescript
 export default async (bud) => {
@@ -167,7 +181,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/bud-terser is licensed under MIT.
+@roots/bud-minify is licensed under MIT.
 
 ## Community
 
