@@ -101,6 +101,9 @@ yarn:
 '@roots/bud-imagemin':
   - sources/@roots/bud-imageminsources/@roots/bud-imagemin/**/*
 
+'@roots/bud-minify':
+  - sources/@roots/bud-minify/**/*
+
 '@roots/bud-mdx':
   - sources/@roots/bud-mdxsources/@roots/bud-mdx/**/*
 
@@ -145,9 +148,6 @@ yarn:
 
 '@roots/bud-tailwindcss-theme-json':
   - sources/@roots/bud-tailwindcss-theme-json/**/*
-
-'@roots/bud-terser':
-  - sources/@roots/bud-terser/**/*
 
 '@roots/bud-typescript':
   - sources/@roots/bud-typescript/**/*

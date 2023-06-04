@@ -1,5 +1,9 @@
 import image from '@src/images/image.jpeg'
 
+if (!document.querySelector(`#root`)) {
+  document.body.innerHTML = `<div id="root"></div>`
+}
+
 const root = document.querySelector<HTMLElement>(`#root`)
 
 root.style.backgroundImage = `url(${image})`

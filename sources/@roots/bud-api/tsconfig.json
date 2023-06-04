@@ -7,9 +7,10 @@
     "strict": true,
     "rootDir": "./src",
     "outDir": "./lib",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-extensions", "@roots/bud-minify"]
   },
-  "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "./**/*.test.ts"],
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.test.ts"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-extensions/tsconfig.json"},

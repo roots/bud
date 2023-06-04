@@ -8252,7 +8252,6 @@ __metadata:
     "@types/node": 18.16.12
     css-minimizer-webpack-plugin: 5.0.0
     lightningcss: 1.20.0
-    lightningcss-loader: 2.1.0
     terser: 5.17.7
     terser-webpack-plugin: 5.3.9
     tslib: 2.5.0
@@ -8474,7 +8473,6 @@ __metadata:
     cookie-parser: 1.4.6
     copy-webpack-plugin: 11.0.0
     css-loader: 6.7.3
-    css-minimizer-webpack-plugin: 5.0.0
     csv-loader: 3.0.5
     dotenv: 16.0.3
     dotenv-expand: 10.0.0
@@ -24952,19 +24950,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lightningcss-loader@npm:2.1.0":
-  version: 2.1.0
-  resolution: "lightningcss-loader@npm:2.1.0"
-  dependencies:
-    browserslist: ^4.21.4
-    lightningcss: ^1.16.0
-    webpack-sources: ^3.2.3
-  peerDependencies:
-    webpack: ">=5"
-  checksum: 7597fa113d6c7ee43c4280806c72f7cb1d3fe18122df4e170cefbf5c4e7a788cca4ce1a935a3f0f5244c36abb4dcb09de74e3008aaf7ebe1b541c3fd558d1a63
-  languageName: node
-  linkType: hard
-
 "lightningcss-win32-x64-msvc@npm:1.20.0":
   version: 1.20.0
   resolution: "lightningcss-win32-x64-msvc@npm:1.20.0"
@@ -24972,7 +24957,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lightningcss@npm:1.20.0, lightningcss@npm:^1.16.0":
+"lightningcss@npm:1.20.0":
   version: 1.20.0
   resolution: "lightningcss@npm:1.20.0"
   dependencies:

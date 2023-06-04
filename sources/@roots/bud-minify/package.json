@@ -89,7 +89,6 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "css-minimizer-webpack-plugin": "5.0.0",
     "lightningcss": "1.20.0",
-    "lightningcss-loader": "2.1.0",
     "terser": "5.17.7",
     "terser-webpack-plugin": "5.3.9",
     "tslib": "2.5.0",

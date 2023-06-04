@@ -4,9 +4,10 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
-      "@scripts/*": ["scripts/*"],
-      "@styles/*": ["styles/*"],
-      "@components/*": ["scripts/components/*"]
+      "@src/*": ["./*"],
+      "@scripts/*": ["./scripts/*"],
+      "@styles/*": ["./styles/*"],
+      "@components/*": ["./scripts/components/*"]
     },
     "types": [
       "node",

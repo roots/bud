@@ -19,22 +19,25 @@ class BudMinimizeJS extends BudMinimizeJSPublicApi {
    */
   @bind
   public override async buildBefore({extensions, hooks}) {
-    const Terser = await import(`terser-webpack-plugin`)
+    const {
+      default: Minimizer,
+      swcMinify,
+      esbuildMinify,
+      terserMinify,
+    } = await import(`terser-webpack-plugin`)
 
-    if (!this.options.minify) {
-      this.setMinify(() =>
-        extensions.has(`@roots/bud-swc`)
-          ? Terser.swcMinify
-          : extensions.has(`@roots/bud-esbuild`)
-          ? Terser.esbuildMinify
-          : Terser.terserMinify,
-      )
-    }
+    if (!this.minify && extensions.has(`@roots/bud-swc`))
+      this.setMinify(() => swcMinify)
 
-    hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      minimizers = [...minimizers, new Terser.default({...this.options})]
-      return minimizers
-    })
+    if (!this.minify && extensions.has(`@roots/bud-esbuild`))
+      this.setMinify(() => esbuildMinify)
+
+    if (!this.minify) this.setMinify(() => terserMinify)
+
+    hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
+      ...minimizers.filter(minimizer => !(minimizer instanceof Minimizer)),
+      new Minimizer({...this.options}),
+    ])
   }
 }
 

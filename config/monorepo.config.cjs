@@ -121,7 +121,7 @@ module.exports = {
       `@roots/bud-stylelint`,
       `@roots/bud-swc`,
       `@roots/bud-tailwindcss`,
-      `@roots/bud-terser`,
+      `@roots/bud-minify`,
       `@roots/bud-typescript`,
       `@roots/bud-vue`,
       `@roots/bud-wordpress-dependencies`,

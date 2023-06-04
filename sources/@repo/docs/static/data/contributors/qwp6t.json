@@ -61,7 +61,7 @@
     "@roots/bud-stylelint",
     "@roots/bud-support",
     "@roots/bud-tailwindcss",
-    "@roots/bud-terser",
+    "@roots/bud-minify",
     "@roots/bud-typescript",
     "@roots/bud-vue",
     "@roots/bud-wordpress-dependencies",

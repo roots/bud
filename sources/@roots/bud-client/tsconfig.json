@@ -2,10 +2,10 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "importHelpers": false,
+    "outDir": "./lib",
     "rootDir": "./src",
     "sourceMap": false,
-    "outDir": "./lib",
-    "verbatimModuleSyntax": true,
+    "target": "ES2021",
   },
   "files": [
     "src/types/index.d.ts"
