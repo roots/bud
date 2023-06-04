@@ -1,56 +1,66 @@
+import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOn,
   expose,
   label,
   production,
 } from '@roots/bud-framework/extension/decorators'
 
-import {type Api, BudTerserConfigApi} from './extension.config.js'
+import type {BudMinimizeCSSPublicInterface} from './css-minimize/index.js'
+import BudMinimizeCSS from './css-minimize/index.js'
+import type {BudMinimizeJSPublicInterface} from './js-minimize/index.js'
+import BudMinimizeJS from './js-minimize/index.js'
 
 /**
- * Terser configuration
+ * Minimizer configuration
  */
 @label(`@roots/bud-terser`)
-@dependsOn([`@roots/bud-terser/css-minimizer`])
-@expose(`terser`)
+@expose(`minify`)
 @production
-class BudTerser extends BudTerserConfigApi {
+class BudMinimize extends Extension {
+  /**
+   * JS minimizer configuration
+   */
+  public js: BudMinimizeJSPublicInterface
+  /**
+   * CSS minimizer configuration
+   */
+  public css: BudMinimizeCSSPublicInterface
+
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register(bud: Bud) {
+    this.js = new BudMinimizeJS(bud)
+    this.css = new BudMinimizeCSS(bud)
+
+    // @ts-ignore
+    await this.js.register(bud)
+    // @ts-ignore
+    await this.css.register(bud)
+
+    /**
+     * @deprecated remove in bud 7
+     */
+    bud.set(`terser`, this.js)
+    bud.set(`minimizeCss`, this.css)
+  }
+
   /**
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore({extensions, hooks}) {
-    if (!this.enabled) {
-      this.logger.info(`minimizer disabled. skipping terser config.`)
-      return
-    }
+  public override async buildBefore(bud: Bud) {
+    // @ts-ignore
+    await this.js.buildBefore(bud)
+    // @ts-ignore
+    await this.css.buildBefore(bud)
 
-    const Terser = await import(`terser-webpack-plugin`)
-
-    if (extensions.has(`@roots/bud-swc`)) {
-      const minifier = Terser.swcMinify
-      this.setMinify(() => minifier)
-    } else if (extensions.has(`@roots/bud-esbuild`)) {
-      const minifier = Terser.esbuildMinify
-      this.setMinify(() => minifier)
-    } else {
-      const minifier = Terser.terserMinify
-      this.setMinify(() => minifier)
-    }
-
-    hooks.on(`build.optimization.minimizer`, (minimizers = []) => {
-      minimizers = [
-        ...minimizers.filter(
-          minimizer => !(minimizer instanceof Terser.default),
-        ),
-        new Terser.default(this.options),
-      ]
-      this.logger.success(`terser added to minimizers`, minimizers)
-      return minimizers
-    })
+    bud.hooks.on(`build.optimization.minimize`, () => true)
   }
 }
 
-export {BudTerser, type Api}
+export default BudMinimize
+export type {BudMinimize}

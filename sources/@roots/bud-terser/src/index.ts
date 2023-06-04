@@ -10,6 +10,6 @@
 
 import './types.js'
 
-import {BudTerser} from './extension.js'
+import BudMinimize from './extension.js'
 
-export default BudTerser
+export default BudMinimize

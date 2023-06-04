@@ -30,19 +30,128 @@ npm:
 npm install @roots/bud-terser --save-dev
 ```
 
-The extension requires zero configuration, but you can customize its options if needed.
+The @roots/bud-terser extension is included in the bud.js framework and is enabled by default for production builds.
 
-Here are some configuration examples for different use cases:
+## Options
 
-### Remove console.log statements and comments from the production build
+| Option            | type                                                         | Default                                       |
+| :---------------- | :----------------------------------------------------------- | :-------------------------------------------- |
+| `minify`          | `TerserWebpackPlugin.MinimizerImplementation<TerserOptions>` | `TerserWebpackPlugin.terserMinify` (see note) |
+| `include`         | `TerserWebpackPlugin.BasePluginOptions['include']`           | `undefined`                                   |
+| `exclude`         | `TerserWebpackPlugin.BasePluginOptions['exclude']`           | `undefined`                                   |
+| `extractComments` | `TerserWebpackPlugin.BasePluginOptions['extractComments']`   | `false`                                       |
+| `parallel`        | `TerserWebpackPlugin.BasePluginOptions['parallel']`          | `true`                                        |
+| `terserOptions`   | `TerserWebpackPlugin.TerserOptions`                          | `[object]`                                    |
 
-```typescript
-export default async (bud) => {
-  bud.terser.dropConsole().dropComments();
-};
+### Notes
+
+- When [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) is installed the swc minifier function will be used.
+- When [@roots/bud-esbuild](https://bud.js.org/extensions/bud-esbuild) is installed the esbuild minifier function will be used.
+
+### bud.terser.getInclude
+
+Get the value of `include`
+
+```ts
+bud.terser.getInclude();
 ```
 
-### Keep comments in the minified output
+### bud.terser.setInclude
+
+Set the value of `include`
+
+```ts
+bud.terser.setInclude(/.*/);
+```
+
+### bud.terser.getExclude
+
+Get the value of `exclude`
+
+```ts
+bud.terser.getExclude();
+```
+
+### bud.terser.setExclude
+
+Set the value of `exclude`
+
+```ts
+bud.terser.setExclude(/.*/);
+```
+
+### bud.terser.getMinify
+
+Get the value of `minify`.
+
+```ts
+bud.terser.getMinify();
+```
+
+### bud.terser.setMinify
+
+Set the value of `minify`. Since the value is a function you must wrap it in a callback.
+
+```ts
+const dubiousMinifier = async (input: unknown) => ({
+  code: Object.values(input).join(`\n`).replace(/\/\//g, `// 🤷🏼‍♂️`),
+});
+
+bud.terser.setMinify(() => dubiousMinifier);
+```
+
+### bud.terser.getParallel
+
+Get the value of `parallel`.
+
+```ts
+bud.terser.getParallel();
+```
+
+### bud.terser.setParallel
+
+Set the value of `parallel`.
+
+```ts
+bud.terser.setParallel(true);
+```
+
+### bud.terser.getExtractComments
+
+Get the value of `extractComments`.
+
+```ts
+bud.terser.getExtractComments();
+```
+
+### bud.terser.setExtractComments
+
+Set the value of `extractComments`.
+
+```ts
+bud.terser.setExtractComments(true);
+```
+
+### bud.terser.getTerserOptions
+
+Get the value of `terserOptions`.
+
+```ts
+bud.terser.getTerserOptions();
+```
+
+### bud.terser.setTerserOptions
+
+Set the value of `terserOptions`.
+
+```ts
+bud.terser.setTerserOptions((options) => ({
+  ...options,
+  mangle: false,
+}));
+```
+
+### bud.terser.dropComments
 
 ```typescript
 export default async (bud) => {
@@ -50,39 +159,13 @@ export default async (bud) => {
 };
 ```
 
-### Disable mangling of variable names
+### bud.terser.dropConsole
 
 ```typescript
 export default async (bud) => {
-  bud.terser.set("terserOptions.mangle", false);
+  bud.terser.dropConsole().dropComments();
 };
 ```
-
-### Customize compression options
-
-```typescript
-export default async (bud) => {
-  bud.terser.set("terserOptions.compress", {
-    drop_console: true,
-    drop_debugger: false,
-    defaults: true,
-    unused: true,
-  });
-};
-```
-
-### Use a custom regular expression for inclusion/exclusion of files
-
-```typescript
-export default async (bud) => {
-  bud.terser.set("include", /src\/js\/.*\.js$/);
-  bud.terser.set("exclude", /node_modules/);
-};
-```
-
-To apply any of these configurations, add the respective code snippet to your bud.config.js file.
-
-The @roots/bud-terser extension is included in the bud.js framework and is enabled by default for production builds.
 
 ## Contributing
 

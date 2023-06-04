@@ -102,7 +102,7 @@ export type StrictPublicExtensionApi<Context, Opts extends Options> = {
   ) => Context
   getOptions: () => Opts
   setOptions: (O: Partial<InternalOptionsValues<Opts>>) => Context
-  enable: () => Context
+  enable: (boolean?: boolean) => Context
 } & WithOptions<Context, Opts>
 
 export type PublicExtensionApi<E extends Extension = Extension> = {
@@ -497,7 +497,7 @@ export class Extension<
    * Enable extension
    */
   @bind
-  public enable(enabled = true) {
+  public enable(enabled: boolean = true) {
     this.enabled = enabled
     return this
   }

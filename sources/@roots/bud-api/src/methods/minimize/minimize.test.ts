@@ -1,54 +1,71 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {minimize as minimizeFn} from './index.js'
 
 describe(`bud.minimize`, () => {
-  let bud
-  let minimize
+  let bud: Bud
+  let minimize: minimizeFn
 
   beforeEach(async () => {
     bud = await factory()
     minimize = minimizeFn.bind(bud)
   })
 
-  it(`should call bud.hooks.on when called`, () => {
-    const onSpy = vi.spyOn(bud.hooks, `on`)
-    minimize()
-    expect(onSpy).toHaveBeenCalled()
+  it(`should enable minimizers when called with truthy value`, () => {
+    const spies = [
+      vi.spyOn(bud.minify.css, `enable`),
+      vi.spyOn(bud.minify.js, `enable`),
+      vi.spyOn(bud.minify, `enable`),
+    ]
+    const value = true
+
+    minimize(value)
+
+    spies.map(spy => expect(spy).toHaveBeenCalledWith(value))
   })
 
-  it(`should call mockExtension.enable when called with truthy value`, () => {
-    const terser = bud.extensions.get(`@roots/bud-terser`)
-    const enableSpy = vi.spyOn(terser, `enable`)
-    minimize(true)
-    expect(enableSpy).toHaveBeenCalled()
+  it(`should disable minimizers when called with falsy value`, () => {
+    const spies = [
+      vi.spyOn(bud.minify.css, `enable`),
+      vi.spyOn(bud.minify.js, `enable`),
+      vi.spyOn(bud.minify, `enable`),
+    ]
+    const value = false
+
+    minimize(value)
+
+    spies.map(spy => expect(spy).toHaveBeenCalledWith(value))
   })
 
-  it(`should call mockExtension.enable when called with falsy value`, () => {
-    const terser = bud.extensions.get(`@roots/bud-terser`)
-    const enableSpy = vi.spyOn(terser, `enable`)
-    minimize(false)
-    expect(enableSpy).toHaveBeenCalledWith(false)
+  it(`should enable a specific minimizer when called with a key`, () => {
+    const spies = [
+      vi.spyOn(bud.minify.css, `enable`),
+      vi.spyOn(bud.minify.js, `enable`),
+      vi.spyOn(bud.minify, `enable`),
+    ]
+    const value = `css`
+
+    minimize(value)
+
+    expect(spies.pop()).toHaveBeenCalledWith(true)
+    expect(spies.pop()).not.toHaveBeenCalled()
+    expect(spies.pop()).toHaveBeenCalledWith(true)
   })
 
-  it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
-    minimize()
-    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
-  })
+  it(`should enable a specific minimizer when called with an array of keys`, () => {
+    const spies = [
+      vi.spyOn(bud.minify.css, `enable`),
+      vi.spyOn(bud.minify.js, `enable`),
+      vi.spyOn(bud.minify, `enable`),
+    ]
+    const value: [`js`] = [`js`]
 
-  it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
-    minimize(true)
-    expect(logSpy).toHaveBeenCalledWith(`minimize`, true)
-  })
+    minimize(value)
 
-  it(`should call bud.success to log param`, () => {
-    const logSpy = vi.spyOn(bud, `success`)
-
-    minimize(false)
-    expect(logSpy).toHaveBeenCalledWith(`minimize`, false)
+    expect(spies.pop()).toHaveBeenCalledWith(true)
+    expect(spies.pop()).toHaveBeenCalledWith(true)
+    expect(spies.pop()).not.toHaveBeenCalled()
   })
 
   it(`should return bud`, () => {

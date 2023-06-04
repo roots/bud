@@ -15,63 +15,67 @@ describe(`@roots/bud-terser`, () => {
   })
 
   it(`has label prop`, () => {
-    expect(bud.terser.label).toBe(`@roots/bud-terser`)
+    expect(bud.minify.label).toBe(`@roots/bud-terser`)
   })
 
   it(`has options prop`, () => {
-    expect(bud.terser.options).toStrictEqual({
+    expect(bud.minify.js.options).toStrictEqual({
       extractComments: false,
       parallel: true,
       terserOptions: {
         compress: {
+          defaults: true,
           drop_console: false,
           drop_debugger: true,
-          defaults: true,
           unused: true,
         },
+        ecma: undefined,
+        enclose: undefined,
         format: {
           ascii_only: true,
           comments: false,
         },
+        ie8: undefined,
+        keep_classnames: undefined,
+        keep_fnames: undefined,
         mangle: {
           safari10: true,
         },
+        module: undefined,
+        nameCache: undefined,
+        parse: undefined,
+        safari10: undefined,
+        sourceMap: undefined,
+        toplevel: undefined,
       },
     })
   })
 
-  it(`exposes self @ bud.terser`, async () => {
-    expect(bud.terser).toBeInstanceOf(Extension)
+  it(`exposes bud.minify.js`, async () => {
+    expect(bud.minify.js).toBeInstanceOf(Extension)
   })
 
-  it(`bud.terser.comments`, async () => {
-    bud.terser.comments(true)
-    expect(bud.terser.options.terserOptions.format.comments).toBe(true)
+  it(`bud.minify.js.dropComments`, async () => {
+    bud.minify.js.dropComments()
+    expect(bud.minify.js.options.terserOptions.format.comments).toBe(false)
   })
 
-  it(`bud.terser.dropComments`, async () => {
-    bud.terser.dropComments()
-    expect(bud.terser.options.terserOptions.format.comments).toBe(false)
+  it(`bud.minify.js.dropDebugger`, async () => {
+    bud.minify.js.dropDebugger()
+    expect(bud.minify.js.terserOptions.compress.drop_debugger).toBe(true)
   })
 
-  it(`bud.terser.dropDebugger`, async () => {
-    bud.terser.dropDebugger()
-    expect(bud.terser.options.terserOptions.compress.drop_debugger).toBe(
+  it(`bud.minify.js.dropConsole`, async () => {
+    bud.minify.js.dropConsole()
+    expect(bud.minify.js.options.terserOptions.compress.drop_console).toBe(
       true,
     )
   })
 
-  it(`bud.terser.dropConsole`, async () => {
-    bud.terser.dropConsole()
-    expect(bud.terser.options.terserOptions.compress.drop_console).toBe(
-      true,
-    )
-  })
-
-  it(`bud.terser.mangle`, async () => {
-    bud.terser.mangle({topLevel: true})
-    expect(bud.terser.options.terserOptions.mangle).toStrictEqual({
-      topLevel: true,
+  it(`bud.minify.js.mangle`, async () => {
+    bud.minify.js.mangle({toplevel: true})
+    expect(bud.minify.js.options.terserOptions.mangle).toStrictEqual({
+      toplevel: true,
     })
   })
 })
