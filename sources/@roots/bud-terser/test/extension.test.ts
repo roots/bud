@@ -2,15 +2,17 @@ import {type Bud, factory} from '@repo/test-kit/bud'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-import BudMinimize from '../src/index.js'
+import BudMinimize from '@roots/bud-terser'
 
 describe(`@roots/bud-terser`, () => {
   let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()
-    // @ts-ignore
+
+    // @ts-ignore dangerously reset extension repo
     bud.extensions.repository = {}
+
     await bud.extensions.add(BudMinimize)
   })
 
@@ -20,6 +22,7 @@ describe(`@roots/bud-terser`, () => {
 
   it(`has options prop`, () => {
     expect(bud.minify.js.options).toStrictEqual({
+      minify: expect.any(Function),
       extractComments: false,
       parallel: true,
       terserOptions: {

@@ -13,3 +13,4 @@ import './types.js'
 import BudMinimize from './extension.js'
 
 export default BudMinimize
+export type {BudMinimize}

@@ -1,16 +1,12 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  expose,
-  label,
-  production,
-} from '@roots/bud-framework/extension/decorators'
-
-import type {BudMinimizeCSSPublicInterface} from './css-minimize/index.js'
-import BudMinimizeCSS from './css-minimize/index.js'
-import type {BudMinimizeJSPublicInterface} from './js-minimize/index.js'
-import BudMinimizeJS from './js-minimize/index.js'
+import {expose} from '@roots/bud-framework/extension/decorators/expose'
+import {label} from '@roots/bud-framework/extension/decorators/label'
+import {production} from '@roots/bud-framework/extension/decorators/production'
+import {bind} from '@roots/bud-support/decorators/bind'
+import type {BudMinimizeCSSPublicInterface} from '@roots/bud-terser/css-minimize'
+import BudMinimizeCSS from '@roots/bud-terser/css-minimize'
+import type {BudMinimizeJSPublicInterface} from '@roots/bud-terser/js-minimize'
+import BudMinimizeJS from '@roots/bud-terser/js-minimize'
 
 /**
  * Minimizer configuration
@@ -32,7 +28,7 @@ class BudMinimize extends Extension {
    * {@link Extension.register}
    */
   @bind
-  public override async register(bud: Bud) {
+  public override async register(bud) {
     this.js = new BudMinimizeJS(bud)
     this.css = new BudMinimizeCSS(bud)
 
@@ -52,7 +48,7 @@ class BudMinimize extends Extension {
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async buildBefore(bud) {
     // @ts-ignore
     await this.js.buildBefore(bud)
     // @ts-ignore

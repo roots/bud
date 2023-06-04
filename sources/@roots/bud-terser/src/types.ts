@@ -1,26 +1,24 @@
+import type {BudMinimize} from '@roots/bud-terser'
 import type {
   BudMinimizeCSS,
   BudMinimizeCSSPublicInterface,
-} from './css-minimize/index.js'
-import type {BudMinimize} from './extension.js'
+} from '@roots/bud-terser/css-minimize'
 import type {
   BudMinimizeJS,
   BudMinimizeJSPublicInterface,
-} from './js-minimize/index.js'
+} from '@roots/bud-terser/js-minimize'
 
 declare module '@roots/bud-framework' {
   interface Bud {
     minify: BudMinimize
-
-    /**
-     * @deprecated Use {@link Bud.minify} instead.
-     */
-    terser: BudMinimizeJSPublicInterface
-
     /**
      * @deprecated Use {@link Bud.minify} instead.
      */
     minimizeCss: BudMinimizeCSSPublicInterface
+    /**
+     * @deprecated Use {@link Bud.minify} instead.
+     */
+    terser: BudMinimizeJSPublicInterface
   }
 }
 

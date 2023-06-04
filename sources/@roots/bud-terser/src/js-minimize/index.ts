@@ -1,9 +1,7 @@
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  label,
-  production,
-} from '@roots/bud-framework/extension/decorators'
+import {label} from '@roots/bud-framework/extension/decorators/label'
+import {production} from '@roots/bud-framework/extension/decorators/production'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 import {
   BudMinimizeJSPublicApi,

@@ -1,10 +1,7 @@
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  label,
-  production,
-} from '@roots/bud-framework/extension/decorators'
+import {label} from '@roots/bud-framework/extension/decorators/label'
+import {production} from '@roots/bud-framework/extension/decorators/production'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 import {
   type BudMinimizeCSSOptions,
@@ -13,7 +10,7 @@ import {
 } from './extension.config.js'
 
 /**
- * Terser css minimizer configuration
+ * Css minimizer
  */
 @label(`@roots/bud-terser/css-minimize`)
 @production
@@ -22,7 +19,7 @@ class BudMinimizeCSS extends BudMinimizeCSSPublicApi {
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore({hooks}: Bud) {
+  public override async buildBefore({hooks}) {
     const {Plugin} = await import(
       `@roots/bud-support/css-minimizer-webpack-plugin`
     )

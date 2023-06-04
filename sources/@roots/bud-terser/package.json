@@ -48,13 +48,13 @@
       "import": "./lib/index.js",
       "default": "./lib/index.js"
     },
-    "./bud/commands": {
-      "import": "./lib/bud/commands/index.js",
-      "default": "./lib/bud/commands/index.js"
+    "./css-minimize": {
+      "import": "./lib/css-minimize/index.js",
+      "default": "./lib/css-minimize/index.js"
     },
-    "./css-minimizer": {
-      "import": "./lib/css-minimizer/index.js",
-      "default": "./lib/css-minimizer/index.js"
+    "./js-minimize": {
+      "import": "./lib/js-minimize/index.js",
+      "default": "./lib/js-minimize/index.js"
     },
     "./types": {
       "import": "./lib/types.js",
@@ -66,8 +66,11 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "css-minimizer": [
-        "./lib/css-minimizer/index.d.ts"
+      "js-minimize": [
+        "./lib/js-minimize/index.d.ts"
+      ],
+      "css-minimize": [
+        "./lib/css-minimize/index.d.ts"
       ],
       "types": [
         "./lib/types.d.ts"
