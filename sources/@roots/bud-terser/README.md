@@ -30,140 +30,132 @@ npm:
 npm install @roots/bud-terser --save-dev
 ```
 
-The @roots/bud-terser extension is included in the bud.js framework and is enabled by default for production builds.
+The **@roots/bud-terser** extension is pre-installed and enabled by default for production builds.
 
 ## Options
 
-| Option            | type                                                         | Default                                       |
-| :---------------- | :----------------------------------------------------------- | :-------------------------------------------- |
-| `minify`          | `TerserWebpackPlugin.MinimizerImplementation<TerserOptions>` | `TerserWebpackPlugin.terserMinify` (see note) |
-| `include`         | `TerserWebpackPlugin.BasePluginOptions['include']`           | `undefined`                                   |
-| `exclude`         | `TerserWebpackPlugin.BasePluginOptions['exclude']`           | `undefined`                                   |
-| `extractComments` | `TerserWebpackPlugin.BasePluginOptions['extractComments']`   | `false`                                       |
-| `parallel`        | `TerserWebpackPlugin.BasePluginOptions['parallel']`          | `true`                                        |
-| `terserOptions`   | `TerserWebpackPlugin.TerserOptions`                          | `[object]`                                    |
-
-### Notes
+| Option            | type                                                         | Default                            |
+| :---------------- | :----------------------------------------------------------- | :--------------------------------- |
+| `minify`          | `TerserWebpackPlugin.MinimizerImplementation<TerserOptions>` | `TerserWebpackPlugin.terserMinify` |
+| `include`         | `TerserWebpackPlugin.BasePluginOptions['include']`           | `undefined`                        |
+| `exclude`         | `TerserWebpackPlugin.BasePluginOptions['exclude']`           | `undefined`                        |
+| `extractComments` | `TerserWebpackPlugin.BasePluginOptions['extractComments']`   | `false`                            |
+| `parallel`        | `TerserWebpackPlugin.BasePluginOptions['parallel']`          | `true`                             |
+| `terserOptions`   | `TerserWebpackPlugin.TerserOptions`                          | `[object]`                         |
 
 - When [@roots/bud-swc](https://bud.js.org/extensions/bud-swc) is installed the swc minifier function will be used.
 - When [@roots/bud-esbuild](https://bud.js.org/extensions/bud-esbuild) is installed the esbuild minifier function will be used.
 
-### bud.terser.getInclude
+## API
+
+### bud.minify.js.getInclude
 
 Get the value of `include`
 
 ```ts
-bud.terser.getInclude();
+bud.minify.js.getInclude();
 ```
-
-### bud.terser.setInclude
 
 Set the value of `include`
 
 ```ts
-bud.terser.setInclude(/.*/);
+bud.minify.js.setInclude(/.*/);
 ```
 
-### bud.terser.getExclude
+### bud.minify.js.exclude
 
 Get the value of `exclude`
 
 ```ts
-bud.terser.getExclude();
+bud.minify.js.getExclude();
 ```
-
-### bud.terser.setExclude
 
 Set the value of `exclude`
 
 ```ts
-bud.terser.setExclude(/.*/);
+bud.minify.js.setExclude(/.*/);
 ```
 
-### bud.terser.getMinify
+### bud.minify.js.minify
 
 Get the value of `minify`.
 
 ```ts
-bud.terser.getMinify();
+bud.minify.js.getMinify();
 ```
-
-### bud.terser.setMinify
 
 Set the value of `minify`. Since the value is a function you must wrap it in a callback.
 
 ```ts
 const dubiousMinifier = async (input: unknown) => ({
-  code: Object.values(input).join(`\n`).replace(/\/\//g, `// 🤷🏼‍♂️`),
+  code: Object.values(input).join(`\n`).replace(/\/\//g, `// 💸`),
 });
 
-bud.terser.setMinify(() => dubiousMinifier);
+bud.minify.js.setMinify(() => dubiousMinifier);
 ```
 
-### bud.terser.getParallel
+### bud.minify.js.parallel
 
 Get the value of `parallel`.
 
 ```ts
-bud.terser.getParallel();
+bud.minify.js.getParallel();
 ```
-
-### bud.terser.setParallel
 
 Set the value of `parallel`.
 
 ```ts
-bud.terser.setParallel(true);
+bud.minify.js.setParallel(true);
 ```
 
-### bud.terser.getExtractComments
+### bud.minify.js.extractComments
 
 Get the value of `extractComments`.
 
 ```ts
-bud.terser.getExtractComments();
+bud.minify.js.getExtractComments();
 ```
-
-### bud.terser.setExtractComments
 
 Set the value of `extractComments`.
 
 ```ts
-bud.terser.setExtractComments(true);
+bud.minify.js.setExtractComments(true);
 ```
 
-### bud.terser.getTerserOptions
+### bud.minify.js.terserOptions
 
 Get the value of `terserOptions`.
 
 ```ts
-bud.terser.getTerserOptions();
+bud.minify.js.getTerserOptions();
 ```
-
-### bud.terser.setTerserOptions
 
 Set the value of `terserOptions`.
 
 ```ts
-bud.terser.setTerserOptions((options) => ({
+bud.minify.js.setTerserOptions((options) => ({
   ...options,
   mangle: false,
 }));
 ```
 
-### bud.terser.dropComments
+### bud.minify.js.dropComments
+
+Drop comments from output:
 
 ```typescript
 export default async (bud) => {
-  bud.terser.dropComments(false);
+  bud.minify.js.dropComments();
 };
 ```
 
-### bud.terser.dropConsole
+### bud.minify.js.dropConsole
+
+Drop `console.*` statements from output.
 
 ```typescript
 export default async (bud) => {
-  bud.terser.dropConsole().dropComments();
+  bud.minify.js.dropConsole();
 };
 ```
 
