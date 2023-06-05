@@ -19,7 +19,7 @@ export const experiments: experiments = function (
   if (params.length === 1) {
     this.hooks.on(`build.experiments`, (experiments = {}) => ({
       ...experiments,
-      ...params,
+      ...params[0],
     }))
   } else if (typeof params[0] === `string`) {
     this.hooks.on(`build.experiments`, (experiments = {}) => ({
