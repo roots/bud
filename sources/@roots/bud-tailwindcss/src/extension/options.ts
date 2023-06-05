@@ -97,19 +97,16 @@ class BudTailwindOptionsApi
         !this.configPath && this.setConfigPath(foundConfig.path)
         this.setConfig({...foundConfig.module})
       }
-      this.setResolvedConfig(this.resolveConfig())
-    } catch (err) {
-      this.setConfig(undefined)
-      this.setResolvedConfig(undefined)
-    }
+      this.resolveConfig()
+    } catch (err) {}
   }
 
   @bind
   public resolveConfig() {
     this.logger.time(`resolve config`)
-    const resolvedConfig = {...resolveConfig({...this.config})}
+    this.setResolvedConfig({...resolveConfig({...this.config})})
     this.logger.timeEnd(`resolve config`)
-    return resolvedConfig
+    return this.resolvedConfig
   }
 
   /**
@@ -208,18 +205,18 @@ class BudTailwindOptionsApi
 
   @bind
   public getTheme<K extends keyof ThemeConfig & string>(key?: K) {
-    return key
-      ? this.resolvedConfig?.theme?.[key]
-      : this.resolvedConfig?.theme
+    return key ? this.config.theme?.[key] : this.config.theme
   }
 
   @bind
   public setTheme<
     K extends `${keyof ThemeConfig & string}` | undefined,
-    V extends ThemeConfig | ((theme: ThemeConfig) => ThemeConfig),
+    V extends
+      | Partial<ThemeConfig>
+      | ((theme: Partial<ThemeConfig>) => Partial<ThemeConfig>),
     VK extends
-      | ThemeConfig[K]
-      | ((theme: ThemeConfig[K]) => ThemeConfig[K]),
+      | Partial<ThemeConfig>[K]
+      | ((theme: Partial<ThemeConfig>[K]) => Partial<ThemeConfig>[K]),
   >(...params: [V] | [K, VK]) {
     if (params.length === 1) {
       const [value] = params
@@ -227,6 +224,7 @@ class BudTailwindOptionsApi
         ...config,
         theme: {...(config.theme ?? {}), ...value},
       }))
+      this.resolveConfig()
       return this
     }
 
@@ -235,6 +233,7 @@ class BudTailwindOptionsApi
       ...config,
       theme: {...(config.theme ?? {}), [key]: value},
     }))
+    this.resolveConfig()
     return this
   }
 
@@ -242,7 +241,7 @@ class BudTailwindOptionsApi
   public extendTheme<
     K extends `${keyof ThemeConfig & string}` | undefined,
     V extends Partial<ThemeConfig>,
-    VK extends ThemeConfig[K],
+    VK extends Partial<ThemeConfig>[K],
   >(...params: [V] | [K, VK]) {
     if (params.length === 1) {
       const [value] = params
@@ -253,7 +252,7 @@ class BudTailwindOptionsApi
           extend: {...(config.theme?.extend ?? {}), ...value},
         },
       }))
-      this.setResolvedConfig(this.resolveConfig())
+      this.resolveConfig()
       return this
     }
 
@@ -265,7 +264,7 @@ class BudTailwindOptionsApi
         extend: {...(config.theme?.extend ?? {}), [key]: value},
       },
     }))
-    this.setResolvedConfig(this.resolveConfig())
+    this.resolveConfig()
     return this
   }
 
@@ -280,7 +279,7 @@ class BudTailwindOptionsApi
       ...config,
       plugins,
     }))
-    this.setResolvedConfig(this.resolveConfig())
+    this.resolveConfig()
     return this
   }
 
@@ -291,10 +290,7 @@ class BudTailwindOptionsApi
 
   @bind
   public setContent(content: Config[`content`]) {
-    this.setConfig((config = {content: []}) => ({
-      ...config,
-      content,
-    }))
+    this.setConfig((config = {content: []}) => ({...config, content}))
     return this
   }
 }
