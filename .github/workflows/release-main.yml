@@ -22,14 +22,11 @@ jobs:
 
       - run: yarn
 
-      - run: |
-          yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
+      - run: yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
-      - run: |
-          yarn @bud release --tag latest --version ${{ github.event.inputs.version }} --registry https://registry.npmjs.org
+      - run: yarn @bud release --tag latest --version ${{ github.event.inputs.version }} --registry https://registry.npmjs.org
 
-      - run: |
-          yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
+      - run: yarn config set npmAuthToken "${NPM_AUTH_TOKEN:-fallback}"
 
       - run: |
           git config user.name "Roots Ladybud"
