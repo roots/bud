@@ -19,7 +19,6 @@ import {
   duration,
   longestAssetNameLength,
 } from '../format.js'
-import Messages from '../messages/messages.component.js'
 
 interface Props {
   displayAssets: boolean
@@ -106,20 +105,6 @@ const Compilation = ({
       {!compilation.isChild ? (
         <>
           <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
-
-          <Messages
-            type="error"
-            color={color.red}
-            messages={compilation.errors}
-            figure={figures.cross}
-          />
-
-          <Messages
-            type="warning"
-            color={color.yellow}
-            messages={compilation.warnings}
-            figure={figures.warning}
-          />
 
           <Ink.Box flexDirection="column">
             {entrypoints.some(({assets}) => assets?.length > 0) ? (

@@ -20,7 +20,7 @@ declare module '@roots/bud-framework' {
     cdn: Modules[`@roots/bud-extensions/cdn`]
     esm: Modules[`@roots/bud-extensions/esm`]
     manifest: PublicExtensionApi<WebpackManifestPlugin>
-    tsconfig: PublicExtensionApi
+    tsconfig: BudTsConfigValues
   }
 
   interface Modules {

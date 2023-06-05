@@ -4,5 +4,6 @@ exports[`examples/vue-typescript > should compile js and css as expected 1`] = `
 {
   "main.css": "css/main.css",
   "main.js": "js/main.js",
+  "runtime.js": "js/runtime.js",
 }
 `;

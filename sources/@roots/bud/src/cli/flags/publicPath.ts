@@ -1,6 +1,6 @@
 import {Option} from '@roots/bud-support/clipanion'
 
-export default Option.String(`--output,-o,--@dist,--dist`, undefined, {
-  description: `Distribution directory (relative to project)`,
+export default Option.String(`--publicPath`, undefined, {
+  description: `Public path to serve assets from`,
   env: `APP_PATH_OUTPUT`,
 })

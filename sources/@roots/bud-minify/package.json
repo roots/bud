@@ -1,0 +1,100 @@
+{
+  "name": "@roots/bud-minify",
+  "version": "0.0.0",
+  "description": "CSS and JS minification for bud.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Ben Word",
+      "email": "ben@benword.com",
+      "url": "https://github.com/retlehs"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "Brandon",
+      "email": "brandon@tendency.me",
+      "url": "https://github.com/Log1x"
+    }
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "sources/@roots/bud-minify"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "bud-extension"
+  ],
+  "files": [
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "default": "./lib/index.js"
+    },
+    "./minify-css": {
+      "import": "./lib/minify-css/index.js",
+      "default": "./lib/minify-css/index.js"
+    },
+    "./minify-js": {
+      "import": "./lib/minify-js/index.js",
+      "default": "./lib/minify-js/index.js"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "minify-js": [
+        "./lib/minify-js/index.d.ts"
+      ],
+      "minify-css": [
+        "./lib/minify-css/index.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.16.12"
+  },
+  "dependencies": {
+    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "css-minimizer-webpack-plugin": "5.0.0",
+    "lightningcss": "1.20.0",
+    "terser": "5.17.7",
+    "terser-webpack-plugin": "5.3.9",
+    "tslib": "2.5.0",
+    "webpack": "5.83.0"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

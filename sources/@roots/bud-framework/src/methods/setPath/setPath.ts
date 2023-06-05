@@ -93,5 +93,10 @@ const makeCallback =
       .log(`${key} set to ${normal}`)
       .info({key, value, normal})
 
+    bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
+      ...paths,
+      [key]: isAbsolute(value) ? value : bud.path(value),
+    }))
+
     return bud
   }

@@ -35,61 +35,9 @@ describe(`@roots/bud-postcss`, () => {
     await bud.extensions.add(BudPostCss)
     resetPlugins(bud)
 
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
+    bud.postcss.setPlugins({bang: [`bop`]})
 
     expect(bud.postcss.get(`plugins.bang`)).toStrictEqual([`bop`])
-  })
-
-  it(`getPluginOptions`, async () => {
-    const bud = await factory()
-
-    await bud.extensions.add(BudPostCss)
-    resetPlugins(bud)
-
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
-
-    const options = bud.postcss.getPluginOptions(`bang`)
-    expect(options).toStrictEqual({})
-  })
-
-  it(`should have functioning setPluginOptions method`, async () => {
-    const bud = await factory()
-
-    await bud.extensions.add(BudPostCss)
-    resetPlugins(bud)
-
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
-
-    bud.postcss.setPluginOptions(`bang`, {})
-    expect(bud.postcss.get(`plugins.bang`)).toStrictEqual([`bop`, {}])
-  })
-
-  it(`setPluginOptions (callback)`, async () => {
-    const bud = await factory()
-
-    await bud.extensions.add(BudPostCss)
-    resetPlugins(bud)
-
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
-    bud.postcss.setPluginOptions(`bang`, {foo: `bar`})
-
-    bud.postcss.setPluginOptions(`bang`, options => {
-      expect(options).toStrictEqual({foo: `bar`})
-      return options
-    })
-  })
-
-  it(`getPluginPath`, async () => {
-    const bud = await factory()
-
-    await bud.extensions.add(BudPostCss)
-    resetPlugins(bud)
-
-    bud.postcss.setPlugins(new Map([[`bang`, [`setPluginPath test`]]]))
-
-    expect(bud.postcss.getPluginPath(`bang`)).toStrictEqual(
-      `setPluginPath test`,
-    )
   })
 
   it(`setPluginPath`, async () => {
@@ -98,7 +46,7 @@ describe(`@roots/bud-postcss`, () => {
     await bud.extensions.add(BudPostCss)
     resetPlugins(bud)
 
-    bud.postcss.setPlugins(new Map([[`bang`, [`bop`]]]))
+    bud.postcss.setPlugins({bang: [`bop`]})
     bud.postcss.setPluginPath(`bang`, `newPath`)
 
     expect(bud.postcss.get(`plugins.bang`)?.[0]).toStrictEqual(`newPath`)
@@ -110,12 +58,7 @@ describe(`@roots/bud-postcss`, () => {
     await bud.extensions.add(BudPostCss)
     resetPlugins(bud)
 
-    bud.postcss.setPlugins(
-      new Map([
-        [`bang`, [`bop`]],
-        [`bong`, [`gong`]],
-      ]),
-    )
+    bud.postcss.setPlugins({bang: [`bop`], bong: [`gong`]})
   })
 
   it(`unsetPlugin return bud.postcss`, async () => {
@@ -124,12 +67,10 @@ describe(`@roots/bud-postcss`, () => {
     await bud.extensions.add(BudPostCss)
     resetPlugins(bud)
 
-    const returnValue = bud.postcss.setPlugins(
-      new Map([
-        [`bang`, [`bop`]],
-        [`bong`, [`gong`]],
-      ]),
-    )
+    const returnValue = bud.postcss.setPlugins({
+      bang: [`bop`],
+      bong: [`gong`],
+    })
 
     expect(returnValue).toBeInstanceOf(BudPostCss)
   })
@@ -140,12 +81,10 @@ describe(`@roots/bud-postcss`, () => {
     await bud.extensions.add(BudPostCss)
     resetPlugins(bud)
 
-    const returnValue = bud.postcss.setPlugins(
-      new Map([
-        [`bang`, [`bop`]],
-        [`bong`, [`gong`]],
-      ]),
-    )
+    const returnValue = bud.postcss.setPlugins({
+      bang: [`bop`],
+      bong: [`gong`],
+    })
 
     expect(returnValue).toBeInstanceOf(BudPostCss)
   })

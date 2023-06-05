@@ -16,12 +16,13 @@ export type maybeCallable<I = unknown> = ((param: Bud) => I) | I
  *
  * @typeParam I - Type of the value expected to be returned
  */
-export function maybeCall<I = Bud>(maybeCallable: maybeCallable): I {
-  const app = this as Bud
-
-  return isFunction(maybeCallable)
-    ? maybeCallable.bind
-      ? maybeCallable.bind(app)(app)
-      : maybeCallable(app)
-    : maybeCallable
+export function maybeCall<
+  I = Bud,
+  Args extends Array<unknown | undefined> = [I],
+>(this: Bud, value: maybeCallable, ...args: Args): I {
+  return isFunction(value)
+    ? value.bind
+      ? value.bind(this)(...args)
+      : value(...args)
+    : value
 }

@@ -16,7 +16,7 @@ export const resolve: Factory<`resolve`> = async bud => {
     extensions: Array.from(
       bud.hooks.filter(
         `build.resolve.extensions`,
-        new Set([`.js`, `.mjs`, `.jsx`, `.cjs`, `.css`]),
+        new Set([`.js`, `.mjs`, `.jsx`, `.css`]),
       ),
     ),
     modules: await bud.hooks.filterAsync(`build.resolve.modules`, [

@@ -2,7 +2,6 @@ import {Bud, Extension} from '@roots/bud-framework'
 import {
   bind,
   label,
-  options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import Webpack from 'webpack'
@@ -12,7 +11,6 @@ import Webpack from 'webpack'
  */
 @label(`@roots/bud-extensions/webpack-define-plugin`)
 @plugin(Webpack.DefinePlugin)
-@options<Webpack.DefinePlugin[`definitions`]>({})
 export default class BudDefine extends Extension<
   Webpack.DefinePlugin['definitions'],
   Webpack.DefinePlugin

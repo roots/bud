@@ -1,5 +1,5 @@
+import type {Bud} from '../bud.js'
 import {after} from './after/after.js'
-import {bindMethod} from './bindMethod.js'
 import {close} from './close.js'
 import {container} from './container.js'
 import {get} from './get.js'
@@ -18,9 +18,12 @@ import {sh} from './sh.js'
 import {tap, tapAsync} from './tap.js'
 import {when} from './when.js'
 
-export {
+type methods = Partial<{
+  [K in keyof Bud as `${K & string}`]: Bud[K]
+}>
+
+const methods = {
   after,
-  bindMethod,
   close,
   container,
   get,
@@ -42,3 +45,5 @@ export {
   tapAsync,
   when,
 }
+
+export default methods

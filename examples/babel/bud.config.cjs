@@ -1,11 +1,8 @@
 module.exports = async app => {
-  app
-    .entry('app', ['app.js', 'app.css'])
-    .when(app.isProduction, app => {
-      app.splitChunks().minimize().runtime('single')
-    })
+  app.entry('app', ['app.js', 'app.css']).splitChunks(app.isProduction)
 
-    .babel.setPresets({
+  app.babel
+    .setPresets({
       '@babel/preset-env': require.resolve('@babel/preset-env'),
     })
     .setPlugins({

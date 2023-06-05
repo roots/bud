@@ -72,6 +72,10 @@
     "./stylelint": {
       "require": "./config/stylelint.cjs",
       "default": "./config/stylelint.cjs"
+    },
+    "./types": {
+      "import": "./lib/types.js",
+      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -104,6 +108,8 @@
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@types/sass-loader": "8.0.5",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",
     "sass": "^1.62.1",

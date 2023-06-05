@@ -1,6 +1,3 @@
-import {join} from 'node:path'
-
-import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   label,
@@ -10,6 +7,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
 import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
+import Value from '@roots/bud-support/value'
 
 /**
  * Mini CSS Extract Plugin configuration
@@ -20,7 +18,7 @@ import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
   /**
    * css output filename
    */
-  filename: (app: Bud) => join(`css`, app.relPath(`@name.css`)),
+  filename: Value.make(({relPath}) => relPath(`css`, `@name.css`)),
 })
 @production
 export default class MiniCssExtract extends Extension<Options, Plugin> {}

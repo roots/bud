@@ -29,7 +29,7 @@ describe(`context.get`, () => {
     )
     expect(context.extensions.builtIn).toEqual(
       expect.arrayContaining([
-        `@roots/bud-terser`,
+        `@roots/bud-minify`,
         `@roots/bud-extensions/cdn`,
         `@roots/bud-extensions/esm`,
         `@roots/bud-extensions/fix-style-only-entrypoints`,
@@ -64,11 +64,9 @@ describe(`context.get`, () => {
     expect(context.files).toEqual(
       expect.objectContaining({
         '.env': expect.any(Object),
-        'eslint.config.js': expect.any(Object),
         '.gitignore': expect.any(Object),
         'bud.config.ts': expect.any(Object),
         'package.json': expect.any(Object),
-        'tailwind.config.ts': expect.any(Object),
         'tsconfig.json': expect.any(Object),
       }),
     )

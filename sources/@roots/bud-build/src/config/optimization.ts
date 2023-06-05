@@ -29,7 +29,7 @@ export const optimization: Factory<`optimization`> = async ({
       `build.optimization.removeAvailableModules`,
       false,
     ),
-    runtimeChunk: filter(`build.optimization.runtimeChunk`, false),
+    runtimeChunk: filter(`build.optimization.runtimeChunk`, `single`),
     sideEffects: filter(`build.optimization.sideEffects`, isProduction),
     splitChunks: filter(`build.optimization.splitChunks`, false),
     providedExports: filter(

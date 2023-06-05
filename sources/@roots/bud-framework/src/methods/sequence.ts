@@ -1,6 +1,6 @@
 import type {Bud} from '../bud.js'
 
-interface Callback {
+export interface Callback {
   (value?: Bud): Promise<unknown>
 }
 

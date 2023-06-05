@@ -48,11 +48,12 @@ module.exports = {
     `**/node_modules`,
     `examples`,
     `sources/@repo/docs/build`,
-    `**/create-bud-app/templates`,
-    `tests`,
     `sources/@repo/docs/content/dev/api`,
     `sources/@repo/test-kit/compiled`,
+    `sources/create-bud-app/templates`,
     `storage`,
+    `sources/deprecated`,
+    `tests`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
@@ -80,6 +81,10 @@ module.exports = {
     [`n/no-unpublished-import`]: [
       ERROR,
       {
+        /**
+         * `@wordpress/*` imports are aliased and resolved by webpack.
+         * The dependencies are installed for type checking but they are not published.
+         */
         allowModules: [
           `@wordpress/blocks`,
           `@wordpress/components`,

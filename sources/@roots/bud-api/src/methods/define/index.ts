@@ -11,12 +11,13 @@ export function define(
   this: Bud,
   values: DefinePlugin['definitions'],
 ): Bud {
-  this.extensions
-    .get(`@roots/bud-extensions/webpack-define-plugin`)
-    ?.setOptions((definitions: DefinePlugin['definitions']) => ({
-      ...(definitions ?? {}),
-      ...values,
-    }))
+  const define = this.extensions.get(
+    `@roots/bud-extensions/webpack-define-plugin`,
+  )
+
+  Object.entries(values).forEach(([key, value]) => {
+    define.set(key, value)
+  })
 
   return this
 }

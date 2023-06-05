@@ -1,5 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type StrictPublicExtensionApi,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -9,11 +12,12 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import Value from '@roots/bud-support/value'
 
 /**
  * Http modules configuration options
  */
-export interface Options {
+export type Options = {
   allowedUris?: Set<string | RegExp | ((uri: string) => boolean)>
   cacheLocation: false | string
   frozen: boolean
@@ -22,6 +26,8 @@ export interface Options {
   upgrade: boolean
 }
 
+type Api = StrictPublicExtensionApi<Cdn, Options>
+
 /**
  * Http modules configuration
  */
@@ -29,14 +35,18 @@ export interface Options {
 @expose(`cdn`)
 @options<Options>({
   allowedUris: new Set([/^http:\/\//, /^https:\/\//]),
-  cacheLocation: (app: Bud) => app.path(`@storage`, app.label, `modules`),
+  cacheLocation: Value.make(({label, path}) =>
+    path(`@storage`, label, `modules`),
+  ),
   frozen: false,
-  lockfileLocation: (app: Bud): string => app.path(`bud.lock`),
-  proxy: ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
+  lockfileLocation: Value.make(({path}) => path(`bud.lock`)),
+  proxy: Value.make(
+    ({env}) => env.isString(`HTTP_PROXY`) && env.get(`HTTP_PROXY`),
+  ),
   upgrade: true,
 })
 @disabled
-export default class Cdn extends Extension<Options, null> {
+export default class Cdn extends Extension<Options> implements Api {
   /**
    * CDN key to URL mapping
    */
@@ -53,137 +63,49 @@ export default class Cdn extends Extension<Options, null> {
   public cacheEnabled = true
 
   /**
-   * Disable local caching of modules
+   * Enable cache
    */
+  @bind
+  public enableCache(enabled = true) {
+    this.cacheEnabled = enabled
+    return this
+  }
   @bind
   public disableCache(): this {
     this.cacheEnabled = false
     return this
   }
 
-  /**
-   * Allowed URIs getter/setter
-   */
-  public get allowedUris(): Set<
-    string | RegExp | ((uri: string) => boolean)
-  > {
-    return this.getOption(`allowedUris`)
-  }
-  public set allowedUris(
-    value: Set<string | RegExp | ((uri: string) => boolean)>,
-  ) {
-    this.setOption(`allowedUris`, value)
-  }
+  public declare allowedUris: Api['allowedUris']
+  public declare getAllowedUris: Api['getAllowedUris']
+  public declare setAllowedUris: Api['setAllowedUris']
+
+  public declare cacheLocation: Api['cacheLocation']
+  public declare getCacheLocation: Api['getCacheLocation']
+  public declare setCacheLocation: Api['setCacheLocation']
+
+  public declare frozen: Api['frozen']
+  public declare getFrozen: Api['getFrozen']
+  public declare setFrozen: Api['setFrozen']
+
+  public declare lockfileLocation: Api['lockfileLocation']
+  public declare getLockfileLocation: Api['getLockfileLocation']
+  public declare setLockfileLocation: Api['setLockfileLocation']
+
+  public declare proxy: Api['proxy']
+  public declare getProxy: Api['getProxy']
+  public declare setProxy: Api['setProxy']
+
+  public declare upgrade: Api['upgrade']
+  public declare getUpgrade: Api['getUpgrade']
+  public declare setUpgrade: Api['setUpgrade']
 
   /**
-   * Cache location getter/setter
-   */
-  public get cacheLocation(): string | false {
-    return this.app.maybeCall(this.getOption(`cacheLocation`))
-  }
-  public set cacheLocation(
-    value: string | false | Options['cacheLocation'],
-  ) {
-    this.setOption(`cacheLocation`, value)
-  }
-
-  /**
-   * Frozen getter/setter
-   */
-  public get frozen(): boolean {
-    return this.app.maybeCall(this.getOption(`frozen`))
-  }
-  public set frozen(value: boolean) {
-    this.setOption(`frozen`, value)
-  }
-
-  /**
-   * Lockfile location getter/setter
-   */
-  public get lockfileLocation(): string {
-    return this.getOption(`lockfileLocation`)
-  }
-  public set lockfileLocation(
-    value: string | Options['lockfileLocation'],
-  ) {
-    this.setOption(`lockfileLocation`, value)
-  }
-
-  /**
-   * Proxy getter/setter
-   */
-  public get proxy(): string {
-    return this.app.maybeCall(this.getOption(`proxy`))
-  }
-  public set proxy(value: string | Options['proxy']) {
-    this.setOption(`proxy`, value)
-  }
-
-  /**
-   * Upgrade location getter/setter
-   */
-  public get upgrade(): boolean {
-    return this.app.maybeCall(this.getOption(`upgrade`))
-  }
-  public set upgrade(value: boolean | Options['upgrade']) {
-    this.setOption(`upgrade`, value)
-  }
-
-  /**
-   * Set allowed URLs
-   */
-  @bind
-  public setAllowedUris(
-    value: Set<string | RegExp | ((uri: string) => boolean)>,
-  ): this {
-    this.allowedUris = value
-    return this
-  }
-
-  /**
-   * Set cache location
-   */
-  @bind
-  public setCacheLocation(value: string | Options['cacheLocation']): this {
-    this.cacheLocation = value
-    return this
-  }
-
-  /**
-   * Freeze?
+   * Prevent bud from fetching updated modules
    */
   @bind
   public freeze(value?: boolean): this {
     this.frozen = !isUndefined(value) ? value : true
-    return this
-  }
-
-  /**
-   * Set lockfile location
-   */
-  @bind
-  public setLockfileLocation(
-    value: string | Options['lockfileLocation'],
-  ): this {
-    this.lockfileLocation = value
-    return this
-  }
-
-  /**
-   * Set proxy location
-   */
-  @bind
-  public setProxy(value: string | Options['proxy']): this {
-    this.proxy = value
-    return this
-  }
-
-  /**
-   * Set upgrade
-   */
-  @bind
-  public setUpgrade(value: boolean | Options['upgrade']): this {
-    this.upgrade = value
     return this
   }
 

@@ -48,6 +48,16 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
       setPaged([])
       setPage(0)
     }
+
+    if (
+      !key.return &&
+      !key.tab &&
+      !key.downArrow &&
+      !key.upArrow &&
+      !key.escape
+    ) {
+      setAction(`alpha`)
+    }
   })
 
   useEffect(() => {
@@ -69,7 +79,7 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
 
   useEffect(() => {
     if (page > paged.length) {
-      setPage(paged.length - 1)
+      setPage(Math.max(paged.length - 1, 0))
     }
   }, [page, paged])
 
@@ -111,12 +121,24 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
     <Ink.Box flexDirection="column">
       <Ink.Box marginY={1} flexDirection="column">
         <Ink.Box flexDirection="row" justifyContent="space-between">
-          <Ink.Box flexDirection="row" justifyContent="flex-start">
+          <Ink.Box
+            flexDirection="row"
+            justifyContent="flex-start"
+            marginBottom={paged.length ? 1 : 0}
+            borderLeft={true}
+            borderTop={false}
+            borderBottom={false}
+            borderRight={false}
+            borderStyle="single"
+            borderLeftColor={action === `alpha` ? `green` : `dim`}
+            paddingLeft={1}
+          >
             <TextInput
               placeholder="bud.build.config.entry"
               value={search}
               onChange={setSearch}
               onSubmit={onSubmit}
+              showCursor={true}
             />
           </Ink.Box>
 
@@ -153,11 +175,22 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
         </Ink.Box>
 
         {paged[page] ? (
-          <Ink.Box flexDirection="column" justifyContent="flex-start">
+          <Ink.Box
+            flexDirection="column"
+            justifyContent="flex-start"
+            borderLeft={true}
+            borderTop={false}
+            borderBottom={false}
+            borderRight={false}
+            borderStyle="single"
+            borderLeftColor="dim"
+            paddingLeft={1}
+          >
             <Ink.Text>{paged[page]}</Ink.Text>
           </Ink.Box>
         ) : null}
       </Ink.Box>
+
       <Ink.Box marginY={1} flexDirection="row">
         <Ink.Text>
           <Ink.Text

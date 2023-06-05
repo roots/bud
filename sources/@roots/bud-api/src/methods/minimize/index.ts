@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [boolean?]
+export type Parameters = [(boolean | `css` | `js` | Array<`css` | `js`>)?]
 
 /**
  * Minimize function interface
@@ -34,12 +34,20 @@ export interface minimize {
  * ```
  */
 export const minimize: minimize = function (this: Bud, value = true) {
-  this.hooks.on(`build.optimization.minimize`, value)
+  if (typeof value == `boolean`) {
+    this.minify.enable(value)
+    this.minify.js.enable(value)
+    this.minify.css.enable(value)
+    return this
+  }
 
-  this.terser?.enable(value)
-  this.minimizeCss?.enable(value)
+  this.minify.enable(true)
 
-  this.success(`minimize`, value)
+  if (typeof value == `string`) {
+    this.minify[value].enable(true)
+    return this
+  }
 
+  value.map(key => this.minify[key].enable(true))
   return this
 }

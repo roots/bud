@@ -1,8 +1,8 @@
 import camelCase from '@roots/bud-support/lodash/camelCase'
+import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
 
 import type {Bud} from './index.js'
-import type {Logger} from './types/services/logger/index.js'
 
 interface Contract {
   _app: () => Bud
@@ -15,7 +15,7 @@ interface Contract {
   /**
    * Scoped logger
    */
-  logger: Logger
+  logger: typeof logger
 
   /**
    * Service label
@@ -94,11 +94,8 @@ abstract class Base implements Partial<Contract> {
   /**
    * Logger instance
    */
-  public get logger() {
-    return this.app.context.logger.scope(
-      this.app.label,
-      camelCase(this.constructor.name),
-    )
+  public get logger(): typeof logger {
+    return logger.scope(this.app.label, camelCase(this.constructor.name))
   }
 
   /**
@@ -193,11 +190,8 @@ abstract class BaseContainer
   /**
    * Logger instance
    */
-  public get logger() {
-    return this.app.context.logger.scope(
-      this.app.label,
-      camelCase(this.constructor.name),
-    )
+  public get logger(): typeof logger {
+    return logger.scope(this.app.label, camelCase(this.constructor.name))
   }
 
   /**

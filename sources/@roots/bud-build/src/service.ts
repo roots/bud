@@ -86,32 +86,6 @@ export class Build extends Service implements Base.Service {
   }
 
   /**
-   * Set Rule
-   */
-  @bind
-  public setRule<K extends `${keyof Rules & string}`>(
-    name: K,
-    input?: RuleOptions | Rule,
-  ): this {
-    this.rules[name] =
-      input instanceof Rule
-        ? input
-        : isFunction(input)
-        ? input(this.makeRule())
-        : this.makeRule(input as any)
-
-    return this
-  }
-
-  /**
-   * Make Rule
-   */
-  @bind
-  public makeRule(options?: RuleOptions): Rule {
-    return new Rule(() => this.app, options)
-  }
-
-  /**
    * Get loader
    */
   @bind
@@ -148,7 +122,7 @@ export class Build extends Service implements Base.Service {
    */
   @bind
   public makeLoader(src?: string, definition?: string): Loader {
-    return new Loader(() => this.app, src)
+    return new Loader(() => this.app, src, definition)
   }
 
   /**
@@ -192,5 +166,31 @@ export class Build extends Service implements Base.Service {
   @bind
   public makeItem(options?: Partial<Item['options']>): Item {
     return new Item(() => this.app, options)
+  }
+
+  /**
+   * Set Rule
+   */
+  @bind
+  public setRule<K extends `${keyof Rules & string}`>(
+    name: K,
+    input?: RuleOptions | Rule,
+  ): this {
+    this.rules[name] =
+      input instanceof Rule
+        ? input
+        : isFunction(input)
+        ? input(this.makeRule())
+        : this.makeRule(input as any)
+
+    return this
+  }
+
+  /**
+   * Make Rule
+   */
+  @bind
+  public makeRule(options?: RuleOptions): Rule {
+    return new Rule(() => this.app, options)
   }
 }

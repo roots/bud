@@ -4,7 +4,8 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import {S3} from '@roots/filesystem/s3'
+import logger from '@roots/bud-support/logger'
+import {type S3} from '@roots/filesystem/s3'
 
 import type {Bud} from '../bud.js'
 import type {Contract} from '../service.js'
@@ -28,8 +29,8 @@ export default class FS extends Filesystem implements Contract {
   /**
    * {@link Contract.logger}
    */
-  public get logger() {
-    return this.app.context.logger.scope(`fs`)
+  public get logger(): typeof logger {
+    return logger.scope(`fs`)
   }
 
   /**
@@ -40,16 +41,16 @@ export default class FS extends Filesystem implements Contract {
   public json: typeof json = json
 
   /**
+   * @see {@link https://bud.js.org/docs/bud.fs/yml}
+   */
+  public yml: typeof yml = yml
+
+  /**
    * S3
    *
    * @see {@link https://bud.js.org/docs/bud.fs/s3}
    */
-  public s3: S3
-
-  /**
-   * @see {@link https://bud.js.org/docs/bud.fs/yml}
-   */
-  public yml: typeof yml = yml
+  public s3?: S3
 
   /**
    * Class constructor
@@ -67,9 +68,11 @@ export default class FS extends Filesystem implements Contract {
         `@aws-sdk/client-s3`,
         import.meta.url,
       )
-      if (s3IsResolvable) {
-        this.s3 = new S3()
-      }
+
+      if (!s3IsResolvable) return
+      const {S3} = await import(`@roots/filesystem/s3`)
+
+      if (s3IsResolvable) this.s3 = new S3()
     } catch (error) {
       // fallthrough
     }

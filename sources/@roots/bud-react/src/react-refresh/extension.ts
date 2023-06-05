@@ -1,7 +1,7 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import type {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types.js'
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   development,
@@ -20,8 +20,10 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @plugin(RefreshPlugin)
 @options<Options>({
   overlay: false,
-  esModule: (app: Bud) =>
-    app.context.files[`package.json`]?.module?.type === `module`,
+  esModule: DynamicOption.make(
+    ({context}) =>
+      context.files[`package.json`]?.module?.type === `module`,
+  ),
 })
 @development
 export default class BudReactRefresh extends Extension<

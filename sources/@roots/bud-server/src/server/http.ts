@@ -12,7 +12,7 @@ export class Server extends BaseServer implements Connection {
   /**
    * Server instance
    */
-  public override instance: HttpServer
+  public declare instance: HttpServer
 
   /**
    * createServer

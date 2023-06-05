@@ -5,6 +5,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
+import Value from '@roots/bud-support/value'
 import {EsbuildPlugin} from 'esbuild-loader'
 
 /**
@@ -51,8 +52,8 @@ export interface Options {
  */
 @label(`@roots/bud-esbuild`)
 @expose(`esbuild`)
-@options<Options>({
-  minify: app => ({
+@options({
+  minify: Value.make(app => ({
     css: true,
     include: [
       app.hooks.filter(`pattern.css`),
@@ -60,16 +61,16 @@ export interface Options {
       app.hooks.filter(`pattern.ts`),
     ],
     exclude: app.hooks.filter(`pattern.modules`),
-  }),
-  js: () => ({
+  })),
+  js: Value.make(() => ({
     loader: `jsx`,
     target: `es2015`,
-  }),
-  ts: ({context}) => ({
+  })),
+  ts: Value.make(({context}) => ({
     loader: `tsx`,
     target: `es2015`,
     tsconfig: context.files?.[`tsconfig.json`]?.path ?? null,
-  }),
+  })),
 })
 export default class BudEsbuild extends Extension<Options> {
   /**
@@ -86,16 +87,19 @@ export default class BudEsbuild extends Extension<Options> {
       [`esbuild-loader`]: loader,
     }))
 
-    build
-      .setLoader(`esbuild`, `esbuild-loader`)
-      .setItem(`esbuild-js`, {
-        loader: `esbuild`,
-        options: () => this.options.js,
-      })
-      .setItem(`esbuild-ts`, {
-        loader: `esbuild`,
-        options: () => this.options.ts,
-      })
+    build.setLoader(`esbuild`, `esbuild-loader`)
+
+    build.setItem(`esbuild-js`, {
+      loader: `esbuild`,
+      options: () => this.get(`js`),
+    })
+
+    build.setItem(`esbuild-ts`, {
+      loader: `esbuild`,
+      options: () => this.get(`ts`),
+    })
+
+    build.getRule(`js`).setUse(items => [...items, `esbuild-js`])
   }
 
   /**

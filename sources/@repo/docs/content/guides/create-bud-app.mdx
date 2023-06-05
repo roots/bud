@@ -1,0 +1,117 @@
+---
+title: create-bud-app
+description: Create a new project using our convenient CLI
+sidebar_label: create-bud-app
+slug: create-bud-app
+---
+
+## Overview
+
+Creating a project is as simple as:
+
+```sh
+npx create-bud-app
+```
+
+Yarn users can use `yarn create`:
+
+```sh
+yarn create bud-app
+```
+
+## Requirements
+
+**You’ll need to have Node 18.0.0 or later version on your local development machine** (but it’s not required on the server).
+
+Currently the command supports creating projects with `yarn classic` or `npm`. In the future we'll add support for `pnpm` and `yarn v3`.
+
+## Creating an App
+
+The command will create a directory called `my-app` inside the current folder.
+
+Inside that directory, it will generate the initial project structure and install any transitive dependencies:
+
+```
+my-app
+├── README.md
+├── node_modules
+├── package.json
+├── .gitignore
+├── tsconfig.json
+└── src
+    ├── index.css
+    ├── index.js
+    └── logo.svg
+```
+
+Your actual project may look somewhat different depending on what you chosen to install. For example, if you add support for `eslint`, you will wind up with an `eslint.config.js` file in your project root.
+
+## Installing from a preset
+
+There are several presets available to quickly build popular project types:
+
+### Recommended
+
+Includes support for TypeScript, ES6 and postcss:
+
+```sh
+npx create-bud-app --recommended
+```
+
+### React
+
+Includes support for TypeScript, JSX and postcss:
+
+```sh
+npx create-bud-app --react
+```
+
+### WordPress
+
+Includes support for Typescript, ES6, and postcss for WordPress themes and plugins:
+
+```sh
+npx create-bud-app --wordpress
+```
+
+## Customizing presets
+
+Presets are installed non-interactively. If you want to customize a preset interactively use the `--customize` flag:
+
+```sh
+npx create-bud-app --wordpress --customize
+```
+
+This is nice if you want to use a preset but need to just make a couple changes to it.
+
+## Safety overrides
+
+When targeting a non-empty directory you will be prompted to confirm your intent.
+
+Even after confirming your intent, by default the tool will not overwrite existing files. You can override this behavior with the `--overwrite` flag:
+
+```sh
+npx create-bud-app --overwrite
+```
+
+## Running non-interactively
+
+To run `create-bud-app` without interactive prompts use the `--no-interactive` flag:
+
+```sh
+npx create-bud-app --no-interactive
+```
+
+All options available via interactive prompts are also passable with CLI flags. Run `create-bud-app --help` for a listing of available command line flags.
+
+When running `--no-interactive` in a non-empty directory there is obviously no way for you to confirm that was your intention. Instead, you can use the `--confirm-existing` flag to enable use of the tool in these situations:
+
+```sh
+npx create-bud-app --no-interactive --confirm-existing
+```
+
+A more complex example might look like:
+
+```sh
+npx create-bud-app react-app --no-interactive -p yarn -s swc -s postcss -s react -d redux
+```

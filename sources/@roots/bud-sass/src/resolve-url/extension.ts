@@ -16,6 +16,7 @@ export class BudResolveUrl extends Extension {
       `resolve-url-loader`,
       import.meta.url,
     )
+
     if (!loader) return this.logger.error(`resolve-url-loader not found`)
 
     /** Set loader alias */

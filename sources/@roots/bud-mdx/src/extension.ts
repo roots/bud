@@ -7,6 +7,11 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
+interface Options {
+  remarkPlugins: Record<string, unknown>
+  rehypePlugins: Record<string, unknown>
+}
+
 /**
  * MDX configuration
  */
@@ -17,11 +22,11 @@ import {
   `@roots/bud-swc`,
   `@roots/bud-typescript`,
 ])
-@options({
+@options<Options>({
   remarkPlugins: {},
   rehypePlugins: {},
 })
-export class BudMDX extends Extension {
+export class BudMDX extends Extension<Options> {
   /**
    * {@link Extension.register}
    */
@@ -56,48 +61,38 @@ export class BudMDX extends Extension {
   public override async boot(bud: Bud) {
     bud.build.setRule(`mdx`, {
       test: /\.mdx?$/,
-      include: [app => app.path(`@src`)],
+      include: [({path}) => path(`@src`)],
       use: [...(bud.build.rules.js.use ?? []), `mdx`],
     })
   }
 
   /**
    * Remark plugins
-   *
-   * @deprecated Use {@link Extension.get} and {@link Extension.set instead}
-   *
-   * @example
-   * ```js
-   * bud.mdx.set(`remarkPlugins`, {})
-   * ```
    */
-  public get remarkPlugins(): Record<string, any> {
-    return Object.values(this.get(`remarkPlugins`))
-  }
-  public set remarkPlugins(dictionary: Record<string, any>) {
-    this.set(`remarkPlugins`, (plugins = {}) => ({
-      ...plugins,
-      ...dictionary,
-    }))
-  }
+  public declare remarkPlugins: Options[`remarkPlugins`]
+  /**
+   * Set remark plugins
+   */
+  public declare setRemarkPlugins: (
+    plugins: Options[`remarkPlugins`],
+  ) => this
+  /**
+   * Get remark plugins
+   */
+  public declare getRemarkPlugins: () => Options[`remarkPlugins`]
 
   /**
    * Rehype plugins
-   *
-   * @deprecated Use {@link Extension.get} and {@link Extension.set instead}
-   *
-   * @example
-   * ```js
-   * bud.mdx.set(`rehypePlugins`, {})
-   * ```
    */
-  public get rehypePlugins(): Record<string, any> {
-    return Object.values(this.getOption(`rehypePlugins`))
-  }
-  public set rehypePlugins(dictionary: Record<string, any>) {
-    this.setOption(`rehypePlugins`, {
-      ...this.getOption(`rehypePlugins`),
-      ...dictionary,
-    })
-  }
+  public declare rehypePlugins: Options[`rehypePlugins`]
+  /**
+   * Set rehype plugins
+   */
+  public declare setRehypePlugins: (
+    plugins: Options[`rehypePlugins`],
+  ) => this
+  /**
+   * Get rehype plugins
+   */
+  public declare getRehypePlugins: () => Options[`rehypePlugins`]
 }

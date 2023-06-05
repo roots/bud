@@ -10,9 +10,7 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
     "@roots/bud-postcss": "latest"
   }
 }

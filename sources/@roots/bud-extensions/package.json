@@ -91,8 +91,8 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud-minify": "workspace:sources/@roots/bud-minify",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
     "@roots/container": "workspace:sources/@roots/container",
     "tslib": "2.5.0",
     "webpack": "5.83.0"

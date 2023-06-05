@@ -10,6 +10,6 @@ describe(`examples/remote-sources`, () => {
     expect(project.assets[`app.js`].length).toBeGreaterThan(10)
     expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()
     expect(project.manifest[`app.js`]).toMatchSnapshot()
-    expect(Object.keys(project.manifest)).toHaveLength(4)
+    expect(Object.keys(project.manifest)).toHaveLength(5)
   })
 })

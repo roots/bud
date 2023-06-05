@@ -1,26 +1,13 @@
-import {bind} from '@roots/bud-support/decorators/bind'
+export {bind} from '@roots/bud-support/decorators/bind'
+export {deprecated} from '@roots/bud-support/decorators/deprecated'
 
-import {dependsOn} from './dependsOn.js'
-import {dependsOnOptional} from './dependsOnOptional.js'
-import {development} from './development.js'
-import {disabled} from './disabled.js'
-import {expose} from './expose.js'
-import {label} from './label.js'
-import {options} from './options.js'
-import {plugin} from './plugin.js'
-import {production} from './production.js'
-import {when} from './when.js'
-
-export {
-  bind,
-  dependsOnOptional,
-  dependsOn,
-  development,
-  disabled,
-  expose,
-  label,
-  options,
-  plugin,
-  production,
-  when,
-}
+export {dependsOn} from './dependsOn.js'
+export {dependsOnOptional} from './dependsOnOptional.js'
+export {development} from './development.js'
+export {disabled} from './disabled.js'
+export {expose} from './expose.js'
+export {label} from './label.js'
+export {options} from './options.js'
+export {plugin} from './plugin.js'
+export {production} from './production.js'
+export {when} from './when.js'

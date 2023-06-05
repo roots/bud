@@ -11,7 +11,7 @@ describe(`@roots/bud-api`, () => {
     vi.clearAllMocks()
     bud = await factory()
     api = new Api(() => bud)
-    bud.api = api
+    bud.set(`api`, api)
   })
 
   it(`should have a method bootstrap()`, async () => {
@@ -31,9 +31,9 @@ describe(`@roots/bud-api`, () => {
     expect(api.all()).toMatchSnapshot()
   })
 
-  it(`should call bud.bindMethod when \`bindFacade\` is called`, async () => {
+  it(`should call bud.set when \`bindFacade\` is called`, async () => {
     const setSpy = vi.spyOn(api, `set`)
-    const bindSpy = vi.spyOn(bud, `bindMethod`)
+    const bindSpy = vi.spyOn(bud, `set`)
     const testFn = () => true
 
     api.bindFacade(`test`, testFn)

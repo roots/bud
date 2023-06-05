@@ -28,19 +28,20 @@ export class TailwindThemeJSON extends Extension {
   /**
    * Use tailwind colors in theme.json
    */
-  public useTailwindColors(
-    this: Bud[`wpjson`],
-    extendOnly?: boolean,
-  ): Bud[`wpjson`] {
-    this.set(`settings`, {
-      ...(this.get(`settings`) ?? {}),
+  public useTailwindColors(this: any, extendOnly?: boolean): any {
+    const palette = tailwindAdapter.palette.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`colors`, extendOnly)},
+      ),
+    )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
       color: {
-        ...((this.get(`settings.color`) as {}) ?? {}),
-        palette: tailwindAdapter.palette.transform(
-          this.app.tailwind.resolveThemeValue(`colors`, extendOnly),
-        ),
+        ...(settings.color ?? {}),
+        palette,
       },
-    })
+    }))
 
     return this.enable()
   }
@@ -48,27 +49,20 @@ export class TailwindThemeJSON extends Extension {
   /**
    * Use tailwind fontFamily in theme.json
    */
-  public useTailwindFontFamily(
-    this: Bud[`wpjson`],
-    extendOnly?: boolean,
-  ): Bud[`wpjson`] {
-    this.set(`settings`, {
-      ...(this.get(`settings`) ?? {}),
+  public useTailwindFontFamily(this: any, extendOnly?: boolean): any {
+    const fontFamilies = tailwindAdapter.fontFamily.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`fontFamily`, extendOnly)},
+      ),
+    )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
       typography: {
-        ...((this.get(`settings.typography`) as {}) ?? {}),
-        fontFamilies: tailwindAdapter.fontFamily.transform(
-          Object.assign(
-            {},
-            {
-              ...this.app.tailwind.resolveThemeValue(
-                `fontFamily`,
-                extendOnly,
-              ),
-            },
-          ),
-        ),
+        ...(settings.typography ?? {}),
+        fontFamilies,
       },
-    })
+    }))
 
     return this.enable()
   }
@@ -76,27 +70,20 @@ export class TailwindThemeJSON extends Extension {
   /**
    * Use tailwind fontSize in theme.json
    */
-  public useTailwindFontSize(
-    this: Bud[`wpjson`],
-    extendOnly?: boolean,
-  ): Bud[`wpjson`] {
-    this.set(`settings`, {
-      ...(this.get(`settings`) ?? {}),
+  public useTailwindFontSize(this: any, extendOnly?: boolean): any {
+    const fontSizes = tailwindAdapter.fontSize.transform(
+      Object.assign(
+        {},
+        {...this.app.tailwind.resolveThemeValue(`fontSize`, extendOnly)},
+      ),
+    )
+    this.setSettings(settings => ({
+      ...(settings ?? {}),
       typography: {
-        ...((this.get(`settings.typography`) as {}) ?? {}),
-        fontSizes: tailwindAdapter.fontSize.transform(
-          Object.assign(
-            {},
-            {
-              ...this.app.tailwind.resolveThemeValue(
-                `fontSize`,
-                extendOnly,
-              ),
-            },
-          ),
-        ),
+        ...(settings.typography ?? {}),
+        fontSizes,
       },
-    })
+    }))
 
     return this.enable()
   }

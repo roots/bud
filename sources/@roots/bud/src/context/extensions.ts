@@ -23,7 +23,7 @@ interface Extensions {
 const extensions: Extensions = {
   builtIn: [
     `@roots/bud-entrypoints`,
-    `@roots/bud-terser`,
+    `@roots/bud-minify`,
     `@roots/bud-extensions/cdn`,
     `@roots/bud-extensions/esm`,
     `@roots/bud-extensions/fix-style-only-entrypoints`,

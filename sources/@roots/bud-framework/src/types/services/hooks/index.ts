@@ -97,7 +97,7 @@ export default interface Hooks extends BaseService {
    */
   filter: <T extends keyof Registry.SyncStore>(
     id: T,
-    callback?: Registry.SyncCallback[T],
+    callback?: Registry.SyncCallback[T] | Registry.SyncRegistry[T],
   ) => Registry.SyncRegistry[T]
 
   /**

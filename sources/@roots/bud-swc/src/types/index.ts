@@ -1,12 +1,10 @@
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-extensions" />
-
 import type {Build} from '@roots/bud-framework/services'
-import type BudSWC from '@roots/bud-swc'
+
+import type {BudSWC, BudSWCPublicInterface} from '../extension/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    swc: BudSWC
+    swc: BudSWCPublicInterface
   }
 
   interface Modules {
@@ -18,7 +16,32 @@ declare module '@roots/bud-framework' {
   }
 
   interface Items {
-    swc: Build.Item
+    'swc-ecmascript': Build.Item
+    'swc-typescript': Build.Item
+  }
+
+  interface Rules {
+    js: Build.Rule
+    ts: Build.Rule
+  }
+}
+
+declare module '@roots/bud' {
+  interface Bud {
+    swc: BudSWCPublicInterface
+  }
+
+  interface Modules {
+    '@roots/bud-swc': BudSWC
+  }
+
+  interface Loaders {
+    swc: Build.Loader
+  }
+
+  interface Items {
+    'swc-ecmascript': Build.Item
+    'swc-typescript': Build.Item
   }
 
   interface Rules {

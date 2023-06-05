@@ -27,7 +27,7 @@ interface Options {
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
-@options<Options>({
+@options({
   hmr: true,
   notify: true,
 })
@@ -48,9 +48,9 @@ export default class BudPresetWordPress extends Extension<Options> {
   /**
    * {@link Extension.buildBefore}
    */
-  public override async buildBefore({build, hooks}, options: Options) {
+  public override async buildBefore({build, hooks}) {
     /** Bail if hmr option is false */
-    if (!options.hmr) return
+    if (!this.get(`hmr`)) return
 
     /** Source loader */
     const loader = await this.resolve(

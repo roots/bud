@@ -1,11 +1,11 @@
-import {factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {hash} from './index.js'
 
 describe(`bud.hash`, () => {
-  let bud
-  let subject
+  let bud: Bud
+  let subject: typeof hash
 
   beforeEach(async () => {
     bud = await factory()
@@ -13,9 +13,15 @@ describe(`bud.hash`, () => {
   })
 
   it(`should call bud.hooks.on when called`, () => {
-    const onSpy = vi.spyOn(bud.hooks, `on`)
+    bud.context.hash = false
     subject()
-    expect(onSpy).toHaveBeenCalled()
+    expect(bud.context.hash).toBe(true)
+
+    subject(false)
+    expect(bud.context.hash).toBe(false)
+
+    subject(hash => !hash)
+    expect(bud.context.hash).toBe(true)
   })
 
   it(`should call bud.success to log param`, () => {

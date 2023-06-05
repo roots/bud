@@ -1,58 +1,33 @@
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type OptionCallbackValue,
+} from '@roots/bud-framework/extension'
 import {
   bind,
   expose,
   label,
-  options,
 } from '@roots/bud-framework/extension/decorators'
-import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import {InputError} from '@roots/bud-support/errors'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import type {Plugin, Processor} from 'postcss'
+import omit from '@roots/bud-support/lodash/omit'
 
-type Input =
-  | string
-  | Plugin
-  | Processor
-  | [string | Plugin | Processor, any?]
-
-type InputList = Array<string | [string, any?]>
-type InputRecords = Record<string, Input>
-type InputMap = Map<string, Input>
-
-/**
- * PostCSS configuration options
- */
-interface Options {
-  sourceMap?: boolean
-  postcssOptions?: {
-    config?: boolean
-    syntax?: string
-    parser?: string
-    plugins?: InputList
-  }
-  plugins: InputRecords
-  order: Array<`${keyof InputRecords & string}`>
-}
+import type {
+  BudPostCssPublicInterface,
+  Options,
+  PluginInput,
+  PluginReference,
+} from './options.js'
+import {BudPostCssOptionsApi} from './options.js'
 
 /**
  * PostCSS configuration
  */
 @label(`@roots/bud-postcss`)
-@options<Options>({
-  postcssOptions: {
-    config: false,
-  },
-})
 @expose(`postcss`)
-export class BudPostCss extends Extension<Options> {
-  /**
-   * Config file options
-   */
-  protected configFileOptions: Options[`postcssOptions`]
-
+class BudPostCss extends BudPostCssOptionsApi {
   /**
    * {@link Extension.register}
    */
@@ -78,7 +53,7 @@ export class BudPostCss extends Extension<Options> {
       .setItem(`postcss`, {
         loader: `postcss`,
         options: () => ({
-          postcssOptions: this.configFileOptions ?? this.postcssOptions,
+          postcssOptions: this.result,
           sourceMap: this.get(`sourceMap`),
         }),
       })
@@ -86,35 +61,17 @@ export class BudPostCss extends Extension<Options> {
     build.rules.css.setUse((items = []) => [...items, `postcss`])
     build.rules.cssModule?.setUse((items = []) => [...items, `postcss`])
 
-    if (
-      !context.files ||
-      !Object.values(context.files).some(
+    const usingPostCssRc =
+      context.files &&
+      Object.values(context.files).some(
         file => file?.name?.includes(`postcss`) && file?.module,
       )
-    ) {
-      this.setPlugin(`import`, [
-        await this.resolve(`postcss-import`, import.meta.url),
-      ])
-        .setPlugin(`nesting`, [
-          await this.resolve(`postcss-nested`, import.meta.url),
-        ])
-        .setPlugin(`env`, [
-          await this.resolve(`postcss-preset-env`, import.meta.url).then(
-            path => path.replace(`.mjs`, `.cjs`),
-          ),
-          {
-            stage: 1,
-            features: {
-              'focus-within-pseudo-class': false,
-            },
-          },
-        ])
-        .use([`import`, `nesting`, `env`])
-    } else {
+
+    if (usingPostCssRc) {
       this.logger.log(
         `PostCSS configuration is being overridden by project configuration file.`,
       )
-      this.set(`postcssOptions.config`, true)
+      this.setConfig(true)
 
       const config = Object.values(context.files).find(
         file => file?.name?.includes(`postcss`) && file?.module,
@@ -126,25 +83,52 @@ export class BudPostCss extends Extension<Options> {
           postcss: [config.path],
         }))
 
-      if (!isUndefined(config.module))
-        this.configFileOptions = config.module.default ?? config.module
+      return
     }
+
+    this.setPlugin(
+      `import`,
+      await this.resolve(`postcss-import`, import.meta.url),
+    )
+      .setPlugin(
+        `nesting`,
+        await this.resolve(`postcss-nested`, import.meta.url),
+      )
+      .setPlugin(
+        `env`,
+        await this.resolve(`postcss-preset-env`, import.meta.url).then(
+          path => path.replace(`.mjs`, `.cjs`),
+        ),
+      )
+      .setPluginOptions(`env`, {
+        stage: 1,
+        features: {
+          'focus-within-pseudo-class': false,
+        },
+      })
+      .use([`import`, `nesting`, `env`])
   }
 
   /**
    * `postcssOptions`
    * @readonly
    */
-  public get postcssOptions(): Options[`postcssOptions`] {
-    const options: Options[`postcssOptions`] = this.get(
-      `postcssOptions`,
-    ) as Options[`postcssOptions`]
-
-    if (!options?.plugins?.length) {
-      options.plugins = this.get(`order`)
-        .map(name => this.get(`plugins.${name}`))
-        .filter(Boolean) as InputList
+  public get result(): Options[`postcssOptions`] {
+    const explicitOptions = this.postcssOptions
+    if (
+      !isUndefined(explicitOptions) &&
+      Object.keys(explicitOptions).length > 0
+    ) {
+      this.logger.info(`postcss explicitOptions`, explicitOptions)
+      return explicitOptions
     }
+
+    const options = Object.entries({
+      ...omit(this.options, [`plugins`, `order`, `postcssOptions`]),
+      plugins: this.get(`order`).map(this.getPlugin).filter(Boolean),
+    })
+      .filter(([k, v]) => !isUndefined(v))
+      .reduce((a, [k, v]) => ({...a, [k]: v}), {})
 
     this.logger.info(`postcss options`, options)
 
@@ -158,56 +142,9 @@ export class BudPostCss extends Extension<Options> {
    * Sets the plugin order
    */
   public use(
-    order: Array<string> | ((plugins: Array<string>) => Array<string>),
+    order: OptionCallbackValue<BudPostCssPublicInterface, `order`>,
   ) {
-    this.set(`order`, order)
-    return this
-  }
-
-  /**
-   * Get plugins
-   */
-  @bind
-  public getPlugins() {
-    return this.get(`plugins`) as InputRecords
-  }
-
-  /**
-   * Set plugins
-   */
-  @bind
-  public setPlugins(plugins: InputRecords | InputMap | InputList): this {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.setPlugins will not work as expected\n`,
-        `tried to set:`,
-        plugins,
-      )
-    }
-
-    const pluginMap = (plugin: string | [string, any?]): [string, any?] =>
-      Array.isArray(plugin) && plugin.length > 1
-        ? plugin
-        : [Array.isArray(plugin) ? plugin[0] : plugin, undefined]
-
-    if (Array.isArray(plugins)) {
-      plugins.map(pluginMap).forEach(plugin => this.setPlugin(...plugin))
-      return this
-    }
-
-    if (plugins instanceof Map) {
-      Array.from(plugins.entries()).forEach(plugin => {
-        this.setPlugin(...plugin)
-      })
-
-      return this
-    }
-
-    Object.entries(plugins)
-      .map(pluginMap)
-      .forEach(plugin => this.setPlugin(...plugin))
-
+    this.setOrder(order)
     return this
   }
 
@@ -215,8 +152,10 @@ export class BudPostCss extends Extension<Options> {
    * Get a plugin
    */
   @bind
-  public getPlugin(name: string): [string | Plugin | Processor, any?] {
-    if (this.get(`postcssOptions.config`)) {
+  public getPlugin(name: string): PluginReference {
+    name = this.normalizePluginName(name)
+
+    if (this.postcssOptions || this.config) {
       this.logger.warn(
         `PostCSS configuration is being overridden by project configuration file.\n`,
         `bud.postcss.setPlugin will not work as expected\n`,
@@ -225,18 +164,17 @@ export class BudPostCss extends Extension<Options> {
       )
     }
 
-    return this.get(`plugins.${name}`) as [
-      string | Plugin | Processor,
-      any?,
-    ]
+    return this.plugins[name]
   }
 
   /**
    * Set a plugin
    */
   @bind
-  public setPlugin(name: string, plugin?: Input): this {
-    if (this.get(`postcssOptions.config`)) {
+  public setPlugin(name: string, plugin?: PluginInput): this {
+    name = this.normalizePluginName(name)
+
+    if (this.postcssOptions || this.config) {
       this.logger.warn(
         `PostCSS configuration is being overridden by project configuration file.\n`,
         `bud.postcss.setPlugin will not work as expected\n`,
@@ -254,7 +192,8 @@ export class BudPostCss extends Extension<Options> {
       plugin = [plugin, undefined]
     }
 
-    this.set(`plugins.${name}`, plugin)
+    this.plugins[name] = plugin
+
     return this
   }
 
@@ -263,16 +202,7 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public unsetPlugin(name: string) {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.unsetPlugin will not work as expected\n`,
-        `tried to unset:`,
-        name,
-      )
-    }
-
-    this.set(`plugins.${name}`, undefined)
+    this.plugins[this.normalizePluginName(name)] = undefined
 
     return this
   }
@@ -282,18 +212,9 @@ export class BudPostCss extends Extension<Options> {
    */
   @bind
   public getPluginOptions(name: string): Record<string, any> {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.getPluginOptions will not work as expected\n`,
-        `tried to get:`,
-        name,
-      )
-    }
-
-    const plugin: any = this.get(`plugins.${name}`)
+    const plugin = this.getPlugin(name)
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
-    return plugin.length && plugin.length > 1 ? plugin[1] : {}
+    return plugin[1] ?? []
   }
 
   /**
@@ -306,13 +227,6 @@ export class BudPostCss extends Extension<Options> {
       | Record<string, any>
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.setPluginOptions will not work as expected`,
-      )
-    }
-
     const plugin = this.getPlugin(name)
 
     if (!plugin) {
@@ -320,10 +234,8 @@ export class BudPostCss extends Extension<Options> {
     }
 
     this.setPlugin(name, [
-      this.getPluginPath(name),
-      typeof options === `function`
-        ? options(this.getPluginOptions(name))
-        : options,
+      plugin[0],
+      isFunction(options) ? options(plugin[1]) : options,
     ])
 
     return this
@@ -333,145 +245,33 @@ export class BudPostCss extends Extension<Options> {
    * Get plugin path
    */
   @bind
-  public getPluginPath(name: string): string {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.getPluginPath will not work as expected`,
-      )
-    }
-
-    const plugin: any = this.get(`plugins.${name}`)
-    return plugin && plugin?.length ? [...plugin][0] : plugin
+  public getPluginPath(name: string): PluginReference[0] {
+    const plugin = this.getPlugin(name)
+    if (!plugin) throw new Error(`Plugin ${name} does not exist`)
+    return plugin[0]
   }
 
   /**
    * Set plugin path
    */
   @bind
-  public setPluginPath(name: string, path: string): this {
-    if (this.get(`postcssOptions.config`)) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.setPluginPath will not work as expected`,
-      )
-    }
-
-    const plugin: any = this.get(`plugins.${name}`)
+  public setPluginPath(name: string, path: PluginInput & string): this {
+    const plugin = this.getPlugin(name)
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
 
-    const hasOptions = plugin.length && plugin.length > 1
-    this.set(`plugins.${name}`, hasOptions ? [path, plugin[1]] : [path])
+    this.setPlugin(name, [path, plugin[1]])
 
     return this
   }
 
-  /**
-   * `postcssOptions.syntax`
-   *
-   * @deprecated use {@link BudPostCss.get} and {@link BudPostCss.set}
-   *
-   * @example
-   * ```js
-   * bud.postcss.get('postcssOptions.syntax')
-   * bud.postcss.set('postcssOptions.syntax', 'postcss-scss')
-   * ```
-   */
-  public get syntax() {
-    return this.get(`postcssOptions.syntax`) as string
-  }
-  public set syntax(syntax: string) {
-    this.set(`postcssOptions.syntax`, syntax)
-  }
+  @bind
+  protected normalizePluginName(name: string): string {
+    if (name.startsWith(`postcss-`)) name = name.replace(`postcss-`, ``)
+    if (name === `nesting`) name = `nested`
+    if (name === `preset-env`) name = `env`
 
-  /**
-   * Get `postcssOptions.syntax`
-   *
-   * @deprecated use {@link BudPostCss.get}
-   *
-   * @example
-   * ```js
-   * bud.postcss.get('postcssOptions.syntax')
-   * ```
-   */
-  @deprecated(`bud.postcss`, `Use bud.postcss.get instead`, [
-    [
-      `get value of postcssOptions.syntax`,
-      `bud.postcss.get('postcssOptions.syntax')`,
-    ],
-  ])
-  public getSyntax(): string {
-    return this.get(`postcssOptions.syntax`) as string
-  }
-  /**
-   * Set `postcssOptions.syntax`
-   *
-   * @deprecated use {@link BudPostCss.set}
-   *
-   * @example
-   * ```js
-   * bud.postcss.set('postcssOptions.syntax', 'postcss-scss')
-   * ```
-   */
-  @deprecated(`bud.postcss`, `Use bud.postcss.set instead`, [
-    [
-      `set value of postcssOptions.syntax`,
-      `bud.postcss.set('postcssOptions.syntax', 'postcss-scss')`,
-    ],
-  ])
-  public setSyntax(syntax: string): this {
-    this.set(`postcssOptions.syntax`, syntax)
-    return this
-  }
-
-  /**
-   * postcss-loader's source-map option accessor
-   *
-   * @deprecated use {@link BudPostCss.get} and {@link BudPostCss.set}
-   *
-   * @example
-   * ```js
-   * bud.postcss.get('sourceMap')
-   * bud.postcss.set('sourceMap', true)
-   * ```
-   */
-  public get sourceMap(): boolean {
-    return this.get(`sourceMap`)
-  }
-  public set sourceMap(sourceMap: boolean) {
-    this.set(`sourceMap`, sourceMap)
-  }
-
-  /**
-   * Get postcss-loader's source-map option
-   * @deprecated use {@link BudPostCss.get}
-   *
-   * @example
-   * ```js
-   * bud.postcss.get('sourceMap')
-   * ```
-   */
-  @deprecated(`bud.postcss`, `Use bud.postcss.get instead`, [
-    [`get value of sourceMap`, `bud.postcss.get('sourceMap')`],
-  ])
-  public getSourceMap(): boolean {
-    return this.get(`sourceMap`)
-  }
-
-  /**
-   * Set postcss-loader's `sourceMap` option
-   * @deprecated use {@link BudPostCss.set}
-   *
-   * @example
-   * ```js
-   * bud.postcss.set('sourceMap', true)
-   * ```
-   */
-  @deprecated(`bud.postcss`, `Use bud.postcss.set instead`, [
-    [`set value of sourceMap`, `bud.postcss.set('sourceMap', true)`],
-  ])
-  public setSourceMap(sourceMap: boolean): this {
-    this.set(`sourceMap`, sourceMap)
-    return this
+    return name
   }
 }
+
+export {BudPostCss, type BudPostCssPublicInterface}

@@ -51,11 +51,9 @@ export function when(
   trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
   falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
 ): Bud {
-  const ctx = this as Bud
-
   const callTestCase = (value: any) => {
     const iterableValue = isArray(value) ? value : [value]
-    return iterableValue.every(v => ctx.maybeCall(v) === true)
+    return iterableValue.every(v => this.maybeCall(v) === true)
   }
 
   const whenTrue = isArray(trueCase) ? trueCase : [trueCase ?? noop]
@@ -78,7 +76,7 @@ export function when(
     )
   }
 
-  callTestCase(test) ? whenTrue.map(ctx.tap) : whenFalse.map(ctx.tap)
+  callTestCase(test) ? whenTrue.map(this.tap) : whenFalse.map(this.tap)
 
   return this
 }

@@ -6,12 +6,11 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import type {
-  SharpEncodeOptions,
-  SvgoEncodeOptions,
-} from 'image-minimizer-webpack-plugin/types/utils.js'
+import Plugin from 'image-minimizer-webpack-plugin'
 
 import type {Generator} from '../index.js'
+import type * as BudImageminSharp from '../sharp/sharp.js'
+import type * as BudImageminSvgo from '../svgo/svgo.js'
 
 /**
  * Image minimizer configuration
@@ -20,22 +19,35 @@ import type {Generator} from '../index.js'
 @expose(`imagemin`)
 @dependsOn([`@roots/bud-imagemin/sharp`, `@roots/bud-imagemin/svgo`])
 export class BudImageminExtension extends Extension {
+  /**
+   * Sharp options
+   */
   public declare sharp: Bud[`imagemin`][`sharp`]
+
+  /**
+   * Svgo options
+   */
   public declare svgo: Bud[`imagemin`][`svgo`]
 
   /**
    * Set encoder options
    */
   @bind
-  public encode<K extends keyof SharpEncodeOptions>(
-    ...params:
-      | [key: K, value: SharpEncodeOptions[K]]
-      | [key: `svg`, value: SvgoEncodeOptions]
+  public encode<
+    K extends `${(keyof BudImageminSharp.EncodeOptions | `svg`) & string}`,
+  >(
+    ...params: K extends keyof BudImageminSharp.EncodeOptions
+      ? [K, BudImageminSharp.EncodeOptions[K]]
+      : [`svg`, BudImageminSvgo.EncodeOptions]
   ) {
     const [key, value] = params
-    key === `svg`
-      ? this.svgo.setOptions(value)
-      : this.sharp.setEncodeOptions(key, value)
+
+    if (key === `svg`) {
+      this.svgo.setEncodeOptions(value)
+      return this
+    }
+
+    this.sharp.encode(key, value)
     return this
   }
 
@@ -44,11 +56,14 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public lossless() {
-    this.sharp.setEncodeOptions(`jpeg`, {quality: 100})
-    this.sharp.setEncodeOptions(`webp`, {lossless: true})
-    this.sharp.setEncodeOptions(`avif`, {lossless: true})
-    this.sharp.setEncodeOptions(`png`, {})
-    this.sharp.setEncodeOptions(`gif`, {})
+    this.encode(`svg`, {})
+
+    this.sharp.encode(`jpeg`, {quality: 100})
+    this.sharp.encode(`webp`, {lossless: true})
+    this.sharp.encode(`avif`, {lossless: true})
+    this.sharp.encode(`png`, {})
+    this.sharp.encode(`gif`, {})
+
     return this
   }
 
@@ -56,7 +71,7 @@ export class BudImageminExtension extends Extension {
    * Add a generator preset
    */
   @bind
-  public addPreset<K extends keyof SharpEncodeOptions>(
+  public addPreset<K extends keyof BudImageminSharp.Options>(
     ...params: [key: K, value: Partial<Generator>]
   ) {
     this.sharp.setGenerator(...params)
@@ -68,39 +83,61 @@ export class BudImageminExtension extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
+    // Retrieve the sharp and svgo extensions from the Bud object
     this.sharp = bud.extensions.get(`@roots/bud-imagemin/sharp`)
     this.svgo = bud.extensions.get(`@roots/bud-imagemin/svgo`)
 
-    bud.extensions
-      .get(`@roots/bud-extensions/webpack-manifest-plugin`)
-      .setOption(`generate`, () => () => (_seed, files, _entrypoints) => {
-        return files.reduce((acc, file) => {
-          const match = file.path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
+    // Set the 'generate' option in the manifest to a function that processes an array of files
+    // and generates an object mapping filenames to file paths with additional query parameters.
+    bud.manifest.setOption(
+      `generate`,
+      () => (_: unknown, files: Array<{name: string; path: string}>) => {
+        return files.reduce((records, {path, name}) => {
+          // Try to match the path with a specific pattern that looks for generated files
+          const match = path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
 
-          if (match) {
-            const [_, width, height, rest] = match
-            const as = rest.split(`.`).pop()
-            return {
-              ...acc,
+          // If the path does not match the pattern, add the name and path to the accumulator (records) object
+          if (!match) return {...records, [name]: path}
 
-              /**
-               * Prevent overwriting of full resolution
-               *
-               * Not sure that this behaves exactly as expected. But, it's
-               * more predictable in practice than leaving it unhandled.
-               */
-              ...(!acc[`${file.name}?as=${as}`]
-                ? {[`${file.name}?as=${as}`]: file.path}
-                : {}),
+          // If the match is successful, extract the width, height, and rest of the path
+          const [_, width, height, rest] = match
+          const as = rest.split(`.`).pop()
 
-              [`${file.name}?as=${as}&width=${width}`]: file.path,
-              [`${file.name}?as=${as}&width=${width}&height=${height}`]:
-                file.path,
-            }
+          // Create new keys with the name and query parameters for 'as', 'width' and 'height',
+          // and associate them with the file path.
+          const widthOnlyQueryName = `${name}?as=${as}&width=${width}`
+          const widthAndHeightQueryName = `${name}?as=${as}&width=${width}&height=${height}`
+
+          // If the key with 'as' query parameter doesn't exist, add it to the records
+          if (!records[`${name}?as=${as}`])
+            records[`${name}?as=${as}`] = path
+
+          return {
+            ...records,
+            // Add the name with 'width' query parameter and its associated path
+            [widthOnlyQueryName]: path,
+            // Add the name with 'width' and 'height' query parameters and its associated path
+            [widthAndHeightQueryName]: path,
           }
+        }, {}) // Initialize the accumulator (records) as an empty object
+      },
+    )
+  }
 
-          return {...acc, [file.name]: file.path}
-        }, {})
-      })
+  /**
+   * Make image minimizer plugin instance
+   */
+  public makePluginInstance({
+    test,
+    implementation,
+    generator = undefined,
+    options,
+  }) {
+    return new Plugin({
+      test,
+      ...(generator
+        ? {generator}
+        : {minimizer: {implementation, options: options ?? {}}}),
+    })
   }
 }

@@ -17,19 +17,22 @@ export default class BudSWCRefresh extends Extension {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    this.registerTransform(bud)
+    await this.registerTransform(bud)
   }
 
   /**
    * Register `react-refresh-swc` transform plugin
    */
-  public async registerTransform(bud: Bud) {
+  public async registerTransform({isDevelopment, swc}: Bud) {
     this.logger.log(`Registering swc react-refresh transformer`)
 
-    this.app.swc.set(
-      `jsc.transform.react.development`,
-      this.app.isDevelopment,
-    )
-    this.app.swc.set(`jsc.transform.react.refresh`, this.app.isDevelopment)
+    swc.setTransform((transform = {}) => ({
+      ...(transform ?? {}),
+      react: {
+        ...(transform?.react ?? {}),
+        development: isDevelopment,
+        refresh: isDevelopment,
+      },
+    }))
   }
 }

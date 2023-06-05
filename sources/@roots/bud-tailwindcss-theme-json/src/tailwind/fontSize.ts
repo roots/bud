@@ -14,7 +14,7 @@ export interface TailwindSize {
       ]
 }
 export type WordPressSizes =
-  Theme.GlobalSettingsAndStyles['settings']['typography']['fontSizes']
+  Theme.SettingsAndStyles['settings']['typography']['fontSizes']
 
 /**
  * Make a theme.json fonts.color item from a slug and a color

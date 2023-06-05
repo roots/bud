@@ -32,11 +32,10 @@ export default class BudTypeScriptRefresh extends Extension {
       import.meta.url,
     )
 
-    const transformation = (_program: unknown) => ({before: [transform()]})
-    const callback = (_bud: Bud) => transformation
-
     bud.extensions
       .get(`@roots/bud-typescript`)
-      .set(`getCustomTransformers`, callback)
+      .set(`getCustomTransformers`, () => ({
+        before: [transform()],
+      }))
   }
 }

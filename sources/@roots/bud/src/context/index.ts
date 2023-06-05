@@ -7,78 +7,73 @@ import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as filesystem from '@roots/bud-support/utilities/filesystem'
 import logger from '@roots/bud-support/utilities/logger'
-import * as paths from '@roots/bud-support/utilities/paths'
+import * as projectPaths from '@roots/bud-support/utilities/paths'
 
-import * as budContext from './bud.js'
+import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
 import services from './services.js'
 
 export default async (
-  context: Partial<Context> = {},
+  options: Partial<Context> = {},
 ): Promise<Context> => {
+  let basedir = options?.basedir ?? process.cwd()
+  const paths = projectPaths.get(basedir)
+  if (paths.basedir !== basedir) basedir = paths.basedir
+
+  const fs = filesystem.get(basedir)
+  const env = projectEnv.get(basedir)
+  const bud = await budManifest.get(fs)
+
   let manifest: Context[`manifest`]
-
-  context.paths = {
-    ...paths.get(context?.basedir ?? process.cwd()),
-    ...(context?.paths ?? {}),
-  }
-
-  let fs = filesystem.get(context.paths.basedir)
-
-  let env: Context[`env`] = projectEnv.get(context.paths.basedir)
-  let bud: Context[`bud`] = await budContext.get(fs)
-
   try {
-    manifest = await fs.read(join(context.paths.basedir, `package.json`))
+    manifest = await fs.read(join(basedir, `package.json`))
   } catch (e) {
     logger.scope(`bootstrap`).warn(`📦`, `no package.json found`)
   }
 
-  let files: Context[`files`] = await projectFiles.get(
-    context.paths.basedir,
-  )
+  const files: Context[`files`] = await projectFiles.get(basedir)
+  const extensions: Context[`extensions`] = getExtensions(manifest)
 
   Object.entries(files).map(([k, v]) =>
     logger.scope(`bootstrap`).info(`file`, k, v),
   )
 
-  let extensions: Context[`extensions`] = getExtensions(manifest)
-
-  const instance: Context = {
+  const context: Context = {
     ...(args ?? {}),
-    ...(context ?? {}),
-    label: context?.label ?? manifest?.name ?? bud?.label ?? `default`,
-    // eslint-disable-next-line n/no-process-env
-    bin: process.env.BUD_JS_BIN ?? `node`,
-    basedir: context.paths.basedir,
-    mode: context?.mode ?? `production`,
-    env: {...(env ?? {}), ...(context?.env ?? {})},
-    files: {...(files ?? {}), ...(context?.files ?? {})},
-    services: [...(services ?? []), ...(context?.services ?? [])],
-    bud: {...(bud ?? {}), ...(context?.bud ?? {})},
-    manifest: {...(manifest ?? {}), ...(context?.manifest ?? {})},
+    ...options,
+    basedir,
+    bin: (env.BUD_JS_BIN as Context[`bin`]) ?? `node`,
+    label: options?.label ?? manifest?.name ?? bud?.label ?? `default`,
+    mode: options?.mode ?? `production`,
+    env: {...(env ?? {}), ...(options?.env ?? {})},
+    files: {...(files ?? {}), ...(options?.files ?? {})},
+    paths: {...paths, ...(options?.paths ?? {})},
+    services: [...(services ?? []), ...(options?.services ?? [])],
+    bud: {...bud, ...(options?.bud ?? {})},
+    manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
     extensions: {
       builtIn: [
         ...(extensions?.builtIn ?? []),
-        ...(context?.extensions?.builtIn ?? []),
+        ...(options?.extensions?.builtIn ?? []),
       ],
       discovered: [
         ...(extensions?.discovered ?? []),
-        ...(context?.extensions?.discovered ?? []),
+        ...(options?.extensions?.discovered ?? []),
       ],
     },
-    logger: context?.logger ?? logger,
-  } as Context
+  }
 
-  instance.logger.unscope()
-  instance.logger.scope(`bootstrap`).log(`🏗️`, `building`, instance.label)
-  instance.logger.scope(`bootstrap`).log(`📂`, `basedir`, instance.basedir)
-  instance.logger
+  logger
+    .unscope()
     .scope(`bootstrap`)
-    .log(`😎`, `version`, instance.bud.version)
-  instance.logger.scope(instance.label)
+    .log(`🏗️`, `building`, context.label)
+    .scope(`bootstrap`)
+    .log(`📂`, `basedir`, context.basedir)
+    .scope(`bootstrap`)
+    .log(`😎`, `version`, context.bud.version)
+    .scope(context.label)
 
-  return instance
+  return context
 }
 
 export type {Context}

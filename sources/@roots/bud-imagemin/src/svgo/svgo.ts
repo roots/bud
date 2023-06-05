@@ -1,12 +1,38 @@
-import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {Extension, type Option} from '@roots/bud-framework/extension'
 import {
   bind,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'image-minimizer-webpack-plugin'
-import type {SvgoEncodeOptions} from 'image-minimizer-webpack-plugin/types/utils.js'
+import type {PluginConfig} from 'svgo'
+import type {StringifyOptions} from 'svgo/lib/types.js'
+
+export type EncodeOptions = {
+  /** Pass over SVGs multiple times to ensure all optimizations are applied. */
+  multipass?: boolean
+  /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
+  floatPrecision?: number
+  /**
+   * Plugins configuration
+   * ['preset-default'] is default
+   * Can also specify any builtin plugin
+   * ['sortAttrs', { name: 'prefixIds', params: { prefix: 'my-prefix' } }]
+   * Or custom
+   * [{ name: 'myPlugin', fn: () => ({}) }]
+   */
+  plugins?: PluginConfig[]
+  /** Options for rendering optimized SVG from AST. */
+  js2svg?: StringifyOptions
+}
+export type PathedEncodeOptions = {
+  [K in keyof EncodeOptions as `encodeOptions.${K &
+    string}`]?: EncodeOptions[K]
+}
+export type OptionsObject = {
+  [`encodeOptions`]: EncodeOptions
+}
+export type Options = PathedEncodeOptions & OptionsObject
 
 /**
  * `@roots/bud-imagemin/svgo`
@@ -14,48 +40,59 @@ import type {SvgoEncodeOptions} from 'image-minimizer-webpack-plugin/types/utils
  * @see {@link https://bud.js.org/extensions/bud-imagemin}
  */
 @label(`@roots/bud-imagemin/svgo`)
-@options({encodeOptions: {}})
-export class BudImageminSvgo extends Extension {
-  public implementation: any
-
-  @bind
-  public async setEncodeOptions<K extends keyof SvgoEncodeOptions>(
-    key: K,
-    value: SvgoEncodeOptions[K],
-  ) {
-    this.setOptions({
-      ...(this.options ?? {}),
-      encodeOptions: {
-        ...(this.options.encodeOptions ?? {}),
-        [key]: value,
-      },
-    })
-  }
+@options<Options>({encodeOptions: {}})
+export class BudImageminSvgo extends Extension<Options> {
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare encodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['value']
 
   /**
-   * {@link Extension.register}
+   * {@link EncodeOptions}
    */
-  @bind
-  public override async register() {
-    this.implementation = Plugin.svgoMinify
-  }
+  public declare setEncodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['set']
+
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare getEncodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['get']
 
   /**
    * {@link Extension.configAfter}
    */
   @bind
-  public override async configAfter(bud: Bud) {
-    bud.hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
-      ...minimizer,
-      new Plugin({
-        test: bud.hooks.filter(`pattern.svg`),
-        minimizer: {
-          implementation: this.implementation,
-          options: {
-            encodeOptions: this.options.encodeOptions ?? {},
-          },
-        },
-      }),
-    ])
+  public override async configAfter({hooks, imagemin}) {
+    this.encodeOptions &&
+      hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
+        ...minimizer,
+        imagemin.makePluginInstance({
+          test: hooks.filter(`pattern.svg`),
+          implementation: Plugin.svgoMinify,
+          options: this.options,
+        }),
+      ])
+  }
+
+  /**
+   * Set encode options
+   */
+  @bind
+  public encode<K extends keyof EncodeOptions & string>(
+    key: K,
+    value: EncodeOptions[K],
+  ) {
+    this.setEncodeOptions(options => ({...options, [key]: value}))
   }
 }

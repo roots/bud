@@ -80,7 +80,9 @@ await Commands.get(application, context)
       await Promise.all(fns.map(async fn => await fn(application))),
   )
 
-application.runExit(args.raw, context).catch(err => <Error error={err} />)
+application
+  .runExit(args.raw, context)
+  .catch(err => render(<Error error={err} />))
 
 export {application, Builtins, Cli}
 export type {CommandClass}

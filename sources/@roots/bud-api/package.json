@@ -93,7 +93,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud-extensions": "workspace:sources/@roots/bud-extensions",
-    "@roots/bud-terser": "workspace:sources/@roots/bud-terser",
+    "@roots/bud-minify": "workspace:sources/@roots/bud-minify",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12"
   },

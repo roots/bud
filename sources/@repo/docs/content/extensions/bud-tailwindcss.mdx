@@ -1,50 +1,20 @@
 ---
+title: '@roots/bud-tailwindcss'
+description: 'Extension providing tailwindcss support to bud.js projects'
 sidebar_label: '@roots/bud-tailwindcss'
+custom_edit_url: 'https://github.com/roots/bud/tree/main/sources/@roots/bud-tailwindcss/docs/01-configuration.md'
 ---
 
-import {Install} from '@site/src/docs/Install'
-
-# @roots/bud-tailwindcss
+import Configuration from '@site/../../@roots/bud-tailwindcss/docs/01-configuration.md'
 
 [TailwindCSS](https://tailwindcss.com) support can be added by installing the [@roots/bud-tailwindcss](/extensions/bud-tailwindcss) extension.
 
 ## Installation
 
-<Install packages="@roots/bud-tailwindcss" />
-
-## Using tailwind values in JS files
-
-bud.js can be configured to allow for you to import tailwind theme values using the (virtual) `@tailwind/*` alias.
-
-An example:
-
-```typescript
-import {black} from '@tailwind/colors'
-import {sans} from '@tailwind/fontFamily'
-
-export const main = () => {
-  document.body.style.backgroundColor = black
-  document.body.style.fontFamily = sans
-}
+```npm2yarn
+yarn add @roots/bud-tailwindcss --dev
 ```
 
-Generating the imports can be memory intensive and increase build times, so it is opt-in.
+## Configuration
 
-```ts
-bud.tailwind.generateImports()
-```
-
-Better to generate imports only for specific keys (much less memory intensive):
-
-```ts
-bud.tailwind.generateImports([`colors`, `fontFamily`])
-```
-
-This is a lot better than trying to import the actual `tailwind.config.js` file to read these values as the values are fully resolved (merged with `defaultTheme`, plugins applied, etc.)
-
-And it's a lot better than importing `tailwindcss/resolveConfig` and doing it in the app code because of transitive dependencies.
-
-Lastly, it's better than pre-compiling a static json file because these values are tree-shakeable. The entire generated json for the default tailwind config is ~100kb.
-The above example adds ~5kb to the overall bundle (and only because tailwind has so many default colors). If you use terser ([bud.minify](https://bud.js.org/docs/bud.minimize)) the difference is entirely negligible.
-
-If you don't import from `@tailwind/*` nothing is added to the bundle (even if the imports are generated)
+<Configuration />

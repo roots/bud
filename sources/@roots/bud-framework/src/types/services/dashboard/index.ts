@@ -9,6 +9,11 @@ export interface Service extends Contract {
   silent: boolean
 
   /**
+   * IDs of rendered stats for debouncing
+   */
+  hashes: Set<string>
+
+  /**
    * Update the dashboard
    */
   update(stats: MultiStats): Promise<this>

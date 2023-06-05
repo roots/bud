@@ -2,6 +2,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {factory, Bud} from '@repo/test-kit/bud'
 
 import {AsyncHooks} from './async.js'
+import Value from '@roots/bud-support/value'
 
 describe(`@roots/bud-hooks/async`, () => {
   describe(`class`, () => {
@@ -19,7 +20,7 @@ describe(`@roots/bud-hooks/async`, () => {
 
     it(`should be instantiable`, () => {
       asyncHooks.store = {
-        'build.plugins': [bud.value.make(async () => [])],
+        'build.plugins': [Value.make(async () => [])],
       }
       expect(asyncHooks.has(`build.plugins`)).toBe(true)
 

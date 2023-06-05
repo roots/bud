@@ -33,39 +33,22 @@ export class Sage extends Extension {
    * {@link Extension.register}
    */
   public override async register(bud: Bud) {
-    bud.hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
-
-    /* Set paths */
-    bud.setPath({
-      '@src': `resources`,
-      '@fonts': `@src/fonts`,
-      '@images': `@src/images`,
-      '@scripts': `@src/scripts`,
-      '@styles': `@src/styles`,
-      '@views': `@src/views`,
-      '@dist': `public`,
-    })
-
-    /* Set aliases */
-    bud.alias({
-      '@fonts': bud.path(`@fonts`),
-      '@images': bud.path(`@images`),
-      '@scripts': bud.path(`@scripts`),
-      '@styles': bud.path(`@styles`),
-      '@views': bud.path(`@views`),
-    })
-
-    /* Set runtime single */
-    bud.runtime(`single`)
-
-    /**
-     * Optimize
-     */
-    bud.when(
-      bud.isProduction,
-      () => bud.minimize().hash().splitChunks(),
-      () => bud.devtool(),
-    )
+    bud
+      .setPath({
+        '@src': `resources`,
+        '@fonts': `@src/fonts`,
+        '@images': `@src/images`,
+        '@scripts': `@src/scripts`,
+        '@styles': `@src/styles`,
+        '@views': `@src/views`,
+        '@dist': `public`,
+      })
+      .when(
+        bud.isProduction,
+        () => bud.minimize().hash().splitChunks(),
+        () => bud.devtool(),
+      )
+      .hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
   }
 
   /**

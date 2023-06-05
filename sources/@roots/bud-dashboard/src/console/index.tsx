@@ -1,4 +1,4 @@
-import * as Ink from 'ink'
+import {Box, Static} from 'ink'
 
 import type {LogProps, Stderr, Stdout} from './log.js'
 import {Log} from './log.js'
@@ -11,11 +11,13 @@ export const Console = ({messages}: Props) => {
   if (!messages?.length) return null
 
   return (
-    <Ink.Box flexDirection="column">
-      {messages.map((item, i) => (
-        <Log key={i} {...item} />
-      ))}
-    </Ink.Box>
+    <Static items={messages}>
+      {(message, i) => (
+        <Box flexDirection="column" key={i}>
+          <Log key={i} {...message} />
+        </Box>
+      )}
+    </Static>
   )
 }
 

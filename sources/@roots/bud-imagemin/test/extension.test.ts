@@ -3,7 +3,7 @@ import '../src/types/index.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit/bud'
 
-import {BudImageminExtension} from '../src/extension/extension.js'
+import BudImageminExtension from '../src/index.js'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud
@@ -27,45 +27,35 @@ describe(`@roots/bud-imagemin`, () => {
     await bud.extensions.add(`@roots/bud-imagemin/svgo`)
     await imagemin.register(bud)
 
-    vi.spyOn(imagemin.sharp, `setEncodeOptions`)
+    vi.spyOn(imagemin.sharp, `encode`)
     imagemin.lossless()
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(
-      1,
-      `jpeg`,
-      {quality: 100},
-    )
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(
-      2,
-      `webp`,
-      {lossless: true},
-    )
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(
-      3,
-      `avif`,
-      {lossless: true},
-    )
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(
-      4,
-      `png`,
-      {},
-    )
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenNthCalledWith(
-      5,
-      `gif`,
-      {},
-    )
-    expect(imagemin.sharp.setEncodeOptions).toHaveBeenCalledTimes(5)
+    expect(imagemin.sharp.encode).toHaveBeenNthCalledWith(1, `jpeg`, {
+      quality: 100,
+    })
+    expect(imagemin.sharp.encode).toHaveBeenNthCalledWith(2, `webp`, {
+      lossless: true,
+    })
+    expect(imagemin.sharp.encode).toHaveBeenNthCalledWith(3, `avif`, {
+      lossless: true,
+    })
+    expect(imagemin.sharp.encode).toHaveBeenNthCalledWith(4, `png`, {})
+    expect(imagemin.sharp.encode).toHaveBeenNthCalledWith(5, `gif`, {})
+    expect(imagemin.sharp.encode).toHaveBeenCalledTimes(5)
   })
 
   it(`should set encode options`, async () => {
     await bud.extensions.add(`@roots/bud-imagemin/sharp`)
     await bud.extensions.add(`@roots/bud-imagemin/svgo`)
+
     await imagemin.register(bud)
-    imagemin.sharp.setOptions({})
-    imagemin.svgo.setOptions({})
+
+    imagemin.sharp.setEncodeOptions({})
+    imagemin.svgo.setEncodeOptions({})
+
     imagemin.encode(`jpeg`, {quality: 10})
-    expect(imagemin.sharp.options.encodeOptions).toEqual({
-      jpeg: {quality: 10},
+
+    expect(imagemin.sharp.options.encodeOptions?.jpeg).toEqual({
+      quality: 10,
     })
   })
 })

@@ -3,16 +3,15 @@ import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import set from '@roots/bud-support/lodash/set'
+import logger from '@roots/bud-support/logger'
 import chalk from 'chalk'
 
 import type {Bud} from '../bud.js'
-import * as methods from '../methods/index.js'
+import methods from '../methods/index.js'
 import {Module} from '../module.js'
 import type {Service} from '../service.js'
 import FS from '../services/fs.js'
-import type * as Options from '../types/options/index.js'
 import type * as Registry from '../types/registry/index.js'
-import {initialize} from './init.js'
 
 /**
  * Define the list of lifecycle events that are handled by the system
@@ -135,18 +134,12 @@ const instantiateServices =
  *
  * @returns Promise<void>
  */
-export const bootstrap = async function (
-  this: Bud,
-  context: Options.Context,
-) {
-  Object.assign(this, {}, {context})
-  this.services = []
-
-  Object.entries(methods).map(([handle, callable]) => {
-    this[handle] = callable.bind(this)
+export const bootstrap = async function (this: Bud) {
+  Object.entries(methods).map(([handle, value]) => {
+    this.set(handle as `${keyof Bud & string}`, value)
   })
 
-  this.context.logger.time(`initialize`)
+  logger.time(`initialize`)
 
   await Promise.all(
     [FS, Module, ...this.context.services]
@@ -154,7 +147,51 @@ export const bootstrap = async function (
       .map(instantiateServices(this)),
   )
 
-  initialize(this)
+  this.hooks
+    .fromMap({
+      'pattern.js': /\.(mjs|jsx?)$/,
+      'pattern.ts': /\.(tsx?)$/,
+      'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
+      'pattern.sassModule': /\.module\.(scss|sass)$/,
+      'pattern.css': /(?!.*\.module)\.css$/,
+      'pattern.cssModule': /\.module\.css$/,
+      'pattern.font': /\.(ttf|otf|eot|woff2?|ico)$/,
+      'pattern.html': /\.(html?)$/,
+      'pattern.image': /\.(png|jpe?g|gif|webp)$/,
+      'pattern.modules': /(node_modules|bower_components)/,
+      'pattern.svg': /\.svg$/,
+      'pattern.vue': /\.vue$/,
+      'pattern.md': /\.md$/,
+      'pattern.toml': /\.toml$/,
+      'pattern.webp': /\.webp$/,
+      'pattern.yml': /\.ya?ml$/,
+      'pattern.xml': /\.xml$/,
+      'pattern.csv': /\.(csv|tsv)$/,
+      'pattern.json': /\.json$/,
+      'pattern.json5': /\.json5$/,
+    })
+    .hooks.fromMap({
+      'location.@src': isString(this.context.input)
+        ? this.context.input
+        : `src`,
+      'location.@dist': isString(this.context.output)
+        ? this.context.output
+        : `dist`,
+      'location.@storage': this.context.paths.storage,
+      'location.@modules': isString(this.context.modules)
+        ? this.context.modules
+        : `node_modules`,
+      'location.@os-cache': this.context.paths[`os-cache`],
+      'location.@os-config': this.context.paths[`os-config`],
+      'location.@os-data': this.context.paths[`os-data`],
+      'location.@os-log': this.context.paths[`os-log`],
+      'location.@os-temp': this.context.paths[`os-temp`],
+    })
+    .when(this.isDevelopment, ({hooks}) =>
+      hooks.fromMap({
+        'dev.middleware.enabled': [`dev`, `hot`],
+      }),
+    )
 
   Object.entries(LIFECYCLE_EVENT_MAP).map(
     ([eventHandle, callbackName]: [
@@ -165,10 +202,7 @@ export const bootstrap = async function (
         .map(service => [service, this[service]])
         .map(([label, service]) => {
           if (!service) {
-            this.context.logger.error(
-              `service not found: ${label}`,
-              this.services,
-            )
+            logger.error(`service not found: ${label}`, this.services)
           }
 
           if (!isFunction(service[callbackName])) return
@@ -178,11 +212,7 @@ export const bootstrap = async function (
             service[callbackName].bind(service),
           )
 
-          this.context.logger.info(
-            `${label}.${callbackName}`,
-            `bound to`,
-            eventHandle,
-          )
+          logger.info(`${label}.${callbackName}`, `bound to`, eventHandle)
         }),
   )
 
@@ -191,9 +221,9 @@ export const bootstrap = async function (
       await promised
       await this.hooks.fire(event, this)
       if (this.api.processQueue && this.api?.queue?.length) {
-        this.context.logger.time(`processing queued calls ${event}`)
+        logger.time(`processing queued calls ${event}`)
         await this.api.processQueue()
-        this.context.logger.timeEnd(`processing queued calls ${event}`)
+        logger.timeEnd(`processing queued calls ${event}`)
       }
     },
     Promise.resolve(),
@@ -208,7 +238,7 @@ export const bootstrap = async function (
       resolutions: bud.module.resolved,
     })
 
-    this.context.logger.scope(`fs`).time(`writing new checksums`)
+    logger.scope(`fs`).time(`writing new checksums`)
 
     await this.fs.write(
       this.path(`@storage`, `checksum.yml`),
@@ -217,6 +247,6 @@ export const bootstrap = async function (
         {},
       ),
     )
-    this.context.logger.scope(`fs`).timeEnd(`writing new checksums`)
+    logger.scope(`fs`).timeEnd(`writing new checksums`)
   })
 }

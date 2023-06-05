@@ -7,15 +7,16 @@
     "strict": true,
     "rootDir": "./src",
     "outDir": "./lib",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-extensions", "@roots/bud-minify"]
   },
-  "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "./**/*.test.ts"],
+  "include": ["./src/**/*.ts"],
+  "exclude": ["./src/**/*.test.ts"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-support/tsconfig.json"},
-    {"path": "../bud-terser/tsconfig.json"},
+    {"path": "../bud-minify/tsconfig.json"},
     {"path": "../container/tsconfig.json"}
   ]
 }

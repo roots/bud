@@ -34,10 +34,7 @@ export const copyDir: copyDir = async function copyDir(
 
   app.extensions
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
-    .setOptions(options => ({
-      ...(options ?? {}),
-      patterns: [...(options?.patterns ?? []), result],
-    }))
+    .set(`patterns`, (patterns = []) => [...patterns, result])
 
   app.api.logger.success(`bud.copyDir: asset pattern added`)
 

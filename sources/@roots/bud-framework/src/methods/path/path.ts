@@ -28,7 +28,7 @@ export const path: path = function (...values) {
   const name = app.hooks.filter(`value.fileFormat`, `[name]`)
 
   const transformMagicString = makeParseMagicString(
-    app.hooks.filter(`feature.hash`) ? `${name}.${hash}` : name,
+    app.context.hash ? `${name}.${hash}` : name,
     hash,
   )
 

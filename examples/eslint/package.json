@@ -2,6 +2,7 @@
   "name": "@examples/eslint",
   "private": true,
   "packageManager": "npm@8.19.2",
+  "type": "module",
   "engines": {
     "node": "18.12.1"
   },
@@ -9,8 +10,7 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-preset-recommend": "latest"
+    "@roots/bud-eslint": "latest"
   }
 }

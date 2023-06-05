@@ -1,42 +1,51 @@
-import figures from '@roots/bud-support/figures'
-import chalk from 'chalk'
-import * as Ink from 'ink'
+import {Box, Text} from 'ink'
 import type {StatsCompilation} from 'webpack'
 
-const Messages = ({
+export default function Messages({
   figure,
   type,
   messages,
   color,
 }: {
   figure: string
-  type: ('error' | 'warning') & string
+  type: `error` | `warning`
   messages: StatsCompilation['errors'] | StatsCompilation['warnings']
   color: string
-}) => {
+}) {
   if (!messages?.length) return null
 
   return (
-    <Ink.Box flexDirection="column">
-      {messages.map(({message}, id: number) => (
-        <Ink.Box key={id} flexDirection="column">
-          <Ink.Box flexDirection="row">
-            <Ink.Text dimColor>├─</Ink.Text>
-            <Ink.Text>{` `}</Ink.Text>
-            <Ink.Text color={color}>{figure}</Ink.Text>
-            <Ink.Text>{`  `}</Ink.Text>
-            <Ink.Text color={color}>{type}</Ink.Text>
-          </Ink.Box>
-
-          <Ink.Box flexDirection="column">
-            <Ink.Text>{chalk.dim(figures.lineVertical)}</Ink.Text>
-            <Ink.Text>{message.trim()}</Ink.Text>
-            <Ink.Text dimColor>{chalk.dim(figures.lineVertical)}</Ink.Text>
-          </Ink.Box>
-        </Ink.Box>
+    <Box flexDirection="column">
+      {messages.map((error, id: number) => (
+        <Message
+          key={id}
+          error={error}
+          color={color}
+          figure={figure}
+          type={type}
+        />
       ))}
-    </Ink.Box>
+    </Box>
   )
 }
 
-export default Messages
+const Message = ({error, color, figure, type}) =>
+  !error ? null : (
+    <Box flexDirection="column" marginBottom={1}>
+      <Box
+        flexDirection="column"
+        paddingLeft={1}
+        borderStyle="bold"
+        borderRight={false}
+        borderTop={false}
+        borderBottom={false}
+        borderLeftColor={color}
+      >
+        <Text>
+          {`\n`}
+          {error.message.trim()}
+          {`\n`}
+        </Text>
+      </Box>
+    </Box>
+  )

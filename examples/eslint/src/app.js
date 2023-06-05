@@ -4,3 +4,5 @@ target.innerHTML = `
     <h1>Hello</h1>
   </div>
 `
+
+console.log(`hi`)

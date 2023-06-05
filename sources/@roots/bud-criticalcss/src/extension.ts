@@ -9,6 +9,7 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
+import Value from '@roots/bud-support/value'
 import type {Options} from '@roots/critical-css-webpack-plugin'
 import CriticalCssWebpackPlugin from '@roots/critical-css-webpack-plugin'
 
@@ -21,10 +22,9 @@ import {extractCss} from './api/extract.js'
 @expose(`critical`)
 @plugin(CriticalCssWebpackPlugin)
 @options<Options>({
-  base: (app: Bud) =>
-    app.publicPath() !== `auto` && app.publicPath() !== ``
-      ? app.publicPath()
-      : `/`,
+  base: Value.make(({publicPath}) =>
+    publicPath() !== `auto` && publicPath() !== `` ? publicPath() : `/`,
+  ),
   extract: true,
   request: {https: {rejectUnauthorized: false}},
 })

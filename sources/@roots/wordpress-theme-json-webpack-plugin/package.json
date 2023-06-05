@@ -73,6 +73,7 @@
   "dependencies": {
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
+    "json-schema-to-typescript": "13.0.1",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
     "webpack": "5.83.0"

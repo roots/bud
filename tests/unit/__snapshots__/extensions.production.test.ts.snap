@@ -19,7 +19,7 @@ exports[`production extensions > should match snapshot 1`] = `
   "@roots/bud-postcss",
   "@roots/bud-swc",
   "@roots/bud-tailwindcss",
-  "@roots/bud-terser",
-  "@roots/bud-terser/css-minimizer",
+  "@roots/bud-minify",
+  "@roots/bud-minify/css-minimizer",
 ]
 `;

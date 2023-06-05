@@ -4,9 +4,9 @@ import type {
   AsyncRegistry,
   AsyncStore,
 } from '@roots/bud-framework/registry'
-import type Value from '@roots/bud-framework/value'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import Value from '@roots/bud-support/value'
 
 import {Hooks} from '../base/base.js'
 
@@ -24,12 +24,10 @@ export class AsyncHooks extends Hooks<AsyncStore> {
   ): Bud {
     if (!this.has(id)) this.store[id] = []
 
-    input
-      .map(this.app.value.make)
-      .map((value: Value<AsyncCallback[T]>) => {
-        if (typeof value.get() === `function`) this.store[id].push(value)
-        else this.store[id] = [value]
-      })
+    input.map(Value.make).map((value: Value<AsyncCallback[T]>) => {
+      if (typeof value.get() === `function`) this.store[id].push(value)
+      else this.store[id] = [value]
+    })
 
     return this.app
   }
@@ -51,8 +49,8 @@ export class AsyncHooks extends Hooks<AsyncStore> {
     id: T,
     fallback?: AsyncRegistry[T],
   ): Promise<AsyncRegistry[T]> {
-    return await [this.app.value.make(fallback), ...(this.store[id] ?? [])]
-      .map(this.app.value.get)
+    return await [Value.make(fallback), ...(this.store[id] ?? [])]
+      .map(Value.get)
       .reduce(async (accumulated, current) => {
         const previous = await accumulated
         return isFunction(current) ? await current(previous) : current

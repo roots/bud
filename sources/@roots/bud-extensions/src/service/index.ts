@@ -6,6 +6,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 
@@ -227,11 +228,11 @@ export default class Extensions
   ): Promise<Extension> {
     if (source instanceof Extension) return source
 
-    if (typeof source === `function`) {
-      if (isConstructor(source)) {
-        return new source(this.app)
-      }
+    if (isConstructor(source)) {
+      return new source(this.app)
+    }
 
+    if (typeof source === `function`) {
       return source(this.app)
     }
 
@@ -240,7 +241,9 @@ export default class Extensions
     }
 
     if (!isConstructor(source)) {
-      return new Extension(this.app).fromObject(source)
+      const instance = new Extension(this.app)
+      Object.entries(source).forEach(([k, v]) => (instance[k] = v))
+      return instance
     }
 
     return new source()
@@ -370,18 +373,10 @@ export default class Extensions
     extension: Extension,
     methodName: Contract.LifecycleMethods,
   ): Promise<this> {
-    if (
-      isUndefined(extension?.meta?.[methodName]) ||
-      extension.meta?.[methodName] === true
-    )
-      return this
-
-    extension.meta[methodName] = true
-
     try {
       await this.runDependencies(extension, methodName)
       const method = extension[`_${methodName}`]
-      if (method) await method()
+      if (isFunction(method)) await method()
       await this.app.api.processQueue()
 
       return this

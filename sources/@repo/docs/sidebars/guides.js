@@ -1,6 +1,7 @@
 module.exports = {
   sidebar: [
     `index`,
+    `create-bud-app`,
     {
       type: `category`,
       label: `Project config`,
