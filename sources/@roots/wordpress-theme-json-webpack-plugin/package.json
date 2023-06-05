@@ -76,7 +76,7 @@
     "json-schema-to-typescript": "13.0.1",
     "lodash": "4.17.21",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.85.0"
   },
   "volta": {
     "extends": "../../../package.json"

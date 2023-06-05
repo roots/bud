@@ -75,7 +75,7 @@
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
     "esbuild-loader": "3.0.1",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.85.0"
   },
   "volta": {
     "extends": "../../../package.json"

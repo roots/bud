@@ -83,7 +83,7 @@
     "ink": "4.2.0",
     "react": "18.2.0",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.85.0"
   },
   "volta": {
     "extends": "../../../package.json"
