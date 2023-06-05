@@ -42,163 +42,163 @@ yarn:
   - .yarnrc.yml
 
 '@roots/blade-loader':
-  - sources/@roots/blade-loader/**/*
+  - sources/@roots/blade-loader/src/**/*
 
 '@roots/browserslist-config':
-  - sources/@roots/browserslist-config/**/*
+  - sources/@roots/browserslist-config/src/**/*
 
 '@roots/bud':
-  - sources/@roots/bud/**/*
+  - sources/@roots/bud/src/**/*
 
 '@roots/bud-api':
-  - sources/@roots/bud-api/**/*
+  - sources/@roots/bud-api/src/**/*
 
 '@roots/bud-babel':
-  - sources/@roots/bud-babel/**/*
+  - sources/@roots/bud-babel/src/**/*
 
 '@roots/bud-build':
-  - sources/@roots/bud-build/**/*
+  - sources/@roots/bud-build/src/**/*
 
 '@roots/bud-cache':
-  - sources/@roots/bud-cache/**/*
+  - sources/@roots/bud-cache/src/**/*
 
 '@roots/bud-client':
-  - sources/@roots/bud-client/**/*
+  - sources/@roots/bud-client/src/**/*
 
 '@roots/bud-compiler':
-  - sources/@roots/bud-compiler/**/*
+  - sources/@roots/bud-compiler/src/**/*
 
 '@roots/bud-compress':
-  - sources/@roots/bud-compress/**/*
+  - sources/@roots/bud-compress/src/**/*
 
 '@roots/bud-criticalcss':
-  - sources/@roots/bud-criticalcss/**/*
+  - sources/@roots/bud-criticalcss/src/**/*
 
 '@roots/bud-dashboard':
-  - sources/@roots/bud-dashboard/**/*
+  - sources/@roots/bud-dashboard/src/**/*
 
 '@roots/bud-emotion':
-  - sources/@roots/bud-emotion/**/*
+  - sources/@roots/bud-emotion/src/**/*
 
 '@roots/bud-entrypoints':
-  - sources/@roots/bud-entrypoints/**/*
+  - sources/@roots/bud-entrypoints/src/**/*
 
 '@roots/bud-esbuild':
-  - sources/@roots/bud-esbuild/**/*
+  - sources/@roots/bud-esbuild/src/**/*
 
 '@roots/bud-eslint':
-  - sources/@roots/bud-eslint/**/*
+  - sources/@roots/bud-eslint/src/**/*
 
 '@roots/bud-extensions':
-  - sources/@roots/bud-extensions/**/*
+  - sources/@roots/bud-extensions/src/**/*
 
 '@roots/bud-framework':
-  - sources/@roots/bud-framework/**/*
+  - sources/@roots/bud-framework/src/**/*
 
 '@roots/bud-hooks':
-  - sources/@roots/bud-hooks/**/*
+  - sources/@roots/bud-hooks/src/**/*
 
 '@roots/bud-imagemin':
-  - sources/@roots/bud-imageminsources/@roots/bud-imagemin/**/*
-
-'@roots/bud-minify':
-  - sources/@roots/bud-minify/**/*
+  - sources/@roots/bud-imagemin/src/**/*
 
 '@roots/bud-mdx':
-  - sources/@roots/bud-mdxsources/@roots/bud-mdx/**/*
+  - sources/@roots/bud-mdx/src/**/*
+
+'@roots/bud-minify':
+  - sources/@roots/bud-minify/src/**/*
 
 '@roots/bud-postcss':
-  - sources/@roots/bud-postcsssources/@roots/bud-postcss/**/*
+  - sources/@roots/bud-postcss/src/**/*
 
 '@roots/bud-preset-recommend':
-  - sources/@roots/bud-preset-recommend/**/*
+  - sources/@roots/bud-preset-recommend/src/**/*
 
 '@roots/bud-preset-wordpress':
-  - sources/@roots/bud-preset-wordpress/**/*
+  - sources/@roots/bud-preset-wordpress/src/**/*
 
 '@roots/bud-prettier':
-  - sources/@roots/bud-prettier/**/*
+  - sources/@roots/bud-prettier/src/**/*
 
 '@roots/bud-purgecss':
-  - sources/@roots/bud-purgecss/**/*
+  - sources/@roots/bud-purgecss/src/**/*
 
 '@roots/bud-react':
-  - sources/@roots/bud-react/**/*
+  - sources/@roots/bud-react/src/**/*
 
 '@roots/bud-sass':
-  - sources/@roots/bud-sass/**/*
+  - sources/@roots/bud-sass/src/**/*
 
 '@roots/bud-server':
-  - sources/@roots/bud-server/**/*
+  - sources/@roots/bud-server/src/**/*
 
 '@roots/bud-solid':
-  - sources/@roots/bud-solid/**/*
-
-'@roots/bud-support':
-  - sources/@roots/bud-support/**/*
-
-'@roots/bud-swc':
-  - sources/@roots/bud-swc/**/*
+  - sources/@roots/bud-solid/src/**/*
 
 '@roots/bud-stylelint':
-  - sources/@roots/bud-stylelint/**/*
+  - sources/@roots/bud-stylelint/src/**/*
+
+'@roots/bud-support':
+  - sources/@roots/bud-support/src/**/*
+
+'@roots/bud-swc':
+  - sources/@roots/bud-swc/src/**/*
 
 '@roots/bud-tailwindcss':
-  - sources/@roots/bud-tailwindcss/**/*
+  - sources/@roots/bud-tailwindcss/src/**/*
 
 '@roots/bud-tailwindcss-theme-json':
-  - sources/@roots/bud-tailwindcss-theme-json/**/*
+  - sources/@roots/bud-tailwindcss-theme-json/src/**/*
 
 '@roots/bud-typescript':
-  - sources/@roots/bud-typescript/**/*
+  - sources/@roots/bud-typescript/src/**/*
 
 '@roots/bud-vue':
-  - sources/@roots/bud-vuesources/@roots/bud-vue/**/*
+  - sources/@roots/bud-vue/src/**/*
 
 '@roots/bud-wordpress-dependencies':
-  - sources/@roots/bud-wordpress-dependencies/**/*
+  - sources/@roots/bud-wordpress-dependencies/src/**/*
 
 '@roots/bud-wordpress-externals':
-  - sources/@roots/bud-wordpress-externals/**/*
+  - sources/@roots/bud-wordpress-externals/src/**/*
 
 '@roots/bud-wordpress-manifests':
-  - sources/@roots/bud-wordpress-manifests/**/*
+  - sources/@roots/bud-wordpress-manifests/src/**/*
 
 '@roots/bud-wordpress-theme-json':
-  - sources/@roots/bud-wordpress-theme-json/**/*
+  - sources/@roots/bud-wordpress-theme-json/src/**/*
 
 '@roots/container':
-  - sources/@roots/containersources/@roots/container/**/*
+  - sources/@roots/container/src/**/*
 
 '@roots/critical-css-webpack-plugin':
-  - sources/@roots/critical-css-webpack-plugin/**/*
+  - sources/@roots/critical-css-webpack-plugin/src/**/*
 
 '@roots/dependencies':
-  - sources/@roots/dependencies/**/*
+  - sources/@roots/dependencies/src/**/*
 
 '@roots/entrypoints-webpack-plugin':
-  - sources/@roots/entrypoints-webpack-plugin/**/*
+  - sources/@roots/entrypoints-webpack-plugin/src/**/*
 
 '@roots/eslint-config':
   - sources/@roots/eslint-config/**/*
 
 '@roots/filesystem':
-  - sources/@roots/filesystem/**/*
+  - sources/@roots/filesystem/src/**/*
 
 '@roots/merged-manifest-webpack-plugin':
   - sources/@roots/merged-manifest-webpack-plugin/**/*
 
 '@roots/sage':
-  - sources/@roots/sage/**/*
+  - sources/@roots/sage/src/**/*
 
 '@roots/wordpress-dependencies-webpack-plugin':
-  - sources/@roots/wordpress-dependencies-webpack-plugin/**/*
+  - sources/@roots/wordpress-dependencies-webpack-plugin/src/**/*
 
 '@roots/wordpress-externals-webpack-plugin':
-  - sources/@roots/wordpress-externals-webpack-plugin/**/*
+  - sources/@roots/wordpress-externals-webpack-plugin/src/**/*
 
 '@roots/wordpress-hmr':
-  - sources/@roots/wordpress-hmr/**/*
+  - sources/@roots/wordpress-hmr/src/**/*
 
 '@roots/wordpress-theme-json-webpack-plugin':
-  - sources/@roots/wordpress-theme-json-webpack-plugin/**/*
+  - sources/@roots/wordpress-theme-json-webpack-plugin/src/**/*

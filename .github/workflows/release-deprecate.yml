@@ -30,4 +30,4 @@ jobs:
           yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
 
       - name: Deprecate ${{ github.event.inputs.version }}
-        run: yarn @bud deprecate ${{ github.event.inputs.version }} "${{ github.events.inputs.reason }}"
+        run: yarn @bud deprecate ${{ github.event.inputs.version }} "${{ github.event.inputs.reason }}"
