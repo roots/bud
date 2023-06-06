@@ -180,7 +180,7 @@
     "tslib": "2.5.0",
     "typanion": "3.12.1",
     "type-fest": "3.10.0",
-    "webpack": "5.83.0",
+    "webpack": "5.85.1",
     "webpack-dev-middleware": "6.1.1",
     "webpack-manifest-plugin": "5.0.0",
     "xml-loader": "1.2.1",
