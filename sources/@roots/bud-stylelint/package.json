@@ -87,13 +87,13 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
-    "webpack": "5.83.0"
+    "webpack": "5.85.1"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",
     "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
     "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "stylelint": "15.6.2",
+    "stylelint": "15.7.0",
     "stylelint-config-standard": "33.0.0",
     "stylelint-webpack-plugin": "4.1.1",
     "tslib": "2.5.0"

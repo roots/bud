@@ -79,7 +79,7 @@
     "@swc/helpers": "0.5.1",
     "swc-loader": "0.2.3",
     "tslib": "2.5.0",
-    "webpack": "5.83.0"
+    "webpack": "5.85.1"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -73,7 +73,7 @@
     "helpful-decorators": "2.1.0",
     "tslib": "2.5.0",
     "vinyl": "3.0.0",
-    "webpack": "5.83.0"
+    "webpack": "5.85.1"
   },
   "volta": {
     "extends": "../../../package.json"
