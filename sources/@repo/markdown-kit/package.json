@@ -31,7 +31,7 @@
     "lodash-es": "4.17.21",
     "octokit": "2.0.14",
     "prettier": "2.8.8",
-    "strip-ansi": "7.0.1",
+    "strip-ansi": "7.1.0",
     "tslib": "2.5.0",
     "typescript": "5.0.4"
   },

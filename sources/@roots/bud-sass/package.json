@@ -102,8 +102,8 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
     "postcss": "8.4.23",
-    "stylelint": "15.6.2",
-    "webpack": "5.83.0"
+    "stylelint": "15.7.0",
+    "webpack": "5.85.1"
   },
   "dependencies": {
     "@roots/bud": "workspace:sources/@roots/bud",

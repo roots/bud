@@ -46,7 +46,7 @@
     "verdaccio": "^5.24.1",
     "vite": "4.3.7",
     "vitest": "0.31.1",
-    "webpack": "5.83.0"
+    "webpack": "5.85.1"
   },
   "workspaces": {
     "packages": [
