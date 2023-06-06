@@ -3,7 +3,7 @@ import '../src/index.js'
 import '@roots/bud-tailwindcss'
 import '@roots/bud-wordpress-theme-json'
 
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import BudPresetWordPress from '../src/index.js'

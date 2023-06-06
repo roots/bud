@@ -1,6 +1,6 @@
 import '../src/index.js'
 
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import postcss from '@roots/bud-postcss'
 import {beforeEach, describe, expect, it} from 'vitest'
 

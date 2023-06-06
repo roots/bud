@@ -43,22 +43,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./minify-css": {
-      "import": "./lib/minify-css/index.js",
-      "default": "./lib/minify-css/index.js"
-    },
-    "./minify-js": {
-      "import": "./lib/minify-js/index.js",
-      "default": "./lib/minify-js/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./minify-css": "./lib/minify-css/index.js",
+    "./minify-js": "./lib/minify-js/index.js",
+    "./types": "./lib/types.js"
   },
   "typesVersions": {
     "*": {
@@ -79,14 +67,14 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "css-minimizer-webpack-plugin": "5.0.0",
     "lightningcss": "1.20.0",
     "terser": "5.17.7",

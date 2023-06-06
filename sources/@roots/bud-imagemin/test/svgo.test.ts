@@ -1,7 +1,7 @@
 import '@roots/bud-imagemin/types'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 
 import BudImageminSvgo from '../src/svgo/index.js'
 

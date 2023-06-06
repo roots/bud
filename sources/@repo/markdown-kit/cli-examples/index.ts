@@ -1,7 +1,6 @@
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {execa} from 'execa'
 import fs from 'fs-jetpack'
-import {join} from 'path'
 import stripAnsi from 'strip-ansi'
 
 const main = async () => {
@@ -38,9 +37,9 @@ const generateMarkdown = async (args: string[]) => {
     .replace(/^\./, ``) // remove leading `.`
     .concat(`.md`) // add .md extension
 
-  const path = join(paths.sources, `@repo/docs/generated/cli`, name)
+  const outFile = path(`sources/@repo/docs/generated/cli`, name)
 
-  await fs.writeAsync(path, content)
+  await fs.writeAsync(outFile, content)
 }
 
 main()

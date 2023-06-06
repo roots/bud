@@ -1,28 +1,31 @@
-import {type Bud, factory} from '@repo/test-kit/bud'
+import '@roots/bud-minify/types'
+
+import {type Bud, factory} from '@repo/test-kit'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 import BudMinimize from '@roots/bud-minify'
+import BudMinimizeCss from '@roots/bud-minify/minify-css'
+import BudMinimizeJs from '@roots/bud-minify/minify-js'
 
 describe(`@roots/bud-minify`, () => {
   let bud: Bud
+  let instance: BudMinimize
 
   beforeAll(async () => {
     bud = await factory()
-
-    // @ts-ignore dangerously reset extension repo
-    bud.extensions.repository = {}
-
-    await bud.extensions.add(BudMinimize)
+    // @ts-ignore
+    instance = new BudMinimize(bud)
+    // @ts-ignore
+    await instance.register(bud)
   })
 
   it(`has label prop`, () => {
-    expect(bud.minify.label).toBe(`@roots/bud-minify`)
+    expect(instance.label).toBe(`@roots/bud-minify`)
   })
 
   it(`has options prop`, () => {
-    expect(bud.minify.js.options).toStrictEqual({
-      minify: expect.any(Function),
+    expect(instance.js.options).toStrictEqual({
       extractComments: false,
       parallel: true,
       terserOptions: {
@@ -54,30 +57,34 @@ describe(`@roots/bud-minify`, () => {
     })
   })
 
-  it(`exposes bud.minify.js`, async () => {
-    expect(bud.minify.js).toBeInstanceOf(Extension)
+  it(`should expose minify.js`, async () => {
+    expect(instance.js).toBeInstanceOf(BudMinimizeJs)
   })
 
-  it(`bud.minify.js.dropComments`, async () => {
-    bud.minify.js.dropComments()
-    expect(bud.minify.js.options.terserOptions.format.comments).toBe(false)
+  it(`should expose minify.css`, async () => {
+    expect(instance.css).toBeInstanceOf(BudMinimizeCss)
   })
 
-  it(`bud.minify.js.dropDebugger`, async () => {
-    bud.minify.js.dropDebugger()
-    expect(bud.minify.js.terserOptions.compress.drop_debugger).toBe(true)
+  it(`should set terserOptions.format.comments to false when minify.js.dropComments is called`, async () => {
+    instance.js.dropComments()
+    expect(instance.js.options.terserOptions.format.comments).toBe(false)
   })
 
-  it(`bud.minify.js.dropConsole`, async () => {
-    bud.minify.js.dropConsole()
-    expect(bud.minify.js.options.terserOptions.compress.drop_console).toBe(
+  it(`should set terserOptions.compress.drop_debugger to true when minify.js.dropDebugger is called`, async () => {
+    instance.js.dropDebugger()
+    expect(instance.js.terserOptions.compress.drop_debugger).toBe(true)
+  })
+
+  it(`instance.js.dropConsole`, async () => {
+    instance.js.dropConsole()
+    expect(instance.js.options.terserOptions.compress.drop_console).toBe(
       true,
     )
   })
 
-  it(`bud.minify.js.mangle`, async () => {
-    bud.minify.js.mangle({toplevel: true})
-    expect(bud.minify.js.options.terserOptions.mangle).toStrictEqual({
+  it(`instance.js.mangle`, async () => {
+    instance.js.mangle({toplevel: true})
+    expect(instance.js.options.terserOptions.mangle).toStrictEqual({
       toplevel: true,
     })
   })

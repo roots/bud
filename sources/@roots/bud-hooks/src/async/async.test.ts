@@ -1,5 +1,5 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {factory, Bud} from '@repo/test-kit/bud'
+import {factory, Bud} from '@repo/test-kit'
 
 import {AsyncHooks} from './async.js'
 import Value from '@roots/bud-support/value'

@@ -261,7 +261,7 @@ export class Bud {
 
   @bind
   public async lifecycle(context: Options.Context): Promise<Bud> {
-    Object.assign(this, {}, {context})
+    Object.assign(this, {}, {context: {...context}})
     await bootstrap.bind(this)()
 
     return this

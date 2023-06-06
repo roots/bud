@@ -83,9 +83,9 @@
     "@types/node": "18.16.12"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "eslint": "8.40.0",
     "eslint-webpack-plugin": "4.0.1",
     "tslib": "2.5.0",

@@ -1,7 +1,7 @@
 import '../src/types/index.js'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import Plugin from 'image-minimizer-webpack-plugin'
 
 import {BudImageminSharp} from '../src/sharp/sharp.js'

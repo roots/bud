@@ -1,4 +1,4 @@
-import {type Bud, factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit'
 import {Extension} from '@roots/bud-framework/extension'
 import {beforeAll, describe, expect, it} from 'vitest'
 

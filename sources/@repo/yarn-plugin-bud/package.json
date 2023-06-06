@@ -8,14 +8,14 @@
     "@types/lodash": "4.14.194",
     "@types/node": "18.16.12",
     "@types/semver": "7.5.0",
-    "@yarnpkg/builder": "4.0.0-rc.44"
+    "@yarnpkg/builder": "4.0.0-rc.45"
   },
   "dependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
-    "@yarnpkg/cli": "4.0.0-rc.44",
-    "@yarnpkg/core": "4.0.0-rc.44",
-    "@yarnpkg/shell": "4.0.0-rc.44",
-    "clipanion": "3.2.0",
+    "@repo/constants": "workspace:*",
+    "@yarnpkg/cli": "4.0.0-rc.45",
+    "@yarnpkg/core": "4.0.0-rc.45",
+    "@yarnpkg/shell": "4.0.0-rc.45",
+    "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.4",
     "helpful-decorators": "2.1.0",

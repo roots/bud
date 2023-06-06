@@ -1,6 +1,6 @@
 import '../../../src/types.js'
 
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import {bundle} from './index.js'

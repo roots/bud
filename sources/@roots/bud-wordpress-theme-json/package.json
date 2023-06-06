@@ -70,11 +70,11 @@
     "@types/node": "18.16.12"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container",
-    "@roots/wordpress-theme-json-webpack-plugin": "workspace:sources/@roots/wordpress-theme-json-webpack-plugin",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/container": "workspace:*",
+    "@roots/wordpress-theme-json-webpack-plugin": "workspace:*",
     "tslib": "2.5.0"
   },
   "volta": {

@@ -1,5 +1,5 @@
-import {factory, repoPath} from '@repo/test-kit/bud'
-import {Bud} from '@roots/bud-framework'
+import {type Bud, factory} from '@repo/test-kit'
+import {path} from '@repo/constants'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {alias as aliasFn} from './index.js'
@@ -15,9 +15,7 @@ describe(`bud.alias`, () => {
   })
 
   it(`should be operating in an expected env`, async () => {
-    expect(bud.path(`@src`)).toBe(
-      repoPath(`tests`, `util`, `project`, `src`),
-    )
+    expect(bud.path(`@src`)).toBe(path(`tests`, `util`, `project`, `src`))
   })
 
   it(`should be a function`, () => {

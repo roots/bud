@@ -1,12 +1,9 @@
-/* eslint-disable no-console */
-import {posix} from 'node:path'
+import {join} from 'node:path'
 
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
-import execa from '@roots/bud-support/execa'
-import {Filesystem} from '@roots/bud-support/filesystem'
-
-const {join} = posix
+import {execa} from 'execa'
+import fs from 'fs-jetpack'
 
 interface Options {
   label: string
@@ -61,20 +58,15 @@ export class Project {
   public directory: string
 
   /**
-   * Filesystem
-   */
-  public fs: Filesystem
-
-  /**
    * Class constructor
    */
   public constructor(public options: Options) {
-    this.directory = join(
-      paths.fixtures,
+    this.directory = path(
+      `storage`,
+      `fixtures`,
       this.options.label.replace(`@examples/`, ``),
     )
     this.options.dist = this.options.dist ?? `dist`
-    this.fs = new Filesystem()
   }
 
   /**
@@ -100,7 +92,7 @@ export class Project {
      * Clean out existing files
      */
     try {
-      await this.fs.remove(this.directory)
+      await fs.removeAsync(this.directory)
     } catch (e) {
       throw e
     }
@@ -109,12 +101,8 @@ export class Project {
      * Copy fixture files
      */
     try {
-      await this.fs.copy(
-        join(
-          paths.root,
-          `examples`,
-          this.options.label.replace(`@examples/`, ``),
-        ),
+      await fs.copyAsync(
+        path(`examples`, this.options.label.replace(`@examples/`, ``)),
         this.directory,
         {overwrite: true},
       )
@@ -126,7 +114,7 @@ export class Project {
      * Write .npmrc
      */
     try {
-      await this.fs.write(
+      await fs.writeAsync(
         this.projectPath(`.npmrc`),
         `@roots:registry=http://localhost:4873`,
       )
@@ -142,13 +130,13 @@ export class Project {
         cwd: this.directory,
       })
       if (child?.stdout) {
-        await this.fs.write(
+        await fs.writeAsync(
           this.projectPath(`install.stdout.log`),
           child.stdout,
         )
       }
       if (child.stderr) {
-        await this.fs.write(
+        await fs.writeAsync(
           this.projectPath(`install.stderr.log`),
           child.stderr,
         )
@@ -180,12 +168,12 @@ export class Project {
       cwd: this.directory,
     })
     child.stdout &&
-      (await this.fs.write(
+      (await fs.writeAsync(
         this.projectPath(`build.stdout.log`),
         child.stdout,
       ))
     child.stderr &&
-      (await this.fs.write(
+      (await fs.writeAsync(
         this.projectPath(`build.stderr.log`),
         child.stderr,
       ))
@@ -206,8 +194,9 @@ export class Project {
    */
   @bind
   public async setManifest() {
-    this.manifest = await this.fs.read(
+    this.manifest = await fs.readAsync(
       this.projectPath(this.options.dist, `manifest.json`),
+      `json`,
     )
   }
 
@@ -219,7 +208,7 @@ export class Project {
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
-          const buffer = await this.fs.read(
+          const buffer = await fs.readAsync(
             this.projectPath(this.options.dist, path),
           )
 
@@ -236,11 +225,12 @@ export class Project {
   @bind
   public async setEntrypoints() {
     try {
-      const entrypoints = await this.fs.read(
-        this.projectPath(join(this.options.dist, `entrypoints.json`)),
+      this.entrypoints = await fs.readAsync(
+        this.projectPath(this.options.dist, `entrypoints.json`),
+        `json`,
       )
-
-      Object.assign(this, {entrypoints})
-    } catch (e) {}
+    } catch (e) {
+      throw e
+    }
   }
 }

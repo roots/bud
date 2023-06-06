@@ -50,13 +50,20 @@ export class TestRun extends Command {
     if (this.requiresProxy) await this.setup()
 
     try {
-      const code = await execute(`yarn`, [
-        `vitest`,
-        `--config`,
-        join(paths.root, `config/vitest.${this.configuration}.config.ts`),
-        ...(this.requiresProxy ? [`run`] : []),
-        ...this.passthrough,
-      ])
+      const code = await execute(
+        `yarn`,
+        [
+          `vitest`,
+          `--config`,
+          join(
+            paths.root,
+            `config/vitest.${this.configuration}.config.ts`,
+          ),
+          ...(this.requiresProxy ? [`run`] : []),
+          ...this.passthrough,
+        ],
+        {cwd: this.context.cwd},
+      )
       if (code !== 0) {
         throw new Error(`Tests failed`)
       }

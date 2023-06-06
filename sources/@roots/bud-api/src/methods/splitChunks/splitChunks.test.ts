@@ -1,5 +1,5 @@
 /* eslint-disable n/callback-return */
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {splitChunks as splitChunksFn} from './index.js'

@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud"
+    "@roots/bud": "workspace:*"
   }
 }

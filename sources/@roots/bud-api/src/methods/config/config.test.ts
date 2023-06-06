@@ -1,4 +1,4 @@
-import {Bud} from '@repo/test-kit/bud'
+import {Bud} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {config as configFn} from './index.js'

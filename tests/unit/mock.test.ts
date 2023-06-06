@@ -1,5 +1,6 @@
-import * as console from '@repo/logger'
-import {Bud, factory, mockProject, repoPath} from '@repo/test-kit/bud'
+import logger from '@roots/bud-support/logger'
+import * as repo from '@repo/constants'
+import {type Bud, factory, mockProject} from '@repo/test-kit'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`mock project`, () => {
@@ -10,22 +11,22 @@ describe(`mock project`, () => {
   })
 
   it(`repoPath matches repo root`, async () => {
-    expect(repoPath(`tests/unit/tests`)).toEqual(
+    expect(repo.path(`tests/unit/tests`)).toEqual(
       expect.stringContaining(`tests/unit/tests`),
     )
   })
 
   it(`mockProject.path matches project path`, async () => {
-    expect(mockProject.path).toBe(repoPath(`tests/util/project`))
+    expect(mockProject.path).toBe(repo.path(`tests/util/project`))
   })
 
   it(`has the expected context`, async () => {
-    console.log(`mock path`, mockProject.path)
+    logger.log(`mock path`, mockProject.path)
     expect(bud.context.basedir).toBe(mockProject.path)
   })
 
   it(`has the expected env`, async () => {
-    console.log(`mock path`, mockProject.path)
+    logger.log(`mock path`, mockProject.path)
     expect(bud.context.basedir).toBe(mockProject.path)
   })
 })

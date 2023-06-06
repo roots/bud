@@ -1,4 +1,4 @@
-import {factory, Bud} from '@repo/test-kit/bud'
+import {factory, Bud} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vitest} from 'vitest'
 
 import Gzip from './gzip.js'

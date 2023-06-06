@@ -3,9 +3,9 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-react": "workspace:*"
   },
   "dependencies": {
     "react": "18.2.0"

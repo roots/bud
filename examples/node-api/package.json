@@ -7,9 +7,9 @@
   "packageManager": "npm@8.19.2",
   "type": "module",
   "devDependencies": {
-    "@roots/browserslist-config": "workspace:sources/@roots/browserslist-config",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
+    "@roots/browserslist-config": "workspace:*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
     "webpack-cli": "5.0.1"
   },
   "browserslist": [

@@ -69,17 +69,17 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
-    "@roots/bud-typescript": "workspace:sources/@roots/bud-typescript",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-sass": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
     "webpack": "5.85.1"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "@vue/compiler-sfc": "^3.3.4",
     "tslib": "2.5.0",
     "vue": "^3.3.2",

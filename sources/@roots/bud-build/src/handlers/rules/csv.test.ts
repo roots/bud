@@ -1,4 +1,4 @@
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {describe, expect, it} from 'vitest'
 
 import {csv} from './csv.js'

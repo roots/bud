@@ -70,15 +70,15 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
     "postcss": "8.4.23",
     "tslib": "2.5.0"
   },

@@ -1,4 +1,4 @@
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {entry as entryFn} from './index.js'

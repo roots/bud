@@ -21,5 +21,6 @@ export async function factory(
   context: Partial<Context> = {},
 ): Promise<Bud> {
   const bud = new Bud()
-  return await bud.lifecycle(await getContext(context))
+  const resolvedContext = await getContext(context)
+  return await bud.lifecycle({...resolvedContext})
 }

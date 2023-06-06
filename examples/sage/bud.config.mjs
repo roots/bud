@@ -4,7 +4,7 @@ export default async app => {
       app: ['@scripts/app', '@styles/app'],
       editor: ['@scripts/editor', '@styles/editor'],
     })
-    .copy('images')
+    .copyDir('images')
     .watch(['resources/views/*.blade.php'])
     .serve(3000)
     .proxy('http://example.test')

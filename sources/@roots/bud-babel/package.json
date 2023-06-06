@@ -81,9 +81,9 @@
     "@babel/plugin-transform-runtime": "7.21.4",
     "@babel/preset-env": "7.21.5",
     "@babel/runtime": "7.21.5",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "babel-loader": "9.1.2",
     "tslib": "2.5.0",
     "webpack": "5.85.1"

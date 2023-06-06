@@ -1,4 +1,4 @@
-import {type Bud, factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 import {after as subject} from '../../../src/methods/after/after.js'
