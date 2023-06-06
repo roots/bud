@@ -1,3 +1,4 @@
+import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -106,8 +107,22 @@ const instantiateServices =
       ? signifier
       : await import(signifier)
     const imported = importedModule?.default ?? importedModule
-    const service = new imported(() => app)
-    const label = service.label ?? camelCase(service.constructor.name)
+    if (!imported) {
+      throw new BudError(`Service not found: ${signifier}`)
+    }
+
+    let service: Service
+    try {
+      service = new imported(() => app)
+    } catch {
+      service = imported
+      service._app = () => app
+    }
+
+    const label =
+      service.label ?? service.constructor?.name
+        ? camelCase(service.constructor.name)
+        : signifier
 
     set(app, label, service)
 

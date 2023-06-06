@@ -90,10 +90,10 @@
     "palette-webpack-plugin": "1.0.5"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-minify": "workspace:sources/@roots/bud-minify",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/container": "workspace:sources/@roots/container",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-minify": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/container": "workspace:*",
     "tslib": "2.5.0",
     "webpack": "5.85.1"
   },

@@ -1,5 +1,5 @@
 import {paths} from '@repo/constants'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {join} from 'path'
 import {beforeEach, describe, expect, it} from 'vitest'
 

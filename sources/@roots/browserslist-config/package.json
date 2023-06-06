@@ -58,7 +58,7 @@
   "main": "./index.cjs",
   "module": "./index.cjs",
   "devDependencies": {
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-support": "workspace:*",
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {

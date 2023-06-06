@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-criticalcss": "workspace:sources/@roots/bud-criticalcss"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-criticalcss": "workspace:*"
   },
   "dependencies": {
     "tslib": "2.5.0"

@@ -16,7 +16,7 @@
     "@docusaurus/module-type-aliases": "2.4.1",
     "@docusaurus/preset-classic": "2.4.1",
     "@docusaurus/remark-plugin-npm2yarn": "2.4.1",
-    "@repo/constants": "workspace:sources/@repo/constants",
+    "@repo/constants": "workspace:*",
     "@svgr/webpack": "8.0.1",
     "@tsconfig/docusaurus": "1.0.7",
     "@types/file-loader": "5.0.1",

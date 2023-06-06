@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import esbuild from '@roots/bud-esbuild'
 import isArray from 'lodash/isArray.js'
 import isUndefined from 'lodash/isUndefined.js'

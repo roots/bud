@@ -67,7 +67,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.mjs",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
+    "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
     "@types/webpack-env": "1.18.1"

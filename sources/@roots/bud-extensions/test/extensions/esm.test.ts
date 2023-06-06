@@ -1,6 +1,6 @@
 import '../../src/index.js'
 
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {describe, expect, it, vi} from 'vitest'
 
 import extensionConstructor from '../../src/extensions/esm/index.js'

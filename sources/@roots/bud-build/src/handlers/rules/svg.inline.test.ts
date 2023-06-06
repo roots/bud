@@ -4,7 +4,7 @@ import {inlineSvg, dataUrl} from './svg.inline.js'
 
 describe(`svg-inline`, () => {
   it(`should return a rule`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async ({factory}) => await factory(),
     )
     const result = await inlineSvg({

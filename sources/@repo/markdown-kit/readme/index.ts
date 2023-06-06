@@ -1,6 +1,4 @@
-import {join} from 'node:path'
-
-import {paths, projectConfig, REPO_PATH} from '@repo/constants'
+import {path, projectConfig} from '@repo/constants'
 import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import type {GrayMatterFile} from 'gray-matter'
@@ -17,18 +15,10 @@ type ChunkReducer<T> = (chunks: Chunks, obj: T) => Promise<Chunks>
 type ForPackage<T> = (signifier: string) => T
 
 /**
- * Get the absolute path of a repo file or directory
- */
-const getPath = (...filePath: string[]): string =>
-  join(paths.root, ...filePath)
-
-/**
  * Returns props for a template
  */
 const getProps = async (signifier: string) => {
-  const json = await Json.read(
-    getPath(`sources`, signifier, `package.json`),
-  )
+  const json = await Json.read(path(`sources`, signifier, `package.json`))
   return {...json, projectConfig}
 }
 
@@ -39,7 +29,7 @@ const generateReadme = async (signifier: string) => {
   const chunks = []
 
   const sections = await globby(
-    getPath(`sources`, signifier, `docs`, `*.{md,mdx}`),
+    path(`sources`, signifier, `docs`, `*.{md,mdx}`),
   ).then(
     async files =>
       await files.sort().reduce(async (files, path) => {
@@ -63,7 +53,7 @@ const generateReadme = async (signifier: string) => {
   data.sections = await sections.reduce(topics(signifier), chunks)
 
   await fs.write(
-    getPath(`sources`, signifier, `README.md`),
+    path(`sources`, signifier, `README.md`),
     format(templates.core(data), {parser: `markdown`}),
   )
 }
@@ -80,10 +70,7 @@ const partials: ForPackage<ChunkReducer<string>> =
     const chunks = await promised
 
     const file = matter(
-      await fs.read(
-        getPath(`sources/${signifier}/docs/${docsPath}`),
-        `utf8`,
-      ),
+      await fs.read(path(`sources/${signifier}/docs/${docsPath}`), `utf8`),
     )
 
     return [
@@ -103,7 +90,7 @@ const partials: ForPackage<ChunkReducer<string>> =
  * - An `extension` package is an optional Bud interface
  * - A `library` package is not Bud specific but is used by Bud interfaces
  */
-await globby(getPath(`sources/@roots/*`), {
+await globby(path(`sources/@roots/*`), {
   onlyDirectories: true,
 }).then(async packages => {
   await Promise.all(
@@ -114,10 +101,10 @@ await globby(getPath(`sources/@roots/*`), {
 /**
  * Root readme
  */
-const path = `${REPO_PATH}/readme.md`
+const outputPath = path(`readme.md`)
 const data = {
   ...(await getProps(`@roots/bud`)),
   name: `bud.js`,
 }
 const readme = format(templates.root(data), {parser: `markdown`})
-await fs.write(path, readme)
+await fs.write(outputPath, readme)

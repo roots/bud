@@ -72,10 +72,10 @@
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
-    "@roots/critical-css-webpack-plugin": "workspace:sources/@roots/critical-css-webpack-plugin",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/critical-css-webpack-plugin": "workspace:*",
     "critical": "5.1.1",
     "tslib": "2.5.0",
     "vinyl": "3.0.0"

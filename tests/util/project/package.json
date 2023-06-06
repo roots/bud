@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-react": "workspace:sources/@roots/bud-react",
-    "@roots/bud-swc": "workspace:sources/@roots/bud-swc",
-    "@roots/bud-tailwindcss": "workspace:sources/@roots/bud-tailwindcss"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
   },
   "volta": {
     "node": "18.12.1"

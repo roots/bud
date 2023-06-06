@@ -4,21 +4,34 @@
   "packageManager": "yarn@3.2.4",
   "type": "module",
   "exports": {
+    ".": {
+      "default": "./compiled/index.js"
+    },
     "./bud": {
-      "types": "./compiled/bud.d.ts",
-      "default": "./compiled/bud.js"
+      "default": "./compiled/index.js"
     },
     "./project": {
-      "types": "./compiled/project.d.ts",
       "default": "./compiled/project.js"
     }
   },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./compiled/index.d.ts"
+      ],
+      "./bud": [
+        "./compiled/index.d.ts"
+      ],
+      "./project": [
+        "./compiled/project.d.ts"
+      ]
+    }
+  },
   "dependencies": {
-    "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@repo/constants": "workspace:*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "@types/node": "18.16.12",
     "chalk": "5.2.0",
     "execa": "7.1.1",

@@ -1,4 +1,4 @@
-import {type Bud, factory} from '@repo/test-kit/bud'
+import {type Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {minimize as minimizeFn} from './index.js'

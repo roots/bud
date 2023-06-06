@@ -1,5 +1,5 @@
 /* eslint-disable n/no-extraneous-import */
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {describe, expect, it, vi} from 'vitest'
 
 import {use as subject} from './index.js'

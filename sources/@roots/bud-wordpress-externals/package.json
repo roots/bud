@@ -68,9 +68,9 @@
     "@types/node": "18.16.12"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/wordpress-externals-webpack-plugin": "workspace:sources/@roots/wordpress-externals-webpack-plugin",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/wordpress-externals-webpack-plugin": "workspace:*",
     "tslib": "2.5.0"
   },
   "volta": {

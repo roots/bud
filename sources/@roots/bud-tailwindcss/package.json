@@ -121,10 +121,10 @@
     "webpack": "5.85.1"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "postcss": "8.4.23",
     "sucrase": "3.32.0",
     "tailwindcss": "3.3.2",

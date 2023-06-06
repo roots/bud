@@ -90,9 +90,9 @@
     "webpack": "5.85.1"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "stylelint": "15.7.0",
     "stylelint-config-standard": "33.0.0",
     "stylelint-webpack-plugin": "4.1.1",

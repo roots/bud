@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {describe, expect, it} from 'vitest'
 
 import BudPostCss from '../src/index.js'

@@ -3,11 +3,11 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
-    "@roots/bud-sass": "workspace:sources/@roots/bud-sass",
-    "@roots/bud-vue": "workspace:sources/@roots/bud-vue",
-    "@roots/sage": "workspace:sources/@roots/sage"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-sass": "workspace:*",
+    "@roots/bud-vue": "workspace:*",
+    "@roots/sage": "workspace:*"
   },
   "bud": {
     "extensions": {}

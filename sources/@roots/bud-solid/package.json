@@ -78,9 +78,9 @@
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.21.4",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-babel": "workspace:sources/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
     "babel-preset-solid": "1.7.4",
     "solid-js": "1.7.5",
     "tslib": "2.5.0"

@@ -94,13 +94,13 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "@roots/bud-client": "workspace:sources/@roots/bud-client",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-client": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "tslib": "2.5.0"
   },
   "volta": {

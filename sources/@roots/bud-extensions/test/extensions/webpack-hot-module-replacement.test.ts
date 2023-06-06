@@ -1,4 +1,4 @@
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {Extension} from '@roots/bud-framework/extension'
 import webpack from '@roots/bud-support/webpack'
 import {describe, expect, it, test, vi} from 'vitest'

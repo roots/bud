@@ -1,6 +1,6 @@
 import {join} from 'node:path'
 
-import {Bud, factory, mockProject} from '@repo/test-kit/bud'
+import {Bud, factory, mockProject} from '@repo/test-kit'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.path`, function () {

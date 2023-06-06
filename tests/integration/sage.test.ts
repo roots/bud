@@ -1,5 +1,6 @@
 import {Project} from '@repo/test-kit/project'
 import {describe, expect, it} from 'vitest'
+import fs from 'fs-jetpack'
 
 describe(`examples/sage`, () => {
   it(`should compile js and css as expected`, async () => {
@@ -35,8 +36,9 @@ describe(`examples/sage`, () => {
       project.assets[`app.css`].includes(`.text-custom{font-size:.625rem`),
     ).toBeTruthy()
 
-    const themeJson = await project.fs.read(
+    const themeJson = await fs.readAsync(
       project.projectPath(`theme.json`),
+      `json`,
     )
     expect(themeJson).toMatchInlineSnapshot(`
           {

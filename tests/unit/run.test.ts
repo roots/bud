@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {run} from '@roots/bud-framework/methods/run'
 import {Service} from '@roots/bud-framework/service'
 import {noop} from 'lodash-es'

@@ -1,7 +1,7 @@
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {externals as subject} from './index.js'
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {Bud} from '@roots/bud-framework'
 
 describe(`bud.entry`, function () {

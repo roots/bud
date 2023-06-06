@@ -97,8 +97,8 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-build": "workspace:sources/@roots/bud-build",
-    "@roots/bud-postcss": "workspace:sources/@roots/bud-postcss",
+    "@roots/bud-build": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
     "postcss": "8.4.23",
@@ -106,9 +106,9 @@
     "webpack": "5.85.1"
   },
   "dependencies": {
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "@types/sass-loader": "8.0.5",
     "postcss-scss": "^4.0.6",
     "resolve-url-loader": "5.0.0",

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import BudPostCSS from '@roots/bud-postcss'
 
 import BudSass from '../src/index.js'

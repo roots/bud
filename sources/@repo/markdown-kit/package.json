@@ -16,10 +16,9 @@
   "dependencies": {
     "@octokit/core": "4.2.0",
     "@octokit/plugin-paginate-rest": "6.1.0",
-    "@repo/constants": "workspace:sources/@repo/constants",
-    "@repo/logger": "workspace:sources/@repo/logger",
-    "@roots/bud": "workspace:sources/@roots/bud",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@repo/constants": "workspace:*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "dotenv": "16.0.3",
     "execa": "7.1.1",
     "fs-jetpack": "5.1.0",

@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {BudResolveUrl} from '../src/resolve-url/extension.js'
 
 describe(`@roots/bud-sass/resolve-url`, () => {

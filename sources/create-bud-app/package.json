@@ -58,9 +58,9 @@
     "@types/prettier": "2.7.2"
   },
   "dependencies": {
-    "@roots/filesystem": "workspace:sources/@roots/filesystem",
+    "@roots/filesystem": "workspace:*",
     "chalk": "5.2.0",
-    "clipanion": "3.2.0",
+    "clipanion": "3.2.1",
     "enquirer": "2.3.6",
     "execa": "7.1.1",
     "figures": "5.0.0",

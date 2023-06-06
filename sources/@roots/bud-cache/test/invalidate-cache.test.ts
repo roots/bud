@@ -8,7 +8,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   })
 
   it(`should be an extension`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async pkg => await pkg.factory(),
     )
 
@@ -19,7 +19,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   })
 
   it(`should have an error file accessor`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async pkg => await pkg.factory(),
     )
     const extension = new Extension(bud)
@@ -30,7 +30,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   })
 
   it(`should check if error file exists`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async pkg => await pkg.factory(),
     )
 
@@ -43,7 +43,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   })
 
   it(`should call remove when bud.fs.exists returns false`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async pkg => await pkg.factory(),
     )
     // @ts-ignore
@@ -58,7 +58,7 @@ describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
   })
 
   it(`should call bud.hooks.action`, async () => {
-    const bud = await import(`@repo/test-kit/bud`).then(
+    const bud = await import(`@repo/test-kit`).then(
       async pkg => await pkg.factory(),
     )
 

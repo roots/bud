@@ -85,8 +85,8 @@
     "@skypack/package-check": "0.2.2"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "strip-ansi": "7.1.0",
     "tslib": "2.5.0"
   },

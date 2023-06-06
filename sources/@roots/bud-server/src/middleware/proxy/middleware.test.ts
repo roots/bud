@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import logger from '@roots/bud-support/utilities/logger'
 import {beforeEach, describe, expect, it} from 'vitest'
 

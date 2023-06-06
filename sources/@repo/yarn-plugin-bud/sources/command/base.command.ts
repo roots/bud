@@ -1,7 +1,7 @@
 /* eslint-disable n/no-process-env */
 import {BaseCommand} from '@yarnpkg/cli'
 import {Configuration, Manifest, Project} from '@yarnpkg/core'
-import {execute, UserOptions} from '@yarnpkg/shell'
+import {execute} from '@yarnpkg/shell'
 import {bind} from 'helpful-decorators'
 import ora, {Ora} from 'ora'
 

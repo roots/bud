@@ -1,4 +1,4 @@
-import {Bud, factory} from '@repo/test-kit/bud'
+import {Bud, factory} from '@repo/test-kit'
 import {Container} from '@roots/container'
 import {noop} from 'lodash-es'
 import {beforeEach, describe, expect, it, vi} from 'vitest'

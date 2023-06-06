@@ -71,15 +71,15 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-api": "workspace:sources/@roots/bud-api",
+    "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.12",
     "@types/react": "18.2.6"
   },
   "dependencies": {
-    "@roots/bud-dashboard": "workspace:sources/@roots/bud-dashboard",
-    "@roots/bud-framework": "workspace:sources/@roots/bud-framework",
-    "@roots/bud-support": "workspace:sources/@roots/bud-support",
+    "@roots/bud-dashboard": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "ink": "4.2.0",
     "react": "18.2.0",
     "tslib": "2.5.0",

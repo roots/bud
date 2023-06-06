@@ -294,7 +294,7 @@ class BudMinimizeJSPublicApi
    * bud.minify.js.set(`terserOptions.minify`, () => {})
    * ```
    */
-  @deprecated(`bud.minify.js`, `Use bud.minify.js.set instead`, [
+  @deprecated(`bud.minify.js`, `Use bud.minify.js.setMinify instead`, [
     [
       `Set the minifier`,
       `bud.minify.js.set('terserOptions.minify', () => minifier)`,
