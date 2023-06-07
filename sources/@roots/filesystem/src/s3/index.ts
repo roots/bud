@@ -7,6 +7,7 @@ import type {
   PutObjectCommandInput,
   S3Client,
 } from '@aws-sdk/client-s3'
+import SDK from '@roots/filesystem/vendor/sdk'
 import {bind} from 'helpful-decorators'
 import isString from 'lodash/isString.js'
 import * as mimetypes from 'mime-types'
@@ -40,14 +41,14 @@ export class S3 {
    * S3 Client
    */
   @bind
-  public async getClient(): Promise<S3Client> {
+  public getClient(): S3Client {
     if (!this.config.credentials) {
       throw new Error(
         `S3 credentials are required. Did you forget to set them?`,
       )
     }
 
-    return await this.client.make({
+    return this.client.make({
       credentials: this.config.credentials,
       region: this.config.region,
       ...(this.config.endpoint ? {endpoint: this.config.endpoint} : {}),
@@ -101,13 +102,15 @@ export class S3 {
           .on(`end`, () => resolve(Buffer.concat(chunks).toString(`utf8`)))
       })
 
-    const client = await this.getClient()
-    const GetObjectCommandOutput = await import(`@aws-sdk/client-s3`).then(
-      ({GetObjectCommand}) =>
-        new GetObjectCommand({Bucket: this.config.bucket, Key: key}),
-    )
+    const client = this.getClient()
+
+    const GetObjectCommandOutput = new SDK.GetObjectCommand({
+      Bucket: this.config.bucket,
+      Key: key,
+    })
 
     try {
+      // @ts-ignore
       const request = (await client.send(GetObjectCommandOutput)) as {
         Body: Readable
       }
@@ -129,15 +132,12 @@ export class S3 {
   @bind
   public async delete(key: string) {
     try {
-      const client = await this.getClient()
-      const DeleteObjectOutput = await import(`@aws-sdk/client-s3`).then(
-        ({DeleteObjectCommand}) =>
-          new DeleteObjectCommand({
-            Bucket: this.config.bucket,
-            Key: key,
-          }),
-      )
-
+      const client = this.getClient()
+      const DeleteObjectOutput = new SDK.DeleteObjectCommand({
+        Bucket: this.config.bucket,
+        Key: key,
+      })
+      // @ts-ignore
       await client.send(DeleteObjectOutput)
 
       return this
@@ -177,15 +177,14 @@ export class S3 {
     props?: Omit<ListObjectsCommandInput, `Bucket`>,
   ): Promise<Array<string>> {
     try {
-      const client = await this.getClient()
-      const s3 = await import(`@aws-sdk/client-s3`)
-
-      const command = new s3.ListObjectsCommand({
-        Bucket: this.config.bucket,
-        ...(props ?? {}),
-      })
-      const results = await client.send(command)
-
+      const results = await this.getClient().send(
+        // @ts-ignore
+        new SDK.ListObjectsCommand({
+          Bucket: this.config.bucket,
+          ...(props ?? {}),
+        }),
+      )
+      // @ts-ignore
       return results?.Contents.map(({Key}) => Key)
     } catch (error) {
       throw error
@@ -224,9 +223,11 @@ export class S3 {
     }
 
     try {
-      const client = await this.getClient()
-      const {PutObjectCommand} = await import(`@aws-sdk/client-s3`)
-      await client.send(new PutObjectCommand(putProps))
+      const client = this.getClient()
+      await client.send(
+        // @ts-ignore
+        new SDK.PutObjectCommand(putProps),
+      )
 
       return this
     } catch (error) {

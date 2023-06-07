@@ -125,8 +125,8 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public use(): Bud[`esbuild`] {
-    this.app.terser?.enable(false)
-    this.app.minimizeCss?.enable(false)
+    this.app.minify.js.enable(false)
+    this.app.minify.css.enable(false)
 
     this.app.hooks
       .on(`build.optimization.minimizer`, minimizer => [

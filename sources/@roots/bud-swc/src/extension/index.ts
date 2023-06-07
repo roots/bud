@@ -100,7 +100,7 @@ class BudSWC extends BudSWCApi {
       ({build}) => build.getRule(`ts`).setUse(() => [`swc-typescript`]),
       ({build, hooks}) =>
         build.setRule(`ts`, {
-          include: [path(`@src`)],
+          include: [({path}) => path(`@src`)],
           test: hooks.filter(`pattern.ts`, /\.tsx?$/),
           use: [`swc-typescript`],
           resolve: {

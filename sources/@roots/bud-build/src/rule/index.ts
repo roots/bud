@@ -74,6 +74,7 @@ class Rule extends Base implements Interface {
     this.setUse(options.use)
     this.setInclude(options.include)
     this.setExclude(options.exclude)
+    this.setExclude(options.exclude)
     this.setType(options.type)
     this.setParser(options.parser)
     this.setGenerator(options.generator)
@@ -154,9 +155,7 @@ class Rule extends Base implements Interface {
    */
   @bind
   public getInclude(): Array<string | RegExp> {
-    return this.include?.map(item =>
-      isFunction(item) ? item(this.app) : item,
-    )
+    return this.include?.map(this.unwrap)
   }
 
   /**
@@ -274,6 +273,8 @@ class Rule extends Base implements Interface {
       if (v === undefined) return a
       return {...a, [k]: v}
     }, {})
+
+    this.app.info(`built rule`, output)
 
     return output
   }

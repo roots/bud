@@ -64,15 +64,8 @@ export default class FS extends Filesystem implements Contract {
    */
   public async register(bud: Bud) {
     try {
-      const s3IsResolvable = await bud.module.resolve(
-        `@aws-sdk/client-s3`,
-        import.meta.url,
-      )
-
-      if (!s3IsResolvable) return
       const {S3} = await import(`@roots/filesystem/s3`)
-
-      if (s3IsResolvable) this.s3 = new S3()
+      this.s3 = new S3()
     } catch (error) {
       // fallthrough
     }

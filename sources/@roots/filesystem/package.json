@@ -44,7 +44,8 @@
   "files": [
     "docs",
     "lib",
-    "src"
+    "src",
+    "vendor"
   ],
   "type": "module",
   "exports": {
@@ -54,7 +55,8 @@
     "./json": "./lib/json.js",
     "./s3": "./lib/s3/index.js",
     "./s3/*": "./lib/s3/*.js",
-    "./yml": "./lib/yml.js"
+    "./yml": "./lib/yml.js",
+    "./vendor/sdk": "./vendor/sdk/index.cjs"
   },
   "typesVersions": {
     "*": {
