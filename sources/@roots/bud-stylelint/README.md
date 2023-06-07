@@ -30,16 +30,62 @@ npm:
 npm install @roots/bud-stylelint --save-dev
 ```
 
-## configuration
+## Overview
 
-You can configure Stylelint in two ways:
+The `bud.stylelint` class provides an API for integrating Stylelint, a modern linter that helps you avoid errors and enforce conventions in your styles. It has a variety of methods and properties that allow for detailed configuration of how Stylelint should behave.
 
-- [Using a stylelint config file](#using-a-stylelint-config-file)
-- [Employing the `bud.stylelint` API](#configuring-stylelint-with-budstylelint)
+## Options
 
-### Using a stylelint config file
+The `bud.stylelint` API provides a number of options that can be used to configure Stylelint. These options include:
 
-You can configure stylelint [using a stylelint config file](https://stylelint.io/user-guide/configure).
+- `cache`: Enables caching of lint results to improve performance on subsequent runs. By default, it's set to true unless in a continuous integration (CI) environment.
+- `cacheLocation`: Specifies the location of the cache. By default, it's set to a directory named `stylelint` in the cache directory.
+- `config`: Specifies the Stylelint configuration object. By default, it finds the first file with `stylelint` in its name and uses that as the config.
+- `context`: The context path. By default, it's set to the `@src` directory.
+- `failOnError`: Indicates whether to fail the build when errors are detected. By default, this is true in production environments.
+- `failOnWarning`: Indicates whether to fail the build when warnings are detected. By default, this is set to false.
+- `files`: Specifies the files to be linted. By default, this is undefined, meaning that all files will be linted.
+- `fix`: Indicates whether Stylelint should try to fix any issues it finds. By default, this is set to false.
+- `stylelintPath`: The path to the Stylelint binary. By default, this is undefined, meaning that the binary in the node_modules directory will be used.
+
+## Methods
+
+The `bud.stylelint` API provides several methods for interacting with these options. These methods include:
+
+- `extends(config)`: Allows you to extend a base Stylelint configuration.
+- `setRules(rules)`: Sets the Stylelint rules to be used.
+- `getRules()`: Gets the currently set Stylelint rules.
+- `setPlugins(plugins)`: Sets the Stylelint plugins to be used.
+- `getPlugins()`: Gets the currently set Stylelint plugins.
+- `setFailOnError(boolean)`: Sets whether the build should fail when Stylelint detects errors.
+- `setFailOnWarning(boolean)`: Sets whether the build should fail when Stylelint detects warnings.
+- `setFiles(files)`: Sets the files to be linted.
+- `getFiles()`: Gets the files to be linted.
+
+## Example usage
+
+Here's an example of how you can use the `bud.stylelint` API in your Bud configuration:
+
+```ts
+import { type Bud } from "@roots/bud";
+
+export default async (bud: Bud) => {
+  bud.entry("app", ["app.js", "app.css"]);
+
+  bud.stylelint
+    .extends([`@roots/bud-stylelint/config`])
+    .setRules({ "no-descending-specificity": null })
+    .setFailOnError(bud.isProduction)
+    .setFailOnWarning(false)
+    .setFix(true);
+};
+```
+
+In this example, we are extending the default `@roots/bud-stylelint/config`, setting a custom rule `no-descending-specificity`, and adjusting the behavior for errors and warnings based on the environment. We also set `setFix(true)` to instruct Stylelint to attempt to fix any issues it detects.
+
+## Using a stylelint config
+
+You can also configure stylelint [using a stylelint config file](https://stylelint.io/user-guide/configure).
 
 bud.js allows for you to write your stylelint config in CommonJS, ESM, TypeScript, JSON or YML. This file should be placed in the root of your project or the project `./config` directory.
 
@@ -48,71 +94,6 @@ export default {
   extends: [`@roots/bud-stylelint/config`],
   rules: { "no-descending-specificity": null },
 };
-```
-
-### Configuring stylelint with `bud.stylelint`
-
-You can configure stylelint directly in `bud.config.js` using the `bud.stylelint` API.
-
-```ts title=bud.config.js
-bud.stylelint
-  .extends([`@roots/bud-stylelint/config`])
-  .setRules({ "no-descending-specificity": null })
-  .setFailOnError(bud.isProduction)
-  .setFailOnWarning(false)
-  .setFix(true);
-```
-
-### Extends
-
-You can extend a stylelint config by passing an array of stylelint config files to `bud.stylelint.extends`.
-
-```ts title=bud.config.js
-bud.stylelint.extends([`@roots/bud-stylelint/config`]);
-```
-
-### Rules
-
-You can set stylelint rules by passing an object to `bud.stylelint.setRules`.
-
-```ts title=bud.config.js
-bud.stylelint.setRules({ "no-descending-specificity": null });
-```
-
-### Fail on error
-
-By default, stylelint will fail on error in production mode. You can change this behavior by setting
-`bud.stylelint.failOnError` to `false`.
-
-```ts title=bud.config.js
-bud.stylelint.setFailOnError(false);
-```
-
-### Fail on warning
-
-By default, stylelint will not fail on warning. You can change this behavior by setting
-`bud.stylelint.failOnWarning` to `true`.
-
-```ts title=bud.config.js
-bud.stylelint.setFailOnWarning(true);
-```
-
-### Fix
-
-By default, stylelint will not fix errors. You can change this behavior by setting
-`bud.stylelint.fix` to `true`.
-
-```ts title=bud.config.js
-bud.stylelint.setFix(true);
-```
-
-### Stylelint path
-
-By default, bud.js will use the stylelint version installed in your project if it is installed. Otherwise it will fallback to the version included with the extension.
-You can specify an explicit path to the stylelint binary by setting `bud.stylelint.stylelintPath`.
-
-```ts title=bud.config.js
-bud.stylelint.setStylelintPath("/path/to/stylelint");
 ```
 
 ## Contributing
