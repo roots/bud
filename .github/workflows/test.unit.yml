@@ -35,4 +35,4 @@ jobs:
         run: yarn
 
       - name: yarn @bud test unit
-        run: yarn @bud test unit run --coverage
+        run: yarn @bud test unit run

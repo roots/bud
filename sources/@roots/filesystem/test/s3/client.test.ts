@@ -1,7 +1,7 @@
-import {S3} from '@aws-sdk/client-s3'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {Client} from '../../src/s3/client.js'
+import * as SDK from '../../vendor/sdk/index.cjs'
 
 describe(`s3 client`, () => {
   let client
@@ -15,6 +15,6 @@ describe(`s3 client`, () => {
   })
 
   it(`should return s3 client from Client.make`, async () => {
-    expect(await client.make({})).toBeInstanceOf(S3)
+    expect(await client.make({})).toBeInstanceOf(SDK.S3Client)
   })
 })
