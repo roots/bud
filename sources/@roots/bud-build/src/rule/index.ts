@@ -74,7 +74,6 @@ class Rule extends Base implements Interface {
     this.setUse(options.use)
     this.setInclude(options.include)
     this.setExclude(options.exclude)
-    this.setExclude(options.exclude)
     this.setType(options.type)
     this.setParser(options.parser)
     this.setGenerator(options.generator)
