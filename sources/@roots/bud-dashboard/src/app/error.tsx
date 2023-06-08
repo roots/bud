@@ -9,11 +9,17 @@ export type Props = React.PropsWithChildren<{
   error: BudHandler
 }>
 
-export const Error = ({error}: Props) => {
+export const Error = ({error, ...props}: Props) => {
   if (!error) {
     return (
-      <Ink.Box>
+      <Ink.Box flexDirection="column">
         <Ink.Text>An unknown error has occurred.</Ink.Text>
+        {Object.entries(props).map(([key, value], id) => (
+          <Ink.Box key={id} flexDirection="column" gap={2}>
+            <Ink.Text>{key}</Ink.Text>
+            <Ink.Text>{JSON.stringify(value)}</Ink.Text>
+          </Ink.Box>
+        ))}
       </Ink.Box>
     )
   }

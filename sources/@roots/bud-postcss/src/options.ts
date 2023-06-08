@@ -50,7 +50,7 @@ type BudPostCssPublicInterface = StrictPublicExtensionApi<
 }
 
 @options<Options>({
-  postcssOptions: undefined,
+  postcssOptions: {},
   sourceMap: false,
   plugins: {},
   order: [],
@@ -62,93 +62,93 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * postcssOptions
    */
-  public declare postcssOptions: BudPostCssPublicInterface[`postcssOptions`]
+  public postcssOptions: BudPostCssPublicInterface[`postcssOptions`]
   /**
    * get postcssOptions
    */
-  public declare getPostcssOptions: BudPostCssPublicInterface[`getPostcssOptions`]
+  public getPostcssOptions: BudPostCssPublicInterface[`getPostcssOptions`]
   /**
    * set postcssOptions
    */
-  public declare setPostcssOptions: BudPostCssPublicInterface[`setPostcssOptions`]
+  public setPostcssOptions: BudPostCssPublicInterface[`setPostcssOptions`]
 
   /**
    * sourceMap option
    */
-  public declare sourceMap: BudPostCssPublicInterface[`sourceMap`]
+  public sourceMap: BudPostCssPublicInterface[`sourceMap`]
   /**
    * get sourceMap option
    */
-  public declare getSourceMap: BudPostCssPublicInterface[`getSourceMap`]
+  public getSourceMap: BudPostCssPublicInterface[`getSourceMap`]
   /**
    * set sourceMap option
    */
-  public declare setSourceMap: BudPostCssPublicInterface[`setSourceMap`]
+  public setSourceMap: BudPostCssPublicInterface[`setSourceMap`]
 
   /**
    * PostCss plugins
    */
-  public declare plugins: BudPostCssPublicInterface[`plugins`]
+  public plugins: BudPostCssPublicInterface[`plugins`]
   /**
    * Get PostCss plugins
    */
-  public declare getPlugins: BudPostCssPublicInterface[`getPlugins`]
+  public getPlugins: BudPostCssPublicInterface[`getPlugins`]
   /**
    * Set PostCss plugins
    */
-  public declare setPlugins: BudPostCssPublicInterface[`setPlugins`]
+  public setPlugins: BudPostCssPublicInterface[`setPlugins`]
 
   /**
    * PostCss plugin order
    */
-  public declare order: BudPostCssPublicInterface[`order`]
+  public order: BudPostCssPublicInterface[`order`]
   /**
    * Get PostCss plugin order
    */
-  public declare getOrder: BudPostCssPublicInterface[`getOrder`]
+  public getOrder: BudPostCssPublicInterface[`getOrder`]
   /**
    * Set PostCss plugin order
    */
-  public declare setOrder: BudPostCssPublicInterface[`setOrder`]
+  public setOrder: BudPostCssPublicInterface[`setOrder`]
 
   /**
    * PostCss config
    */
-  public declare config: BudPostCssPublicInterface[`config`]
+  public config: BudPostCssPublicInterface[`config`]
   /**
    * Get postcss config
    */
-  public declare getConfig: BudPostCssPublicInterface[`getConfig`]
+  public getConfig: BudPostCssPublicInterface[`getConfig`]
   /**
    * Set postcss config
    */
-  public declare setConfig: BudPostCssPublicInterface[`setConfig`]
+  public setConfig: BudPostCssPublicInterface[`setConfig`]
 
   /**
    * Syntax
    */
-  public declare syntax: BudPostCssPublicInterface[`syntax`]
+  public syntax: BudPostCssPublicInterface[`syntax`]
   /**
    * Get PostCss syntax
    */
-  public declare getSyntax: BudPostCssPublicInterface[`getSyntax`]
+  public getSyntax: BudPostCssPublicInterface[`getSyntax`]
   /**
    * Set PostCss syntax
    */
-  public declare setSyntax: BudPostCssPublicInterface[`setSyntax`]
+  public setSyntax: BudPostCssPublicInterface[`setSyntax`]
 
   /**
    * Parser
    */
-  public declare parser: BudPostCssPublicInterface[`parser`]
+  public parser: BudPostCssPublicInterface[`parser`]
   /**
    * Get PostCss parser
    */
-  public declare getParser: BudPostCssPublicInterface[`getParser`]
+  public getParser: BudPostCssPublicInterface[`getParser`]
   /**
    * Set PostCss parser
    */
-  public declare setParser: BudPostCssPublicInterface[`setParser`]
+  public setParser: BudPostCssPublicInterface[`setParser`]
 }
 
 export {

@@ -141,6 +141,7 @@ class BudPostCss extends BudPostCssOptionsApi {
    * @remarks
    * Sets the plugin order
    */
+  @bind
   public use(
     order: OptionCallbackValue<BudPostCssPublicInterface, `order`>,
   ) {
@@ -154,16 +155,13 @@ class BudPostCss extends BudPostCssOptionsApi {
   @bind
   public getPlugin(name: string): PluginReference {
     name = this.normalizePluginName(name)
-
-    if (this.postcssOptions || this.config) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.setPlugin will not work as expected\n`,
-        `tried to get:`,
-        name,
-      )
+    if (!(name in this.plugins)) {
+      throw new InputError(`Plugin ${name} does not exist`, {
+        props: {
+          thrownBy: `bud.postcss.getPlugin`,
+        },
+      })
     }
-
     return this.plugins[name]
   }
 
@@ -172,27 +170,12 @@ class BudPostCss extends BudPostCssOptionsApi {
    */
   @bind
   public setPlugin(name: string, plugin?: PluginInput): this {
-    name = this.normalizePluginName(name)
-
-    if (this.postcssOptions || this.config) {
-      this.logger.warn(
-        `PostCSS configuration is being overridden by project configuration file.\n`,
-        `bud.postcss.setPlugin will not work as expected\n`,
-        `tried to set:`,
-        name,
-        plugin,
-      )
-    }
-
-    if (isUndefined(plugin)) {
-      plugin = [name, undefined]
-    }
-
-    if (!Array.isArray(plugin)) {
-      plugin = [plugin, undefined]
-    }
-
-    this.plugins[name] = plugin
+    this.setPlugins(plugins => ({
+      ...plugins,
+      [this.normalizePluginName(name)]: this.normalizePluginValue(
+        plugin ?? name,
+      ),
+    }))
 
     return this
   }
@@ -202,8 +185,9 @@ class BudPostCss extends BudPostCssOptionsApi {
    */
   @bind
   public unsetPlugin(name: string) {
-    this.plugins[this.normalizePluginName(name)] = undefined
-
+    this.setPlugins(plugins =>
+      omit(plugins, [this.normalizePluginName(name)]),
+    )
     return this
   }
 
@@ -212,9 +196,10 @@ class BudPostCss extends BudPostCssOptionsApi {
    */
   @bind
   public getPluginOptions(name: string): Record<string, any> {
-    const plugin = this.getPlugin(name)
+    const plugin = this.getPlugin(this.normalizePluginName(name))
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
-    return plugin[1] ?? []
+
+    return plugin[1]
   }
 
   /**
@@ -227,7 +212,7 @@ class BudPostCss extends BudPostCssOptionsApi {
       | Record<string, any>
       | ((options: Record<string, any>) => Record<string, any>),
   ): this {
-    const plugin = this.getPlugin(name)
+    const plugin = this.getPlugin(this.normalizePluginName(name))
 
     if (!plugin) {
       throw new InputError(`${name} does not exist`)
@@ -246,7 +231,7 @@ class BudPostCss extends BudPostCssOptionsApi {
    */
   @bind
   public getPluginPath(name: string): PluginReference[0] {
-    const plugin = this.getPlugin(name)
+    const plugin = this.getPlugin(this.normalizePluginName(name))
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
     return plugin[0]
   }
@@ -256,7 +241,7 @@ class BudPostCss extends BudPostCssOptionsApi {
    */
   @bind
   public setPluginPath(name: string, path: PluginInput & string): this {
-    const plugin = this.getPlugin(name)
+    const plugin = this.getPlugin(this.normalizePluginName(name))
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
 
     this.setPlugin(name, [path, plugin[1]])
@@ -267,10 +252,23 @@ class BudPostCss extends BudPostCssOptionsApi {
   @bind
   protected normalizePluginName(name: string): string {
     if (name.startsWith(`postcss-`)) name = name.replace(`postcss-`, ``)
-    if (name === `nesting`) name = `nested`
+    if (name === `nested`) name = `nesting`
     if (name === `preset-env`) name = `env`
 
     return name
+  }
+
+  @bind
+  protected normalizePluginValue(value: PluginInput): PluginReference {
+    if (isString(value)) {
+      return [value, undefined]
+    }
+
+    if (!Array.isArray(value)) {
+      return [value, undefined]
+    }
+
+    return value
   }
 }
 

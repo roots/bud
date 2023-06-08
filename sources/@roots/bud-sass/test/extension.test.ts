@@ -1,4 +1,7 @@
-/* eslint-disable no-console */
+import '@roots/bud-postcss'
+import '@roots/bud-sass'
+import '@roots/bud'
+
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {factory} from '@repo/test-kit'
 import BudPostCSS from '@roots/bud-postcss'
@@ -78,7 +81,7 @@ describe(`@roots/bud-sass/extension`, () => {
 
   it(`should set postcss syntax`, async () => {
     vi.clearAllMocks()
-    postcss.syntax = ``
+    postcss.setSyntax(``)
     await sass.register(bud)
     await sass.boot(bud)
 

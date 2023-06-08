@@ -48,9 +48,46 @@ describe(`bud.provide`, () => {
     await provide({jquery: `$`})
 
     expect(setOptionsSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        $: `jquery`,
-      }),
+      expect.objectContaining({$: `jquery`}),
+    )
+  })
+
+  it(`should handle [string, string]`, async () => {
+    const plugin = bud.extensions.get(
+      `@roots/bud-extensions/webpack-provide-plugin`,
+    )
+    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    await provide(`value`, `accessor`)
+
+    expect(setOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({[`accessor`]: `value`}),
+    )
+  })
+
+  it(`should handle [array, string]`, async () => {
+    const plugin = bud.extensions.get(
+      `@roots/bud-extensions/webpack-provide-plugin`,
+    )
+    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    await provide([`lodash`, `isUndefined`], `isUndefined`)
+
+    expect(setOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({isUndefined: [`lodash`, `isUndefined`]}),
+    )
+  })
+
+  it(`should handle [array, array]`, async () => {
+    const plugin = bud.extensions.get(
+      `@roots/bud-extensions/webpack-provide-plugin`,
+    )
+    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    await provide([`lodash`, `chain`], [`chain`, `_chain`])
+
+    expect(setOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({chain: [`lodash`, `chain`]}),
+    )
+    expect(setOptionsSpy).toHaveBeenCalledWith(
+      expect.objectContaining({_chain: [`lodash`, `chain`]}),
     )
   })
 

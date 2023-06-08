@@ -1,9 +1,7 @@
-import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
-import set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import chalk from 'chalk'
 
@@ -103,28 +101,15 @@ const filterServices =
 const instantiateServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const importedModule = !isString(signifier)
-      ? signifier
-      : await import(signifier)
-    const imported = importedModule?.default ?? importedModule
-    if (!imported) {
-      throw new BudError(`Service not found: ${signifier}`)
-    }
-
-    let service: Service
-    try {
-      service = new imported(() => app)
-    } catch {
-      service = imported
-      service._app = () => app
-    }
+    const Service = await app.module.import(signifier)
+    const service: Service = new Service(() => app)
 
     const label =
       service.label ?? service.constructor?.name
         ? camelCase(service.constructor.name)
         : signifier
 
-    set(app, label, service)
+    app[label] = service
 
     app.log(
       chalk.blue(`bud.${label}`),
@@ -150,14 +135,18 @@ const instantiateServices =
  * @returns Promise<void>
  */
 export const bootstrap = async function (this: Bud) {
+  this.services = []
+
   Object.entries(methods).map(([handle, value]) => {
     this.set(handle as `${keyof Bud & string}`, value)
   })
 
   logger.time(`initialize`)
 
+  this[`fs`] = new FS(() => this)
+  this[`module`] = new Module(() => this)
   await Promise.all(
-    [FS, Module, ...this.context.services]
+    [...this.context.services]
       .filter(filterServices(this))
       .map(instantiateServices(this)),
   )
@@ -213,7 +202,7 @@ export const bootstrap = async function (this: Bud) {
       keyof Registry.EventsStore,
       keyof Service,
     ]) =>
-      this.services
+      [...this.services]
         .map(service => [service, this[service]])
         .map(([label, service]) => {
           if (!service) {

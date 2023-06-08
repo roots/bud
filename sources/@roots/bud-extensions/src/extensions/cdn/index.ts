@@ -105,7 +105,7 @@ export default class Cdn extends Extension<Options> implements Api {
    */
   @bind
   public freeze(value?: boolean): this {
-    this.frozen = !isUndefined(value) ? value : true
+    this.setFrozen(!isUndefined(value) ? value : true)
     return this
   }
 

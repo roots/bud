@@ -24,7 +24,7 @@ export default class Extensions
    * Registered extensions
    */
   // @ts-ignore
-  public repository: Modules = {}
+  public repository: Modules
 
   /**
    * Resolved options
@@ -54,6 +54,7 @@ export default class Extensions
       denylist: [],
       discover: true,
     })
+    this.repository = {} as Modules
   }
 
   /**
@@ -242,7 +243,13 @@ export default class Extensions
 
     if (!isConstructor(source)) {
       const instance = new Extension(this.app)
-      Object.entries(source).forEach(([k, v]) => (instance[k] = v))
+      Object.entries(source).forEach(([k, v]) => {
+        if (k === `options`) {
+          instance.setOptions(v)
+          return
+        }
+        instance[k] = v
+      })
       return instance
     }
 

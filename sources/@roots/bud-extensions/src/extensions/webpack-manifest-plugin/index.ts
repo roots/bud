@@ -1,4 +1,4 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   expose,
   label,
@@ -17,8 +17,8 @@ import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 @plugin(Plugin)
 @options<Options>({
   fileName: `manifest.json`,
-  publicPath: Value.make(({hooks}: Bud) =>
-    (hooks.filter(`build.output.publicPath`) ?? ``).replace(`auto`, ``),
+  publicPath: Value.make(({publicPath}) =>
+    (publicPath() ?? ``).replace(`auto`, ``),
   ),
 })
 export default class BudManifestExtension extends Extension<

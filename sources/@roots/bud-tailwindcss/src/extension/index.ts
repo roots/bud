@@ -53,6 +53,11 @@ class BudTailwindCss extends BudTailwindOptionsApi {
         await this.resolve(`tailwindcss`, import.meta.url),
         this.config ?? this.configPath,
       ])
+      .setPluginOptions(`env`, {
+        features: {
+          [`nesting-rules`]: false,
+        },
+      })
       .use([`import`, `nesting`, `tailwindcss`, `env`])
 
     this.logger.success(`postcss configured for tailwindcss`)
@@ -76,7 +81,6 @@ class BudTailwindCss extends BudTailwindOptionsApi {
   public override async configAfter(bud: Bud) {
     this.setResolvedConfig(this.resolveConfig())
     bud.postcss.setPluginOptions(`tailwindcss`, this.config)
-    this.logger.info(`final config`, JSON.stringify(this.config, null, 2))
   }
 }
 

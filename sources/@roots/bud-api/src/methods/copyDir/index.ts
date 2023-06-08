@@ -1,6 +1,8 @@
+import {isAbsolute} from 'node:path'
+
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
-import {isAbsolute} from 'path'
+import isString from '@roots/bud-support/lodash/isString'
 
 type FromToTuple = [string, string]
 
@@ -20,25 +22,23 @@ export const copyDir: copyDir = async function copyDir(
   context,
   overrides = {},
 ) {
-  const app = this as Bud
-  const makePatternObjectFromString = fromStringFactory(app, overrides)
-  const makePatternObjectFromTuple = fromTupleFactory(app, overrides)
+  const makePatternObjectFromString = fromStringFactory(this, overrides)
+  const makePatternObjectFromTuple = fromTupleFactory(this, overrides)
 
-  if (!context) context = app.path(`@src`)
-  if (!isAbsolute(context)) context = app.path(context)
+  if (!context) context = this.path(`@src`)
+  if (!isAbsolute(context)) context = this.path(context)
 
-  const result =
-    typeof request === `string`
-      ? makePatternObjectFromString(request, context)
-      : makePatternObjectFromTuple(...request, context)
+  const result = isString(request)
+    ? makePatternObjectFromString(request, context)
+    : makePatternObjectFromTuple(...request, context)
 
-  app.extensions
+  this.extensions
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
-    .set(`patterns`, (patterns = []) => [...patterns, result])
+    .setPatterns((patterns = []) => [...patterns, result])
 
-  app.api.logger.success(`bud.copyDir: asset pattern added`)
+  this.api.logger.success(`bud.copyDir: asset pattern added`)
 
-  return app
+  return this
 }
 
 /**

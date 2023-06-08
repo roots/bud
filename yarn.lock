@@ -6613,10 +6613,10 @@ __metadata:
     "@types/node": 18.16.12
     "@types/sass-loader": 8.0.5
     postcss: 8.4.23
-    postcss-scss: ^4.0.6
+    postcss-scss: 4.0.6
     resolve-url-loader: 5.0.0
-    sass: ^1.62.1
-    sass-loader: ^13.2.2
+    sass: 1.62.1
+    sass-loader: 13.2.2
     stylelint: 15.7.0
     stylelint-config-recommended-scss: ^11.0.0
     stylelint-scss: ^5.0.0
@@ -26949,7 +26949,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-scss@npm:^4.0.6":
+"postcss-scss@npm:4.0.6, postcss-scss@npm:^4.0.6":
   version: 4.0.6
   resolution: "postcss-scss@npm:4.0.6"
   peerDependencies:
@@ -29231,7 +29231,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass-loader@npm:^13.2.2":
+"sass-loader@npm:13.2.2":
   version: 13.2.2
   resolution: "sass-loader@npm:13.2.2"
   dependencies:
@@ -29256,7 +29256,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.32.8, sass@npm:^1.45.0, sass@npm:^1.62.1":
+"sass@npm:1.62.1, sass@npm:^1.32.8, sass@npm:^1.45.0":
   version: 1.62.1
   resolution: "sass@npm:1.62.1"
   dependencies:

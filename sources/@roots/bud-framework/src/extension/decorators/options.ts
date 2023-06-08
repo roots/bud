@@ -30,6 +30,8 @@ export const options =
       public constructor(...args: any[]) {
         super(...args)
 
+        this._options = Object.assign({}, {...options})
+
         // Iterate through each key in the provided options object.
         Object.keys(options).forEach(key => {
           // Check if there is no existing property or getter and setter methods for the current option key.
@@ -37,13 +39,11 @@ export const options =
             // Define a property on the Extension instance with getter and setter methods.
             Object.defineProperty(this, key, {
               get: () => this.getOption(key),
-              set: value => this.setOption(key, value),
             })
           }
 
           // Define the name of the setter function for the current option key.
           const setFn = `set${upperFirst(key)}`
-
           // Check if there is no existing setter method for the current option key.
           if (noPropertyDefined(this, setFn)) {
             // Define a setter method on the Extension instance.
@@ -57,18 +57,14 @@ export const options =
 
           // Define the name of the getter function for the current option key.
           const getFn = `get${upperFirst(key)}`
-
           // Check if there is no existing getter method for the current option key.
           if (noPropertyDefined(this, getFn)) {
             // Define a getter method on the Extension instance.
             Object.defineProperty(this, getFn, {
-              value: () => this.get(key),
+              value: () => this.getOption(key),
             })
           }
         })
-
-        // Initialize the Extension instance with the provided options.
-        this.setOptions(options)
       }
     }
 

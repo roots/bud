@@ -159,14 +159,14 @@ export class Extension<
   /**
    * Extension options
    */
-  public _options: Partial<InternalOptionsValues<ExtensionOptions>> = {}
+  public _options: Partial<InternalOptionsValues<ExtensionOptions>>
 
   /**
    * Extension options
    *
    * @readonly
    */
-  public readonly options: ExtensionOptions
+  public options: ExtensionOptions
 
   /**
    * Extension meta
@@ -244,14 +244,13 @@ export class Extension<
    */
   public constructor(app: Bud) {
     this._app = () => app
-    const opts = this.options ?? {}
+
+    this._options = this.options ? {...this.options} : {}
+    delete this.options
 
     Object.defineProperty(this, `options`, {
-      get: this.getOptions,
-      set: this.setOptions,
+      get: this.getOptions.bind(this),
     })
-
-    this.setOptions(opts as any)
   }
 
   /**
@@ -362,13 +361,13 @@ export class Extension<
       }
 
       if (!isUndefined(this.plugin)) {
-        const plugin = new this.plugin(this.options)
+        const plugin = new this.plugin({...this.options})
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
 
       if (!isUndefined(this.make)) {
-        const plugin = await this.make(this.app, this.options)
+        const plugin = await this.make(this.app, {...this.options})
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
@@ -390,7 +389,6 @@ export class Extension<
     }
   }
 
-  @bind
   public getOptions(): ExtensionOptions {
     return Object.entries(this._options).reduce((acc, [key, value]) => {
       const unwrapped =
@@ -403,7 +401,6 @@ export class Extension<
   /**
    * Set extension options
    */
-  @bind
   public setOptions(
     value: Partial<InternalOptionsValues<ExtensionOptions>>,
   ): this {
