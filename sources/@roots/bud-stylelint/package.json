@@ -86,8 +86,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12",
-    "webpack": "5.85.1"
+    "@types/node": "18.16.16",
+    "webpack": "5.86.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -96,7 +96,7 @@
     "stylelint": "15.7.0",
     "stylelint-config-standard": "33.0.0",
     "stylelint-webpack-plugin": "4.1.1",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

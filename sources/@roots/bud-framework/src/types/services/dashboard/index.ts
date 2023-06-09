@@ -1,6 +1,5 @@
-import type {MultiStats} from '@roots/bud-support/webpack'
-
 import type {Service as Contract} from '../../../service.js'
+import type {MultiStats} from '../../config/index.js'
 
 /**
  * Dashboard service container

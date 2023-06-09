@@ -1,4 +1,4 @@
-import type {StatsCompilation} from '@roots/bud-support/webpack'
+import type {StatsCompilation} from '@roots/bud-framework/config'
 
 export interface Payload {
   name: StatsCompilation['name']

@@ -1,12 +1,11 @@
 import type {
   Compiler,
   Configuration,
+  EntryObject,
   Optimization,
   RuleSetRule,
-} from '@roots/bud-support/webpack'
-import type {StatsOptions} from '@roots/bud-support/webpack'
-
-import type {EntryObject} from '../config/entry.js'
+  StatsOptions,
+} from '../config/index.js'
 
 export interface Sync {
   bail: boolean

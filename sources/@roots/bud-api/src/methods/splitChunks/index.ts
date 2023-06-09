@@ -1,8 +1,8 @@
 import {join, sep} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
+import type {Optimization} from '@roots/bud-framework/config'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import type {Optimization} from '@roots/bud-support/webpack'
 
 export type Parameters = [
   (
@@ -47,16 +47,6 @@ export const splitChunks: splitChunks = async function (
   options,
 ) {
   /**
-   * A `false` value indicates that the user wishes to
-   * disable chunking. Passing `undefined` to a `build.*` hook
-   * will omit it from the configuration entirely.
-   */
-  if (options === false) {
-    this.hooks.on(`build.optimization.splitChunks`, options)
-    return this
-  }
-
-  /**
    * For `true` and `undefined` options the default
    * cache groups are added to the build
    */
@@ -79,12 +69,7 @@ export const splitChunks: splitChunks = async function (
   }
 
   /**
-   * The remaining possibilty is an options object.
-   *
-   * In this case the passed options are spread onto the existing ones.
-   *
-   * For deeper merging the user can call `build.optimization.splitChunks`
-   * hook themselves.
+   * Otherwise we just pass the options through
    */
   this.hooks.on(`build.optimization.splitChunks`, options)
 

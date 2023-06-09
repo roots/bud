@@ -1,4 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
+import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {Error} from '@roots/bud-dashboard/app'
 import type {Extension} from '@roots/bud-framework'
@@ -22,6 +23,7 @@ import {isWindows} from '../../helpers/isWindows.js'
 @dry
 export default class BudDoctorCommand extends BudCommand {
   public static override paths = [[`doctor`]]
+
   public static override usage = Command.Usage({
     description: `Check project for common errors`,
     details: `\
@@ -49,7 +51,7 @@ for a lot of edge cases so it might return a false positive.
     return {...context, cache: false, dry: true, silent: true}
   }
 
-  public configuration: webpack.Configuration
+  public configuration: Bud[`build`][`config`]
   public enabledExtensions: Array<[string, Extension]> = []
   public disabledExtensions: Array<[string, Extension]> = []
   public entrypoints: Array<[string, webpack.EntryObject]> = []

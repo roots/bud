@@ -10,7 +10,7 @@ export const checkDependencies = async (bud: Bud) => {
     ...(bud.context.manifest?.devDependencies ?? {}),
   })
     .filter(([name]) => name.startsWith(`@roots/`))
-    .filter(([signifier, version]: [string, string]) => {
+    .filter(([_signifier, version]: [string, string]) => {
       version = version.replace(`^`, ``)
       return (
         version !== `latest` &&

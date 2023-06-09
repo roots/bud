@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {RuleSetRule} from '@roots/bud-framework/config'
 import type {
   Options,
   Output,
@@ -8,7 +9,6 @@ import type {
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
-import type {RuleSetRule} from '@roots/bud-support/webpack'
 
 import Base from '../shared/base.js'
 

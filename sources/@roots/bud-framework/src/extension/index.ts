@@ -6,10 +6,10 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import Value from '@roots/bud-support/value'
-import type {Compiler} from 'webpack'
 
 import type {Bud} from '../bud.js'
 import type {Modules} from '../index.js'
+import type {Compiler} from '../types/config/index.js'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = Record<string, any>> = {

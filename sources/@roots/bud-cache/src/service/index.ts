@@ -2,12 +2,12 @@ import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
 import type {Bud} from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type * as Services from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
 import {hash} from '@roots/bud-support/utilities/args'
-import type {Configuration} from '@roots/bud-support/webpack'
 
 import InvalidateCacheExtension from '../invalidate-cache/index.js'
 

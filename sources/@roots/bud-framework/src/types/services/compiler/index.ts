@@ -1,14 +1,13 @@
 import type {ErrorWithSourceFile} from '@roots/bud-support/open'
+
+import type {Contract} from '../../../service.js'
 import type {
   Configuration,
   MultiCompiler,
   MultiStats,
-  ProgressPlugin,
   StatsCompilation,
   StatsError,
-} from '@roots/bud-support/webpack'
-
-import type {Contract} from '../../../service.js'
+} from '../../config/index.js'
 
 /**
  * Compiler service
@@ -69,11 +68,5 @@ export type BudError = {
 }
 
 export type Config = Configuration
-
-export type Progress = [number, string]
-
-export namespace Progress {
-  export type Handler = ProgressPlugin['handler']
-}
 
 export type {Service}

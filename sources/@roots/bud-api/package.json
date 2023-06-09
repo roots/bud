@@ -95,7 +95,7 @@
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-minify": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
@@ -103,8 +103,7 @@
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",
     "chalk": "5.2.0",
-    "tslib": "2.5.0",
-    "webpack": "5.85.1"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

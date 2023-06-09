@@ -241,16 +241,5 @@ export const bootstrap = async function (this: Bud) {
       version: bud.context.bud.version,
       resolutions: bud.module.resolved,
     })
-
-    logger.scope(`fs`).time(`writing new checksums`)
-
-    await this.fs.write(
-      this.path(`@storage`, `checksum.yml`),
-      Object.entries(this.context.files).reduce(
-        (acc, [key, {sha1}]) => (!sha1 ? acc : {...acc, [key]: sha1}),
-        {},
-      ),
-    )
-    logger.scope(`fs`).timeEnd(`writing new checksums`)
   })
 }

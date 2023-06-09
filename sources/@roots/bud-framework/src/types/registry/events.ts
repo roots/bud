@@ -1,6 +1,5 @@
-import type {Compilation, MultiStats} from '@roots/bud-support/webpack'
-
 import type {Bud} from '../../bud.js'
+import type {Compilation, MultiStats} from '../config/index.js'
 
 export interface Events {
   init: Bud

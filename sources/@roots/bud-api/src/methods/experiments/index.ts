@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-support/webpack'
+import type {Configuration} from '@roots/bud-framework/config'
 
 export type Parameters<
   T extends `${keyof Configuration[`experiments`]}` = `${keyof Configuration[`experiments`]}`,

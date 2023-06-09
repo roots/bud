@@ -1,6 +1,10 @@
+import type {
+  Compilation,
+  Compiler,
+  StatsCompilation,
+} from '@roots/bud-framework/config'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type {Compilation, Compiler, StatsCompilation} from 'webpack'
 
 /**
  * Webpack provide plugin configuration

@@ -1,4 +1,7 @@
-import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
+import type {
+  StatsAsset,
+  StatsChunkGroup,
+} from '@roots/bud-framework/config'
 import {durationFormatter, sizeFormatter} from 'human-readable'
 
 export const SPACE = ` `

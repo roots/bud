@@ -32,15 +32,15 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@types/node": "18.16.12",
+    "@types/node": "18.16.16",
     "chalk": "5.2.0",
     "execa": "7.1.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.4",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
-    "tslib": "2.5.0",
-    "vitest": "0.31.1"
+    "tslib": "2.5.3",
+    "vitest": "0.31.4"
   },
   "volta": {
     "extends": "../../../package.json"

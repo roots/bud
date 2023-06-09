@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-support/webpack'
+import type {Configuration} from '@roots/bud-framework/config'
 
 import {bail} from './bail.js'
 import {cache} from './cache.js'

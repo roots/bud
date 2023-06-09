@@ -1,7 +1,13 @@
 import {pathToFileURL} from 'node:url'
 
 import * as App from '@roots/bud-dashboard/app'
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
+import type {
+  MultiCompiler,
+  MultiStats,
+  StatsCompilation,
+  StatsError,
+} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -12,14 +18,8 @@ import type {
   SourceFile,
 } from '@roots/bud-support/open'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-import type webpack from '@roots/bud-support/webpack'
-import type {
-  MultiCompiler,
-  MultiStats,
-  StatsCompilation,
-  StatsError,
-} from '@roots/bud-support/webpack'
 import * as Ink from 'ink'
+import webpack from 'webpack'
 
 /**
  * Wepback compilation controller class

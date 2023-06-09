@@ -71,7 +71,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -79,7 +79,7 @@
     "@roots/bud-wordpress-dependencies": "workspace:*",
     "@roots/bud-wordpress-externals": "workspace:*",
     "@roots/merged-manifest-webpack-plugin": "workspace:*",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {DefinePlugin} from '@roots/bud-support/webpack'
+import type {DefinePlugin} from '@roots/bud-framework/config'
 
 export type Parameters = [DefinePlugin['definitions']]
 

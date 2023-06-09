@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework/config'
 import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
-import type {Configuration} from '@roots/bud-support/webpack'
 
 export type Parameters = [
   | Partial<Configuration>

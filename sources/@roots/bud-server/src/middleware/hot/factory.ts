@@ -1,16 +1,16 @@
 /* eslint-disable no-console */
 
 import type {Bud} from '@roots/bud-framework'
+import type {
+  MultiCompiler,
+  StatsCompilation,
+  StatsModule,
+} from '@roots/bud-framework/config'
 import type {MiddlewareFactory} from '@roots/bud-server/middleware'
 import type {Payload} from '@roots/bud-server/middleware/hot'
 import {HotEventStream} from '@roots/bud-server/middleware/hot'
 import type {RequestHandler} from '@roots/bud-support/express'
 import loggerInstance from '@roots/bud-support/logger'
-import type {
-  MultiCompiler,
-  StatsCompilation,
-  StatsModule,
-} from '@roots/bud-support/webpack'
 import type {Handler} from 'express-serve-static-core'
 
 const middlewarePath = `/bud/hot`

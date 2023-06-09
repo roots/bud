@@ -164,8 +164,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12",
-    "@types/react": "18.2.6"
+    "@types/node": "18.16.16",
+    "@types/react": "18.2.9"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:*",
@@ -187,7 +187,7 @@
     "ink-spinner": "5.0.0",
     "ink-text-input": "5.0.1",
     "react": "18.2.0",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

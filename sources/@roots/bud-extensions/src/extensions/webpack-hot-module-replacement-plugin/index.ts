@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
+import type {HotModuleReplacementPlugin} from '@roots/bud-framework/config'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type {HotModuleReplacementPlugin} from 'webpack'
 
 /**
  * Hot module replacement plugin configuration

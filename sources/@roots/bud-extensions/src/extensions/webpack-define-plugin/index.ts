@@ -4,16 +4,16 @@ import {
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import Webpack from 'webpack'
+import webpack from 'webpack'
 
 /**
  * Define plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-define-plugin`)
-@plugin(Webpack.DefinePlugin)
+@plugin(webpack.DefinePlugin)
 export default class BudDefine extends Extension<
-  Webpack.DefinePlugin['definitions'],
-  Webpack.DefinePlugin
+  webpack.DefinePlugin['definitions'],
+  webpack.DefinePlugin
 > {
   /**
    * {@link Extension.register}
@@ -39,7 +39,7 @@ export default class BudDefine extends Extension<
   @bind
   public override when(
     _bud: Bud,
-    options?: Webpack.DefinePlugin['definitions'],
+    options?: webpack.DefinePlugin['definitions'],
   ) {
     return options && Object.keys(options).length > 0
   }

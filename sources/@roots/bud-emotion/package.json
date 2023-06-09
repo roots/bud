@@ -75,22 +75,22 @@
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.0",
-    "@types/node": "18.16.12",
-    "@types/react": "18.2.6"
+    "@types/babel__core": "7.20.1",
+    "@types/node": "18.16.16",
+    "@types/react": "18.2.9"
   },
   "dependencies": {
-    "@babel/core": "7.21.8",
-    "@emotion/babel-plugin": "^11.11.0",
-    "@emotion/css": "^11.11.0",
-    "@emotion/react": "^11.11.0",
-    "@emotion/styled": "^11.11.0",
+    "@babel/core": "7.22.5",
+    "@emotion/babel-plugin": "11.11.0",
+    "@emotion/css": "11.11.0",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@swc/plugin-emotion": "2.5.51",
     "react": "18.2.0",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"
