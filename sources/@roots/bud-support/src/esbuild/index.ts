@@ -1,4 +1,4 @@
-import {type build} from 'esbuild-wasm'
+import {type build} from '@roots/bud-support/esbuild-wasm'
 import {resolve} from 'import-meta-resolve'
 
 import logger from '../logger/index.js'
@@ -18,9 +18,8 @@ export const getImplementation = async (
 
   const sources: Array<[string, string]> = [
     [`esbuild`, context],
-    [`esbuild`, import.meta.url],
     [`esbuild-wasm`, context],
-    [`esbuild-wasm`, import.meta.url],
+    [`@roots/bud-support/esbuild-wasm`, import.meta.url],
   ]
 
   await sources.reduce(async (promised, props) => {

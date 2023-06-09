@@ -145,6 +145,7 @@
   "dependencies": {
     "@roots/blade-loader": "workspace:*",
     "@roots/bud": "workspace:*",
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-preset-wordpress": "workspace:*",
     "@roots/bud-support": "workspace:*",

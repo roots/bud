@@ -1,8 +1,8 @@
 import type {FSWatcher} from 'node:fs'
 
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import type {Server} from '@roots/bud-framework/services'
-import chokidar from '@roots/bud-support/chokidar'
+import * as chokidar from '@roots/bud-support/chokidar'
 import {bind} from '@roots/bud-support/decorators/bind'
 
 /**

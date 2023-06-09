@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {Items} from '../../../index.js'
 import type {RuleSetRule} from '../../config/index.js'
 import type {Base} from './base.js'

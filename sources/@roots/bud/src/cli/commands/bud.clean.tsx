@@ -4,7 +4,7 @@ import {dry} from '@roots/bud/cli/decorators/command.dry'
 import storage from '@roots/bud/cli/flags/storage'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 /**
  * `bud clean`

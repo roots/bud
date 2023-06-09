@@ -6,7 +6,7 @@ import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
 import isString from '@roots/bud-support/lodash/isString'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import type {File} from '../types/options/context.js'
 
 /**

@@ -2,7 +2,7 @@
 
 import figures from '@roots/bud-support/figures'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 import React from 'react'
 
 import Space from '../display/space.component.js'

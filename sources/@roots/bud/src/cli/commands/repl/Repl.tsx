@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import {highlight} from '@roots/bud-support/highlight'
 import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 import TextInput from 'ink-text-input'
 import {useEffect, useState} from 'react'
 

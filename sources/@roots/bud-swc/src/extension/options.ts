@@ -1,9 +1,9 @@
-import {Extension} from '@roots/bud-framework'
-import type {
-  OptionCallback,
-  StrictPublicExtensionApi,
+import {
+  DynamicOption,
+  Extension,
+  type OptionCallback,
+  type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
-import {Value} from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import type {Options} from '@swc/core'
@@ -127,9 +127,9 @@ type BudSWCPublicInterface = StrictPublicExtensionApi<
     target: undefined,
     transform: undefined,
   },
-  sourceMaps: Value.make(({hooks}) => {
-    const devtool = hooks.filter(`build.devtool`)
-    if (devtool === false || devtool === undefined) return false
+  sourceMaps: DynamicOption.make(({hooks}) => {
+    const devtool = hooks.filter(`build.devtool`, false)
+    if (devtool === false) return false
     if (devtool.includes(`inline`)) return `inline`
     return true
   }),

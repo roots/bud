@@ -1,19 +1,10 @@
-import type {StatsAsset} from '@roots/bud-support/webpack'
-import * as Ink from 'ink'
+import type {StatsAsset} from '@roots/bud-framework/config'
+import {Box, Text} from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
 import {color, size as formatSize} from '../format.js'
 
-const Asset = ({
-  minWidth,
-  name,
-  size,
-  emitted,
-  final,
-  cached,
-  indent,
-  info,
-}: {
+interface Props {
   cached?: boolean
   minWidth: number
   name?: string
@@ -22,18 +13,20 @@ const Asset = ({
   final?: boolean
   indent?: any
   info?: StatsAsset['info']
-}) => {
+}
+
+const Asset = ({minWidth, name, size, final, indent}: Props) => {
   return (
     <Title indent={indent} final={final}>
-      <Ink.Box minWidth={minWidth}>
-        <Ink.Text color={color.dim}>{name}</Ink.Text>
-      </Ink.Box>
+      <Box minWidth={minWidth}>
+        <Text color={color.dim}>{name}</Text>
+      </Box>
 
-      <Ink.Box minWidth={10} justifyContent="flex-end">
-        <Ink.Text dimColor>{(formatSize(size) as string).trim()}</Ink.Text>
-      </Ink.Box>
+      <Box minWidth={10} justifyContent="flex-end">
+        <Text dimColor>{(formatSize(size) as string).trim()}</Text>
+      </Box>
     </Title>
   )
 }
 
-export default Asset
+export {Asset as default}

@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {Service as BaseService} from '../../../service.js'
 import type * as Registry from '../../registry/index.js'
 

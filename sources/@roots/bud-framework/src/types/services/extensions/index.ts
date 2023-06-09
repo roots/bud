@@ -1,6 +1,6 @@
 import type Container from '@roots/container'
 
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {
   ApplyPlugin,
   Extension,

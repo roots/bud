@@ -10,7 +10,7 @@
     },
     "types": ["node", "@roots/bud-framework"]
   },
-  "include": ["src"],
+  "include": ["./src"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"}
   ]

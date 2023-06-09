@@ -2,8 +2,8 @@
 import cleanStack from '@roots/bud-support/clean-stack'
 import type {BudHandler} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
+import * as Ink from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
-import * as Ink from 'ink'
 
 export type Props = React.PropsWithChildren<{
   error: BudHandler

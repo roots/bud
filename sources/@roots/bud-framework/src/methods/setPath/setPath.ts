@@ -2,7 +2,7 @@ import {isAbsolute} from 'node:path'
 
 import {InputError} from '@roots/bud-support/errors'
 
-import type {Bud} from '../../bud.js'
+import type {Bud} from '../../index.js'
 import type {SyncRegistry} from '../../types/registry/index.js'
 import * as isType from './isType.js'
 import * as validate from './validate.js'

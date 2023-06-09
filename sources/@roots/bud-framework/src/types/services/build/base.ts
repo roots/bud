@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 
 /**
  * Base interface for Loaders, Items, and rules

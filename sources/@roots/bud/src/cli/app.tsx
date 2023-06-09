@@ -13,7 +13,7 @@ import type {CommandClass} from '@roots/bud-support/clipanion'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import logger from '@roots/bud-support/logger'
 import * as args from '@roots/bud-support/utilities/args'
-import {render} from 'ink'
+import {render} from '@roots/bud-support/ink'
 
 import BudDoctorCommand from './commands/doctor/index.js'
 import BudReplCommand from './commands/repl/index.js'

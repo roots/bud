@@ -1,5 +1,3 @@
-/// <reference types="@roots/bud-framework" />
-
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type {BudEntrypoints} from './extension.js'

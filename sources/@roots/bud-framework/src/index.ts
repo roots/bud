@@ -9,33 +9,20 @@
  */
 
 /* eslint-disable simple-import-sort/imports */
+export * from './bud.js'
+export * from './service.js'
 
-import {Bud} from './bud.js'
-import {Extension} from './extension/index.js'
-import {Service, ServiceContainer} from './service.js'
+export type * as Config from './types/config/index.js'
+export type * from './types/options/index.js'
+export * from './types/services/index.js'
+export * from './types/services/hooks/index.js'
 
-import type * as Config from './types/config/index.js'
-import type * as Options from './types/options/index.js'
-import type * as Services from './types/services/index.js'
-import type Hooks from './types/services/hooks/index.js'
-import type {Logger} from './types/services/logger/index.js'
-
-import type {Items} from './types/registry/items.js'
-import type {Loaders} from './types/registry/loaders.js'
-import type {Rules} from './types/registry/rules.js'
-import type {Item} from './types/services/build/item.js'
-import type {Loader} from './types/services/build/loader.js'
-import type {Rule} from './types/services/build/rule.js'
-import type * as Registry from './types/registry/index.js'
-import type {Modules} from './types/registry/modules.js'
-import type {Locations} from './types/registry/locations.js'
-
-export {Bud, Extension, Service, ServiceContainer}
-
-export type {Config, Options}
-export type {Hooks, Logger, Registry, Services}
-
-export type {Item, Loader, Rule}
-export type {Items, Loaders, Rules}
-export type {Locations}
-export type {Modules}
+export type {Items} from './types/registry/items.js'
+export type {Loaders} from './types/registry/loaders.js'
+export type {Rules} from './types/registry/rules.js'
+export type {Item} from './types/services/build/item.js'
+export type {Loader} from './types/services/build/loader.js'
+export type {Rule} from './types/services/build/rule.js'
+export type * as Registry from './types/registry/index.js'
+export type {Modules} from './types/registry/modules.js'
+export type {Locations} from './types/registry/locations.js'

@@ -1,3 +1,1 @@
-import commonPath from 'common-path'
-
-export default commonPath
+export {default} from 'common-path'

@@ -6,12 +6,27 @@
     "paths": {
       "@roots/sage": ["./src/index.ts"],
       "@roots/sage/*": ["./src/*/index.ts"]
-    }
+    },
+    "types": [
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-build",
+      "@roots/bud-api",
+      "@roots/bud-extensions",
+      "@roots/bud-minify",
+      "@roots/bud-entrypoints",
+      "@roots/bud-preset-wordpress"
+    ]
   },
-  "include": ["./src"],
-  "exclude": ["./lib", "./node_modules"],
+  "files": ["src/types/index.ts"],
+  "include": ["src"],
+  "exclude": ["types"],
   "references": [
+    {"path": "../bud-build/tsconfig.json"},
+    {"path": "../bud-entrypoints/tsconfig.json"},
+    {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
-    {"path": "../bud-preset-wordpress/tsconfig.json"},
+    {"path": "../bud-minify/tsconfig.json"},
+    {"path": "../bud-preset-wordpress/tsconfig.json"}
   ]
 }

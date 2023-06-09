@@ -5,7 +5,8 @@
     "outDir": "lib",
     "paths": {
       "@roots/bud-entrypoints/*": ["./src/*.js"]
-    }
+    },
+    "types": ["node", "@roots/bud-framework"]
   },
   "include": ["src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],

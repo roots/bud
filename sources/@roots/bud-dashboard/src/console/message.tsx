@@ -1,4 +1,4 @@
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 export interface Props {
   color: string

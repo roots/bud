@@ -8088,7 +8088,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/react": 18.2.9
-    ink: 4.2.0
     react: 18.2.0
     tslib: 2.5.3
     webpack: 5.86.0
@@ -8138,7 +8137,6 @@ __metadata:
     "@types/react": 18.2.9
     chalk: 5.2.0
     human-readable: 0.2.1
-    ink: 4.2.0
     ink-testing-library: 3.0.0
     ink-text-input: 5.0.1
     react: 18.2.0
@@ -8549,6 +8547,7 @@ __metadata:
     http-proxy-middleware: 3.0.0-beta.1
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
+    ink: 4.2.0
     json5: 2.2.3
     lodash: 4.17.21
     mini-css-extract-plugin: 2.7.6
@@ -8780,7 +8779,6 @@ __metadata:
     "@types/node": 18.16.16
     "@types/react": 18.2.9
     chalk: 5.2.0
-    ink: 4.2.0
     ink-spinner: 5.0.0
     ink-text-input: 5.0.1
     react: 18.2.0
@@ -8912,6 +8910,7 @@ __metadata:
   dependencies:
     "@roots/blade-loader": "workspace:*"
     "@roots/bud": "workspace:*"
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-preset-wordpress": "workspace:*"
     "@roots/bud-support": "workspace:*"

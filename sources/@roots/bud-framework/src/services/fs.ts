@@ -7,7 +7,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 import {type S3} from '@roots/filesystem/s3'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import type {Contract} from '../service.js'
 
 /**

@@ -1,8 +1,25 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "@roots/sage",
-  "extends": "@roots/bud/config/tsconfig.json",
+  "extends": ["@roots/bud/config/tsconfig.json"],
   "compilerOptions": {
-    "types": ["@roots/bud", "@roots/sage"]
+    "types": [
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-build",
+      "@roots/bud-api",
+      "@roots/bud-extensions",
+      "@roots/bud",
+      "@roots/bud-minify",
+      "@roots/bud-entrypoints",
+      "@roots/bud-preset-recommend",
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-react",
+      "@roots/bud-wordpress-manifests",
+      "@roots/bud-wordpress-externals",
+      "@roots/bud-wordpress-dependencies",
+      "@roots/bud-wordpress-theme-json",
+      "@roots/bud-tailwindcss-theme-json"
+    ]
   }
 }

@@ -5,7 +5,7 @@ import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 import chalk from 'chalk'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import methods from '../methods/index.js'
 import {Module} from '../module.js'
 import type {Service} from '../service.js'

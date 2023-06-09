@@ -1,3 +1,1 @@
-import cleanStack from 'clean-stack'
-
-export default cleanStack
+export {default} from 'clean-stack'

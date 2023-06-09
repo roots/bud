@@ -1,4 +1,4 @@
-import {Box, Text} from 'ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import type {StatsCompilation} from 'webpack'
 
 export default function Messages({

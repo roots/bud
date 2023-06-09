@@ -8,8 +8,6 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import {BudEmotion} from './extension.js'
 
 export default BudEmotion

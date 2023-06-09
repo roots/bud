@@ -1,6 +1,6 @@
 import {isAbsolute, relative} from 'node:path'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 /**
  * ## bud.relPath

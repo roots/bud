@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud-framework'
-import type {StatsCompilation} from '@roots/bud-support/webpack'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {StatsCompilation} from '@roots/bud-framework/config'
 
 import App from './app.js'
 import {TTYApp} from './input.js'

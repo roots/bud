@@ -18,7 +18,7 @@ import type {
   SourceFile,
 } from '@roots/bud-support/open'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 import webpack from 'webpack'
 
 /**
