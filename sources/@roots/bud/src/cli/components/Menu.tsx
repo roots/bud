@@ -1,5 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 import {useEffect, useState} from 'react'
 
 import type BudCommand from '../commands/bud.js'

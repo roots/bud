@@ -1,6 +1,6 @@
 import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import type {Bud} from '@roots/bud-framework'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 export const checkDependencies = async (bud: Bud) => {
   if (isInternalDevelopmentEnv(bud)) return false

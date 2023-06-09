@@ -1,6 +1,6 @@
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 export interface maybeCall {
   <I = Bud>(maybeCallable: maybeCallable<I>, value?: I): I

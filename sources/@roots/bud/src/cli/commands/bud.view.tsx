@@ -4,7 +4,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import get from '@roots/bud-support/lodash/get'
 import format from '@roots/bud-support/pretty-format'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 /**
  * `bud view` command

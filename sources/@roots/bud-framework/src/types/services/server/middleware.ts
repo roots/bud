@@ -1,6 +1,6 @@
 import type {HttpProxy} from '@roots/bud-support/http-proxy-middleware'
 
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 
 export interface ProxyOptions extends HttpProxy.Options {
   logger: any

@@ -1,4 +1,4 @@
-import type {AssetInfo, Chunk, PathData} from 'webpack'
+import type {AssetInfo, Chunk, PathData} from '@roots/bud-support/webpack'
 
 export interface SplitChunks {
   /**

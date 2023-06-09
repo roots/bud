@@ -1,4 +1,4 @@
-import {Box, Static} from 'ink'
+import {Box, Static} from '@roots/bud-support/ink'
 
 import type {LogProps, Stderr, Stdout} from './log.js'
 import {Log} from './log.js'

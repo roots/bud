@@ -51,7 +51,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
       )
       .setPlugin(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
-        this.config ?? this.configPath,
+        this.configPath ?? this.config,
       ])
       .setPluginOptions(`env`, {
         features: {

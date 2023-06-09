@@ -21,9 +21,7 @@ declare module '@roots/bud-framework' {
      */
     terser: BudMinimizeJSPublicInterface
   }
-}
 
-declare module '@roots/bud-framework' {
   interface Modules {
     '@roots/bud-minify': BudMinimize
     '@roots/bud-minify/minify-js': BudMinimizeJS

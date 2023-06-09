@@ -11,8 +11,10 @@
       "@roots/bud-api",
       "@roots/bud-build",
       "@roots/bud-cache",
+      "@roots/bud-entrypoints",
       "@roots/bud-extensions",
       "@roots/bud-framework",
+      "@roots/bud-minify",
       "react"
     ]
   },
@@ -28,6 +30,7 @@
     {"path": "./../bud-entrypoints/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
+    {"path": "./../bud-minify/tsconfig.json"},
     {"path": "./../bud-server/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-minify/tsconfig.json"},

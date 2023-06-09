@@ -6,8 +6,14 @@ interface Value<T> {
 class Value<T> {
   /**
    * For type checking
+   *
+   * @remarks
+   * Some functions like _.set() will mutate the class instance.
+   * This property is used to check if the instance is a {@link Value}
+   * and should work even after mutation.
    */
   public isBudValue: true = true
+  public static isBudValue: true = true
 
   /**
    * Class constructor

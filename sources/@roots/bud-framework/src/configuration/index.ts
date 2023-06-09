@@ -1,7 +1,7 @@
 import {asError, BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import Configuration from './configuration.js'
 
 /**

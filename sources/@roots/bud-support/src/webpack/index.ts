@@ -1,60 +1,23 @@
-import type {
-  Chunk,
-  ChunkGraph,
-  Compilation,
-  Compiler,
-  Configuration,
-  DefinePlugin,
-  EntryObject as WebpackEntryObject,
-  MultiCompiler,
-  MultiStats,
-  PathData,
-  ProgressPlugin,
-  RuleSetRule,
-  Stats,
-  StatsAsset,
-  StatsChunk,
-  StatsChunkGroup,
-  StatsCompilation,
-  StatsError,
-  StatsModule,
-  StatsOptions,
-  WebpackError,
-  WebpackPluginFunction,
-  WebpackPluginInstance,
+export {default} from 'webpack'
+
+export {
+  type AssetInfo,
+  type Chunk,
+  type Configuration,
+  type Compilation,
+  type Compiler,
+  type DefinePlugin,
+  type HotModuleReplacementPlugin,
+  type MultiCompiler,
+  type MultiStats,
+  type PathData,
+  type ProvidePlugin,
+  type RuleSetRule,
+  type StatsAsset,
+  type StatsChunkGroup,
+  type StatsCompilation,
+  type StatsError,
+  type StatsModule,
+  type StatsOptions,
+  type WebpackPluginInstance,
 } from 'webpack'
-import webpack from 'webpack'
-
-export type EntryObject = WebpackEntryObject & {
-  import: Array<string>
-  dependOn?: string | string[]
-}
-
-export default webpack
-export type {
-  Chunk,
-  ChunkGraph,
-  Compiler,
-  Compilation,
-  Configuration,
-  DefinePlugin,
-  MultiCompiler,
-  MultiStats,
-  PathData,
-  ProgressPlugin,
-  RuleSetRule,
-  Stats,
-  StatsAsset,
-  StatsChunk,
-  StatsChunkGroup,
-  StatsCompilation,
-  StatsError,
-  StatsModule,
-  StatsOptions,
-  WebpackError,
-  WebpackPluginFunction,
-  WebpackPluginInstance,
-}
-
-import type * as Optimization from './types/optimization/index.js'
-export type {Optimization}

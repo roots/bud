@@ -1,4 +1,4 @@
-import {Bud} from '../../bud.js'
+import {Bud} from '../../index.js'
 
 export interface after {
   (

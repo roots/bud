@@ -22,7 +22,7 @@ import {BudError, BudHandler} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import omit from '@roots/bud-support/lodash/omit'
 import logger from '@roots/bud-support/logger'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'

@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import type * as Server from '@roots/bud-framework/services/server'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'

@@ -6,11 +6,13 @@
     "paths": {
       "@roots/sage": ["./src/index.ts"],
       "@roots/sage/*": ["./src/*/index.ts"]
-    }
+    },
+    "types": ["node", "@roots/bud-framework", "@roots/bud-entrypoints"]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules"],
   "references": [
+    {"path": "../bud-entrypoints/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-preset-wordpress/tsconfig.json"},
   ]

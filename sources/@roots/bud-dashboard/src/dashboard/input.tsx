@@ -1,4 +1,4 @@
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 import React from 'react'
 
 import type {Props} from './index.js'

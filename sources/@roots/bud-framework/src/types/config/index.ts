@@ -1,37 +1,18 @@
-import type {Optimization} from '@roots/bud-support/webpack'
-import type {
-  Compilation,
-  Compiler,
-  Configuration,
-  DefinePlugin,
-  HotModuleReplacementPlugin,
-  MultiCompiler,
-  MultiStats,
-  RuleSetRule,
-  StatsAsset,
-  StatsChunkGroup,
-  StatsCompilation,
-  StatsError,
-  StatsModule,
-  StatsOptions,
-  WebpackPluginInstance,
-} from 'webpack'
+export type {EntryObject} from './entry.js'
 
-import type {EntryObject} from './entry.js'
+export type Mode = `production` | `development`
 
-type Mode = `production` | `development`
+export type * as Optimization from './optimization/index.js'
 
 export type {
-  Compiler,
   Compilation,
+  Compiler,
   Configuration,
   DefinePlugin,
-  EntryObject,
   HotModuleReplacementPlugin,
-  Mode,
   MultiCompiler,
   MultiStats,
-  Optimization,
+  ProvidePlugin,
   RuleSetRule,
   StatsAsset,
   StatsChunkGroup,
@@ -40,4 +21,4 @@ export type {
   StatsModule,
   StatsOptions,
   WebpackPluginInstance,
-}
+} from '@roots/bud-support/webpack'

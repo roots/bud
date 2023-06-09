@@ -1,6 +1,6 @@
 import {join} from 'node:path'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 export interface publicPath {
   (...parts: Array<string>): string

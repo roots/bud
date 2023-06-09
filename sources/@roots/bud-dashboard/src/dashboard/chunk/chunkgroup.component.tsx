@@ -1,4 +1,4 @@
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
 import {color} from '../format.js'

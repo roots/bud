@@ -1,5 +1,6 @@
 import type {Hooks as Service} from '@roots/bud-framework'
-import {Bud, Service as Base} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework/bud'
+import {Service as Base} from '@roots/bud-framework/service'
 
 import {AsyncHooks} from './async/async.js'
 import {EventHooks} from './event/event.js'

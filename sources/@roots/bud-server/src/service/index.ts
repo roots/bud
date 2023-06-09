@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import {Service} from '@roots/bud-framework/service'
 import type {
   Connection,

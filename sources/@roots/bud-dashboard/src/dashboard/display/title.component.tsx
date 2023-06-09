@@ -1,5 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 interface Props
   extends React.PropsWithChildren<{

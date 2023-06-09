@@ -2,12 +2,13 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ImportError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import isObject from '@roots/bud-support/lodash/isObject'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
-import Value from '@roots/bud-support/value'
+import DynamicOption from '@roots/bud-support/value'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import type {Modules} from '../index.js'
 import type {Compiler} from '../types/config/index.js'
 import type {ApplyPluginConstructor} from './decorators/plugin.js'
@@ -17,7 +18,9 @@ export type Options<T = Record<string, any>> = {
 }
 
 export type InternalOptionsValues<T extends Options> = {
-  [K in keyof T as `${K & string}`]: Value<(app: Bud) => T[K]> | T[K]
+  [K in keyof T as `${K & string}`]:
+    | DynamicOption<(app: Bud) => T[K]>
+    | T[K]
 }
 
 export type OptionCallback<
@@ -391,8 +394,22 @@ export class Extension<
 
   public getOptions(): ExtensionOptions {
     return Object.entries(this._options).reduce((acc, [key, value]) => {
-      const unwrapped =
-        value instanceof Value ? value.get()(this.app) : value
+      if (isUndefined(value)) return acc
+      if (!isObject(value)) return {...acc, [key]: value}
+
+      const isDynamicOption = (
+        value: any,
+      ): value is DynamicOption<any> => {
+        return (
+          value instanceof DynamicOption ||
+          (`isBudValue` in value && value.isBudValue)
+        )
+      }
+
+      const unwrapped = isDynamicOption(value)
+        ? value.get()(this.app)
+        : value
+
       if (isUndefined(unwrapped)) return acc
       return {...acc, [key]: unwrapped}
     }, {} as ExtensionOptions)
@@ -425,11 +442,6 @@ export class Extension<
     key: K,
     valueOrCallback: OptionCallbackValue<ExtensionOptions, K>,
   ): this {
-    if (valueOrCallback instanceof Value) {
-      this._options[key] = valueOrCallback as any
-      return this
-    }
-
     if (isFunction(valueOrCallback)) {
       set(this._options, key, valueOrCallback(this.get(key)))
       return this
@@ -518,4 +530,4 @@ export class Extension<
   }
 }
 
-export {Value as DynamicOption, Value}
+export {DynamicOption}

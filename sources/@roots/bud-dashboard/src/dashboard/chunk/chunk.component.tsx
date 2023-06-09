@@ -1,5 +1,5 @@
-import type {StatsAsset} from '@roots/bud-support/webpack'
-import * as Ink from 'ink'
+import type {StatsAsset} from '@roots/bud-framework/config'
+import {Box} from '@roots/bud-support/ink'
 
 import {longestAssetNameLength} from '../format.js'
 import Asset from './asset.component.js'
@@ -17,7 +17,7 @@ const Chunk = ({
   emitted?: boolean
 }) => {
   return (
-    <Ink.Box flexDirection="column">
+    <Box flexDirection="column">
       {chunk?.assets?.map((asset, index) => (
         <Asset
           key={index}
@@ -28,7 +28,7 @@ const Chunk = ({
           indent={[!final]}
         />
       ))}
-    </Ink.Box>
+    </Box>
   )
 }
 

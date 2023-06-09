@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {Loaders} from '../../../index.js'
 import type {Base} from './base.js'
 import type {Loader} from './loader.js'

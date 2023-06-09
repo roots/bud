@@ -1,17 +1,17 @@
 /* eslint-disable no-console */
 import {sep} from 'node:path'
 
-import {Service} from '@roots/bud-framework/service'
-import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
-import {bind} from '@roots/bud-support/decorators/bind'
-import isString from '@roots/bud-support/lodash/isString'
-import stripAnsi from '@roots/bud-support/strip-ansi'
 import type {
   MultiStats,
   StatsCompilation,
   StatsError,
-} from '@roots/bud-support/webpack'
-import {Box, render, Text} from 'ink'
+} from '@roots/bud-framework/config'
+import {Service} from '@roots/bud-framework/service'
+import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
+import {bind} from '@roots/bud-support/decorators/bind'
+import {Box, render, Text} from '@roots/bud-support/ink'
+import isString from '@roots/bud-support/lodash/isString'
+import stripAnsi from '@roots/bud-support/strip-ansi'
 
 import {Console} from './console/index.js'
 

@@ -1,19 +1,25 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {Bud} from '@roots/bud-framework/bud'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   label,
+  options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import webpack from 'webpack'
+import {
+  default as Webpack,
+  type DefinePlugin,
+} from '@roots/bud-support/webpack'
 
 /**
  * Define plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-define-plugin`)
-@plugin(webpack.DefinePlugin)
+@plugin(Webpack.DefinePlugin)
+@options<DefinePlugin[`definitions`]>({})
 export default class BudDefine extends Extension<
-  webpack.DefinePlugin['definitions'],
-  webpack.DefinePlugin
+  DefinePlugin['definitions'],
+  DefinePlugin
 > {
   /**
    * {@link Extension.register}
@@ -37,10 +43,7 @@ export default class BudDefine extends Extension<
    * {@link Extension.when}
    */
   @bind
-  public override when(
-    _bud: Bud,
-    options?: webpack.DefinePlugin['definitions'],
-  ) {
-    return options && Object.keys(options).length > 0
+  public override when() {
+    return this.options && Object.keys(this.options).length > 0
   }
 }
