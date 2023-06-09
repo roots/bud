@@ -8,8 +8,4 @@
  * @see https://github.com/roots/sage
  */
 
-import './types/index.js'
-
-import Sage from './sage/index.js'
-
-export default Sage
+export {default} from './sage/index.js'

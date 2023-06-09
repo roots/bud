@@ -8,8 +8,4 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
-import BudPresetWordPress from './extension.js'
-
-export default BudPresetWordPress
+export {default} from './extension.js'

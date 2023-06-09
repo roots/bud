@@ -1,11 +1,3 @@
-import '@roots/bud/types'
-import '@roots/bud-preset-recommend/types'
-import '@roots/bud-react/types'
-import '@roots/bud-wordpress-manifests/types'
-import '@roots/bud-wordpress-theme-json/types'
-import '@roots/bud-tailwindcss-theme-json/types'
-import '@roots/wordpress-hmr/types'
-
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type BudPresetWordPress from './extension.js'
@@ -16,7 +8,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-preset-wordpress': {}
+    '@roots/bud-preset-wordpress': BudPresetWordPress
   }
   interface Loaders {
     '@roots/wordpress-hmr/loader': any

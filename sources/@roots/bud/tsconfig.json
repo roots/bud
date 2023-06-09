@@ -18,6 +18,7 @@
       "react"
     ]
   },
+  "files": ["./src/types.ts"],
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
   "references": [

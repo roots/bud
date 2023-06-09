@@ -8,15 +8,6 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
-import Bud, {Service, ServiceContainer} from './bud/bud.js'
-import makeContext from './context/index.js'
-import {factory} from './factory/index.js'
-import {get, has, instances, set} from './instances.js'
-
-export {factory, makeContext}
-export {get, set, has, instances}
-
-export {Bud}
-export {Service, ServiceContainer}
+export {default as Bud, Service, ServiceContainer} from './bud/bud.js'
+export {factory} from './factory/index.js'
+export {get, has, instances, set} from './instances.js'
