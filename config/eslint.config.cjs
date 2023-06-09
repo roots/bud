@@ -99,6 +99,7 @@ module.exports = {
           `@wordpress/plugins`,
           `@wordpress/rich-text`,
           `type-fest`,
+          `@aws-sdk/client-s3`,
         ],
       },
     ],
