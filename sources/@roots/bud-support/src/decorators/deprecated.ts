@@ -1,8 +1,7 @@
 import chalk from '@roots/bud-support/chalk'
+import figures from '@roots/bud-support/figures'
+import {highlight} from '@roots/bud-support/highlight'
 import logger from '@roots/bud-support/logger'
-
-import figures from '../figures/index.js'
-import {highlight} from '../highlight/index.js'
 
 /**
  * Decorator that logs a deprecation warning to the console

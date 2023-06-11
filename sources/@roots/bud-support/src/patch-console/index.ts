@@ -1,1 +1,1 @@
-export * from 'patch-console'
+export {default} from 'patch-console'
