@@ -7932,7 +7932,6 @@ __metadata:
   resolution: "@repo/yarn-plugin-bud@workspace:sources/@repo/yarn-plugin-bud"
   dependencies:
     "@repo/constants": "workspace:*"
-    "@types/js-yaml": 4.0.5
     "@types/lodash": 4.14.195
     "@types/node": 18.16.16
     "@types/semver": 7.5.0
