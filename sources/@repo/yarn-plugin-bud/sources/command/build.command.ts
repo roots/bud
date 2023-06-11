@@ -41,7 +41,7 @@ export class Build extends Command {
            * highlight-js
            */
           this.bundle({
-            source: `sources/@roots/bud-support/lib/highlight/index.js`,
+            source: `sources/@roots/bud-support/src/highlight/index.ts`,
             outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
             format: `esm`,
           }),

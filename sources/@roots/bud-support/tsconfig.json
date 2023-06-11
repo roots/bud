@@ -1,14 +1,15 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
+    "rootDirs": ["./src", "./vendor"],
     "outDir": "./lib",
     "strict": true,
     "paths": {
       "@roots/bud-support/html-webpack-plugin": ["./vendor/html-webpack-plugin/index.cjs"],
       "@roots/bud-support/html-loader": ["./vendor/html-loader/index.cjs"],
-      "@roots/bud-support/lodash": ["./src/lodash/index.ts"],
       "@roots/bud-support/lodash/*": ["./src/lodash/*/index.ts"],
-      "@roots/bud-support/*": ["./src/*"]
+      "@roots/bud-support/*": ["./src/*/index.ts"]
     },
     "types": ["express", "node", "react", "webpack", "modern-errors"]
   },

@@ -8,9 +8,9 @@ import type {
   SignaleConstructor as Constructor,
   SignaleOptions as Options,
 } from 'signale'
-import * as SignaleModule from 'signale'
+import {default as SignaleModule} from 'signale'
 
-const Signale = SignaleModule.default.Signale
+const Signale = SignaleModule.Signale
 export {Signale as default}
 
 export type {

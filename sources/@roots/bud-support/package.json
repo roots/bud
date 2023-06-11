@@ -92,14 +92,7 @@
       "import": "./lib/utilities/*.js",
       "default": "./lib/utilities/*.js"
     },
-    "./lodash-es/*": {
-      "import": "./lib/lodash-es/*.js",
-      "default": "./lib/lodash-es/*.js"
-    },
-    "./*": {
-      "import": "./lib/*/index.js",
-      "default": "./lib/*/index.js"
-    }
+    "./*": "./lib/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -111,6 +104,9 @@
       ],
       "html-webpack-plugin": [
         "./vendor/html-webpack-plugin/index.d.cts"
+      ],
+      "lodash/*": [
+        "./lib/lodash/*/index.d.ts"
       ],
       "*": [
         "./lib/*/index.d.ts"
