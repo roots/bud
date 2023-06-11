@@ -1,13 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {InputError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export type Parameters<
-  K extends string | Array<string> = string | Array<string>,
+  K extends Array<string> | string = Array<string> | string,
 > = [
   K | Record<string, Array<string> | string>,
-  (K extends string | Array<string> ? string | Array<string> : never)?,
+  (K extends Array<string> | string ? Array<string> | string : never)?,
 ]
 
 export interface provide {

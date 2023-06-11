@@ -8,9 +8,8 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import BudMinimize from './extension.js'
+import './types.js'
 
 export default BudMinimize
 export type {BudMinimize}

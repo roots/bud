@@ -1,6 +1,5 @@
-import {createHash} from 'node:crypto'
-
 import minimist from 'minimist'
+import {createHash} from 'node:crypto'
 
 const UNCACHED_ARGS = [
   `cache`,

@@ -1,6 +1,7 @@
+import type {Context} from '@roots/bud-framework/options'
+
 import {Bud} from '@roots/bud'
 import getContext from '@roots/bud/context'
-import type {Context} from '@roots/bud-framework/options'
 
 /**
  * Create a {@link Bud} instance programatically

@@ -14,7 +14,7 @@ export interface ContextFactory {
 
 export interface AcceptCallback {
   (
-    id: string | number,
+    id: number | string,
     context: () => __WebpackModuleApi.RequireContext,
   ): void
 }

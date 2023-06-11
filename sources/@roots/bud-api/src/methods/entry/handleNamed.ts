@@ -1,8 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 
+import type {Parameters} from './types.js'
+
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
-import type {Parameters} from './types.js'
 
 export async function handleNamed(bud: Bud, input: Parameters) {
   const [key, value] = input

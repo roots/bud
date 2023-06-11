@@ -12,11 +12,11 @@ import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
   devUrl?: URL
-  publicDevUrl?: URL
-  watchFiles: Set<string>
   displayServerInfo: boolean
   proxyUrl?: URL
+  publicDevUrl?: URL
   publicProxyUrl?: URL
+  watchFiles: Set<string>
 }
 
 /**
@@ -24,11 +24,11 @@ interface Props {
  */
 export const Server = ({
   devUrl,
-  publicDevUrl,
   displayServerInfo,
-  watchFiles = new Set(),
   proxyUrl,
+  publicDevUrl,
   publicProxyUrl,
+  watchFiles = new Set(),
 }: Props) => {
   const ipv4 = externalNetworkInterface.ipv4Url(publicDevUrl.protocol)
   ipv4.port = publicDevUrl.port

@@ -4,7 +4,6 @@ import * as Ink from '@roots/bud-support/ink'
 interface Props
   extends React.PropsWithChildren<{
     final?: boolean
-    inset?: number
     finalFigure?: string
     indent?: Array<boolean>
   }> {}
@@ -12,8 +11,8 @@ interface Props
 const Title = ({
   children,
   final = false,
-  indent = [],
   finalFigure = figures.lineUpRight,
+  indent = [],
 }: Props) => {
   return (
     <Ink.Box flexDirection="row">

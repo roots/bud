@@ -1,11 +1,12 @@
+import type * as esbuild from '@roots/bud-support/esbuild'
+
+import omit from '@roots/bud-support/lodash/omit'
 import {randomUUID} from 'node:crypto'
 import {dirname, join, parse} from 'node:path'
 
-import type * as esbuild from '@roots/bud-support/esbuild'
-import omit from '@roots/bud-support/lodash/omit'
+import type {Filesystem} from '../filesystem/index.js'
 
 import {BudError, FileReadError, ImportError} from '../errors/index.js'
-import type {Filesystem} from '../filesystem/index.js'
 import _get from '../lodash/get/index.js'
 import isEqual from '../lodash/isEqual/index.js'
 import _set from '../lodash/set/index.js'
@@ -26,20 +27,20 @@ let paths: ReturnType<typeof getPaths>
 let files: Array<string>
 
 interface File {
-  name: string
-  path: string
-  sha1?: string
+  bud?: boolean
+  dir?: boolean
+  dynamic?: boolean
   extension?: string
   file?: boolean
-  dir?: boolean
-  symlink?: boolean
   local?: boolean
-  bud?: boolean
+  module?: Function | Record<string, any>
+  name: string
   parsed: ReturnType<typeof parse>
-  dynamic?: boolean
+  path: string
+  sha1?: string
   static?: boolean
-  type?: `production` | `development` | `base`
-  module?: Record<string, any> | Function
+  symlink?: boolean
+  type?: `base` | `development` | `production`
 }
 
 /**
@@ -112,10 +113,10 @@ async function fetchFileInfo(filename: string) {
   }
 
   const inspect = await fs.inspect(filename, {
-    mode: true,
     absolutePath: true,
-    symlinks: `follow`,
     checksum: `sha1`,
+    mode: true,
+    symlinks: `follow`,
   })
 
   if (!inspect?.name || inspect.type === `dir` || !inspect.absolutePath) {
@@ -130,19 +131,19 @@ async function fetchFileInfo(filename: string) {
 
   const file: File = {
     ...omit(inspect, `absolutePath`),
-    path: inspect.absolutePath,
-    type: getFileType(inspect),
-    local: inspect.name.includes(`local`),
     bud: inspect.name.includes(`bud`) && inspect.type === `file`,
-    file: isEqual(inspect.type, `file`),
     dir: isEqual(inspect.type, `dir`),
-    symlink: isEqual(inspect.type, `symlink`),
+    file: isEqual(inspect.type, `file`),
+    local: inspect.name.includes(`local`),
     parsed: parse(inspect.absolutePath),
+    path: inspect.absolutePath,
+    symlink: isEqual(inspect.type, `symlink`),
+    type: getFileType(inspect),
   }
 
   Object.assign(file, {
-    extension: file.parsed?.ext.replace(`.`, ``),
     dynamic: isDynamicConfig(file),
+    extension: file.parsed?.ext.replace(`.`, ``),
     static: isStaticConfig(file),
   })
 
@@ -177,7 +178,7 @@ async function fetchFileInfo(filename: string) {
         try {
           logger.scope(`fs`).time(`loading ${file.name}`)
 
-          if ([`.ts`, `.cts`, `.mts`].includes(file.parsed.ext)) {
+          if ([`.cts`, `.mts`, `.ts`].includes(file.parsed.ext)) {
             if (!(await fs.exists(cachePath))) {
               logger
                 .scope(`fs`)
@@ -186,7 +187,7 @@ async function fetchFileInfo(filename: string) {
                   `file will be cached to ${cachePath}`,
                 )
 
-              await transformConfig({file, cachePath})
+              await transformConfig({cachePath, file})
             }
 
             logger.scope(`fs`).info(`copying`, cachePath, `to`, tmpPath)
@@ -235,11 +236,11 @@ async function fetchFileInfo(filename: string) {
  * @param cachePath - Path to cache file
  */
 async function transformConfig({
-  file,
   cachePath,
+  file,
 }: {
-  file: File
   cachePath: string
+  file: File
 }): Promise<any> {
   logger.time(`compiling ${file.name}`)
 
@@ -251,8 +252,8 @@ async function transformConfig({
 
   await transformer.build({
     entryPoints: [file.path],
-    platform: `node`,
     outfile: cachePath,
+    platform: `node`,
   })
 
   file.path = cachePath
@@ -362,4 +363,4 @@ function getFileType(file: {name?: string}) {
   return `base`
 }
 
-export {get, data}
+export {data, get}

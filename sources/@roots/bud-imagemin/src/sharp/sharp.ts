@@ -1,10 +1,3 @@
-import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  label,
-  options,
-} from '@roots/bud-framework/extension/decorators'
-import Plugin from 'image-minimizer-webpack-plugin'
 import type {
   AvifOptions,
   GifOptions,
@@ -13,6 +6,14 @@ import type {
   PngOptions,
   WebpOptions,
 } from 'sharp'
+
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  label,
+  options,
+} from '@roots/bud-framework/extension/decorators'
+import Plugin from 'image-minimizer-webpack-plugin'
 
 import type {Generator, GeneratorMap} from '../index.js'
 
@@ -51,14 +52,6 @@ export class BudImageminSharp extends Extension<Options> {
   public generators: GeneratorMap
 
   /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register() {
-    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
-  }
-
-  /**
    * {@link Extension.configAfter}
    */
   @bind
@@ -66,9 +59,9 @@ export class BudImageminSharp extends Extension<Options> {
     hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
       ...minimizers,
       imagemin.makePluginInstance({
-        test: hooks.filter(`pattern.image`),
         implementation: Plugin.sharpMinify,
         options: this.options,
+        test: hooks.filter(`pattern.image`),
       }),
     ])
 
@@ -91,6 +84,14 @@ export class BudImageminSharp extends Extension<Options> {
   ) {
     this.set(`encodeOptions.${key}`, value)
     return this
+  }
+
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register() {
+    this.setGenerator(`webp`, {options: {encodeOptions: {webp: {}}}})
   }
 
   /**
@@ -121,9 +122,9 @@ export class BudImageminSharp extends Extension<Options> {
     if (!this.generators) this.generators = new Map()
 
     this.generators.set(preset, {
-      preset,
-      implementation: Plugin.sharpGenerate,
       filename: `[path]generated.[name]@[width]x[height][ext]`,
+      implementation: Plugin.sharpGenerate,
+      preset,
       ...generator,
     })
 

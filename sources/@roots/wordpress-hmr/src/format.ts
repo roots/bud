@@ -6,11 +6,11 @@ import {
 } from '@wordpress/rich-text'
 
 export interface Props {
+  className: string
+  edit: CallableFunction
   name: string
   tagName: string
-  className: string
   title: string
-  edit: CallableFunction
 }
 
 export const isRegistered = (name: string) =>

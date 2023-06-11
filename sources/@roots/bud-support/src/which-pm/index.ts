@@ -1,4 +1,5 @@
 import type {PathOrFileDescriptor} from 'node:fs'
+
 import {readFile, realpath} from 'node:fs'
 import {join} from 'node:path'
 
@@ -7,7 +8,7 @@ type Path = PathOrFileDescriptor & string
 const isString = (value: unknown): value is string =>
   typeof value === `string`
 
-const resolveRealPath = async (path: string): Promise<Path | false> =>
+const resolveRealPath = async (path: string): Promise<false | Path> =>
   await new Promise((resolve, reject) => {
     realpath(path, (err, path) => {
       if (err) reject(err)
@@ -32,7 +33,7 @@ export const hasPnpmLockfile = async (basedir: string): Promise<boolean> =>
 
 export const getPackageManagerField = async (
   basedir: string,
-): Promise<Path | false> => {
+): Promise<false | Path> => {
   const path = await resolveRealPath(join(basedir, `package.json`))
   if (!path) return path
 

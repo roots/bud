@@ -1,4 +1,5 @@
 import type {Bud, Rules} from '@roots/bud-framework'
+
 import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 

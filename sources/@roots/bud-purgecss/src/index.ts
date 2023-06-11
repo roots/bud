@@ -17,8 +17,7 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import BudPurgeCSS from './extension.js'
+import './types.js'
 
 export default BudPurgeCSS

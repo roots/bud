@@ -11,17 +11,17 @@ export interface SplitChunks {
    */
   cacheGroups?: {
     [index: string]:
-      | string
       | false
       | Function
       | RegExp
       | SplitChunksCacheGroup
+      | string
   }
 
   /**
    * Select chunks for determining shared modules (defaults to "async", "initial" and "all" requires adding these chunks to the HTML).
    */
-  chunks?: 'all' | 'initial' | 'async' | ((chunk: Chunk) => boolean)
+  chunks?: 'all' | 'async' | 'initial' | ((chunk: Chunk) => boolean)
 
   /**
    * Sets the size types which are used when a number is used for sizes.
@@ -31,7 +31,7 @@ export interface SplitChunks {
   /**
    * Size threshold at which splitting is enforced and other restrictions (minRemainingSize, maxAsyncRequests, maxInitialRequests) are ignored.
    */
-  enforceSizeThreshold?: number | {[index: string]: number}
+  enforceSizeThreshold?: {[index: string]: number} | number
 
   /**
    * Options for modules not selected by any other cache group.
@@ -44,35 +44,35 @@ export interface SplitChunks {
     /**
      * Select chunks for determining shared modules (defaults to "async", "initial" and "all" requires adding these chunks to the HTML).
      */
-    chunks?: 'all' | 'initial' | 'async' | ((chunk: Chunk) => boolean)
+    chunks?: 'all' | 'async' | 'initial' | ((chunk: Chunk) => boolean)
     /**
      * Maximal size hint for the on-demand chunks.
      */
-    maxAsyncSize?: number | {[index: string]: number}
+    maxAsyncSize?: {[index: string]: number} | number
     /**
      * Maximal size hint for the initial chunks.
      */
-    maxInitialSize?: number | {[index: string]: number}
+    maxInitialSize?: {[index: string]: number} | number
     /**
      * Maximal size hint for the created chunks.
      */
-    maxSize?: number | {[index: string]: number}
+    maxSize?: {[index: string]: number} | number
     /**
      * Minimal size for the created chunk.
      */
-    minSize?: number | {[index: string]: number}
+    minSize?: {[index: string]: number} | number
     /**
      * Minimum size reduction due to the created chunk.
      */
-    minSizeReduction?: number | {[index: string]: number}
+    minSizeReduction?: {[index: string]: number} | number
   }
 
   /**
    * Sets the template for the filename for created chunks.
    */
   filename?:
-    | string
     | ((pathData: PathData, assetInfo?: AssetInfo) => string)
+    | string
 
   /**
    * Prevents exposing path info when creating names for parts splitted by maxSize.
@@ -87,7 +87,7 @@ export interface SplitChunks {
   /**
    * Maximal size hint for the on-demand chunks.
    */
-  maxAsyncSize?: number | {[index: string]: number}
+  maxAsyncSize?: {[index: string]: number} | number
 
   /**
    * Maximum number of initial chunks which are accepted for an entry point.
@@ -97,12 +97,12 @@ export interface SplitChunks {
   /**
    * Maximal size hint for the initial chunks.
    */
-  maxInitialSize?: number | {[index: string]: number}
+  maxInitialSize?: {[index: string]: number} | number
 
   /**
    * Maximal size hint for the created chunks.
    */
-  maxSize?: number | {[index: string]: number}
+  maxSize?: {[index: string]: number} | number
 
   /**
    * Minimum number of times a module has to be duplicated until it's considered for splitting.
@@ -112,22 +112,22 @@ export interface SplitChunks {
   /**
    * Minimal size for the chunks the stay after moving the modules to a new chunk.
    */
-  minRemainingSize?: number | {[index: string]: number}
+  minRemainingSize?: {[index: string]: number} | number
 
   /**
    * Minimal size for the created chunks.
    */
-  minSize?: number | {[index: string]: number}
+  minSize?: {[index: string]: number} | number
 
   /**
    * Minimum size reduction due to the created chunk.
    */
-  minSizeReduction?: number | {[index: string]: number}
+  minSizeReduction?: {[index: string]: number} | number
 
   /**
    * Give chunks created a name (chunks with equal name are merged).
    */
-  name?: string | false | Function
+  name?: false | Function | string
 
   /**
    * Compare used exports when checking common modules. Modules will only be put in the same chunk when exports are equal.
@@ -144,7 +144,7 @@ export interface SplitChunksCacheGroup {
   /**
    * Select chunks for determining cache group content (defaults to "initial", "initial" and "all" requires adding these chunks to the HTML).
    */
-  chunks?: 'all' | 'initial' | 'async' | ((chunk: Chunk) => boolean)
+  chunks?: 'all' | 'async' | 'initial' | ((chunk: Chunk) => boolean)
 
   /**
    * Ignore minimum size, minimum chunks and maximum requests and always create chunks for this cache group.
@@ -154,14 +154,14 @@ export interface SplitChunksCacheGroup {
   /**
    * Size threshold at which splitting is enforced and other restrictions (minRemainingSize, maxAsyncRequests, maxInitialRequests) are ignored.
    */
-  enforceSizeThreshold?: number | {[index: string]: number}
+  enforceSizeThreshold?: {[index: string]: number} | number
 
   /**
    * Sets the template for the filename for created chunks.
    */
   filename?:
-    | string
     | ((pathData: PathData, assetInfo?: AssetInfo) => string)
+    | string
 
   /**
    * Sets the hint for chunk id.
@@ -171,7 +171,7 @@ export interface SplitChunksCacheGroup {
   /**
    * Assign modules to a cache group by module layer.
    */
-  layer?: string | Function | RegExp
+  layer?: Function | RegExp | string
 
   /**
    * Maximum number of requests which are accepted for on-demand loading.
@@ -181,7 +181,7 @@ export interface SplitChunksCacheGroup {
   /**
    * Maximal size hint for the on-demand chunks.
    */
-  maxAsyncSize?: number | {[index: string]: number}
+  maxAsyncSize?: {[index: string]: number} | number
 
   /**
    * Maximum number of initial chunks which are accepted for an entry point.
@@ -191,12 +191,12 @@ export interface SplitChunksCacheGroup {
   /**
    * Maximal size hint for the initial chunks.
    */
-  maxInitialSize?: number | {[index: string]: number}
+  maxInitialSize?: {[index: string]: number} | number
 
   /**
    * Maximal size hint for the created chunks.
    */
-  maxSize?: number | {[index: string]: number}
+  maxSize?: {[index: string]: number} | number
 
   /**
    * Minimum number of times a module has to be duplicated until it's considered for splitting.
@@ -206,22 +206,22 @@ export interface SplitChunksCacheGroup {
   /**
    * Minimal size for the chunks the stay after moving the modules to a new chunk.
    */
-  minRemainingSize?: number | {[index: string]: number}
+  minRemainingSize?: {[index: string]: number} | number
 
   /**
    * Minimal size for the created chunk.
    */
-  minSize?: number | {[index: string]: number}
+  minSize?: {[index: string]: number} | number
 
   /**
    * Minimum size reduction due to the created chunk.
    */
-  minSizeReduction?: number | {[index: string]: number}
+  minSizeReduction?: {[index: string]: number} | number
 
   /**
    * Give chunks for this cache group a name (chunks with equal name are merged).
    */
-  name?: string | false | Function
+  name?: false | Function | string
 
   /**
    * Priority of this cache group.
@@ -236,12 +236,12 @@ export interface SplitChunksCacheGroup {
   /**
    * Assign modules to a cache group by module name.
    */
-  test?: string | Function | RegExp
+  test?: Function | RegExp | string
 
   /**
    * Assign modules to a cache group by module type.
    */
-  type?: string | Function | RegExp
+  type?: Function | RegExp | string
 
   /**
    * Compare used exports when checking common modules. Modules will only be put in the same chunk when exports are equal.

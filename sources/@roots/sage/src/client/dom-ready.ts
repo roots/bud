@@ -8,7 +8,7 @@
  * @returns void
  */
 interface domReady {
-  (onReady: () => unknown | (() => Promise<unknown>)): void
+  (onReady: () => (() => Promise<unknown>) | unknown): void
 }
 
 const domReady: domReady = onReady => {

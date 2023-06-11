@@ -1,5 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import type {Parameters} from './types.js'
+
 import {handleCallback} from './handleCallback.js'
 import {handleFallthrough} from './handleFallthrough.js'
 import {handleRecords} from './handleRecords.js'
@@ -7,7 +9,6 @@ import {handleSignifierValuePair} from './handleSignifierValuePair.js'
 import {isCallback} from './isCallback.js'
 import {isRecords} from './isRecords.js'
 import {isSignifierValuePair} from './isSignifierValuePair.js'
-import type {Parameters} from './types.js'
 
 export type {Parameters}
 

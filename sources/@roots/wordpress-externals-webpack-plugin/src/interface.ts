@@ -2,11 +2,11 @@
  * WordPress externals plugin
  */
 export type Output = {
-  dir: string
-  name: string
-  file: string
-  publicPath: string
   content: Content
+  dir: string
+  file: string
+  name: string
+  publicPath: string
 }
 
 export type EntrySchema = {
@@ -25,15 +25,15 @@ export type Options = {
   name: string
 
   /**
-   * Should manifest be written to disk.
-   */
-  writeToFileEmit: boolean
-
-  /**
    * Transform requests for 'react' and 'react-dom'
    * to `@wordpress/element`
    */
   useElementAsReact: boolean
+
+  /**
+   * Should manifest be written to disk.
+   */
+  writeToFileEmit: boolean
 }
 
 export interface Hash {

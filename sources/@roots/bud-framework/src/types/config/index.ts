@@ -1,6 +1,6 @@
 export type {EntryObject} from './entry.js'
 
-export type Mode = `production` | `development`
+export type Mode = `development` | `production`
 
 export type * as Optimization from './optimization/index.js'
 

@@ -1,8 +1,3 @@
-import type {PathLike, ReadStream, WriteStream} from 'node:fs'
-import type {CreateWriteStreamOptions} from 'node:fs/promises'
-import {join} from 'node:path'
-
-import filesystem from 'fs-jetpack'
 import type {
   AppendData,
   AppendOptions,
@@ -19,8 +14,13 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types.js'
+import type {PathLike, ReadStream, WriteStream} from 'node:fs'
+import type {CreateWriteStreamOptions} from 'node:fs/promises'
+
+import filesystem from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
 import isNumber from 'lodash/isNumber.js'
+import {join} from 'node:path'
 
 import * as json from './json.js'
 import * as yml from './yml.js'
@@ -45,25 +45,6 @@ export default class Filesystem {
   public constructor(...pathParts: Array<string>) {
     this.fs =
       pathParts.length > 0 ? filesystem.cwd(...pathParts) : filesystem
-  }
-
-  /**
-   * Create a {@link ReadStream}
-   */
-  @bind
-  public createReadStream(path: string, options?: any): ReadStream {
-    return this.fs.createReadStream(path, options)
-  }
-
-  /**
-   * Create a {@link WriteStream}
-   */
-  @bind
-  public createWriteStream(
-    path: PathLike,
-    options?: BufferEncoding | CreateWriteStreamOptions,
-  ): WriteStream {
-    return this.fs.createWriteStream(path, options)
   }
 
   /**
@@ -98,6 +79,25 @@ export default class Filesystem {
   ): Promise<Filesystem> {
     await this.fs.copyAsync(from, to, options) // returns void
     return this
+  }
+
+  /**
+   * Create a {@link ReadStream}
+   */
+  @bind
+  public createReadStream(path: string, options?: any): ReadStream {
+    return this.fs.createReadStream(path, options)
+  }
+
+  /**
+   * Create a {@link WriteStream}
+   */
+  @bind
+  public createWriteStream(
+    path: PathLike,
+    options?: BufferEncoding | CreateWriteStreamOptions,
+  ): WriteStream {
+    return this.fs.createWriteStream(path, options)
   }
 
   /**
@@ -140,7 +140,7 @@ export default class Filesystem {
    * @param options - search options
    */
   public async find(
-    options?: FindOptions | string | Array<string>,
+    options?: Array<string> | FindOptions | string,
   ): Promise<string[]> {
     if (typeof options === `string` || Array.isArray(options)) {
       return this.fs.findAsync({matching: options})
@@ -219,7 +219,7 @@ export default class Filesystem {
    * @param path - path to file
    * @param type - a custom return type (`utf8`, `json` or `buffer`)
    */
-  public async read(path: string, type?: `utf8` | `buffer`): Promise<any> {
+  public async read(path: string, type?: `buffer` | `utf8`): Promise<any> {
     if (type === `utf8`) return await this.fs.readAsync(path, type)
     if (type === `buffer`) return await this.fs.readAsync(path, type)
 
@@ -277,10 +277,10 @@ export default class Filesystem {
     path: string,
     data: WritableData,
     options?: {
+      atomic?: boolean
+      mode?: number | string
       replacer?: json.WriteOptions[`replacer`]
       space?: json.WriteOptions[`space`]
-      mode?: string | number
-      atomic?: boolean
     },
   ): Promise<Filesystem> {
     if (

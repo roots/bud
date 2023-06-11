@@ -10,8 +10,7 @@
  *  @packageDocumentation
  */
 
-import './types.js'
-
 import {Compiler} from './compiler.service.js'
+import './types.js'
 
 export default Compiler

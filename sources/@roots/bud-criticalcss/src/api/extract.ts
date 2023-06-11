@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options} from '@roots/critical-css-webpack-plugin'
+
 import * as critical from 'critical'
 import vinyl from 'vinyl'
 
@@ -26,8 +27,8 @@ export const extractCss = function (
 
           const vfile = new vinyl({
             base: options.base,
-            path: from,
             contents,
+            path: from,
           })
 
           const criticalPath = from

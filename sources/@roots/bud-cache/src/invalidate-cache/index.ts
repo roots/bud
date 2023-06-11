@@ -1,8 +1,8 @@
-import {join} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import {join} from 'node:path'
 import stripAnsi from 'strip-ansi'
 
 /**
@@ -41,13 +41,13 @@ export default class InvalidateCacheExtension extends Extension {
           if (!compiler.hasErrors()) return
 
           await bud.fs.json.write(this.invalidationFile, {
-            hash: compiler.hash,
             errors: compiler.stats.flatMap(stats =>
               stats
-                .toString({preset: `errors-warnings`, colors: false})
+                .toString({colors: false, preset: `errors-warnings`})
                 .split(/\n/)
                 .map(stripAnsi),
             ),
+            hash: compiler.hash,
           })
         } catch (e) {}
       })

@@ -5,17 +5,10 @@ import type {MultiStats} from '../../config/index.js'
  * Dashboard service container
  */
 export interface Service extends Contract {
-  silent: boolean
-
   /**
    * IDs of rendered stats for debouncing
    */
   hashes: Set<string>
-
-  /**
-   * Update the dashboard
-   */
-  update(stats: MultiStats): Promise<this>
 
   /**
    * Render stats fully
@@ -31,4 +24,11 @@ export interface Service extends Contract {
    * Render string to stdout
    */
   renderString(stats: MultiStats): void
+
+  silent: boolean
+
+  /**
+   * Update the dashboard
+   */
+  update(stats: MultiStats): Promise<this>
 }

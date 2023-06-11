@@ -1,9 +1,10 @@
+import type {Options as SassLoaderOptions} from 'sass-loader'
+
 import {
   Extension,
   type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
-import type {Options as SassLoaderOptions} from 'sass-loader'
 
 type Options = SassLoaderOptions & {
   /**
@@ -29,21 +30,6 @@ export type BudSassApi = StrictPublicExtensionApi<
   Options
 > & {
   /**
-   * Register global stylsheet
-   *
-   * @remarks
-   * Used to register styles which are included globally
-   *
-   * @example
-   * ```ts
-   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
-   * ```
-   *
-   * @see {@link Options.additionalData}
-   */
-  registerGlobal: (additionalData: string | Array<string>) => BudSassApi
-
-  /**
    * Import a partial globally
    *
    * @remarks
@@ -66,7 +52,22 @@ export type BudSassApi = StrictPublicExtensionApi<
    *
    * @see {@link options.additionalData}
    */
-  importGlobal(data: string | Array<string>): BudSassApi
+  importGlobal(data: Array<string> | string): BudSassApi
+
+  /**
+   * Register global stylsheet
+   *
+   * @remarks
+   * Used to register styles which are included globally
+   *
+   * @example
+   * ```ts
+   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
+   * ```
+   *
+   * @see {@link Options.additionalData}
+   */
+  registerGlobal: (additionalData: Array<string> | string) => BudSassApi
 }
 
 @options<Options>({
@@ -87,32 +88,32 @@ export class BudSassOptions extends Extension<Options> {
    */
   public declare getAdditionalData: BudSassApi[`getAdditionalData`]
   /**
-   * {@link Options.additionalData}
+   * {@link Options.implementation}
    */
-  public declare setAdditionalData: BudSassApi[`setAdditionalData`]
+  public declare getImplementation: BudSassApi[`getImplementation`]
 
+  /**
+   * {@link Options.sourceMap}
+   */
+  public declare getSourceMap: BudSassApi[`getSourceMap`]
+  /**
+   * {@link Options.warnRuleAsWarning}
+   */
+  public declare getWarnRuleAsWarning: BudSassApi[`getWarnRuleAsWarning`]
   /**
    * {@link Options.implementation}
    */
   public declare implementation: BudSassApi[`implementation`] &
     Options['implementation']
+
   /**
-   * {@link Options.implementation}
+   * {@link Options.additionalData}
    */
-  public declare getImplementation: BudSassApi[`getImplementation`]
+  public declare setAdditionalData: BudSassApi[`setAdditionalData`]
   /**
    * {@link Options.implementation}
    */
   public declare setImplementation: BudSassApi[`setImplementation`]
-
-  /**
-   * {@link Options.sourceMap}
-   */
-  public declare sourceMap: BudSassApi[`sourceMap`] & Options['sourceMap']
-  /**
-   * {@link Options.sourceMap}
-   */
-  public declare getSourceMap: BudSassApi[`getSourceMap`]
   /**
    * {@link Options.sourceMap}
    */
@@ -121,45 +122,16 @@ export class BudSassOptions extends Extension<Options> {
   /**
    * {@link Options.warnRuleAsWarning}
    */
+  public declare setWarnRuleAsWarning: BudSassApi[`setWarnRuleAsWarning`]
+  /**
+   * {@link Options.sourceMap}
+   */
+  public declare sourceMap: BudSassApi[`sourceMap`] & Options['sourceMap']
+  /**
+   * {@link Options.warnRuleAsWarning}
+   */
   public declare warnRuleAsWarning: BudSassApi[`warnRuleAsWarning`] &
     Options['warnRuleAsWarning']
-  /**
-   * {@link Options.warnRuleAsWarning}
-   */
-  public declare getWarnRuleAsWarning: BudSassApi[`getWarnRuleAsWarning`]
-  /**
-   * {@link Options.warnRuleAsWarning}
-   */
-  public declare setWarnRuleAsWarning: BudSassApi[`setWarnRuleAsWarning`]
-
-  /**
-   * Register global stylsheet
-   *
-   * @remarks
-   * Used to register styles which are included globally
-   *
-   * @example
-   * ```ts
-   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
-   * ```
-   *
-   * @see {@link Options.additionalData}
-   */
-  @bind
-  public registerGlobal(additionalData: string | Array<string>): this {
-    this.setAdditionalData((data = ``) => {
-      const processedString = (
-        Array.isArray(additionalData) ? additionalData : [additionalData]
-      )
-        .map(str => str.trim())
-        .filter(Boolean)
-        .join(`\n`)
-
-      return [data, processedString].join(``)
-    })
-
-    return this
-  }
 
   /**
    * Import a partial globally
@@ -185,12 +157,41 @@ export class BudSassOptions extends Extension<Options> {
    * @see {@link options.additionalData}
    */
   @bind
-  public importGlobal(data: string | Array<string>): this {
+  public importGlobal(data: Array<string> | string): this {
     const globals = (Array.isArray(data) ? data : [data])
       .map(str => str.trim())
       .filter(Boolean)
       .map(item => `@import "${item}";`)
 
     return this.registerGlobal(globals)
+  }
+
+  /**
+   * Register global stylsheet
+   *
+   * @remarks
+   * Used to register styles which are included globally
+   *
+   * @example
+   * ```ts
+   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
+   * ```
+   *
+   * @see {@link Options.additionalData}
+   */
+  @bind
+  public registerGlobal(additionalData: Array<string> | string): this {
+    this.setAdditionalData((data = ``) => {
+      const processedString = (
+        Array.isArray(additionalData) ? additionalData : [additionalData]
+      )
+        .map(str => str.trim())
+        .filter(Boolean)
+        .join(`\n`)
+
+      return [data, processedString].join(``)
+    })
+
+    return this
   }
 }

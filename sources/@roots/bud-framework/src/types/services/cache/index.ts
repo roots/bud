@@ -7,26 +7,6 @@ import type {Service as BaseService} from '../../../service.js'
  */
 export interface Service extends BaseService {
   /**
-   * Cache name
-   */
-  name: string
-
-  /**
-   * Enabled?
-   */
-  enabled: boolean
-
-  /**
-   * Cache type
-   */
-  type: 'memory' | 'filesystem'
-
-  /**
-   * Cache version
-   */
-  version: string
-
-  /**
    * Cache build dependencies
    */
   buildDependencies: Record<string, Array<string>>
@@ -41,5 +21,25 @@ export interface Service extends BaseService {
    */
   configuration: Configuration['cache']
 
+  /**
+   * Enabled?
+   */
+  enabled: boolean
+
   flush: () => Promise<void>
+
+  /**
+   * Cache name
+   */
+  name: string
+
+  /**
+   * Cache type
+   */
+  type: 'filesystem' | 'memory'
+
+  /**
+   * Cache version
+   */
+  version: string
 }

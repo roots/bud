@@ -1,6 +1,7 @@
 /* eslint-disable n/no-process-env */
-import cleanStack from '@roots/bud-support/clean-stack'
 import type {BudHandler} from '@roots/bud-support/errors'
+
+import cleanStack from '@roots/bud-support/clean-stack'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
@@ -15,7 +16,7 @@ export const Error = ({error, ...props}: Props) => {
       <Ink.Box flexDirection="column">
         <Ink.Text>An unknown error has occurred.</Ink.Text>
         {Object.entries(props).map(([key, value], id) => (
-          <Ink.Box key={id} flexDirection="column" gap={2}>
+          <Ink.Box flexDirection="column" gap={2} key={id}>
             <Ink.Text>{key}</Ink.Text>
             <Ink.Text>{JSON.stringify(value)}</Ink.Text>
           </Ink.Box>
@@ -73,7 +74,7 @@ export const Error = ({error, ...props}: Props) => {
       )}
 
       {!error.origin && error.stack && (
-        <Ink.Box marginTop={1} flexDirection="column">
+        <Ink.Box flexDirection="column" marginTop={1}>
           <Ink.Text color="blue">
             {figures.hamburger}
             {` `}Stack trace

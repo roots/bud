@@ -1,5 +1,6 @@
-import type {Options} from 'http-proxy-middleware'
 import type * as HttpProxy from 'http-proxy-middleware'
+import type {Options} from 'http-proxy-middleware'
+
 import {
   createProxyMiddleware,
   responseInterceptor,

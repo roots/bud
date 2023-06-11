@@ -8,11 +8,6 @@ interface Manifest {
 }
 
 export default class WordPressDependenciesWebpackPlugin {
-  public plugin = {
-    name: `WordPressDependenciesWebpackPlugin`,
-    stage: Infinity,
-  }
-
   /**
    */
   protected compilation: Webpack.Compilation
@@ -20,6 +15,11 @@ export default class WordPressDependenciesWebpackPlugin {
   public fileName: string
 
   public manifest: Manifest = {}
+
+  public plugin = {
+    name: `WordPressDependenciesWebpackPlugin`,
+    stage: Infinity,
+  }
 
   public usedDependencies = {}
 
@@ -77,7 +77,7 @@ export default class WordPressDependenciesWebpackPlugin {
       for (const chunk of entry.chunks) {
         this.compilation.chunkGraph
           .getChunkModules(chunk)
-          .forEach(({userRequest, modules}: any) => {
+          .forEach(({modules, userRequest}: any) => {
             this.usedDependencies[userRequest]
               ?.map((request: string) => wpPkgs.transform(request).enqueue)
               .forEach((request: string) => {

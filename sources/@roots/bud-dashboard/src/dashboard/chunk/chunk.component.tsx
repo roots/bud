@@ -1,4 +1,5 @@
 import type {StatsAsset} from '@roots/bud-framework/config'
+
 import {Box} from '@roots/bud-support/ink'
 
 import {longestAssetNameLength} from '../format.js'
@@ -11,10 +12,10 @@ const Chunk = ({
   ...chunk
 }: {
   assets: Array<Partial<StatsAsset>>
-  final?: boolean
-  minWidth?: number
-  indent?: any
   emitted?: boolean
+  final?: boolean
+  indent?: any
+  minWidth?: number
 }) => {
   return (
     <Box flexDirection="column">
@@ -23,9 +24,9 @@ const Chunk = ({
           key={index}
           {...asset}
           emitted={chunk?.emitted}
-          minWidth={longestAssetNameLength(chunk?.assets)}
           final={index == chunk?.assets.length - 1}
           indent={[!final]}
+          minWidth={longestAssetNameLength(chunk?.assets)}
         />
       ))}
     </Box>

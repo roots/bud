@@ -1,4 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Options} from '@roots/bud-support/html-webpack-plugin'
+
 import {
   type ApplyPlugin,
   DynamicOption,
@@ -9,7 +11,6 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options} from '@roots/bud-support/html-webpack-plugin'
 
 /**
  * HTML Webpack plugin configuration
@@ -18,8 +19,8 @@ import type {Options} from '@roots/bud-support/html-webpack-plugin'
 @options({
   filename: `index.html`,
   inject: true,
-  template: `auto`,
   publicPath: DynamicOption.make(app => app.publicPath()),
+  template: `auto`,
 })
 @disabled
 class BudHtmlWebpackPlugin extends Extension<Options, ApplyPlugin> {

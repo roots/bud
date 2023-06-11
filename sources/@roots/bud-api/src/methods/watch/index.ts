@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [string | Array<string>]
+export type Parameters = [Array<string> | string]
 
 export interface watch {
   (

@@ -4,6 +4,7 @@ import type {
   IncomingMessage,
   ServerResponse,
 } from '@roots/bud-support/webpack-dev-middleware'
+
 import WebpackDevMiddleware from '@roots/bud-support/webpack-dev-middleware'
 
 export const factory: MiddlewareFactory = (app: Bud) =>

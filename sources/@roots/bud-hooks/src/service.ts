@@ -1,4 +1,5 @@
 import type {Hooks as Service} from '@roots/bud-framework'
+
 import {Bud} from '@roots/bud-framework/bud'
 import {Service as Base} from '@roots/bud-framework/service'
 
@@ -50,33 +51,33 @@ import {SyncHooks} from './sync/sync.js'
  * ```
  */
 export class Hooks extends Base implements Service {
+  public action: EventHooks['set']
+
+  public async: AsyncHooks['set']
+
   public asyncStore: AsyncHooks
 
   public events: EventHooks
 
-  public syncStore: SyncHooks
-
-  public on: SyncHooks[`set`]
-
   public filter: SyncHooks['get']
 
-  public fromMap: SyncHooks['setRecords']
+  public filterAsync: AsyncHooks['get']
 
-  public hasSyncHook: SyncHooks['has']
+  public fire: EventHooks['get']
+
+  public fromAsyncMap: AsyncHooks['setRecords']
+
+  public fromMap: SyncHooks['setRecords']
 
   public hasAsyncHook: AsyncHooks['has']
 
   public hasEvent: EventHooks['has']
 
-  public async: AsyncHooks['set']
+  public hasSyncHook: SyncHooks['has']
 
-  public filterAsync: AsyncHooks['get']
+  public on: SyncHooks[`set`]
 
-  public fromAsyncMap: AsyncHooks['setRecords']
-
-  public action: EventHooks['set']
-
-  public fire: EventHooks['get']
+  public syncStore: SyncHooks
 
   public constructor(app: () => Bud) {
     super(app)

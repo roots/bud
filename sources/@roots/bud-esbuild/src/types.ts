@@ -7,11 +7,11 @@ import type Esbuild from './extension.js'
 declare module '@roots/bud-framework' {
   interface Bud {
     esbuild: {
-      set: Esbuild[`set`]
+      enable: Esbuild[`enable`]
       get: Esbuild[`get`]
       getOptions: Esbuild[`getOptions`]
+      set: Esbuild[`set`]
       setOptions: Esbuild[`setOptions`]
-      enable: Esbuild[`enable`]
       use: Esbuild[`use`]
     }
   }

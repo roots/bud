@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-export type Parameters = [(boolean | `css` | `js` | Array<`css` | `js`>)?]
+export type Parameters = [(`css` | `js` | Array<`css` | `js`> | boolean)?]
 
 /**
  * Minimize function interface

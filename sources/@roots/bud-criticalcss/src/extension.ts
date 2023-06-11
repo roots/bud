@@ -1,4 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Options} from '@roots/critical-css-webpack-plugin'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -10,7 +12,6 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 import Value from '@roots/bud-support/value'
-import type {Options} from '@roots/critical-css-webpack-plugin'
 import CriticalCssWebpackPlugin from '@roots/critical-css-webpack-plugin'
 
 import {extractCss} from './api/extract.js'
@@ -34,20 +35,21 @@ export default class BudCriticalCss extends Extension<
   CriticalCssWebpackPlugin
 > {
   /**
-   * {@link Extension.register}
+   * Set base path
+   *
+   * @deprecated Use {@link BudCriticalCss.set} instead
+   *
+   * @example
+   * ```js
+   * bud.critical.set('base', 'https://example.com/')
+   * ```
    */
-  @bind
-  public override async register(bud: Bud) {
-    bud.extractCss = extractCss.bind(bud)
-
-    this.extract = this.extract.bind(this)
-    this.src = this.src.bind(this)
-    this.html = this.html.bind(this)
-    this.base = this.base.bind(this)
-    this.width = this.width.bind(this)
-    this.height = this.height.bind(this)
-    this.ignore = this.ignore.bind(this)
-    this.request = this.request.bind(this)
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set base`, `bud.critical.set('base', 'https://example.com/')`],
+  ])
+  public base(base: string) {
+    this.set(`base`, base)
+    return this
   }
 
   /**
@@ -70,20 +72,20 @@ export default class BudCriticalCss extends Extension<
   }
 
   /**
-   * Set source url
+   * Set browser height
    *
    * @deprecated Use {@link BudCriticalCss.set} instead
    *
    * @example
    * ```js
-   * bud.critical.set('src', 'https://example.com')
+   * bud.critical.set('height', 1080)
    * ```
    */
   @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
-    [`Set src`, `bud.critical.set('src', 'https://example.com')`],
+    [`Set height`, `bud.critical.set('height', 1080)`],
   ])
-  public src(src: string) {
-    this.set(`src`, src)
+  public height(height: number) {
+    this.set(`height`, height)
     return this
   }
 
@@ -106,60 +108,6 @@ export default class BudCriticalCss extends Extension<
   }
 
   /**
-   * Set base path
-   *
-   * @deprecated Use {@link BudCriticalCss.set} instead
-   *
-   * @example
-   * ```js
-   * bud.critical.set('base', 'https://example.com/')
-   * ```
-   */
-  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
-    [`Set base`, `bud.critical.set('base', 'https://example.com/')`],
-  ])
-  public base(base: string) {
-    this.set(`base`, base)
-    return this
-  }
-
-  /**
-   * Set browser width
-   *
-   * @deprecated Use {@link BudCriticalCss.set} instead
-   *
-   * @example
-   * ```js
-   * bud.critical.set('width', 1920)
-   * ```
-   */
-  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
-    [`Set width`, `bud.critical.set('width', 1920)`],
-  ])
-  public width(width: number) {
-    this.set(`width`, width)
-    return this
-  }
-
-  /**
-   * Set browser height
-   *
-   * @deprecated Use {@link BudCriticalCss.set} instead
-   *
-   * @example
-   * ```js
-   * bud.critical.set('height', 1080)
-   * ```
-   */
-  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
-    [`Set height`, `bud.critical.set('height', 1080)`],
-  ])
-  public height(height: number) {
-    this.set(`height`, height)
-    return this
-  }
-
-  /**
    * Ignore css
    *
    * @deprecated Use {@link BudCriticalCss.set} instead
@@ -175,6 +123,23 @@ export default class BudCriticalCss extends Extension<
   public ignore(ignore: Options['ignore']) {
     this.set(`ignore`, ignore)
     return this
+  }
+
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register(bud: Bud) {
+    bud.extractCss = extractCss.bind(bud)
+
+    this.extract = this.extract.bind(this)
+    this.src = this.src.bind(this)
+    this.html = this.html.bind(this)
+    this.base = this.base.bind(this)
+    this.width = this.width.bind(this)
+    this.height = this.height.bind(this)
+    this.ignore = this.ignore.bind(this)
+    this.request = this.request.bind(this)
   }
 
   /**
@@ -195,6 +160,42 @@ export default class BudCriticalCss extends Extension<
   ])
   public request(request: number) {
     this.set(`request`, request)
+    return this
+  }
+
+  /**
+   * Set source url
+   *
+   * @deprecated Use {@link BudCriticalCss.set} instead
+   *
+   * @example
+   * ```js
+   * bud.critical.set('src', 'https://example.com')
+   * ```
+   */
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set src`, `bud.critical.set('src', 'https://example.com')`],
+  ])
+  public src(src: string) {
+    this.set(`src`, src)
+    return this
+  }
+
+  /**
+   * Set browser width
+   *
+   * @deprecated Use {@link BudCriticalCss.set} instead
+   *
+   * @example
+   * ```js
+   * bud.critical.set('width', 1920)
+   * ```
+   */
+  @deprecated(`bud.critical`, `Use bud.critical.set instead`, [
+    [`Set width`, `bud.critical.set('width', 1920)`],
+  ])
+  public width(width: number) {
+    this.set(`width`, width)
     return this
   }
 }

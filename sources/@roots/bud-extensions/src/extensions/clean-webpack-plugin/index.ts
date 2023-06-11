@@ -1,3 +1,5 @@
+import type {Options} from '@roots/bud-support/clean-webpack-plugin'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   label,
@@ -5,7 +7,6 @@ import {
   plugin,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options} from '@roots/bud-support/clean-webpack-plugin'
 import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
 /**
  * Clean webpack plugin configuration
@@ -13,6 +14,11 @@ import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
 @label(`@roots/bud-extensions/clean-webpack-plugin`)
 @plugin(Plugin)
 @options<Options>({
+  /**
+   * Clean before path patterns
+   */
+  cleanOnceBeforeBuildPatterns: [`**/*`],
+
   /**
    * Clean stale assets
    */
@@ -22,11 +28,6 @@ import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
    * Protect webpack assets from accidental deletion
    */
   protectWebpackAssets: true,
-
-  /**
-   * Clean before path patterns
-   */
-  cleanOnceBeforeBuildPatterns: [`**/*`],
 })
 @production
 export default class BudClean extends Extension<Options, Plugin> {}

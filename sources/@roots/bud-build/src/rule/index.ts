@@ -1,11 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import type {RuleSetRule} from '@roots/bud-framework/config'
 import type {
+  Rule as Interface,
   Options,
   Output,
   Parser,
-  Rule as Interface,
 } from '@roots/bud-framework/services/build/rule'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
@@ -17,19 +18,14 @@ import Base from '../shared/base.js'
  */
 class Rule extends Base implements Interface {
   /**
-   * RuleSetRule resolve
+   * RuleSetRule exclude
    */
-  public resolve?: Options[`resolve`]
+  public exclude?: Options[`exclude`]
 
   /**
-   * RuleSetRule test
+   * RuleSetRule generator
    */
-  public test: Options[`test`]
-
-  /**
-   * RuleSetRule use
-   */
-  public use?: Options[`use`]
+  public generator?: Options[`generator`]
 
   /**
    * RuleSetRule include
@@ -37,14 +33,14 @@ class Rule extends Base implements Interface {
   public include?: Options[`include`]
 
   /**
-   * RuleSetRule exclude
+   * RuleSetRule parser
    */
-  public exclude?: Options[`exclude`]
+  public parser?: Options[`parser`]
 
   /**
-   * RuleSetRule type
+   * RuleSetRule resolve
    */
-  public type?: Options[`type`]
+  public resolve?: Options[`resolve`]
 
   /**
    * RuleSetRule resourceQuery
@@ -52,14 +48,19 @@ class Rule extends Base implements Interface {
   public resourceQuery?: Options[`resourceQuery`]
 
   /**
-   * RuleSetRule parser
+   * RuleSetRule test
    */
-  public parser?: Options[`parser`]
+  public test: Options[`test`]
 
   /**
-   * RuleSetRule generator
+   * RuleSetRule type
    */
-  public generator?: Options[`generator`]
+  public type?: Options[`type`]
+
+  /**
+   * RuleSetRule use
+   */
+  public use?: Options[`use`]
 
   /**
    * Class constructor
@@ -81,36 +82,27 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set resolve value
+   * Get `exclude` value
    */
-  public getResolve(): Output[`resolve`] {
-    return this.unwrap(this.resolve)
+  @bind
+  public getExclude(): Array<RegExp | string> {
+    return this.exclude?.map(this.unwrap)
   }
 
   /**
-   * Set resolve value
+   * Get generator value
    */
   @bind
-  public setResolve(resolve: Options[`resolve`]): this {
-    this.resolve = resolve
-    return this
+  public getGenerator() {
+    return this.unwrap(this.generator)
   }
 
   /**
-   * Get `test` value
+   * Get `include` value
    */
   @bind
-  public getTest(): Output['test'] {
-    return this.unwrap(this.test)
-  }
-
-  /**
-   * Set `test` value
-   */
-  @bind
-  public setTest(test: Options['test']): this {
-    this.test = test
-    return this
+  public getInclude(): Array<RegExp | string> {
+    return this.include?.map(this.unwrap)
   }
 
   /**
@@ -122,12 +114,36 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set `parser` value
+   * Set resolve value
+   */
+  public getResolve(): Output[`resolve`] {
+    return this.unwrap(this.resolve)
+  }
+
+  /**
+   * Get `include` value
    */
   @bind
-  public setParser(parser: Interface['parser']): this {
-    this.parser = this.wrap(parser)
-    return this
+  public getResourceQuery(): Output[`resourceQuery`] {
+    return isFunction(this.resourceQuery)
+      ? this.resourceQuery(this.app)
+      : this.resourceQuery
+  }
+
+  /**
+   * Get `test` value
+   */
+  @bind
+  public getTest(): Output['test'] {
+    return this.unwrap(this.test)
+  }
+
+  /**
+   * Get `type` value
+   */
+  @bind
+  public getType(): string {
+    return this.unwrap(this.type)
   }
 
   /**
@@ -139,22 +155,25 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Set `use` value
+   * Set exclude value
    */
   @bind
-  public setUse(
-    use: Options[`use`] | ((use: Options[`use`]) => Options[`use`]),
+  public setExclude(
+    excludes:
+      | ((excludes: Options['exclude']) => Options['exclude'])
+      | Options['exclude'],
   ): this {
-    this.use = isFunction(use) ? use(this.getUse()) : use
+    this.exclude = isFunction(excludes) ? excludes(this.exclude) : excludes
     return this
   }
 
   /**
-   * Get `include` value
+   * Set generator value
    */
   @bind
-  public getInclude(): Array<string | RegExp> {
-    return this.include?.map(this.unwrap)
+  public setGenerator(generator: Options['generator']): this {
+    this.generator = this.wrap(generator)
+    return this
   }
 
   /**
@@ -167,13 +186,21 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get `include` value
+   * Set `parser` value
    */
   @bind
-  public getResourceQuery(): Output[`resourceQuery`] {
-    return isFunction(this.resourceQuery)
-      ? this.resourceQuery(this.app)
-      : this.resourceQuery
+  public setParser(parser: Interface['parser']): this {
+    this.parser = this.wrap(parser)
+    return this
+  }
+
+  /**
+   * Set resolve value
+   */
+  @bind
+  public setResolve(resolve: Options[`resolve`]): this {
+    this.resolve = resolve
+    return this
   }
 
   /**
@@ -189,32 +216,12 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get `exclude` value
+   * Set `test` value
    */
   @bind
-  public getExclude(): Array<string | RegExp> {
-    return this.exclude?.map(this.unwrap)
-  }
-
-  /**
-   * Set exclude value
-   */
-  @bind
-  public setExclude(
-    excludes:
-      | Options['exclude']
-      | ((excludes: Options['exclude']) => Options['exclude']),
-  ): this {
-    this.exclude = isFunction(excludes) ? excludes(this.exclude) : excludes
+  public setTest(test: Options['test']): this {
+    this.test = test
     return this
-  }
-
-  /**
-   * Get `type` value
-   */
-  @bind
-  public getType(): string {
-    return this.unwrap(this.type)
   }
 
   /**
@@ -227,19 +234,13 @@ class Rule extends Base implements Interface {
   }
 
   /**
-   * Get generator value
+   * Set `use` value
    */
   @bind
-  public getGenerator() {
-    return this.unwrap(this.generator)
-  }
-
-  /**
-   * Set generator value
-   */
-  @bind
-  public setGenerator(generator: Options['generator']): this {
-    this.generator = this.wrap(generator)
+  public setUse(
+    use: ((use: Options[`use`]) => Options[`use`]) | Options[`use`],
+  ): this {
+    this.use = isFunction(use) ? use(this.getUse()) : use
     return this
   }
 
@@ -249,10 +250,14 @@ class Rule extends Base implements Interface {
   @bind
   public toWebpack(): Output & RuleSetRule {
     const output: Output = Object.entries({
+      exclude: this.getExclude(),
+      generator: this.getGenerator(),
+      include: this.getInclude(),
+      parser: this.getParser(),
+      resolve: this.getResolve(),
+      resourceQuery: this.getResourceQuery(),
       test: this.getTest(),
       type: this.getType(),
-      parser: this.getParser(),
-      generator: this.getGenerator(),
       use: this.getUse()
         ?.filter(Boolean)
         .map(item =>
@@ -264,10 +269,6 @@ class Rule extends Base implements Interface {
         .map(item =>
           !isString(item) && `toWebpack` in item ? item.toWebpack() : item,
         ),
-      resourceQuery: this.getResourceQuery(),
-      include: this.getInclude(),
-      exclude: this.getExclude(),
-      resolve: this.getResolve(),
     }).reduce((a, [k, v]) => {
       if (v === undefined) return a
       return {...a, [k]: v}

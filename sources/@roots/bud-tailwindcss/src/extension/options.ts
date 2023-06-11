@@ -1,3 +1,5 @@
+import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
+
 import {
   DynamicOption,
   Extension,
@@ -8,30 +10,17 @@ import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
-import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 
 type Options = {
-  resolvedConfig?: ReturnType<typeof resolveConfig>
   config: Config
   configPath: string
+  resolvedConfig?: ReturnType<typeof resolveConfig>
 }
 
 type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
   BudTailwindOptionsApi,
   Options
 > & {
-  generateImports(
-    imports: Array<`${keyof ThemeConfig & string}`> | boolean,
-  ): BudTailwindOptionsPublicInterface
-  getTheme(): ThemeConfig
-  getTheme<K extends keyof ThemeConfig & string>(
-    key?: `${K}`,
-  ): K extends ThemeConfig ? ThemeConfig[K] : ThemeConfig
-  setTheme(theme: ThemeConfig): BudTailwindOptionsPublicInterface
-  setTheme<K extends keyof ThemeConfig & string>(
-    key: K,
-    theme: ThemeConfig[K],
-  ): BudTailwindOptionsPublicInterface
   extendTheme(
     theme: Partial<ThemeConfig>,
   ): BudTailwindOptionsPublicInterface
@@ -39,17 +28,28 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
     key: `${K}`,
     theme: ThemeConfig[K],
   ): BudTailwindOptionsPublicInterface
-  getPlugins(): Config[`plugins`]
-  setPlugins(plugins: Config[`plugins`]): BudTailwindOptionsPublicInterface
+  generateImports(
+    imports: Array<`${keyof ThemeConfig & string}`> | boolean,
+  ): BudTailwindOptionsPublicInterface
   getContent(): Config[`content`]
+  getPlugins(): Config[`plugins`]
+  getTheme(): ThemeConfig
+  getTheme<K extends keyof ThemeConfig & string>(
+    key?: `${K}`,
+  ): K extends ThemeConfig ? ThemeConfig[K] : ThemeConfig
   setContent(content: Config[`content`]): BudTailwindOptionsPublicInterface
+  setPlugins(plugins: Config[`plugins`]): BudTailwindOptionsPublicInterface
+  setTheme(theme: ThemeConfig): BudTailwindOptionsPublicInterface
+  setTheme<K extends keyof ThemeConfig & string>(
+    key: K,
+    theme: ThemeConfig[K],
+  ): BudTailwindOptionsPublicInterface
 }
 
 /**
  * TailwindCSS configuration
  */
 @options<Options>({
-  resolvedConfig: undefined,
   config: DynamicOption.make(bud => ({
     content: [
       bud.path(`@src`, `**`, `*`),
@@ -57,90 +57,62 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
     ],
   })),
   configPath: undefined,
+  resolvedConfig: undefined,
 })
 class BudTailwindOptionsApi
   extends Extension<Options>
   implements BudTailwindOptionsPublicInterface
 {
   /**
-   * Tailwind config path
-   */
-  public declare configPath: BudTailwindOptionsPublicInterface[`configPath`]
-  public declare getConfigPath: BudTailwindOptionsPublicInterface[`getConfigPath`]
-  public declare setConfigPath: BudTailwindOptionsPublicInterface[`setConfigPath`]
-
-  /**
    * Tailwind config
    */
   public declare config: BudTailwindOptionsPublicInterface[`config`]
+  /**
+   * Tailwind config path
+   */
+  public declare configPath: BudTailwindOptionsPublicInterface[`configPath`]
   public declare getConfig: BudTailwindOptionsPublicInterface[`getConfig`]
-  public declare setConfig: BudTailwindOptionsPublicInterface[`setConfig`]
 
+  public declare getConfigPath: BudTailwindOptionsPublicInterface[`getConfigPath`]
+  public declare getResolvedConfig: BudTailwindOptionsPublicInterface[`getResolvedConfig`]
   /**
    * Tailwind config (resolved)
    */
   public declare resolvedConfig: BudTailwindOptionsPublicInterface[`resolvedConfig`]
-  public declare getResolvedConfig: BudTailwindOptionsPublicInterface[`getResolvedConfig`]
+
+  public declare setConfig: BudTailwindOptionsPublicInterface[`setConfig`]
+  public declare setConfigPath: BudTailwindOptionsPublicInterface[`setConfigPath`]
   public declare setResolvedConfig: BudTailwindOptionsPublicInterface[`setResolvedConfig`]
 
-  /**
-   * Source tailwind config module and path
-   */
   @bind
-  public async sourceConfig(): Promise<void> {
-    try {
-      const foundConfig = Object.values(this.app.context.files).find(
-        file => file.name?.includes(`tailwind.config`),
-      )
-
-      if (foundConfig) {
-        !this.configPath && this.setConfigPath(foundConfig.path)
-        this.setConfig({...foundConfig.module})
-      }
+  public extendTheme<
+    K extends `${keyof ThemeConfig & string}` | undefined,
+    V extends Partial<ThemeConfig>,
+    VK extends Partial<ThemeConfig>[K],
+  >(...params: [K, VK] | [V]) {
+    if (params.length === 1) {
+      const [value] = params
+      this.setConfig((config = {content: []}) => ({
+        ...config,
+        theme: {
+          ...(config?.theme ?? {}),
+          extend: {...(config.theme?.extend ?? {}), ...value},
+        },
+      }))
       this.resolveConfig()
-    } catch (err) {}
-  }
-
-  @bind
-  public resolveConfig() {
-    this.logger.time(`resolve config`)
-    this.setResolvedConfig({...resolveConfig({...this.config})})
-    this.logger.timeEnd(`resolve config`)
-    return this.resolvedConfig
-  }
-
-  /**
-   * Resolve a tailwind config value
-   */
-  @bind
-  public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
-    key: K,
-    extendedOnly?: boolean,
-  ): Config[K] {
-    if (extendedOnly) {
-      if (!this.config?.theme?.extend)
-        throw new Error(
-          `@roots/bud-tailwindcss: cannot resolve extended theme value when no extended theme config is set.`,
-        )
-
-      const value = this.config.theme.extend[key]
-      if (!value) {
-        throw new Error(
-          `@roots/bud-tailwindcss: extend.${key} is not a valid tailwind theme key.`,
-        )
-      }
-
-      return isFunction(value) ? value(pluginUtils) : value
+      return this
     }
 
-    const value = this.resolvedConfig?.theme?.[key]
-    if (!value) {
-      throw new Error(
-        `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
-      )
-    }
-
-    return value
+    const [key, value] = params
+    this.setConfig(config => ({
+      ...config,
+      theme: {
+        ...(config?.theme ?? {}),
+        extend: {...(config.theme?.extend ?? {}), [key]: value},
+      },
+    }))
+    this.resolveConfig()
+    return this
   }
 
   /**
@@ -204,20 +176,88 @@ class BudTailwindOptionsApi
   }
 
   @bind
+  public getContent() {
+    return this.config?.content
+  }
+
+  @bind
+  public getPlugins() {
+    return this.config?.plugins
+  }
+
+  @bind
   public getTheme<K extends keyof ThemeConfig & string>(key?: K) {
     return key ? this.config.theme?.[key] : this.config.theme
+  }
+
+  @bind
+  public resolveConfig() {
+    this.logger.time(`resolve config`)
+    this.setResolvedConfig({...resolveConfig({...this.config})})
+    this.logger.timeEnd(`resolve config`)
+    return this.resolvedConfig
+  }
+
+  /**
+   * Resolve a tailwind config value
+   */
+  @bind
+  public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
+    key: K,
+    extendedOnly?: boolean,
+  ): Config[K] {
+    if (extendedOnly) {
+      if (!this.config?.theme?.extend)
+        throw new Error(
+          `@roots/bud-tailwindcss: cannot resolve extended theme value when no extended theme config is set.`,
+        )
+
+      const value = this.config.theme.extend[key]
+      if (!value) {
+        throw new Error(
+          `@roots/bud-tailwindcss: extend.${key} is not a valid tailwind theme key.`,
+        )
+      }
+
+      return isFunction(value) ? value(pluginUtils) : value
+    }
+
+    const value = this.resolvedConfig?.theme?.[key]
+    if (!value) {
+      throw new Error(
+        `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
+      )
+    }
+
+    return value
+  }
+
+  @bind
+  public setContent(content: Config[`content`]) {
+    this.setConfig((config = {content: []}) => ({...config, content}))
+    return this
+  }
+
+  @bind
+  public setPlugins(plugins: Config[`plugins`]) {
+    this.setConfig((config = {content: []}) => ({
+      ...config,
+      plugins,
+    }))
+    this.resolveConfig()
+    return this
   }
 
   @bind
   public setTheme<
     K extends `${keyof ThemeConfig & string}` | undefined,
     V extends
-      | Partial<ThemeConfig>
-      | ((theme: Partial<ThemeConfig>) => Partial<ThemeConfig>),
+      | ((theme: Partial<ThemeConfig>) => Partial<ThemeConfig>)
+      | Partial<ThemeConfig>,
     VK extends
-      | Partial<ThemeConfig>[K]
-      | ((theme: Partial<ThemeConfig>[K]) => Partial<ThemeConfig>[K]),
-  >(...params: [V] | [K, VK]) {
+      | ((theme: Partial<ThemeConfig>[K]) => Partial<ThemeConfig>[K])
+      | Partial<ThemeConfig>[K],
+  >(...params: [K, VK] | [V]) {
     if (params.length === 1) {
       const [value] = params
       this.setConfig((config = {content: []}) => ({
@@ -237,61 +277,22 @@ class BudTailwindOptionsApi
     return this
   }
 
+  /**
+   * Source tailwind config module and path
+   */
   @bind
-  public extendTheme<
-    K extends `${keyof ThemeConfig & string}` | undefined,
-    V extends Partial<ThemeConfig>,
-    VK extends Partial<ThemeConfig>[K],
-  >(...params: [V] | [K, VK]) {
-    if (params.length === 1) {
-      const [value] = params
-      this.setConfig((config = {content: []}) => ({
-        ...config,
-        theme: {
-          ...(config?.theme ?? {}),
-          extend: {...(config.theme?.extend ?? {}), ...value},
-        },
-      }))
+  public async sourceConfig(): Promise<void> {
+    try {
+      const foundConfig = Object.values(this.app.context.files).find(
+        file => file.name?.includes(`tailwind.config`),
+      )
+
+      if (foundConfig) {
+        !this.configPath && this.setConfigPath(foundConfig.path)
+        this.setConfig({...foundConfig.module})
+      }
       this.resolveConfig()
-      return this
-    }
-
-    const [key, value] = params
-    this.setConfig(config => ({
-      ...config,
-      theme: {
-        ...(config?.theme ?? {}),
-        extend: {...(config.theme?.extend ?? {}), [key]: value},
-      },
-    }))
-    this.resolveConfig()
-    return this
-  }
-
-  @bind
-  public getPlugins() {
-    return this.config?.plugins
-  }
-
-  @bind
-  public setPlugins(plugins: Config[`plugins`]) {
-    this.setConfig((config = {content: []}) => ({
-      ...config,
-      plugins,
-    }))
-    this.resolveConfig()
-    return this
-  }
-
-  @bind
-  public getContent() {
-    return this.config?.content
-  }
-
-  @bind
-  public setContent(content: Config[`content`]) {
-    this.setConfig((config = {content: []}) => ({...config, content}))
-    return this
+    } catch (err) {}
   }
 }
 

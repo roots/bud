@@ -5,9 +5,19 @@ import {pulse} from './indicator.pulse.js'
  */
 export class Component extends HTMLElement {
   /**
-   * Has component rendered
+   * Status indicator colors
    */
-  public rendered: boolean
+  public colors: Record<string, [number, number, number, number]> = {
+    error: [220, 38, 38, 1],
+    pending: [59, 130, 246, 1],
+    success: [4, 120, 87, 1],
+    warn: [252, 211, 77, 1],
+  }
+
+  /**
+   * Timer
+   */
+  public hideTimeout: NodeJS.Timer
 
   /**
    * Component name
@@ -15,16 +25,39 @@ export class Component extends HTMLElement {
   public name: string = `bud-activity-indicator`
 
   /**
-   * Root div querySelector selector
+   * Has component rendered
    */
-  public get selector() {
-    return `.${this.name}`
-  }
+  public rendered: boolean
 
   /**
-   * Timer
+   * Class constructor
    */
-  public hideTimeout: NodeJS.Timer
+  public constructor() {
+    super()
+    this.renderShadow()
+  }
+
+  public static get observedAttributes() {
+    return [`has-errors`, `has-warnings`, `action`]
+  }
+
+  public attributeChangedCallback() {
+    if (this.hasAttribute(`has-errors`)) return this.onError()
+    if (this.hasAttribute(`has-warnings`)) return this.onWarning()
+
+    if (
+      !this.hasAttribute(`has-errors`) &&
+      !this.hasAttribute(`has-warnings`) &&
+      this.getAttribute(`action`) === `built`
+    )
+      return this.onSuccess()
+
+    if (
+      this.getAttribute(`action`) == `building` ||
+      this.getAttribute(`action`) == `sync`
+    )
+      return this.onPending()
+  }
 
   /**
    * Get accessor: has errors
@@ -41,21 +74,67 @@ export class Component extends HTMLElement {
   }
 
   /**
-   * Status indicator colors
+   * Hide status indicator
    */
-  public colors: Record<string, [number, number, number, number]> = {
-    success: [4, 120, 87, 1],
-    error: [220, 38, 38, 1],
-    warn: [252, 211, 77, 1],
-    pending: [59, 130, 246, 1],
+  public hide() {
+    this.hideTimeout = setTimeout(() => {
+      this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
+    }, 2000)
   }
 
   /**
-   * Class constructor
+   * Status is error
    */
-  public constructor() {
-    super()
-    this.renderShadow()
+  public onError() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`warning`, `success`, `pending`)
+    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
+  }
+
+  /**
+   * Status is pending
+   */
+  public onPending() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `success`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
+
+    this.hide()
+  }
+
+  /**
+   * Status is success
+   */
+  public onSuccess() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `pending`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
+
+    this.hide()
+  }
+
+  /**
+   * Status is warning
+   */
+  public onWarning() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `success`, `pending`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
   }
 
   /**
@@ -106,96 +185,17 @@ export class Component extends HTMLElement {
   }
 
   /**
+   * Root div querySelector selector
+   */
+  public get selector() {
+    return `.${this.name}`
+  }
+
+  /**
    * Show status indicator
    */
   public show() {
     this.hideTimeout && clearTimeout(this.hideTimeout)
     this.shadowRoot.querySelector(this.selector).classList.add(`show`)
-  }
-
-  /**
-   * Hide status indicator
-   */
-  public hide() {
-    this.hideTimeout = setTimeout(() => {
-      this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
-    }, 2000)
-  }
-
-  /**
-   * Status is pending
-   */
-  public onPending() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `success`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
-
-    this.hide()
-  }
-
-  /**
-   * Status is success
-   */
-  public onSuccess() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `pending`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
-
-    this.hide()
-  }
-
-  /**
-   * Status is error
-   */
-  public onError() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`warning`, `success`, `pending`)
-    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
-  }
-
-  /**
-   * Status is warning
-   */
-  public onWarning() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `success`, `pending`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
-  }
-
-  public static get observedAttributes() {
-    return [`has-errors`, `has-warnings`, `action`]
-  }
-
-  public attributeChangedCallback() {
-    if (this.hasAttribute(`has-errors`)) return this.onError()
-    if (this.hasAttribute(`has-warnings`)) return this.onWarning()
-
-    if (
-      !this.hasAttribute(`has-errors`) &&
-      !this.hasAttribute(`has-warnings`) &&
-      this.getAttribute(`action`) === `built`
-    )
-      return this.onSuccess()
-
-    if (
-      this.getAttribute(`action`) == `building` ||
-      this.getAttribute(`action`) == `sync`
-    )
-      return this.onPending()
   }
 }

@@ -1,7 +1,7 @@
 import type {EntryObject} from './types.js'
 
 export const normalizeRecord = (
-  data: Record<string, string | [string, ...string[]]>,
+  data: Record<string, [string, ...string[]] | string>,
 ): Record<string, EntryObject> =>
   Object.entries(data).reduce(
     (entries, [signifier, item]) => ({
@@ -13,6 +13,6 @@ export const normalizeRecord = (
     {},
   )
 
-export const normalizeImport = (data: string | Array<string>) => {
+export const normalizeImport = (data: Array<string> | string) => {
   return Array.isArray(data) ? data : [data]
 }

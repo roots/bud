@@ -18,7 +18,7 @@ export type maybeCallable<I = unknown> = ((param: Bud) => I) | I
  */
 export function maybeCall<
   I = Bud,
-  Args extends Array<unknown | undefined> = [I],
+  Args extends Array<undefined | unknown> = [I],
 >(this: Bud, value: maybeCallable, ...args: Args): I {
   return isFunction(value)
     ? value.bind

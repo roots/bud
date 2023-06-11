@@ -5,7 +5,6 @@ export default {
       reporter: [`text`, `json`, `html`],
     },
     hookTimeout: 60000,
-    testTimeout: 60000,
     include: [
       `sources/@roots/*/src/*.test.ts`,
       `sources/@roots/*/src/**/*.test.ts`,
@@ -18,5 +17,6 @@ export default {
       `tests/unit/*.test.ts`,
       `tests/reproductions/*.test.ts`,
     ],
+    testTimeout: 60000,
   },
 }

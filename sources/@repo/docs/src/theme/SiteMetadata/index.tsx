@@ -26,22 +26,22 @@ function AlternateLangHeaders() {
     <Head>
       {Object.entries(localeConfigs).map(([locale, {htmlLang}]) => (
         <link
-          key={locale}
-          rel="alternate"
           href={alternatePageUtils.createUrl({
-            locale,
             fullyQualified: true,
+            locale,
           })}
           hrefLang={htmlLang}
+          key={locale}
+          rel="alternate"
         />
       ))}
       <link
-        rel="alternate"
         href={alternatePageUtils.createUrl({
-          locale: defaultLocale,
           fullyQualified: true,
+          locale: defaultLocale,
         })}
         hrefLang="x-default"
+        rel="alternate"
       />
     </Head>
   )
@@ -65,8 +65,8 @@ function CanonicalUrlHeaders({permalink}: {permalink?: string}) {
     : defaultCanonicalUrl
   return (
     <Head>
-      <meta property="og:url" content={canonicalUrl} />
-      <link rel="canonical" href={canonicalUrl} />
+      <meta content={canonicalUrl} property="og:url" />
+      <link href={canonicalUrl} rel="canonical" />
     </Head>
   )
 }
@@ -77,11 +77,11 @@ export default function SiteMetadata() {
   } = useDocusaurusContext()
   // TODO maybe move these 2 themeConfig to siteConfig?
   // These seems useful for other themes as well
-  const {metadata, image: defaultImage} = useThemeConfig()
+  const {image: defaultImage, metadata} = useThemeConfig()
   return (
     <>
       <Head>
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta content="summary_large_image" name="twitter:card" />
         {/* The keyboard focus class name need to be applied when SSR so links
         are outlined when JS is disabled */}
         <body className={keyboardFocusedClassName} />
@@ -93,7 +93,7 @@ export default function SiteMetadata() {
 
       <AlternateLangHeaders />
 
-      <SearchMetadata tag={DEFAULT_SEARCH_TAG} locale={currentLocale} />
+      <SearchMetadata locale={currentLocale} tag={DEFAULT_SEARCH_TAG} />
 
       {/*
           It's important to have an additional <Head> element here, as it allows

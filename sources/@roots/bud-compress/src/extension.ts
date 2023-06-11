@@ -1,5 +1,6 @@
-import type {Modules} from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-framework'
+import type {Modules} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -11,13 +12,13 @@ import {
  * Compression options
  */
 export interface Options {
-  filename: string
   algorithm: string
-  test: RegExp
   compressionOptions: Record<string, any>
-  threshold: number
-  minRatio: number
   deleteOriginalAssets: boolean
+  filename: string
+  minRatio: number
+  test: RegExp
+  threshold: number
 }
 
 /**
@@ -37,8 +38,8 @@ export interface Options {
 @label(`@roots/bud-compress`)
 @dependsOn([`@roots/bud-compress/brotli`, `@roots/bud-compress/gzip`])
 export default class BudCompressionExtension extends Extension<any, any> {
-  public declare gzip: Modules[`@roots/bud-compress/gzip`]
   public declare brotli: Modules[`@roots/bud-compress/brotli`]
+  public declare gzip: Modules[`@roots/bud-compress/gzip`]
 
   @bind
   public override async register(bud: Bud) {

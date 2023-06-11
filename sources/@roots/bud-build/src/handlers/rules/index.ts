@@ -15,19 +15,19 @@ import {webp} from './webp.js'
 import {yml} from './yml.js'
 
 export const rules = {
-  toml,
+  css,
+  cssModule,
   csv,
-  yml,
-  html,
-  json,
   font,
-  svg,
-  webp,
+  html,
   image,
   inlineFont,
-  inlineSvg,
   inlineImage,
-  cssModule,
-  css,
+  inlineSvg,
   js,
+  json,
+  svg,
+  toml,
+  webp,
+  yml,
 }

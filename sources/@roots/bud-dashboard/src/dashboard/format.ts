@@ -4,15 +4,15 @@ import type {
 } from '@roots/bud-framework/config'
 
 export const color = {
+  backgroundColor: `backgroundColor`,
+  blue: `blue`,
+  cyan: `cyan`,
   dim: `dim`,
   foregroundColor: `foregroundColor`,
-  backgroundColor: `backgroundColor`,
-  red: `red`,
   green: `green`,
-  yellow: `yellow`,
-  blue: `blue`,
   magenta: `magenta`,
-  cyan: `cyan`,
+  red: `red`,
+  yellow: `yellow`,
 }
 
 export const longestAssetNameLength = (chunks: StatsChunkGroup) =>

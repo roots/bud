@@ -1,6 +1,3 @@
-import {pathToFileURL} from 'node:url'
-
-import * as App from '@roots/bud-dashboard/app'
 import type {Bud} from '@roots/bud-framework'
 import type {
   MultiCompiler,
@@ -8,23 +5,31 @@ import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
-import {Service} from '@roots/bud-framework/service'
 import type {Compiler as Contract} from '@roots/bud-framework/services'
-import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, CompilerError} from '@roots/bud-support/errors'
-import {duration} from '@roots/bud-support/human-readable'
-import * as Ink from '@roots/bud-support/ink'
 import type {
   ErrorWithSourceFile,
   SourceFile,
 } from '@roots/bud-support/open'
+
+import * as App from '@roots/bud-dashboard/app'
+import {Service} from '@roots/bud-framework/service'
+import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError, CompilerError} from '@roots/bud-support/errors'
+import {duration} from '@roots/bud-support/human-readable'
+import * as Ink from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
+import {pathToFileURL} from 'node:url'
 import webpack from 'webpack'
 
 /**
  * Wepback compilation controller class
  */
 export class Compiler extends Service implements Contract.Service {
+  /**
+   * Configuration
+   */
+  public config: Contract.Service[`config`] = []
+
   /**
    * Compiler implementation
    */
@@ -39,11 +44,6 @@ export class Compiler extends Service implements Contract.Service {
    * Compilation stats
    */
   public stats: Contract.Service[`stats`]
-
-  /**
-   * Configuration
-   */
-  public config: Contract.Service[`config`] = []
 
   /**
    * Initiates compilation
@@ -90,6 +90,51 @@ export class Compiler extends Service implements Contract.Service {
   }
 
   /**
+   * Compiler error event
+   */
+  @bind
+  public async onError(error: Error) {
+    process.exitCode = 1
+
+    await this.app.hooks.fire(`compiler.error`, error)
+
+    this.app.isDevelopment &&
+      this.app.server.appliedMiddleware?.hot?.publish({error})
+
+    try {
+      this.app.notifier.notify({
+        group: this.app.label,
+        message: error.message,
+        subtitle: error.name,
+      })
+    } catch (error) {
+      this.logger.error(error)
+    }
+
+    try {
+      Ink.render(
+        <App.Error
+          error={
+            new CompilerError(error.message, {
+              props: {
+                details: `This error was thrown by the webpack compiler itself. It is not the same as a syntax error. It is likely a missing or unresolvable build dependency.`,
+                docs: new URL(`https://bud.js.org/`),
+                issues: new URL(
+                  `https://github.com/roots/bud/search?q=is:issue+"compiler" in:title`,
+                ),
+                stack: error.stack,
+                thrownBy: `webpack`,
+              },
+            })
+          }
+        />,
+      )
+    } catch (error) {
+      throw BudError.normalize(error)
+    }
+  }
+
+  /**
    * Stats handler
    */
   @bind
@@ -121,11 +166,11 @@ export class Compiler extends Service implements Contract.Service {
             if (!error) return
 
             this.app.notifier.notify({
-              title: makeNoticeTitle(child),
-              subtitle: error.file ? `Error in ${error.name}` : error.name,
+              group: `${this.app.label}-${child.name}`,
               message: stripAnsi(error.message),
               open: error.file ? pathToFileURL(error.file) : ``,
-              group: `${this.app.label}-${child.name}`,
+              subtitle: error.file ? `Error in ${error.name}` : error.name,
+              title: makeNoticeTitle(child),
             })
             this.app.notifier.openEditor(error.file)
           } catch (error) {
@@ -139,15 +184,15 @@ export class Compiler extends Service implements Contract.Service {
       .forEach(child => {
         try {
           this.app.notifier.notify({
-            title: makeNoticeTitle(child),
-            subtitle: `Build successful`,
+            group: `${this.app.label}-${child.name}`,
             message: child.modules
               ? `${child.modules.length} modules compiled in ${duration(
                   child.time,
                 )}`
               : `Compiled in ${duration(child.time)}`,
-            group: `${this.app.label}-${child.name}`,
             open: this.app.server?.publicUrl.href,
+            subtitle: `Build successful`,
+            title: makeNoticeTitle(child),
           })
           this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
         } catch (error) {
@@ -156,51 +201,6 @@ export class Compiler extends Service implements Contract.Service {
       })
 
     await statsUpdate
-  }
-
-  /**
-   * Compiler error event
-   */
-  @bind
-  public async onError(error: Error) {
-    process.exitCode = 1
-
-    await this.app.hooks.fire(`compiler.error`, error)
-
-    this.app.isDevelopment &&
-      this.app.server.appliedMiddleware?.hot?.publish({error})
-
-    try {
-      this.app.notifier.notify({
-        subtitle: error.name,
-        message: error.message,
-        group: this.app.label,
-      })
-    } catch (error) {
-      this.logger.error(error)
-    }
-
-    try {
-      Ink.render(
-        <App.Error
-          error={
-            new CompilerError(error.message, {
-              props: {
-                details: `This error was thrown by the webpack compiler itself. It is not the same as a syntax error. It is likely a missing or unresolvable build dependency.`,
-                stack: error.stack,
-                thrownBy: `webpack`,
-                docs: new URL(`https://bud.js.org/`),
-                issues: new URL(
-                  `https://github.com/roots/bud/search?q=is:issue+"compiler" in:title`,
-                ),
-              },
-            })
-          }
-        />,
-      )
-    } catch (error) {
-      throw BudError.normalize(error)
-    }
   }
 
   /**
@@ -240,7 +240,7 @@ export class Compiler extends Service implements Contract.Service {
           return error
         }
 
-        return {...error, name: module.name ?? error.name, file}
+        return {...error, file, name: module.name ?? error.name}
       }
 
       return errors?.map(parseError).filter(Boolean)

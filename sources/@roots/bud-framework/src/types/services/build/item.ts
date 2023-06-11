@@ -11,6 +11,21 @@ export interface Item extends Base {
   app: Bud
 
   /**
+   * Get the associated {@link Ident} instance
+   */
+  getIdent(): string
+
+  /**
+   * Get the associated {@link Loader} instance
+   */
+  getLoader(): Loader
+
+  /**
+   * Get associated {@link Loader} options
+   */
+  getOptions(): Item.Options
+
+  /**
    * Identifier
    */
   ident: string
@@ -21,14 +36,17 @@ export interface Item extends Base {
   loader: `${keyof Loaders & string}` | Loader
 
   /**
-   * Set the {@link Loaders} key
+   * Merge option
+   *
+   * @param options - Item.Options to merge
+   * @returns void
    */
-  setLoader(loader: `${keyof Loaders & string}` | Loader): this
+  mergeOptions(options: Item.Options): this
 
   /**
-   * Get the associated {@link Loader} instance
+   * Associated {@link Loader} options
    */
-  getLoader(): Loader
+  options: ((app: Partial<Bud>) => Item.Options) | Item.Options
 
   /**
    * Set the {@link Loaders} key
@@ -36,32 +54,14 @@ export interface Item extends Base {
   setIdent(ident: string): this
 
   /**
-   * Get the associated {@link Ident} instance
+   * Set the {@link Loaders} key
    */
-  getIdent(): string
-
-  /**
-   * Associated {@link Loader} options
-   */
-  options: Item.Options | ((app: Partial<Bud>) => Item.Options)
+  setLoader(loader: `${keyof Loaders & string}` | Loader): this
 
   /**
    * Set {@link Item.Options}
    */
-  setOptions(factory: Item.Options | ((app: Bud) => Item.Options)): this
-
-  /**
-   * Get associated {@link Loader} options
-   */
-  getOptions(): Item.Options
-
-  /**
-   * Merge option
-   *
-   * @param options - Item.Options to merge
-   * @returns void
-   */
-  mergeOptions(options: Item.Options): this
+  setOptions(factory: ((app: Bud) => Item.Options) | Item.Options): this
 
   /**
    * Makes final Item output
@@ -100,6 +100,6 @@ export namespace Item {
     /**
      * Loader options.
      */
-    options?: string | {[index: string]: any}
+    options?: {[index: string]: any} | string
   }
 }

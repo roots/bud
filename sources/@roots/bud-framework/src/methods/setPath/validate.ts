@@ -1,8 +1,7 @@
-import {isAbsolute} from 'node:path'
-
 import {InputError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import {isAbsolute} from 'node:path'
 
 import type {Parameters} from './setPath.js'
 
@@ -11,8 +10,8 @@ export const all = (parameters: Parameters): Parameters => {
     throw new InputError(`bud.setPath: no parameters provided`, {
       props: {
         details: `At least one parameter must be provided.`,
-        thrownBy: `bud.setPath`,
         docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+        thrownBy: `bud.setPath`,
       },
     })
   }
@@ -27,8 +26,8 @@ export const baseDir = ([basedir]: [string]): string => {
       {
         props: {
           details: `The provided path is not absolute. Received \`${basedir}\`. This will be used as the base directory for all other paths.`,
-          thrownBy: `bud.setPath`,
           docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+          thrownBy: `bud.setPath`,
         },
       },
     )
@@ -44,8 +43,8 @@ export const stringPair = ([key, value]: [string, string]) => {
       {
         props: {
           details: `Path value must be a string. Received \`${typeof value}\``,
-          thrownBy: `bud.setPath`,
           docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+          thrownBy: `bud.setPath`,
         },
       },
     )
@@ -57,8 +56,8 @@ export const stringPair = ([key, value]: [string, string]) => {
       {
         props: {
           details: `Path label must be a string. Received \`${typeof key}\``,
-          thrownBy: `bud.setPath`,
           docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+          thrownBy: `bud.setPath`,
         },
       },
     )

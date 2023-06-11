@@ -1,3 +1,5 @@
+import type {Context} from '@roots/bud-framework/options'
+
 import BuildCommand from '@roots/bud/cli/commands/bud.build'
 import browser from '@roots/bud/cli/flags/browser'
 import hot from '@roots/bud/cli/flags/hot'
@@ -6,7 +8,6 @@ import overlay from '@roots/bud/cli/flags/overlay'
 import port from '@roots/bud/cli/flags/port'
 import proxy from '@roots/bud/cli/flags/proxy'
 import reload from '@roots/bud/cli/flags/reload'
-import type {Context} from '@roots/bud-framework/options'
 
 /**
  * `bud build development` command
@@ -54,6 +55,8 @@ export default class BuildDevelopmentCommand extends BuildCommand {
 
   public hot = hot
 
+  public indicator = indicator
+
   public overlay = overlay
 
   public port = port
@@ -61,8 +64,6 @@ export default class BuildDevelopmentCommand extends BuildCommand {
   public proxy = proxy
 
   public reload = reload
-
-  public indicator = indicator
 
   /**
    * {@link Command.withSubcommandContext}

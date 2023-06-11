@@ -1,3 +1,6 @@
+import type {Context} from '@roots/bud-framework/options/context'
+
+import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import cache from '@roots/bud/cli/flags/cache'
 import ci from '@roots/bud/cli/flags/ci'
@@ -18,8 +21,6 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
-import type {Context} from '@roots/bud-framework/options/context'
-import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
  * `bud build` command
@@ -109,8 +110,8 @@ export default class BudBuildCommand extends BudCommand {
       ci: this.ci,
       clean: this.clean,
       debug: this.debug,
-      discover: this.discover,
       devtool: this.devtool,
+      discover: this.discover,
       editor: this.editor,
       esm: this.esm,
       force: this.force,
@@ -118,8 +119,8 @@ export default class BudBuildCommand extends BudCommand {
       html: this.html,
       immutable: this.immutable,
       input: this.input,
-      output: this.output,
       minimize: this.minimize,
+      output: this.output,
       publicPath: this.publicPath,
       runtime: this.runtime,
       silent: this.silent,

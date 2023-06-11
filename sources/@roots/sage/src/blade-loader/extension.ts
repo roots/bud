@@ -1,5 +1,6 @@
-import BladeLoaderPlugin from '@roots/blade-loader'
 import type {Bud} from '@roots/bud-framework'
+
+import BladeLoaderPlugin from '@roots/blade-loader'
 import {Extension} from '@roots/bud-framework/extension'
 import {label, plugin} from '@roots/bud-framework/extension/decorators'
 

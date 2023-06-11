@@ -3,8 +3,8 @@ import type {HttpProxy} from '@roots/bud-support/http-proxy-middleware'
 import type {Bud} from '../../../index.js'
 
 export interface ProxyOptions extends HttpProxy.Options {
-  logger: any
   ejectPlugins: any
+  logger: any
   on: any
   pathFilter: any
   plugins: any
@@ -18,20 +18,20 @@ export interface DevOptions {
   /**
    * If false (but not undefined), the server will not respond to requests to the root URL.
    */
-  index?: string | boolean
+  index?: boolean | string
   /**
    * This is Array<string> (mistyped upstream)
    */
   methods?: any
   mimeTypes?: {[key: string]: string}
   publicPath?: string
-  writeToDisk?: boolean | ((targetPath: string) => boolean)
+  writeToDisk?: ((targetPath: string) => boolean) | boolean
 }
 
 /**
  * Middleware
  */
-export type Middleware<V extends 'options' | 'factory'> = {
+export type Middleware<V extends 'factory' | 'options'> = {
   [K in keyof Available as `middleware.${K &
     string}.${V}`]: Available[K][V]
 }
@@ -40,9 +40,9 @@ export type Middleware<V extends 'options' | 'factory'> = {
  * Key mapped middleware
  */
 export interface Available {
+  cookie?: Definition<null>
   dev?: Definition<DevOptions>
   hot?: Definition<null>
-  cookie?: Definition<null>
   proxy?: Definition<ProxyOptions>
 }
 

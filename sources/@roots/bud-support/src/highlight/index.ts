@@ -14,10 +14,10 @@ interface node {
   attribs: {
     class: string
   }
+  childNodes: Array<node>
   data: any
   theme: typeof theme
   type: string
-  childNodes: Array<node>
 }
 
 const colorizeNode = (node: node): string => {
@@ -66,7 +66,7 @@ const colorize = (code: string): string => {
 export const highlight = (code: string): string =>
   colorize(
     hljs.highlight(code, {
-      language: `typescript`,
       ignoreIllegals: true,
+      language: `typescript`,
     }).value,
   )

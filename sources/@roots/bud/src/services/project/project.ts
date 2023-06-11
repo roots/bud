@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, FileWriteError} from '@roots/bud-support/errors'
@@ -23,9 +24,8 @@ class Project extends Service {
       await bud.fs.write(path, {
         ...omit(bud.context, [`env`, `logger`, `stdout`, `stderr`]),
         args: args.raw,
-        env: bud.env.getKeys(),
         children: bud.children ? Object.keys(bud.children) : [],
-        services: bud.context?.services,
+        env: bud.env.getKeys(),
         loaded: Object.entries(bud.extensions?.repository).map(
           ([key, extension]) => ({
             key,
@@ -35,6 +35,7 @@ class Project extends Service {
           }),
         ),
         resolutions: bud.module.resolved,
+        services: bud.context?.services,
       })
 
       bud.success(`profile written to `, path)

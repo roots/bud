@@ -1,9 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {InputError} from '@roots/bud-support/errors'
+
+import type {Parameters} from './types.js'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import * as schema from './schema.js'
-import type {Parameters} from './types.js'
 
 /**
  * Handle fallthrough

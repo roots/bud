@@ -21,8 +21,8 @@ class BudMinimizeJS extends BudMinimizeJSPublicApi {
   public override async buildBefore({extensions, hooks}) {
     const {
       default: Minimizer,
-      swcMinify,
       esbuildMinify,
+      swcMinify,
       terserMinify,
     } = await import(`terser-webpack-plugin`)
 

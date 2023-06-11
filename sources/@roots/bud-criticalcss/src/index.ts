@@ -5,8 +5,7 @@
  * @see {@link https://npmjs.com/package/@roots/critical-css-webpack-plugin}
  */
 
-import './types.js'
-
 import BudCriticalCssExtension from './extension.js'
+import './types.js'
 
 export default BudCriticalCssExtension

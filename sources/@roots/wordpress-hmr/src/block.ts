@@ -1,4 +1,5 @@
 import type {BlockConfiguration} from '@wordpress/blocks'
+
 import {
   getBlockType,
   registerBlockType,
@@ -7,14 +8,15 @@ import {
 
 import type * as Filter from './filter.js'
 import type {Style} from './style.js'
+import type {Variant} from './variation.js'
+
 import * as blockStyle from './style.js'
 import {filterCallback} from './utility.js'
-import type {Variant} from './variation.js'
 import * as blockVariant from './variation.js'
 
 export interface Props extends BlockConfiguration<Record<string, any>> {
-  name: string
   filters?: Filter.KeyedFilters
+  name: string
   styles?: Array<Omit<Style, 'block'>>
   variations?: Array<Omit<Variant, 'block'>>
 }
@@ -23,13 +25,13 @@ export interface Props extends BlockConfiguration<Record<string, any>> {
  * Register block
  */
 export const register = ({
-  name,
   filters = {},
+  name,
   styles,
   variations,
   ...settings
 }: Props) => {
-  getBlockType(name) && unregister({name, filters, styles, variations})
+  getBlockType(name) && unregister({filters, name, styles, variations})
   registerBlockType(name, settings)
 
   styles?.map(style => {
@@ -45,11 +47,11 @@ export const register = ({
  * Unregister block
  */
 export const unregister = ({
-  name,
   filters,
+  name,
   styles,
   variations,
-}: Pick<Props, `name` | `filters` | `styles` | `variations`>) => {
+}: Pick<Props, `filters` | `name` | `styles` | `variations`>) => {
   unregisterBlockType(name)
 
   styles?.map(style => blockStyle.unregister({block: name, ...style}))

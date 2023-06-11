@@ -1,8 +1,8 @@
-import {urlToHttpOptions} from 'node:url'
-
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import {urlToHttpOptions} from 'node:url'
 
 /**
  * Acorn adapter

@@ -1,27 +1,25 @@
 // Copyright © Roots Software Foundation LLC
 // Licensed under the MIT license.
 
-import path from 'node:path'
+import type {Compiler, Stats} from 'webpack'
 
 import fs from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
-import type {Compiler, Stats} from 'webpack'
+import path from 'node:path'
 
 /**
  * Merged Manifest Webpack Plugin
  */
 export default class MergedManifestWebpackPlugin {
   /**
-   * Plugin ident
-   */
-  public plugin = {
-    name: `MergedManifestPlugin`,
-  }
-
-  /**
    * Directory where the manifest will be written.
    */
   public dir: string
+
+  /**
+   * Entrypoints manifest
+   */
+  public entrypointsName = `entrypoints.json`
 
   /**
    * Output file
@@ -29,9 +27,11 @@ export default class MergedManifestWebpackPlugin {
   public file = `entrypoints.json`
 
   /**
-   * Entrypoints manifest
+   * Plugin ident
    */
-  public entrypointsName = `entrypoints.json`
+  public plugin = {
+    name: `MergedManifestPlugin`,
+  }
 
   /**
    * WordPress manifest
@@ -43,8 +43,8 @@ export default class MergedManifestWebpackPlugin {
    */
   public constructor(options?: {
     entrypointsName?: string
-    wordpressName?: string
     file?: string
+    wordpressName?: string
   }) {
     options &&
       Object.keys(options).map(prop => {
@@ -74,10 +74,10 @@ export default class MergedManifestWebpackPlugin {
     try {
       const entrypointsManifest: {
         [entry: string]: {
-          js: {
+          css: {
             [key: string]: string
           }
-          css: {
+          js: {
             [key: string]: string
           }
         }
@@ -143,8 +143,8 @@ export default class MergedManifestWebpackPlugin {
   /**
    */
   @bind
-  public manifestPath(file: string): string {
-    return path.resolve(this.dir, file)
+  public async manifestContent(file: string): Promise<any> {
+    return await fs.readAsync(this.manifestPath(file), `json`)
   }
 
   /**
@@ -157,7 +157,7 @@ export default class MergedManifestWebpackPlugin {
   /**
    */
   @bind
-  public async manifestContent(file: string): Promise<any> {
-    return await fs.readAsync(this.manifestPath(file), `json`)
+  public manifestPath(file: string): string {
+    return path.resolve(this.dir, file)
   }
 }

@@ -8,10 +8,10 @@
  * @see https://github.com/roots/bud
  */
 
-import './types'
-
 import type {Options} from './extension.js'
+
 import BudCompressionExtension from './extension.js'
+import './types'
 
 export default BudCompressionExtension
 export type {Options}

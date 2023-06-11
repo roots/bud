@@ -1,17 +1,18 @@
 import {dispatch} from '@wordpress/data'
 
-import {Cache} from './cache.js'
 import type {AcceptCallback, ContextFactory} from './index.js'
 
+import {Cache} from './cache.js'
+
 export interface Props {
+  accept: AcceptCallback
+  after?: (changed?: Array<{name: string}>) => unknown
   api: {
     register: (...args: Array<any>) => void
     unregister: (...args: Array<any>) => void
   }
-  getContext: ContextFactory
-  accept: AcceptCallback
   before?: () => unknown
-  after?: (changed?: Array<{name: string}>) => unknown
+  getContext: ContextFactory
 }
 
 let initial = false
@@ -21,11 +22,11 @@ export const setNotify = (value: boolean) => {
 }
 
 export const load = ({
-  api,
-  getContext,
   accept,
-  before = () => null,
   after = () => null,
+  api,
+  before = () => null,
+  getContext,
 }: Props) => {
   const cache = new Cache()
 

@@ -10,9 +10,9 @@ export const Sponsors = () => {
 
   const {sponsors} = manifest as {
     sponsors: Array<{
-      url: string
-      title: string
       image: string
+      title: string
+      url: string
     }>
   }
 
@@ -21,9 +21,9 @@ export const Sponsors = () => {
       <h2>Sponsored by</h2>
 
       <div className={styles.sponsors}>
-        {sponsors.map(({url, image, title}, id) => (
-          <a key={id} href={url} className={styles.anchor} rel="sponsored">
-            <img src={image} alt={title} className={styles.image} />
+        {sponsors.map(({image, title, url}, id) => (
+          <a className={styles.anchor} href={url} key={id} rel="sponsored">
+            <img alt={title} className={styles.image} src={image} />
           </a>
         ))}
       </div>

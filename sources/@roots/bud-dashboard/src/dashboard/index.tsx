@@ -1,22 +1,23 @@
-import {type Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
+
+import {type Bud} from '@roots/bud-framework'
 
 import App from './app.js'
 import {TTYApp} from './input.js'
 
 export interface Props {
-  isTTY?: boolean
+  compilations: Array<StatsCompilation>
   context: Bud['context']
   devUrl?: URL
-  publicDevUrl?: URL
-  mode: Bud['mode']
-  proxyUrl?: URL
-  publicProxyUrl?: URL
-  compilations: Array<StatsCompilation>
-  watchFiles?: Set<string>
   displayAssets: boolean
   displayEntrypoints: boolean
   displayServerInfo: boolean
+  isTTY?: boolean
+  mode: Bud['mode']
+  proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
+  watchFiles?: Set<string>
 }
 
 export {App, TTYApp}

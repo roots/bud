@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -18,63 +19,15 @@ import type {LoaderOptions, Registry} from './types.js'
 @expose(`babel`)
 export default class BabelExtension extends Extension {
   /**
-   * Boolean representing if project has a babel config file
-   */
-  public get overridenByProjectConfigFile() {
-    if (!this.app.context.files) return false
-    return Object.values(this.app.context.files).some(
-      file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
-    )
-  }
-
-  /**
-   * Config file accessor
-   */
-  public get configFile(): Record<string, any> {
-    return Object.values(this.app.context.files).find(
-      file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
-    )
-  }
-
-  /**
    * Babel configuration options (if overridden by project config file)
    */
   public declare configFileOptions: Record<string, any> | undefined
-
-  /**
-   * Cache directory
-   */
-  public get cacheDirectory(): LoaderOptions[`cacheDirectory`] {
-    return this.app.cache.enabled
-      ? this.app.path(this.app.cache.cacheDirectory, `babel`)
-      : false
-  }
 
   /**
    * Babel env
    */
   public env: LoaderOptions[`env`] = {
     development: {compact: false},
-  }
-  /**
-   * Get babel env value
-   */
-  public getEnv(): LoaderOptions[`env`] {
-    return this.env
-  }
-  /**
-   * Set babel env value
-   *
-   * @param env - Babel env
-   * @returns this
-   */
-  public setEnv(env: LoaderOptions[`env`]): this {
-    this.env = env
-    return this
   }
 
   /**
@@ -88,10 +41,28 @@ export default class BabelExtension extends Extension {
   public presets: Registry = {}
 
   /**
-   * Root directory
+   * Cache directory
    */
-  public get root() {
-    return this.app.path()
+  public get cacheDirectory(): LoaderOptions[`cacheDirectory`] {
+    return this.app.cache.enabled
+      ? this.app.path(this.app.cache.cacheDirectory, `babel`)
+      : false
+  }
+  /**
+   * Config file accessor
+   */
+  public get configFile(): Record<string, any> {
+    return Object.values(this.app.context.files).find(
+      file =>
+        file?.name?.startsWith(`.babelrc`) ||
+        (file?.name?.includes(`babel.config`) && file?.module),
+    )
+  }
+  /**
+   * Get babel env value
+   */
+  public getEnv(): LoaderOptions[`env`] {
+    return this.env
   }
 
   /**
@@ -101,8 +72,8 @@ export default class BabelExtension extends Extension {
    */
   public get loaderOptions(): LoaderOptions {
     const baseOptions = {
-      cacheIdentifier: `babel`,
       cacheDirectory: this.cacheDirectory,
+      cacheIdentifier: `babel`,
       configFile: false,
     }
 
@@ -115,14 +86,26 @@ export default class BabelExtension extends Extension {
 
     return {
       ...baseOptions,
-      presets: Object.values(this.presets),
-      plugins: Object.values(this.plugins),
       env: this.env,
+      plugins: Object.values(this.plugins),
+      presets: Object.values(this.presets),
       root: this.root,
       targets:
         this.app.context.files[`package.json`].module.browserslist ??
         `defaults`,
     }
+  }
+
+  /**
+   * Boolean representing if project has a babel config file
+   */
+  public get overridenByProjectConfigFile() {
+    if (!this.app.context.files) return false
+    return Object.values(this.app.context.files).some(
+      file =>
+        file?.name?.startsWith(`.babelrc`) ||
+        (file?.name?.includes(`babel.config`) && file?.module),
+    )
   }
 
   /**
@@ -182,6 +165,119 @@ export default class BabelExtension extends Extension {
   }
 
   /**
+   * Root directory
+   */
+  public get root() {
+    return this.app.path()
+  }
+
+  /**
+   * Set babel env value
+   *
+   * @param env - Babel env
+   * @returns this
+   */
+  public setEnv(env: LoaderOptions[`env`]): this {
+    this.env = env
+    return this
+  }
+
+  /**
+   * Set a babel plugin
+   */
+  @bind
+  public setPlugin(
+    name: [any, any] | string,
+    plugin?: [any, any] | string,
+  ): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `Babel configuration is being overridden by project configuration file.\n`,
+        `bud.babel.setPlugin will not work as expected\n`,
+        `tried to set`,
+        name,
+        `to`,
+        plugin,
+      )
+    }
+
+    if (!plugin && Array.isArray(name)) {
+      this.plugins[name[0]] = name
+      return this
+    }
+
+    if (!plugin && !Array.isArray(name)) {
+      this.plugins[name] = [name]
+      return this
+    }
+
+    if (Array.isArray(name)) {
+      throw new InputError(
+        `When defined without options the babel plugin name must be a string.`,
+        {
+          props: {
+            docs: new URL(`https://bud.js.org/extensions/bud-babel`),
+            thrownBy: `bud.babel.setPlugin`,
+          },
+        },
+      )
+    }
+
+    this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
+    return this
+  }
+
+  /**
+   * Set options on a babel plugin
+   */
+  @bind
+  public setPluginOptions(plugin: string, options: any): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `Babel configuration is being overridden by project configuration file.\n`,
+        `bud.babel.setPresetOptions will not work as expected\n`,
+        `tried to set options:`,
+        options,
+        `for`,
+        plugin,
+      )
+    }
+
+    this.plugins[plugin] = [this.plugins[plugin].shift(), options]
+    return this
+  }
+
+  /**
+   * Set babel presets
+   */
+  @bind
+  public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `Babel configuration is being overridden by project configuration file.\n`,
+        `bud.babel.setPresetOptions will not work as expected\n`,
+        `tried to set plugins:`,
+        plugins,
+      )
+    }
+
+    this.plugins = Object.entries(plugins).reduce(
+      (plugins, [name, plugin]) => {
+        if (Array.isArray(plugin)) {
+          plugins[name] = plugin
+          return plugins
+        }
+
+        plugins[name] = [plugin]
+        return plugins
+      },
+      {},
+    )
+
+    return this
+  }
+
+  /**
    * Set a babel preset
    */
   @bind
@@ -203,6 +299,26 @@ export default class BabelExtension extends Extension {
     }
 
     this.presets[name] = Array.isArray(preset) ? preset : [preset]
+    return this
+  }
+
+  /**
+   * Set options on a babel preset
+   */
+  @bind
+  public setPresetOptions(preset: string, options: any): this {
+    if (this.overridenByProjectConfigFile) {
+      this.logger.warn(
+        `Babel configuration is being overridden by project configuration file.\n`,
+        `bud.babel.setPresetOptions will not work as expected\n`,
+        `tried to set options:`,
+        options,
+        `for`,
+        preset,
+      )
+    }
+
+    this.presets[preset] = [this.presets[preset].shift(), options]
     return this
   }
 
@@ -239,120 +355,6 @@ export default class BabelExtension extends Extension {
   }
 
   /**
-   * Remove a babel preset
-   */
-  @bind
-  public unsetPreset(preset: string) {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.unsetPreset will not work as expected\n`,
-        `tried to unset:`,
-        preset,
-      )
-    }
-    if (!isUndefined(this.presets[preset]))
-      this.presets[preset] = undefined
-
-    return this
-  }
-
-  /**
-   * Set options on a babel preset
-   */
-  @bind
-  public setPresetOptions(preset: string, options: any): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set options:`,
-        options,
-        `for`,
-        preset,
-      )
-    }
-
-    this.presets[preset] = [this.presets[preset].shift(), options]
-    return this
-  }
-
-  /**
-   * Set a babel plugin
-   */
-  @bind
-  public setPlugin(
-    name: string | [any, any],
-    plugin?: [any, any] | string,
-  ): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPlugin will not work as expected\n`,
-        `tried to set`,
-        name,
-        `to`,
-        plugin,
-      )
-    }
-
-    if (!plugin && Array.isArray(name)) {
-      this.plugins[name[0]] = name
-      return this
-    }
-
-    if (!plugin && !Array.isArray(name)) {
-      this.plugins[name] = [name]
-      return this
-    }
-
-    if (Array.isArray(name)) {
-      throw new InputError(
-        `When defined without options the babel plugin name must be a string.`,
-        {
-          props: {
-            thrownBy: `bud.babel.setPlugin`,
-            docs: new URL(`https://bud.js.org/extensions/bud-babel`),
-          },
-        },
-      )
-    }
-
-    this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
-    return this
-  }
-
-  /**
-   * Set babel presets
-   */
-  @bind
-  public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set plugins:`,
-        plugins,
-      )
-    }
-
-    this.plugins = Object.entries(plugins).reduce(
-      (plugins, [name, plugin]) => {
-        if (Array.isArray(plugin)) {
-          plugins[name] = plugin
-          return plugins
-        }
-
-        plugins[name] = [plugin]
-        return plugins
-      },
-      {},
-    )
-
-    return this
-  }
-
-  /**
    * Remove a babel plugin
    */
   @bind
@@ -373,22 +375,21 @@ export default class BabelExtension extends Extension {
   }
 
   /**
-   * Set options on a babel plugin
+   * Remove a babel preset
    */
   @bind
-  public setPluginOptions(plugin: string, options: any): this {
+  public unsetPreset(preset: string) {
     if (this.overridenByProjectConfigFile) {
       this.logger.warn(
         `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set options:`,
-        options,
-        `for`,
-        plugin,
+        `bud.babel.unsetPreset will not work as expected\n`,
+        `tried to unset:`,
+        preset,
       )
     }
+    if (!isUndefined(this.presets[preset]))
+      this.presets[preset] = undefined
 
-    this.plugins[plugin] = [this.plugins[plugin].shift(), options]
     return this
   }
 }

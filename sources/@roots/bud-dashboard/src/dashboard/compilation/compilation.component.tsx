@@ -1,14 +1,14 @@
-import {relative} from 'node:path'
-
 import type {
   StatsAsset,
   StatsChunkGroup,
   StatsCompilation,
 } from '@roots/bud-framework/config'
 import type {Context} from '@roots/bud-framework/options/context'
+
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
 import * as Ink from '@roots/bud-support/ink'
+import {relative} from 'node:path'
 
 import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
@@ -17,10 +17,10 @@ import Title from '../display/title.component.js'
 import {color, colorFromStats, longestAssetNameLength} from '../format.js'
 
 interface Props {
-  displayAssets: boolean
-  displayEntrypoints: boolean
   compilation: StatsCompilation
   context: Context
+  displayAssets: boolean
+  displayEntrypoints: boolean
 }
 
 interface AssetGroup extends StatsChunkGroup {
@@ -39,10 +39,10 @@ const makeAssetGroupCallback =
   }
 
 const Compilation = ({
-  displayAssets,
-  displayEntrypoints,
   compilation,
   context,
+  displayAssets,
+  displayEntrypoints,
 }: Props) => {
   if (!compilation) return null
 
@@ -118,12 +118,12 @@ const Compilation = ({
                   ? entrypoints
                       .filter(({assets}) => assets.length > 0)
                       .map((chunk: StatsChunkGroup, id: number) => (
-                        <Ink.Box key={id} flexDirection="column">
+                        <Ink.Box flexDirection="column" key={id}>
                           <ChunkGroup
                             indent={[true]}
                             {...chunk}
-                            minWidth={longestEntrypointAssetLength}
                             final={id === entrypoints.length - 1}
+                            minWidth={longestEntrypointAssetLength}
                           />
                         </Ink.Box>
                       ))

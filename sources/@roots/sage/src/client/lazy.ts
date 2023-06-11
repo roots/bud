@@ -10,7 +10,7 @@
 interface lazy {
   <T = any>(
     module: Promise<{default: T}>,
-    handler: (module: T) => unknown | Promise<unknown>,
+    handler: (module: T) => Promise<unknown> | unknown,
     errorHandler?: (err: Error) => unknown,
   ): Promise<unknown>
 }
@@ -26,7 +26,7 @@ const defaultErrorHandler = (err: string) => {
 
 const lazy: lazy = async function lazy<T = any>(
   module: Promise<{default: T}>,
-  handler: (module: T) => unknown | Promise<unknown>,
+  handler: (module: T) => Promise<unknown> | unknown,
   errorHandler?: (err: Error) => unknown,
 ) {
   try {

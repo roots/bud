@@ -14,4 +14,4 @@ type Constructors = {
   ) => Registry[K]
 }
 
-export type {Rules, Registry, Constructors}
+export type {Constructors, Registry, Rules}

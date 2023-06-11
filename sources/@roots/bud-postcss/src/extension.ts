@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {
   Extension,
   type OptionCallbackValue,
@@ -20,6 +21,7 @@ import type {
   PluginInput,
   PluginReference,
 } from './options.js'
+
 import {BudPostCssOptionsApi} from './options.js'
 
 /**
@@ -28,6 +30,65 @@ import {BudPostCssOptionsApi} from './options.js'
 @label(`@roots/bud-postcss`)
 @expose(`postcss`)
 class BudPostCss extends BudPostCssOptionsApi {
+  /**
+   * Get a plugin
+   */
+  @bind
+  public getPlugin(name: string): PluginReference {
+    name = this.normalizePluginName(name)
+    if (!(name in this.plugins)) {
+      throw new InputError(`Plugin ${name} does not exist`, {
+        props: {
+          thrownBy: `bud.postcss.getPlugin`,
+        },
+      })
+    }
+    return this.plugins[name]
+  }
+
+  /**
+   * Get plugin options
+   */
+  @bind
+  public getPluginOptions(name: string): Record<string, any> {
+    const plugin = this.getPlugin(this.normalizePluginName(name))
+    if (!plugin) throw new Error(`Plugin ${name} does not exist`)
+
+    return plugin[1]
+  }
+
+  /**
+   * Get plugin path
+   */
+  @bind
+  public getPluginPath(name: string): PluginReference[0] {
+    const plugin = this.getPlugin(this.normalizePluginName(name))
+    if (!plugin) throw new Error(`Plugin ${name} does not exist`)
+    return plugin[0]
+  }
+
+  @bind
+  protected normalizePluginName(name: string): string {
+    if (name.startsWith(`postcss-`)) name = name.replace(`postcss-`, ``)
+    if (name === `nested`) name = `nesting`
+    if (name === `preset-env`) name = `env`
+
+    return name
+  }
+
+  @bind
+  protected normalizePluginValue(value: PluginInput): PluginReference {
+    if (isString(value)) {
+      return [value, undefined]
+    }
+
+    if (!Array.isArray(value)) {
+      return [value, undefined]
+    }
+
+    return value
+  }
+
   /**
    * {@link Extension.register}
    */
@@ -101,10 +162,10 @@ class BudPostCss extends BudPostCssOptionsApi {
         ),
       )
       .setPluginOptions(`env`, {
-        stage: 1,
         features: {
           'focus-within-pseudo-class': false,
         },
+        stage: 1,
       })
       .use([`import`, `nesting`, `env`])
   }
@@ -136,36 +197,6 @@ class BudPostCss extends BudPostCssOptionsApi {
   }
 
   /**
-   * Use plugins
-   *
-   * @remarks
-   * Sets the plugin order
-   */
-  @bind
-  public use(
-    order: OptionCallbackValue<BudPostCssPublicInterface, `order`>,
-  ) {
-    this.setOrder(order)
-    return this
-  }
-
-  /**
-   * Get a plugin
-   */
-  @bind
-  public getPlugin(name: string): PluginReference {
-    name = this.normalizePluginName(name)
-    if (!(name in this.plugins)) {
-      throw new InputError(`Plugin ${name} does not exist`, {
-        props: {
-          thrownBy: `bud.postcss.getPlugin`,
-        },
-      })
-    }
-    return this.plugins[name]
-  }
-
-  /**
    * Set a plugin
    */
   @bind
@@ -181,36 +212,14 @@ class BudPostCss extends BudPostCssOptionsApi {
   }
 
   /**
-   * Remove a plugin
-   */
-  @bind
-  public unsetPlugin(name: string) {
-    this.setPlugins(plugins =>
-      omit(plugins, [this.normalizePluginName(name)]),
-    )
-    return this
-  }
-
-  /**
-   * Get plugin options
-   */
-  @bind
-  public getPluginOptions(name: string): Record<string, any> {
-    const plugin = this.getPlugin(this.normalizePluginName(name))
-    if (!plugin) throw new Error(`Plugin ${name} does not exist`)
-
-    return plugin[1]
-  }
-
-  /**
    * Override plugin options
    */
   @bind
   public setPluginOptions(
     name: string,
     options:
-      | Record<string, any>
-      | ((options: Record<string, any>) => Record<string, any>),
+      | ((options: Record<string, any>) => Record<string, any>)
+      | Record<string, any>,
   ): this {
     const plugin = this.getPlugin(this.normalizePluginName(name))
 
@@ -227,16 +236,6 @@ class BudPostCss extends BudPostCssOptionsApi {
   }
 
   /**
-   * Get plugin path
-   */
-  @bind
-  public getPluginPath(name: string): PluginReference[0] {
-    const plugin = this.getPlugin(this.normalizePluginName(name))
-    if (!plugin) throw new Error(`Plugin ${name} does not exist`)
-    return plugin[0]
-  }
-
-  /**
    * Set plugin path
    */
   @bind
@@ -249,26 +248,29 @@ class BudPostCss extends BudPostCssOptionsApi {
     return this
   }
 
+  /**
+   * Remove a plugin
+   */
   @bind
-  protected normalizePluginName(name: string): string {
-    if (name.startsWith(`postcss-`)) name = name.replace(`postcss-`, ``)
-    if (name === `nested`) name = `nesting`
-    if (name === `preset-env`) name = `env`
-
-    return name
+  public unsetPlugin(name: string) {
+    this.setPlugins(plugins =>
+      omit(plugins, [this.normalizePluginName(name)]),
+    )
+    return this
   }
 
+  /**
+   * Use plugins
+   *
+   * @remarks
+   * Sets the plugin order
+   */
   @bind
-  protected normalizePluginValue(value: PluginInput): PluginReference {
-    if (isString(value)) {
-      return [value, undefined]
-    }
-
-    if (!Array.isArray(value)) {
-      return [value, undefined]
-    }
-
-    return value
+  public use(
+    order: OptionCallbackValue<BudPostCssPublicInterface, `order`>,
+  ) {
+    this.setOrder(order)
+    return this
   }
 }
 

@@ -1,5 +1,5 @@
-import '@roots/bud/types'
 import '@roots/bud-wordpress-theme-json/types'
+import '@roots/bud/types'
 
 declare module '@roots/bud-framework' {
   interface Modules {

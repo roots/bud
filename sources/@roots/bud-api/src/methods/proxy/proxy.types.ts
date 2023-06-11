@@ -1,11 +1,10 @@
-import type {Agent} from 'node:http'
-import type {ServerOptions as HttpsServerOptions} from 'node:https'
-import type {Stream} from 'node:stream'
-
 import type {
   HttpProxy,
   Options as ProxyOptions,
 } from '@roots/bud-support/http-proxy-middleware'
+import type {Agent} from 'node:http'
+import type {ServerOptions as HttpsServerOptions} from 'node:https'
+import type {Stream} from 'node:stream'
 
 export interface Options extends HttpProxy.Options {
   agent?: Agent
@@ -22,7 +21,7 @@ export interface Options extends HttpProxy.Options {
   hostRewrite?: string
   ignorePath?: boolean
   localAddress?: string
-  logger?: Pick<Console, `info` | `warn` | `error`>
+  logger?: Pick<Console, `error` | `info` | `warn`>
   on?: ProxyOptions[`on`]
   onProxyReq?: any
   onProxyRes?: any
@@ -33,7 +32,13 @@ export interface Options extends HttpProxy.Options {
   preserveHeaderKeyCase?: boolean
   protocolRewrite?: `http` | `https`
   proxyTimeout?: number
-  router?: Record<string, URL | string>
+  /**
+   * Not a proxy-party option
+   *
+   * Used by default `onProxyRes` handler to rewrite the page body
+   */
+  replacements?: ReplacementCallback | ReplacementTuples
+  router?: Record<string, string | URL>
   secure?: boolean
   selfHandleResponse?: boolean
   ssl?: HttpsServerOptions
@@ -41,14 +46,8 @@ export interface Options extends HttpProxy.Options {
   timeout?: number
   toProxy?: boolean
   ws?: boolean
-  xfwd?: boolean
 
-  /**
-   * Not a proxy-party option
-   *
-   * Used by default `onProxyRes` handler to rewrite the page body
-   */
-  replacements?: ReplacementTuples | ReplacementCallback
+  xfwd?: boolean
 }
 
 export type ReplacementTuples = Array<[string, string]>
@@ -60,6 +59,6 @@ export type ReplacementCallback = (
 export type OptionsCallback = (options: Options | undefined) => Options
 
 export type Parameters = [
-  (URL | string | boolean | number | Options | OptionsCallback)?,
+  (boolean | number | Options | OptionsCallback | string | URL)?,
   (Options | ReplacementCallback | ReplacementTuples)?,
 ]

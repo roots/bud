@@ -1,39 +1,40 @@
 /* eslint-disable n/no-process-env */
 import type {InstanceOptions} from 'modern-errors'
+
 import ModernError from 'modern-errors'
 
 interface BudErrorProps {
-  isBudError: true
   details: string
-  issues: URL
-  instance: string
-  thrownBy: string
   docs: URL
-  origin: BudHandler
   file: {
+    module: any
     name: string
     path: string
     sha1: string
-    module: any
   }
+  instance: string
+  isBudError: true
+  issues: URL
+  origin: BudHandler
+  thrownBy: string
 }
 
 const BudBaseError = ModernError.subclass(`BaseError`, {})
 
 class BudHandler extends BudBaseError {
-  public declare thrownBy: string | false
-  public declare instance: string | `default`
+  public declare details: false | string
+  public declare docs: false | URL
   public declare file: {
+    module: any
     name: string
     path: string
     sha1: string
-    module: any
   }
-  public declare origin: BudHandler | false
-  public declare details: string | false
-  public declare docs: URL | false
-  public declare issues: URL | false
+  public declare instance: `default` | string
   public isBudError = true
+  public declare issues: false | URL
+  public declare origin: BudHandler | false
+  public declare thrownBy: false | string
 
   public constructor(
     message: string,
@@ -116,15 +117,15 @@ const ExtensionError = BudError.subclass(`BudErrorError`, {
 })
 
 export {
-  BudHandler,
   BudError,
-  ModuleError,
-  ImportError,
+  BudHandler,
+  CompilerError,
+  ConfigError,
   ExtensionError,
   FileReadError,
   FileWriteError,
+  ImportError,
   InputError,
+  ModuleError,
   ServerError,
-  CompilerError,
-  ConfigError,
 }

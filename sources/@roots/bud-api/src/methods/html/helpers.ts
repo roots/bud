@@ -1,11 +1,11 @@
-import {dirname, resolve} from 'node:path'
-import {fileURLToPath} from 'node:url'
-
 import type {Options} from '@roots/bud-extensions/html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
+
 import isObject from '@roots/bud-support/lodash/isObject'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import omit from '@roots/bud-support/lodash/omit'
+import {dirname, resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
 
 import type {Parameters} from './index.js'
 

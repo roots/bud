@@ -1,4 +1,4 @@
 export {
-  WebpackManifestPlugin as Plugin,
   type ManifestPluginOptions as Options,
+  WebpackManifestPlugin as Plugin,
 } from 'webpack-manifest-plugin'

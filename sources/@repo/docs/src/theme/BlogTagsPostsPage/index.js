@@ -21,8 +21,8 @@ function useBlogPostsPlural() {
       count,
       translate(
         {
-          id: `theme.blog.post.plurals`,
           description: `Pluralized label for "{count} posts". Use as much plural forms (separated by "|") as your language support (see https://www.unicode.org/cldr/cldr-aux/charts/34/supplemental/language_plural_rules.html)`,
+          id: `theme.blog.post.plurals`,
           message: `One post|{count} posts`,
         },
         {count},
@@ -33,8 +33,8 @@ function useBlogTagsPostsPageTitle(tag) {
   const blogPostsPlural = useBlogPostsPlural()
   return translate(
     {
-      id: `theme.blog.tagTitle`,
       description: `The title of the page for a blog tag`,
+      id: `theme.blog.tagTitle`,
       message: `{nPosts} tagged with "{tagName}"`,
     },
     {nPosts: blogPostsPlural(tag.count), tagName: tag.label},
@@ -49,14 +49,14 @@ function BlogTagsPostsPageMetadata({tag}) {
     </>
   )
 }
-function BlogTagsPostsPageContent({tag, items, sidebar, listMetadata}) {
+function BlogTagsPostsPageContent({items, listMetadata, sidebar, tag}) {
   const title = useBlogTagsPostsPageTitle(tag)
 
   return (
     <Layout>
       <header className="margin-bottom--xl">
         {tag.label?.match(/\d*.\d*/) ? (
-          <Hero title={`bud ${tag.label}`} subtitle="Release notes" />
+          <Hero subtitle="Release notes" title={`bud ${tag.label}`} />
         ) : (
           <h1>{title}</h1>
         )}

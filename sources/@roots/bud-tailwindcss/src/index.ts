@@ -8,8 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import './types/index.js'
-
 import {BudTailwindCss} from './extension/index.js'
+import './types/index.js'
 
 export default BudTailwindCss

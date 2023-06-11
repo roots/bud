@@ -1,13 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
+
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
 export type Parameters = [
-  | Record<string, RegExp | string | Array<string | RegExp>>
   | ((
       externals:
-        | Record<string, RegExp | string | Array<string | RegExp>>
+        | Record<string, Array<RegExp | string> | RegExp | string>
         | undefined,
-    ) => Record<string, RegExp | string | Array<string | RegExp>>),
+    ) => Record<string, Array<RegExp | string> | RegExp | string>)
+  | Record<string, Array<RegExp | string> | RegExp | string>,
 ]
 
 export interface externals {

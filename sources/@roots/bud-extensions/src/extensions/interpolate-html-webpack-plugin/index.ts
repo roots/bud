@@ -1,8 +1,9 @@
+import type {Bud} from '@roots/bud-framework'
+
 import {
   default as InterpolateHtmlWebpackPlugin,
   type Options,
 } from '@roots/bud-extensions/interpolate-html-webpack-plugin/plugin'
-import type {Bud} from '@roots/bud-framework'
 import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   bind,

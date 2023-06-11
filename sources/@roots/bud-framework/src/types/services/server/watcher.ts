@@ -11,24 +11,24 @@ export interface Watcher {
   app: Bud
 
   /**
-   * Instance
-   */
-  instance: FSWatcher
-
-  /**
    * Watch files
    */
   files: Set<string>
 
   /**
-   * Watch options
+   * Instance
    */
-  options: WatchOptions
+  instance: FSWatcher
 
   /**
    * Logger
    */
   logger: any
+
+  /**
+   * Watch options
+   */
+  options: WatchOptions
 
   /**
    * Initialize watch files

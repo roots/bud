@@ -1,8 +1,6 @@
-/* eslint-disable simple-import-sort/imports */
-
 import Link from '@docusaurus/Link'
-import React from 'react'
 import clsx from 'clsx'
+import React from 'react'
 
 import styles from './index.module.css'
 

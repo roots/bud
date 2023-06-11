@@ -25,19 +25,20 @@ export interface purge {
  * @see https://purgecss.com/plugins/postcss.html#options
  */
 export interface Options {
+  blocklist?: Array<RegExp | string>
   content?: Array<
-    | string
     | {
         extension: string
         raw: string
       }
+    | string
   >
   contentFunction?: (sourceFile: string) => Array<
-    | string
     | {
         extension: string
         raw: string
       }
+    | string
   >
   defaultExtractor?: ExtractorFunction
   extractors?: Array<Extractors>
@@ -45,19 +46,18 @@ export interface Options {
   keyframes?: boolean
   output?: string
   rejected?: boolean
+  safelist?:
+    | {
+        deep?: RegExp[]
+        greedy?: RegExp[]
+        keyframes?: Array<RegExp | string>
+        standard?: Array<RegExp | string>
+        variables?: Array<RegExp | string>
+      }
+    | Array<RegExp | string>
   stdin?: boolean
   stdout?: boolean
   variables?: boolean
-  safelist?:
-    | {
-        standard?: Array<RegExp | string>
-        deep?: RegExp[]
-        greedy?: RegExp[]
-        variables?: Array<RegExp | string>
-        keyframes?: Array<RegExp | string>
-      }
-    | Array<RegExp | string>
-  blocklist?: Array<RegExp | string>
 }
 
 export type ExtractorFunction<T = string> = (content: T) => string[]

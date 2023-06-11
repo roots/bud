@@ -1,13 +1,13 @@
-import {isAbsolute} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
+
 import isString from '@roots/bud-support/lodash/isString'
+import {isAbsolute} from 'node:path'
 
 type FromToTuple = [string, string]
 
 export type Parameters = [
-  string | FromToTuple,
+  FromToTuple | string,
   string?,
   Partial<CopyPlugin.ObjectPattern>?,
 ]
@@ -47,10 +47,10 @@ export const copyDir: copyDir = async function copyDir(
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
   (from: string, context: string): CopyPlugin.ObjectPattern => ({
-    from: app.relPath(from),
-    to: app.relPath(from, `@file`),
     context,
+    from: app.relPath(from),
     globOptions: {dot: false},
+    to: app.relPath(from, `@file`),
     ...overrides,
   })
 
@@ -64,9 +64,9 @@ export const fromTupleFactory =
     to: string,
     context: string,
   ): CopyPlugin.ObjectPattern => ({
-    from: app.relPath(from),
-    to: app.relPath(to, `@file`),
     context,
+    from: app.relPath(from),
     globOptions: {dot: false},
+    to: app.relPath(to, `@file`),
     ...overrides,
   })

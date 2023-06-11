@@ -1,3 +1,6 @@
+import type {PluginConfig} from 'svgo'
+import type {StringifyOptions} from 'svgo/lib/types.js'
+
 import {Extension, type Option} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -5,14 +8,14 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import Plugin from 'image-minimizer-webpack-plugin'
-import type {PluginConfig} from 'svgo'
-import type {StringifyOptions} from 'svgo/lib/types.js'
 
 export type EncodeOptions = {
-  /** Pass over SVGs multiple times to ensure all optimizations are applied. */
-  multipass?: boolean
   /** Precision of floating point numbers. Will be passed to each plugin that suppors this param. */
   floatPrecision?: number
+  /** Options for rendering optimized SVG from AST. */
+  js2svg?: StringifyOptions
+  /** Pass over SVGs multiple times to ensure all optimizations are applied. */
+  multipass?: boolean
   /**
    * Plugins configuration
    * ['preset-default'] is default
@@ -22,8 +25,6 @@ export type EncodeOptions = {
    * [{ name: 'myPlugin', fn: () => ({}) }]
    */
   plugins?: PluginConfig[]
-  /** Options for rendering optimized SVG from AST. */
-  js2svg?: StringifyOptions
 }
 export type PathedEncodeOptions = {
   [K in keyof EncodeOptions as `encodeOptions.${K &
@@ -54,20 +55,20 @@ export class BudImageminSvgo extends Extension<Options> {
   /**
    * {@link EncodeOptions}
    */
-  public declare setEncodeOptions: Option<
-    BudImageminSvgo,
-    Options,
-    'encodeOptions'
-  >['set']
-
-  /**
-   * {@link EncodeOptions}
-   */
   public declare getEncodeOptions: Option<
     BudImageminSvgo,
     Options,
     'encodeOptions'
   >['get']
+
+  /**
+   * {@link EncodeOptions}
+   */
+  public declare setEncodeOptions: Option<
+    BudImageminSvgo,
+    Options,
+    'encodeOptions'
+  >['set']
 
   /**
    * {@link Extension.configAfter}
@@ -78,9 +79,9 @@ export class BudImageminSvgo extends Extension<Options> {
       hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
         ...minimizer,
         imagemin.makePluginInstance({
-          test: hooks.filter(`pattern.svg`),
           implementation: Plugin.svgoMinify,
           options: this.options,
+          test: hooks.filter(`pattern.svg`),
         }),
       ])
   }

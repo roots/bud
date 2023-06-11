@@ -1,5 +1,3 @@
-import {join} from 'node:path'
-
 import {type Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -8,6 +6,7 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import merge from '@roots/bud-support/lodash/merge'
+import {join} from 'node:path'
 
 import {BudJSCApi, type BudJSCPublicInterface} from './jsc.js'
 import {BudSWCApi, type BudSWCPublicInterface} from './options.js'
@@ -19,14 +18,40 @@ import {BudSWCApi, type BudSWCPublicInterface} from './options.js'
 @expose(`swc`)
 class BudSWC extends BudSWCApi {
   /**
+   * Ecmascript specific configuration
+   */
+  public declare ecmascript: BudJSCPublicInterface
+
+  /**
    * Typescript specific configuration
    */
   public declare typescript: BudJSCPublicInterface
 
   /**
-   * Ecmascript specific configuration
+   * {@link Extension.boot}
    */
-  public declare ecmascript: BudJSCPublicInterface
+  @bind
+  public override async boot({build, hooks, path, when}) {
+    build.getRule(`js`).setUse(() => [`swc-ecmascript`])
+
+    when(
+      `ts` in build.rules,
+      ({build}) => build.getRule(`ts`).setUse(() => [`swc-typescript`]),
+      ({build, hooks}) =>
+        build.setRule(`ts`, {
+          include: [({path}) => path(`@src`)],
+          resolve: {
+            fullySpecified: false,
+          },
+          test: hooks.filter(`pattern.ts`, /\.tsx?$/),
+          use: [`swc-typescript`],
+        }),
+    )
+
+    hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+      extensions.add(`.ts`).add(`.jsx`).add(`.tsx`).add(`.mts`),
+    )
+  }
 
   /**
    * {@link Extension.register}
@@ -37,8 +62,8 @@ class BudSWC extends BudSWCApi {
     if (!loader) throw new Error(`@roots/bud-swc: swc-loader not found`)
 
     this.ecmascript = new BudJSCApi(bud).setParser({
-      syntax: `ecmascript`,
       jsx: true,
+      syntax: `ecmascript`,
     })
 
     this.typescript = new BudJSCApi(bud).setParser({
@@ -87,32 +112,6 @@ class BudSWC extends BudSWCApi {
       const swcrc = bud.fs.json.parse(await bud.fs.read(swcrcPath))
       if (swcrc) this.setOptions(swcrc)
     }
-  }
-
-  /**
-   * {@link Extension.boot}
-   */
-  @bind
-  public override async boot({build, hooks, path, when}) {
-    build.getRule(`js`).setUse(() => [`swc-ecmascript`])
-
-    when(
-      `ts` in build.rules,
-      ({build}) => build.getRule(`ts`).setUse(() => [`swc-typescript`]),
-      ({build, hooks}) =>
-        build.setRule(`ts`, {
-          include: [({path}) => path(`@src`)],
-          test: hooks.filter(`pattern.ts`, /\.tsx?$/),
-          use: [`swc-typescript`],
-          resolve: {
-            fullySpecified: false,
-          },
-        }),
-    )
-
-    hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
-      extensions.add(`.ts`).add(`.jsx`).add(`.tsx`).add(`.mts`),
-    )
   }
 }
 

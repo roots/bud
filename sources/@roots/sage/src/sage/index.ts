@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
@@ -36,13 +37,13 @@ class Sage extends Extension {
   public override async register(bud: Bud) {
     bud
       .setPath({
-        '@src': `resources`,
+        '@dist': `public`,
         '@fonts': `@src/fonts`,
         '@images': `@src/images`,
         '@scripts': `@src/scripts`,
+        '@src': `resources`,
         '@styles': `@src/styles`,
         '@views': `@src/views`,
-        '@dist': `public`,
       })
       .when(
         bud.isProduction,

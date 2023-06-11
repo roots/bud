@@ -2,23 +2,23 @@ export * from 'ink'
 export {default as Spinner} from 'ink-spinner'
 export {default as TextInput} from 'ink-text-input'
 export {
+  createContext,
   default as React,
+  forwardRef,
+  memo,
   useCallback,
   useContext,
   useDebugValue,
-  useEffect,
-  useLayoutEffect,
   useDeferredValue,
+  useEffect,
   useId,
   useImperativeHandle,
   useInsertionEffect,
+  useLayoutEffect,
   useMemo,
   useReducer,
   useRef,
   useState,
   useSyncExternalStore,
   useTransition,
-  createContext,
-  forwardRef,
-  memo,
 } from 'react'

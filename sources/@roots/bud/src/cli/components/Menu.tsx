@@ -67,7 +67,7 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
     <Box flexDirection="column" marginTop={1}>
       {options.map(([option, description, command], index) => {
         return (
-          <Text key={index} color={selected === index ? `blue` : `white`}>
+          <Text color={selected === index ? `blue` : `white`} key={index}>
             {selected === index ? figures.radioOn : figures.radioOff}
             {`  `}
             {option}

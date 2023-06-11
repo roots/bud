@@ -5,24 +5,24 @@ import {color} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
-  indent,
   final,
+  indent,
   minWidth,
   ...chunk
 }: {
-  name?: string
-  assetsSize?: number
   assets?: Array<any>
-  indent: Array<boolean>
-  final: boolean
-  minWidth?: number
-  emitted?: boolean
+  assetsSize?: number
   cached?: boolean
+  emitted?: boolean
+  final: boolean
+  indent: Array<boolean>
+  minWidth?: number
+  name?: string
 }) => {
   return (
     <Ink.Box flexDirection="column">
       <Ink.Box flexDirection="row">
-        <Title indent={indent} final={final}>
+        <Title final={final} indent={indent}>
           <Ink.Text color={color.foregroundColor}>
             {chunk.name ?? ``}
           </Ink.Text>
@@ -33,9 +33,9 @@ const ChunkGroup = ({
         <Asset
           key={index}
           {...asset}
-          minWidth={minWidth}
           final={index == chunk.assets?.length - 1}
           indent={[true, !final]}
+          minWidth={minWidth}
         />
       ))}
     </Ink.Box>

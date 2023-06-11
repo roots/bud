@@ -12,5 +12,5 @@ export const isPnpm = (bud: Bud) =>
   bud.context.files?.[`pnpm-lock.yaml`] ||
   bud.context.manifest?.packageManager?.includes(`pnpm`)
 
-export const detectPackageManager = (bud: Bud): `yarn` | `npm` | false =>
+export const detectPackageManager = (bud: Bud): `npm` | `yarn` | false =>
   isYarn(bud) ? `yarn` : isNpm(bud) ? `npm` : false

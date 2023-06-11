@@ -1,5 +1,6 @@
 import type {Bud, Loaders} from '@roots/bud-framework'
 import type * as Build from '@roots/bud-framework/services/build'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
 import {basename} from 'path'
@@ -21,7 +22,7 @@ class Item extends Base implements Build.Item {
   /**
    * Loader
    */
-  public loader: Loader | `${keyof Loaders & string}`
+  public loader: `${keyof Loaders & string}` | Loader
 
   /**
    * Loader options
@@ -35,7 +36,7 @@ class Item extends Base implements Build.Item {
     public override _app: () => Bud,
     constructorParams?: {
       ident?: string
-      loader?: Loader | `${keyof Loaders & string}`
+      loader?: `${keyof Loaders & string}` | Loader
       options?: Item['options']
     },
   ) {
@@ -61,12 +62,6 @@ class Item extends Base implements Build.Item {
     return this.ident
   }
 
-  @bind
-  public setIdent(ident: Build.Item['ident']): this {
-    this.ident = ident
-    return this
-  }
-
   /**
    * Get rule set item loader
    */
@@ -78,33 +73,11 @@ class Item extends Base implements Build.Item {
   }
 
   /**
-   * Set rule set item loader
-   */
-  @bind
-  public setLoader(loader: Loader | `${keyof Loaders & string}`): this {
-    this.loader = loader
-
-    if (!this.ident)
-      this.setIdent(basename(isString(loader) ? loader : loader.getSrc()))
-
-    return this
-  }
-
-  /**
    * Get rule set item options
    */
   @bind
   public getOptions(): Item['options'] {
     return this.unwrap(this.options)
-  }
-
-  /**
-   * Set rule set item options
-   */
-  @bind
-  public setOptions(options: Item['options']) {
-    this.options = options
-    return this
   }
 
   /**
@@ -117,6 +90,34 @@ class Item extends Base implements Build.Item {
       ...options,
     })
 
+    return this
+  }
+
+  @bind
+  public setIdent(ident: Build.Item['ident']): this {
+    this.ident = ident
+    return this
+  }
+
+  /**
+   * Set rule set item loader
+   */
+  @bind
+  public setLoader(loader: `${keyof Loaders & string}` | Loader): this {
+    this.loader = loader
+
+    if (!this.ident)
+      this.setIdent(basename(isString(loader) ? loader : loader.getSrc()))
+
+    return this
+  }
+
+  /**
+   * Set rule set item options
+   */
+  @bind
+  public setOptions(options: Item['options']) {
+    this.options = options
     return this
   }
 

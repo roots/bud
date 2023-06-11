@@ -1,5 +1,6 @@
-import isString from '@roots/bud-support/lodash/isString'
 import type {Theme} from '@roots/bud-wordpress-theme-json'
+
+import isString from '@roots/bud-support/lodash/isString'
 
 export type WordPressColors =
   Theme.SettingsAndStyles['settings']['color']['palette']
@@ -33,9 +34,9 @@ export interface transformEntry {
   (slug: Array<string>, color: string): WordPressColors[any]
 }
 export const transformEntry: transformEntry = (slug, color) => ({
+  color: color.toLowerCase(),
   name: name(slug),
   slug: slug.join(`-`).toLowerCase(),
-  color: color.toLowerCase(),
 })
 
 /**

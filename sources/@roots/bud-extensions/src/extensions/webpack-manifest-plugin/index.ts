@@ -1,3 +1,5 @@
+import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   expose,
@@ -6,7 +8,6 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import Value from '@roots/bud-support/value'
-import type {Options} from '@roots/bud-support/webpack-manifest-plugin'
 import {Plugin} from '@roots/bud-support/webpack-manifest-plugin'
 
 /**

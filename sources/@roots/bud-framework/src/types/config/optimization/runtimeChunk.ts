@@ -1,5 +1,5 @@
 export type RuntimeChunk =
-  | boolean
-  | 'single'
   | 'multiple'
-  | {name?: string | Function}
+  | 'single'
+  | {name?: Function | string}
+  | boolean

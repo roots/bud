@@ -23,7 +23,7 @@ export const Doctor = ({name, timings}) => {
 
 const Process = () => {
   return (
-    <Ink.Box marginTop={1} flexDirection="column">
+    <Ink.Box flexDirection="column" marginTop={1}>
       <Ink.Text color="blue">Checking system requirements{`\n`}</Ink.Text>
 
       <Ink.Box flexDirection="column">

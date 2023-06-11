@@ -8,8 +8,7 @@
  * @see {@link https://github.com/roots/bud}
  */
 
-import './types.js'
-
 import Cache from './service/index.js'
+import './types.js'
 
 export default Cache

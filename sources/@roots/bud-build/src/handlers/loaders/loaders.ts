@@ -1,4 +1,5 @@
 import type {Loader} from '@roots/bud-framework/services/build'
+
 import * as MiniCss from '@roots/bud-support/mini-css-extract-plugin'
 
 import type {Factory} from '../index.js'

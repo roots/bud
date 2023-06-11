@@ -1,8 +1,7 @@
-import {join} from 'node:path'
-
+import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
-import {Command, Option} from '@roots/bud-support/clipanion'
+import {join} from 'node:path'
 
 /**
  * Bud stylelint command

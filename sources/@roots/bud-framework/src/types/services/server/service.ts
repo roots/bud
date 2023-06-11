@@ -32,9 +32,14 @@ export interface Server extends Service {
   application: Application & {set: any; use: any}
 
   /**
-   * Express instance
+   * Instantiated middleware
    */
-  connection: Connection
+  appliedMiddleware: Partial<Record<keyof Middleware.Available, any>>
+
+  /**
+   * Apply middleware
+   */
+  applyMiddleware: any
 
   /**
    * Available middleware
@@ -42,34 +47,19 @@ export interface Server extends Service {
   availableMiddleware: Record<keyof Middleware.Available, any>
 
   /**
+   * Express instance
+   */
+  connection: Connection
+
+  /**
    * Instantiated middleware
    */
   enabledMiddleware: Partial<Record<keyof Middleware.Available, any>>
 
   /**
-   * Instantiated middleware
+   * Inject client scripts
    */
-  appliedMiddleware: Partial<Record<keyof Middleware.Available, any>>
-
-  /**
-   * Watcher instance
-   */
-  watcher: Watcher
-
-  /**
-   * Run server
-   */
-  run: () => Promise<void>
-
-  /**
-   * Development server URL
-   */
-  url: URL
-
-  /**
-   * External development server URL
-   */
-  publicUrl: URL
+  injectScripts: any
 
   /**
    * Proxy development server URL
@@ -82,17 +72,27 @@ export interface Server extends Service {
   publicProxyUrl: URL
 
   /**
+   * External development server URL
+   */
+  publicUrl: URL
+
+  /**
+   * Run server
+   */
+  run: () => Promise<void>
+
+  /**
    * Set server connection
    */
   setConnection: (connection?: Connection) => Promise<Connection>
 
   /**
-   * Inject client scripts
+   * Development server URL
    */
-  injectScripts: any
+  url: URL
 
   /**
-   * Apply middleware
+   * Watcher instance
    */
-  applyMiddleware: any
+  watcher: Watcher
 }

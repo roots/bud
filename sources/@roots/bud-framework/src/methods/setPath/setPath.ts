@@ -1,16 +1,16 @@
-import {isAbsolute} from 'node:path'
-
 import {InputError} from '@roots/bud-support/errors'
+import {isAbsolute} from 'node:path'
 
 import type {Bud} from '../../index.js'
 import type {SyncRegistry} from '../../types/registry/index.js'
+
 import * as isType from './isType.js'
 import * as validate from './validate.js'
 
 export type Parameters =
-  | [string]
-  | [string, string]
   | [Record<string, string>]
+  | [string, string]
+  | [string]
 
 export interface setPath {
   (...parameters: Parameters): Bud
@@ -72,9 +72,9 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
 
   throw new InputError(`Invalid parameters passed to bud.setPath`, {
     props: {
+      docs: new URL(`https://bud.js.org/docs/bud.setPath`),
       isBudError: true,
       thrownBy: `bud.setPath`,
-      docs: new URL(`https://bud.js.org/docs/bud.setPath`),
     },
   })
 }
@@ -91,7 +91,7 @@ const makeCallback =
     bud.hooks
       .on(`location.${key}` as keyof SyncRegistry, normal)
       .log(`${key} set to ${normal}`)
-      .info({key, value, normal})
+      .info({key, normal, value})
 
     bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
       ...paths,

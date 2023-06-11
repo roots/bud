@@ -1,3 +1,15 @@
+import type {Context} from '@roots/bud-framework/options/context'
+import type {BaseContext} from '@roots/bud-support/clipanion'
+
+import {Console} from '@roots/bud-dashboard/console'
+import {Bud} from '@roots/bud-framework'
+import {Command, Option} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError, BudHandler} from '@roots/bud-support/errors'
+import {Box, render, Static} from '@roots/bud-support/ink'
+import isString from '@roots/bud-support/lodash/isString'
+import omit from '@roots/bud-support/lodash/omit'
+import logger from '@roots/bud-support/logger'
 import basedir from '@roots/bud/cli/flags/basedir'
 import color from '@roots/bud/cli/flags/color'
 import debug from '@roots/bud/cli/flags/debug'
@@ -12,23 +24,13 @@ import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instances from '@roots/bud/instances'
-import {Console} from '@roots/bud-dashboard/console'
-import {Bud} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/options/context'
-import type {BaseContext} from '@roots/bud-support/clipanion'
-import {Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, BudHandler} from '@roots/bud-support/errors'
-import {Box, render, Static} from '@roots/bud-support/ink'
-import isString from '@roots/bud-support/lodash/isString'
-import omit from '@roots/bud-support/lodash/omit'
-import logger from '@roots/bud-support/logger'
+
+import type {CLIContext} from '../index.js'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
 import {WinError} from '../components/WinError.js'
 import {isWindows} from '../helpers/isWindows.js'
-import type {CLIContext} from '../index.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -37,28 +39,6 @@ export {Option}
  * Bud command
  */
 export default class BudCommand extends Command<CLIContext> {
-  /**
-   * Bud instance
-   */
-  public declare bud?: Bud | undefined
-
-  /**
-   * Binary (node, ts-node, bun)
-   *
-   * @remarks
-   * String like `node`, `ts-node`, or `bun`. For executing child
-   * processes with the same binary as the parent.
-   */
-  public get bin() {
-    // eslint-disable-next-line n/no-process-env
-    return process.env.BUD_JS_BIN
-  }
-
-  /**
-   * {@link Command.context}
-   */
-  public declare context: CLIContext
-
   /**
    * {@link Command.paths}
    */
@@ -76,6 +56,38 @@ export default class BudCommand extends Command<CLIContext> {
     `,
     examples: [[`compile source assets`, `$0 build`]],
   })
+
+  public basedir = basedir
+
+  /**
+   * Bud instance
+   */
+  public declare bud?: Bud | undefined
+
+  public color = color
+
+  /**
+   * {@link Command.context}
+   */
+  public declare context: CLIContext
+
+  public debug = debug
+
+  public dry = dry
+
+  public filter = filter
+
+  public log = log
+
+  public mode = mode
+
+  public notify = notify
+
+  public render = render
+
+  public silent = silent
+
+  public verbose = verbose
 
   /**
    * withContext
@@ -97,94 +109,6 @@ export default class BudCommand extends Command<CLIContext> {
     context: Context,
   ) => Promise<Context>
 
-  public basedir = basedir
-
-  public color = color
-
-  public dry = dry
-
-  public silent = silent
-
-  public debug = debug
-
-  public filter = filter
-
-  public log = log
-
-  public mode = mode
-
-  public notify = notify
-
-  public verbose = verbose
-
-  public render = render
-
-  public async renderStatic(...children: Array<React.ReactElement>) {
-    return render(
-      <Static items={children}>
-        {(child, id) => <Box key={id}>{child}</Box>}
-      </Static>,
-    ).unmount()
-  }
-
-  public async makeBud() {
-    const context = {
-      basedir: this.basedir,
-      color: this.color,
-      dry: this.dry,
-      debug: this.debug,
-      filter: this.filter,
-      log: this.log,
-      mode: this.mode,
-      notify: this.notify,
-      silent: this.silent,
-      target: this.filter,
-      verbose: this.verbose,
-      ...omit(this.context, [`stdin`, `stdout`, `stderr`, `colorDepth`]),
-    }
-
-    Object.assign(
-      this.context,
-      this.withContext ? await this.withContext(context) : context,
-    )
-    await import(`../env.${this.context.mode}.js`)
-
-    this.bud = instances.get()
-
-    logger.info(`bud.js configured with`, context)
-
-    try {
-      await this.bud.lifecycle(
-        omit(this.context, [
-          `stdin`,
-          `stdout`,
-          `stderr`,
-          `colorDepth`,
-        ]) as Context,
-      )
-    } catch (error) {
-      if (error.isBudError) throw error
-      throw BudError.normalize(error)
-    }
-
-    this.bud.hooks.action(`build.before`, async bud => {
-      await this.applyBudEnv(bud)
-      await bud.api.processQueue()
-    })
-
-    await Promise.all([
-      this.applyBudEnv(this.bud),
-      this.applyBudManifestOptions(this.bud),
-      this.applyBudArguments(this.bud),
-    ])
-
-    await this.bud.processConfigs()
-
-    await this.applyBudArguments(this.bud)
-
-    return this.bud
-  }
-
   /**
    * Execute arbitrary sh command with inherited stdio
    */
@@ -198,70 +122,6 @@ export default class BudCommand extends Command<CLIContext> {
       stdio: `inherit`,
       ...options,
     })
-  }
-
-  /**
-   * Check bud.js system and environment requirements are met
-   */
-  @bind
-  public async healthcheck(_bud: any) {
-    try {
-      checkPackageManagerErrors(this.bud)
-      await checkDependencies(this.bud)
-    } catch (e) {}
-  }
-
-  /**
-   * Apply context from env to bud.js instance
-   */
-  @bind
-  public async applyBudEnv(bud: Bud) {
-    bud
-      .when(bud.env.isString(`APP_MODE`), ({hooks}) =>
-        hooks.on(`build.mode`, bud.env.get(`APP_MODE`)),
-      )
-      .when(
-        bud.env.isString(`APP_BASE_PATH`),
-        bud => (bud.context.basedir = bud.env.get(`APP_BASE_PATH`)),
-      )
-      .when(bud.env.isString(`APP_PUBLIC_PATH`), ({hooks}) =>
-        hooks.on(
-          `build.output.publicPath`,
-          bud.env.get(`APP_PUBLIC_PATH`),
-        ),
-      )
-      .when(bud.env.isString(`APP_SRC_PATH`), ({hooks}) =>
-        hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`)),
-      )
-      .when(bud.env.isString(`APP_DIST_PATH`), ({hooks}) =>
-        hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`)),
-      )
-      .when(bud.env.isString(`APP_STORAGE_PATH`), ({hooks}) =>
-        hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`)),
-      )
-  }
-
-  /**
-   * Apply context from manifest to bud.js instance
-   */
-  @bind
-  public async applyBudManifestOptions(bud: Bud) {
-    const {bud: manifest} = bud.context.manifest
-    if (!manifest) return
-
-    bud
-      .when(isset(manifest.publicPath), bud =>
-        bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath),
-      )
-      .when(isset(manifest.paths?.src), bud =>
-        bud.hooks.on(`location.@src`, manifest.bud.paths.src),
-      )
-      .when(isset(manifest.paths?.dist), bud =>
-        bud.hooks.on(`location.@dist`, manifest.bud.paths.dist),
-      )
-      .when(isset(manifest.paths?.storage), bud =>
-        bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
-      )
   }
 
   /**
@@ -388,10 +248,68 @@ export default class BudCommand extends Command<CLIContext> {
   }
 
   /**
-   * {@link Command.execute}
+   * Apply context from env to bud.js instance
    */
-  public async execute() {
-    this.render(<Menu cli={this.cli} />)
+  @bind
+  public async applyBudEnv(bud: Bud) {
+    bud
+      .when(bud.env.isString(`APP_MODE`), ({hooks}) =>
+        hooks.on(`build.mode`, bud.env.get(`APP_MODE`)),
+      )
+      .when(
+        bud.env.isString(`APP_BASE_PATH`),
+        bud => (bud.context.basedir = bud.env.get(`APP_BASE_PATH`)),
+      )
+      .when(bud.env.isString(`APP_PUBLIC_PATH`), ({hooks}) =>
+        hooks.on(
+          `build.output.publicPath`,
+          bud.env.get(`APP_PUBLIC_PATH`),
+        ),
+      )
+      .when(bud.env.isString(`APP_SRC_PATH`), ({hooks}) =>
+        hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`)),
+      )
+      .when(bud.env.isString(`APP_DIST_PATH`), ({hooks}) =>
+        hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`)),
+      )
+      .when(bud.env.isString(`APP_STORAGE_PATH`), ({hooks}) =>
+        hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`)),
+      )
+  }
+
+  /**
+   * Apply context from manifest to bud.js instance
+   */
+  @bind
+  public async applyBudManifestOptions(bud: Bud) {
+    const {bud: manifest} = bud.context.manifest
+    if (!manifest) return
+
+    bud
+      .when(isset(manifest.publicPath), bud =>
+        bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath),
+      )
+      .when(isset(manifest.paths?.src), bud =>
+        bud.hooks.on(`location.@src`, manifest.bud.paths.src),
+      )
+      .when(isset(manifest.paths?.dist), bud =>
+        bud.hooks.on(`location.@dist`, manifest.bud.paths.dist),
+      )
+      .when(isset(manifest.paths?.storage), bud =>
+        bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
+      )
+  }
+
+  /**
+   * Binary (node, ts-node, bun)
+   *
+   * @remarks
+   * String like `node`, `ts-node`, or `bun`. For executing child
+   * processes with the same binary as the parent.
+   */
+  public get bin() {
+    // eslint-disable-next-line n/no-process-env
+    return process.env.BUD_JS_BIN
   }
 
   /**
@@ -408,10 +326,10 @@ export default class BudCommand extends Command<CLIContext> {
     if (this.bud?.notifier?.notify) {
       try {
         this.bud.notifier.notify({
-          title: this.bud.label ?? `bud.js`,
-          subtitle: error?.name ?? `Error`,
-          message: error?.message,
           group: this.bud.label,
+          message: error?.message,
+          subtitle: error?.name ?? `Error`,
+          title: this.bud.label ?? `bud.js`,
         })
       } catch (error) {}
     }
@@ -436,5 +354,89 @@ export default class BudCommand extends Command<CLIContext> {
         global.process.stderr.write(err.message.concat(`\n`))
       if (this.bud.isProduction) global.process.exit(1)
     }
+  }
+
+  /**
+   * {@link Command.execute}
+   */
+  public async execute() {
+    this.render(<Menu cli={this.cli} />)
+  }
+
+  /**
+   * Check bud.js system and environment requirements are met
+   */
+  @bind
+  public async healthcheck(_bud: any) {
+    try {
+      checkPackageManagerErrors(this.bud)
+      await checkDependencies(this.bud)
+    } catch (e) {}
+  }
+
+  public async makeBud() {
+    const context = {
+      basedir: this.basedir,
+      color: this.color,
+      debug: this.debug,
+      dry: this.dry,
+      filter: this.filter,
+      log: this.log,
+      mode: this.mode,
+      notify: this.notify,
+      silent: this.silent,
+      target: this.filter,
+      verbose: this.verbose,
+      ...omit(this.context, [`stdin`, `stdout`, `stderr`, `colorDepth`]),
+    }
+
+    Object.assign(
+      this.context,
+      this.withContext ? await this.withContext(context) : context,
+    )
+    await import(`../env.${this.context.mode}.js`)
+
+    this.bud = instances.get()
+
+    logger.info(`bud.js configured with`, context)
+
+    try {
+      await this.bud.lifecycle(
+        omit(this.context, [
+          `stdin`,
+          `stdout`,
+          `stderr`,
+          `colorDepth`,
+        ]) as Context,
+      )
+    } catch (error) {
+      if (error.isBudError) throw error
+      throw BudError.normalize(error)
+    }
+
+    this.bud.hooks.action(`build.before`, async bud => {
+      await this.applyBudEnv(bud)
+      await bud.api.processQueue()
+    })
+
+    await Promise.all([
+      this.applyBudEnv(this.bud),
+      this.applyBudManifestOptions(this.bud),
+      this.applyBudArguments(this.bud),
+    ])
+
+    await this.bud.processConfigs()
+
+    await this.applyBudArguments(this.bud)
+
+    return this.bud
+  }
+
+  public async renderStatic(...children: Array<React.ReactElement>) {
+    return render(
+      <Static items={children}>
+        {(child, id) => <Box key={id}>{child}</Box>}
+      </Static>,
+    ).unmount()
   }
 }

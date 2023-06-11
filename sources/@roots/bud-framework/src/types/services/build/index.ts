@@ -6,9 +6,9 @@ import type {Base} from './base.js'
 import type {Item} from './item.js'
 import type {Loader} from './loader.js'
 import type {
+  Rule,
   Options as RuleOptions,
   Output as RuleOutput,
-  Rule,
 } from './rule.js'
 
 /**
@@ -41,29 +41,14 @@ import type {
  */
 export interface Service extends BaseService {
   /**
-   * {@link Loader} instances
-   */
-  loaders: Loaders
-
-  /**
-   * {@link Item} instances
-   */
-  items: Items
-
-  /**
-   * {@link Rule} instances
-   */
-  rules: Rules
-
-  /**
    * Compiler configuration
    */
   config: Configuration
 
   /**
-   * Make {@link Build.config}
+   * Get a {@link Item} instance
    */
-  make(): Promise<Service['config']>
+  getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
 
   /**
    * Set a {@link Loader} instance
@@ -71,12 +56,29 @@ export interface Service extends BaseService {
   getLoader<K extends `${keyof Loaders & string}`>(name: K): Loaders[K]
 
   /**
-   * Set a {@link Loader} instance
+   * Get a {@link Rule} instance
    */
-  setLoader<K extends `${keyof Loaders & string}`>(
-    name: K,
-    definition?: any,
-  ): this
+  getRule<K extends `${keyof Rules & string}`>(name: K): Rules[K]
+
+  /**
+   * {@link Item} instances
+   */
+  items: Items
+
+  /**
+   * {@link Loader} instances
+   */
+  loaders: Loaders
+
+  /**
+   * Make {@link Build.config}
+   */
+  make(): Promise<Service['config']>
+
+  /**
+   * Make a new {@link Item} instance
+   */
+  makeItem(options?: Partial<Item['options']>): Item
 
   /**
    * Make a {@link Loader} instance
@@ -84,27 +86,14 @@ export interface Service extends BaseService {
   makeLoader(name: string, definition?: string): Loader
 
   /**
-   * Get a {@link Rule} instance
-   */
-  getRule<K extends `${keyof Rules & string}`>(name: K): Rules[K]
-
-  /**
-   * Set a {@link Rule} instance
-   */
-  setRule<K extends `${keyof Rules & string}`>(
-    name: K,
-    options?: RuleOptions | Rule,
-  ): this
-
-  /**
    * Make a new {@link Rule} instance
    */
   makeRule(options?: Partial<RuleOptions> | RuleOutput): Rule
 
   /**
-   * Get a {@link Item} instance
+   * {@link Rule} instances
    */
-  getItem<K extends `${keyof Items & string}`>(name: K): Items[K]
+  rules: Rules
 
   /**
    * Set a {@link Item} instance
@@ -115,9 +104,20 @@ export interface Service extends BaseService {
   ): this
 
   /**
-   * Make a new {@link Item} instance
+   * Set a {@link Loader} instance
    */
-  makeItem(options?: Partial<Item['options']>): Item
+  setLoader<K extends `${keyof Loaders & string}`>(
+    name: K,
+    definition?: any,
+  ): this
+
+  /**
+   * Set a {@link Rule} instance
+   */
+  setRule<K extends `${keyof Rules & string}`>(
+    name: K,
+    options?: Rule | RuleOptions,
+  ): this
 }
 
 export type {Base, Item, Loader, Rule}

@@ -2,9 +2,9 @@
 /// <reference types="@roots/bud-swc" />
 /// <reference types="@roots/bud-typescript" />
 
-import '@roots/bud/types'
 import '@roots/bud-babel/types'
 import '@roots/bud-postcss/types'
+import '@roots/bud/types'
 
 import type BudPresetRecommend from './extension.js'
 

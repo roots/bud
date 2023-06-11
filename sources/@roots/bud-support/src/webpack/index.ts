@@ -3,9 +3,9 @@ export {default} from 'webpack'
 export {
   type AssetInfo,
   type Chunk,
-  type Configuration,
   type Compilation,
   type Compiler,
+  type Configuration,
   type DefinePlugin,
   type HotModuleReplacementPlugin,
   type MultiCompiler,

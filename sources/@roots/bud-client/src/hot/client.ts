@@ -36,9 +36,9 @@ export const client = async (
 
   if (typeof window.bud === `undefined`) {
     window.bud = {
+      controllers: [],
       current: {},
       hmr: {},
-      controllers: [],
       listeners: {},
     }
   }
@@ -96,12 +96,12 @@ export const client = async (
   const update = async () => {
     try {
       await webpackHot.apply({
-        ignoreUnaccepted: true,
         ignoreDeclined: true,
         ignoreErrored: true,
+        ignoreUnaccepted: true,
+        onDeclined: onUnacceptedOrDeclined,
         onErrored,
         onUnaccepted: onUnacceptedOrDeclined,
-        onDeclined: onUnacceptedOrDeclined,
       })
 
       if (!isStale()) await check()

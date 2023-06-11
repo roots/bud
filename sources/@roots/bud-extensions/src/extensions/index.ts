@@ -18,6 +18,7 @@ export {
   BudESM,
   BudFixStyleOnlyEntrypoints,
   BudTsConfigValues,
+  BudWebpackLifecyclePlugin,
   CleanWebpackPlugin,
   CopyWebpackPlugin,
   HtmlWebpackPlugin,
@@ -25,7 +26,6 @@ export {
   MiniCssExtractPlugin,
   WebpackDefinePlugin,
   WebpackHotModuleReplacementPlugin,
-  BudWebpackLifecyclePlugin,
   WebpackManifestPlugin,
   WebpackProvidePlugin,
 }
