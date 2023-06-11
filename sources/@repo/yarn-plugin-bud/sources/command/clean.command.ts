@@ -19,18 +19,19 @@ export class Clean extends Command {
       `Finding files to remove`,
       `Found files to remove`,
       `No files to remove`,
-      globby([
-        path(`node_modules`),
-        path(`sources/@roots/*/lib`),
-        path(`sources/@roots/*/node_modules`),
-        path(`sources/@roots/*/node_modules`),
-        path(`sources/@roots/*/node_modules`),
-        path(`sources/@roots/*/tsconfig.tsbuildinfo`),
-        path(`storage/mocks`),
-        path(`storage/packages`),
-        path(`storage/yarn`),
-        path(`storage/.verdaccio-db.json`),
-      ]),
+      globby(
+        [
+          path(`node_modules`),
+          path(`sources/**/lib`),
+          path(`sources/**/node_modules`),
+          path(`sources/**/tsconfig.tsbuildinfo`),
+          path(`storage/mocks`),
+          path(`storage/packages`),
+          path(`storage/yarn`),
+          path(`storage/.verdaccio-db.json`),
+        ],
+        {absolute: true},
+      ),
     )
 
     await this.promise(
