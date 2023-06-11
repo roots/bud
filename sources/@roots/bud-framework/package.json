@@ -51,98 +51,29 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./bud": {
-      "import": "./lib/bud.js",
-      "default": "./lib/bud.js"
-    },
-    "./extension": {
-      "import": "./lib/extension/index.js",
-      "default": "./lib/extension/index.js"
-    },
-    "./extension/decorators": {
-      "import": "./lib/extension/decorators/index.js",
-      "default": "./lib/extension/decorators/index.js"
-    },
-    "./extension/decorators/*": {
-      "import": "./lib/extension/decorators/*.js",
-      "default": "./lib/extension/decorators/*.js"
-    },
-    "./methods/*": {
-      "import": "./lib/methods/*.js",
-      "default": "./lib/methods/*.js"
-    },
-    "./methods": {
-      "import": "./lib/methods/index.js",
-      "default": "./lib/methods/index.js"
-    },
-    "./module": {
-      "import": "./lib/module.js",
-      "default": "./lib/module.js"
-    },
-    "./options": {
-      "import": "./lib/types/options/index.js",
-      "default": "./lib/types/options/index.js"
-    },
-    "./config": {
-      "import": "./lib/types/config/index.js",
-      "default": "./lib/types/config/index.js"
-    },
-    "./options/*": {
-      "import": "./lib/types/options/*.js",
-      "default": "./lib/types/options/*.js"
-    },
-    "./registry": {
-      "import": "./lib/types/registry/index.js",
-      "default": "./lib/types/registry/index.js"
-    },
-    "./registry/*": {
-      "import": "./lib/types/registry/*.js",
-      "default": "./lib/types/registry/*.js"
-    },
-    "./service": {
-      "import": "./lib/service.js",
-      "default": "./lib/service.js"
-    },
-    "./services": {
-      "import": "./lib/types/services/index.js",
-      "default": "./lib/types/services/index.js"
-    },
-    "./services/api": {
-      "import": "./lib/services/api.js",
-      "default": "./lib/services/api.js"
-    },
-    "./services/console": {
-      "import": "./lib/services/console.js",
-      "default": "./lib/services/console.js"
-    },
-    "./services/fs": {
-      "import": "./lib/services/fs.js",
-      "default": "./lib/services/fs.js"
-    },
-    "./services/notifier": {
-      "import": "./lib/services/notifier/index.js",
-      "default": "./lib/services/notifier/index.js"
-    },
-    "./services/build/*": {
-      "import": "./lib/types/services/build/*.js",
-      "default": "./lib/types/services/build/*.js"
-    },
-    "./services/*": {
-      "import": "./lib/types/services/*.js",
-      "default": "./lib/types/services/*/index.js"
-    },
-    "./value": {
-      "import": "./lib/value.js",
-      "default": "./lib/value.js"
-    },
-    "./*": {
-      "import": "./lib/*/index.js",
-      "default": "./lib/*/index.js"
-    }
+    ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
+    "./extension": "./lib/extension/index.js",
+    "./extension/decorators": "./lib/extension/decorators/index.js",
+    "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./methods/*": "./lib/methods/*.js",
+    "./methods": "./lib/methods/index.js",
+    "./module": "./lib/module.js",
+    "./options": "./lib/types/options/index.js",
+    "./config": "./lib/types/config/index.js",
+    "./options/*": "./lib/types/options/*.js",
+    "./registry": "./lib/types/registry/index.js",
+    "./registry/*": "./lib/types/registry/*.js",
+    "./service": "./lib/service.js",
+    "./services": "./lib/types/services/index.js",
+    "./services/api": "./lib/services/api.js",
+    "./services/console": "./lib/services/console.js",
+    "./services/fs": "./lib/services/fs.js",
+    "./services/notifier": "./lib/services/notifier/index.js",
+    "./services/build/*": "./lib/types/services/build/*.js",
+    "./services/*": "./lib/types/services/*/index.js",
+    "./value": "./lib/value.js",
+    "./*": "./lib/*/index.js"
   },
   "typesVersions": {
     "*": {

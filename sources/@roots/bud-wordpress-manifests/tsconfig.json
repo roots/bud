@@ -3,10 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["node", "@roots/bud-framework"]
+    "types": ["node", "@roots/bud-framework", "@roots/bud-wordpress-dependencies", "@roots/bud-wordpress-externals", "@roots/merged-manifest-webpack-plugin"]
   },
   "include": ["src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-wordpress-dependencies/tsconfig.json"},

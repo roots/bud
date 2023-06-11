@@ -15,24 +15,29 @@ export class Clean extends Command {
   }
 
   public async execute() {
-    await this.removeMatchingPaths(
-      `node_modules`,
-      `sources/@roots/*/lib`,
-      `sources/@roots/*/node_modules`,
-      `sources/@roots/*/node_modules`,
-      `sources/@roots/*/node_modules`,
-      `sources/@roots/*/tsconfig.tsbuildinfo`,
-      `storage/mocks`,
-      `storage/packages`,
-      `storage/yarn`,
-      `storage/.verdaccio-db.json`,
+    const paths: Array<string> = await this.promise(
+      `Finding files to remove`,
+      `Found files to remove`,
+      `No files to remove`,
+      globby([
+        path(`node_modules`),
+        path(`sources/@roots/*/lib`),
+        path(`sources/@roots/*/node_modules`),
+        path(`sources/@roots/*/node_modules`),
+        path(`sources/@roots/*/node_modules`),
+        path(`sources/@roots/*/tsconfig.tsbuildinfo`),
+        path(`storage/mocks`),
+        path(`storage/packages`),
+        path(`storage/yarn`),
+        path(`storage/.verdaccio-db.json`),
+      ]),
     )
-  }
 
-  public async removeMatchingPaths(...patterns: Array<string>) {
-    return globby(patterns.map(location => path(location))).then(
-      async paths =>
-        await Promise.all(paths.map(async path => fs.removeAsync(path))),
+    await this.promise(
+      `Removing found files`,
+      `Removed found files`,
+      `No files to remove`,
+      Promise.all(paths.map(async path => await fs.removeAsync(path))),
     )
   }
 }

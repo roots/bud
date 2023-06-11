@@ -67,6 +67,10 @@
       "require": "./lib/html-loader/index.cjs",
       "default": "./lib/html-loader/index.cjs"
     },
+    "./html-webpack-plugin": {
+      "require": "./lib/html-webpack-plugin/index.cjs",
+      "default": "./lib/html-webpack-plugin/index.cjs"
+    },
     "./remark-loader": {
       "require": "./lib/remark-loader/index.cjs",
       "default": "./lib/remark-loader/index.cjs"

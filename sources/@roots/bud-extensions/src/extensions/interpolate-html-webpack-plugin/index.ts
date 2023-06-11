@@ -1,16 +1,15 @@
-import type {
-  InterpolateHtmlWebpackPlugin,
-  Options,
+import {
+  default as InterpolateHtmlWebpackPlugin,
+  type Options,
 } from '@roots/bud-extensions/interpolate-html-webpack-plugin/plugin'
 import type {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
+import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import Value from '@roots/bud-support/value'
 
 export type {Options}
 
@@ -19,7 +18,7 @@ export type {Options}
  */
 @label(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
 @options<Options>({
-  APP_TITLE: Value.make(app => app.label),
+  APP_TITLE: DynamicOption.make(app => app.label),
   NO_SCRIPT: `You need to enable JavaScript to run this app`,
 })
 @disabled

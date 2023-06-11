@@ -1,4 +1,5 @@
 export type {
+  Hooks,
   MinifyOptions,
   Options,
   ProcessedOptions,

@@ -2,15 +2,16 @@
 // Licensed under the MIT license.
 
 /**
- * Wordpress manifests are a JSON representation of assets which will
- * need to be enqueued using WordPress PHP APIs for inclusion in a theme
- * or plugin.
+ * @roots/bud-wordpress-manifests
  *
  * @see https://bud.js.org
-
  */
 
-import './types.js'
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-wordpress-manifests': BudWordPressManifestExtension
+  }
+}
 
 import BudWordPressManifestExtension from './extension.js'
 

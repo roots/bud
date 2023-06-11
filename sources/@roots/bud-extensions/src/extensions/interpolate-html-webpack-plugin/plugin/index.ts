@@ -3,7 +3,7 @@ import type {
   WebpackPluginInstance,
 } from '@roots/bud-framework/config'
 import {bind} from '@roots/bud-support/decorators/bind'
-import type Plugin from '@roots/bud-support/html-webpack-plugin'
+import type {Hooks} from '@roots/bud-support/html-webpack-plugin'
 
 export interface Options {
   [key: string]: RegExp | string
@@ -12,7 +12,7 @@ export interface Options {
 /**
  * Template variable interpolation plugin for webpack
  */
-export class InterpolateHtmlWebpackPlugin {
+class InterpolateHtmlWebpackPlugin {
   /**
    * Plugin name
    */
@@ -22,7 +22,7 @@ export class InterpolateHtmlWebpackPlugin {
    * Class constructor
    */
   public constructor(
-    public getHooks: (...args: any[]) => Plugin.Hooks,
+    public getHooks: (...args: any[]) => Hooks,
     public replacements: Options,
   ) {}
 
@@ -53,3 +53,5 @@ export class InterpolateHtmlWebpackPlugin {
     )
   }
 }
+
+export {InterpolateHtmlWebpackPlugin as default}
