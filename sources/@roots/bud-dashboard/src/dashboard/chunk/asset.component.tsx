@@ -1,8 +1,8 @@
 import type {StatsAsset} from '@roots/bud-framework/config'
+import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
-import {color, size as formatSize} from '../format.js'
 
 interface Props {
   cached?: boolean
@@ -19,7 +19,7 @@ const Asset = ({minWidth, name, size, final, indent}: Props) => {
   return (
     <Title indent={indent} final={final}>
       <Box minWidth={minWidth}>
-        <Text color={color.dim}>{name}</Text>
+        <Text dimColor>{name}</Text>
       </Box>
 
       <Box minWidth={10} justifyContent="flex-end">

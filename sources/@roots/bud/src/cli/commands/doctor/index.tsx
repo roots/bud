@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/dry'
 import {Error} from '@roots/bud-dashboard/app'
 import type {Extension} from '@roots/bud-framework/extension'
 import type {Context} from '@roots/bud-framework/options'
@@ -14,7 +15,6 @@ import webpack from '@roots/bud-support/webpack'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
 import {WinError} from '../../components/WinError.js'
-import {dry} from '../../decorators/command.dry.js'
 import {isWindows} from '../../helpers/isWindows.js'
 
 /**

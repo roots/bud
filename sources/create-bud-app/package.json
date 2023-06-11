@@ -26,8 +26,7 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "create-bud-app",
-    "roots"
+    "create-bud-app"
   ],
   "files": [
     "bin",
@@ -53,7 +52,6 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.16",
     "@types/prettier": "2.7.3"
   },

@@ -13,7 +13,6 @@ declare module '@roots/bud-framework' {
     raw: Loader
     style: Loader
     url: Loader
-    xml: Loader
     yml: Loader
   }
 
@@ -30,7 +29,6 @@ declare module '@roots/bud-framework' {
     html: Item
     md: Item
     raw: Item
-    xml: Item
     yml: Item
   }
 
@@ -42,7 +40,6 @@ declare module '@roots/bud-framework' {
     svg: Rule
     image: Rule
     font: Rule
-    xml: Rule
     json: Rule
     csv: Rule
     yml: Rule

@@ -1,10 +1,17 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-
     "rootDir": "src",
     "outDir": "lib",
-    "module": "esnext",
+    "types": [
+      "node",
+      "@roots/bud-api",
+      "@roots/bud-babel",
+      "@roots/bud-esbuild",
+      "@roots/bud-framework",
+      "@roots/bud-swc",
+      "@roots/bud-typescript"
+    ]
   },
   "include": ["src"],
   "exclude": ["test"],

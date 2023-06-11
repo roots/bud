@@ -1,10 +1,10 @@
 import type {Bud} from '@roots/bud'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/command.dry'
+import {dry} from '@roots/bud/cli/decorators/dry'
 import storage from '@roots/bud/cli/flags/storage'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
-import * as Ink from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 
 /**
  * `bud clean`
@@ -80,11 +80,9 @@ export default class BudCleanCommand extends BudCommand {
           .map(async child => {
             await this.bud.fs.remove(child.path(`@dist`))
             await this.renderStatic(
-              <Ink.Box>
-                <Ink.Text color="green">
-                  ✔ emptied {child.path(`@dist`)}
-                </Ink.Text>
-              </Ink.Box>,
+              <Box>
+                <Text color="green">✔ emptied {child.path(`@dist`)}</Text>
+              </Box>,
             )
           }),
       )
@@ -92,11 +90,9 @@ export default class BudCleanCommand extends BudCommand {
 
     await this.bud.fs.remove(this.bud.path(`@dist`))
     await this.renderStatic(
-      <Ink.Box>
-        <Ink.Text color="green">
-          ✔ emptied {this.bud.path(`@dist`)}
-        </Ink.Text>
-      </Ink.Box>,
+      <Box>
+        <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
+      </Box>,
     )
   }
 
@@ -109,11 +105,11 @@ export default class BudCleanCommand extends BudCommand {
           .map(async child => {
             await this.bud.fs.remove(child.cache.cacheDirectory)
             await this.renderStatic(
-              <Ink.Box>
-                <Ink.Text color="green">
+              <Box>
+                <Text color="green">
                   ✔ emptied {child.cache.cacheDirectory}
-                </Ink.Text>
-              </Ink.Box>,
+                </Text>
+              </Box>,
             )
           }),
       )
@@ -122,21 +118,21 @@ export default class BudCleanCommand extends BudCommand {
     await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
     await this.renderStatic(
-      <Ink.Box>
-        <Ink.Text color="green">
+      <Box>
+        <Text color="green">
           ✔ emptied {this.bud.cache.cacheDirectory}
-        </Ink.Text>
-      </Ink.Box>,
+        </Text>
+      </Box>,
     )
 
     await this.bud.fs.remove(this.bud.path(`@storage`, `conf`))
 
     await this.renderStatic(
-      <Ink.Box>
-        <Ink.Text color="green">
+      <Box>
+        <Text color="green">
           ✔ emptied {this.bud.path(`@storage`, `conf`)}
-        </Ink.Text>
-      </Ink.Box>,
+        </Text>
+      </Box>,
     )
   }
 
@@ -149,11 +145,11 @@ export default class BudCleanCommand extends BudCommand {
           .map(async child => {
             await this.bud.fs.remove(child.path(`@storage`))
             await this.renderStatic(
-              <Ink.Box>
-                <Ink.Text color="green">
+              <Box>
+                <Text color="green">
                   ✔ emptied {child.path(`@storage`)}
-                </Ink.Text>
-              </Ink.Box>,
+                </Text>
+              </Box>,
             )
           }),
       )
@@ -163,11 +159,9 @@ export default class BudCleanCommand extends BudCommand {
     await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
     await this.renderStatic(
-      <Ink.Box>
-        <Ink.Text color="green">
-          ✔ emptied {this.bud.path(`@storage`)}
-        </Ink.Text>
-      </Ink.Box>,
+      <Box>
+        <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
+      </Box>,
     )
   }
 }

@@ -2,12 +2,12 @@
 // Licensed under the MIT license.
 
 /**
- * ⚡️ Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+ * bud.js
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
 
-export {default as Bud, Service, ServiceContainer} from './bud/bud.js'
-export {factory} from './factory/index.js'
-export {get, has, instances, set} from './instances.js'
+export {default as Bud, Service, ServiceContainer} from '@roots/bud/bud'
+export {factory} from '@roots/bud/factory'
+export {get, has, instances, set} from '@roots/bud/instances'

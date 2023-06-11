@@ -19,10 +19,10 @@ import type {BaseContext} from '@roots/bud-support/clipanion'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudHandler} from '@roots/bud-support/errors'
+import {Box, render, Static} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 import omit from '@roots/bud-support/lodash/omit'
 import logger from '@roots/bud-support/logger'
-import * as Ink from '@roots/bud-support/ink'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
@@ -117,13 +117,13 @@ export default class BudCommand extends Command<CLIContext> {
 
   public verbose = verbose
 
-  public render = Ink.render
+  public render = render
 
   public async renderStatic(...children: Array<React.ReactElement>) {
-    return Ink?.render(
-      <Ink.Static items={children}>
-        {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
-      </Ink.Static>,
+    return render(
+      <Static items={children}>
+        {(child, id) => <Box key={id}>{child}</Box>}
+      </Static>,
     ).unmount()
   }
 
@@ -421,12 +421,12 @@ export default class BudCommand extends Command<CLIContext> {
         this.bud?.consoleBuffer?.fetchAndRemove() ?? []
 
       await this.renderStatic(
-        <Ink.Box flexDirection="column">
+        <Box flexDirection="column">
           <Console messages={queuedMessages} />
 
           <Display.Error error={error} />
           {isWindows() ? <WinError /> : null}
-        </Ink.Box>,
+        </Box>,
       )
       if (this.bud.isProduction) global.process.exit(1)
     } catch (e) {

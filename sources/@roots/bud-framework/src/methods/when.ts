@@ -1,8 +1,8 @@
+import chalk from '@roots/bud-support/chalk'
 import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import noop from '@roots/bud-support/lodash/noop'
-import chalk from 'chalk'
 
 import type {Bud} from '../index.js'
 

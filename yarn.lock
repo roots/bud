@@ -7943,8 +7943,6 @@ __metadata:
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
     globby: 13.1.4
-    helpful-decorators: 2.1.0
-    js-yaml: 4.1.0
     lodash: 4.17.21
     ora: 6.3.1
     semver: 7.5.1
@@ -7980,7 +7978,6 @@ __metadata:
     "@babel/core": 7.22.5
     "@skypack/package-check": 0.2.2
     babel-loader: 9.1.2
-    helpful-decorators: 2.1.0
     lodash: 4.17.21
     memfs: 3.5.3
     tslib: 2.5.3
@@ -8135,7 +8132,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/react": 18.2.9
-    chalk: 5.2.0
     human-readable: 0.2.1
     ink-testing-library: 3.0.0
     ink-text-input: 5.0.1
@@ -8548,6 +8544,8 @@ __metadata:
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
     ink: 4.2.0
+    ink-spinner: 5.0.0
+    ink-text-input: 5.0.1
     json5: 2.2.3
     lodash: 4.17.21
     mini-css-extract-plugin: 2.7.6
@@ -8575,7 +8573,6 @@ __metadata:
     webpack: 5.86.0
     webpack-dev-middleware: 6.1.1
     webpack-manifest-plugin: 5.0.0
-    xml-loader: 1.2.1
     yml-loader: 2.1.0
     zod: 3.21.4
   peerDependencies:
@@ -8649,6 +8646,7 @@ __metadata:
     "@roots/bud-swc": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
+    reflect-metadata: 0.1.13
     terser: 5.17.7
     terser-webpack-plugin: 5.3.9
     tslib: 2.5.3
@@ -8778,10 +8776,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/react": 18.2.9
-    chalk: 5.2.0
-    ink-spinner: 5.0.0
-    ink-text-input: 5.0.1
-    react: 18.2.0
     tslib: 2.5.3
   bin:
     bud: ./bin/bud.mjs
@@ -14829,9 +14823,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001497
-  resolution: "caniuse-lite@npm:1.0.30001497"
-  checksum: 6721120f9a588c442a81cf32f911b4e97a88cb129c27bd2cb0fce6447ad058baa12affa1ee09c517f9e088c7ce74964154d032b6631f66d75dd37c6bc59a67f6
+  version: 1.0.30001499
+  resolution: "caniuse-lite@npm:1.0.30001499"
+  checksum: 3ff07cb04f5a3b93e01f6bc87dbf8e6c704b72c1389930b1ebd0527ee0bf23dfdd7129d147b439616dc17384b516519cda965f62f8c02c73aadf0339dcf2dc73
   languageName: node
   linkType: hard
 
@@ -16215,7 +16209,6 @@ __metadata:
   resolution: "create-bud-app@workspace:sources/create-bud-app"
   dependencies:
     "@roots/filesystem": "workspace:*"
-    "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/prettier": 2.7.3
     chalk: 5.2.0
@@ -23817,7 +23810,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loader-utils@npm:^1.0.0, loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0":
+"loader-utils@npm:^1.0.2, loader-utils@npm:^1.1.0":
   version: 1.4.2
   resolution: "loader-utils@npm:1.4.2"
   dependencies:
@@ -30440,6 +30433,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"reflect-metadata@npm:0.1.13":
+  version: 0.1.13
+  resolution: "reflect-metadata@npm:0.1.13"
+  checksum: 798d379a7b6f6455501145419505c97dd11cbc23857a386add2b9ef15963ccf15a48d9d15507afe01d4cd74116df8a213247200bac00320bd7c11ddeaa5e8fb4
+  languageName: node
+  linkType: hard
+
 "regenerate-unicode-properties@npm:^10.1.0":
   version: 10.1.0
   resolution: "regenerate-unicode-properties@npm:10.1.0"
@@ -31343,7 +31343,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sax@npm:>=0.6.0, sax@npm:^1.2.4":
+"sax@npm:^1.2.4":
   version: 1.2.4
   resolution: "sax@npm:1.2.4"
   checksum: d3df7d32b897a2c2f28e941f732c71ba90e27c24f62ee918bd4d9a8cfb3553f2f81e5493c7f0be94a11c1911b643a9108f231dd6f60df3fa9586b5d2e3e9e1fe
@@ -36242,37 +36242,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xml-loader@npm:1.2.1":
-  version: 1.2.1
-  resolution: "xml-loader@npm:1.2.1"
-  dependencies:
-    loader-utils: ^1.0.0
-    xml2js: ^0.4.16
-  checksum: 1345b56d355fdb5dcf48b3b49387bfe4e4d38c6b574ab77518ae5df3326a60b03a4fe9122db2a53ecd82aa78fa88d53633fcddf857c2902cddc2b1eeb5e2313b
-  languageName: node
-  linkType: hard
-
 "xml-name-validator@npm:^4.0.0":
   version: 4.0.0
   resolution: "xml-name-validator@npm:4.0.0"
   checksum: af100b79c29804f05fa35aa3683e29a321db9b9685d5e5febda3fa1e40f13f85abc40f45a6b2bf7bee33f68a1dc5e8eaef4cec100a304a9db565e6061d4cb5ad
-  languageName: node
-  linkType: hard
-
-"xml2js@npm:^0.4.16":
-  version: 0.4.23
-  resolution: "xml2js@npm:0.4.23"
-  dependencies:
-    sax: ">=0.6.0"
-    xmlbuilder: ~11.0.0
-  checksum: ca0cf2dfbf6deeaae878a891c8fbc0db6fd04398087084edf143cdc83d0509ad0fe199b890f62f39c4415cf60268a27a6aed0d343f0658f8779bd7add690fa98
-  languageName: node
-  linkType: hard
-
-"xmlbuilder@npm:~11.0.0":
-  version: 11.0.1
-  resolution: "xmlbuilder@npm:11.0.1"
-  checksum: 7152695e16f1a9976658215abab27e55d08b1b97bca901d58b048d2b6e106b5af31efccbdecf9b07af37c8377d8e7e821b494af10b3a68b0ff4ae60331b415b0
   languageName: node
   linkType: hard
 

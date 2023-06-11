@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import chalk from '@roots/bud-support/chalk'
 
 export const identity = <X extends unknown>(x: X): X => x
 

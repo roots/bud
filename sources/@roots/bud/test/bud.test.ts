@@ -1,4 +1,4 @@
-import Bud from './bud.js'
+import Bud from '../src/bud/index.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud/bud`, function () {

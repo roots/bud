@@ -1,30 +1,18 @@
 /* eslint-disable no-console */
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
 import * as fs from 'fs-jetpack'
-import {join} from 'path'
 
-import {Command} from '../base.command'
+import {Command} from './base.command'
 
 /**
  * bud registry clean command class
  */
 export class RegistryClean extends Command {
-  /**
-   * Command name
-   */
-  public static label = `@bud registry clean`
-
-  /**
-   * Command paths
-   */
   public static paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `clean`],
   ]
 
-  /**
-   * Command usage
-   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `clean previously published packages`,
@@ -35,26 +23,38 @@ export class RegistryClean extends Command {
 
   public async execute() {
     try {
-      await fs.removeAsync(join(paths.root, `storage/mocks`))
-    } catch (e) {}
+      await this.promise(
+        `Removing existing mocks`,
+        `Existing mocks removed`,
+        `Failed to remove existing mocks`,
+        fs.removeAsync(path(`storage/mocks`)),
+      )
+    } catch (e) {
+      throw e
+    }
 
-    await fs.removeAsync(join(paths.root, `storage`, `packages`))
+    try {
+      await this.promise(
+        `Removing existing local packages`,
+        `Existing local packages removed`,
+        `Failed to remove existing local packages`,
+        fs.removeAsync(path(`storage`, `packages`)),
+      )
+    } catch (e) {
+      throw e
+    }
 
     const verdaccioDbExists = await fs.existsAsync(
-      join(paths.root, `storage`, `.verdaccio-db.json`),
+      path(`storage`, `.verdaccio-db.json`),
     )
 
     if (verdaccioDbExists) {
       const verdaccioDb = await fs.readAsync(
-        join(paths.root, `storage`, `.verdaccio-db.json`),
+        path(`storage`, `.verdaccio-db.json`),
         `json`,
       )
       verdaccioDb.list = []
-
-      await fs.writeAsync(
-        `${paths.root}/storage/.verdaccio-db.json`,
-        verdaccioDb,
-      )
+      await fs.writeAsync(path(`storage/.verdaccio-db.json`), verdaccioDb)
     }
   }
 }

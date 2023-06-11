@@ -1,5 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/command.dry'
+import {dry} from '@roots/bud/cli/decorators/dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 

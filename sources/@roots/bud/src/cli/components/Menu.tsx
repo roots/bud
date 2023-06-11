@@ -1,6 +1,11 @@
 import figures from '@roots/bud-support/figures'
-import * as Ink from '@roots/bud-support/ink'
-import {useEffect, useState} from 'react'
+import {
+  Box,
+  Text,
+  useEffect,
+  useInput,
+  useState,
+} from '@roots/bud-support/ink'
 
 import type BudCommand from '../commands/bud.js'
 
@@ -36,7 +41,7 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
   const [selected, setSelected] = useState(0)
   const [running, setRunning] = useState(false)
 
-  Ink.useInput((key, input) => {
+  useInput((key, input) => {
     if (running) return
 
     input[`downArrow`] && setSelected(selected + 1)
@@ -59,23 +64,20 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
   }, [selected])
 
   return (
-    <Ink.Box flexDirection="column" marginTop={1}>
+    <Box flexDirection="column" marginTop={1}>
       {options.map(([option, description, command], index) => {
         return (
-          <Ink.Text
-            key={index}
-            color={selected === index ? `blue` : `white`}
-          >
+          <Text key={index} color={selected === index ? `blue` : `white`}>
             {selected === index ? figures.radioOn : figures.radioOff}
             {`  `}
             {option}
-            <Ink.Text color="white" dimColor>
+            <Text color="white" dimColor>
               {` `}
               {description}
-            </Ink.Text>
-          </Ink.Text>
+            </Text>
+          </Text>
         )
       })}
-    </Ink.Box>
+    </Box>
   )
 }

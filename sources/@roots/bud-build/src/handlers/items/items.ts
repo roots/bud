@@ -75,16 +75,10 @@ export const raw: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`raw`).setIdent(`raw`)
 
 /**
- * File loader
+ * file-loader
  */
 export const file: Factory<Item> = async ({makeItem}) =>
   makeItem().setLoader(`file`).setIdent(`file`)
-
-/**
- * Xml loader
- */
-export const xml: Factory<Item> = async ({makeItem}) =>
-  makeItem().setLoader(`xml`).setIdent(`xml`)
 
 /**
  * Yml loader

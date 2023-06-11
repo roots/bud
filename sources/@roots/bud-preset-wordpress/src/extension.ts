@@ -6,8 +6,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import chalk from 'chalk'
-import figures from 'figures'
+import chalk from '@roots/bud-support/chalk'
+import figures from '@roots/bud-support/figures'
 
 /**
  * WordPress preset options

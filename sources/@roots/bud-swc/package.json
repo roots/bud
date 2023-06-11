@@ -36,7 +36,7 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "bud-extension",
+    "extension",
     "swc"
   ],
   "files": [
@@ -46,22 +46,13 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types/index.js",
-      "default": "./lib/types/index.js"
-    }
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
+        "./lib/types/index.d.ts",
         "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types/index.d.ts"
       ]
     }
   },

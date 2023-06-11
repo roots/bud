@@ -1,25 +1,9 @@
-import {CommandClass} from 'clipanion'
-
 import {Commands} from './'
 import {Command} from './base.command'
 
-/**
- * `@bud` command class
- */
 export class Bud extends Command {
-  /**
-   * Command name
-   */
-  public static label = `@bud`
+  public static paths = [[`@bud`]]
 
-  /**
-   * Command paths
-   */
-  public static paths: CommandClass['paths'] = [[`@bud`]]
-
-  /**
-   * Command execute
-   */
   public async execute() {
     process.stdout.write(`    
  _               _

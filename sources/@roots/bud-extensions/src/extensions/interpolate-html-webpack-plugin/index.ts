@@ -42,15 +42,11 @@ export default class BudInterpolateHtmlExtension extends Extension<
       import.meta.url,
     )
 
-    return new InterpolateHtmlWebpackPlugin(
-      HTMLWebpackPlugin.Plugin.getHooks,
-      {
-        ...(this.options ?? {}),
-        ...(bud.extensions.get(
-          `@roots/bud-extensions/webpack-define-plugin`,
-        )?.options ?? {}),
-        ...(bud.env.getPublicEnv() ?? {}),
-      },
-    )
+    return new InterpolateHtmlWebpackPlugin(HTMLWebpackPlugin.getHooks, {
+      ...(this.options ?? {}),
+      ...(bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
+        ?.options ?? {}),
+      ...(bud.env.getPublicEnv() ?? {}),
+    })
   }
 }

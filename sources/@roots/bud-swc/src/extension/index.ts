@@ -1,8 +1,7 @@
 import {join} from 'node:path'
 
-import {type Bud} from '@roots/bud-framework/bud'
+import {type Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
-
 import {
   bind,
   expose,
@@ -118,3 +117,5 @@ class BudSWC extends BudSWCApi {
 }
 
 export {BudSWC, BudSWCApi, type BudSWCPublicInterface}
+export type * from './options.js'
+export type * from './jsc.js'

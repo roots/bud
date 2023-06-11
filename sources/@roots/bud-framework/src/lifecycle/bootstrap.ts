@@ -1,9 +1,9 @@
+import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
-import chalk from 'chalk'
 
 import type {Bud} from '../index.js'
 import methods from '../methods/index.js'
@@ -45,7 +45,7 @@ export const lifecycleMethods: Partial<Array<keyof Service>> = [
 /**
  * Define the list of services that should only be instantiated in the parent compiler context
  */
-export const PARENT_SERVICES: Array<string> = [
+export const PARENT_SERVICES = [
   `@roots/bud-compiler`,
   `@roots/bud-dashboard`,
   `@roots/bud-server`,
@@ -54,7 +54,7 @@ export const PARENT_SERVICES: Array<string> = [
 /**
  * Define the list of services that should only be instantiated during development
  */
-export const DEVELOPMENT_SERVICES: Array<string> = [`@roots/bud-server`]
+export const DEVELOPMENT_SERVICES = [`@roots/bud-server`]
 
 /**
  * Map the lifecycle events to their corresponding Service class methods

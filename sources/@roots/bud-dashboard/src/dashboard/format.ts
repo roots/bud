@@ -2,9 +2,6 @@ import type {
   StatsAsset,
   StatsChunkGroup,
 } from '@roots/bud-framework/config'
-import {durationFormatter, sizeFormatter} from 'human-readable'
-
-export const SPACE = ` `
 
 export const color = {
   dim: `dim`,
@@ -18,16 +15,10 @@ export const color = {
   cyan: `cyan`,
 }
 
-export const duration = durationFormatter({
-  allowMultiples: [`s`, `ms`],
-})
-
 export const longestAssetNameLength = (chunks: StatsChunkGroup) =>
   chunks?.reduce((longest: number, asset: StatsAsset) => {
     return Math.max(asset.name?.length, longest)
   }, 0) + 1
-
-export const size: (int: number) => string = sizeFormatter()
 
 export const colorFromStats = (compilation: {
   errorsCount?: number

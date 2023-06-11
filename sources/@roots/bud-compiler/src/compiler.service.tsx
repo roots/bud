@@ -13,12 +13,12 @@ import type {Compiler as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, CompilerError} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
+import * as Ink from '@roots/bud-support/ink'
 import type {
   ErrorWithSourceFile,
   SourceFile,
 } from '@roots/bud-support/open'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-import * as Ink from '@roots/bud-support/ink'
 import webpack from 'webpack'
 
 /**

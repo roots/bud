@@ -88,6 +88,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "reflect-metadata": "0.1.13",
     "terser": "5.17.7",
     "terser-webpack-plugin": "5.3.9",
     "tslib": "2.5.3",

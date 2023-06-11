@@ -1,4 +1,6 @@
-import {CommandClass, Option} from 'clipanion'
+import {path} from '@repo/constants'
+import {CommandClass} from 'clipanion'
+import {globby} from 'globby'
 
 import {Command} from './base.command'
 
@@ -6,46 +8,70 @@ import {Command} from './base.command'
  * Lint command class
  */
 export class Lint extends Command {
-  /**
-   * Command name
-   */
-  public static label = `@bud lint`
+  public static paths: CommandClass['paths'] = [[`@bud`, `lint`]]
 
-  /**
-   * Command paths
-   */
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `lint`],
-    [`@bud`, `eslint`],
-    [`lint`],
-  ]
-
-  /**
-   * Command usage
-   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run eslint`,
-    examples: [[`run eslint`, `yarn @bud lint`]],
+    description: `Lint project`,
   }
 
-  /**
-   * Execute command
-   */
   public async execute() {
-    await this.$([
-      `yarn`,
-      [
+    const dirs = await globby([`sources/@roots/*`], {
+      onlyDirectories: true,
+    }).then(dirs => [...dirs, `sources/create-bud-app`])
+
+    this.promised.push(
+      this.cli.run([
         `eslint`,
-        `./sources/*/*/src/**/*.{ts,tsx,js,jsx}`,
-        `./sources/*/*/sources/**/*.{ts,tsx,js,jsx}`,
-        `./tests/**/*.{ts,tsx,js,jsx}`,
-        `./config/**/*.{ts,tsx,js,jsx}`,
+        path(`sources/*/*/src/**/*.{ts,tsx,js,jsx}`),
+        path(`sources/*/*/sources/**/*.{ts,tsx,js,jsx}`),
+        path(`tests/**/*.{ts,tsx,js,jsx}`),
+        path(`config/**/*.{ts,tsx,js,jsx}`),
         `--config`,
-        `./config/eslint.config.cjs`,
+        path(`config/eslint.config.cjs`),
         `--no-error-on-unmatched-pattern`,
-        ...(this.passthrough ?? []),
-      ],
-    ])
+        `--fix`,
+      ]),
+    )
+
+    this.promised.push(this.cli.run([`constraints`]))
+
+    this.promised.push(
+      this.cli.run([
+        `syncpack`,
+        `list-mismatches`,
+        `--config`,
+        path(`config/syncpack.config.cjs`),
+      ]),
+    )
+
+    this.promised.push(
+      this.cli.run([
+        `prettier`,
+        path(`sources/@roots/*/src/**/*`),
+        `--write`,
+        `--config`,
+        path(`config/prettier.config.cjs`),
+        `--ignore-unknown`,
+        `--no-error-on-unmatched-pattern`,
+      ]),
+    )
+
+    this.promised.push(
+      ...dirs.map(dir =>
+        this.cli.run([`package-check`, `--cwd`, `${dir}`]),
+      ),
+    )
+
+    try {
+      await this.promise(
+        `Linting source files`,
+        `All source files linted successfully`,
+        `Linting failed`,
+        Promise.all(this.promised),
+      )
+    } catch (e) {
+      throw e
+    }
   }
 }

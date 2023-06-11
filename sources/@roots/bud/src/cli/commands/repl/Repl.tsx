@@ -1,10 +1,15 @@
 import type {Bud} from '@roots/bud-framework'
 import {highlight} from '@roots/bud-support/highlight'
+import {
+  Box,
+  Text,
+  TextInput,
+  useEffect,
+  useInput,
+  useState,
+} from '@roots/bud-support/ink'
 import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
-import * as Ink from '@roots/bud-support/ink'
-import TextInput from 'ink-text-input'
-import {useEffect, useState} from 'react'
 
 interface ReplProps {
   app: Bud
@@ -21,7 +26,7 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
 
   const pageSize = 10
 
-  Ink.useInput((input, key) => {
+  useInput((input, key) => {
     if (key.escape) {
       // eslint-disable-next-line
       process.exit(0)
@@ -118,10 +123,10 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
   }
 
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box marginY={1} flexDirection="column">
-        <Ink.Box flexDirection="row" justifyContent="space-between">
-          <Ink.Box
+    <Box flexDirection="column">
+      <Box marginY={1} flexDirection="column">
+        <Box flexDirection="row" justifyContent="space-between">
+          <Box
             flexDirection="row"
             justifyContent="flex-start"
             marginBottom={paged.length ? 1 : 0}
@@ -140,42 +145,42 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
               onSubmit={onSubmit}
               showCursor={true}
             />
-          </Ink.Box>
+          </Box>
 
           {paged.length > 0 ? (
-            <Ink.Box
+            <Box
               flexDirection="row"
               justifyContent="flex-start"
               marginTop={1}
             >
-              <Ink.Text
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 page{` `}
-              </Ink.Text>
-              <Ink.Text
+              </Text>
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 {page + 1}
-              </Ink.Text>
-              <Ink.Text>/</Ink.Text>
-              <Ink.Text
+              </Text>
+              <Text>/</Text>
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 {paged.length}
-              </Ink.Text>
-            </Ink.Box>
+              </Text>
+            </Box>
           ) : null}
-        </Ink.Box>
+        </Box>
 
         {paged[page] ? (
-          <Ink.Box
+          <Box
             flexDirection="column"
             justifyContent="flex-start"
             borderLeft={true}
@@ -186,62 +191,62 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
             borderLeftColor="dim"
             paddingLeft={1}
           >
-            <Ink.Text>{paged[page]}</Ink.Text>
-          </Ink.Box>
+            <Text>{paged[page]}</Text>
+          </Box>
         ) : null}
-      </Ink.Box>
+      </Box>
 
-      <Ink.Box marginY={1} flexDirection="row">
-        <Ink.Text>
-          <Ink.Text
+      <Box marginY={1} flexDirection="row">
+        <Text>
+          <Text
             backgroundColor={action === `esc` ? `green` : `white`}
             color="black"
           >
             [esc]
-          </Ink.Text>
+          </Text>
           {` `}quit
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `tab` ? `green` : `white`}
             color="black"
           >
             [tab]
-          </Ink.Text>
+          </Text>
           {` `}clear
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `down` ? `green` : `white`}
             color="black"
           >
             [↓]
-          </Ink.Text>
+          </Text>
           {` `}next
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `up` ? `green` : `white`}
             color="black"
           >
             [↑]
-          </Ink.Text>
+          </Text>
           {` `}prev
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `return` ? `green` : `white`}
             color="black"
           >
             [return]
-          </Ink.Text>
+          </Text>
           {` `}eval
-        </Ink.Text>
-      </Ink.Box>
-    </Ink.Box>
+        </Text>
+      </Box>
+    </Box>
   )
 }

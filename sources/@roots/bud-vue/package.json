@@ -44,6 +44,7 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
+    "extension",
     "vue"
   ],
   "files": [

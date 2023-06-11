@@ -40,9 +40,11 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
+    "extension",
     "solid-js"
   ],
   "files": [
+    "config",
     "docs",
     "lib",
     "src"

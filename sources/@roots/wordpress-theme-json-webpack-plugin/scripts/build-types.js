@@ -2,6 +2,7 @@ import {dirname, join} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
 import fs from 'fs-jetpack'
+// @eslint-disable-next-line node/no-unpublished-import
 import {compile} from 'json-schema-to-typescript'
 import _ from 'lodash'
 

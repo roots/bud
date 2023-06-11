@@ -7,7 +7,7 @@
       "@roots/bud-swc": ["./src/index.ts", "./src/index.tsx", "./src/index.d.ts"],
       "@roots/bud-swc/*": ["./src/*/index.ts", "./src/*/index.tsx", "./src/*/index.d.ts"]
     },
-    "types": ["@roots/bud-framework", "@roots/bud"]
+    "types": ["node", "@roots/bud-framework", "@roots/bud"]
   },
   "include": ["./src"],
   "references": [

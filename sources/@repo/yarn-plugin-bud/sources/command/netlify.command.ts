@@ -6,19 +6,8 @@ import {Command} from './base.command'
  * Docs command class
  */
 export class DocsNetlify extends Command {
-  /**
-   * Command name
-   */
-  public static label = `@bud netlify`
-
-  /**
-   * Command paths
-   */
   public static paths: CommandClass['paths'] = [[`@bud`, `netlify`]]
 
-  /**
-   * Command usage
-   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `netlify alias`,
@@ -30,9 +19,6 @@ export class DocsNetlify extends Command {
    */
   public passthrough = Option.Proxy({name: `netlify options`})
 
-  /**
-   * Execute command
-   */
   public async execute() {
     await this.cli.run([
       `workspace`,

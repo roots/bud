@@ -2,45 +2,35 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
-/**
- * Version command
- */
 export class Version extends Command {
-  /**
-   * Command name
-   */
-  public static label = `@bud version`
-
-  /**
-   * Command paths
-   */
   public static paths: CommandClass['paths'] = [[`@bud`, `version`]]
 
-  /**
-   * Command usage
-   */
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `bump version of public packages`,
     examples: [[`Bump packages to x.y.z`, `yarn @bud version x.y.z`]],
   }
 
-  /**
-   * version (positional)
-   */
   public version = Option.String()
 
-  /**
-   * execute command
-   */
   public async execute() {
-    if (!this.version) {
-      const {version} = await this.getManifest()
-      this.version = version
+    try {
+      await this.promise(
+        `Versioning packages to ${this.version}`,
+        `Packages versioned`,
+        `Failed to version packages`,
+        this.cli.run([
+          `workspaces`,
+          `foreach`,
+          `--no-private`,
+          `package`,
+          `set`,
+          `version`,
+          this.version,
+        ]),
+      )
+    } catch (e) {
+      throw e
     }
-
-    await this.$(
-      `yarn workspaces foreach --no-private package set version ${this.version}`,
-    )
   }
 }

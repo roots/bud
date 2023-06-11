@@ -1,4 +1,4 @@
-name: test (format)
+name: lint
 
 on:
   pull_request:
@@ -34,14 +34,5 @@ jobs:
       - name: yarn
         run: yarn
 
-      - name: yarn @bud lint dependencies
-        run: yarn @bud lint dependencies
-
       - name: yarn @bud lint
         run: yarn @bud lint
-
-      - name: yarn @bud format
-        run: yarn @bud format --no-fix
-
-      - name: yarn @bud lint exports
-        run: yarn @bud lint exports

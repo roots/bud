@@ -36,11 +36,6 @@ export const style: Factory<Loader> = async ({makeLoader, resolve}) =>
     await resolve(`@roots/bud-support/style-loader`, import.meta.url),
   )
 
-export const xml: Factory<Loader> = async ({makeLoader, resolve}) =>
-  makeLoader(
-    await resolve(`@roots/bud-support/xml-loader`, import.meta.url),
-  )
-
 export const yml: Factory<Loader> = async ({makeLoader, resolve}) =>
   makeLoader(
     await resolve(`@roots/bud-support/yml-loader`, import.meta.url),

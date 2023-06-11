@@ -5,7 +5,10 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options, Plugin} from '@roots/bud-support/html-webpack-plugin'
+import type {
+  default as Plugin,
+  Options,
+} from '@roots/bud-support/html-webpack-plugin'
 import Value from '@roots/bud-support/value'
 
 export type {Options}
@@ -29,7 +32,7 @@ export default class BudHtmlWebpackPlugin extends Extension<
    * {@link Extension.make}
    */
   public override async make(bud: Bud, options: Options) {
-    const {Plugin} = await bud.module.import(
+    const Plugin = await bud.module.import(
       `@roots/bud-support/html-webpack-plugin`,
       import.meta.url,
     )

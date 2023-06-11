@@ -1,8 +1,8 @@
 // @ts-nocheck
 
 import figures from '@roots/bud-support/figures'
+import {Box, Text} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-import * as Ink from '@roots/bud-support/ink'
 import React from 'react'
 
 import Space from '../display/space.component.js'
@@ -36,65 +36,65 @@ export const Server = ({
   const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box flexDirection="row">
-        <Ink.Text dimColor>
+    <Box flexDirection="column">
+      <Box flexDirection="row">
+        <Text dimColor>
           {figures.lineDownRightArc}
           {figures.line}
-        </Ink.Text>
-        <Ink.Text color={color.blue} dimColor={!displayServerInfo}>
+        </Text>
+        <Text color={color.blue} dimColor={!displayServerInfo}>
           {` `}server
-        </Ink.Text>
-      </Ink.Box>
+        </Text>
+      </Box>
 
       {displayServerInfo && (
         <>
           <Space>
-            <Ink.Text> </Ink.Text>
+            <Text> </Text>
           </Space>
 
-          <Ink.Box flexDirection="column">
+          <Box flexDirection="column">
             {proxyUrl && (
               <Title>
-                <Ink.Text>
+                <Text>
                   proxy:{` `}
                   {publicProxyUrl && publicProxyUrl.href !== proxyUrl.href
                     ? `${publicProxyUrl.href}`
                     : proxyUrl.href}
-                </Ink.Text>
+                </Text>
               </Title>
             )}
 
             {devUrl && (
               <Title>
-                <Ink.Text>
+                <Text>
                   dev:{`   `}
                   {publicDevUrl && publicDevUrl.href !== devUrl.href
                     ? `${publicDevUrl.href}`
                     : devUrl.href}
-                </Ink.Text>
+                </Text>
               </Title>
             )}
-          </Ink.Box>
+          </Box>
 
           <Space>
-            <Ink.Text> </Ink.Text>
+            <Text> </Text>
           </Space>
 
           <Title final finalFigure={figures.lineUpRightArc}>
-            <Ink.Text dimColor>
+            <Text dimColor>
               watching project sources
               {watchedFilesCount > 0 ? (
-                <Ink.Text dimColor>
+                <Text dimColor>
                   {` `}
                   (and {watchedFilesCount} other{` `}
                   {watchedFilesCount > 1 ? `files` : `file`}){` `}
-                </Ink.Text>
+                </Text>
               ) : null}
-            </Ink.Text>
+            </Text>
           </Title>
         </>
       )}
-    </Ink.Box>
+    </Box>
   )
 }

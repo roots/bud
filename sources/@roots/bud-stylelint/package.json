@@ -39,12 +39,13 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "bud-extension",
+    "extension",
     "stylelint"
   ],
   "files": [
-    "lib/",
-    "config/"
+    "config",
+    "docs",
+    "lib"
   ],
   "type": "module",
   "exports": {

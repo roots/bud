@@ -103,6 +103,9 @@ type BudSWCPublicInterface = StrictPublicExtensionApi<
   getPlugins(
     plugins: OptionCallback<JSCOptions[`experimental`], `plugins`>,
   ): BudSWCPublicInterface
+  setPlugins(
+    plugins: OptionCallback<JSCOptions[`experimental`], `plugins`>,
+  ): BudSWCPublicInterface
   setExperimentalPlugins(
     plugins: OptionCallback<JSCOptions[`experimental`], `plugins`>,
   ): BudSWCPublicInterface

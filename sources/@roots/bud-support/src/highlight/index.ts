@@ -1,3 +1,4 @@
+// @eslint-disable n/no-unpublished-import bundled
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import hljs from 'highlight.js/lib/core'
 import css from 'highlight.js/lib/languages/css'

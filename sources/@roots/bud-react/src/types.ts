@@ -1,9 +1,3 @@
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-babel" />
-/// <reference types="@roots/bud-esbuild" />
-/// <reference types="@roots/bud-swc" />
-/// <reference types="@roots/bud-typescript" />
-
 import type {
   Extension,
   PublicExtensionApi,

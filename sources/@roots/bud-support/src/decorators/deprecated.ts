@@ -1,5 +1,5 @@
+import chalk from '@roots/bud-support/chalk'
 import logger from '@roots/bud-support/logger'
-import chalk from 'chalk'
 
 import figures from '../figures/index.js'
 import {highlight} from '../highlight/index.js'

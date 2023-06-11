@@ -38,9 +38,9 @@
   },
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
-    "brotli",
     "bud",
-    "bud-extension",
+    "extension",
+    "brotli",
     "gzip"
   ],
   "files": [
