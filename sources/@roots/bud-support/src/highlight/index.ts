@@ -1,4 +1,4 @@
-// @eslint-disable n/no-unpublished-import bundled
+/* eslint-disable n/no-extraneous-import */
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import hljs from 'highlight.js/lib/core'
 import css from 'highlight.js/lib/languages/css'
@@ -8,6 +8,7 @@ import ts from 'highlight.js/lib/languages/typescript'
 import {parseFragment} from 'parse5'
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
+// @ts-ignore
 import {theme} from './theme.js'
 
 interface node {

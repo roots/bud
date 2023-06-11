@@ -13,8 +13,8 @@
     },
     "types": ["express", "node", "react", "webpack", "modern-errors"]
   },
-  "files": ["types.d.ts"],
-  "include": ["src"],
+  "include": ["./src/**/*"],
+  "exclude": ["./src/highlight/**/*", "./vendor"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}
   ]

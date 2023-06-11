@@ -1,5 +1,6 @@
 import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
+// @ts-ignore
 import {highlight} from '@roots/bud-support/highlight'
 import logger from '@roots/bud-support/logger'
 

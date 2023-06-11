@@ -48,50 +48,18 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./css-loader": {
-      "require": "./lib/css-loader/index.cjs",
-      "default": "./lib/css-loader/index.cjs"
-    },
-    "./csv-loader": {
-      "require": "./lib/csv-loader/index.cjs",
-      "default": "./lib/csv-loader/index.cjs"
-    },
-    "./file-loader": {
-      "require": "./lib/file-loader/index.cjs",
-      "default": "./lib/file-loader/index.cjs"
-    },
-    "./html-loader": {
-      "require": "./vendor/html-loader/index.cjs",
-      "default": "./vendor/html-loader/index.cjs"
-    },
-    "./html-webpack-plugin": {
-      "require": "./vendor/html-webpack-plugin/index.cjs",
-      "default": "./vendor/html-webpack-plugin/index.cjs"
-    },
-    "./remark-loader": {
-      "require": "./lib/remark-loader/index.cjs",
-      "default": "./lib/remark-loader/index.cjs"
-    },
-    "./style-loader": {
-      "require": "./lib/style-loader/index.cjs",
-      "default": "./lib/style-loader/index.cjs"
-    },
-    "./yml-loader": {
-      "require": "./lib/yml-loader/index.cjs",
-      "default": "./lib/yml-loader/index.cjs"
-    },
-    "./decorators/*": {
-      "import": "./lib/decorators/*.js",
-      "default": "./lib/decorators/*.js"
-    },
-    "./utilities/*": {
-      "import": "./lib/utilities/*.js",
-      "default": "./lib/utilities/*.js"
-    },
+    ".": "./lib/index.js",
+    "./css-loader": "./lib/css-loader/index.cjs",
+    "./csv-loader": "./lib/csv-loader/index.cjs",
+    "./file-loader": "./lib/file-loader/index.cjs",
+    "./remark-loader": "./lib/remark-loader/index.cjs",
+    "./style-loader": "./lib/style-loader/index.cjs",
+    "./yml-loader": "./lib/yml-loader/index.cjs",
+    "./decorators/*": "./lib/decorators/*.js",
+    "./utilities/*": "./lib/utilities/*.js",
+    "./highlight": "./vendor/highlight/index.js",
+    "./html-loader": "./vendor/html-loader/index.cjs",
+    "./html-webpack-plugin": "./vendor/html-webpack-plugin/index.cjs",
     "./*": "./lib/*/index.js"
   },
   "typesVersions": {
@@ -101,6 +69,9 @@
       ],
       "utilities/*": [
         "./lib/utilities/*.d.ts"
+      ],
+      "highlight": [
+        "./vendor/highlight/index.d.ts"
       ],
       "html-webpack-plugin": [
         "./vendor/html-webpack-plugin/index.d.cts"
@@ -126,7 +97,6 @@
     "@types/node-notifier": "8.0.2",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5",
-    "highlight.js": "11.8.0",
     "parse5": "7.1.2",
     "parse5-htmlparser2-tree-adapter": "7.0.0"
   },
@@ -138,7 +108,6 @@
     "clean-stack": "5.2.0",
     "clean-webpack-plugin": "4.0.0",
     "clipanion": "3.2.1",
-    "common-path": "1.0.1",
     "cookie-parser": "1.4.6",
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.8.1",

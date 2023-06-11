@@ -8521,7 +8521,6 @@ __metadata:
     clean-stack: 5.2.0
     clean-webpack-plugin: 4.0.0
     clipanion: 3.2.1
-    common-path: 1.0.1
     cookie-parser: 1.4.6
     copy-webpack-plugin: 11.0.0
     css-loader: 6.8.1
@@ -8536,7 +8535,6 @@ __metadata:
     file-loader: 6.2.0
     get-port: 6.1.2
     globby: 13.1.4
-    highlight.js: 11.8.0
     http-proxy-middleware: 3.0.0-beta.1
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
@@ -14483,6 +14481,7 @@ __metadata:
     eslint-plugin-react: 7.32.2
     eslint-plugin-react-hooks: 4.6.0
     execa: 7.1.1
+    highlight.js: 11.8.0
     html-loader: 4.2.0
     html-webpack-plugin: 5.5.3
     import-meta-resolve: 2.2.2
@@ -15697,13 +15696,6 @@ __metadata:
   version: 3.0.0
   resolution: "common-path-prefix@npm:3.0.0"
   checksum: fdb3c4f54e51e70d417ccd950c07f757582de800c0678ca388aedefefc84982039f346f9fd9a1252d08d2da9e9ef4019f580a1d1d3a10da031e4bb3c924c5818
-  languageName: node
-  linkType: hard
-
-"common-path@npm:1.0.1":
-  version: 1.0.1
-  resolution: "common-path@npm:1.0.1"
-  checksum: ec9d4dbf7f63323d5d86844f83bca5b2c2cfce1cf923cc2b023e60601b24a787eb021b1096e3469a3194ff82daa72652f722fe7e2483854fb437ff256f67d2ee
   languageName: node
   linkType: hard
 

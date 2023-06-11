@@ -72,13 +72,21 @@ export class Build extends Command {
             source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
           }),
           /**
-           * highlight-js
+           * highlight.js
            */
           this.bundle({
             format: `esm`,
             outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
             source: `sources/@roots/bud-support/src/highlight/index.ts`,
+          }).then(async () => {
+            await fs.writeAsync(
+              path(
+                `sources/@roots/bud-support/vendor/highlight/index.d.ts`,
+              ),
+              `export declare const highlight: (code: string) => string;`,
+            )
           }),
+
           /**
            * html-loader
            */
