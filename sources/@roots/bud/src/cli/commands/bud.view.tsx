@@ -10,14 +10,8 @@ import indent from '@roots/bud/cli/flags/indent'
  * `bud view` command
  */
 export default class BudViewCommand extends BudCommand {
-  /**
-   * {@link Command.paths}
-   */
   public static override paths = [[`view`]]
 
-  /**
-   * {@link Command.usage}
-   */
   public static override usage = Command.Usage({
     description: `Explore bud object`,
     examples: [
@@ -28,9 +22,6 @@ export default class BudViewCommand extends BudCommand {
 
   public indent = indent
 
-  /**
-   * Positional
-   */
   public subject = Option.String({name: `subject`, required: false})
 
   public override async execute() {
