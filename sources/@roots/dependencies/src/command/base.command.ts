@@ -4,8 +4,6 @@ import {spawn} from 'child_process'
  * Base command
  */
 export abstract class Command {
-  public abstract getLatestVersion(signifier: string): Promise<string>
-
   public constructor(
     public path: string,
     public onMessage?: (message: string) => void,
@@ -35,7 +33,7 @@ export abstract class Command {
   }
 
   public normalizeDependencies(
-    dependencies: Array<string | [string, string]>,
+    dependencies: Array<[string, string] | string>,
   ): Array<string> {
     return dependencies
       .reduce((acc, dependency) => {
@@ -49,4 +47,6 @@ export abstract class Command {
       }, [])
       .filter(Boolean)
   }
+
+  public abstract getLatestVersion(signifier: string): Promise<string>
 }

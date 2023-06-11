@@ -10,12 +10,12 @@ import type {Service as BaseService} from '../../../service.js'
 import type {Modules} from '../../registry/modules.js'
 
 export type LifecycleMethods =
-  | 'register'
   | 'boot'
-  | 'configAfter'
-  | 'buildBefore'
   | 'buildAfter'
+  | 'buildBefore'
+  | 'configAfter'
   | 'make'
+  | 'register'
 
 /**
  * Container service for {@link Bud} extensions.
@@ -27,49 +27,26 @@ export type LifecycleMethods =
  * yielding a {@link PluginInstance}.
  */
 export interface Service extends BaseService {
-  unresolvable: Set<string>
-
-  options: Container<{
-    discover: boolean
-    allowlist: Array<string>
-    denylist: Array<string>
-  }>
-
-  repository: Modules
-
-  make(bud: Bud): Promise<Array<ApplyPlugin>>
-
-  isAllowed(key: string): boolean
-
-  instantiate<K extends `${keyof Modules & string}`>(
-    extension: (new (...args: any[]) => Modules[K]) | Extension,
-    options?: Record<string, any>,
-  ): Promise<Extension>
-
-  has(key: string): key is keyof Modules
-
-  get<K extends keyof Modules & string>(key: K): Modules[K]
-
-  remove<K extends keyof Modules & string>(key: K): this
-
-  set(value: Extension): this
-
   /**
    * Add an extension
    */
   add(
     extension:
-      | ExtensionLiteral
-      | Extension
-      | (new (bud: Bud) => ExtensionLiteral)
       | `${keyof Modules & string}`
       | Array<
-          | ExtensionLiteral
-          | Extension
-          | (new (bud: Bud) => ExtensionLiteral)
           | `${keyof Modules & string}`
-        >,
+          | Extension
+          | ExtensionLiteral
+          | (new (bud: Bud) => ExtensionLiteral)
+        >
+      | Extension
+      | ExtensionLiteral
+      | (new (bud: Bud) => ExtensionLiteral),
   ): Promise<void>
+
+  get<K extends keyof Modules & string>(key: K): Modules[K]
+
+  has(key: string): key is keyof Modules
 
   import<K extends `${keyof Modules}`>(
     signifier: K,
@@ -77,12 +54,36 @@ export interface Service extends BaseService {
     context: string,
   ): Promise<Extension>
 
-  runAll(methodName: LifecycleMethods): Promise<Array<void>>
+  instantiate<K extends `${keyof Modules & string}`>(
+    extension: Extension | (new (...args: any[]) => Modules[K]),
+    options?: Record<string, any>,
+  ): Promise<Extension>
+
+  isAllowed(key: string): boolean
+
+  /**
+   * Returns array of {@link PluginInstance} instances.
+   */
+  make(): Promise<Array<ApplyPlugin>>
+
+  make(bud: Bud): Promise<Array<ApplyPlugin>>
+
+  options: Container<{
+    allowlist: Array<string>
+    denylist: Array<string>
+    discover: boolean
+  }>
+
+  remove<K extends keyof Modules & string>(key: K): this
+
+  repository: Modules
 
   run<K extends `${keyof Modules & string}`>(
     extension: Extension | K,
     methodName: LifecycleMethods,
   ): Promise<this>
+
+  runAll(methodName: LifecycleMethods): Promise<Array<void>>
 
   /**
    * Run a lifecycle method on all dependencies of a given extension or
@@ -93,8 +94,7 @@ export interface Service extends BaseService {
     methodName: LifecycleMethods,
   ): Promise<void>
 
-  /**
-   * Returns array of {@link PluginInstance} instances.
-   */
-  make(): Promise<Array<ApplyPlugin>>
+  set(value: Extension): this
+
+  unresolvable: Set<string>
 }

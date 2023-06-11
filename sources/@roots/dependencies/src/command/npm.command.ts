@@ -1,6 +1,7 @@
 import {bind} from 'helpful-decorators'
 
 import type {IDependencyManager} from '../index.js'
+
 import {Command} from './base.command.js'
 
 /**
@@ -8,10 +9,24 @@ import {Command} from './base.command.js'
  */
 export class Npm extends Command implements IDependencyManager {
   /**
+   * Get the latest version of a package from the npm registry
+   */
+  @bind
+  public async getLatestVersion(signifier: string): Promise<string> {
+    const result = await this.execute([
+      `npm`,
+      `view`,
+      signifier,
+      `version`,
+    ])
+    if (result?.shift) return result.shift().trim()
+  }
+
+  /**
    */
   @bind
   public install(
-    dependencies: Array<string | [string, string]>,
+    dependencies: Array<[string, string] | string>,
     args: Array<string> = [],
   ): Promise<any> {
     return this.execute([
@@ -28,7 +43,7 @@ export class Npm extends Command implements IDependencyManager {
    */
   @bind
   public uninstall(
-    dependencies: Array<string | [string, string]>,
+    dependencies: Array<[string, string] | string>,
     args: Array<string> = [],
   ): Promise<any> {
     return this.execute([
@@ -39,19 +54,5 @@ export class Npm extends Command implements IDependencyManager {
       this.path,
       ...args,
     ])
-  }
-
-  /**
-   * Get the latest version of a package from the npm registry
-   */
-  @bind
-  public async getLatestVersion(signifier: string): Promise<string> {
-    const result = await this.execute([
-      `npm`,
-      `view`,
-      signifier,
-      `version`,
-    ])
-    if (result?.shift) return result.shift().trim()
   }
 }

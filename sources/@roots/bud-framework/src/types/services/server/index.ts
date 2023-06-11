@@ -13,9 +13,9 @@ export type {
   Connection,
   HttpServerOptions,
   HttpsServerOptions,
+  Middleware,
   Options,
   OptionsMap,
-  Middleware,
   Service,
   Watcher,
 }

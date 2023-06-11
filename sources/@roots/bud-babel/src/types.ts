@@ -1,19 +1,19 @@
-import '@roots/bud'
-
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+
+import '@roots/bud'
 
 import type BabelExtension from './extension.js'
 
 export interface LoaderOptions {
-  configFile?: boolean
-  env?: Record<string, any>
-  presets?: Array<[string, any?]>
-  plugins?: Array<[string, any?]>
-  root?: string
+  cacheCompression?: boolean
   cacheDirectory?: boolean | string
   cacheIdentifier?: string
-  cacheCompression?: boolean
+  configFile?: boolean
   customize?: string
+  env?: Record<string, any>
+  plugins?: Array<[string, any?]>
+  presets?: Array<[string, any?]>
+  root?: string
   targets?: any
 }
 
@@ -22,13 +22,13 @@ export interface BabelPublicApi
   plugins: BabelExtension[`plugins`]
   presets: BabelExtension[`presets`]
   setPlugin: BabelExtension[`setPlugin`]
+  setPluginOptions: BabelExtension[`setPluginOptions`]
+  setPlugins: BabelExtension[`setPlugins`]
   setPreset: BabelExtension[`setPreset`]
+  setPresetOptions: BabelExtension[`setPresetOptions`]
+  setPresets: BabelExtension[`setPresets`]
   unsetPlugin: BabelExtension[`unsetPlugin`]
   unsetPreset: BabelExtension[`unsetPreset`]
-  setPlugins: BabelExtension[`setPlugins`]
-  setPresets: BabelExtension[`setPresets`]
-  setPluginOptions: BabelExtension[`setPluginOptions`]
-  setPresetOptions: BabelExtension[`setPresetOptions`]
 }
 
 /**
@@ -36,14 +36,14 @@ export interface BabelPublicApi
  *
  * @see https://babeljs.io/docs/en/plugins
  */
-export type Plugin = string | NormalizedPlugin | CallableFunction
+export type Plugin = CallableFunction | NormalizedPlugin | string
 
 /**
  * Babel transpiler options
  */
 export type Options = {
-  plugins?: Plugin[]
   config?: boolean | string
+  plugins?: Plugin[]
 }
 
 /**
@@ -59,7 +59,7 @@ export type NormalizedPlugin = [any, Record<string, any>]
  *
  * @see https://babeljs.io/docs/en/plugins#using-a-plugin
  */
-export type Registrable = string | NormalizedPlugin
+export type Registrable = NormalizedPlugin | string
 
 /**
  * Plugins and presets registry interface

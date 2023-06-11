@@ -1,19 +1,19 @@
 import {Message} from './message.js'
 
 export interface LogProps {
-  stream: `stdout` | `stderr`
   message: string
+  stream: `stderr` | `stdout`
 }
 
 export const Stderr = ({message}: {message: string}) => (
-  <Message label="stderr" color="red" message={message} />
+  <Message color="red" label="stderr" message={message} />
 )
 
 export const Stdout = ({message}: {message: string}) => (
-  <Message label="stdout" color="green" message={message} />
+  <Message color="green" label="stdout" message={message} />
 )
 
-export const Log = ({stream, message}: LogProps) => {
+export const Log = ({message, stream}: LogProps) => {
   switch (stream) {
     case `stdout`:
       return <Stdout message={message} />

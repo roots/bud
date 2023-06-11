@@ -1,16 +1,18 @@
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
-import {Service} from '@roots/bud-framework/service'
 import type * as Base from '@roots/bud-framework/services/build'
+
+import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {Records} from './config/index.js'
+import type {Options as RuleOptions} from './rule/index.js'
+
 import {register} from './handlers/register.js'
 import {Item} from './item/index.js'
 import {Loader} from './loader/index.js'
-import type {Options as RuleOptions} from './rule/index.js'
 import {Rule} from './rule/index.js'
 
 /**
@@ -23,19 +25,14 @@ export class Build extends Service implements Base.Service {
   public config: Partial<Configuration> = {}
 
   /**
-   * Registered loaders
-   */
-  public loaders: Loaders = {} as Loaders
-
-  /**
-   * Registered rules
-   */
-  public rules: Rules = {} as Rules
-
-  /**
    * Registered items
    */
   public items: Items = {} as Items
+
+  /**
+   * Registered loaders
+   */
+  public loaders: Loaders = {} as Loaders
 
   /**
    * Service register event
@@ -46,6 +43,44 @@ export class Build extends Service implements Base.Service {
    */
   public override register = register.bind(this)
 
+  /**
+   * Registered rules
+   */
+  public rules: Rules = {} as Rules
+
+  /**
+   * Get item
+   */
+  @bind
+  public getItem(name: `${keyof Items & string}`): Item {
+    if (!this.items[name])
+      this.logger.error(
+        `loader ${name} was requested but is not registered`,
+      )
+
+    return this.items[name]
+  }
+
+  /**
+   * Get loader
+   */
+  @bind
+  public getLoader(name: string): Loader {
+    if (!this.loaders[name])
+      this.logger.error(
+        `loader ${name} was requested but is not registered`,
+      )
+
+    return this.loaders[name]
+  }
+
+  /**
+   * Get rule
+   */
+  @bind
+  public getRule<K extends `${keyof Rules & string}`>(ident: K): Rules[K] {
+    return this.rules[ident]
+  }
   /**
    * Make webpack configuration
    */
@@ -78,25 +113,51 @@ export class Build extends Service implements Base.Service {
   }
 
   /**
-   * Get rule
+   * Make item
    */
   @bind
-  public getRule<K extends `${keyof Rules & string}`>(ident: K): Rules[K] {
-    return this.rules[ident]
+  public makeItem(options?: Partial<Item['options']>): Item {
+    return new Item(() => this.app, options)
   }
 
   /**
-   * Get loader
+   * Make loader
    */
   @bind
-  public getLoader(name: string): Loader {
-    if (!this.loaders[name])
-      this.logger.error(
-        `loader ${name} was requested but is not registered`,
-      )
-
-    return this.loaders[name]
+  public makeLoader(src?: string, definition?: string): Loader {
+    return new Loader(() => this.app, src, definition)
   }
+
+  /**
+   * Make Rule
+   */
+  @bind
+  public makeRule(options?: RuleOptions): Rule {
+    return new Rule(() => this.app, options)
+  }
+
+  /**
+   * Set item
+   */
+  @bind
+  public setItem<K extends `${keyof Items & string}`>(
+    ident: K,
+    options?: ((item: Items[K]) => Items[K]) | Items[K]['options'],
+  ): this {
+    const maybeOptionsCallback = isUndefined(options)
+      ? {ident, loader: ident}
+      : options
+
+    const item = isFunction(maybeOptionsCallback)
+      ? maybeOptionsCallback(this.makeItem())
+      : this.makeItem(maybeOptionsCallback)
+
+    this.items[ident] = item
+    this.logger.info(`set item`, item)
+
+    return this
+  }
+
   /**
    * Set loader
    */
@@ -118,63 +179,12 @@ export class Build extends Service implements Base.Service {
   }
 
   /**
-   * Make loader
-   */
-  @bind
-  public makeLoader(src?: string, definition?: string): Loader {
-    return new Loader(() => this.app, src, definition)
-  }
-
-  /**
-   * Get item
-   */
-  @bind
-  public getItem(name: `${keyof Items & string}`): Item {
-    if (!this.items[name])
-      this.logger.error(
-        `loader ${name} was requested but is not registered`,
-      )
-
-    return this.items[name]
-  }
-
-  /**
-   * Set item
-   */
-  @bind
-  public setItem<K extends `${keyof Items & string}`>(
-    ident: K,
-    options?: Items[K]['options'] | ((item: Items[K]) => Items[K]),
-  ): this {
-    const maybeOptionsCallback = isUndefined(options)
-      ? {ident, loader: ident}
-      : options
-
-    const item = isFunction(maybeOptionsCallback)
-      ? maybeOptionsCallback(this.makeItem())
-      : this.makeItem(maybeOptionsCallback)
-
-    this.items[ident] = item
-    this.logger.info(`set item`, item)
-
-    return this
-  }
-
-  /**
-   * Make item
-   */
-  @bind
-  public makeItem(options?: Partial<Item['options']>): Item {
-    return new Item(() => this.app, options)
-  }
-
-  /**
    * Set Rule
    */
   @bind
   public setRule<K extends `${keyof Rules & string}`>(
     name: K,
-    input?: RuleOptions | Rule,
+    input?: Rule | RuleOptions,
   ): this {
     this.rules[name] =
       input instanceof Rule
@@ -184,13 +194,5 @@ export class Build extends Service implements Base.Service {
         : this.makeRule(input as any)
 
     return this
-  }
-
-  /**
-   * Make Rule
-   */
-  @bind
-  public makeRule(options?: RuleOptions): Rule {
-    return new Rule(() => this.app, options)
   }
 }

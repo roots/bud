@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
-import {dirname, join} from 'node:path/posix'
-import {fileURLToPath} from 'node:url'
-
 import type {Context} from '@roots/bud-framework/options'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'
 import {filesystem} from '@roots/bud-support/utilities/filesystem'
+import {dirname, join} from 'node:path/posix'
+import {fileURLToPath} from 'node:url'
 
 import type {Cli} from './app.js'
 
@@ -14,9 +14,9 @@ import type {Cli} from './app.js'
  * Command finder class
  */
 export class Commands {
+  public static instance: Commands
   public fs: typeof filesystem = filesystem
   public paths: Array<string>
-  public static instance: Commands
 
   /**
    */
@@ -35,6 +35,32 @@ export class Commands {
       Commands.instance = new Commands(context, application)
       return Commands.instance
     }
+  }
+
+  public static async importCommandsFromPaths(
+    paths: Array<string>,
+  ): Promise<any> {
+    try {
+      return await Promise.all(
+        paths.map(async path => {
+          try {
+            return await import(path).then(
+              ({default: register}) => register,
+            )
+          } catch (error) {}
+        }),
+      )
+    } catch (error) {}
+  }
+
+  /**
+   * Find commands shipped with a given extension
+   */
+  @bind
+  public findExtensionCommandPaths(paths: Array<string>) {
+    return paths
+      .map(dirname)
+      .map(path => join(path, join(`bud`, `commands`, `index.js`)))
   }
 
   /**
@@ -68,17 +94,6 @@ export class Commands {
   }
 
   /**
-   */
-  @bind
-  public async getRegistrationModulePaths(): Promise<Array<any>> {
-    return await this.resolveExtensionCommandPaths(
-      this.getProjectDependencySignifiers(),
-    )
-      .then(this.findExtensionCommandPaths)
-      .then(this.resolveExtensionCommandPaths)
-  }
-
-  /**
    * Get array of project dependency and devDependency signifiers
    */
   @bind
@@ -90,13 +105,14 @@ export class Commands {
   }
 
   /**
-   * Find commands shipped with a given extension
    */
   @bind
-  public findExtensionCommandPaths(paths: Array<string>) {
-    return paths
-      .map(dirname)
-      .map(path => join(path, join(`bud`, `commands`, `index.js`)))
+  public async getRegistrationModulePaths(): Promise<Array<any>> {
+    return await this.resolveExtensionCommandPaths(
+      this.getProjectDependencySignifiers(),
+    )
+      .then(this.findExtensionCommandPaths)
+      .then(this.resolveExtensionCommandPaths)
   }
 
   @bind
@@ -120,21 +136,5 @@ export class Commands {
             }),
           ).then(paths => paths.filter(Boolean)),
       )
-  }
-
-  public static async importCommandsFromPaths(
-    paths: Array<string>,
-  ): Promise<any> {
-    try {
-      return await Promise.all(
-        paths.map(async path => {
-          try {
-            return await import(path).then(
-              ({default: register}) => register,
-            )
-          } catch (error) {}
-        }),
-      )
-    } catch (error) {}
   }
 }

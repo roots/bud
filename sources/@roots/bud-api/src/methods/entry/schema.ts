@@ -57,8 +57,8 @@ export const inputRecord = z.record(
  * @remarks how it should look after parsing
  */
 export const normalEntryValue = z.object({
-  import: importArray,
   dependsOn: z.array(z.string()).optional(),
+  import: importArray,
 })
 
 export const entrypointsRecord = z.record(

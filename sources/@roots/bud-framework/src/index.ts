@@ -8,7 +8,6 @@
  * @see https://github.com/roots/bud
  */
 
-/* eslint-disable simple-import-sort/imports */
 export * from './bud.js'
 export * from './service.js'
 

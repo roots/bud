@@ -7,54 +7,12 @@ import type * as Registry from '../../registry/index.js'
  */
 export default interface Hooks extends BaseService {
   /**
-   * Async hooks value store
+   * Store callback to an action handler
    */
-  asyncStore: any
-  /**
-   * Sync hooks value store
-   */
-  syncStore: any
-
-  /**
-   * Events value store
-   */
-  events: any
-
-  hasSyncHook: (hook: keyof Registry.SyncStore) => boolean
-
-  hasAsyncHook: (hook: keyof Registry.AsyncStore) => boolean
-
-  hasEvent: (hook: keyof Registry.EventsStore) => boolean
-
-  /**
-   * Register a function or value to modify or replace a filtered value
-   *
-   * @example
-   * ```js
-   * app.hooks.on(
-   *   'namespace.name.value',
-   *   value => 'replaced by this string',
-   * )
-   * ```
-   */
-  on: <T extends `${keyof Registry.SyncStore & string}`>(
+  action: <T extends keyof Registry.Events & string>(
     id: T,
-    input: Registry.SyncCallback[T],
+    ...input: Array<Registry.EventsCallback<T>>
   ) => Bud
-
-  /**
-   * Register a recordset of functions or values to modify or replace existing values
-   *
-   * @example
-   * ```js
-   * app.hooks.fromMap({
-   *  'namespace.name.value': 'replaced by this string',
-   * 'namespace.name.value2': value => value.push('modified by this string'),
-   * })
-   * ```
-   */
-  fromMap: (map: Partial<Registry.SyncCallback>) => Bud
-
   /**
    * Register an async function to filter a value.
    *
@@ -72,17 +30,14 @@ export default interface Hooks extends BaseService {
   ) => Bud
 
   /**
-   * Register a recordset of functions or values to modify or replace existing values
-   *
-   * @example
-   * ```js
-   * app.hooks.fromAsyncMap({
-   *  'namespace.name.value': 'replaced by this string',
-   * 'namespace.name.value2': async value => value.push('modified by this string'),
-   * })
-   * ```
+   * Async hooks value store
    */
-  fromAsyncMap: (map: Registry.AsyncCallback) => Bud
+  asyncStore: any
+
+  /**
+   * Events value store
+   */
+  events: any
 
   /**
    * Filter a value
@@ -128,10 +83,55 @@ export default interface Hooks extends BaseService {
   ) => Promise<Bud>
 
   /**
-   * Store callback to an action handler
+   * Register a recordset of functions or values to modify or replace existing values
+   *
+   * @example
+   * ```js
+   * app.hooks.fromAsyncMap({
+   *  'namespace.name.value': 'replaced by this string',
+   * 'namespace.name.value2': async value => value.push('modified by this string'),
+   * })
+   * ```
    */
-  action: <T extends keyof Registry.Events & string>(
+  fromAsyncMap: (map: Registry.AsyncCallback) => Bud
+
+  /**
+   * Register a recordset of functions or values to modify or replace existing values
+   *
+   * @example
+   * ```js
+   * app.hooks.fromMap({
+   *  'namespace.name.value': 'replaced by this string',
+   * 'namespace.name.value2': value => value.push('modified by this string'),
+   * })
+   * ```
+   */
+  fromMap: (map: Partial<Registry.SyncCallback>) => Bud
+
+  hasAsyncHook: (hook: keyof Registry.AsyncStore) => boolean
+
+  hasEvent: (hook: keyof Registry.EventsStore) => boolean
+
+  hasSyncHook: (hook: keyof Registry.SyncStore) => boolean
+
+  /**
+   * Register a function or value to modify or replace a filtered value
+   *
+   * @example
+   * ```js
+   * app.hooks.on(
+   *   'namespace.name.value',
+   *   value => 'replaced by this string',
+   * )
+   * ```
+   */
+  on: <T extends `${keyof Registry.SyncStore & string}`>(
     id: T,
-    ...input: Array<Registry.EventsCallback<T>>
+    input: Registry.SyncCallback[T],
   ) => Bud
+
+  /**
+   * Sync hooks value store
+   */
+  syncStore: any
 }

@@ -23,10 +23,10 @@ interface Uninstall {
 }
 
 export interface IDependencyManager {
-  onMessage?: (message: string) => void
-  getLatestVersion(signifier: string): Promise<string>
-  path: string
-  install: Install
-  uninstall: Uninstall
   execute: (commandArgs: Array<string>) => Promise<any>
+  getLatestVersion(signifier: string): Promise<string>
+  install: Install
+  onMessage?: (message: string) => void
+  path: string
+  uninstall: Uninstall
 }

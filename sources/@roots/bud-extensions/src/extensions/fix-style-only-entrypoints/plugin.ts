@@ -1,4 +1,5 @@
 import type {Compiler} from '@roots/bud-framework/config'
+
 import isString from '@roots/bud-support/lodash/isString'
 
 /**

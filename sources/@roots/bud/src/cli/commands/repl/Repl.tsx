@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {highlight} from '@roots/bud-support/highlight'
 import {
   Box,
@@ -13,11 +14,11 @@ import format from '@roots/bud-support/pretty-format'
 
 interface ReplProps {
   app: Bud
-  indent: string
   depth: string
+  indent: string
 }
 
-export const Repl = ({app, indent, depth}: ReplProps) => {
+export const Repl = ({app, depth, indent}: ReplProps) => {
   const [search, setSearch] = useState(``)
   const [result, setResult] = useState(``)
   const [paged, setPaged] = useState([])
@@ -124,26 +125,26 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
 
   return (
     <Box flexDirection="column">
-      <Box marginY={1} flexDirection="column">
+      <Box flexDirection="column" marginY={1}>
         <Box flexDirection="row" justifyContent="space-between">
           <Box
+            borderBottom={false}
+            borderLeft={true}
+            borderLeftColor={action === `alpha` ? `green` : `dim`}
+            borderRight={false}
+            borderStyle="single"
+            borderTop={false}
             flexDirection="row"
             justifyContent="flex-start"
             marginBottom={paged.length ? 1 : 0}
-            borderLeft={true}
-            borderTop={false}
-            borderBottom={false}
-            borderRight={false}
-            borderStyle="single"
-            borderLeftColor={action === `alpha` ? `green` : `dim`}
             paddingLeft={1}
           >
             <TextInput
-              placeholder="bud.build.config.entry"
-              value={search}
               onChange={setSearch}
               onSubmit={onSubmit}
+              placeholder="bud.build.config.entry"
               showCursor={true}
+              value={search}
             />
           </Box>
 
@@ -181,14 +182,14 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
 
         {paged[page] ? (
           <Box
-            flexDirection="column"
-            justifyContent="flex-start"
-            borderLeft={true}
-            borderTop={false}
             borderBottom={false}
+            borderLeft={true}
+            borderLeftColor="dim"
             borderRight={false}
             borderStyle="single"
-            borderLeftColor="dim"
+            borderTop={false}
+            flexDirection="column"
+            justifyContent="flex-start"
             paddingLeft={1}
           >
             <Text>{paged[page]}</Text>
@@ -196,7 +197,7 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
         ) : null}
       </Box>
 
-      <Box marginY={1} flexDirection="row">
+      <Box flexDirection="row" marginY={1}>
         <Text>
           <Text
             backgroundColor={action === `esc` ? `green` : `white`}

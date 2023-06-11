@@ -8,10 +8,10 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
+import type {Repository} from './repository.js'
 
 import {Api} from './api/service.js'
-import type {Repository} from './repository.js'
+import './types.js'
 
 export default Api
 export type {Repository}

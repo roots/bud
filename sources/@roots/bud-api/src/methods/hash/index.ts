@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
 export type Parameters = [
-  (boolean | undefined | ((hash: boolean | undefined) => boolean))?,
+  (((hash: boolean | undefined) => boolean) | boolean | undefined)?,
 ]
 
 export interface hash {

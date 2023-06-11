@@ -10,8 +10,8 @@ export interface when {
   (
     test:
       | ((app: Bud) => boolean)
-      | boolean
-      | Array<((app: Bud) => boolean) | boolean>,
+      | Array<((app: Bud) => boolean) | boolean>
+      | boolean,
     trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
     falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
   ): Bud
@@ -46,8 +46,8 @@ export interface when {
 export function when(
   test:
     | ((app: Bud) => boolean)
-    | boolean
-    | Array<((app: Bud) => boolean) | boolean>,
+    | Array<((app: Bud) => boolean) | boolean>
+    | boolean,
   trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
   falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
 ): Bud {

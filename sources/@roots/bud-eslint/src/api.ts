@@ -1,70 +1,86 @@
+import type {Options as EslintPluginOptions} from 'eslint-webpack-plugin'
+
 import {
   Extension,
   type StrictPublicExtensionApi as PublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind} from '@roots/bud-framework/extension/decorators'
-import type {Options as EslintPluginOptions} from 'eslint-webpack-plugin'
 import Plugin from 'eslint-webpack-plugin'
 
 export type Options = EslintPluginOptions &
   Record<string, unknown> & {
-    failOnWarning: EslintPluginOptions['failOnWarning']
-    failOnError: EslintPluginOptions['failOnError']
     cache: EslintPluginOptions['cache']
     cacheLocation: EslintPluginOptions['cacheLocation']
     context: EslintPluginOptions['context']
+    eslintPath: EslintPluginOptions['eslintPath']
     extensions: EslintPluginOptions['extensions']
+    failOnError: EslintPluginOptions['failOnError']
+    failOnWarning: EslintPluginOptions['failOnWarning']
     fix: EslintPluginOptions['fix']
-    lintDirtyModulesOnly: EslintPluginOptions['lintDirtyModulesOnly']
-    resolvePluginsRelativeTo: EslintPluginOptions['resolvePluginsRelativeTo']
     formatter: EslintPluginOptions['formatter']
+    lintDirtyModulesOnly: EslintPluginOptions['lintDirtyModulesOnly']
+    overrideConfig: EslintPluginOptions['overrideConfig']
+    resolvePluginsRelativeTo: EslintPluginOptions['resolvePluginsRelativeTo']
     threads: EslintPluginOptions['threads']
     useEslintrc: EslintPluginOptions['useEslintrc']
-    eslintPath: EslintPluginOptions['eslintPath']
-    overrideConfig: EslintPluginOptions['overrideConfig']
   }
 
 export type Api = PublicExtensionApi<BudEslintPublicApi, Options> & {
   config: Options[`overrideConfig`]
-  getConfig(): Api[`overrideConfig`]
-  setConfig(config: Api[`overrideConfig`]): Api
-  rules: Options[`overrideConfig`][`rules`]
-  setRules(
-    rules:
-      | Options[`overrideConfig`][`rules`]
-      | ((
-          rules: Options[`overrideConfig`][`rules`],
-        ) => Options[`overrideConfig`][`rules`]),
-  ): Api
-  getRules(): Api[`overrideConfig`][`rules`]
-  plugins: Options[`overrideConfig`][`plugins`]
-  setPlugins(
-    plugins:
-      | Options[`overrideConfig`][`plugins`]
-      | ((
-          plugins: Options[`overrideConfig`][`plugins`],
-        ) => Options[`overrideConfig`][`plugins`]),
-  ): Api
-  getPlugins(): Api[`overrideConfig`][`plugins`]
   extends(
     config:
-      | Api[`overrideConfig`][`extends`]
       | ((
           configs: Api[`overrideConfig`][`extends`],
-        ) => Api[`overrideConfig`][`extends`]),
+        ) => Api[`overrideConfig`][`extends`])
+      | Api[`overrideConfig`][`extends`],
+  ): Api
+  getConfig(): Api[`overrideConfig`]
+  getPlugins(): Api[`overrideConfig`][`plugins`]
+  getRules(): Api[`overrideConfig`][`rules`]
+  plugins: Options[`overrideConfig`][`plugins`]
+  rules: Options[`overrideConfig`][`rules`]
+  setConfig(config: Api[`overrideConfig`]): Api
+  setPlugins(
+    plugins:
+      | ((
+          plugins: Options[`overrideConfig`][`plugins`],
+        ) => Options[`overrideConfig`][`plugins`])
+      | Options[`overrideConfig`][`plugins`],
+  ): Api
+  setRules(
+    rules:
+      | ((
+          rules: Options[`overrideConfig`][`rules`],
+        ) => Options[`overrideConfig`][`rules`])
+      | Options[`overrideConfig`][`rules`],
   ): Api
 }
 
 export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**
-   * {@link Options.failOnWarning}
+   * {@link Options.cache}
    */
-  public declare getFailOnWarning: Api['getFailOnWarning']
+  public declare cache: Options['cache']
 
   /**
-   * {@link Options.failOnWarning}
+   * {@link Options.cacheLocation}
    */
-  public declare setFailOnWarning: Api['setFailOnWarning']
+  public declare cacheLocation: Options['cacheLocation']
+
+  /**
+   * {@link Options.context}
+   */
+  public declare context: Api['context']
+
+  /**
+   * {@link Options.eslintPath}
+   */
+  public declare eslintPath: Api['eslintPath']
+
+  /**
+   * {@link Options.extensions}
+   */
+  public declare extensions: Api['extensions']
 
   /**
    * {@link Options.failOnError}
@@ -72,24 +88,97 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   public declare failOnError: Api['failOnError']
 
   /**
-   * {@link Options.failOnError}
+   * {@link Options.formatter}
    */
-  public declare getFailOnError: Api['getFailOnError']
-
-  /**
-   * {@link Options.failOnError}
-   */
-  public declare setFailOnError: Api['setFailOnError']
-
-  /**
-   * {@link Options.cache}
-   */
-  public declare cache: Options['cache']
+  public declare formatter: Api['formatter']
 
   /**
    * {@link Options.cache}
    */
   public declare getCache: Api['getCache']
+
+  /**
+   * {@link Options.cacheLocation}
+   */
+  public declare getCacheLocation: Api['getCacheLocation']
+
+  /**
+   * {@link Options.context}
+   */
+  public declare getContext: Api['getContext']
+
+  /**
+   * {@link Options.eslintPath}
+   */
+  public declare getEslintPath: Api['getEslintPath']
+
+  /**
+   * {@link Options.extensions}
+   */
+  public declare getExtensions: Api['getExtensions']
+
+  /**
+   * {@link Options.failOnError}
+   */
+  public declare getFailOnError: Api['getFailOnError']
+
+  /**
+   * {@link Options.failOnWarning}
+   */
+  public declare getFailOnWarning: Api['getFailOnWarning']
+
+  /**
+   * {@link Options.fix}
+   */
+  public declare getFix: Api['getFix']
+
+  /**
+   * {@link Options.formatter}
+   */
+  public declare getFormatter: Api['getFormatter']
+
+  /**
+   * {@link Options.lintDirtyModulesOnly}
+   */
+  public declare getLintDirtyModulesOnly: Api['getLintDirtyModulesOnly']
+
+  /** @todo conflict with {@link BudEslint.fix} */
+  // public declare fix: Api['fix']
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public declare getOverrideConfig: Api['getOverrideConfig']
+
+  /**
+   * {@link Options.resolvePluginsRelativeTo}
+   */
+  public declare getResolvePluginsRelativeTo: Api['getResolvePluginsRelativeTo']
+
+  /**
+   * {@link Options.threads}
+   */
+  public declare getThreads: Api['getThreads']
+
+  /**
+   * {@link Options.useEslintRc}
+   */
+  public declare getUseEslintrc: Api['getUseEslintrc']
+
+  /**
+   * {@link Options.lintDirtyModulesOnly}
+   */
+  public declare lintDirtyModulesOnly: Api['lintDirtyModulesOnly']
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public declare overrideConfig: Api['overrideConfig']
+
+  /**
+   * {@link Options.resolvePluginsRelativeTo}
+   */
+  public declare resolvePluginsRelativeTo: Api['resolvePluginsRelativeTo']
 
   /**
    * {@link Options.cache}
@@ -99,27 +188,7 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**
    * {@link Options.cacheLocation}
    */
-  public declare cacheLocation: Options['cacheLocation']
-
-  /**
-   * {@link Options.cacheLocation}
-   */
-  public declare getCacheLocation: Api['getCacheLocation']
-
-  /**
-   * {@link Options.cacheLocation}
-   */
   public declare setCacheLocation: Api['setCacheLocation']
-
-  /**
-   * {@link Options.context}
-   */
-  public declare context: Api['context']
-
-  /**
-   * {@link Options.context}
-   */
-  public declare getContext: Api['getContext']
 
   /**
    * {@link Options.context}
@@ -127,27 +196,24 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   public declare setContext: Api['setContext']
 
   /**
-   * {@link Options.extensions}
+   * {@link Options.eslintPath}
    */
-  public declare extensions: Api['extensions']
-
-  /**
-   * {@link Options.extensions}
-   */
-  public declare getExtensions: Api['getExtensions']
+  public declare setEslintPath: Api['setEslintPath']
 
   /**
    * {@link Options.extensions}
    */
   public declare setExtensions: Api['setExtensions']
 
-  /** @todo conflict with {@link BudEslint.fix} */
-  // public declare fix: Api['fix']
+  /**
+   * {@link Options.failOnError}
+   */
+  public declare setFailOnError: Api['setFailOnError']
 
   /**
-   * {@link Options.fix}
+   * {@link Options.failOnWarning}
    */
-  public declare getFix: Api['getFix']
+  public declare setFailOnWarning: Api['setFailOnWarning']
 
   /**
    * {@link Options.fix}
@@ -155,14 +221,9 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   public declare setFix: Api['setFix']
 
   /**
-   * {@link Options.lintDirtyModulesOnly}
+   * {@link Options.formatter}
    */
-  public declare lintDirtyModulesOnly: Api['lintDirtyModulesOnly']
-
-  /**
-   * {@link Options.lintDirtyModulesOnly}
-   */
-  public declare getLintDirtyModulesOnly: Api['getLintDirtyModulesOnly']
+  public declare setFormatter: Api['setFormatter']
 
   /**
    * {@link Options.lintDirtyModulesOnly}
@@ -170,44 +231,14 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   public declare setLintDirtyModulesOnly: Api['setLintDirtyModulesOnly']
 
   /**
-   * {@link Options.resolvePluginsRelativeTo}
+   * {@link Options.overrideConfig}
    */
-  public declare resolvePluginsRelativeTo: Api['resolvePluginsRelativeTo']
-
-  /**
-   * {@link Options.resolvePluginsRelativeTo}
-   */
-  public declare getResolvePluginsRelativeTo: Api['getResolvePluginsRelativeTo']
+  public declare setOverrideConfig: Api['setOverrideConfig']
 
   /**
    * {@link Options.resolvePluginsRelativeTo}
    */
   public declare setResolvePluginsRelativeTo: Api['setResolvePluginsRelativeTo']
-
-  /**
-   * {@link Options.formatter}
-   */
-  public declare formatter: Api['formatter']
-
-  /**
-   * {@link Options.formatter}
-   */
-  public declare getFormatter: Api['getFormatter']
-
-  /**
-   * {@link Options.formatter}
-   */
-  public declare setFormatter: Api['setFormatter']
-
-  /**
-   * {@link Options.threads}
-   */
-  public declare threads: Api['threads']
-
-  /**
-   * {@link Options.threads}
-   */
-  public declare getThreads: Api['getThreads']
 
   /**
    * {@link Options.threads}
@@ -217,53 +248,52 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**
    * {@link Options.useEslintRc}
    */
-  public declare useEslintrc: Api['useEslintrc']
-
-  /**
-   * {@link Options.useEslintRc}
-   */
-  public declare getUseEslintrc: Api['getUseEslintrc']
-
-  /**
-   * {@link Options.useEslintRc}
-   */
   public declare setUseEslintrc: Api['setUseEslintrc']
 
   /**
-   * {@link Options.eslintPath}
+   * {@link Options.threads}
    */
-  public declare eslintPath: Api['eslintPath']
+  public declare threads: Api['threads']
 
   /**
-   * {@link Options.eslintPath}
+   * {@link Options.useEslintRc}
    */
-  public declare getEslintPath: Api['getEslintPath']
-
-  /**
-   * {@link Options.eslintPath}
-   */
-  public declare setEslintPath: Api['setEslintPath']
-
-  /**
-   * {@link Options.overrideConfig}
-   */
-  public declare overrideConfig: Api['overrideConfig']
-
-  /**
-   * {@link Options.overrideConfig}
-   */
-  public declare getOverrideConfig: Api['getOverrideConfig']
-
-  /**
-   * {@link Options.overrideConfig}
-   */
-  public declare setOverrideConfig: Api['setOverrideConfig']
+  public declare useEslintrc: Api['useEslintrc']
 
   /**
    * {@link Options.overrideConfig}
    */
   public get config() {
     return this.overrideConfig
+  }
+
+  /**
+   * Extend config
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(['@roots/eslint-config'])
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.eslint.extends(configs => [...configs, '@roots/eslint-config'])
+   * ```
+   */
+  @bind
+  public extends(
+    config:
+      | ((
+          configs: Api[`overrideConfig`][`extends`],
+        ) => Api[`overrideConfig`][`extends`])
+      | Api[`overrideConfig`][`extends`],
+  ) {
+    this.setConfig((current = {}) => {
+      return typeof config === `function`
+        ? {...current, extends: config(current.extends)}
+        : {...current, extends: [...(current?.extends ?? []), ...config]}
+    })
+    return this
   }
 
   /**
@@ -274,43 +304,16 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   }
 
   /**
-   * {@link Options.overrideConfig}
-   */
-  public setConfig(
-    config:
-      | Api['overrideConfig']
-      | ((config: Api['overrideConfig']) => Api['overrideConfig']),
-  ) {
-    this.setOverrideConfig(config)
-    return this
-  }
-
-  /**
-   * Get eslint rules
+   * Get eslint plugins
    *
    * @example
    * ```js
-   * console.log(bud.eslint.rules)
+   * console.log(bud.eslint.getPlugins())
    * ```
    */
-  public get rules(): Api[`overrideConfig`][`rules`] {
-    return this.overrideConfig.rules
-  }
-
-  /**
-   * Set eslint rules
-   *
-   * @example
-   * ```js
-   * bud.eslint.rules = {
-   *  'no-console': 'off',
-   * }
-   * ```
-   */
-  public set rules(rules: Api[`overrideConfig`][`rules`]) {
-    this.setOverrideConfig((config = {}) => {
-      return {...config, rules: {...config.rules, ...rules}}
-    })
+  @bind
+  public getPlugins() {
+    return this.plugins
   }
 
   /**
@@ -324,40 +327,6 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   @bind
   public getRules() {
     return this.rules
-  }
-
-  /**
-   * Set eslint config rules
-   *
-   * @example
-   * ```js
-   * bud.eslint.setRules({
-   *   'no-console': 'off',
-   * })
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.eslint.setRules(rules => ({
-   *   ...rules,
-   *  'no-console': 'off',
-   * }))
-   * ```
-   */
-  @bind
-  public setRules(
-    rules:
-      | Options[`overrideConfig`][`rules`]
-      | ((
-          rules: Options[`overrideConfig`][`rules`],
-        ) => Options[`overrideConfig`][`rules`]),
-  ) {
-    this.setOverrideConfig((config = {}) => {
-      return typeof rules === `function`
-        ? {...config, rules: rules(config.rules)}
-        : {...config, rules: {...(config.rules ?? {}), ...rules}}
-    })
-    return this
   }
 
   /**
@@ -389,16 +358,43 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   }
 
   /**
-   * Get eslint plugins
+   * Get eslint rules
    *
    * @example
    * ```js
-   * console.log(bud.eslint.getPlugins())
+   * console.log(bud.eslint.rules)
    * ```
    */
-  @bind
-  public getPlugins() {
-    return this.plugins
+  public get rules(): Api[`overrideConfig`][`rules`] {
+    return this.overrideConfig.rules
+  }
+
+  /**
+   * Set eslint rules
+   *
+   * @example
+   * ```js
+   * bud.eslint.rules = {
+   *  'no-console': 'off',
+   * }
+   * ```
+   */
+  public set rules(rules: Api[`overrideConfig`][`rules`]) {
+    this.setOverrideConfig((config = {}) => {
+      return {...config, rules: {...config.rules, ...rules}}
+    })
+  }
+
+  /**
+   * {@link Options.overrideConfig}
+   */
+  public setConfig(
+    config:
+      | ((config: Api['overrideConfig']) => Api['overrideConfig'])
+      | Api['overrideConfig'],
+  ) {
+    this.setOverrideConfig(config)
+    return this
   }
 
   /**
@@ -422,10 +418,10 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   @bind
   public setPlugins(
     plugins:
-      | Options[`overrideConfig`][`plugins`]
       | ((
           plugins: Options[`overrideConfig`][`plugins`],
-        ) => Options[`overrideConfig`][`plugins`]),
+        ) => Options[`overrideConfig`][`plugins`])
+      | Options[`overrideConfig`][`plugins`],
   ) {
     this.setOverrideConfig((config = {}) => {
       return typeof plugins === `function`
@@ -436,30 +432,35 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   }
 
   /**
-   * Extend config
+   * Set eslint config rules
    *
    * @example
    * ```js
-   * bud.eslint.extends(['@roots/eslint-config'])
+   * bud.eslint.setRules({
+   *   'no-console': 'off',
+   * })
    * ```
    *
    * @example
    * ```js
-   * bud.eslint.extends(configs => [...configs, '@roots/eslint-config'])
+   * bud.eslint.setRules(rules => ({
+   *   ...rules,
+   *  'no-console': 'off',
+   * }))
    * ```
    */
   @bind
-  public extends(
-    config:
-      | Api[`overrideConfig`][`extends`]
+  public setRules(
+    rules:
       | ((
-          configs: Api[`overrideConfig`][`extends`],
-        ) => Api[`overrideConfig`][`extends`]),
+          rules: Options[`overrideConfig`][`rules`],
+        ) => Options[`overrideConfig`][`rules`])
+      | Options[`overrideConfig`][`rules`],
   ) {
-    this.setConfig((current = {}) => {
-      return typeof config === `function`
-        ? {...current, extends: config(current.extends)}
-        : {...current, extends: [...(current?.extends ?? []), ...config]}
+    this.setOverrideConfig((config = {}) => {
+      return typeof rules === `function`
+        ? {...config, rules: rules(config.rules)}
+        : {...config, rules: {...(config.rules ?? {}), ...rules}}
     })
     return this
   }

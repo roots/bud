@@ -44,15 +44,6 @@ export interface Repository {
   assets: (...params: Assets.Parameters) => Bud
 
   /**
-   * ## bud.copy
-   *
-   * Alias for {@link Assets.assets bud.assets}
-   *
-   * {@link https://bud.js.org/docs/bud.assets 📕 Documentation}
-   */
-  copy: (...params: Assets.Parameters) => Bud
-
-  /**
    * ## bud.bundle
    *
    * {@link https://bud.js.org/docs/bud.bundle 📕 Documentation}
@@ -74,6 +65,15 @@ export interface Repository {
   config(...params: Config.Parameters): Bud
 
   /**
+   * ## bud.copy
+   *
+   * Alias for {@link Assets.assets bud.assets}
+   *
+   * {@link https://bud.js.org/docs/bud.assets 📕 Documentation}
+   */
+  copy: (...params: Assets.Parameters) => Bud
+
+  /**
    * ## bud.copyFile
    *
    * {@link https://bud.js.org/docs/bud.copyDir 📕 Documentation}
@@ -86,24 +86,6 @@ export interface Repository {
    * {@link https://bud.js.org/docs/bud.copyFile 📕 Documentation}
    */
   copyFile(...params: CopyFile.Parameters): Bud
-
-  /**
-   * ## bud.override
-   *
-   * Alias for {@link Config.config bud.config}
-   *
-   * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
-   */
-  override(...params: Config.Parameters): Bud
-
-  /**
-   * ## bud.config
-   *
-   * Alias for {@link Config.config bud.config}
-   *
-   * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
-   */
-  webpackConfig(...params: Config.Parameters): Bud
 
   /**
    * ## bud.define
@@ -173,11 +155,11 @@ export interface Repository {
   hash(...params: Hash.Parameters): Bud
 
   /**
-   * ## bud.version
+   * ## bud.html
    *
-   * {@link https://bud.js.org/docs/bud.version 📕 Documentation}
+   * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
    */
-  version(...params: Hash.Parameters): Bud
+  html(...params: Html.Parameters): Bud
 
   /**
    * ## bud.minimize
@@ -185,6 +167,15 @@ export interface Repository {
    * {@link https://bud.js.org/docs/bud.minimize 📕 Documentation}
    */
   minimize(...params: Minimize.Parameters): Bud
+
+  /**
+   * ## bud.override
+   *
+   * Alias for {@link Config.config bud.config}
+   *
+   * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
+   */
+  override(...params: Config.Parameters): Bud
 
   /**
    * ## bud.persist
@@ -222,20 +213,6 @@ export interface Repository {
   serve(...params: Serve.Parameters): Bud
 
   /**
-   * ## bud.setUrl
-   *
-   * {@link https://bud.js.org/docs/bud.setUrl 📕 Documentation}
-   */
-  setUrl(...params: SetUrl.Parameters): Bud
-
-  /**
-   * ## bud.setPublicUrl
-   *
-   * {@link https://bud.js.org/docs/bud.SetPublicUrl 📕 Documentation}
-   */
-  setPublicUrl(...params: SetPublicUrl.Parameters): Bud
-
-  /**
    * ## bud.setProxyUrl
    *
    * {@link https://bud.js.org/docs/bud.setProxyUrl 📕 Documentation}
@@ -250,18 +227,25 @@ export interface Repository {
   setPublicProxyUrl(...params: SetPublicProxyUrl.Parameters): Bud
 
   /**
+   * ## bud.setPublicUrl
+   *
+   * {@link https://bud.js.org/docs/bud.SetPublicUrl 📕 Documentation}
+   */
+  setPublicUrl(...params: SetPublicUrl.Parameters): Bud
+
+  /**
+   * ## bud.setUrl
+   *
+   * {@link https://bud.js.org/docs/bud.setUrl 📕 Documentation}
+   */
+  setUrl(...params: SetUrl.Parameters): Bud
+
+  /**
    * ## bud.splitChunks
    *
    * {@link https://bud.js.org/docs/bud.splitChunks 📕 Documentation}
    */
   splitChunks(...params: SplitChunks.Parameters): Bud
-
-  /**
-   * ## bud.html
-   *
-   * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
-   */
-  html(...params: Html.Parameters): Bud
 
   /**
    * ## bud.template
@@ -280,9 +264,25 @@ export interface Repository {
   use(...params: Use.Parameters): Bud
 
   /**
+   * ## bud.version
+   *
+   * {@link https://bud.js.org/docs/bud.version 📕 Documentation}
+   */
+  version(...params: Hash.Parameters): Bud
+
+  /**
    * ## bud.watch
    *
    * {@link https://bud.js.org/docs/bud.watch 📕 Documentation}
    */
   watch(...params: Watch.Parameters): Bud
+
+  /**
+   * ## bud.config
+   *
+   * Alias for {@link Config.config bud.config}
+   *
+   * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
+   */
+  webpackConfig(...params: Config.Parameters): Bud
 }

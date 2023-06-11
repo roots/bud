@@ -17,8 +17,8 @@ export const optimization: Factory<`optimization`> = async ({
     minimizer: filter(`build.optimization.minimizer`, []),
     moduleIds: filter(`build.optimization.moduleIds`, `named`),
     nodeEnv: filter(`build.optimization.nodeEnv`, mode),
-    removeEmptyChunks: filter(
-      `build.optimization.removeEmptyChunks`,
+    providedExports: filter(
+      `build.optimization.providedExports`,
       isProduction,
     ),
     /**
@@ -29,12 +29,12 @@ export const optimization: Factory<`optimization`> = async ({
       `build.optimization.removeAvailableModules`,
       false,
     ),
+    removeEmptyChunks: filter(
+      `build.optimization.removeEmptyChunks`,
+      isProduction,
+    ),
     runtimeChunk: filter(`build.optimization.runtimeChunk`, `single`),
     sideEffects: filter(`build.optimization.sideEffects`, isProduction),
     splitChunks: filter(`build.optimization.splitChunks`, false),
-    providedExports: filter(
-      `build.optimization.providedExports`,
-      isProduction,
-    ),
     usedExports: filter(`build.optimization.usedExports`, isProduction),
   })

@@ -1,3 +1,10 @@
+import type {CommandClass} from '@roots/bud-support/clipanion'
+
+import {Error} from '@roots/bud-dashboard/app'
+import {Builtins, Cli} from '@roots/bud-support/clipanion'
+import {render} from '@roots/bud-support/ink'
+import logger from '@roots/bud-support/logger'
+import * as args from '@roots/bud-support/utilities/args'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/bud.build.development'
@@ -8,19 +15,14 @@ import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
-import {Error} from '@roots/bud-dashboard/app'
-import type {CommandClass} from '@roots/bud-support/clipanion'
-import {Builtins, Cli} from '@roots/bud-support/clipanion'
-import {render} from '@roots/bud-support/ink'
-import logger from '@roots/bud-support/logger'
-import * as args from '@roots/bud-support/utilities/args'
+
+import type {CLIContext} from './index.js'
 
 import BudDoctorCommand from './commands/doctor/index.js'
 import BudReplCommand from './commands/repl/index.js'
-import type {CLIContext} from './index.js'
 
 let application: Cli
-let context: Context | CLIContext
+let context: CLIContext | Context
 
 const commands = [
   Builtins.HelpCommand,
@@ -39,10 +41,10 @@ const commands = [
 
 const isCLIContext = (
   context: Context & {
-    stdout?: NodeJS.WriteStream
     stderr?: NodeJS.WriteStream
     stdin?: NodeJS.ReadStream
     stdio?: NodeJS.WriteStream
+    stdout?: NodeJS.WriteStream
   },
 ): context is CLIContext =>
   context.basedir !== undefined &&
@@ -53,10 +55,10 @@ const isCLIContext = (
 try {
   context = {
     ...(await getContext()),
+    colorDepth: 256,
+    stderr: global.process.stderr,
     stdin: global.process.stdin,
     stdout: global.process.stdout,
-    stderr: global.process.stderr,
-    colorDepth: 256,
   }
 
   if (!isCLIContext(context)) throw `Invalid context`

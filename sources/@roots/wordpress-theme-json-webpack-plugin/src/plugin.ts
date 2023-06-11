@@ -1,18 +1,14 @@
 import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
+import type {Compiler, WebpackPluginInstance} from 'webpack'
+
 import fs from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
 import omit from 'lodash/omit.js'
-import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 /**
  * Plugin options
  */
 export interface Options {
-  /**
-   * Emit path
-   */
-  path: string
-
   /**
    * Warning comment about the file being generated.
    */
@@ -24,21 +20,26 @@ export interface Options {
   $schema?: string
 
   /**
-   * WordPress `settings`
-   * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
-   */
-  settings?: Partial<Theme.SettingsAndStyles['settings']>
-
-  /**
    * WordPress `customTemplates`
    * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
    */
   customTemplates?: Theme.SettingsAndStyles['customTemplates']
 
   /**
-   * Version of theme.json to use.
+   * Emit path
    */
-  version?: 2
+  path: string
+
+  /**
+   * An array of pattern slugs to be registered from the Pattern Directory.
+   */
+  patterns?: Theme.SettingsAndStyles['patterns']
+
+  /**
+   * WordPress `settings`
+   * @see https://developer.wordpress.org/block-editor/how-to-guides/themes/theme-json/
+   */
+  settings?: Partial<Theme.SettingsAndStyles['settings']>
 
   /**
    * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
@@ -51,43 +52,15 @@ export interface Options {
   templateParts?: Theme.SettingsAndStyles['templateParts']
 
   /**
-   * An array of pattern slugs to be registered from the Pattern Directory.
+   * Version of theme.json to use.
    */
-  patterns?: Theme.SettingsAndStyles['patterns']
+  version?: 2
 }
 
 /**
  * ThemeJSONWebpackPlugin
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
-  /**
-   * theme.json path
-   */
-  public get path(): string {
-    return this.options.path
-  }
-
-  /**
-   * theme.json settings
-   */
-  public get settings(): string {
-    return JSON.stringify(
-      Object.entries({
-        __generated__: `⚠️ This file is generated. Do not edit.`,
-        $schema: `https://schemas.wp.org/trunk/theme.json`,
-        version: 2,
-        ...omit(this.options, `path`),
-      }).reduce((a, [k, v]) => {
-        if (v !== undefined) {
-          a[k] = v
-        }
-        return a
-      }, {}),
-      null,
-      2,
-    )
-  }
-
   /**
    * Class constructor
    *
@@ -118,5 +91,33 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
     } catch (err) {
       throw new Error(err)
     }
+  }
+
+  /**
+   * theme.json path
+   */
+  public get path(): string {
+    return this.options.path
+  }
+
+  /**
+   * theme.json settings
+   */
+  public get settings(): string {
+    return JSON.stringify(
+      Object.entries({
+        __generated__: `⚠️ This file is generated. Do not edit.`,
+        $schema: `https://schemas.wp.org/trunk/theme.json`,
+        version: 2,
+        ...omit(this.options, `path`),
+      }).reduce((a, [k, v]) => {
+        if (v !== undefined) {
+          a[k] = v
+        }
+        return a
+      }, {}),
+      null,
+      2,
+    )
   }
 }

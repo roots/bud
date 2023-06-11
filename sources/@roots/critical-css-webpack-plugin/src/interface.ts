@@ -3,29 +3,9 @@
  */
 export interface Options {
   /**
-   * Html source string
-   */
-  src?: string
-
-  /**
-   * Html source string
-   */
-  html?: string
-
-  /**
    * Base directory
    */
   base?: string
-
-  /**
-   * Viewport width
-   */
-  width?: number
-
-  /**
-   * Viewport height
-   */
-  height?: number
 
   /**
    * Extract critical
@@ -33,12 +13,22 @@ export interface Options {
   extract?: boolean
 
   /**
+   * Viewport height
+   */
+  height?: number
+
+  /**
+   * Html source string
+   */
+  html?: string
+
+  /**
    * Ignore CSS rules
    */
   ignore?: {
     atrule: string[]
-    rule: RegExp[]
     decl: (node: any, value: any) => boolean
+    rule: RegExp[]
   }
 
   /**
@@ -50,4 +40,14 @@ export interface Options {
    * @see https://github.com/sindresorhus/got/blob/main/documentation/2-options.md
    */
   request?: any
+
+  /**
+   * Html source string
+   */
+  src?: string
+
+  /**
+   * Viewport width
+   */
+  width?: number
 }

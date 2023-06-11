@@ -1,8 +1,7 @@
 /* eslint-disable no-console */
-import {join} from 'node:path'
-
 import * as critical from 'critical'
 import {bind} from 'helpful-decorators'
+import {join} from 'node:path'
 import vinyl from 'vinyl'
 import Webpack from 'webpack'
 
@@ -15,6 +14,20 @@ export type {Options}
  */
 export default class CriticalCssWebpackPlugin {
   /**
+   * Plugin options
+   */
+  public options: Options = {
+    extract: true,
+    height: 900,
+    request: {
+      https: {
+        rejectUnauthorized: false,
+      },
+    },
+    width: 1300,
+  }
+
+  /**
    * Plugin ident
    */
   public plugin = {
@@ -23,28 +36,14 @@ export default class CriticalCssWebpackPlugin {
   }
 
   /**
-   * Plugin options
-   */
-  public options: Options = {
-    extract: true,
-    width: 1300,
-    height: 900,
-    request: {
-      https: {
-        rejectUnauthorized: false,
-      },
-    },
-  }
-
-  /**
    * Webpack lifecycle events
    */
   public webpack: {
-    compiler: Webpack.Compiler
     compilation: Webpack.Compilation
+    compiler: Webpack.Compiler
   } = {
-    compiler: null,
     compilation: null,
+    compiler: null,
   }
 
   /**
@@ -106,8 +105,8 @@ export default class CriticalCssWebpackPlugin {
 
         const vfile = new vinyl({
           base,
-          path: asset.name,
           contents: asset.source.buffer(),
+          path: asset.name,
         })
 
         try {

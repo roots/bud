@@ -1,7 +1,8 @@
 import {Command} from '@roots/bud-support/clipanion'
 
-import BuildCommand from './bud.build.js'
 import type {Context} from './bud.js'
+
+import BuildCommand from './bud.build.js'
 
 /**
  * `bud build production` command

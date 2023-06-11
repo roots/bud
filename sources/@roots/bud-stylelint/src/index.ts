@@ -8,7 +8,6 @@
  * @see https://github.com/roots/bud/tree/main/sources/@roots/bud-styelint
  */
 
-import './types.js'
-
 import BudStylelint from './extension.js'
+import './types.js'
 export default BudStylelint

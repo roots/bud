@@ -1,10 +1,10 @@
-import {join, sep} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
+
 import isRegExp from '@roots/bud-support/lodash/isRegExp'
 import isString from '@roots/bud-support/lodash/isString'
+import {join, sep} from 'node:path'
 
-export type Parameters = [string, (string | Array<string> | RegExp)?]
+export type Parameters = [string, (Array<string> | RegExp | string)?]
 
 /**
  * Create a module chunk
@@ -40,19 +40,19 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
 
     const entry = {
       [name]: {
-        idHint: name,
         filename: join(`js`, `bundle`, name, template),
-        test,
+        idHint: name,
         priority: -10,
+        test,
       },
     }
 
     if (splitChunks === false || splitChunks === undefined) {
       return {
-        chunks: `all`,
         automaticNameDelimiter: sep,
-        minSize: 0,
         cacheGroups: {...entry},
+        chunks: `all`,
+        minSize: 0,
       }
     }
 
@@ -70,7 +70,7 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
   return this
 }
 
-const normalize = (matcher: string | Array<string> | RegExp): RegExp => {
+const normalize = (matcher: Array<string> | RegExp | string): RegExp => {
   return isRegExp(matcher)
     ? matcher
     : isString(matcher)

@@ -14,27 +14,27 @@ export interface Sync {
   'cache.cacheDirectory': string
   'cache.managedPaths': Array<string>
   'cache.name': string
-  'cache.type': 'memory' | 'filesystem'
+  'cache.type': 'filesystem' | 'memory'
   'cache.version': string
   context: Configuration['context']
   dependencies: Configuration['dependencies']
   devtool: Configuration['devtool']
   entry: Record<string, EntryObject>
   experiments: Configuration['experiments']
-  externals: Record<string, RegExp | string | Array<string | RegExp>>
+  externals: Record<string, Array<RegExp | string> | RegExp | string>
   externalsType: Configuration['externalsType']
   infrastructureLogging: Configuration['infrastructureLogging']
-  'infrastructureLogging.level': Configuration['infrastructureLogging']['level']
   'infrastructureLogging.console':
     | Configuration['infrastructureLogging']['console']
+  'infrastructureLogging.level': Configuration['infrastructureLogging']['level']
   loader: Configuration['loader']
-  mode: Configuration['mode'] & ('production' | 'development')
+  mode: Configuration['mode'] & ('development' | 'production')
   module: Configuration['module']
   'module.noParse': Configuration['module']['noParse']
   'module.rules': Configuration['module']['rules']
-  'module.rules.oneOf': Array<RuleSetRule>
-  'module.rules.before': Array<RuleSetRule>
   'module.rules.after': Array<RuleSetRule>
+  'module.rules.before': Array<RuleSetRule>
+  'module.rules.oneOf': Array<RuleSetRule>
   'module.unsafeCache': Configuration['module']['unsafeCache']
   name: Configuration['name']
   node: Configuration['node']
@@ -44,17 +44,17 @@ export interface Sync {
   'optimization.mergeDuplicateChunks': Configuration['optimization']['mergeDuplicateChunks']
   'optimization.minimize': Configuration['optimization']['minimize']
   'optimization.minimizer': Array<
-    ((compiler: Compiler) => void) | {apply: any} | '...'
+    '...' | ((compiler: Compiler) => void) | {apply: any}
   >
   'optimization.moduleIds': Configuration['optimization']['moduleIds']
   'optimization.nodeEnv': Configuration['optimization']['nodeEnv']
   'optimization.providedExports': Configuration['optimization']['providedExports']
+  'optimization.removeAvailableModules': Configuration['optimization']['removeAvailableModules']
   'optimization.removeEmptyChunks':
     | Configuration['optimization']['removeEmptyChunks']
-  'optimization.removeAvailableModules': Configuration['optimization']['removeAvailableModules']
   'optimization.runtimeChunk': Configuration['optimization']['runtimeChunk']
   'optimization.sideEffects': Configuration['optimization']['sideEffects']
-  'optimization.splitChunks': Optimization.SplitChunks | false
+  'optimization.splitChunks': false | Optimization.SplitChunks
   'optimization.usedExports': Configuration['optimization']['usedExports']
   output: Configuration['output']
   'output.assetModuleFilename': Configuration['output']['assetModuleFilename']
@@ -72,14 +72,14 @@ export interface Sync {
   'output.path': Configuration['output']['path']
   'output.pathinfo': Configuration['output']['pathinfo']
   'output.publicPath': string
-  'output.scriptType': false | `module` | `text/javascript`
+  'output.scriptType': `module` | `text/javascript` | false
   'output.uniqueName': string
   parallelism: Configuration['parallelism']
   performance: Configuration['performance']
   profile: Configuration['profile']
   recordsPath: Configuration['recordsPath']
-  'resolve.extensions': Set<string>
   'resolve.extensionAlias': Configuration['resolve']['extensionAlias']
+  'resolve.extensions': Set<string>
   resolveLoader: Configuration['resolveLoader']
   'resolveLoader.alias': Configuration[`resolveLoader`][`alias`]
   snapshot: Configuration[`snapshot`]
@@ -87,8 +87,8 @@ export interface Sync {
   'snapshot.immutablePaths': Configuration[`snapshot`][`immutablePaths`]
   'snapshot.managedPaths': Configuration[`snapshot`][`managedPaths`]
   'snapshot.module': Configuration[`snapshot`][`module`]
-  'snapshot.resolveBuildDependencies': Configuration[`snapshot`][`resolveBuildDependencies`]
   'snapshot.resolve': Configuration[`snapshot`][`resolve`]
+  'snapshot.resolveBuildDependencies': Configuration[`snapshot`][`resolveBuildDependencies`]
   stats: StatsOptions
   'stats.preset': string
   target: Configuration['target']
@@ -103,7 +103,7 @@ export type SyncRegistry = {
 export interface Async {
   plugins: Array<any>
   resolve: any
-  'resolve.alias': {[index: string]: string | false | string[]} | undefined
+  'resolve.alias': {[index: string]: false | string | string[]} | undefined
   'resolve.aliasFields': Configuration['resolve']['aliasFields']
   'resolve.extensionAlias': Configuration['resolve']['extensionAlias']
   'resolve.modules': Configuration['resolve']['modules'] | undefined

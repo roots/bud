@@ -4,10 +4,11 @@ import type Cache from '@roots/bud-cache'
 import type Compiler from '@roots/bud-compiler'
 import type Dashboard from '@roots/bud-dashboard'
 import type Extensions from '@roots/bud-extensions'
-import {Bud as Framework} from '@roots/bud-framework'
-import {Service, ServiceContainer} from '@roots/bud-framework'
 import type Hooks from '@roots/bud-hooks'
 import type Server from '@roots/bud-server'
+
+import {Service, ServiceContainer} from '@roots/bud-framework'
+import {Bud as Framework} from '@roots/bud-framework'
 
 /**
  * ## ⚡️ Bud
@@ -15,8 +16,6 @@ import type Server from '@roots/bud-server'
  * {@link https://bud.js.org/ bud.js}
  */
 class Bud extends Framework {
-  public override implementation = Bud as any
-
   public declare api: Api
 
   public declare build: Build
@@ -30,6 +29,8 @@ class Bud extends Framework {
   public declare extensions: Extensions
 
   public declare hooks: Hooks
+
+  public override implementation = Bud as any
 
   public declare server: Server
 }

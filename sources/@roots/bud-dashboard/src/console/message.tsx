@@ -6,7 +6,7 @@ export interface Props {
   message: string
 }
 
-export const Message = ({label, message, color}: Props) => (
+export const Message = ({color, label, message}: Props) => (
   <Ink.Box flexDirection="column">
     <Ink.Text>
       <Ink.Text color={color}>[{label}]</Ink.Text>

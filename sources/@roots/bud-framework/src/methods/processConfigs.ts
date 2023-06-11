@@ -1,5 +1,6 @@
-import * as configuration from '../configuration/index.js'
 import type {Bud} from '../index.js'
+
+import * as configuration from '../configuration/index.js'
 
 /**
  * Process user configurations

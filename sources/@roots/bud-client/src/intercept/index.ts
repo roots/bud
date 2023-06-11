@@ -1,4 +1,4 @@
-type Target = HTMLAnchorElement | HTMLLinkElement | HTMLFormElement
+type Target = HTMLAnchorElement | HTMLFormElement | HTMLLinkElement
 type ElementTuple = [HTMLCollectionOf<Target>, any]
 
 const intercept = (...args: [string, string]) => {

@@ -16,10 +16,6 @@ export class TestRun extends Command {
 
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
-  public get requiresSetup() {
-    return [`integration`, `e2e`].includes(this.configuration)
-  }
-
   public async execute() {
     if (this.requiresSetup) await this.setup()
 
@@ -39,6 +35,10 @@ export class TestRun extends Command {
     } catch (e) {
       throw e
     }
+  }
+
+  public get requiresSetup() {
+    return [`e2e`, `integration`].includes(this.configuration)
   }
 
   public async setup() {

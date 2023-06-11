@@ -4,12 +4,12 @@ import {CommandClass, Option} from 'clipanion'
 import {Command} from './base.command'
 
 interface BundleProps {
-  source: string
   alias?: Record<string, string>
-  format?: `esm` | `cjs`
   external?: Array<string>
+  format?: `cjs` | `esm`
   outdir?: string
   outfile?: string
+  source: string
 }
 
 export class Tsc extends Command {
@@ -31,9 +31,9 @@ export class Tsc extends Command {
     ],
   }
 
-  public tsconfig = path(`config/tsconfig.json`)
-
   public passthrough = Option.Proxy({name: `tsc options`})
+
+  public tsconfig = path(`config/tsconfig.json`)
 
   public async execute() {
     await this.promise(

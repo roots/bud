@@ -4,11 +4,11 @@ import {Commands} from './command'
 import afterAllInstalled from './hooks/afterAllInstalled.js'
 
 const plugin: Plugin = {
+  commands: Object.values(Commands),
+
   hooks: {
     afterAllInstalled,
   },
-
-  commands: Object.values(Commands),
 }
 
 export default plugin

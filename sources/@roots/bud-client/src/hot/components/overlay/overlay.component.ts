@@ -2,6 +2,8 @@
  * Component container
  */
 export class Component extends HTMLElement {
+  public documentBodyStyle: any
+
   public name: string = `bud-overlay`
 
   /**
@@ -9,15 +11,43 @@ export class Component extends HTMLElement {
    */
   public payload: any
 
-  public documentBodyStyle: any
-
-  public get message() {
-    return this.getAttribute(`message`)
-  }
-
   public constructor() {
     super()
     this.renderShadow()
+  }
+
+  public static get observedAttributes() {
+    return [`message`]
+  }
+
+  public attributeChangedCallback() {
+    if (!this.documentBodyStyle)
+      this.documentBodyStyle = document.body?.style
+
+    if (this.getAttribute(`message`)) {
+      document.body.style.overflow = `hidden`
+
+      this.shadowRoot.querySelector(`.overlay`).classList.add(`visible`)
+
+      this.shadowRoot.querySelector(`.messages`).innerHTML =
+        this.getAttribute(`message`)
+
+      return
+    }
+
+    if (this.documentBodyStyle?.overflow && document?.body?.style) {
+      document.body.style.overflow = this.documentBodyStyle.overflow
+    }
+
+    this.shadowRoot.querySelector(`.overlay`).classList.remove(`visible`)
+  }
+
+  public connectedCallback() {
+    if (document.body?.style) this.documentBodyStyle = document.body.style
+  }
+
+  public get message() {
+    return this.getAttribute(`message`)
   }
 
   public renderShadow(): void {
@@ -129,35 +159,5 @@ export class Component extends HTMLElement {
     `
 
     this.attachShadow({mode: `open`}).appendChild(container)
-  }
-
-  public static get observedAttributes() {
-    return [`message`]
-  }
-
-  public attributeChangedCallback() {
-    if (!this.documentBodyStyle)
-      this.documentBodyStyle = document.body?.style
-
-    if (this.getAttribute(`message`)) {
-      document.body.style.overflow = `hidden`
-
-      this.shadowRoot.querySelector(`.overlay`).classList.add(`visible`)
-
-      this.shadowRoot.querySelector(`.messages`).innerHTML =
-        this.getAttribute(`message`)
-
-      return
-    }
-
-    if (this.documentBodyStyle?.overflow && document?.body?.style) {
-      document.body.style.overflow = this.documentBodyStyle.overflow
-    }
-
-    this.shadowRoot.querySelector(`.overlay`).classList.remove(`visible`)
-  }
-
-  public connectedCallback() {
-    if (document.body?.style) this.documentBodyStyle = document.body.style
   }
 }

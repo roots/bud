@@ -2,6 +2,7 @@ import * as Ink from '@roots/bud-support/ink'
 import React from 'react'
 
 import type {Props} from './index.js'
+
 import {App} from './index.js'
 
 export const TTYApp = (props: Props) => {
@@ -26,9 +27,9 @@ export const TTYApp = (props: Props) => {
     <App
       {...{
         ...props,
-        displayServerInfo,
-        displayEntrypoints,
         displayAssets,
+        displayEntrypoints,
+        displayServerInfo,
       }}
     />
   )

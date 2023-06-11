@@ -7,8 +7,8 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import {
-  default as Webpack,
   type DefinePlugin,
+  default as Webpack,
 } from '@roots/bud-support/webpack'
 
 /**

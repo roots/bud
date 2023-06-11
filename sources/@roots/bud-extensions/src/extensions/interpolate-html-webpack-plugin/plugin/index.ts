@@ -2,8 +2,9 @@ import type {
   Compiler,
   WebpackPluginInstance,
 } from '@roots/bud-framework/config'
-import {bind} from '@roots/bud-support/decorators/bind'
 import type {Hooks} from '@roots/bud-support/html-webpack-plugin'
+
+import {bind} from '@roots/bud-support/decorators/bind'
 
 export interface Options {
   [key: string]: RegExp | string

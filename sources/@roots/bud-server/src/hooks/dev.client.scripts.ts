@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import isNull from '@roots/bud-support/lodash/isNull'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
@@ -20,11 +21,11 @@ export const proxyClickInterceptor = (app: Bud) => {
     return
 
   const params = new URLSearchParams({
+    replace: `/`,
     search: app.hooks.filter(
       `dev.middleware.proxy.options.target`,
       new URL(`http://0.0.0.0`),
     )?.href,
-    replace: `/`,
   })
 
   return `@roots/bud-client/lib/intercept/proxy-click-interceptor.js?${params.toString()}`
@@ -40,12 +41,12 @@ export const hmrClient = (app: Bud) => {
   if (app.context.hot === false) return
 
   const params = new URLSearchParams({
-    name: app.label,
-
     indicator:
       isUndefined(app.context.indicator) || isNull(app.context.indicator)
         ? `true`
         : app.context.indicator.toString(),
+
+    name: app.label,
 
     overlay:
       isUndefined(app.context.overlay) || isNull(app.context.overlay)

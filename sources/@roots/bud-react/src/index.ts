@@ -8,8 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import BudReact from './extension/index.js'
+import './types.js'
 
 export default BudReact

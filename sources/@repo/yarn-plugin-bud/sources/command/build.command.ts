@@ -5,12 +5,12 @@ import * as fs from 'fs-jetpack'
 import {Command} from './base.command'
 
 interface BundleProps {
-  source: string
   alias?: Record<string, string>
-  format?: `esm` | `cjs`
   external?: Array<string>
+  format?: `cjs` | `esm`
   outdir?: string
   outfile?: string
+  source: string
 }
 
 export class Build extends Command {
@@ -20,6 +20,40 @@ export class Build extends Command {
     category: `@bud`,
     description: `Build packages`,
     examples: [[`build packages`, `yarn @bud build`]],
+  }
+
+  public async bundle({
+    alias = {},
+    external = [],
+    format = `esm`,
+    outdir,
+    outfile,
+    source,
+  }: BundleProps) {
+    return this.cli.run(
+      [
+        `esbuild`,
+        `--alias:webpack=@roots/bud-support/webpack`,
+        `--allow-overwrite`,
+        `--bundle`,
+        `--external:crypto`,
+        `--external:module`,
+        `--external:node:*`,
+        `--external:@roots/*`,
+        `--minify`,
+        `--log-level=warning`,
+        `--platform=node`,
+
+        ...Object.entries(alias).map(
+          ([key, value]) => `--alias:${key}=${value}`,
+        ),
+        ...external.map(pkg => `--external:${pkg}`),
+        `--format=${format}`,
+        outfile ? `--outfile=${outfile}` : null,
+        outdir ? `--outdir=${outdir}` : null,
+        source,
+      ].filter(Boolean),
+    )
   }
 
   public async execute() {
@@ -33,28 +67,28 @@ export class Build extends Command {
            * @aws-sdk/client-s3
            */
           this.bundle({
-            source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
-            outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
             format: `cjs`,
+            outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
+            source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
           }),
           /**
            * highlight-js
            */
           this.bundle({
-            source: `sources/@roots/bud-support/src/highlight/index.ts`,
-            outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
             format: `esm`,
+            outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
+            source: `sources/@roots/bud-support/src/highlight/index.ts`,
           }),
           /**
            * html-loader
            */
           this.bundle({
-            source: path(`node_modules/html-loader/dist/index.js`),
+            external: [`./runtime/getUrl.js`],
+            format: `cjs`,
             outfile: path(
               `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
             ),
-            external: [`./runtime/getUrl.js`],
-            format: `cjs`,
+            source: path(`node_modules/html-loader/dist/index.js`),
           }).then(async () => {
             const modulePath = path(
               `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
@@ -72,10 +106,10 @@ export class Build extends Command {
            * html-webpack-plugin
            */
           this.bundle({
-            source: `node_modules/html-webpack-plugin/index.js`,
-            outfile: `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
             external: [`./lib/loader.js`],
             format: `cjs`,
+            outfile: `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
+            source: `node_modules/html-webpack-plugin/index.js`,
           }).then(async () => {
             const outPath = path(
               `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
@@ -116,39 +150,5 @@ export class Build extends Command {
     } catch (e) {
       throw e
     }
-  }
-
-  public async bundle({
-    source,
-    alias = {},
-    external = [],
-    format = `esm`,
-    outdir,
-    outfile,
-  }: BundleProps) {
-    return this.cli.run(
-      [
-        `esbuild`,
-        `--alias:webpack=@roots/bud-support/webpack`,
-        `--allow-overwrite`,
-        `--bundle`,
-        `--external:crypto`,
-        `--external:module`,
-        `--external:node:*`,
-        `--external:@roots/*`,
-        `--minify`,
-        `--log-level=warning`,
-        `--platform=node`,
-
-        ...Object.entries(alias).map(
-          ([key, value]) => `--alias:${key}=${value}`,
-        ),
-        ...external.map(pkg => `--external:${pkg}`),
-        `--format=${format}`,
-        outfile ? `--outfile=${outfile}` : null,
-        outdir ? `--outdir=${outdir}` : null,
-        source,
-      ].filter(Boolean),
-    )
   }
 }

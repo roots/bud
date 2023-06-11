@@ -40,9 +40,9 @@ export type {
   Dashboard,
   Env,
   Extensions,
+  FS,
   Hooks,
   Notifier,
   Project,
   Server,
-  FS,
 }

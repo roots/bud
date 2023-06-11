@@ -5,14 +5,14 @@ import type {S3ClientConfig} from '@aws-sdk/client-s3'
  */
 export class Config {
   /**
+   * S3 bucket
+   */
+  public bucket: string
+
+  /**
    * S3 credentials
    */
   public credentials: S3ClientConfig[`credentials`]
-
-  /**
-   * S3 region
-   */
-  public region: S3ClientConfig[`region`] = `us-east-1`
 
   /**
    * S3 endpoint
@@ -20,14 +20,14 @@ export class Config {
   public endpoint: S3ClientConfig[`endpoint`]
 
   /**
-   * S3 bucket
-   */
-  public bucket: string
-
-  /**
    * Treat bucket contents as public
    */
   public public: boolean = true
+
+  /**
+   * S3 region
+   */
+  public region: S3ClientConfig[`region`] = `us-east-1`
 
   /**
    * Get a config value
@@ -37,8 +37,8 @@ export class Config {
    */
   public get<
     K extends `${
-      | (keyof S3ClientConfig & keyof Config & string)
-      | (keyof Config & string)}`,
+      | (keyof Config & string)
+      | (keyof S3ClientConfig & keyof Config & string)}`,
   >(key: K): this[K] {
     return this[key]
   }
@@ -52,8 +52,8 @@ export class Config {
    */
   public set<
     K extends `${
-      | (keyof S3ClientConfig & keyof Config & string)
-      | (keyof Config & string)}`,
+      | (keyof Config & string)
+      | (keyof S3ClientConfig & keyof Config & string)}`,
   >(key: K, value: this[K]): void {
     this[key] = value
   }

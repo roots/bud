@@ -3,6 +3,7 @@ import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
 
 export default Option.String(`--devtool`, undefined, {
   description: `Set devtool option`,
+  env: `APP_DEVTOOL`,
   validator: isOneOf([
     isLiteral(false),
     isLiteral(`eval`),
@@ -30,5 +31,4 @@ export default Option.String(`--devtool`, undefined, {
     isLiteral(`hidden-cheap-module-source-map`),
     isLiteral(`hidden-source-map`),
   ]),
-  env: `APP_DEVTOOL`,
 })

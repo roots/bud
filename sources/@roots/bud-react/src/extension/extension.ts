@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -17,15 +18,6 @@ import type BudReactRefresh from '../react-refresh/index.js'
 @dependsOn([`@roots/bud-react/react-refresh`])
 @expose(`react`)
 export default class BudReact extends Extension {
-  /**
-   * Accessor for `@roots/bud-react/react-refresh`
-   *
-   * @readonly
-   */
-  public get refresh(): BudReactRefresh {
-    return this.app.extensions.get(`@roots/bud-react/react-refresh`)
-  }
-
   /**
    * {@link Extension.configAfter}
    *
@@ -52,6 +44,15 @@ export default class BudReact extends Extension {
         await this.resolve(`@babel/preset-react`, import.meta.url),
       )
     }
+  }
+
+  /**
+   * Accessor for `@roots/bud-react/react-refresh`
+   *
+   * @readonly
+   */
+  public get refresh(): BudReactRefresh {
+    return this.app.extensions.get(`@roots/bud-react/react-refresh`)
   }
 
   /**

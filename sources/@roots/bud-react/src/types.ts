@@ -15,9 +15,9 @@ interface PublicBudReactRefresh extends PublicExtensionApi {
 
 interface PublicBudReact extends PublicExtensionApi {
   refresh: PublicBudReactRefresh
+  useBabel: boolean
   useSWC: boolean
   useTypeScript: boolean
-  useBabel: boolean
 }
 
 declare module '@roots/bud-framework' {

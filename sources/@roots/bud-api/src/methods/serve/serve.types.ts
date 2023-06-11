@@ -1,36 +1,16 @@
 import type Https from 'node:https'
 import type Http from 'node:https'
 
-export type ServerOptions = Https.ServerOptions | Http.ServerOptions
+export type ServerOptions = Http.ServerOptions | Https.ServerOptions
 
 /**
  * Options object
  */
 export interface Options {
   /**
-   * Use ssl connection
-   */
-  ssl?: boolean
-
-  /**
-   * Port
-   */
-  port?: number
-
-  /**
    * SSL certificate (path)
    */
   cert?: string
-
-  /**
-   * SSL key (path)
-   */
-  key?: string
-
-  /**
-   * Server URL
-   */
-  url?: string | URL
 
   /**
    * Hostname
@@ -38,12 +18,32 @@ export interface Options {
   host?: string
 
   /**
+   * SSL key (path)
+   */
+  key?: string
+
+  /**
    * http & https server options
    */
-  options?: Https.ServerOptions | Http.ServerOptions
+  options?: Http.ServerOptions | Https.ServerOptions
+
+  /**
+   * Port
+   */
+  port?: number
+
+  /**
+   * Use ssl connection
+   */
+  ssl?: boolean
+
+  /**
+   * Server URL
+   */
+  url?: string | URL
 }
 
 export type Parameters = [
-  Options | URL | string | number | Array<number>,
+  Array<number> | number | Options | string | URL,
   Options?,
 ]

@@ -34,4 +34,4 @@ const set = (path: string, bud: Bud) => {
   return get(path)
 }
 
-export {get, set, has, instances}
+export {get, has, instances, set}

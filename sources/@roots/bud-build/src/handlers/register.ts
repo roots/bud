@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
 import type {Factory} from './index.js'
+
 import * as items from './items/items.js'
 import * as loaders from './loaders/loaders.js'
 import {rules} from './rules/index.js'
@@ -34,16 +35,16 @@ export async function register(bud: Bud) {
 }
 
 export const makeRegister: makeRegister =
-  ({build, hooks, isProduction, path, module: {resolve}}, setRule) =>
+  ({build, hooks, isProduction, module: {resolve}, path}, setRule) =>
   async ([key, factory]) =>
     setRule(
       key,
       await factory({
         filter: hooks.filter,
+        isProduction,
         makeItem: build.makeItem,
         makeLoader: build.makeLoader,
         makeRule: build.makeRule,
-        isProduction,
         path,
         resolve,
       }),

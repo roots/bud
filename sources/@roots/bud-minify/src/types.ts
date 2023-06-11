@@ -24,7 +24,7 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-minify': BudMinimize
-    '@roots/bud-minify/minify-js': BudMinimizeJS
     '@roots/bud-minify/minify-css': BudMinimizeCSS
+    '@roots/bud-minify/minify-js': BudMinimizeJS
   }
 }

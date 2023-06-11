@@ -45,6 +45,6 @@ class BudMinimizeCSS extends BudMinimizeCSSPublicApi {
 export default BudMinimizeCSS
 export type {
   BudMinimizeCSS,
-  BudMinimizeCSSPublicInterface,
   BudMinimizeCSSOptions,
+  BudMinimizeCSSPublicInterface,
 }

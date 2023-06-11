@@ -1,7 +1,6 @@
-import {join} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
 import type {WebpackPluginInstance} from '@roots/bud-framework/config'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -11,6 +10,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 import parseSemver from '@roots/bud-support/parse-semver'
+import {join} from 'node:path'
 
 interface Options {
   runtimeOnly: boolean
@@ -26,31 +26,67 @@ export default class Vue extends Extension<
   Options,
   WebpackPluginInstance
 > {
+  public declare getRuntimeOnly: () => boolean
+
+  public declare setRuntimeOnly: (enabled: boolean) => this
   /**
    * Resolved version
    */
   public declare version: string
 
-  public declare setRuntimeOnly: (enabled: boolean) => this
-  public declare getRuntimeOnly: () => boolean
-
   /**
-   * Set `runtimeOnly` option
-   *
-   * @deprecated Use {@link Extension.set} instead
-   * @example
-   * ```js
-   * bud.vue.set('runtimeOnly', false)
-   * ```
+   * {@link Extension.buildBefore}
    */
   @bind
-  @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
-    [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
-    [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],
-  ])
-  public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
-    this.set(`runtimeOnly`, enabled)
-    return this
+  public override async buildBefore(bud: Bud) {
+    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
+    bud.build.items.precss?.setOptions({esModule: false})
+
+    const {VueLoaderPlugin} = await import(`vue-loader`)
+    bud.webpackConfig(config => {
+      config.module.rules = [
+        {
+          exclude: [/node_modules/],
+          include: [bud.path(`@src`), bud.path(`@modules`)],
+          test: bud.hooks.filter(`pattern.vue`),
+          use: [bud.build.items.vue.toWebpack()],
+        },
+        ...config.module.rules.flatMap(rule =>
+          typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
+        ),
+      ]
+
+      config.plugins.push(new VueLoaderPlugin())
+
+      return config
+    })
+  }
+
+  /**
+   * {@link Extension.configAfter}
+   */
+  @bind
+  public override async configAfter(bud: Bud) {
+    bud.alias(this.resolveAlias)
+
+    bud.typescript?.setAppendTsSuffixTo([bud.hooks.filter(`pattern.vue`)])
+  }
+
+  /**
+   * Returns true if user has installed a 2.x.x version of vue
+   */
+  @bind
+  public isVue2(): boolean {
+    if (!this.version) {
+      const version =
+        this.app.context.manifest?.dependencies?.vue ??
+        this.app.context.manifest?.devDependencies?.vue
+
+      if (version) this.version = parseSemver(`vue@${version}`).version
+    }
+
+    return !this.version ? false : this.version?.startsWith(`2`)
   }
 
   /**
@@ -85,51 +121,12 @@ export default class Vue extends Extension<
   }
 
   /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
-    bud.alias(this.resolveAlias)
-
-    bud.typescript?.setAppendTsSuffixTo([bud.hooks.filter(`pattern.vue`)])
-  }
-
-  /**
-   * {@link Extension.buildBefore}
-   */
-  @bind
-  public override async buildBefore(bud: Bud) {
-    bud.build.rules.css?.setUse((items = []) => [`vue-style`, ...items])
-    bud.build.rules.sass?.setUse((items = []) => [`vue-style`, ...items])
-    bud.build.items.precss?.setOptions({esModule: false})
-
-    const {VueLoaderPlugin} = await import(`vue-loader`)
-    bud.webpackConfig(config => {
-      config.module.rules = [
-        {
-          test: bud.hooks.filter(`pattern.vue`),
-          include: [bud.path(`@src`), bud.path(`@modules`)],
-          exclude: [/node_modules/],
-          use: [bud.build.items.vue.toWebpack()],
-        },
-        ...config.module.rules.flatMap(rule =>
-          typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
-        ),
-      ]
-
-      config.plugins.push(new VueLoaderPlugin())
-
-      return config
-    })
-  }
-
-  /**
    * `build.resolve.alias` callback
    */
   @bind
   public async resolveAlias(
     aliases = {},
-  ): Promise<Record<string, string | Array<string>>> {
+  ): Promise<Record<string, Array<string> | string>> {
     const type = this.isVue2() ? `esm` : `esm-bundler`
 
     const vue = this.options.runtimeOnly
@@ -140,18 +137,21 @@ export default class Vue extends Extension<
   }
 
   /**
-   * Returns true if user has installed a 2.x.x version of vue
+   * Set `runtimeOnly` option
+   *
+   * @deprecated Use {@link Extension.set} instead
+   * @example
+   * ```js
+   * bud.vue.set('runtimeOnly', false)
+   * ```
    */
   @bind
-  public isVue2(): boolean {
-    if (!this.version) {
-      const version =
-        this.app.context.manifest?.dependencies?.vue ??
-        this.app.context.manifest?.devDependencies?.vue
-
-      if (version) this.version = parseSemver(`vue@${version}`).version
-    }
-
-    return !this.version ? false : this.version?.startsWith(`2`)
+  @deprecated(`bud.vue`, `Use bud.vue.set instead`, [
+    [`Enable runtimeOnly`, `bud.vue.set('runtimeOnly', true)`],
+    [`Disable runtimeOnly`, `bud.vue.set('runtimeOnly', false)`],
+  ])
+  public runtimeOnly(enabled: Options[`runtimeOnly`] = true): this {
+    this.set(`runtimeOnly`, enabled)
+    return this
   }
 }

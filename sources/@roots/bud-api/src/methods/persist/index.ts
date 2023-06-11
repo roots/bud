@@ -1,7 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
+
 import isString from '@roots/bud-support/lodash/isString'
 
-export type Parameters = [(`memory` | `filesystem` | boolean)?]
+export type Parameters = [(`filesystem` | `memory` | boolean)?]
 
 export interface persist {
   (...parameters: Parameters): Bud

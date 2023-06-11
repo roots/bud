@@ -6,11 +6,12 @@ import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 
 import type {Bud} from '../index.js'
+import type {Service} from '../service.js'
+import type * as Registry from '../types/registry/index.js'
+
 import methods from '../methods/index.js'
 import {Module} from '../module.js'
-import type {Service} from '../service.js'
 import FS from '../services/fs.js'
-import type * as Registry from '../types/registry/index.js'
 
 /**
  * Define the list of lifecycle events that are handled by the system
@@ -62,14 +63,14 @@ export const DEVELOPMENT_SERVICES = [`@roots/bud-server`]
 export const LIFECYCLE_EVENT_MAP: Partial<
   Record<keyof Registry.EventsStore, keyof Service>
 > = {
+  [`build.after`]: `buildAfter`,
+  [`build.before`]: `buildBefore`,
+  [`compiler.after`]: `compilerAfter`,
+  [`compiler.before`]: `compilerBefore`,
+  [`config.after`]: `configAfter`,
+  boot: `boot`,
   bootstrap: `bootstrap`,
   register: `register`,
-  boot: `boot`,
-  [`config.after`]: `configAfter`,
-  [`compiler.before`]: `compilerBefore`,
-  [`build.before`]: `buildBefore`,
-  [`build.after`]: `buildAfter`,
-  [`compiler.after`]: `compilerAfter`,
 }
 
 /**
@@ -153,35 +154,31 @@ export const bootstrap = async function (this: Bud) {
 
   this.hooks
     .fromMap({
-      'pattern.js': /\.(mjs|jsx?)$/,
-      'pattern.ts': /\.(tsx?)$/,
-      'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
-      'pattern.sassModule': /\.module\.(scss|sass)$/,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
+      'pattern.csv': /\.(csv|tsv)$/,
       'pattern.font': /\.(ttf|otf|eot|woff2?|ico)$/,
       'pattern.html': /\.(html?)$/,
       'pattern.image': /\.(png|jpe?g|gif|webp)$/,
-      'pattern.modules': /(node_modules|bower_components)/,
-      'pattern.svg': /\.svg$/,
-      'pattern.vue': /\.vue$/,
-      'pattern.md': /\.md$/,
-      'pattern.toml': /\.toml$/,
-      'pattern.webp': /\.webp$/,
-      'pattern.yml': /\.ya?ml$/,
-      'pattern.xml': /\.xml$/,
-      'pattern.csv': /\.(csv|tsv)$/,
+      'pattern.js': /\.(mjs|jsx?)$/,
       'pattern.json': /\.json$/,
       'pattern.json5': /\.json5$/,
+      'pattern.md': /\.md$/,
+      'pattern.modules': /(node_modules|bower_components)/,
+      'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
+      'pattern.sassModule': /\.module\.(scss|sass)$/,
+      'pattern.svg': /\.svg$/,
+      'pattern.toml': /\.toml$/,
+      'pattern.ts': /\.(tsx?)$/,
+      'pattern.vue': /\.vue$/,
+      'pattern.webp': /\.webp$/,
+      'pattern.xml': /\.xml$/,
+      'pattern.yml': /\.ya?ml$/,
     })
     .hooks.fromMap({
-      'location.@src': isString(this.context.input)
-        ? this.context.input
-        : `src`,
       'location.@dist': isString(this.context.output)
         ? this.context.output
         : `dist`,
-      'location.@storage': this.context.paths.storage,
       'location.@modules': isString(this.context.modules)
         ? this.context.modules
         : `node_modules`,
@@ -190,6 +187,10 @@ export const bootstrap = async function (this: Bud) {
       'location.@os-data': this.context.paths[`os-data`],
       'location.@os-log': this.context.paths[`os-log`],
       'location.@os-temp': this.context.paths[`os-temp`],
+      'location.@src': isString(this.context.input)
+        ? this.context.input
+        : `src`,
+      'location.@storage': this.context.paths.storage,
     })
     .when(this.isDevelopment, ({hooks}) =>
       hooks.fromMap({
@@ -238,8 +239,8 @@ export const bootstrap = async function (this: Bud) {
    */
   this.after(async bud => {
     await bud.fs.write(bud.module.cacheLocation, {
-      version: bud.context.bud.version,
       resolutions: bud.module.resolved,
+      version: bud.context.bud.version,
     })
   })
 }

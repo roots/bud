@@ -4,6 +4,11 @@ import {type Ora, oraPromise} from 'ora'
 export abstract class Command extends BaseCommand {
   public promised: Array<Promise<any>>
 
+  public constructor() {
+    super()
+    this.promised = []
+  }
+
   public async promise(
     text: string,
     successText: string,
@@ -11,15 +16,10 @@ export abstract class Command extends BaseCommand {
     promise: Promise<any>,
   ): Promise<any> {
     return oraPromise(promise, {
-      text: `${text.trim()}... `,
       failText,
-      successText,
       spinner: `dots8`,
+      successText,
+      text: `${text.trim()}... `,
     })
-  }
-
-  public constructor() {
-    super()
-    this.promised = []
   }
 }

@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -10,13 +11,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  * Supports sync values
  */
 export abstract class Hooks<Store> {
-  /**
-   * Get app
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
   /**
    * Hooks store
    */
@@ -30,15 +24,22 @@ export abstract class Hooks<Store> {
   }
 
   /**
-   * Check if a hook has been set somewhere
+   * Get app
    */
-  @bind
-  public has<T extends keyof Store & string>(path: T): boolean {
-    return isUndefined(this.store[path]) === false
+  public get app(): Bud {
+    return this._app()
   }
 
   @bind
   public catch(e: Error, id?: string, iteration?: number): void {
     throw new BudError(`problem running hook ${id}`, {cause: e})
+  }
+
+  /**
+   * Check if a hook has been set somewhere
+   */
+  @bind
+  public has<T extends keyof Store & string>(path: T): boolean {
+    return isUndefined(this.store[path]) === false
   }
 }

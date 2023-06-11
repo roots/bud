@@ -14,26 +14,6 @@ import type {
  */
 interface Service extends Contract {
   /**
-   * Compiler implementation
-   */
-  implementation: any
-
-  /**
-   * The compiler instance
-   */
-  instance: MultiCompiler
-
-  /**
-   * The compiler configuration
-   */
-  config: Array<Configuration>
-
-  /**
-   * Contains compilation stats, if available.
-   */
-  stats: StatsCompilation
-
-  /**
    * Returns a {@link WebpackMultiCompiler} instance
    *
    * @example
@@ -50,21 +30,41 @@ interface Service extends Contract {
    */
   compile(): Promise<MultiCompiler>
 
-  onStats(stats: MultiStats): Promise<void>
+  /**
+   * The compiler configuration
+   */
+  config: Array<Configuration>
+
+  /**
+   * Compiler implementation
+   */
+  implementation: any
+
+  /**
+   * The compiler instance
+   */
+  instance: MultiCompiler
 
   onError(error: Error): Promise<void>
+
+  onStats(stats: MultiStats): Promise<void>
 
   sourceErrors(
     errors: Array<StatsError>,
   ): Array<ErrorWithSourceFile | StatsError>
+
+  /**
+   * Contains compilation stats, if available.
+   */
+  stats: StatsCompilation
 }
 
 export type BudError = {
+  column: number
   file: string
   line: number
-  column: number
   message: string
-  type: 'syntax' | 'export'
+  type: 'export' | 'syntax'
 }
 
 export type Config = Configuration

@@ -3,15 +3,15 @@ import join from 'lodash/join.js'
 export type WordPressScopePkg = `@wordpress/${string}`
 
 export type WordPressProvidedPackages =
-  | WordPressScopePkg
-  | 'lodash'
-  | 'react'
-  | 'react-dom'
   | 'jquery'
+  | 'lodash'
+  | 'react-dom'
+  | 'react'
+  | WordPressScopePkg
 
 export interface Externals {
-  window: ['wp', string]
   enqueue: string
+  window: ['wp', string]
 }
 
 export type PackageMapEntry = [string, Record<string, string>]
@@ -29,29 +29,29 @@ const packageMap = new Map([
   [
     `jquery`,
     {
-      window: join([`jQuery`], `.`),
       enqueue: `jquery`,
+      window: join([`jQuery`], `.`),
     },
   ],
   [
     `lodash`,
     {
-      window: join([`lodash`], `.`),
       enqueue: `lodash`,
-    },
-  ],
-  [
-    `react`,
-    {
-      window: join([`React`], `.`),
-      enqueue: `react`,
+      window: join([`lodash`], `.`),
     },
   ],
   [
     `react-dom`,
     {
-      window: join([`ReactDOM`], `.`),
       enqueue: `react-dom`,
+      window: join([`ReactDOM`], `.`),
+    },
+  ],
+  [
+    `react`,
+    {
+      enqueue: `react`,
+      window: join([`React`], `.`),
     },
   ],
 ])
@@ -95,8 +95,8 @@ export const transform = (packageName: string): any => {
 
   if (isProvided(packageName)) {
     return {
-      window: [`wp`, camelize(transformedPackageName)],
       enqueue: join([`wp`, transformedPackageName], `-`),
+      window: [`wp`, camelize(transformedPackageName)],
     }
   }
 }

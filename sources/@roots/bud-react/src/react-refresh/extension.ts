@@ -1,6 +1,7 @@
-import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import type {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types.js'
 import type {Bud} from '@roots/bud-framework'
+
+import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -19,11 +20,11 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @label(`@roots/bud-react/react-refresh`)
 @plugin(RefreshPlugin)
 @options<Options>({
-  overlay: false,
   esModule: DynamicOption.make(
     ({context}) =>
       context.files[`package.json`]?.module?.type === `module`,
   ),
+  overlay: false,
 })
 @development
 export default class BudReactRefresh extends Extension<
@@ -34,18 +35,6 @@ export default class BudReactRefresh extends Extension<
    * Extension to handle transformer
    */
   public transformExtension?: Extension
-
-  /**
-   * Explicitly set extension to handle react-refresh code transforms
-   *
-   * @remarks
-   * By default the extension will be set automatically based on the
-   * presence of `@roots/bud-swc`, `@roots/bud-typescript` or `@roots/bud-babel`
-   * (listed in order of preference).
-   */
-  public setTransformExtension(extension: Extension) {
-    this.transformExtension = extension
-  }
 
   /**
    * {@link Extension.configAfter}
@@ -145,7 +134,7 @@ export default class BudReactRefresh extends Extension<
    * Configuration takes place during the `config.after` event
    */
   @bind
-  public configure(userOptions?: Options | false): this {
+  public configure(userOptions?: false | Options): this {
     this.app.hooks.action(
       `config.after`,
       this.makeReactRefreshCallback(userOptions),
@@ -159,7 +148,7 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   protected makeReactRefreshCallback(
-    userOptions?: Options | false,
+    userOptions?: false | Options,
   ): (bud: Bud) => Promise<unknown> {
     return async () => {
       if (!this.app.isDevelopment) return
@@ -172,5 +161,17 @@ export default class BudReactRefresh extends Extension<
 
       return this
     }
+  }
+
+  /**
+   * Explicitly set extension to handle react-refresh code transforms
+   *
+   * @remarks
+   * By default the extension will be set automatically based on the
+   * presence of `@roots/bud-swc`, `@roots/bud-typescript` or `@roots/bud-babel`
+   * (listed in order of preference).
+   */
+  public setTransformExtension(extension: Extension) {
+    this.transformExtension = extension
   }
 }

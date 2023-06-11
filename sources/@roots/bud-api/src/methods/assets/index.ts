@@ -1,15 +1,15 @@
-import {isAbsolute, join, parse, relative} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
+
+import {isAbsolute, join, parse, relative} from 'node:path'
 
 type FromToTuple = [string, string]
 
 export type Parameters = [
   (
-    | string
+    | Array<CopyPlugin.ObjectPattern | FromToTuple | string>
     | CopyPlugin.ObjectPattern
-    | Array<string | FromToTuple | CopyPlugin.ObjectPattern>
+    | string
   ),
   Partial<CopyPlugin.ObjectPattern>?,
 ]
@@ -30,7 +30,7 @@ export const assets: assets = async function assets(
   const arrayedRequest = !Array.isArray(request) ? [request] : request
 
   const valueMapper = (
-    item: string | FromToTuple | CopyPlugin.ObjectPattern,
+    item: CopyPlugin.ObjectPattern | FromToTuple | string,
   ) => {
     if (typeof item === `string`) {
       return makePatternObjectFromString(item)
@@ -67,11 +67,11 @@ export const fromStringFactory =
     from = parse(from).ext?.length > 0 ? from : join(from, `**`, `*`)
 
     return {
-      from,
-      to: app.relPath(`@file`),
       context: app.path(`@src`),
-      noErrorOnMissing: true,
+      from,
       globOptions: {dot: false},
+      noErrorOnMissing: true,
+      to: app.relPath(`@file`),
       ...overrides,
     }
   }
@@ -93,11 +93,11 @@ export const fromTupleFactory =
         : app.relPath(to, `@file`)
 
     return {
-      from,
-      to,
       context: app.path(`@src`),
-      noErrorOnMissing: true,
+      from,
       globOptions: {dot: false},
+      noErrorOnMissing: true,
+      to,
       ...overrides,
     }
   }

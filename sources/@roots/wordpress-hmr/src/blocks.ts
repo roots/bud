@@ -1,8 +1,9 @@
 import {dispatch, select} from '@wordpress/data'
 
+import type {RegisterFn} from './index.js'
+
 import * as api from './block.js'
 import * as editor from './editor.js'
-import type {RegisterFn} from './index.js'
 
 let selected = null
 
@@ -16,7 +17,7 @@ const after = (changed?: Array<{name: string}>) => {
 
   select(`core/block-editor`)
     .getBlocks()
-    .forEach(({name, clientId}) => {
+    .forEach(({clientId, name}) => {
       changed
         ?.filter(module => module?.name)
         .map(module => module.name)
@@ -32,4 +33,4 @@ const after = (changed?: Array<{name: string}>) => {
 }
 
 export const register: RegisterFn = (getContext, accept) =>
-  editor.load({api, getContext, accept, before, after})
+  editor.load({accept, after, api, before, getContext})

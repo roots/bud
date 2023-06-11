@@ -26,12 +26,12 @@ export type InternalOptionsValues<T extends Options> = {
 export type OptionCallback<
   T extends Options,
   K extends `${keyof Options & string}`,
-> = T[K] | ((value: T[K]) => T[K])
+> = ((value: T[K]) => T[K]) | T[K]
 
 export type OptionCallbackValue<
   T extends Options,
   K extends `${keyof Options & string}`,
-> = InternalOptionsValues<T>[K] | ((value: T[K]) => T[K])
+> = ((value: T[K]) => T[K]) | InternalOptionsValues<T>[K]
 
 export type OptionSetter<
   Extension,
@@ -60,11 +60,11 @@ export type Option<
 }
 
 export interface Meta {
-  register: boolean
   boot: boolean
-  configAfter: boolean
-  buildBefore: boolean
   buildAfter: boolean
+  buildBefore: boolean
+  configAfter: boolean
+  register: boolean
 }
 
 /**
@@ -95,30 +95,30 @@ export type WithOptions<Context, Options> = {
 
 export type StrictPublicExtensionApi<Context, Opts extends Options> = {
   app: Bud
-  options: Opts
+  enable: (boolean?: boolean) => Context
   enabled: boolean
-  logger: typeof logger
   get: <K extends `${keyof Opts & string}`>(key: K) => Opts[K]
+  getOptions: () => Opts
+  logger: typeof logger
+  options: Opts
   set: <K extends `${keyof Opts & string}`>(
     key: K,
-    value: Opts[K] | ((value: Opts[K]) => Opts[K]),
+    value: ((value: Opts[K]) => Opts[K]) | Opts[K],
   ) => Context
-  getOptions: () => Opts
   setOptions: (O: Partial<InternalOptionsValues<Opts>>) => Context
-  enable: (boolean?: boolean) => Context
 } & WithOptions<Context, Opts>
 
 export type PublicExtensionApi<E extends Extension = Extension> = {
   app: E[`app`]
-  options: E['options']
+  enable: E['enable']
   enabled: E['enabled']
   get: E[`getOption`]
   getOption: E[`getOption`]
+  getOptions: E[`getOptions`]
+  options: E['options']
   set: E[`set`]
   setOption: E[`setOption`]
-  getOptions: E[`getOptions`]
   setOptions: E[`setOptions`]
-  enable: E['enable']
 }
 
 export type ExtensionLiteral = Partial<Extension>
@@ -138,61 +138,9 @@ export class Extension<
   public _app: () => Bud
 
   /**
-   * Application accessor
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
-  /**
-   * {@link ApplyPlugin.apply}
-   */
-  public apply?(compiler: Compiler): unknown
-
-  /**
-   * Is extension enabled
-   *
-   * @remarks
-   * The following methods are skipped if `enabled` is false:
-   * - {@link Extension.buildBefore}
-   * - {@link Extension.make}
-   */
-  public enabled: boolean = true
-
-  /**
    * Extension options
    */
   public _options: Partial<InternalOptionsValues<ExtensionOptions>>
-
-  /**
-   * Extension options
-   *
-   * @readonly
-   */
-  public options: ExtensionOptions
-
-  /**
-   * Extension meta
-   */
-  public meta: Meta = {
-    register: false,
-    boot: false,
-    configAfter: false,
-    buildBefore: false,
-    buildAfter: false,
-  }
-
-  /**
-   * The module name
-   */
-  public label: `${keyof Modules & string}`
-
-  /**
-   * Logger instance
-   */
-  public get logger(): any {
-    return logger.scope(...[this.app.label, this.label].filter(Boolean))
-  }
 
   /**
    * Depends on
@@ -205,42 +153,46 @@ export class Extension<
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
 
   /**
-   * {@link Extension.register}
-   */
-  public async register(app: Bud): Promise<any> {}
-
-  /**
-   * `boot` callback
+   * Is extension enabled
    *
-   * @param options - Extension options
-   * @param app - Bud instance
+   * @remarks
+   * The following methods are skipped if `enabled` is false:
+   * - {@link Extension.buildBefore}
+   * - {@link Extension.make}
    */
-  public async boot(app: Bud): Promise<any> {}
+  public enabled: boolean = true
+
+  public get = this.getOption
 
   /**
-   * `configAfter` callback
+   * The module name
    */
-  public async configAfter(app: Bud): Promise<any> {}
+  public label: `${keyof Modules & string}`
 
   /**
-   * `buildBefore` callback
+   * Extension meta
    */
-  public async buildBefore?(app: Bud): Promise<any>
+  public meta: Meta = {
+    boot: false,
+    buildAfter: false,
+    buildBefore: false,
+    configAfter: false,
+    register: false,
+  }
 
   /**
-   * `buildAfter` callback
+   * Extension options
+   *
+   * @readonly
    */
-  public async buildAfter?(app: Bud): Promise<any>
-
-  /**
-   * `make` callback
-   */
-  public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
+  public options: ExtensionOptions
 
   /**
    * Plugin constructor
    */
   public plugin?: ApplyPluginConstructor
+
+  public set = this.setOption
 
   /**
    * Class constructor
@@ -254,23 +206,6 @@ export class Extension<
     Object.defineProperty(this, `options`, {
       get: this.getOptions.bind(this),
     })
-  }
-
-  /**
-   * `register` callback handler
-   */
-  @bind
-  public async _register() {
-    if (this.meta[`register`] === true) return
-    this.meta[`register`] = true
-
-    try {
-      await this.register(this.app)
-    } catch (error) {
-      throw error
-    }
-
-    this.logger.success(`registered`)
   }
 
   /**
@@ -291,24 +226,6 @@ export class Extension<
   }
 
   /**
-   * `buildBefore` callback handler
-   */
-  @bind
-  public async _buildBefore() {
-    if (isUndefined(this.buildBefore)) return
-    if (!this.isEnabled()) return
-
-    if (this.meta[`buildBefore`] === true) return
-    this.meta[`buildBefore`] = true
-
-    try {
-      await this.buildBefore(this.app)
-    } catch (error) {
-      throw error
-    }
-  }
-
-  /**
    * `buildAfter` callback handler
    */
   @bind
@@ -321,6 +238,24 @@ export class Extension<
 
     try {
       await this.buildAfter(this.app)
+    } catch (error) {
+      throw error
+    }
+  }
+
+  /**
+   * `buildBefore` callback handler
+   */
+  @bind
+  public async _buildBefore() {
+    if (isUndefined(this.buildBefore)) return
+    if (!this.isEnabled()) return
+
+    if (this.meta[`buildBefore`] === true) return
+    this.meta[`buildBefore`] = true
+
+    try {
+      await this.buildBefore(this.app)
     } catch (error) {
       throw error
     }
@@ -381,15 +316,93 @@ export class Extension<
       throw new BudError(`Error instantiating ${ident}`, {
         props: {
           details: `Check options for ${ident}`,
-          thrownBy: this.constructor.name,
-          origin: BudError.normalize(error),
           docs: new URL(`https://bud.js.org/docs/extensions`),
           issues: new URL(
             `https://github.com/roots/bud/search?q=is:issue+${ident} in:title`,
           ),
+          origin: BudError.normalize(error),
+          thrownBy: this.constructor.name,
         },
       })
     }
+  }
+
+  /**
+   * `register` callback handler
+   */
+  @bind
+  public async _register() {
+    if (this.meta[`register`] === true) return
+    this.meta[`register`] = true
+
+    try {
+      await this.register(this.app)
+    } catch (error) {
+      throw error
+    }
+
+    this.logger.success(`registered`)
+  }
+
+  /**
+   * Application accessor
+   */
+  public get app(): Bud {
+    return this._app()
+  }
+
+  /**
+   * {@link ApplyPlugin.apply}
+   */
+  public apply?(compiler: Compiler): unknown
+
+  /**
+   * `boot` callback
+   *
+   * @param options - Extension options
+   * @param app - Bud instance
+   */
+  public async boot(app: Bud): Promise<any> {}
+
+  /**
+   * `buildAfter` callback
+   */
+  public async buildAfter?(app: Bud): Promise<any>
+
+  /**
+   * `buildBefore` callback
+   */
+  public async buildBefore?(app: Bud): Promise<any>
+
+  /**
+   * `configAfter` callback
+   */
+  public async configAfter(app: Bud): Promise<any> {}
+
+  /**
+   * Disable extension
+   * @deprecated pass `false` to {@link Extension.enable}
+   */
+  @bind
+  public disable() {
+    this.enabled = false
+  }
+
+  /**
+   * Enable extension
+   */
+  @bind
+  public enable(enabled: boolean = true) {
+    this.enabled = enabled
+    return this
+  }
+
+  /**
+   * Get extension option
+   */
+  @bind
+  public getOption<K extends string>(key: K): ExtensionOptions[K] {
+    return get(this.options, key)
   }
 
   public getOptions(): ExtensionOptions {
@@ -414,25 +427,70 @@ export class Extension<
       return {...acc, [key]: unwrapped}
     }, {} as ExtensionOptions)
   }
-
   /**
-   * Set extension options
-   */
-  public setOptions(
-    value: Partial<InternalOptionsValues<ExtensionOptions>>,
-  ): this {
-    this._options = value
-    return this
-  }
-
-  /**
-   * Get extension option
+   * Import ESM module
    */
   @bind
-  public getOption<K extends string>(key: K): ExtensionOptions[K] {
-    return get(this.options, key)
+  public async import<T = any>(
+    signifier: string,
+    context?: string,
+  ): Promise<T | undefined> {
+    try {
+      return await this.app.module.import(signifier, context)
+    } catch (error) {
+      throw new ImportError(`could not import ${signifier}`, {
+        props: {
+          origin: ImportError.normalize(error),
+          thrownBy: this.label,
+        },
+      })
+    }
   }
-  public get = this.getOption
+
+  /**
+   * Is extension enabled?
+   */
+  @bind
+  public isEnabled(): boolean {
+    return this.when(this.app, this.options)
+  }
+  /**
+   * Logger instance
+   */
+  public get logger(): any {
+    return logger.scope(...[this.app.label, this.label].filter(Boolean))
+  }
+
+  /**
+   * `make` callback
+   */
+  public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
+
+  /**
+   * {@link Extension.register}
+   */
+  public async register(app: Bud): Promise<any> {}
+
+  /**
+   * Resolve module using `import.meta.resolve` api
+   */
+  @bind
+  public async resolve(
+    signifier: string,
+    context?: string,
+  ): Promise<string> {
+    try {
+      return await this.app.module.resolve(signifier, context)
+    } catch (error) {
+      const cause = BudError.normalize(error)
+      throw new ImportError(`could not resolve ${signifier}`, {
+        props: {
+          origin: cause,
+          thrownBy: this.label,
+        },
+      })
+    }
+  }
 
   /**
    * Set extension option
@@ -450,73 +508,15 @@ export class Extension<
     set(this._options, key, valueOrCallback)
     return this
   }
-  public set = this.setOption
 
   /**
-   * Resolve module using `import.meta.resolve` api
+   * Set extension options
    */
-  @bind
-  public async resolve(
-    signifier: string,
-    context?: string,
-  ): Promise<string> {
-    try {
-      return await this.app.module.resolve(signifier, context)
-    } catch (error) {
-      const cause = BudError.normalize(error)
-      throw new ImportError(`could not resolve ${signifier}`, {
-        props: {
-          thrownBy: this.label,
-          origin: cause,
-        },
-      })
-    }
-  }
-
-  /**
-   * Import ESM module
-   */
-  @bind
-  public async import<T = any>(
-    signifier: string,
-    context?: string,
-  ): Promise<T | undefined> {
-    try {
-      return await this.app.module.import(signifier, context)
-    } catch (error) {
-      throw new ImportError(`could not import ${signifier}`, {
-        props: {
-          thrownBy: this.label,
-          origin: ImportError.normalize(error),
-        },
-      })
-    }
-  }
-
-  /**
-   * Disable extension
-   * @deprecated pass `false` to {@link Extension.enable}
-   */
-  @bind
-  public disable() {
-    this.enabled = false
-  }
-
-  /**
-   * Enable extension
-   */
-  @bind
-  public enable(enabled: boolean = true) {
-    this.enabled = enabled
+  public setOptions(
+    value: Partial<InternalOptionsValues<ExtensionOptions>>,
+  ): this {
+    this._options = value
     return this
-  }
-
-  /**
-   * Is extension enabled?
-   */
-  @bind
-  public isEnabled(): boolean {
-    return this.when(this.app, this.options)
   }
 
   /**

@@ -1,9 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {label, plugin} from '@roots/bud-framework/extension/decorators'
 import {
-  default as Webpack,
   type HotModuleReplacementPlugin,
+  default as Webpack,
 } from '@roots/bud-support/webpack'
 
 /**

@@ -8,8 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import {BudPostCss} from './extension.js'
+import './types.js'
 
 export default BudPostCss

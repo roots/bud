@@ -1,5 +1,6 @@
 /* eslint-disable n/no-process-env */
 import type {SignaleOptions} from 'signale'
+
 import Signale from 'signale'
 
 import {bind} from '../decorators/bind.js'
@@ -34,8 +35,48 @@ class Logger {
   }
 
   @bind
+  public await(...messages: Array<unknown>) {
+    this.instance.await(...messages)
+    return this
+  }
+
+  @bind
+  public debug(...messages: Array<unknown>) {
+    if (!(`verbose` in args)) return this
+    this.instance.debug(...messages)
+    return this
+  }
+
+  @bind
+  public error(...messages: Array<unknown>) {
+    this.instance.error(...messages)
+    return this
+  }
+
+  @bind
+  public info(...messages: Array<unknown>) {
+    if (!(`verbose` in args)) return this
+    this.instance.info(...messages)
+    return this
+  }
+
+  @bind
   public log(...messages: Array<unknown>) {
     this.instance.log(...messages)
+    return this
+  }
+
+  @bind
+  public scope(...scopes: Array<string>) {
+    if (scopes.length === 0) return this
+    this.instance = this.instance.scope(
+      ...(scopes.filter(Boolean) ?? [`bud.js`]),
+    )
+    return this
+  }
+  @bind
+  public success(...messages: Array<unknown>) {
+    this.instance.success(...messages)
     return this
   }
 
@@ -52,54 +93,14 @@ class Logger {
   }
 
   @bind
-  public success(...messages: Array<unknown>) {
-    this.instance.success(...messages)
-    return this
-  }
-
-  @bind
-  public info(...messages: Array<unknown>) {
-    if (!(`verbose` in args)) return this
-    this.instance.info(...messages)
+  public unscope() {
+    this.instance.unscope()
     return this
   }
 
   @bind
   public warn(...messages: Array<unknown>) {
     this.instance.warn(...messages)
-    return this
-  }
-  @bind
-  public error(...messages: Array<unknown>) {
-    this.instance.error(...messages)
-    return this
-  }
-
-  @bind
-  public debug(...messages: Array<unknown>) {
-    if (!(`verbose` in args)) return this
-    this.instance.debug(...messages)
-    return this
-  }
-
-  @bind
-  public await(...messages: Array<unknown>) {
-    this.instance.await(...messages)
-    return this
-  }
-
-  @bind
-  public scope(...scopes: Array<string>) {
-    if (scopes.length === 0) return this
-    this.instance = this.instance.scope(
-      ...(scopes.filter(Boolean) ?? [`bud.js`]),
-    )
-    return this
-  }
-
-  @bind
-  public unscope() {
-    this.instance.unscope()
     return this
   }
 }
@@ -113,4 +114,4 @@ export const initialize = () => {
 }
 
 export default instance ?? initialize()
-export {Logger, instance}
+export {instance, Logger}

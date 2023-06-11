@@ -24,13 +24,13 @@ export type SettingsPropertiesComplete = SettingsProperties & {
   appearanceTools?: unknown
   border?: unknown
   color?: unknown
+  custom?: unknown
   dimensions?: unknown
   layout?: unknown
   position?: unknown
   shadow?: unknown
   spacing?: unknown
   typography?: unknown
-  custom?: unknown
 }
 /**
  * This interface was referenced by `StylesVariationPropertiesComplete`'s JSON-Schema definition
@@ -39,13 +39,13 @@ export type SettingsPropertiesComplete = SettingsProperties & {
 export type StylesPropertiesComplete = StylesProperties & {
   border?: unknown
   color?: unknown
+  css?: unknown
   dimensions?: unknown
+  filter?: unknown
+  outline?: unknown
+  shadow?: unknown
   spacing?: unknown
   typography?: unknown
-  filter?: unknown
-  shadow?: unknown
-  outline?: unknown
-  css?: unknown
 }
 /**
  * This interface was referenced by `StylesBlocksPropertiesComplete`'s JSON-Schema definition
@@ -54,14 +54,14 @@ export type StylesPropertiesComplete = StylesProperties & {
 export type StylesPropertiesAndElementsComplete = StylesProperties & {
   border?: unknown
   color?: unknown
+  css?: unknown
   dimensions?: unknown
+  elements?: StylesElementsPropertiesComplete1
+  filter?: unknown
+  outline?: unknown
+  shadow?: unknown
   spacing?: unknown
   typography?: unknown
-  filter?: unknown
-  shadow?: unknown
-  outline?: unknown
-  css?: unknown
-  elements?: StylesElementsPropertiesComplete1
   variations?: StylesVariationPropertiesComplete
 }
 
@@ -71,13 +71,26 @@ export interface SettingsAndStyles {
    */
   $schema?: string
   /**
-   * Version of theme.json to use.
+   * Additional metadata for custom templates defined in the templates folder.
    */
-  version: 2
+  customTemplates?: {
+    /**
+     * Filename, without extension, of the template in the templates folder.
+     */
+    name: string
+    /**
+     * List of post types that can use this custom template.
+     */
+    postTypes?: string[]
+    /**
+     * Title of the template, translatable.
+     */
+    title: string
+  }[]
   /**
-   * Title of the global styles variation. If not defined, the file name will be used.
+   * An array of pattern slugs to be registered from the Pattern Directory.
    */
-  title?: string
+  patterns?: string[]
   /**
    * Settings for the block editor and individual blocks. These include things like:
    * - Which customization options should be available to the user.
@@ -87,6 +100,16 @@ export interface SettingsAndStyles {
    */
   settings?: SettingsProperties & {
     appearanceTools?: unknown
+    blocks?: SettingsBlocksPropertiesComplete
+    border?: unknown
+    color?: unknown
+    custom?: unknown
+    dimensions?: unknown
+    layout?: unknown
+    position?: unknown
+    shadow?: unknown
+    spacing?: unknown
+    typography?: unknown
     /**
      * _**Note:** Since WordPress 6.1._
      *
@@ -95,53 +118,30 @@ export interface SettingsAndStyles {
      * Please note that when using this setting, `styles.spacing.padding` should always be set as an object with `top`, `right`, `bottom`, `left` values declared separately.
      */
     useRootPaddingAwareAlignments?: boolean
-    color?: unknown
-    layout?: unknown
-    spacing?: unknown
-    typography?: unknown
-    border?: unknown
-    shadow?: unknown
-    position?: unknown
-    dimensions?: unknown
-    custom?: unknown
-    blocks?: SettingsBlocksPropertiesComplete
   }
   /**
    * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
    */
   styles?: StylesProperties & {
+    blocks?: StylesBlocksPropertiesComplete
     border?: unknown
     color?: unknown
-    spacing?: unknown
-    typography?: unknown
-    filter?: unknown
-    shadow?: unknown
-    outline?: unknown
     css?: unknown
     elements?: StylesElementsPropertiesComplete
-    blocks?: StylesBlocksPropertiesComplete
+    filter?: unknown
+    outline?: unknown
+    shadow?: unknown
+    spacing?: unknown
+    typography?: unknown
   }
-  /**
-   * Additional metadata for custom templates defined in the templates folder.
-   */
-  customTemplates?: {
-    /**
-     * Filename, without extension, of the template in the templates folder.
-     */
-    name: string
-    /**
-     * Title of the template, translatable.
-     */
-    title: string
-    /**
-     * List of post types that can use this custom template.
-     */
-    postTypes?: string[]
-  }[]
   /**
    * Additional metadata for template parts defined in the parts folder.
    */
   templateParts?: {
+    /**
+     * The area the template part is used for. Block variations for `header` and `footer` values exist and will be used when the area is set to one of those.
+     */
+    area?: string
     /**
      * Filename, without extension, of the template in the parts folder.
      */
@@ -150,17 +150,18 @@ export interface SettingsAndStyles {
      * Title of the template, translatable.
      */
     title?: string
-    /**
-     * The area the template part is used for. Block variations for `header` and `footer` values exist and will be used when the area is set to one of those.
-     */
-    area?: string
   }[]
   /**
-   * An array of pattern slugs to be registered from the Pattern Directory.
+   * Title of the global styles variation. If not defined, the file name will be used.
    */
-  patterns?: string[]
+  title?: string
+  /**
+   * Version of theme.json to use.
+   */
+  version: 2
 }
 export interface SettingsPropertiesAppearanceTools {
+  [k: string]: unknown
   /**
    * Setting that enables the following UI tools:
    *
@@ -172,9 +173,9 @@ export interface SettingsPropertiesAppearanceTools {
    * - typography: lineHeight
    */
   appearanceTools?: boolean
-  [k: string]: unknown
 }
 export interface SettingsPropertiesBorder {
+  [k: string]: unknown
   /**
    * Settings related to borders.
    */
@@ -196,9 +197,9 @@ export interface SettingsPropertiesBorder {
      */
     width?: boolean
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesColor {
+  [k: string]: unknown
   /**
    * Settings related to colors.
    */
@@ -237,6 +238,10 @@ export interface SettingsPropertiesColor {
      */
     duotone?: {
       /**
+       * List of colors from dark to light.
+       */
+      colors: string[]
+      /**
        * Name of the duotone preset, translatable.
        */
       name: string
@@ -244,16 +249,16 @@ export interface SettingsPropertiesColor {
        * Kebab-case unique identifier for the duotone preset.
        */
       slug: string
-      /**
-       * List of colors from dark to light.
-       */
-      colors: string[]
     }[]
     /**
      * Gradient presets for the gradient picker.
      * Generates a single class (`.has-{slug}-background`) and custom property (`--wp--preset--gradient--{slug}`) per preset value.
      */
     gradients?: {
+      /**
+       * CSS gradient string.
+       */
+      gradient: string
       /**
        * Name of the gradient preset, translatable.
        */
@@ -262,10 +267,6 @@ export interface SettingsPropertiesColor {
        * Kebab-case unique identifier for the gradient preset.
        */
       slug: string
-      /**
-       * CSS gradient string.
-       */
-      gradient: string
     }[]
     /**
      * Allow users to set link colors.
@@ -277,6 +278,10 @@ export interface SettingsPropertiesColor {
      */
     palette?: {
       /**
+       * CSS hex or rgb(a) string.
+       */
+      color: string
+      /**
        * Name of the color preset, translatable.
        */
       name: string
@@ -284,19 +289,15 @@ export interface SettingsPropertiesColor {
        * Kebab-case unique identifier for the color preset.
        */
       slug: string
-      /**
-       * CSS hex or rgb(a) string.
-       */
-      color: string
     }[]
     /**
      * Allow users to set text colors.
      */
     text?: boolean
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesDimensions {
+  [k: string]: unknown
   /**
    * Settings related to dimensions.
    */
@@ -306,9 +307,9 @@ export interface SettingsPropertiesDimensions {
      */
     minHeight?: boolean
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesShadow {
+  [k: string]: unknown
   /**
    * Settings related to shadows.
    */
@@ -327,18 +328,18 @@ export interface SettingsPropertiesShadow {
        */
       name: string
       /**
-       * Kebab-case unique identifier for the shadow preset.
-       */
-      slug: string
-      /**
        * CSS box-shadow value
        */
       shadow: string
+      /**
+       * Kebab-case unique identifier for the shadow preset.
+       */
+      slug: string
     }[]
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesLayout {
+  [k: string]: unknown
   /**
    * Settings related to layout.
    */
@@ -352,9 +353,9 @@ export interface SettingsPropertiesLayout {
      */
     wideSize?: string
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesPosition {
+  [k: string]: unknown
   /**
    * Settings related to position.
    */
@@ -364,9 +365,9 @@ export interface SettingsPropertiesPosition {
      */
     sticky?: boolean
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesSpacing {
+  [k: string]: unknown
   /**
    * Settings related to spacing.
    */
@@ -377,6 +378,10 @@ export interface SettingsPropertiesSpacing {
      */
     blockGap?: boolean | null
     /**
+     * Allow users to set custom space sizes.
+     */
+    customSpacingSize?: boolean
+    /**
      * Allow users to set a custom margin.
      */
     margin?: boolean
@@ -385,13 +390,31 @@ export interface SettingsPropertiesSpacing {
      */
     padding?: boolean
     /**
-     * List of units the user can use for spacing values.
+     * Settings to auto-generate space size presets for the space size selector.
+     * Generates a custom property (--wp--preset--spacing--{slug}`) per preset value.
      */
-    units?: string[]
-    /**
-     * Allow users to set custom space sizes.
-     */
-    customSpacingSize?: boolean
+    spacingScale?: {
+      /**
+       * The amount to increment each step by.
+       */
+      increment?: number
+      /**
+       * The value to medium setting in the scale.
+       */
+      mediumStep?: number
+      /**
+       * With + or * depending on whether scale is generated by increment or multiplier.
+       */
+      operator?: '*' | '+'
+      /**
+       * Number of steps to generate in scale.
+       */
+      steps?: number
+      /**
+       * Unit that the scale uses, eg. rem, em, px.
+       */
+      unit?: '%' | 'em' | 'px' | 'rem' | 'vh' | 'vw'
+    }
     /**
      * Space size presets for the space size selector.
      * Generates a custom property (`--wp--preset--spacing--{slug}`) per preset value.
@@ -402,44 +425,22 @@ export interface SettingsPropertiesSpacing {
        */
       name?: string
       /**
-       * Unique identifier for the space size preset. For best cross theme compatibility these should be in the form '10','20','30','40','50','60', etc. with '50' representing the 'Medium' size step.
-       */
-      slug?: string
-      /**
        * CSS space-size value, including units.
        */
       size?: string
+      /**
+       * Unique identifier for the space size preset. For best cross theme compatibility these should be in the form '10','20','30','40','50','60', etc. with '50' representing the 'Medium' size step.
+       */
+      slug?: string
     }[]
     /**
-     * Settings to auto-generate space size presets for the space size selector.
-     * Generates a custom property (--wp--preset--spacing--{slug}`) per preset value.
+     * List of units the user can use for spacing values.
      */
-    spacingScale?: {
-      /**
-       * With + or * depending on whether scale is generated by increment or multiplier.
-       */
-      operator?: '+' | '*'
-      /**
-       * The amount to increment each step by.
-       */
-      increment?: number
-      /**
-       * Number of steps to generate in scale.
-       */
-      steps?: number
-      /**
-       * The value to medium setting in the scale.
-       */
-      mediumStep?: number
-      /**
-       * Unit that the scale uses, eg. rem, em, px.
-       */
-      unit?: 'px' | 'em' | 'rem' | 'vh' | 'vw' | '%'
-    }
+    units?: string[]
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesTypography {
+  [k: string]: unknown
   /**
    * Settings related to typography.
    */
@@ -449,13 +450,9 @@ export interface SettingsPropertiesTypography {
      */
     customFontSize?: boolean
     /**
-     * Allow users to set custom font styles.
+     * Enable drop cap.
      */
-    fontStyle?: boolean
-    /**
-     * Allow users to set custom font weights.
-     */
-    fontWeight?: boolean
+    dropCap?: boolean
     /**
      * Enables fluid typography and allows users to set global fluid typography parameters.
      */
@@ -467,6 +464,126 @@ export interface SettingsPropertiesTypography {
           minFontSize?: string
         }
       | boolean
+    /**
+     * Font family presets for the font family selector.
+     * Generates a single custom property (`--wp--preset--font-family--{slug}`) per preset value.
+     */
+    fontFamilies?: {
+      /**
+       * Array of font-face declarations.
+       */
+      fontFace?: {
+        /**
+         * CSS ascent-override value.
+         */
+        ascentOverride?: string
+        /**
+         * CSS descent-override value.
+         */
+        descentOverride?: string
+        /**
+         * CSS font-display value.
+         */
+        fontDisplay?: 'auto' | 'block' | 'fallback' | 'optional' | 'swap'
+        /**
+         * CSS font-family value.
+         */
+        fontFamily: string
+        /**
+         * CSS font-feature-settings value.
+         */
+        fontFeatureSettings?: string
+        /**
+         * CSS font-stretch value.
+         */
+        fontStretch?: string
+        /**
+         * CSS font-style value.
+         */
+        fontStyle?: string
+        /**
+         * CSS font-variant value.
+         */
+        fontVariant?: string
+        /**
+         * CSS font-variation-settings value.
+         */
+        fontVariationSettings?: string
+        /**
+         * List of available font weights, separated by a space.
+         */
+        fontWeight?: number | string
+        /**
+         * CSS line-gap-override value.
+         */
+        lineGapOverride?: string
+        /**
+         * CSS size-adjust value.
+         */
+        sizeAdjust?: string
+        /**
+         * Paths or URLs to the font files.
+         */
+        src: string | string[]
+        /**
+         * CSS unicode-range value.
+         */
+        unicodeRange?: string
+      }[]
+      /**
+       * CSS font-family value.
+       */
+      fontFamily?: string
+      /**
+       * Name of the font family preset, translatable.
+       */
+      name?: string
+      /**
+       * Kebab-case unique identifier for the font family preset.
+       */
+      slug?: string
+    }[]
+    /**
+     * Font size presets for the font size selector.
+     * Generates a single class (`.has-{slug}-color`) and custom property (`--wp--preset--font-size--{slug}`) per preset value.
+     */
+    fontSizes?: {
+      /**
+       * Specifies the minimum and maximum font size value of a fluid font size. Set to `false` to bypass fluid calculations and use the static `size` value.
+       */
+      fluid?:
+        | {
+            /**
+             * A max font size for fluid font size calculations in px, rem or em.
+             */
+            max?: string
+            /**
+             * A min font size for fluid font size calculations in px, rem or em.
+             */
+            min?: string
+          }
+        | boolean
+      /**
+       * Name of the font size preset, translatable.
+       */
+      name?: string
+      /**
+       * CSS font-size value, including units.
+       */
+      size?: string
+      /**
+       * Kebab-case unique identifier for the font size preset.
+       */
+      slug?: string
+    }[]
+    /**
+     * Allow users to set custom font styles.
+     */
+    fontStyle?: boolean
+    /**
+     * Allow users to set custom font weights.
+     */
+    fontWeight?: boolean
     /**
      * Allow users to set custom letter spacing.
      */
@@ -487,142 +604,26 @@ export interface SettingsPropertiesTypography {
      * Allow users to set custom text transforms.
      */
     textTransform?: boolean
-    /**
-     * Enable drop cap.
-     */
-    dropCap?: boolean
-    /**
-     * Font size presets for the font size selector.
-     * Generates a single class (`.has-{slug}-color`) and custom property (`--wp--preset--font-size--{slug}`) per preset value.
-     */
-    fontSizes?: {
-      /**
-       * Name of the font size preset, translatable.
-       */
-      name?: string
-      /**
-       * Kebab-case unique identifier for the font size preset.
-       */
-      slug?: string
-      /**
-       * CSS font-size value, including units.
-       */
-      size?: string
-      /**
-       * Specifies the minimum and maximum font size value of a fluid font size. Set to `false` to bypass fluid calculations and use the static `size` value.
-       */
-      fluid?:
-        | {
-            /**
-             * A min font size for fluid font size calculations in px, rem or em.
-             */
-            min?: string
-            /**
-             * A max font size for fluid font size calculations in px, rem or em.
-             */
-            max?: string
-          }
-        | boolean
-    }[]
-    /**
-     * Font family presets for the font family selector.
-     * Generates a single custom property (`--wp--preset--font-family--{slug}`) per preset value.
-     */
-    fontFamilies?: {
-      /**
-       * Name of the font family preset, translatable.
-       */
-      name?: string
-      /**
-       * Kebab-case unique identifier for the font family preset.
-       */
-      slug?: string
-      /**
-       * CSS font-family value.
-       */
-      fontFamily?: string
-      /**
-       * Array of font-face declarations.
-       */
-      fontFace?: {
-        /**
-         * CSS font-family value.
-         */
-        fontFamily: string
-        /**
-         * CSS font-style value.
-         */
-        fontStyle?: string
-        /**
-         * List of available font weights, separated by a space.
-         */
-        fontWeight?: string | number
-        /**
-         * CSS font-display value.
-         */
-        fontDisplay?: 'auto' | 'block' | 'fallback' | 'swap' | 'optional'
-        /**
-         * Paths or URLs to the font files.
-         */
-        src: string | string[]
-        /**
-         * CSS font-stretch value.
-         */
-        fontStretch?: string
-        /**
-         * CSS ascent-override value.
-         */
-        ascentOverride?: string
-        /**
-         * CSS descent-override value.
-         */
-        descentOverride?: string
-        /**
-         * CSS font-variant value.
-         */
-        fontVariant?: string
-        /**
-         * CSS font-feature-settings value.
-         */
-        fontFeatureSettings?: string
-        /**
-         * CSS font-variation-settings value.
-         */
-        fontVariationSettings?: string
-        /**
-         * CSS line-gap-override value.
-         */
-        lineGapOverride?: string
-        /**
-         * CSS size-adjust value.
-         */
-        sizeAdjust?: string
-        /**
-         * CSS unicode-range value.
-         */
-        unicodeRange?: string
-      }[]
-    }[]
   }
-  [k: string]: unknown
 }
 export interface SettingsPropertiesCustom {
-  custom?: SettingsCustomAdditionalProperties
   [k: string]: unknown
+  custom?: SettingsCustomAdditionalProperties
 }
 /**
  * Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
  */
 export interface SettingsCustomAdditionalProperties {
-  [k: string]: string | number | SettingsCustomAdditionalProperties1
+  [k: string]: number | SettingsCustomAdditionalProperties1 | string
 }
 export interface SettingsCustomAdditionalProperties1 {
-  [k: string]: string | number | SettingsCustomAdditionalProperties1
+  [k: string]: number | SettingsCustomAdditionalProperties1 | string
 }
 /**
  * Settings defined on a per-block basis.
  */
 export interface SettingsBlocksPropertiesComplete {
+  [k: string]: SettingsPropertiesComplete
   /**
    * Archive block. Display a monthly archive of your posts. This block has no block-level settings
    */
@@ -631,17 +632,17 @@ export interface SettingsBlocksPropertiesComplete {
   'core/avatar'?: SettingsPropertiesComplete
   'core/block'?: SettingsPropertiesComplete
   'core/button'?: SettingsPropertiesAppearanceTools & {
+    [k: string]: unknown
     /**
      * Settings related to borders.
      */
     border?: {
+      [k: string]: unknown
       /**
        * Allow users to set custom border radius.
        */
       radius?: boolean
-      [k: string]: unknown
     }
-    [k: string]: unknown
   } & SettingsPropertiesColor &
     SettingsPropertiesLayout &
     SettingsPropertiesSpacing &
@@ -672,6 +673,7 @@ export interface SettingsBlocksPropertiesComplete {
   'core/image'?: SettingsPropertiesComplete
   'core/latest-comments'?: SettingsPropertiesComplete
   'core/latest-posts'?: SettingsPropertiesComplete
+  'core/legacy-widget'?: SettingsPropertiesComplete
   'core/list'?: SettingsPropertiesComplete
   'core/loginout'?: SettingsPropertiesComplete
   'core/media-text'?: SettingsPropertiesComplete
@@ -723,108 +725,107 @@ export interface SettingsBlocksPropertiesComplete {
   'core/verse'?: SettingsPropertiesComplete
   'core/video'?: SettingsPropertiesComplete
   'core/widget-area'?: SettingsPropertiesComplete
-  'core/legacy-widget'?: SettingsPropertiesComplete
   'core/widget-group'?: SettingsPropertiesComplete
-  [k: string]: SettingsPropertiesComplete
 }
 export interface StylesProperties {
+  [k: string]: unknown
   /**
    * Border styles.
    */
   border?: {
-    /**
-     * Sets the `border-color` CSS property.
-     */
-    color?: string | RefComplete
-    /**
-     * Sets the `border-radius` CSS property.
-     */
-    radius?:
-      | string
-      | RefComplete
-      | {
-          /**
-           * Sets the `border-top-left-radius` CSS property.
-           */
-          topLeft?: string | RefComplete
-          /**
-           * Sets the `border-top-right-radius` CSS property.
-           */
-          topRight?: string | RefComplete
-          /**
-           * Sets the `border-bottom-left-radius` CSS property.
-           */
-          bottomLeft?: string | RefComplete
-          /**
-           * Sets the `border-bottom-right-radius` CSS property.
-           */
-          bottomRight?: string | RefComplete
-          [k: string]: unknown
-        }
-    /**
-     * Sets the `border-style` CSS property.
-     */
-    style?: string | RefComplete
-    /**
-     * Sets the `border-width` CSS property.
-     */
-    width?: string | RefComplete
-    top?: {
-      /**
-       * Sets the `border-top-color` CSS property.
-       */
-      color?: string | RefComplete
-      /**
-       * Sets the `border-top-style` CSS property.
-       */
-      style?: string | RefComplete
-      /**
-       * Sets the `border-top-width` CSS property.
-       */
-      width?: string | RefComplete
-    }
-    right?: {
-      /**
-       * Sets the `border-right-color` CSS property.
-       */
-      color?: string | RefComplete
-      /**
-       * Sets the `border-right-style` CSS property.
-       */
-      style?: string | RefComplete
-      /**
-       * Sets the `border-right-width` CSS property.
-       */
-      width?: string | RefComplete
-    }
     bottom?: {
       /**
        * Sets the `border-bottom-color` CSS property.
        */
-      color?: string | RefComplete
+      color?: RefComplete | string
       /**
        * Sets the `border-bottom-style` CSS property.
        */
-      style?: string | RefComplete
+      style?: RefComplete | string
       /**
        * Sets the `border-bottom-width` CSS property.
        */
-      width?: string | RefComplete
+      width?: RefComplete | string
     }
+    /**
+     * Sets the `border-color` CSS property.
+     */
+    color?: RefComplete | string
     left?: {
       /**
        * Sets the `border-left-color` CSS property.
        */
-      color?: string | RefComplete
+      color?: RefComplete | string
       /**
        * Sets the `border-left-style` CSS property.
        */
-      style?: string | RefComplete
+      style?: RefComplete | string
       /**
        * Sets the `border-left-width` CSS property.
        */
-      width?: string | RefComplete
+      width?: RefComplete | string
     }
+    /**
+     * Sets the `border-radius` CSS property.
+     */
+    radius?:
+      | {
+          [k: string]: unknown
+          /**
+           * Sets the `border-bottom-left-radius` CSS property.
+           */
+          bottomLeft?: RefComplete | string
+          /**
+           * Sets the `border-bottom-right-radius` CSS property.
+           */
+          bottomRight?: RefComplete | string
+          /**
+           * Sets the `border-top-left-radius` CSS property.
+           */
+          topLeft?: RefComplete | string
+          /**
+           * Sets the `border-top-right-radius` CSS property.
+           */
+          topRight?: RefComplete | string
+        }
+      | RefComplete
+      | string
+    right?: {
+      /**
+       * Sets the `border-right-color` CSS property.
+       */
+      color?: RefComplete | string
+      /**
+       * Sets the `border-right-style` CSS property.
+       */
+      style?: RefComplete | string
+      /**
+       * Sets the `border-right-width` CSS property.
+       */
+      width?: RefComplete | string
+    }
+    /**
+     * Sets the `border-style` CSS property.
+     */
+    style?: RefComplete | string
+    top?: {
+      /**
+       * Sets the `border-top-color` CSS property.
+       */
+      color?: RefComplete | string
+      /**
+       * Sets the `border-top-style` CSS property.
+       */
+      style?: RefComplete | string
+      /**
+       * Sets the `border-top-width` CSS property.
+       */
+      width?: RefComplete | string
+    }
+    /**
+     * Sets the `border-width` CSS property.
+     */
+    width?: RefComplete | string
   }
   /**
    * Color styles.
@@ -833,26 +834,64 @@ export interface StylesProperties {
     /**
      * Sets the `background-color` CSS property.
      */
-    background?: string | RefComplete
+    background?: RefComplete | string
     /**
      * Sets the `background` CSS property.
      */
-    gradient?: string | RefComplete
+    gradient?: RefComplete | string
     /**
      * Sets the `color` CSS property.
      */
-    text?: string | RefComplete
+    text?: RefComplete | string
   }
+  /**
+   * Sets custom CSS to apply styling not covered by other theme.json properties.
+   */
+  css?: string
   /**
    * Dimensions styles
    */
   dimensions?: {
+    [k: string]: unknown
     /**
      * Sets the `min-height` CSS property.
      */
-    minHeight?: string | RefComplete
-    [k: string]: unknown
+    minHeight?: RefComplete | string
   }
+  /**
+   * CSS and SVG filter styles.
+   */
+  filter?: {
+    /**
+     * Sets the duotone filter.
+     */
+    duotone?: RefComplete | string
+  }
+  /**
+   * Outline styles.
+   */
+  outline?: {
+    /**
+     * Sets the `outline-color` CSS property.
+     */
+    color?: RefComplete | string
+    /**
+     * Sets the `outline-offset` CSS property.
+     */
+    offset?: RefComplete | string
+    /**
+     * Sets the `outline-style` CSS property.
+     */
+    style?: RefComplete | string
+    /**
+     * Sets the `outline-width` CSS property.
+     */
+    width?: RefComplete | string
+  }
+  /**
+   * Box shadow styles.
+   */
+  shadow?: RefComplete | string
   /**
    * Spacing styles.
    */
@@ -860,48 +899,48 @@ export interface StylesProperties {
     /**
      * Sets the `--wp--style--block-gap` CSS custom property when settings.spacing.blockGap is true.
      */
-    blockGap?: string | RefComplete
+    blockGap?: RefComplete | string
     /**
      * Margin styles.
      */
     margin?: {
       /**
-       * Sets the `margin-top` CSS property.
-       */
-      top?: string | RefComplete
-      /**
-       * Sets the `margin-right` CSS property.
-       */
-      right?: string | RefComplete
-      /**
        * Sets the `margin-bottom` CSS property.
        */
-      bottom?: string | RefComplete
+      bottom?: RefComplete | string
       /**
        * Sets the `margin-left` CSS property.
        */
-      left?: string | RefComplete
+      left?: RefComplete | string
+      /**
+       * Sets the `margin-right` CSS property.
+       */
+      right?: RefComplete | string
+      /**
+       * Sets the `margin-top` CSS property.
+       */
+      top?: RefComplete | string
     }
     /**
      * Padding styles.
      */
     padding?: {
       /**
-       * Sets the `padding-top` CSS property.
-       */
-      top?: string | RefComplete
-      /**
-       * Sets the `padding-right` CSS property.
-       */
-      right?: string | RefComplete
-      /**
        * Sets the `padding-bottom` CSS property.
        */
-      bottom?: string | RefComplete
+      bottom?: RefComplete | string
       /**
        * Sets the `padding-left` CSS property.
        */
-      left?: string | RefComplete
+      left?: RefComplete | string
+      /**
+       * Sets the `padding-right` CSS property.
+       */
+      right?: RefComplete | string
+      /**
+       * Sets the `padding-top` CSS property.
+       */
+      top?: RefComplete | string
     }
   }
   /**
@@ -911,27 +950,27 @@ export interface StylesProperties {
     /**
      * Sets the `font-family` CSS property.
      */
-    fontFamily?: string | RefComplete
+    fontFamily?: RefComplete | string
     /**
      * Sets the `font-size` CSS property.
      */
-    fontSize?: string | RefComplete
+    fontSize?: RefComplete | string
     /**
      * Sets the `font-style` CSS property.
      */
-    fontStyle?: string | RefComplete
+    fontStyle?: RefComplete | string
     /**
      * Sets the `font-weight` CSS property.
      */
-    fontWeight?: string | RefComplete
+    fontWeight?: RefComplete | string
     /**
      * Sets the `letter-spacing` CSS property.
      */
-    letterSpacing?: string | RefComplete
+    letterSpacing?: RefComplete | string
     /**
      * Sets the `line-height` CSS property.
      */
-    lineHeight?: string | RefComplete
+    lineHeight?: RefComplete | string
     /**
      * Sets the `column-count` CSS property.
      */
@@ -939,105 +978,67 @@ export interface StylesProperties {
     /**
      * Sets the `text-decoration` CSS property.
      */
-    textDecoration?: string | RefComplete
+    textDecoration?: RefComplete | string
     /**
      * Sets the `text-transform` CSS property.
      */
-    textTransform?: string | RefComplete
+    textTransform?: RefComplete | string
   }
-  /**
-   * CSS and SVG filter styles.
-   */
-  filter?: {
-    /**
-     * Sets the duotone filter.
-     */
-    duotone?: string | RefComplete
-  }
-  /**
-   * Box shadow styles.
-   */
-  shadow?: string | RefComplete
-  /**
-   * Outline styles.
-   */
-  outline?: {
-    /**
-     * Sets the `outline-color` CSS property.
-     */
-    color?: string | RefComplete
-    /**
-     * Sets the `outline-offset` CSS property.
-     */
-    offset?: string | RefComplete
-    /**
-     * Sets the `outline-style` CSS property.
-     */
-    style?: string | RefComplete
-    /**
-     * Sets the `outline-width` CSS property.
-     */
-    width?: string | RefComplete
-  }
-  /**
-   * Sets custom CSS to apply styling not covered by other theme.json properties.
-   */
-  css?: string
-  [k: string]: unknown
 }
 export interface RefComplete {
+  [k: string]: unknown
   /**
    * A reference to another property value. e.g. `styles.color.text`
    */
   ref?: string
-  [k: string]: unknown
 }
 /**
  * Styles defined on a per-element basis using the element's selector.
  */
 export interface StylesElementsPropertiesComplete {
   button?: StylesProperties & {
+    ':active'?: StylesPropertiesComplete
+    ':any-link'?: StylesPropertiesComplete
+    ':focus'?: StylesPropertiesComplete
+    ':hover'?: StylesPropertiesComplete
+    ':link'?: StylesPropertiesComplete
+    ':visited'?: StylesPropertiesComplete
     border?: unknown
     color?: unknown
-    filter?: unknown
-    shadow?: unknown
-    outline?: unknown
-    spacing?: unknown
-    typography?: unknown
     css?: unknown
-    ':hover'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':active'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-  }
-  link?: StylesProperties & {
-    border?: unknown
-    color?: unknown
+    filter?: unknown
+    outline?: unknown
+    shadow?: unknown
     spacing?: unknown
     typography?: unknown
-    ':hover'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':active'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
   }
-  heading?: StylesPropertiesComplete
+  caption?: StylesPropertiesComplete
+  cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
   h2?: StylesPropertiesComplete
   h3?: StylesPropertiesComplete
   h4?: StylesPropertiesComplete
   h5?: StylesPropertiesComplete
   h6?: StylesPropertiesComplete
-  caption?: StylesPropertiesComplete
-  cite?: StylesPropertiesComplete
+  heading?: StylesPropertiesComplete
+  link?: StylesProperties & {
+    ':active'?: StylesPropertiesComplete
+    ':any-link'?: StylesPropertiesComplete
+    ':focus'?: StylesPropertiesComplete
+    ':hover'?: StylesPropertiesComplete
+    ':link'?: StylesPropertiesComplete
+    ':visited'?: StylesPropertiesComplete
+    border?: unknown
+    color?: unknown
+    spacing?: unknown
+    typography?: unknown
+  }
 }
 /**
  * Styles defined on a per-block basis using the block's selector.
  */
 export interface StylesBlocksPropertiesComplete {
+  [k: string]: StylesPropertiesAndElementsComplete
   'core/archives'?: StylesPropertiesAndElementsComplete
   'core/audio'?: StylesPropertiesAndElementsComplete
   'core/avatar'?: StylesPropertiesAndElementsComplete
@@ -1068,6 +1069,7 @@ export interface StylesBlocksPropertiesComplete {
   'core/image'?: StylesPropertiesAndElementsComplete
   'core/latest-comments'?: StylesPropertiesAndElementsComplete
   'core/latest-posts'?: StylesPropertiesAndElementsComplete
+  'core/legacy-widget'?: StylesPropertiesAndElementsComplete
   'core/list'?: StylesPropertiesAndElementsComplete
   'core/loginout'?: StylesPropertiesAndElementsComplete
   'core/media-text'?: StylesPropertiesAndElementsComplete
@@ -1119,48 +1121,46 @@ export interface StylesBlocksPropertiesComplete {
   'core/verse'?: StylesPropertiesAndElementsComplete
   'core/video'?: StylesPropertiesAndElementsComplete
   'core/widget-area'?: StylesPropertiesAndElementsComplete
-  'core/legacy-widget'?: StylesPropertiesAndElementsComplete
   'core/widget-group'?: StylesPropertiesAndElementsComplete
-  [k: string]: StylesPropertiesAndElementsComplete
 }
 export interface StylesElementsPropertiesComplete1 {
   button?: StylesProperties & {
+    ':active'?: StylesPropertiesComplete
+    ':any-link'?: StylesPropertiesComplete
+    ':focus'?: StylesPropertiesComplete
+    ':hover'?: StylesPropertiesComplete
+    ':link'?: StylesPropertiesComplete
+    ':visited'?: StylesPropertiesComplete
     border?: unknown
     color?: unknown
-    filter?: unknown
-    shadow?: unknown
-    outline?: unknown
-    spacing?: unknown
-    typography?: unknown
     css?: unknown
-    ':hover'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':active'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-  }
-  link?: StylesProperties & {
-    border?: unknown
-    color?: unknown
+    filter?: unknown
+    outline?: unknown
+    shadow?: unknown
     spacing?: unknown
     typography?: unknown
-    ':hover'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':active'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
   }
-  heading?: StylesPropertiesComplete
+  caption?: StylesPropertiesComplete
+  cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
   h2?: StylesPropertiesComplete
   h3?: StylesPropertiesComplete
   h4?: StylesPropertiesComplete
   h5?: StylesPropertiesComplete
   h6?: StylesPropertiesComplete
-  caption?: StylesPropertiesComplete
-  cite?: StylesPropertiesComplete
+  heading?: StylesPropertiesComplete
+  link?: StylesProperties & {
+    ':active'?: StylesPropertiesComplete
+    ':any-link'?: StylesPropertiesComplete
+    ':focus'?: StylesPropertiesComplete
+    ':hover'?: StylesPropertiesComplete
+    ':link'?: StylesPropertiesComplete
+    ':visited'?: StylesPropertiesComplete
+    border?: unknown
+    color?: unknown
+    spacing?: unknown
+    typography?: unknown
+  }
 }
 export interface StylesVariationPropertiesComplete {
   [k: string]: StylesPropertiesComplete

@@ -1,24 +1,24 @@
 export interface Sync {
-  js: RegExp
   css: RegExp
-  font: RegExp
-  image: RegExp
-  modules: RegExp
-  html: RegExp
-  ts: RegExp
-  sass: RegExp
   cssModule: RegExp
-  sassModule: RegExp
-  svg: RegExp
-  vue: RegExp
-  md: RegExp
+  csv: RegExp
+  font: RegExp
+  html: RegExp
+  image: RegExp
+  js: RegExp
   json: RegExp
   json5: RegExp
+  md: RegExp
+  modules: RegExp
+  sass: RegExp
+  sassModule: RegExp
+  svg: RegExp
   toml: RegExp
-  yml: RegExp
-  xml: RegExp
-  csv: RegExp
+  ts: RegExp
+  vue: RegExp
   webp: RegExp
+  xml: RegExp
+  yml: RegExp
 }
 
 export type SyncRegistry = {

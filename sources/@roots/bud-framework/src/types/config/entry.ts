@@ -12,7 +12,7 @@ export type EntryObject = Partial<{
   /**
    * The method of loading chunks (methods included by default are 'jsonp' (web), 'import' (ESM), 'importScripts' (WebWorker), 'require' (sync node.js), 'async-node' (async node.js), but others might be added by plugins).
    */
-  chunkLoading?: string | false
+  chunkLoading?: false | string
 
   /**
    * The entrypoints that the current entrypoint depend on. They must be loaded when this entrypoint is loaded.
@@ -47,13 +47,13 @@ export type EntryObject = Partial<{
   /**
    * The name of the runtime chunk. If set a runtime chunk with this name is created or an existing entrypoint is used as runtime.
    */
-  runtime?: string | false
+  runtime?: false | string
 
   /**
    * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
    */
-  wasmLoading?: string | false
+  wasmLoading?: false | string
 }> & {
-  import: Array<string>
   dependOn?: string | string[]
+  import: Array<string>
 }
