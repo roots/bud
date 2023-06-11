@@ -1,13 +1,11 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "outDir": "lib",
+    "outDir": "./lib",
     "strict": true,
     "paths": {
-      "@roots/bud-support": ["./src/index.ts"],
-      "@roots/bud-support/lodash-es": ["./src/lodash/index.ts"],
-      "@roots/bud-support/lodash-es/*": ["./src/lodash/*/index.ts"],
+      "@roots/bud-support/html-webpack-plugin": ["./vendor/html-webpack-plugin/index.cjs"],
+      "@roots/bud-support/html-loader": ["./vendor/html-loader/index.cjs"],
       "@roots/bud-support/lodash": ["./src/lodash/index.ts"],
       "@roots/bud-support/lodash/*": ["./src/lodash/*/index.ts"],
       "@roots/bud-support/*": ["./src/*"]
@@ -15,8 +13,7 @@
     "types": ["express", "node", "react", "webpack", "modern-errors"]
   },
   "files": ["types.d.ts"],
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mts", "src/**/*.cts"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
+  "include": ["src"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}
   ]

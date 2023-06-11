@@ -1,7 +1,7 @@
 import {dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
-import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
+import type {Options} from '@roots/bud-extensions/html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
 import isObject from '@roots/bud-support/lodash/isObject'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -23,7 +23,7 @@ export const defaultHtmlPluginOptions = {
 export const getHtmlPluginOptions = (
   bud: Bud,
   options: Parameters[0],
-): Omit<HTMLExtension.Options, `replace`> => {
+): Omit<Options, `replace`> => {
   if (isUndefined(options) || !isObject(options))
     return defaultHtmlPluginOptions
 

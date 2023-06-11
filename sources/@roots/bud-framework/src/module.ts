@@ -172,10 +172,7 @@ export class Module extends Service {
    * Import a module from its signifier
    */
   @bind
-  public async import<T = any>(
-    signifier: string,
-    context?: string,
-  ): Promise<T> {
+  public async import<T extends string>(signifier: T, context?: string) {
     if (signifier in this.resolved) {
       const m = await import(get(this.resolved, [signifier]))
       return m?.default ?? m

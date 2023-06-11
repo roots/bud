@@ -15,7 +15,7 @@ import type {Options} from '@roots/bud-support/html-webpack-plugin'
  * HTML Webpack plugin configuration
  */
 @label(`@roots/bud-extensions/html-webpack-plugin`)
-@options<Options>({
+@options({
   filename: `index.html`,
   inject: true,
   template: `auto`,

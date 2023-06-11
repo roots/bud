@@ -25,14 +25,82 @@ export class Build extends Command {
   public async execute() {
     try {
       await this.promise(
-        `Bundling dependencies (pre-build)`,
-        `Bundled dependencies (pre-build)`,
-        `Failed to bundle dependencies (pre-build)`,
-        this.bundle({
-          source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
-          outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
-          format: `cjs`,
-        }),
+        `Bundling vendor entrypoints`,
+        `Bundled vendor entrypoints`,
+        `Failed to bundle vendor entrypoints`,
+        Promise.all([
+          /**
+           * @aws-sdk/client-s3
+           */
+          this.bundle({
+            source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
+            outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
+            format: `cjs`,
+          }),
+          /**
+           * highlight-js
+           */
+          this.bundle({
+            source: `sources/@roots/bud-support/lib/highlight/index.js`,
+            outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
+            format: `esm`,
+          }),
+          /**
+           * html-loader
+           */
+          this.bundle({
+            source: path(`node_modules/html-loader/dist/index.js`),
+            outfile: path(
+              `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
+            ),
+            external: [`./runtime/getUrl.js`],
+            format: `cjs`,
+          }).then(async () => {
+            const modulePath = path(
+              `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
+            )
+            const code = await fs.readAsync(modulePath)
+            await fs.writeAsync(
+              modulePath,
+              code.replace(
+                /\.\/runtime\/getUrl\.js/g,
+                `./runtime/getUrl.cjs`,
+              ),
+            )
+          }),
+          /**
+           * html-webpack-plugin
+           */
+          this.bundle({
+            source: `node_modules/html-webpack-plugin/index.js`,
+            outfile: `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
+            external: [`./lib/loader.js`],
+            format: `cjs`,
+          }).then(async () => {
+            const outPath = path(
+              `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
+            )
+            const code = await fs.readAsync(outPath)
+            await fs.writeAsync(
+              outPath,
+              code.replace(/\.\/lib\/loader\.js/g, `./lib/loader.cjs`),
+            )
+          }),
+          fs.copyAsync(
+            path(`node_modules/html-webpack-plugin/lib/loader.js`),
+            path(
+              `sources/@roots/bud-support/vendor/html-webpack-plugin/lib/loader.cjs`,
+            ),
+            {overwrite: true},
+          ),
+          fs.copyAsync(
+            path(`node_modules/html-webpack-plugin/typings.d.ts`),
+            path(
+              `sources/@roots/bud-support/vendor/html-webpack-plugin/index.d.cts`,
+            ),
+            {overwrite: true},
+          ),
+        ]),
       )
     } catch (e) {
       throw e
@@ -44,58 +112,6 @@ export class Build extends Command {
         `Built from source`,
         `Build failed`,
         this.cli.run([`@bud`, `tsc`, `--force`]),
-      )
-    } catch (e) {
-      throw e
-    }
-
-    this.promised.push(
-      this.bundle({
-        source: `sources/@roots/bud-support/lib/highlight/index.js`,
-        outfile: `sources/@roots/bud-support/lib/highlight/index.js`,
-        format: `esm`,
-      }),
-    )
-
-    this.promised.push(
-      this.bundle({
-        source: `sources/@roots/bud-support/lib/html-loader/index.cjs`,
-        outfile: `sources/@roots/bud-support/lib/html-loader/index.cjs`,
-        external: [`./runtime/getUrl.js`],
-        format: `cjs`,
-      }),
-      fs.copyAsync(
-        path(`node_modules/html-loader/dist/runtime/getUrl.js`),
-        path(
-          `sources/@roots/bud-support/lib/html-loader/runtime/getUrl.js`,
-        ),
-        {overwrite: true},
-      ),
-    )
-
-    this.promised.push(
-      this.bundle({
-        source: `sources/@roots/bud-support/lib/html-webpack-plugin/index.cjs`,
-        outfile: `sources/@roots/bud-support/lib/html-webpack-plugin/index.cjs`,
-        external: [`./lib/loader.js`],
-        format: `cjs`,
-      }),
-
-      fs.copyAsync(
-        path(`node_modules/html-webpack-plugin/lib/loader.js`),
-        path(
-          `sources/@roots/bud-support/lib/html-webpack-plugin/lib/loader.js`,
-        ),
-        {overwrite: true},
-      ),
-    )
-
-    try {
-      await this.promise(
-        `Bundling dependencies (post-build)`,
-        `Bundled dependencies (post-build)`,
-        `Failed to bundle dependencies (post-build)`,
-        Promise.all(this.promised),
       )
     } catch (e) {
       throw e
@@ -113,29 +129,25 @@ export class Build extends Command {
     return this.cli.run(
       [
         `esbuild`,
-        `--bundle`,
-        source,
-        outfile ? `--outfile=${outfile}` : `--outdir=${outdir}`,
-        `--platform=node`,
+        `--alias:webpack=@roots/bud-support/webpack`,
         `--allow-overwrite`,
-        `--minify`,
-        `--log-level=warning`,
-        `--format=${format}`,
-        /**
-         * Externals
-         */
+        `--bundle`,
         `--external:crypto`,
         `--external:module`,
         `--external:node:*`,
         `--external:@roots/*`,
-        ...external.map(pkg => `--external:${pkg}`),
-        /**
-         * Aliases
-         */
-        `--alias:webpack=@roots/bud-support/webpack`,
+        `--minify`,
+        `--log-level=warning`,
+        `--platform=node`,
+
         ...Object.entries(alias).map(
           ([key, value]) => `--alias:${key}=${value}`,
         ),
+        ...external.map(pkg => `--external:${pkg}`),
+        `--format=${format}`,
+        outfile ? `--outfile=${outfile}` : null,
+        outdir ? `--outdir=${outdir}` : null,
+        source,
       ].filter(Boolean),
     )
   }

@@ -11,8 +11,6 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 
-export type {Options}
-
 /**
  * Interpolate html webpack plugin configuration
  */
@@ -22,7 +20,7 @@ export type {Options}
   NO_SCRIPT: `You need to enable JavaScript to run this app`,
 })
 @disabled
-export default class BudInterpolateHtmlExtension extends Extension<
+class BudInterpolateHtmlExtension extends Extension<
   Options,
   InterpolateHtmlWebpackPlugin
 > {
@@ -31,17 +29,17 @@ export default class BudInterpolateHtmlExtension extends Extension<
    */
   @bind
   public override async make(bud: Bud) {
-    const {InterpolateHtmlWebpackPlugin} = await bud.module.import(
+    const InterpolateHtmlWebpackPlugin = await bud.module.import(
       `@roots/bud-extensions/interpolate-html-webpack-plugin/plugin`,
       import.meta.url,
     )
 
-    const HTMLWebpackPlugin = await bud.module.import(
+    const {getHooks} = await bud.module.import(
       `@roots/bud-support/html-webpack-plugin`,
       import.meta.url,
     )
 
-    return new InterpolateHtmlWebpackPlugin(HTMLWebpackPlugin.getHooks, {
+    return new InterpolateHtmlWebpackPlugin(getHooks, {
       ...(this.options ?? {}),
       ...(bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
         ?.options ?? {}),
@@ -49,3 +47,6 @@ export default class BudInterpolateHtmlExtension extends Extension<
     })
   }
 }
+
+export type {Options}
+export {BudInterpolateHtmlExtension as default}

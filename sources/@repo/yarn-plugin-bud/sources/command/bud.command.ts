@@ -5,7 +5,7 @@ export class Bud extends Command {
   public static paths = [[`@bud`]]
 
   public async execute() {
-    process.stdout.write(`    
+    process.stdout.write(`
  _               _
 | |__  _   _  __| |
 |  _ \\| | | |/ _  |

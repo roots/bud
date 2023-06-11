@@ -43,7 +43,8 @@
     "core"
   ],
   "files": [
-    "lib"
+    "lib",
+    "vendor"
   ],
   "type": "module",
   "exports": {
@@ -64,12 +65,12 @@
       "default": "./lib/file-loader/index.cjs"
     },
     "./html-loader": {
-      "require": "./lib/html-loader/index.cjs",
-      "default": "./lib/html-loader/index.cjs"
+      "require": "./vendor/html-loader/index.cjs",
+      "default": "./vendor/html-loader/index.cjs"
     },
     "./html-webpack-plugin": {
-      "require": "./lib/html-webpack-plugin/index.cjs",
-      "default": "./lib/html-webpack-plugin/index.cjs"
+      "require": "./vendor/html-webpack-plugin/index.cjs",
+      "default": "./vendor/html-webpack-plugin/index.cjs"
     },
     "./remark-loader": {
       "require": "./lib/remark-loader/index.cjs",
@@ -108,6 +109,9 @@
       "utilities/*": [
         "./lib/utilities/*.d.ts"
       ],
+      "html-webpack-plugin": [
+        "./vendor/html-webpack-plugin/index.d.cts"
+      ],
       "*": [
         "./lib/*/index.d.ts"
       ]
@@ -127,8 +131,6 @@
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5",
     "highlight.js": "11.8.0",
-    "html-loader": "4.2.0",
-    "html-webpack-plugin": "5.5.1",
     "parse5": "7.1.2",
     "parse5-htmlparser2-tree-adapter": "7.0.0"
   },
