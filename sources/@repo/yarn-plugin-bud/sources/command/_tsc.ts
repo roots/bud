@@ -9,17 +9,7 @@ export class Tsc extends Command {
   public static usage: CommandClass['usage'] = {
     category: `@bud-tools`,
     description: `Run the typescript compiler`,
-    examples: [
-      [`run the typescript compiler`, `yarn @bud tsc`],
-      [
-        `run the typescript compiler in watch mode`,
-        `yarn @bud tsc --watch`,
-      ],
-      [
-        `run the typescript compiler with forced rebuild (no incremental compilation)`,
-        `yarn @bud tsc --force`,
-      ],
-    ],
+    examples: [[`run the typescript compiler`, `yarn @bud tsc`]],
   }
 
   public passthrough = Option.Proxy({name: `tsc options`})
@@ -27,11 +17,22 @@ export class Tsc extends Command {
   public tsconfig = path(`config/tsconfig.json`)
 
   public async execute() {
-    await this.promise(
-      `Building source`,
-      `Built source`,
-      `Failed to build source`,
-      this.cli.run([`tsc`, `-b`, this.tsconfig, ...this.passthrough]),
-    )
+    try {
+      await this.promise(
+        `Building source`,
+        `Built source`,
+        `Failed to build source`,
+        this.cli
+          .run([`tsc`, `-b`, this.tsconfig, ...this.passthrough])
+          .catch(error => {
+            throw error
+          })
+          .then(result => {
+            if (result !== 0) throw new Error(`Failed to build source`)
+          }),
+      )
+    } catch (error) {
+      throw error
+    }
   }
 }

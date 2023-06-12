@@ -148,15 +148,12 @@ export class Build extends Command {
       throw e
     }
 
-    try {
-      await this.promise(
-        `Building from source`,
-        `Built from source`,
-        `Build failed`,
-        this.cli.run([`@bud`, `tsc`, `--force`]),
-      )
-    } catch (e) {
-      throw e
-    }
+    const result = await this.promise(
+      `Building from source`,
+      `Built from source`,
+      `Build failed`,
+      this.cli.run([`@bud`, `tsc`, `--force`]),
+    )
+    if (result !== 0) throw new Error(`Build failed`)
   }
 }

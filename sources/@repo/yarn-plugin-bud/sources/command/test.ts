@@ -20,20 +20,20 @@ export class TestRun extends Command {
 
       await fs.removeAsync(join(paths.root, `storage/mocks`))
 
-      await this.cli
-        .run([
-          `@bud`,
-          `release`,
-          `--tag`,
-          `latest`,
-          `--registry`,
-          `http://localhost:4873`,
-        ])
-        .catch(error => {
-          throw error
-        })
+      await this.cli.run([
+        `@bud`,
+        `release`,
+        `--tag`,
+        `latest`,
+        `--registry`,
+        `http://localhost:4873`,
+      ])
     }
 
-    await this.cli.run([...args, ...this.passthrough].filter(Boolean))
+    try {
+      await this.cli.run([...args, ...this.passthrough].filter(Boolean))
+    } catch (error) {
+      throw error
+    }
   }
 }

@@ -13,6 +13,13 @@ export class YarnPluginBuild extends Command {
   }
 
   public async execute() {
-    await this.cli.run([`workspace`, `@repo/yarn-plugin-bud`, `build`])
+    await this.cli
+      .run([`workspace`, `@repo/yarn-plugin-bud`, `build`])
+      .catch(error => {
+        throw error
+      })
+      .then(result => {
+        if (result !== 0) throw new Error(`Plugin could not be built.`)
+      })
   }
 }
