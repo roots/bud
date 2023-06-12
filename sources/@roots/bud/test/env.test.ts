@@ -1,13 +1,14 @@
-import {Bud, factory} from '@repo/test-kit'
+import {Bud} from '@roots/bud'
+import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Env from './env.js'
+import Env from '@roots/bud/services/env'
 
 describe(`@roots/bud/services/env`, () => {
   let bud: Bud
 
   beforeEach(async () => {
-    bud = await factory()
+    bud = (await factory()) as Bud
   })
 
   it(`is a container service`, async () => {

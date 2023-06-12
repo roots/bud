@@ -1,16 +1,19 @@
-import {Project} from '@repo/test-kit/project'
-import {paths} from '@repo/constants'
+import setup from '@repo/test-kit/setup'
+
+import {path} from '@repo/constants'
 import fs from 'fs-jetpack'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/imagemin`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/imagemin`,
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
     const original = await fs.readAsync(
-      `${paths.root}/examples/imagemin/src/images/owl.jpeg`,
+      path(`examples/imagemin/src/images/owl.jpeg`),
       `utf8`,
     )
 
@@ -20,7 +23,7 @@ describe(`examples/imagemin`, () => {
       )
     }
 
-    expect(project.assets[`images/owl.jpeg`].length).toBeLessThan(
+    expect(test.assets[`images/owl.jpeg`].length).toBeLessThan(
       original.length,
     )
   })

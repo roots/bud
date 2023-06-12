@@ -1,16 +1,19 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/tailwindcss`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/tailwindcss`,
-    }).setup()
+    })
+    expect(await test.install()).not.toThrow()
+    expect(await test.build()).not.toThrow()
 
-    expect(project.assets[`app.css`].includes(`@import`)).toBeFalsy()
-    expect(project.assets[`app.css`].includes(`@apply`)).toBe(false)
-    expect(project.assets[`app.css`].match(/    /)).toBeFalsy()
-    expect(project.assets[`app.css`].match(/\\n/)).toBeFalsy()
-    expect(project.manifest).toMatchSnapshot()
+    expect(test.assets[`app.css`].includes(`@import`)).toBeFalsy()
+    expect(test.assets[`app.css`].includes(`@apply`)).toBe(false)
+    expect(test.assets[`app.css`].match(/    /)).toBeFalsy()
+    expect(test.assets[`app.css`].match(/\\n/)).toBeFalsy()
+    expect(test.manifest).toMatchSnapshot()
   })
 })

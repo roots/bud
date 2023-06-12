@@ -2,17 +2,14 @@ import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
-/**
- * Plugin rebuild command
- */
-export class Plugin extends Command {
+export class YarnPluginBuild extends Command {
   public static paths: CommandClass['paths'] = [
-    [`@bud`, `plugin`, `rebuild`],
+    [`@bud`, `plugin`, `build`],
   ]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    examples: [[`rebuild @bud yarn plugin`, `yarn @bud plugin rebuild`]],
+    examples: [[`build @bud yarn plugin`, `yarn @bud plugin build`]],
   }
 
   public async execute() {

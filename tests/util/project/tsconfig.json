@@ -11,8 +11,10 @@
     },
     "types": [
       "node",
-      "webpack-env",
+      "webpack/module",
       "@roots/bud",
+      "@roots/bud-postcss",
+      "@roots/bud-react",
       "@roots/bud-swc",
       "@roots/bud-tailwindcss"
     ],

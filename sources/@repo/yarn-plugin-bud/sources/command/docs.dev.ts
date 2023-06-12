@@ -2,9 +2,6 @@ import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
-/**
- * Docs command class
- */
 export class DocsDev extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `docs`, `dev`]]
 

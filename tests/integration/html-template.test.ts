@@ -1,11 +1,12 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/html-template`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/html-template`,
-    }).setup()
-    expect(project.assets[`index.html`]).toMatchSnapshot()
+    })
+    expect(test.assets[`index.html`]).toMatchSnapshot()
   })
 })

@@ -1,4 +1,4 @@
-import {Commands} from './'
+import * as Commands from './'
 import {Command} from './base.command'
 
 export class Bud extends Command {

@@ -1,31 +1,32 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/emotion`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/emotion`,
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
-    expect(project.manifest[`app.js`]).toBe(`js/app.js`)
-    expect(project.manifest[`runtime.js`]).toBe(`js/runtime.js`)
-    expect(project.manifest[`index.html`]).toBe(`index.html`)
-    expect(project.manifest[`components/logo.svg`]).toBe(
+    expect(test.manifest[`app.js`]).toBe(`js/app.js`)
+    expect(test.manifest[`runtime.js`]).toBe(`js/runtime.js`)
+    expect(test.manifest[`index.html`]).toBe(`index.html`)
+    expect(test.manifest[`components/logo.svg`]).toBe(
       `components/logo.svg`,
     )
-    expect(Object.keys(project.manifest).length).toBe(5)
+    expect(Object.keys(test.manifest).length).toBe(5)
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()
-    expect(project.assets[`runtime.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`runtime.js`].includes(`import `)).toBeFalsy()
-    expect(project.assets[`index.html`].length).toBeGreaterThan(10)
-    expect(project.assets[`index.html`].includes(`<script`)).toBeTruthy()
-    expect(project.assets[`components/logo.svg`].length).toBeGreaterThan(
-      10,
-    )
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`runtime.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`runtime.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`index.html`].length).toBeGreaterThan(10)
+    expect(test.assets[`index.html`].includes(`<script`)).toBeTruthy()
+    expect(test.assets[`components/logo.svg`].length).toBeGreaterThan(10)
     expect(
-      project.assets[`components/logo.svg`].includes(`<svg`),
+      test.assets[`components/logo.svg`].includes(`<svg`),
     ).toBeTruthy()
   })
 })

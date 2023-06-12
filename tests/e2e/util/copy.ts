@@ -1,21 +1,16 @@
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import fs from 'fs-jetpack'
-import {join} from 'path'
-
-const rf = {
-  overwrite: true,
-}
 
 export const originalPath = (...parts: Array<string>) =>
-  join(paths.root, `examples`, ...parts)
+  path(`examples`, ...parts)
 
 export const testPath = (...parts: Array<string>) =>
-  join(paths.root, `storage`, `fixtures`, ...parts)
+  path(`storage`, `fixtures`, ...parts)
 
 export const copyDir = async (dir: string) => {
   try {
     await fs.removeAsync(testPath(dir))
-    await fs.copyAsync(originalPath(dir), testPath(dir), rf)
+    await fs.copyAsync(originalPath(dir), testPath(dir), {overwrite: true})
   } catch (error) {
     throw error
   }
@@ -23,7 +18,9 @@ export const copyDir = async (dir: string) => {
 
 export const copyOriginalSource = async (dir: string) => {
   try {
-    await fs.copyAsync(originalPath(dir, `src`), testPath(dir, `src`), rf)
+    await fs.copyAsync(originalPath(dir, `src`), testPath(dir, `src`), {
+      overwrite: true,
+    })
   } catch (error) {
     throw error
   }

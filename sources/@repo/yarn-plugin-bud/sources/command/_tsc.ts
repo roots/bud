@@ -3,20 +3,11 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
-interface BundleProps {
-  alias?: Record<string, string>
-  external?: Array<string>
-  format?: `cjs` | `esm`
-  outdir?: string
-  outfile?: string
-  source: string
-}
-
 export class Tsc extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `tsc`]]
 
   public static usage: CommandClass['usage'] = {
-    category: `@bud`,
+    category: `@bud-tools`,
     description: `Run the typescript compiler`,
     examples: [
       [`run the typescript compiler`, `yarn @bud tsc`],

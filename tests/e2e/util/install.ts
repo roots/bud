@@ -11,7 +11,7 @@ export const e2eBeforeAll = async (dirname: string) => {
       `npm`,
       [`install`, `--registry`, `http://localhost:4873`],
       {
-        cwd: fs.testPath(dirname),
+        cwd: fs.destinationPath(dirname),
         env: {NODE_ENV: `development`},
       },
     )
@@ -36,7 +36,7 @@ export const runDev = async (
     return execa(
       `npx`,
       [`bud`, `dev`, `--no-cache`, `--html`, `--port`, `${port}`],
-      {cwd: fs.testPath(dirname)},
+      {cwd: fs.destinationPath(dirname)},
     )
   } catch (error) {
     throw error

@@ -3,9 +3,6 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
-/**
- * Release command
- */
 export class Release extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `release`]]
 
@@ -37,13 +34,7 @@ export class Release extends Command {
   })
 
   public async execute() {
-    // Little bit of extra safety
-    // Don't want to accidentally publish to npm
-    // when running integration tests locally
-    if (
-      (!process.env.ci && !process.env.CI) ||
-      this.registry === `http://localhost:4873`
-    ) {
+    if (this.registry === `http://localhost:4873`) {
       try {
         await this.promise(
           `Using local registry`,

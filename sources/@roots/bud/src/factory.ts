@@ -1,7 +1,8 @@
 import type {Context} from '@roots/bud-framework/options'
 
 import {Bud} from '@roots/bud'
-import getContext from '@roots/bud/context'
+import makeContext from '@roots/bud/context'
+import * as instance from '@roots/bud/instance'
 
 /**
  * Create a {@link Bud} instance programatically
@@ -19,9 +20,9 @@ import getContext from '@roots/bud/context'
  * ```
  */
 export async function factory(
-  context: Partial<Context> = {},
+  options: Partial<Context> = {},
 ): Promise<Bud> {
-  const bud = new Bud()
-  const resolvedContext = await getContext(context)
+  const bud = instance.get()
+  const resolvedContext = await makeContext(options)
   return await bud.lifecycle({...resolvedContext})
 }

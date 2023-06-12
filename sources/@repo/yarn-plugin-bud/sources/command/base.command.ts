@@ -6,6 +6,7 @@ export abstract class Command extends BaseCommand {
 
   public constructor() {
     super()
+
     this.promised = []
   }
 

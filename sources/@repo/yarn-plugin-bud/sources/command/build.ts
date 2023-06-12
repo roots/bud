@@ -88,6 +88,19 @@ export class Build extends Command {
           }),
 
           /**
+           * ink
+           */
+          this.bundle({
+            format: `esm`,
+            outfile: path(
+              `sources/@roots/bud-support/vendor/ink/index.js`,
+            ),
+            source: path(`sources/@roots/bud-support/src/ink/index.ts`),
+          }).then(async () => {
+            //
+          }),
+
+          /**
            * html-loader
            */
           this.bundle({

@@ -11,7 +11,7 @@ import {
 } from 'vitest'
 
 import {e2eBeforeAll, runDev} from './util/install'
-import {testPath} from './util/copy'
+import {destinationPath} from './util/copy'
 
 describe(`html output of examples/babel`, () => {
   let browser: Browser
@@ -65,7 +65,7 @@ describe(`html output of examples/babel`, () => {
 
 const update = async () =>
   await fs.writeAsync(
-    testPath(`babel`, `src`, `app.css`),
+    destinationPath(`babel`, `src`, `app.css`),
     `\
 html,
 body {

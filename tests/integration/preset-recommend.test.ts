@@ -1,14 +1,15 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/preset-recommend`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
-      label: `@examples/preset-recommend`,
-    }).setup()
+    const test = setup({label: `@examples/preset-recommend`})
+    expect(await test.install()).not.toThrow()
+    expect(await test.build()).not.toThrow()
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`import`)).toBeFalsy()
-    expect(project.assets[`app.css`]).toMatchSnapshot()
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`import`)).toBeFalsy()
+    expect(test.assets[`app.css`]).toMatchSnapshot()
   })
 })
