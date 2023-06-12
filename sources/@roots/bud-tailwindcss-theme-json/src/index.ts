@@ -8,8 +8,10 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-tailwindcss-theme-json'?: any
+  }
+}
 
-import {TailwindThemeJSON} from './extension.js'
-
-export default TailwindThemeJSON
+export {TailwindThemeJSON as default} from './extension.js'

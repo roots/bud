@@ -11,7 +11,7 @@ import {
 } from 'vitest'
 
 import {e2eBeforeAll, runDev} from './util/install'
-import {testPath} from './util/copy'
+import {destinationPath} from './util/copy'
 
 describe(`html output of examples/react`, () => {
   let browser: Browser
@@ -52,7 +52,7 @@ describe(`html output of examples/react`, () => {
 
 const update = async () =>
   await fs.writeAsync(
-    testPath(`react`, `src`, `components`, `App.js`),
+    destinationPath(`react`, `src`, `components`, `App.js`),
     `\
 import React from 'react'
 

@@ -1,6 +1,6 @@
 import {InputError} from '@roots/bud-support/errors'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 export interface get {
   (label: string, tap?: (bud: Bud) => Bud): Bud
@@ -18,7 +18,7 @@ export interface get {
  * ```
  */
 export const get: get = function (label, tap) {
-  const {isRoot, root, warn} = this as Bud
+  const {isRoot, root, warn} = this
 
   !isRoot &&
     warn(`not root instance. returning from the context of ${root.label}`)

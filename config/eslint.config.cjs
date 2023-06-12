@@ -3,39 +3,11 @@ const WARN = 1
 const ERROR = 2
 
 module.exports = {
-  parser: `@typescript-eslint/parser`,
-  plugins: [
-    `@typescript-eslint`,
-    `prettier`,
-    `react`,
-    `react-hooks`,
-    `simple-import-sort`,
-    `eslint-plugin-n`,
+  extends: [
+    `plugin:react/recommended`,
+    `plugin:n/recommended-module`,
+    `plugin:perfectionist/recommended-alphabetical`,
   ],
-  parserOptions: {
-    ecmaVersion: 2021,
-    ecmaFeatures: {jsx: true},
-    sourceType: `module`,
-  },
-  settings: {
-    react: {version: `detect`},
-    n: {
-      convertPath: {
-        [`sources/@roots/**/*.ts`]: [`^./(.+?).js$`, `./$1.ts`],
-      },
-      tryExtensions: [
-        `.ts`,
-        `.tsx`,
-        `.cts`,
-        `.mts`,
-        `.js`,
-        `.jsx`,
-        `.cjs`,
-        `.mjs`,
-      ],
-    },
-  },
-  extends: [`plugin:react/recommended`, `plugin:n/recommended-module`],
   ignorePatterns: [
     `**/*.d.ts`,
     `**/*.html`,
@@ -46,6 +18,7 @@ module.exports = {
     `**/dist`,
     `**/lib`,
     `**/node_modules`,
+    `**/vendor`,
     `examples`,
     `sources/@repo/docs/build`,
     `sources/@repo/docs/content/dev/api`,
@@ -54,6 +27,29 @@ module.exports = {
     `storage`,
     `sources/deprecated`,
     `tests`,
+  ],
+  overrides: [
+    {
+      files: [`tests/**/*`, `**/*.spec.ts`, `**/*.test.ts`],
+      rules: {
+        [`n/no-extraneous-import`]: OFF,
+        [`n/no-unpublished-import`]: OFF,
+      },
+    },
+  ],
+  parser: `@typescript-eslint/parser`,
+  parserOptions: {
+    ecmaFeatures: {jsx: true},
+    ecmaVersion: 2021,
+    sourceType: `module`,
+  },
+  plugins: [
+    `@typescript-eslint`,
+    `prettier`,
+    `react`,
+    `react-hooks`,
+    `eslint-plugin-n`,
+    `perfectionist`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
@@ -67,16 +63,16 @@ module.exports = {
       ERROR,
       {
         arrays: `always-multiline`,
-        objects: `always-multiline`,
-        imports: `always-multiline`,
         exports: `always-multiline`,
         functions: `ignore`,
+        imports: `always-multiline`,
+        objects: `always-multiline`,
       },
     ],
-    [`no-console`]: ERROR,
-    [`no-extra-semi`]: OFF,
     [`n/callback-return`]: ERROR,
     [`n/no-missing-import`]: OFF,
+    [`n/no-missing-import`]: OFF,
+    [`n/no-path-concat`]: ERROR,
     [`n/no-process-env`]: ERROR,
     [`n/no-unpublished-import`]: [
       ERROR,
@@ -98,6 +94,7 @@ module.exports = {
           `@wordpress/plugins`,
           `@wordpress/rich-text`,
           `type-fest`,
+          `@aws-sdk/client-s3`,
         ],
       },
     ],
@@ -105,22 +102,30 @@ module.exports = {
       ERROR,
       {ignores: [`modules`], version: `>=16.0.0`},
     ],
-    [`n/no-missing-import`]: OFF,
-    [`n/no-path-concat`]: ERROR,
     [`n/shebang`]: OFF,
+    [`no-console`]: ERROR,
+    [`no-extra-semi`]: OFF,
+    [`react-hooks/exhaustive-deps`]: WARN,
+    [`react-hooks/rules-of-hooks`]: ERROR,
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: OFF,
-    [`react-hooks/rules-of-hooks`]: ERROR,
-    [`react-hooks/exhaustive-deps`]: WARN,
-    [`simple-import-sort/imports`]: ERROR,
   },
-  overrides: [
-    {
-      files: [`tests/**/*`, `**/*.spec.ts`, `**/*.test.ts`],
-      rules: {
-        [`n/no-extraneous-import`]: OFF,
-        [`n/no-unpublished-import`]: OFF,
+  settings: {
+    n: {
+      convertPath: {
+        [`sources/@roots/**/*.ts`]: [`^./(.+?).js$`, `./$1.ts`],
       },
+      tryExtensions: [
+        `.ts`,
+        `.tsx`,
+        `.cts`,
+        `.mts`,
+        `.js`,
+        `.jsx`,
+        `.cjs`,
+        `.mjs`,
+      ],
     },
-  ],
+    react: {version: `detect`},
+  },
 }

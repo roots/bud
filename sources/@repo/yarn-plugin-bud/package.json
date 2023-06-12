@@ -4,9 +4,8 @@
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
   "devDependencies": {
-    "@types/js-yaml": "4.0.5",
-    "@types/lodash": "4.14.194",
-    "@types/node": "18.16.12",
+    "@types/lodash": "4.14.195",
+    "@types/node": "18.16.16",
     "@types/semver": "7.5.0",
     "@yarnpkg/builder": "4.0.0-rc.45"
   },
@@ -18,13 +17,11 @@
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.4",
-    "helpful-decorators": "2.1.0",
-    "js-yaml": "4.1.0",
     "lodash": "4.17.21",
     "ora": "6.3.1",
     "semver": "7.5.1",
-    "tslib": "2.5.0",
-    "typescript": "5.0.4"
+    "tslib": "2.5.3",
+    "typescript": "5.1.3"
   },
   "scripts": {
     "build": "builder build plugin"

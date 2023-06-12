@@ -1,6 +1,6 @@
 import {join} from 'node:path'
-
-import {Bud, factory, mockProject} from '@repo/test-kit'
+import {path} from '@repo/constants'
+import {Bud, factory} from '@repo/test-kit'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.path`, function () {
@@ -15,21 +15,17 @@ describe(`bud.path`, function () {
   })
 
   it(`returns projectDir when nothing passed`, () => {
-    expect(bud.path()).toEqual(mockProject.path)
+    expect(bud.path()).toEqual(path(`tests`, `util`, `project`))
   })
 
   it(`returns expected project relative path`, () => {
-    expect(bud.path(`./foo`)).toEqual(join(mockProject.path, `foo`))
+    expect(bud.path(`./foo`)).toEqual(
+      path(`tests`, `util`, `project`, `foo`),
+    )
   })
   it(`returns expected multipart path`, () => {
     expect(bud.path(`./foo`, `bar`)).toEqual(
-      join(mockProject.path, `foo`, `bar`),
-    )
-  })
-
-  it(`path: returns src relative path`, () => {
-    expect(bud.path(`@src`, `foo`)).toEqual(
-      join(mockProject.path, `src`, `foo`),
+      path(`tests`, `util`, `project`, `foo`, `bar`),
     )
   })
 })

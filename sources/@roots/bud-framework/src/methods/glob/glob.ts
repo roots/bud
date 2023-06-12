@@ -1,6 +1,6 @@
 import globby, {globbySync} from '@roots/bud-support/globby'
 
-import type {Bud} from '../../bud.js'
+import type {Bud} from '../../index.js'
 
 export interface globSync {
   (...searches: Array<Array<string> | string>): Array<string>

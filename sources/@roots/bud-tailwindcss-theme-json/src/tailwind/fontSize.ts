@@ -2,16 +2,16 @@ import type {Theme} from '@roots/bud-wordpress-theme-json'
 
 export interface TailwindSize {
   [key: string]:
-    | string
-    | [fontSize: string, lineHeight: string]
     | [
         fontSize: string,
         configuration: Partial<{
-          lineHeight: string
+          fontWeight: number | string
           letterSpacing: string
-          fontWeight: string | number
+          lineHeight: string
         }>,
       ]
+    | [fontSize: string, lineHeight: string]
+    | string
 }
 export type WordPressSizes =
   Theme.SettingsAndStyles['settings']['typography']['fontSizes']
@@ -28,8 +28,8 @@ export interface transformEntry {
 }
 export const transformEntry: transformEntry = ([slug, fontSize]) => ({
   name: slug,
-  slug,
   size: fontSize,
+  slug,
 })
 
 /**

@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -8,8 +9,8 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 
 interface Options {
-  remarkPlugins: Record<string, unknown>
   rehypePlugins: Record<string, unknown>
+  remarkPlugins: Record<string, unknown>
 }
 
 /**
@@ -23,10 +24,52 @@ interface Options {
   `@roots/bud-typescript`,
 ])
 @options<Options>({
-  remarkPlugins: {},
   rehypePlugins: {},
+  remarkPlugins: {},
 })
 export class BudMDX extends Extension<Options> {
+  /**
+   * Get rehype plugins
+   */
+  public declare getRehypePlugins: () => Options[`rehypePlugins`]
+
+  /**
+   * Get remark plugins
+   */
+  public declare getRemarkPlugins: () => Options[`remarkPlugins`]
+
+  /**
+   * Rehype plugins
+   */
+  public declare rehypePlugins: Options[`rehypePlugins`]
+  /**
+   * Remark plugins
+   */
+  public declare remarkPlugins: Options[`remarkPlugins`]
+  /**
+   * Set rehype plugins
+   */
+  public declare setRehypePlugins: (
+    plugins: Options[`rehypePlugins`],
+  ) => this
+
+  /**
+   * Set remark plugins
+   */
+  public declare setRemarkPlugins: (
+    plugins: Options[`remarkPlugins`],
+  ) => this
+  /**
+   * {@link Extension.boot}
+   */
+  @bind
+  public override async boot(bud: Bud) {
+    bud.build.setRule(`mdx`, {
+      include: [({path}) => path(`@src`)],
+      test: /\.mdx?$/,
+      use: [...(bud.build.rules.js.use ?? []), `mdx`],
+    })
+  }
   /**
    * {@link Extension.register}
    */
@@ -53,46 +96,4 @@ export class BudMDX extends Extension<Options> {
       }),
     })
   }
-
-  /**
-   * {@link Extension.boot}
-   */
-  @bind
-  public override async boot(bud: Bud) {
-    bud.build.setRule(`mdx`, {
-      test: /\.mdx?$/,
-      include: [({path}) => path(`@src`)],
-      use: [...(bud.build.rules.js.use ?? []), `mdx`],
-    })
-  }
-
-  /**
-   * Remark plugins
-   */
-  public declare remarkPlugins: Options[`remarkPlugins`]
-  /**
-   * Set remark plugins
-   */
-  public declare setRemarkPlugins: (
-    plugins: Options[`remarkPlugins`],
-  ) => this
-  /**
-   * Get remark plugins
-   */
-  public declare getRemarkPlugins: () => Options[`remarkPlugins`]
-
-  /**
-   * Rehype plugins
-   */
-  public declare rehypePlugins: Options[`rehypePlugins`]
-  /**
-   * Set rehype plugins
-   */
-  public declare setRehypePlugins: (
-    plugins: Options[`rehypePlugins`],
-  ) => this
-  /**
-   * Get rehype plugins
-   */
-  public declare getRehypePlugins: () => Options[`rehypePlugins`]
 }

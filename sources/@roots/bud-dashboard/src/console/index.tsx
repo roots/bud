@@ -1,6 +1,7 @@
-import {Box, Static} from 'ink'
+import {Box, Static} from '@roots/bud-support/ink'
 
 import type {LogProps, Stderr, Stdout} from './log.js'
+
 import {Log} from './log.js'
 
 export interface Props {
@@ -21,4 +22,4 @@ export const Console = ({messages}: Props) => {
   )
 }
 
-export type {Log, LogProps, Stdout, Stderr}
+export type {Log, LogProps, Stderr, Stdout}

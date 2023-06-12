@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import getPort from '@roots/bud-support/get-port'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isEqual from '@roots/bud-support/lodash/isEqual'
@@ -6,8 +7,9 @@ import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
-import {checkChildInstanceError} from './childError.js'
 import type {Options, Parameters, ServerOptions} from './serve.types.js'
+
+import {checkChildInstanceError} from './childError.js'
 
 /**
  * bud.serve
@@ -109,7 +111,7 @@ const requestPorts = async (
   include: Array<number>,
   exclude: Array<number> = [],
 ) => {
-  const request = {port: include, exclude}
+  const request = {exclude, port: include}
 
   const port = await getPort(request)
 
@@ -126,7 +128,7 @@ const requestPorts = async (
  * to an array of numbers
  */
 const portOrPortsToNumbers = (
-  port: number | string | Array<number | string>,
+  port: Array<number | string> | number | string,
 ): Array<number> =>
   Array.isArray(port)
     ? port.map(port => (isString(port) ? parseInt(port) : port))

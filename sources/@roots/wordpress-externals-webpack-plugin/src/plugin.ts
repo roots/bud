@@ -7,6 +7,11 @@ import {externals} from './externals.js'
  */
 export default class WordPressExternals {
   /**
+   * Externals plugin
+   */
+  public externals: Webpack.ExternalsPlugin
+
+  /**
    * Plugin name
    */
   public name = `WordPressExternalsWebpackPlugin`
@@ -15,11 +20,6 @@ export default class WordPressExternals {
    * Plugin stage
    */
   public stage = Infinity
-
-  /**
-   * Externals plugin
-   */
-  public externals: Webpack.ExternalsPlugin
 
   /**
    * Class constructor

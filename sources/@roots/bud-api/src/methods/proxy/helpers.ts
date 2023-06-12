@@ -1,5 +1,6 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
 import type * as Server from '@roots/bud-framework/services/server'
+
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
@@ -100,14 +101,14 @@ export const isUrl = (obj: unknown): obj is URL => obj instanceof URL
 export const isFalse = (obj: unknown): obj is false => obj === false
 export const isOptionsObject = (
   obj:
+    | Array<[string, string]>
+    | boolean
+    | CallableFunction
+    | number
     | Options
     | string
-    | number
-    | URL
-    | Array<[string, string]>
-    | CallableFunction
-    | boolean
-    | undefined,
+    | undefined
+    | URL,
 ): obj is Options =>
   isObject(obj) &&
   !(obj instanceof URL) &&

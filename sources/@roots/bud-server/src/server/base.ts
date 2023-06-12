@@ -1,13 +1,13 @@
+import type {Bud} from '@roots/bud-framework'
+import type {Server} from '@roots/bud-framework/services'
+import type {Connection} from '@roots/bud-framework/services/server'
 import type {
-  IncomingMessage,
   Server as HttpServer,
+  IncomingMessage,
   ServerResponse,
 } from 'node:http'
 import type {Server as HttpsServer} from 'node:https'
 
-import type {Bud} from '@roots/bud-framework/bud'
-import type {Server} from '@roots/bud-framework/services'
-import type {Connection} from '@roots/bud-framework/services/server'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
@@ -20,30 +20,9 @@ import logger from '@roots/bud-support/logger'
  */
 export abstract class BaseServer implements Connection {
   /**
-   * Create server
-   *
-   * @virtual
-   */
-  public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
-
-  /**
    * Server instance
    */
   public instance: Connection['instance']
-
-  /**
-   * Logger
-   */
-  public get logger(): any {
-    return logger.scope(`server`, this.constructor.name.toLowerCase())
-  }
-
-  /**
-   * Options
-   */
-  public get options(): Server.Options {
-    return this.app.hooks.filter(`dev.options`, {})
-  }
 
   /**
    * Constructor
@@ -76,6 +55,22 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
+   * Logger
+   */
+  public get logger(): any {
+    return logger.scope(`server`, this.constructor.name.toLowerCase())
+  }
+
+  /**
+   * Server error event
+   */
+  @bind
+  public onError(error: Error) {
+    const cause = BudError.normalize(error)
+    throw new ServerError(cause.message, {cause})
+  }
+
+  /**
    * Server listen event
    */
   @bind
@@ -101,11 +96,16 @@ export abstract class BaseServer implements Connection {
   }
 
   /**
-   * Server error event
+   * Options
    */
-  @bind
-  public onError(error: Error) {
-    const cause = BudError.normalize(error)
-    throw new ServerError(cause.message, {cause})
+  public get options(): Server.Options {
+    return this.app.hooks.filter(`dev.options`, {})
   }
+
+  /**
+   * Create server
+   *
+   * @virtual
+   */
+  public abstract createServer(app: any): Promise<HttpServer | HttpsServer>
 }

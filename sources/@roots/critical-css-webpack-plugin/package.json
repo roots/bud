@@ -65,15 +65,15 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12",
+    "@types/node": "18.16.16",
     "@types/vinyl": "2.0.7"
   },
   "dependencies": {
     "critical": "5.1.1",
     "helpful-decorators": "2.1.0",
-    "tslib": "2.5.0",
+    "tslib": "2.5.3",
     "vinyl": "3.0.0",
-    "webpack": "5.85.1"
+    "webpack": "5.86.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -2,11 +2,11 @@ import type {Bud} from '@roots/bud-framework'
 import type {Optimization} from '@roots/bud-framework/types/config'
 
 export type Parameters = [
-  | undefined
-  | Optimization.RuntimeChunk
   | ((
       runtime: Optimization.RuntimeChunk | undefined,
-    ) => Optimization.RuntimeChunk),
+    ) => Optimization.RuntimeChunk)
+  | Optimization.RuntimeChunk
+  | undefined,
 ]
 
 export interface runtime {

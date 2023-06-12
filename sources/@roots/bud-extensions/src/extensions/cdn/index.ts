@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {
   Extension,
   type StrictPublicExtensionApi,
@@ -18,7 +19,7 @@ import Value from '@roots/bud-support/value'
  * Http modules configuration options
  */
 export type Options = {
-  allowedUris?: Set<string | RegExp | ((uri: string) => boolean)>
+  allowedUris?: Set<((uri: string) => boolean) | RegExp | string>
   cacheLocation: false | string
   frozen: boolean
   lockfileLocation: string
@@ -47,68 +48,45 @@ type Api = StrictPublicExtensionApi<Cdn, Options>
 })
 @disabled
 export default class Cdn extends Extension<Options> implements Api {
-  /**
-   * CDN key to URL mapping
-   */
-  public sources = new Map<string, string>([
-    [`gist`, `https://gist.githubusercontent.com/`],
-    [`github`, `https://raw.githubusercontent.com/`],
-    [`unpkg`, `https://unpkg.com/`],
-    [`skypack`, `https://cdn.skypack.dev/`],
-  ])
+  public declare allowedUris: Api['allowedUris']
 
   /**
    * Whether to cache modules locally
    */
   public cacheEnabled = true
 
-  /**
-   * Enable cache
-   */
-  @bind
-  public enableCache(enabled = true) {
-    this.cacheEnabled = enabled
-    return this
-  }
-  @bind
-  public disableCache(): this {
-    this.cacheEnabled = false
-    return this
-  }
-
-  public declare allowedUris: Api['allowedUris']
-  public declare getAllowedUris: Api['getAllowedUris']
-  public declare setAllowedUris: Api['setAllowedUris']
-
   public declare cacheLocation: Api['cacheLocation']
-  public declare getCacheLocation: Api['getCacheLocation']
-  public declare setCacheLocation: Api['setCacheLocation']
-
   public declare frozen: Api['frozen']
+
+  public declare getAllowedUris: Api['getAllowedUris']
+  public declare getCacheLocation: Api['getCacheLocation']
   public declare getFrozen: Api['getFrozen']
-  public declare setFrozen: Api['setFrozen']
+
+  public declare getLockfileLocation: Api['getLockfileLocation']
+  public declare getProxy: Api['getProxy']
+  public declare getUpgrade: Api['getUpgrade']
 
   public declare lockfileLocation: Api['lockfileLocation']
-  public declare getLockfileLocation: Api['getLockfileLocation']
+  public declare proxy: Api['proxy']
+  public declare setAllowedUris: Api['setAllowedUris']
+
+  public declare setCacheLocation: Api['setCacheLocation']
+  public declare setFrozen: Api['setFrozen']
   public declare setLockfileLocation: Api['setLockfileLocation']
 
-  public declare proxy: Api['proxy']
-  public declare getProxy: Api['getProxy']
   public declare setProxy: Api['setProxy']
+  public declare setUpgrade: Api['setUpgrade']
+  /**
+   * CDN key to URL mapping
+   */
+  public sources = new Map<string, string>([
+    [`gist`, `https://gist.githubusercontent.com/`],
+    [`github`, `https://raw.githubusercontent.com/`],
+    [`skypack`, `https://cdn.skypack.dev/`],
+    [`unpkg`, `https://unpkg.com/`],
+  ])
 
   public declare upgrade: Api['upgrade']
-  public declare getUpgrade: Api['getUpgrade']
-  public declare setUpgrade: Api['setUpgrade']
-
-  /**
-   * Prevent bud from fetching updated modules
-   */
-  @bind
-  public freeze(value?: boolean): this {
-    this.frozen = !isUndefined(value) ? value : true
-    return this
-  }
-
   /**
    * {@link Extension.buildBefore}
    */
@@ -168,5 +146,28 @@ export default class Cdn extends Extension<Options> implements Api {
         ),
       )
     }
+  }
+  @bind
+  public disableCache(): this {
+    this.cacheEnabled = false
+    return this
+  }
+
+  /**
+   * Enable cache
+   */
+  @bind
+  public enableCache(enabled = true) {
+    this.cacheEnabled = enabled
+    return this
+  }
+
+  /**
+   * Prevent bud from fetching updated modules
+   */
+  @bind
+  public freeze(value?: boolean): this {
+    this.setFrozen(!isUndefined(value) ? value : true)
+    return this
   }
 }

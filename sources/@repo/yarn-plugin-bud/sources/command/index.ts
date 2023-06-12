@@ -1,43 +1,19 @@
-import {Bud} from './bud.command'
-import {Clean} from './clean.command'
-import {Deprecate} from './deprecate.command'
-import {Dev} from './dev.command'
-import {DocsDev} from './docs/dev.command'
-import {Docs} from './docs/docs.command'
-import {Format} from './format.command'
-import {Lint} from './lint.command'
-import {LintDependencies} from './lint/dependencies.command'
-import {LintExports} from './lint/exports.command'
-import {DocsNetlify} from './netlify.command'
-import {Plugin} from './plugin.rebuild.command'
-import {Pm2} from './pm2.command'
-import {RegistryClean} from './registry/clean.command'
-import {RegistryStart} from './registry/start.command'
-import {RegistryStop} from './registry/stop.command'
-import {Release} from './release.command'
-import {TestRun} from './test.command'
-import {Tsc} from './tsc.command'
-import {Version} from './version.command'
-
-export const Commands = {
-  Bud,
-  Clean,
-  Deprecate,
-  Dev,
-  Docs,
-  DocsDev,
-  DocsNetlify,
-  Format,
-  Lint,
-  LintDependencies,
-  LintExports,
-  Plugin,
-  Pm2,
-  RegistryClean,
-  RegistryStart,
-  RegistryStop,
-  Release,
-  TestRun,
-  Tsc,
-  Version,
-}
+export {Netlify} from './_netlify'
+export {Pm2} from './_pm2'
+export {Tsc} from './_tsc'
+export {Vitest} from './_vitest'
+export {Bud} from './bud'
+export {Build} from './build'
+export {Clean} from './clean'
+export {YarnPluginBuild} from './cli.build'
+export {Contributors} from './contributors'
+export {Dev} from './dev'
+export {Docs} from './docs.build'
+export {DocsDev} from './docs.dev'
+export {Lint} from './lint'
+export {RegistryClean} from './registry.clean'
+export {RegistryStart} from './registry.start'
+export {RegistryStop} from './registry.stop'
+export {Release} from './release'
+export {TestRun} from './test'
+export {Version} from './version'

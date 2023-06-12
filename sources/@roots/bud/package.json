@@ -56,70 +56,18 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./bud": {
-      "import": "./lib/bud/bud.js",
-      "default": "./lib/bud/bud.js"
-    },
-    "./instances": {
-      "import": "./lib/instances.js",
-      "default": "./lib/instances.js"
-    },
-    "./cli/*": {
-      "import": "./lib/cli/*.js",
-      "default": "./lib/cli/*.js"
-    },
-    "./cli/commands/*": {
-      "import": "./lib/cli/commands/*.js",
-      "default": "./lib/cli/commands/*.js"
-    },
-    "./cli/decorators": {
-      "import": "./lib/cli/decorators/index.js",
-      "default": "./lib/cli/decorators/index.js"
-    },
-    "./cli/decorators/*": {
-      "import": "./lib/cli/decorators/*.js",
-      "default": "./lib/cli/decorators/*.js"
-    },
-    "./cli/flags": {
-      "import": "./lib/cli/flags/index.js",
-      "default": "./lib/cli/flags/index.js"
-    },
-    "./cli/helpers/*": {
-      "import": "./lib/cli/helpers/*.js",
-      "default": "./lib/cli/helpers/*.js"
-    },
-    "./context": {
-      "import": "./lib/context/index.js",
-      "default": "./lib/context/index.js"
-    },
-    "./context/*": {
-      "import": "./lib/context/*.js",
-      "default": "./lib/context/*.js"
-    },
-    "./factory": {
-      "import": "./lib/factory/index.js",
-      "default": "./lib/factory/index.js"
-    },
-    "./factory/*": {
-      "import": "./lib/factory/*.js",
-      "default": "./lib/factory/*.js"
-    },
-    "./services/*": {
-      "import": "./lib/services/*/index.js",
-      "default": "./lib/services/*/index.js"
-    },
-    "./services/*/*": {
-      "import": "./lib/services/*/*.js",
-      "default": "./lib/services/*/*.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    },
+    ".": "./lib/index.js",
+    "./bud": "./lib/bud.js",
+    "./cli/commands/*": "./lib/cli/commands/*.js",
+    "./cli/decorators/*": "./lib/cli/decorators/*.js",
+    "./cli/flags": "./lib/cli/flags/index.js",
+    "./cli/helpers/*": "./lib/cli/helpers/*.js",
+    "./cli/*": "./lib/cli/*.js",
+    "./context": "./lib/context/index.js",
+    "./context/*": "./lib/context/*.js",
+    "./factory": "./lib/factory.js",
+    "./instance": "./lib/instance.js",
+    "./services/*": "./lib/services/*.js",
     "./config/jsconfig.json": "./config/jsconfig.json",
     "./config/tsconfig.json": "./config/tsconfig.json"
   },
@@ -128,14 +76,17 @@
       ".": [
         "./lib/index.d.ts"
       ],
+      "bud": [
+        "./lib/bud.d.ts"
+      ],
       "cli": [
         "./lib/cli/index.d.ts"
       ],
       "cli/commands": [
         "./lib/cli/commands/index.d.ts"
       ],
-      "cli/decorators": [
-        "./lib/cli/decorators/index.d.ts"
+      "cli/decorators/*": [
+        "./lib/cli/decorators/*.d.ts"
       ],
       "cli/flags": [
         "./lib/cli/flags/index.d.ts"
@@ -144,19 +95,10 @@
         "./lib/context/index.d.ts"
       ],
       "factory": [
-        "./lib/factory/index.d.ts"
-      ],
-      "factory/*": [
-        "./lib/factory/*.d.ts"
-      ],
-      "services": [
-        "./lib/services/index.d.ts"
+        "./lib/factory.d.ts"
       ],
       "services/*": [
-        "./lib/services/*/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
+        "./lib/services/*.d.ts"
       ]
     }
   },
@@ -164,8 +106,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12",
-    "@types/react": "18.2.6"
+    "@types/node": "18.16.16",
+    "@types/react": "18.2.9"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:*",
@@ -182,12 +124,7 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "chalk": "5.2.0",
-    "ink": "4.2.0",
-    "ink-spinner": "5.0.0",
-    "ink-text-input": "5.0.1",
-    "react": "18.2.0",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

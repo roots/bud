@@ -1,4 +1,3 @@
-import figures from 'figures'
+export {default} from 'figures'
 
-export {figures as default}
 export * from 'figures'

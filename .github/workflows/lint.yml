@@ -1,0 +1,38 @@
+name: lint
+
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+        node:
+          - 18.12.1
+
+    name: format-check (node@v${{matrix.node}}/${{matrix.platform}})
+    runs-on: ${{matrix.platform}}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{matrix.node}}
+          cache: yarn
+
+      - name: yarn
+        run: yarn
+
+      - name: yarn @bud lint
+        run: yarn @bud lint

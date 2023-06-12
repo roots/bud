@@ -1,11 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework/config'
+
 import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
-import type {Configuration} from '@roots/bud-support/webpack'
 
 export type Parameters = [
-  | Partial<Configuration>
-  | ((config: Partial<Configuration>) => Partial<Configuration>),
+  | ((config: Partial<Configuration>) => Partial<Configuration>)
+  | Partial<Configuration>,
 ]
 
 export interface config {
@@ -18,8 +19,8 @@ export const config: config = function (this: Bud, input): Bud {
       `config input must pass a callback function that returns a webpack configuration`,
       {
         props: {
-          thrownBy: `bud.config`,
           docs: new URL(`https://bud.js.org/docs/bud.config`),
+          thrownBy: `bud.config`,
         },
       },
     )

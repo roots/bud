@@ -4,7 +4,7 @@ import stringify from 'safe-json-stringify'
 
 export interface WriteOptions {
   replacer?: ((this: any, key: string, value: any) => any) | null
-  space?: string | number | null
+  space?: null | number | string
 }
 
 export const read = async (path: string): Promise<any> => {
@@ -35,10 +35,10 @@ export const write = async (
 }
 
 export default {
-  read,
   parse,
-  write,
+  read,
   stringify,
+  write,
 }
 
 export {stringify}

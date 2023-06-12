@@ -1,2 +1,1 @@
-import clone from 'lodash/clone.js'
-export default clone
+export {default} from 'lodash/clone.js'

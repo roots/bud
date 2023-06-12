@@ -11,15 +11,22 @@
       "@roots/bud-api",
       "@roots/bud-build",
       "@roots/bud-cache",
+      "@roots/bud-dashboard",
+      "@roots/bud-entrypoints",
       "@roots/bud-extensions",
       "@roots/bud-framework",
-      "react"
-    ]
+      "@roots/bud-hooks",
+      "@roots/bud-minify",
+      "@roots/bud-server",
+      "@roots/bud-support",
+      "vitest/importMeta",
+      "webpack/module"
+    ],
   },
+  "files": ["./src/global.d.ts"],
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
+  "exclude": ["./lib", "./node_modules", "./test"],
   "references": [
-    {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud-build/tsconfig.json"},
     {"path": "./../bud-cache/tsconfig.json"},
@@ -28,9 +35,10 @@
     {"path": "./../bud-entrypoints/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
+    {"path": "./../bud-minify/tsconfig.json"},
     {"path": "./../bud-server/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"},
     {"path": "./../bud-minify/tsconfig.json"},
-    {"path": "./../dependencies/tsconfig.json"}
+    {"path": "./../bud-framework/tsconfig.json"}
   ]
 }

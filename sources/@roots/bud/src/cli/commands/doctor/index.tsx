@@ -1,19 +1,21 @@
 /* eslint-disable react/no-unescaped-entities */
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {Error} from '@roots/bud-dashboard/app'
-import type {Extension} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
+import type {Extension} from '@roots/bud-framework/extension'
 import type {Context} from '@roots/bud-framework/options'
+import type {InspectTreeResult} from 'fs-jetpack/types.js'
+
+import {Error} from '@roots/bud-dashboard/app'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
+import {Box, Spacer, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
-import type {InspectTreeResult} from 'fs-jetpack/types.js'
-import * as Ink from 'ink'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/dry'
 
 import {WinError} from '../../components/WinError.js'
-import {dry} from '../../decorators/command.dry.js'
 import {isWindows} from '../../helpers/isWindows.js'
 
 /**
@@ -22,6 +24,7 @@ import {isWindows} from '../../helpers/isWindows.js'
 @dry
 export default class BudDoctorCommand extends BudCommand {
   public static override paths = [[`doctor`]]
+
   public static override usage = Command.Usage({
     description: `Check project for common errors`,
     details: `\
@@ -42,18 +45,11 @@ for a lot of edge cases so it might return a false positive.
     ],
   })
 
-  /**
-   * {@link Command.withContext}
-   */
-  public override withContext = async (context: Context) => {
-    return {...context, cache: false, dry: true, silent: true}
-  }
+  public configuration: Bud[`build`][`config`]
 
-  public configuration: webpack.Configuration
-  public enabledExtensions: Array<[string, Extension]> = []
   public disabledExtensions: Array<[string, Extension]> = []
+  public enabledExtensions: Array<[string, Extension]> = []
   public entrypoints: Array<[string, webpack.EntryObject]> = []
-  public resolvedDependencies: Record<string, string> = {}
   public makeTimer = () => {
     const start = process.hrtime()
     return () => {
@@ -61,11 +57,14 @@ for a lot of edge cases so it might return a false positive.
       return this.seconds(end)
     }
   }
-  public seconds(hrTime: [number, number]) {
-    return (hrTime[0] + hrTime[1] / 1e9).toFixed(2)
-  }
+  public resolvedDependencies: Record<string, string> = {}
   public timings: Record<string, string> = {}
-
+  /**
+   * {@link Command.withContext}
+   */
+  public override withContext = async (context: Context) => {
+    return {...context, cache: false, dry: true, silent: true}
+  }
   /**
    * Execute command
    */
@@ -90,79 +89,76 @@ for a lot of edge cases so it might return a false positive.
 
     if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="yellow">
+        <Box flexDirection="column">
+          <Text color="yellow">
             {figures.info} Detected compilation cache
-          </Ink.Text>
-          <Ink.Spacer />
-          <Ink.Text>
+          </Text>
+          <Spacer />
+          <Text>
             If you are experiencing issues with bud.js you should start by
             clearing the cache.{`\n`}
-          </Ink.Text>
-          <Ink.Text>
+          </Text>
+          <Text>
             {figures.triangleRightSmall} To delete this directory with the
             CLI run{` `}
-            <Ink.Text color="green">`bud clean`</Ink.Text>, or;
-          </Ink.Text>
-          <Ink.Text>
+            <Text color="green">`bud clean`</Text>, or;
+          </Text>
+          <Text>
             {figures.triangleRightSmall} Use the{` `}
-            <Ink.Text color="green">`--force`</Ink.Text> flag on your next
-            build
-          </Ink.Text>
-        </Ink.Box>,
+            <Text color="green">`--force`</Text> flag on your next build
+          </Text>
+        </Box>,
       )
     }
 
     if (this.bud.hasChildren) {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="blue">Child compilers{`\n`}</Ink.Text>
+        <Box flexDirection="column">
+          <Text color="blue">Child compilers{`\n`}</Text>
           {Object.values(this.bud.children).map((child, i) => (
-            <Ink.Box key={i} flexDirection="row">
-              <Ink.Text>{figures.triangleRightSmall}</Ink.Text>
-              <Ink.Text>{` `}</Ink.Text>
-              <Ink.Text>{child.label}</Ink.Text>
-            </Ink.Box>
+            <Box flexDirection="row" key={i}>
+              <Text>{figures.triangleRightSmall}</Text>
+              <Text>{` `}</Text>
+              <Text>{child.label}</Text>
+            </Box>
           ))}
-          <Ink.Text>{` `}</Ink.Text>
-          <Ink.Text>
+          <Text>{` `}</Text>
+          <Text>
             Note that not all `bud doctor` checks are not currently
             compatible with multi-compiler builds.
-          </Ink.Text>
-        </Ink.Box>,
+          </Text>
+        </Box>,
       )
     }
 
     this.renderStatic(
-      <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">Project paths</Ink.Text>
-        <Ink.Text>{` `}</Ink.Text>
-        <Ink.Text>project: {this.bud.path()}</Ink.Text>
-        <Ink.Text>
+      <Box flexDirection="column">
+        <Text color="blue">Project paths</Text>
+        <Text>{` `}</Text>
+        <Text>project: {this.bud.path()}</Text>
+        <Text>
           input:{` `}
           {this.bud.path(`@src`).replace(this.bud.path(), `@project`)}
-        </Ink.Text>
-        <Ink.Text>
+        </Text>
+        <Text>
           output:{` `}
           {this.bud.path(`@dist`).replace(this.bud.path(), `@project`)}
-        </Ink.Text>
-        <Ink.Text>
+        </Text>
+        <Text>
           cache:{` `}
           {this.bud.path(`@os-cache`)}
-        </Ink.Text>
-        <Ink.Text>
+        </Text>
+        <Text>
           storage:{` `}
           {this.bud.path(`@storage`).replace(this.bud.path(), `@project`)}
-        </Ink.Text>
-      </Ink.Box>,
+        </Text>
+      </Box>,
     )
 
     this.renderStatic(
-      <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">
-          Checking versions of core packages
-        </Ink.Text>
-        <Ink.Text>{` `}</Ink.Text>
+      <Box flexDirection="column">
+        <Text color="blue">Checking versions of core packages</Text>
+        <Text>{` `}</Text>
         {await this.packageCheck(`@roots/bud-api`)}
         {await this.packageCheck(`@roots/bud-build`)}
         {await this.packageCheck(`@roots/bud-cache`)}
@@ -172,14 +168,14 @@ for a lot of edge cases so it might return a false positive.
         {await this.packageCheck(`@roots/bud-hooks`)}
         {await this.packageCheck(`@roots/bud-server`)}
         {await this.packageCheck(`@roots/bud-support`)}
-      </Ink.Box>,
+      </Box>,
     )
 
     this.renderStatic(
-      <Ink.Box flexDirection="column">
-        <Ink.Text color="blue">Mode</Ink.Text>
-        <Ink.Text>{this.bud.mode}</Ink.Text>
-      </Ink.Box>,
+      <Box flexDirection="column">
+        <Text color="blue">Mode</Text>
+        <Text>{this.bud.mode}</Text>
+      </Box>,
     )
 
     const configFiles = (
@@ -187,53 +183,51 @@ for a lot of edge cases so it might return a false positive.
     ).filter(({bud}) => bud)
     if (configFiles.length) {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="blue">Bud configuration files{`\n`}</Ink.Text>
+        <Box flexDirection="column">
+          <Text color="blue">Bud configuration files{`\n`}</Text>
           {configFiles.map(({name, path}, i) => (
-            <Ink.Box key={i}>
-              <Ink.Text>
+            <Box key={i}>
+              <Text>
                 {figures.triangleRightSmall} {name}
-              </Ink.Text>
-              <Ink.Text>{` `}</Ink.Text>
-              <Ink.Text dimColor>
+              </Text>
+              <Text>{` `}</Text>
+              <Text dimColor>
                 {path.replace(this.bud.context.basedir, `.`)}
-              </Ink.Text>
-            </Ink.Box>
+              </Text>
+            </Box>
           ))}
-        </Ink.Box>,
+        </Box>,
       )
     } else {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="blue">Registered configurations{`\n`}</Ink.Text>
-          <Ink.Text dimColor>
-            No configuration files found in project
-          </Ink.Text>
-        </Ink.Box>,
+        <Box flexDirection="column">
+          <Text color="blue">Registered configurations{`\n`}</Text>
+          <Text dimColor>No configuration files found in project</Text>
+        </Box>,
       )
     }
 
     try {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="blue">Config API calls{`\n`}</Ink.Text>
-          <Ink.Text></Ink.Text>
+        <Box flexDirection="column">
+          <Text color="blue">Config API calls{`\n`}</Text>
+          <Text></Text>
           {!this.bud.api.trace.length ? (
-            <Ink.Text dimColor>No config calls logged</Ink.Text>
+            <Text dimColor>No config calls logged</Text>
           ) : (
             this.bud.api.trace.map(([fn, args], i) => (
-              <Ink.Box flexDirection="row" key={i}>
-                <Ink.Text>
+              <Box flexDirection="row" key={i}>
+                <Text>
                   {figures.triangleRightSmall} {fn}
-                </Ink.Text>
-                <Ink.Text>{` `}</Ink.Text>
-                <Ink.Text dimColor>
+                </Text>
+                <Text>{` `}</Text>
+                <Text dimColor>
                   {args.map(this.bud.fs.json.stringify).join(`, `)}
-                </Ink.Text>
-              </Ink.Box>
+                </Text>
+              </Box>
             ))
           )}
-        </Ink.Box>,
+        </Box>,
       )
     } catch (error) {
       this.renderStatic(<Error error={BudError.normalize(error)} />)
@@ -262,24 +256,24 @@ for a lot of edge cases so it might return a false positive.
     if (this.bud.env) {
       try {
         this.renderStatic(
-          <Ink.Box flexDirection="column">
-            <Ink.Text color="blue">Environment{`\n`}</Ink.Text>
+          <Box flexDirection="column">
+            <Text color="blue">Environment{`\n`}</Text>
             {this.bud.env.getEntries().map(([key, value]) => {
               return (
-                <Ink.Box key={key} flexDirection="row">
-                  <Ink.Text>{figures.triangleRightSmall}</Ink.Text>
-                  <Ink.Text>{` `}</Ink.Text>
-                  <Ink.Text>{key}</Ink.Text>
-                  <Ink.Text>{` `}</Ink.Text>
-                  <Ink.Text dimColor>
+                <Box flexDirection="row" key={key}>
+                  <Text>{figures.triangleRightSmall}</Text>
+                  <Text>{` `}</Text>
+                  <Text>{key}</Text>
+                  <Text>{` `}</Text>
+                  <Text dimColor>
                     {typeof value === `string` && value.length > 0
                       ? `************`
                       : typeof value}
-                  </Ink.Text>
-                </Ink.Box>
+                  </Text>
+                </Box>
               )
             })}
-          </Ink.Box>,
+          </Box>,
         )
       } catch (error) {
         this.renderStatic(<Error error={BudError.normalize(error)} />)
@@ -289,16 +283,16 @@ for a lot of edge cases so it might return a false positive.
     if (this.enabledExtensions) {
       try {
         this.renderStatic(
-          <Ink.Box flexDirection="column">
-            <Ink.Text color="blue">Enabled extensions{`\n`}</Ink.Text>
+          <Box flexDirection="column">
+            <Text color="blue">Enabled extensions{`\n`}</Text>
             {this.mapExtensions(this.enabledExtensions)}
-          </Ink.Box>,
+          </Box>,
         )
         this.renderStatic(
-          <Ink.Box flexDirection="column">
-            <Ink.Text color="blue">Disabled extensions{`\n`}</Ink.Text>
+          <Box flexDirection="column">
+            <Text color="blue">Disabled extensions{`\n`}</Text>
             {this.mapExtensions(this.disabledExtensions)}
-          </Ink.Box>,
+          </Box>,
         )
       } catch (error) {
         this.renderStatic(<Error error={BudError.normalize(error)} />)
@@ -331,44 +325,44 @@ for a lot of edge cases so it might return a false positive.
 
     if (this.mode === `development`) {
       this.renderStatic(
-        <Ink.Box flexDirection="column">
-          <Ink.Text color="blue">Development server</Ink.Text>
-          <Ink.Box flexDirection="row">
-            <Ink.Text>URL:</Ink.Text>
-            <Ink.Text>
+        <Box flexDirection="column">
+          <Text color="blue">Development server</Text>
+          <Box flexDirection="row">
+            <Text>URL:</Text>
+            <Text>
               {this.bud.hooks
                 .filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
                 .toString()}
-            </Ink.Text>
-          </Ink.Box>
+            </Text>
+          </Box>
           {this.bud.hooks
             .filter(`dev.middleware.enabled`)
             .includes(`proxy`) ? (
-            <Ink.Box flexDirection="row">
-              <Ink.Text>Proxy:</Ink.Text>
-              <Ink.Text>
+            <Box flexDirection="row">
+              <Text>Proxy:</Text>
+              <Text>
                 {this.bud.hooks
                   .filter(
                     `dev.middleware.proxy.options.target`,
                     new URL(`http://0.0.0.0:8000`),
                   )
                   .toString()}
-              </Ink.Text>
-            </Ink.Box>
+              </Text>
+            </Box>
           ) : null}
-          <Ink.Box flexDirection="column">
-            <Ink.Text>Client scripts:</Ink.Text>
+          <Box flexDirection="column">
+            <Text>Client scripts:</Text>
             {[...this.bud.hooks.filter(`dev.client.scripts`, new Set([]))]
               .map(fn => fn(this.bud))
               .map((script, key) => {
                 return (
-                  <Ink.Text key={key}>
+                  <Text key={key}>
                     {figures.triangleRightSmall} {script}
-                  </Ink.Text>
+                  </Text>
                 )
               })}
-          </Ink.Box>
-        </Ink.Box>,
+          </Box>
+        </Box>,
       )
     }
 
@@ -376,97 +370,17 @@ for a lot of edge cases so it might return a false positive.
       webpack.validate(this.configuration)
 
       this.renderStatic(
-        <Ink.Box>
-          <Ink.Text color="green">
+        <Box>
+          <Text color="green">
             {figures.tick} webpack validated configuration
-          </Ink.Text>
-        </Ink.Box>,
+          </Text>
+        </Box>,
       )
     } catch (error) {
       this.renderStatic(
-        <Ink.Box>
-          <Ink.Text color="red">❌ {error?.message ?? error}</Ink.Text>
-        </Ink.Box>,
-      )
-    }
-  }
-
-  public mapExtensions(extensions: Array<[string, Extension]>) {
-    return extensions.map(([name, extension]) => (
-      <Ink.Box key={`extension-${name}`} flexDirection="column">
-        <Ink.Text color="white">
-          {figures.triangleRightSmall} {name}
-        </Ink.Text>
-      </Ink.Box>
-    ))
-  }
-
-  public mapEntrypoints(
-    entrypoints: Array<[string, webpack.EntryObject]>,
-  ) {
-    return entrypoints.map(([name, entry]) => {
-      return (
-        <Ink.Box key={`${name}-entry`} flexDirection="column">
-          <Ink.Text>{name}</Ink.Text>
-          <Ink.Text dimColor>
-            {prettyFormat(entry, {
-              printBasicPrototype: false,
-            })}
-          </Ink.Text>
-        </Ink.Box>
-      )
-    })
-  }
-
-  public async ls(path: string) {
-    const formatFilesArray = (files: Array<InspectTreeResult>) => {
-      return files.map((file, id) => {
-        return (
-          <Ink.Box
-            key={`${file.name}-file`}
-            flexDirection={file.children ? `column` : `row`}
-          >
-            <Ink.Text>
-              <Ink.Text dimColor>
-                {file.children ? figures.ellipsis : figures.pointerSmall}
-              </Ink.Text>
-              {` `}
-              {file.name}
-            </Ink.Text>
-            {file.children ? (
-              <Ink.Box paddingLeft={2} flexDirection="column">
-                {formatFilesArray(file.children)}
-              </Ink.Box>
-            ) : null}
-          </Ink.Box>
-        )
-      })
-    }
-
-    const files = await this.bud.fs.inspectTree(path)
-    return files.children ? formatFilesArray(files.children) : null
-  }
-
-  public async packageCheck(signifier: string) {
-    const manifest = await this.bud.module.getManifestPath(signifier)
-    const {version: packageVersion} = await this.bud.fs.read(manifest)
-    if (packageVersion !== this.bud.context.bud.version) {
-      return (
-        <Error
-          error={BudError.normalize(`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}).
-          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`)}
-        />
-      )
-    } else {
-      return (
-        <Ink.Text>
-          <Ink.Text color="green">
-            {figures.tick} {signifier} meets requirements
-          </Ink.Text>
-          {` `}
-          (required:{` `}
-          {this.bud.context.bud.version}, installed: {packageVersion})
-        </Ink.Text>
+        <Box>
+          <Text color="red">❌ {error?.message ?? error}</Text>
+        </Box>,
       )
     }
   }
@@ -474,21 +388,21 @@ for a lot of edge cases so it might return a false positive.
   @bind
   public formatDepCheck(
     [dependency, requestedVersion],
-    key: string | number,
+    key: number | string,
   ) {
     if (dependency.startsWith(`@roots`)) return null
 
     const renderMessage = (type: `dependencies` | `devDependencies`) => (
-      <Ink.Text key={key}>
-        <Ink.Text color="yellow">
+      <Text key={key}>
+        <Text color="yellow">
           {figures.warning}
           {`  `}
           {dependency}
-        </Ink.Text>
+        </Text>
         {` `}is overridden in your project `{type}`. If you do not require
         a custom version of{` `}
         {dependency} you should remove it.
-      </Ink.Text>
+      </Text>
     )
 
     if (
@@ -510,13 +424,97 @@ for a lot of edge cases so it might return a false positive.
     }
 
     return (
-      <Ink.Text key={key}>
-        <Ink.Text color="green">
+      <Text key={key}>
+        <Text color="green">
           {figures.tick} {dependency}
-        </Ink.Text>
+        </Text>
         {` `}
         is managed by bud.js ({requestedVersion})
-      </Ink.Text>
+      </Text>
     )
+  }
+
+  public async ls(path: string) {
+    const formatFilesArray = (files: Array<InspectTreeResult>) => {
+      return files.map((file, id) => {
+        return (
+          <Box
+            flexDirection={file.children ? `column` : `row`}
+            key={`${file.name}-file`}
+          >
+            <Text>
+              <Text dimColor>
+                {file.children ? figures.ellipsis : figures.pointerSmall}
+              </Text>
+              {` `}
+              {file.name}
+            </Text>
+            {file.children ? (
+              <Box flexDirection="column" paddingLeft={2}>
+                {formatFilesArray(file.children)}
+              </Box>
+            ) : null}
+          </Box>
+        )
+      })
+    }
+
+    const files = await this.bud.fs.inspectTree(path)
+    return files.children ? formatFilesArray(files.children) : null
+  }
+
+  public mapEntrypoints(
+    entrypoints: Array<[string, webpack.EntryObject]>,
+  ) {
+    return entrypoints.map(([name, entry]) => {
+      return (
+        <Box flexDirection="column" key={`${name}-entry`}>
+          <Text>{name}</Text>
+          <Text dimColor>
+            {prettyFormat(entry, {
+              printBasicPrototype: false,
+            })}
+          </Text>
+        </Box>
+      )
+    })
+  }
+
+  public mapExtensions(extensions: Array<[string, Extension]>) {
+    return extensions.map(([name, extension]) => (
+      <Box flexDirection="column" key={`extension-${name}`}>
+        <Text color="white">
+          {figures.triangleRightSmall} {name}
+        </Text>
+      </Box>
+    ))
+  }
+
+  public async packageCheck(signifier: string) {
+    const manifest = await this.bud.module.getManifestPath(signifier)
+    const {version: packageVersion} = await this.bud.fs.read(manifest)
+    if (packageVersion !== this.bud.context.bud.version) {
+      return (
+        <Error
+          error={BudError.normalize(`${signifier} is not installed at the same version as @roots/bud (required: ${this.bud.context.bud.version}, installed: ${packageVersion}).
+          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`)}
+        />
+      )
+    } else {
+      return (
+        <Text>
+          <Text color="green">
+            {figures.tick} {signifier} meets requirements
+          </Text>
+          {` `}
+          (required:{` `}
+          {this.bud.context.bud.version}, installed: {packageVersion})
+        </Text>
+      )
+    }
+  }
+
+  public seconds(hrTime: [number, number]) {
+    return (hrTime[0] + hrTime[1] / 1e9).toFixed(2)
   }
 }

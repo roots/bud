@@ -1,12 +1,37 @@
+import type {
+  Compilation,
+  Compiler,
+  StatsCompilation,
+} from '@roots/bud-framework/config'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import type {Compilation, Compiler, StatsCompilation} from 'webpack'
 
 /**
  * Webpack provide plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-lifecycle-plugin`)
 export default class BudWebpackLifecyclePlugin extends Extension {
+  @bind
+  public async additionalPass() {}
+
+  @bind
+  public async afterCompile(compilation: Compilation) {
+    this.logger.log(`compilation completed:`, compilation.hash)
+    this.logger.timeEnd(`compile`)
+  }
+
+  @bind
+  public async afterEmit(compilation: Compilation) {
+    this.logger.timeEnd(`emit`)
+  }
+
+  @bind
+  public afterEnvironment() {}
+
+  @bind
+  public afterPlugins() {}
+
   /**
    * {@link Extension.apply}
    */
@@ -55,13 +80,47 @@ export default class BudWebpackLifecyclePlugin extends Extension {
   }
 
   @bind
+  public async assetEmitted(
+    file: string,
+    info: {
+      compilation: Compilation
+      content: string
+      outputPath: string
+      source: string
+      targetPath: string
+    },
+  ) {
+    this.logger.log(
+      `asset emitted:`,
+      file,
+      `=>`,
+      this.app.relPath(info.targetPath),
+    )
+  }
+
+  @bind
+  public async beforeCompile(compilationParams: any) {}
+
+  @bind
+  public async beforeRun(compiler: Compiler) {
+    this.logger.log(`beforeRun`, compiler.name)
+  }
+
+  @bind
+  public compile(...compilationParams: any[]) {}
+
+  @bind
+  public async done(stats: StatsCompilation) {
+    this.logger.info(`done`)
+  }
+
+  @bind
+  public async emit(compilation: Compilation) {
+    this.logger.time(`emit`)
+  }
+
+  @bind
   public environment() {}
-
-  @bind
-  public afterEnvironment() {}
-
-  @bind
-  public afterPlugins() {}
 
   @bind
   public failed(error: Error) {
@@ -91,6 +150,11 @@ export default class BudWebpackLifecyclePlugin extends Extension {
   public invalid() {}
 
   @bind
+  public async run(compiler: Compiler) {
+    this.logger.log(`run`, compiler.name)
+  }
+
+  @bind
   public shouldEmit() {
     // @ts-ignore
     const emitCheck = this.app.context.dry !== true
@@ -101,64 +165,5 @@ export default class BudWebpackLifecyclePlugin extends Extension {
   @bind
   public thisCompilation(compilation: Compilation) {
     this.logger.time(`compile`)
-  }
-
-  @bind
-  public compile(...compilationParams: any[]) {}
-
-  @bind
-  public async additionalPass() {}
-
-  @bind
-  public async afterCompile(compilation: Compilation) {
-    this.logger.log(`compilation completed:`, compilation.hash)
-    this.logger.timeEnd(`compile`)
-  }
-
-  @bind
-  public async afterEmit(compilation: Compilation) {
-    this.logger.timeEnd(`emit`)
-  }
-
-  @bind
-  public async assetEmitted(
-    file: string,
-    info: {
-      content: string
-      source: string
-      outputPath: string
-      compilation: Compilation
-      targetPath: string
-    },
-  ) {
-    this.logger.log(
-      `asset emitted:`,
-      file,
-      `=>`,
-      this.app.relPath(info.targetPath),
-    )
-  }
-
-  @bind
-  public async beforeCompile(compilationParams: any) {}
-
-  @bind
-  public async beforeRun(compiler: Compiler) {
-    this.logger.log(`beforeRun`, compiler.name)
-  }
-
-  @bind
-  public async done(stats: StatsCompilation) {
-    this.logger.info(`done`)
-  }
-
-  @bind
-  public async emit(compilation: Compilation) {
-    this.logger.time(`emit`)
-  }
-
-  @bind
-  public async run(compiler: Compiler) {
-    this.logger.log(`run`, compiler.name)
   }
 }

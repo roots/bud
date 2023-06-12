@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
-import {ServiceContainer} from '@roots/bud-framework/service'
 import type {Api as Contract} from '@roots/bud-framework/services'
+
+import {ServiceContainer} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -17,22 +18,14 @@ import * as methods from '../methods/index.js'
  */
 export class Api extends ServiceContainer implements Contract {
   /**
-   * Called methods
-   */
-  public trace: Contract['trace'] = []
-
-  /**
    * Queued method calls
    */
   public queue: Contract['queue'] = []
 
   /**
-   * `bootstrap` callback
+   * Called methods
    */
-  @bind
-  public override async bootstrap(_app: Bud) {
-    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
-  }
+  public trace: Contract['trace'] = []
 
   /**
    * Bind a synchronous facade for use in configs
@@ -47,6 +40,14 @@ export class Api extends ServiceContainer implements Contract {
 
     this.set(name, fn.bind(this.app))
     this.app.set(name as any, factory(this.app, name))
+  }
+
+  /**
+   * `bootstrap` callback
+   */
+  @bind
+  public override async bootstrap(app: Bud) {
+    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 
   /**

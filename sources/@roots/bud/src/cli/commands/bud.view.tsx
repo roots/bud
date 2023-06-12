@@ -1,23 +1,17 @@
-import BudCommand from '@roots/bud/cli/commands/bud'
-import indent from '@roots/bud/cli/flags/indent'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
+import * as Ink from '@roots/bud-support/ink'
 import get from '@roots/bud-support/lodash/get'
 import format from '@roots/bud-support/pretty-format'
-import * as Ink from 'ink'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import indent from '@roots/bud/cli/flags/indent'
 
 /**
  * `bud view` command
  */
 export default class BudViewCommand extends BudCommand {
-  /**
-   * {@link Command.paths}
-   */
   public static override paths = [[`view`]]
 
-  /**
-   * {@link Command.usage}
-   */
   public static override usage = Command.Usage({
     description: `Explore bud object`,
     examples: [
@@ -28,9 +22,6 @@ export default class BudViewCommand extends BudCommand {
 
   public indent = indent
 
-  /**
-   * Positional
-   */
   public subject = Option.String({name: `subject`, required: false})
 
   public override async execute() {

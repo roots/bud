@@ -1,4 +1,5 @@
 import type {Loader} from '@roots/bud-framework/services/build'
+
 import * as MiniCss from '@roots/bud-support/mini-css-extract-plugin'
 
 import type {Factory} from '../index.js'
@@ -34,11 +35,6 @@ export const minicss: Factory<Loader> = async ({makeLoader, resolve}) =>
 export const style: Factory<Loader> = async ({makeLoader, resolve}) =>
   makeLoader(
     await resolve(`@roots/bud-support/style-loader`, import.meta.url),
-  )
-
-export const xml: Factory<Loader> = async ({makeLoader, resolve}) =>
-  makeLoader(
-    await resolve(`@roots/bud-support/xml-loader`, import.meta.url),
   )
 
 export const yml: Factory<Loader> = async ({makeLoader, resolve}) =>

@@ -1,7 +1,6 @@
+import envPaths from 'env-paths'
 import {createHash} from 'node:crypto'
 import {join, normalize} from 'node:path'
-
-import envPaths from 'env-paths'
 
 import {BudError} from '../errors/errors.js'
 import args from './args.js'
@@ -13,25 +12,9 @@ let env: ReturnType<typeof envBootstrap.get>
 
 interface paths {
   /**
-   * Hash of paths
-   */
-  hash: string
-
-  /**
-   * Base directory for all paths
-   */
-  basedir: string
-
-  /**
-   * Directory for temporary files
-   * @default os-cache
-   */
-  storage: string
-
-  /**
    * OS reported directory for cache files
    */
-  [`os-data`]: string
+  [`os-cache`]: string
 
   /**
    * OS reported directory for configuration files
@@ -41,7 +24,7 @@ interface paths {
   /**
    * OS reported directory for cache files
    */
-  [`os-cache`]: string
+  [`os-data`]: string
 
   /**
    * OS reported directory for log files
@@ -52,6 +35,22 @@ interface paths {
    * OS reported directory for temporary files
    */
   [`os-temp`]: string
+
+  /**
+   * Base directory for all paths
+   */
+  basedir: string
+
+  /**
+   * Hash of paths
+   */
+  hash: string
+
+  /**
+   * Directory for temporary files
+   * @default os-cache
+   */
+  storage: string
 }
 
 /**
@@ -95,7 +94,7 @@ This is most likely a problem with the internals of bud.js.`,
       (acc, [key, value]) => {
         return {...acc, [`os-${key}`]: join(value, hash)}
       },
-      {basedir, storage, hash} as paths,
+      {basedir, hash, storage} as paths,
     ),
   }
 

@@ -32,4 +32,9 @@ export const plugin =
   <Type extends {new (...args: any[]): any}>(constructor: Type) =>
     class extends constructor {
       public plugin = plugin
+
+      public constructor(...args: any[]) {
+        super(...args)
+        this.plugin = plugin
+      }
     }

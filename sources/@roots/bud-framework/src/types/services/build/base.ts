@@ -1,13 +1,13 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 
 /**
  * Base interface for Loaders, Items, and rules
  */
 export interface Base {
   app: Bud
-  wrap<T = any>(input: T | ((app: Bud) => T)): (app: Bud) => T
   unwrap<T = any>(
-    input: T | ((app: Bud, ...options: Array<any>) => T),
+    input: ((app: Bud, ...options: Array<any>) => T) | T,
     ...options: Array<any>
   ): T
+  wrap<T = any>(input: ((app: Bud) => T) | T): (app: Bud) => T
 }

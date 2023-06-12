@@ -2,9 +2,10 @@
 import {realpath} from 'fs/promises'
 import {join} from 'path'
 
-import {Npm} from './command/index.js'
-import {Yarn} from './command/index.js'
 import type {IDependencyManager} from './index.js'
+
+import {Yarn} from './command/index.js'
+import {Npm} from './command/index.js'
 
 export class Dependencies {
   public constructor(
@@ -21,16 +22,6 @@ export class Dependencies {
     })
   }
 
-  public async isYarn(): Promise<boolean> {
-    try {
-      return await realpath(join(this.path, `yarn.lock`)).then(
-        result => typeof result === `string`,
-      )
-    } catch (e) {
-      return false
-    }
-  }
-
   /**
    * Get the latest version of a package from the npm registry
    *
@@ -40,5 +31,15 @@ export class Dependencies {
     return await this.getClient().then(
       async client => await client.getLatestVersion(signifier),
     )
+  }
+
+  public async isYarn(): Promise<boolean> {
+    try {
+      return await realpath(join(this.path, `yarn.lock`)).then(
+        result => typeof result === `string`,
+      )
+    } catch (e) {
+      return false
+    }
   }
 }

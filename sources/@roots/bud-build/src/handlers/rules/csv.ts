@@ -1,6 +1,6 @@
 import type {Factory} from '../index.js'
 
-export const csv: Factory = async ({makeRule, path, filter}) =>
+export const csv: Factory = async ({filter, makeRule, path}) =>
   makeRule()
     .setInclude([path()])
     .setTest(() => filter(`pattern.csv`))

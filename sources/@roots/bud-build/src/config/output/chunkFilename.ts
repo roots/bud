@@ -1,6 +1,6 @@
-import {join} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
+
+import {join} from 'node:path'
 
 import {scriptExtension} from '../../helpers/scriptExtension.js'
 

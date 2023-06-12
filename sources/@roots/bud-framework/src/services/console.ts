@@ -1,15 +1,16 @@
 import {bind} from '@roots/bud-support/decorators/bind'
 import patchConsole from '@roots/bud-support/patch-console'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
+
 import {Service} from '../service.js'
 
 /**
  * Received messages
  */
 type MessagesCache = Array<{
-  stream: `stdout` | `stderr`
   message: string
+  stream: `stderr` | `stdout`
 }>
 
 /**
@@ -26,11 +27,6 @@ export default class ConsoleBuffer extends Service {
   public queue: MessagesCache = []
 
   /**
-   * Already processed messages
-   */
-  public stack: MessagesCache = []
-
-  /**
    * Restore console function
    *
    * @remarks
@@ -38,6 +34,11 @@ export default class ConsoleBuffer extends Service {
    * the normal {@link console} behavior.
    */
   public restore?: () => any
+
+  /**
+   * Already processed messages
+   */
+  public stack: MessagesCache = []
 
   /**
    * Fetch and remove
@@ -77,7 +78,7 @@ export default class ConsoleBuffer extends Service {
         return
 
       // Push to queue
-      this.queue.push({stream, message})
+      this.queue.push({message, stream})
       this.app[stream === `stderr` ? `error` : `log`](message)
     })
   }

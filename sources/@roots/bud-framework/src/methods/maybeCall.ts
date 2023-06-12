@@ -1,6 +1,6 @@
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 export interface maybeCall {
   <I = Bud>(maybeCallable: maybeCallable<I>, value?: I): I
@@ -18,7 +18,7 @@ export type maybeCallable<I = unknown> = ((param: Bud) => I) | I
  */
 export function maybeCall<
   I = Bud,
-  Args extends Array<unknown | undefined> = [I],
+  Args extends Array<undefined | unknown> = [I],
 >(this: Bud, value: maybeCallable, ...args: Args): I {
   return isFunction(value)
     ? value.bind

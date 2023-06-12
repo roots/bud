@@ -23,17 +23,17 @@ export class HtmlEmitter {
   ) {}
 
   /**
-   * Get compiled asset file contents
-   *
-   * @param file - asset file
-   * @returns - asset file contents
+   * Reduce entrypoint assets to markup
    */
   @bind
-  public getCompiledAsset(file: string) {
-    const raw =
-      this.compilation.assets[file.replace(this.publicPath, ``)]?.source()
-
-    return raw instanceof Buffer ? raw.toString() : raw
+  public emit(): void {
+    Object.entries(this.assets).map(([name, asset]) => {
+      Object.assign(this.compilation.assets, {
+        [`${name}.html`]: new Webpack.sources.RawSource(
+          Object.entries(asset).reduce(this.entrypointsReducer, ``),
+        ),
+      })
+    })
   }
 
   /**
@@ -53,32 +53,17 @@ export class HtmlEmitter {
   }
 
   /**
-   * Reduce a stylesheet from entry item to markup
+   * Get compiled asset file contents
+   *
+   * @param file - asset file
+   * @returns - asset file contents
    */
   @bind
-  public styleReducer(acc: string, file: string): string {
-    return [acc, `<link rel="stylesheet" href="${file}" />`].join(`\n`)
-  }
+  public getCompiledAsset(file: string) {
+    const raw =
+      this.compilation.assets[file.replace(this.publicPath, ``)]?.source()
 
-  /**
-   * Reduce a script from entry item to markup
-   */
-  @bind
-  public scriptReducer(acc: string, src: string): string {
-    const attributes: Record<string, boolean | string> = {
-      type: src.endsWith(`.mjs`) ? `module` : false,
-      src: !src.includes(`runtime`) ? src : false,
-      defer: true,
-      async: true,
-    }
-
-    return [
-      acc,
-      this.makeScript(
-        attributes,
-        src.includes(`runtime`) ? this.getCompiledAsset(src) : null,
-      ),
-    ].join(`\n`)
+    return raw instanceof Buffer ? raw.toString() : raw
   }
 
   /**
@@ -104,16 +89,31 @@ export class HtmlEmitter {
   }
 
   /**
-   * Reduce entrypoint assets to markup
+   * Reduce a script from entry item to markup
    */
   @bind
-  public emit(): void {
-    Object.entries(this.assets).map(([name, asset]) => {
-      Object.assign(this.compilation.assets, {
-        [`${name}.html`]: new Webpack.sources.RawSource(
-          Object.entries(asset).reduce(this.entrypointsReducer, ``),
-        ),
-      })
-    })
+  public scriptReducer(acc: string, src: string): string {
+    const attributes: Record<string, boolean | string> = {
+      async: true,
+      defer: true,
+      src: !src.includes(`runtime`) ? src : false,
+      type: src.endsWith(`.mjs`) ? `module` : false,
+    }
+
+    return [
+      acc,
+      this.makeScript(
+        attributes,
+        src.includes(`runtime`) ? this.getCompiledAsset(src) : null,
+      ),
+    ].join(`\n`)
+  }
+
+  /**
+   * Reduce a stylesheet from entry item to markup
+   */
+  @bind
+  public styleReducer(acc: string, file: string): string {
+    return [acc, `<link rel="stylesheet" href="${file}" />`].join(`\n`)
   }
 }

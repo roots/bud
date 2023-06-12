@@ -23,3 +23,9 @@ bud.provide({
   jquery: ['$', 'jQuery'],
 })
 ```
+
+If preferred you can call it with two parameters. The first parameter is the accessor (how you want to reference it). The second parameter is the value (the module or value you want to reference):
+
+```js
+bud.provide(`jquery`, [`jQuery`, `$`])
+```

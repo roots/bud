@@ -1,7 +1,7 @@
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/dry'
 
 import {detectPackageManager} from '../helpers/detectPackageManager.js'
 import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
@@ -20,6 +20,7 @@ export default class BudUpgradeCommand extends BudCommand {
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
+    category: `tasks`,
     description: `Set bud.js version`,
     details: `
       This command will upgrade your bud.js installation to the latest stable version.
@@ -32,7 +33,6 @@ export default class BudUpgradeCommand extends BudCommand {
 
       This command is a passthrough to the package manager you are using.
     `,
-    category: `tasks`,
     examples: [
       [`Upgrade dependencies to latest`, `$0 upgrade`],
       [`Upgrade dependencies to specific version`, `$0 upgrade 6.6.6`],
@@ -44,11 +44,6 @@ export default class BudUpgradeCommand extends BudCommand {
   })
 
   /**
-   * Request a specific version of bud.js
-   */
-  public version = Option.String({required: false})
-
-  /**
    * Use an alternative registry
    */
   public registry = Option.String(`--registry`, undefined, {
@@ -56,13 +51,9 @@ export default class BudUpgradeCommand extends BudCommand {
   })
 
   /**
-   * Package manager
+   * Request a specific version of bud.js
    */
-  public get pacman(): `yarn` | `npm` {
-    const pacman = detectPackageManager(this.bud)
-    if (pacman === false) throw new Error(`Package manager is ambiguous`)
-    return pacman
-  }
+  public version = Option.String({required: false})
 
   public get command() {
     return this.pacman === `npm` ? `install` : `add`
@@ -104,23 +95,8 @@ export default class BudUpgradeCommand extends BudCommand {
   }
 
   @bind
-  public getUpgradeableDependencies(
-    type: `devDependencies` | `dependencies`,
-  ): Array<string> {
-    const onlyBud = (pkg: string) =>
-      pkg.startsWith(`@roots/`) || pkg.includes(`bud-`)
-
-    const toScope = (pkg: string) => `${pkg}@${this.version}`
-
-    return this.getAllDependenciesOfType(type)
-      .filter(onlyBud)
-      .map(toScope)
-      .filter(Boolean)
-  }
-
-  @bind
   public getAllDependenciesOfType(
-    type: `devDependencies` | `dependencies`,
+    type: `dependencies` | `devDependencies`,
   ): Array<string> {
     if (this.bud?.context.manifest?.[type]) {
       return Object.keys(this.bud.context.manifest[type])
@@ -129,14 +105,7 @@ export default class BudUpgradeCommand extends BudCommand {
   }
 
   @bind
-  public hasUpgradeableDependencies(
-    type: `devDependencies` | `dependencies`,
-  ): boolean {
-    return this.getUpgradeableDependencies(type)?.length > 0
-  }
-
-  @bind
-  public getFlags(type: `devDependencies` | `dependencies`) {
+  public getFlags(type: `dependencies` | `devDependencies`) {
     const flags = []
 
     if (type === `devDependencies`) {
@@ -157,5 +126,36 @@ export default class BudUpgradeCommand extends BudCommand {
     if (this.registry) flags.push(`--registry`, this.registry)
 
     return flags
+  }
+
+  @bind
+  public getUpgradeableDependencies(
+    type: `dependencies` | `devDependencies`,
+  ): Array<string> {
+    const onlyBud = (pkg: string) =>
+      pkg.startsWith(`@roots/`) || pkg.includes(`bud-`)
+
+    const toScope = (pkg: string) => `${pkg}@${this.version}`
+
+    return this.getAllDependenciesOfType(type)
+      .filter(onlyBud)
+      .map(toScope)
+      .filter(Boolean)
+  }
+
+  @bind
+  public hasUpgradeableDependencies(
+    type: `dependencies` | `devDependencies`,
+  ): boolean {
+    return this.getUpgradeableDependencies(type)?.length > 0
+  }
+
+  /**
+   * Package manager
+   */
+  public get pacman(): `npm` | `yarn` {
+    const pacman = detectPackageManager(this.bud)
+    if (pacman === false) throw new Error(`Package manager is ambiguous`)
+    return pacman
   }
 }

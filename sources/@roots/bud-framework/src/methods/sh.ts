@@ -1,10 +1,11 @@
 import type {ExecaChildProcess, Options} from '@roots/bud-support/execa'
+
 import execa from '@roots/bud-support/execa'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 
 export interface sh {
-  (command: string | Array<string>, options?: Options): ExecaChildProcess
+  (command: Array<string> | string, options?: Options): ExecaChildProcess
 }
 
 /**
@@ -16,7 +17,7 @@ export interface sh {
  * ```
  */
 export const sh: sh = function (
-  command: string | Array<string>,
+  command: Array<string> | string,
   options = {},
 ) {
   const bud = this as Bud

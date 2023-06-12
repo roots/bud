@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -30,11 +31,22 @@ export class BudImageminExtension extends Extension {
   public declare svgo: Bud[`imagemin`][`svgo`]
 
   /**
+   * Add a generator preset
+   */
+  @bind
+  public addPreset<K extends keyof BudImageminSharp.Options>(
+    ...params: [key: K, value: Partial<Generator>]
+  ) {
+    this.sharp.setGenerator(...params)
+    return this
+  }
+
+  /**
    * Set encoder options
    */
   @bind
   public encode<
-    K extends `${(keyof BudImageminSharp.EncodeOptions | `svg`) & string}`,
+    K extends `${(`svg` | keyof BudImageminSharp.EncodeOptions) & string}`,
   >(
     ...params: K extends keyof BudImageminSharp.EncodeOptions
       ? [K, BudImageminSharp.EncodeOptions[K]]
@@ -68,14 +80,20 @@ export class BudImageminExtension extends Extension {
   }
 
   /**
-   * Add a generator preset
+   * Make image minimizer plugin instance
    */
-  @bind
-  public addPreset<K extends keyof BudImageminSharp.Options>(
-    ...params: [key: K, value: Partial<Generator>]
-  ) {
-    this.sharp.setGenerator(...params)
-    return this
+  public makePluginInstance({
+    generator = undefined,
+    implementation,
+    options,
+    test,
+  }) {
+    return new Plugin({
+      test,
+      ...(generator
+        ? {generator}
+        : {minimizer: {implementation, options: options ?? {}}}),
+    })
   }
 
   /**
@@ -92,7 +110,7 @@ export class BudImageminExtension extends Extension {
     bud.manifest.setOption(
       `generate`,
       () => (_: unknown, files: Array<{name: string; path: string}>) => {
-        return files.reduce((records, {path, name}) => {
+        return files.reduce((records, {name, path}) => {
           // Try to match the path with a specific pattern that looks for generated files
           const match = path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
 
@@ -114,30 +132,13 @@ export class BudImageminExtension extends Extension {
 
           return {
             ...records,
-            // Add the name with 'width' query parameter and its associated path
-            [widthOnlyQueryName]: path,
             // Add the name with 'width' and 'height' query parameters and its associated path
             [widthAndHeightQueryName]: path,
+            // Add the name with 'width' query parameter and its associated path
+            [widthOnlyQueryName]: path,
           }
         }, {}) // Initialize the accumulator (records) as an empty object
       },
     )
-  }
-
-  /**
-   * Make image minimizer plugin instance
-   */
-  public makePluginInstance({
-    test,
-    implementation,
-    generator = undefined,
-    options,
-  }) {
-    return new Plugin({
-      test,
-      ...(generator
-        ? {generator}
-        : {minimizer: {implementation, options: options ?? {}}}),
-    })
   }
 }

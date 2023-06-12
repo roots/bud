@@ -16,6 +16,21 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "target": "esnext",
-    "types": ["@roots/bud"]
+    "types": [
+      "node",
+      "@roots/bud-framework",
+      "@roots/bud-api",
+      "@roots/bud-build",
+      "@roots/bud-cache",
+      "@roots/bud-compiler",
+      "@roots/bud-dashboard",
+      "@roots/bud-extensions",
+      "@roots/bud-hooks",
+      "@roots/bud-server",
+      "@roots/bud-support",
+      "@roots/bud-minify",
+      "@roots/bud-entrypoints",
+      "@roots/bud"
+    ]
   }
 }

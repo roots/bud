@@ -7,8 +7,12 @@
  * @see https://bud.js.org
  */
 
-import './types.js'
-
 import BudWordPressDependencies from './extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Modules {
+    '@roots/bud-wordpress-dependencies': BudWordPressDependencies
+  }
+}
 
 export default BudWordPressDependencies

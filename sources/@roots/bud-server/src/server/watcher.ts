@@ -1,8 +1,8 @@
+import type {Bud} from '@roots/bud-framework'
+import type {Server} from '@roots/bud-framework/services'
 import type {FSWatcher} from 'node:fs'
 
-import type {Bud} from '@roots/bud-framework/bud'
-import type {Server} from '@roots/bud-framework/services'
-import chokidar from '@roots/bud-support/chokidar'
+import * as chokidar from '@roots/bud-support/chokidar'
 import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
@@ -10,11 +10,9 @@ import {bind} from '@roots/bud-support/decorators/bind'
  */
 export class Watcher implements Server.Watcher {
   /**
-   * App instance
+   * Watch files
    */
-  public get app(): Bud {
-    return this._app()
-  }
+  public files: Set<string>
 
   /**
    * Watcher instance
@@ -22,14 +20,23 @@ export class Watcher implements Server.Watcher {
   public instance: FSWatcher
 
   /**
-   * Watch files
-   */
-  public files: Set<string>
-
-  /**
    * Watch options
    */
   public options: chokidar.WatchOptions
+
+  /**
+   * Class constructor
+   *
+   * @param app - Application instance
+   */
+  public constructor(public _app: () => Bud) {}
+
+  /**
+   * App instance
+   */
+  public get app(): Bud {
+    return this._app()
+  }
 
   /**
    * Logger
@@ -39,11 +46,30 @@ export class Watcher implements Server.Watcher {
   }
 
   /**
-   * Class constructor
-   *
-   * @param app - Application instance
+   * Initialize watch files
    */
-  public constructor(public _app: () => Bud) {}
+  @bind
+  public async watch(): Promise<Watcher['instance']> {
+    if (this.app.context.dry) return
+
+    this.files = this.app.hooks.filter(`dev.watch.files`, new Set([]))
+    this.options = this.app.hooks.filter(`dev.watch.options`, {
+      cwd: this.app.path(),
+      ignoreInitial: true,
+    })
+
+    if (this.files.size < 1) return
+
+    this.instance = chokidar
+      .watch([...this.files], this.options)
+      .on(`change`, this.watcherCallback)
+      .on(`add`, this.watcherCallback)
+      .on(`unlink`, this.watcherCallback)
+
+    this.logger.log(`watching`)
+
+    return this.instance
+  }
 
   /**
    * Watcher callback
@@ -60,31 +86,5 @@ export class Watcher implements Server.Watcher {
       action: `reload`,
       message: `Detected file change: ${path}. Reloading window.`,
     })
-  }
-
-  /**
-   * Initialize watch files
-   */
-  @bind
-  public async watch(): Promise<Watcher['instance']> {
-    if (this.app.context.dry) return
-
-    this.files = this.app.hooks.filter(`dev.watch.files`, new Set([]))
-    this.options = this.app.hooks.filter(`dev.watch.options`, {
-      ignoreInitial: true,
-      cwd: this.app.path(),
-    })
-
-    if (this.files.size < 1) return
-
-    this.instance = chokidar
-      .watch([...this.files], this.options)
-      .on(`change`, this.watcherCallback)
-      .on(`add`, this.watcherCallback)
-      .on(`unlink`, this.watcherCallback)
-
-    this.logger.log(`watching`)
-
-    return this.instance
   }
 }

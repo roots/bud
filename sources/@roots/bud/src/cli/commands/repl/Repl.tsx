@@ -1,18 +1,24 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {highlight} from '@roots/bud-support/highlight'
+import {
+  Box,
+  Text,
+  TextInput,
+  useEffect,
+  useInput,
+  useState,
+} from '@roots/bud-support/ink'
 import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
-import * as Ink from 'ink'
-import TextInput from 'ink-text-input'
-import {useEffect, useState} from 'react'
 
 interface ReplProps {
   app: Bud
-  indent: string
   depth: string
+  indent: string
 }
 
-export const Repl = ({app, indent, depth}: ReplProps) => {
+export const Repl = ({app, depth, indent}: ReplProps) => {
   const [search, setSearch] = useState(``)
   const [result, setResult] = useState(``)
   const [paged, setPaged] = useState([])
@@ -21,7 +27,7 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
 
   const pageSize = 10
 
-  Ink.useInput((input, key) => {
+  useInput((input, key) => {
     if (key.escape) {
       // eslint-disable-next-line
       process.exit(0)
@@ -118,130 +124,130 @@ export const Repl = ({app, indent, depth}: ReplProps) => {
   }
 
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box marginY={1} flexDirection="column">
-        <Ink.Box flexDirection="row" justifyContent="space-between">
-          <Ink.Box
+    <Box flexDirection="column">
+      <Box flexDirection="column" marginY={1}>
+        <Box flexDirection="row" justifyContent="space-between">
+          <Box
+            borderBottom={false}
+            borderLeft={true}
+            borderLeftColor={action === `alpha` ? `green` : `dim`}
+            borderRight={false}
+            borderStyle="single"
+            borderTop={false}
             flexDirection="row"
             justifyContent="flex-start"
             marginBottom={paged.length ? 1 : 0}
-            borderLeft={true}
-            borderTop={false}
-            borderBottom={false}
-            borderRight={false}
-            borderStyle="single"
-            borderLeftColor={action === `alpha` ? `green` : `dim`}
             paddingLeft={1}
           >
             <TextInput
-              placeholder="bud.build.config.entry"
-              value={search}
               onChange={setSearch}
               onSubmit={onSubmit}
+              placeholder="bud.build.config.entry"
               showCursor={true}
+              value={search}
             />
-          </Ink.Box>
+          </Box>
 
           {paged.length > 0 ? (
-            <Ink.Box
+            <Box
               flexDirection="row"
               justifyContent="flex-start"
               marginTop={1}
             >
-              <Ink.Text
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 page{` `}
-              </Ink.Text>
-              <Ink.Text
+              </Text>
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 {page + 1}
-              </Ink.Text>
-              <Ink.Text>/</Ink.Text>
-              <Ink.Text
+              </Text>
+              <Text>/</Text>
+              <Text
                 color={
                   action === `up` || action === `down` ? `green` : `white`
                 }
               >
                 {paged.length}
-              </Ink.Text>
-            </Ink.Box>
+              </Text>
+            </Box>
           ) : null}
-        </Ink.Box>
+        </Box>
 
         {paged[page] ? (
-          <Ink.Box
-            flexDirection="column"
-            justifyContent="flex-start"
-            borderLeft={true}
-            borderTop={false}
+          <Box
             borderBottom={false}
+            borderLeft={true}
+            borderLeftColor="dim"
             borderRight={false}
             borderStyle="single"
-            borderLeftColor="dim"
+            borderTop={false}
+            flexDirection="column"
+            justifyContent="flex-start"
             paddingLeft={1}
           >
-            <Ink.Text>{paged[page]}</Ink.Text>
-          </Ink.Box>
+            <Text>{paged[page]}</Text>
+          </Box>
         ) : null}
-      </Ink.Box>
+      </Box>
 
-      <Ink.Box marginY={1} flexDirection="row">
-        <Ink.Text>
-          <Ink.Text
+      <Box flexDirection="row" marginY={1}>
+        <Text>
+          <Text
             backgroundColor={action === `esc` ? `green` : `white`}
             color="black"
           >
             [esc]
-          </Ink.Text>
+          </Text>
           {` `}quit
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `tab` ? `green` : `white`}
             color="black"
           >
             [tab]
-          </Ink.Text>
+          </Text>
           {` `}clear
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `down` ? `green` : `white`}
             color="black"
           >
             [↓]
-          </Ink.Text>
+          </Text>
           {` `}next
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `up` ? `green` : `white`}
             color="black"
           >
             [↑]
-          </Ink.Text>
+          </Text>
           {` `}prev
-        </Ink.Text>
-        <Ink.Text>{`  `}</Ink.Text>
-        <Ink.Text>
-          <Ink.Text
+        </Text>
+        <Text>{`  `}</Text>
+        <Text>
+          <Text
             backgroundColor={action === `return` ? `green` : `white`}
             color="black"
           >
             [return]
-          </Ink.Text>
+          </Text>
           {` `}eval
-        </Ink.Text>
-      </Ink.Box>
-    </Ink.Box>
+        </Text>
+      </Box>
+    </Box>
   )
 }

@@ -1,5 +1,6 @@
-import {isMjs} from '../../helpers/isMjs.js'
 import type {Factory} from '../index.js'
+
+import {isMjs} from '../../helpers/isMjs.js'
 import {assetModuleFilename} from './assetModuleFilename.js'
 import {chunkFilename} from './chunkFilename.js'
 import {filename} from './filename.js'

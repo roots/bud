@@ -1,38 +1,18 @@
-import {join} from 'node:path'
-
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 import {type S3} from '@roots/filesystem/s3'
+import {join} from 'node:path'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import type {Contract} from '../service.js'
 
 /**
  * {@link Filesystem} service
  */
 export default class FS extends Filesystem implements Contract {
-  /**
-   * {@link Contract.label}
-   */
-  public label = `fs`
-
-  /**
-   * {@link Contract.app}
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
-  /**
-   * {@link Contract.logger}
-   */
-  public get logger(): typeof logger {
-    return logger.scope(`fs`)
-  }
-
   /**
    * JSON
    *
@@ -41,9 +21,9 @@ export default class FS extends Filesystem implements Contract {
   public json: typeof json = json
 
   /**
-   * @see {@link https://bud.js.org/docs/bud.fs/yml}
+   * {@link Contract.label}
    */
-  public yml: typeof yml = yml
+  public label = `fs`
 
   /**
    * S3
@@ -53,6 +33,11 @@ export default class FS extends Filesystem implements Contract {
   public s3?: S3
 
   /**
+   * @see {@link https://bud.js.org/docs/bud.fs/yml}
+   */
+  public yml: typeof yml = yml
+
+  /**
    * Class constructor
    */
   public constructor(public _app: () => Bud) {
@@ -60,23 +45,16 @@ export default class FS extends Filesystem implements Contract {
   }
 
   /**
-   * {@link Contract.bootstrap}
+   * {@link Contract.app}
    */
-  public async register(bud: Bud) {
-    try {
-      const s3IsResolvable = await bud.module.resolve(
-        `@aws-sdk/client-s3`,
-        import.meta.url,
-      )
-
-      if (!s3IsResolvable) return
-      const {S3} = await import(`@roots/filesystem/s3`)
-
-      if (s3IsResolvable) this.s3 = new S3()
-    } catch (error) {
-      // fallthrough
-    }
+  public get app(): Bud {
+    return this._app()
   }
+
+  /**
+   * Fulfills {@link Contract.boot}
+   */
+  public async boot() {}
 
   /**
    * Fulfills {@link Contract.bootstrap}
@@ -84,9 +62,23 @@ export default class FS extends Filesystem implements Contract {
   public async bootstrap() {}
 
   /**
-   * Fulfills {@link Contract.boot}
+   * {@link Contract.logger}
    */
-  public async boot() {}
+  public get logger(): typeof logger {
+    return logger.scope(`fs`)
+  }
+
+  /**
+   * {@link Contract.bootstrap}
+   */
+  public async register(bud: Bud) {
+    try {
+      const {S3} = await import(`@roots/filesystem/s3`)
+      this.s3 = new S3()
+    } catch (error) {
+      // fallthrough
+    }
+  }
 
   /**
    * Set bucket
@@ -157,6 +149,25 @@ export default class FS extends Filesystem implements Contract {
   }
 
   /**
+   * Throw S3 error
+   */
+  @bind
+  public throwS3Error() {
+    const dependencies = {
+      ...(this.app.context.files?.[`package.json`]?.module?.dependencies ??
+        {}),
+      ...(this.app.context.files?.[`package.json`]?.module
+        ?.devDependencies ?? {}),
+    }
+    if (!Object.keys(dependencies)?.includes(`@aws-sdk/client-s3`)) {
+      throw new Error(
+        `S3 is not available. Please install @aws-sdk/client-s3 to use this feature.`,
+      )
+    }
+    throw new Error(`S3 is not available.`)
+  }
+
+  /**
    * Upload files to S3
    *
    * @param options - upload options
@@ -164,20 +175,20 @@ export default class FS extends Filesystem implements Contract {
    * @see {@link https://bud.js.org/docs/bud.fs/s3#uploading-files}
    */
   public upload(options?: {
-    source?: string
     destination?: string
     files?: string
-    keep?: number | false
+    keep?: false | number
+    source?: string
   }): this {
     if (!this.s3) this.throwS3Error()
 
-    const {source, files, keep, destination} = {
+    const {destination, files, keep, source} = {
+      destination: options?.destination,
+      files: isUndefined(options?.files) ? `**/*` : options.files,
+      keep: isUndefined(options?.keep) ? 5 : options.keep,
       source: isUndefined(options?.source)
         ? this.app.path(`@dist`)
         : options.source,
-      files: isUndefined(options?.files) ? `**/*` : options.files,
-      keep: isUndefined(options?.keep) ? 5 : options.keep,
-      destination: options?.destination,
     }
 
     const s3Path = (path: string) =>
@@ -192,7 +203,7 @@ export default class FS extends Filesystem implements Contract {
               `buffer`,
             )
 
-            return {file, contents}
+            return {contents, file}
           }),
         )
 
@@ -209,7 +220,7 @@ export default class FS extends Filesystem implements Contract {
         )
 
         await Promise.all(
-          descriptions.map(async ({file, contents}) => {
+          descriptions.map(async ({contents, file}) => {
             bud.fs.logger.await(`Upload ${file} to ${bud.fs.s3.ident}`)
 
             try {
@@ -255,13 +266,13 @@ export default class FS extends Filesystem implements Contract {
         )
 
         await bud.fs.s3.write({
-          Key: s3Path(`upload-manifest.json`),
           Body: Buffer.from(
             bud.fs.json.stringify({
               ...entries.reduce((acc, [k, v]) => ({...acc, [k]: v}), {}),
               [new Date().getTime()]: descriptions.map(({file}) => file),
             }),
           ),
+          Key: s3Path(`upload-manifest.json`),
         })
 
         bud.fs.logger.success(
@@ -271,24 +282,5 @@ export default class FS extends Filesystem implements Contract {
     })
 
     return this
-  }
-
-  /**
-   * Throw S3 error
-   */
-  @bind
-  public throwS3Error() {
-    const dependencies = {
-      ...(this.app.context.files?.[`package.json`]?.module?.dependencies ??
-        {}),
-      ...(this.app.context.files?.[`package.json`]?.module
-        ?.devDependencies ?? {}),
-    }
-    if (!Object.keys(dependencies)?.includes(`@aws-sdk/client-s3`)) {
-      throw new Error(
-        `S3 is not available. Please install @aws-sdk/client-s3 to use this feature.`,
-      )
-    }
-    throw new Error(`S3 is not available.`)
   }
 }

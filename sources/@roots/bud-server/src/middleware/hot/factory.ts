@@ -1,17 +1,18 @@
 /* eslint-disable no-console */
 
 import type {Bud} from '@roots/bud-framework'
-import type {MiddlewareFactory} from '@roots/bud-server/middleware'
-import type {Payload} from '@roots/bud-server/middleware/hot'
-import {HotEventStream} from '@roots/bud-server/middleware/hot'
-import type {RequestHandler} from '@roots/bud-support/express'
-import loggerInstance from '@roots/bud-support/logger'
 import type {
   MultiCompiler,
   StatsCompilation,
   StatsModule,
-} from '@roots/bud-support/webpack'
+} from '@roots/bud-framework/config'
+import type {MiddlewareFactory} from '@roots/bud-server/middleware'
+import type {Payload} from '@roots/bud-server/middleware/hot'
+import type {RequestHandler} from '@roots/bud-support/express'
 import type {Handler} from 'express-serve-static-core'
+
+import {HotEventStream} from '@roots/bud-server/middleware/hot'
+import loggerInstance from '@roots/bud-support/logger'
 
 const middlewarePath = `/bud/hot`
 
@@ -81,10 +82,10 @@ export const publish = (
       all: false,
       cached: true,
       children: true,
+      errors: true,
+      hash: true,
       modules: true,
       timings: true,
-      hash: true,
-      errors: true,
     }),
   )
 
@@ -95,13 +96,13 @@ export const publish = (
     logger.log(`built`, name, `(${stats.hash})`, `in`, `${stats.time}ms`)
 
     stream.publish({
-      name,
       action,
-      time: stats.time,
-      hash: stats.hash,
-      warnings: stats.warnings ?? [],
       errors: stats.errors ?? [],
+      hash: stats.hash,
       modules,
+      name,
+      time: stats.time,
+      warnings: stats.warnings ?? [],
     })
   })
 }

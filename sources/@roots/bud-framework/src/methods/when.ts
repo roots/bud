@@ -1,8 +1,8 @@
+import chalk from '@roots/bud-support/chalk'
 import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import noop from '@roots/bud-support/lodash/noop'
-import chalk from 'chalk'
 
 import type {Bud} from '../index.js'
 
@@ -10,8 +10,8 @@ export interface when {
   (
     test:
       | ((app: Bud) => boolean)
-      | boolean
-      | Array<((app: Bud) => boolean) | boolean>,
+      | Array<((app: Bud) => boolean) | boolean>
+      | boolean,
     trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
     falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
   ): Bud
@@ -46,8 +46,8 @@ export interface when {
 export function when(
   test:
     | ((app: Bud) => boolean)
-    | boolean
-    | Array<((app: Bud) => boolean) | boolean>,
+    | Array<((app: Bud) => boolean) | boolean>
+    | boolean,
   trueCase: ((app: Bud) => any) | Array<(app: Bud) => any>,
   falseCase?: ((app: Bud) => any) | Array<(app: Bud) => any>,
 ): Bud {

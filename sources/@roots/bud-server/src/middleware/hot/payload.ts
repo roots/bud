@@ -1,11 +1,11 @@
-import type {StatsCompilation} from '@roots/bud-support/webpack'
+import type {StatsCompilation} from '@roots/bud-framework/config'
 
 export interface Payload {
-  name: StatsCompilation['name']
-  action: 'building' | 'built' | 'sync' | 'reload'
-  time: number
-  hash: string
-  warnings: StatsCompilation['warnings']
+  action: 'building' | 'built' | 'reload' | 'sync'
   errors: StatsCompilation['errors']
-  modules: Record<string, Array<string | number>>
+  hash: string
+  modules: Record<string, Array<number | string>>
+  name: StatsCompilation['name']
+  time: number
+  warnings: StatsCompilation['warnings']
 }

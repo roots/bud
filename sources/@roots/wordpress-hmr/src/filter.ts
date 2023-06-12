@@ -5,9 +5,9 @@ export type Callback = (...args: any[]) => any
 export type KeyedFilters = Record<string, Record<string, Callback>>
 
 export type RegisterProps = {
-  name: string
-  hook: string
   callback: Callback
+  hook: string
+  name: string
 }
 
 export interface UnregisterProps extends Partial<RegisterProps> {
@@ -21,9 +21,9 @@ export interface RegistrationModule {
 }
 
 export const register: RegistrationModule[`register`] = ({
+  callback,
   hook,
   name,
-  callback,
 }) => {
   hasFilter(hook, name) && unregister({hook, name})
   addFilter(hook, name, callback)

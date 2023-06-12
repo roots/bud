@@ -1,8 +1,7 @@
-import {join, relative} from 'node:path'
-
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Option} from '@roots/bud-support/clipanion'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/dry'
+import {join, relative} from 'node:path'
 
 @dry
 export class BudTailwindCommand extends BudCommand {

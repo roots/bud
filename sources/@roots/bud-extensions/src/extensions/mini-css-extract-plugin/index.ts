@@ -1,3 +1,5 @@
+import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   label,
@@ -5,7 +7,6 @@ import {
   plugin,
   production,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
 import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
 import Value from '@roots/bud-support/value'
 

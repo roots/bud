@@ -1,3 +1,7 @@
+import type * as Terser from 'terser'
+import type {TerserOptions} from 'terser-webpack-plugin'
+import type Plugin from 'terser-webpack-plugin'
+
 import {
   Extension,
   type OptionCallback,
@@ -8,33 +12,30 @@ import {
   deprecated,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import type * as Terser from 'terser'
-import type Plugin from 'terser-webpack-plugin'
-import type {TerserOptions} from 'terser-webpack-plugin'
 
 /**
  * JS Minimizer configuration
  */
 interface BudMinimizeJSOptions extends Plugin.BasePluginOptions {
-  minify: Plugin.MinimizerImplementation<TerserOptions>
-  include: Plugin.BasePluginOptions[`include`]
   exclude: Plugin.BasePluginOptions[`exclude`]
   extractComments: Plugin.BasePluginOptions[`extractComments`]
+  include: Plugin.BasePluginOptions[`include`]
+  minify: Plugin.MinimizerImplementation<TerserOptions>
   parallel: Plugin.BasePluginOptions[`parallel`]
   terserOptions: TerserOptions & {
     compress: Terser.CompressOptions
-    format: Terser.FormatOptions
-    mangle: Terser.MangleOptions | boolean
     ecma: Terser.ECMA
     enclose: boolean | string
+    format: Terser.FormatOptions
     ie8: boolean
     keep_classnames: boolean | RegExp
     keep_fnames: boolean | RegExp
+    mangle: boolean | Terser.MangleOptions
     module: boolean
     nameCache: object
     parse: Terser.ParseOptions
     safari10: boolean
-    sourceMap: Terser.SourceMapOptions | boolean
+    sourceMap: boolean | Terser.SourceMapOptions
     toplevel: boolean
   }
 }
@@ -58,24 +59,24 @@ type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
  * Terser configuration
  */
 @options<BudMinimizeJSOptions>({
-  minify: undefined,
-  include: undefined,
   exclude: undefined,
   extractComments: false,
+  include: undefined,
+  minify: undefined,
   parallel: true,
   terserOptions: {
     compress: {
+      defaults: true,
       drop_console: false,
       drop_debugger: true,
-      defaults: true,
       unused: true,
     },
+    ecma: undefined,
+    enclose: undefined,
     format: {
       ascii_only: true,
       comments: false,
     },
-    ecma: undefined,
-    enclose: undefined,
     ie8: undefined,
     keep_classnames: undefined,
     keep_fnames: undefined,
@@ -95,88 +96,17 @@ class BudMinimizeJSPublicApi
   implements BudMinimizeJSPublicInterface
 {
   /**
-   * extractComments value
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
-   */
-  public declare extractComments: BudMinimizeJSPublicInterface['extractComments']
-  /**
-   * Get extractComments
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
-   */
-  public declare getExtractComments: BudMinimizeJSPublicInterface['getExtractComments']
-  /**
-   * Set extractComments
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
-   */
-  public declare setExtractComments: BudMinimizeJSPublicInterface['setExtractComments']
-
-  /**
-   * parallel value
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
-   */
-  public declare parallel: BudMinimizeJSPublicInterface['parallel']
-  /**
-   * Get parallel
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
-   */
-  public declare getParallel: BudMinimizeJSPublicInterface['getParallel']
-  /**
-   * Set parallel
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
-   */
-  public declare setParallel: BudMinimizeJSPublicInterface['setParallel']
-
-  /**
-   * Value of {@link Options.minify}
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
-   */
-  public declare minify: BudMinimizeJSPublicInterface['minify']
-  /**
-   * Get minify
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
-   */
-  public declare getMinify: BudMinimizeJSPublicInterface['getMinify']
-  /**
-   * Set minify
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
-   */
-  public declare setMinify: BudMinimizeJSPublicInterface['setMinify']
-
-  /**
-   * Set include
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
-   */
-  public declare include: BudMinimizeJSPublicInterface['include']
-  /**
-   * Get include
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
-   */
-  public declare getInclude: BudMinimizeJSPublicInterface['getInclude']
-  /**
-   * Set include
-   *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
-   */
-  public declare setInclude: BudMinimizeJSPublicInterface['setInclude']
-
-  /**
    * Exclude
    *
    * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#exclude}
    */
   public declare exclude: BudMinimizeJSPublicInterface['exclude']
-
+  /**
+   * extractComments value
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
+   */
+  public declare extractComments: BudMinimizeJSPublicInterface['extractComments']
   /**
    * Get exclude
    *
@@ -185,18 +115,30 @@ class BudMinimizeJSPublicApi
   public declare getExclude: BudMinimizeJSPublicInterface['getExclude']
 
   /**
-   * Set exclude
+   * Get extractComments
    *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#exclude}
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
    */
-  public declare setExclude: BudMinimizeJSPublicInterface['setExclude']
+  public declare getExtractComments: BudMinimizeJSPublicInterface['getExtractComments']
+  /**
+   * Get include
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
+   */
+  public declare getInclude: BudMinimizeJSPublicInterface['getInclude']
+  /**
+   * Get minify
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare getMinify: BudMinimizeJSPublicInterface['getMinify']
 
   /**
-   * terserOptions
+   * Get parallel
    *
-   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#terserOptions}
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
    */
-  public declare terserOptions: BudMinimizeJSPublicInterface['terserOptions']
+  public declare getParallel: BudMinimizeJSPublicInterface['getParallel']
   /**
    * Get terserOptions
    *
@@ -204,55 +146,70 @@ class BudMinimizeJSPublicApi
    */
   public declare getTerserOptions: BudMinimizeJSPublicInterface['getTerserOptions']
   /**
+   * Set include
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
+   */
+  public declare include: BudMinimizeJSPublicInterface['include']
+
+  /**
+   * Value of {@link Options.minify}
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare minify: BudMinimizeJSPublicInterface['minify']
+  /**
+   * parallel value
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
+   */
+  public declare parallel: BudMinimizeJSPublicInterface['parallel']
+  /**
+   * Set exclude
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#exclude}
+   */
+  public declare setExclude: BudMinimizeJSPublicInterface['setExclude']
+
+  /**
+   * Set extractComments
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments}
+   */
+  public declare setExtractComments: BudMinimizeJSPublicInterface['setExtractComments']
+
+  /**
+   * Set include
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#include}
+   */
+  public declare setInclude: BudMinimizeJSPublicInterface['setInclude']
+
+  /**
+   * Set minify
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#minify}
+   */
+  public declare setMinify: BudMinimizeJSPublicInterface['setMinify']
+
+  /**
+   * Set parallel
+   *
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#parallel}
+   */
+  public declare setParallel: BudMinimizeJSPublicInterface['setParallel']
+  /**
    * Set terserOptions
    *
    * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#terserOptions}
    */
   public declare setTerserOptions: BudMinimizeJSPublicInterface['setTerserOptions']
-
   /**
-   * Drop console
-   */
-  @bind
-  public dropConsole(enable: boolean = true): this {
-    this.set(`terserOptions.compress.drop_console`, enable)
-    return this
-  }
-
-  /**
-   * Drop comments
-   */
-  @bind
-  public dropComments(enable: boolean = true): this {
-    this.set(`terserOptions.format.comments`, !enable)
-    return this
-  }
-
-  /**
-   * Drop debugger statements
-   */
-  @bind
-  public dropDebugger(enable: boolean = true): this {
-    this.set(`terserOptions.compress.drop_debugger`, enable)
-    return this
-  }
-
-  /**
-   * Mangle output
-   * @deprecated Use {@link BudTerser.set} instead
+   * terserOptions
    *
-   * @example
-   * ```js
-   * bud.minify.js.set(`terserOptions.mangle`, {})
-   * ```
+   * @see {@link https://github.com/webpack-contrib/terser-webpack-plugin#terserOptions}
    */
-  @bind
-  public mangle(
-    mangle: BudMinimizeJSPublicInterface['terserOptions']['mangle'],
-  ): this {
-    this.set(`terserOptions.mangle`, mangle)
-    return this
-  }
+  public declare terserOptions: BudMinimizeJSPublicInterface['terserOptions']
 
   /**
    * @deprecated Use {@link BudTerser.dropComments} instead
@@ -287,6 +244,50 @@ class BudMinimizeJSPublicApi
   }
 
   /**
+   * Drop comments
+   */
+  @bind
+  public dropComments(enable: boolean = true): this {
+    this.set(`terserOptions.format.comments`, !enable)
+    return this
+  }
+
+  /**
+   * Drop console
+   */
+  @bind
+  public dropConsole(enable: boolean = true): this {
+    this.set(`terserOptions.compress.drop_console`, enable)
+    return this
+  }
+
+  /**
+   * Drop debugger statements
+   */
+  @bind
+  public dropDebugger(enable: boolean = true): this {
+    this.set(`terserOptions.compress.drop_debugger`, enable)
+    return this
+  }
+
+  /**
+   * Mangle output
+   * @deprecated Use {@link BudTerser.set} instead
+   *
+   * @example
+   * ```js
+   * bud.minify.js.set(`terserOptions.mangle`, {})
+   * ```
+   */
+  @bind
+  public mangle(
+    mangle: BudMinimizeJSPublicInterface['terserOptions']['mangle'],
+  ): this {
+    this.set(`terserOptions.mangle`, mangle)
+    return this
+  }
+
+  /**
    * @deprecated Use {@link BudTerser.set} instead
    *
    * @example
@@ -307,7 +308,7 @@ class BudMinimizeJSPublicApi
 }
 
 export {
+  type BudMinimizeJSOptions,
   BudMinimizeJSPublicApi,
   type BudMinimizeJSPublicInterface,
-  type BudMinimizeJSOptions,
 }

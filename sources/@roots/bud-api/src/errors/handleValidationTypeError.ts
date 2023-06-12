@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 
@@ -20,8 +21,8 @@ export function handleTypeError(
     ),
     {
       props: {
-        thrownBy: label,
         docs: new URL(`https://bud.js.org/docs/${label}`),
+        thrownBy: label,
       },
     },
   )

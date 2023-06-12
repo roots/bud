@@ -1,10 +1,10 @@
+import figures from '@roots/bud-support/figures'
+import * as Ink from '@roots/bud-support/ink'
 import {platform} from 'node:os'
 
-import figures from '@roots/bud-support/figures'
-import * as Ink from 'ink'
+import type {Props} from './index.js'
 
 import Compilation from './compilation/compilation.component.js'
-import type {Props} from './index.js'
 import Messages from './messages/messages.component.js'
 import {Server} from './server/index.js'
 
@@ -12,13 +12,13 @@ const App = ({
   compilations,
   context,
   devUrl,
-  proxyUrl,
-  displayServerInfo,
   displayAssets,
   displayEntrypoints,
+  displayServerInfo,
+  mode,
+  proxyUrl,
   publicDevUrl,
   publicProxyUrl,
-  mode,
   watchFiles = new Set(),
 }: Props) => {
   if (!compilations.length)
@@ -57,22 +57,22 @@ const App = ({
       ) : null}
 
       {compilations.map((compilation, id) => (
-        <Ink.Box key={id} flexDirection="column" paddingBottom={1}>
+        <Ink.Box flexDirection="column" key={id} paddingBottom={1}>
           {compilation.errors && (
             <Messages
-              type="error"
               color="red"
-              messages={compilation.errors}
               figure={figures.cross}
+              messages={compilation.errors}
+              type="error"
             />
           )}
 
           {compilation.warnings && (
             <Messages
-              type="warning"
               color="yellow"
-              messages={compilation.warnings}
               figure={figures.warning}
+              messages={compilation.warnings}
+              type="warning"
             />
           )}
 
@@ -89,11 +89,11 @@ const App = ({
         <Ink.Box flexDirection="column" paddingBottom={1}>
           <Server
             devUrl={devUrl}
-            publicDevUrl={publicDevUrl}
+            displayServerInfo={displayServerInfo}
             proxyUrl={proxyUrl}
+            publicDevUrl={publicDevUrl}
             publicProxyUrl={publicProxyUrl}
             watchFiles={watchFiles}
-            displayServerInfo={displayServerInfo}
           />
         </Ink.Box>
       ) : null}

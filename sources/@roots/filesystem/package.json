@@ -44,7 +44,8 @@
   "files": [
     "docs",
     "lib",
-    "src"
+    "src",
+    "vendor"
   ],
   "type": "module",
   "exports": {
@@ -54,7 +55,8 @@
     "./json": "./lib/json.js",
     "./s3": "./lib/s3/index.js",
     "./s3/*": "./lib/s3/*.js",
-    "./yml": "./lib/yml.js"
+    "./yml": "./lib/yml.js",
+    "./vendor/sdk": "./vendor/sdk/index.cjs"
   },
   "typesVersions": {
     "*": {
@@ -84,11 +86,11 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.ts",
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.345.0",
+    "@aws-sdk/client-s3": "3.348.0",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.5",
     "@types/mime-types": "2.1.1",
-    "@types/node": "18.16.12",
+    "@types/node": "18.16.16",
     "@types/safe-json-stringify": "1.1.2"
   },
   "dependencies": {
@@ -100,15 +102,7 @@
     "lodash": "4.17.21",
     "mime-types": "2.1.35",
     "safe-json-stringify": "1.2.0",
-    "tslib": "2.5.0"
-  },
-  "peerDependencies": {
-    "@aws-sdk/client-s3": "3.332.0"
-  },
-  "peerDependenciesMeta": {
-    "@aws-sdk/client-s3": {
-      "optional": true
-    }
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

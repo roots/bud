@@ -2,14 +2,14 @@
  * Client options
  */
 let data: Options = {
-  timeout: 2000,
-  reload: true,
-  name: `@roots/bud-client`,
   debug: true,
-  log: true,
   indicator: true,
+  log: true,
+  name: `@roots/bud-client`,
   overlay: true,
   path: `/bud/hot`,
+  reload: true,
+  timeout: 2000,
 }
 
 /**

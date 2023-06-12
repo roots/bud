@@ -1,7 +1,8 @@
 import {asError, BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
+
 import Configuration from './configuration.js'
 
 /**
@@ -31,8 +32,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -42,8 +43,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -59,8 +60,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -70,8 +71,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -86,8 +87,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -97,8 +98,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -116,8 +117,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }
@@ -126,8 +127,8 @@ export const process = async (app: Bud) => {
       } catch (err) {
         throw new ConfigError(`Error in ${description.name}`, {
           props: {
-            origin: err.isBudError ? err : BudError.normalize(err),
             file: description,
+            origin: err.isBudError ? err : BudError.normalize(err),
           },
         })
       }

@@ -1,9 +1,3 @@
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-babel" />
-/// <reference types="@roots/bud-esbuild" />
-/// <reference types="@roots/bud-swc" />
-/// <reference types="@roots/bud-typescript" />
-
 import type {
   Extension,
   PublicExtensionApi,
@@ -21,9 +15,9 @@ interface PublicBudReactRefresh extends PublicExtensionApi {
 
 interface PublicBudReact extends PublicExtensionApi {
   refresh: PublicBudReactRefresh
+  useBabel: boolean
   useSWC: boolean
   useTypeScript: boolean
-  useBabel: boolean
 }
 
 declare module '@roots/bud-framework' {

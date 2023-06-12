@@ -1,4 +1,4 @@
-import type {Configuration} from '@roots/bud-support/webpack'
+import type {Configuration} from '@roots/bud-framework/config'
 
 import type {Service as BaseService} from '../../../service.js'
 
@@ -6,26 +6,6 @@ import type {Service as BaseService} from '../../../service.js'
  * Cache service Interface
  */
 export interface Service extends BaseService {
-  /**
-   * Cache name
-   */
-  name: string
-
-  /**
-   * Enabled?
-   */
-  enabled: boolean
-
-  /**
-   * Cache type
-   */
-  type: 'memory' | 'filesystem'
-
-  /**
-   * Cache version
-   */
-  version: string
-
   /**
    * Cache build dependencies
    */
@@ -41,5 +21,25 @@ export interface Service extends BaseService {
    */
   configuration: Configuration['cache']
 
+  /**
+   * Enabled?
+   */
+  enabled: boolean
+
   flush: () => Promise<void>
+
+  /**
+   * Cache name
+   */
+  name: string
+
+  /**
+   * Cache type
+   */
+  type: 'filesystem' | 'memory'
+
+  /**
+   * Cache version
+   */
+  version: string
 }

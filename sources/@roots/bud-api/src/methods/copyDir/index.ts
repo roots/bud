@@ -1,11 +1,13 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
-import {isAbsolute} from 'path'
+
+import isString from '@roots/bud-support/lodash/isString'
+import {isAbsolute} from 'node:path'
 
 type FromToTuple = [string, string]
 
 export type Parameters = [
-  string | FromToTuple,
+  FromToTuple | string,
   string?,
   Partial<CopyPlugin.ObjectPattern>?,
 ]
@@ -20,25 +22,23 @@ export const copyDir: copyDir = async function copyDir(
   context,
   overrides = {},
 ) {
-  const app = this as Bud
-  const makePatternObjectFromString = fromStringFactory(app, overrides)
-  const makePatternObjectFromTuple = fromTupleFactory(app, overrides)
+  const makePatternObjectFromString = fromStringFactory(this, overrides)
+  const makePatternObjectFromTuple = fromTupleFactory(this, overrides)
 
-  if (!context) context = app.path(`@src`)
-  if (!isAbsolute(context)) context = app.path(context)
+  if (!context) context = this.path(`@src`)
+  if (!isAbsolute(context)) context = this.path(context)
 
-  const result =
-    typeof request === `string`
-      ? makePatternObjectFromString(request, context)
-      : makePatternObjectFromTuple(...request, context)
+  const result = isString(request)
+    ? makePatternObjectFromString(request, context)
+    : makePatternObjectFromTuple(...request, context)
 
-  app.extensions
+  this.extensions
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
-    .set(`patterns`, (patterns = []) => [...patterns, result])
+    .setPatterns((patterns = []) => [...patterns, result])
 
-  app.api.logger.success(`bud.copyDir: asset pattern added`)
+  this.api.logger.success(`bud.copyDir: asset pattern added`)
 
-  return app
+  return this
 }
 
 /**
@@ -47,10 +47,10 @@ export const copyDir: copyDir = async function copyDir(
 export const fromStringFactory =
   (app: Bud, overrides: Partial<CopyPlugin.ObjectPattern>) =>
   (from: string, context: string): CopyPlugin.ObjectPattern => ({
-    from: app.relPath(from),
-    to: app.relPath(from, `@file`),
     context,
+    from: app.relPath(from),
     globOptions: {dot: false},
+    to: app.relPath(from, `@file`),
     ...overrides,
   })
 
@@ -64,9 +64,9 @@ export const fromTupleFactory =
     to: string,
     context: string,
   ): CopyPlugin.ObjectPattern => ({
-    from: app.relPath(from),
-    to: app.relPath(to, `@file`),
     context,
+    from: app.relPath(from),
     globOptions: {dot: false},
+    to: app.relPath(to, `@file`),
     ...overrides,
   })

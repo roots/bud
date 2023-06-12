@@ -49,26 +49,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./api": {
-      "import": "./lib/api/index.js",
-      "default": "./lib/api/index.js"
-    },
-    "./methods": {
-      "import": "./lib/methods/index.js",
-      "default": "./lib/methods/index.js"
-    },
-    "./methods/*": {
-      "import": "./lib/methods/*.js",
-      "default": "./lib/methods/*.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./api": "./lib/api/index.js",
+    "./methods": "./lib/methods/index.js",
+    "./methods/*": "./lib/methods/*.js"
   },
   "typesVersions": {
     "*": {
@@ -83,19 +67,15 @@
       ],
       "methods/*": [
         "./lib/methods/*.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-minify": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
@@ -103,8 +83,7 @@
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",
     "chalk": "5.2.0",
-    "tslib": "2.5.0",
-    "webpack": "5.85.1"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

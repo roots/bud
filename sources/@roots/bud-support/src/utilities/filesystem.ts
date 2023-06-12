@@ -29,4 +29,4 @@ export const get = (basedir?: string) => {
   return filesystem
 }
 
-export {Filesystem, filesystem}
+export {filesystem, Filesystem}

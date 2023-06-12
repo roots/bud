@@ -1,14 +1,14 @@
-import {randomUUID} from 'node:crypto'
-
 import type {Bud, Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
+import type {Extensions as Contract} from '@roots/bud-framework/services'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
-import type {Extensions as Contract} from '@roots/bud-framework/services'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
+import {randomUUID} from 'node:crypto'
 
 import {handleManifestSchemaWarning} from './util/handleManifestSchemaWarning.js'
 import {isConstructor} from './util/isConstructor.js'
@@ -23,9 +23,6 @@ export default class Extensions
   /**
    * Registered extensions
    */
-  // @ts-ignore
-  public repository: Modules = {}
-
   /**
    * Resolved options
    */
@@ -34,6 +31,9 @@ export default class Extensions
     denylist: Array<string>
     discover: boolean
   }>
+
+  // @ts-ignore
+  public repository: Modules
 
   /**
 -   * Modules on which an import attempt was made and failed
@@ -54,18 +54,39 @@ export default class Extensions
       denylist: [],
       discover: true,
     })
+    this.repository = {} as Modules
   }
 
   /**
-   * `register` callback
-   *
-   * @todo
-   * All this is doing is helping transition people to using `bud.extensions` key for
-   * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
+   * Add a {@link Extension} to the extensions repository
    */
   @bind
-  public override async register(bud: Bud): Promise<void> {
-    handleManifestSchemaWarning.bind(this)(bud)
+  public async add<K extends `${keyof Modules & string}`>(
+    extension:
+      | Array<
+          K | (new (bud: Bud) => Partial<Extension>) | Partial<Extension>
+        >
+      | K
+      | (new (bud: Bud) => Partial<Extension>)
+      | Partial<Extension>,
+  ): Promise<void> {
+    const arrayed = Array.isArray(extension) ? extension : [extension]
+
+    await arrayed.reduce(async (promised, item) => {
+      await promised
+
+      const moduleObject =
+        typeof item === `string`
+          ? await import(item).then(pkg => pkg.default ?? pkg)
+          : item
+
+      const extension = await this.instantiate(moduleObject)
+
+      this.set(extension)
+
+      await this.run(extension, `register`)
+      await this.run(extension, `boot`)
+    }, Promise.resolve())
   }
 
   /**
@@ -156,11 +177,11 @@ export default class Extensions
   }
 
   /**
-   * `configAfter` callback
+   * {@link Extension.buildBefore}
    */
   @bind
-  public override async configAfter?() {
-    await this.runAll(`configAfter`)
+  public override async buildAfter?() {
+    await this.runAll(`buildAfter`)
   }
 
   /**
@@ -172,19 +193,11 @@ export default class Extensions
   }
 
   /**
-   * {@link Extension.buildBefore}
+   * `configAfter` callback
    */
   @bind
-  public override async buildAfter?() {
-    await this.runAll(`buildAfter`)
-  }
-
-  /**
-   * Has extension
-   */
-  @bind
-  public has(key: string): key is keyof Modules {
-    return this.repository[key] ? true : false
+  public override async configAfter?() {
+    await this.runAll(`configAfter`)
   }
 
   /**
@@ -196,67 +209,11 @@ export default class Extensions
   }
 
   /**
-   * Remove extension
+   * Has extension
    */
   @bind
-  public remove<K extends `${keyof Modules & string}`>(key: K): this {
-    delete this.repository[key]
-    return this
-  }
-
-  /**
-   * Set extension
-   */
-  @bind
-  public set(value: Extension): this {
-    const key = value.label ?? randomUUID()
-    this.repository[key] = value
-    this.logger.success(`set`, key)
-
-    return this
-  }
-
-  /**
-   * Instantiate a Framework extension class or object
-   */
-  @bind
-  public async instantiate(
-    source:
-      | (new (...args: any[]) => Extension)
-      | Extension
-      | {apply: (...args: any[]) => any},
-  ): Promise<Extension> {
-    if (source instanceof Extension) return source
-
-    if (isConstructor(source)) {
-      return new source(this.app)
-    }
-
-    if (typeof source === `function`) {
-      return source(this.app)
-    }
-
-    if (typeof source.apply === `function`) {
-      return source as Extension
-    }
-
-    if (!isConstructor(source)) {
-      const instance = new Extension(this.app)
-      Object.entries(source).forEach(([k, v]) => (instance[k] = v))
-      return instance
-    }
-
-    return new source()
-  }
-
-  @bind
-  public isAllowed(signifier: string): boolean {
-    return (
-      (this.options.isEmpty(`denylist`) ||
-        !this.options.get(`denylist`).includes(signifier)) &&
-      (this.options.isEmpty(`allowlist`) ||
-        this.options.get(`allowlist`).includes(signifier))
-    )
+  public has(key: string): key is keyof Modules {
+    return this.repository[key] ? true : false
   }
 
   /**
@@ -328,35 +285,91 @@ export default class Extensions
   }
 
   /**
-   * Add a {@link Extension} to the extensions repository
+   * Instantiate a Framework extension class or object
    */
   @bind
-  public async add<K extends `${keyof Modules & string}`>(
-    extension:
-      | Partial<Extension>
-      | (new (bud: Bud) => Partial<Extension>)
-      | K
-      | Array<
-          Partial<Extension> | (new (bud: Bud) => Partial<Extension>) | K
-        >,
-  ): Promise<void> {
-    const arrayed = Array.isArray(extension) ? extension : [extension]
+  public async instantiate(
+    source:
+      | {apply: (...args: any[]) => any}
+      | Extension
+      | (new (...args: any[]) => Extension),
+  ): Promise<Extension> {
+    if (source instanceof Extension) return source
 
-    await arrayed.reduce(async (promised, item) => {
-      await promised
+    if (isConstructor(source)) {
+      return new source(this.app)
+    }
 
-      const moduleObject =
-        typeof item === `string`
-          ? await import(item).then(pkg => pkg.default ?? pkg)
-          : item
+    if (typeof source === `function`) {
+      return source(this.app)
+    }
 
-      const extension = await this.instantiate(moduleObject)
+    if (typeof source.apply === `function`) {
+      return source as Extension
+    }
 
-      this.set(extension)
+    if (!isConstructor(source)) {
+      const instance = new Extension(this.app)
+      Object.entries(source).forEach(([k, v]) => {
+        if (k === `options`) {
+          instance.setOptions(v)
+          return
+        }
+        instance[k] = v
+      })
+      return instance
+    }
 
-      await this.run(extension, `register`)
-      await this.run(extension, `boot`)
-    }, Promise.resolve())
+    return new source()
+  }
+
+  @bind
+  public isAllowed(signifier: string): boolean {
+    return (
+      (this.options.isEmpty(`denylist`) ||
+        !this.options.get(`denylist`).includes(signifier)) &&
+      (this.options.isEmpty(`allowlist`) ||
+        this.options.get(`allowlist`).includes(signifier))
+    )
+  }
+
+  /**
+   * Returns an array of plugin instances which have been registered to the
+   * container and are set to be used in the compilation
+   *
+   * @returns An array of plugin instances
+   */
+  @bind
+  public async make(): Promise<ApplyPlugin[]> {
+    return await Promise.all(
+      Object.values(this.repository).map(async extension =>
+        extension.apply ? extension : await extension._make(),
+      ),
+    ).then(
+      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
+        result.filter(Boolean),
+    )
+  }
+
+  /**
+   * `register` callback
+   *
+   * @todo
+   * All this is doing is helping transition people to using `bud.extensions` key for
+   * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
+   */
+  @bind
+  public override async register(bud: Bud): Promise<void> {
+    handleManifestSchemaWarning.bind(this)(bud)
+  }
+
+  /**
+   * Remove extension
+   */
+  @bind
+  public remove<K extends `${keyof Modules & string}`>(key: K): this {
+    delete this.repository[key]
+    return this
   }
 
   /**
@@ -455,20 +468,14 @@ export default class Extensions
   }
 
   /**
-   * Returns an array of plugin instances which have been registered to the
-   * container and are set to be used in the compilation
-   *
-   * @returns An array of plugin instances
+   * Set extension
    */
   @bind
-  public async make(): Promise<ApplyPlugin[]> {
-    return await Promise.all(
-      Object.values(this.repository).map(async extension =>
-        extension.apply ? extension : await extension._make(),
-      ),
-    ).then(
-      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
-        result.filter(Boolean),
-    )
+  public set(value: Extension): this {
+    const key = value.label ?? randomUUID()
+    this.repository[key] = value
+    this.logger.success(`set`, key)
+
+    return this
   }
 }

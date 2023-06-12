@@ -1,6 +1,7 @@
-import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 import type {Bud} from '@roots/bud-framework'
-import * as Ink from 'ink'
+
+import * as Ink from '@roots/bud-support/ink'
+import {isInternalDevelopmentEnv} from '@roots/bud/cli/helpers/isInternalDevelopmentEnv'
 
 export const checkDependencies = async (bud: Bud) => {
   if (isInternalDevelopmentEnv(bud)) return false
@@ -10,7 +11,7 @@ export const checkDependencies = async (bud: Bud) => {
     ...(bud.context.manifest?.devDependencies ?? {}),
   })
     .filter(([name]) => name.startsWith(`@roots/`))
-    .filter(([signifier, version]: [string, string]) => {
+    .filter(([_signifier, version]: [string, string]) => {
       version = version.replace(`^`, ``)
       return (
         version !== `latest` &&

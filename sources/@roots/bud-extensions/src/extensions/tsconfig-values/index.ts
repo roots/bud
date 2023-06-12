@@ -1,6 +1,5 @@
-import {isAbsolute, join} from 'node:path'
-
 import type {Bud} from '@roots/bud-framework'
+
 import {
   Extension,
   type StrictPublicExtensionApi as PublicExtensionApi,
@@ -13,12 +12,13 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
+import {isAbsolute, join} from 'node:path'
 
 type CompilerOptions = {
-  rootDir?: string
   baseUrl?: string
   outDir?: string
   paths?: Record<string, Array<string>>
+  rootDir?: string
 }
 
 type BudOptions = {
@@ -26,10 +26,10 @@ type BudOptions = {
 }
 
 type Options = {
-  compilerOptions?: CompilerOptions
-  include?: Array<string>
-  exclude?: Array<string>
   bud?: BudOptions
+  compilerOptions?: CompilerOptions
+  exclude?: Array<string>
+  include?: Array<string>
 }
 
 type Api = PublicExtensionApi<BudTsConfigValues, Options>
@@ -44,10 +44,10 @@ type Api = PublicExtensionApi<BudTsConfigValues, Options>
 @label(`@roots/bud-extensions/tsconfig-values`)
 @expose(`tsconfig`)
 @options<Options>({
-  compilerOptions: undefined,
-  include: undefined,
-  exclude: undefined,
   bud: undefined,
+  compilerOptions: undefined,
+  exclude: undefined,
+  include: undefined,
 })
 @disabled
 export default class BudTsConfigValues
@@ -55,17 +55,59 @@ export default class BudTsConfigValues
   implements Api
 {
   /**
+   * tsconfig.json bud value
+   */
+  public declare bud: Api['bud']
+
+  /**
    * compilerOptions value
    * @see https://www.typescriptlang.org/tsconfig#compilerOptions
    */
   public declare compilerOptions: Api['compilerOptions']
 
   /**
+   * tsconfig.exclude value
+   * @see https://www.typescriptlang.org/tsconfig#exclude
+   */
+  public declare exclude: Api['exclude']
+
+  /**
+   * Get bud tsconfig.json value
+   * @returns tsconfig.bud value
+   */
+  public declare getBud: Api['getBud']
+  /**
    * Get compilerOptions
    * @returns CompilerOptions
    * @see https://www.typescriptlang.org/tsconfig#compilerOptions
    */
   public declare getCompilerOptions: Api['getCompilerOptions']
+
+  /**
+   * Get exclude
+   * @returns exclude
+   * @see https://www.typescriptlang.org/tsconfig#exclude
+   */
+  public declare getExclude: Api['getExclude']
+
+  /**
+   * Get include
+   * @returns include
+   * @see https://www.typescriptlang.org/tsconfig#include
+   */
+  public declare getInclude: Api['getInclude']
+
+  /**
+   * include value
+   * @see https://www.typescriptlang.org/tsconfig#include
+   */
+  public declare include: Api['include']
+  /**
+   * Set bud tsconfig.json value
+   * @param options bud
+   * @returns this
+   */
+  public declare setBud: Api['setBud']
 
   /**
    * Set compilerOptions
@@ -76,17 +118,12 @@ export default class BudTsConfigValues
   public declare setCompilerOptions: Api['setCompilerOptions']
 
   /**
-   * include value
-   * @see https://www.typescriptlang.org/tsconfig#include
+   * Set exclude
+   * @param options exclude
+   * @returns this
+   * @see https://www.typescriptlang.org/tsconfig#exclude
    */
-  public declare include: Api['include']
-  /**
-   * Get include
-   * @returns include
-   * @see https://www.typescriptlang.org/tsconfig#include
-   */
-  public declare getInclude: Api['getInclude']
-
+  public declare setExclude: Api['setExclude']
   /**
    * Set include
    * @param options include
@@ -94,73 +131,6 @@ export default class BudTsConfigValues
    * @see https://www.typescriptlang.org/tsconfig#include
    */
   public declare setInclude: Api['setInclude']
-
-  /**
-   * tsconfig.exclude value
-   * @see https://www.typescriptlang.org/tsconfig#exclude
-   */
-  public declare exclude: Api['exclude']
-
-  /**
-   * Get exclude
-   * @returns exclude
-   * @see https://www.typescriptlang.org/tsconfig#exclude
-   */
-  public declare getExclude: Api['getExclude']
-  /**
-   * Set exclude
-   * @param options exclude
-   * @returns this
-   * @see https://www.typescriptlang.org/tsconfig#exclude
-   */
-  public declare setExclude: Api['setExclude']
-
-  /**
-   * tsconfig.json bud value
-   */
-  public declare bud: Api['bud']
-
-  /**
-   * Get bud tsconfig.json value
-   * @returns tsconfig.bud value
-   */
-  public declare getBud: Api['getBud']
-  /**
-   * Set bud tsconfig.json value
-   * @param options bud
-   * @returns this
-   */
-  public declare setBud: Api['setBud']
-
-  public get tsConfigSource(): Options | undefined {
-    return (
-      this.app.context.files[`tsconfig.json`]?.module ??
-      this.app.context.files[`jsconfig.json`]?.module
-    )
-  }
-
-  public get derivedBaseDir(): string | undefined {
-    return (
-      this.getCompilerOptions()?.rootDir ??
-      this.getCompilerOptions()?.baseUrl
-    )
-  }
-
-  /**
-   * {@link Extension.register}
-   */
-  public override async register(bud: Bud) {
-    const tsConfig = this.tsConfigSource
-
-    if (this.tsConfigSource?.compilerOptions)
-      this.setCompilerOptions(tsConfig.compilerOptions)
-
-    if (this.tsConfigSource?.include) this.setInclude(tsConfig.include)
-    if (this.tsConfigSource?.exclude) this.setExclude(tsConfig.exclude)
-    if (this.tsConfigSource?.bud) this.setBud(tsConfig.bud)
-
-    if (this.bud?.useCompilerOptions === true) this.enable()
-  }
 
   /**
    * The `configAfter` method adjusts the bud.js application
@@ -235,6 +205,13 @@ export default class BudTsConfigValues
     }
   }
 
+  public get derivedBaseDir(): string | undefined {
+    return (
+      this.getCompilerOptions()?.rootDir ??
+      this.getCompilerOptions()?.baseUrl
+    )
+  }
+
   /**
    * Make absolute path
    *
@@ -276,5 +253,28 @@ export default class BudTsConfigValues
 
     this.logger.log(`normalized paths`, normalPaths)
     return normalPaths
+  }
+
+  /**
+   * {@link Extension.register}
+   */
+  public override async register(bud: Bud) {
+    const tsConfig = this.tsConfigSource
+
+    if (this.tsConfigSource?.compilerOptions)
+      this.setCompilerOptions(tsConfig.compilerOptions)
+
+    if (this.tsConfigSource?.include) this.setInclude(tsConfig.include)
+    if (this.tsConfigSource?.exclude) this.setExclude(tsConfig.exclude)
+    if (this.tsConfigSource?.bud) this.setBud(tsConfig.bud)
+
+    if (this.bud?.useCompilerOptions === true) this.enable()
+  }
+
+  public get tsConfigSource(): Options | undefined {
+    return (
+      this.app.context.files[`tsconfig.json`]?.module ??
+      this.app.context.files[`jsconfig.json`]?.module
+    )
   }
 }

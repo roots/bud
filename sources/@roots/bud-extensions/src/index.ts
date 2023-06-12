@@ -4,14 +4,13 @@
 /**
  * Extensions controller and built-in extensions
  *
- * @see {@link https://bud.js.org bud.js.org}
- * @see {@link https://github.com/roots/bud github}
+ * @see {@link https://bud.js.org}
+ * @see {@link https://github.com/roots/bud}
  *
  *  @packageDocumentation
  */
 
-import './types.js'
-
 import Extensions from './service/index.js'
+import './types.js'
 
 export default Extensions

@@ -2,10 +2,10 @@
 
 export const makeLogger = (options: Options) => {
   return {
-    log: makeLog(options),
     error: makeError(options),
-    warn: makeWarn(options),
     info: makeInfo(options),
+    log: makeLog(options),
+    warn: makeWarn(options),
   }
 }
 

@@ -1,13 +1,13 @@
 /* eslint-disable no-console */
-import {join} from 'node:path'
-
 import type {Context} from '@roots/bud-framework/options'
+
 import args from '@roots/bud-support/utilities/args'
 import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as filesystem from '@roots/bud-support/utilities/filesystem'
 import logger from '@roots/bud-support/utilities/logger'
 import * as projectPaths from '@roots/bud-support/utilities/paths'
+import {join} from 'node:path'
 
 import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
@@ -43,14 +43,8 @@ export default async (
     ...options,
     basedir,
     bin: (env.BUD_JS_BIN as Context[`bin`]) ?? `node`,
-    label: options?.label ?? manifest?.name ?? bud?.label ?? `default`,
-    mode: options?.mode ?? `production`,
-    env: {...(env ?? {}), ...(options?.env ?? {})},
-    files: {...(files ?? {}), ...(options?.files ?? {})},
-    paths: {...paths, ...(options?.paths ?? {})},
-    services: [...(services ?? []), ...(options?.services ?? [])],
     bud: {...bud, ...(options?.bud ?? {})},
-    manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
+    env: {...(env ?? {}), ...(options?.env ?? {})},
     extensions: {
       builtIn: [
         ...(extensions?.builtIn ?? []),
@@ -61,6 +55,12 @@ export default async (
         ...(options?.extensions?.discovered ?? []),
       ],
     },
+    files: {...(files ?? {}), ...(options?.files ?? {})},
+    label: options?.label ?? manifest?.name ?? bud?.label ?? `default`,
+    manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
+    mode: options?.mode ?? `production`,
+    paths: {...paths, ...(options?.paths ?? {})},
+    services: [...(services ?? []), ...(options?.services ?? [])],
   }
 
   logger

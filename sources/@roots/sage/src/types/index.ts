@@ -1,14 +1,9 @@
-/* eslint-disable n/no-extraneous-import */
-import '@roots/bud/types'
-import '@roots/bud-preset-wordpress/types'
-
-import type {Item} from '@roots/bud-build/item'
-import type {Loader} from '@roots/bud-build/loader'
-import type {Rule} from '@roots/bud-build/rule'
+import type {Item, Loader, Rule} from '@roots/bud-build'
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type BudPresetWordPress from '@roots/bud-preset-wordpress/extension'
 
-import type Acorn from '../acorn/index.js'
 import type AcornV2PublicPath from '../acorn-v2-public-path/index.js'
+import type Acorn from '../acorn/index.js'
 import type BladeLoader from '../blade-loader/index.js'
 import type Sage from '../sage/index.js'
 
@@ -23,6 +18,7 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
+    '@roots/bud-preset-wordpress': BudPresetWordPress
     '@roots/sage': Sage
     '@roots/sage/acorn': Acorn
     '@roots/sage/acorn-v2-public-path'?: AcornV2PublicPath
@@ -30,10 +26,10 @@ declare module '@roots/bud-framework' {
   }
 
   interface Locations {
-    '@resources': string
-    '@public': string
     '@fonts': string
     '@images': string
+    '@public': string
+    '@resources': string
     '@scripts': string
     '@styles': string
     '@views': string

@@ -1,13 +1,11 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
-
-    "rootDir": "src",
-    "outDir": "lib",
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "types": ["node", "@roots/bud-framework"]
   },
   "include": ["src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
-
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../wordpress-dependencies-webpack-plugin/tsconfig.json"}

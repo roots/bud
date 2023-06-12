@@ -40,7 +40,7 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "bud-extension",
+    "extension",
     "esbuild"
   ],
   "files": [
@@ -67,15 +67,15 @@
   "devDependencies": {
     "@roots/bud-build": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "esbuild-loader": "3.0.1",
-    "tslib": "2.5.0",
-    "webpack": "5.85.1"
+    "tslib": "2.5.3",
+    "webpack": "5.86.0"
   },
   "volta": {
     "extends": "../../../package.json"

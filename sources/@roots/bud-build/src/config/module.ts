@@ -4,8 +4,8 @@ import type {Factory} from './index.js'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]
-  rules: Bud[`build`][`rules`]
   path: Bud[`path`]
+  rules: Bud[`build`][`rules`]
 }
 
 export const module: Factory<`module`> = async ({
@@ -22,9 +22,9 @@ export const module: Factory<`module`> = async ({
 const getRules = ({filter, path, rules}: Props) => [
   ...filter(`build.module.rules.before`, [
     {
-      test: filter(`pattern.js`),
       include: [path(`@src`)],
       parser: {requireEnsure: false},
+      test: filter(`pattern.js`),
     },
   ]),
   {

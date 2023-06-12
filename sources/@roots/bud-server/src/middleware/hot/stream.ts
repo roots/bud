@@ -1,15 +1,14 @@
-import type {IncomingMessage, ServerResponse} from 'node:http'
-
 import type {Payload} from '@roots/bud-server/middleware/hot'
 import type {
   NextFunction,
   NextHandleFunction,
 } from '@roots/bud-support/express'
+import type {IncomingMessage, ServerResponse} from 'node:http'
 
 export interface HotEventStream {
+  close(): void
   handler: NextHandleFunction
   publish(payload: Payload): void
-  close(): void
 }
 
 /**
@@ -17,8 +16,8 @@ export interface HotEventStream {
  */
 const headers = {
   'Access-Control-Allow-Origin': `*`,
-  'Content-Type': `text/event-stream;charset=utf-8`,
   'Cache-Control': `no-cache, no-transform`,
+  'Content-Type': `text/event-stream;charset=utf-8`,
   // While behind nginx, event stream should not be buffered:
   // http://nginx.org/docs/http/ngx_http_proxy_module.html#proxy_buffering
   'X-Accel-Buffering': `no`,
@@ -76,6 +75,15 @@ export class HotEventStream {
   }
 
   /**
+   * Close stream
+   */
+  public close() {
+    clearInterval(this.interval)
+    tapClients(closeClient)
+    clients = {}
+  }
+
+  /**
    * Handle update message
    */
   public handle(
@@ -112,14 +120,5 @@ export class HotEventStream {
     tapClients(client => {
       client.write(`data: ${JSON.stringify(payload)} \n\n`)
     })
-  }
-
-  /**
-   * Close stream
-   */
-  public close() {
-    clearInterval(this.interval)
-    tapClients(closeClient)
-    clients = {}
   }
 }

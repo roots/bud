@@ -1,13 +1,14 @@
 import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
 import type * as InterpolateHTMLExtension from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
+
 import isObject from '@roots/bud-support/lodash/isObject'
 
 type Options = HTMLExtension.Options & {
   replace?: InterpolateHTMLExtension.Options
 }
 
-export type Parameters = [(Options | boolean)?]
+export type Parameters = [(boolean | Options)?]
 
 export interface html {
   (...options: Parameters): Promise<Bud>
@@ -38,7 +39,7 @@ export const html: html = async function (this: Bud, options) {
 
   if (isObject(options) && isObject(options.replace)) {
     Object.entries(options.replace).forEach(
-      (v: [string, string | RegExp]) =>
+      (v: [string, RegExp | string]) =>
         interpolateVariablesExtension.set(...v),
     )
   }

@@ -1,3 +1,8 @@
+import type {
+  Options,
+  Schema,
+} from '@roots/wordpress-theme-json-webpack-plugin'
+
 import {
   DynamicOption,
   Extension,
@@ -14,10 +19,6 @@ import {
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import Container from '@roots/container'
-import type {
-  Options,
-  Schema,
-} from '@roots/wordpress-theme-json-webpack-plugin'
 import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 
 /**
@@ -26,31 +27,29 @@ import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
 interface Mutator {
   (
     json:
-      | Partial<Schema.SettingsAndStyles['settings']>
-      | Container<Partial<Schema.SettingsAndStyles['settings']>>,
+      | Container<Partial<Schema.SettingsAndStyles['settings']>>
+      | Partial<Schema.SettingsAndStyles['settings']>,
   ):
-    | Partial<Schema.SettingsAndStyles['settings']>
     | Container<Partial<Schema.SettingsAndStyles['settings']>>
+    | Partial<Schema.SettingsAndStyles['settings']>
 }
 
 type Api = StrictPublicExtensionApi<
   WordPressThemeJSON,
   Options & Record<string, unknown>
 > & {
-  path: Options['path']
-  generated: Options['__generated__']
   customTemplates: Options['customTemplates']
+  generated: Options['__generated__']
+  path: Options['path']
   patterns: Options['patterns']
-  styles: Options['styles']
-  templateParts: Options['templateParts']
-  version: Options['version']
   /**
    * ## bud.wpjson.settings
    *
    * Define `theme.json` settings using an options object or callback
    */
   settings: WordPressThemeJSON[`settings`]
-
+  styles: Options['styles']
+  templateParts: Options['templateParts']
   /**
    * ## bud.wpjson.useTailwindColors
    *
@@ -80,6 +79,8 @@ type Api = StrictPublicExtensionApi<
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
   useTailwindFontSize: (value?: boolean, extendOnly?: boolean) => Api
+
+  version: Options['version']
 }
 
 /**
@@ -94,13 +95,10 @@ type Api = StrictPublicExtensionApi<
  */
 @label(`@roots/bud-wordpress-theme-json`)
 @options<Options>({
-  path: DynamicOption.make(({path}) => path(`./theme.json`)),
   __generated__: undefined,
   customTemplates: undefined,
+  path: DynamicOption.make(({path}) => path(`./theme.json`)),
   patterns: undefined,
-  styles: undefined,
-  templateParts: undefined,
-  version: undefined,
   settings: {
     color: {
       custom: false,
@@ -119,6 +117,9 @@ type Api = StrictPublicExtensionApi<
       dropCap: false,
     },
   },
+  styles: undefined,
+  templateParts: undefined,
+  version: undefined,
 })
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
@@ -127,14 +128,41 @@ class WordPressThemeJSON
   extends Extension<Options, ThemeJsonWebpackPlugin>
   implements Api
 {
+  public declare customTemplates: Api['customTemplates']
+
+  public declare getCustomTemplates: Api['getCustomTemplates']
+  public declare getPath: Api['getPath']
+
+  public declare getPatterns: Api['getPatterns']
+  public declare getSettings: Api['getSettings']
+  public declare getStyles: Api['getStyles']
+
+  public declare getTemplateParts: Api['getTemplateParts']
+  public declare getVersion: Api['getVersion']
+  public declare path: Api['path']
+
+  public declare patterns: Api['patterns']
+  public declare setCustomTemplates: Api['setCustomTemplates']
+  public declare setPath: Api['setPath']
+
+  public declare setPatterns: Api['setPatterns']
+  public declare setSettings: Api['setSettings']
+  public declare setStyles: Api['setStyles']
+
+  public declare setTemplateParts: Api['setTemplateParts']
+  public declare setVersion: Api['setVersion']
+  public declare styles: Api['styles']
+
+  public declare templateParts: Api['templateParts']
+  public declare version: Api['version']
   @bind
   // @ts-ignore
   public settings(
     input?:
-      | Mutator
+      | boolean
       | Container<Partial<Schema.SettingsAndStyles['settings']>>
-      | Partial<Schema.SettingsAndStyles['settings']>
-      | boolean,
+      | Mutator
+      | Partial<Schema.SettingsAndStyles['settings']>,
     raw?: boolean,
   ): this {
     if (!input) return this
@@ -155,33 +183,6 @@ class WordPressThemeJSON
 
     return this
   }
-
-  public declare getSettings: Api['getSettings']
-  public declare setSettings: Api['setSettings']
-
-  public declare path: Api['path']
-  public declare getPath: Api['getPath']
-  public declare setPath: Api['setPath']
-
-  public declare customTemplates: Api['customTemplates']
-  public declare getCustomTemplates: Api['getCustomTemplates']
-  public declare setCustomTemplates: Api['setCustomTemplates']
-
-  public declare patterns: Api['patterns']
-  public declare getPatterns: Api['getPatterns']
-  public declare setPatterns: Api['setPatterns']
-
-  public declare styles: Api['styles']
-  public declare getStyles: Api['getStyles']
-  public declare setStyles: Api['setStyles']
-
-  public declare templateParts: Api['templateParts']
-  public declare getTemplateParts: Api['getTemplateParts']
-  public declare setTemplateParts: Api['setTemplateParts']
-
-  public declare version: Api['version']
-  public declare getVersion: Api['getVersion']
-  public declare setVersion: Api['setVersion']
 }
 
-export {WordPressThemeJSON, type Api}
+export {type Api, WordPressThemeJSON}

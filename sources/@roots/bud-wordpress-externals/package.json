@@ -39,7 +39,7 @@
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
-    "bud-extension"
+    "extension"
   ],
   "files": [
     "docs",
@@ -48,8 +48,7 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./types": "./lib/types.js"
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
@@ -65,13 +64,12 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/wordpress-externals-webpack-plugin": "workspace:*",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

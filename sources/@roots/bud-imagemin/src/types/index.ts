@@ -7,17 +7,17 @@ import type BudImageminSharpExtension from '../sharp/index.js'
 import type BudImageminSvgo from '../svgo/index.js'
 
 interface BudImagemin extends PublicExtensionApi<BudImageminExtension> {
-  encode: BudImageminExtension['encode']
   addPreset: BudImageminExtension['addPreset']
+  encode: BudImageminExtension['encode']
   lossless: BudImageminExtension[`lossless`]
   sharp: BudSharp
   svgo: BudSvgo
 }
 
 interface BudSharp extends PublicExtensionApi<BudImageminSharpExtension> {
-  get: BudImageminSharpExtension['get']
-  generators: BudImageminSharpExtension['generators']
   encode: BudImageminSharpExtension['encode']
+  generators: BudImageminSharpExtension['generators']
+  get: BudImageminSharpExtension['get']
   setEncodeOptions: BudImageminSharpExtension['setEncodeOptions']
   setGenerator: BudImageminSharpExtension['setGenerator']
 }

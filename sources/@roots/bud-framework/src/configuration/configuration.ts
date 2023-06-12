@@ -6,7 +6,7 @@ import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
 import isString from '@roots/bud-support/lodash/isString'
 
-import type {Bud} from '../bud.js'
+import type {Bud} from '../index.js'
 import type {File} from '../types/options/context.js'
 
 /**
@@ -17,25 +17,6 @@ class Configuration {
    * Class constructor
    */
   public constructor(public bud: Bud) {}
-
-  /**
-   * Process configuration
-   */
-  @bind
-  public async run(description: File): Promise<unknown> {
-    if (!description?.module) {
-      throw new BudError(`No module found`, {
-        props: {
-          details: `There should be a module here. This is like an error with bud.js`,
-          file: description,
-        },
-      })
-    }
-
-    return description.dynamic
-      ? await this.dynamicConfig(description)
-      : await this.staticConfig(description)
-  }
 
   /**
    * Process dynamic configuration
@@ -65,20 +46,6 @@ class Configuration {
     } catch (cause) {
       throw cause
     }
-  }
-
-  /**
-   * Process static configuration
-   */
-  @bind
-  public async staticConfig(description: File): Promise<unknown> {
-    this.bud.log(`processing as static configuration:`, description.name)
-
-    return await Promise.all(
-      Object.entries(description.module).map(async ([key, value]) => {
-        await this.handleConfigEntry(this.bud, [key, value])
-      }),
-    )
   }
 
   @bind
@@ -121,6 +88,39 @@ class Configuration {
           return await this.handleConfigEntry(request, [key, value])
         }),
       )
+  }
+
+  /**
+   * Process configuration
+   */
+  @bind
+  public async run(description: File): Promise<unknown> {
+    if (!description?.module) {
+      throw new BudError(`No module found`, {
+        props: {
+          details: `There should be a module here. This is like an error with bud.js`,
+          file: description,
+        },
+      })
+    }
+
+    return description.dynamic
+      ? await this.dynamicConfig(description)
+      : await this.staticConfig(description)
+  }
+
+  /**
+   * Process static configuration
+   */
+  @bind
+  public async staticConfig(description: File): Promise<unknown> {
+    this.bud.log(`processing as static configuration:`, description.name)
+
+    return await Promise.all(
+      Object.entries(description.module).map(async ([key, value]) => {
+        await this.handleConfigEntry(this.bud, [key, value])
+      }),
+    )
   }
 }
 

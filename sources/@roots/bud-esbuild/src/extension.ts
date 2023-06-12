@@ -1,4 +1,5 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {type Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   expose,
@@ -13,6 +14,13 @@ import {EsbuildPlugin} from 'esbuild-loader'
  */
 export interface Options {
   /**
+   * JS settings
+   */
+  js: {
+    loader: `js` | `jsx`
+    target: string
+  }
+  /**
    * Minify settings
    */
   minify: {
@@ -21,27 +29,20 @@ export interface Options {
      */
     css: boolean
     /**
-     * Patterns to be minified
-     */
-    include: string | RegExp | Array<string | RegExp>
-    /**
      * Patterns to be excluded from minimization
      */
-    exclude: string | RegExp | Array<string | RegExp>
-  }
-  /**
-   * JS settings
-   */
-  js: {
-    loader: `jsx` | `js`
-    target: string
+    exclude: Array<RegExp | string> | RegExp | string
+    /**
+     * Patterns to be minified
+     */
+    include: Array<RegExp | string> | RegExp | string
   }
 
   /**
    *TS settings
    */
   ts: {
-    loader: `tsx` | `ts`
+    loader: `ts` | `tsx`
     target: string
     tsconfig: string
   }
@@ -53,18 +54,18 @@ export interface Options {
 @label(`@roots/bud-esbuild`)
 @expose(`esbuild`)
 @options({
+  js: Value.make(() => ({
+    loader: `jsx`,
+    target: `es2015`,
+  })),
   minify: Value.make(app => ({
     css: true,
+    exclude: app.hooks.filter(`pattern.modules`),
     include: [
       app.hooks.filter(`pattern.css`),
       app.hooks.filter(`pattern.js`),
       app.hooks.filter(`pattern.ts`),
     ],
-    exclude: app.hooks.filter(`pattern.modules`),
-  })),
-  js: Value.make(() => ({
-    loader: `jsx`,
-    target: `es2015`,
   })),
   ts: Value.make(({context}) => ({
     loader: `tsx`,
@@ -73,6 +74,14 @@ export interface Options {
   })),
 })
 export default class BudEsbuild extends Extension<Options> {
+  /**
+   * {@link Extension.boot}
+   */
+  @bind
+  public override async boot(_bud: Bud) {
+    this.use()
+  }
+
   /**
    * {@link Extension.register}
    */
@@ -103,14 +112,6 @@ export default class BudEsbuild extends Extension<Options> {
   }
 
   /**
-   * {@link Extension.boot}
-   */
-  @bind
-  public override async boot(_bud: Bud) {
-    this.use()
-  }
-
-  /**
    * Use esbuild
    *
    * @remarks
@@ -125,19 +126,19 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public use(): Bud[`esbuild`] {
-    this.app.terser?.enable(false)
-    this.app.minimizeCss?.enable(false)
+    this.app.minify.js.enable(false)
+    this.app.minify.css.enable(false)
 
     this.app.hooks
       .on(`build.optimization.minimizer`, minimizer => [
         new EsbuildPlugin(this.get(`minify`)),
       ])
       .build.setRule(`ts`, {
-        test: ({hooks}) => hooks.filter(`pattern.ts`),
         include: [({path}) => path(`@src`)],
         resolve: {
           fullySpecified: false,
         },
+        test: ({hooks}) => hooks.filter(`pattern.ts`),
         use: [`esbuild-ts`],
       })
       .rules.js.setUse([`esbuild-js`])

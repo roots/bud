@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {Base} from './base.js'
 
 /**
@@ -13,19 +13,19 @@ export interface Loader extends Base {
   app: Bud
 
   /**
-   * Loader source factory
+   * Get src
    */
-  src: string
+  getSrc(): string
 
   /**
    * Set src
    * @param src - string
    */
-  setSrc(src: string | ((app: Bud) => string)): Loader
+  setSrc(src: ((app: Bud) => string) | string): Loader
   /**
-   * Get src
+   * Loader source factory
    */
-  getSrc(): string
+  src: string
 }
 
-export type Constructor = string | ((app: Bud) => string)
+export type Constructor = ((app: Bud) => string) | string

@@ -5,6 +5,11 @@ import type {Bud} from '@roots/bud-framework'
  */
 export class ApplicationURL {
   /**
+   * Class constructor
+   */
+  public constructor(public _app: () => Bud) {}
+
+  /**
    * Application instance
    */
   public get app() {
@@ -28,9 +33,4 @@ export class ApplicationURL {
   public get publicProxy(): URL {
     return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxy)
   }
-
-  /**
-   * Class constructor
-   */
-  public constructor(public _app: () => Bud) {}
 }

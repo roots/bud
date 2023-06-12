@@ -39,65 +39,28 @@
   },
   "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
-    "bud"
+    "bud",
+    "core"
   ],
   "files": [
-    "lib"
+    "lib",
+    "vendor"
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./css-loader": {
-      "require": "./lib/css-loader/index.cjs",
-      "default": "./lib/css-loader/index.cjs"
-    },
-    "./csv-loader": {
-      "require": "./lib/csv-loader/index.cjs",
-      "default": "./lib/csv-loader/index.cjs"
-    },
-    "./file-loader": {
-      "require": "./lib/file-loader/index.cjs",
-      "default": "./lib/file-loader/index.cjs"
-    },
-    "./html-loader": {
-      "require": "./lib/html-loader/index.cjs",
-      "default": "./lib/html-loader/index.cjs"
-    },
-    "./remark-loader": {
-      "require": "./lib/remark-loader/index.cjs",
-      "default": "./lib/remark-loader/index.cjs"
-    },
-    "./style-loader": {
-      "require": "./lib/style-loader/index.cjs",
-      "default": "./lib/style-loader/index.cjs"
-    },
-    "./xml-loader": {
-      "require": "./lib/xml-loader/index.cjs",
-      "default": "./lib/xml-loader/index.cjs"
-    },
-    "./yml-loader": {
-      "require": "./lib/yml-loader/index.cjs",
-      "default": "./lib/yml-loader/index.cjs"
-    },
-    "./decorators/*": {
-      "import": "./lib/decorators/*.js",
-      "default": "./lib/decorators/*.js"
-    },
-    "./utilities/*": {
-      "import": "./lib/utilities/*.js",
-      "default": "./lib/utilities/*.js"
-    },
-    "./lodash-es/*": {
-      "import": "./lib/lodash-es/*.js",
-      "default": "./lib/lodash-es/*.js"
-    },
-    "./*": {
-      "import": "./lib/*/index.js",
-      "default": "./lib/*/index.js"
-    }
+    ".": "./lib/index.js",
+    "./css-loader": "./lib/css-loader/index.cjs",
+    "./csv-loader": "./lib/csv-loader/index.cjs",
+    "./file-loader": "./lib/file-loader/index.cjs",
+    "./remark-loader": "./lib/remark-loader/index.cjs",
+    "./style-loader": "./lib/style-loader/index.cjs",
+    "./yml-loader": "./lib/yml-loader/index.cjs",
+    "./decorators/*": "./lib/decorators/*.js",
+    "./utilities/*": "./lib/utilities/*.js",
+    "./highlight": "./vendor/highlight/index.js",
+    "./html-loader": "./vendor/html-loader/index.cjs",
+    "./html-webpack-plugin": "./vendor/html-webpack-plugin/index.cjs",
+    "./*": "./lib/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -106,6 +69,12 @@
       ],
       "utilities/*": [
         "./lib/utilities/*.d.ts"
+      ],
+      "highlight": [
+        "./vendor/highlight/index.d.ts"
+      ],
+      "html-webpack-plugin": [
+        "./vendor/html-webpack-plugin/index.d.cts"
       ],
       "*": [
         "./lib/*/index.d.ts"
@@ -123,6 +92,7 @@
     "@types/lodash-es": "4.17.7",
     "@types/minimist": "1.2.2",
     "@types/node-notifier": "8.0.2",
+    "@types/react": "18.2.9",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5"
   },
@@ -134,12 +104,11 @@
     "clean-stack": "5.2.0",
     "clean-webpack-plugin": "4.0.0",
     "clipanion": "3.2.1",
-    "common-path": "1.0.1",
     "cookie-parser": "1.4.6",
     "copy-webpack-plugin": "11.0.0",
-    "css-loader": "6.7.3",
+    "css-loader": "6.8.1",
     "csv-loader": "3.0.5",
-    "dotenv": "16.0.3",
+    "dotenv": "16.1.4",
     "dotenv-expand": "10.0.0",
     "env-paths": "3.0.0",
     "esbuild-wasm": "0.17.19",
@@ -149,12 +118,12 @@
     "file-loader": "6.2.0",
     "get-port": "6.1.2",
     "globby": "13.1.4",
-    "highlight.js": "11.8.0",
-    "html-loader": "4.2.0",
-    "html-webpack-plugin": "5.5.1",
     "http-proxy-middleware": "3.0.0-beta.1",
     "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.2",
+    "ink": "4.2.0",
+    "ink-spinner": "5.0.0",
+    "ink-text-input": "5.0.1",
     "json5": "2.2.3",
     "lodash": "4.17.21",
     "mini-css-extract-plugin": "2.7.6",
@@ -165,8 +134,6 @@
     "open": "9.1.0",
     "open-editor": "4.0.0",
     "parse-semver": "1.1.1",
-    "parse5": "7.1.2",
-    "parse5-htmlparser2-tree-adapter": "7.0.0",
     "patch-console": "2.0.0",
     "pretty-format": "29.5.0",
     "react": "18.2.0",
@@ -177,18 +144,16 @@
     "strip-ansi": "7.1.0",
     "style-loader": "3.3.3",
     "toml": "3.0.0",
-    "tslib": "2.5.0",
+    "tslib": "2.5.3",
     "typanion": "3.12.1",
-    "type-fest": "3.10.0",
-    "webpack": "5.85.1",
+    "webpack": "5.86.0",
     "webpack-dev-middleware": "6.1.1",
     "webpack-manifest-plugin": "5.0.0",
-    "xml-loader": "1.2.1",
     "yml-loader": "2.1.0",
     "zod": "3.21.4"
   },
   "peerDependencies": {
-    "esbuild": "0.17.14"
+    "esbuild": "0.17.*"
   },
   "peerDependenciesMeta": {
     "esbuild": {

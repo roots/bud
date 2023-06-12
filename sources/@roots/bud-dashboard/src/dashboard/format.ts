@@ -1,30 +1,24 @@
-import type {StatsAsset, StatsChunkGroup} from '@roots/bud-support/webpack'
-import {durationFormatter, sizeFormatter} from 'human-readable'
-
-export const SPACE = ` `
+import type {
+  StatsAsset,
+  StatsChunkGroup,
+} from '@roots/bud-framework/config'
 
 export const color = {
+  backgroundColor: `backgroundColor`,
+  blue: `blue`,
+  cyan: `cyan`,
   dim: `dim`,
   foregroundColor: `foregroundColor`,
-  backgroundColor: `backgroundColor`,
-  red: `red`,
   green: `green`,
-  yellow: `yellow`,
-  blue: `blue`,
   magenta: `magenta`,
-  cyan: `cyan`,
+  red: `red`,
+  yellow: `yellow`,
 }
-
-export const duration = durationFormatter({
-  allowMultiples: [`s`, `ms`],
-})
 
 export const longestAssetNameLength = (chunks: StatsChunkGroup) =>
   chunks?.reduce((longest: number, asset: StatsAsset) => {
     return Math.max(asset.name?.length, longest)
   }, 0) + 1
-
-export const size: (int: number) => string = sizeFormatter()
 
 export const colorFromStats = (compilation: {
   errorsCount?: number

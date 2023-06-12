@@ -1,3 +1,6 @@
+import type {OptionCallback} from '@roots/bud-framework/extension'
+import type {Options} from '@roots/bud-support/copy-webpack-plugin'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   label,
@@ -5,7 +8,6 @@ import {
   plugin,
   when,
 } from '@roots/bud-framework/extension/decorators'
-import type {Options} from '@roots/bud-support/copy-webpack-plugin'
 import {Plugin} from '@roots/bud-support/copy-webpack-plugin'
 
 /**
@@ -15,6 +17,14 @@ import {Plugin} from '@roots/bud-support/copy-webpack-plugin'
 @plugin(Plugin)
 @options<Options>({patterns: []})
 @when((_app, options) => options.patterns?.length > 0)
-class BudCopyPlugin extends Extension<Options, Plugin> {}
+class BudCopyPlugin extends Extension<Options, Plugin> {
+  public getPatterns: () => Options[`patterns`]
 
-export default BudCopyPlugin
+  public patterns: Options[`patterns`]
+
+  public setPatterns: (
+    patterns: OptionCallback<Options, `patterns`>,
+  ) => this
+}
+
+export {BudCopyPlugin as default}

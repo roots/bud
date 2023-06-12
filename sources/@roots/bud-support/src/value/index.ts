@@ -1,11 +1,17 @@
 interface Value<T> {
-  isBudValue: true
   identity: T
+  isBudValue: true
 }
 
 class Value<T> {
+  public static isBudValue: true = true
   /**
    * For type checking
+   *
+   * @remarks
+   * Some functions like _.set() will mutate the class instance.
+   * This property is used to check if the instance is a {@link Value}
+   * and should work even after mutation.
    */
   public isBudValue: true = true
 
@@ -21,10 +27,41 @@ class Value<T> {
   public constructor(public identity: T) {}
 
   /**
-   * Get value of {@link Value.identity}
+   * Get {@link Value.identity}
    */
-  public get() {
-    return this.identity
+  public static call<T, A extends any[]>(
+    value: (T & CallableFunction) | Value<T>,
+    ...args: A
+  ): T {
+    return Value.isCallable(value)
+      ? Value.get(value)(...args)
+      : Value.get(value)
+  }
+
+  /**
+   * Get {@link Value.identity}
+   */
+  public static get<T>(value: T | Value<T>): T {
+    return Value.isValue(value) ? value.identity : (value as T)
+  }
+
+  public static isCallable<T>(
+    value: T | Value<T>,
+  ): value is T & CallableFunction {
+    return Value.typeOf(value) === `function`
+  }
+
+  /**
+   * Check {@link Value.identity} type
+   */
+  public static isValue<T>(value: T | Value<T>): value is Value<T> {
+    return (
+      typeof value === `object` &&
+      value !== null &&
+      `identity` in value &&
+      `isBudValue` in value &&
+      value.isBudValue
+    )
   }
 
   /**
@@ -37,46 +74,15 @@ class Value<T> {
   /**
    * Check {@link Value.identity} type
    */
-  public static typeOf<T>(value: Value<T> | T): string {
+  public static typeOf<T>(value: T | Value<T>): string {
     return Value.isValue(value) ? typeof value.identity : typeof value
   }
 
-  public static isCallable<T>(
-    value: Value<T> | T,
-  ): value is T & CallableFunction {
-    return Value.typeOf(value) === `function`
-  }
-
   /**
-   * Check {@link Value.identity} type
+   * Get value of {@link Value.identity}
    */
-  public static isValue<T>(value: Value<T> | T): value is Value<T> {
-    return (
-      typeof value === `object` &&
-      value !== null &&
-      `identity` in value &&
-      `isBudValue` in value &&
-      value.isBudValue
-    )
-  }
-
-  /**
-   * Get {@link Value.identity}
-   */
-  public static get<T>(value: Value<T> | T): T {
-    return Value.isValue(value) ? value.identity : (value as T)
-  }
-
-  /**
-   * Get {@link Value.identity}
-   */
-  public static call<T, A extends any[]>(
-    value: Value<T> | (T & CallableFunction),
-    ...args: A
-  ): T {
-    return Value.isCallable(value)
-      ? Value.get(value)(...args)
-      : Value.get(value)
+  public get() {
+    return this.identity
   }
 }
 

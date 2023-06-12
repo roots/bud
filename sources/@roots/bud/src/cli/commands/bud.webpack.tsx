@@ -1,8 +1,7 @@
-import {join} from 'node:path'
-
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/command.dry'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import BudCommand from '@roots/bud/cli/commands/bud'
+import {dry} from '@roots/bud/cli/decorators/dry'
+import {join} from 'node:path'
 
 /**
  * `bud webpack` command
@@ -18,8 +17,8 @@ export default class BudWebpackCommand extends BudCommand {
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
-    description: `Webpack CLI passthrough`,
     category: `tools`,
+    description: `Webpack CLI passthrough`,
     examples: [[`View webpack usage information`, `$0 webpack --help`]],
   })
 

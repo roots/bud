@@ -6,8 +6,8 @@ declare module '@roots/bud-framework' {
   }
 
   interface Modules {
-    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
     '@roots/bud-tailwindcss-theme-json?': any
+    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
   }
 }
 
@@ -17,7 +17,7 @@ declare module '@roots/bud' {
   }
 
   interface Modules {
-    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
     '@roots/bud-tailwindcss-theme-json?': any
+    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
   }
 }

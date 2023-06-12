@@ -3,7 +3,7 @@ import {Browser, chromium, Page} from 'playwright'
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
 
 import {e2eBeforeAll, runDev} from './util/install'
-import {testPath} from './util/copy'
+import {destinationPath} from './util/copy'
 
 describe(`html output of examples/swc`, () => {
   let browser: Browser
@@ -36,7 +36,7 @@ describe(`html output of examples/swc`, () => {
 
 const update = async () =>
   await fs.writeAsync(
-    testPath(`swc`, `src`, `index.js`),
+    destinationPath(`swc`, `src`, `index.js`),
     `\
 import './styles.css'
 

@@ -1,3 +1,4 @@
+/* eslint-disable n/no-extraneous-import */
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import hljs from 'highlight.js/lib/core'
 import css from 'highlight.js/lib/languages/css'
@@ -5,18 +6,20 @@ import js from 'highlight.js/lib/languages/javascript'
 import scss from 'highlight.js/lib/languages/scss'
 import ts from 'highlight.js/lib/languages/typescript'
 import {parseFragment} from 'parse5'
+// @ts-ignore bundled
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
+// @ts-ignore bundled
 import {theme} from './theme.js'
 
 interface node {
   attribs: {
     class: string
   }
+  childNodes: Array<node>
   data: any
   theme: typeof theme
   type: string
-  childNodes: Array<node>
 }
 
 const colorizeNode = (node: node): string => {
@@ -65,7 +68,7 @@ const colorize = (code: string): string => {
 export const highlight = (code: string): string =>
   colorize(
     hljs.highlight(code, {
-      language: `typescript`,
       ignoreIllegals: true,
+      language: `typescript`,
     }).value,
   )

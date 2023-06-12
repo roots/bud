@@ -1,8 +1,8 @@
 import {BudError} from './errors.js'
 
 interface ErrorWithMessage extends Error {
-  name: string
   message: string
+  name: string
 }
 
 export function isErrorWithMessage(

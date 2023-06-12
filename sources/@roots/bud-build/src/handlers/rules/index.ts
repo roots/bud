@@ -12,24 +12,22 @@ import {inlineSvg} from './svg.inline.js'
 import {svg} from './svg.js'
 import {toml} from './toml.js'
 import {webp} from './webp.js'
-import {xml} from './xml.js'
 import {yml} from './yml.js'
 
 export const rules = {
-  toml,
-  xml,
+  css,
+  cssModule,
   csv,
-  yml,
-  html,
-  json,
   font,
-  svg,
-  webp,
+  html,
   image,
   inlineFont,
-  inlineSvg,
   inlineImage,
-  cssModule,
-  css,
+  inlineSvg,
   js,
+  json,
+  svg,
+  toml,
+  webp,
+  yml,
 }

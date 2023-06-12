@@ -1,15 +1,16 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/purgecss`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
-      label: `@examples/purgecss`,
-    }).setup()
+    const test = setup({label: `@examples/purgecss`})
+    await test.install()
+    await test.build()
 
-    expect(project.assets[`app.css`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.css`].includes(`@import`)).toBeFalsy()
-    expect(project.assets[`app.css`].includes(`h2`)).toBeTruthy()
-    expect(project.assets[`app.css`]).not.toMatch(/\.*h3.*/)
+    expect(test.assets[`app.css`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.css`].includes(`@import`)).toBeFalsy()
+    expect(test.assets[`app.css`].includes(`h2`)).toBeTruthy()
+    expect(test.assets[`app.css`]).not.toMatch(/\.*h3.*/)
   })
 })

@@ -1,93 +1,52 @@
+import type {WatchOptions} from '@roots/bud-support/chokidar'
 import type {ListenOptions} from 'node:net'
 
-import type {WatchOptions} from '@roots/bud-support/chokidar'
-
-import type {Bud} from '../../bud.js'
+import type {Bud} from '../../index.js'
 import type * as Server from '../services/server/index.js'
 
 export interface Sync {
-  listenOptions: ListenOptions
+  'client.dist': string
 
-  /**
-   * On listening callback
-   */
-  onListening: Server.Connection['onListening']
-
-  /**
-   * Request callback
-   */
-  onRequest: Server.Connection['onRequest']
-
-  /**
-   * Error callback
-   */
-  onError: Server.Connection['onError']
-
-  /**
-   * Dev server connection options
-   */
-  options: Server.Options
-
-  /**
-   * Server URL
-   */
-  url: URL
-
-  /**
-   * External URL
-   */
-  publicUrl: URL
-
-  /**
-   * Proxy URL
-   */
-  proxyUrl: URL
-
-  /**
-   * Public proxy URL
-   */
-  publicProxyUrl: URL
-
-  /**
-   * Files which trigger a full browser reload
-   */
-  'watch.files': Set<string>
-
-  /**
-   * FS.Watcher options
-   */
-  'watch.options': WatchOptions
+  'client.path': string
 
   /**
    * Scripts included in dev builds
    */
   'client.scripts': Set<(app: Bud) => string>
+
   'client.standalone': boolean
-  'client.path': string
-  'client.dist': string
+
+  listenOptions: ListenOptions
+
+  'middleware.dev.options': Server.Middleware.Available['dev']['options']
+
+  'middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
+
+  'middleware.dev.options.index': Server.Middleware.Available['dev']['options']['index']
+
+  'middleware.dev.options.methods': Server.Middleware.Available['dev']['options']['methods']
+
+  'middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
+
+  'middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
 
   /**
    * Enabled middleware
    */
   'middleware.enabled': Array<keyof Server.Middleware.Available>
-
-  'middleware.dev.options': Server.Middleware.Available['dev']['options']
-  'middleware.dev.options.headers': Server.Middleware.Available['dev']['options']['headers']
-  'middleware.dev.options.methods': Server.Middleware.Available['dev']['options']['methods']
-  'middleware.dev.options.index': Server.Middleware.Available['dev']['options']['index']
-  'middleware.dev.options.publicPath': Server.Middleware.Available['dev']['options']['publicPath']
-  'middleware.dev.options.writeToDisk': Server.Middleware.Available['dev']['options']['writeToDisk']
-
   'middleware.proxy.options': Server.Middleware.Available['proxy']['options']
   'middleware.proxy.options.agent': Server.Middleware.Available['proxy']['options']['agent']
   'middleware.proxy.options.auth': Server.Middleware.Available['proxy']['options']['auth']
+
   'middleware.proxy.options.autoRewrite': Server.Middleware.Available['proxy']['options']['autoRewrite']
+
   'middleware.proxy.options.buffer': Server.Middleware.Available['proxy']['options']['buffer']
   'middleware.proxy.options.changeOrigin': Server.Middleware.Available['proxy']['options']['changeOrigin']
   'middleware.proxy.options.cookieDomainRewrite': Server.Middleware.Available['proxy']['options']['cookieDomainRewrite']
   'middleware.proxy.options.cookiePathRewrite': Server.Middleware.Available['proxy']['options']['cookiePathRewrite']
   'middleware.proxy.options.ejectPlugins': Server.Middleware.Available['proxy']['options']['ejectPlugins']
   'middleware.proxy.options.followRedirects': Server.Middleware.Available['proxy']['options']['followRedirects']
+
   'middleware.proxy.options.forward': Server.Middleware.Available['proxy']['options']['forward']
   'middleware.proxy.options.headers': Record<string, string>
   'middleware.proxy.options.hostRewrite': Server.Middleware.Available['proxy']['options']['hostRewrite']
@@ -114,11 +73,51 @@ export interface Sync {
   'middleware.proxy.options.toProxy': Server.Middleware.Available['proxy']['options']['toProxy']
   'middleware.proxy.options.ws': Server.Middleware.Available['proxy']['options']['ws']
   'middleware.proxy.options.xfwd': Server.Middleware.Available['proxy']['options']['xfwd']
-
   /**
    * Proxy middleware replacements
    */
   'middleware.proxy.replacements': Array<[string, string]>
+  /**
+   * Error callback
+   */
+  onError: Server.Connection['onError']
+  /**
+   * On listening callback
+   */
+  onListening: Server.Connection['onListening']
+  /**
+   * Request callback
+   */
+  onRequest: Server.Connection['onRequest']
+  /**
+   * Dev server connection options
+   */
+  options: Server.Options
+  /**
+   * Proxy URL
+   */
+  proxyUrl: URL
+  /**
+   * Public proxy URL
+   */
+  publicProxyUrl: URL
+  /**
+   * External URL
+   */
+  publicUrl: URL
+  /**
+   * Server URL
+   */
+  url: URL
+  /**
+   * Files which trigger a full browser reload
+   */
+  'watch.files': Set<string>
+
+  /**
+   * FS.Watcher options
+   */
+  'watch.options': WatchOptions
 }
 
 export type SyncRegistry = {

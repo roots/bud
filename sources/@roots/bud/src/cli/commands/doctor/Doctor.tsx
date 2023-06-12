@@ -2,7 +2,7 @@
 import {Error} from '@roots/bud-dashboard/app'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import * as Ink from 'ink'
+import * as Ink from '@roots/bud-support/ink'
 
 import {isWindows} from '../../helpers/isWindows.js'
 
@@ -23,7 +23,7 @@ export const Doctor = ({name, timings}) => {
 
 const Process = () => {
   return (
-    <Ink.Box marginTop={1} flexDirection="column">
+    <Ink.Box flexDirection="column" marginTop={1}>
       <Ink.Text color="blue">Checking system requirements{`\n`}</Ink.Text>
 
       <Ink.Box flexDirection="column">

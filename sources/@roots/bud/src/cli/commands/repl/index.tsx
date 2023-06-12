@@ -1,7 +1,7 @@
-import {dry} from '@roots/bud/cli/decorators'
-import indent from '@roots/bud/cli/flags/indent'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import {dry} from '@roots/bud/cli/decorators/dry'
+import indent from '@roots/bud/cli/flags/indent'
 
 import BudCommand from '../bud.js'
 
@@ -23,12 +23,12 @@ export default class BudReplCommand extends BudCommand {
     examples: [[`repl`, `$0 repl`]],
   })
 
-  public indent = indent
-
   public depth = Option.String(`--depth,-d`, `1`, {
     description: `recursion depth`,
     tolerateBoolean: false,
   })
+
+  public indent = indent
 
   /**
    * {@link Command.execute}
@@ -41,7 +41,7 @@ export default class BudReplCommand extends BudCommand {
     const {Repl} = await import(`./Repl.js`)
 
     this.render(
-      <Repl app={this.bud} indent={this.indent} depth={this.depth} />,
+      <Repl app={this.bud} depth={this.depth} indent={this.indent} />,
     )
   }
 }

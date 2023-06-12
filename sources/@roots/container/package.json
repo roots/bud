@@ -73,13 +73,13 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12",
-    "type-fest": "3.10.0"
+    "@types/node": "18.16.16",
+    "type-fest": "3.11.1"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

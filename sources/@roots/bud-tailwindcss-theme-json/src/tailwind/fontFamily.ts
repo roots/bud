@@ -29,9 +29,9 @@ export interface transformEntry {
   ([slug, value]: [string, string]): WordPressFonts[any]
 }
 export const transformEntry: transformEntry = ([slug, fontFamily]) => ({
+  fontFamily,
   name: name(fontFamily.split(`,`).shift()),
   slug,
-  fontFamily,
 })
 
 /**

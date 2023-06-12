@@ -1,9 +1,12 @@
-import type {Bud} from '@roots/bud-framework/bud'
+import type {Bud} from '@roots/bud-framework'
+
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+
+import type {Parameters} from './proxy.types.js'
 
 import {
   assignOptions,
@@ -16,7 +19,6 @@ import {
   isUrl,
   maybeEnable,
 } from './helpers.js'
-import type {Parameters} from './proxy.types.js'
 
 /**
  * bud.proxy interface

@@ -1,118 +1,12 @@
-import chalk from 'chalk'
+import chalk from '@roots/bud-support/chalk'
 
 export const identity = <X extends unknown>(x: X): X => x
 
 export const theme: Record<string, any> = {
   /**
-   * keyword in a regular Algol-style language
+   * added or changed line in a diff
    */
-  keyword: chalk.blue,
-
-  /**
-   * built-in or library object (constant, class, function)
-   */
-  built_in: chalk.cyan,
-
-  /**
-   * user-defined type in a language with first-class syntactically significant types, like
-   * Haskell
-   */
-  type: chalk.cyan.dim,
-
-  /**
-   * special identifier for a built-in value ("true", "false", "null")
-   */
-  literal: chalk.blue,
-
-  /**
-   * number, including units and modifiers, if any.
-   */
-  number: chalk.green,
-
-  /**
-   * literal regular expression
-   */
-  regexp: chalk.blue,
-
-  /**
-   * literal string, character
-   */
-  string: chalk.white,
-
-  /**
-   * parsed section inside a literal string
-   */
-  subst: chalk.blue.dim,
-
-  /**
-   * symbolic constant, interned string, goto label
-   */
-  symbol: chalk.magenta,
-
-  /**
-   * class or class-level declaration (interfaces, traits, modules, etc)
-   */
-  class: chalk.blue,
-
-  /**
-   * function or method declaration
-   */
-  function: chalk.yellow,
-
-  /**
-   * name of a class or a function at the place of declaration
-   */
-  title: chalk.magenta,
-
-  /**
-   * block of function arguments (parameters) at the place of declaration
-   */
-  params: chalk.magenta,
-
-  /**
-   * comment
-   */
-  comment: chalk.green,
-
-  /**
-   * documentation markup within comments
-   */
-  doctag: chalk.green,
-
-  /**
-   * flags, modifiers, annotations, processing instructions, preprocessor directive, etc
-   */
-  meta: chalk.grey,
-
-  /**
-   * keyword or built-in within meta construct
-   */
-  'meta-keyword': chalk.dim,
-
-  /**
-   * string within meta construct
-   */
-  'meta-string': chalk.dim,
-
-  /**
-   * heading of a section in a config file, heading in text markup
-   */
-  section: chalk.dim,
-
-  /**
-   * XML/HTML tag
-   */
-  tag: chalk.grey,
-
-  /**
-   * name of an XML tag, the first word in an s-expression
-   */
-  name: chalk.blue,
-
-  /**
-   * s-expression name from the language standard library
-   */
-  'builtin-name': chalk.blue,
+  addition: chalk.green,
 
   /**
    * name of an attribute with no language defined semantics (keys in JSON, setting names in
@@ -126,9 +20,14 @@ export const theme: Record<string, any> = {
   attribute: chalk.dim,
 
   /**
-   * variable in a config or a template file, environment var expansion in a script
+   * built-in or library object (constant, class, function)
    */
-  variable: chalk.dim,
+  built_in: chalk.cyan,
+
+  /**
+   * s-expression name from the language standard library
+   */
+  'builtin-name': chalk.blue,
 
   /**
    * list item bullet in text markup
@@ -136,9 +35,34 @@ export const theme: Record<string, any> = {
   bullet: chalk.dim,
 
   /**
+   * class or class-level declaration (interfaces, traits, modules, etc)
+   */
+  class: chalk.blue,
+
+  /**
    * code block in text markup
    */
   code: chalk.dim,
+
+  /**
+   * comment
+   */
+  comment: chalk.green,
+
+  /**
+   * things not matched by any token
+   */
+  default: chalk.white,
+
+  /**
+   * deleted line in a diff
+   */
+  deletion: chalk.red,
+
+  /**
+   * documentation markup within comments
+   */
+  doctag: chalk.green,
 
   /**
    * emphasis in text markup
@@ -146,14 +70,19 @@ export const theme: Record<string, any> = {
   emphasis: chalk.italic,
 
   /**
-   * strong emphasis in text markup
-   */
-  strong: chalk.bold,
-
-  /**
    * mathematical formula in text markup
    */
   formula: chalk.dim,
+
+  /**
+   * function or method declaration
+   */
+  function: chalk.yellow,
+
+  /**
+   * keyword in a regular Algol-style language
+   */
+  keyword: chalk.blue,
 
   /**
    * hyperlink in text markup
@@ -161,24 +90,54 @@ export const theme: Record<string, any> = {
   link: chalk.underline,
 
   /**
+   * special identifier for a built-in value ("true", "false", "null")
+   */
+  literal: chalk.blue,
+
+  /**
+   * flags, modifiers, annotations, processing instructions, preprocessor directive, etc
+   */
+  meta: chalk.gray,
+
+  /**
+   * keyword or built-in within meta construct
+   */
+  'meta-keyword': chalk.dim,
+
+  /**
+   * string within meta construct
+   */
+  'meta-string': chalk.dim,
+
+  /**
+   * name of an XML tag, the first word in an s-expression
+   */
+  name: chalk.blue,
+
+  /**
+   * number, including units and modifiers, if any.
+   */
+  number: chalk.green,
+
+  /**
+   * block of function arguments (parameters) at the place of declaration
+   */
+  params: chalk.magenta,
+
+  /**
    * quotation in text markup
    */
   quote: chalk.dim,
 
   /**
-   * tag selector in CSS
+   * literal regular expression
    */
-  'selector-tag': chalk.dim,
+  regexp: chalk.blue,
 
   /**
-   * #id selector in CSS
+   * heading of a section in a config file, heading in text markup
    */
-  'selector-id': chalk.dim,
-
-  /**
-   * .class selector in CSS
-   */
-  'selector-class': chalk.dim,
+  section: chalk.dim,
 
   /**
    * [attr] selector in CSS
@@ -186,9 +145,49 @@ export const theme: Record<string, any> = {
   'selector-attr': chalk.dim,
 
   /**
+   * .class selector in CSS
+   */
+  'selector-class': chalk.dim,
+
+  /**
+   * #id selector in CSS
+   */
+  'selector-id': chalk.dim,
+
+  /**
    * :pseudo selector in CSS
    */
   'selector-pseudo': chalk.dim,
+
+  /**
+   * tag selector in CSS
+   */
+  'selector-tag': chalk.dim,
+
+  /**
+   * literal string, character
+   */
+  string: chalk.white,
+
+  /**
+   * strong emphasis in text markup
+   */
+  strong: chalk.bold,
+
+  /**
+   * parsed section inside a literal string
+   */
+  subst: chalk.blue,
+
+  /**
+   * symbolic constant, interned string, goto label
+   */
+  symbol: chalk.magenta,
+
+  /**
+   * XML/HTML tag
+   */
+  tag: chalk.gray,
 
   /**
    * tag of a template language
@@ -201,17 +200,18 @@ export const theme: Record<string, any> = {
   'template-variable': chalk.dim,
 
   /**
-   * added or changed line in a diff
+   * name of a class or a function at the place of declaration
    */
-  addition: chalk.green,
+  title: chalk.magenta,
 
   /**
-   * deleted line in a diff
+   * user-defined type in a language with first-class syntactically significant types, like
+   * Haskell
    */
-  deletion: chalk.red,
+  type: chalk.cyan,
 
   /**
-   * things not matched by any token
+   * variable in a config or a template file, environment var expansion in a script
    */
-  default: chalk.white,
+  variable: chalk.dim,
 }

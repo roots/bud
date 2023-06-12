@@ -1,5 +1,4 @@
-import '@roots/bud-react/types'
-import '@roots/bud-swc/types'
+import '@roots/bud-react'
 
 import {describe, expect, it} from 'vitest'
 

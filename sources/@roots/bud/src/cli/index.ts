@@ -1,12 +1,11 @@
+import type {Context} from '@roots/bud-framework/options/context'
 import type {ReadStream, WriteStream} from 'node:tty'
 
-import type {Context} from '@roots/bud-framework/options/context'
-
 export interface CLIContext extends Context {
+  colorDepth: number
+  stderr: WriteStream
   stdin: ReadStream
   stdout: WriteStream
-  stderr: WriteStream
-  colorDepth: number
 }
 
 export type {Builtins, Cli, CommandClass} from './app.js'

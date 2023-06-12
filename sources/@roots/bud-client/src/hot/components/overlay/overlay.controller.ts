@@ -21,20 +21,6 @@ export class Controller {
   public payload: Payload
 
   /**
-   * Formatted error message
-   */
-  public get message(): string {
-    return this.payload.errors?.reduce((a, c) => {
-      const msg = c?.message ?? c?.error ?? c
-      if (!msg) return a
-      return `${a}
-        <div>
-          <pre>${stripAnsi(msg)}</pre>
-        </div>`
-    }, ``)
-  }
-
-  /**
    * Class constructor
    */
   public constructor() {
@@ -48,6 +34,20 @@ export class Controller {
   public createError() {
     !document.body.querySelector(`bud-error`) &&
       document.body?.appendChild(this.element)
+  }
+
+  /**
+   * Formatted error message
+   */
+  public get message(): string {
+    return this.payload.errors?.reduce((a, c) => {
+      const msg = c?.message ?? c?.error ?? c
+      if (!msg) return a
+      return `${a}
+        <div>
+          <pre>${stripAnsi(msg)}</pre>
+        </div>`
+    }, ``)
   }
 
   /**

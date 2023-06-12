@@ -1,10 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-support/webpack'
+import type {Configuration} from '@roots/bud-framework/config'
 
 export type Parameters<
   T extends `${keyof Configuration[`experiments`]}` = `${keyof Configuration[`experiments`]}`,
 > = [
-  T | Partial<Configuration[`experiments`]>,
+  Partial<Configuration[`experiments`]> | T,
   Configuration[`experiments`][T]?,
 ]
 

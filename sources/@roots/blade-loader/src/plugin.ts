@@ -1,4 +1,3 @@
-import {bind} from 'helpful-decorators'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 interface Options {
@@ -12,12 +11,13 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
   /**
    * Plugin constructor
    */
-  public constructor(public options?: Options) {}
+  public constructor(public options?: Options) {
+    this.apply = this.apply.bind(this)
+  }
 
   /**
    * Apply plugin
    */
-  @bind
   public async apply(compiler: Compiler) {
     const use = [`@roots/blade-loader/asset-loader`]
 

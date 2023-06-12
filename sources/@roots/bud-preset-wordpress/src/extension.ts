@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
@@ -6,8 +7,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import chalk from 'chalk'
-import figures from 'figures'
+import chalk from '@roots/bud-support/chalk'
+import figures from '@roots/bud-support/figures'
 
 /**
  * WordPress preset options
@@ -137,7 +138,7 @@ export default class BudPresetWordPress extends Extension<Options> {
         `\n\n`,
 
         `At that time you will be required to explicitly install a compiler.`,
-        chalk.bold.underline(`This warning will become an error.`),
+        chalk.bold(chalk.underline(`This warning will become an error.`)),
         `\n\n`,
 
         `For most projects we recommend installing`,

@@ -8,8 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import {BudMDX} from './extension.js'
+import './types.js'
 
 export default BudMDX

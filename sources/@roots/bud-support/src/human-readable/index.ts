@@ -1,9 +1,8 @@
-import * as hr from 'human-readable'
+import {durationFormatter, sizeFormatter} from 'human-readable'
 
-export const durationFormatter = hr.durationFormatter({
+export * from 'human-readable'
+
+export const duration = durationFormatter({
   allowMultiples: [`d`, `h`, `m`, `s`, `ms`],
 })
-export const sizeFormatter = hr.sizeFormatter()
-
-export const duration = (ms: number) => durationFormatter(ms)
-export const size = (bytes: number) => sizeFormatter(bytes)
+export const size = sizeFormatter()

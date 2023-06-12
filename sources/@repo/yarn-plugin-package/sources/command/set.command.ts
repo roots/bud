@@ -11,13 +11,9 @@ import {Command} from './base.command'
 export abstract class Set extends Command {
   public static paths: CommandClass['paths'] = [[`package`, `set`]]
 
-  public prop = Option.String()
-
   public _value = Option.String()
 
-  public get value() {
-    return this._value
-  }
+  public prop = Option.String()
 
   public async execute() {
     this.context.stdout.write(
@@ -34,5 +30,9 @@ export abstract class Set extends Command {
       join(this.context.cwd, `package.json`),
       JSON.stringify(json, null, 2),
     )
+  }
+
+  public get value() {
+    return this._value
   }
 }

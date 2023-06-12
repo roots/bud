@@ -1,28 +1,29 @@
-import {platform} from 'node:os'
-
-import {Bud, Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support/decorators/bind'
-import isEmpty from '@roots/bud-support/lodash/isEmpty'
-import isString from '@roots/bud-support/lodash/isString'
 import type {
   Notification as NodeNotification,
   NotificationCallback,
 } from '@roots/bud-support/node-notifier'
+
+import {type Bud} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework/service'
+import {bind} from '@roots/bud-support/decorators/bind'
+import isEmpty from '@roots/bud-support/lodash/isEmpty'
+import isString from '@roots/bud-support/lodash/isString'
 import {open, openEditor} from '@roots/bud-support/open'
+import {platform} from 'node:os'
 
 import {notifierPath} from './notifierPath.js'
 
 interface Notification extends NodeNotification {
+  actions?: string | string[] | undefined
+  closeLabel?: string | undefined
+  contentImage?: string | undefined
+  dropdownLabel?: string | undefined
+  group?: string
+  open?: string | undefined | URL
+  reply?: boolean | undefined
   sound?: boolean | string | undefined
   subtitle?: string | undefined
-  contentImage?: string | undefined
-  open?: string | URL | undefined
-  timeout?: number | false | undefined
-  closeLabel?: string | undefined
-  actions?: string | string[] | undefined
-  dropdownLabel?: string | undefined
-  reply?: boolean | undefined
-  group?: string
+  timeout?: false | number | undefined
 }
 
 /**
@@ -32,22 +33,7 @@ export class Notifier extends Service {
   /**
    * Browser to open on error
    */
-  public browser: string | boolean
-
-  /**
-   * Editor to open on error
-   */
-  public editor: string | boolean
-
-  /**
-   * Node-notifier notification center instance
-   */
-  public notificationCenter: {
-    notify(
-      notification?: Notification,
-      callback?: NotificationCallback,
-    ): Notifier[`notificationCenter`]
-  }
+  public browser: boolean | string
 
   /**
    * Track if browser has already been opened once
@@ -63,24 +49,18 @@ export class Notifier extends Service {
   public browserOpened = false
 
   /**
-   * True if notifications are enabled
+   * Editor to open on error
    */
-  public get notificationsEnabled(): boolean {
-    return this.app?.context.notify === true
-  }
+  public editor: boolean | string
 
   /**
-   * True if editor opening is enabled
+   * Node-notifier notification center instance
    */
-  public get openEditorEnabled(): boolean {
-    return this.app?.context.editor === true
-  }
-
-  /**
-   * True if browser opening is enabled
-   */
-  public get openBrowserEnabled(): boolean {
-    return this.app?.context.browser === true
+  public notificationCenter: {
+    notify(
+      notification?: Notification,
+      callback?: NotificationCallback,
+    ): Notifier[`notificationCenter`]
   }
 
   /**
@@ -108,6 +88,13 @@ export class Notifier extends Service {
   }
 
   /**
+   * True if notifications are enabled
+   */
+  public get notificationsEnabled(): boolean {
+    return this.app?.context.notify === true
+  }
+
+  /**
    * Emit OS notification center notice
    */
   @bind
@@ -119,28 +106,12 @@ export class Notifier extends Service {
 
     this.notificationCenter.notify(
       {
-        title: this.app.label,
         group: this.app.label,
+        title: this.app.label,
         ...notification,
       },
       callback,
     )
-  }
-
-  /**
-   * Open editor on error
-   */
-  @bind
-  public openEditor(input: Array<string> | string) {
-    if (!this.openEditorEnabled) return
-    if (!isString(this.editor)) return
-    if (!input || isEmpty(input)) return
-
-    const files = Array.isArray(input) ? input : [input]
-
-    files.map(file => this.app.info(`opening`, file, `in`, this.editor))
-
-    return openEditor(files, {editor: this.editor})
   }
 
   /**
@@ -160,5 +131,35 @@ export class Notifier extends Service {
     }
 
     return await open(url)
+  }
+
+  /**
+   * True if browser opening is enabled
+   */
+  public get openBrowserEnabled(): boolean {
+    return this.app?.context.browser === true
+  }
+
+  /**
+   * Open editor on error
+   */
+  @bind
+  public openEditor(input: Array<string> | string) {
+    if (!this.openEditorEnabled) return
+    if (!isString(this.editor)) return
+    if (!input || isEmpty(input)) return
+
+    const files = Array.isArray(input) ? input : [input]
+
+    files.map(file => this.app.info(`opening`, file, `in`, this.editor))
+
+    return openEditor(files, {editor: this.editor})
+  }
+
+  /**
+   * True if editor opening is enabled
+   */
+  public get openEditorEnabled(): boolean {
+    return this.app?.context.editor === true
   }
 }

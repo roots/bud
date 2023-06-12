@@ -106,19 +106,19 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.21.8",
+    "@babel/core": "7.22.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.0",
-    "@types/node": "18.16.12",
-    "@types/react": "18.2.6",
+    "@types/babel__core": "7.20.1",
+    "@types/node": "18.16.16",
+    "@types/react": "18.2.9",
     "@types/react-dom": "18.2.4"
   },
   "dependencies": {
-    "@babel/preset-react": "7.18.6",
+    "@babel/preset-react": "7.22.5",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.10",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
@@ -126,8 +126,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-refresh": "0.14.0",
-    "tslib": "2.5.0",
-    "webpack": "5.85.1"
+    "tslib": "2.5.3",
+    "webpack": "5.86.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -89,4 +90,4 @@ class BudEslint extends BudEslintPublicApi implements Api {
   }
 }
 
-export {BudEslint, type Api, type BudEslintPublicApi, type Options}
+export {type Api, BudEslint, type BudEslintPublicApi, type Options}

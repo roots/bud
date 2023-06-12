@@ -2,13 +2,15 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-minify"]
   },
   "include": ["./src"],
   "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
   "references": [
     {"path": "./../bud-build/tsconfig.json"},
     {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-minify/tsconfig.json"},
     {"path": "./../bud/tsconfig.json"},
     {"path": "./../bud-support/tsconfig.json"}
   ]

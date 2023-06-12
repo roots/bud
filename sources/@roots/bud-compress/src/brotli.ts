@@ -1,4 +1,5 @@
-import {Bud, Extension} from '@roots/bud-framework'
+import {type Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -18,23 +19,15 @@ import type {Options} from './extension.js'
 @plugin(Plugin)
 @options<Options>({
   algorithm: `brotliCompress`,
-  filename: `[name].br[query]`,
-  test: /\.js$|\.css$|\.html$|\.htm$/,
   compressionOptions: {level: 11},
-  threshold: 10240,
-  minRatio: 0.8,
   deleteOriginalAssets: false,
+  filename: `[name].br[query]`,
+  minRatio: 0.8,
+  test: /\.js$|\.css$|\.html$|\.htm$/,
+  threshold: 10240,
 })
 @disabled
 export default class BudBrotli extends Extension<Options, Plugin> {
-  /**
-   * {@link Extension.register}
-   */
-  @bind
-  public override async register(bud: Bud) {
-    bud.api.bindFacade(`brotli`, this.config.bind(this))
-  }
-
   /**
    * @deprecated Use `bud.compress.brotli.setOptions()` instead.
    */
@@ -52,6 +45,14 @@ export default class BudBrotli extends Extension<Options, Plugin> {
     this.enable()
     options && this.setOptions(options)
     return this.app
+  }
+
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register(bud: Bud) {
+    bud.api.bindFacade(`brotli`, this.config.bind(this))
   }
 }
 

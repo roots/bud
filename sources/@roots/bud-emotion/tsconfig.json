@@ -3,8 +3,9 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["node", "@roots/bud-babel", "@roots/bud-framework"]
+    "types": ["node", "@roots/bud-babel", "@roots/bud-framework", "@roots/bud-swc"]
   },
+  "files": ["./src/types.ts"],
   "include": ["src"],
   "exclude": ["**/*.test.ts"],
   "references": [

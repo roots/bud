@@ -94,7 +94,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -108,7 +108,7 @@
     "@roots/wordpress-hmr": "workspace:*",
     "chalk": "5.2.0",
     "figures": "5.0.0",
-    "tslib": "2.5.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

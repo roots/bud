@@ -68,15 +68,15 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.12"
+    "@types/node": "18.16.16",
+    "json-schema-to-typescript": "13.0.1"
   },
   "dependencies": {
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
-    "json-schema-to-typescript": "13.0.1",
     "lodash": "4.17.21",
-    "tslib": "2.5.0",
-    "webpack": "5.85.1"
+    "tslib": "2.5.3",
+    "webpack": "5.86.0"
   },
   "volta": {
     "extends": "../../../package.json"

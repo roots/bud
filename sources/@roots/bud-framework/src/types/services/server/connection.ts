@@ -1,7 +1,7 @@
 import type {
-  IncomingMessage,
   Server as HttpServer,
   ServerOptions as HttpServerOptions,
+  IncomingMessage,
   ServerResponse,
 } from 'node:http'
 import type {
@@ -23,14 +23,14 @@ export type OptionsMap = {
  */
 export interface Connection {
   /**
-   * Node server
-   */
-  instance: HttpServer | HttpsServer
-
-  /**
    * Create server
    */
   createServer(app: any): Promise<Connection['instance']>
+
+  /**
+   * Node server
+   */
+  instance: HttpServer | HttpsServer
 
   /**
    * Listen
@@ -39,6 +39,14 @@ export interface Connection {
    * Node Server listen event
    */
   listen(): Promise<void>
+
+  /**
+   * On error
+   *
+   * @remarks
+   * Error handler
+   */
+  onError(error: Error): void
 
   /**
    * On listen
@@ -58,12 +66,4 @@ export interface Connection {
     req: IncomingMessage,
     res: ServerResponse,
   ): Promise<ServerResponse>
-
-  /**
-   * On error
-   *
-   * @remarks
-   * Error handler
-   */
-  onError(error: Error): void
 }

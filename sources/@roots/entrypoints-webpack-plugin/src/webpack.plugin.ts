@@ -18,19 +18,14 @@ export interface Entry extends Record<string, unknown> {
  */
 export interface Options {
   /**
+   * Emit html with inlined runtime, script and style tags
+   */
+  emitHtml?: boolean
+
+  /**
    * Name of the file to emit (default: `entrypoints.json`)
    */
   name?: string
-
-  /**
-   * Emit entrypoints as an array or an object (default: `array`)
-   */
-  type?: 'array' | 'object'
-
-  /**
-   * Override the public path (default is from webpack)
-   */
-  publicPath?: string
 
   /**
    * Path to emit entrypoints.json
@@ -38,9 +33,14 @@ export interface Options {
   outputPath?: string
 
   /**
-   * Emit html with inlined runtime, script and style tags
+   * Override the public path (default is from webpack)
    */
-  emitHtml?: boolean
+  publicPath?: string
+
+  /**
+   * Emit entrypoints as an array or an object (default: `array`)
+   */
+  type?: 'array' | 'object'
 }
 
 /**
@@ -58,6 +58,26 @@ export interface Options {
  */
 export class EntrypointsWebpackPlugin {
   /**
+   * Collected assets
+   */
+  public assets: Entry
+
+  /**
+   * Webpack compilation instance
+   */
+  public compilation: Webpack.Compilation
+
+  /**
+   * Webpack compiler instance
+   */
+  public compiler: Webpack.Compiler
+
+  /**
+   * Artifact filename
+   */
+  public name: string = `entrypoints.json`
+
+  /**
    * Plugin compiler ident
    */
   protected plugin = {
@@ -66,29 +86,43 @@ export class EntrypointsWebpackPlugin {
   }
 
   /**
-   * Artifact filename
-   */
-  public name: string = `entrypoints.json`
-
-  /**
-   * Webpack compiler instance
-   */
-  public compiler: Webpack.Compiler
-
-  /**
-   * Webpack compilation instance
-   */
-  public compilation: Webpack.Compilation
-
-  /**
-   * Collected assets
-   */
-  public assets: Entry
-
-  /**
    * Class constructor
    */
   public constructor(public options: Options) {}
+
+  /**
+   * Adds an entry to the manifest
+   */
+  @bind
+  public addToManifest({
+    entry,
+    file,
+    key = null,
+  }: {
+    entry: string
+    file: any
+    key?: string
+  }) {
+    const type = file.split(`.`).pop()
+
+    if (!this.assets[entry]) {
+      this.assets[entry] = {[type]: null}
+    }
+
+    this.assets[entry] = {
+      ...this.assets[entry],
+      [type]:
+        this.options.type === `object` && key
+          ? {
+              ...(this.assets[entry][type] ?? {}),
+              [key]: this.options.publicPath.concat(file),
+            }
+          : uniq([
+              ...(this.assets[entry][type] ?? []),
+              this.options.publicPath.concat(file),
+            ]),
+    }
+  }
 
   /**
    * Webpack plugin API's `apply` hook
@@ -120,6 +154,23 @@ export class EntrypointsWebpackPlugin {
   }
 
   /**
+   * Get assets from an entrypoint
+   */
+  @bind
+  public getEntrypointFiles(entry: {
+    chunks: Webpack.Chunk[]
+  }): {[key: string]: string}[] {
+    const files = []
+    for (const chunk of entry.chunks) {
+      Array.from(chunk.files).map(file => {
+        files.push({file, key: chunk.name})
+      })
+    }
+
+    return files
+  }
+
+  /**
    * Runs through each entrypoint entry and adds to the
    * manifest
    */
@@ -128,8 +179,8 @@ export class EntrypointsWebpackPlugin {
     this.compilation.entrypoints.forEach(entry => {
       this.getEntrypointFiles(entry)
         .filter(({file}) => !file.includes(`hot-update`))
-        .map(({key, file}) => {
-          this.addToManifest({key, entry: entry.name, file})
+        .map(({file, key}) => {
+          this.addToManifest({entry: entry.name, file, key})
         })
     })
 
@@ -146,56 +197,5 @@ export class EntrypointsWebpackPlugin {
         true,
       ),
     })
-  }
-
-  /**
-   * Adds an entry to the manifest
-   */
-  @bind
-  public addToManifest({
-    key = null,
-    entry,
-    file,
-  }: {
-    key?: string
-    entry: string
-    file: any
-  }) {
-    const type = file.split(`.`).pop()
-
-    if (!this.assets[entry]) {
-      this.assets[entry] = {[type]: null}
-    }
-
-    this.assets[entry] = {
-      ...this.assets[entry],
-      [type]:
-        this.options.type === `object` && key
-          ? {
-              ...(this.assets[entry][type] ?? {}),
-              [key]: this.options.publicPath.concat(file),
-            }
-          : uniq([
-              ...(this.assets[entry][type] ?? []),
-              this.options.publicPath.concat(file),
-            ]),
-    }
-  }
-
-  /**
-   * Get assets from an entrypoint
-   */
-  @bind
-  public getEntrypointFiles(entry: {
-    chunks: Webpack.Chunk[]
-  }): {[key: string]: string}[] {
-    const files = []
-    for (const chunk of entry.chunks) {
-      Array.from(chunk.files).map(file => {
-        files.push({key: chunk.name, file})
-      })
-    }
-
-    return files
   }
 }

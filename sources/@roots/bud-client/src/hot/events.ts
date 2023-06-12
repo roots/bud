@@ -19,6 +19,33 @@ export const injectEvents = (
     public listeners: Set<Listener> = new Set<Listener>()
 
     /**
+     * EventSource `onmessage` handler
+     * @public
+     */
+    public override onmessage = async function (payload: MessageEvent) {
+      if (!payload?.data || payload.data == `\uD83D\uDC93`) {
+        return
+      }
+
+      try {
+        const data = JSON.parse(payload.data)
+        if (!data) return
+
+        await Promise.all(
+          [...this.listeners].map(async listener => {
+            return await listener(data)
+          }),
+        )
+      } catch (ex) {}
+    }
+
+    /**
+     * EventSource `onopen` handler
+     * @public
+     */
+    public override onopen = function () {}
+
+    /**
      * Class constructor
      *
      * @remarks
@@ -50,33 +77,6 @@ export const injectEvents = (
         })
 
       return window.bud.hmr[options.name]
-    }
-
-    /**
-     * EventSource `onopen` handler
-     * @public
-     */
-    public override onopen = function () {}
-
-    /**
-     * EventSource `onmessage` handler
-     * @public
-     */
-    public override onmessage = async function (payload: MessageEvent) {
-      if (!payload?.data || payload.data == `\uD83D\uDC93`) {
-        return
-      }
-
-      try {
-        const data = JSON.parse(payload.data)
-        if (!data) return
-
-        await Promise.all(
-          [...this.listeners].map(async listener => {
-            return await listener(data)
-          }),
-        )
-      } catch (ex) {}
     }
 
     /**

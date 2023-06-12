@@ -5,12 +5,12 @@ import React from 'react'
 
 export const Install = ({packages}: {packages: string}) => (
   <Tabs
-    defaultValue="yarn"
-    groupId="pacman"
     values={[
       {label: `yarn`, value: `yarn`},
       {label: `npm`, value: `npm`},
     ]}
+    defaultValue="yarn"
+    groupId="pacman"
   >
     <TabItem value="yarn">
       <CodeBlock className="language-shell">

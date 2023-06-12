@@ -1,4 +1,4 @@
-import type {Bud} from '../../../bud.js'
+import type {Bud} from '../../../index.js'
 import type {ServiceContainer} from '../../../service.js'
 
 /**
@@ -10,14 +10,12 @@ import type {ServiceContainer} from '../../../service.js'
  */
 export interface Api extends ServiceContainer {
   /**
-   * Queued method calls
    */
-  queue: Array<[string, ...any[]] | undefined>
+  bindFacade(key: string, fn: CallableFunction): void
 
   /**
-   * Trace of all method calls
    */
-  trace: Array<[string, ...any[]]>
+  call(name: string, ...args: Array<any>): Promise<Bud>
 
   /**
    * Logger
@@ -29,10 +27,12 @@ export interface Api extends ServiceContainer {
   processQueue(): Promise<void>
 
   /**
+   * Queued method calls
    */
-  call(name: string, ...args: Array<any>): Promise<Bud>
+  queue: Array<[string, ...any[]] | undefined>
 
   /**
+   * Trace of all method calls
    */
-  bindFacade(key: string, fn: CallableFunction): void
+  trace: Array<[string, ...any[]]>
 }

@@ -9,7 +9,6 @@
 
  */
 
-import './types.js'
-
 import Vue from './extension.js'
+import './types.js'
 export default Vue

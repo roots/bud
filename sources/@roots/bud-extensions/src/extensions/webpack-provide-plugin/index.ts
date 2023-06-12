@@ -1,21 +1,24 @@
-import {Extension} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
   label,
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import webpack from 'webpack'
+import {
+  type ProvidePlugin,
+  default as Webpack,
+} from '@roots/bud-support/webpack'
 
 /**
  * Webpack provide plugin configuration
  */
 @label(`@roots/bud-extensions/webpack-provide-plugin`)
-@plugin(webpack.ProvidePlugin)
+@plugin(Webpack.ProvidePlugin)
 @options({})
 export default class BudProvide extends Extension<
   Record<string, any>,
-  webpack.ProvidePlugin
+  ProvidePlugin
 > {
   /**
    * {@link Extension.when}

@@ -8,10 +8,10 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
-
 import {Extension} from '@roots/bud-framework/extension'
 import {label} from '@roots/bud-framework/extension/decorators'
+
+import './types.js'
 
 @label(`@roots/bud-prettier`)
 export default class BudPrettier extends Extension {}
