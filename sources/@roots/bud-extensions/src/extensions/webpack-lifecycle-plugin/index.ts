@@ -1,14 +1,10 @@
-import type {
-  Compilation,
-  Compiler,
-  StatsCompilation,
-} from '@roots/bud-framework/config'
+import type {Compilation, Compiler} from '@roots/bud-framework/config'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
 
 /**
- * Webpack provide plugin configuration
+ * Webpack lifecycle plugin
  */
 @label(`@roots/bud-extensions/webpack-lifecycle-plugin`)
 export default class BudWebpackLifecyclePlugin extends Extension {
@@ -60,7 +56,6 @@ export default class BudWebpackLifecyclePlugin extends Extension {
       `beforeCompile`,
       `beforeRun`,
       `emit`,
-      `done`,
       `run`,
     ]
       .filter(k => compiler.hooks[k])
@@ -108,11 +103,6 @@ export default class BudWebpackLifecyclePlugin extends Extension {
 
   @bind
   public compile(...compilationParams: any[]) {}
-
-  @bind
-  public async done(stats: StatsCompilation) {
-    this.logger.info(`done`)
-  }
 
   @bind
   public async emit(compilation: Compilation) {

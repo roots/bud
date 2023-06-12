@@ -1,74 +1,58 @@
-import {describe, expect, it, vi} from 'vitest'
+import {join} from 'node:path'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 import Extension from '../src/invalidate-cache/index.js'
+import {Bud} from '@roots/bud-framework'
 
 describe(`@roots/bud-cache/invalidate-cache-extension`, () => {
+  let bud: Bud = {
+    after: vi.fn(() => false),
+    cache: {
+      cacheDirectory: `/foo/cache`,
+    },
+    context: {
+      force: false,
+    },
+    fs: {
+      exists: vi.fn(async () => true),
+      remove: vi.fn(async () => true),
+    },
+  } as unknown as Bud
+
+  let extension: Extension
+
+  beforeAll(() => {
+    extension = new Extension(bud)
+    extension.register(bud)
+  })
+
   it(`should be constructable`, () => {
     expect(Extension).toBeInstanceOf(Function)
   })
 
   it(`should be an extension`, async () => {
-    const bud = await import(`@repo/test-kit`).then(
-      async pkg => await pkg.factory(),
-    )
-
-    expect(new Extension(bud)).toHaveProperty(
+    expect(extension).toHaveProperty(
       `label`,
       `@roots/bud-cache/invalidate-cache`,
     )
   })
 
   it(`should have an error file accessor`, async () => {
-    const bud = await import(`@repo/test-kit`).then(
-      async pkg => await pkg.factory(),
-    )
-    const extension = new Extension(bud)
-
-    expect(extension.invalidationFile).toStrictEqual(
-      expect.stringContaining(`${bud.label}/cache/error.json`),
+    expect(extension.invalidationFile).toBe(
+      join(bud.cache.cacheDirectory, `error.json`),
     )
   })
 
   it(`should check if error file exists`, async () => {
-    const bud = await import(`@repo/test-kit`).then(
-      async pkg => await pkg.factory(),
-    )
-
-    const extension = new Extension(bud)
-    // @ts-ignore
-    extension.app.fs.exists = vi.fn(() => false)
-    await extension.register(bud)
-
+    expect(extension.app.fs.exists).toBe(bud.fs.exists)
     expect(extension.app.fs.exists).toHaveBeenCalled()
   })
 
-  it(`should call remove when bud.fs.exists returns false`, async () => {
-    const bud = await import(`@repo/test-kit`).then(
-      async pkg => await pkg.factory(),
-    )
-    // @ts-ignore
-    bud.fs.exists = vi.fn(() => true)
-    // @ts-ignore
-    const removeSpy = vi.spyOn(bud.fs, `remove`)
-
-    const extension = new Extension(bud)
-    await extension.register(bud)
-
-    expect(removeSpy).toHaveBeenCalled()
+  it(`should call remove when bud.fs.exists returns true`, async () => {
+    expect(bud.fs.remove).toHaveBeenCalled()
   })
 
-  it(`should call bud.hooks.action`, async () => {
-    const bud = await import(`@repo/test-kit`).then(
-      async pkg => await pkg.factory(),
-    )
-
-    // @ts-ignore
-    bud.fs.exists = vi.fn(() => true)
-    const hookSpy = vi.spyOn(bud.hooks, `action`)
-
-    const extension = new Extension(bud)
-    await extension.register(bud)
-
-    expect(hookSpy).toHaveBeenCalled()
+  it(`should call bud.after`, async () => {
+    expect(bud.after).toHaveBeenCalled()
   })
 })

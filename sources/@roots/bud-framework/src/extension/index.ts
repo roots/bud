@@ -389,6 +389,14 @@ export class Extension<
   }
 
   /**
+   * Return to bud instance from extension
+   */
+  @bind
+  public done(): Bud {
+    return this.app
+  }
+
+  /**
    * Enable extension
    */
   @bind
