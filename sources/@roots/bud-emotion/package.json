@@ -88,7 +88,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@swc/plugin-emotion": "2.5.51",
+    "@swc/plugin-emotion": "2.5.67",
     "react": "18.2.0",
     "tslib": "2.5.3"
   },
