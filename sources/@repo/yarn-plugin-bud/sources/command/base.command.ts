@@ -6,7 +6,6 @@ export abstract class Command extends BaseCommand {
 
   public constructor() {
     super()
-
     this.promised = []
   }
 
@@ -16,11 +15,15 @@ export abstract class Command extends BaseCommand {
     failText: string,
     promise: Promise<any>,
   ): Promise<any> {
-    return oraPromise(promise, {
-      failText,
-      spinner: `dots8`,
-      successText,
-      text: `${text.trim()}... `,
-    })
+    try {
+      return oraPromise(promise, {
+        failText,
+        spinner: `dots8`,
+        successText,
+        text: `${text.trim()}... `,
+      })
+    } catch (error) {
+      throw error
+    }
   }
 }
