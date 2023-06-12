@@ -97,7 +97,7 @@ export const theme: Record<string, any> = {
   /**
    * flags, modifiers, annotations, processing instructions, preprocessor directive, etc
    */
-  meta: chalk.grey,
+  meta: chalk.gray,
 
   /**
    * keyword or built-in within meta construct
@@ -177,7 +177,7 @@ export const theme: Record<string, any> = {
   /**
    * parsed section inside a literal string
    */
-  subst: chalk.blue.dim,
+  subst: chalk.blue,
 
   /**
    * symbolic constant, interned string, goto label
@@ -187,7 +187,7 @@ export const theme: Record<string, any> = {
   /**
    * XML/HTML tag
    */
-  tag: chalk.grey,
+  tag: chalk.gray,
 
   /**
    * tag of a template language
@@ -208,7 +208,7 @@ export const theme: Record<string, any> = {
    * user-defined type in a language with first-class syntactically significant types, like
    * Haskell
    */
-  type: chalk.cyan.dim,
+  type: chalk.cyan,
 
   /**
    * variable in a config or a template file, environment var expansion in a script

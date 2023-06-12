@@ -138,7 +138,7 @@ export default class BudPresetWordPress extends Extension<Options> {
         `\n\n`,
 
         `At that time you will be required to explicitly install a compiler.`,
-        chalk.bold.underline(`This warning will become an error.`),
+        chalk.bold(chalk.underline(`This warning will become an error.`)),
         `\n\n`,
 
         `For most projects we recommend installing`,

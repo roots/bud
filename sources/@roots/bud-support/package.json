@@ -76,9 +76,6 @@
       "html-webpack-plugin": [
         "./vendor/html-webpack-plugin/index.d.cts"
       ],
-      "lodash/*": [
-        "./lib/lodash/*/index.d.ts"
-      ],
       "*": [
         "./lib/*/index.d.ts"
       ]
