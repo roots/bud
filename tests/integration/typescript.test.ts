@@ -8,8 +8,8 @@ describe(`examples/typescript`, () => {
       label: `@examples/typescript`,
       buildCommand: [`./node_modules/.bin/bud`, [`build`, `--ci`]],
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()
@@ -21,8 +21,8 @@ describe(`examples/typescript`, () => {
       label: `@examples/typescript`,
       buildCommand: [`./node_modules/.bin/ts-bud`, [`build`, `--ci`]],
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()

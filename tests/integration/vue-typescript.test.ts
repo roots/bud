@@ -7,8 +7,8 @@ describe(`examples/vue-typescript`, () => {
     const test = setup({
       label: `@examples/vue-typescript`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.manifest).toMatchSnapshot()
     expect(test.assets[`main.js`].length).toBeGreaterThan(10)

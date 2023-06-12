@@ -7,8 +7,8 @@ describe(`examples/sass`, () => {
     const test = setup({
       label: `@examples/sass`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`main.css`].length).toBeGreaterThan(10)
     expect(test.assets[`main.css`].includes(`import`)).toBeFalsy()

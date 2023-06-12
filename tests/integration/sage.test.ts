@@ -9,8 +9,8 @@ describe(`examples/sage`, () => {
       label: `@examples/sage`,
       dist: `public`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.entrypoints.app.css).toBeInstanceOf(Array)
     expect(test.entrypoints.app.css).toHaveLength(1)

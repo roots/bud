@@ -22,7 +22,7 @@ export default class Project extends Service {
       const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
-        ...omit(bud.context, [`env`, `logger`, `stdout`, `stderr`]),
+        ...omit(bud.context, [`env`]),
         args: args.raw,
         children: bud.children ? Object.keys(bud.children) : [],
         env: bud.env.getKeys(),

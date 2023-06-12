@@ -7,8 +7,8 @@ describe(`examples/sass-tailwindcss`, () => {
     const test = setup({
       label: `@examples/sass-tailwindcss`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`app.css`].includes(`@import`)).toBeFalsy()
     expect(test.assets[`app.css`].includes(`@apply`)).toBe(false)

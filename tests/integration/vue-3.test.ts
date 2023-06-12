@@ -7,8 +7,8 @@ describe(`examples/vue-3`, () => {
     const test = setup({
       label: `@examples/vue-3`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`main.css`].length).toBeGreaterThan(10)
     expect(test.assets[`main.css`].includes(`from '`)).toBeFalsy()

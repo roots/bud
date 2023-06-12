@@ -8513,6 +8513,7 @@ __metadata:
     "@types/lodash-es": 4.17.7
     "@types/minimist": 1.2.2
     "@types/node-notifier": 8.0.2
+    "@types/react": 18.2.9
     "@types/signale": 1.4.4
     "@types/webpack-manifest-plugin": 3.0.5
     axios: 1.4.0
@@ -8538,8 +8539,13 @@ __metadata:
     http-proxy-middleware: 3.0.0-beta.1
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
+    ink: 4.2.0
+    ink-spinner: 5.0.0
+    ink-text-input: 5.0.1
     json5: 2.2.3
-    lodash: 4.17.21
+    lodash.get: 4.4.2
+    lodash.set: 4.3.2
+    lodash.sortby: 4.7.0
     mini-css-extract-plugin: 2.7.6
     mini-svg-data-uri: 1.4.4
     minimist: 1.2.8
@@ -8550,6 +8556,7 @@ __metadata:
     parse-semver: 1.1.1
     patch-console: 2.0.0
     pretty-format: 29.5.0
+    react: 18.2.0
     remark: 14.0.3
     remark-html: 15.0.2
     remark-loader: 5.0.0
@@ -14820,9 +14827,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001449, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001499
-  resolution: "caniuse-lite@npm:1.0.30001499"
-  checksum: 3ff07cb04f5a3b93e01f6bc87dbf8e6c704b72c1389930b1ebd0527ee0bf23dfdd7129d147b439616dc17384b516519cda965f62f8c02c73aadf0339dcf2dc73
+  version: 1.0.30001502
+  resolution: "caniuse-lite@npm:1.0.30001502"
+  checksum: 801a9fd4b635082a976a2a0238c59e106f37238f93afddb504b88fa434d521cd9c600d8d9f305a0f4611c0b53c6d6c164e81ee38f0130ff46636c3b280195a0c
   languageName: node
   linkType: hard
 
@@ -23993,6 +24000,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.get@npm:4.4.2":
+  version: 4.4.2
+  resolution: "lodash.get@npm:4.4.2"
+  checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
+  languageName: node
+  linkType: hard
+
 "lodash.isempty@npm:^4.4.0":
   version: 4.4.0
   resolution: "lodash.isempty@npm:4.4.0"
@@ -24046,6 +24060,20 @@ __metadata:
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
+  languageName: node
+  linkType: hard
+
+"lodash.set@npm:4.3.2":
+  version: 4.3.2
+  resolution: "lodash.set@npm:4.3.2"
+  checksum: a9122f49eef9f2d0fc9061a33d87f8e5b8c6b23d46e8b9e9ce1529d3588d79741bd1145a3abdfa3b13082703e65af27ff18d8a07bfc22b9be32f3fc36f763f70
+  languageName: node
+  linkType: hard
+
+"lodash.sortby@npm:4.7.0":
+  version: 4.7.0
+  resolution: "lodash.sortby@npm:4.7.0"
+  checksum: db170c9396d29d11fe9a9f25668c4993e0c1331bcb941ddbd48fb76f492e732add7f2a47cfdf8e9d740fa59ac41bbfaf931d268bc72aab3ab49e9f89354d718c
   languageName: node
   linkType: hard
 

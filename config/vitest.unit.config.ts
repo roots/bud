@@ -9,7 +9,7 @@ export default {
       `sources/@roots/*/src/*.test.{ts,tsx}`,
       `sources/@roots/*/src/**/*.test.{ts,tsx}`,
       `sources/@roots/*/test/*.{ts,tsx}`,
-      `sources/@roots/*/test/**/*.tsx`,
+      `sources/@roots/*/test/**/*.{ts,tsx}`,
       `tests/unit/*.test.ts`,
       `tests/reproductions/*.test.ts`,
     ],

@@ -7,8 +7,8 @@ describe(`examples/remote-sources`, () => {
     const test = setup({
       label: `@examples/remote-sources`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()

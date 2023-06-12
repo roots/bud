@@ -38,26 +38,20 @@ class Project {
     stdout && (await fs.writeAsync(this.path(`build.stdout.log`), stdout))
     stderr && (await fs.writeAsync(this.path(`build.stderr.log`), stderr))
 
-    await Promise.all([
-      async () => {
-        this.manifest = await fs.readAsync(
-          this.path(this.options.dist, `manifest.json`),
-          `json`,
-        )
-      },
-      async () => {
-        this.entrypoints = await fs.readAsync(
-          this.path(this.options.dist, `entrypoints.json`),
-          `json`,
-        )
-      },
-    ])
+    this.entrypoints = await fs.readAsync(
+      this.path(this.options.dist ?? `dist`, `entrypoints.json`),
+      `json`,
+    )
+    this.manifest = await fs.readAsync(
+      this.path(this.options.dist ?? `dist`, `manifest.json`),
+      `json`,
+    )
 
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
           this.assets[name] = await fs.readAsync(
-            this.path(this.options.dist, path),
+            this.path(this.options.dist ?? `dist`, path),
             `utf8`,
           )
         },

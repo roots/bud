@@ -7,8 +7,8 @@ describe(`examples/vue-legacy`, () => {
     const test = setup({
       label: `@examples/vue-legacy`,
     })
-    expect(await test.install()).not.toThrow()
-    expect(await test.build()).not.toThrow()
+    await test.install()
+    await test.build()
 
     expect(test.assets[`main.js`].length).toBeGreaterThan(10)
     expect(test.assets[`main.js`].includes(`from '`)).toBeFalsy()
