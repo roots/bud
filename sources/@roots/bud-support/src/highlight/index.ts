@@ -6,9 +6,10 @@ import js from 'highlight.js/lib/languages/javascript'
 import scss from 'highlight.js/lib/languages/scss'
 import ts from 'highlight.js/lib/languages/typescript'
 import {parseFragment} from 'parse5'
+// @ts-ignore bundled
 import {adapter} from 'parse5-htmlparser2-tree-adapter'
 
-// @ts-ignore
+// @ts-ignore bundled
 import {theme} from './theme.js'
 
 interface node {

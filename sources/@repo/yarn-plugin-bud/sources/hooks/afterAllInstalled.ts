@@ -2,7 +2,7 @@
 import {execute} from '@yarnpkg/shell'
 
 export default async () => {
-  await execute(`yarn`, [`@bud`, `plugin`, `rebuild`])
+  await execute(`yarn`, [`@bud`, `plugin`, `build`])
   await execute(`yarn`, [`@bud`, `registry`, `start`])
 
   if (!process.env.ci) {
@@ -11,7 +11,7 @@ export default async () => {
       `@roots/browserslist-config`,
       `exec`,
       `node`,
-      `./scripts/postinstall.mjs`,
+      `scripts/postinstall.mjs`,
     ])
   }
 

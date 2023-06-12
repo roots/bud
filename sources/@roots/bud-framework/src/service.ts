@@ -1,8 +1,8 @@
+import type {Bud} from '@roots/bud-framework'
+
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
-
-import type {Bud} from './index.js'
 
 interface Contract {
   _app: () => Bud
@@ -258,6 +258,5 @@ export {
   Base as default,
   BaseContainer,
   BaseContainer as ServiceContainer,
+  type Contract,
 }
-
-export type {Contract}

@@ -7,7 +7,7 @@ export class Pm2 extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
 
   public static usage: CommandClass['usage'] = {
-    category: `@bud`,
+    category: `@bud-tools`,
     description: `registry access`,
     examples: [[`work with pm2`, `yarn @bud pm2`]],
   }
@@ -15,10 +15,10 @@ export class Pm2 extends Command {
   public passthrough = Option.Proxy({name: `pm2 options`})
 
   public async execute() {
-    try {
-      await this.cli.run(
-        [`pm2`, ...(this.passthrough ?? [])].filter(Boolean),
-      )
-    } catch (e) {}
+    await this.cli
+      .run([`pm2`, ...(this.passthrough ?? [])].filter(Boolean))
+      .catch(error => {
+        throw error
+      })
   }
 }

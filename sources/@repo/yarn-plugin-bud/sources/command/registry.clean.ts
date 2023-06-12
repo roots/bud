@@ -1,13 +1,9 @@
-/* eslint-disable no-console */
 import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
 import * as fs from 'fs-jetpack'
 
 import {Command} from './base.command'
 
-/**
- * bud registry clean command class
- */
 export class RegistryClean extends Command {
   public static paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `clean`],
@@ -22,16 +18,14 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
-    try {
-      await this.promise(
-        `Removing existing mocks`,
-        `Existing mocks removed`,
-        `Failed to remove existing mocks`,
-        fs.removeAsync(path(`storage/mocks`)),
-      )
-    } catch (e) {
-      throw e
-    }
+    await this.promise(
+      `Removing existing mocks`,
+      `Existing mocks removed`,
+      `Failed to remove existing mocks`,
+      fs.removeAsync(path(`storage/mocks`)),
+    ).catch(error => {
+      throw error
+    })
 
     try {
       await this.promise(

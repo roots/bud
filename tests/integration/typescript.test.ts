@@ -1,26 +1,31 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/typescript`, () => {
   it(`should compile js and css as expected (bud)`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/typescript`,
       buildCommand: [`./node_modules/.bin/bud`, [`build`, `--ci`]],
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`from '`)).toBeFalsy()
-    expect(project.manifest).toMatchSnapshot()
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()
+    expect(test.manifest).toMatchSnapshot()
   })
 
   it(`should compile js and css as expected (ts-bud)`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/typescript`,
       buildCommand: [`./node_modules/.bin/ts-bud`, [`build`, `--ci`]],
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`from '`)).toBeFalsy()
-    expect(project.manifest).toMatchSnapshot()
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()
+    expect(test.manifest).toMatchSnapshot()
   })
 })

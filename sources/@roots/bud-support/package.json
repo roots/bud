@@ -92,10 +92,9 @@
     "@types/lodash-es": "4.17.7",
     "@types/minimist": "1.2.2",
     "@types/node-notifier": "8.0.2",
+    "@types/react": "18.2.9",
     "@types/signale": "1.4.4",
-    "@types/webpack-manifest-plugin": "3.0.5",
-    "parse5": "7.1.2",
-    "parse5-htmlparser2-tree-adapter": "7.0.0"
+    "@types/webpack-manifest-plugin": "3.0.5"
   },
   "dependencies": {
     "@roots/filesystem": "workspace:*",
@@ -126,7 +125,9 @@
     "ink-spinner": "5.0.0",
     "ink-text-input": "5.0.1",
     "json5": "2.2.3",
-    "lodash": "4.17.21",
+    "lodash.get": "4.4.2",
+    "lodash.set": "4.3.2",
+    "lodash.sortby": "4.7.0",
     "mini-css-extract-plugin": "2.7.6",
     "mini-svg-data-uri": "1.4.4",
     "minimist": "1.2.8",

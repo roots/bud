@@ -7,7 +7,6 @@
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
-
-import BudSolid from './extension.js'
 import './types.js'
-export default BudSolid
+
+export {default} from './extension.js'

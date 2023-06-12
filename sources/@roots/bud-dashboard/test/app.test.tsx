@@ -1,8 +1,8 @@
-import {factory} from '@repo/test-kit/bud'
+import {factory} from '@repo/test-kit'
 import {render} from 'ink-testing-library'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import App from './app.js'
+import App from '../src/dashboard/app.js'
 
 const mockCompilations = [
   {

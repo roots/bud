@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -9,7 +9,7 @@ import * as args from '@roots/bud-support/utilities/args'
 /**
  * Project service
  */
-class Project extends Service {
+export default class Project extends Service {
   /**
    * `build.after` hook callback
    */
@@ -22,7 +22,7 @@ class Project extends Service {
       const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
 
       await bud.fs.write(path, {
-        ...omit(bud.context, [`env`, `logger`, `stdout`, `stderr`]),
+        ...omit(bud.context, [`env`]),
         args: args.raw,
         children: bud.children ? Object.keys(bud.children) : [],
         env: bud.env.getKeys(),
@@ -68,5 +68,3 @@ class Project extends Service {
     }
   }
 }
-
-export {Project}

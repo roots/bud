@@ -18,7 +18,7 @@ export interface get {
  * ```
  */
 export const get: get = function (label, tap) {
-  const {isRoot, root, warn} = this as Bud
+  const {isRoot, root, warn} = this
 
   !isRoot &&
     warn(`not root instance. returning from the context of ${root.label}`)

@@ -3,11 +3,21 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["node"]
+    "types": [
+      "node",
+      "@roots/bud-babel",
+      "@roots/bud-framework",
+      "@roots/bud-extensions",
+      "@roots/bud-esbuild",
+      "@roots/bud-swc",
+      "@roots/bud-typescript",
+      "@roots/bud-postcss"
+    ]
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts"],
+  "exclude": ["test"],
   "references": [
-    {"path": "./../bud/tsconfig.json"}
+    {"path": "./../bud-extensions/tsconfig.json"},
+    {"path": "./../bud-framework/tsconfig.json"}
   ]
 }

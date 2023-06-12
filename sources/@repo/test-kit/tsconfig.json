@@ -2,15 +2,15 @@
   "extends": ["../../../config/tsconfig.json"],
   "compilerOptions": {
     "outDir": "compiled",
-    "types": ["node", "vitest", "@roots/bud", "@roots/bud-framework"]
+    "types": ["node", "vitest", "@roots/bud"]
   },
   "include": [
     "./index.ts",
-    "./project.ts"
+    "./integration-test.ts",
+    "./setup.ts",
   ],
   "references": [
     {"path": "./../../@roots/bud/tsconfig.json"},
-    {"path": "./../../@roots/bud-framework/tsconfig.json"},
     {"path": "./../../@roots/bud-support/tsconfig.json"}
   ]
 }

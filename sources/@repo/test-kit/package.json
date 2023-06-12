@@ -4,15 +4,9 @@
   "packageManager": "yarn@3.2.4",
   "type": "module",
   "exports": {
-    ".": {
-      "default": "./compiled/index.js"
-    },
-    "./bud": {
-      "default": "./compiled/index.js"
-    },
-    "./project": {
-      "default": "./compiled/project.js"
-    }
+    ".": "./compiled/index.js",
+    "./project": "./compiled/project.js",
+    "./setup": "./compiled/setup.js"
   },
   "typesVersions": {
     "*": {

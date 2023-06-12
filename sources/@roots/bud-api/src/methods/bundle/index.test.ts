@@ -1,4 +1,4 @@
-import '../../../src/types.js'
+import '@roots/bud-api'
 
 import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'

@@ -1,4 +1,4 @@
-import {join} from 'node:path'
+import {path} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
 import {Context} from '@roots/bud-framework/options'
 
@@ -10,7 +10,7 @@ describe(`context.get`, () => {
   beforeEach(async () => {
     context = await getContext({
       // @ts-ignore
-      basedir: join(process.cwd(), `tests`, `util`, `project`),
+      basedir: path(`tests`, `util`, `project`),
     })
   })
 

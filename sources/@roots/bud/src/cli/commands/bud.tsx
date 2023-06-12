@@ -23,7 +23,7 @@ import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
-import * as instances from '@roots/bud/instances'
+import * as instance from '@roots/bud/instance'
 
 import type {CLIContext} from '../index.js'
 
@@ -396,7 +396,7 @@ export default class BudCommand extends Command<CLIContext> {
     )
     await import(`../env.${this.context.mode}.js`)
 
-    this.bud = instances.get()
+    this.bud = instance.get()
 
     logger.info(`bud.js configured with`, context)
 

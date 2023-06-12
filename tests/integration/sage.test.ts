@@ -1,45 +1,45 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 import fs from 'fs-jetpack'
 
 describe(`examples/sage`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/sage`,
       dist: `public`,
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
-    expect(project.entrypoints.app.css).toBeInstanceOf(Array)
-    expect(project.entrypoints.app.css).toHaveLength(1)
-    expect(project.entrypoints.app.dependencies).toEqual([])
+    expect(test.entrypoints.app.css).toBeInstanceOf(Array)
+    expect(test.entrypoints.app.css).toHaveLength(1)
+    expect(test.entrypoints.app.dependencies).toEqual([])
 
-    expect(project.entrypoints.editor.css).toBeInstanceOf(Array)
-    expect(project.entrypoints.editor.css).toHaveLength(1)
+    expect(test.entrypoints.editor.css).toBeInstanceOf(Array)
+    expect(test.entrypoints.editor.css).toHaveLength(1)
 
-    expect(project.assets[`runtime.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`runtime.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`runtime.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`runtime.js`].includes(`import `)).toBeFalsy()
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()
 
-    expect(project.assets[`app.css`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.css`].includes(`@import`)).toBe(false)
+    expect(test.assets[`app.css`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.css`].includes(`@import`)).toBe(false)
 
-    expect(project.assets[`app.css`].includes(`@apply`)).toBe(false)
-    expect(project.assets[`app.css`].match(/    /)).toBeFalsy()
-    expect(project.assets[`app.css`].match(/\\n/)).toBeFalsy()
+    expect(test.assets[`app.css`].includes(`@apply`)).toBe(false)
+    expect(test.assets[`app.css`].match(/    /)).toBeFalsy()
+    expect(test.assets[`app.css`].match(/\\n/)).toBeFalsy()
 
     expect(
-      project.assets[`app.css`].includes(`.text-xl{font-size:1.25rem`),
+      test.assets[`app.css`].includes(`.text-xl{font-size:1.25rem`),
     ).toBeTruthy()
     expect(
-      project.assets[`app.css`].includes(`.text-custom{font-size:.625rem`),
+      test.assets[`app.css`].includes(`.text-custom{font-size:.625rem`),
     ).toBeTruthy()
 
-    const themeJson = await fs.readAsync(
-      project.projectPath(`theme.json`),
-      `json`,
-    )
+    const themeJson = await fs.readAsync(test.path(`theme.json`), `json`)
     expect(themeJson).toMatchInlineSnapshot(`
           {
             "$schema": "https://schemas.wp.org/trunk/theme.json",
@@ -177,21 +177,21 @@ describe(`examples/sage`, () => {
           }
         `)
 
-    expect(project.assets[`editor.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`editor.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`editor.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`editor.js`].includes(`import `)).toBeFalsy()
 
-    expect(project.assets[`editor.css`].length).toBeGreaterThan(10)
-    expect(project.assets[`editor.css`].includes(`@import`)).toBe(false)
-    expect(project.assets[`editor.css`].includes(`@apply`)).toBe(false)
-    expect(project.assets[`editor.css`].match(/    /)).toBeFalsy()
-    expect(project.assets[`editor.css`].match(/\\n/)).toBeFalsy()
+    expect(test.assets[`editor.css`].length).toBeGreaterThan(10)
+    expect(test.assets[`editor.css`].includes(`@import`)).toBe(false)
+    expect(test.assets[`editor.css`].includes(`@apply`)).toBe(false)
+    expect(test.assets[`editor.css`].match(/    /)).toBeFalsy()
+    expect(test.assets[`editor.css`].match(/\\n/)).toBeFalsy()
 
-    expect(project.manifest[`app.js`]).toMatch(/js\/app\.[\d|\w]*\.js/)
-    expect(project.manifest[`app.css`]).toMatch(/css\/app\.[\d|\w]*\.css/)
-    expect(project.manifest[`editor.css`]).toMatch(
+    expect(test.manifest[`app.js`]).toMatch(/js\/app\.[\d|\w]*\.js/)
+    expect(test.manifest[`app.css`]).toMatch(/css\/app\.[\d|\w]*\.css/)
+    expect(test.manifest[`editor.css`]).toMatch(
       /css\/editor\.[\d|\w]*\.css/,
     )
-    expect(project.manifest[`runtime.js`]).toMatch(
+    expect(test.manifest[`runtime.js`]).toMatch(
       /js\/runtime\.[\d|\w]*\.js/,
     )
   })

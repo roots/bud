@@ -1,42 +1,38 @@
-import {paths} from '@repo/constants'
-import {Bud, factory} from '@repo/test-kit'
-import {join} from 'path'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {path} from '@repo/constants'
+import {type Bud, factory} from '@roots/bud'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`multi-compiler`, () => {
   let bud: Bud
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     bud = await factory({
-      basedir: join(paths.root, `tests`, `unit`),
+      basedir: path(`tests`, `unit`),
+      dry: true,
     })
 
     /**
      * Make `theme` workspace in `./theme` and setup entrypoints
      * Files will be output to `./theme/dist`
      */
-    await bud.make(
-      {
-        label: `theme`,
-        basedir: bud.path(`theme`),
-      },
-      async theme => theme.entry(`theme`, [`theme.js`, `theme.css`]),
-    )
+    await bud.make(`theme`, async theme => {
+      theme
+        .setPath(`@src`, `theme/src`)
+        .entry(`theme`, [`theme.js`, `theme.css`])
+    })
 
     /**
      * Make plugin workspace in `./plugin` and setup entrypoints
      * Files will be output to `./plugin/dist`
      */
-    await bud.make(
-      {
-        label: `plugin`,
-        basedir: bud.path(`plugin`),
-      },
-      async plugin => plugin.entry(`plugin`, [`plugin.js`, `plugin.css`]),
+    await bud.make(`plugin`, async plugin =>
+      plugin
+        .setPath(`@src`, `plugin/src`)
+        .entry(`plugin`, [`plugin.js`, `plugin.css`]),
     )
   })
 
-  it(`string matches /theme\/src$/`, async () => {
+  it(`theme path should match /theme\/src$/`, async () => {
     // @ts-ignore
     expect(bud.get(`theme`).path(`@src`)).toEqual(
       expect.stringMatching(/theme\/src$/),

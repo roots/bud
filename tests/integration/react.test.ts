@@ -1,25 +1,26 @@
-import {Project} from '@repo/test-kit/project'
+import setup from '@repo/test-kit/setup'
+
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/react`, () => {
   it(`should compile js and css as expected`, async () => {
-    const project = await new Project({
+    const test = setup({
       label: `@examples/react`,
-    }).setup()
+    })
+    await test.install()
+    await test.build()
 
-    expect(project.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`app.js`].includes(`import `)).toBeFalsy()
-    expect(project.manifest[`app.js`]).toMatchSnapshot()
-    expect(project.assets[`runtime.js`].length).toBeGreaterThan(10)
-    expect(project.assets[`runtime.js`].includes(`import `)).toBeFalsy()
-    expect(project.manifest[`runtime.js`]).toMatchSnapshot()
-    expect(project.assets[`components/logo.svg`].length).toBeGreaterThan(
-      10,
-    )
+    expect(test.assets[`app.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()
+    expect(test.manifest[`app.js`]).toMatchSnapshot()
+    expect(test.assets[`runtime.js`].length).toBeGreaterThan(10)
+    expect(test.assets[`runtime.js`].includes(`import `)).toBeFalsy()
+    expect(test.manifest[`runtime.js`]).toMatchSnapshot()
+    expect(test.assets[`components/logo.svg`].length).toBeGreaterThan(10)
     expect(
-      project.assets[`components/logo.svg`].includes(`<svg`),
+      test.assets[`components/logo.svg`].includes(`<svg`),
     ).toBeTruthy()
-    expect(project.manifest[`components/logo.svg`]).toMatchSnapshot()
-    expect(Object.keys(project.manifest)).toHaveLength(5)
+    expect(test.manifest[`components/logo.svg`]).toMatchSnapshot()
+    expect(Object.keys(test.manifest)).toHaveLength(5)
   })
 })
