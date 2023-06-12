@@ -1,15 +1,20 @@
 import {Bud} from '@roots/bud'
+import logger from '@roots/bud-support/logger'
 
 let instance: Bud
 
 const get = (): Bud => {
-  if (instance) return instance
+  if (instance) {
+    logger.log(`Using cached instance`)
+    return instance
+  }
 
-  instance = new Bud()
+  set(new Bud())
   return instance
 }
 
 const set = (bud: Bud) => {
+  logger.log(`Instance cached to @roots/bud/instance`)
   instance = bud
 }
 

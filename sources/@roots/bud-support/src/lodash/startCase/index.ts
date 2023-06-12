@@ -1,2 +1,1 @@
-import startCase from 'lodash/startCase.js'
-export default startCase
+export {default} from 'lodash/startCase.js'

@@ -1,2 +1,1 @@
-import chunk from 'lodash/chunk.js'
-export default chunk
+export {default} from 'lodash/chunk.js'

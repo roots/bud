@@ -1,2 +1,1 @@
-import uniq from 'lodash/uniq.js'
-export default uniq
+export {default} from 'lodash/uniq.js'

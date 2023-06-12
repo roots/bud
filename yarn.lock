@@ -7137,9 +7137,7 @@ __metadata:
     ink-spinner: 5.0.0
     ink-text-input: 5.0.1
     json5: 2.2.3
-    lodash.get: 4.4.2
-    lodash.set: 4.3.2
-    lodash.sortby: 4.7.0
+    lodash: 4.17.21
     mini-css-extract-plugin: 2.7.6
     mini-svg-data-uri: 1.4.4
     minimist: 1.2.8
@@ -12832,9 +12830,6 @@ __metadata:
     html-loader: 4.2.0
     html-webpack-plugin: 5.5.3
     import-meta-resolve: 2.2.2
-    ink: 4.2.0
-    ink-spinner: 5.0.0
-    ink-text-input: 5.0.1
     lodash: 4.17.21
     parse5-htmlparser2-tree-adapter: 7.0.0
     patch-console: 2.0.0
@@ -22189,13 +22184,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.get@npm:4.4.2":
-  version: 4.4.2
-  resolution: "lodash.get@npm:4.4.2"
-  checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
-  languageName: node
-  linkType: hard
-
 "lodash.isempty@npm:^4.4.0":
   version: 4.4.0
   resolution: "lodash.isempty@npm:4.4.0"
@@ -22249,20 +22237,6 @@ __metadata:
   version: 4.1.1
   resolution: "lodash.once@npm:4.1.1"
   checksum: d768fa9f9b4e1dc6453be99b753906f58990e0c45e7b2ca5a3b40a33111e5d17f6edf2f768786e2716af90a8e78f8f91431ab8435f761fef00f9b0c256f6d245
-  languageName: node
-  linkType: hard
-
-"lodash.set@npm:4.3.2":
-  version: 4.3.2
-  resolution: "lodash.set@npm:4.3.2"
-  checksum: a9122f49eef9f2d0fc9061a33d87f8e5b8c6b23d46e8b9e9ce1529d3588d79741bd1145a3abdfa3b13082703e65af27ff18d8a07bfc22b9be32f3fc36f763f70
-  languageName: node
-  linkType: hard
-
-"lodash.sortby@npm:4.7.0":
-  version: 4.7.0
-  resolution: "lodash.sortby@npm:4.7.0"
-  checksum: db170c9396d29d11fe9a9f25668c4993e0c1331bcb941ddbd48fb76f492e732add7f2a47cfdf8e9d740fa59ac41bbfaf931d268bc72aab3ab49e9f89354d718c
   languageName: node
   linkType: hard
 
