@@ -1,4 +1,4 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {SpyInstance, beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
 import {when as source} from '../../src/methods/when'
 
@@ -6,11 +6,14 @@ describe(
   `bud.when`,
   () => {
     let bud: Bud
+    let globSpy: SpyInstance
     let when: source
 
     beforeEach(async () => {
       bud = await factory()
       when = source.bind(bud)
+      globSpy = vi.fn(() => true)
+      bud.set(`globSync`, globSpy as any)
     })
 
     it(`should be a function`, () => {
@@ -60,6 +63,7 @@ describe(
       const trueCase = vi.fn()
       const falseCase = vi.fn()
       when(true, trueCase, falseCase)
+
       expect(trueCase).toHaveBeenCalledTimes(1)
       expect(falseCase).not.toHaveBeenCalled()
     })
@@ -84,6 +88,14 @@ describe(
       const trueCase = vi.fn()
       const falseCase = vi.fn()
       when([true, () => true], trueCase, falseCase)
+      expect(trueCase).toHaveBeenCalledTimes(1)
+      expect(falseCase).not.toHaveBeenCalled()
+    })
+
+    it(`should pass bud along to the test case`, () => {
+      const trueCase = vi.fn()
+      const falseCase = vi.fn()
+      when([bud => bud.globSync(`./`) as any], trueCase, falseCase)
       expect(trueCase).toHaveBeenCalledTimes(1)
       expect(falseCase).not.toHaveBeenCalled()
     })
