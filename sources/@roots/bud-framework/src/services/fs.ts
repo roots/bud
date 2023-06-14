@@ -1,4 +1,3 @@
-import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -88,8 +87,6 @@ export default class FS extends Filesystem implements Contract {
    * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setBucket(bucket: string) {
-    if (!this.s3) this.throwS3Error()
-
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`bucket`, bucket)
     })
@@ -105,8 +102,6 @@ export default class FS extends Filesystem implements Contract {
    * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setCredentials(credentials: S3[`config`][`credentials`]) {
-    if (!this.s3) this.throwS3Error()
-
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`credentials`, credentials)
     })
@@ -122,8 +117,6 @@ export default class FS extends Filesystem implements Contract {
    * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
-    if (!this.s3) this.throwS3Error()
-
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`endpoint`, endpoint)
     })
@@ -139,32 +132,11 @@ export default class FS extends Filesystem implements Contract {
    * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
    */
   public setRegion(region: S3[`config`][`region`]) {
-    if (!this.s3) this.throwS3Error()
-
     this.app.after(async (bud: Bud) => {
       bud.fs.s3.config.set(`region`, region)
     })
 
     return this
-  }
-
-  /**
-   * Throw S3 error
-   */
-  @bind
-  public throwS3Error() {
-    const dependencies = {
-      ...(this.app.context.files?.[`package.json`]?.module?.dependencies ??
-        {}),
-      ...(this.app.context.files?.[`package.json`]?.module
-        ?.devDependencies ?? {}),
-    }
-    if (!Object.keys(dependencies)?.includes(`@aws-sdk/client-s3`)) {
-      throw new Error(
-        `S3 is not available. Please install @aws-sdk/client-s3 to use this feature.`,
-      )
-    }
-    throw new Error(`S3 is not available.`)
   }
 
   /**
@@ -180,8 +152,6 @@ export default class FS extends Filesystem implements Contract {
     keep?: false | number
     source?: string
   }): this {
-    if (!this.s3) this.throwS3Error()
-
     const {destination, files, keep, source} = {
       destination: options?.destination,
       files: isUndefined(options?.files) ? `**/*` : options.files,
