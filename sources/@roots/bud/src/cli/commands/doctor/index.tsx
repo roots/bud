@@ -15,8 +15,8 @@ import webpack from '@roots/bud-support/webpack'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
 
-import {WinError} from '../../components/WinError.js'
-import {isWindows} from '../../helpers/isWindows.js'
+import {isWindows} from './isWindows.js'
+import {WinError} from './WinError.js'
 
 /**
  * bud doctor command
@@ -48,8 +48,11 @@ for a lot of edge cases so it might return a false positive.
   public configuration: Bud[`build`][`config`]
 
   public disabledExtensions: Array<[string, Extension]> = []
+
   public enabledExtensions: Array<[string, Extension]> = []
+
   public entrypoints: Array<[string, webpack.EntryObject]> = []
+
   public makeTimer = () => {
     const start = process.hrtime()
     return () => {
@@ -57,8 +60,11 @@ for a lot of edge cases so it might return a false positive.
       return this.seconds(end)
     }
   }
+
   public resolvedDependencies: Record<string, string> = {}
+
   public timings: Record<string, string> = {}
+
   /**
    * {@link Command.withContext}
    */

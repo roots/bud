@@ -2,7 +2,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
-import {getPackageManagerField} from '@roots/bud-support/which-pm'
+import whichPm from '@roots/bud-support/which-pm'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
 
@@ -58,10 +58,8 @@ export default class BudUpgradeCommand extends BudCommand {
   public version = Option.String({required: false})
 
   public override async execute() {
-    let get
-
     await this.makeBud()
-    const pacman = await getPackageManagerField(this.bud.context.basedir)
+    const pacman = await whichPm(this.bud.context.basedir)
     if (!isString(pacman) || ![`npm`, `yarn`].includes(pacman)) {
       throw new BudError(`bud upgrade only supports yarn classic and npm.`)
     }
@@ -70,13 +68,11 @@ export default class BudUpgradeCommand extends BudCommand {
     const command = this.pacman === `npm` ? `install` : `add`
 
     if (!this.version) {
-      try {
-        get = await import(`@roots/bud-support/axios`).then(
-          ({default: axios}) => axios.get,
-        )
-      } catch (err) {
-        throw new BudError(`Unable to import axios`)
-      }
+      const get = await import(`@roots/bud-support/axios`)
+        .then(({default: axios}) => axios.get)
+        .catch(error => {
+          throw BudError.normalize(error)
+        })
 
       this.version = await get(
         `https://registry.npmjs.org/@roots/bud/latest`,

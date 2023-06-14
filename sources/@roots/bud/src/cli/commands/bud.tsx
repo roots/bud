@@ -21,7 +21,6 @@ import notify from '@roots/bud/cli/flags/notify'
 import silent from '@roots/bud/cli/flags/silent'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
-import {checkPackageManagerErrors} from '@roots/bud/cli/helpers/checkPackageManagerErrors'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
 
@@ -29,8 +28,6 @@ import type {CLIContext} from '../index.js'
 
 import * as Display from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
-import {WinError} from '../components/WinError.js'
-import {isWindows} from '../helpers/isWindows.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -315,13 +312,9 @@ export default class BudCommand extends Command<CLIContext> {
   /**
    * Handle errors
    */
-  public override async catch(err: BudHandler) {
-    let error: BudHandler
-
+  public override async catch(error: BudHandler) {
     global.process.exitCode = 1
-
-    if (isString(err)) error = BudError.normalize(err)
-    else if (err.isBudError) error = err
+    if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {
       try {
@@ -331,29 +324,35 @@ export default class BudCommand extends Command<CLIContext> {
           subtitle: error?.name ?? `Error`,
           title: this.bud.label ?? `bud.js`,
         })
-      } catch (error) {}
+      } catch (error) {
+        logger.warn(error.message ?? error)
+      }
     }
 
     try {
       const queuedMessages =
         this.bud?.consoleBuffer?.fetchAndRemove() ?? []
 
-      await this.renderStatic(
-        <Box flexDirection="column">
-          <Console messages={queuedMessages} />
-
-          <Display.Error error={error} />
-          {isWindows() ? <WinError /> : null}
-        </Box>,
-      )
-      if (this.bud.isProduction) global.process.exit(1)
-    } catch (e) {
-      if (error.message)
-        global.process.stderr.write(error.message.concat(`\n`))
-      if (err.message)
-        global.process.stderr.write(err.message.concat(`\n`))
-      if (this.bud.isProduction) global.process.exit(1)
+      if (queuedMessages.length) {
+        await this.renderStatic(
+          <Box flexDirection="column">
+            <Console messages={queuedMessages} />
+          </Box>,
+        )
+      }
+    } catch (error) {
+      logger.warn(error.message ?? error)
     }
+
+    await this.renderStatic(
+      <Box flexDirection="column">
+        <Display.Error error={error} />
+      </Box>,
+    ).catch(error => {
+      logger.warn(error.message ?? error)
+    })
+
+    if (this.bud.isProduction) global.process.exit(1)
   }
 
   /**
@@ -361,17 +360,6 @@ export default class BudCommand extends Command<CLIContext> {
    */
   public async execute() {
     this.render(<Menu cli={this.cli} />)
-  }
-
-  /**
-   * Check bud.js system and environment requirements are met
-   */
-  @bind
-  public async healthcheck(_bud: any) {
-    try {
-      checkPackageManagerErrors(this.bud)
-      await checkDependencies(this.bud)
-    } catch (e) {}
   }
 
   public async makeBud() {
@@ -394,6 +382,8 @@ export default class BudCommand extends Command<CLIContext> {
       this.context,
       this.withContext ? await this.withContext(context) : context,
     )
+    checkDependencies(this.context)
+
     await import(`../env.${this.context.mode}.js`)
 
     this.bud = instance.get()

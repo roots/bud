@@ -4,7 +4,7 @@ import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 
-import {isWindows} from '../../helpers/isWindows.js'
+import {isWindows} from './isWindows.js'
 
 export const Doctor = ({name, timings}) => {
   return (

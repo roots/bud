@@ -1,148 +1,136 @@
 /* eslint-disable n/no-process-env */
-import type {BudHandler} from '@roots/bud-support/errors'
-
 import cleanStack from '@roots/bud-support/clean-stack'
+import {BudError, type BudHandler} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import * as Ink from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 
 export type Props = React.PropsWithChildren<{
   error: BudHandler
+  message?: string
+  name?: string
 }>
+
+const basePath =
+  process.env.PROJECT_CWD ?? process.env.INIT_CWD ?? process.cwd()
 
 export const Error = ({error, ...props}: Props) => {
   if (!error) {
-    return (
-      <Ink.Box flexDirection="column">
-        <Ink.Text>An unknown error has occurred.</Ink.Text>
-        {Object.entries(props).map(([key, value], id) => (
-          <Ink.Box flexDirection="column" gap={2} key={id}>
-            <Ink.Text>{key}</Ink.Text>
-            <Ink.Text>{JSON.stringify(value)}</Ink.Text>
-          </Ink.Box>
-        ))}
-      </Ink.Box>
-    )
+    error = BudError.normalize({...props})
   }
 
   if (isString(error)) {
     return (
-      <Ink.Box flexDirection="column" paddingTop={1}>
-        <Ink.Text backgroundColor="red" color="white">
+      <Box flexDirection="column" paddingTop={1}>
+        <Text backgroundColor="red" color="white">
           {` Error `}
-        </Ink.Text>
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="red">{figures.cross}</Ink.Text>
+        </Text>
+        <Box marginTop={1}>
+          <Text>
+            <Text color="red">{figures.cross}</Text>
             {` `}
             {error}
-          </Ink.Text>
-        </Ink.Box>
-      </Ink.Box>
+          </Text>
+        </Box>
+      </Box>
     )
   }
 
   return (
-    <Ink.Box flexDirection="column" paddingTop={1}>
-      <Ink.Text backgroundColor="red" color="white">
+    <Box flexDirection="column" paddingTop={1}>
+      <Text backgroundColor="red" color="white">
         {` `}
         {error.name}
         {` `}
-      </Ink.Text>
+      </Text>
 
       {error.message ? (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="red">{figures.cross}</Ink.Text>
+        <Box marginTop={1}>
+          <Text>
+            <Text color="red">{figures.cross}</Text>
             {` `}
             {error.message}
-          </Ink.Text>
-        </Ink.Box>
+          </Text>
+        </Box>
       ) : null}
 
       {error.details && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
               {figures.ellipsis}
               {` `}Error details{` `}
-            </Ink.Text>
+            </Text>
 
-            <Ink.Text>{error.details}</Ink.Text>
-          </Ink.Text>
-        </Ink.Box>
+            <Text>{error.details}</Text>
+          </Text>
+        </Box>
       )}
 
       {!error.origin && error.stack && (
-        <Ink.Box flexDirection="column" marginTop={1}>
-          <Ink.Text color="blue">
+        <Box flexDirection="column" marginTop={1}>
+          <Text color="blue">
             {figures.hamburger}
             {` `}Stack trace
-          </Ink.Text>
+          </Text>
 
-          <Ink.Text dimColor>
+          <Text dimColor>
             {cleanStack(error.stack, {
-              basePath:
-                process.env.PROJECT_CWD ??
-                process.env.INIT_CWD ??
-                process.cwd(),
+              basePath,
               pretty: true,
-            })
-              .split(`\n`)
-              .slice(1, 5)
-              .join(`\n`)}
-          </Ink.Text>
-        </Ink.Box>
+            })}
+          </Text>
+        </Box>
       )}
 
       {error.docs && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
               {figures.arrowRight}
               {` `}Documentation
-            </Ink.Text>
+            </Text>
             {` `}
-            <Ink.Text>{error.docs.href}</Ink.Text>
-          </Ink.Text>
-        </Ink.Box>
+            <Text>{error.docs.href}</Text>
+          </Text>
+        </Box>
       )}
 
       {error.issues && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text>
-            <Ink.Text color="blue">
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
               {figures.arrowRight}
               {` `}
               Issues
-            </Ink.Text>
+            </Text>
             {` `}
-            <Ink.Text>{error.issues.href}</Ink.Text>
-          </Ink.Text>
-        </Ink.Box>
+            <Text>{error.issues.href}</Text>
+          </Text>
+        </Box>
       )}
 
       {error.origin && (
-        <Ink.Box>
+        <Box>
           <Error error={error.origin} />
-        </Ink.Box>
+        </Box>
       )}
 
       {error.file && (
-        <Ink.Box marginTop={1}>
-          <Ink.Text color="blue">
+        <Box marginTop={1}>
+          <Text color="blue">
             {figures.info}
             {` `}See file{` `}
-          </Ink.Text>
-          <Ink.Text>{error.file.path}</Ink.Text>
-        </Ink.Box>
+          </Text>
+          <Text>{error.file.path}</Text>
+        </Box>
       )}
-    </Ink.Box>
+    </Box>
   )
 }
 
 export const Message = ({children}: React.PropsWithChildren<{}>) => (
-  <Ink.Box flexDirection="column">
-    <Ink.Text>{children}</Ink.Text>
-  </Ink.Box>
+  <Box flexDirection="column">
+    <Text>{children}</Text>
+  </Box>
 )

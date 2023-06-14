@@ -1,4 +1,5 @@
 import chalk from '@roots/bud-support/chalk'
+import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -146,11 +147,14 @@ export const bootstrap = async function (this: Bud) {
 
   this[`fs`] = new FS(() => this)
   this[`module`] = new Module(() => this)
+
   await Promise.all(
     [...this.context.services]
       .filter(filterServices(this))
       .map(instantiateServices(this)),
-  )
+  ).catch(error => {
+    throw BudError.normalize(error)
+  })
 
   this.hooks
     .fromMap({
@@ -238,9 +242,13 @@ export const bootstrap = async function (this: Bud) {
    * Checksums
    */
   this.after(async bud => {
-    await bud.fs.write(bud.module.cacheLocation, {
-      resolutions: bud.module.resolved,
-      version: bud.context.bud.version,
-    })
+    await bud.fs
+      .write(bud.module.cacheLocation, {
+        resolutions: bud.module.resolved,
+        version: bud.context.bud.version,
+      })
+      .catch(error => {
+        throw new Error(error)
+      })
   })
 }
