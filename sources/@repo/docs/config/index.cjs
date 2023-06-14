@@ -13,53 +13,22 @@ const docsPath = path => resolve(__dirname, `..`, path ?? ``)
 const sidebarPath = docsPath(`sidebars/docs.js`)
 
 module.exports = {
-  title: config.name,
-  tagline: config.description,
-  url: config.url.docs,
   baseUrl: `/`,
-  trailingSlash: false,
+  customFields: config,
+  favicon: config.organization.favicon,
   onBrokenLinks: `warn`,
   onBrokenMarkdownLinks: `warn`,
-  favicon: config.organization.favicon,
   organizationName: config.organization.name,
-  projectName: config.name,
-  customFields: config,
-  themeConfig,
-  presets: [
-    [
-      presetClassic,
-      {
-        docs: {
-          path: docsPath(`content/docs`),
-          sidebarPath,
-          editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
-          remarkPlugins: [
-            [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
-          ],
-        },
-        blog: {
-          path: docsPath(`content/blog`),
-          showReadingTime: true,
-        },
-        pages: {
-          path: docsPath(`content/pages`),
-        },
-        theme: {
-          customCss: docsPath(`src/css/custom.css`),
-        },
-      },
-    ],
-  ],
   plugins: [
     [
       pluginBlog,
       {
-        blogTitle: `Releases`,
         blogDescription: config.description,
         blogSidebarTitle: `Recent releases`,
+        blogTitle: `Releases`,
         feedOptions: {
-          title: `${config.name} releases`,
           description: config.description,
+          title: `${config.name} releases`,
         },
         id: `releases`,
         path: docsPath(`generated/releases`),
@@ -74,40 +43,40 @@ module.exports = {
     [
       pluginDocs,
       {
+        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         id: `dev`,
+        include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/dev`),
         remarkPlugins: [
           [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
-        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         routeBasePath: `dev`,
         sidebarPath: docsPath(`sidebars/sidebar.js`),
-        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginDocs,
       {
+        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         id: `guides`,
+        include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/guides`),
         remarkPlugins: [
           [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
         ],
-        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
         routeBasePath: `guides`,
         sidebarPath: docsPath(`sidebars/guides.js`),
-        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
       pluginDocs,
       {
-        id: `extensions`,
-        path: docsPath(`content/extensions`),
         editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
+        id: `extensions`,
+        include: [`**/*.md`, `**/*.mdx`],
+        path: docsPath(`content/extensions`),
         routeBasePath: `extensions`,
         sidebarPath: docsPath(`sidebars/sidebar.js`),
-        include: [`**/*.md`, `**/*.mdx`],
       },
     ],
     [
@@ -117,11 +86,42 @@ module.exports = {
       },
     ],
   ],
+  presets: [
+    [
+      presetClassic,
+      {
+        blog: {
+          path: docsPath(`content/blog`),
+          showReadingTime: true,
+        },
+        docs: {
+          editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
+          path: docsPath(`content/docs`),
+          remarkPlugins: [
+            [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
+          ],
+          sidebarPath,
+        },
+        pages: {
+          path: docsPath(`content/pages`),
+        },
+        theme: {
+          customCss: docsPath(`src/css/custom.css`),
+        },
+      },
+    ],
+  ],
+  projectName: config.name,
   scripts: [
     {
-      src: `https://analytics.umami.is/script.js`,
-      defer: true,
       [`data-website-id`]: `1b6eddea-80b8-46fa-b237-ab32eeb44b68`,
+      defer: true,
+      src: `https://analytics.umami.is/script.js`,
     },
   ],
+  tagline: config.description,
+  themeConfig,
+  title: config.name,
+  trailingSlash: false,
+  url: config.url.docs,
 }
