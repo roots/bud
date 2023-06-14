@@ -2,7 +2,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
-import {getPackageManagerField} from '@roots/bud-support/which-pm'
+import whichPm from '@roots/bud-support/which-pm'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
 
@@ -59,7 +59,7 @@ export default class BudUpgradeCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud()
-    const pacman = await getPackageManagerField(this.bud.context.basedir)
+    const pacman = await whichPm(this.bud.context.basedir)
     if (!isString(pacman) || ![`npm`, `yarn`].includes(pacman)) {
       throw new BudError(`bud upgrade only supports yarn classic and npm.`)
     }
