@@ -11,13 +11,13 @@ const isString = (value: unknown): value is string =>
 const resolveRealPath = async (path: string): Promise<false | Path> =>
   await new Promise((resolve, reject) => {
     realpath(path, (err, path) => {
-      if (err) reject(err)
+      if (err) resolve(false)
       resolve(path)
     })
   })
 
 const fileExists = async (path: string): Promise<boolean> =>
-  !!(await resolveRealPath(path))
+  isString(await resolveRealPath(path)) ? true : false
 
 export const hasYarnLockfile = async (basedir: string): Promise<boolean> =>
   await fileExists(join(basedir, `yarn.lock`))
@@ -35,7 +35,7 @@ export const getPackageManagerField = async (
   basedir: string,
 ): Promise<false | Path> => {
   const path = await resolveRealPath(join(basedir, `package.json`))
-  if (!path) return path
+  if (!path) return false
 
   const packageManager = await new Promise(resolve => {
     readFile(path, (err, buffer) => {

@@ -1,10 +1,10 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
+import isString from '@roots/bud-support/lodash/isString'
+import {getPackageManagerField} from '@roots/bud-support/which-pm'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
-
-import {detectPackageManager} from '../helpers/detectPackageManager.js'
-import {isInternalDevelopmentEnv} from '../helpers/isInternalDevelopmentEnv.js'
 
 /**
  * `bud upgrade` command
@@ -43,6 +43,8 @@ export default class BudUpgradeCommand extends BudCommand {
     ],
   })
 
+  public pacman?: `npm` | `yarn`
+
   /**
    * Use an alternative registry
    */
@@ -55,39 +57,51 @@ export default class BudUpgradeCommand extends BudCommand {
    */
   public version = Option.String({required: false})
 
-  public get command() {
-    return this.pacman === `npm` ? `install` : `add`
-  }
-
   public override async execute() {
-    await this.makeBud()
-    await this.healthcheck(this)
-    await this.bud.run()
+    let get
 
-    if (isInternalDevelopmentEnv(this.bud)) {
-      throw new Error(`Internal development environment`)
+    await this.makeBud()
+    const pacman = await getPackageManagerField(this.bud.context.basedir)
+    if (!isString(pacman) || ![`npm`, `yarn`].includes(pacman)) {
+      throw new BudError(`bud upgrade only supports yarn classic and npm.`)
     }
+    this.pacman = pacman as `npm` | `yarn`
+
+    const command = this.pacman === `npm` ? `install` : `add`
 
     if (!this.version) {
-      const get = await import(`@roots/bud-support/axios`).then(
-        ({default: axios}) => axios.get,
-      )
+      try {
+        get = await import(`@roots/bud-support/axios`).then(
+          ({default: axios}) => axios.get,
+        )
+      } catch (err) {
+        throw new BudError(`Unable to import axios`)
+      }
+
       this.version = await get(
         `https://registry.npmjs.org/@roots/bud/latest`,
-      ).then(async res => res.data?.version)
+      )
+        .then(async res => res.data?.version)
+        .catch(error => {
+          throw BudError.normalize(error)
+        })
     }
 
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      await this.$(this.pacman, [
-        this.command,
-        ...this.getUpgradeableDependencies(`devDependencies`),
-        ...this.getFlags(`devDependencies`),
-      ])
+      try {
+        await this.$(this.pacman, [
+          command,
+          ...this.getUpgradeableDependencies(`devDependencies`),
+          ...this.getFlags(`devDependencies`),
+        ])
+      } catch (error) {
+        throw BudError.normalize(error)
+      }
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
       await this.$(this.pacman, [
-        this.command,
+        command,
         ...this.getUpgradeableDependencies(`dependencies`),
         ...this.getFlags(`dependencies`),
       ])
@@ -148,14 +162,5 @@ export default class BudUpgradeCommand extends BudCommand {
     type: `dependencies` | `devDependencies`,
   ): boolean {
     return this.getUpgradeableDependencies(type)?.length > 0
-  }
-
-  /**
-   * Package manager
-   */
-  public get pacman(): `npm` | `yarn` {
-    const pacman = detectPackageManager(this.bud)
-    if (pacman === false) throw new Error(`Package manager is ambiguous`)
-    return pacman
   }
 }
