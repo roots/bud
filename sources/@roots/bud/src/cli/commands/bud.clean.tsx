@@ -141,7 +141,6 @@ export default class BudCleanCommand extends BudCommand {
    */
   public override async execute() {
     await this.makeBud()
-    await this.healthcheck(this)
 
     const cleanAll =
       !this.outputPositional &&

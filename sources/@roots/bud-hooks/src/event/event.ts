@@ -2,6 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
+import logger from '@roots/bud-support/logger'
 
 import {Hooks} from '../base/base.js'
 
@@ -25,19 +27,29 @@ export class EventHooks extends Hooks<EventsStore> {
 
     await Promise.all(
       actions.map(async (action, iteration) => {
-        try {
-          this.app.hooks.logger.await(
-            `executing callback ${iteration + 1}/${actions.length}`,
-          )
-          await action(value as any)
-          this.app.hooks.logger.success(
-            `executing callback ${iteration + 1}/${actions.length}`,
-          )
-        } catch (e) {
-          this.catch(e, id, iteration)
-        }
+        this.app.hooks.logger.await(
+          `executing ${id} callback (${iteration + 1}/${actions.length})`,
+        )
+
+        await action(value as any)
+          .catch(error => {
+            this.app.hooks.logger.error(
+              `error executing ${id} callback (${iteration + 1}/${
+                actions.length
+              })`,
+            )
+            throw BudError.normalize(error)
+          })
+          .then(() => {
+            logger.success(
+              `executed ${id} callback (${iteration + 1}/${
+                actions.length
+              })`,
+            )
+          })
       }),
     )
+
     this.app.hooks.logger.timeEnd(id)
 
     return this.app
@@ -52,8 +64,7 @@ export class EventHooks extends Hooks<EventsStore> {
 
     input.map((value, iteration) => {
       this.app.hooks.logger.info(
-        `registered event callback for`,
-        id,
+        `registered ${id} callback`,
         `(${iteration + 1}/${input.length})`,
       )
 
