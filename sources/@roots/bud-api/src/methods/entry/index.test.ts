@@ -14,7 +14,7 @@ describe(`bud.entry`, function () {
   })
 
   it(`is a function`, () => {
-    expect(entry).toBeInstanceOf(Function)
+    expect(entryFn).toBeInstanceOf(Function)
   })
 
   it(`should return bud`, async () => {
