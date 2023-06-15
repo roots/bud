@@ -2,14 +2,10 @@
 // Licensed under the MIT license.
 
 /**
- * Hooks system used for framework eventing.
+ * bud.js hooks
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- *  @packageDocumentation
  */
 
-import {Hooks} from './service.js'
-
-export default Hooks
+export {Hooks as default} from './service.js'

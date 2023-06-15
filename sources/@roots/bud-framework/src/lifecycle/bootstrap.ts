@@ -145,8 +145,9 @@ export const bootstrap = async function (this: Bud) {
 
   logger.time(`initialize`)
 
-  this[`fs`] = new FS(() => this)
-  this[`module`] = new Module(() => this)
+  this.fs = new FS(() => this)
+  this.module = new Module(() => this)
+  await this.module.bootstrap(this)
 
   await Promise.all(
     [...this.context.services]

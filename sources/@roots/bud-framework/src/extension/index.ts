@@ -1,5 +1,7 @@
+import type {ApplyPluginConstructor} from '@roots/bud-framework/extension/decorators/plugin'
+
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ImportError} from '@roots/bud-support/errors'
+import {BudError, ExtensionError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
@@ -11,7 +13,6 @@ import DynamicOption from '@roots/bud-support/value'
 import type {Bud} from '../index.js'
 import type {Modules} from '../index.js'
 import type {Compiler} from '../types/config/index.js'
-import type {ApplyPluginConstructor} from './decorators/plugin.js'
 
 export type Options<T = Record<string, any>> = {
   [K in keyof T as `${K & string}`]?: T[K]
@@ -216,13 +217,15 @@ export class Extension<
     if (this.meta[`boot`] === true) return
     this.meta[`boot`] = true
 
-    try {
-      await this.boot(this.app)
-    } catch (error) {
-      throw error
-    }
-
-    this.logger.success(`booted`)
+    this.logger.time(`${this.label} boot`)
+    await this.boot(this.app)
+      .catch(error => {
+        this.logger.timeEnd(`${this.label} boot`)
+        throw ExtensionError.normalize(error)
+      })
+      .finally(() => {
+        this.logger.timeEnd(`${this.label} boot`)
+      })
   }
 
   /**
@@ -446,9 +449,9 @@ export class Extension<
     try {
       return await this.app.module.import(signifier, context)
     } catch (error) {
-      throw new ImportError(`could not import ${signifier}`, {
+      throw new ExtensionError(`could not import ${signifier}`, {
         props: {
-          origin: ImportError.normalize(error),
+          origin: error,
           thrownBy: this.label,
         },
       })
@@ -490,10 +493,9 @@ export class Extension<
     try {
       return await this.app.module.resolve(signifier, context)
     } catch (error) {
-      const cause = BudError.normalize(error)
-      throw new ImportError(`could not resolve ${signifier}`, {
+      throw new ExtensionError(`could not resolve ${signifier}`, {
         props: {
-          origin: cause,
+          origin: error,
           thrownBy: this.label,
         },
       })

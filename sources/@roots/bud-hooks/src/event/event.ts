@@ -27,25 +27,17 @@ export class EventHooks extends Hooks<EventsStore> {
 
     await Promise.all(
       actions.map(async (action, iteration) => {
-        this.app.hooks.logger.await(
-          `executing ${id} callback (${iteration + 1}/${actions.length})`,
-        )
+        const timeKey = `${id} (${iteration + 1}/${actions.length})`
+
+        this.app.hooks.logger.time(timeKey)
 
         await action(value as any)
           .catch(error => {
-            this.app.hooks.logger.error(
-              `error executing ${id} callback (${iteration + 1}/${
-                actions.length
-              })`,
-            )
+            this.app.hooks.logger.timeEnd(timeKey)
             throw BudError.normalize(error)
           })
           .then(() => {
-            logger.success(
-              `executed ${id} callback (${iteration + 1}/${
-                actions.length
-              })`,
-            )
+            logger.timeEnd(timeKey)
           })
       }),
     )

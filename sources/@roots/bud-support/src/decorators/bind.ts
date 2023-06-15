@@ -9,7 +9,7 @@ export function bind(target: any, key: any, descriptor: any) {
 
   if (typeof fn !== `function`) {
     throw new Error(
-      `@autobind decorator can only be applied to methods not: ${typeof fn}`,
+      `@bind decorator can only be applied to methods not: ${typeof fn}`,
     )
   } // In IE11 calling Object.defineProperty has a side-effect of evaluating the
   // getter for the property which is being replaced. This causes infinite
@@ -30,6 +30,7 @@ export function bind(target: any, key: any, descriptor: any) {
       }
 
       let boundFn = fn.bind(this)
+
       definingProperty = true
       Object.defineProperty(this, key, {
         configurable: true,

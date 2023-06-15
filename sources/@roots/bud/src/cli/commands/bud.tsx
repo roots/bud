@@ -312,7 +312,7 @@ export default class BudCommand extends Command<CLIContext> {
   /**
    * Handle errors
    */
-  public override async catch(error: BudHandler) {
+  public override async catch(error: BudHandler): Promise<void> {
     global.process.exitCode = 1
     if (!error.isBudError) error = BudError.normalize(error)
 

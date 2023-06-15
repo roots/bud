@@ -43,7 +43,9 @@ export default class BudUpgradeCommand extends BudCommand {
     ],
   })
 
-  public pacman?: `npm` | `yarn`
+  public command: `add` | `install`
+
+  public pacman: `npm` | `yarn`
 
   /**
    * Use an alternative registry
@@ -59,17 +61,18 @@ export default class BudUpgradeCommand extends BudCommand {
 
   public override async execute() {
     await this.makeBud()
+
     const pacman = await whichPm(this.bud.context.basedir)
     if (!isString(pacman) || ![`npm`, `yarn`].includes(pacman)) {
       throw new BudError(`bud upgrade only supports yarn classic and npm.`)
     }
-    this.pacman = pacman as `npm` | `yarn`
 
-    const command = this.pacman === `npm` ? `install` : `add`
+    this.pacman = pacman as `npm` | `yarn`
+    this.command = this.pacman === `npm` ? `install` : `add`
 
     if (!this.version) {
       const get = await import(`@roots/bud-support/axios`)
-        .then(({default: axios}) => axios.get)
+        .then(m => m.default.get)
         .catch(error => {
           throw BudError.normalize(error)
         })
@@ -78,29 +81,23 @@ export default class BudUpgradeCommand extends BudCommand {
         `https://registry.npmjs.org/@roots/bud/latest`,
       )
         .then(async res => res.data?.version)
-        .catch(error => {
-          throw BudError.normalize(error)
-        })
+        .catch(this.catch)
     }
 
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      try {
-        await this.$(this.pacman, [
-          command,
-          ...this.getUpgradeableDependencies(`devDependencies`),
-          ...this.getFlags(`devDependencies`),
-        ])
-      } catch (error) {
-        throw BudError.normalize(error)
-      }
+      await this.$(this.pacman, [
+        this.command,
+        ...this.getUpgradeableDependencies(`devDependencies`),
+        ...this.getFlags(`devDependencies`),
+      ]).catch(this.catch)
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
       await this.$(this.pacman, [
-        command,
+        this.command,
         ...this.getUpgradeableDependencies(`dependencies`),
         ...this.getFlags(`dependencies`),
-      ])
+      ]).catch(this.catch)
     }
   }
 
@@ -108,15 +105,16 @@ export default class BudUpgradeCommand extends BudCommand {
   public getAllDependenciesOfType(
     type: `dependencies` | `devDependencies`,
   ): Array<string> {
-    if (this.bud?.context.manifest?.[type]) {
-      return Object.keys(this.bud.context.manifest[type])
-    }
-    return []
+    return this.bud?.context.manifest?.[type]
+      ? Object.keys(this.bud.context.manifest[type])
+      : []
   }
 
   @bind
   public getFlags(type: `dependencies` | `devDependencies`) {
     const flags = []
+
+    if (this.registry) flags.push(`--registry`, this.registry)
 
     if (type === `devDependencies`) {
       switch (this.pacman) {
@@ -133,8 +131,6 @@ export default class BudUpgradeCommand extends BudCommand {
       flags.push(`--save`)
     }
 
-    if (this.registry) flags.push(`--registry`, this.registry)
-
     return flags
   }
 
@@ -142,14 +138,9 @@ export default class BudUpgradeCommand extends BudCommand {
   public getUpgradeableDependencies(
     type: `dependencies` | `devDependencies`,
   ): Array<string> {
-    const onlyBud = (pkg: string) =>
-      pkg.startsWith(`@roots/`) || pkg.includes(`bud-`)
-
-    const toScope = (pkg: string) => `${pkg}@${this.version}`
-
     return this.getAllDependenciesOfType(type)
-      .filter(onlyBud)
-      .map(toScope)
+      .filter(pkg => pkg.startsWith(`@roots/`) || pkg.includes(`bud-`))
+      .map(pkg => `${pkg}@${this.version}`)
       .filter(Boolean)
   }
 

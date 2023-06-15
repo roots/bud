@@ -15,6 +15,7 @@ interface BudErrorProps {
   instance: string
   isBudError: true
   issues: URL
+  message: string
   origin: BudHandler
   thrownBy: string
 }
@@ -30,6 +31,7 @@ class BudHandler extends BudBaseError {
     path: string
     sha1: string
   }
+
   public declare instance: `default` | string
   public isBudError = true
   public declare issues: false | URL
@@ -48,14 +50,8 @@ class BudHandler extends BudBaseError {
     this.details = options?.props?.details ?? false
     this.issues = options?.props?.issues ?? false
     this.docs = options?.props?.docs ?? false
-    this.isBudError = true
-  }
 
-  public override get message(): string {
-    return this.message
-      .replaceAll(/\n/g, `\n\n`)
-      .replaceAll(process.env.INIT_CWD as string, `$INIT_CWD`)
-      .replaceAll(process.env.PROJECT_CWD as string, `$PROJECT_CWD`)
+    this.isBudError = true
   }
 }
 
@@ -63,28 +59,17 @@ const BudError = BudBaseError.subclass(`BudError`, {
   custom: BudHandler,
 })
 
-const ModuleError = BudError.subclass(`ModuleError`, {
+const CLIError = BudError.subclass(`CLIError`)
+
+const ModuleError = BudBaseError.subclass(`ModuleError`, {
+  custom: BudHandler,
   props: {
     details: `Error accessing, writing to, importing or resolving a module.`,
     issues: new URL(`https://github.com/roots/bud/issues`),
   },
 })
 
-const ImportError = ModuleError.subclass(`ImportError`)
-const FileReadError = ModuleError.subclass(`FileReadError`, {
-  props: {
-    details: `Error reading from a file`,
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
-})
-const FileWriteError = ModuleError.subclass(`FileWriteError`, {
-  props: {
-    details: `Error writing to a file`,
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
-})
-
-const ConfigError = BudError.subclass(`ConfigError`, {
+const ConfigError = BudError.subclass(`ConfigurationError`, {
   props: {
     details: `Error processing a project configuration file`,
     docs: new URL(`https://bud.js.org`),
@@ -109,7 +94,7 @@ const ServerError = BudError.subclass(`ServerError`, {
     docs: new URL(`https://bud.js.org/docs/bud.serve`),
   },
 })
-const ExtensionError = BudError.subclass(`BudErrorError`, {
+const ExtensionError = BudError.subclass(`ExtensionError`, {
   props: {
     details: `Error in an extension`,
     docs: new URL(`https://bud.js.org`),
@@ -119,12 +104,10 @@ const ExtensionError = BudError.subclass(`BudErrorError`, {
 export {
   BudError,
   BudHandler,
+  CLIError,
   CompilerError,
   ConfigError,
   ExtensionError,
-  FileReadError,
-  FileWriteError,
-  ImportError,
   InputError,
   ModuleError,
   ServerError,

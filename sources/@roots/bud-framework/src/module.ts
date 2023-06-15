@@ -1,12 +1,11 @@
 import {bind} from '@roots/bud-support/decorators/bind'
-import {ImportError} from '@roots/bud-support/errors'
+import {ModuleError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import get from '@roots/bud-support/lodash/get'
 import set from '@roots/bud-support/lodash/set'
 import args from '@roots/bud-support/utilities/args'
 import logger from '@roots/bud-support/utilities/logger'
 import {paths} from '@roots/bud-support/utilities/paths'
-import {createRequire} from 'node:module'
 import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
@@ -23,11 +22,6 @@ export class Module extends Service {
   public cacheValid: boolean
 
   /**
-   * Node require
-   */
-  public require: NodeRequire
-
-  /**
    * Resolved module cache
    */
   public resolved: Record<string, string> = {}
@@ -37,11 +31,10 @@ export class Module extends Service {
    */
   @bind
   public override async bootstrap(bud: Bud) {
-    this.require = createRequire(this.makeContextURL(bud.context.basedir))
-
     if (this.cacheEnabled && (await bud.fs.exists(this.cacheLocation))) {
       try {
         const data = await bud.fs.read(this.cacheLocation)
+
         logger
           .scope(`module`)
           .info(`cache is enabled and cached resolutions exist`)
@@ -103,7 +96,7 @@ export class Module extends Service {
    */
   @bind
   public async import<T extends string>(signifier: T, context?: string) {
-    if (signifier in this.resolved) {
+    if (this.resolved && signifier in this.resolved) {
       const m = await import(get(this.resolved, [signifier]))
       return m?.default ?? m
     }
@@ -114,7 +107,7 @@ export class Module extends Service {
       logger.scope(`module`).info(`imported`, signifier)
       return result?.default ?? result
     } catch (error) {
-      throw new ImportError(`could not import ${signifier}`, {
+      throw new ModuleError(`could not import ${signifier}`, {
         props: {
           details: `Could not import ${signifier}`,
           origin: error,
@@ -157,12 +150,12 @@ export class Module extends Service {
   ): Promise<string> {
     let errors = []
 
-    if (signifier in this.resolved) {
+    if (this.resolved && signifier in this.resolved) {
       logger
         .scope(`module`)
         .info(`[cache hit] ${signifier} => ${this.resolved[signifier]}`)
 
-      return get(this.resolved, [signifier])
+      return this.resolved[signifier]
     }
 
     logger.scope(`module`).info(`resolving`, signifier)
@@ -200,7 +193,7 @@ export class Module extends Service {
 
     errors.push(`Could not resolve ${signifier} from ${context}`)
 
-    throw new ImportError(`could not resolve ${signifier}`, {
+    throw new ModuleError(`could not resolve ${signifier}`, {
       cause: errors.reverse().join(`\n`),
     })
   }
