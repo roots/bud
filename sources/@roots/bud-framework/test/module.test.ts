@@ -18,10 +18,6 @@ describe(`@roots/bud-framework`, () => {
     expect(instance).toBeInstanceOf(Module)
   })
 
-  it(`should have a require fn`, () => {
-    expect(instance.require).toEqual(expect.any(Function))
-  })
-
   it(`should have resolve fn`, () => {
     expect(instance.resolve).toEqual(expect.any(Function))
   })
