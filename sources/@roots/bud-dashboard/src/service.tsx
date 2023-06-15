@@ -39,8 +39,10 @@ export class Dashboard extends Service implements Contract {
     try {
       return (
         errors
-          /* Unhelpful errors passed down the loader chain */
-          .filter(({message}) => !message?.includes(`HookWebpackError`))
+          /* Filter unhelpful errors from compiler internals */
+          .filter(
+            error => error && !error.message?.includes(`HookWebpackError`),
+          )
           /* Format errors */
           .map(({message, ...error}: StatsError) => ({
             ...error,
@@ -145,6 +147,10 @@ export class Dashboard extends Service implements Contract {
     } catch (error) {}
   }
 
+  /**
+   * Render queued messages
+   */
+  @bind
   public async renderQueuedMessages() {
     render(
       this.app.consoleBuffer.queue?.length > 0 && (

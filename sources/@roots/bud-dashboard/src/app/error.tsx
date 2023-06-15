@@ -40,11 +40,11 @@ export const Error = ({error, ...props}: Props) => {
     <Box flexDirection="column" paddingTop={1}>
       <Text backgroundColor="red" color="white">
         {` `}
-        {error.name}
+        {error.name ?? `Error`}
         {` `}
       </Text>
 
-      {error.message ? (
+      {error.message && (
         <Box marginTop={1}>
           <Text>
             <Text color="red">{figures.cross}</Text>
@@ -52,7 +52,7 @@ export const Error = ({error, ...props}: Props) => {
             {error.message}
           </Text>
         </Box>
-      ) : null}
+      )}
 
       {error.details && (
         <Box marginTop={1}>

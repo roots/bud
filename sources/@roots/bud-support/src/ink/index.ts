@@ -1,8 +1,8 @@
 /* eslint-disable n/no-extraneous-import */
 export {
+  type Context,
   createContext,
   default,
-  default as React,
   forwardRef,
   memo,
   useCallback,

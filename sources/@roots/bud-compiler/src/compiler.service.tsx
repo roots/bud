@@ -11,15 +11,15 @@ import type {
   SourceFile,
 } from '@roots/bud-support/open'
 
-import * as App from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/app'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, CompilerError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
-import * as Ink from '@roots/bud-support/ink'
+import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
+import webpack from '@roots/bud-support/webpack'
 import {pathToFileURL} from 'node:url'
-import webpack from 'webpack'
 
 /**
  * Wepback compilation controller class
@@ -50,41 +50,56 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async compile(): Promise<MultiCompiler> {
-    const compilerPath = await this.app.module.resolve(
-      `webpack`,
-      import.meta.url,
-    )
-    this.implementation = await this.app.module.import(
-      compilerPath,
-      import.meta.url,
-    )
-    this.logger.log(`imported webpack`, this.implementation.version)
+    const compilerPath = await this.app.module
+      .resolve(`webpack`, import.meta.url)
+      .catch(error => {
+        throw BudError.normalize(error)
+      })
+
+    this.implementation = await this.app.module
+      .import(compilerPath, import.meta.url)
+      .catch(error => {
+        throw BudError.normalize(error)
+      })
+      .finally(() => {
+        this.logger.info(`imported webpack from ${compilerPath}`)
+      })
 
     this.config = !this.app.hasChildren
       ? [await this.app.build.make()]
       : await Promise.all(
-          Object.values(this.app.children).map(async (child: Bud) => {
-            try {
-              return await child.build.make()
-            } catch (error) {
-              throw error
-            }
-          }),
+          Object.values(this.app.children).map(
+            async (child: Bud) =>
+              await child.build.make().catch(error => {
+                throw error
+              }),
+          ),
         )
 
     await this.app.hooks.fire(`compiler.before`, this.app)
 
     this.logger.timeEnd(`initialize`)
 
-    this.logger.await(`compilation`)
+    try {
+      this.instance = this.implementation(this.config)
+    } catch (error) {
+      throw BudError.normalize(error)
+    }
 
-    this.instance = this.implementation(this.config)
     this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
       await this.onStats(stats)
-      await this.app.hooks.fire(`compiler.close`, this.app)
-    })
+      await this.app.hooks
+        .fire(`compiler.after`, this.app)
+        .catch(error => {
+          this.logger.error(error)
+        })
 
-    await this.app.hooks.fire(`compiler.after`, this.app)
+      await this.app.hooks
+        .fire(`compiler.close`, this.app)
+        .catch(error => {
+          this.logger.error(error)
+        })
+    })
 
     return this.instance
   }
@@ -93,45 +108,30 @@ export class Compiler extends Service implements Contract.Service {
    * Compiler error event
    */
   @bind
-  public async onError(error: Error) {
-    process.exitCode = 1
-
-    await this.app.hooks.fire(`compiler.error`, error)
+  public async onError(error: webpack.WebpackError) {
+    global.process.exitCode = 1
 
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    try {
-      this.app.notifier.notify({
-        group: this.app.label,
-        message: error.message,
-        subtitle: error.name,
-      })
-    } catch (error) {
-      this.logger.error(error)
-    }
+    // @eslint-disable-next-line no-console
+    render(
+      <Error
+        {...new BudError(error.message, {
+          props: {
+            error: BudError.normalize(error),
+          },
+        })}
+      />,
+    )
 
-    try {
-      Ink.render(
-        <App.Error
-          error={
-            new CompilerError(error.message, {
-              props: {
-                details: `This error was thrown by the webpack compiler itself. It is not the same as a syntax error. It is likely a missing or unresolvable build dependency.`,
-                docs: new URL(`https://bud.js.org/`),
-                issues: new URL(
-                  `https://github.com/roots/bud/search?q=is:issue+"compiler" in:title`,
-                ),
-                stack: error.stack,
-                thrownBy: `webpack`,
-              },
-            })
-          }
-        />,
-      )
-    } catch (error) {
-      throw BudError.normalize(error)
-    }
+    await this.app.hooks.fire(`compiler.error`, error)
+
+    this.app.notifier.notify({
+      group: this.app.label,
+      message: error.message,
+      subtitle: error.name,
+    })
   }
 
   /**
@@ -226,9 +226,7 @@ export class Compiler extends Service implements Contract.Service {
             module?.id === moduleIdent || module?.name === moduleIdent,
         )
 
-        if (!module) {
-          return error
-        }
+        if (!module) return error
 
         if (module.nameForCondition) {
           file = module.nameForCondition

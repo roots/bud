@@ -9,5 +9,4 @@
  * Import from submodules
  */
 
-export default {}
 export {}

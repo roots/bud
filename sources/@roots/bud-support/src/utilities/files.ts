@@ -1,24 +1,19 @@
 import type * as esbuild from '@roots/bud-support/esbuild'
+import type {Filesystem} from '@roots/bud-support/filesystem'
 
+import {BudError, ModuleError} from '@roots/bud-support/errors'
+import _get from '@roots/bud-support/lodash/get'
+import isEqual from '@roots/bud-support/lodash/isEqual'
 import omit from '@roots/bud-support/lodash/omit'
-import {randomUUID} from 'node:crypto'
+import _set from '@roots/bud-support/lodash/set'
+import * as filesystem from '@roots/bud-support/utilities/filesystem'
+import logger from '@roots/bud-support/utilities/logger'
+import {get as getPaths} from '@roots/bud-support/utilities/paths'
 import {dirname, join, parse} from 'node:path'
-
-import type {Filesystem} from '../filesystem/index.js'
-
-import {BudError, FileReadError, ImportError} from '../errors/index.js'
-import _get from '../lodash/get/index.js'
-import isEqual from '../lodash/isEqual/index.js'
-import _set from '../lodash/set/index.js'
-import * as filesystem from './filesystem.js'
-import logger from './logger.js'
-import {get as getPaths} from './paths.js'
 
 const DYNAMIC_EXTENSIONS = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
 const STATIC_EXTENSIONS = [`.json`, `.json5`, `.yml`, `.yaml`]
 const COMPATIBLE_EXTENSIONS = [...DYNAMIC_EXTENSIONS, ...STATIC_EXTENSIONS]
-
-const uid = randomUUID() // prevents conflicting fs operations when testing
 
 let transformer: esbuild.transformer
 let fs: Filesystem
@@ -154,7 +149,7 @@ async function fetchFileInfo(filename: string) {
     try {
       file.module = await fs.read(file.path)
     } catch (cause) {
-      handleBudError(FileReadError, cause, file)
+      handleBudError(cause, file)
     }
   }
 
@@ -165,7 +160,7 @@ async function fetchFileInfo(filename: string) {
     const tmpDir = dirname(file.path)
     const tmpPath = join(
       tmpDir,
-      `${file.sha1}${uid}${file.parsed.ext.replace(`ts`, `js`)}`,
+      `${file.sha1}${file.parsed.ext.replace(`ts`, `js`)}`,
     )
     const cachePath = join(
       paths.storage,
@@ -187,7 +182,9 @@ async function fetchFileInfo(filename: string) {
                   `file will be cached to ${cachePath}`,
                 )
 
-              await transformConfig({cachePath, file})
+              await transformConfig({cachePath, file}).catch(error => {
+                throw error
+              })
             }
 
             logger.scope(`fs`).info(`copying`, cachePath, `to`, tmpPath)
@@ -211,18 +208,21 @@ async function fetchFileInfo(filename: string) {
           return importValue?.default ?? importValue
         } catch (cause) {
           await fs.remove(tmpPath)
-          handleBudError(ImportError, cause, file)
+          throw cause
         }
       }
 
       if (file.bud) {
-        file.module = async () => await getModuleValue()
+        file.module = async () =>
+          await getModuleValue().catch(error => {
+            throw BudError.normalize(error)
+          })
       } else {
         file.module = await getModuleValue()
       }
     } catch (cause) {
       await fs.remove(tmpPath)
-      handleBudError(ImportError, cause, file)
+      throw cause
     }
   }
 
@@ -245,9 +245,13 @@ async function transformConfig({
   logger.time(`compiling ${file.name}`)
 
   if (!transformer) {
-    transformer = await import(`../esbuild/index.js`).then(
-      async ({getImplementation}) => await getImplementation(file.path),
-    )
+    transformer = await import(`../esbuild/index.js`)
+      .then(
+        async ({getImplementation}) => await getImplementation(file.path),
+      )
+      .catch(error => {
+        throw error
+      })
   }
 
   await transformer.build({
@@ -268,22 +272,14 @@ async function transformConfig({
  * @param cause - Caught exception
  * @param file - File that caused the error
  */
-async function handleBudError(
-  ErrorClass: typeof FileReadError | typeof ImportError,
-  cause: unknown,
-  file: File,
-) {
+async function handleBudError(cause: unknown, file: File) {
   if (typeof file.name !== `string`) return
   if (typeof file.dynamic !== `boolean`) return
 
   /**
    * Construct {@link BudError} object
    */
-  const error = new ErrorClass(file.name, {
-    props: {
-      origin: BudError.normalize(cause),
-    },
-  })
+  const error = ModuleError.normalize(cause)
 
   /* Throw if error occured in a bud config */
   if (file.name?.includes(`bud`)) throw error
@@ -352,6 +348,17 @@ async function verifyResolutionCache() {
       await removeResolutions()
     }
   }
+
+  await fs.write(
+    join(paths.storage, `checksum.yml`),
+    Object.entries(data).reduce(
+      (acc: Record<string, string>, [key, value]) => {
+        acc[key] = value.sha1
+        return acc
+      },
+      {},
+    ),
+  )
 }
 
 /**

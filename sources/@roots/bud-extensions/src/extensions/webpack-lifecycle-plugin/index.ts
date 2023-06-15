@@ -125,7 +125,7 @@ export default class BudWebpackLifecyclePlugin extends Extension {
       !this.app.hooks.filter(`build.entry`)
     ) {
       this.logger.error(
-        `\n\nNo entrypoints found.\n\nEither create a file at ${this.app.relPath(
+        `No entrypoints specified and no module found at @src/index. Either create a file at ${this.app.relPath(
           `@src`,
           `index.js`,
         )} or use the bud.entry method to specify an entrypoint.`,

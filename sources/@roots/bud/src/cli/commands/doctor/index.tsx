@@ -265,16 +265,16 @@ for a lot of edge cases so it might return a false positive.
           <Box flexDirection="column">
             <Text color="blue">Environment{`\n`}</Text>
             {this.bud.env.getEntries().map(([key, value]) => {
+              const color = value.length === 0 ? `yellow` : `dimColor`
               return (
                 <Box flexDirection="row" key={key}>
                   <Text>{figures.triangleRightSmall}</Text>
                   <Text>{` `}</Text>
-                  <Text>{key}</Text>
+                  <Text color={color}>{key}</Text>
                   <Text>{` `}</Text>
-                  <Text dimColor>
-                    {typeof value === `string` && value.length > 0
-                      ? `************`
-                      : typeof value}
+
+                  <Text color={color}>
+                    {value.length > 0 ? `************` : `empty string`}
                   </Text>
                 </Box>
               )

@@ -2,6 +2,7 @@ import type {CommandClass} from '@roots/bud-support/clipanion'
 
 import {Error} from '@roots/bud-dashboard/app'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
+import {CLIError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import * as args from '@roots/bud-support/utilities/args'
@@ -62,8 +63,8 @@ try {
   }
 
   if (!isCLIContext(context)) throw `Invalid context`
-} catch (err) {
-  render(<Error error={err} />)
+} catch (error) {
+  render(<Error error={CLIError.normalize(error)} />)
   global.process.exit(1)
 }
 
@@ -97,7 +98,7 @@ await Commands.get(application, context)
 
 application
   .runExit(args.raw, context)
-  .catch(err => render(<Error error={err} />))
+  .catch(error => render(<Error error={CLIError.normalize(error)} />))
 
 export {application, Builtins, Cli}
 export type {CommandClass}
