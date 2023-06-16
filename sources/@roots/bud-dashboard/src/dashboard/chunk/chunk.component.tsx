@@ -23,10 +23,9 @@ const Chunk = ({
         <Asset
           key={index}
           {...asset}
-          emitted={chunk?.emitted}
           final={index == chunk?.assets.length - 1}
           indent={[!final]}
-          minWidth={longestAssetNameLength(chunk?.assets)}
+          minWidth={minWidth ?? longestAssetNameLength(chunk?.assets)}
         />
       ))}
     </Box>

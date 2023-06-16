@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
+import type {Bud} from '@roots/bud-framework'
 import type {
-  MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
@@ -11,16 +11,20 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, render, Text} from '@roots/bud-support/ink'
 
 import {Console} from './console/index.js'
+import {App, TTYApp} from './dashboard/index.js'
+import {makeErrorFormatter} from './formatErrors.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
-
-const tagInnerChilds = ({children}: StatsCompilation) =>
-  children.map(child => ({...child, isChild: true}))
 
 /**
  * Dashboard service
  */
 export class Dashboard extends Service implements Contract {
+  /**
+   * Error formatter
+   */
+  public formatStatsErrors: (errors: StatsError[]) => StatsError[]
+
   public hashes = new Set<string>()
 
   /**
@@ -29,94 +33,29 @@ export class Dashboard extends Service implements Contract {
   public stats?: StatsCompilation
 
   /**
-   * Error formatter
+   * {@link Service.register}
    */
   @bind
-  public compilationErrors?(errors: StatsError[]) {
-    return (
-      errors
-        /* Filter unhelpful errors from compiler internals */
-        .filter(
-          error => error && !error.message?.includes(`HookWebpackError`),
-        )
-        .map(error => {
-          error.message = error.message
-            .replace(`Module parse failed:`, ``)
-            .replace(/Module build failed \(.*\):?/, ``)
-            .trim()
-            .split(`Error:`)
-            .pop()
-            .trim()
-
-          if (
-            error.message.includes(
-              `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`,
-            )
-          ) {
-            error.message = error.message.replace(
-              `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`,
-              ``,
-            )
-
-            if (
-              error.moduleName?.match(
-                this.app.hooks.filter(`pattern.vue`),
-              ) &&
-              !this.app.extensions.has(`@roots/bud-vue`)
-            ) {
-              error.message = `${error.message.trim()}\n\nYou need to install @roots/bud-vue to compile this module.`
-            }
-
-            if (
-              error.moduleName?.match(
-                this.app.hooks.filter(`pattern.sass`),
-              ) &&
-              !this.app.extensions.has(`@roots/bud-sass`)
-            ) {
-              error.message = `${error.message.trim()}\n\nYou need to install @roots/bud-sass to compile this module.`
-            }
-
-            if (
-              error.moduleName?.match(
-                this.app.hooks.filter(`pattern.ts`),
-              ) &&
-              !this.app.extensions.has(`@roots/bud-typescript`) &&
-              !this.app.extensions.has(`@roots/bud-esbuild`) &&
-              !this.app.extensions.has(`@roots/bud-swc`)
-            ) {
-              error.message = `${error.message.trim()}\n\nYou need to install a TypeScript compatible extension to compile this module.`
-            }
-          }
-
-          return error
-        })
-    )
+  public override async register(bud: Bud) {
+    this.formatStatsErrors = makeErrorFormatter(bud)
   }
 
   /**
    * Render webpack stats
    */
   @bind
-  public async render(stats: StatsCompilation) {
+  public async render() {
     try {
-      const Dashboard = await import(`./dashboard/index.js`)
-
-      if (this.hashes.has(stats.hash)) return
-      this.hashes.add(stats.hash)
-
-      const compilations: Compilations = stats.children?.length
-        ? [
-            ...stats.children,
-            ...stats.children?.map(tagInnerChilds),
-          ].flat()
-        : stats
-        ? [stats]
+      const compilations: Compilations = this.stats.children?.length
+        ? [...this.stats.children].flat()
+        : this.stats
+        ? [this.stats]
         : []
 
-      const App =
-        process.stdout.isTTY && !this.app.isProduction
-          ? Dashboard.TTYApp
-          : Dashboard.App
+      const DisplayApp =
+        global.process.stdout.isTTY && !this.app.isProduction
+          ? TTYApp
+          : App
 
       render(
         <Box flexDirection="column" marginTop={1}>
@@ -124,13 +63,13 @@ export class Dashboard extends Service implements Contract {
             <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
           </>
 
-          <App
+          <DisplayApp
             compilations={compilations.map(compilation => ({
               ...compilation,
               assets: compilation.assets ?? {},
               entrypoints: compilation.entrypoints ?? {},
-              errors: this.compilationErrors(compilation.errors),
-              warnings: this.compilationErrors(compilation.warnings),
+              errors: this.formatStatsErrors(compilation.errors),
+              warnings: this.formatStatsErrors(compilation.warnings),
             }))}
             context={this.app.context}
             devUrl={this.app.server?.url}
@@ -138,9 +77,9 @@ export class Dashboard extends Service implements Contract {
             displayEntrypoints={true}
             displayServerInfo={false}
             mode={this.app.mode}
-            proxyUrl={this.app.hooks.filter(`dev.proxyUrl`)}
+            proxyUrl={this.app.server?.proxyUrl}
             publicDevUrl={this.app.server?.publicUrl}
-            publicProxyUrl={this.app.hooks.filter(`dev.publicProxyUrl`)}
+            publicProxyUrl={this.app.server?.publicProxyUrl}
             watchFiles={this.app.server?.watcher?.files}
           />
         </Box>,
@@ -169,13 +108,8 @@ export class Dashboard extends Service implements Contract {
    * Render stats as a simple string
    */
   @bind
-  public renderString(stats: MultiStats) {
-    const stringCompilation = stats.toString({
-      colors: true,
-      preset: `minimal`,
-    })
-
-    process.stdout.write(stringCompilation)
+  public renderString(stats: string) {
+    process.stdout.write(stats)
   }
 
   /**
@@ -189,10 +123,13 @@ export class Dashboard extends Service implements Contract {
    * Run dashboard
    */
   @bind
-  public async update(stats: MultiStats): Promise<this> {
-    if (!stats) return this
+  public async update(stats: StatsCompilation): Promise<this> {
+    if (this.hashes.has(stats.hash)) return
+    if (stats.hash) this.hashes.add(stats.hash)
 
     this.stats = stats
+
+    this.logger.log(this.stats.children[0])
 
     if (this.silent) {
       this.logger.log(`dashboard called but --silent flag is set.`)
@@ -200,15 +137,23 @@ export class Dashboard extends Service implements Contract {
     }
 
     if (this.app.context.ci === true) {
-      this.renderString(stats)
+      this.renderString(
+        this.app.compiler.stats.toString({
+          color: true,
+          preset: `minimal`,
+        }),
+      )
       return this
     }
 
-    try {
-      await this.render(stats.toJson(this.app.hooks.filter(`build.stats`)))
-    } catch (error) {
-      this.renderString(stats)
-    }
+    await this.render().catch(() => {
+      this.renderString(
+        this.app.compiler.stats.toString({
+          color: true,
+          preset: `minimal`,
+        }),
+      )
+    })
 
     return this
   }

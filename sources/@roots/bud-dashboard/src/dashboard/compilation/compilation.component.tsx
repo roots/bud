@@ -7,14 +7,14 @@ import type {Context} from '@roots/bud-framework/options/context'
 
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
-import * as Ink from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import {relative} from 'node:path'
 
 import Chunk from '../chunk/chunk.component.js'
 import ChunkGroup from '../chunk/chunkgroup.component.js'
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {color, colorFromStats, longestAssetNameLength} from '../format.js'
+import {colorFromStats, longestAssetNameLength} from '../format.js'
 
 interface Props {
   compilation: StatsCompilation
@@ -26,10 +26,6 @@ interface Props {
 interface AssetGroup extends StatsChunkGroup {
   assets?: Array<Partial<StatsAsset> & {name: string}>
 }
-
-const onlyNotHot = ({name}: StatsAsset) => !name?.includes(`hot-update`)
-const onlyStatic = ({name}: StatsAsset) =>
-  ![`.css`, `.js`].some(ext => name?.includes(ext))
 
 const makeAssetGroupCallback =
   (assets?: {name: string}[]) =>
@@ -52,145 +48,164 @@ const Compilation = ({
     .filter(Boolean)
     .map(entrypoint => ({
       ...entrypoint,
-      assets: entrypoint.assets.map(groupAssets),
+      assets: entrypoint.assets
+        .map(groupAssets)
+        .filter(asset => asset.name),
     }))
 
   const assets: Array<AssetGroup> = compilation.assets
-    .filter(onlyNotHot)
-    .filter(onlyStatic)
     .filter(Boolean)
     .map(groupAssets)
+    .filter(
+      asset =>
+        asset.name &&
+        !asset.name.endsWith(`js`) &&
+        !asset.name.endsWith(`css`),
+    )
+    .filter(asset => asset.emitted)
 
   const truncatedAssets: Array<AssetGroup> = assets.splice(5)
 
-  const longestEntrypointAssetLength: number = entrypoints.reduce(
-    (longest: number, entry: AssetGroup) =>
-      Math.max(longestAssetNameLength(entry.assets), longest),
+  const longestAssetLength: number = [
+    ...entrypoints.map(entry => entry.assets),
+    truncatedAssets,
+  ].reduce(
+    (longest: number, assets: AssetGroup) =>
+      Math.max(longestAssetNameLength(assets), longest),
     0,
   )
 
-  const uncachedModuleCount = compilation.modules?.filter(
-    module => !module.cached,
-  )?.length
+  const reportableModules = compilation.assets
+
+  const emittedModuleCount = reportableModules.filter(
+    module => module.emitted,
+  ).length
 
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box flexDirection="row">
-        <Ink.Text dimColor>
+    <Box flexDirection="column">
+      <Box flexDirection="row">
+        <Text dimColor>
           {figures.lineDownRightArc}
           {figures.line}
-        </Ink.Text>
-        <Ink.Text color={colorFromStats(compilation)}>
+        </Text>
+        <Text color={colorFromStats(compilation)}>
           {compilation.errorsCount > 0 ? ` ${figures.cross}` : ``}
-        </Ink.Text>
-        <Ink.Text>{` `}</Ink.Text>
-        <Ink.Text>{compilation.name}</Ink.Text>
-        <Ink.Text>{` `}</Ink.Text>
+        </Text>
+        <Text>{` `}</Text>
+        <Text>{compilation.name}</Text>
+        <Text>{` `}</Text>
 
         {compilation.outputPath ? (
-          <Ink.Text color={color.blue}>
+          <Text color="blue">
             ./{relative(context.basedir, compilation.outputPath)}
-          </Ink.Text>
+          </Text>
         ) : null}
 
-        <Ink.Text>{` `}</Ink.Text>
+        <Text>{` `}</Text>
 
-        <Ink.Text dimColor>[{compilation.hash}]</Ink.Text>
-      </Ink.Box>
+        <Text dimColor>[{compilation.hash}]</Text>
+      </Box>
 
-      {!compilation.isChild ? (
-        <>
-          <Ink.Text dimColor>{figures.lineVertical}</Ink.Text>
+      <>
+        <Text dimColor>{figures.lineVertical}</Text>
 
-          <Ink.Box flexDirection="column">
-            {entrypoints.some(({assets}) => assets?.length > 0) ? (
-              <Ink.Box flexDirection="column">
-                <Title>
-                  <Ink.Text
-                    color={colorFromStats(compilation)}
-                    dimColor={displayEntrypoints === false}
-                  >
-                    entrypoints
-                  </Ink.Text>
-                </Title>
+        <Box flexDirection="column">
+          {entrypoints.some(({assets}) => assets?.length > 0) ? (
+            <Box flexDirection="column">
+              <Title>
+                <Text
+                  color={colorFromStats(compilation)}
+                  dimColor={displayEntrypoints === false}
+                >
+                  entrypoints
+                </Text>
+              </Title>
 
-                {displayEntrypoints
-                  ? entrypoints
-                      .filter(({assets}) => assets.length > 0)
-                      .map((chunk: StatsChunkGroup, id: number) => (
-                        <Ink.Box flexDirection="column" key={id}>
-                          <ChunkGroup
-                            indent={[true]}
-                            {...chunk}
-                            final={id === entrypoints.length - 1}
-                            minWidth={longestEntrypointAssetLength}
-                          />
-                        </Ink.Box>
-                      ))
-                  : null}
-              </Ink.Box>
-            ) : null}
-          </Ink.Box>
-
-          {assets?.length > 0 ? (
-            <>
-              <Space>
-                <Ink.Text> </Ink.Text>
-              </Space>
-
-              <Ink.Box flexDirection="column">
-                <Title>
-                  <Ink.Text
-                    color={colorFromStats(compilation)}
-                    dimColor={displayAssets === false}
-                  >
-                    assets
-                  </Ink.Text>
-                </Title>
-
-                {displayAssets ? (
-                  <>
-                    <Chunk assets={assets} indent={[true]} />
-
-                    {truncatedAssets?.length > 0 ? (
-                      <>
-                        <Space>
-                          <Ink.Text> </Ink.Text>
-                        </Space>
-
-                        <Space>
-                          <Ink.Text dimColor>
-                            {` `}
-                            {figures.ellipsis}
-                            {` `}
-                            {truncatedAssets.length}
-                            {` `}
-                            additional asset(s) not shown
-                          </Ink.Text>
-                        </Space>
-                      </>
-                    ) : null}
-                  </>
-                ) : null}
-              </Ink.Box>
-            </>
+              {displayEntrypoints
+                ? entrypoints
+                    .filter(({assets}) => assets.length > 0)
+                    .map((chunk: StatsChunkGroup, id: number) => (
+                      <Box flexDirection="column" key={id}>
+                        <ChunkGroup
+                          indent={[true]}
+                          {...chunk}
+                          final={id === entrypoints.length - 1}
+                          minWidth={longestAssetLength + 3}
+                        />
+                      </Box>
+                    ))
+                : null}
+            </Box>
           ) : null}
-        </>
-      ) : null}
+        </Box>
+
+        {assets?.length > 0 ? (
+          <>
+            <Space>
+              <Text> </Text>
+            </Space>
+
+            <Box flexDirection="column">
+              <Title>
+                <Text
+                  color={colorFromStats(compilation)}
+                  dimColor={displayAssets === false}
+                >
+                  assets
+                </Text>
+              </Title>
+
+              {displayAssets ? (
+                <>
+                  <Chunk
+                    assets={assets}
+                    indent={[true]}
+                    minWidth={longestAssetLength + 6}
+                  />
+
+                  {truncatedAssets?.length > 0 ? (
+                    <>
+                      <Space>
+                        <Text> </Text>
+                      </Space>
+
+                      <Space>
+                        <Text dimColor>
+                          {` `}
+                          {figures.ellipsis}
+                          {` `}
+                          {truncatedAssets.length}
+                          {` `}
+                          additional asset(s) not shown
+                        </Text>
+                      </Space>
+                    </>
+                  ) : null}
+                </>
+              ) : null}
+            </Box>
+          </>
+        ) : null}
+      </>
 
       <Space>
-        <Ink.Text> </Ink.Text>
+        <Text> </Text>
       </Space>
 
       <Title final finalFigure={figures.lineUpRightArc}>
-        <Ink.Text dimColor>
-          compiled {compilation.modules?.length} modules (
-          {compilation.modules?.length - uncachedModuleCount} cached) in
-          {` `}
-          {duration(compilation.time) as string}
-        </Ink.Text>
+        <Text>
+          {emittedModuleCount === 0 &&
+          compilation.errorsCount === 0 &&
+          compilation.warningsCount === 0
+            ? `✨ No changes to built assets (${duration(
+                compilation.time,
+              )})`
+            : `Built ${emittedModuleCount} assets in ${duration(
+                compilation.time,
+              )}`}
+        </Text>
       </Title>
-    </Ink.Box>
+    </Box>
   )
 }
 

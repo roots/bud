@@ -15,19 +15,17 @@ export const run: run = async function (this: Bud) {
   if (this.isProduction) {
     const compilation = await this.compiler.compile(this)
 
-    compilation?.run(
-      async function (error: WebpackError, _stats: MultiStats) {
+    compilation?.run(async (error: WebpackError, stats: MultiStats) => {
+      if (error) {
+        await this.compiler.onError(error)
+      }
+
+      compilation.close(async error => {
         if (error) {
           await this.compiler.onError(error)
         }
-
-        compilation.close(async error => {
-          if (error) {
-            await this.compiler.onError(error)
-          }
-        })
-      }.bind(this),
-    )
+      })
+    })
   }
 
   if (this.isDevelopment) await this.server.run()

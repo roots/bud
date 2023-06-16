@@ -7,7 +7,6 @@ import React from 'react'
 
 import Space from '../display/space.component.js'
 import Title from '../display/title.component.js'
-import {color} from '../format.js'
 import useWatchedFilesCount from './useWatchedFilesCount.js'
 
 interface Props {
@@ -41,9 +40,11 @@ export const Server = ({
         <Text dimColor>
           {figures.lineDownRightArc}
           {figures.line}
+          {` `}
         </Text>
-        <Text color={color.blue} dimColor={!displayServerInfo}>
-          {` `}server
+        <Text color="cyan" dimColor={!displayServerInfo}>
+          {figures.nodejs}
+          {` `}Development info
         </Text>
       </Box>
 
@@ -54,11 +55,12 @@ export const Server = ({
           </Space>
 
           <Box flexDirection="column">
-            {proxyUrl && (
+            {proxyUrl?.href && (
               <Title>
                 <Text>
                   proxy:{` `}
-                  {publicProxyUrl && publicProxyUrl.href !== proxyUrl.href
+                  {publicProxyUrl?.href &&
+                  publicProxyUrl.href !== proxyUrl.href
                     ? `${publicProxyUrl.href}`
                     : proxyUrl.href}
                 </Text>

@@ -1,10 +1,18 @@
-import type {Service as Contract} from '../../../service.js'
-import type {MultiStats} from '../../config/index.js'
+import type {Service as Contract} from '@roots/bud-framework'
+import type {
+  StatsCompilation,
+  StatsError,
+} from '@roots/bud-framework/types/config'
 
 /**
  * Dashboard service container
  */
 export interface Service extends Contract {
+  /**
+   * Format stats errors
+   */
+  formatStatsErrors: (stats: StatsError[]) => StatsError[]
+
   /**
    * IDs of rendered stats for debouncing
    */
@@ -23,12 +31,15 @@ export interface Service extends Contract {
   /**
    * Render string to stdout
    */
-  renderString(stats: MultiStats): void
+  renderString(stats: string): void
 
+  /**
+   * Silent mode is enabled?
+   */
   silent: boolean
 
   /**
    * Update the dashboard
    */
-  update(stats: MultiStats): Promise<this>
+  update(stats: StatsCompilation): Promise<this>
 }

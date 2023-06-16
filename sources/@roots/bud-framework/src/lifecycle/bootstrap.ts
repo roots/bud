@@ -27,7 +27,7 @@ export const lifecycleHookHandles: Partial<
   `compiler.before`,
   `build.before`,
   `build.after`,
-  `compiler.after`,
+  `compiler.done`,
 ]
 
 /**
@@ -41,7 +41,7 @@ export const lifecycleMethods: Partial<Array<keyof Service>> = [
   `compilerBefore`,
   `buildBefore`,
   `buildAfter`,
-  `compilerAfter`,
+  `compilerDone`,
 ]
 
 /**
@@ -66,8 +66,8 @@ export const LIFECYCLE_EVENT_MAP: Partial<
 > = {
   [`build.after`]: `buildAfter`,
   [`build.before`]: `buildBefore`,
-  [`compiler.after`]: `compilerAfter`,
   [`compiler.before`]: `compilerBefore`,
+  [`compiler.done`]: `compilerDone`,
   [`config.after`]: `configAfter`,
   boot: `boot`,
   bootstrap: `bootstrap`,

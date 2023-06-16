@@ -1,3 +1,6 @@
+import type {Bud} from '@roots/bud-framework'
+import type {Contract} from '@roots/bud-framework/service'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
@@ -5,9 +8,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 import {S3} from '@roots/filesystem'
 import {join} from 'node:path'
-
-import type {Bud} from '../index.js'
-import type {Contract} from '../service.js'
 
 /**
  * {@link Filesystem} service
@@ -63,6 +63,13 @@ export default class FS extends Filesystem implements Contract {
    * Fulfills {@link Contract.bootstrap}
    */
   public async bootstrap() {}
+
+  /**
+   * {@link Contract.done}
+   */
+  public done() {
+    return this.app
+  }
 
   /**
    * {@link Contract.logger}

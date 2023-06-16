@@ -20,7 +20,7 @@ export default class Acorn extends Extension {
     bud.manifest.set(`publicPath`, ``)
 
     bud.when(bud.isDevelopment, ({hooks}) =>
-      hooks.action(`compiler.close`, this.writeHMR),
+      hooks.action(`compiler.done`, this.writeHMR),
     )
   }
 
@@ -28,7 +28,7 @@ export default class Acorn extends Extension {
    * Write hmr.json
    */
   @bind
-  public async writeHMR(bud: Bud) {
+  public async writeHMR([bud, stats]: [Bud, unknown]) {
     await bud.fs.write(bud.path(`@dist`, `hmr.json`), {
       dev: urlToHttpOptions(bud.root.server.publicUrl),
       proxy: urlToHttpOptions(bud.root.server.publicProxyUrl),

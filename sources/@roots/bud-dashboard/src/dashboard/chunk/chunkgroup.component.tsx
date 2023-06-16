@@ -1,7 +1,6 @@
-import * as Ink from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 
 import Title from '../display/title.component.js'
-import {color} from '../format.js'
 import Asset from './asset.component.js'
 
 const ChunkGroup = ({
@@ -20,14 +19,12 @@ const ChunkGroup = ({
   name?: string
 }) => {
   return (
-    <Ink.Box flexDirection="column">
-      <Ink.Box flexDirection="row">
+    <Box flexDirection="column">
+      <Box flexDirection="row">
         <Title final={final} indent={indent}>
-          <Ink.Text color={color.foregroundColor}>
-            {chunk.name ?? ``}
-          </Ink.Text>
+          <Text>{chunk.name ?? ``}</Text>
         </Title>
-      </Ink.Box>
+      </Box>
 
       {chunk.assets?.map((asset, index) => (
         <Asset
@@ -38,7 +35,7 @@ const ChunkGroup = ({
           minWidth={minWidth}
         />
       ))}
-    </Ink.Box>
+    </Box>
   )
 }
 

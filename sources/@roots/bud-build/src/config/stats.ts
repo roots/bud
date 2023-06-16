@@ -7,7 +7,10 @@ export const stats: Factory<`stats`> = async app =>
       ? {
           all: false,
           assets: true,
+          assetsSort: `size`,
+          builtAt: false,
           children: false,
+          chunks: false,
           entrypoints: true,
           errors: true,
           errorsCount: true,

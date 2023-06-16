@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
 
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'
@@ -40,19 +41,24 @@ interface Contract {
   buildBefore?(app?: Bud): Promise<any>
 
   /**
-   * After Compiler service
-   */
-  compilerAfter?(app?: Bud): Promise<any>
-
-  /**
    * Before Compiler service
    */
   compilerBefore?(app?: Bud): Promise<any>
 
   /**
+   * After Compiler service
+   */
+  compilerDone?([app, stats]: [Bud, Stats & MultiStats]): Promise<any>
+
+  /**
    * After config callback
    */
   configAfter?(app?: Bud): Promise<any>
+
+  /**
+   * Return the bud instance from the service context
+   */
+  done(): Bud
 
   /**
    * Service label
@@ -129,19 +135,29 @@ abstract class Base implements Partial<Contract> {
   public buildBefore?(app?: Bud): Promise<any>
 
   /**
-   * After Compiler service
-   */
-  public compilerAfter?(app?: Bud): Promise<any>
-
-  /**
    * Before Compiler service
    */
   public compilerBefore?(app?: Bud): Promise<any>
 
   /**
+   * After Compiler service
+   */
+  public compilerDone?([app, stats]: [
+    Bud,
+    Stats & MultiStats,
+  ]): Promise<any>
+
+  /**
    * After config callback
    */
   public configAfter?(app?: Bud): Promise<any>
+
+  /**
+   * Return the Bud instance from the service context
+   */
+  public done() {
+    return this.app
+  }
 
   /**
    * Service label
@@ -221,19 +237,29 @@ abstract class BaseContainer
   public buildBefore?(app?: Bud): Promise<any>
 
   /**
-   * After Compiler service
-   */
-  public compilerAfter?(app?: Bud): Promise<any>
-
-  /**
    * Before Compiler service
    */
   public compilerBefore?(app?: Bud): Promise<any>
 
   /**
+   * After Compiler service
+   */
+  public compilerDone?([app, stats]: [
+    Bud,
+    Stats & MultiStats,
+  ]): Promise<any>
+
+  /**
    * After config callback
    */
   public configAfter?(app?: Bud): Promise<any>
+
+  /**
+   * Return the Bud instance from the service context
+   */
+  public done() {
+    return this.app
+  }
 
   /**
    * Logger instance

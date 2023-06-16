@@ -4,6 +4,7 @@ import type {
   Configuration,
   MultiCompiler,
   MultiStats,
+  Stats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/types/config'
@@ -13,6 +14,11 @@ import type {ErrorWithSourceFile} from '@roots/bud-support/open'
  * Compiler service
  */
 interface Service extends Contract {
+  /**
+   * Compilation stats
+   */
+  compilationStats: StatsCompilation
+
   /**
    * Returns a {@link WebpackMultiCompiler} instance
    *
@@ -45,18 +51,27 @@ interface Service extends Contract {
    */
   instance: MultiCompiler
 
+  /**
+   * Compiler error handler
+   */
   onError(error: Error): Promise<void>
 
+  /**
+   * Stats handler
+   */
   onStats(stats: MultiStats): Promise<void>
 
+  /**
+   * Determine source of module errors
+   */
   sourceErrors(
     errors: Array<StatsError>,
   ): Array<ErrorWithSourceFile | StatsError>
 
   /**
-   * Contains compilation stats, if available.
+   * Raw stats
    */
-  stats: StatsCompilation
+  stats: Stats & MultiStats
 }
 
 export type BudError = {

@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {
   MultiCompiler,
   MultiStats,
+  Stats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
@@ -26,6 +27,11 @@ import {pathToFileURL} from 'node:url'
  */
 export class Compiler extends Service implements Contract.Service {
   /**
+   * Compilation stats
+   */
+  public compilationStats: StatsCompilation
+
+  /**
    * Configuration
    */
   public config: Contract.Service[`config`] = []
@@ -41,7 +47,7 @@ export class Compiler extends Service implements Contract.Service {
   public instance: Contract.Service[`instance`]
 
   /**
-   * Compilation stats
+   * Raw stats
    */
   public stats: Contract.Service[`stats`]
 
@@ -75,13 +81,7 @@ export class Compiler extends Service implements Contract.Service {
       await this.onStats(stats)
 
       await this.app.hooks
-        .fire(`compiler.after`, this.app)
-        .catch(error => {
-          throw error
-        })
-
-      await this.app.hooks
-        .fire(`compiler.close`, this.app)
+        .fire(`compiler.done`, [this.app, this.stats])
         .catch(error => {
           throw error
         })
@@ -121,27 +121,57 @@ export class Compiler extends Service implements Contract.Service {
    * Stats handler
    */
   @bind
-  public async onStats(stats: MultiStats) {
+  public async onStats(stats: Stats & MultiStats) {
     const makeNoticeTitle = (child: StatsCompilation) =>
       this.app.label !== child.name
         ? `${this.app.label} (${child.name})`
         : child.name
 
-    this.stats = stats.toJson(this.app.hooks.filter(`build.stats`))
+    this.stats = stats
+
+    this.compilationStats = stats.toJson({
+      all: false,
+      children: {
+        all: false,
+        assets: true,
+        builtAt: true,
+        cachedAssets: false,
+        cachedModules: false,
+        children: true,
+        chunks: false,
+        entrypoints: true,
+        errors: true,
+        errorsCount: true,
+        hash: true,
+        modules: true,
+        outputPath: true,
+        timings: true,
+        warnings: true,
+        warningsCount: true,
+      },
+      hash: true,
+      timings: true,
+    })
+
+    const promisedDashboardUpdate = this.app.dashboard
+      .update(this.compilationStats)
+      .catch(error => {
+        this.app.error(error)
+      })
 
     await this.app.hooks.fire(`compiler.stats`, stats)
 
-    const statsUpdate = this.app.dashboard.update(stats)
-
     if (stats.hasErrors()) {
-      process.exitCode = 1
+      global.process.exitCode = 1
 
-      this.stats.children = this.stats.children?.map(child => ({
-        ...child,
-        errors: this.sourceErrors(child.errors),
-      }))
+      this.compilationStats.children = this.compilationStats.children?.map(
+        child => ({
+          ...child,
+          errors: this.sourceErrors(child.errors),
+        }),
+      )
 
-      this.stats.children
+      this.compilationStats.children
         ?.filter(child => child.errorsCount > 0)
         .forEach(child => {
           try {
@@ -162,7 +192,7 @@ export class Compiler extends Service implements Contract.Service {
         })
     }
 
-    this.stats.children
+    this.compilationStats.children
       ?.filter(child => child.errorsCount === 0)
       .forEach(child => {
         try {
@@ -183,7 +213,7 @@ export class Compiler extends Service implements Contract.Service {
         }
       })
 
-    await statsUpdate
+    await promisedDashboardUpdate
   }
 
   /**
@@ -215,7 +245,7 @@ export class Compiler extends Service implements Contract.Service {
 
         const moduleIdent = error.moduleId ?? error.moduleName
 
-        const module = this.stats.children
+        const module = this.compilationStats.children
           .flatMap(child => child?.modules)
           .find(
             module =>

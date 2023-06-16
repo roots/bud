@@ -14,6 +14,7 @@ export type {
   MultiStats,
   ProvidePlugin,
   RuleSetRule,
+  Stats,
   StatsAsset,
   StatsChunkGroup,
   StatsCompilation,

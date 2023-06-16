@@ -6,7 +6,6 @@ import {Box, Text} from '@roots/bud-support/ink'
 import Title from '../display/title.component.js'
 
 interface Props {
-  cached?: boolean
   emitted?: boolean
   final?: boolean
   indent?: any
@@ -16,15 +15,15 @@ interface Props {
   size?: number
 }
 
-const Asset = ({final, indent, minWidth, name, size}: Props) => {
+const Asset = ({emitted, final, indent, minWidth, name, size}: Props) => {
   return (
     <Title final={final} indent={indent}>
       <Box minWidth={minWidth}>
-        <Text dimColor>{name}</Text>
+        <Text dimColor={!emitted}>{name}</Text>
       </Box>
 
       <Box justifyContent="flex-end" minWidth={10}>
-        <Text dimColor>{(formatSize(size) as string).trim()}</Text>
+        <Text dimColor={!emitted}>{`${formatSize(size)}`.trim()}</Text>
       </Box>
     </Title>
   )
