@@ -1,4 +1,8 @@
-import type {Compilation, Compiler} from '@roots/bud-framework/config'
+import type {
+  Compilation,
+  Compiler,
+  WebpackError,
+} from '@roots/bud-framework/config'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
@@ -9,35 +13,25 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 @label(`@roots/bud-extensions/webpack-lifecycle-plugin`)
 export default class BudWebpackLifecyclePlugin extends Extension {
   @bind
-  public async additionalPass() {}
-
-  @bind
   public async afterCompile(compilation: Compilation) {
     this.logger.log(`compilation completed:`, compilation.hash)
     this.logger.timeEnd(`compile`)
   }
 
   @bind
-  public async afterEmit(compilation: Compilation) {
+  public async afterEmit(_compilation: Compilation) {
     this.logger.timeEnd(`emit`)
   }
 
-  @bind
-  public afterEnvironment() {}
-
-  @bind
-  public afterPlugins() {}
-
   /**
    * {@link Extension.apply}
+   * {@link WebpackPluginInstance.apply}
    */
   @bind
   public override apply(compiler: Compiler) {
     ;[
       `environment`,
-      `afterEnvironment`,
       `afterResolvers`,
-      `afterPlugins`,
       `compile`,
       `failed`,
       `invalid`,
@@ -64,11 +58,7 @@ export default class BudWebpackLifecyclePlugin extends Extension {
         compiler.hooks[k].tapPromise(
           this.label,
           async (...args: any[]) => {
-            try {
-              await this[k](...args)
-            } catch (error) {
-              this.logger.error(error)
-            }
+            await this[k](...args)
           },
         ),
       )
@@ -94,50 +84,39 @@ export default class BudWebpackLifecyclePlugin extends Extension {
   }
 
   @bind
-  public async beforeCompile(compilationParams: any) {}
-
-  @bind
-  public async beforeRun(compiler: Compiler) {
-    this.logger.log(`beforeRun`, compiler.name)
-  }
-
-  @bind
-  public compile(...compilationParams: any[]) {}
-
-  @bind
   public async emit(compilation: Compilation) {
     this.logger.time(`emit`)
   }
 
   @bind
-  public environment() {}
+  public failed(error: Error & Partial<WebpackError> & {error?: Error}) {
+    const {message, name} = error
 
-  @bind
-  public failed(error: Error) {
-    this.logger.error(`compilation failed`)
+    const moduleNotFoundError = name === `ModuleNotFoundError`
 
-    if (
-      error.message.includes(
-        `Module not found: Error: Can't resolve 'index' in '${this.app.path(
-          `@src`,
-        )}'`,
-      ) &&
-      !this.app.hooks.filter(`build.entry`)
-    ) {
-      this.logger.error(
-        `No entrypoints specified and no module found at @src/index. Either create a file at ${this.app.relPath(
-          `@src`,
-          `index.js`,
-        )} or use the bud.entry method to specify an entrypoint.`,
-      )
+    error.name = name
+    error.message = message
+
+    if (moduleNotFoundError) {
+      if (
+        error.message.includes(
+          `Error: Can't resolve 'index' in '${this.app.path(`@src`)}'`,
+        )
+      ) {
+        error.message = error.message.replace(
+          `Module not found: Error: Can't resolve 'index' in '${this.app.path(
+            `@src`,
+          )}'`,
+          `Either create a file at ${this.app.relPath(
+            `@src/index.js`,
+          )} or specify the path to your entry file with bud.entry`,
+        )
+        return error
+      }
     }
+
+    return error
   }
-
-  @bind
-  public initialize() {}
-
-  @bind
-  public invalid() {}
 
   @bind
   public async run(compiler: Compiler) {
@@ -146,10 +125,7 @@ export default class BudWebpackLifecyclePlugin extends Extension {
 
   @bind
   public shouldEmit() {
-    // @ts-ignore
-    const emitCheck = this.app.context.dry !== true
-    emitCheck ? this.logger.success(`emit`) : this.logger.log(`dry run`)
-    return emitCheck
+    return this.app.context.dry !== true
   }
 
   @bind

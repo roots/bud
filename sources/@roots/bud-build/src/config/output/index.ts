@@ -17,6 +17,7 @@ export const output: Factory<`output`> = async ({
     clean: filter(`build.output.clean`, isProduction),
     environment: filter(`build.output.environment`, undefined),
     filename: filename({filter, relPath}),
+    iife: filter(`build.output.iife`, undefined),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
     pathinfo: filter(`build.output.pathinfo`, false),

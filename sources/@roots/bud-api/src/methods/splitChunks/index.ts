@@ -50,12 +50,12 @@ export const splitChunks: splitChunks = async function (
    * For `true` and `undefined` options the default
    * cache groups are added to the build
    */
-  if (options === true || isUndefined(options)) {
+  if (isUndefined(options) || options === true) {
     this.hooks.on(`build.optimization.splitChunks`, {
       automaticNameDelimiter: sep,
       cacheGroups: {
         vendor: {
-          filename: join(`js`, `bundle`, `vendor`, `[name].js`),
+          filename: join(`js`, `bundle`, `vendor.js`),
           idHint: `vendor`,
           priority: -20,
           test: /[\\/]node_modules[\\/]/,

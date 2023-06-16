@@ -159,7 +159,7 @@ export class Server extends Service implements BaseService {
     bud.hooks.action(`server.before`, async () => {
       await this.setConnection()
       await this.injectScripts()
-      await bud.compiler.compile()
+      await bud.compiler.compile(bud)
       await this.applyMiddleware()
       await this.watcher.watch()
     })

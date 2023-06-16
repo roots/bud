@@ -68,6 +68,7 @@ export interface Sync {
     | Configuration['output']['hotUpdateChunkFilename']
   'output.hotUpdateMainFilename':
     | Configuration['output']['hotUpdateMainFilename']
+  'output.iife': Configuration['output']['iife']
   'output.module': Configuration['output']['module']
   'output.path': Configuration['output']['path']
   'output.pathinfo': Configuration['output']['pathinfo']

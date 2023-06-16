@@ -14,7 +14,7 @@ import type {
 import {Error} from '@roots/bud-dashboard/app'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
+import {BudError, type BudHandler} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
@@ -49,22 +49,7 @@ export class Compiler extends Service implements Contract.Service {
    * Initiates compilation
    */
   @bind
-  public async compile(): Promise<MultiCompiler> {
-    const compilerPath = await this.app.module
-      .resolve(`webpack`, import.meta.url)
-      .catch(error => {
-        throw BudError.normalize(error)
-      })
-
-    this.implementation = await this.app.module
-      .import(compilerPath, import.meta.url)
-      .catch(error => {
-        throw BudError.normalize(error)
-      })
-      .finally(() => {
-        this.logger.info(`imported webpack from ${compilerPath}`)
-      })
-
+  public async compile(bud: Bud): Promise<MultiCompiler> {
     this.config = !this.app.hasChildren
       ? [await this.app.build.make()]
       : await Promise.all(
@@ -88,16 +73,17 @@ export class Compiler extends Service implements Contract.Service {
 
     this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
       await this.onStats(stats)
+
       await this.app.hooks
         .fire(`compiler.after`, this.app)
         .catch(error => {
-          this.logger.error(error)
+          throw error
         })
 
       await this.app.hooks
         .fire(`compiler.close`, this.app)
         .catch(error => {
-          this.logger.error(error)
+          throw error
         })
     })
 
@@ -108,30 +94,27 @@ export class Compiler extends Service implements Contract.Service {
    * Compiler error event
    */
   @bind
-  public async onError(error: webpack.WebpackError) {
+  public async onError(error: BudHandler | webpack.WebpackError) {
     global.process.exitCode = 1
 
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
 
-    // @eslint-disable-next-line no-console
-    render(
-      <Error
-        {...new BudError(error.message, {
-          props: {
-            error: BudError.normalize(error),
-          },
-        })}
-      />,
-    )
-
-    await this.app.hooks.fire(`compiler.error`, error)
+    await this.app.hooks
+      .fire(`compiler.error`, error)
+      .catch(this.app.error)
 
     this.app.notifier.notify({
       group: this.app.label,
       message: error.message,
       subtitle: error.name,
     })
+
+    if (`isBudError` in error) {
+      render(<Error error={error} />)
+    } else {
+      render(<Error error={BudError.normalize(error)} />)
+    }
   }
 
   /**
@@ -204,6 +187,18 @@ export class Compiler extends Service implements Contract.Service {
   }
 
   /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async register(bud: Bud): Promise<any> {
+    this.implementation = await this.app.module
+      .import(`webpack`, import.meta.url)
+      .catch(error => {
+        throw BudError.normalize(error)
+      })
+  }
+
+  /**
    * Parse errors from webpack stats
    */
   @bind
@@ -218,13 +213,14 @@ export class Compiler extends Service implements Contract.Service {
       ): ErrorWithSourceFile | StatsError => {
         let file: SourceFile[`file`] | undefined
 
-        const modules = this.stats.children.flatMap(child => child.modules)
         const moduleIdent = error.moduleId ?? error.moduleName
 
-        const module = modules.find(
-          module =>
-            module?.id === moduleIdent || module?.name === moduleIdent,
-        )
+        const module = this.stats.children
+          .flatMap(child => child?.modules)
+          .find(
+            module =>
+              module?.id === moduleIdent || module?.name === moduleIdent,
+          )
 
         if (!module) return error
 
@@ -234,11 +230,9 @@ export class Compiler extends Service implements Contract.Service {
           file = this.app.path(`@src`, module.name)
         }
 
-        if (!file) {
-          return error
-        }
-
-        return {...error, file, name: module.name ?? error.name}
+        return !file
+          ? {...error, name: module.name ?? error.name}
+          : {...error, file, name: module.name ?? error.name}
       }
 
       return errors?.map(parseError).filter(Boolean)

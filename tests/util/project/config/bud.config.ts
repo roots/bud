@@ -2,8 +2,9 @@ import type {Bud} from '@roots/bud'
 
 export default async (bud: Bud) => {
   bud
-    .entry(`app`, [`scripts/index`, `styles/app`])
+    .entry(`app`, [`scripts/index`, `styles/app.css`])
     .watch([bud.path(`@src`, `images`)])
     .serve(3015)
     .html()
+    .bundle(`react`, [`react`, `react-dom`])
 }

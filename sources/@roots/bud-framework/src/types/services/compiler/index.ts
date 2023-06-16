@@ -1,13 +1,13 @@
-import type {ErrorWithSourceFile} from '@roots/bud-support/open'
-
-import type {Contract} from '../../../service.js'
+import type {Bud} from '@roots/bud-framework'
+import type {Contract} from '@roots/bud-framework/service'
 import type {
   Configuration,
   MultiCompiler,
   MultiStats,
   StatsCompilation,
   StatsError,
-} from '../../config/index.js'
+} from '@roots/bud-framework/types/config'
+import type {ErrorWithSourceFile} from '@roots/bud-support/open'
 
 /**
  * Compiler service
@@ -28,7 +28,7 @@ interface Service extends Contract {
    * }])
    * ```
    */
-  compile(): Promise<MultiCompiler>
+  compile(bud: Bud): Promise<MultiCompiler>
 
   /**
    * The compiler configuration

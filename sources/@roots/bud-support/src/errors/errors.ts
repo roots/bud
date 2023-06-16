@@ -59,14 +59,12 @@ const BudError = BudBaseError.subclass(`BudError`, {
   custom: BudHandler,
 })
 
-const CLIError = BudError.subclass(`CLIError`)
+const CLIError = BudBaseError.subclass(`CLIError`, {
+  custom: BudHandler,
+})
 
 const ModuleError = BudBaseError.subclass(`ModuleError`, {
   custom: BudHandler,
-  props: {
-    details: `Error accessing, writing to, importing or resolving a module.`,
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
 })
 
 const ConfigError = BudError.subclass(`ConfigurationError`, {
@@ -81,12 +79,8 @@ const InputError = BudError.subclass(`InputError`, {
     docs: new URL(`https://bud.js.org`),
   },
 })
-const CompilerError = BudError.subclass(`CompilerError`, {
-  props: {
-    details: `Error running the compiler instance.`,
-    docs: new URL(`https://bud.js.org`),
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
+const CompilerError = BudBaseError.subclass(`CompilerError`, {
+  custom: BudHandler,
 })
 const ServerError = BudError.subclass(`ServerError`, {
   props: {

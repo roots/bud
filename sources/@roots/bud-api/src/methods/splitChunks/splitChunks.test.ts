@@ -37,7 +37,7 @@ describe(`bud.splitChunks`, async () => {
       cacheGroups: {
         vendor: {
           idHint: `vendor`,
-          filename: `js/bundle/vendor/[name].js`,
+          filename: `js/bundle/vendor.js`,
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },
@@ -57,7 +57,7 @@ describe(`bud.splitChunks`, async () => {
       cacheGroups: {
         vendor: {
           idHint: `vendor`,
-          filename: `js/bundle/vendor/[name].js`,
+          filename: `js/bundle/vendor.js`,
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },
@@ -75,7 +75,7 @@ describe(`bud.splitChunks`, async () => {
       cacheGroups: {
         MOCK: {
           idHint: `mock`,
-          filename: `js/bundle/vendor/[name].js`,
+          filename: `js/bundle/vendor.js`,
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },
@@ -89,7 +89,7 @@ describe(`bud.splitChunks`, async () => {
       cacheGroups: {
         MOCK: {
           idHint: `mock`,
-          filename: `js/bundle/vendor/[name].js`,
+          filename: `js/bundle/vendor.js`,
           test: /[\\/]node_modules[\\/]/,
           priority: -20,
         },

@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Compiler from './index.js'
+import Compiler from '../src/index.js'
 
 describe(`@roots/bud-compiler`, function () {
   let bud: Bud
@@ -9,9 +9,9 @@ describe(`@roots/bud-compiler`, function () {
 
   beforeEach(async () => {
     vi.clearAllMocks()
-
     bud = await factory({mode: `development`})
     compiler = new Compiler(() => bud)
+    await compiler.register(bud)
   })
 
   it(`has compile fn`, () => {
@@ -20,12 +20,12 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should call logger.log`, async () => {
     const logSpy = vi.spyOn(compiler.logger, `log`)
-    await compiler.compile()
+    await compiler.compile(bud)
     expect(logSpy).toHaveBeenCalled()
   })
 
   it(`should have config with array length 1`, async () => {
-    await compiler.compile()
+    await compiler.compile(bud)
     expect(compiler.config).toHaveLength(1)
   })
 
@@ -39,13 +39,13 @@ describe(`@roots/bud-compiler`, function () {
       bar: compiler.app,
     }
 
-    await compiler.compile()
+    await compiler.compile(bud)
     expect(compiler.config).toHaveLength(2)
   })
 
   it(`should set done tap`, async () => {
     try {
-      await compiler.compile()
+      await compiler.compile(bud)
       expect(compiler.instance.hooks.done.tap).toHaveBeenCalledWith(
         `MOCK-dev-handle`,
         compiler.onStats,

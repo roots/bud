@@ -9,9 +9,6 @@ import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, render, Text} from '@roots/bud-support/ink'
-import isString from '@roots/bud-support/lodash/isString'
-import stripAnsi from '@roots/bud-support/strip-ansi'
-import {sep} from 'node:path'
 
 import {Console} from './console/index.js'
 
@@ -36,60 +33,64 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public compilationErrors?(errors: StatsError[]) {
-    try {
-      return (
-        errors
-          /* Filter unhelpful errors from compiler internals */
-          .filter(
-            error => error && !error.message?.includes(`HookWebpackError`),
-          )
-          /* Format errors */
-          .map(({message, ...error}: StatsError) => ({
-            ...error,
-            message: message
-              /* Discard unhelpful stack traces */
-              .split(/  at /)
-              .shift()
+    return (
+      errors
+        /* Filter unhelpful errors from compiler internals */
+        .filter(
+          error => error && !error.message?.includes(`HookWebpackError`),
+        )
+        .map(error => {
+          error.message = error.message
+            .replace(`Module parse failed:`, ``)
+            .replace(/Module build failed \(.*\):?/, ``)
+            .trim()
+            .split(`Error:`)
+            .pop()
+            .trim()
 
-              /* Discard unhelpful stuff preceeding message */
-              .split(/SyntaxError:?/)
-              .pop()
-              .split(/ModuleError:/)
-              .pop()
-              .split(/Error:/)
-              .pop()
+          if (
+            error.message.includes(
+              `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`,
+            )
+          ) {
+            error.message = error.message.replace(
+              `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`,
+              ``,
+            )
 
-              /* Process line-by-line */
-              .split(`\n`)
+            if (
+              error.moduleName?.match(
+                this.app.hooks.filter(`pattern.vue`),
+              ) &&
+              !this.app.extensions.has(`@roots/bud-vue`)
+            ) {
+              error.message = `${error.message.trim()}\n\nYou need to install @roots/bud-vue to compile this module.`
+            }
 
-              /* Discard emoji */
-              .map(ln => ln.replaceAll(/×/g, ``))
-              /* Discard origin */
-              .map(ln => ln.replaceAll(/\[.*\]/g, ``))
-              /* Replace project path with . */
-              .map(ln =>
-                ln.replaceAll(
-                  new RegExp(this.app.path().concat(sep), `g`),
-                  `.`,
-                ),
-              )
+            if (
+              error.moduleName?.match(
+                this.app.hooks.filter(`pattern.sass`),
+              ) &&
+              !this.app.extensions.has(`@roots/bud-sass`)
+            ) {
+              error.message = `${error.message.trim()}\n\nYou need to install @roots/bud-sass to compile this module.`
+            }
 
-              /* Discard empty lines */
-              .filter(
-                ln =>
-                  isString(ln) &&
-                  ![` `, `\n`, ``].includes(ln) &&
-                  !ln.match(/^\s*$/),
-              )
-              .map(stripAnsi)
+            if (
+              error.moduleName?.match(
+                this.app.hooks.filter(`pattern.ts`),
+              ) &&
+              !this.app.extensions.has(`@roots/bud-typescript`) &&
+              !this.app.extensions.has(`@roots/bud-esbuild`) &&
+              !this.app.extensions.has(`@roots/bud-swc`)
+            ) {
+              error.message = `${error.message.trim()}\n\nYou need to install a TypeScript compatible extension to compile this module.`
+            }
+          }
 
-              /* Reform message */
-              .join(`\n`),
-          }))
-      )
-    } catch (error) {
-      return errors
-    }
+          return error
+        })
+    )
   }
 
   /**
