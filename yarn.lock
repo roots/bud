@@ -6680,7 +6680,6 @@ __metadata:
     "@types/react": 18.2.9
     react: 18.2.0
     tslib: 2.5.3
-    webpack: 5.86.0
   languageName: unknown
   linkType: soft
 
