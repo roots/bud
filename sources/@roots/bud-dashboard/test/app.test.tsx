@@ -37,7 +37,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toContain(`compiled  modules`)
+    expect(lastFrame()).toContain(`Built`)
   })
 
   it(`should render server info`, async () => {

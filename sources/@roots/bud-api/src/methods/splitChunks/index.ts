@@ -55,7 +55,7 @@ export const splitChunks: splitChunks = async function (
       automaticNameDelimiter: sep,
       cacheGroups: {
         vendor: {
-          filename: join(`js`, `bundle`, `vendor.js`),
+          filename: join(`js`, `bundle`, `vendor`, `[name].js`),
           idHint: `vendor`,
           priority: -20,
           test: /[\\/]node_modules[\\/]/,
