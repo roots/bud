@@ -33,27 +33,27 @@ interface Contract {
   /**
    * After build service
    */
-  buildAfter?(app?: Bud): Promise<any>
+  buildAfter(app: Bud): Promise<any>
 
   /**
    * Before build service
    */
-  buildBefore?(app?: Bud): Promise<any>
+  buildBefore(app: Bud): Promise<any>
 
   /**
    * Before Compiler service
    */
-  compilerBefore?(app?: Bud): Promise<any>
+  compilerBefore(app: Bud): Promise<any>
 
   /**
    * After Compiler service
    */
-  compilerDone?([app, stats]: [Bud, Stats & MultiStats]): Promise<any>
+  compilerDone([bud, stats]: [Bud, Stats & MultiStats]): Promise<any>
 
   /**
    * After config callback
    */
-  configAfter?(app?: Bud): Promise<any>
+  configAfter(app: Bud): Promise<any>
 
   /**
    * Return the bud instance from the service context
@@ -127,30 +127,30 @@ abstract class Base implements Partial<Contract> {
   /**
    * After build service
    */
-  public buildAfter?(app?: Bud): Promise<any>
+  public async buildAfter(_app: Bud): Promise<any> {}
 
   /**
    * Before build service
    */
-  public buildBefore?(app?: Bud): Promise<any>
+  public async buildBefore(_app: Bud): Promise<any> {}
 
   /**
    * Before Compiler service
    */
-  public compilerBefore?(app?: Bud): Promise<any>
+  public async compilerBefore(_app: Bud): Promise<any> {}
 
   /**
    * After Compiler service
    */
-  public compilerDone?([app, stats]: [
+  public async compilerDone([bud, stats]: [
     Bud,
     Stats & MultiStats,
-  ]): Promise<any>
+  ]): Promise<any> {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<any>
+  public async configAfter(app: Bud): Promise<any> {}
 
   /**
    * Return the Bud instance from the service context
@@ -227,32 +227,32 @@ abstract class BaseContainer
   public async bootstrap(app: Bud): Promise<any> {}
 
   /**
-   * After build service
+   * After configuration build
    */
-  public buildAfter?(app?: Bud): Promise<any>
+  public async buildAfter(app: Bud): Promise<any> {}
 
   /**
-   * Before build service
+   * Before configuration build
    */
-  public buildBefore?(app?: Bud): Promise<any>
+  public async buildBefore(app: Bud): Promise<any> {}
 
   /**
-   * Before Compiler service
+   * Before Compiler
    */
-  public compilerBefore?(app?: Bud): Promise<any>
+  public async compilerBefore(app: Bud): Promise<any> {}
 
   /**
    * After Compiler service
    */
-  public compilerDone?([app, stats]: [
+  public async compilerDone([bud, stats]: [
     Bud,
     Stats & MultiStats,
-  ]): Promise<any>
+  ]): Promise<any> {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<any>
+  public async configAfter(app: Bud): Promise<any> {}
 
   /**
    * Return the Bud instance from the service context

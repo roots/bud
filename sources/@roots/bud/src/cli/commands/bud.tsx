@@ -1,7 +1,6 @@
 import type {Context} from '@roots/bud-framework/options/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
 
-import {Console} from '@roots/bud-dashboard/console'
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -23,6 +22,7 @@ import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
+import process from 'node:process'
 
 import type {CLIContext} from '../index.js'
 
@@ -313,7 +313,8 @@ export default class BudCommand extends Command<CLIContext> {
    * Handle errors
    */
   public override async catch(error: BudHandler): Promise<void> {
-    global.process.exitCode = 1
+    process.exitCode = 1
+
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {
@@ -329,21 +330,6 @@ export default class BudCommand extends Command<CLIContext> {
       }
     }
 
-    try {
-      const queuedMessages =
-        this.bud?.consoleBuffer?.fetchAndRemove() ?? []
-
-      if (queuedMessages.length) {
-        await this.renderStatic(
-          <Box flexDirection="column">
-            <Console messages={queuedMessages} />
-          </Box>,
-        )
-      }
-    } catch (error) {
-      logger.warn(error.message ?? error)
-    }
-
     await this.renderStatic(
       <Box flexDirection="column">
         <Display.Error error={error} />
@@ -352,7 +338,7 @@ export default class BudCommand extends Command<CLIContext> {
       logger.warn(error.message ?? error)
     })
 
-    if (this.bud.isProduction) global.process.exit(1)
+    if (this.bud.isProduction) throw ``
   }
 
   /**

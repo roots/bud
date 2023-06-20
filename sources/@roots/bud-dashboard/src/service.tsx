@@ -8,10 +8,11 @@ import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box, render, Text} from '@roots/bud-support/ink'
+import {Box, type ReactElement, render} from '@roots/bud-support/ink'
+import process from 'node:process'
 
 import {Console} from './console/index.js'
-import {App, TTYApp} from './dashboard/index.js'
+import {Application, TeletypeApplication} from './dashboard/index.js'
 import {makeErrorFormatter} from './formatErrors.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
@@ -25,7 +26,15 @@ export class Dashboard extends Service implements Contract {
    */
   public formatStatsErrors: (errors: StatsError[]) => StatsError[]
 
+  /**
+   * Previously rendered hashes
+   */
   public hashes = new Set<string>()
+
+  /**
+   * Ink instance
+   */
+  public instance?: Contract[`instance`]
 
   /**
    * Received stats
@@ -33,74 +42,109 @@ export class Dashboard extends Service implements Contract {
   public stats?: StatsCompilation
 
   /**
+   * Stdout
+   */
+  public stderr = process.stderr
+
+  /**
+   * Stderr
+   */
+  public stdout = process.stdout
+
+  /**
+   * Class constructor
+   * @param app
+   */
+  public constructor(app: () => Bud) {
+    super(app)
+    this.formatStatsErrors = makeErrorFormatter(this.app)
+    this.render(`Initializing bud.js`)
+  }
+
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async boot(bud: Bud) {
+    this.render(`Booting bud.js`)
+  }
+
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    this.render(`Building configuration`)
+  }
+
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async compilerBefore(bud: Bud) {
+    this.render(`Compiling application modules`)
+  }
+
+  /**
    * {@link Service.register}
    */
   @bind
   public override async register(bud: Bud) {
-    this.formatStatsErrors = makeErrorFormatter(bud)
+    this.render(`Registering bud.js services and extensions`)
   }
 
   /**
-   * Render webpack stats
+   * Render console messages, build stats and development server information
    */
   @bind
-  public async render() {
-    try {
-      const compilations: Compilations = this.stats.children?.length
-        ? [...this.stats.children].flat()
-        : this.stats
-        ? [this.stats]
-        : []
+  public render(status?: false | string) {
+    if (this.silent) return
 
-      const DisplayApp =
-        global.process.stdout.isTTY && !this.app.isProduction
-          ? TTYApp
-          : App
+    const renderApplication = this.instance?.rerender
+      ? this.instance.rerender
+      : (node: ReactElement) => {
+          this.instance = render(node)
+        }
 
-      render(
-        <Box flexDirection="column" marginTop={1}>
-          <>
-            <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          </>
+    const getCompilations = (): Compilations => {
+      if (!this.stats) return []
+      if (!this.stats.children?.length) return [this.stats]
+      return this.stats.children.flat()
+    }
 
-          <DisplayApp
-            compilations={compilations.map(compilation => ({
-              ...compilation,
-              assets: compilation.assets ?? {},
-              entrypoints: compilation.entrypoints ?? {},
-              errors: this.formatStatsErrors(compilation.errors),
-              warnings: this.formatStatsErrors(compilation.warnings),
-            }))}
-            context={this.app.context}
-            devUrl={this.app.server?.url}
-            displayAssets={true}
-            displayEntrypoints={true}
-            displayServerInfo={false}
-            mode={this.app.mode}
-            proxyUrl={this.app.server?.proxyUrl}
-            publicDevUrl={this.app.server?.publicUrl}
-            publicProxyUrl={this.app.server?.publicProxyUrl}
-            watchFiles={this.app.server?.watcher?.files}
-          />
-        </Box>,
-      )
-    } catch (error) {}
-  }
+    const compilations = getCompilations().map(compilation => ({
+      ...compilation,
+      errors: this.formatStatsErrors(compilation.errors),
+      warnings: this.formatStatsErrors(compilation.warnings),
+    }))
 
-  /**
-   * Render queued messages
-   */
-  @bind
-  public async renderQueuedMessages() {
-    render(
-      this.app.consoleBuffer.queue?.length > 0 && (
-        <>
-          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          <Box>
-            <Text>{` `}</Text>
-          </Box>
-        </>
-      ),
+    const messages = this.app?.consoleBuffer?.fetchAndRemove() ?? []
+
+    const App =
+      process.stdin.isTTY && this.app.isDevelopment
+        ? TeletypeApplication
+        : Application
+
+    renderApplication(
+      <Box flexDirection="column">
+        <Console messages={messages} />
+
+        <App
+          close={cb =>
+            this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
+          }
+          compilations={compilations}
+          context={this.app.context}
+          debug={this.app.context.debug}
+          devUrl={this.app.server?.publicUrl}
+          displayServerInfo={this.app.mode === `development`}
+          mode={this.app.mode}
+          proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
+          proxyUrl={this.app.server?.publicProxyUrl}
+          status={status}
+          watchFiles={this.app.server?.watcher?.files}
+        />
+      </Box>,
     )
   }
 
@@ -109,6 +153,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public renderString(stats: string) {
+    if (this.silent) return
     process.stdout.write(stats)
   }
 
@@ -123,18 +168,14 @@ export class Dashboard extends Service implements Contract {
    * Run dashboard
    */
   @bind
-  public async update(stats: StatsCompilation): Promise<this> {
+  public update(
+    stats: StatsCompilation,
+    status: false | string = false,
+  ): this {
     if (this.hashes.has(stats.hash)) return
     if (stats.hash) this.hashes.add(stats.hash)
 
     this.stats = stats
-
-    this.logger.log(this.stats.children[0])
-
-    if (this.silent) {
-      this.logger.log(`dashboard called but --silent flag is set.`)
-      return this
-    }
 
     if (this.app.context.ci === true) {
       this.renderString(
@@ -143,17 +184,11 @@ export class Dashboard extends Service implements Contract {
           preset: `minimal`,
         }),
       )
+
       return this
     }
 
-    await this.render().catch(() => {
-      this.renderString(
-        this.app.compiler.stats.toString({
-          color: true,
-          preset: `minimal`,
-        }),
-      )
-    })
+    this.render(status)
 
     return this
   }

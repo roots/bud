@@ -80,6 +80,7 @@ export default class Cdn extends Extension<Options> implements Api {
    * CDN key to URL mapping
    */
   public sources = new Map<string, string>([
+    [`esm.sh`, `https://esm.sh/`],
     [`gist`, `https://gist.githubusercontent.com/`],
     [`github`, `https://raw.githubusercontent.com/`],
     [`skypack`, `https://cdn.skypack.dev/`],
@@ -131,22 +132,9 @@ export default class Cdn extends Extension<Options> implements Api {
             },
           ),
       } as any)
-
-      await Promise.all(
-        (bud.context.manifest?.bud?.imports?.[ident] ?? []).map(
-          async ([signifier, remote]) => {
-            await bud.extensions.add({
-              make: async () =>
-                new NormalModuleReplacementPlugin(
-                  new RegExp(`^${signifier}`),
-                  `${url}${remote}`,
-                ),
-            })
-          },
-        ),
-      )
     }
   }
+
   @bind
   public disableCache(): this {
     this.cacheEnabled = false

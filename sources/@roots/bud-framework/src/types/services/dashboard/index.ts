@@ -19,14 +19,14 @@ export interface Service extends Contract {
   hashes: Set<string>
 
   /**
+   * CLI instance
+   */
+  instance?: {rerender: (...args: any[]) => void}
+
+  /**
    * Render stats fully
    */
   render: any
-
-  /**
-   * Render queued messages
-   */
-  renderQueuedMessages(): Promise<void>
 
   /**
    * Render string to stdout
@@ -39,7 +39,17 @@ export interface Service extends Contract {
   silent: boolean
 
   /**
+   * Stderr stream
+   */
+  stderr: NodeJS.WriteStream & {fd: 2}
+
+  /**
+   * Stdout stream
+   */
+  stdout: NodeJS.WriteStream & {fd: 1}
+
+  /**
    * Update the dashboard
    */
-  update(stats: StatsCompilation): Promise<this>
+  update(stats: StatsCompilation): this
 }

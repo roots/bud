@@ -16,7 +16,7 @@ export default function Messages({
   if (!messages?.length) return null
 
   return (
-    <Box flexDirection="column">
+    <Box flexDirection="column" gap={1}>
       {messages.map((error, id: number) => (
         <Message
           color={color}
@@ -32,19 +32,17 @@ export default function Messages({
 
 const Message = ({color, error, figure, type}) =>
   !error ? null : (
-    <Box flexDirection="column" marginBottom={1}>
-      <Box
-        borderBottom={false}
-        borderLeftColor={color}
-        borderRight={false}
-        borderStyle="bold"
-        borderTop={false}
-        flexDirection="column"
-        paddingBottom={1}
-        paddingLeft={1}
-        paddingTop={1}
-      >
-        <Text>{error.message.trim()}</Text>
-      </Box>
+    <Box
+      borderBottom={false}
+      borderLeftColor={color}
+      borderRight={false}
+      borderStyle="bold"
+      borderTop={false}
+      flexDirection="column"
+      paddingBottom={1}
+      paddingLeft={1}
+      paddingTop={1}
+    >
+      <Text>{error.message.trim()}</Text>
     </Box>
   )

@@ -2,7 +2,7 @@ import type {CommandClass} from '@roots/bud-support/clipanion'
 
 import {Error} from '@roots/bud-dashboard/app'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
-import {CLIError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import * as args from '@roots/bud-support/utilities/args'
@@ -16,6 +16,7 @@ import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
+import process from 'node:process'
 
 import type {CLIContext} from './index.js'
 
@@ -40,40 +41,24 @@ const commands = [
   BudWebpackCommand,
 ]
 
-const isCLIContext = (
-  context: Context & {
-    stderr?: NodeJS.WriteStream
-    stdin?: NodeJS.ReadStream
-    stdio?: NodeJS.WriteStream
-    stdout?: NodeJS.WriteStream
-  },
-): context is CLIContext =>
-  context.basedir !== undefined &&
-  context.stdout !== undefined &&
-  context.stderr !== undefined &&
-  context.stdin !== undefined
-
 try {
   context = {
     ...(await getContext()),
     colorDepth: 256,
-    stderr: global.process.stderr,
-    stdin: global.process.stdin,
-    stdout: global.process.stdout,
+    stderr: process.stderr,
+    stdin: process.stdin,
+    stdout: process.stdout,
   }
-
-  if (!isCLIContext(context)) throw `Invalid context`
 } catch (error) {
-  render(<Error error={CLIError.normalize(error)} />)
-  global.process.exit(1)
+  render(<Error error={BudError.normalize(error)} />)
 }
 
 application = new Cli({
   binaryLabel: `bud`,
   binaryName: `bud`,
   binaryVersion: context.bud.version,
-  enableCapture: true,
-  enableColors: true,
+  enableCapture: false,
+  enableColors: context.env?.color !== `false`,
 })
 
 commands.map(command => application.register(command))
@@ -98,7 +83,7 @@ await Commands.get(application, context)
 
 application
   .runExit(args.raw, context)
-  .catch(error => render(<Error error={CLIError.normalize(error)} />))
+  .catch(error => render(<Error error={BudError.normalize(error)} />))
 
 export {application, Builtins, Cli}
 export type {CommandClass}

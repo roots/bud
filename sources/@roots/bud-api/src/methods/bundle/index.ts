@@ -35,13 +35,14 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
 
   this.hooks.on(`build.optimization.splitChunks`, splitChunks => {
     const template = this.context.hash
-      ? `[name].[contenthash].js`
-      : `[name].js`
+      ? `${name}.[contenthash].js`
+      : `${name}.js`
 
     const entry = {
       [name]: {
-        filename: join(`js`, `bundle`, name, template),
+        filename: join(`js`, `bundle`, template),
         idHint: name,
+        minSize: 0,
         priority: -10,
         test,
       },

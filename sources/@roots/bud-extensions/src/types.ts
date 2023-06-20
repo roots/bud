@@ -6,6 +6,7 @@ import type CopyWebpackPlugin from './extensions/copy-webpack-plugin/index.js'
 import type BudESM from './extensions/esm/index.js'
 import type BudFixStyleOnlyEntrypoints from './extensions/fix-style-only-entrypoints/index.js'
 import type HtmlWebpackPlugin from './extensions/html-webpack-plugin/index.js'
+import type BudImportMap from './extensions/import-map/index.js'
 import type InterpolateHtmlPlugin from './extensions/interpolate-html-webpack-plugin/index.js'
 import type MiniCssExtractPlugin from './extensions/mini-css-extract-plugin/index.js'
 import type BudTsConfigValues from './extensions/tsconfig-values/index.js'
@@ -30,6 +31,7 @@ declare module '@roots/bud-framework' {
     '@roots/bud-extensions/esm': BudESM
     '@roots/bud-extensions/fix-style-only-entrypoints': BudFixStyleOnlyEntrypoints
     '@roots/bud-extensions/html-webpack-plugin': HtmlWebpackPlugin
+    '@roots/bud-extensions/import-map': BudImportMap
     '@roots/bud-extensions/interpolate-html-webpack-plugin': InterpolateHtmlPlugin
     '@roots/bud-extensions/mini-css-extract-plugin': MiniCssExtractPlugin
     '@roots/bud-extensions/tsconfig-values': BudTsConfigValues

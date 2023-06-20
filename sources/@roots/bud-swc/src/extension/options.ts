@@ -116,25 +116,20 @@ type BudSWCPublicInterface = StrictPublicExtensionApi<
   env: undefined,
   exclude: undefined,
   inlineSourcesContent: undefined,
-  jsc: {
-    baseUrl: undefined,
+  jsc: DynamicOption.make(bud => ({
     experimental: {
-      cacheRoot: undefined,
+      cacheRoot: bud.path(bud.cache.cacheDirectory, `swc`),
       plugins: [],
     },
-    externalHelpers: undefined,
-    keepClassNames: undefined,
-    loose: undefined,
-    minify: undefined,
     parser: {
+      dynamicImport: true,
       syntax: `ecmascript`,
     },
-    paths: undefined,
-    preserveAllComments: undefined,
-    target: undefined,
-    transform: undefined,
+    target: `es2022`,
+  })),
+  module: {
+    type: `es6`,
   },
-  module: undefined,
   sourceMaps: DynamicOption.make(({hooks}) => {
     const devtool = hooks.filter(`build.devtool`, false)
     if (devtool === false) return false

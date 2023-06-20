@@ -1,4 +1,4 @@
-import logger from '@roots/bud-support/utilities/logger'
+import logger from '@roots/bud-support/logger'
 
 import type {Factory} from './index.js'
 

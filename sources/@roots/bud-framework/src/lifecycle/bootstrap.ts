@@ -238,18 +238,4 @@ export const bootstrap = async function (this: Bud) {
     },
     Promise.resolve(),
   )
-
-  /**
-   * Checksums
-   */
-  this.after(async bud => {
-    await bud.fs
-      .write(bud.module.cacheLocation, {
-        resolutions: bud.module.resolved,
-        version: bud.context.bud.version,
-      })
-      .catch(error => {
-        throw new Error(error)
-      })
-  })
 }

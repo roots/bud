@@ -12,7 +12,7 @@ interface Props {
 export const chunkFilename = ({filter, relPath}: Props) =>
   filter(
     `build.output.chunkFilename`,
-    join(`js`, `dynamic`, relPath(`@name.chunk`)).concat(
+    join(`js`, `bundle`, relPath(`[name]`)).concat(
       scriptExtension(filter, `.mjs`, `.js`),
     ),
   )

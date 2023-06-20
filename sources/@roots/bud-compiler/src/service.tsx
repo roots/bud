@@ -20,6 +20,7 @@ import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import webpack from '@roots/bud-support/webpack'
+import process from 'node:process'
 import {pathToFileURL} from 'node:url'
 
 /**
@@ -95,7 +96,7 @@ export class Compiler extends Service implements Contract.Service {
    */
   @bind
   public async onError(error: BudHandler | webpack.WebpackError) {
-    global.process.exitCode = 1
+    process.exitCode = 1
 
     this.app.isDevelopment &&
       this.app.server.appliedMiddleware?.hot?.publish({error})
@@ -134,35 +135,28 @@ export class Compiler extends Service implements Contract.Service {
       children: {
         all: false,
         assets: true,
-        builtAt: true,
-        cachedAssets: false,
-        cachedModules: false,
-        children: true,
-        chunks: false,
+        cached: true,
+        cachedAssets: true,
+        cachedModules: true,
         entrypoints: true,
         errors: true,
         errorsCount: true,
         hash: true,
         modules: true,
+        name: true,
         outputPath: true,
+        reasons: this.app.context.debug ? true : false,
         timings: true,
         warnings: true,
         warningsCount: true,
       },
-      hash: true,
-      timings: true,
+      name: true,
     })
 
-    const promisedDashboardUpdate = this.app.dashboard
-      .update(this.compilationStats)
-      .catch(error => {
-        this.app.error(error)
-      })
-
-    await this.app.hooks.fire(`compiler.stats`, stats)
+    this.app.dashboard.update(this.compilationStats)
 
     if (stats.hasErrors()) {
-      global.process.exitCode = 1
+      process.exitCode = 1
 
       this.compilationStats.children = this.compilationStats.children?.map(
         child => ({
@@ -207,13 +201,12 @@ export class Compiler extends Service implements Contract.Service {
             subtitle: `Build successful`,
             title: makeNoticeTitle(child),
           })
+
           this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
         } catch (error) {
           this.logger.error(error)
         }
       })
-
-    await promisedDashboardUpdate
   }
 
   /**

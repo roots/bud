@@ -60,10 +60,6 @@
     "./service": {
       "import": "./lib/service.js",
       "default": "./lib/service.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
     }
   },
   "typesVersions": {
@@ -79,9 +75,6 @@
       ],
       "service": [
         "./lib/service.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },

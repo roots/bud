@@ -4,14 +4,13 @@
 
 import {client} from './client.js'
 
-try {
-  client(__resourceQuery, import.meta.webpackHot)
-} catch (err) {
-  console.error(err)
-
+/**
+ * Client entrypoint
+ */
+;(async function () {
   try {
-    client(__resourceQuery, module.hot)
-  } catch (error) {
-    console.error(error)
+    await client(__resourceQuery, import.meta.webpackHot)
+  } catch (err) {
+    console.error(err)
   }
-}
+})()

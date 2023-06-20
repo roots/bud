@@ -64,6 +64,7 @@ export interface Sync {
   'output.clean': Configuration['output']['clean'] & boolean
   'output.environment': Configuration['output']['environment']
   'output.filename': Configuration['output']['filename']
+  'output.hashFunction': Configuration['output']['hashFunction']
   'output.hotUpdateChunkFilename':
     | Configuration['output']['hotUpdateChunkFilename']
   'output.hotUpdateMainFilename':

@@ -11,6 +11,5 @@
  */
 
 import {Dashboard} from './service.js'
-import './types.js'
 
 export default Dashboard

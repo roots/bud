@@ -1,10 +1,8 @@
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ModuleError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
-import get from '@roots/bud-support/lodash/get'
-import set from '@roots/bud-support/lodash/set'
+import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
-import logger from '@roots/bud-support/utilities/logger'
 import {paths} from '@roots/bud-support/utilities/paths'
 import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
@@ -17,11 +15,6 @@ import {Service} from './service.js'
  */
 export class Module extends Service {
   /**
-   * Cache exists
-   */
-  public cacheValid: boolean
-
-  /**
    * Resolved module cache
    */
   public resolved: Record<string, string> = {}
@@ -31,26 +24,36 @@ export class Module extends Service {
    */
   @bind
   public override async bootstrap(bud: Bud) {
-    if (this.cacheEnabled && (await bud.fs.exists(this.cacheLocation))) {
-      try {
-        const data = await bud.fs.read(this.cacheLocation)
-
-        logger
-          .scope(`module`)
-          .info(`cache is enabled and cached resolutions exist`)
-          .info(data)
-
-        if (data.version && data.version === bud.context?.bud?.version) {
-          set(this, `resolved`, data.resolutions)
-          set(this, `cacheValid`, true)
-          return
-        }
-      } catch (e) {
-        // noop
-      }
+    if (!this.cacheEnabled) {
+      this.resolved = {}
+      return
     }
 
-    set(this, `cacheValid`, false)
+    if (!(await bud.fs.exists(this.cacheLocation))) {
+      this.resolved = {}
+      return
+    }
+
+    const data = await bud.fs.read(this.cacheLocation)
+
+    if (!data?.resolutions) {
+      logger
+        .scope(`module`)
+        .warn(
+          `cache is enabled but resolution data is missing. resetting cache.`,
+        )
+        .info(data)
+
+      this.resolved = {}
+      return
+    }
+
+    logger
+      .scope(`module`)
+      .info(`cache is enabled and cached resolutions exist`)
+      .info(data)
+
+    this.resolved = data.resolutions
   }
 
   /**
@@ -79,6 +82,9 @@ export class Module extends Service {
       .then(path => relative(this.app.context.basedir, path))
       .then(path => path.split(signifier).shift())
       .then(path => this.app.path(path as any, signifier))
+      .catch(error => {
+        throw error
+      })
   }
 
   /**
@@ -86,9 +92,11 @@ export class Module extends Service {
    */
   @bind
   public async getManifestPath(pkgName: string) {
-    return await this.getDirectory(pkgName).then(dir =>
-      this.app.path(dir, `package.json`),
-    )
+    return await this.getDirectory(pkgName)
+      .then(dir => this.app.path(dir, `package.json`))
+      .catch(error => {
+        throw error
+      })
   }
 
   /**
@@ -96,24 +104,41 @@ export class Module extends Service {
    */
   @bind
   public async import<T extends string>(signifier: T, context?: string) {
-    if (this.resolved && signifier in this.resolved) {
-      const m = await import(get(this.resolved, [signifier]))
-      return m?.default ?? m
+    if (this.resolved?.[signifier]) {
+      const result = await import(this.resolved[signifier])
+        .then(m => m.default ?? m)
+        .catch(error => {
+          logger
+            .scope(`module`)
+            .warn(
+              `Could not import ${signifier} from ${this.resolved[signifier]}. Removing from cached module registry.`,
+            )
+
+          this.resolved[signifier] = undefined
+        })
+
+      if (result) return result
     }
 
-    try {
-      const path = await this.resolve(signifier, context)
-      const result = await import(path)
-      logger.scope(`module`).info(`imported`, signifier)
-      return result?.default ?? result
-    } catch (error) {
-      throw new ModuleError(`could not import ${signifier}`, {
-        props: {
-          details: `Could not import ${signifier}`,
-          origin: error,
-        },
+    const path = await this.resolve(signifier, context).catch(error => {
+      throw error
+    })
+
+    const result = await import(path)
+      .then(m => m.default ?? m)
+      .catch(error => {
+        throw new ModuleError(`could not import ${signifier}`, {
+          props: {
+            details: `Could not import ${signifier}`,
+            origin: error,
+          },
+        })
       })
-    }
+
+    if (result)
+      logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
+
+    return result
   }
 
   /**
@@ -150,50 +175,56 @@ export class Module extends Service {
   ): Promise<string> {
     let errors = []
 
-    if (this.resolved && signifier in this.resolved) {
+    if (this.resolved?.[signifier]) {
       logger
         .scope(`module`)
-        .info(`[cache hit] ${signifier} => ${this.resolved[signifier]}`)
+        .info(
+          `[cache hit]`,
+          `resolved ${signifier} to ${this.resolved[signifier]}`,
+        )
 
       return this.resolved[signifier]
     }
 
-    logger.scope(`module`).info(`resolving`, signifier)
-
-    try {
-      const path = await resolve(signifier, this.makeContextURL())
-      set(this.resolved, [signifier], normalize(fileURLToPath(path)))
-
-      logger
-        .scope(`module`)
-        .info(
-          `[cache miss]`,
-          `resolved ${signifier} to ${get(this.resolved, [signifier])}`,
+    await resolve(signifier, this.makeContextURL())
+      .then(path => {
+        this.resolved[signifier] = normalize(fileURLToPath(path))
+        logger
+          .scope(`module`)
+          .info(
+            `[cache miss]`,
+            `resolved ${signifier} to ${this.resolved[signifier]}`,
+          )
+      })
+      .catch(error => {
+        errors.push(
+          `Could not resolve ${signifier} from ${context}: ${error.message}`,
         )
+      })
 
-      return get(this.resolved, [signifier])
-    } catch (err) {
-      errors.push(err.toString())
-    }
+    if (this.resolved[signifier]) return this.resolved[signifier]
 
-    try {
-      const path = await resolve(signifier, this.makeContextURL())
-      set(this.resolved, [signifier], normalize(fileURLToPath(path)))
-      logger
-        .scope(`module`)
-        .info(
-          `[cache miss]`,
-          `resolved ${signifier} to ${get(this.resolved, [signifier])}`,
+    await resolve(signifier, this.makeContextURL(context))
+      .then(path => {
+        this.resolved[signifier] = normalize(fileURLToPath(path))
+        logger
+          .scope(`module`)
+          .info(
+            `[cache miss]`,
+            `resolved ${signifier} to ${this.resolved[signifier]}`,
+          )
+      })
+      .catch(error => {
+        errors.push(
+          `Could not resolve ${signifier} from ${this.makeContextURL(
+            context,
+          )}: ${error.message}`,
         )
+      })
 
-      return get(this.resolved, [signifier])
-    } catch (err) {
-      errors.push(err.toString())
-    }
+    if (this.resolved[signifier]) return this.resolved[signifier]
 
-    errors.push(`Could not resolve ${signifier} from ${context}`)
-
-    throw new ModuleError(`could not resolve ${signifier}`, {
+    throw new ModuleError(`Could not resolve ${signifier}`, {
       cause: errors.reverse().join(`\n`),
     })
   }

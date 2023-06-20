@@ -2,22 +2,22 @@ import type {StatsCompilation} from '@roots/bud-framework/config'
 
 import {type Bud} from '@roots/bud-framework'
 
-import App from './app.js'
-import {TTYApp} from './input.js'
+export {Application, TeletypeApplication} from './app.js'
 
 export interface Props {
+  close?: (callback: (error?: Error | null) => any) => void
+  closed?: boolean
   compilations: Array<StatsCompilation>
-  context: Bud['context']
+  context: Bud[`context`]
+  debug: boolean
   devUrl?: URL
-  displayAssets: boolean
-  displayEntrypoints: boolean
-  displayServerInfo: boolean
-  isTTY?: boolean
+  displayAssets?: boolean
+  displayDebug?: boolean
+  displayEntrypoints?: boolean
+  displayServerInfo?: boolean
   mode: Bud['mode']
+  proxy?: boolean
   proxyUrl?: URL
-  publicDevUrl?: URL
-  publicProxyUrl?: URL
+  status?: false | string
   watchFiles?: Set<string>
 }
-
-export {App, TTYApp}

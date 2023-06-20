@@ -13,6 +13,7 @@ export type LifecycleMethods =
   | 'boot'
   | 'buildAfter'
   | 'buildBefore'
+  | 'compilerDone'
   | 'configAfter'
   | 'make'
   | 'register'

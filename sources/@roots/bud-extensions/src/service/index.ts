@@ -1,6 +1,7 @@
 import type {Bud, Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
+import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
@@ -180,7 +181,7 @@ export default class Extensions
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildAfter?() {
+  public override async buildAfter(bud: Bud) {
     await this.runAll(`buildAfter`)
   }
 
@@ -188,15 +189,23 @@ export default class Extensions
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore?() {
+  public override async buildBefore(bud: Bud) {
     await this.runAll(`buildBefore`)
+  }
+
+  @bind
+  public override async compilerDone([bud, _stats]: [
+    Bud,
+    Stats & MultiStats,
+  ]) {
+    await this.runAll(`compilerDone`)
   }
 
   /**
    * `configAfter` callback
    */
   @bind
-  public override async configAfter?() {
+  public override async configAfter(bud: Bud) {
     await this.runAll(`configAfter`)
   }
 

@@ -1,8 +1,8 @@
 /* eslint-disable n/no-process-env */
+import logger from '@roots/bud-support/logger'
 import {join, sep} from 'node:path'
 
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
-import logger from './logger.js'
 
 let env: Record<string, string> = {}
 

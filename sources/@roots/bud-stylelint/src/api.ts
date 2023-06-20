@@ -52,7 +52,7 @@ export type Api = PublicExtensionApi<BudStylelintPublicApi, Options> & {
     ({context, env}) => !context.ci && !env.isTrue(`CI`),
   ),
   cacheLocation: DynamicOption.make(({cache, path}) =>
-    path(cache.cacheDirectory, `stylelint`),
+    path(cache.cacheDirectory, `stylelint.json`),
   ),
   config: DynamicOption.make(
     ({context}) =>

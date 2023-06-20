@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Contract} from '@roots/bud-framework/service'
+import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
@@ -63,6 +64,30 @@ export default class FS extends Filesystem implements Contract {
    * Fulfills {@link Contract.bootstrap}
    */
   public async bootstrap() {}
+  /**
+   * Fulfills {@link Contract.buildAfter}
+   */
+  public async buildAfter() {}
+  /**
+   * Fulfills {@link Contract.buildBefore}
+   */
+  public async buildBefore() {}
+  /**
+   * Fulfills {@link Contract.compilerBefore}
+   */
+  public async compilerBefore() {}
+  /**
+   * Fulfills {@link Contract.compilerDone}
+   */
+  public async compilerDone([bud, _stats]: [Bud, Stats & MultiStats]) {}
+  /**
+   * Fulfills {@link Contract.configAfter}
+   */
+  public async configAfter() {}
+  /**
+   * Fulfills {@link Contract.configBefore}
+   */
+  public async configBefore() {}
 
   /**
    * {@link Contract.done}
@@ -79,9 +104,9 @@ export default class FS extends Filesystem implements Contract {
   }
 
   /**
-   * Fulfills {@link Contract.bootstrap}
+   * Fulfills {@link Contract.register}
    */
-  public async register(bud: Bud) {}
+  public async register() {}
 
   /**
    * Set bucket
@@ -174,6 +199,7 @@ export default class FS extends Filesystem implements Contract {
       destination ? join(destination, path) : path
 
     this.app.after(async () => {
+      this.app.dashboard.render(`Deploying files to S3`)
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {

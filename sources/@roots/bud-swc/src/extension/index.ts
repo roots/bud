@@ -31,7 +31,7 @@ class BudSWC extends BudSWCApi {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot({build, hooks, path, when}) {
+  public override async boot({build, hooks, when}) {
     build.getRule(`js`).setUse(() => [`swc-ecmascript`])
 
     when(

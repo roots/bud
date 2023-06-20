@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import type {Context} from '@roots/bud-framework/options'
 
+import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as filesystem from '@roots/bud-support/utilities/filesystem'
-import logger from '@roots/bud-support/utilities/logger'
 import * as projectPaths from '@roots/bud-support/utilities/paths'
 import {join} from 'node:path'
 

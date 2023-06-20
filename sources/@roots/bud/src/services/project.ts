@@ -10,61 +10,91 @@ import * as args from '@roots/bud-support/utilities/args'
  * Project service
  */
 export default class Project extends Service {
+  public promised: Array<Promise<any>> = []
   /**
-   * `build.after` hook callback
+   * {@link Service.buildAfter}
    */
   @bind
-  public override async buildAfter?(bud: Bud) {
-    if (!bud.context.debug)
-      return bud.info(`--debug not \`true\`. skipping fs write.`)
-
-    try {
-      const path = bud.path(`@storage`, bud.label, `debug`, `profile.yml`)
-
-      await bud.fs.write(path, {
-        ...omit(bud.context, [`env`]),
-        args: args.raw,
-        children: bud.children ? Object.keys(bud.children) : [],
-        env: bud.env.getKeys(),
-        loaded: Object.entries(bud.extensions?.repository).map(
-          ([key, extension]) => ({
-            key,
-            label: extension.label,
-            meta: extension.meta,
-            options: extension.options,
-          }),
-        ),
+  public override async buildAfter(bud: Bud) {
+    this.promised.push(
+      /**
+       * Module cache
+       */
+      bud.fs.write(bud.module.cacheLocation, {
         resolutions: bud.module.resolved,
-        services: bud.context?.services,
-      })
+        version: bud.context.bud.version,
+      }),
+    )
 
-      bud.success(`profile written to `, path)
-    } catch (error) {
-      throw new BudError(`Could not write profile.yml`, {
-        props: {
-          details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
-          origin: BudError.normalize(error),
-        },
-      })
-    }
-
-    try {
-      const path = bud.path(
-        `@storage`,
-        bud.label,
-        `debug`,
-        `build.config.yml`,
+    if (bud.context.debug) {
+      this.promised.push(
+        bud.fs
+          .write(bud.path(`@storage`, bud.label, `debug`, `profile.yml`), {
+            ...omit(bud.context, [`env`]),
+            bootstrap: {
+              args: args.raw,
+              resolutions: bud.module.resolved,
+            },
+            children: bud.children ? Object.keys(bud.children) : [],
+            env: bud.env.getKeys(),
+            loaded: Object.entries(bud.extensions?.repository).map(
+              ([key, extension]) => ({
+                key,
+                label: extension.label,
+                meta: extension.meta,
+                options: extension.options,
+              }),
+            ),
+          })
+          .then(() => {
+            this.logger.success(`profile.yml written to disk`)
+          })
+          .catch(error => {
+            throw new BudError(`Could not write profile.yml`, {
+              props: {
+                details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
+                origin: BudError.normalize(error),
+              },
+            })
+          }),
+        bud.fs
+          .write(
+            bud.path(`@storage`, bud.label, `debug`, `build.config.yml`),
+            bud.build.config,
+          )
+          .then(() => {
+            this.logger.success(`webpack.output.yml written to disk`)
+          })
+          .catch(error => {
+            throw new BudError(`Could not write webpack.output.yml`, {
+              props: {
+                details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
+                origin: BudError.normalize(error),
+              },
+            })
+          }),
       )
-      await bud.fs.write(path, bud.build.config)
-
-      bud.success(`webpack.output.yml written to`, path)
-    } catch (error) {
-      throw new BudError(`Could not write webpack.output.yml`, {
-        props: {
-          details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
-          origin: BudError.normalize(error),
-        },
-      })
     }
+
+    await Promise.all(this.promised)
+  }
+
+  /**
+   * {@link Service.compilerDone}
+   */
+  @bind
+  public override async compilerDone([bud, stats]) {
+    this.logger.log(`compiler done`)
+
+    if (!bud.context.debug) return
+    if (!stats) return
+
+    await bud.fs.write(
+      bud.path(`@storage`, bud.label, `debug`, `stats.yml`),
+      {
+        compilation: bud.compiler.stats.toJson({all: true}),
+        message: stats.toString(),
+      },
+    )
   }
 }

@@ -17,6 +17,7 @@ export const output: Factory<`output`> = async ({
     clean: filter(`build.output.clean`, isProduction),
     environment: filter(`build.output.environment`, undefined),
     filename: filename({filter, relPath}),
+    hashFunction: filter(`build.output.hashFunction`, `xxhash64`),
     iife: filter(`build.output.iife`, undefined),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
@@ -24,7 +25,7 @@ export const output: Factory<`output`> = async ({
     publicPath: filter(`build.output.publicPath`, `auto`),
     scriptType: filter(
       `build.output.scriptType`,
-      isMjs(filter) ? `module` : false,
+      isMjs(filter) ? `module` : `text/javascript`,
     ),
     uniqueName: filter(`build.output.uniqueName`, `@roots/bud`),
   })
