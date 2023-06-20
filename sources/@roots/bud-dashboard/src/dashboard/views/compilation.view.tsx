@@ -19,7 +19,6 @@ export interface Props {
   context: Context
   debug?: boolean
   displayAssets?: boolean
-  displayDebug?: boolean
   displayEntrypoints?: boolean
 }
 
@@ -33,7 +32,6 @@ const Compilation = ({
   compilation,
   context,
   displayAssets = true,
-  displayDebug = false,
   displayEntrypoints = true,
 }: Props) => {
   return (
@@ -59,20 +57,36 @@ const Head = ({compilation, context}: Props) => {
   if (!compilation) return <Text dimColor>Loading</Text>
 
   return (
-    <Box flexDirection="row" gap={2}>
-      <Text color={color}>
-        {compilation.errorsCount > 0 ? figures.cross : figures.hamburger}
-      </Text>
+    <Box
+      flexDirection="row"
+      justifyContent="space-between"
+      overflowX="hidden"
+      width="100%"
+    >
+      <Box
+        minWidth={
+          compilation.name?.split(`/`)?.pop()?.length
+            ? compilation.name?.split(`/`)?.pop()?.length + 2
+            : 2
+        }
+        overflowX="hidden"
+      >
+        <Text color={color} wrap="truncate-end">
+          {compilation.errorsCount > 0 ? figures.cross : figures.hamburger}
+          {` `}
+          {compilation.name?.split(`/`)?.pop() ?? ``}
+        </Text>
+      </Box>
 
-      <Text color={color}>
-        {compilation.name?.split(`/`)?.pop() ?? ``}
+      <Text dimColor wrap="truncate-middle">
+        {` `}[{compilation.hash ?? ``}]{` `}
       </Text>
 
       {context.basedir && compilation.outputPath && (
-        <Text>./{relative(context.basedir, compilation.outputPath)}</Text>
+        <Text wrap="truncate">
+          ./{relative(context.basedir, compilation.outputPath)}
+        </Text>
       )}
-
-      <Text dimColor>[{compilation.hash ?? ``}]</Text>
     </Box>
   )
 }
@@ -97,7 +111,7 @@ const Footer = ({compilation}: Partial<Props>) => {
 
   if (compilation.errorsCount > 0) {
     return (
-      <Text color="red">
+      <Text color="red" wrap="truncate-end">
         {figures.warning} Built with errors in{` `}
         {formattedTime}
       </Text>
@@ -106,7 +120,7 @@ const Footer = ({compilation}: Partial<Props>) => {
 
   if (compilation.warningsCount > 0) {
     return (
-      <Text color="yellow">
+      <Text color="yellow" wrap="truncate-start">
         {figures.warning} Built with warnings in{` `}
         {formattedTime}
       </Text>
@@ -115,20 +129,25 @@ const Footer = ({compilation}: Partial<Props>) => {
 
   if (emitCount === 0) {
     return (
-      <Text color="green">
+      <Text color="green" wrap="truncate-start">
         {figures.tick} No changes to built assets ({formattedTime})
       </Text>
     )
   }
 
   return (
-    <Box flexDirection="row" gap={1}>
+    <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text color="green">
         {figures.tick}
         {` `}
       </Text>
-      <Text>Built in {formattedTime}</Text>
-      <Text dimColor>[{formattedModuleCount}]</Text>
+      <Text wrap="truncate-start">
+        Built in {formattedTime}
+        {` `}
+      </Text>
+      <Text dimColor wrap="truncate-end">
+        [{formattedModuleCount}]
+      </Text>
     </Box>
   )
 }

@@ -27,38 +27,35 @@ interface Props {
   size?: number
 }
 
-const Asset = ({minWidth, ...asset}: Props) => {
+const Asset = (asset: Props) => {
   if (!asset) return null
 
   return (
-    <Box flexDirection="column">
-      <Box flexDirection="row" gap={1}>
-        <Text dimColor={!asset.emitted}>
+    <Box
+      flexDirection="row"
+      gap={1}
+      justifyContent="space-between"
+      overflowX="hidden"
+      width="100%"
+    >
+      <Box flexDirection="row" overflowX="hidden">
+        <Text dimColor={!asset.emitted} wrap="truncate-end">
           {!asset.emitted ? figures.almostEqual : figures.pointerSmall}
+          {` `}
+          {asset.name}
         </Text>
+      </Box>
 
-        <Box
-          flexDirection="row"
-          gap={1}
-          minWidth={minWidth}
-          overflowX="hidden"
-        >
-          <Text dimColor={!asset.emitted} wrap="truncate-middle">
-            {asset.name}
-          </Text>
-        </Box>
-
-        <Box flexDirection="row" justifyContent="flex-end" minWidth={10}>
-          <Text dimColor>{`${formatSize(asset.size)}`.trim()}</Text>
-        </Box>
-
-        <Box flexDirection="row" gap={1} minWidth={1}>
+      <Box flexDirection="row" justifyContent="flex-end" minWidth={11}>
+        <Box flexDirection="row" minWidth={1}>
           {asset.info?.minimized && (
             <Text color="green" dimColor={!asset.emitted}>
               {figures.tick}
+              {` `}
             </Text>
           )}
         </Box>
+        <Text dimColor>{`${formatSize(asset.size)}`.trim()}</Text>
       </Box>
     </Box>
   )

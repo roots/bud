@@ -127,7 +127,7 @@ export class Dashboard extends Service implements Contract {
         : Application
 
     renderApplication(
-      <Box flexDirection="column">
+      <Box flexDirection="column" width="100%">
         <Console messages={messages} />
 
         <App

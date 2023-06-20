@@ -16,7 +16,7 @@ const Assets = ({assets, minWidth}: Props) => {
   if (!assets) return null
 
   return (
-    <Box flexDirection="column" overflowX="hidden">
+    <Box flexDirection="column" overflowX="hidden" width="100%">
       {assets
         ?.filter(({type}) => type === `asset`)
         .map((asset, index) => (

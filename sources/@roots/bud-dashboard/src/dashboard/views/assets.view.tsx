@@ -52,7 +52,7 @@ export default function CompilationAssets({
       <Assets assets={assets} minWidth={minWidth} />
 
       {hidden?.length > 0 && (
-        <Text dimColor>
+        <Text dimColor wrap="truncate-end">
           {`${figures.ellipsis} ${hidden.length} additional ${
             hidden.length > 1 ? `assets` : `asset`
           } not shown`}

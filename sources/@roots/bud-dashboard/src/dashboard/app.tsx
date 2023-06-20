@@ -30,9 +30,9 @@ export const Application = ({
   watchFiles,
 }: Props) => {
   return (
-    <Box flexDirection="column" gap={1} marginTop={1}>
+    <Box flexDirection="column" gap={1} marginTop={1} width="100%">
       {status && (
-        <Text>
+        <Text wrap="truncate-end">
           <Gradient name="cristal">
             <Spinner type="simpleDots" />
             {` `}

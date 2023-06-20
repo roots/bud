@@ -37,20 +37,20 @@ export const Server = ({
   return (
     <View
       footer={
-        <Box flexDirection="row" gap={1}>
-          <Text>
-            <Spinner type="dots" />
-          </Text>
-
-          <Text>Watching project sources</Text>
+        <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
+          <Box flexDirection="row" minWidth="1" overflowX="hidden">
+            <Text wrap="truncate-end">
+              <Spinner type="dots" />
+              {` `}
+              Watching project sources
+            </Text>
+          </Box>
 
           {watchedFilesCount > 0 && (
-            <Box flexDirection="row" gap={1}>
-              <Text dimColor>(and {watchedFilesCount} other</Text>
-              <Text dimColor>
-                {watchedFilesCount > 1 ? `modules` : `module`})
-              </Text>
-            </Box>
+            <Text dimColor wrap="truncate-end">
+              (and {watchedFilesCount} other{` `}
+              {watchedFilesCount > 1 ? `modules` : `module`})
+            </Text>
           )}
         </Box>
       }
@@ -63,9 +63,7 @@ export const Server = ({
               <Text color="cyan">proxy</Text>
             </Box>
 
-            <Box flexDirection="column">
-              <Text>{proxyUrl.href}</Text>
-            </Box>
+            <Text wrap="truncate-end">{proxyUrl.href}</Text>
           </Box>
         )}
 
@@ -76,8 +74,10 @@ export const Server = ({
             </Box>
 
             <Box flexDirection="column">
-              <Text>{devUrl.href}</Text>
-              {ipv4.href !== devUrl.href && <Text>{ipv4.href}</Text>}
+              <Text wrap="truncate-end">{devUrl.href}</Text>
+              {ipv4.href !== devUrl.href && (
+                <Text wrap="truncate-end">{ipv4.href}</Text>
+              )}
             </Box>
           </Box>
         )}
