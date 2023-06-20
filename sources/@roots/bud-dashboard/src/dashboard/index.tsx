@@ -12,7 +12,6 @@ export interface Props {
   debug: boolean
   devUrl?: URL
   displayAssets?: boolean
-  displayDebug?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
   mode: Bud['mode']

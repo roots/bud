@@ -7,12 +7,12 @@ type Fields = Array<unknown> | number | Record<string, unknown> | string
 export interface Props {
   compilation?: Record<string, Fields>
   config?: Record<string, Fields>
-  displayDebug?: boolean
+  debug?: boolean
 }
 
-export default function Debug({compilation, displayDebug}: Props) {
-  if (!displayDebug) return null
-  if (!compilation?.assets) return null
+export default function Debug({compilation, debug}: Props) {
+  if (!debug) return null
+  if (!compilation) return null
 
   const format = (obj: Record<string, unknown>) =>
     Object.entries(obj ?? {})

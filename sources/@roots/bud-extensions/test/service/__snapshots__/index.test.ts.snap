@@ -9,6 +9,7 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-extensions/esm",
   "@roots/bud-extensions/fix-style-only-entrypoints",
   "@roots/bud-extensions/html-webpack-plugin",
+  "@roots/bud-extensions/import-map",
   "@roots/bud-extensions/interpolate-html-webpack-plugin",
   "@roots/bud-extensions/mini-css-extract-plugin",
   "@roots/bud-extensions/tsconfig-values",

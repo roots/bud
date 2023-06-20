@@ -9,7 +9,6 @@ const View = ({children, footer, head}) => {
           <Text dimColor>{figures.lineDownRightArc}</Text>
           <Text dimColor>{figures.line}</Text>
         </Box>
-
         {head}
       </Box>
 

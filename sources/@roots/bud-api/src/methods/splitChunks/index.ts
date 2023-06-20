@@ -56,17 +56,17 @@ export const splitChunks: splitChunks = async function (this: Bud, value) {
         ...options,
         cacheGroups: {
           ...(options.cacheGroups ?? {}),
+          default: false,
           vendor: {
             chunks: `all`,
-            filename: join(`js`, `bundle`, `vendor.[id].js`),
+            enforce: true,
+            filename: join(`js`, `bundle`, `[name].js`),
             idHint: `vendor`,
-            minSize: 0,
+            name: `vendor`,
             priority: -20,
             test: /[\\/]node_modules[\\/]/,
           },
         },
-        chunks: `all`,
-        maxSize: 0,
       }
     })
 

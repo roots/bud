@@ -8,6 +8,7 @@ import {useWatchedFilesCount} from '../hooks/useWatchedFilesCount.js'
 interface Props {
   devUrl?: URL
   displayServerInfo?: boolean
+  mode?: `development` | `production`
   proxy?: unknown
   proxyUrl?: URL
   watchFiles: Set<string>
@@ -19,6 +20,7 @@ interface Props {
 export const Server = ({
   devUrl,
   displayServerInfo = true,
+  mode,
   proxy = false,
   proxyUrl,
   watchFiles = new Set(),
@@ -26,7 +28,8 @@ export const Server = ({
   const watchedFilesCount = useWatchedFilesCount(watchFiles)
 
   if (!displayServerInfo) return null
-  if (!(devUrl instanceof URL)) return null
+  if (mode !== `development`) return null
+  if (!devUrl || !(devUrl instanceof URL)) return null
 
   const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol)
   ipv4.port = devUrl.port

@@ -1,40 +1,28 @@
-import type {StatsCompilation} from 'webpack'
-
 import {Box, Text} from '@roots/bud-support/ink'
 
 export default function Messages({
-  color,
-  figure,
   messages,
-  type,
+  ...props
 }: {
   color: string
-  figure: string
-  messages: StatsCompilation['errors'] | StatsCompilation['warnings']
-  type: `error` | `warning`
+  messages: Array<{message: string}>
 }) {
   if (!messages?.length) return null
 
   return (
     <Box flexDirection="column" gap={1}>
       {messages.map((error, id: number) => (
-        <Message
-          color={color}
-          error={error}
-          figure={figure}
-          key={id}
-          type={type}
-        />
+        <Message error={error} key={id} {...props} />
       ))}
     </Box>
   )
 }
 
-const Message = ({color, error, figure, type}) =>
-  !error ? null : (
+const Message = ({color, error}) =>
+  !error?.message && (
     <Box
       borderBottom={false}
-      borderLeftColor={color}
+      borderLeftColor={color ?? `dim`}
       borderRight={false}
       borderStyle="bold"
       borderTop={false}

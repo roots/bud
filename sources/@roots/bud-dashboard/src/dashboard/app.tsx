@@ -1,4 +1,3 @@
-import figures from '@roots/bud-support/figures'
 import {
   Box,
   Gradient,
@@ -22,9 +21,9 @@ export const Application = ({
   debug,
   devUrl,
   displayAssets,
-  displayDebug,
   displayEntrypoints,
   displayServerInfo,
+  mode,
   proxy,
   proxyUrl,
   status,
@@ -44,19 +43,8 @@ export const Application = ({
 
       {compilations?.map((compilation, id) => (
         <Box flexDirection="column" gap={1} key={id}>
-          <Messages
-            color="red"
-            figure={figures.cross}
-            messages={compilation.errors}
-            type="error"
-          />
-
-          <Messages
-            color="yellow"
-            figure={figures.warning}
-            messages={compilation.warnings}
-            type="warning"
-          />
+          <Messages color="red" messages={compilation.errors} />
+          <Messages color="yellow" messages={compilation.warnings} />
 
           <Compilation
             compilation={compilation}
@@ -66,13 +54,14 @@ export const Application = ({
             displayEntrypoints={displayEntrypoints}
           />
 
-          <Debug compilation={compilation} displayDebug={displayDebug} />
+          <Debug compilation={compilation} debug={debug} />
         </Box>
       ))}
 
       <Server
         devUrl={devUrl}
         displayServerInfo={displayServerInfo && compilations?.length > 0}
+        mode={mode}
         proxy={proxy}
         proxyUrl={proxyUrl}
         watchFiles={watchFiles}
@@ -91,7 +80,7 @@ export const TeletypeApplication = ({
   const [displayServerInfo, setDisplayServerInfo] = useState(
     props.displayServerInfo,
   )
-  const [displayDebug, setDisplayDebug] = useState(props.debug)
+  const [debug, setDisplayDebug] = useState(props.debug)
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayAssets, setDisplayAssets] = useState(true)
   const [closed, setClosed] = useState(false)
@@ -99,7 +88,7 @@ export const TeletypeApplication = ({
   useInput((key, input) => {
     key === `a` && setDisplayAssets(!displayAssets)
     key === `e` && setDisplayEntrypoints(!displayEntrypoints)
-    key === `d` && setDisplayDebug(!displayDebug)
+    key === `d` && setDisplayDebug(!debug)
     key === `s` && setDisplayServerInfo(!displayServerInfo)
 
     if (input.escape) {
@@ -116,8 +105,8 @@ export const TeletypeApplication = ({
     <Application
       {...props}
       closed={closed}
+      debug={debug}
       displayAssets={displayAssets}
-      displayDebug={displayDebug}
       displayEntrypoints={displayEntrypoints}
       displayServerInfo={displayServerInfo}
     />

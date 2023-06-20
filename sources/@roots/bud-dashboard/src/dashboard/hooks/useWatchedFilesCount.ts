@@ -6,6 +6,7 @@ export const useWatchedFilesCount = (patterns: Set<string>) => {
 
   useEffect(() => {
     if (!patterns?.size) setCount(0)
+
     globby(Array.from(patterns)).then(files => setCount(files.length))
   }, [patterns, setCount])
 

@@ -4,9 +4,9 @@ export const useCompilationColor = (
     warningsCount?: number
   },
   successColor: string = `green`,
-) =>
-  compilation.errorsCount > 0
-    ? `red`
-    : compilation.warningsCount > 0
-    ? `yellow`
-    : successColor
+) => {
+  if (!compilation) return `dim`
+  if (compilation.errorsCount > 0) return `red`
+  if (compilation.warningsCount > 0) return `yellow`
+  return successColor
+}

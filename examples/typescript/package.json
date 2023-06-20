@@ -1,10 +1,6 @@
 {
   "name": "@examples/typescript",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
@@ -13,11 +9,9 @@
     "build": "yarn ts-bud build"
   },
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
     "@roots/bud-typescript": "latest",
-    "@types/webpack-env": "latest",
     "ts-node": "10.9.1"
   }
 }

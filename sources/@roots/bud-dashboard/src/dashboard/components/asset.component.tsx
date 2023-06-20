@@ -37,7 +37,12 @@ const Asset = ({minWidth, ...asset}: Props) => {
           {!asset.emitted ? figures.almostEqual : figures.pointerSmall}
         </Text>
 
-        <Box flexDirection="row" gap={1} minWidth={minWidth} width="30%">
+        <Box
+          flexDirection="row"
+          gap={1}
+          minWidth={minWidth}
+          overflowX="hidden"
+        >
           <Text dimColor={!asset.emitted} wrap="truncate-middle">
             {asset.name}
           </Text>

@@ -16,8 +16,5 @@
   ],
   "dependencies": {
     "@tailwindcss/forms": "0.5.3"
-  },
-  "imports": {
-    "react": "../../../node_modules/react"
   }
 }

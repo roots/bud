@@ -1,7 +1,4 @@
-/* eslint-disable no-console */
-const foo: string = 'black'
+const el: HTMLBodyElement = document.querySelector('body')
+if (el) el.style.backgroundColor = `black`
 
-document.querySelector('body').style.backgroundColor = foo
-
-// @ts-ignore
-import.meta.webpackHot?.accept(console.error)
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)

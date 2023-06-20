@@ -45,16 +45,4 @@ describe(`bud.bundle`, () => {
       bud.hooks.filter(`build.optimization.splitChunks`),
     ).toMatchSnapshot()
   })
-
-  describe(`when hashing is enabled`, () => {
-    it(`should include the hash in the \`filename\` property`, async () => {
-      bud.context.hash = true
-      await instance(`react`, [`react`, `react-dom`])
-
-      expect(
-        bud.hooks.filter(`build.optimization.splitChunks`).cacheGroups
-          .react.filename,
-      ).toMatchSnapshot(`js/bundle/react/[name].[contenthash].js`)
-    })
-  })
 })

@@ -4,15 +4,17 @@ exports[`bud.bundle > should set the bundle using a string 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
+    "default": false,
     "react": {
-      "filename": "js/bundle/react/[name].js",
+      "chunks": "all",
+      "enforce": true,
+      "filename": "js/bundle/[name].js",
       "idHint": "react",
+      "name": "react",
       "priority": -10,
       "test": /\\[\\\\/\\]\\(react\\)\\[\\\\/\\]/,
     },
   },
-  "chunks": "all",
-  "minSize": 0,
 }
 `;
 
@@ -20,15 +22,17 @@ exports[`bud.bundle > should set the bundle using a string name and a string tes
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
+    "default": false,
     "react": {
-      "filename": "js/bundle/react/[name].js",
+      "chunks": "all",
+      "enforce": true,
+      "filename": "js/bundle/[name].js",
       "idHint": "react",
+      "name": "react",
       "priority": -10,
       "test": /\\[\\\\/\\]\\(react\\)\\[\\\\/\\]/,
     },
   },
-  "chunks": "all",
-  "minSize": 0,
 }
 `;
 
@@ -36,15 +40,17 @@ exports[`bud.bundle > should set the bundle using a string name and array of str
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
+    "default": false,
     "react": {
-      "filename": "js/bundle/react/[name].js",
+      "chunks": "all",
+      "enforce": true,
+      "filename": "js/bundle/[name].js",
       "idHint": "react",
+      "name": "react",
       "priority": -10,
       "test": /\\[\\\\/\\]\\(react\\|react-dom\\)\\[\\\\/\\]/,
     },
   },
-  "chunks": "all",
-  "minSize": 0,
 }
 `;
 
@@ -52,16 +58,16 @@ exports[`bud.bundle > should set the bundle using a string name and regular expr
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
+    "default": false,
     "react": {
-      "filename": "js/bundle/react/[name].js",
+      "chunks": "all",
+      "enforce": true,
+      "filename": "js/bundle/[name].js",
       "idHint": "react",
+      "name": "react",
       "priority": -10,
       "test": /react/,
     },
   },
-  "chunks": "all",
-  "minSize": 0,
 }
 `;
-
-exports[`bud.bundle > when hashing is enabled > should include the hash in the \`filename\` property > js/bundle/react/[name].[contenthash].js 1`] = `"js/bundle/react/[name].[contenthash].js"`;

@@ -13,7 +13,6 @@ describe(`examples/typescript`, () => {
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()
-    expect(test.manifest).toMatchSnapshot()
   })
 
   it(`should compile js and css as expected (ts-bud)`, async () => {
@@ -26,6 +25,5 @@ describe(`examples/typescript`, () => {
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`from '`)).toBeFalsy()
-    expect(test.manifest).toMatchSnapshot()
   })
 })

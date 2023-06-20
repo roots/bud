@@ -33,34 +33,30 @@ export interface bundle {
 export const bundle: bundle = function (this: Bud, name, matcher) {
   const test = normalize(matcher ?? name)
 
-  this.hooks.on(`build.optimization.splitChunks`, splitChunks => {
-    const template = this.context.hash
-      ? `${name}.[contenthash].js`
-      : `${name}.js`
-
+  this.hooks.on(`build.optimization.splitChunks`, options => {
     const entry = {
       [name]: {
-        filename: join(`js`, `bundle`, template),
+        chunks: `all` as any,
+        enforce: true,
+        filename: join(`js`, `bundle`, `[name].js`),
         idHint: name,
-        minSize: 0,
+        name,
         priority: -10,
         test,
       },
     }
 
-    if (splitChunks === false || splitChunks === undefined) {
+    if (options === false || options === undefined) {
       return {
         automaticNameDelimiter: sep,
-        cacheGroups: {...entry},
-        chunks: `all`,
-        minSize: 0,
+        cacheGroups: {default: false, ...entry},
       }
     }
 
     return {
-      ...splitChunks,
+      ...options,
       cacheGroups: {
-        ...(splitChunks.cacheGroups ?? {}),
+        ...(options.cacheGroups ?? {}),
         ...entry,
       },
     }

@@ -13,8 +13,10 @@ interface Props {
 const Assets = ({assets, minWidth}: Props) => {
   const fallbackMinWidth = useLongestNamedObjectLength(assets)
 
+  if (!assets) return null
+
   return (
-    <Box flexDirection="column" overflowX="hidden" width="100%">
+    <Box flexDirection="column" overflowX="hidden">
       {assets
         ?.filter(({type}) => type === `asset`)
         .map((asset, index) => (

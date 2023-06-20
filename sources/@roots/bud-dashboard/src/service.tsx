@@ -99,6 +99,7 @@ export class Dashboard extends Service implements Contract {
   @bind
   public render(status?: false | string) {
     if (this.silent) return
+    if (this.app.context.ci) return
 
     const renderApplication = this.instance?.rerender
       ? this.instance.rerender
