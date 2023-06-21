@@ -1,5 +1,3 @@
-/// <reference types="@roots/bud" />
-
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
 import type BudImageminExtension from '../extension/index.js'

@@ -106,7 +106,6 @@
     "webpack": "5.86.0"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@types/sass-loader": "8.0.5",

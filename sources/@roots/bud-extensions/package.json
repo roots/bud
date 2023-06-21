@@ -49,22 +49,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./service": {
-      "import": "./lib/service/index.js",
-      "default": "./lib/service/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    },
-    "./*": {
-      "import": "./lib/extensions/*/index.js",
-      "default": "./lib/extensions/*/index.js"
-    }
+    ".": "./lib/index.js",
+    "./service": "./lib/service/index.js",
+    "./types": "./lib/types.js",
+    "./*": "./lib/extensions/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -94,8 +82,7 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",
-    "tslib": "2.5.3",
-    "webpack": "5.86.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

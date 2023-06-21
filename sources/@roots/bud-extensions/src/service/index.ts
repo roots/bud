@@ -33,7 +33,6 @@ export default class Extensions
     discover: boolean
   }>
 
-  // @ts-ignore
   public repository: Modules
 
   /**

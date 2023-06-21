@@ -1,5 +1,3 @@
-/// <reference types="@roots/bud" />
-
 /* eslint-disable n/no-unpublished-import */
 import type {Item} from '@roots/bud-build/item'
 import type {Loader} from '@roots/bud-build/loader'

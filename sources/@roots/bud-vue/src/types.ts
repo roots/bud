@@ -1,8 +1,3 @@
-/// <reference types="@roots/bud" />
-/// <reference types="@roots/bud-postcss" />
-/// <reference types="@roots/bud-sass" />
-/// <reference types="@roots/bud-typescript" />
-
 import type {Extension} from '@roots/bud-framework/extension'
 import type {Build} from '@roots/bud-framework/services'
 

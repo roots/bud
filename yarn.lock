@@ -6815,7 +6815,6 @@ __metadata:
     "@types/node": 18.16.16
     palette-webpack-plugin: 1.0.5
     tslib: 2.5.3
-    webpack: 5.86.0
   languageName: unknown
   linkType: soft
 
@@ -6908,7 +6907,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -7024,7 +7022,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:sources/@roots/bud-sass"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
@@ -7248,8 +7245,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-typescript@workspace:sources/@roots/bud-typescript"
   dependencies:
-    "@roots/bud": "workspace:*"
+    "@roots/bud-api": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
@@ -7271,7 +7269,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:sources/@roots/bud-vue"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"

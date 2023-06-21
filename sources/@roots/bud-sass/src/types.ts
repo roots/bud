@@ -29,28 +29,3 @@ declare module '@roots/bud-framework' {
     sass: Build.Rule
   }
 }
-
-declare module '@roots/bud' {
-  interface Bud {
-    sass: BudSassApi
-  }
-
-  interface Modules {
-    '@roots/bud-sass': BudSass
-    '@roots/bud-sass/resolve-url': BudResolveUrl
-  }
-
-  interface Loaders {
-    'resolve-url': Build.Loader
-    sass: Build.Loader
-  }
-
-  interface Items {
-    'resolve-url': Build.Item
-    sass: Build.Item
-  }
-
-  interface Rules {
-    sass: Build.Rule
-  }
-}

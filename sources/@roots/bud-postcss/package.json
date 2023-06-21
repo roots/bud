@@ -76,7 +76,6 @@
     "@types/postcss-import": "14.0.0"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",

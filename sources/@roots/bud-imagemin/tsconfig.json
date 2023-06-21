@@ -7,10 +7,11 @@
       "@roots/bud-imagemin": ["./src/index.ts"],
       "@roots/bud-imagemin/sharp": ["./src/sharp/index.ts"],
       "@roots/bud-imagemin/svgo": ["./src/svgo/index.ts"],
-    }
+    },
+    "types": ["@roots/bud-framework", "@roots/bud-extensions"]
   },
   "include": ["src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts", "**/*.test.tsx"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx"],
 
   "references": [
     {"path": "../bud-framework/tsconfig.json"},

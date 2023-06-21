@@ -1,5 +1,3 @@
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
-
 import type BudCDN from './extensions/cdn/index.js'
 import type CleanWebpackPlugin from './extensions/clean-webpack-plugin/index.js'
 import type CopyWebpackPlugin from './extensions/copy-webpack-plugin/index.js'
@@ -18,9 +16,9 @@ import type WebpackProvidePlugin from './extensions/webpack-provide-plugin/index
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    cdn: Modules[`@roots/bud-extensions/cdn`]
-    esm: Modules[`@roots/bud-extensions/esm`]
-    manifest: PublicExtensionApi<WebpackManifestPlugin>
+    cdn: BudCDN
+    esm: BudESM
+    manifest: WebpackManifestPlugin
     tsconfig: BudTsConfigValues
   }
 
