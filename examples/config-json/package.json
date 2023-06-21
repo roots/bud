@@ -4,6 +4,7 @@
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest"

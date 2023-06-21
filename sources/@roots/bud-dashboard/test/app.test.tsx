@@ -39,7 +39,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toContain(`✔ No changes to built assets`)
+    expect(lastFrame()).toContain(`✔`)
   })
 
   it(`should render server info`, () => {

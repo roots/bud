@@ -1,7 +1,7 @@
-module.exports = async app => {
-  app.entry('app', ['app.js', 'app.css']).splitChunks(app.isProduction)
+export default async bud => {
+  bud.entry('app', ['app.js', 'app.css']).splitChunks(bud.isProduction)
 
-  app.babel
+  bud.babel
     .setPresets({
       '@babel/preset-env': require.resolve('@babel/preset-env'),
     })
