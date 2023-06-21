@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {
+  Configuration,
   MultiCompiler,
   MultiStats,
   Stats,
@@ -20,6 +21,7 @@ import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import webpack from '@roots/bud-support/webpack'
+import {cpus} from 'node:os'
 import process from 'node:process'
 import {pathToFileURL} from 'node:url'
 
@@ -35,7 +37,7 @@ export class Compiler extends Service implements Contract.Service {
   /**
    * Configuration
    */
-  public config: Contract.Service[`config`] = []
+  public config: Array<Configuration> & {parallelism?: number} = []
 
   /**
    * Compiler implementation
@@ -67,6 +69,8 @@ export class Compiler extends Service implements Contract.Service {
               }),
           ),
         )
+
+    this.config.parallelism = Math.min(cpus().length - 1, 1)
 
     await this.app.hooks.fire(`compiler.before`, this.app)
 
@@ -139,13 +143,16 @@ export class Compiler extends Service implements Contract.Service {
         cachedAssets: true,
         cachedModules: true,
         entrypoints: true,
+        errorDetails: false,
         errors: true,
         errorsCount: true,
+        errorStack: false,
         hash: true,
         modules: true,
         name: true,
         outputPath: true,
         reasons: this.app.context.debug ? true : false,
+        runtime: true,
         timings: true,
         warnings: true,
         warningsCount: true,

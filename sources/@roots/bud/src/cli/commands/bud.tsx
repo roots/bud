@@ -26,7 +26,7 @@ import process from 'node:process'
 
 import type {CLIContext} from '../index.js'
 
-import * as Display from '../components/Error.js'
+import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
 
 export type {BaseContext, Context}
@@ -330,15 +330,30 @@ export default class BudCommand extends Command<CLIContext> {
       }
     }
 
+    if (this.bud?.dashboard?.instance) {
+      this.bud.dashboard.render({error})
+
+      if (this.bud.isProduction) {
+        const unmountDashboard = async () =>
+          await this.bud.dashboard.instance.waitUntilExit()
+
+        this.bud.compiler?.instance?.close
+          ? this.bud.compiler.instance.close(unmountDashboard)
+          : await unmountDashboard()
+      }
+    }
+
     await this.renderStatic(
       <Box flexDirection="column">
-        <Display.Error error={error} />
+        <Fallback.Error error={error} />
       </Box>,
     ).catch(error => {
       logger.warn(error.message ?? error)
     })
 
-    if (this.bud.isProduction) throw ``
+    // fallthrough
+    // eslint-disable-next-line n/no-process-exit
+    process.exit()
   }
 
   /**

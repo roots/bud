@@ -39,7 +39,7 @@ interface Service extends Contract {
   /**
    * The compiler configuration
    */
-  config: Array<Configuration>
+  config: Array<Configuration> & {parallelism?: number}
 
   /**
    * Compiler implementation

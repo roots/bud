@@ -1,5 +1,5 @@
 import figures from '@roots/bud-support/figures'
-import {Box, Spinner, Text} from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
 import View from '../components/view.component.js'
@@ -39,11 +39,7 @@ export const Server = ({
       footer={
         <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
           <Box flexDirection="row" minWidth="1" overflowX="hidden">
-            <Text wrap="truncate-end">
-              <Spinner type="dots" />
-              {` `}
-              Watching project sources
-            </Text>
+            <Text wrap="truncate-end">Watching project sources</Text>
           </Box>
 
           {watchedFilesCount > 0 && (

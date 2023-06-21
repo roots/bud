@@ -10,4 +10,5 @@ export const experiments: Factory<`experiments`> = async ({
       entries: false,
       imports: isDevelopment,
     },
+    topLevelAwait: true,
   })

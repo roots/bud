@@ -5,6 +5,7 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
+import type {BudHandler} from '@roots/bud-support/errors'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -58,7 +59,7 @@ export class Dashboard extends Service implements Contract {
   public constructor(app: () => Bud) {
     super(app)
     this.formatStatsErrors = makeErrorFormatter(this.app)
-    this.render(`Initializing bud.js`)
+    this.render({status: `Initializing bud.js`})
   }
 
   /**
@@ -66,7 +67,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public override async boot(bud: Bud) {
-    this.render(`Booting bud.js`)
+    this.render({status: `Booting bud.js`})
   }
 
   /**
@@ -74,7 +75,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public override async buildBefore(bud: Bud) {
-    this.render(`Building configuration`)
+    this.render({status: `Building configuration`})
   }
 
   /**
@@ -82,7 +83,7 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public override async compilerBefore(bud: Bud) {
-    this.render(`Compiling application modules`)
+    this.render({status: `Compiling application modules`})
   }
 
   /**
@@ -90,14 +91,20 @@ export class Dashboard extends Service implements Contract {
    */
   @bind
   public override async register(bud: Bud) {
-    this.render(`Registering bud.js services and extensions`)
+    this.render({status: `Registering bud.js services and extensions`})
   }
 
   /**
    * Render console messages, build stats and development server information
    */
   @bind
-  public render(status?: false | string) {
+  public render({
+    error,
+    status,
+  }: {
+    error?: BudHandler
+    status?: false | string
+  }) {
     if (this.silent) return
     if (this.app.context.ci) return
 
@@ -139,6 +146,7 @@ export class Dashboard extends Service implements Contract {
           debug={this.app.context.debug}
           devUrl={this.app.server?.publicUrl}
           displayServerInfo={this.app.mode === `development`}
+          error={error}
           mode={this.app.mode}
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
           proxyUrl={this.app.server?.publicProxyUrl}
@@ -189,7 +197,7 @@ export class Dashboard extends Service implements Contract {
       return this
     }
 
-    this.render(status)
+    this.render({status})
 
     return this
   }

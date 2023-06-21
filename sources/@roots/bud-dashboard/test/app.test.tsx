@@ -1,5 +1,6 @@
 import React from '@roots/bud-support/ink'
 import {Bud, factory} from '@repo/test-kit'
+// @ts-ignore
 import {render} from 'ink-testing-library'
 import {beforeEach, describe, expect, it} from 'vitest'
 

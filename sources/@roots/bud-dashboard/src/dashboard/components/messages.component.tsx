@@ -10,7 +10,7 @@ export default function Messages({
   if (!messages?.length) return null
 
   return (
-    <Box flexDirection="column" gap={1}>
+    <Box flexDirection="column" gap={1} overflowX="hidden" width="100%">
       {messages.map((error, id: number) => (
         <Message error={error} key={id} {...props} />
       ))}
@@ -19,17 +19,17 @@ export default function Messages({
 }
 
 const Message = ({color, error}) =>
-  !error?.message && (
+  error?.message && (
     <Box
       borderBottom={false}
       borderLeftColor={color ?? `dim`}
       borderRight={false}
-      borderStyle="bold"
+      borderStyle="single"
       borderTop={false}
       flexDirection="column"
-      paddingBottom={1}
+      overflowX="hidden"
       paddingLeft={1}
-      paddingTop={1}
+      width="100%"
     >
       <Text>{error.message.trim()}</Text>
     </Box>

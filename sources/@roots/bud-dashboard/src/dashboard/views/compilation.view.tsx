@@ -9,12 +9,14 @@ import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 import {relative} from 'node:path'
 
+import Messages from '../components/messages.component.js'
 import View from '../components/view.component.js'
 import {useCompilationColor} from '../hooks/useCompilationColor.js'
 import Assets from './assets.view.js'
 import Entrypoints from './entrypoints.view.js'
 
 export interface Props {
+  borderColor?: string
   compilation: StatsCompilation
   context: Context
   debug?: boolean
@@ -34,12 +36,17 @@ const Compilation = ({
   displayAssets = true,
   displayEntrypoints = true,
 }: Props) => {
+  const compilationColor = useCompilationColor(compilation)
   return (
     <View
+      borderColor={compilationColor}
       footer={<Footer compilation={compilation} />}
       head={<Head compilation={compilation} context={context} />}
     >
       <Box flexDirection="column" gap={1}>
+        <Messages color="red" messages={compilation.errors} />
+        <Messages color="yellow" messages={compilation.warnings} />
+
         <Entrypoints
           compilation={compilation}
           displayEntrypoints={displayEntrypoints}
@@ -79,12 +86,12 @@ const Head = ({compilation, context}: Props) => {
       </Box>
 
       <Text dimColor wrap="truncate-middle">
-        {` `}[{compilation.hash ?? ``}]{` `}
+        {` `}[{compilation.hash ?? ``}]
       </Text>
 
       {context.basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          ./{relative(context.basedir, compilation.outputPath)}
+          {` `}./{relative(context.basedir, compilation.outputPath)}
         </Text>
       )}
     </Box>
@@ -102,51 +109,42 @@ const Footer = ({compilation}: Partial<Props>) => {
   ).length
 
   const formattedModuleCount = `${`${cachedModuleCount}/${moduleCount} modules cached`}`
-
-  const emitCount = compilation.assets.filter(
-    asset => asset.emitted && asset.type === `asset`,
-  ).length
-
   const formattedTime = `${duration(compilation.time)}`
 
   if (compilation.errorsCount > 0) {
     return (
-      <Text color="red" wrap="truncate-end">
-        {figures.warning} Built with errors in{` `}
-        {formattedTime}
-      </Text>
+      <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
+        <Text wrap="truncate-end">
+          <Text color="red">{figures.cross}</Text>
+          {` `}
+          {formattedTime}
+        </Text>
+      </Box>
     )
   }
 
   if (compilation.warningsCount > 0) {
     return (
-      <Text color="yellow" wrap="truncate-start">
-        {figures.warning} Built with warnings in{` `}
-        {formattedTime}
-      </Text>
-    )
-  }
-
-  if (emitCount === 0) {
-    return (
-      <Text color="green" wrap="truncate-start">
-        {figures.tick} No changes to built assets ({formattedTime})
-      </Text>
+      <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
+        <Text wrap="truncate-end">
+          <Text color="yellow">{figures.warning}</Text>
+          {` `}
+          {formattedTime}
+          {` `}
+          <Text dimColor>[{formattedModuleCount}]</Text>
+        </Text>
+      </Box>
     )
   }
 
   return (
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
-      <Text color="green">
-        {figures.tick}
+      <Text wrap="truncate-end">
+        <Text color="green">{figures.tick}</Text>
         {` `}
-      </Text>
-      <Text wrap="truncate-start">
-        Built in {formattedTime}
+        {formattedTime}
         {` `}
-      </Text>
-      <Text dimColor wrap="truncate-end">
-        [{formattedModuleCount}]
+        <Text dimColor>[{formattedModuleCount}]</Text>
       </Text>
     </Box>
   )

@@ -1,18 +1,18 @@
 import {
   Box,
-  Gradient,
   type PropsWithChildren,
   Spinner,
   Text,
   useApp,
   useInput,
   useState,
+  useStdout,
 } from '@roots/bud-support/ink'
 
-import Messages from './components/messages.component.js'
 import {type Props} from './index.js'
 import Compilation from './views/compilation.view.js'
 import Debug from './views/debug.view.js'
+import {Error} from './views/node-error.view.js'
 import {Server} from './views/server.view.js'
 
 export const Application = ({
@@ -23,29 +23,29 @@ export const Application = ({
   displayAssets,
   displayEntrypoints,
   displayServerInfo,
+  error,
   mode,
   proxy,
   proxyUrl,
   status,
   watchFiles,
 }: Props) => {
+  const {stdout} = useStdout()
+
+  if (error) return <Error error={error} />
+
   return (
-    <Box flexDirection="column" gap={1} marginTop={1} width="100%">
+    <Box flexDirection="column" gap={1} marginY={1} width={stdout.columns}>
       {status && (
-        <Text wrap="truncate-end">
-          <Gradient name="cristal">
-            <Spinner type="simpleDots" />
-            {` `}
-            {status}
-          </Gradient>
+        <Text dimColor wrap="truncate-end">
+          <Spinner type="simpleDots" />
+          {` `}
+          {status}
         </Text>
       )}
 
       {compilations?.map((compilation, id) => (
         <Box flexDirection="column" gap={1} key={id}>
-          <Messages color="red" messages={compilation.errors} />
-          <Messages color="yellow" messages={compilation.warnings} />
-
           <Compilation
             compilation={compilation}
             context={context}
@@ -53,7 +53,6 @@ export const Application = ({
             displayAssets={displayAssets}
             displayEntrypoints={displayEntrypoints}
           />
-
           <Debug compilation={compilation} debug={debug} />
         </Box>
       ))}

@@ -21,7 +21,10 @@ export interface Service extends Contract {
   /**
    * CLI instance
    */
-  instance?: {rerender: (...args: any[]) => void}
+  instance?: {
+    rerender: (...args: any[]) => void
+    waitUntilExit: () => Promise<any>
+  }
 
   /**
    * Render stats fully

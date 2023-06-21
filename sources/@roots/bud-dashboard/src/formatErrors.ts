@@ -63,6 +63,7 @@ const prettifyErrors = (error: StatsError) => {
   error.message = error.message
     .replace(`Module parse failed:`, ``)
     .replace(/Module build failed \(.*\):?/, ``)
+    .replace(/    at .*?\/(webpack|tapable)\/?.*/gm, ``)
     .trim()
     .split(`Error:`)
     .pop()
