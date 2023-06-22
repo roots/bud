@@ -22,5 +22,4 @@ export interface Props {
   proxyUrl?: URL
   status?: false | string
   warnings?: StatsCompilation[`warnings`]
-  watchFiles?: Set<string>
 }

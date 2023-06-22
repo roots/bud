@@ -6788,6 +6788,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
   dependencies:
+    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
@@ -6930,6 +6931,7 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-swc": "workspace:*"
+    "@roots/bud-typescript": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     tslib: 2.5.3
@@ -7242,6 +7244,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-typescript@workspace:sources/@roots/bud-typescript"
   dependencies:
+    "@roots/bud": "workspace:*"
     "@roots/bud-api": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-build": "workspace:*"

@@ -1,5 +1,5 @@
 import type {Modules} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import args from '@roots/bud-support/utilities/args'
 

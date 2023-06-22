@@ -6,9 +6,8 @@ export const experiments: Factory<`experiments`> = async ({
 }) =>
   hooks.filter(`build.experiments`, {
     backCompat: false,
-    lazyCompilation: {
-      entries: false,
-      imports: isDevelopment,
-    },
+    lazyCompilation: isDevelopment
+      ? {entries: false, imports: true}
+      : false,
     topLevelAwait: true,
   })

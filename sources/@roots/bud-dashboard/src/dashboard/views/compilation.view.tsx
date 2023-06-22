@@ -2,7 +2,7 @@ import type {
   StatsAsset,
   StatsCompilation,
 } from '@roots/bud-framework/config'
-import type {Context} from '@roots/bud-framework/options/context'
+import type {Context} from '@roots/bud-framework/context'
 
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
@@ -70,24 +70,23 @@ const Head = ({compilation, context}: Props) => {
       overflowX="hidden"
       width="100%"
     >
-      <Box
-        minWidth={
-          compilation.name?.split(`/`)?.pop()?.length
-            ? compilation.name?.split(`/`)?.pop()?.length + 2
-            : 2
-        }
-        overflowX="hidden"
-      >
+      <Box flexShrink={0} overflowX="hidden">
         <Text color={color} wrap="truncate-end">
-          {compilation.errorsCount > 0 ? figures.cross : figures.hamburger}
-          {` `}
-          {compilation.name?.split(`/`)?.pop() ?? ``}
+          <Text color={color}>
+            {compilation.errorsCount > 0
+              ? figures.cross
+              : figures.hamburger}
+            {` `}
+            {compilation.name?.split(`/`)?.pop() ?? ``}
+          </Text>
+
+          {compilation.hash && (
+            <Text color="dimColor">
+              {` `}[{compilation.hash ?? ``}]{` `}
+            </Text>
+          )}
         </Text>
       </Box>
-
-      <Text dimColor wrap="truncate-middle">
-        {` `}[{compilation.hash ?? ``}]
-      </Text>
 
       {context.basedir && compilation.outputPath && (
         <Text wrap="truncate">

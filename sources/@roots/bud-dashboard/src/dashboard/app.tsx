@@ -28,7 +28,6 @@ export const Application = ({
   proxy,
   proxyUrl,
   status,
-  watchFiles,
 }: Props) => {
   const {stdout} = useStdout()
 
@@ -63,7 +62,6 @@ export const Application = ({
         mode={mode}
         proxy={proxy}
         proxyUrl={proxyUrl}
-        watchFiles={watchFiles}
       />
     </Box>
   )

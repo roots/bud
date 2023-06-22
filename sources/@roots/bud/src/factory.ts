@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud'
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import makeContext from '@roots/bud/context'
 import * as instance from '@roots/bud/instance'

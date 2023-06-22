@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/options/context'
+import type {Context} from '@roots/bud-framework/context'
 import type {ReadStream, WriteStream} from 'node:tty'
 
 export interface CLIContext extends Context {

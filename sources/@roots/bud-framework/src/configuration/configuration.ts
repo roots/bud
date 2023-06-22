@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {File} from '@roots/bud-framework/options/context'
+import type {File} from '@roots/bud-framework/context'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'

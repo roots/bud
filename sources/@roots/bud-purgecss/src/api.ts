@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 
 /**
  * Purge unused CSS from compiled stylesheets

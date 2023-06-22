@@ -47,22 +47,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
@@ -71,6 +61,7 @@
   "devDependencies": {
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-swc": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.16"
   },

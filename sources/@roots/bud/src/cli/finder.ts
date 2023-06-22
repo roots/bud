@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {resolve} from '@roots/bud-support/import-meta-resolve'

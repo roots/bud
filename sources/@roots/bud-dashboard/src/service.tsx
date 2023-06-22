@@ -151,7 +151,6 @@ export class Dashboard extends Service implements BudDashboard {
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
           proxyUrl={this.app.server?.publicProxyUrl}
           status={status}
-          watchFiles={this.app.server?.watcher?.files}
         />
       </Box>,
     )

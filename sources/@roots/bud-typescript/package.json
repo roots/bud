@@ -95,6 +95,7 @@
     "webpack": "5.86.0"
   },
   "dependencies": {
+    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "fork-ts-checker-webpack-plugin": "7.3.0",

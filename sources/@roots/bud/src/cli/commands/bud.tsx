@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/options/context'
+import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
 
 import {Bud} from '@roots/bud-framework'

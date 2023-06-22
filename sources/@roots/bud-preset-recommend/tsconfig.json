@@ -10,14 +10,19 @@
       "@roots/bud-extensions",
       "@roots/bud-esbuild",
       "@roots/bud-swc",
-      "@roots/bud-typescript",
-      "@roots/bud-postcss"
+      "@roots/bud-postcss",
+      "@roots/bud-typescript"
     ]
   },
   "include": ["src"],
   "exclude": ["test"],
   "references": [
+    {"path": "./../bud-babel/tsconfig.json"},
+    {"path": "./../bud-esbuild/tsconfig.json"},
+    {"path": "./../bud-swc/tsconfig.json"},
+    {"path": "./../bud-postcss/tsconfig.json"},
     {"path": "./../bud-extensions/tsconfig.json"},
-    {"path": "./../bud-framework/tsconfig.json"}
+    {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../bud-typescript/tsconfig.json"}
   ]
 }

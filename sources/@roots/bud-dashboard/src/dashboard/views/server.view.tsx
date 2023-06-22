@@ -3,7 +3,6 @@ import {Box, Text} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
 
 import View from '../components/view.component.js'
-import {useWatchedFilesCount} from '../hooks/useWatchedFilesCount.js'
 
 interface Props {
   devUrl?: URL
@@ -11,7 +10,6 @@ interface Props {
   mode?: `development` | `production`
   proxy?: unknown
   proxyUrl?: URL
-  watchFiles: Set<string>
 }
 
 /**
@@ -23,10 +21,7 @@ export const Server = ({
   mode,
   proxy = false,
   proxyUrl,
-  watchFiles = new Set(),
 }: Props) => {
-  const watchedFilesCount = useWatchedFilesCount(watchFiles)
-
   if (!displayServerInfo) return null
   if (mode !== `development`) return null
   if (!devUrl || !(devUrl instanceof URL)) return null
@@ -41,38 +36,38 @@ export const Server = ({
           <Box flexDirection="row" minWidth="1" overflowX="hidden">
             <Text wrap="truncate-end">Watching project sources</Text>
           </Box>
-
-          {watchedFilesCount > 0 && (
-            <Text dimColor wrap="truncate-end">
-              (and {watchedFilesCount} other{` `}
-              {watchedFilesCount > 1 ? `modules` : `module`})
-            </Text>
-          )}
         </Box>
       }
+      borderColor="blue"
       head={<Text color="blue">{figures.nodejs} Server info</Text>}
     >
       <Box flexDirection="column" gap={1}>
         {proxy && proxyUrl?.href && (
           <Box flexDirection="row" gap={2} paddingLeft={1}>
             <Box minWidth={5}>
-              <Text color="cyan">proxy</Text>
+              <Text color="white">proxy</Text>
             </Box>
 
-            <Text wrap="truncate-end">{proxyUrl.href}</Text>
+            <Text dimColor wrap="truncate-end">
+              {figures.lineDashed0} {proxyUrl.href}
+            </Text>
           </Box>
         )}
 
         {devUrl?.href && (
           <Box flexDirection="row" gap={2} paddingLeft={1}>
             <Box minWidth={5}>
-              <Text color="cyan">dev</Text>
+              <Text color="white">dev</Text>
             </Box>
 
             <Box flexDirection="column">
-              <Text wrap="truncate-end">{devUrl.href}</Text>
+              <Text dimColor wrap="truncate-end">
+                {figures.lineDashed0} {devUrl.href}
+              </Text>
               {ipv4.href !== devUrl.href && (
-                <Text wrap="truncate-end">{ipv4.href}</Text>
+                <Text dimColor wrap="truncate-end">
+                  {figures.lineDashed0} {ipv4.href}
+                </Text>
               )}
             </Box>
           </Box>
