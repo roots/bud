@@ -1,8 +1,5 @@
 import type {Service as Contract} from '@roots/bud-framework'
-import type {
-  StatsCompilation,
-  StatsError,
-} from '@roots/bud-framework/types/config'
+import type {StatsCompilation, StatsError} from '../../../config/index.js'
 
 /**
  * Dashboard service container

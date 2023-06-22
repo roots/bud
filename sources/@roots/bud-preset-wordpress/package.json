@@ -49,30 +49,11 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./extension": {
-      "import": "./lib/extension.js",
-      "default": "./lib/extension.js"
-    },
-    "./stylelint-config": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
-    "./stylelint": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
-    "./config/stylelint": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js",
+    "./stylelint-config": "./config/stylelint.cjs",
+    "./stylelint": "./config/stylelint.cjs",
+    "./config/stylelint": "./config/stylelint.cjs"
   },
   "typesVersions": {
     "*": {
@@ -81,12 +62,6 @@
       ],
       "extension": [
         "./lib/extension.d.ts"
-      ],
-      "theme": [
-        "./lib/theme.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },

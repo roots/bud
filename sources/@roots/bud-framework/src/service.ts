@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
+import type {MultiStats, Stats} from './config/index.js'
 
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'

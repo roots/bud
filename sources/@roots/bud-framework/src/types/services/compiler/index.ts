@@ -7,7 +7,7 @@ import type {
   Stats,
   StatsCompilation,
   StatsError,
-} from '@roots/bud-framework/types/config'
+} from '../../../config/index.js'
 import type {ErrorWithSourceFile} from '@roots/bud-support/open'
 
 /**

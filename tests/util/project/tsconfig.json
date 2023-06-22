@@ -13,7 +13,6 @@
       "node",
       "webpack/module",
       "@roots/bud",
-      "@roots/bud-framework",
       "@roots/bud-postcss",
       "@roots/bud-react",
       "@roots/bud-swc",

@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {StatsError} from '@roots/bud-framework/types/config'
+import type {StatsError} from '@roots/bud-framework/config'
 
 export const makeErrorFormatter = (bud: Bud) => (errors: StatsError[]) =>
   errors

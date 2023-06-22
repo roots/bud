@@ -60,7 +60,7 @@
     "./methods": "./lib/methods/index.js",
     "./module": "./lib/module.js",
     "./options": "./lib/types/options/index.js",
-    "./config": "./lib/types/config/index.js",
+    "./config": "./lib/config/index.js",
     "./options/*": "./lib/types/options/*.js",
     "./registry": "./lib/types/registry/index.js",
     "./registry/*": "./lib/types/registry/*.js",
@@ -87,7 +87,7 @@
         "./lib/bud/index.d.ts"
       ],
       "config": [
-        "./lib/types/config/index.d.ts"
+        "./lib/config/index.d.ts"
       ],
       "console": [
         "./lib/services/console.d.ts"

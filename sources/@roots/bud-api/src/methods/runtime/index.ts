@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Optimization} from '@roots/bud-framework/types/config'
+import type {Optimization} from '@roots/bud-framework/config'
 
 export type Parameters = [
   | ((

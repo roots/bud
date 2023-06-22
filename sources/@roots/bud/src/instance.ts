@@ -1,4 +1,4 @@
-import Bud from '@roots/bud'
+import {Bud} from '@roots/bud'
 import logger from '@roots/bud-support/logger'
 
 let instance: Bud

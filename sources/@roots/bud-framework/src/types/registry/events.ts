@@ -1,5 +1,5 @@
 import type {Bud} from '../../index.js'
-import type {Compilation, MultiStats, Stats} from '../config/index.js'
+import type {Compilation, MultiStats, Stats} from '../../config/index.js'
 
 export interface Events {
   boot: Bud

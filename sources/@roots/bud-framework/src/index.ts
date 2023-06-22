@@ -11,7 +11,7 @@
 export * from './bud.js'
 export * from './service.js'
 
-export type * as Config from './types/config/index.js'
+export type * as Config from './config/index.js'
 export type * from './types/options/index.js'
 export * from './types/services/index.js'
 export * from './types/services/hooks/index.js'

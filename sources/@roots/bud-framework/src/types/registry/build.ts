@@ -5,7 +5,7 @@ import type {
   Optimization,
   RuleSetRule,
   StatsOptions,
-} from '../config/index.js'
+} from '../../config/index.js'
 
 export interface Sync {
   bail: boolean

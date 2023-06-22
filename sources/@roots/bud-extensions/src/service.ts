@@ -1,7 +1,7 @@
 import type {Bud, Modules} from '@roots/bud-framework'
+import type {MultiStats, Stats} from '@roots/bud-framework/config'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import type {Extensions as Contract} from '@roots/bud-framework/services'
-import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
@@ -11,19 +11,13 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 import {randomUUID} from 'node:crypto'
 
-import {handleManifestSchemaWarning} from './util/handleManifestSchemaWarning.js'
-import {isConstructor} from './util/isConstructor.js'
+import {handleManifestSchemaWarning} from './helpers/handleManifestSchemaWarning.js'
+import {isConstructor} from './helpers/isConstructor.js'
 
 /**
  * Extensions Service
  */
-export default class Extensions
-  extends Service
-  implements Contract.Service
-{
-  /**
-   * Registered extensions
-   */
+export class Extensions extends Service implements Contract.Service {
   /**
    * Resolved options
    */
@@ -33,20 +27,27 @@ export default class Extensions
     discover: boolean
   }>
 
+  /**
+   * Registered extensions
+   */
   public repository: Modules
 
   /**
--   * Modules on which an import attempt was made and failed
--   *
--   * @remarks
--   * This doesn't mean an error, per se. This should only
--   * be used in the context of trying to import `optionalDependencies`
--   * of a given extension module.
--   *
--   * @public
--   */
+   * Modules on which an import attempt was made and failed
+   *
+   * @remarks
+   * This doesn't mean an error, per se. This should only
+   * be used in the context of trying to import `optionalDependencies`
+   * of a given extension module.
+   *
+   * @public
+   */
   public unresolvable: Set<string> = new Set()
 
+  /**
+   *
+   * @param bud Class constructor
+   */
   public constructor(bud: () => Bud) {
     super(bud)
     this.options = new Container({

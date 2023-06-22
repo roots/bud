@@ -2,7 +2,7 @@ import {factory} from '@repo/test-kit'
 import {Bud} from '@roots/bud-framework'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import source from '../../src/extensions/cdn/index.js'
+import source from '../../src/cdn/index.js'
 
 describe(`@roots/bud-extensions/cdn`, () => {
   let bud: Bud

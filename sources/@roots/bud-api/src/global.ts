@@ -1,13 +1,3 @@
-// Copyright © Roots Software Foundation LLC
-// Licensed under the MIT license.
-
-/**
- * Extends bud.js with high-level facades to simplify common configuration tasks
- *
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
- */
-
 import type {Api} from './api/service.js'
 import type * as Alias from './methods/alias/index.js'
 import type * as Assets from './methods/assets/index.js'
@@ -301,5 +291,3 @@ declare module '@roots/bud-framework' {
     api: Api
   }
 }
-
-export {Api as default} from './api/service.js'

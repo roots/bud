@@ -49,16 +49,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js",
-    "./done-handler": "./lib/done-handler.js"
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "./done-handler": [
-        "./lib/done-handler.d.ts"
       ]
     }
   },

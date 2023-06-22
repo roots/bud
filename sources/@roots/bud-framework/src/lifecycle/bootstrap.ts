@@ -169,7 +169,7 @@ export const bootstrap = async function (this: Bud) {
       'pattern.json': /\.json$/,
       'pattern.json5': /\.json5$/,
       'pattern.md': /\.md$/,
-      'pattern.modules': /(node_modules|bower_components)/,
+      'pattern.modules': /(node_modules|bower_components|vendor)/,
       'pattern.sass': /(?!.*\.module)\.(scss|sass)$/,
       'pattern.sassModule': /\.module\.(scss|sass)$/,
       'pattern.svg': /\.svg$/,

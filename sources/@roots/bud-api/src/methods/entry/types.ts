@@ -1,4 +1,4 @@
-import type {EntryObject} from '@roots/bud-framework/types/config'
+import type {EntryObject} from '@roots/bud-framework/config'
 
 export type {EntryObject}
 

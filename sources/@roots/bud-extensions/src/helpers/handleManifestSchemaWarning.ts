@@ -1,5 +1,6 @@
-import type Extensions from '@roots/bud-extensions'
 import type {Bud} from '@roots/bud-framework'
+
+import type Extensions from '../index.js'
 
 export function handleManifestSchemaWarning(this: Extensions, bud: Bud) {
   if (!bud.context.manifest?.bud) return

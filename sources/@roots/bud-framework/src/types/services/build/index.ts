@@ -1,4 +1,4 @@
-import type {Configuration} from '@roots/bud-framework/config'
+import type {Configuration} from '../../../config/index.js'
 
 import type {Items, Loaders, Rules} from '../../../index.js'
 import type {Service as BaseService} from '../../../service.js'

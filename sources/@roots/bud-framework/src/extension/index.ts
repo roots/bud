@@ -1,3 +1,6 @@
+import type {Bud} from '@roots/bud-framework'
+import type {Modules} from '@roots/bud-framework'
+import type {Compiler} from '@roots/bud-framework/config'
 import type {ApplyPluginConstructor} from '@roots/bud-framework/extension/decorators/plugin'
 
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -9,10 +12,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import DynamicOption from '@roots/bud-support/value'
-
-import type {Bud} from '../index.js'
-import type {Modules} from '../index.js'
-import type {Compiler} from '../types/config/index.js'
 
 export type Options<T = Record<string, any>> = {
   [K in keyof T as `${K & string}`]?: T[K]

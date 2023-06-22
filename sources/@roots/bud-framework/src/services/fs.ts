@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Contract} from '@roots/bud-framework/service'
-import type {MultiStats, Stats} from '@roots/bud-framework/types/config'
+import type {MultiStats, Stats} from '../config/index.js'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'

@@ -2,12 +2,18 @@
 // Licensed under the MIT license.
 
 /**
- * The bud compiler interface
+ * @roots/bud-compiler
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- *  @packageDocumentation
  */
 
-export {Compiler as default} from './service.js'
+import {Compiler} from './service.js'
+
+declare module '@roots/bud-framework' {
+  interface Services {
+    compiler: Compiler
+  }
+}
+
+export {Compiler as default}

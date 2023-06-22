@@ -1,8 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {
-  MultiStats,
-  WebpackError,
-} from '@roots/bud-framework/types/config'
+import type {MultiStats, WebpackError} from '../config/index.js'
 
 /**
  * Run the build
