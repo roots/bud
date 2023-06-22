@@ -8,7 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import type {Build} from '@roots/bud-framework'
+import type {Item, Loader, Rule} from '@roots/bud-framework'
 
 import {BudSWC, type BudSWCPublicInterface} from './extension/index.js'
 
@@ -22,17 +22,17 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    swc: Build.Loader
+    swc: Loader
   }
 
   interface Items {
-    'swc-ecmascript': Build.Item
-    'swc-typescript': Build.Item
+    'swc-ecmascript': Item
+    'swc-typescript': Item
   }
 
   interface Rules {
-    js: Build.Rule
-    ts: Build.Rule
+    js: Rule
+    ts: Rule
   }
 }
 

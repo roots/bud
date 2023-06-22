@@ -51,7 +51,22 @@
   "exports": {
     ".": "./lib/index.js",
     "./service": "./lib/service.js",
-    "./*": "./lib/*/index.js"
+    "./cdn": "./lib/cdn/index.js",
+    "./clean-webpack-plugin": "./lib/clean-webpack-plugin/index.js",
+    "./copy-webpack-plugin": "./lib/copy-webpack-plugin/index.js",
+    "./esm": "./lib/esm/index.js",
+    "./fix-style-only-entrypoints": "./lib/fix-style-only-entrypoints/index.js",
+    "./html-webpack-plugin": "./lib/html-webpack-plugin/index.js",
+    "./import-map": "./lib/import-map/index.js",
+    "./interpolate-html-webpack-plugin": "./lib/interpolate-html-webpack-plugin/index.js",
+    "./interpolate-html-webpack-plugin/plugin": "./lib/interpolate-html-webpack-plugin/plugin/index.js",
+    "./mini-css-extract-plugin": "./lib/mini-css-extract-plugin/index.js",
+    "./tsconfig-values": "./lib/tsconfig-values/index.js",
+    "./webpack-define-plugin": "./lib/webpack-define-plugin/index.js",
+    "./webpack-hot-module-replacement-plugin": "./lib/webpack-hot-module-replacement-plugin/index.js",
+    "./webpack-lifecycle-plugin": "./lib/webpack-lifecycle-plugin/index.js",
+    "./webpack-manifest-plugin": "./lib/webpack-manifest-plugin/index.js",
+    "./webpack-provide-plugin": "./lib/webpack-provide-plugin/index.js"
   },
   "typesVersions": {
     "*": {
@@ -61,8 +76,53 @@
       "service": [
         "./lib/service.d.ts"
       ],
-      "*": [
-        "./lib/*/index.d.ts"
+      "cdn": [
+        "./lib/cdn/index.d.ts"
+      ],
+      "clean-webpack-plugin": [
+        "./lib/clean-webpack-plugin/index.d.ts"
+      ],
+      "copy-webpack-plugin": [
+        "./lib/copy-webpack-plugin/index.d.ts"
+      ],
+      "esm": [
+        "./lib/esm/index.d.ts"
+      ],
+      "fix-style-only-entrypoints": [
+        "./lib/fix-style-only-entrypoints/index.d.ts"
+      ],
+      "html-webpack-plugin": [
+        "./lib/html-webpack-plugin/index.d.ts"
+      ],
+      "import-map": [
+        "./lib/import-map/index.d.ts"
+      ],
+      "interpolate-html-webpack-plugin": [
+        "./lib/interpolate-html-webpack-plugin/index.d.ts"
+      ],
+      "interpolate-html-webpack-plugin/plugin": [
+        "./lib/interpolate-html-webpack-plugin/plugin/index.d.ts"
+      ],
+      "mini-css-extract-plugin": [
+        "./lib/mini-css-extract-plugin/index.d.ts"
+      ],
+      "tsconfig-values": [
+        "./lib/tsconfig-values/index.d.ts"
+      ],
+      "webpack-define-plugin": [
+        "./lib/webpack-define-plugin/index.d.ts"
+      ],
+      "webpack-hot-module-replacement-plugin": [
+        "./lib/webpack-hot-module-replacement-plugin/index.d.ts"
+      ],
+      "webpack-lifecycle-plugin": [
+        "./lib/webpack-lifecycle-plugin/index.d.ts"
+      ],
+      "webpack-manifest-plugin": [
+        "./lib/webpack-manifest-plugin/index.d.ts"
+      ],
+      "webpack-provide-plugin": [
+        "./lib/webpack-provide-plugin/index.d.ts"
       ]
     }
   },

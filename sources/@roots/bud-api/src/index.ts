@@ -8,7 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import type {Api} from './api/service.js'
+import type {Api as Service} from './api/service.js'
 import type * as Alias from './methods/alias/index.js'
 import type * as Assets from './methods/assets/index.js'
 import type * as Bundle from './methods/bundle/index.js'
@@ -297,9 +297,7 @@ declare module '@roots/bud-framework' {
     webpackConfig(...params: Config.Parameters): Bud
   }
 
-  interface Services {
-    api: Api
-  }
+  type Api = Service
 }
 
 export {Api as default} from './api/service.js'

@@ -1,6 +1,4 @@
-/// <reference types="@roots/bud-build" />
-
-import type {Build} from '@roots/bud-framework/services'
+import type {Item, Loader, Rule} from '@roots/bud-framework'
 
 import type {BudSass, BudSassApi} from './extension.js'
 import type {BudResolveUrl} from './resolve-url/extension.js'
@@ -16,16 +14,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    'resolve-url': Build.Loader
-    sass: Build.Loader
+    'resolve-url': Loader
+    sass: Loader
   }
 
   interface Items {
-    'resolve-url': Build.Item
-    sass: Build.Item
+    'resolve-url': Item
+    sass: Item
   }
 
   interface Rules {
-    sass: Build.Rule
+    sass: Rule
   }
 }

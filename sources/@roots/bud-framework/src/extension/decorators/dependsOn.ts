@@ -1,4 +1,4 @@
-import type {Modules} from '../../types/registry/modules.js'
+import type {Modules} from '@roots/bud-framework/registry/modules'
 
 export const dependsOn =
   (dependsOn: Array<`${keyof Modules & string}`>) =>

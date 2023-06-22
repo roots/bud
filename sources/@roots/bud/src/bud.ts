@@ -53,17 +53,6 @@ declare module '@roots/bud-framework' {
     '@roots/bud-extensions/webpack-provide-plugin': WebpackProvidePlugin
     '@roots/bud-minify': Minify
   }
-
-  interface Services {
-    api: Api
-    build: Build
-    cache: Cache
-    compiler: Compiler
-    dashboard: Dashboard
-    extensions: Extensions
-    hooks: Hooks
-    server: Server
-  }
 }
 
 class Bud extends Framework.Bud {
@@ -74,6 +63,10 @@ class Bud extends Framework.Bud {
   public declare cache: Cache
 
   public declare cdn: BudCDN
+
+  public declare compiler: Compiler
+
+  public declare dashboard: Dashboard
 
   public declare esm: BudESM
 

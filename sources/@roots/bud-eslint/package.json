@@ -83,7 +83,6 @@
     "@types/node": "18.16.16"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "eslint": "8.42.0",

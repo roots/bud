@@ -1,4 +1,4 @@
-import {Bud} from '../../index.js'
+import {Bud} from '@roots/bud-framework'
 
 export interface after {
   (

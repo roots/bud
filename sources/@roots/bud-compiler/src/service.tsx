@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {Compiler as BudCompiler} from '@roots/bud-framework'
 import type {
   Configuration,
   MultiCompiler,
@@ -7,7 +8,6 @@ import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
-import type {Compiler as Contract} from '@roots/bud-framework/services'
 import type {
   ErrorWithSourceFile,
   SourceFile,
@@ -28,7 +28,7 @@ import {pathToFileURL} from 'node:url'
 /**
  * Wepback compilation controller class
  */
-export class Compiler extends Service implements Contract.Service {
+export class Compiler extends Service implements BudCompiler {
   /**
    * Compilation stats
    */
@@ -47,12 +47,14 @@ export class Compiler extends Service implements Contract.Service {
   /**
    * Compiler instance
    */
-  public instance: Contract.Service[`instance`]
+  public instance: BudCompiler[`instance`]
+
+  public label = `compiler`
 
   /**
    * Raw stats
    */
-  public stats: Contract.Service[`stats`]
+  public stats: BudCompiler[`stats`]
 
   /**
    * Initiates compilation

@@ -6724,9 +6724,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/react": 18.2.9
-    human-readable: 0.2.1
     ink-testing-library: 3.0.0
-    ink-text-input: 5.0.1
     react: 18.2.0
     tslib: 2.5.3
     webpack: 5.86.0
@@ -6790,7 +6788,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
@@ -7330,7 +7327,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/container": "workspace:*"
@@ -13175,9 +13171,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001502
-  resolution: "caniuse-lite@npm:1.0.30001502"
-  checksum: 801a9fd4b635082a976a2a0238c59e106f37238f93afddb504b88fa434d521cd9c600d8d9f305a0f4611c0b53c6d6c164e81ee38f0130ff46636c3b280195a0c
+  version: 1.0.30001506
+  resolution: "caniuse-lite@npm:1.0.30001506"
+  checksum: 0a090745824622df146e2f6dde79c7f7920a899dec1b3a599d2ef9acf41cef5e179fd133bb59f2030286a4ea935f4230e05438d7394694c414e8ada345eb5268
   languageName: node
   linkType: hard
 

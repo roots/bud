@@ -1,7 +1,10 @@
 import type {Bud, Modules} from '@roots/bud-framework'
 import type {MultiStats, Stats} from '@roots/bud-framework/config'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
-import type {Extensions as Contract} from '@roots/bud-framework/services'
+import type {
+  Extensions as BudExtensionsService,
+  LifecycleMethods,
+} from '@roots/bud-framework/services/extensions'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
@@ -17,7 +20,7 @@ import {isConstructor} from './helpers/isConstructor.js'
 /**
  * Extensions Service
  */
-export class Extensions extends Service implements Contract.Service {
+export class Extensions extends Service implements BudExtensionsService {
   /**
    * Resolved options
    */
@@ -393,7 +396,7 @@ export class Extensions extends Service implements Contract.Service {
   @bind
   public async run(
     extension: Extension,
-    methodName: Contract.LifecycleMethods,
+    methodName: LifecycleMethods,
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
@@ -411,9 +414,7 @@ export class Extensions extends Service implements Contract.Service {
    * Execute a extension lifecycle method on all registered extensions
    */
   @bind
-  public async runAll(
-    methodName: Contract.LifecycleMethods,
-  ): Promise<any> {
+  public async runAll(methodName: LifecycleMethods): Promise<any> {
     return await Object.values(this.repository).reduce(
       async (promised, extension) => {
         await promised
@@ -433,7 +434,7 @@ export class Extensions extends Service implements Contract.Service {
   @bind
   public async runDependencies<K extends `${keyof Modules & string}`>(
     extension: Extension | K,
-    methodName: Contract.LifecycleMethods,
+    methodName: LifecycleMethods,
   ): Promise<void> {
     const instance: Extension =
       typeof extension === `string` ? this.get(extension) : extension

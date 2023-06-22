@@ -1,6 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Server} from '@roots/bud-framework/services'
-import type {Connection} from '@roots/bud-framework/services/server'
+import type {
+  Connection,
+  Options,
+} from '@roots/bud-framework/services/server'
 import type {
   Server as HttpServer,
   IncomingMessage,
@@ -98,7 +100,7 @@ export abstract class BaseServer implements Connection {
   /**
    * Options
    */
-  public get options(): Server.Options {
+  public get options(): Options {
     return this.app.hooks.filter(`dev.options`, {})
   }
 

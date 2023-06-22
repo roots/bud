@@ -53,25 +53,26 @@
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
-    "./extension": "./lib/extension/index.js",
-    "./extension/decorators": "./lib/extension/decorators/index.js",
+    "./context": "./lib/context.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
+    "./extension/decorators": "./lib/extension/decorators/index.js",
+    "./extension": "./lib/extension/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./methods": "./lib/methods/index.js",
     "./module": "./lib/module.js",
-    "./options": "./lib/types/options/index.js",
+    "./options": "./lib/options/index.js",
     "./config": "./lib/config/index.js",
-    "./options/*": "./lib/types/options/*.js",
-    "./registry": "./lib/types/registry/index.js",
-    "./registry/*": "./lib/types/registry/*.js",
+    "./options/*": "./lib/options/*.js",
+    "./registry": "./lib/registry/index.js",
+    "./registry/*": "./lib/registry/*.js",
     "./service": "./lib/service.js",
-    "./services": "./lib/types/services/index.js",
+    "./services": "./lib/services/index.js",
     "./services/api": "./lib/services/api.js",
-    "./services/console": "./lib/services/console.js",
-    "./services/fs": "./lib/services/fs.js",
-    "./services/notifier": "./lib/services/notifier/index.js",
-    "./services/build/*": "./lib/types/services/build/*.js",
-    "./services/*": "./lib/types/services/*/index.js",
+    "./console": "./lib/console.js",
+    "./fs": "./lib/fs.js",
+    "./notifier": "./lib/notifier/index.js",
+    "./services/build/*": "./lib/services/build/*.js",
+    "./services/*": "./lib/services/*/index.js",
     "./value": "./lib/value.js",
     "./*": "./lib/*/index.js"
   },
@@ -89,11 +90,14 @@
       "config": [
         "./lib/config/index.d.ts"
       ],
+      "context": [
+        "./lib/context.d.ts"
+      ],
       "console": [
-        "./lib/services/console.d.ts"
+        "./lib/console.d.ts"
       ],
       "fs": [
-        "./lib/services/fs.d.ts"
+        "./lib/fs.d.ts"
       ],
       "extension": [
         "./lib/extension/index.d.ts"
@@ -103,9 +107,6 @@
       ],
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
-      ],
-      "logger": [
-        "./lib/logger/index.d.ts"
       ],
       "methods": [
         "./lib/methods/index.d.ts"

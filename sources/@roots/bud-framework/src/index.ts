@@ -10,18 +10,27 @@
 
 export * from './bud.js'
 export * from './service.js'
+export type {Context} from '@roots/bud-framework/context'
+export type * from '@roots/bud-framework/config'
+export type {
+  Api,
+  Build,
+  Cache,
+  Compiler,
+  Dashboard,
+  Env,
+  Extensions,
+  Hooks,
+  Project,
+  Server,
+} from '@roots/bud-framework/services'
 
-export type * as Config from './config/index.js'
-export type * from './types/options/index.js'
-export * from './types/services/index.js'
-export * from './types/services/hooks/index.js'
-
-export type {Items} from './types/registry/items.js'
-export type {Loaders} from './types/registry/loaders.js'
-export type {Rules} from './types/registry/rules.js'
-export type {Item} from './types/services/build/item.js'
-export type {Loader} from './types/services/build/loader.js'
-export type {Rule} from './types/services/build/rule.js'
-export type * as Registry from './types/registry/index.js'
-export type {Modules} from './types/registry/modules.js'
-export type {Locations} from './types/registry/locations.js'
+export type {Items} from './registry/items.js'
+export type {Loaders} from './registry/loaders.js'
+export type {Rules} from './registry/rules.js'
+export type {Item} from './services/build/item.js'
+export type {Loader} from './services/build/loader.js'
+export type {Rule} from './services/build/rule.js'
+export type * as Registry from './registry/index.js'
+export type {Modules} from './registry/modules.js'
+export type {Locations} from './registry/locations.js'

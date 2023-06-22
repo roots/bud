@@ -1,6 +1,6 @@
+import type {Build as FrameworkService} from '@roots/bud-framework'
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
-import type * as Base from '@roots/bud-framework/services/build'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -18,7 +18,7 @@ import {Rule} from './rule/index.js'
 /**
  * Webpack configuration builder class
  */
-export class Build extends Service implements Base.Service {
+export class Build extends Service implements FrameworkService {
   /**
    * Built config object
    */

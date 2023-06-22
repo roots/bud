@@ -7,4 +7,10 @@
 
 import {Server} from '@roots/bud-server/service'
 
+declare module '@roots/bud-framework' {
+  interface Services {
+    server: Server
+  }
+}
+
 export default Server

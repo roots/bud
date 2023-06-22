@@ -8,23 +8,23 @@
  * @see {@link https://github.com/roots/bud}
  */
 
-import {Extensions} from '@roots/bud-extensions/service'
+import type BudCDN from '@roots/bud-extensions/cdn'
+import type CleanWebpackPlugin from '@roots/bud-extensions/clean-webpack-plugin'
+import type CopyWebpackPlugin from '@roots/bud-extensions/copy-webpack-plugin'
+import type BudESM from '@roots/bud-extensions/esm'
+import type BudFixStyleOnlyEntrypoints from '@roots/bud-extensions/fix-style-only-entrypoints'
+import type HtmlWebpackPlugin from '@roots/bud-extensions/html-webpack-plugin'
+import type BudImportMap from '@roots/bud-extensions/import-map'
+import type InterpolateHtmlPlugin from '@roots/bud-extensions/interpolate-html-webpack-plugin'
+import type MiniCssExtractPlugin from '@roots/bud-extensions/mini-css-extract-plugin'
+import type BudTsConfigValues from '@roots/bud-extensions/tsconfig-values'
+import type WebpackDefinePlugin from '@roots/bud-extensions/webpack-define-plugin'
+import type WebpackHotModuleReplacementPlugin from '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
+import type BudWebpackLifecyclePlugin from '@roots/bud-extensions/webpack-lifecycle-plugin'
+import type WebpackManifestPlugin from '@roots/bud-extensions/webpack-manifest-plugin'
+import type WebpackProvidePlugin from '@roots/bud-extensions/webpack-provide-plugin'
 
-import type BudCDN from './cdn/index.js'
-import type CleanWebpackPlugin from './clean-webpack-plugin/index.js'
-import type CopyWebpackPlugin from './copy-webpack-plugin/index.js'
-import type BudESM from './esm/index.js'
-import type BudFixStyleOnlyEntrypoints from './fix-style-only-entrypoints/index.js'
-import type HtmlWebpackPlugin from './html-webpack-plugin/index.js'
-import type BudImportMap from './import-map/index.js'
-import type InterpolateHtmlPlugin from './interpolate-html-webpack-plugin/index.js'
-import type MiniCssExtractPlugin from './mini-css-extract-plugin/index.js'
-import type BudTsConfigValues from './tsconfig-values/index.js'
-import type WebpackDefinePlugin from './webpack-define-plugin/index.js'
-import type WebpackHotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin/index.js'
-import type BudWebpackLifecyclePlugin from './webpack-lifecycle-plugin/index.js'
-import type WebpackManifestPlugin from './webpack-manifest-plugin/index.js'
-import type WebpackProvidePlugin from './webpack-provide-plugin/index.js'
+import {Extensions} from '@roots/bud-extensions/service'
 
 declare module '@roots/bud-framework' {
   interface Bud {

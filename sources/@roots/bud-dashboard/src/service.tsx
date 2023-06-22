@@ -4,7 +4,7 @@ import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
-import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
+import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
 import type {BudHandler} from '@roots/bud-support/errors'
 
 import {Service} from '@roots/bud-framework/service'
@@ -21,7 +21,7 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
 /**
  * Dashboard service
  */
-export class Dashboard extends Service implements Contract {
+export class Dashboard extends Service implements BudDashboard {
   /**
    * Error formatter
    */
@@ -35,7 +35,7 @@ export class Dashboard extends Service implements Contract {
   /**
    * Ink instance
    */
-  public instance?: Contract[`instance`]
+  public instance?: BudDashboard[`instance`]
 
   /**
    * Received stats
@@ -126,7 +126,7 @@ export class Dashboard extends Service implements Contract {
       warnings: this.formatStatsErrors(compilation.warnings),
     }))
 
-    const messages = this.app?.consoleBuffer?.fetchAndRemove() ?? []
+    const messages = this.app?.console?.fetchAndRemove() ?? []
 
     const App =
       process.stdin.isTTY && this.app.isDevelopment

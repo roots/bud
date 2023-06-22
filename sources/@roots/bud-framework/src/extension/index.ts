@@ -356,7 +356,7 @@ export class Extension<
   /**
    * {@link ApplyPlugin.apply}
    */
-  public apply?(compiler: Compiler): unknown
+  public apply?(compiler: Compiler): unknown | void
 
   /**
    * `boot` callback
@@ -364,22 +364,22 @@ export class Extension<
    * @param options - Extension options
    * @param app - Bud instance
    */
-  public async boot(app: Bud): Promise<any> {}
+  public async boot(app: Bud) {}
 
   /**
    * `buildAfter` callback
    */
-  public async buildAfter?(app: Bud): Promise<any>
+  public async buildAfter?(app: Bud): Promise<unknown | void>
 
   /**
    * `buildBefore` callback
    */
-  public async buildBefore?(app: Bud): Promise<any>
+  public async buildBefore?(app: Bud): Promise<unknown | void>
 
   /**
    * `configAfter` callback
    */
-  public async configAfter(app: Bud): Promise<any> {}
+  public async configAfter(app: Bud) {}
 
   /**
    * Disable extension

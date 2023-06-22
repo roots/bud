@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {MultiStats, Stats} from './config/index.js'
+import type {MultiStats, Stats} from '@roots/bud-framework/config'
 
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'
@@ -90,11 +90,6 @@ interface Contract {
  */
 abstract class Base implements Partial<Contract> {
   /**
-   * Service ID
-   */
-  public ident?: string
-
-  /**
    * Class constructor
    */
   public constructor(public _app: () => Bud) {}
@@ -160,13 +155,6 @@ abstract class Base implements Partial<Contract> {
   }
 
   /**
-   * Service label
-   */
-  public get label() {
-    return this.ident ?? camelCase(this.constructor.name)
-  }
-
-  /**
    * Logger instance
    */
   public get logger(): typeof logger {
@@ -195,6 +183,8 @@ abstract class BaseContainer
   extends Container
   implements Partial<Contract>
 {
+  public declare label: string
+
   /**
    * Class constructor
    */

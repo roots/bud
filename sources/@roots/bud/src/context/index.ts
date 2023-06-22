@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework'
 
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
