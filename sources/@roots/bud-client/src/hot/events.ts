@@ -1,8 +1,8 @@
-/* eslint-disable no-console */
+interface EventSourceFactory {
+  new (path: string): EventSource
+}
 
-export const injectEvents = (
-  eventSource: new (path: string) => EventSource,
-) => {
+export const injectEvents = (eventSource: EventSourceFactory) => {
   /**
    * EventSource wrapper
    *
@@ -13,14 +13,11 @@ export const injectEvents = (
   return class Events extends eventSource {
     /**
      * Registered listeners
-     *
-     * @public
      */
     public listeners: Set<Listener> = new Set<Listener>()
 
     /**
      * EventSource `onmessage` handler
-     * @public
      */
     public override onmessage = async function (payload: MessageEvent) {
       if (!payload?.data || payload.data == `\uD83D\uDC93`) {
@@ -41,7 +38,6 @@ export const injectEvents = (
 
     /**
      * EventSource `onopen` handler
-     * @public
      */
     public override onopen = function () {}
 
@@ -51,7 +47,6 @@ export const injectEvents = (
      * @remarks
      * Singleton interface, so this is private.
      *
-     * @public
      */
     private constructor(
       public options: Partial<Options> & {name: string; path: string},
@@ -66,7 +61,6 @@ export const injectEvents = (
     /**
      * Singleton constructor
      *
-     * @public
      */
     public static make(
       options: Partial<Options> & {name: string; path: string},
@@ -81,7 +75,6 @@ export const injectEvents = (
 
     /**
      * EventSource `addMessageListener` handler
-     * @public
      */
     public addListener(listener: Listener): this {
       this.listeners.add(listener)

@@ -10,6 +10,7 @@
 
 /// <reference types="@roots/bud-api" />
 /// <reference types="@roots/bud-build" />
+/// <reference types="@roots/bud-compiler" />
 /// <reference types="@roots/bud-cache" />
 /// <reference types="@roots/bud-dashboard" />
 /// <reference types="@roots/bud-extensions" />

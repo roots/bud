@@ -7361,7 +7361,6 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
-    "@types/react": 18.2.9
     tslib: 2.5.3
   bin:
     bud: ./bin/bud.mjs
