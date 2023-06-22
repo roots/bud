@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import extensionConstructor from '../../src/extensions/copy-webpack-plugin/index.js'
+import extensionConstructor from '../../src/copy-webpack-plugin/index.js'
 
 describe(`@roots/bud-extensions/copy-webpack-plugin`, () => {
   it(`is an instance of Extension`, () => {

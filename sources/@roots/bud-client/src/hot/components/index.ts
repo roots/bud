@@ -1,30 +1,18 @@
-interface ControllerModule {
-  make: () => Promise<Controller>
-}
+import * as Indicator from './indicator/index.js'
+import * as Overlay from './overlay/index.js'
 
 export const make: (
   options: Options,
 ) => Promise<Array<Controller>> = async options => {
   if (options.indicator && !customElements.get(`bud-activity-indicator`)) {
-    await import(`./indicator/index.js`)
-      .then(makeController)
-      .then(maybePushController)
+    maybePushController(Indicator.make())
   }
 
   if (options.overlay && !customElements.get(`bud-error`)) {
-    await import(`./overlay/index.js`)
-      .then(makeController)
-      .then(maybePushController)
+    maybePushController(Overlay.make())
   }
 
   return window.bud.controllers
-}
-
-const makeController = async (
-  module: ControllerModule,
-): Promise<Controller | undefined> => {
-  if (!module) return
-  return await module.make()
 }
 
 const maybePushController = (controller: Controller | undefined) => {

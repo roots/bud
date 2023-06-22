@@ -59,52 +59,32 @@ const BudError = BudBaseError.subclass(`BudError`, {
   custom: BudHandler,
 })
 
-const CLIError = BudError.subclass(`CLIError`)
-
 const ModuleError = BudBaseError.subclass(`ModuleError`, {
   custom: BudHandler,
-  props: {
-    details: `Error accessing, writing to, importing or resolving a module.`,
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
 })
 
-const ConfigError = BudError.subclass(`ConfigurationError`, {
-  props: {
-    details: `Error processing a project configuration file`,
-    docs: new URL(`https://bud.js.org`),
-  },
+const ConfigError = BudBaseError.subclass(`ConfigurationError`, {
+  custom: BudHandler,
 })
-const InputError = BudError.subclass(`InputError`, {
-  props: {
-    details: `Error stemming from user input`,
-    docs: new URL(`https://bud.js.org`),
-  },
+
+const InputError = BudBaseError.subclass(`InputError`, {
+  custom: BudHandler,
 })
-const CompilerError = BudError.subclass(`CompilerError`, {
-  props: {
-    details: `Error running the compiler instance.`,
-    docs: new URL(`https://bud.js.org`),
-    issues: new URL(`https://github.com/roots/bud/issues`),
-  },
+
+const CompilerError = BudBaseError.subclass(`CompilerError`, {
+  custom: BudHandler,
 })
-const ServerError = BudError.subclass(`ServerError`, {
-  props: {
-    details: `Error in the bud.js development server`,
-    docs: new URL(`https://bud.js.org/docs/bud.serve`),
-  },
+
+const ServerError = BudBaseError.subclass(`ServerError`, {
+  custom: BudHandler,
 })
-const ExtensionError = BudError.subclass(`ExtensionError`, {
-  props: {
-    details: `Error in an extension`,
-    docs: new URL(`https://bud.js.org`),
-  },
+const ExtensionError = BudBaseError.subclass(`ExtensionError`, {
+  custom: BudHandler,
 })
 
 export {
   BudError,
   BudHandler,
-  CLIError,
   CompilerError,
   ConfigError,
   ExtensionError,

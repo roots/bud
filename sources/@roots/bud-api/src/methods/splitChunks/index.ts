@@ -42,36 +42,41 @@ export interface splitChunks {
  * bud.splitChunks({chunks: 'all'})
  * ```
  */
-export const splitChunks: splitChunks = async function (
-  this: Bud,
-  options,
-) {
+export const splitChunks: splitChunks = async function (this: Bud, value) {
   /**
    * For `true` and `undefined` options the default
    * cache groups are added to the build
    */
-  if (options === true || isUndefined(options)) {
-    this.hooks.on(`build.optimization.splitChunks`, {
-      automaticNameDelimiter: sep,
-      cacheGroups: {
-        vendor: {
-          filename: join(`js`, `bundle`, `vendor`, `[name].js`),
-          idHint: `vendor`,
-          priority: -20,
-          test: /[\\/]node_modules[\\/]/,
+  if (isUndefined(value) || value === true) {
+    this.hooks.on(`build.optimization.splitChunks`, (options = {}) => {
+      if (options === false) options = {}
+
+      return {
+        automaticNameDelimiter: sep,
+        ...options,
+        cacheGroups: {
+          ...(options.cacheGroups ?? {}),
+          default: false,
+          vendor: {
+            chunks: `all`,
+            enforce: true,
+            filename: join(`js`, `bundle`, `[name].js`),
+            idHint: `vendor`,
+            name: `vendor`,
+            priority: -20,
+            test: /[\\/]node_modules[\\/]/,
+          },
         },
-      },
-      chunks: `all`,
-      minSize: 0,
+      }
     })
 
     return this
   }
 
   /**
-   * Otherwise we just pass the options through
+   * Otherwise we just pass the value through
    */
-  this.hooks.on(`build.optimization.splitChunks`, options)
+  this.hooks.on(`build.optimization.splitChunks`, value)
 
   return this
 }

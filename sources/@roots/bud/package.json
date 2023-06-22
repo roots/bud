@@ -106,8 +106,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.16",
-    "@types/react": "18.2.9"
+    "@types/node": "18.16.16"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:*",

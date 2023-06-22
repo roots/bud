@@ -2,7 +2,8 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "types": ["@roots/bud-framework", "@roots/bud-build"]
   },
   "include": ["src"],
   "exclude": ["lib", "node_modules", "**/*.test.ts"],

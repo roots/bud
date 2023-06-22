@@ -14,7 +14,6 @@
       "@roots/bud-tailwindcss-theme-json"
     ]
   },
-  "files": ["./src/types.ts"],
   "include": ["src"],
   "exclude": ["test"],
   "references": [

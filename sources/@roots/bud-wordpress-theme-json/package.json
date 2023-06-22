@@ -44,22 +44,13 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "./types": [
-        "./lib/types.d.ts"
       ]
     }
   },
@@ -70,7 +61,6 @@
     "@types/node": "18.16.16"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",

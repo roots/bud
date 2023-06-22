@@ -95,7 +95,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud-api": "workspace:*",
-    "@skypack/package-check": "0.2.2"
+    "@skypack/package-check": "0.2.2",
+    "ink-testing-library": "3.0.0"
   },
   "dependencies": {
     "@roots/bud-client": "workspace:*",

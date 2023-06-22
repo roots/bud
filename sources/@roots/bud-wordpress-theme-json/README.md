@@ -39,7 +39,7 @@ You can manage [WordPress' `theme.json` config file](https://developer.wordpress
 In order to emit the file you will need to enable the feature:
 
 ```ts title="bud.config.mjs"
-bud.wpjson.enable();
+bud.wpjson.enable()
 ```
 
 ### Managing generic `theme.json` values
@@ -47,7 +47,7 @@ bud.wpjson.enable();
 You can use `setOption` from the bud.js extensions API to set `theme.json` values:
 
 ```ts title="bud.config.mjs"
-bud.wpjson.setOption("customTemplates", []).enable();
+bud.wpjson.setOption('customTemplates', []).enable()
 ```
 
 ### Managing the `settings` field
@@ -57,13 +57,13 @@ container interface exposed by `bud.wpjson.settings`.
 
 ```ts title="bud.config.mjs"
 bud.wptheme
-  .settings((theme) =>
+  .settings(theme =>
     theme
-      .set("typography.customFontSizes", true)
-      .set("typography.fontWeight", false)
-      .merge("spacing.units", ["px", "%", "em"])
+      .set('typography.customFontSizes', true)
+      .set('typography.fontWeight', false)
+      .merge('spacing.units', ['px', '%', 'em']),
   )
-  .enable();
+  .enable()
 ```
 
 ### Using tailwindcss config values
@@ -76,7 +76,7 @@ opt-in config functions that allow you to generate `theme.json` values directly 
 Convert `theme.colors` to a `theme.json` palette.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors().enable();
+bud.wpjson.useTailwindColors().enable()
 ```
 
 #### wpjson.useTailwindFontSize()
@@ -84,7 +84,7 @@ bud.wpjson.useTailwindColors().enable();
 Emits values from `theme.fontSize` as the `typography.fontSizes` property of `theme.json`.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontSize().enable();
+bud.wpjson.useTailwindFontSize().enable()
 ```
 
 #### wpjson.useTailwindFontFamily()
@@ -92,7 +92,7 @@ bud.wpjson.useTailwindFontSize().enable();
 Emits values from `theme.fontFamily` as the `typography.fontFamilies` property of `theme.json`.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindFontFamily().enable();
+bud.wpjson.useTailwindFontFamily().enable()
 ```
 
 #### Limiting values to those defined in `theme.extend`
@@ -100,7 +100,7 @@ bud.wpjson.useTailwindFontFamily().enable();
 You can pass `true` to any of the the above functions to limit the values emitted to those defined under tailwind's `theme.extend` key.
 
 ```ts title="bud.config.mjs"
-bud.wpjson.useTailwindColors(true).enable();
+bud.wpjson.useTailwindColors(true).enable()
 ```
 
 ### In combination
@@ -112,8 +112,8 @@ bud.wpjson
   .useTailwindColors()
   .useTailwindFontSize()
   .useTailwindFontFamily()
-  .setOption("typography.fontWeight", false)
-  .enable();
+  .setOption('typography.fontWeight', false)
+  .enable()
 ```
 
 ## Contributing

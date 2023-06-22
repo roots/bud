@@ -1,10 +1,10 @@
+import type {Server as BudServer} from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-framework'
 import type {
-  Service as BaseService,
   Connection,
   Middleware,
+  Watcher,
 } from '@roots/bud-framework/services/server'
-import type {Watcher} from '@roots/bud-server/server/watcher'
 
 import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'
@@ -14,7 +14,7 @@ import {BudError, ServerError} from '@roots/bud-support/errors'
 /**
  * Server service class
  */
-export class Server extends Service implements BaseService {
+export class Server extends Service implements BudServer {
   /**
    * Express instance
    */
@@ -83,7 +83,7 @@ export class Server extends Service implements BaseService {
   /**
    * Utilized middleware
    */
-  public get enabledMiddleware(): BaseService['enabledMiddleware'] {
+  public get enabledMiddleware(): BudServer['enabledMiddleware'] {
     return this.app.hooks.filter(`dev.middleware.enabled`, [])?.reduce(
       (enabled, key) => ({
         ...enabled,
@@ -159,7 +159,7 @@ export class Server extends Service implements BaseService {
     bud.hooks.action(`server.before`, async () => {
       await this.setConnection()
       await this.injectScripts()
-      await bud.compiler.compile()
+      await bud.compiler.compile(bud)
       await this.applyMiddleware()
       await this.watcher.watch()
     })

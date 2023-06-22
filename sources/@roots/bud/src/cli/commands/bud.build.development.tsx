@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import BuildCommand from '@roots/bud/cli/commands/bud.build'
 import browser from '@roots/bud/cli/flags/browser'

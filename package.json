@@ -71,5 +71,8 @@
     "node": "18.12.1",
     "yarn": "1.22.19",
     "npm": "8.19.2"
+  },
+  "devDependencies": {
+    "ink-testing-library": "3.0.0"
   }
 }

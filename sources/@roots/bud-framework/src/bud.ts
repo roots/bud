@@ -1,3 +1,19 @@
+import type {
+  Api,
+  Build,
+  Cache,
+  Compiler,
+  Context,
+  Dashboard,
+  Env,
+  Extensions,
+  Hooks,
+  Project,
+  Server,
+  Service,
+} from '@roots/bud-framework'
+import type {Console} from '@roots/bud-framework/console'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -5,15 +21,12 @@ import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 
+import type {FS} from './fs.js'
 import type methods from './methods/index.js'
 import type {Module} from './module.js'
-import type ConsoleBuffer from './services/console.js'
-import type FS from './services/fs.js'
-import type * as Options from './types/options/index.js'
-import type Hooks from './types/services/hooks/index.js'
-import type * as Services from './types/services/index.js'
+import type {Notifier} from './notifier.js'
 
-import {bootstrap} from './lifecycle/bootstrap.js'
+import {bootstrap} from './bootstrap.js'
 
 /**
  * Bud core class
@@ -21,11 +34,11 @@ import {bootstrap} from './lifecycle/bootstrap.js'
 export class Bud {
   public declare after: typeof methods.after
 
-  public declare api: Services.Api
+  public declare api: Service & Api
 
-  public declare build: Services.Build.Service
+  public declare build: Service & Build
 
-  public declare cache: Services.Cache.Service
+  public declare cache: Service & Cache
 
   /**
    * {@link Bud} instances
@@ -34,22 +47,22 @@ export class Bud {
 
   public declare close: typeof methods.close
 
-  public declare compiler: Services.Compiler.Service
+  public declare compiler: Service & Compiler
 
-  public declare consoleBuffer: ConsoleBuffer
+  public declare console: Console
 
   public declare container: typeof methods.container
 
   /**
    * Context
    */
-  public declare context: Options.Context
+  public declare context: Context
 
-  public declare dashboard: Services.Dashboard.Service
+  public declare dashboard: Service & Dashboard
 
-  public declare env: Services.Env
+  public declare env: Service & Env
 
-  public declare extensions: Services.Extensions.Service
+  public declare extensions: Service & Extensions
 
   public declare fs: FS
 
@@ -59,10 +72,10 @@ export class Bud {
 
   public declare globSync: typeof methods.globSync
 
-  public declare hooks: Hooks
+  public declare hooks: Service & Hooks
 
   /**
-   * Implementation
+   * {@link Bud} Implementation
    */
   public declare implementation: new () => Bud
 
@@ -76,7 +89,7 @@ export class Bud {
 
   public declare module: Module
 
-  public declare notifier: Services.Notifier
+  public declare notifier: Notifier
 
   public declare path: typeof methods.path
 
@@ -84,7 +97,7 @@ export class Bud {
 
   public declare processConfigs: typeof methods.processConfigs
 
-  public declare project: Services.Project.Service
+  public declare project: Project
 
   public declare publicPath: typeof methods.publicPath
 
@@ -96,9 +109,9 @@ export class Bud {
 
   public declare sequenceSync: typeof methods.sequenceSync
 
-  public declare server: Services.Server.Service
+  public declare server: Server & Service
 
-  public declare services: Array<`${keyof Services.Registry & string}`>
+  public declare services: Array<string>
 
   public declare setPath: typeof methods.setPath
 
@@ -216,7 +229,7 @@ export class Bud {
   }
 
   @bind
-  public async lifecycle(context: Options.Context): Promise<Bud> {
+  public async lifecycle(context: Context): Promise<Bud> {
     Object.assign(this, {}, {context: {...context}})
     await bootstrap.bind(this)()
     return this
@@ -236,7 +249,7 @@ export class Bud {
    */
   @bind
   public async make(
-    request: Partial<Options.Context> | string,
+    request: Partial<Context> | string,
     setupFn?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot) {
@@ -245,7 +258,7 @@ export class Bud {
       )
     }
 
-    const context: Options.Context = isString(request)
+    const context: Context = isString(request)
       ? {...this.context, label: request, root: this}
       : {...this.context, ...request, root: this}
 

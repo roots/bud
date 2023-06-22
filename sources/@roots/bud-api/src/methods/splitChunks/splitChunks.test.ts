@@ -30,19 +30,10 @@ describe(`bud.splitChunks`, async () => {
 
     await splitChunks()
 
-    expect(onSpy).toHaveBeenCalledWith(`build.optimization.splitChunks`, {
-      chunks: `all`,
-      automaticNameDelimiter: `/`,
-      minSize: 0,
-      cacheGroups: {
-        vendor: {
-          idHint: `vendor`,
-          filename: `js/bundle/vendor/[name].js`,
-          test: /[\\/]node_modules[\\/]/,
-          priority: -20,
-        },
-      },
-    })
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.optimization.splitChunks`,
+      expect.any(Function),
+    )
   })
 
   it(`should call bud.hooks.on with default chunk group when called with true`, async () => {
@@ -50,19 +41,10 @@ describe(`bud.splitChunks`, async () => {
 
     await splitChunks(true)
 
-    expect(onSpy).toHaveBeenCalledWith(`build.optimization.splitChunks`, {
-      chunks: `all`,
-      automaticNameDelimiter: `/`,
-      minSize: 0,
-      cacheGroups: {
-        vendor: {
-          idHint: `vendor`,
-          filename: `js/bundle/vendor/[name].js`,
-          test: /[\\/]node_modules[\\/]/,
-          priority: -20,
-        },
-      },
-    })
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.optimization.splitChunks`,
+      expect.any(Function),
+    )
   })
 
   it(`should call bud.hooks.on with custom chunk`, async () => {

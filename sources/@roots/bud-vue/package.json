@@ -70,7 +70,6 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-sass": "workspace:*",
     "@roots/bud-typescript": "workspace:*",

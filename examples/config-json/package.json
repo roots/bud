@@ -1,13 +1,10 @@
 {
   "name": "@examples/config-json",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest"

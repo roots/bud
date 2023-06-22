@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {Bud} from '@roots/bud'
+import type {Context} from '@roots/bud-framework/context'
 import type {Extension} from '@roots/bud-framework/extension'
-import type {Context} from '@roots/bud-framework/options'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
 import {Error} from '@roots/bud-dashboard/app'

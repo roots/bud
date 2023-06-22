@@ -6680,7 +6680,6 @@ __metadata:
     "@types/react": 18.2.9
     react: 18.2.0
     tslib: 2.5.3
-    webpack: 5.86.0
   languageName: unknown
   linkType: soft
 
@@ -6725,9 +6724,7 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     "@types/react": 18.2.9
-    human-readable: 0.2.1
     ink-testing-library: 3.0.0
-    ink-text-input: 5.0.1
     react: 18.2.0
     tslib: 2.5.3
     webpack: 5.86.0
@@ -6816,7 +6813,6 @@ __metadata:
     "@types/node": 18.16.16
     palette-webpack-plugin: 1.0.5
     tslib: 2.5.3
-    webpack: 5.86.0
   languageName: unknown
   linkType: soft
 
@@ -6909,7 +6905,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-postcss@workspace:sources/@roots/bud-postcss"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -6936,6 +6931,7 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-swc": "workspace:*"
+    "@roots/bud-typescript": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     tslib: 2.5.3
@@ -7025,7 +7021,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:sources/@roots/bud-sass"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
@@ -7055,6 +7050,7 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
+    ink-testing-library: 3.0.0
     tslib: 2.5.3
   languageName: unknown
   linkType: soft
@@ -7134,6 +7130,8 @@ __metadata:
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
     ink: 4.2.0
+    ink-big-text: 2.0.0
+    ink-gradient: 3.0.0
     ink-spinner: 5.0.0
     ink-text-input: 5.0.1
     json5: 2.2.3
@@ -7247,7 +7245,9 @@ __metadata:
   resolution: "@roots/bud-typescript@workspace:sources/@roots/bud-typescript"
   dependencies:
     "@roots/bud": "workspace:*"
+    "@roots/bud-api": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
@@ -7269,7 +7269,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:sources/@roots/bud-vue"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
@@ -7331,7 +7330,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/container": "workspace:*"
@@ -7362,7 +7360,6 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
-    "@types/react": 18.2.9
     tslib: 2.5.3
   bin:
     bud: ./bin/bud.mjs
@@ -8668,6 +8665,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/gradient-string@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "@types/gradient-string@npm:1.1.2"
+  dependencies:
+    "@types/tinycolor2": "*"
+  checksum: 8bc665bcf277b4da9d30eb1dc5d83990678145700df991a24441948cb86b8e9c453cb701a370d3363dddafdd365748ef3190140601c82916ea70ee577de98dc3
+  languageName: node
+  linkType: hard
+
 "@types/hast@npm:^2.0.0":
   version: 2.3.4
   resolution: "@types/hast@npm:2.3.4"
@@ -9169,7 +9175,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/tinycolor2@npm:*":
+"@types/tinycolor2@npm:*, @types/tinycolor2@npm:^1.4.0":
   version: 1.4.3
   resolution: "@types/tinycolor2@npm:1.4.3"
   checksum: 61984b2825d4ee902016ef24777787bb2fb9e4999ccd4f7e5a709442c00cf90ba4afa510b9c78f18dcc83c03305d597d5fe3825a6aad38354f95c68af70ebc1b
@@ -12830,6 +12836,7 @@ __metadata:
     html-loader: 4.2.0
     html-webpack-plugin: 5.5.3
     import-meta-resolve: 2.2.2
+    ink-testing-library: 3.0.0
     lodash: 4.17.21
     parse5-htmlparser2-tree-adapter: 7.0.0
     patch-console: 2.0.0
@@ -13167,9 +13174,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001502
-  resolution: "caniuse-lite@npm:1.0.30001502"
-  checksum: 801a9fd4b635082a976a2a0238c59e106f37238f93afddb504b88fa434d521cd9c600d8d9f305a0f4611c0b53c6d6c164e81ee38f0130ff46636c3b280195a0c
+  version: 1.0.30001506
+  resolution: "caniuse-lite@npm:1.0.30001506"
+  checksum: 0a090745824622df146e2f6dde79c7f7920a899dec1b3a599d2ef9acf41cef5e179fd133bb59f2030286a4ea935f4230e05438d7394694c414e8ada345eb5268
   languageName: node
   linkType: hard
 
@@ -13202,6 +13209,18 @@ __metadata:
   version: 2.0.1
   resolution: "ccount@npm:2.0.1"
   checksum: 48193dada54c9e260e0acf57fc16171a225305548f9ad20d5471e0f7a8c026aedd8747091dccb0d900cde7df4e4ddbd235df0d8de4a64c71b12f0d3303eeafd4
+  languageName: node
+  linkType: hard
+
+"cfonts@npm:^3.1.1":
+  version: 3.2.0
+  resolution: "cfonts@npm:3.2.0"
+  dependencies:
+    supports-color: ^8
+    window-size: ^1.1.1
+  bin:
+    cfonts: bin/index.js
+  checksum: 08c412fce235e210925e44f3293fe44017acbb067b56cf60a1453894fc116374d1cedd1373d6648f688f01548a8cccd340dcd646118f67a3b90d2e54e0fe33a3
   languageName: node
   linkType: hard
 
@@ -18901,6 +18920,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"gradient-string@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "gradient-string@npm:2.0.2"
+  dependencies:
+    chalk: ^4.1.2
+    tinygradient: ^1.1.5
+  checksum: 3b3cdfff83df0a82060bd3c3f32b911a0cdb22fb211a61f24ddf76660d670e79487db2a99fc0c2402c54cd7fe83cd224bf916a712e199c7f210f480313b4ce45
+  languageName: node
+  linkType: hard
+
 "grapheme-splitter@npm:^1.0.4":
   version: 1.0.4
   resolution: "grapheme-splitter@npm:1.0.4"
@@ -20060,6 +20089,33 @@ __metadata:
   version: 1.3.8
   resolution: "ini@npm:1.3.8"
   checksum: dfd98b0ca3a4fc1e323e38a6c8eb8936e31a97a918d3b377649ea15bdb15d481207a0dda1021efbd86b464cae29a0d33c1d7dcaf6c5672bee17fa849bc50a1b3
+  languageName: node
+  linkType: hard
+
+"ink-big-text@npm:2.0.0":
+  version: 2.0.0
+  resolution: "ink-big-text@npm:2.0.0"
+  dependencies:
+    cfonts: ^3.1.1
+    prop-types: ^15.8.1
+  peerDependencies:
+    ink: ">=4"
+    react: ">=18"
+  checksum: e923e31751c87ed044435c00b163c1fae4b79edc394b59c03c291e93ec81d28be11113d6f985f78b1b91dde36c1e6945f63404409410ecff36533b3472ba4c0b
+  languageName: node
+  linkType: hard
+
+"ink-gradient@npm:3.0.0":
+  version: 3.0.0
+  resolution: "ink-gradient@npm:3.0.0"
+  dependencies:
+    "@types/gradient-string": ^1.1.2
+    gradient-string: ^2.0.2
+    prop-types: ^15.8.1
+    strip-ansi: ^7.1.0
+  peerDependencies:
+    ink: ">=4"
+  checksum: 243bf94dc93eac06fbfee6c99cf143752ea512e712cbebc783294aa9a9bed60c810e8fcce647b97e6400eed2dbcb1400ec7eb96cf1ee3b7406c99b72387eb7b8
   languageName: node
   linkType: hard
 
@@ -30802,7 +30858,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"strip-ansi@npm:7.1.0, strip-ansi@npm:^7.0.0, strip-ansi@npm:^7.0.1":
+"strip-ansi@npm:7.1.0, strip-ansi@npm:^7.0.0, strip-ansi@npm:^7.0.1, strip-ansi@npm:^7.1.0":
   version: 7.1.0
   resolution: "strip-ansi@npm:7.1.0"
   dependencies:
@@ -31179,7 +31235,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^8.0.0":
+"supports-color@npm:^8, supports-color@npm:^8.0.0":
   version: 8.1.1
   resolution: "supports-color@npm:8.1.1"
   dependencies:
@@ -31715,6 +31771,23 @@ __metadata:
   version: 2.5.0
   resolution: "tinybench@npm:2.5.0"
   checksum: 284bb9428f197ec8b869c543181315e65e41ccfdad3c4b6c916bb1fdae1b5c6785661b0d90cf135b48d833b03cb84dc5357b2d33ec65a1f5971fae0ab2023821
+  languageName: node
+  linkType: hard
+
+"tinycolor2@npm:^1.0.0":
+  version: 1.6.0
+  resolution: "tinycolor2@npm:1.6.0"
+  checksum: 6df4d07fceeedc0a878d7bac47e2cd47c1ceeb1078340a9eb8a295bc0651e17c750f73d47b3028d829f30b85c15e0572c0fd4142083e4c21a30a597e47f47230
+  languageName: node
+  linkType: hard
+
+"tinygradient@npm:^1.1.5":
+  version: 1.1.5
+  resolution: "tinygradient@npm:1.1.5"
+  dependencies:
+    "@types/tinycolor2": ^1.4.0
+    tinycolor2: ^1.0.0
+  checksum: d41771d553fff884830f60029ba32163066221f1c6ea28ddf9751b10d54015fa47597bdefa164e20434ba3018e499dbd17b465fd43a095c587cac28bb7de5a0e
   languageName: node
   linkType: hard
 
@@ -34035,6 +34108,18 @@ __metadata:
   version: 2.0.0
   resolution: "wildcard@npm:2.0.0"
   checksum: 1f4fe4c03dfc492777c60f795bbba597ac78794f1b650d68f398fbee9adb765367c516ebd4220889b6a81e9626e7228bbe0d66237abb311573c2ee1f4902a5ad
+  languageName: node
+  linkType: hard
+
+"window-size@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "window-size@npm:1.1.1"
+  dependencies:
+    define-property: ^1.0.0
+    is-number: ^3.0.0
+  bin:
+    window-size: cli.js
+  checksum: 4ab5ea0d5f224d6859eb0747049cbebf43ed3ba9fe535a2cbd2024b1f9cfd3c9021db33a3b20ee42ef8b5c5a036ddca46271bf1fc471aef7fc4cb4a98bfb2e67
   languageName: node
   linkType: hard
 

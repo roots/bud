@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {MultiStats, Stats} from '@roots/bud-framework/config'
 
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'
@@ -32,27 +33,32 @@ interface Contract {
   /**
    * After build service
    */
-  buildAfter?(app?: Bud): Promise<any>
+  buildAfter(app: Bud): Promise<any>
 
   /**
    * Before build service
    */
-  buildBefore?(app?: Bud): Promise<any>
-
-  /**
-   * After Compiler service
-   */
-  compilerAfter?(app?: Bud): Promise<any>
+  buildBefore(app: Bud): Promise<any>
 
   /**
    * Before Compiler service
    */
-  compilerBefore?(app?: Bud): Promise<any>
+  compilerBefore(app: Bud): Promise<any>
+
+  /**
+   * After Compiler service
+   */
+  compilerDone([bud, stats]: [Bud, Stats & MultiStats]): Promise<any>
 
   /**
    * After config callback
    */
-  configAfter?(app?: Bud): Promise<any>
+  configAfter(app: Bud): Promise<any>
+
+  /**
+   * Return the bud instance from the service context
+   */
+  done(): Bud
 
   /**
    * Service label
@@ -83,11 +89,6 @@ interface Contract {
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  */
 abstract class Base implements Partial<Contract> {
-  /**
-   * Service ID
-   */
-  public ident?: string
-
   /**
    * Class constructor
    */
@@ -121,33 +122,36 @@ abstract class Base implements Partial<Contract> {
   /**
    * After build service
    */
-  public buildAfter?(app?: Bud): Promise<any>
+  public async buildAfter(_app: Bud): Promise<any> {}
 
   /**
    * Before build service
    */
-  public buildBefore?(app?: Bud): Promise<any>
-
-  /**
-   * After Compiler service
-   */
-  public compilerAfter?(app?: Bud): Promise<any>
+  public async buildBefore(_app: Bud): Promise<any> {}
 
   /**
    * Before Compiler service
    */
-  public compilerBefore?(app?: Bud): Promise<any>
+  public async compilerBefore(_app: Bud): Promise<any> {}
+
+  /**
+   * After Compiler service
+   */
+  public async compilerDone([bud, stats]: [
+    Bud,
+    Stats & MultiStats,
+  ]): Promise<any> {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<any>
+  public async configAfter(app: Bud): Promise<any> {}
 
   /**
-   * Service label
+   * Return the Bud instance from the service context
    */
-  public get label() {
-    return this.ident ?? camelCase(this.constructor.name)
+  public done() {
+    return this.app
   }
 
   /**
@@ -179,6 +183,8 @@ abstract class BaseContainer
   extends Container
   implements Partial<Contract>
 {
+  public declare label: string
+
   /**
    * Class constructor
    */
@@ -211,29 +217,39 @@ abstract class BaseContainer
   public async bootstrap(app: Bud): Promise<any> {}
 
   /**
-   * After build service
+   * After configuration build
    */
-  public buildAfter?(app?: Bud): Promise<any>
+  public async buildAfter(app: Bud): Promise<any> {}
 
   /**
-   * Before build service
+   * Before configuration build
    */
-  public buildBefore?(app?: Bud): Promise<any>
+  public async buildBefore(app: Bud): Promise<any> {}
+
+  /**
+   * Before Compiler
+   */
+  public async compilerBefore(app: Bud): Promise<any> {}
 
   /**
    * After Compiler service
    */
-  public compilerAfter?(app?: Bud): Promise<any>
-
-  /**
-   * Before Compiler service
-   */
-  public compilerBefore?(app?: Bud): Promise<any>
+  public async compilerDone([bud, stats]: [
+    Bud,
+    Stats & MultiStats,
+  ]): Promise<any> {}
 
   /**
    * After config callback
    */
-  public configAfter?(app?: Bud): Promise<any>
+  public async configAfter(app: Bud): Promise<any> {}
+
+  /**
+   * Return the Bud instance from the service context
+   */
+  public done() {
+    return this.app
+  }
 
   /**
    * Logger instance

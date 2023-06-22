@@ -1,27 +1,16 @@
-import type {Api, WordPressThemeJSON} from './extension.js'
+import type * as Extension from '@roots/bud-wordpress-theme-json/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    wpjson: Api
+    wpjson: Extension.Api
   }
 
   interface Modules {
     '@roots/bud-tailwindcss-theme-json?': any
-    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
+    '@roots/bud-wordpress-theme-json': Extension.WordPressThemeJSON
   }
 }
 
-declare module '@roots/bud' {
-  interface Bud {
-    wpjson: Api
-  }
-
-  interface Modules {
-    '@roots/bud-tailwindcss-theme-json?': any
-    '@roots/bud-wordpress-theme-json': WordPressThemeJSON
-  }
-}
-
-export {WordPressThemeJSON as default} from './extension.js'
+export {WordPressThemeJSON as default} from '@roots/bud-wordpress-theme-json/extension'
 
 export type {Schema as Theme} from '@roots/wordpress-theme-json-webpack-plugin'

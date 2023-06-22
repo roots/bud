@@ -1,5 +1,5 @@
 import type {Modules} from '@roots/bud-framework'
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import args from '@roots/bud-support/utilities/args'
 
@@ -31,6 +31,7 @@ const extensions: Extensions = {
     `@roots/bud-extensions/clean-webpack-plugin`,
     `@roots/bud-extensions/copy-webpack-plugin`,
     `@roots/bud-extensions/html-webpack-plugin`,
+    `@roots/bud-extensions/import-map`,
     `@roots/bud-extensions/interpolate-html-webpack-plugin`,
     `@roots/bud-extensions/mini-css-extract-plugin`,
     `@roots/bud-extensions/webpack-define-plugin`,

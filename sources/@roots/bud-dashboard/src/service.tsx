@@ -1,30 +1,41 @@
 /* eslint-disable no-console */
+import type {Bud} from '@roots/bud-framework'
 import type {
-  MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
-import type {Service as Contract} from '@roots/bud-framework/services/dashboard'
+import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
+import type {BudHandler} from '@roots/bud-support/errors'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box, render, Text} from '@roots/bud-support/ink'
-import isString from '@roots/bud-support/lodash/isString'
-import stripAnsi from '@roots/bud-support/strip-ansi'
-import {sep} from 'node:path'
+import {Box, type ReactElement, render} from '@roots/bud-support/ink'
+import process from 'node:process'
 
 import {Console} from './console/index.js'
+import {Application, TeletypeApplication} from './dashboard/index.js'
+import {makeErrorFormatter} from './formatErrors.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
-
-const tagInnerChilds = ({children}: StatsCompilation) =>
-  children.map(child => ({...child, isChild: true}))
 
 /**
  * Dashboard service
  */
-export class Dashboard extends Service implements Contract {
+export class Dashboard extends Service implements BudDashboard {
+  /**
+   * Error formatter
+   */
+  public formatStatsErrors: (errors: StatsError[]) => StatsError[]
+
+  /**
+   * Previously rendered hashes
+   */
   public hashes = new Set<string>()
+
+  /**
+   * Ink instance
+   */
+  public instance?: BudDashboard[`instance`]
 
   /**
    * Received stats
@@ -32,135 +43,116 @@ export class Dashboard extends Service implements Contract {
   public stats?: StatsCompilation
 
   /**
-   * Error formatter
+   * Stdout
+   */
+  public stderr = process.stderr
+
+  /**
+   * Stderr
+   */
+  public stdout = process.stdout
+
+  /**
+   * Class constructor
+   * @param app
+   */
+  public constructor(app: () => Bud) {
+    super(app)
+    this.formatStatsErrors = makeErrorFormatter(this.app)
+    this.render({status: `Initializing bud.js`})
+  }
+
+  /**
+   * {@link Service.register}
    */
   @bind
-  public compilationErrors?(errors: StatsError[]) {
-    try {
-      return (
-        errors
-          /* Filter unhelpful errors from compiler internals */
-          .filter(
-            error => error && !error.message?.includes(`HookWebpackError`),
-          )
-          /* Format errors */
-          .map(({message, ...error}: StatsError) => ({
-            ...error,
-            message: message
-              /* Discard unhelpful stack traces */
-              .split(/  at /)
-              .shift()
+  public override async boot(bud: Bud) {
+    this.render({status: `Booting bud.js`})
+  }
 
-              /* Discard unhelpful stuff preceeding message */
-              .split(/SyntaxError:?/)
-              .pop()
-              .split(/ModuleError:/)
-              .pop()
-              .split(/Error:/)
-              .pop()
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    this.render({status: `Building configuration`})
+  }
 
-              /* Process line-by-line */
-              .split(`\n`)
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async compilerBefore(bud: Bud) {
+    this.render({status: `Compiling application modules`})
+  }
 
-              /* Discard emoji */
-              .map(ln => ln.replaceAll(/×/g, ``))
-              /* Discard origin */
-              .map(ln => ln.replaceAll(/\[.*\]/g, ``))
-              /* Replace project path with . */
-              .map(ln =>
-                ln.replaceAll(
-                  new RegExp(this.app.path().concat(sep), `g`),
-                  `.`,
-                ),
-              )
+  /**
+   * {@link Service.register}
+   */
+  @bind
+  public override async register(bud: Bud) {
+    this.render({status: `Registering bud.js services and extensions`})
+  }
 
-              /* Discard empty lines */
-              .filter(
-                ln =>
-                  isString(ln) &&
-                  ![` `, `\n`, ``].includes(ln) &&
-                  !ln.match(/^\s*$/),
-              )
-              .map(stripAnsi)
+  /**
+   * Render console messages, build stats and development server information
+   */
+  @bind
+  public render({
+    error,
+    status,
+  }: {
+    error?: BudHandler
+    status?: false | string
+  }) {
+    if (this.silent) return
+    if (this.app.context.ci) return
 
-              /* Reform message */
-              .join(`\n`),
-          }))
-      )
-    } catch (error) {
-      return errors
+    const renderApplication = this.instance?.rerender
+      ? this.instance.rerender
+      : (node: ReactElement) => {
+          this.instance = render(node)
+        }
+
+    const getCompilations = (): Compilations => {
+      if (!this.stats) return []
+      if (!this.stats.children?.length) return [this.stats]
+      return this.stats.children.flat()
     }
-  }
 
-  /**
-   * Render webpack stats
-   */
-  @bind
-  public async render(stats: StatsCompilation) {
-    try {
-      const Dashboard = await import(`./dashboard/index.js`)
+    const compilations = getCompilations().map(compilation => ({
+      ...compilation,
+      errors: this.formatStatsErrors(compilation.errors),
+      warnings: this.formatStatsErrors(compilation.warnings),
+    }))
 
-      if (this.hashes.has(stats.hash)) return
-      this.hashes.add(stats.hash)
+    const messages = this.app?.console?.fetchAndRemove() ?? []
 
-      const compilations: Compilations = stats.children?.length
-        ? [
-            ...stats.children,
-            ...stats.children?.map(tagInnerChilds),
-          ].flat()
-        : stats
-        ? [stats]
-        : []
+    const App =
+      process.stdin.isTTY && this.app.isDevelopment
+        ? TeletypeApplication
+        : Application
 
-      const App =
-        process.stdout.isTTY && !this.app.isProduction
-          ? Dashboard.TTYApp
-          : Dashboard.App
+    renderApplication(
+      <Box flexDirection="column" width="100%">
+        <Console messages={messages} />
 
-      render(
-        <Box flexDirection="column" marginTop={1}>
-          <>
-            <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          </>
-
-          <App
-            compilations={compilations.map(compilation => ({
-              ...compilation,
-              assets: compilation.assets ?? {},
-              entrypoints: compilation.entrypoints ?? {},
-              errors: this.compilationErrors(compilation.errors),
-              warnings: this.compilationErrors(compilation.warnings),
-            }))}
-            context={this.app.context}
-            devUrl={this.app.server?.url}
-            displayAssets={true}
-            displayEntrypoints={true}
-            displayServerInfo={false}
-            mode={this.app.mode}
-            proxyUrl={this.app.hooks.filter(`dev.proxyUrl`)}
-            publicDevUrl={this.app.server?.publicUrl}
-            publicProxyUrl={this.app.hooks.filter(`dev.publicProxyUrl`)}
-            watchFiles={this.app.server?.watcher?.files}
-          />
-        </Box>,
-      )
-    } catch (error) {}
-  }
-
-  /**
-   * Render queued messages
-   */
-  @bind
-  public async renderQueuedMessages() {
-    render(
-      this.app.consoleBuffer.queue?.length > 0 && (
-        <>
-          <Console messages={this.app.consoleBuffer.fetchAndRemove()} />
-          <Box>
-            <Text>{` `}</Text>
-          </Box>
-        </>
-      ),
+        <App
+          close={cb =>
+            this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
+          }
+          compilations={compilations}
+          context={this.app.context}
+          debug={this.app.context.debug}
+          devUrl={this.app.server?.publicUrl}
+          displayServerInfo={this.app.mode === `development`}
+          error={error}
+          mode={this.app.mode}
+          proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
+          proxyUrl={this.app.server?.publicProxyUrl}
+          status={status}
+        />
+      </Box>,
     )
   }
 
@@ -168,13 +160,9 @@ export class Dashboard extends Service implements Contract {
    * Render stats as a simple string
    */
   @bind
-  public renderString(stats: MultiStats) {
-    const stringCompilation = stats.toString({
-      colors: true,
-      preset: `minimal`,
-    })
-
-    process.stdout.write(stringCompilation)
+  public renderString(stats: string) {
+    if (this.silent) return
+    process.stdout.write(stats)
   }
 
   /**
@@ -188,26 +176,27 @@ export class Dashboard extends Service implements Contract {
    * Run dashboard
    */
   @bind
-  public async update(stats: MultiStats): Promise<this> {
-    if (!stats) return this
+  public update(
+    stats: StatsCompilation,
+    status: false | string = false,
+  ): this {
+    if (this.hashes.has(stats.hash)) return
+    if (stats.hash) this.hashes.add(stats.hash)
 
     this.stats = stats
 
-    if (this.silent) {
-      this.logger.log(`dashboard called but --silent flag is set.`)
-      return this
-    }
-
     if (this.app.context.ci === true) {
-      this.renderString(stats)
+      this.renderString(
+        this.app.compiler.stats.toString({
+          color: true,
+          preset: `minimal`,
+        }),
+      )
+
       return this
     }
 
-    try {
-      await this.render(stats.toJson(this.app.hooks.filter(`build.stats`)))
-    } catch (error) {
-      this.renderString(stats)
-    }
+    this.render({status})
 
     return this
   }

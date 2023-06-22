@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import extensionConstructor from '../../src/extensions/mini-css-extract-plugin/index.js'
+import extensionConstructor from '../../src/mini-css-extract-plugin/index.js'
 
 describe(`mini-css-extract-plugin`, () => {
   it(`is an instance of Extension`, () => {

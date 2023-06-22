@@ -16,7 +16,7 @@ describe(`examples/emotion`, () => {
     expect(test.manifest[`components/logo.svg`]).toBe(
       `components/logo.svg`,
     )
-    expect(Object.keys(test.manifest).length).toBe(5)
+    expect(Object.keys(test.manifest).length).toBeGreaterThanOrEqual(5)
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
     expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()

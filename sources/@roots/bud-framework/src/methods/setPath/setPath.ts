@@ -1,8 +1,8 @@
+import type {Bud} from '@roots/bud-framework'
+import type {SyncRegistry} from '@roots/bud-framework/registry'
+
 import {InputError} from '@roots/bud-support/errors'
 import {isAbsolute} from 'node:path'
-
-import type {Bud} from '../../index.js'
-import type {SyncRegistry} from '../../types/registry/index.js'
 
 import * as isType from './isType.js'
 import * as validate from './validate.js'

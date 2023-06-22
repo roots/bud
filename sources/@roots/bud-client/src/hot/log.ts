@@ -9,34 +9,30 @@ export const makeLogger = (options: Options) => {
   }
 }
 
-let lastLog: string = null
-export const makeLog = options => {
-  return (...args) => {
+export const makeLog = (options: Options) => {
+  return (...args: Array<unknown>) => {
     if (options.log) {
-      if (lastLog === args.join(``)) return
-      lastLog = args.join(``)
-
       console.log(`[${options.name}]`, ...args)
     }
   }
 }
 
-export const makeInfo = options => {
-  return (...args) => {
+export const makeInfo = (options: Options) => {
+  return (...args: Array<unknown>) => {
     if (options.log) {
       console.info(`[${options.name}]`, ...args)
     }
   }
 }
 
-export const makeError = options => {
-  return (...args) => {
+export const makeError = (options: Options) => {
+  return (...args: Array<unknown>) => {
     console.error(`[${options.name}]`, ...args)
   }
 }
 
-export const makeWarn = options => {
-  return (...args) => {
+export const makeWarn = (options: Options) => {
+  return (...args: Array<unknown>) => {
     console.warn(`[${options.name}]`, ...args)
   }
 }

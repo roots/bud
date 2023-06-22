@@ -38,7 +38,6 @@ webpackConfig: >
 
 # or dynamic values
 log:
-  - 'example:'
   - => 2 + 2
   - => `equals ${2 + 2}`
 

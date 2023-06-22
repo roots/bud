@@ -1,7 +1,6 @@
-import type {Context} from '@roots/bud-framework/options/context'
+import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
 
-import {Console} from '@roots/bud-dashboard/console'
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -23,10 +22,11 @@ import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
+import process from 'node:process'
 
 import type {CLIContext} from '../index.js'
 
-import * as Display from '../components/Error.js'
+import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
 
 export type {BaseContext, Context}
@@ -313,7 +313,8 @@ export default class BudCommand extends Command<CLIContext> {
    * Handle errors
    */
   public override async catch(error: BudHandler): Promise<void> {
-    global.process.exitCode = 1
+    process.exitCode = 1
+
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {
@@ -329,30 +330,30 @@ export default class BudCommand extends Command<CLIContext> {
       }
     }
 
-    try {
-      const queuedMessages =
-        this.bud?.consoleBuffer?.fetchAndRemove() ?? []
+    if (this.bud?.dashboard?.instance) {
+      this.bud.dashboard.render({error})
 
-      if (queuedMessages.length) {
-        await this.renderStatic(
-          <Box flexDirection="column">
-            <Console messages={queuedMessages} />
-          </Box>,
-        )
+      if (this.bud.isProduction) {
+        const unmountDashboard = async () =>
+          await this.bud.dashboard.instance.waitUntilExit()
+
+        this.bud.compiler?.instance?.close
+          ? this.bud.compiler.instance.close(unmountDashboard)
+          : await unmountDashboard()
       }
-    } catch (error) {
-      logger.warn(error.message ?? error)
     }
 
     await this.renderStatic(
       <Box flexDirection="column">
-        <Display.Error error={error} />
+        <Fallback.Error error={error} />
       </Box>,
     ).catch(error => {
       logger.warn(error.message ?? error)
     })
 
-    if (this.bud.isProduction) global.process.exit(1)
+    // fallthrough
+    // eslint-disable-next-line n/no-process-exit
+    process.exit()
   }
 
   /**

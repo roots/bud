@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import manifestExtension from '../../src/extensions/webpack-manifest-plugin/index.js'
+import manifestExtension from '../../src/webpack-manifest-plugin/index.js'
 
 describe(`webpack-manifest-plugin`, () => {
   it(`is an instance of Extension`, () => {

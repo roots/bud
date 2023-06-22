@@ -1,131 +1,103 @@
-import {factory} from '@repo/test-kit'
+import React from '@roots/bud-support/ink'
+import {Bud, factory} from '@repo/test-kit'
+// @ts-ignore
 import {render} from 'ink-testing-library'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import App from '../src/dashboard/app.js'
+import {Application} from '../src/dashboard/app.js'
 
 const mockCompilations = [
   {
     assets: [],
     entrypoints: {},
     errors: [],
+    modules: [],
+    warnings: [],
   },
 ]
 
 describe(`@roots/bud-dashboard app component`, () => {
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     bud = await factory()
   })
 
-  it(`should render stats`, async () => {
+  it(`should render stats`, () => {
     const {lastFrame} = render(
-      <App
+      <Application
         context={bud.context}
+        debug={false}
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
-        publicProxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
-        isTTY={true}
         displayServerInfo={true}
         displayAssets={true}
         displayEntrypoints={true}
       />,
     )
 
-    expect(lastFrame()).toContain(`compiled  modules`)
+    expect(lastFrame()).toContain(`✔`)
   })
 
-  it(`should render server info`, async () => {
+  it(`should render server info`, () => {
     const {lastFrame} = render(
-      // @ts-ignore
-      <App
+      <Application
         context={bud.context}
+        debug={false}
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://example.test`)}
+        proxy={true}
         proxyUrl={new URL(`http://localhost:8080`)}
-        publicProxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
-        isTTY={true}
         displayServerInfo={true}
         displayAssets={true}
         displayEntrypoints={true}
       />,
     )
 
-    expect(lastFrame()).toContain(`proxy`)
+    expect(lastFrame()).toContain(`:3000/`)
+    expect(lastFrame()).toContain(`:8080/`)
   })
 
-  it(`should render server info`, async () => {
+  it(`should render watch list`, () => {
     const {lastFrame} = render(
-      // @ts-ignore
-      <App
+      <Application
         context={bud.context}
+        debug={false}
         mode="development"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
-        publicProxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
-        isTTY={true}
         displayServerInfo={true}
         displayAssets={true}
         displayEntrypoints={true}
       />,
     )
 
-    expect(lastFrame()).toContain(`proxy`)
-    expect(lastFrame()).toContain(`dev`)
-    expect(lastFrame()).not.toContain(`internal`)
-    expect(lastFrame()).not.toContain(`external`)
+    expect(lastFrame()).toContain(`Watching project sources`)
   })
 
-  it(`should render watch list`, async () => {
+  it(`should not render watch list in prod`, () => {
     const {lastFrame} = render(
-      <App
+      <Application
         context={bud.context}
-        mode="development"
-        compilations={mockCompilations}
-        devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://localhost:3000`)}
-        proxyUrl={new URL(`http://localhost:8080`)}
-        publicProxyUrl={new URL(`http://localhost:8080`)}
-        watchFiles={new Set([`foo`])}
-        isTTY={true}
-        displayServerInfo={true}
-        displayAssets={true}
-        displayEntrypoints={true}
-      />,
-    )
-
-    expect(lastFrame()).toContain(`watching project sources`)
-  })
-
-  it(`should not render watch list in prod`, async () => {
-    const {lastFrame} = render(
-      <App
-        context={bud.context}
+        debug={false}
         mode="production"
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://localhost:3000`)}
         proxyUrl={new URL(`http://localhost:8080`)}
-        publicProxyUrl={new URL(`http://localhost:8080`)}
         watchFiles={new Set([`foo`])}
-        isTTY={true}
         displayServerInfo={true}
         displayAssets={true}
         displayEntrypoints={true}
       />,
     )
 
-    expect(lastFrame()).not.toContain(`watching project sources`)
+    expect(lastFrame()).not.toContain(`Watching project sources`)
   })
 })

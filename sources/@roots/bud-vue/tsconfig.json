@@ -2,10 +2,11 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-build", "@roots/bud-postcss", "@roots/bud-sass", "@roots/bud-support", "@roots/bud-api", "@roots/bud-typescript"]
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
+  "exclude": ["**/*.test.ts"],
   "references": [
     {"path": "./../bud-api/tsconfig.json"},
     {"path": "./../bud/tsconfig.json"},
@@ -13,6 +14,7 @@
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-postcss/tsconfig.json"},
     {"path": "./../bud-sass/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"}
+    {"path": "./../bud-support/tsconfig.json"},
+    {"path": "./../bud-typescript/tsconfig.json"}
   ]
 }

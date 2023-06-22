@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ConsoleBuffer > should store instance.log to console.queue 1`] = `
+[
+  {
+    "message": "log-test",
+    "stream": "stdout",
+  },
+  {
+    "message": "info-test",
+    "stream": "stdout",
+  },
+  {
+    "message": "error-test",
+    "stream": "stderr",
+  },
+  {
+    "message": "warn-test",
+    "stream": "stderr",
+  },
+]
+`;

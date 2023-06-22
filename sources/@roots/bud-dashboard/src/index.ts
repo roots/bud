@@ -6,11 +6,12 @@
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
- *
- *  @packageDocumentation
  */
 
-import {Dashboard} from './service.js'
-import './types.js'
+import {Dashboard as Service} from './service.js'
 
-export default Dashboard
+declare module '@roots/bud-framework' {
+  type Dashboard = Service
+}
+
+export {Service as default}

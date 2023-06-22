@@ -4,9 +4,9 @@
     "module": "esnext",
     "target": "esnext",
     "paths": {
-      "@src/*": ["./src/*"]
+      "@src": ["./src"]
     },
-    "types": ["@roots/bud", "@roots/bud-typescript"]
+    "types": ["@roots/bud", "@roots/bud-typescript", "webpack/module"]
   },
   "include": ["./src", "./types"],
   "exclude": ["./dist"]

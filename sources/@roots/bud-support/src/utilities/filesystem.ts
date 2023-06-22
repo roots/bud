@@ -1,8 +1,7 @@
+import {BudError} from '@roots/bud-support/errors'
+import {Filesystem} from '@roots/bud-support/filesystem'
+import {paths} from '@roots/bud-support/utilities/paths'
 import {isMainThread} from 'node:worker_threads'
-
-import {BudError} from '../errors/errors.js'
-import {Filesystem} from '../filesystem/index.js'
-import {paths} from './paths.js'
 
 let filesystem: Filesystem
 

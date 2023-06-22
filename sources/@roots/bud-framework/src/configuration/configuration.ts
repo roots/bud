@@ -1,3 +1,6 @@
+import type {Bud} from '@roots/bud-framework'
+import type {File} from '@roots/bud-framework/context'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
@@ -5,9 +8,6 @@ import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
 import isString from '@roots/bud-support/lodash/isString'
-
-import type {Bud} from '../index.js'
-import type {File} from '../types/options/context.js'
 
 /**
  * User config parser

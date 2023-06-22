@@ -1,10 +1,5 @@
-/// <reference types="@roots/bud" />
-/// <reference types="@roots/bud-postcss" />
-/// <reference types="@roots/bud-sass" />
-/// <reference types="@roots/bud-typescript" />
-
+import type {Item, Loader, Rule} from '@roots/bud-framework'
 import type {Extension} from '@roots/bud-framework/extension'
-import type {Build} from '@roots/bud-framework/services'
 
 import type Vue from './extension.js'
 
@@ -19,16 +14,16 @@ declare module '@roots/bud-framework' {
   }
 
   interface Loaders {
-    vue: Build.Loader
-    'vue-style': Build.Loader
+    vue: Loader
+    'vue-style': Loader
   }
 
   interface Items {
-    vue: Build.Item
-    'vue-style': Build.Item
+    vue: Item
+    'vue-style': Item
   }
 
   interface Rules {
-    vue: Build.Rule
+    vue: Rule
   }
 }

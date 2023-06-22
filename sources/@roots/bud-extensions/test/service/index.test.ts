@@ -3,7 +3,7 @@ import type {Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import Extensions from '../../src/service/index.js'
+import {Extensions} from '../../src/service.js'
 
 describe(`@roots/bud-extensions`, () => {
   let bud: Bud

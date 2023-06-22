@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
-import type * as Services from '@roots/bud-framework/services'
+import type {Cache as BudCache} from '@roots/bud-framework/services'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -14,10 +14,7 @@ import InvalidateCacheExtension from '../invalidate-cache/index.js'
 /**
  * Cache service class
  */
-export default class Cache
-  extends Service
-  implements Services.Cache.Service
-{
+export default class Cache extends Service implements BudCache {
   /**
    * Enabled
    */

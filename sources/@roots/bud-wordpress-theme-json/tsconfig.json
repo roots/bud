@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "types": ["@roots/bud-framework", "@roots/bud"]
+    "types": ["@roots/bud-framework"]
   },
   "include": ["src"],
   "references": [

@@ -1,8 +1,14 @@
-import type {Item} from './item/index.js'
-import type {Loader} from './loader/index.js'
-import type {Rule} from './rule/index.js'
+import type {Item} from '@roots/bud-build/item'
+import type {Loader} from '@roots/bud-build/loader'
+import type {Rule} from '@roots/bud-build/rule'
+
+import type {Build} from './service.js'
 
 declare module '@roots/bud-framework' {
+  interface Services {
+    build: Build
+  }
+
   interface Loaders {
     css: Loader
     csv: Loader

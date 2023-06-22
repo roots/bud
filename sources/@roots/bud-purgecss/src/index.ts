@@ -2,22 +2,24 @@
 // Licensed under the MIT license.
 
 /**
- * Adds purgecss support to Bud
- *
- * @example
- * ```ts
- * app.purge({
- *  content: [app.path('resources/views/**')],
- *  allow: require('purgecss-with-wordpress').whitelist,
- *  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
- * })
- * ```
+ * @roots/bud-purgecss
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
 
-import BudPurgeCSS from './extension.js'
-import './types.js'
+import type {purgecss} from './api.js'
 
-export default BudPurgeCSS
+import BudPurgeCSS from './extension.js'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    purgecss: typeof purgecss
+  }
+
+  interface Modules {
+    '@roots/bud-purgecss': BudPurgeCSS
+  }
+}
+
+export {BudPurgeCSS as default}

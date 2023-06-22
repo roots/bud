@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/options'
+import type {Context} from '@roots/bud-framework/context'
 
 import {dirname, join, resolve, sep} from 'node:path'
 import {fileURLToPath} from 'node:url'

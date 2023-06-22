@@ -26,6 +26,9 @@ export const resolve: Factory<`resolve`> = async bud => {
     /**
      * Leave `undefined` to use webpack default (true in dev, false in production)
      */
-    unsafeCache: bud.hooks.filter(`build.module.unsafeCache`, undefined),
+    unsafeCache: bud.hooks.filter(
+      `build.module.unsafeCache`,
+      bud.isDevelopment,
+    ),
   })
 }

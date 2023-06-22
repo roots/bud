@@ -1,3 +1,6 @@
+import type {Bud} from '@roots/bud-framework'
+import type {Modules} from '@roots/bud-framework'
+import type {Compiler} from '@roots/bud-framework/config'
 import type {ApplyPluginConstructor} from '@roots/bud-framework/extension/decorators/plugin'
 
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -9,10 +12,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import DynamicOption from '@roots/bud-support/value'
-
-import type {Bud} from '../index.js'
-import type {Modules} from '../index.js'
-import type {Compiler} from '../types/config/index.js'
 
 export type Options<T = Record<string, any>> = {
   [K in keyof T as `${K & string}`]?: T[K]
@@ -357,7 +356,7 @@ export class Extension<
   /**
    * {@link ApplyPlugin.apply}
    */
-  public apply?(compiler: Compiler): unknown
+  public apply?(compiler: Compiler): unknown | void
 
   /**
    * `boot` callback
@@ -365,22 +364,22 @@ export class Extension<
    * @param options - Extension options
    * @param app - Bud instance
    */
-  public async boot(app: Bud): Promise<any> {}
+  public async boot(app: Bud) {}
 
   /**
    * `buildAfter` callback
    */
-  public async buildAfter?(app: Bud): Promise<any>
+  public async buildAfter?(app: Bud): Promise<unknown | void>
 
   /**
    * `buildBefore` callback
    */
-  public async buildBefore?(app: Bud): Promise<any>
+  public async buildBefore?(app: Bud): Promise<unknown | void>
 
   /**
    * `configAfter` callback
    */
-  public async configAfter(app: Bud): Promise<any> {}
+  public async configAfter(app: Bud) {}
 
   /**
    * Disable extension

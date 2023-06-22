@@ -49,22 +49,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
@@ -81,8 +71,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "react": "18.2.0",
-    "tslib": "2.5.3",
-    "webpack": "5.86.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"

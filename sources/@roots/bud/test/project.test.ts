@@ -16,7 +16,6 @@ describe(`@roots/bud/services/project`, () => {
 
   it(`returns early if debug not set`, async () => {
     bud.context.debug = false
-    const infoSpy = vi.spyOn(bud, `info`)
     const pathSpy = vi.spyOn(bud, `path`)
 
     if (!project.buildAfter) return
@@ -24,8 +23,5 @@ describe(`@roots/bud/services/project`, () => {
     await project.buildAfter(bud)
 
     expect(pathSpy).not.toHaveBeenCalled()
-    expect(infoSpy).toHaveBeenCalledWith(
-      `--debug not \`true\`. skipping fs write.`,
-    )
   })
 })

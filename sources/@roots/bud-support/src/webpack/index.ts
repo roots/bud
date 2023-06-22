@@ -13,6 +13,7 @@ export type {
   PathData,
   ProvidePlugin,
   RuleSetRule,
+  Stats,
   StatsAsset,
   StatsChunkGroup,
   StatsCompilation,
