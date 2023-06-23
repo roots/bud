@@ -1,9 +1,9 @@
 import type * as Theme from '@roots/wordpress-theme-json-webpack-plugin/theme'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
-import fs from 'fs-jetpack'
-import {bind} from 'helpful-decorators'
 import omit from 'lodash/omit.js'
+import webpack from 'webpack'
+import {relative} from 'path'
 
 /**
  * Plugin options
@@ -74,23 +74,37 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    * @param compiler - Webpack compiler
    * @returns void
    */
-  @bind
   public apply(compiler: Compiler) {
-    compiler.hooks.done.tapPromise(this.constructor.name, this.done)
-  }
+    const pluginName = this.constructor.name
 
-  /**
-   * Compiler done callback
-   *
-   * @returns Promise
-   */
-  @bind
-  public async done() {
-    try {
-      await fs.writeAsync(this.path, this.settings)
-    } catch (err) {
-      throw new Error(err)
-    }
+    compiler.hooks.thisCompilation.tap(pluginName, compilation => {
+      compilation.hooks.processAssets.tapPromise(
+        {
+          name: pluginName,
+          stage: webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONAL,
+        },
+        async () => {
+          const cache = compilation.getCache(pluginName)
+
+          let settings: Omit<Options, `path`> = await cache.getPromise<
+            Omit<Options, `path`>
+          >(`settings`, null)
+
+          if (!settings) {
+            settings = this.settings
+            await cache.storePromise(`settings`, null, settings)
+          }
+
+          const source = new compiler.webpack.sources.RawSource(
+            JSON.stringify(settings, null, 2),
+          )
+          compilation.emitAsset(
+            relative(compilation.options.output.path, this.path),
+            source,
+          )
+        },
+      )
+    })
   }
 
   /**
@@ -103,21 +117,17 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   /**
    * theme.json settings
    */
-  public get settings(): string {
-    return JSON.stringify(
-      Object.entries({
-        __generated__: `⚠️ This file is generated. Do not edit.`,
-        $schema: `https://schemas.wp.org/trunk/theme.json`,
-        version: 2,
-        ...omit(this.options, `path`),
-      }).reduce((a, [k, v]) => {
-        if (v !== undefined) {
-          a[k] = v
-        }
-        return a
-      }, {}),
-      null,
-      2,
-    )
+  public get settings(): Omit<Options, `path`> {
+    return Object.entries({
+      __generated__: `⚠️ This file is generated. Do not edit.`,
+      $schema: `https://schemas.wp.org/trunk/theme.json`,
+      version: 2,
+      ...omit(this.options, `path`),
+    }).reduce((a, [k, v]) => {
+      if (v !== undefined) {
+        a[k] = v
+      }
+      return a
+    }, {})
   }
 }
