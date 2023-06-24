@@ -1,8 +1,0 @@
-{
-    // hash files
-    hash: true,
-    // runtime
-    runtime: 'single',
-    // proxy over localhost:3000
-    proxy:
-}

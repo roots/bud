@@ -1,9 +1,8 @@
-module.exports = {
+export default {
   content: ['resources/**/*.{js,css,html}'],
   theme: {
     extend: {
       colors: {
-        gray: '#f7fafc',
         brand: {
           gray: '#f7fafc',
         },

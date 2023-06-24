@@ -75,6 +75,7 @@
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
+    "tapable": "2.2.1",
     "tslib": "2.5.3",
     "webpack": "5.86.0"
   },

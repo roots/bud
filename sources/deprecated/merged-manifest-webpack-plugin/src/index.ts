@@ -57,7 +57,6 @@ export default class MergedManifestWebpackPlugin {
   @bind
   public apply(compiler: Compiler): void {
     this.dir = compiler.options.output.path
-
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
 

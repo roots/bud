@@ -1,7 +1,7 @@
+import type {Entrypoints} from '@roots/entrypoints-webpack-plugin'
+
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
-
-import type {Entry} from './webpack.plugin.js'
 
 /**
  * Emits inline html for each entrypoint
@@ -18,7 +18,7 @@ export class HtmlEmitter {
    */
   public constructor(
     public compilation: Webpack.Compilation,
-    public assets: Entry,
+    public assets: Entrypoints,
     public publicPath: string,
   ) {}
 

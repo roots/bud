@@ -24,7 +24,8 @@ interface Options {
 @label(`@roots/bud-preset-wordpress`)
 @dependsOn([
   `@roots/bud-preset-recommend`,
-  `@roots/bud-wordpress-manifests`,
+  `@roots/bud-wordpress-externals`,
+  `@roots/bud-wordpress-dependencies`,
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])

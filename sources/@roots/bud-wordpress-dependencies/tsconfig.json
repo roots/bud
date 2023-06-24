@@ -8,6 +8,7 @@
   "include": ["src"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
+    {"path": "./../entrypoints-webpack-plugin/tsconfig.json"},
     {"path": "./../wordpress-dependencies-webpack-plugin/tsconfig.json"}
   ]
 }

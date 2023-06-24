@@ -1,0 +1,11 @@
+setPublicPath: /app/themes/your-theme-name/dist/
+
+entry:
+  app: [app.js, app.css]
+  editor: [editor.js]
+
+wpjson:
+  enable: true
+
+entrypoints:
+  setEmitHtml: true

@@ -9,8 +9,6 @@ import {hash} from '@roots/bud-support/utilities/args'
 import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
-import InvalidateCacheExtension from '../invalidate-cache/index.js'
-
 /**
  * Cache service class
  */
@@ -25,9 +23,11 @@ export default class Cache extends Service implements BudCache {
    */
   @bind
   public override async boot(bud: Bud) {
-    await bud.extensions.add(InvalidateCacheExtension)
-    this.logger.success(`cache initialized`)
+    if (bud.context.force === true) {
+      await this.flush()
+    }
   }
+
   /**
    * Cache dependencies
    */
@@ -71,13 +71,15 @@ export default class Cache extends Service implements BudCache {
       allowCollectingMemory: true,
       buildDependencies: this.buildDependencies,
       cacheDirectory: this.cacheDirectory,
-      idleTimeout: 10000,
+      compression: this.app.isDevelopment ? false : `brotli`,
+      hashAlgorithm: `xxhash64`,
+      idleTimeout: 100,
       idleTimeoutForInitialStore: 0,
+      managedPaths: [this.cacheDirectory, this.app.path(`@modules`)],
       name: this.name,
       profile: this.app.context.debug === true,
-      store: `pack` as `pack`,
+      store: `pack`,
       type: this.type,
-      version: this.app.hooks.filter(`build.cache.version`, this.version),
     }
   }
 
@@ -122,11 +124,15 @@ export default class Cache extends Service implements BudCache {
    */
   public get version(): string {
     const version = createHash(`sha1`)
-    version.update(hash)
 
-    Object.values(this.app.context.files ?? {})
-      .filter(file => file?.bud || file?.name?.includes(`package.json`))
-      .map(({sha1}) => version.update(sha1))
+    version.update(
+      [
+        hash,
+        ...Object.values(this.app.context.files)
+          .map(file => file.sha1)
+          .join(``),
+      ].join(``),
+    )
 
     return this.app.hooks.filter(
       `build.cache.version`,
