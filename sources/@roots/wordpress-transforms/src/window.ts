@@ -1,9 +1,9 @@
 import {
   getGlobal,
-  isMapped,
+  isLibrary,
   isProvided,
   isWordPressRequest,
-} from '@roots/wordpress-transforms/requests'
+} from '@roots/wordpress-transforms/wordpress'
 
 /**
  * Transform source request to wordpress provided window variable
@@ -23,5 +23,5 @@ export const transform = (
         .replace(/-(.)/g, (_, g) => g.toUpperCase()),
     ]
 
-  if (isMapped(request)) return getGlobal(request)
+  if (isLibrary(request)) return getGlobal(request)
 }

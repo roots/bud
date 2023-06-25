@@ -6,6 +6,3 @@ entry:
 
 wpjson:
   enable: true
-
-entrypoints:
-  setEmitHtml: true

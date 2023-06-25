@@ -50,7 +50,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./handle": "./lib/handle.js",
-    "./requests": "./lib/requests.js",
+    "./wordpress": "./lib/wordpress.js",
     "./window": "./lib/window.js"
   },
   "typesVersions": {
@@ -61,8 +61,8 @@
       "./handle": [
         "./lib/handle.d.ts"
       ],
-      "./requests": [
-        "./lib/requests.d.ts"
+      "./wordpress": [
+        "./lib/wordpress.d.ts"
       ],
       "./window": [
         "./lib/window.d.ts"

@@ -7,6 +7,4 @@
  * @see https://github.com/roots/bud/tree/stable/src/wordpress-externals-webpack-plugin
  */
 
-import WordPressExternalsWebpackPlugin from './plugin.js'
-
-export default WordPressExternalsWebpackPlugin
+export {WordPressExternalsWebpackPlugin as default} from '@roots/wordpress-externals-webpack-plugin/plugin'

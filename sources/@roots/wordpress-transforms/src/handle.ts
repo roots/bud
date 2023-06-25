@@ -1,9 +1,9 @@
 import {
-  getHandle,
-  isMapped,
+  getScriptDependencyHandle,
+  isLibrary,
   isProvided,
   isWordPressRequest,
-} from '@roots/wordpress-transforms/requests'
+} from '@roots/wordpress-transforms/wordpress'
 
 /**
  * Transform source request to enqueue_scripts handle
@@ -19,5 +19,5 @@ export const transform = (request: string): string | undefined => {
       request.replace(/^@wordpress\/(.*)$/, (_m, g) => g),
     ].join(`-`)
 
-  if (isMapped(request)) return getHandle(request)
+  if (isLibrary(request)) return getScriptDependencyHandle(request)
 }

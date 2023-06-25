@@ -5,6 +5,10 @@
  * @roots/wordpress-transforms
  */
 
-export * from '@roots/wordpress-transforms/requests'
+export type Handle = string
+export type Global = string
+export type RequestMap = Map<string, [Global, Handle]>
+
+export * as wordpress from '@roots/wordpress-transforms/wordpress'
 export * as window from '@roots/wordpress-transforms/window'
 export * as handle from '@roots/wordpress-transforms/handle'

@@ -1,12 +1,9 @@
 import type {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
+import type {Compilation} from 'webpack'
 
-import {handle, isProvided} from '@roots/wordpress-transforms'
+import {handle, wordpress} from '@roots/wordpress-transforms'
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
-
-interface Data {
-  [key: string]: any
-}
 
 export interface Options {
   emitWordPressJson: boolean
@@ -15,14 +12,14 @@ export interface Options {
 }
 
 export default class WordPressDependenciesWebpackPlugin {
-  public manifestData: Data = {}
+  public dependencies: Map<string, Set<string>>
 
   public plugin = {
     name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
   }
 
-  public requestData: Data = {}
+  public requested: Map<string, Set<string>>
 
   public constructor(public options?: Options) {
     if (!this.options.outputPath)
@@ -33,18 +30,28 @@ export default class WordPressDependenciesWebpackPlugin {
       !this.options.entrypointsPlugin
     )
       this.options.emitWordPressJson = true
+
+    this.dependencies = new Map()
+    this.requested = new Map()
   }
 
   /**
-   * Add mapped request to entrypoint manifest object
+   * Add item to set in map
+   *
+   * @remarks
+   * Works for both our map of requests and our map of dependencies.
    */
-  @bind
-  public addRequest(entryName: string, request: string) {
-    if (!this.manifestData[entryName]) {
-      this.manifestData[entryName] = new Set([])
+  public addItemToMap(
+    map: Map<string, Set<string>>,
+    key: string,
+    item: string,
+  ) {
+    if (!map.has(key)) {
+      map.set(key, new Set([item]))
+      return
     }
 
-    this.manifestData[entryName].add(handle.transform(request))
+    map.set(key, map.get(key).add(item))
   }
 
   /**
@@ -56,10 +63,7 @@ export default class WordPressDependenciesWebpackPlugin {
       factory.hooks.beforeResolve.tap(
         this.plugin.name,
         ({contextInfo, request}) => {
-          this.requestData[contextInfo.issuer] = [
-            ...(this.requestData[contextInfo.issuer] ?? []),
-            request,
-          ]
+          this.addItemToMap(this.requested, contextInfo.issuer, request)
         },
       )
     })
@@ -69,7 +73,10 @@ export default class WordPressDependenciesWebpackPlugin {
         const hooks =
           this.options.entrypointsPlugin.getCompilationHooks(compilation)
 
-        hooks.compilation.tap(this.plugin.name, this.tapCompilation)
+        hooks.compilation.tap(
+          this.plugin.name,
+          this.extractDependenciesFromCompilation,
+        )
         hooks.entrypoints.tap(
           this.plugin.name,
           this.tapEntrypointsManifestObject,
@@ -80,11 +87,12 @@ export default class WordPressDependenciesWebpackPlugin {
         compilation.hooks.processAssets.tapPromise(
           this.plugin,
           async () => {
-            this.tapCompilation(compilation)
+            this.extractDependenciesFromCompilation(compilation)
+
             compilation.emitAsset(
               this.options.outputPath,
               new compiler.webpack.sources.RawSource(
-                JSON.stringify(this.manifestData, null, 2),
+                JSON.stringify(this.dependencies, null, 2),
               ),
             )
           },
@@ -93,29 +101,21 @@ export default class WordPressDependenciesWebpackPlugin {
     })
   }
 
-  /**
-   * Get data from compilation
-   */
   @bind
-  public tapCompilation(compilation: Webpack.Compilation) {
-    for (const entry of compilation.entrypoints.values()) {
-      for (const chunk of entry.chunks) {
-        const moduleChunks = compilation.chunkGraph.getChunkModules(chunk)
+  public extractDependenciesFromCompilation(compilation: Compilation) {
+    for (const {chunks, name} of compilation.entrypoints.values()) {
+      for (const chunk of chunks) {
+        const records: any = compilation.chunkGraph.getChunkModules(chunk)
 
-        for (const {modules, userRequest} of moduleChunks as any) {
-          if (this.requestData[userRequest]) {
-            for (const request of this.requestData[userRequest])
-              isProvided(request) && this.addRequest(entry.name, request)
-          }
+        for (const {userRequest} of records) {
+          this.processChunkRequest(name, userRequest)
+        }
 
-          if (modules) {
-            for (const {userRequest} of modules) {
-              if (this.requestData[userRequest]) {
-                for (const request of this.requestData[userRequest])
-                  isProvided(request) &&
-                    this.addRequest(entry.name, request)
-              }
-            }
+        for (const {modules} of records) {
+          if (!modules) continue
+
+          for (const {userRequest} of modules) {
+            this.processChunkRequest(name, userRequest)
           }
         }
       }
@@ -123,23 +123,31 @@ export default class WordPressDependenciesWebpackPlugin {
   }
 
   /**
+   * Add mapped request to entrypoint manifest object
+   */
+  @bind
+  public processChunkRequest(name: string, userRequest: string) {
+    if (!name || !userRequest || !this.requested.has(userRequest)) return
+
+    for (const request of this.requested.get(userRequest)) {
+      if (!wordpress.isProvided(request)) continue
+
+      this.addItemToMap(this.dependencies, name, handle.transform(request))
+    }
+  }
+
+  /**
    * Tap entrypoints manifest object
    */
   @bind
-  public tapEntrypointsManifestObject(
-    assets: Webpack.Compilation['assets'],
-  ) {
+  public tapEntrypointsManifestObject(assets: Record<string, any>) {
     return Object.entries(assets)
-      .filter(([key]) => key in this.manifestData)
-      .reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: {
-            ...value,
-            ...{dependencies: [...this.manifestData[key]]},
-          },
-        }),
-        {},
-      )
+      .map(([k, v]) => {
+        v.dependencies = this.dependencies.has(k)
+          ? [...this.dependencies.get(k)]
+          : []
+        return [k, v]
+      })
+      .reduce((a, [k, v]) => ({...a, [k]: v}), {})
   }
 }

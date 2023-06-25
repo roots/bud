@@ -118,6 +118,10 @@ export class EntrypointsWebpackPlugin {
             stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
           },
           async (assets, callback) => {
+            const hooks =
+              EntrypointsWebpackPlugin.getCompilationHooks(compilation)
+            hooks.compilation.call(compilation)
+
             const cache = compilation.getCache(this.constructor.name)
             this.entrypoints = await cache.getPromise<Entrypoints>(
               `entrypoints`,
@@ -125,10 +129,6 @@ export class EntrypointsWebpackPlugin {
             )
 
             if (!this.entrypoints) {
-              const hooks =
-                EntrypointsWebpackPlugin.getCompilationHooks(compilation)
-              hooks.compilation.call(compilation)
-
               this.entrypoints = {}
 
               compilation.entrypoints.forEach(entry => {
@@ -141,13 +141,14 @@ export class EntrypointsWebpackPlugin {
                 })
               })
 
-              this.entrypoints = hooks.entrypoints.call(this.entrypoints)
               await cache.storePromise(
                 `entrypoints`,
                 null,
                 this.entrypoints,
               )
             }
+
+            this.entrypoints = hooks.entrypoints.call(this.entrypoints)
 
             if (this.options.emitHtml) {
               new HtmlEmitter(

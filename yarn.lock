@@ -7479,13 +7479,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
-    "@roots/entrypoints-webpack-plugin": "workspace:*"
     "@roots/wordpress-transforms": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     helpful-decorators: 2.1.0
     tslib: 2.5.3
     webpack: 5.86.0
+  peerDependencies:
+    "@roots/entrypoints-webpack-plugin": "workspace:*"
+  peerDependenciesMeta:
+    "@roots/entrypoints-webpack-plugin":
+      optional: true
   languageName: unknown
   linkType: soft
 

@@ -1,6 +1,4 @@
-type Handle = string
-type Global = string
-type RequestMap = Map<string, [Global, Handle]>
+import type {RequestMap} from '@roots/wordpress-transforms'
 
 /**
  * Packages in the `@wordpress` namespace which are not provided
@@ -23,7 +21,7 @@ export const requestMap: RequestMap = new Map([
   [`react`, [`React`, `react`]],
 ])
 
-export const isMapped = (request: string): boolean =>
+export const isLibrary = (request: string): boolean =>
   requestMap.has(normalize(request))
 
 export const isOmitted = (request: string): boolean =>
@@ -32,13 +30,13 @@ export const isOmitted = (request: string): boolean =>
 export const getGlobal = (request: string): string =>
   requestMap.get(normalize(request))[0]
 
-export const getHandle = (request: string): string =>
+export const getScriptDependencyHandle = (request: string): string =>
   requestMap.get(normalize(request))[1]
 
 export const isProvided = (request: string): boolean => {
   if (isOmitted(request)) return false
   if (isWordPressRequest(request)) return true
-  if (isMapped(request)) return true
+  if (isLibrary(request)) return true
   return false
 }
 
