@@ -7480,10 +7480,10 @@ __metadata:
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
     "@roots/entrypoints-webpack-plugin": "workspace:*"
+    "@roots/wordpress-transforms": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     helpful-decorators: 2.1.0
-    lodash: 4.17.21
     tslib: 2.5.3
     webpack: 5.86.0
   languageName: unknown
@@ -7493,9 +7493,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin"
   dependencies:
+    "@roots/wordpress-transforms": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
-    lodash: 4.17.21
     tslib: 2.5.3
     webpack: 5.86.0
   languageName: unknown
@@ -7535,6 +7535,16 @@ __metadata:
     tapable: 2.2.1
     tslib: 2.5.3
     webpack: 5.86.0
+  languageName: unknown
+  linkType: soft
+
+"@roots/wordpress-transforms@workspace:*, @roots/wordpress-transforms@workspace:sources/@roots/wordpress-transforms":
+  version: 0.0.0-use.local
+  resolution: "@roots/wordpress-transforms@workspace:sources/@roots/wordpress-transforms"
+  dependencies:
+    "@skypack/package-check": 0.2.2
+    "@types/node": 18.16.16
+    tslib: 2.5.3
   languageName: unknown
   linkType: soft
 

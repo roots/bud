@@ -1,6 +1,5 @@
-import Webpack from 'webpack'
-
-import {externals} from './externals.js'
+import {window} from '@roots/wordpress-transforms'
+import Webpack, {type ExternalItemFunctionData} from 'webpack'
 
 /**
  * WordPress Externals Webpack Plugin
@@ -25,7 +24,13 @@ export default class WordPressExternals {
    * Class constructor
    */
   public constructor() {
-    this.externals = new Webpack.ExternalsPlugin(`window`, externals)
+    this.externals = new Webpack.ExternalsPlugin(
+      `window`,
+      ({request}: ExternalItemFunctionData, callback) => {
+        const lookup = window.transform(request)
+        return lookup ? callback(null, lookup) : callback()
+      },
+    )
   }
 
   /**

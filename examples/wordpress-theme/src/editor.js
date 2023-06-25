@@ -1,8 +1,4 @@
-import '@wordpress/edit-post'
-import {
-  unregisterBlockStyle,
-  registerBlockStyle,
-} from '@wordpress/blocks'
+import {unregisterBlockStyle, registerBlockStyle} from '@wordpress/blocks'
 import domReady from '@wordpress/dom-ready'
 
 domReady(() => {

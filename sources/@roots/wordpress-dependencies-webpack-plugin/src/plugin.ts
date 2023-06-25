@@ -1,9 +1,8 @@
 import type {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 
+import {handle, isProvided} from '@roots/wordpress-transforms'
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
-
-import * as wordpress from './packages.js'
 
 interface Data {
   [key: string]: any
@@ -16,12 +15,14 @@ export interface Options {
 }
 
 export default class WordPressDependenciesWebpackPlugin {
-  public data: Data = {}
+  public manifestData: Data = {}
 
   public plugin = {
     name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
   }
+
+  public requestData: Data = {}
 
   public constructor(public options?: Options) {
     if (!this.options.outputPath)
@@ -35,6 +36,18 @@ export default class WordPressDependenciesWebpackPlugin {
   }
 
   /**
+   * Add mapped request to entrypoint manifest object
+   */
+  @bind
+  public addRequest(entryName: string, request: string) {
+    if (!this.manifestData[entryName]) {
+      this.manifestData[entryName] = new Set([])
+    }
+
+    this.manifestData[entryName].add(handle.transform(request))
+  }
+
+  /**
    * Apply plugin
    */
   @bind
@@ -43,12 +56,10 @@ export default class WordPressDependenciesWebpackPlugin {
       factory.hooks.beforeResolve.tap(
         this.plugin.name,
         ({contextInfo, request}) => {
-          const {issuer} = contextInfo
-
-          this.data[issuer] = [
-            ...(this.data[issuer] ?? []),
+          this.requestData[contextInfo.issuer] = [
+            ...(this.requestData[contextInfo.issuer] ?? []),
             request,
-          ].filter(wordpress.isProvided)
+          ]
         },
       )
     })
@@ -66,18 +77,16 @@ export default class WordPressDependenciesWebpackPlugin {
       }
 
       if (this.options.emitWordPressJson) {
-        compilation.hooks.processAssets.tapAsync(
+        compilation.hooks.processAssets.tapPromise(
           this.plugin,
-          async (assets, callback) => {
+          async () => {
             this.tapCompilation(compilation)
             compilation.emitAsset(
               this.options.outputPath,
               new compiler.webpack.sources.RawSource(
-                JSON.stringify(this.data, null, 2),
+                JSON.stringify(this.manifestData, null, 2),
               ),
             )
-
-            callback()
           },
         )
       }
@@ -89,27 +98,28 @@ export default class WordPressDependenciesWebpackPlugin {
    */
   @bind
   public tapCompilation(compilation: Webpack.Compilation) {
-    compilation.entrypoints.forEach(entry => {
-      const {name} = entry
-      const value = this.data[name] ?? new Set([])
-
+    for (const entry of compilation.entrypoints.values()) {
       for (const chunk of entry.chunks) {
-        compilation.chunkGraph
-          .getChunkModules(chunk)
-          .forEach(({modules, userRequest}: any) => {
-            this.data[userRequest]?.forEach((request: string) => {
-              value.add(wordpress.transform(request).enqueue)
-            })
-            modules?.forEach(({userRequest}) => {
-              this.data[userRequest]?.forEach((request: string) => {
-                value.add(wordpress.transform(request).enqueue)
-              })
-            })
-          })
-      }
+        const moduleChunks = compilation.chunkGraph.getChunkModules(chunk)
 
-      Object.assign(this.data, {[name]: value})
-    })
+        for (const {modules, userRequest} of moduleChunks as any) {
+          if (this.requestData[userRequest]) {
+            for (const request of this.requestData[userRequest])
+              isProvided(request) && this.addRequest(entry.name, request)
+          }
+
+          if (modules) {
+            for (const {userRequest} of modules) {
+              if (this.requestData[userRequest]) {
+                for (const request of this.requestData[userRequest])
+                  isProvided(request) &&
+                    this.addRequest(entry.name, request)
+              }
+            }
+          }
+        }
+      }
+    }
   }
 
   /**
@@ -119,12 +129,17 @@ export default class WordPressDependenciesWebpackPlugin {
   public tapEntrypointsManifestObject(
     assets: Webpack.Compilation['assets'],
   ) {
-    return Object.entries(assets).reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key]: {...value, ...{dependencies: [...this.data[key]]}},
-      }),
-      {},
-    )
+    return Object.entries(assets)
+      .filter(([key]) => key in this.manifestData)
+      .reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: {
+            ...value,
+            ...{dependencies: [...this.manifestData[key]]},
+          },
+        }),
+        {},
+      )
   }
 }

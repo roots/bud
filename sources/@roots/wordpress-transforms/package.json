@@ -1,7 +1,7 @@
 {
-  "name": "@roots/wordpress-externals-webpack-plugin",
+  "name": "@roots/wordpress-transforms",
   "version": "0.0.0",
-  "description": "Webpack plugin to register WordPress dependencies as externals",
+  "description": "Transform requests for WordPress provided externals",
   "engines": {
     "node": ">=16"
   },
@@ -48,12 +48,24 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./handle": "./lib/handle.js",
+    "./requests": "./lib/requests.js",
+    "./window": "./lib/window.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "./handle": [
+        "./lib/handle.d.ts"
+      ],
+      "./requests": [
+        "./lib/requests.d.ts"
+      ],
+      "./window": [
+        "./lib/window.d.ts"
       ]
     }
   },
@@ -64,9 +76,7 @@
     "@types/node": "18.16.16"
   },
   "dependencies": {
-    "@roots/wordpress-transforms": "workspace:*",
-    "tslib": "2.5.3",
-    "webpack": "5.86.0"
+    "tslib": "2.5.3"
   },
   "volta": {
     "extends": "../../../package.json"
