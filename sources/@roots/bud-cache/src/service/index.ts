@@ -5,8 +5,6 @@ import type {Cache as BudCache} from '@roots/bud-framework/services'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
-import {hash} from '@roots/bud-support/utilities/args'
-import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
 /**
@@ -16,7 +14,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * Enabled
    */
-  public enabled: boolean = true
+  public enabled: boolean
 
   /**
    * {@link Extension.boot}
@@ -29,7 +27,7 @@ export default class Cache extends Service implements BudCache {
   }
 
   /**
-   * Cache dependencies
+   *{@link BudCache.buildDependencies}
    */
   public get buildDependencies(): Record<string, Array<string>> {
     return this.app.hooks.filter(`build.cache.buildDependencies`, {
@@ -41,12 +39,12 @@ export default class Cache extends Service implements BudCache {
       ].filter(Boolean),
     })
   }
-
   public set buildDependencies(
     dependencies: Record<string, Array<string>>,
   ) {
     this.app.hooks.on(`build.cache.buildDependencies`, dependencies)
   }
+
   /**
    * Cache directory
    */
@@ -56,12 +54,13 @@ export default class Cache extends Service implements BudCache {
       this.app.path(`@storage`, this.app.label, `cache`),
     )
   }
-
   public set cacheDirectory(directory: string) {
     this.app.hooks.on(`build.cache.cacheDirectory`, directory)
   }
+
   /**
-   * Webpack configuration
+   * {@link BudCache.configuration}
+   * @readonly
    */
   public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
@@ -80,10 +79,8 @@ export default class Cache extends Service implements BudCache {
       profile: this.app.context.debug === true,
       store: `pack`,
       type: this.type,
-      version: this.version,
     }
   }
-
   /**
    * Flush cache
    */
@@ -91,19 +88,29 @@ export default class Cache extends Service implements BudCache {
   public async flush(): Promise<void> {
     await this.app.fs.remove(this.cacheDirectory)
   }
+
   /**
-   * Type
+   * {@link BudCache.name}
    */
   public get name(): string {
     return this.app.hooks.filter(
       `build.cache.name`,
-      this.app.hooks.filter(`build.name`, join(`webpack`, this.app.mode)),
+      this.app.hooks.filter(
+        `build.name`,
+        join(this.app.mode, ...Object.values(this.app.context._ ?? {})),
+      ),
     )
   }
-
   public set name(name: string) {
     this.app.hooks.on(`build.cache.name`, name)
   }
+
+  @bind
+  public override async register(bud: Bud) {
+    this.enabled = bud.context.cache !== false
+    this.version = bud.context.bud.version
+  }
+
   /**
    * Type
    */
@@ -115,7 +122,6 @@ export default class Cache extends Service implements BudCache {
         : `filesystem`,
     )
   }
-
   public set type(type: 'filesystem' | 'memory') {
     this.app.hooks.on(`build.cache.type`, type)
   }
@@ -124,23 +130,8 @@ export default class Cache extends Service implements BudCache {
    * version
    */
   public get version(): string {
-    const version = createHash(`sha1`)
-
-    version.update(
-      [
-        hash,
-        ...Object.values(this.app.context.files)
-          .map(file => file.sha1)
-          .join(``),
-      ].join(``),
-    )
-
-    return this.app.hooks.filter(
-      `build.cache.version`,
-      version.digest(`base64`),
-    )
+    return this.app.hooks.filter(`build.cache.version`, undefined)
   }
-
   public set version(version: string) {
     this.app.hooks.on(`build.cache.version`, version)
   }

@@ -180,9 +180,7 @@ export class Dashboard extends Service implements BudDashboard {
     stats: StatsCompilation,
     status: false | string = false,
   ): this {
-    if (this.hashes.has(stats.hash)) return
-    if (stats.hash) this.hashes.add(stats.hash)
-
+    this.hashes.add(stats.hash)
     this.stats = stats
 
     if (this.app.context.ci === true) {

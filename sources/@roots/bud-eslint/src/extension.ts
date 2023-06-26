@@ -71,8 +71,8 @@ class BudEslint extends BudEslintPublicApi implements Api {
     /**
      * Add {@link config.path} to cache dependencies if available
      */
-    const configFile = Object.values(context.files).find(
-      ({file, name}) => file && name.includes(`eslint`),
+    const configFile = Object.values(context.files).find(({name}) =>
+      name.includes(`eslint`),
     )
 
     if (configFile) {

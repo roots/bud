@@ -4,7 +4,6 @@ import type {
 } from '@roots/wordpress-theme-json-webpack-plugin'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
-import isEqual from 'lodash/isEqual.js'
 import omit from 'lodash/omit.js'
 import {relative} from 'node:path'
 import {AsyncSeriesWaterfallHook, SyncWaterfallHook} from 'tapable'
@@ -19,28 +18,21 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  * ThemeJSONWebpackPlugin
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
-  public data: Record<string, any>
+  public data: Record<string, any> = {
+    __generated__: `⚠️ This file is generated. Do not edit.`,
+    $schema: `https://schemas.wp.org/trunk/theme.json`,
+    version: 2,
+  }
 
   /**
    * Class constructor
    *
    * @param options - Plugin options
    */
-  public constructor(public options: Options) {
-    if (!this.options) this.options = {path: `../theme.json`, version: 2}
-    if (!this.options.__generated__)
-      this.options.__generated__ = `⚠️ This file is generated. Do not edit.`
-    if (!this.options.$schema)
-      this.options.$schema = `https://schemas.wp.org/trunk/theme.json`
-    if (!this.options.version) this.options.version = 2
-    if (!this.options.path) this.options.path = `../theme.json`
-  }
+  public constructor(public options: Options) {}
 
   /**
-   * Compilation hooks
-   *
-   * @param compilation
-   * @returns
+   * {@see https://webpack.js.org/api/compilation-hooks/}
    */
   public static getCompilationHooks(
     compilation: Webpack.Compilation,
@@ -59,12 +51,11 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   }
 
   /**
-   * Apply plugin
-   *
-   * @param compiler - Webpack compiler
-   * @returns void
+   * {@link WebpackPluginInstance.apply}
    */
   public apply(compiler: Compiler) {
+    if (!this.options.path) this.options.path = `../theme.json`
+
     compiler.hooks.thisCompilation.tap(
       this.constructor.name,
       compilation => {
@@ -78,20 +69,16 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
               omit(this.options, `path`),
             )
 
-            if (!isEqual(data, this.data)) {
-              this.data = data
+            Object.assign(this.data, data)
 
-              const source = new compiler.webpack.sources.RawSource(
-                JSON.stringify(this.data, null, 2),
-              )
+            const source = new compiler.webpack.sources.RawSource(
+              JSON.stringify(this.data, null, 2),
+            )
 
-              const path = relative(
-                compilation.options.output.path,
-                this.options.path,
-              )
-
-              compilation.emitAsset(path, source)
-            }
+            compilation.emitAsset(
+              relative(compilation.options.output.path, this.options.path),
+              source,
+            )
           },
         )
       },

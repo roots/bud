@@ -2,7 +2,6 @@ import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
 
 import _get from '@roots/bud-support/lodash/get'
-import isEqual from '@roots/bud-support/lodash/isEqual'
 import omit from '@roots/bud-support/lodash/omit'
 import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
@@ -21,20 +20,15 @@ let paths: ReturnType<typeof getPaths>
 let transformer: esbuild.transformer
 
 interface File {
-  bud?: boolean
-  dir?: boolean
-  dynamic?: boolean
-  extension?: string
-  file?: boolean
-  local?: boolean
+  bud: boolean
+  local: boolean
   module?: () => Promise<any>
   name: string
   parsed: ReturnType<typeof parse>
   path: string
-  sha1?: string
-  static?: boolean
-  symlink?: boolean
-  type?: `base` | `development` | `production`
+  sha1: string
+  target: `base` | `development` | `production`
+  type: `file` | `json` | `module` | `symlink`
 }
 
 /**
@@ -49,13 +43,14 @@ const get = async (basedir: string) => {
   if (data && Object.entries(data).length) {
     logger.scope(`fs`).info(`Using existing instance data`)
     return data
-  } else {
-    logger.scope(`fs`).time(`Initializing filesystem`)
-    fs = filesystem.get(basedir)
-    paths = getPaths(basedir)
-    files = []
-    data = {}
   }
+
+  logger.scope(`fs`).time(`Initializing filesystem`)
+  files = []
+  data = {}
+
+  fs = filesystem.get(basedir)
+  paths = getPaths(basedir)
 
   await fs
     .list(basedir)
@@ -91,6 +86,7 @@ const get = async (basedir: string) => {
  */
 async function fetchFileInfo(filename: string) {
   const parsed = parse(filename)
+
   if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) {
     logger.info(`Skipping`, filename, `(lockfile)`)
     return
@@ -101,7 +97,7 @@ async function fetchFileInfo(filename: string) {
     return
   }
 
-  if (parsed.ext && !allCompatibleExtensions.includes(parsed.ext)) {
+  if (!parsed.ext || !allCompatibleExtensions.includes(parsed.ext)) {
     logger.info(`Skipping`, filename, `(unknown extension)`)
     return
   }
@@ -112,53 +108,56 @@ async function fetchFileInfo(filename: string) {
     mode: true,
     symlinks: `follow`,
   })
+  if (!inspect) return
 
-  if (!inspect?.name || inspect.type === `dir` || !inspect.absolutePath) {
-    logger.info(
-      `Skipping`,
-      inspect?.name,
-      inspect?.type,
-      inspect?.absolutePath,
-    )
+  const target = getFileTarget(inspect)
+  const type = getFileType(inspect, parsed)
+  const sha1 = inspect?.sha1 ?? ``
+
+  if (!inspect.name || !inspect.absolutePath || !type || !sha1) {
+    logger.info(`Skipping`, inspect?.name, type, inspect?.absolutePath)
     return
   }
 
   const file: File = {
-    ...omit(inspect, `absolutePath`),
-    bud: inspect.name.includes(`bud`) && inspect.type === `file`,
-    dir: isEqual(inspect.type, `dir`),
-    file: isEqual(inspect.type, `file`),
+    ...omit(inspect, `absolutePath`, `type`),
+    bud: inspect.name.includes(`bud`),
     local: inspect.name.includes(`local`),
-    parsed: parse(inspect.absolutePath),
+    parsed,
     path: inspect.absolutePath,
-    symlink: isEqual(inspect.type, `symlink`),
-    type: getFileType(inspect),
+    sha1,
+    target,
+    type,
   }
-
-  Object.assign(file, {
-    dynamic: isDynamicConfig(file),
-    extension: file.parsed?.ext.replace(`.`, ``),
-    static: isStaticConfig(file),
-  })
 
   /**
    * Static config files
    */
-  if (file.static) {
+  if (file.type === `file` || file.type === `json`) {
     file.module = async () => await fs.read(file.path)
   }
 
   /**
    * Import dynamic config files
    */
-  if (file.dynamic) {
+  if (file.type === `module`) {
     file.module = async () => {
       logger.scope(`fs`).time(`loading ${file.name}`)
-      const currentState = await fs.inspect(file.path, {
-        checksum: `sha1`,
-      })
-      if (!currentState?.sha1)
-        throw new Error(`No checksum found for ${file.name}`)
+      const current = await fs
+        .inspect(file.path, {
+          checksum: `sha1`,
+        })
+        .catch(error => {
+          throw error
+        })
+
+      // duck type sha1 property from fs-jetpack
+      if (
+        !current ||
+        !(`sha1` in current) ||
+        typeof current.sha1 !== `string`
+      )
+        throw new Error(`Problem inspecting ${file.name} (${file.path})`)
 
       const extension = [`.cjs`, `.cts`].includes(file.parsed.ext)
         ? `.cjs`
@@ -167,20 +166,21 @@ async function fetchFileInfo(filename: string) {
       const outfile = join(
         paths.storage,
         `configs`,
-        `${currentState.sha1}${extension}`,
+        `${current.sha1}${extension}`,
       )
 
-      const modified = currentState.sha1 !== file.sha1
+      const modified = current.sha1 !== file.sha1
       const uncompiled = !(await fs.exists(outfile))
 
       if (modified || uncompiled) {
         if (uncompiled) {
           logger.log(`${file.name} has not been compiled yet`)
         } else if (modified) {
-          logger.log(`${file.name} has been modified since last imported`)
+          logger.log(`${file.name} has been modified since last compiled`)
         }
+
         // Update the hash to the current state
-        file.sha1 = currentState.sha1
+        file.sha1 = current.sha1
 
         await transformConfig({file, outfile}).catch(error => {
           throw error
@@ -235,28 +235,6 @@ async function transformConfig({
 }
 
 /**
- * Returns true if the file is a static config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isStaticConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
-  return jsonExtensions.includes(file.parsed.ext)
-}
-
-/**
- * Returns true if the file is a dynamic config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isDynamicConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
-  return moduleExtensions.includes(file.parsed.ext)
-}
-
-/**
  * Upate checksums for found configs
  * @returns
  */
@@ -300,9 +278,26 @@ async function verifyResolutionCache() {
 }
 
 /**
+ * Returns a description of the file type being inspected
+ * based on the file extension and inspect result
+ */
+function getFileType(
+  file: {
+    type: `dir` | `file` | `symlink` | undefined
+  },
+  {ext}: {ext: string},
+): `file` | `json` | `module` | `symlink` | false {
+  if (file.type === `symlink`) return `symlink`
+  if (moduleExtensions.includes(ext)) return `module`
+  if (jsonExtensions.includes(ext)) return `json`
+  if (file.type === `file`) return `file`
+  return false
+}
+
+/**
  * Returns string value representing if filename contains `.development`, `.production`, or neither
  */
-function getFileType(file: {name?: string}) {
+function getFileTarget(file: {name?: string}) {
   if (file.name?.includes(`production`)) return `production`
   if (file.name?.includes(`development`)) return `development`
   return `base`

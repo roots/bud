@@ -66,8 +66,8 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
    */
   @bind
   public override async register({context}: Bud) {
-    const configFile = Object.values(context.files).find(
-      ({file, name}) => file && name.includes(`stylelint`),
+    const configFile = Object.values(context.files).find(({name}) =>
+      name.includes(`stylelint`),
     )
     if (!configFile) return
 

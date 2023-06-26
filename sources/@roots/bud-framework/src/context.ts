@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {parse} from 'path'
 
 /**
  * Bud context object
@@ -504,21 +505,6 @@ export interface File {
   bud: boolean
 
   /**
-   * Is a `directory` (as opposed to a file)
-   */
-  dir: boolean
-
-  /**
-   * File extension
-   */
-  extension: null | string
-
-  /**
-   * Is a `file` (as opposed to a directory)
-   */
-  file: boolean
-
-  /**
    * Is a local configuration file
    *
    * @remarks
@@ -542,6 +528,11 @@ export interface File {
   name: string
 
   /**
+   * Parsed file path
+   */
+  parsed: ReturnType<typeof parse>
+
+  /**
    * Absolute filepath
    */
   path: string
@@ -557,15 +548,15 @@ export interface File {
   size: number
 
   /**
-   * Is a symlink
-   */
-  symlink: boolean
-
-  /**
    * Target environment config
    *
    * @remarks
    * File name includes `.production` or `.development`
    */
-  type: `base` | `development` | `production`
+  target: `base` | `development` | `production`
+
+  /**
+   * File type
+   */
+  type: `file` | `json` | `module`
 }

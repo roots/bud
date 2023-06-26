@@ -26,8 +26,6 @@ import * as tailwindAdapter from './tailwind/index.js'
   fontSizesExtendOnly: false,
 })
 export class TailwindThemeJSON extends Extension {
-  public currentHash: string
-
   @bind
   public override apply(compiler: Compiler) {
     compiler.hooks.thisCompilation.tap(

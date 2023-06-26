@@ -1,4 +1,6 @@
-import {asError, BudError, ConfigError} from '@roots/bud-support/errors'
+import type {File} from '@roots/bud-framework/context'
+
+import {BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 
 import type {Bud} from '../index.js'
@@ -10,147 +12,58 @@ import Configuration from './configuration.js'
  */
 export const process = async (app: Bud) => {
   const configuration = new Configuration(app)
-  const configs = Object.values(app.context.files).filter(({bud}) => bud)
 
-  const findConfigs = (ofType: string, isLocal: boolean) =>
+  const configs: Array<File> = Object.values(app.context.files).filter(
+    ({bud}) => bud,
+  )
+
+  const find = (targeting: string, dotLocal: boolean) =>
     sortBy(
       configs
-        .filter(({type}) => type === ofType)
-        .filter(({local}) => local === isLocal),
+        .filter(({target}) => target === targeting)
+        .filter(({local}) => local === dotLocal),
       `name`,
     )
+
+  const processConfig = async (file: File) => {
+    app.log(`processing`, file.name)
+    await configuration.run(file).catch(makeErrorHandler(file))
+    await app.api.processQueue().catch(makeErrorHandler(file))
+  }
 
   // process any queued api calls
   await app.api.processQueue()
 
-  await Promise.all(
-    findConfigs(`base`, false).map(async description => {
-      app.log(`processing base configuration`, description.name)
+  await Promise.all(find(`base`, false).map(processConfig))
+  await Promise.all(find(`base`, true).map(processConfig))
+  await Promise.all(find(app.mode, false).map(processConfig))
+  await Promise.all(find(app.mode, true).map(processConfig))
 
-      try {
-        await configuration.run(description)
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
+  await app.hooks.fire(`config.after`, app).catch(error => {
+    throw error
+  })
 
-      try {
-        await app.api.processQueue()
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-    }),
-  )
+  if (!app.hasChildren) return
 
   await Promise.all(
-    findConfigs(`base`, true).map(async description => {
-      app.log(`processing local configuration`, description.name)
-
-      try {
-        await configuration.run(description)
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-
-      try {
-        await app.api.processQueue()
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
+    Object.values(app.children).map(async child => {
+      await child.api.processQueue().catch(error => {
+        throw error
+      })
+      await child.hooks.fire(`config.after`, app).catch(error => {
+        throw error
+      })
     }),
   )
-
-  await Promise.all(
-    findConfigs(app.mode, false).map(async description => {
-      app.log(`processing ${app.mode} configuration`, description.name)
-      try {
-        await configuration.run(description)
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-
-      try {
-        await app.api.processQueue()
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-    }),
-  )
-
-  await Promise.all(
-    findConfigs(app.mode, true).map(async description => {
-      app.log(
-        `processing ${app.mode} local configuration`,
-        description.name,
-      )
-      try {
-        await configuration.run(description)
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-      try {
-        await app.api.processQueue()
-      } catch (err) {
-        throw new ConfigError(`Error in ${description.name}`, {
-          props: {
-            file: description,
-            origin: err.isBudError ? err : BudError.normalize(err),
-          },
-        })
-      }
-    }),
-  )
-
-  try {
-    await app.hooks.fire(`config.after`, app)
-  } catch (err) {
-    throw err.isBudError ? err : BudError.normalize(err)
-  }
-
-  if (app.hasChildren) {
-    await Promise.all(
-      Object.values(app.children).map(async child => {
-        try {
-          await child.api.processQueue()
-          await child.hooks.fire(`config.after`, app)
-        } catch (err) {
-          throw new BudError(asError(err).message)
-        }
-      }),
-    )
-  }
 }
+
+const makeErrorHandler =
+  (file: File) => (error: Error & {isBudError?: boolean}) => {
+    if (error.isBudError) throw error
+    throw new ConfigError(`Error in ${file.name}`, {
+      props: {
+        file,
+        origin: BudError.normalize(error),
+      },
+    })
+  }
