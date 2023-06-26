@@ -2,6 +2,7 @@
 
 exports[`examples/basic > should compile js and css as expected 1`] = `
 {
+  "entrypoints.json": "entrypoints.json",
   "main.css": "css/main.css",
   "main.js": "js/main.js",
   "runtime.js": "js/runtime.js",

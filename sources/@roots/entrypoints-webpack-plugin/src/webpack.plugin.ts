@@ -50,9 +50,11 @@ export class EntrypointsWebpackPlugin {
     if (!this.options.type) {
       this.options.type = `object`
     }
+
     if (!this.options.publicPath || this.options.publicPath === `auto`) {
       this.options.publicPath = ``
     }
+
     if (!this.options.name) {
       this.options.name = `entrypoints.json`
     }
@@ -92,8 +94,10 @@ export class EntrypointsWebpackPlugin {
   }) {
     if (this.options.type === `object`) {
       if (!this.entrypoints[ident]) this.entrypoints[ident] = {}
+
       if (!this.entrypoints[ident][type])
         this.entrypoints[ident][type] = []
+
       this.entrypoints[ident][type] = uniq([
         ...this.entrypoints[ident][type],
         path,
@@ -112,12 +116,12 @@ export class EntrypointsWebpackPlugin {
     compiler.hooks.thisCompilation.tap(
       this.constructor.name,
       compilation => {
-        compilation.hooks.processAssets.tapAsync(
+        compilation.hooks.processAssets.tapPromise(
           {
             name: this.constructor.name,
             stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
           },
-          async (assets, callback) => {
+          async assets => {
             const hooks =
               EntrypointsWebpackPlugin.getCompilationHooks(compilation)
             hooks.compilation.call(compilation)
@@ -131,7 +135,7 @@ export class EntrypointsWebpackPlugin {
             if (!this.entrypoints) {
               this.entrypoints = {}
 
-              compilation.entrypoints.forEach(entry => {
+              for (const entry of compilation.entrypoints.values()) {
                 this.getChunkedFiles(entry.chunks).map(({file}) => {
                   const ident = entry.name
                   const path = this.options.publicPath.concat(file)
@@ -139,7 +143,7 @@ export class EntrypointsWebpackPlugin {
 
                   this.addToManifest({ident, path, type})
                 })
-              })
+              }
 
               await cache.storePromise(
                 `entrypoints`,
@@ -162,8 +166,6 @@ export class EntrypointsWebpackPlugin {
               new compiler.webpack.sources.RawSource(
                 JSON.stringify(this.entrypoints, null, 2),
               )
-
-            callback()
           },
         )
       },

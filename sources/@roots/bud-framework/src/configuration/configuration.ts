@@ -22,25 +22,9 @@ class Configuration {
    * Process dynamic configuration
    */
   @bind
-  public async dynamicConfig(description: any): Promise<unknown> {
-    this.bud.log(`processing as dynamic configuration:`, description.name)
-
-    if (!description.module) {
-      throw new Error(
-        `There should be a module to load from ${description.name}, but it's missing.`,
-      )
-    }
-
-    const config = await description.module()
-
-    if (!isFunction(config)) {
-      this.bud.log(
-        description.name,
-        `does not export a function. maybe it is a script?`,
-      )
-      return
-    }
-
+  public async dynamicConfig(
+    config: (bud: Bud) => Promise<any>,
+  ): Promise<unknown> {
     try {
       return await config(this.bud)
     } catch (cause) {
@@ -80,12 +64,14 @@ class Configuration {
       return v
     })
 
-    if (isFunction(request)) await request(...parsedValue)
+    if (isFunction(request)) await Promise.resolve(request(...parsedValue))
 
     if (isObject(request))
       await Promise.all(
         Object.entries(value).map(async ([key, value]) => {
-          return await this.handleConfigEntry(request, [key, value])
+          return await Promise.resolve(
+            this.handleConfigEntry(request, [key, value]),
+          )
         }),
       )
   }
@@ -94,7 +80,7 @@ class Configuration {
    * Process configuration
    */
   @bind
-  public async run(description: File): Promise<unknown> {
+  public async run(description: File): Promise<void> {
     if (!description?.module) {
       throw new BudError(`No module found`, {
         props: {
@@ -104,20 +90,22 @@ class Configuration {
       })
     }
 
-    return description.dynamic
-      ? await this.dynamicConfig(description)
-      : await this.staticConfig(description)
+    const config = await description.module()
+
+    isFunction(config)
+      ? await this.dynamicConfig(config)
+      : await this.staticConfig(config)
   }
 
   /**
    * Process static configuration
    */
   @bind
-  public async staticConfig(description: File): Promise<unknown> {
-    this.bud.log(`processing as static configuration:`, description.name)
-
+  public async staticConfig(
+    config: Record<string, any>,
+  ): Promise<unknown> {
     return await Promise.all(
-      Object.entries(description.module).map(async ([key, value]) => {
+      Object.entries(config).map(async ([key, value]) => {
         await this.handleConfigEntry(this.bud, [key, value])
       }),
     )

@@ -96,7 +96,7 @@ class BudTailwindOptionsApi
         ...config,
         theme: {
           ...(config?.theme ?? {}),
-          extend: {...(config.theme?.extend ?? {}), ...value},
+          extend: {...(config?.theme?.extend ?? {}), ...value},
         },
       }))
       this.resolveConfig()
@@ -108,7 +108,7 @@ class BudTailwindOptionsApi
       ...config,
       theme: {
         ...(config?.theme ?? {}),
-        extend: {...(config.theme?.extend ?? {}), [key]: value},
+        extend: {...(config?.theme?.extend ?? {}), [key]: value},
       },
     }))
     this.resolveConfig()
@@ -136,6 +136,8 @@ class BudTailwindOptionsApi
   public generateImports(
     imports: Array<`${keyof ThemeConfig & string}`> | boolean = true,
   ) {
+    this.resolveConfig()
+
     const makeStaticModule = (key: keyof ThemeConfig) => {
       const value = get(this.resolvedConfig.theme, key)
       this.logger.log(`@tailwind/${key}: generating module`)
@@ -283,14 +285,13 @@ class BudTailwindOptionsApi
   @bind
   public async sourceConfig(): Promise<void> {
     try {
-      const foundConfig = Object.values(this.app.context.files).find(
-        file => file.name?.includes(`tailwind.config`),
+      const config = Object.values(this.app.context.files).find(file =>
+        file.name?.includes(`tailwind.config`),
       )
+      if (!config) return
 
-      if (foundConfig) {
-        !this.configPath && this.setConfigPath(foundConfig.path)
-        this.setConfig({...foundConfig.module})
-      }
+      config.path && this.setConfigPath(config.path)
+      config.module && this.setConfig({...(await config.module())})
       this.resolveConfig()
     } catch (err) {}
   }

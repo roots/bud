@@ -72,7 +72,10 @@ class BudTailwindCss extends BudTailwindOptionsApi {
   @bind
   public override async configAfter(bud: Bud) {
     this.setResolvedConfig(this.resolveConfig())
-    bud.postcss.setPluginOptions(`tailwindcss`, this.config)
+    bud.postcss.setPluginOptions(
+      `tailwindcss`,
+      this.configPath ?? (this.config as any),
+    )
   }
 
   /**

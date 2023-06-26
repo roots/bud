@@ -1,7 +1,6 @@
 import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
 
-import {BudError, ModuleError} from '@roots/bud-support/errors'
 import _get from '@roots/bud-support/lodash/get'
 import isEqual from '@roots/bud-support/lodash/isEqual'
 import omit from '@roots/bud-support/lodash/omit'
@@ -9,17 +8,17 @@ import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import * as filesystem from '@roots/bud-support/utilities/filesystem'
 import {get as getPaths} from '@roots/bud-support/utilities/paths'
-import {dirname, join, parse} from 'node:path'
+import {join, parse} from 'node:path'
 
-const DYNAMIC_EXTENSIONS = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
-const STATIC_EXTENSIONS = [`.json`, `.json5`, `.yml`, `.yaml`]
-const COMPATIBLE_EXTENSIONS = [...DYNAMIC_EXTENSIONS, ...STATIC_EXTENSIONS]
+const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
+const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]
+const allCompatibleExtensions = [...moduleExtensions, ...jsonExtensions]
 
-let transformer: esbuild.transformer
+let files: Array<string>
 let fs: Filesystem
 let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>
-let files: Array<string>
+let transformer: esbuild.transformer
 
 interface File {
   bud?: boolean
@@ -28,7 +27,7 @@ interface File {
   extension?: string
   file?: boolean
   local?: boolean
-  module?: Function | Record<string, any>
+  module?: () => Promise<any>
   name: string
   parsed: ReturnType<typeof parse>
   path: string
@@ -102,7 +101,7 @@ async function fetchFileInfo(filename: string) {
     return
   }
 
-  if (parsed.ext && !COMPATIBLE_EXTENSIONS.includes(parsed.ext)) {
+  if (parsed.ext && !allCompatibleExtensions.includes(parsed.ext)) {
     logger.info(`Skipping`, filename, `(unknown extension)`)
     return
   }
@@ -145,84 +144,54 @@ async function fetchFileInfo(filename: string) {
   /**
    * Static config files
    */
-  if (file.static && file.file) {
-    try {
-      file.module = await fs.read(file.path)
-    } catch (cause) {
-      handleBudError(cause, file)
-    }
+  if (file.static) {
+    file.module = async () => await fs.read(file.path)
   }
 
   /**
    * Import dynamic config files
    */
-  if (file.dynamic && file.file) {
-    const tmpDir = dirname(file.path)
-    const tmpPath = join(
-      tmpDir,
-      `${file.sha1}${file.parsed.ext.replace(`ts`, `js`)}`,
-    )
-    const cachePath = join(
-      paths.storage,
-      `conf`,
-      `${file.sha1}${file.parsed.ext.replace(`ts`, `js`)}`,
-    )
+  if (file.dynamic) {
+    file.module = async () => {
+      logger.scope(`fs`).time(`loading ${file.name}`)
+      const currentState = await fs.inspect(file.path, {
+        checksum: `sha1`,
+      })
+      if (!currentState?.sha1)
+        throw new Error(`No checksum found for ${file.name}`)
 
-    try {
-      const getModuleValue = async () => {
-        try {
-          logger.scope(`fs`).time(`loading ${file.name}`)
+      const extension = [`.cjs`, `.cts`].includes(file.parsed.ext)
+        ? `.cjs`
+        : `.mjs`
 
-          if ([`.cts`, `.mts`, `.ts`].includes(file.parsed.ext)) {
-            if (!(await fs.exists(cachePath))) {
-              logger
-                .scope(`fs`)
-                .log(
-                  `${file.name} does not exist in cache. running transform.`,
-                  `file will be cached to ${cachePath}`,
-                )
+      const outfile = join(
+        paths.storage,
+        `configs`,
+        `${currentState.sha1}${extension}`,
+      )
 
-              await transformConfig({cachePath, file}).catch(error => {
-                throw error
-              })
-            }
+      const modified = currentState.sha1 !== file.sha1
+      const uncompiled = !(await fs.exists(outfile))
 
-            logger.scope(`fs`).info(`copying`, cachePath, `to`, tmpPath)
-            await fs.copy(cachePath, tmpPath, {overwrite: true})
-
-            logger.scope(`fs`).info(`importing`, tmpPath)
-            const importValue = await import(tmpPath)
-
-            const value = importValue?.default ?? importValue
-
-            logger.scope(`fs`).info(`removing`, tmpPath)
-            await fs.remove(tmpPath)
-
-            return value
-          }
-
-          const importValue = await import(file.path)
-
-          logger.scope(`fs`).timeEnd(`loading ${file.name}`)
-
-          return importValue?.default ?? importValue
-        } catch (cause) {
-          await fs.remove(tmpPath)
-          throw cause
+      if (modified || uncompiled) {
+        if (uncompiled) {
+          logger.log(`${file.name} has not been compiled yet`)
+        } else if (modified) {
+          logger.log(`${file.name} has been modified since last imported`)
         }
+        // Update the hash to the current state
+        file.sha1 = currentState.sha1
+
+        await transformConfig({file, outfile}).catch(error => {
+          throw error
+        })
       }
 
-      if (file.bud) {
-        file.module = async () =>
-          await getModuleValue().catch(error => {
-            throw BudError.normalize(error)
-          })
-      } else {
-        file.module = await getModuleValue()
-      }
-    } catch (cause) {
-      await fs.remove(tmpPath)
-      throw cause
+      const value = await import(outfile).catch(error => {
+        throw error
+      })
+
+      return value?.default ?? value
     }
   }
 
@@ -236,16 +205,16 @@ async function fetchFileInfo(filename: string) {
  * @param cachePath - Path to cache file
  */
 async function transformConfig({
-  cachePath,
   file,
+  outfile,
 }: {
-  cachePath: string
   file: File
+  outfile: string
 }): Promise<any> {
   logger.time(`compiling ${file.name}`)
 
   if (!transformer) {
-    transformer = await import(`../esbuild/index.js`)
+    transformer = await import(`@roots/bud-support/esbuild`)
       .then(
         async ({getImplementation}) => await getImplementation(file.path),
       )
@@ -255,45 +224,14 @@ async function transformConfig({
   }
 
   await transformer.build({
+    allowOverwrite: true,
     entryPoints: [file.path],
-    outfile: cachePath,
+    nodePaths: [paths.basedir, join(paths.basedir, `node_modules`)],
+    outfile,
     platform: `node`,
   })
 
-  file.path = cachePath
-
   logger.timeEnd(`compiling ${file.name}`)
-}
-
-/**
- * Handle bud errors
- *
- * @param ErrorClass - Error class to throw
- * @param cause - Caught exception
- * @param file - File that caused the error
- */
-async function handleBudError(cause: unknown, file: File) {
-  if (typeof file.name !== `string`) return
-  if (typeof file.dynamic !== `boolean`) return
-
-  /**
-   * Construct {@link BudError} object
-   */
-  const error = ModuleError.normalize(cause)
-
-  /* Throw if error occured in a bud config */
-  if (file.name?.includes(`bud`)) throw error
-
-  /* Otherwise, just log it */
-  logger
-    .scope(`fs`, file.name)
-    .warn(
-      `${file.name} causes an exception when ${
-        file.dynamic ? `imported` : `read`
-      }.`,
-      `\nSince ${file.name} does not appear to be a bud configuration file, bud.js is not throwing. Original error follows:`,
-      `\n\n${error.origin}`,
-    )
 }
 
 /**
@@ -304,7 +242,7 @@ async function handleBudError(cause: unknown, file: File) {
  */
 function isStaticConfig(file?: File) {
   if (!file?.parsed?.ext) return false
-  return STATIC_EXTENSIONS.includes(file.parsed.ext)
+  return jsonExtensions.includes(file.parsed.ext)
 }
 
 /**
@@ -315,7 +253,7 @@ function isStaticConfig(file?: File) {
  */
 function isDynamicConfig(file?: File) {
   if (!file?.parsed?.ext) return false
-  return DYNAMIC_EXTENSIONS.includes(file.parsed.ext)
+  return moduleExtensions.includes(file.parsed.ext)
 }
 
 /**

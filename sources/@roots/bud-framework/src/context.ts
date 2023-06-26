@@ -502,21 +502,17 @@ export interface File {
    * File name contains `bud`.
    */
   bud: boolean
+
   /**
    * Is a `directory` (as opposed to a file)
    */
   dir: boolean
-  /**
-   * Is a dynamic configuration file
-   *
-   * @remarks
-   * File extension is `.cjs`, `mjs`, `.js` or `.ts`
-   */
-  dynamic: boolean
+
   /**
    * File extension
    */
   extension: null | string
+
   /**
    * Is a `file` (as opposed to a directory)
    */
@@ -536,9 +532,9 @@ export interface File {
   mode: number
 
   /**
-   * Module (if file is a dynamic configuration file)
+   * Module importer
    */
-  module: any
+  module: () => Promise<any>
 
   /**
    * Filename

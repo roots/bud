@@ -80,7 +80,7 @@ export class Bud {
   public declare implementation: new () => Bud
 
   /**
-   * @deprecated Use {@link bud.fs.json | bud.fs.json}
+   * @deprecated Use {@link bud.fs}
    * @readonly
    */
   public declare json: FS['json']
@@ -126,7 +126,7 @@ export class Bud {
   public declare when: typeof methods.when
 
   /**
-   * @deprecated Use {@link bud.fs.yml | bud.fs.yml}
+   * @deprecated Use {@link Bud.fs}
    * @readonly
    */
   public declare yml: FS['yml']

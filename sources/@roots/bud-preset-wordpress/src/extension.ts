@@ -97,12 +97,9 @@ export default class BudPresetWordPress extends Extension<Options> {
    * @todo remove in bud 7.0.0
    */
   public async compilerCheck({context}: Bud) {
-    const manifest = context?.files?.[`package.json`]?.module
-    if (!manifest) return
-
     const explicitDependencies = Object.keys({
-      ...(manifest.dependencies ?? {}),
-      ...(manifest.devDependencies ?? {}),
+      ...(context.manifest?.dependencies ?? {}),
+      ...(context.manifest?.devDependencies ?? {}),
     })
 
     const supportedCompilers = [

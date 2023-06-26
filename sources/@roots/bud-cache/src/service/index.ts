@@ -80,6 +80,7 @@ export default class Cache extends Service implements BudCache {
       profile: this.app.context.debug === true,
       store: `pack`,
       type: this.type,
+      version: this.version,
     }
   }
 

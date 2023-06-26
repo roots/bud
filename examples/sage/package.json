@@ -1,7 +1,6 @@
 {
   "name": "@examples/sage",
   "private": true,
-  "packageManager": "npm@8.19.2",
   "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",

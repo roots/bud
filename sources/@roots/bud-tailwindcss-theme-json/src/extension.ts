@@ -26,6 +26,8 @@ import * as tailwindAdapter from './tailwind/index.js'
   fontSizesExtendOnly: false,
 })
 export class TailwindThemeJSON extends Extension {
+  public currentHash: string
+
   @bind
   public override apply(compiler: Compiler) {
     compiler.hooks.thisCompilation.tap(
@@ -33,19 +35,30 @@ export class TailwindThemeJSON extends Extension {
       compilation => {
         const hooks = WordPressJSONPlugin.getCompilationHooks(compilation)
 
-        hooks.options.tap(`@roots/bud-tailwindcss-theme-json`, data => {
-          if (this.options.colors) {
-            data = this.tapColorsManifestObject(data)
-          }
-          if (this.options.fontFamilies) {
-            data = this.tapFontFamiliesManifestObject(data)
-          }
-          if (this.options.fontSizes) {
-            data = this.tapFontSizesManifestObject(data)
-          }
+        hooks.dependencies.tap(
+          `@roots/bud-tailwindcss-theme-json`,
+          dependencies => [...dependencies, this.app.tailwind.configPath],
+        )
 
-          return data
-        })
+        hooks.options.tapPromise(
+          `@roots/bud-tailwindcss-theme-json`,
+          async data => {
+            if (this.app.isDevelopment)
+              await this.app.tailwind.sourceConfig()
+
+            if (this.options.colors) {
+              data = this.tapColorsManifestObject(data)
+            }
+            if (this.options.fontFamilies) {
+              data = this.tapFontFamiliesManifestObject(data)
+            }
+            if (this.options.fontSizes) {
+              data = this.tapFontSizesManifestObject(data)
+            }
+
+            return data
+          },
+        )
       },
     )
   }

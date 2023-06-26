@@ -54,12 +54,7 @@ export type Api = PublicExtensionApi<BudStylelintPublicApi, Options> & {
   cacheLocation: DynamicOption.make(({cache, path}) =>
     path(cache.cacheDirectory, `stylelint.json`),
   ),
-  config: DynamicOption.make(
-    ({context}) =>
-      Object.values(context.files ?? {}).find(({name}) =>
-        name.includes(`stylelint`),
-      )?.module ?? undefined,
-  ),
+  config: undefined,
   context: DynamicOption.make(({path}) => path(`@src`)),
   failOnError: DynamicOption.make(({isProduction}) => isProduction),
   failOnWarning: false,

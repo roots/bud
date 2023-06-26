@@ -43,9 +43,6 @@ describe(`@roots/bud-preset-wordpress`, () => {
     expect(bud.extensions.has(`@roots/bud-postcss`)).toBe(true)
     expect(bud.extensions.has(`@roots/bud-react`)).toBe(true)
     expect(
-      bud.extensions.get(`@roots/bud-wordpress-manifests`),
-    ).toBeTruthy()
-    expect(
       bud.extensions.get(`@roots/bud-wordpress-theme-json`),
     ).toBeTruthy()
   })

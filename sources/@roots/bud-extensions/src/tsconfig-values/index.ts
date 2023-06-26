@@ -259,22 +259,20 @@ export default class BudTsConfigValues
    * {@link Extension.register}
    */
   public override async register(bud: Bud) {
-    const tsConfig = this.tsConfigSource
+    const getConfig =
+      bud.context.files[`tsconfig.json`]?.module ??
+      bud.context.files[`jsconfig.json`]?.module
+    if (!getConfig) return
 
-    if (this.tsConfigSource?.compilerOptions)
+    const tsConfig = await getConfig()
+    if (!tsConfig) return
+
+    if (tsConfig.compilerOptions)
       this.setCompilerOptions(tsConfig.compilerOptions)
 
-    if (this.tsConfigSource?.include) this.setInclude(tsConfig.include)
-    if (this.tsConfigSource?.exclude) this.setExclude(tsConfig.exclude)
-    if (this.tsConfigSource?.bud) this.setBud(tsConfig.bud)
-
-    if (this.bud?.useCompilerOptions === true) this.enable()
-  }
-
-  public get tsConfigSource(): Options | undefined {
-    return (
-      this.app.context.files[`tsconfig.json`]?.module ??
-      this.app.context.files[`jsconfig.json`]?.module
-    )
+    tsConfig.include && this.setInclude(tsConfig.include)
+    tsConfig.exclude && this.setExclude(tsConfig.exclude)
+    tsConfig.bud && this.setBud(tsConfig.bud)
+    tsConfig.bud?.useCompilerOptions && this.enable()
   }
 }

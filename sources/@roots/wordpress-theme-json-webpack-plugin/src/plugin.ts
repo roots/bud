@@ -4,6 +4,7 @@ import type {
 } from '@roots/wordpress-theme-json-webpack-plugin'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
+import isEqual from 'lodash/isEqual.js'
 import omit from 'lodash/omit.js'
 import {relative} from 'node:path'
 import {AsyncSeriesWaterfallHook, SyncWaterfallHook} from 'tapable'
@@ -18,6 +19,8 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  * ThemeJSONWebpackPlugin
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
+  public data: Record<string, any>
+
   /**
    * Class constructor
    *
@@ -25,7 +28,6 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    */
   public constructor(public options: Options) {
     if (!this.options) this.options = {path: `../theme.json`, version: 2}
-
     if (!this.options.__generated__)
       this.options.__generated__ = `⚠️ This file is generated. Do not edit.`
     if (!this.options.$schema)
@@ -71,19 +73,25 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
 
         compilation.hooks.processAssets.tapPromise(
           this.plugin,
-          async assets => {
+          async () => {
             const data = await hooks.options.promise(
               omit(this.options, `path`),
             )
-            const source = new compiler.webpack.sources.RawSource(
-              JSON.stringify(data, null, 2),
-            )
-            const path = relative(
-              compilation.options.output.path,
-              this.options.path,
-            )
 
-            compilation.emitAsset(path, source)
+            if (!isEqual(data, this.data)) {
+              this.data = data
+
+              const source = new compiler.webpack.sources.RawSource(
+                JSON.stringify(this.data, null, 2),
+              )
+
+              const path = relative(
+                compilation.options.output.path,
+                this.options.path,
+              )
+
+              compilation.emitAsset(path, source)
+            }
           },
         )
       },
