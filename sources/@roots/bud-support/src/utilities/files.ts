@@ -1,5 +1,6 @@
 import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
+import type {InspectResult} from '@roots/filesystem/filesystem'
 
 import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/lodash/get'
@@ -46,6 +47,7 @@ const get = async (basedir: string) => {
   }
 
   logger.scope(`fs`).time(`Initializing filesystem`)
+
   files = []
   data = {}
 
@@ -105,16 +107,15 @@ async function fetchFileInfo(filename: string) {
   const inspect = await fs.inspect(filename, {
     absolutePath: true,
     checksum: `sha1`,
-    mode: true,
     symlinks: `follow`,
   })
-  if (!inspect) return
+
+  if (!validInspectResult(inspect)) return
 
   const target = getFileTarget(inspect)
   const type = getFileType(inspect, parsed)
-  const sha1 = inspect?.sha1 ?? ``
 
-  if (!inspect.name || !inspect.absolutePath || !type || !sha1) {
+  if (!type) {
     logger.info(`Skipping`, inspect?.name, type, inspect?.absolutePath)
     return
   }
@@ -125,7 +126,6 @@ async function fetchFileInfo(filename: string) {
     local: inspect.name.includes(`local`),
     parsed,
     path: inspect.absolutePath,
-    sha1,
     target,
     type,
   }
@@ -145,21 +145,29 @@ async function fetchFileInfo(filename: string) {
       logger.scope(`fs`).time(`loading ${file.name}`)
 
       const current = await fs
-        .inspect(file.path, {checksum: `sha1`})
+        .inspect(file.path, {
+          absolutePath: true,
+          checksum: `sha1`,
+          symlinks: `follow`,
+        })
         .catch(error => {
           throw error
         })
 
-      // duck type sha1 property from fs-jetpack
-      if (
-        !current ||
-        !(`sha1` in current) ||
-        typeof current.sha1 !== `string`
-      )
+      if (!validInspectResult(current)) {
+        logger.error(file)
         throw new Error(`Problem inspecting ${file.name} (${file.path})`)
+      }
 
+      /**
+       * Handle non-typescript files using native esm loader
+       */
       if (!file.parsed.ext.startsWith(`.t`)) {
+        /**
+         * bust the cache with the {@link current} sha1
+         */
         const value = await import(file.path.concat(`?v=${current.sha1}`))
+
         logger
           .scope(`fs`)
           .info(`loading ${file.name}`, value)
@@ -182,16 +190,15 @@ async function fetchFileInfo(filename: string) {
       const uncompiled = !(await fs.exists(outfile))
 
       if (modified || uncompiled) {
-        if (uncompiled) {
+        if (uncompiled)
           logger.log(`${file.name} has not been compiled yet`)
-        } else if (modified) {
+        else if (modified)
           logger.log(`${file.name} has been modified since last compiled`)
-        }
 
         // Update the hash to the current state
         file.sha1 = current.sha1
 
-        await transformConfig({file, outfile}).catch(error => {
+        await esTransform({file, outfile}).catch(error => {
           throw error
         })
       }
@@ -209,13 +216,7 @@ async function fetchFileInfo(filename: string) {
   Object.assign(data, {[file.name]: file})
 }
 
-/**
- * Transform import
- *
- * @param file - File to transform
- * @param cachePath - Path to cache file
- */
-async function transformConfig({
+async function esTransform({
   file,
   outfile,
 }: {
@@ -245,10 +246,6 @@ async function transformConfig({
   logger.timeEnd(`compiling ${file.name}`)
 }
 
-/**
- * Upate checksums for found configs
- * @returns
- */
 async function verifyResolutionCache() {
   const removeResolutions = async () => {
     logger.await(`removing old module resolutions`)
@@ -280,30 +277,41 @@ async function verifyResolutionCache() {
   )
 }
 
-/**
- * Returns a description of the file type being inspected
- * based on the file extension and inspect result
- */
 function getFileType(
   file: {
-    type: `dir` | `file` | `symlink` | undefined
+    type: `file` | `symlink`
   },
   {ext}: {ext: string},
-): `file` | `json` | `module` | `symlink` | false {
-  if (file.type === `symlink`) return `symlink`
+): `file` | `json` | `module` | `symlink` {
   if (moduleExtensions.includes(ext)) return `module`
   if (jsonExtensions.includes(ext)) return `json`
-  if (file.type === `file`) return `file`
-  return false
+  return file.type
 }
 
-/**
- * Returns string value representing if filename contains `.development`, `.production`, or neither
- */
 function getFileTarget(file: {name?: string}) {
   if (file.name?.includes(`production`)) return `production`
   if (file.name?.includes(`development`)) return `development`
   return `base`
+}
+
+/**
+ * Typeguard
+ */
+function validInspectResult(
+  file?: InspectResult,
+): file is InspectResult & {
+  absolutePath: string
+  name: string
+  sha1: string
+  type: `file` | `symlink`
+} {
+  if (file === undefined) return false
+  if (file.sha1 === undefined) return false
+  if (file.name === undefined) return false
+  if (file.absolutePath === undefined) return false
+  if ([`dir`, false, undefined].includes(file.type)) return false
+
+  return true
 }
 
 export {data, get}
