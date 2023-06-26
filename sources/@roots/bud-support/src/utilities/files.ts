@@ -1,11 +1,11 @@
 import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
 
+import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/lodash/get'
 import omit from '@roots/bud-support/lodash/omit'
 import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
-import * as filesystem from '@roots/bud-support/utilities/filesystem'
 import {get as getPaths} from '@roots/bud-support/utilities/paths'
 import {join, parse} from 'node:path'
 
@@ -143,10 +143,9 @@ async function fetchFileInfo(filename: string) {
   if (file.type === `module`) {
     file.module = async () => {
       logger.scope(`fs`).time(`loading ${file.name}`)
+
       const current = await fs
-        .inspect(file.path, {
-          checksum: `sha1`,
-        })
+        .inspect(file.path, {checksum: `sha1`})
         .catch(error => {
           throw error
         })
@@ -158,6 +157,16 @@ async function fetchFileInfo(filename: string) {
         typeof current.sha1 !== `string`
       )
         throw new Error(`Problem inspecting ${file.name} (${file.path})`)
+
+      if (!file.parsed.ext.startsWith(`.t`)) {
+        const value = await import(file.path.concat(`?v=${current.sha1}`))
+        logger
+          .scope(`fs`)
+          .info(`loading ${file.name}`, value)
+          .timeEnd(`loading ${file.name}`)
+
+        return value?.default ?? value
+      }
 
       const extension = [`.cjs`, `.cts`].includes(file.parsed.ext)
         ? `.cjs`
@@ -190,6 +199,8 @@ async function fetchFileInfo(filename: string) {
       const value = await import(outfile).catch(error => {
         throw error
       })
+
+      logger.scope(`fs`).timeEnd(`loading ${file.name}`)
 
       return value?.default ?? value
     }
@@ -240,29 +251,21 @@ async function transformConfig({
  */
 async function verifyResolutionCache() {
   const removeResolutions = async () => {
-    try {
-      logger.await(`removing old module resolutions`)
-      await fs.remove(join(paths.storage, `resolutions.yml`))
-      logger.success(`removing old module resolutions`)
-    } catch (err) {
-      logger.error(`error clearing outdated resolutions`, err)
-    }
+    logger.await(`removing old module resolutions`)
+    await fs
+      .remove(join(paths.storage, `resolutions.yml`))
+      .catch(error => logger.error(`error removing resolutions`, error))
+      .finally(() => logger.success(`removed old module resolutions`))
   }
 
-  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
-    try {
-      const checksums = await fs.read(join(paths.storage, `checksum.yml`))
-
-      if (
-        !checksums ||
-        checksums[`package.json`] !== _get(data, [`package.json`, `sha1`])
-      ) {
-        await removeResolutions()
-      }
-    } catch (error) {
-      logger.error(`error reading checksums`, error)
-      await removeResolutions()
-    }
+  const existsOnDisk = await fs.exists(join(paths.storage, `checksum.yml`))
+  if (existsOnDisk) {
+    const hashes = await fs.read(join(paths.storage, `checksum.yml`))
+    const failConditions = [
+      !hashes,
+      hashes[`package.json`] !== _get(data, [`package.json`, `sha1`]),
+    ]
+    failConditions.some(Boolean) && (await removeResolutions())
   }
 
   await fs.write(
