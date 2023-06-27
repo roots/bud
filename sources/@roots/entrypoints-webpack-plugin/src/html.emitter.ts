@@ -7,7 +7,7 @@ import Webpack from 'webpack'
  * Emits inline html for each entrypoint
  *
  * @param compilation - Webpack compilation instance
- * @param publicPath - public path for assets
+ * @param publicPath - public path for entrypoints
  */
 export class HtmlEmitter {
   /**
@@ -18,19 +18,19 @@ export class HtmlEmitter {
    */
   public constructor(
     public compilation: Webpack.Compilation,
-    public assets: Entrypoints,
+    public entrypoints: Entrypoints,
     public publicPath: string,
   ) {}
 
   /**
-   * Reduce entrypoint assets to markup
+   * Reduce entrypoint entrypoints to markup
    */
   @bind
   public emit(): void {
-    Object.entries(this.assets).map(([name, asset]) => {
-      Object.assign(this.compilation.assets, {
+    ;[...this.entrypoints.entries()].map(([name, entrypoint]) => {
+      Object.assign(this.compilation, {
         [`${name}.html`]: new Webpack.sources.RawSource(
-          Object.entries(asset).reduce(this.entrypointsReducer, ``),
+          [...entrypoint.entries()].reduce(this.entrypointsReducer, ``),
         ),
       })
     })
@@ -42,12 +42,12 @@ export class HtmlEmitter {
   @bind
   public entrypointsReducer(
     acc: string,
-    [type, files]: [string, Array<string>],
+    [type, files]: [string, Set<string>],
   ): string {
     if ([`js`, `mjs`].includes(type))
-      return files.reduce(this.scriptReducer, acc)
+      return [...files].reduce(this.scriptReducer, acc)
 
-    if (type === `css`) return files.reduce(this.styleReducer, acc)
+    if (type === `css`) return [...files].reduce(this.styleReducer, acc)
 
     return acc
   }
@@ -61,7 +61,9 @@ export class HtmlEmitter {
   @bind
   public getCompiledAsset(file: string) {
     const raw =
-      this.compilation.assets[file.replace(this.publicPath, ``)]?.source()
+      this.compilation.entrypoints[
+        file.replace(this.publicPath, ``)
+      ]?.source()
 
     return raw instanceof Buffer ? raw.toString() : raw
   }

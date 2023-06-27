@@ -12,6 +12,7 @@ describe(`entrypoints.json`, () => {
     chonk.files = new Set([`foo.js`, `bar.js`])
     const files = entrypoints
       .getChunkedFiles([chonk])
+      // @ts-ignore
       .map(file => file.file)
 
     expect(files.shift()).toMatchSnapshot(`foo.js`)
@@ -22,8 +23,6 @@ describe(`entrypoints.json`, () => {
     const entrypoints = new EntrypointsWebpackPlugin({
       publicPath: `/public/`,
     })
-
-    entrypoints.entrypoints = {}
 
     entrypoints.addToManifest({
       ident: `runtime`,

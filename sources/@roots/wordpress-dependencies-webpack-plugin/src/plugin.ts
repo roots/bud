@@ -1,4 +1,7 @@
-import type {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
+import type {
+  Entrypoints,
+  EntrypointsWebpackPlugin,
+} from '@roots/entrypoints-webpack-plugin'
 import type {Compilation} from 'webpack'
 
 import {handle, wordpress} from '@roots/wordpress-transforms'
@@ -42,16 +45,16 @@ export default class WordPressDependenciesWebpackPlugin {
    * Works for both our map of requests and our map of dependencies.
    */
   public addItemToMap(
-    map: Map<string, Set<string>>,
+    obj: Map<string, Set<string>>,
     key: string,
     item: string,
   ) {
-    if (!map.has(key)) {
-      map.set(key, new Set([item]))
+    if (!obj.has(key)) {
+      obj.set(key, new Set([item]))
       return
     }
 
-    map.set(key, map.get(key).add(item))
+    obj.set(key, obj.get(key).add(item))
   }
 
   /**
@@ -140,14 +143,14 @@ export default class WordPressDependenciesWebpackPlugin {
    * Tap entrypoints manifest object
    */
   @bind
-  public tapEntrypointsManifestObject(assets: Record<string, any>) {
-    return Object.entries(assets)
-      .map(([k, v]) => {
-        v.dependencies = this.dependencies.has(k)
-          ? [...this.dependencies.get(k)]
-          : []
-        return [k, v]
-      })
-      .reduce((a, [k, v]) => ({...a, [k]: v}), {})
+  public tapEntrypointsManifestObject(entrypoints: Entrypoints) {
+    for (const [ident, entrypoint] of entrypoints.entries())
+      if (this.dependencies.has(ident))
+        for (const dependency of this.dependencies.get(ident))
+          entrypoint.has(`dependencies`)
+            ? entrypoint.get(`dependencies`).add(dependency)
+            : entrypoint.set(`dependencies`, new Set([dependency]))
+
+    return entrypoints
   }
 }

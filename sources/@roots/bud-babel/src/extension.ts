@@ -48,6 +48,7 @@ export default class BabelExtension extends Extension {
       ? this.app.path(this.app.cache.cacheDirectory, `babel`)
       : false
   }
+
   /**
    * Config file accessor
    */

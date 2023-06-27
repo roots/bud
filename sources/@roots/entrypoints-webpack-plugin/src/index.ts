@@ -9,15 +9,13 @@ import type {SyncHook, SyncWaterfallHook} from 'tapable'
 
 export interface CompilationHooks {
   compilation: SyncHook<Record<string, any>>
-  entrypoints: SyncWaterfallHook<Record<string, any>>
+  entrypoints: SyncWaterfallHook<Entrypoints>
 }
 
 /**
  * Entrypoints
  */
-export interface Entrypoints extends Record<string, unknown> {
-  [entry: string]: any
-}
+export type Entrypoints = Map<string, Map<string, Set<string>>>
 
 /**
  * EntrypointsWebpackPlugin options

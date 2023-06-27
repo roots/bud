@@ -4,8 +4,6 @@ import type {
   Options,
 } from '@roots/entrypoints-webpack-plugin'
 
-import {bind} from 'helpful-decorators'
-import uniq from 'lodash/uniq.js'
 import {SyncHook, SyncWaterfallHook} from 'tapable'
 import Webpack from 'webpack'
 
@@ -58,6 +56,12 @@ export class EntrypointsWebpackPlugin {
     if (!this.options.name) {
       this.options.name = `entrypoints.json`
     }
+
+    this.entrypoints = new Map()
+
+    this.addToManifest = this.addToManifest.bind(this)
+    this.getChunkedFiles = this.getChunkedFiles.bind(this)
+    this.apply = this.apply.bind(this)
   }
 
   /**
@@ -82,7 +86,6 @@ export class EntrypointsWebpackPlugin {
     return hooks
   }
 
-  @bind
   public addToManifest({
     ident,
     path,
@@ -92,26 +95,16 @@ export class EntrypointsWebpackPlugin {
     path: string
     type: string
   }) {
-    if (this.options.type === `object`) {
-      if (!this.entrypoints[ident]) this.entrypoints[ident] = {}
+    !this.entrypoints.has(ident) && this.entrypoints.set(ident, new Map())
 
-      if (!this.entrypoints[ident][type])
-        this.entrypoints[ident][type] = []
-
-      this.entrypoints[ident][type] = uniq([
-        ...this.entrypoints[ident][type],
-        path,
-      ])
-    } else {
-      if (!this.entrypoints[ident]) this.entrypoints[ident] = []
-      this.entrypoints[ident] = uniq([...this.entrypoints[ident], path])
-    }
+    !this.entrypoints.get(ident).has(type)
+      ? this.entrypoints.get(ident).set(type, new Set([path]))
+      : this.entrypoints.get(ident).get(type).add(path)
   }
 
   /**
    * Webpack plugin API's `apply` hook
    */
-  @bind
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.thisCompilation.tap(
       this.constructor.name,
@@ -121,7 +114,7 @@ export class EntrypointsWebpackPlugin {
             name: this.constructor.name,
             stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
           },
-          async assets => {
+          async () => {
             const hooks =
               EntrypointsWebpackPlugin.getCompilationHooks(compilation)
             hooks.compilation.call(compilation)
@@ -133,7 +126,7 @@ export class EntrypointsWebpackPlugin {
             )
 
             if (!this.entrypoints) {
-              this.entrypoints = {}
+              this.entrypoints = new Map()
 
               for (const entry of compilation.entrypoints.values()) {
                 this.getChunkedFiles(entry.chunks).map(({file}) => {
@@ -162,10 +155,23 @@ export class EntrypointsWebpackPlugin {
               ).emit()
             }
 
-            assets[this.options.name] =
+            let source = {}
+            for (const [name, entry] of this.entrypoints.entries()) {
+              if (!source[name]) source[name] = {}
+
+              for (const [type, assets] of entry.entries()) {
+                if (!source[name][type]) source[name][type] = []
+
+                source[name][type] = [...assets]
+              }
+            }
+
+            compilation.emitAsset(
+              this.options.name,
               new compiler.webpack.sources.RawSource(
-                JSON.stringify(this.entrypoints, null, 2),
-              )
+                JSON.stringify(source, null, 2),
+              ),
+            )
           },
         )
       },
