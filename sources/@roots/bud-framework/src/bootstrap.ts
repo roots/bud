@@ -229,9 +229,7 @@ export const bootstrap = async function (this: Bud) {
       await promised
       await this.hooks.fire(event, this)
       if (this.api.processQueue && this.api?.queue?.length) {
-        logger.time(`processing queued calls ${event}`)
         await this.api.processQueue()
-        logger.timeEnd(`processing queued calls ${event}`)
       }
     },
     Promise.resolve(),

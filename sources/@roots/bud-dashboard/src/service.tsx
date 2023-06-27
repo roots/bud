@@ -160,9 +160,9 @@ export class Dashboard extends Service implements BudDashboard {
    * Render stats as a simple string
    */
   @bind
-  public renderString(stats: string) {
+  public renderString(text: string) {
     if (this.silent) return
-    process.stdout.write(stats)
+    process.stdout.write(`${text}\n`)
   }
 
   /**

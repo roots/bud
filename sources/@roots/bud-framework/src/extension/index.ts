@@ -213,18 +213,12 @@ export class Extension<
    */
   @bind
   public async _boot() {
-    this.logger.time(`boot`)
+    if (isUndefined(this.boot)) return
 
-    if (this.meta[`boot`] === true) {
-      this.logger.info(``)
-      return this.logger.timeEnd(`boot`)
-    }
+    if (this.meta[`boot`] === true) return
     this.meta[`boot`] = true
 
-    if (isUndefined(this.boot)) {
-      this.logger.info(`boot is not implemented`)
-      return this.logger.timeEnd(`boot`)
-    }
+    this.logger.time(`boot`)
 
     await this.boot(this.app)
       .catch(error => {
@@ -247,11 +241,14 @@ export class Extension<
     if (this.meta[`buildAfter`] === true) return
     this.meta[`buildAfter`] = true
 
-    try {
-      await this.buildAfter(this.app)
-    } catch (error) {
-      throw error
-    }
+    this.logger.time(`buildAfter`)
+
+    await this.buildAfter(this.app).catch(error => {
+      this.logger.timeEnd(`buildAfter`)
+      throw ExtensionError.normalize(error)
+    })
+
+    this.logger.timeEnd(`buildAfter`)
   }
 
   /**
@@ -265,11 +262,14 @@ export class Extension<
     if (this.meta[`buildBefore`] === true) return
     this.meta[`buildBefore`] = true
 
-    try {
-      await this.buildBefore(this.app)
-    } catch (error) {
-      throw error
-    }
+    this.logger.time(`buildBefore`)
+
+    await this.buildBefore(this.app).catch(error => {
+      this.logger.timeEnd(`buildBefore`)
+      throw ExtensionError.normalize(error)
+    })
+
+    this.logger.timeEnd(`buildBefore`)
   }
 
   /**
@@ -283,11 +283,14 @@ export class Extension<
     if (this.meta[`configAfter`] === true) return
     this.meta[`configAfter`] = true
 
-    try {
-      await this.configAfter(this.app)
-    } catch (error) {
-      throw error
-    }
+    this.logger.time(`configAfter`)
+
+    await this.configAfter(this.app).catch(error => {
+      this.logger.timeEnd(`configAfter`)
+      throw ExtensionError.normalize(error)
+    })
+
+    this.logger.timeEnd(`configAfter`)
   }
 
   /**
@@ -324,7 +327,7 @@ export class Extension<
       const ident =
         this.label ?? this.constructor?.name ?? `unknown_extension`
 
-      throw new BudError(`Error instantiating ${ident}`, {
+      throw new ExtensionError(`Error instantiating ${ident}`, {
         props: {
           details: `Check options for ${ident}`,
           docs: new URL(`https://bud.js.org/docs/extensions`),
@@ -343,16 +346,19 @@ export class Extension<
    */
   @bind
   public async _register() {
+    if (isUndefined(this.register)) return
+
     if (this.meta[`register`] === true) return
     this.meta[`register`] = true
 
-    try {
-      await this.register(this.app)
-    } catch (error) {
-      throw error
-    }
+    this.logger.time(`register`)
 
-    this.logger.success(`registered`)
+    await this.register(this.app).catch(error => {
+      this.logger.timeEnd(`register`)
+      throw ExtensionError.normalize(error)
+    })
+
+    this.logger.timeEnd(`register`)
   }
 
   /**
@@ -369,11 +375,8 @@ export class Extension<
 
   /**
    * `boot` callback
-   *
-   * @param options - Extension options
-   * @param app - Bud instance
    */
-  public async boot(app: Bud) {}
+  public async boot?(app: Bud): Promise<unknown | void>
 
   /**
    * `buildAfter` callback
@@ -388,7 +391,7 @@ export class Extension<
   /**
    * `configAfter` callback
    */
-  public async configAfter(app: Bud) {}
+  public async configAfter?(app: Bud): Promise<unknown | void>
 
   /**
    * Disable extension
@@ -488,7 +491,7 @@ export class Extension<
   /**
    * {@link Extension.register}
    */
-  public async register(app: Bud): Promise<any> {}
+  public async register?(app: Bud): Promise<any>
 
   /**
    * Resolve module using `import.meta.resolve` api

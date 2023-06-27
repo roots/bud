@@ -250,18 +250,16 @@ export class Extensions extends Service implements BudExtensionsService {
       return this.get(signifier)
     }
 
-    let extension: Extension
-
-    try {
-      this.logger.await(`import`, signifier)
-      extension = await this.app.module.import(signifier, import.meta.url)
-      this.logger.success(`import`, signifier)
-    } catch (error) {
-      this.unresolvable.add(signifier)
-      if (required) throw error
+    const extension: Extension = await this.app.module
+      .import(signifier, import.meta.url)
+      .catch(error => {
+        this.unresolvable.add(signifier)
+        if (required) throw error
+      })
+    if (!extension) {
+      if (required) throw `Extension ${signifier} not found but required`
+      return
     }
-
-    if (!extension) return
 
     const instance = await this.instantiate(extension)
 

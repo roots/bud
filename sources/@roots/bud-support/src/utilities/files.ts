@@ -156,9 +156,8 @@ async function getFileInfo(filename: string) {
         /**
          * bust the cache with the {@link current} sha1
          */
-        const value = await import(
-          file.path.concat(`?v=${current.sha1}`)
-        ).catch(error => {
+        const path = `${file.path}?v=${current.sha1}`
+        const value = await import(path).catch(error => {
           throw error
         })
 
@@ -168,8 +167,9 @@ async function getFileInfo(filename: string) {
           .timeEnd(`loading ${file.name}`)
 
         return value?.default ?? value // returning early here
-        // the rest of the function is for files which require compilation
       }
+
+      // the rest of the function is for files which require compilation
 
       const outfile = join(
         paths.storage,
@@ -200,37 +200,26 @@ async function getFileInfo(filename: string) {
         file.dir,
         `.${file.name}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
       )
-      const rmError = (error: Error) => {
-        logger.scope(`fs`).error(`error removing tmpfile`, tmpfile, error)
-        throw error
-      }
-
-      const copyError = async (error: Error) => {
-        logger
-          .scope(`fs`)
-          .error(`error copying ${outfile} to tmpfile:`, tmpfile, error)
-        await fs.remove(tmpfile).catch(rmError)
-        throw error
-      }
-
-      const importError = async (error: Error) => {
-        await fs.remove(tmpfile).catch(rmError)
-        throw error
-      }
 
       logger.scope(`fs`).info(`copying ${outfile} to tmpfile:`, tmpfile)
-      await fs.copy(outfile, tmpfile, {overwrite: true}).catch(copyError)
+      await fs
+        .copy(outfile, tmpfile, {overwrite: true})
+        .catch(makeCopyError(tmpfile))
 
       logger.scope(`fs`).info(`importing tmpfile:`, tmpfile)
-      const value = await import(tmpfile).catch(importError)
+      const value = await import(tmpfile).catch(
+        makeTmpFileImportError(tmpfile),
+      )
 
       logger.scope(`fs`).info(`removing tmpfile:`, tmpfile)
-      await fs.remove(tmpfile).catch(rmError)
+      await fs.remove(tmpfile).catch(makeRemoveError(tmpfile))
 
       logger.scope(`fs`).timeEnd(`loading ${file.name}`)
       return value?.default ?? value
     }
   }
+
+  logger.scope(`fs`).timeEnd(`loading ${file.name}`)
 
   Object.assign(data, {[file.name]: file})
 }
@@ -295,6 +284,20 @@ function isNormalInspectResult(
   if ([`dir`, false, undefined].includes(file.type)) return false
 
   return true
+}
+
+const makeTmpFileImportError = (file: string) => async (error: Error) => {
+  await fs.remove(file).catch(makeRemoveError(file))
+  throw error
+}
+const makeRemoveError = (file: string) => (error: Error) => {
+  logger.scope(`fs`).error(`error removing file`, file, error)
+  throw error
+}
+const makeCopyError = (file: string) => async (error: Error) => {
+  logger.scope(`fs`).error(`error copying to file:`, file, error)
+  await fs.remove(file).catch(makeRemoveError(file))
+  throw error
 }
 
 export {data, get}
