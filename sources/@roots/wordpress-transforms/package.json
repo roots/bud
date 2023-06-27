@@ -5,27 +5,7 @@
   "engines": {
     "node": ">=16"
   },
-  "contributors": [
-    {
-      "name": "Kelly Mears",
-      "email": "developers@tinypixel.dev",
-      "url": "https://github.com/kellymears"
-    },
-    {
-      "name": "Ben Word",
-      "email": "ben@benword.com",
-      "url": "https://github.com/retlehs"
-    },
-    {
-      "name": "QWp6t",
-      "url": "https://github.com/QWp6t"
-    },
-    {
-      "name": "Brandon",
-      "email": "brandon@tendency.me",
-      "url": "https://github.com/Log1x"
-    }
-  ],
+  "contributors": [],
   "license": "MIT",
   "funding": {
     "type": "github sponsors",

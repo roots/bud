@@ -1,6 +1,6 @@
 import {path} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
-import {Context} from '@roots/bud-framework/options'
+import {Context} from '@roots/bud-framework/context'
 
 import getContext from '../src/context/index.js'
 
@@ -9,7 +9,6 @@ describe(`context.get`, () => {
 
   beforeEach(async () => {
     context = await getContext({
-      // @ts-ignore
       basedir: path(`tests`, `util`, `project`),
     })
   })

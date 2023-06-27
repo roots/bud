@@ -6,28 +6,28 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/wordpress-externals-webpack-plugin</strong></h1>
+<h1 align="center"><strong>@roots/wordpress-transforms</strong></h1>
 
 <p align="center">
-  Webpack plugin to register WordPress dependencies as externals
+  Transform requests for WordPress provided externals
 </p>
 
 ---
 
 ## Installation
 
-Install **@roots/wordpress-externals-webpack-plugin** to your project.
+Install **@roots/wordpress-transforms** to your project.
 
 Yarn:
 
 ```sh
-yarn add @roots/wordpress-externals-webpack-plugin --dev
+yarn add @roots/wordpress-transforms --dev
 ```
 
 npm:
 
 ```sh
-npm install @roots/wordpress-externals-webpack-plugin --save-dev
+npm install @roots/wordpress-transforms --save-dev
 ```
 
 ## Contributing
@@ -38,7 +38,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/wordpress-externals-webpack-plugin is licensed under MIT.
+@roots/wordpress-transforms is licensed under MIT.
 
 ## Community
 
