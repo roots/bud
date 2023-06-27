@@ -30,10 +30,8 @@ describe(`entrypoints.json`, () => {
       path: `foo.js`,
     })
 
-    expect(entrypoints.entrypoints).toEqual({
-      runtime: {
-        js: [`foo.js`],
-      },
-    })
+    expect(entrypoints.entrypoints.get(`runtime`)?.get(`js`)).toEqual(
+      new Set([`foo.js`]),
+    )
   })
 })

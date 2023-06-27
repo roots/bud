@@ -17,7 +17,7 @@ export class Vitest extends Command {
   public passthrough = Option.Proxy({name: `vitest options`})
 
   public async execute() {
-    await this.cli
+    const result = await this.cli
       .run(
         [
           `vitest`,
@@ -29,8 +29,7 @@ export class Vitest extends Command {
       .catch(error => {
         throw error
       })
-      .then(result => {
-        if (result !== 0) throw new Error(`Tests failed`)
-      })
+
+    return result
   }
 }
