@@ -21,7 +21,7 @@ export const entrypointSignifier = z
 /**
  * `import` key value
  */
-export const importItem = z
+export const importObject = z
   .string({
     errorMap: (error, ctx) => {
       switch (error.code) {
@@ -39,7 +39,7 @@ export const importItem = z
 /**
  * `import` array
  */
-export const importArray = z.array(importItem).nonempty({
+export const importArray = z.array(importObject).nonempty({
   message: `imports array must not be empty`,
 })
 
@@ -48,7 +48,7 @@ export const importArray = z.array(importItem).nonempty({
  */
 export const inputRecord = z.record(
   entrypointSignifier,
-  importItem.or(importArray),
+  importObject.or(importArray),
 )
 
 /**
@@ -57,8 +57,12 @@ export const inputRecord = z.record(
  * @remarks how it should look after parsing
  */
 export const normalEntryValue = z.object({
-  dependsOn: z.array(z.string()).optional(),
+  asyncChunks: z.boolean().optional(),
+  chunkLoading: z.string().optional(),
+  dependOn: z.array(z.string()).optional(),
+  filename: z.string().optional(),
   import: importArray,
+  layer: z.string().optional(),
 })
 
 export const entrypointsRecord = z.record(
@@ -70,10 +74,10 @@ export const entrypointsRecord = z.record(
  * fn parameters
  */
 export const parameters = z.union([
-  z.tuple([entrypointSignifier, importItem.or(importArray)], {
+  z.tuple([entrypointSignifier, importObject.or(importArray)], {
     invalid_type_error: `invalid entrypoint`,
   }),
   entrypointsRecord,
   inputRecord,
-  importItem.or(importArray),
+  importObject.or(importArray),
 ])

@@ -110,7 +110,7 @@ async function fetchFileInfo(filename: string) {
     symlinks: `follow`,
   })
 
-  if (!validInspectResult(inspect)) return
+  if (!isNormalInspectResult(inspect)) return
 
   const target = getFileTarget(inspect)
   const type = getFileType(inspect, parsed)
@@ -154,7 +154,7 @@ async function fetchFileInfo(filename: string) {
           throw error
         })
 
-      if (!validInspectResult(current)) {
+      if (!isNormalInspectResult(current)) {
         logger.error(file)
         throw new Error(`Problem inspecting ${file.name} (${file.path})`)
       }
@@ -247,22 +247,19 @@ async function esTransform({
 }
 
 async function verifyResolutionCache() {
-  const removeResolutions = async () => {
-    logger.await(`removing old module resolutions`)
-    await fs
-      .remove(join(paths.storage, `resolutions.yml`))
-      .catch(error => logger.error(`error removing resolutions`, error))
-      .finally(() => logger.success(`removed old module resolutions`))
-  }
-
-  const existsOnDisk = await fs.exists(join(paths.storage, `checksum.yml`))
-  if (existsOnDisk) {
+  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
     const hashes = await fs.read(join(paths.storage, `checksum.yml`))
-    const failConditions = [
-      !hashes,
-      hashes[`package.json`] !== _get(data, [`package.json`, `sha1`]),
-    ]
-    failConditions.some(Boolean) && (await removeResolutions())
+    if (
+      !hashes ||
+      !hashes[`package.json`] ||
+      !hashes[`package.json`] !== _get(data, [`package.json`, `sha1`])
+    ) {
+      logger.await(`removing old module resolutions`)
+      await fs
+        .remove(join(paths.storage, `resolutions.yml`))
+        .catch(error => logger.error(`error removing resolutions`, error))
+        .finally(() => logger.success(`removed old module resolutions`))
+    }
   }
 
   await fs.write(
@@ -278,9 +275,7 @@ async function verifyResolutionCache() {
 }
 
 function getFileType(
-  file: {
-    type: `file` | `symlink`
-  },
+  file: {type: `file` | `symlink`},
   {ext}: {ext: string},
 ): `file` | `json` | `module` | `symlink` {
   if (moduleExtensions.includes(ext)) return `module`
@@ -294,10 +289,7 @@ function getFileTarget(file: {name?: string}) {
   return `base`
 }
 
-/**
- * Typeguard
- */
-function validInspectResult(
+function isNormalInspectResult(
   file?: InspectResult,
 ): file is InspectResult & {
   absolutePath: string

@@ -13,6 +13,5 @@ export const normalizeRecord = (
     {},
   )
 
-export const normalizeImport = (data: Array<string> | string) => {
-  return Array.isArray(data) ? data : [data]
-}
+export const normalizeImport = (data: Array<string> | string) =>
+  Array.isArray(data) ? data : [data]

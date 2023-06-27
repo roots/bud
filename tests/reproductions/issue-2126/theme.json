@@ -1,4 +1,7 @@
 {
+  "__generated__": "⚠️ This file is generated. Do not edit.",
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
   "settings": {
     "color": {
       "custom": false,
@@ -26,8 +29,5 @@
       "customFontSize": false,
       "dropCap": false
     }
-  },
-  "__generated__": "⚠️ This file is generated. Do not edit.",
-  "$schema": "https://schemas.wp.org/trunk/theme.json",
-  "version": 2
+  }
 }

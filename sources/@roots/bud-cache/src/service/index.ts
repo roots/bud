@@ -24,6 +24,7 @@ export default class Cache extends Service implements BudCache {
     if (bud.context.force === true) {
       await this.flush()
     }
+    this.enabled = bud.context.cache !== false
   }
 
   /**

@@ -1,10 +1,10 @@
-import {factory} from '@repo/test-kit'
+import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {entry as entryFn} from './index.js'
 
 describe(`bud.entry`, function () {
-  let bud
+  let bud: Bud
   let entry: entryFn
 
   beforeEach(async () => {
@@ -90,13 +90,12 @@ describe(`bud.entry`, function () {
   it(`should accept a mixed type`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
-    // @ts-ignore
     await entry({
       primitiveString: `primitiveString.js`,
       primitiveArray: [`primitiveArray1.js`, `primitiveArray2.js`],
       normalRecord: {
         import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
-        dependsOn: [`primitiveString`],
+        dependOn: [`primitiveString`],
       },
     })
 
@@ -129,7 +128,7 @@ describe(`bud.entry`, function () {
         },
         normalRecord: {
           import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
-          dependsOn: [`primitiveString`],
+          dependOn: [`primitiveString`],
         },
       }),
     )
