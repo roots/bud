@@ -18,6 +18,7 @@ export class HtmlEmitter {
    */
   public constructor(
     public compilation: Webpack.Compilation,
+    public assets: Webpack.Compilation[`assets`],
     public entrypoints: Entrypoints,
     public publicPath: string,
   ) {}
@@ -28,11 +29,12 @@ export class HtmlEmitter {
   @bind
   public emit(): void {
     ;[...this.entrypoints.entries()].map(([name, entrypoint]) => {
-      Object.assign(this.compilation, {
-        [`${name}.html`]: new Webpack.sources.RawSource(
+      this.compilation.emitAsset(
+        `${name}.html`,
+        new Webpack.sources.RawSource(
           [...entrypoint.entries()].reduce(this.entrypointsReducer, ``),
         ),
-      })
+      )
     })
   }
 
@@ -46,7 +48,6 @@ export class HtmlEmitter {
   ): string {
     if ([`js`, `mjs`].includes(type))
       return [...files].reduce(this.scriptReducer, acc)
-
     if (type === `css`) return [...files].reduce(this.styleReducer, acc)
 
     return acc
@@ -60,11 +61,7 @@ export class HtmlEmitter {
    */
   @bind
   public getCompiledAsset(file: string) {
-    const raw =
-      this.compilation.entrypoints[
-        file.replace(this.publicPath, ``)
-      ]?.source()
-
+    const raw = this.assets[file.replace(this.publicPath, ``)]?.source()
     return raw instanceof Buffer ? raw.toString() : raw
   }
 
@@ -81,7 +78,7 @@ export class HtmlEmitter {
     const stringyAttributes = attributes
       ? Object.entries(attributes)
           .filter(([, v]) => typeof v !== `undefined` && v !== false)
-          .map(([k, v]) => (v === true ? k : `${k}="${v}"`))
+          .map(([k, v]) => (v === true ? k : `${k}=${v}`))
           .reduce((acc, v) => [...acc, v], [])
           .filter(Boolean)
           .join(` `)
@@ -116,6 +113,6 @@ export class HtmlEmitter {
    */
   @bind
   public styleReducer(acc: string, file: string): string {
-    return [acc, `<link rel="stylesheet" href="${file}" />`].join(`\n`)
+    return [acc, `<link rel=stylesheet href=${file} />`].join(`\n`)
   }
 }

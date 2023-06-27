@@ -114,7 +114,7 @@ export class EntrypointsWebpackPlugin {
             name: this.constructor.name,
             stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
           },
-          async () => {
+          async assets => {
             const hooks =
               EntrypointsWebpackPlugin.getCompilationHooks(compilation)
             hooks.compilation.call(compilation)
@@ -150,6 +150,7 @@ export class EntrypointsWebpackPlugin {
             if (this.options.emitHtml) {
               new HtmlEmitter(
                 compilation,
+                assets,
                 this.entrypoints,
                 this.options.publicPath,
               ).emit()

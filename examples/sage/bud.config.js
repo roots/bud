@@ -13,4 +13,6 @@ export default async app => {
     .useTailwindColors(true)
     .useTailwindFontFamily()
     .useTailwindFontSize()
+
+  app.entrypoints.setEmitHtml(true)
 }
