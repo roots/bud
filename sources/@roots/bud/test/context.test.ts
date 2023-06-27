@@ -63,9 +63,9 @@ describe(`context.get`, () => {
   it(`has expected context.files`, () => {
     expect(context.files).toEqual(
       expect.objectContaining({
-        'bud.config.ts': expect.any(Object),
-        'package.json': expect.any(Object),
-        'tsconfig.json': expect.any(Object),
+        'bud.config': expect.any(Object),
+        package: expect.any(Object),
+        tsconfig: expect.any(Object),
       }),
     )
   })

@@ -213,17 +213,26 @@ export class Extension<
    */
   @bind
   public async _boot() {
-    if (this.meta[`boot`] === true) return
+    this.logger.time(`boot`)
+
+    if (this.meta[`boot`] === true) {
+      this.logger.info(``)
+      return this.logger.timeEnd(`boot`)
+    }
     this.meta[`boot`] = true
 
-    this.logger.time(`${this.label} boot`)
+    if (isUndefined(this.boot)) {
+      this.logger.info(`boot is not implemented`)
+      return this.logger.timeEnd(`boot`)
+    }
+
     await this.boot(this.app)
       .catch(error => {
-        this.logger.timeEnd(`${this.label} boot`)
+        this.logger.timeEnd(`boot`)
         throw ExtensionError.normalize(error)
       })
       .finally(() => {
-        this.logger.timeEnd(`${this.label} boot`)
+        this.logger.timeEnd(`boot`)
       })
   }
 

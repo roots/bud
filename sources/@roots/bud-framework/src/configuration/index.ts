@@ -17,11 +17,11 @@ export const process = async (app: Bud) => {
     ({bud}) => bud,
   )
 
-  const find = (targeting: string, dotLocal: boolean) =>
+  const find = (isTarget: string, isLocal: boolean) =>
     sortBy(
       configs
-        .filter(({target}) => target === targeting)
-        .filter(({local}) => local === dotLocal),
+        .filter(({target}) => target === isTarget)
+        .filter(({local}) => local === isLocal),
       `name`,
     )
 

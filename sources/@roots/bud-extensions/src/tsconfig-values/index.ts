@@ -259,12 +259,13 @@ export default class BudTsConfigValues
    * {@link Extension.register}
    */
   public override async register(bud: Bud) {
-    const getConfig =
-      bud.context.files[`tsconfig.json`]?.module ??
-      bud.context.files[`jsconfig.json`]?.module
-    if (!getConfig) return
+    const fetchConfigModule =
+      bud.context.files[`tsconfig`]?.module ??
+      bud.context.files[`jsconfig`]?.module
 
-    const tsConfig = await getConfig()
+    if (!fetchConfigModule) return
+
+    const tsConfig = await fetchConfigModule()
     if (!tsConfig) return
 
     if (tsConfig.compilerOptions)

@@ -54,10 +54,11 @@ export default class BabelExtension extends Extension {
   public get configFile(): Record<string, any> {
     return Object.values(this.app.context.files).find(
       file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
+        file.name === `.babelrc` ||
+        (file.name === `babel.config` && file.type === `module`),
     )
   }
+
   /**
    * Get babel env value
    */
@@ -77,11 +78,8 @@ export default class BabelExtension extends Extension {
       configFile: false,
     }
 
-    if (this.overridenByProjectConfigFile) {
-      return {
-        ...baseOptions,
-        ...this.configFileOptions,
-      }
+    if (this.configFile) {
+      return {...baseOptions, ...this.configFileOptions}
     }
 
     return {
@@ -92,18 +90,6 @@ export default class BabelExtension extends Extension {
       root: this.root,
       targets: this.app.context.manifest?.browserslist ?? `defaults`,
     }
-  }
-
-  /**
-   * Boolean representing if project has a babel config file
-   */
-  public get overridenByProjectConfigFile() {
-    if (!this.app.context.files) return false
-    return Object.values(this.app.context.files).some(
-      file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
-    )
   }
 
   /**
@@ -119,7 +105,7 @@ export default class BabelExtension extends Extension {
       [`babel-loader`]: loader,
     }))
 
-    if (this.overridenByProjectConfigFile) {
+    if (this.configFile) {
       this.logger.log(
         `Babel configuration is being overridden by project configuration file.`,
       )
@@ -189,7 +175,7 @@ export default class BabelExtension extends Extension {
     name: [any, any] | string,
     plugin?: [any, any] | string,
   ): this {
-    if (this.overridenByProjectConfigFile) {
+    if (this.configFile) {
       this.logger.warn(
         `Babel configuration is being overridden by project configuration file.\n`,
         `bud.babel.setPlugin will not work as expected\n`,

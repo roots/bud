@@ -33,7 +33,7 @@ export default class Cache extends Service implements BudCache {
   public get buildDependencies(): Record<string, Array<string>> {
     return this.app.hooks.filter(`build.cache.buildDependencies`, {
       bud: [
-        this.app.context.files?.[`package.json`]?.path,
+        this.app.context.files[`package`]?.path,
         ...Object.values(this.app.context.files)
           .filter(({bud}) => bud)
           .map(({path}) => path),

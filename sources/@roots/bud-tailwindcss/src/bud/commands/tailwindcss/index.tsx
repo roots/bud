@@ -39,14 +39,10 @@ export class BudTailwindCommand extends BudCommand {
         this.bud.relPath(`@dist`, relative(this.bud.path(`@src`), input)),
       )
 
-      const config = this.bud.context.files
-        ? Object.values(this.bud.context.files)?.find(file =>
-            file.name.includes(`tailwind.config`),
-          )
-        : false
+      const config = this.bud.context.files[`tailwind.config`]?.path
 
-      if (config && config?.path) {
-        this.options.push(`--config`, this.bud.relPath(config.path))
+      if (config) {
+        this.options.push(`--config`, this.bud.relPath(config))
       }
     }
 

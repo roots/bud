@@ -12,7 +12,6 @@ import {join, parse} from 'node:path'
 
 const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
 const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]
-const allCompatibleExtensions = [...moduleExtensions, ...jsonExtensions]
 
 let files: Array<string>
 let fs: Filesystem
@@ -20,12 +19,11 @@ let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>
 let transformer: esbuild.transformer
 
-interface File {
+interface File extends ReturnType<typeof parse> {
   bud: boolean
   local: boolean
   module?: () => Promise<any>
   name: string
-  parsed: ReturnType<typeof parse>
   path: string
   sha1: string
   target: `base` | `development` | `production`
@@ -68,13 +66,24 @@ const get = async (basedir: string) => {
       ),
     )
 
-  if (!files?.length) return
+  await Promise.all(files.map(getFileInfo))
+    .then(() => {
+      files = files.filter(Boolean)
+    })
+    .catch(error => {
+      throw error
+    })
 
-  await Promise.all(files.map(fetchFileInfo)).then(() => {
-    files = files.filter(Boolean)
-  })
-
-  await verifyResolutionCache()
+  await fs.write(
+    join(paths.storage, `checksum.yml`),
+    Object.entries(data).reduce(
+      (acc: Record<string, string>, [key, value]) => {
+        acc[key] = value.sha1
+        return acc
+      },
+      {},
+    ),
+  )
 
   logger.scope(`fs`).timeEnd(`Initializing filesystem`)
 
@@ -83,12 +92,8 @@ const get = async (basedir: string) => {
 
 /**
  * Get value for a given config file
- *
- * @param name - file name
  */
-async function fetchFileInfo(filename: string) {
-  const parsed = parse(filename)
-
+async function getFileInfo(filename: string) {
   if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) {
     logger.info(`Skipping`, filename, `(lockfile)`)
     return
@@ -99,35 +104,22 @@ async function fetchFileInfo(filename: string) {
     return
   }
 
-  if (!parsed.ext || !allCompatibleExtensions.includes(parsed.ext)) {
-    logger.info(`Skipping`, filename, `(unknown extension)`)
-    return
-  }
-
   const inspect = await fs.inspect(filename, {
     absolutePath: true,
     checksum: `sha1`,
     symlinks: `follow`,
   })
-
   if (!isNormalInspectResult(inspect)) return
 
-  const target = getFileTarget(inspect)
-  const type = getFileType(inspect, parsed)
-
-  if (!type) {
-    logger.info(`Skipping`, inspect?.name, type, inspect?.absolutePath)
-    return
-  }
-
+  const parsed = parse(filename)
   const file: File = {
-    ...omit(inspect, `absolutePath`, `type`),
+    ...omit(inspect, `absolutePath`, `type`, `filename`),
     bud: inspect.name.includes(`bud`),
     local: inspect.name.includes(`local`),
-    parsed,
     path: inspect.absolutePath,
-    target,
-    type,
+    target: getFileTarget(inspect),
+    type: getFileType(inspect, parsed),
+    ...parsed,
   }
 
   /**
@@ -154,36 +146,36 @@ async function fetchFileInfo(filename: string) {
           throw error
         })
 
-      if (!isNormalInspectResult(current)) {
-        logger.error(file)
+      if (!isNormalInspectResult(current))
         throw new Error(`Problem inspecting ${file.name} (${file.path})`)
-      }
 
       /**
        * Handle non-typescript files using native esm loader
        */
-      if (!file.parsed.ext.startsWith(`.t`)) {
+      if ([`.cjs`, `.js`, `.mjs`].includes(file.ext)) {
         /**
          * bust the cache with the {@link current} sha1
          */
-        const value = await import(file.path.concat(`?v=${current.sha1}`))
+        const value = await import(
+          file.path.concat(`?v=${current.sha1}`)
+        ).catch(error => {
+          throw error
+        })
 
         logger
           .scope(`fs`)
           .info(`loading ${file.name}`, value)
           .timeEnd(`loading ${file.name}`)
 
-        return value?.default ?? value
+        return value?.default ?? value // returning early here
+        // the rest of the function is for files which require compilation
       }
-
-      const extension = [`.cjs`, `.cts`].includes(file.parsed.ext)
-        ? `.cjs`
-        : `.mjs`
 
       const outfile = join(
         paths.storage,
         `configs`,
-        `${current.sha1}${extension}`,
+        file.base,
+        `${current.sha1}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
       )
 
       const modified = current.sha1 !== file.sha1
@@ -203,12 +195,39 @@ async function fetchFileInfo(filename: string) {
         })
       }
 
-      const value = await import(outfile).catch(error => {
+      const tmpfile = join(
+        paths.basedir,
+        file.dir,
+        `.${file.name}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
+      )
+      const rmError = (error: Error) => {
+        logger.scope(`fs`).error(`error removing tmpfile`, tmpfile, error)
         throw error
-      })
+      }
+
+      const copyError = async (error: Error) => {
+        logger
+          .scope(`fs`)
+          .error(`error copying ${outfile} to tmpfile:`, tmpfile, error)
+        await fs.remove(tmpfile).catch(rmError)
+        throw error
+      }
+
+      const importError = async (error: Error) => {
+        await fs.remove(tmpfile).catch(rmError)
+        throw error
+      }
+
+      logger.scope(`fs`).info(`copying ${outfile} to tmpfile:`, tmpfile)
+      await fs.copy(outfile, tmpfile, {overwrite: true}).catch(copyError)
+
+      logger.scope(`fs`).info(`importing tmpfile:`, tmpfile)
+      const value = await import(tmpfile).catch(importError)
+
+      logger.scope(`fs`).info(`removing tmpfile:`, tmpfile)
+      await fs.remove(tmpfile).catch(rmError)
 
       logger.scope(`fs`).timeEnd(`loading ${file.name}`)
-
       return value?.default ?? value
     }
   }
@@ -223,7 +242,7 @@ async function esTransform({
   file: File
   outfile: string
 }): Promise<any> {
-  logger.time(`compiling ${file.name}`)
+  logger.scope(`fs`).time(`compiling ${file.name}`)
 
   if (!transformer) {
     transformer = await import(`@roots/bud-support/esbuild`)
@@ -236,42 +255,14 @@ async function esTransform({
   }
 
   await transformer.build({
+    absWorkingDir: paths.basedir,
     allowOverwrite: true,
     entryPoints: [file.path],
-    nodePaths: [paths.basedir, join(paths.basedir, `node_modules`)],
     outfile,
     platform: `node`,
   })
 
-  logger.timeEnd(`compiling ${file.name}`)
-}
-
-async function verifyResolutionCache() {
-  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
-    const hashes = await fs.read(join(paths.storage, `checksum.yml`))
-    if (
-      !hashes ||
-      !hashes[`package.json`] ||
-      !hashes[`package.json`] !== _get(data, [`package.json`, `sha1`])
-    ) {
-      logger.await(`removing old module resolutions`)
-      await fs
-        .remove(join(paths.storage, `resolutions.yml`))
-        .catch(error => logger.error(`error removing resolutions`, error))
-        .finally(() => logger.success(`removed old module resolutions`))
-    }
-  }
-
-  await fs.write(
-    join(paths.storage, `checksum.yml`),
-    Object.entries(data).reduce(
-      (acc: Record<string, string>, [key, value]) => {
-        acc[key] = value.sha1
-        return acc
-      },
-      {},
-    ),
-  )
+  logger.scope(`fs`).timeEnd(`compiling ${file.name}`)
 }
 
 function getFileType(

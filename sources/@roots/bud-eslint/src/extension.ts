@@ -71,16 +71,16 @@ class BudEslint extends BudEslintPublicApi implements Api {
     /**
      * Add {@link config.path} to cache dependencies if available
      */
-    const configFile = Object.values(context.files).find(({name}) =>
+    const config = Object.values(context.files).find(({name}) =>
       name.includes(`eslint`),
     )
 
-    if (configFile) {
+    if (config) {
       hooks.on(`build.cache.buildDependencies`, (deps = {}) => ({
         ...deps,
-        eslint: [configFile.path],
+        eslint: [config.path],
       }))
-      this.setOverrideConfig(await configFile.module())
+      this.setOverrideConfig(await config.module())
     } else {
       this.setUseEslintrc(true)
     }

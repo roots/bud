@@ -3,11 +3,7 @@ import args from '@roots/bud-support/utilities/args'
 import * as envBootstrap from '@roots/bud-support/utilities/env'
 import envPaths from 'env-paths'
 import {createHash} from 'node:crypto'
-import {join, normalize} from 'node:path'
-
-const systemPaths = envPaths(`bud`)
-
-let env: ReturnType<typeof envBootstrap.get>
+import {join} from 'node:path'
 
 interface paths {
   /**
@@ -41,16 +37,17 @@ interface paths {
   basedir: string
 
   /**
-   * Hash of paths
+   * Basedir hash
    */
   hash: string
-
   /**
    * Directory for temporary files
    * @default os-cache
    */
   storage: string
 }
+
+const systemPaths = envPaths(`bud`)
 
 /**
  * Cache paths
@@ -75,18 +72,29 @@ This is most likely a problem with the internals of bud.js.`,
       },
     )
 
-  env = envBootstrap.get(directory)
+  let basedir: string = directory
+  let sha1 = createHash(`sha1`).update(directory)
+  let hash: string
+  let env = envBootstrap.get(directory)
 
-  const basearg = args?.cwd ?? args?.basedir ?? env.APP_BASE_PATH
-  const basedir = basearg ? join(directory, basearg) : directory
-  const hash = createHash(`sha1`).update(basedir).digest(`base64`)
+  if (args.cwd || args.basedir || env.APP_BASE_PATH) {
+    basedir = join(
+      directory,
+      args.cwd ?? args.basedir ?? env.APP_BASE_PATH,
+    )
+    sha1.update(basedir)
+    env = envBootstrap.get(basedir)
+  }
 
-  const storagearg =
-    args?.storage ?? args?.[`@storage`] ?? env.APP_STORAGE_PATH
+  hash = sha1.digest(`base64url`)
+  let storage: string = join(systemPaths.cache, hash)
 
-  const storage = storagearg
-    ? normalize(join(directory, storagearg))
-    : join(systemPaths.cache, hash)
+  if (args.storage || args[`@storage`] || env.APP_STORAGE_PATH) {
+    storage = join(
+      basedir,
+      args.storage ?? args[`@storage`] ?? env.APP_STORAGE_PATH,
+    )
+  }
 
   paths = {
     ...Object.entries(systemPaths).reduce(

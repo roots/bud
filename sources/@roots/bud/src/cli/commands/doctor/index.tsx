@@ -184,14 +184,15 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    const configFiles = (
-      this.bud.context.files ? Object.values(this.bud.context.files) : []
-    ).filter(({bud}) => bud)
-    if (configFiles.length) {
+    const configs = Object.values(this.bud.context.files).filter(
+      ({bud}) => bud,
+    )
+
+    if (configs.length) {
       this.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Bud configuration files{`\n`}</Text>
-          {configFiles.map(({name, path}, i) => (
+          {configs.map(({name, path}, i) => (
             <Box key={i}>
               <Text>
                 {figures.triangleRightSmall} {name}
