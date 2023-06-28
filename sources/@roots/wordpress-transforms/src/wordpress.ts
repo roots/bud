@@ -11,7 +11,6 @@ export const omitted = [`@wordpress/icons`, `@wordpress/interface`]
 export const requestMap: RequestMap = new Map([
   [`@babel/runtime/regenerator`, [`regeneratorRuntime`, `wp-polyfill`]],
   [`jquery`, [`jQuery`, `jquery`]],
-  [`lodash-es`, [`lodash`, `lodash`]],
   [`lodash`, [`lodash`, `lodash`]],
   [`react-dom`, [`ReactDOM`, `react-dom`]],
   [
@@ -44,8 +43,13 @@ export const isWordPressRequest = (request: string): boolean =>
   request.includes(`@wordpress`)
 
 export const normalize = (request: string): string => {
+  if (request.includes(`@babel/runtime/regenerator`))
+    request = `@babel/runtime/regenerator`
+
   if (request.includes(`react-refresh/runtime`))
     request = `react-refresh/runtime`
+
+  if (request === `lodash-es`) request = `lodash`
 
   return request
 }

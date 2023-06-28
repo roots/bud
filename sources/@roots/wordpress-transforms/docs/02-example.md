@@ -1,3 +1,10 @@
+---
+title: Example
+---
+
+This is the plugin exported by `@roots/wordpress-externals-webpack-plugin`, which uses this library:
+
+```ts
 import {window} from '@roots/wordpress-transforms'
 import Webpack, {type WebpackPluginInstance} from 'webpack'
 
@@ -17,3 +24,4 @@ export class WordPressExternalsWebpackPlugin
     }).apply(compiler)
   }
 }
+```

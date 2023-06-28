@@ -84,7 +84,6 @@ export default class BudPresetWordPress extends Extension<Options> {
       ...items,
       `@roots/wordpress-hmr/loader`,
     ])
-    // @ts-ignore
     build.rules.ts?.setUse((items = []) => [
       ...items,
       `@roots/wordpress-hmr/loader`,
