@@ -1,5 +1,5 @@
 import {Bud, factory} from '@repo/test-kit'
-import {afterAll, beforeAll, describe, expect, it, vi} from 'vitest'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 import * as hot from './index.js'
 
@@ -8,15 +8,31 @@ describe(`@roots/bud-server/middleware/hot`, () => {
 
   beforeAll(async () => {
     bud = await factory({mode: `development`})
+    bud.compiler.instance = {
+      hooks: {
+        done: {
+          tap: vi.fn(),
+        },
+        invalid: {
+          tap: vi.fn(),
+        },
+      },
+    }
   })
 
   it(`should be a function`, () => {
     expect(hot.factory).toBeDefined()
   })
 
-  it(`should return expected output`, () => {
-    try {
-      expect(hot.factory(bud)).toBeInstanceOf(Function)
-    } catch (error) {}
+  it(`should return middleware which hooks to compiler instance`, () => {
+    expect(hot.factory(bud)).toBeInstanceOf(Function)
+    expect(bud.compiler.instance.hooks.done.tap).toHaveBeenCalledWith(
+      `bud-hot-middleware`,
+      expect.any(Function),
+    )
+    expect(bud.compiler.instance.hooks.invalid.tap).toHaveBeenCalledWith(
+      `bud-hot-middleware`,
+      expect.any(Function),
+    )
   })
 })
