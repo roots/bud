@@ -12,8 +12,6 @@ export class TestRun extends Command {
 
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
-  public result: number
-
   public async execute() {
     const args = [
       `@bud`,
@@ -30,7 +28,7 @@ export class TestRun extends Command {
           throw error
         })
 
-      this.result = await this.cli
+      await this.cli
         .run([
           `@bud`,
           `release`,
@@ -40,6 +38,7 @@ export class TestRun extends Command {
           `http://localhost:4873/`,
         ])
         .catch(error => {
+          this.result = 1
           throw error
         })
     }

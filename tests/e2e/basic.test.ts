@@ -53,6 +53,6 @@ import './styles.css'
 
 document.querySelector('#root').classList.add('hot')
 
-module?.hot?.accept()
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
 `,
   )

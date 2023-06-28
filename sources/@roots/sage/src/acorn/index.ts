@@ -1,5 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Compilation, Compiler} from '@roots/bud-support/webpack'
+import type {
+  Compilation,
+  Compiler,
+  WebpackPluginInstance,
+} from '@roots/bud-support/webpack'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
@@ -11,7 +15,10 @@ import {urlToHttpOptions} from 'node:url'
  * @see {@link https://github.com/roots/acorn}
  */
 @label(`@roots/sage/acorn`)
-export default class Acorn extends Extension {
+export default class Acorn
+  extends Extension
+  implements WebpackPluginInstance
+{
   /**
    * Writes hmr.json for use with {@link https://github.com/roots/acorn/}
    */
@@ -35,6 +42,9 @@ export default class Acorn extends Extension {
     }
   }
 
+  /**
+   * {@link WebpackPluginInstance.apply}
+   */
   @bind
   public override apply(compiler: Compiler) {
     if (!this.app.isDevelopment) return

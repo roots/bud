@@ -2,4 +2,4 @@ import './styles.css'
 
 document.querySelector('#root')?.classList.add('init')
 
-module?.hot?.accept()
+if (import.meta.webpackHot) import.meta.webpackHot.accept()

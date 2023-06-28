@@ -10,7 +10,7 @@ import {
   it,
 } from 'vitest'
 
-import {e2eBeforeAll, runDev} from './util/install'
+import * as install from './util/install'
 import {destinationPath} from './util/copy'
 
 describe(`html output of examples/babel`, () => {
@@ -20,11 +20,11 @@ describe(`html output of examples/babel`, () => {
   let port: number
 
   beforeAll(async () => {
-    port = await e2eBeforeAll(`babel`)
+    port = await install.e2eBeforeAll(`babel`)
   })
 
   beforeEach(async () => {
-    dev = runDev(`babel`, port)
+    dev = install.runDev(`babel`, port)
     browser = await chromium.launch()
     page = await browser?.newPage()
     await page?.waitForTimeout(5000)
@@ -39,25 +39,27 @@ describe(`html output of examples/babel`, () => {
     await page?.goto(`http://0.0.0.0:${port}/`)
 
     const title = await page.title()
-    expect(title).toBe(`Create Bud App`)
+    expect(title).toBe(`@examples/babel`)
 
     const root = await page.$(`#root`)
     expect(root).toBeTruthy()
 
-    const color = await root?.evaluate(el => {
-      return window.getComputedStyle(el).getPropertyValue(`background`)
-    })
-    expect(color).toMatchSnapshot(
+    expect(
+      await root?.evaluate(el =>
+        window.getComputedStyle(el).getPropertyValue(`background`),
+      ),
+    ).toMatchSnapshot(
       `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
 
     await update()
     await page.waitForTimeout(12000)
 
-    const color2 = await root?.evaluate(el => {
-      return window.getComputedStyle(el).getPropertyValue(`background`)
-    })
-    expect(color2).toMatchSnapshot(
+    expect(
+      await root?.evaluate(el =>
+        window.getComputedStyle(el).getPropertyValue(`background`),
+      ),
+    ).toMatchSnapshot(
       `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
   })
