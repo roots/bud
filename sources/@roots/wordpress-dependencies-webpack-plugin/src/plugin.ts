@@ -150,6 +150,7 @@ export default class WordPressDependenciesWebpackPlugin {
           entrypoint.has(`dependencies`)
             ? entrypoint.get(`dependencies`).add(dependency)
             : entrypoint.set(`dependencies`, new Set([dependency]))
+      else entrypoint.set(`dependencies`, new Set())
 
     return entrypoints
   }

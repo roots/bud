@@ -6,8 +6,8 @@
   ],
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-swc": "workspace:*",
-    "@roots/bud-preset-wordpress": "workspace:*"
+    "@roots/bud": "latest",
+    "@roots/bud-swc": "latest",
+    "@roots/bud-preset-wordpress": "latest"
   }
 }

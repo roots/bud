@@ -17,19 +17,11 @@ export class Vitest extends Command {
   public passthrough = Option.Proxy({name: `vitest options`})
 
   public async execute() {
-    const result = await this.cli
-      .run(
-        [
-          `vitest`,
-          `--config`,
-          path(`config/vitest.${this.configuration}.config.ts`),
-          ...this.passthrough,
-        ].filter(Boolean),
-      )
-      .catch(error => {
-        throw error
-      })
-
-    return result
+    return await this.cli.run([
+      `vitest`,
+      `--config`,
+      path(`config`, `vitest.${this.configuration}.config.ts`),
+      ...this.passthrough,
+    ])
   }
 }

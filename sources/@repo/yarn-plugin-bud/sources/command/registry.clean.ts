@@ -27,16 +27,14 @@ export class RegistryClean extends Command {
       throw error
     })
 
-    try {
-      await this.promise(
-        `Removing existing local packages`,
-        `Existing local packages removed`,
-        `Failed to remove existing local packages`,
-        fs.removeAsync(path(`storage`, `packages`)),
-      )
-    } catch (e) {
-      throw e
-    }
+    await this.promise(
+      `Removing existing local packages`,
+      `Existing local packages removed`,
+      `Failed to remove existing local packages`,
+      fs.removeAsync(path(`storage`, `packages`)),
+    ).catch(error => {
+      throw error
+    })
 
     const verdaccioDbExists = await fs.existsAsync(
       path(`storage`, `.verdaccio-db.json`),

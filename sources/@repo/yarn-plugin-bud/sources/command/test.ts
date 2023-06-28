@@ -15,18 +15,20 @@ export class TestRun extends Command {
   public result: number
 
   public async execute() {
-    const args = new Set(
-      [`@bud`, `vitest`, this.configuration, ...this.passthrough].filter(
-        Boolean,
-      ),
-    )
+    const args = [
+      `@bud`,
+      `vitest`,
+      this.configuration,
+      ...this.passthrough,
+    ]
 
     if ([`e2e`, `integration`].includes(this.configuration)) {
-      args.add(`run`)
-
       await fs
         .removeAsync(join(paths.root, `storage/mocks`))
-        .catch(error => {})
+        .catch(error => {
+          this.result = 1
+          throw error
+        })
 
       this.result = await this.cli
         .run([
@@ -35,18 +37,13 @@ export class TestRun extends Command {
           `--tag`,
           `latest`,
           `--registry`,
-          `http://localhost:4873`,
+          `http://localhost:4873/`,
         ])
         .catch(error => {
-          this.result = 0
           throw error
         })
     }
 
-    await this.cli.run([...args]).catch(error => {
-      throw error
-    })
-
-    if (this.result !== 0) return this.result
+    return await this.cli.run(args)
   }
 }
