@@ -6,7 +6,7 @@
   "dependencies": {
     "@types/lodash-es": "4.17.7",
     "@types/node": "18.16.16",
-    "@yarnpkg/builder": "4.0.0-rc.45",
+    "@yarnpkg/builder": "4.0.0-rc.46",
     "@yarnpkg/cli": "4.0.0-rc.45",
     "@yarnpkg/core": "4.0.0-rc.45",
     "@yarnpkg/shell": "4.0.0-rc.45",
