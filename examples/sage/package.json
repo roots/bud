@@ -1,20 +1,10 @@
 {
   "name": "@examples/sage",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
+  "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",
-    "@roots/bud-eslint": "latest",
-    "@roots/bud-prettier": "latest",
-    "@roots/bud-stylelint": "latest",
     "@roots/bud-tailwindcss": "latest",
-    "@roots/eslint-config": "latest",
     "@roots/sage": "latest"
   }
 }

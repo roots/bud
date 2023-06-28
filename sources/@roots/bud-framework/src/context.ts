@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {parse} from 'path'
 
 /**
  * Bud context object
@@ -502,25 +503,6 @@ export interface File {
    * File name contains `bud`.
    */
   bud: boolean
-  /**
-   * Is a `directory` (as opposed to a file)
-   */
-  dir: boolean
-  /**
-   * Is a dynamic configuration file
-   *
-   * @remarks
-   * File extension is `.cjs`, `mjs`, `.js` or `.ts`
-   */
-  dynamic: boolean
-  /**
-   * File extension
-   */
-  extension: null | string
-  /**
-   * Is a `file` (as opposed to a directory)
-   */
-  file: boolean
 
   /**
    * Is a local configuration file
@@ -536,14 +518,19 @@ export interface File {
   mode: number
 
   /**
-   * Module (if file is a dynamic configuration file)
+   * Module importer
    */
-  module: any
+  module: () => Promise<any>
 
   /**
    * Filename
    */
   name: string
+
+  /**
+   * Parsed file path
+   */
+  parsed: ReturnType<typeof parse>
 
   /**
    * Absolute filepath
@@ -561,15 +548,15 @@ export interface File {
   size: number
 
   /**
-   * Is a symlink
-   */
-  symlink: boolean
-
-  /**
    * Target environment config
    *
    * @remarks
    * File name includes `.production` or `.development`
    */
-  type: `base` | `development` | `production`
+  target: `base` | `development` | `production`
+
+  /**
+   * File type
+   */
+  type: `file` | `json` | `module`
 }

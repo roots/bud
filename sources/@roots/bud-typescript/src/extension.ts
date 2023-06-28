@@ -142,9 +142,12 @@ export default class BudTypeScript extends Extension<Options> {
     /**
      * If a tsconfig.json file is present
      */
-    if (context.files[`tsconfig.json`]) {
-      // Set the tsconfig.json file path
-      this.setConfigFile(context.files[`tsconfig.json`].path)
+    if (
+      context.files[`tsconfig`].path &&
+      context.files[`tsconfig`].type === `json`
+    ) {
+      // Set the tsconfig file path
+      this.setConfigFile(context.files[`tsconfig`].path)
     }
 
     /**

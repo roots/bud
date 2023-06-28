@@ -1,13 +1,13 @@
+import type {Entrypoints} from '@roots/entrypoints-webpack-plugin'
+
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
-
-import type {Entry} from './webpack.plugin.js'
 
 /**
  * Emits inline html for each entrypoint
  *
  * @param compilation - Webpack compilation instance
- * @param publicPath - public path for assets
+ * @param publicPath - public path for entrypoints
  */
 export class HtmlEmitter {
   /**
@@ -18,21 +18,23 @@ export class HtmlEmitter {
    */
   public constructor(
     public compilation: Webpack.Compilation,
-    public assets: Entry,
+    public assets: Webpack.Compilation[`assets`],
+    public entrypoints: Entrypoints,
     public publicPath: string,
   ) {}
 
   /**
-   * Reduce entrypoint assets to markup
+   * Reduce entrypoint entrypoints to markup
    */
   @bind
   public emit(): void {
-    Object.entries(this.assets).map(([name, asset]) => {
-      Object.assign(this.compilation.assets, {
-        [`${name}.html`]: new Webpack.sources.RawSource(
-          Object.entries(asset).reduce(this.entrypointsReducer, ``),
+    ;[...this.entrypoints.entries()].map(([name, entrypoint]) => {
+      this.compilation.emitAsset(
+        `${name}.html`,
+        new Webpack.sources.RawSource(
+          [...entrypoint.entries()].reduce(this.entrypointsReducer, ``),
         ),
-      })
+      )
     })
   }
 
@@ -42,12 +44,11 @@ export class HtmlEmitter {
   @bind
   public entrypointsReducer(
     acc: string,
-    [type, files]: [string, Array<string>],
+    [type, files]: [string, Set<string>],
   ): string {
     if ([`js`, `mjs`].includes(type))
-      return files.reduce(this.scriptReducer, acc)
-
-    if (type === `css`) return files.reduce(this.styleReducer, acc)
+      return [...files].reduce(this.scriptReducer, acc)
+    if (type === `css`) return [...files].reduce(this.styleReducer, acc)
 
     return acc
   }
@@ -60,9 +61,7 @@ export class HtmlEmitter {
    */
   @bind
   public getCompiledAsset(file: string) {
-    const raw =
-      this.compilation.assets[file.replace(this.publicPath, ``)]?.source()
-
+    const raw = this.assets[file.replace(this.publicPath, ``)]?.source()
     return raw instanceof Buffer ? raw.toString() : raw
   }
 
@@ -79,7 +78,7 @@ export class HtmlEmitter {
     const stringyAttributes = attributes
       ? Object.entries(attributes)
           .filter(([, v]) => typeof v !== `undefined` && v !== false)
-          .map(([k, v]) => (v === true ? k : `${k}="${v}"`))
+          .map(([k, v]) => (v === true ? k : `${k}=${v}`))
           .reduce((acc, v) => [...acc, v], [])
           .filter(Boolean)
           .join(` `)
@@ -114,6 +113,6 @@ export class HtmlEmitter {
    */
   @bind
   public styleReducer(acc: string, file: string): string {
-    return [acc, `<link rel="stylesheet" href="${file}" />`].join(`\n`)
+    return [acc, `<link rel=stylesheet href=${file} />`].join(`\n`)
   }
 }

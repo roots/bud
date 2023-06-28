@@ -48,16 +48,18 @@ export default class BabelExtension extends Extension {
       ? this.app.path(this.app.cache.cacheDirectory, `babel`)
       : false
   }
+
   /**
    * Config file accessor
    */
   public get configFile(): Record<string, any> {
     return Object.values(this.app.context.files).find(
       file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
+        file.name === `.babelrc` ||
+        (file.name === `babel.config` && file.type === `module`),
     )
   }
+
   /**
    * Get babel env value
    */
@@ -77,11 +79,8 @@ export default class BabelExtension extends Extension {
       configFile: false,
     }
 
-    if (this.overridenByProjectConfigFile) {
-      return {
-        ...baseOptions,
-        ...this.configFileOptions,
-      }
+    if (this.configFile) {
+      return {...baseOptions, ...this.configFileOptions}
     }
 
     return {
@@ -90,22 +89,8 @@ export default class BabelExtension extends Extension {
       plugins: Object.values(this.plugins),
       presets: Object.values(this.presets),
       root: this.root,
-      targets:
-        this.app.context.files[`package.json`].module.browserslist ??
-        `defaults`,
+      targets: this.app.context.manifest?.browserslist ?? `defaults`,
     }
-  }
-
-  /**
-   * Boolean representing if project has a babel config file
-   */
-  public get overridenByProjectConfigFile() {
-    if (!this.app.context.files) return false
-    return Object.values(this.app.context.files).some(
-      file =>
-        file?.name?.startsWith(`.babelrc`) ||
-        (file?.name?.includes(`babel.config`) && file?.module),
-    )
   }
 
   /**
@@ -115,12 +100,13 @@ export default class BabelExtension extends Extension {
   public override async register({build, hooks}: Bud) {
     const loader = await this.resolve(`babel-loader`, import.meta.url)
     if (!loader) throw new Error(`babel-loader not found`)
+
     hooks.on(`build.resolveLoader.alias`, (alias = {}) => ({
       ...alias,
       [`babel-loader`]: loader,
     }))
 
-    if (this.overridenByProjectConfigFile) {
+    if (this.configFile) {
       this.logger.log(
         `Babel configuration is being overridden by project configuration file.`,
       )
@@ -190,7 +176,7 @@ export default class BabelExtension extends Extension {
     name: [any, any] | string,
     plugin?: [any, any] | string,
   ): this {
-    if (this.overridenByProjectConfigFile) {
+    if (this.configFile) {
       this.logger.warn(
         `Babel configuration is being overridden by project configuration file.\n`,
         `bud.babel.setPlugin will not work as expected\n`,
@@ -232,17 +218,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set options:`,
-        options,
-        `for`,
-        plugin,
-      )
-    }
-
     this.plugins[plugin] = [this.plugins[plugin].shift(), options]
     return this
   }
@@ -252,15 +227,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set plugins:`,
-        plugins,
-      )
-    }
-
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => {
         if (Array.isArray(plugin)) {
@@ -282,17 +248,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public setPreset(name: string, preset?: [string, any] | string): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresets will not work as expected\n`,
-        `tried to set`,
-        name,
-        `to`,
-        preset,
-      )
-    }
-
     if (!preset) {
       this.presets[name] = [name]
       return this
@@ -307,17 +262,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public setPresetOptions(preset: string, options: any): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to set options:`,
-        options,
-        `for`,
-        preset,
-      )
-    }
-
     this.presets[preset] = [this.presets[preset].shift(), options]
     return this
   }
@@ -329,15 +273,6 @@ export default class BabelExtension extends Extension {
   public setPresets(presets: {
     [key: string]: [string, any] | string
   }): this {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresets will not work as expected\n`,
-        `tried to set:`,
-        presets,
-      )
-    }
-
     this.presets = Object.entries(presets).reduce(
       (presets, [name, preset]) => {
         if (Array.isArray(preset)) {
@@ -359,15 +294,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public unsetPlugin(plugin: string) {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPresetOptions will not work as expected\n`,
-        `tried to unset plugin:`,
-        plugin,
-      )
-    }
-
     if (!isUndefined(this.plugins[plugin]))
       this.plugins[plugin] = undefined
 
@@ -379,14 +305,6 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public unsetPreset(preset: string) {
-    if (this.overridenByProjectConfigFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.unsetPreset will not work as expected\n`,
-        `tried to unset:`,
-        preset,
-      )
-    }
     if (!isUndefined(this.presets[preset]))
       this.presets[preset] = undefined
 

@@ -1,37 +1,19 @@
-import Webpack from 'webpack'
-
-import {externals} from './externals.js'
+import {window} from '@roots/wordpress-transforms'
+import Webpack, {type WebpackPluginInstance} from 'webpack'
 
 /**
- * WordPress Externals Webpack Plugin
+ * {@link WebpackPluginInstance}
  */
-export default class WordPressExternals {
+export class WordPressExternalsWebpackPlugin
+  implements WebpackPluginInstance
+{
   /**
-   * Externals plugin
+   * {@link WebpackPluginInstance.apply}
    */
-  public externals: Webpack.ExternalsPlugin
-
-  /**
-   * Plugin name
-   */
-  public name = `WordPressExternalsWebpackPlugin`
-
-  /**
-   * Plugin stage
-   */
-  public stage = Infinity
-
-  /**
-   * Class constructor
-   */
-  public constructor() {
-    this.externals = new Webpack.ExternalsPlugin(`window`, externals)
-  }
-
-  /**
-   * {@link Extension.apply}
-   */
-  public apply(compiler: Webpack.Compiler): void {
-    this.externals.apply(compiler)
+  public apply(compiler: Webpack.Compiler) {
+    new Webpack.ExternalsPlugin(`window`, ({request}, callback) => {
+      const lookup = window.transform(request)
+      return lookup ? callback(null, lookup) : callback()
+    }).apply(compiler)
   }
 }

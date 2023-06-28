@@ -1,47 +1,18 @@
-import {bind} from 'helpful-decorators'
-import uniq from 'lodash/uniq.js'
+import type {
+  CompilationHooks,
+  Entrypoints,
+  Options,
+} from '@roots/entrypoints-webpack-plugin'
+
+import {SyncHook, SyncWaterfallHook} from 'tapable'
 import Webpack from 'webpack'
 
 import {HtmlEmitter} from './html.emitter.js'
 
 /**
- * Entrypoints
+ * {@link https://webpack.js.org/api/plugins/#custom-hooks}
  */
-export interface Entry extends Record<string, unknown> {
-  [entry: string]: {
-    [type: string]: string[]
-  }
-}
-
-/**
- * EntrypointsWebpackPlugin options
- */
-export interface Options {
-  /**
-   * Emit html with inlined runtime, script and style tags
-   */
-  emitHtml?: boolean
-
-  /**
-   * Name of the file to emit (default: `entrypoints.json`)
-   */
-  name?: string
-
-  /**
-   * Path to emit entrypoints.json
-   */
-  outputPath?: string
-
-  /**
-   * Override the public path (default is from webpack)
-   */
-  publicPath?: string
-
-  /**
-   * Emit entrypoints as an array or an object (default: `array`)
-   */
-  type?: 'array' | 'object'
-}
+const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
 
 /**
  * Produces `entrypoints.json` artifact with compiled assets broken down
@@ -60,22 +31,7 @@ export class EntrypointsWebpackPlugin {
   /**
    * Collected assets
    */
-  public assets: Entry
-
-  /**
-   * Webpack compilation instance
-   */
-  public compilation: Webpack.Compilation
-
-  /**
-   * Webpack compiler instance
-   */
-  public compiler: Webpack.Compiler
-
-  /**
-   * Artifact filename
-   */
-  public name: string = `entrypoints.json`
+  public entrypoints: Entrypoints
 
   /**
    * Plugin compiler ident
@@ -88,66 +44,136 @@ export class EntrypointsWebpackPlugin {
   /**
    * Class constructor
    */
-  public constructor(public options: Options) {}
+  public constructor(public options: Options) {
+    if (!this.options.type) {
+      this.options.type = `object`
+    }
+
+    if (!this.options.publicPath || this.options.publicPath === `auto`) {
+      this.options.publicPath = ``
+    }
+
+    if (!this.options.name) {
+      this.options.name = `entrypoints.json`
+    }
+
+    this.entrypoints = new Map()
+
+    this.addToManifest = this.addToManifest.bind(this)
+    this.getChunkedFiles = this.getChunkedFiles.bind(this)
+    this.apply = this.apply.bind(this)
+  }
 
   /**
-   * Adds an entry to the manifest
+   * Compilation hooks
+   *
+   * @param compilation
+   * @returns
    */
-  @bind
+  public static getCompilationHooks(
+    compilation: Webpack.Compilation,
+  ): CompilationHooks {
+    let hooks: CompilationHooks = hookMap.get(compilation)
+
+    if (hooks === undefined) {
+      hooks = {
+        compilation: new SyncHook([`compilation`]),
+        entrypoints: new SyncWaterfallHook([`entrypoints`]),
+      }
+      hookMap.set(compilation, hooks)
+    }
+
+    return hooks
+  }
+
   public addToManifest({
-    entry,
-    file,
-    key = null,
+    ident,
+    path,
+    type,
   }: {
-    entry: string
-    file: any
-    key?: string
+    ident: string
+    path: string
+    type: string
   }) {
-    const type = file.split(`.`).pop()
+    !this.entrypoints.has(ident) && this.entrypoints.set(ident, new Map())
 
-    if (!this.assets[entry]) {
-      this.assets[entry] = {[type]: null}
-    }
-
-    this.assets[entry] = {
-      ...this.assets[entry],
-      [type]:
-        this.options.type === `object` && key
-          ? {
-              ...(this.assets[entry][type] ?? {}),
-              [key]: this.options.publicPath.concat(file),
-            }
-          : uniq([
-              ...(this.assets[entry][type] ?? []),
-              this.options.publicPath.concat(file),
-            ]),
-    }
+    !this.entrypoints.get(ident).has(type)
+      ? this.entrypoints.get(ident).set(type, new Set([path]))
+      : this.entrypoints.get(ident).get(type).add(path)
   }
 
   /**
    * Webpack plugin API's `apply` hook
    */
-  @bind
   public apply(compiler: Webpack.Compiler): void {
-    this.assets = {}
+    compiler.hooks.thisCompilation.tap(
+      this.constructor.name,
+      compilation => {
+        compilation.hooks.processAssets.tapPromise(
+          {
+            name: this.constructor.name,
+            stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
+          },
+          async assets => {
+            const hooks =
+              EntrypointsWebpackPlugin.getCompilationHooks(compilation)
+            hooks.compilation.call(compilation)
 
-    this.compiler = compiler
+            const cache = compilation.getCache(this.constructor.name)
+            this.entrypoints = await cache.getPromise<Entrypoints>(
+              `entrypoints`,
+              null,
+            )
 
-    this.options.publicPath =
-      this.options.publicPath ??
-      (this.compiler.options.output.publicPath as string) ??
-      ``
+            if (!this.entrypoints) {
+              this.entrypoints = new Map()
 
-    this.options.publicPath = this.options.publicPath.replace(`auto`, ``)
+              for (const entry of compilation.entrypoints.values()) {
+                this.getChunkedFiles(entry.chunks).map(({file}) => {
+                  const ident = entry.name
+                  const path = this.options.publicPath.concat(file)
+                  const type = path.split(`.`).pop()
 
-    this.compiler.hooks.thisCompilation.tap(
-      this.plugin,
-      (compilation: Webpack.Compilation) => {
-        this.compilation = compilation
+                  this.addToManifest({ident, path, type})
+                })
+              }
 
-        this.compilation.hooks.processAssets.tap(
-          {...this.plugin, additionalAssets: true},
-          this.processAssets,
+              await cache.storePromise(
+                `entrypoints`,
+                null,
+                this.entrypoints,
+              )
+            }
+
+            this.entrypoints = hooks.entrypoints.call(this.entrypoints)
+
+            if (this.options.emitHtml) {
+              new HtmlEmitter(
+                compilation,
+                assets,
+                this.entrypoints,
+                this.options.publicPath,
+              ).emit()
+            }
+
+            let source = {}
+            for (const [name, entry] of this.entrypoints.entries()) {
+              if (!source[name]) source[name] = {}
+
+              for (const [type, assets] of entry.entries()) {
+                if (!source[name][type]) source[name][type] = []
+
+                source[name][type] = [...assets]
+              }
+            }
+
+            compilation.emitAsset(
+              this.options.name,
+              new compiler.webpack.sources.RawSource(
+                JSON.stringify(source, null, 2),
+              ),
+            )
+          },
         )
       },
     )
@@ -156,46 +182,15 @@ export class EntrypointsWebpackPlugin {
   /**
    * Get assets from an entrypoint
    */
-  @bind
-  public getEntrypointFiles(entry: {
-    chunks: Webpack.Chunk[]
-  }): {[key: string]: string}[] {
+  public getChunkedFiles(chunks: Webpack.Chunk[]) {
     const files = []
-    for (const chunk of entry.chunks) {
+
+    for (const chunk of chunks) {
       Array.from(chunk.files).map(file => {
-        files.push({file, key: chunk.name})
+        files.push({file, ident: chunk.name})
       })
     }
 
     return files
-  }
-
-  /**
-   * Runs through each entrypoint entry and adds to the
-   * manifest
-   */
-  @bind
-  public processAssets() {
-    this.compilation.entrypoints.forEach(entry => {
-      this.getEntrypointFiles(entry)
-        .filter(({file}) => !file.includes(`hot-update`))
-        .map(({file, key}) => {
-          this.addToManifest({entry: entry.name, file, key})
-        })
-    })
-
-    this.options.emitHtml &&
-      new HtmlEmitter(
-        this.compilation,
-        this.assets,
-        this.options.publicPath,
-      ).emit()
-
-    Object.assign(this.compilation.assets, {
-      [this.name]: new Webpack.sources.RawSource(
-        JSON.stringify(this.assets),
-        true,
-      ),
-    })
   }
 }

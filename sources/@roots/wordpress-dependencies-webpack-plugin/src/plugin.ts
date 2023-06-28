@@ -1,113 +1,157 @@
+import type {
+  Entrypoints,
+  EntrypointsWebpackPlugin,
+} from '@roots/entrypoints-webpack-plugin'
+import type {Compilation} from 'webpack'
+
+import {handle, wordpress} from '@roots/wordpress-transforms'
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
 
-import * as wpPkgs from './packages.js'
-
-interface Manifest {
-  [key: string]: any
+export interface Options {
+  emitWordPressJson: boolean
+  entrypointsPlugin?: typeof EntrypointsWebpackPlugin
+  outputPath?: string
 }
 
 export default class WordPressDependenciesWebpackPlugin {
-  /**
-   */
-  protected compilation: Webpack.Compilation
-
-  public fileName: string
-
-  public manifest: Manifest = {}
+  public dependencies: Map<string, Set<string>>
 
   public plugin = {
     name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
   }
 
-  public usedDependencies = {}
+  public requested: Map<string, Set<string>>
 
-  public constructor(options?: {fileName: string}) {
-    this.fileName = options?.fileName ?? `wordpress.json`
+  public constructor(public options?: Options) {
+    if (!this.options.outputPath)
+      this.options.outputPath = `wordpress.json`
+
+    if (
+      typeof this.options.emitWordPressJson === `undefined` &&
+      !this.options.entrypointsPlugin
+    )
+      this.options.emitWordPressJson = true
+
+    this.dependencies = new Map()
+    this.requested = new Map()
   }
 
   /**
+   * Add item to set in map
+   *
+   * @remarks
+   * Works for both our map of requests and our map of dependencies.
+   */
+  public addItemToMap(
+    obj: Map<string, Set<string>>,
+    key: string,
+    item: string,
+  ) {
+    if (!obj.has(key)) {
+      obj.set(key, new Set([item]))
+      return
+    }
+
+    obj.set(key, obj.get(key).add(item))
+  }
+
+  /**
+   * Apply plugin
    */
   @bind
   public apply(compiler: Webpack.Compiler): void {
-    compiler.hooks.normalModuleFactory.tap(
-      this.plugin.name,
-      this.normalModuleFactory,
-    )
-
-    compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
-      this.compilation = compilation
-      this.compilation.hooks.processAssets.tap(
-        {...this.plugin, additionalAssets: true},
-        this.processAssets,
+    compiler.hooks.normalModuleFactory.tap(this.plugin.name, factory => {
+      factory.hooks.beforeResolve.tap(
+        this.plugin.name,
+        ({contextInfo, request}) => {
+          this.addItemToMap(this.requested, contextInfo.issuer, request)
+        },
       )
     })
-  }
 
-  /**
-   */
-  @bind
-  public normalModuleFactory(factory) {
-    factory.hooks.beforeResolve.tap(
-      this.plugin.name,
-      ({contextInfo, request}) => {
-        const {issuer} = contextInfo
+    compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
+      if (this.options.entrypointsPlugin) {
+        const hooks =
+          this.options.entrypointsPlugin.getCompilationHooks(compilation)
 
-        this.usedDependencies = {
-          ...this.usedDependencies,
-          [issuer ?? `unknown`]: [
-            ...(this.usedDependencies[issuer] ?? []),
-            request,
-          ].filter(wpPkgs.isProvided),
-        }
+        hooks.compilation.tap(
+          this.plugin.name,
+          this.extractDependenciesFromCompilation,
+        )
+        hooks.entrypoints.tap(
+          this.plugin.name,
+          this.tapEntrypointsManifestObject,
+        )
+      }
 
-        return
-      },
-    )
-  }
+      if (this.options.emitWordPressJson) {
+        compilation.hooks.processAssets.tapPromise(
+          this.plugin,
+          async () => {
+            this.extractDependenciesFromCompilation(compilation)
 
-  /**
-   */
-  @bind
-  public processAssets(assets: Webpack.Compilation['assets']) {
-    this.compilation.entrypoints.forEach(entry => {
-      this.manifest[entry.name] = this.manifest[entry.name] ?? new Set([])
-
-      for (const chunk of entry.chunks) {
-        this.compilation.chunkGraph
-          .getChunkModules(chunk)
-          .forEach(({modules, userRequest}: any) => {
-            this.usedDependencies[userRequest]
-              ?.map((request: string) => wpPkgs.transform(request).enqueue)
-              .forEach((request: string) => {
-                this.manifest[entry.name].add(request)
-              })
-
-            modules?.forEach(({userRequest}) => {
-              this.usedDependencies[userRequest]
-                ?.map(
-                  (request: string) => wpPkgs.transform(request).enqueue,
-                )
-                .forEach((request: string) => {
-                  this.manifest[entry.name].add(request)
-                })
-            })
-          })
+            compilation.emitAsset(
+              this.options.outputPath,
+              new compiler.webpack.sources.RawSource(
+                JSON.stringify(this.dependencies, null, 2),
+              ),
+            )
+          },
+        )
       }
     })
+  }
 
-    assets[this.fileName] = new Webpack.sources.RawSource(
-      JSON.stringify(
-        Object.entries(this.manifest).reduce(
-          (manifest, [key, value]) => ({
-            ...manifest,
-            [key]: [...value],
-          }),
-          {},
-        ),
-      ),
-      true,
-    )
+  @bind
+  public extractDependenciesFromCompilation(compilation: Compilation) {
+    for (const {chunks, name} of compilation.entrypoints.values()) {
+      for (const chunk of chunks) {
+        const records: any = compilation.chunkGraph.getChunkModules(chunk)
+
+        for (const {userRequest} of records) {
+          this.processChunkRequest(name, userRequest)
+        }
+
+        for (const {modules} of records) {
+          if (!modules) continue
+
+          for (const {userRequest} of modules) {
+            this.processChunkRequest(name, userRequest)
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Add mapped request to entrypoint manifest object
+   */
+  @bind
+  public processChunkRequest(name: string, userRequest: string) {
+    if (!name || !userRequest || !this.requested.has(userRequest)) return
+
+    for (const request of this.requested.get(userRequest)) {
+      if (!wordpress.isProvided(request)) continue
+
+      this.addItemToMap(this.dependencies, name, handle.transform(request))
+    }
+  }
+
+  /**
+   * Tap entrypoints manifest object
+   */
+  @bind
+  public tapEntrypointsManifestObject(entrypoints: Entrypoints) {
+    for (const [ident, entrypoint] of entrypoints.entries())
+      if (this.dependencies.has(ident))
+        for (const dependency of this.dependencies.get(ident))
+          entrypoint.has(`dependencies`)
+            ? entrypoint.get(`dependencies`).add(dependency)
+            : entrypoint.set(`dependencies`, new Set([dependency]))
+      else entrypoint.set(`dependencies`, new Set())
+
+    return entrypoints
   }
 }

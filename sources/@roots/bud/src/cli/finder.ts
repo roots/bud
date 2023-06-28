@@ -2,9 +2,9 @@
 import type {Context} from '@roots/bud-framework/context'
 
 import {bind} from '@roots/bud-support/decorators/bind'
+import {filesystem} from '@roots/bud-support/filesystem'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'
-import {filesystem} from '@roots/bud-support/utilities/filesystem'
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 

@@ -7,6 +7,4 @@
  * file which can be read server-side.
  */
 
-import WordPressDependenciesWebpackPlugin from './plugin.js'
-
-export default WordPressDependenciesWebpackPlugin
+export {default, type Options} from './plugin.js'

@@ -6943,13 +6943,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-wordpress@workspace:sources/@roots/bud-preset-wordpress"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
     "@roots/bud-react": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/bud-tailwindcss-theme-json": "workspace:*"
-    "@roots/bud-wordpress-manifests": "workspace:*"
+    "@roots/bud-wordpress-dependencies": "workspace:*"
+    "@roots/bud-wordpress-externals": "workspace:*"
     "@roots/bud-wordpress-theme-json": "workspace:*"
     "@roots/wordpress-hmr": "workspace:*"
     "@skypack/package-check": 0.2.2
@@ -7195,6 +7195,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@roots/bud-wordpress-theme-json": "workspace:*"
+    "@roots/wordpress-theme-json-webpack-plugin": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     tslib: 2.5.3
@@ -7292,6 +7293,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
+    "@roots/entrypoints-webpack-plugin": "workspace:*"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
@@ -7305,21 +7307,6 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/wordpress-externals-webpack-plugin": "workspace:*"
-    "@skypack/package-check": 0.2.2
-    "@types/node": 18.16.16
-    tslib: 2.5.3
-  languageName: unknown
-  linkType: soft
-
-"@roots/bud-wordpress-manifests@workspace:*, @roots/bud-wordpress-manifests@workspace:sources/@roots/bud-wordpress-manifests":
-  version: 0.0.0-use.local
-  resolution: "@roots/bud-wordpress-manifests@workspace:sources/@roots/bud-wordpress-manifests"
-  dependencies:
-    "@roots/bud": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-wordpress-dependencies": "workspace:*"
-    "@roots/bud-wordpress-externals": "workspace:*"
-    "@roots/merged-manifest-webpack-plugin": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     tslib: 2.5.3
@@ -7416,6 +7403,7 @@ __metadata:
     "@types/node": 18.16.16
     helpful-decorators: 2.1.0
     lodash: 4.17.21
+    tapable: 2.2.1
     tslib: 2.5.3
     webpack: 5.86.0
   languageName: unknown
@@ -7469,19 +7457,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/merged-manifest-webpack-plugin@workspace:*, @roots/merged-manifest-webpack-plugin@workspace:sources/@roots/merged-manifest-webpack-plugin":
-  version: 0.0.0-use.local
-  resolution: "@roots/merged-manifest-webpack-plugin@workspace:sources/@roots/merged-manifest-webpack-plugin"
-  dependencies:
-    "@skypack/package-check": 0.2.2
-    "@types/node": 18.16.16
-    fs-jetpack: 5.1.0
-    helpful-decorators: 2.1.0
-    tslib: 2.5.3
-    webpack: 5.86.0
-  languageName: unknown
-  linkType: soft
-
 "@roots/sage@workspace:*, @roots/sage@workspace:sources/@roots/sage":
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:sources/@roots/sage"
@@ -7504,12 +7479,17 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-dependencies-webpack-plugin@workspace:sources/@roots/wordpress-dependencies-webpack-plugin"
   dependencies:
+    "@roots/wordpress-transforms": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
     helpful-decorators: 2.1.0
-    lodash: 4.17.21
     tslib: 2.5.3
     webpack: 5.86.0
+  peerDependencies:
+    "@roots/entrypoints-webpack-plugin": "workspace:*"
+  peerDependenciesMeta:
+    "@roots/entrypoints-webpack-plugin":
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -7517,9 +7497,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin"
   dependencies:
+    "@roots/wordpress-transforms": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.16
-    lodash: 4.17.21
     tslib: 2.5.3
     webpack: 5.86.0
   languageName: unknown
@@ -7556,8 +7536,19 @@ __metadata:
     helpful-decorators: 2.1.0
     json-schema-to-typescript: 13.0.1
     lodash: 4.17.21
+    tapable: 2.2.1
     tslib: 2.5.3
     webpack: 5.86.0
+  languageName: unknown
+  linkType: soft
+
+"@roots/wordpress-transforms@workspace:*, @roots/wordpress-transforms@workspace:sources/@roots/wordpress-transforms":
+  version: 0.0.0-use.local
+  resolution: "@roots/wordpress-transforms@workspace:sources/@roots/wordpress-transforms"
+  dependencies:
+    "@skypack/package-check": 0.2.2
+    "@types/node": 18.16.16
+    tslib: 2.5.3
   languageName: unknown
   linkType: soft
 
@@ -13189,9 +13180,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489":
-  version: 1.0.30001506
-  resolution: "caniuse-lite@npm:1.0.30001506"
-  checksum: 0a090745824622df146e2f6dde79c7f7920a899dec1b3a599d2ef9acf41cef5e179fd133bb59f2030286a4ea935f4230e05438d7394694c414e8ada345eb5268
+  version: 1.0.30001508
+  resolution: "caniuse-lite@npm:1.0.30001508"
+  checksum: 0a083ed92194d87e608fc35cac65830a27900249729eb8a68e270f866f2c4f83396c2e54eb47b0ef71360682174dd74e2e68eac0b8d407d125611c7bc12488eb
   languageName: node
   linkType: hard
 
@@ -31480,17 +31471,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tapable@npm:2.2.1, tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
+  version: 2.2.1
+  resolution: "tapable@npm:2.2.1"
+  checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^1.0.0":
   version: 1.1.3
   resolution: "tapable@npm:1.1.3"
   checksum: 53ff4e7c3900051c38cc4faab428ebfd7e6ad0841af5a7ac6d5f3045c5b50e88497bfa8295b4b3fbcadd94993c9e358868b78b9fb249a76cb8b018ac8dccafd7
-  languageName: node
-  linkType: hard
-
-"tapable@npm:^2.0.0, tapable@npm:^2.1.1, tapable@npm:^2.2.0, tapable@npm:^2.2.1":
-  version: 2.2.1
-  resolution: "tapable@npm:2.2.1"
-  checksum: 3b7a1b4d86fa940aad46d9e73d1e8739335efd4c48322cb37d073eb6f80f5281889bf0320c6d8ffcfa1a0dd5bfdbd0f9d037e252ef972aca595330538aac4d51
   languageName: node
   linkType: hard
 

@@ -1,6 +1,6 @@
 import {path} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
-import {Context} from '@roots/bud-framework/options'
+import {Context} from '@roots/bud-framework/context'
 
 import getContext from '../src/context/index.js'
 
@@ -9,7 +9,6 @@ describe(`context.get`, () => {
 
   beforeEach(async () => {
     context = await getContext({
-      // @ts-ignore
       basedir: path(`tests`, `util`, `project`),
     })
   })
@@ -63,11 +62,9 @@ describe(`context.get`, () => {
   it(`has expected context.files`, () => {
     expect(context.files).toEqual(
       expect.objectContaining({
-        '.env': expect.any(Object),
-        '.gitignore': expect.any(Object),
-        'bud.config.ts': expect.any(Object),
-        'package.json': expect.any(Object),
-        'tsconfig.json': expect.any(Object),
+        'bud.config': expect.any(Object),
+        package: expect.any(Object),
+        tsconfig: expect.any(Object),
       }),
     )
   })

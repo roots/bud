@@ -3,7 +3,6 @@ import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import logger from '@roots/bud-support/logger'
 
 import {Hooks} from '../base/base.js'
 
@@ -27,18 +26,9 @@ export class EventHooks extends Hooks<EventsStore> {
 
     await Promise.all(
       actions.map(async (action, iteration) => {
-        const timeKey = `${id} (${iteration + 1}/${actions.length})`
-
-        this.app.hooks.logger.time(timeKey)
-
-        await action(value as any)
-          .catch(error => {
-            this.app.hooks.logger.timeEnd(timeKey)
-            throw BudError.normalize(error)
-          })
-          .then(() => {
-            logger.timeEnd(timeKey)
-          })
+        await action(value as any).catch(error => {
+          throw BudError.normalize(error)
+        })
       }),
     )
 

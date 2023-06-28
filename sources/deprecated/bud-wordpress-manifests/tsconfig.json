@@ -1,0 +1,11 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": ["node", "@roots/bud-framework", "@roots/bud-wordpress-dependencies", "@roots/bud-wordpress-externals"]
+  },
+  "include": ["src"],
+  "references": [
+  ]
+}

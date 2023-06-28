@@ -70,7 +70,6 @@ const ConfigError = BudBaseError.subclass(`ConfigurationError`, {
 const InputError = BudBaseError.subclass(`InputError`, {
   custom: BudHandler,
 })
-
 const CompilerError = BudBaseError.subclass(`CompilerError`, {
   custom: BudHandler,
 })

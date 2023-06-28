@@ -5,5 +5,9 @@
     "outDir": "lib",
   },
   "include": ["src"],
-  "exclude": ["lib", "types", "node_modules"]
+  "references": [
+    {
+      "path": "../../@roots/wordpress-transforms/tsconfig.json"
+    }
+  ],
 }

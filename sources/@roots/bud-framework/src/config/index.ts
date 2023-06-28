@@ -9,6 +9,7 @@ export type {
   Compiler,
   Configuration,
   DefinePlugin,
+  FileCacheOptions,
   HotModuleReplacementPlugin,
   MultiCompiler,
   MultiStats,

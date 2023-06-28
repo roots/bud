@@ -5,14 +5,14 @@ import {join, parse} from 'node:path'
 import type {EntryObject, Parameters} from './types.js'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
-import * as schema from './schema.js'
+import {entrypointSignifier, importArray} from './schema.js'
 
 export async function handlePrimitive(bud: Bud, input: Parameters) {
   const [value] = input
 
   const imports = Array.isArray(value)
-    ? await schema.importArray.safeParseAsync(value)
-    : await schema.entrypointSignifier.safeParseAsync(value)
+    ? await importArray.safeParseAsync(value)
+    : await entrypointSignifier.safeParseAsync(value)
 
   if (!imports.success) return handleTypeError(bud, `bud.entry`, imports)
 

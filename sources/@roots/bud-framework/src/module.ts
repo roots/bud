@@ -127,12 +127,7 @@ export class Module extends Service {
     const result = await import(path)
       .then(m => m.default ?? m)
       .catch(error => {
-        throw new ModuleError(`could not import ${signifier}`, {
-          props: {
-            details: `Could not import ${signifier}`,
-            origin: error,
-          },
-        })
+        throw error
       })
 
     if (result)

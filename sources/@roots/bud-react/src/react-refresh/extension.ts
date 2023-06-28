@@ -21,8 +21,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 @plugin(RefreshPlugin)
 @options<Options>({
   esModule: DynamicOption.make(
-    ({context}) =>
-      context.files[`package.json`]?.module?.type === `module`,
+    ({context}) => context.manifest?.type === `module`,
   ),
   overlay: false,
 })

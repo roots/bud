@@ -160,9 +160,9 @@ export class Dashboard extends Service implements BudDashboard {
    * Render stats as a simple string
    */
   @bind
-  public renderString(stats: string) {
+  public renderString(text: string) {
     if (this.silent) return
-    process.stdout.write(stats)
+    process.stdout.write(`${text}\n`)
   }
 
   /**
@@ -180,9 +180,7 @@ export class Dashboard extends Service implements BudDashboard {
     stats: StatsCompilation,
     status: false | string = false,
   ): this {
-    if (this.hashes.has(stats.hash)) return
-    if (stats.hash) this.hashes.add(stats.hash)
-
+    this.hashes.add(stats.hash)
     this.stats = stats
 
     if (this.app.context.ci === true) {

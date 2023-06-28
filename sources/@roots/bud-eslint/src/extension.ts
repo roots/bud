@@ -33,12 +33,7 @@ import {type Api, BudEslintPublicApi, type Options} from './api.js'
   fix: false,
   formatter: `stylish`,
   lintDirtyModulesOnly: Value.make(({isDevelopment}) => isDevelopment),
-  overrideConfig: Value.make(
-    ({context}) =>
-      Object.values(context.files).find(
-        ({file, name}) => file && name.includes(`eslint`),
-      )?.module ?? undefined,
-  ),
+  overrideConfig: undefined,
   resolvePluginsRelativeTo: Value.make(({path}) => path()),
   threads: false,
   useEslintrc: false,
@@ -76,14 +71,16 @@ class BudEslint extends BudEslintPublicApi implements Api {
     /**
      * Add {@link config.path} to cache dependencies if available
      */
-    const config = Object.values(context.files).find(
-      ({file, name}) => file && name.includes(`eslint`),
+    const config = Object.values(context.files).find(({name}) =>
+      name.includes(`eslint`),
     )
+
     if (config) {
       hooks.on(`build.cache.buildDependencies`, (deps = {}) => ({
         ...deps,
         eslint: [config.path],
       }))
+      this.setOverrideConfig(await config.module())
     } else {
       this.setUseEslintrc(true)
     }

@@ -53,10 +53,8 @@ describe(`@roots/bud-tailwindcss extension`, () => {
   })
 
   it(`should return a copy of the resolved config`, async () => {
-    const configInitial = resolveConfig(
-      bud.context.files[`tailwind.config.ts`].module?.default ??
-        bud.context.files[`tailwind.config.ts`].module,
-    )
+    const config = await bud.context.files[`tailwind.config`].module()
+    const configInitial = resolveConfig(config)
 
     expect(extension.resolvedConfig).not.toBe(configInitial)
     expect(extension.resolvedConfig?.theme).not.toBe(configInitial?.theme)
@@ -67,7 +65,7 @@ describe(`@roots/bud-tailwindcss extension`, () => {
 
   it(`should have file`, async () => {
     expect(extension.configPath).toBe(
-      bud.context.files[`tailwind.config.ts`].path,
+      bud.context.files[`tailwind.config`].path,
     )
   })
 

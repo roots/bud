@@ -4,11 +4,11 @@ import type {Parameters} from './types.js'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
 import {normalizeRecord} from './normalize.js'
-import * as schema from './schema.js'
+import {inputRecord} from './schema.js'
 
 export async function handleSimpleRecord(bud: Bud, input: Parameters) {
   const [value] = input
-  const records = await schema.inputRecord.safeParseAsync(value)
+  const records = await inputRecord.safeParseAsync(value)
   if (!records.success) handleTypeError(bud, `bud.entry`, records)
 
   const current = bud.hooks.filter(`build.entry`, {})

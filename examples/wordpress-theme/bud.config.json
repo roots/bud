@@ -1,6 +1,0 @@
-{
-  "entry": {
-    "app": ["app.js", "app.css"],
-    "editor": ["editor.js"]
-  }
-}

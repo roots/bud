@@ -34,30 +34,31 @@ export class Release extends Command {
   })
 
   public async execute() {
-    if (this.registry === `http://localhost:4873`) {
+    if (this.registry.startsWith(`http://localhost:4873`)) {
       try {
         await this.promise(
           `Using local registry`,
           `Local registry set`,
           `Failed to set local registry`,
           new Promise(async (resolve, reject) => {
-            try {
-              await this.cli.run([
+            await this.cli
+              .run([
                 `config`,
                 `set`,
                 `npmPublishRegistry`,
                 `http://localhost:4873`,
               ])
-              await this.cli.run([
+              .catch(reject)
+
+            await this.cli
+              .run([
                 `config`,
                 `set`,
                 `npmRegistryServer`,
                 `http://localhost:4873`,
               ])
-              resolve(true)
-            } catch (e) {
-              reject(e)
-            }
+              .catch(reject)
+            resolve(true)
           }),
         )
       } catch (e) {

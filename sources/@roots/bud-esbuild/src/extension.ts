@@ -70,7 +70,7 @@ export interface Options {
   ts: Value.make(({context}) => ({
     loader: `tsx`,
     target: `es2015`,
-    tsconfig: context.files?.[`tsconfig.json`]?.path ?? null,
+    tsconfig: context.files[`tsconfig`]?.path ?? null,
   })),
 })
 export default class BudEsbuild extends Extension<Options> {

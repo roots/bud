@@ -1,0 +1,64 @@
+{
+  "name": "@roots/wordpress-transforms",
+  "version": "0.0.0",
+  "description": "Transform requests for WordPress provided externals",
+  "engines": {
+    "node": ">=16"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/wordpress-externals-webpack-plugin"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "webpack",
+    "wordpress"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./handle": "./lib/handle.js",
+    "./wordpress": "./lib/wordpress.js",
+    "./window": "./lib/window.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "./handle": [
+        "./lib/handle.d.ts"
+      ],
+      "./wordpress": [
+        "./lib/wordpress.d.ts"
+      ],
+      "./window": [
+        "./lib/window.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.16.16"
+  },
+  "dependencies": {
+    "tslib": "2.5.3"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}

@@ -22,10 +22,17 @@ export const getImplementation = async (
     [`@roots/bud-support/esbuild-wasm`, import.meta.url],
   ]
 
-  await sources.reduce(async (promised, props) => {
+  await sources.reduce(async (promised, [signifier, context]) => {
     await promised
     if (transformer) return
-    await trySource(...props)
+
+    try {
+      path = await resolve(signifier, context)
+      transformer = await import(path)
+      if (transformer) {
+        logger.success(`using esbuild:`, path)
+      }
+    } catch (err) {}
   }, Promise.resolve())
 
   if (!transformer) {
@@ -36,17 +43,3 @@ export const getImplementation = async (
 }
 
 export {transformer}
-
-async function trySource(signifier: string, context: any) {
-  try {
-    path = await resolve(signifier, context)
-    logger.log(
-      `using transformer:`,
-      path,
-      `resolved from context:`,
-      context,
-    )
-    transformer = await import(path)
-    return transformer
-  } catch (err) {}
-}

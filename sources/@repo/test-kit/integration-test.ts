@@ -71,31 +71,48 @@ class Project {
 
   @bind
   public async install(): Promise<this> {
-    try {
-      await fs.removeAsync(this.directory)
-      await fs.copyAsync(
+    await fs.removeAsync(this.directory).catch(error => {
+      throw error
+    })
+
+    await fs
+      .copyAsync(
         path(`examples`, this.options.label.replace(`@examples/`, ``)),
         this.directory,
         {overwrite: true},
       )
-      await fs.writeAsync(
-        this.path(`.npmrc`),
-        `@roots:registry=http://localhost:4873`,
-      )
-
-      const child = await execa(`npm`, [`install`], {
-        cwd: this.directory,
+      .catch(error => {
+        throw error
       })
-      if (child?.stdout) {
-        await fs.writeAsync(this.path(`install.stdout.log`), child.stdout)
-      }
 
-      if (child.stderr) {
-        await fs.writeAsync(this.path(`install.stderr.log`), child.stderr)
-      }
-    } catch (e) {
-      throw e
-    }
+    await fs
+      .writeAsync(this.path(`.npmrc`), `registry=http://localhost:4873/`)
+      .catch(error => {
+        throw error
+      })
+
+    await execa(`npm`, [`install`, `--registry=http://localhost:4873/`], {
+      cwd: this.directory,
+      env: {NODE_ENV: `development`},
+    })
+      .then(async result => {
+        if (result?.stdout)
+          await fs.writeAsync(
+            this.path(`install.stdout.log`),
+            result.stdout,
+          )
+        if (result?.stderr)
+          await fs.writeAsync(
+            this.path(`install.stderr.log`),
+            result.stderr,
+          )
+
+        if (result?.exitCode !== 0) throw new Error(`npm install failed`)
+      })
+      .catch(async error => {
+        await fs.writeAsync(this.path(`install.error.log`), error.stderr)
+        throw error
+      })
 
     return this
   }

@@ -1,10 +1,13 @@
+import type {Bud} from '@roots/bud'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   expose,
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import {deprecated} from '@roots/bud-support/decorators'
+import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import Plugin from 'stylelint-webpack-plugin'
 
 import {BudStylelintPublicApi} from './api.js'
@@ -56,5 +59,18 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
   public failOnWarning(fail: boolean = true): this {
     this.set(`failOnWarning`, fail)
     return this
+  }
+
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register({context}: Bud) {
+    const configFile = Object.values(context.files).find(({name}) =>
+      name.includes(`stylelint`),
+    )
+    if (!configFile) return
+
+    this.setConfig(await configFile.module())
   }
 }

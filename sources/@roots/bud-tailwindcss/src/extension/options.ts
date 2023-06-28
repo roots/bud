@@ -14,7 +14,7 @@ import resolveConfig from 'tailwindcss/resolveConfig.js'
 type Options = {
   config: Config
   configPath: string
-  resolvedConfig?: ReturnType<typeof resolveConfig>
+  resolvedConfig?: ReturnType<typeof resolveConfig<Config>>
 }
 
 type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
@@ -67,6 +67,7 @@ class BudTailwindOptionsApi
    * Tailwind config
    */
   public declare config: BudTailwindOptionsPublicInterface[`config`]
+
   /**
    * Tailwind config path
    */
@@ -96,7 +97,7 @@ class BudTailwindOptionsApi
         ...config,
         theme: {
           ...(config?.theme ?? {}),
-          extend: {...(config.theme?.extend ?? {}), ...value},
+          extend: {...(config?.theme?.extend ?? {}), ...value},
         },
       }))
       this.resolveConfig()
@@ -108,7 +109,7 @@ class BudTailwindOptionsApi
       ...config,
       theme: {
         ...(config?.theme ?? {}),
-        extend: {...(config.theme?.extend ?? {}), [key]: value},
+        extend: {...(config?.theme?.extend ?? {}), [key]: value},
       },
     }))
     this.resolveConfig()
@@ -136,6 +137,8 @@ class BudTailwindOptionsApi
   public generateImports(
     imports: Array<`${keyof ThemeConfig & string}`> | boolean = true,
   ) {
+    this.resolveConfig()
+
     const makeStaticModule = (key: keyof ThemeConfig) => {
       const value = get(this.resolvedConfig.theme, key)
       this.logger.log(`@tailwind/${key}: generating module`)
@@ -192,9 +195,7 @@ class BudTailwindOptionsApi
 
   @bind
   public resolveConfig() {
-    this.logger.time(`resolve config`)
     this.setResolvedConfig({...resolveConfig({...this.config})})
-    this.logger.timeEnd(`resolve config`)
     return this.resolvedConfig
   }
 
@@ -283,16 +284,15 @@ class BudTailwindOptionsApi
   @bind
   public async sourceConfig(): Promise<void> {
     try {
-      const foundConfig = Object.values(this.app.context.files).find(
-        file => file.name?.includes(`tailwind.config`),
-      )
+      const config = this.app.context.files[`tailwind.config`]
+      if (!config) return
 
-      if (foundConfig) {
-        !this.configPath && this.setConfigPath(foundConfig.path)
-        this.setConfig({...foundConfig.module})
-      }
+      config.path && this.setConfigPath(config.path)
+      config.module && this.setConfig({...(await config.module())})
       this.resolveConfig()
-    } catch (err) {}
+    } catch (error) {
+      this.logger.error(error)
+    }
   }
 }
 

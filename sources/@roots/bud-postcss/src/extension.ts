@@ -122,21 +122,15 @@ class BudPostCss extends BudPostCssOptionsApi {
     build.rules.css.setUse((items = []) => [...items, `postcss`])
     build.rules.cssModule?.setUse((items = []) => [...items, `postcss`])
 
-    const usingPostCssRc =
-      context.files &&
-      Object.values(context.files).some(
-        file => file?.name?.includes(`postcss`) && file?.module,
-      )
+    const config = Object.values(context.files).find(
+      file => file?.name?.includes(`postcss`) && file?.module,
+    )
 
-    if (usingPostCssRc) {
+    if (config) {
       this.logger.log(
         `PostCSS configuration is being overridden by project configuration file.`,
       )
       this.setConfig(true)
-
-      const config = Object.values(context.files).find(
-        file => file?.name?.includes(`postcss`) && file?.module,
-      )
 
       if (isString(config.path))
         hooks.on(`build.cache.buildDependencies`, paths => ({

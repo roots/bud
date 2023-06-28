@@ -13,27 +13,36 @@ export class TestRun extends Command {
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   public async execute() {
-    const args = [`@bud`, `vitest`, this.configuration]
+    const args = [
+      `@bud`,
+      `vitest`,
+      this.configuration,
+      ...this.passthrough,
+    ]
 
     if ([`e2e`, `integration`].includes(this.configuration)) {
-      args.push(`run`)
+      await fs
+        .removeAsync(join(paths.root, `storage/mocks`))
+        .catch(error => {
+          this.result = 1
+          throw error
+        })
 
-      await fs.removeAsync(join(paths.root, `storage/mocks`))
-
-      await this.cli.run([
-        `@bud`,
-        `release`,
-        `--tag`,
-        `latest`,
-        `--registry`,
-        `http://localhost:4873`,
-      ])
+      await this.cli
+        .run([
+          `@bud`,
+          `release`,
+          `--tag`,
+          `latest`,
+          `--registry`,
+          `http://localhost:4873/`,
+        ])
+        .catch(error => {
+          this.result = 1
+          throw error
+        })
     }
 
-    try {
-      await this.cli.run([...args, ...this.passthrough].filter(Boolean))
-    } catch (error) {
-      throw error
-    }
+    return await this.cli.run(args)
   }
 }

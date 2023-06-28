@@ -3,18 +3,18 @@ import type {Bud} from '@roots/bud-framework'
 import type {Parameters} from './types.js'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
-import * as schema from './schema.js'
+import {entrypointSignifier, importArray, importObject} from './schema.js'
 
 export async function handleNamed(bud: Bud, input: Parameters) {
   const [key, value] = input
 
-  const signifier = await schema.entrypointSignifier.safeParseAsync(key)
+  const signifier = await entrypointSignifier.safeParseAsync(key)
   if (!signifier.success)
     return handleTypeError(bud, `bud.entry`, signifier)
 
   const imports = Array.isArray(value)
-    ? await schema.importArray.safeParseAsync(value)
-    : await schema.importItem.safeParseAsync(value)
+    ? await importArray.safeParseAsync(value)
+    : await importObject.safeParseAsync(value)
 
   if (!imports.success) return handleTypeError(bud, `bud.entry`, imports)
 

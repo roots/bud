@@ -3,11 +3,12 @@ import type {EntryObject} from '@roots/bud-framework/config'
 export type {EntryObject}
 
 export type Parameters =
-  | [Array<string>]
-  | [Record<string, Array<string> | string>]
-  | [Record<string, EntryObject>]
+  | [
+      | Array<string>
+      | Record<string, Array<string> | EntryObject | string>
+      | string,
+    ]
   | [string, Array<string> | string]
-  | [string]
 
 export type RawValue = Array<string> | EntryObject | string
 

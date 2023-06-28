@@ -34,5 +34,5 @@ jobs:
       - name: yarn
         run: yarn
 
-      - name: yarn @bud test e2e
-        run: yarn @bud test e2e
+      - name: yarn @bud test e2e run
+        run: yarn @bud test e2e run

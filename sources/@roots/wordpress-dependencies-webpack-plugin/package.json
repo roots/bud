@@ -48,7 +48,18 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./plugin": "./lib/plugin.js"
+  },
+  "typeVersions": {
+    "*": {
+      ".": [
+        "./lib/index.js"
+      ],
+      "plugin": [
+        "./lib/plugin.js"
+      ]
+    }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
@@ -57,10 +68,18 @@
     "@types/node": "18.16.16"
   },
   "dependencies": {
+    "@roots/wordpress-transforms": "workspace:*",
     "helpful-decorators": "2.1.0",
-    "lodash": "4.17.21",
     "tslib": "2.5.3",
     "webpack": "5.86.0"
+  },
+  "peerDependencies": {
+    "@roots/entrypoints-webpack-plugin": "workspace:*"
+  },
+  "peerDependenciesMeta": {
+    "@roots/entrypoints-webpack-plugin": {
+      "optional": true
+    }
   },
   "volta": {
     "extends": "../../../package.json"

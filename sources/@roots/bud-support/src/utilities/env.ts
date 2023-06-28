@@ -4,14 +4,15 @@ import {join, sep} from 'node:path'
 
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
-let env: Record<string, string> = {}
+let env: Record<string, Record<string, string>> = {}
 
 const get = (basedir: string) => {
-  if (env && Object.entries(env).length) return env
+  if (basedir in env) return env[basedir]
+  env[basedir] = {}
 
-  logger.scope(`env`).time(`sourcing .env values`)
+  logger.scope(`env`).time(`sourcing .env values for ${basedir}`)
 
-  Object.assign(env, {}, process.env)
+  Object.assign(env[basedir], {}, process.env)
 
   basedir
     .split(sep)
@@ -19,18 +20,22 @@ const get = (basedir: string) => {
     .reduce((basepath, segment) => {
       const path = join(basepath, segment)
 
-      tryRegisteringFromPath(path, `.env`)
-      tryRegisteringFromPath(path, `.env.local`)
+      tryRegisteringFromPath(env[basedir], path, `.env`)
+      tryRegisteringFromPath(env[basedir], path, `.env.local`)
 
       return path
     }, sep)
 
-  logger.scope(`env`).timeEnd(`sourcing .env values`)
+  logger.scope(`env`).timeEnd(`sourcing .env values for ${basedir}`)
 
-  return env
+  return env[basedir]
 }
 
-function tryRegisteringFromPath(dir: string, file: string) {
+function tryRegisteringFromPath(
+  env: Record<string, unknown>,
+  dir: string,
+  file: string,
+) {
   const path = join(dir, file)
 
   try {

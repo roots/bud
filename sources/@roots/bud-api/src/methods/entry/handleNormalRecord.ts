@@ -3,11 +3,11 @@ import type {Bud} from '@roots/bud-framework'
 import type {Parameters} from './types.js'
 
 import {handleTypeError} from '../../errors/handleValidationTypeError.js'
-import * as schema from './schema.js'
+import {entrypointsRecord} from './schema.js'
 
 export async function handleNormalRecord(bud: Bud, input: Parameters) {
   const [value] = input
-  const records = await schema.entrypointsRecord.safeParseAsync(value)
+  const records = await entrypointsRecord.safeParseAsync(value)
   if (!records.success) {
     return handleTypeError(bud, `bud.entry`, records)
   }

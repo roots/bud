@@ -1,10 +1,10 @@
 {
   "name": "@examples/basic",
   "private": true,
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "type": "module",
   "devDependencies": {
     "@roots/bud": "latest"
   }

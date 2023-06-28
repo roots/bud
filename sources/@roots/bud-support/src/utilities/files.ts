@@ -1,41 +1,33 @@
 import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
+import type {InspectResult} from '@roots/filesystem/filesystem'
 
-import {BudError, ModuleError} from '@roots/bud-support/errors'
+import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/lodash/get'
-import isEqual from '@roots/bud-support/lodash/isEqual'
 import omit from '@roots/bud-support/lodash/omit'
 import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
-import * as filesystem from '@roots/bud-support/utilities/filesystem'
 import {get as getPaths} from '@roots/bud-support/utilities/paths'
-import {dirname, join, parse} from 'node:path'
+import {join, parse} from 'node:path'
 
-const DYNAMIC_EXTENSIONS = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
-const STATIC_EXTENSIONS = [`.json`, `.json5`, `.yml`, `.yaml`]
-const COMPATIBLE_EXTENSIONS = [...DYNAMIC_EXTENSIONS, ...STATIC_EXTENSIONS]
+const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
+const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]
 
-let transformer: esbuild.transformer
+let files: Array<string>
 let fs: Filesystem
 let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>
-let files: Array<string>
+let transformer: esbuild.transformer
 
-interface File {
-  bud?: boolean
-  dir?: boolean
-  dynamic?: boolean
-  extension?: string
-  file?: boolean
-  local?: boolean
-  module?: Function | Record<string, any>
+interface File extends ReturnType<typeof parse> {
+  bud: boolean
+  local: boolean
+  module?: () => Promise<any>
   name: string
-  parsed: ReturnType<typeof parse>
   path: string
-  sha1?: string
-  static?: boolean
-  symlink?: boolean
-  type?: `base` | `development` | `production`
+  sha1: string
+  target: `base` | `development` | `production`
+  type: `file` | `json` | `module` | `symlink`
 }
 
 /**
@@ -50,13 +42,15 @@ const get = async (basedir: string) => {
   if (data && Object.entries(data).length) {
     logger.scope(`fs`).info(`Using existing instance data`)
     return data
-  } else {
-    logger.scope(`fs`).time(`Initializing filesystem`)
-    fs = filesystem.get(basedir)
-    paths = getPaths(basedir)
-    files = []
-    data = {}
   }
+
+  logger.scope(`fs`).time(`Initializing filesystem`)
+
+  files = []
+  data = {}
+
+  fs = filesystem.get(basedir)
+  paths = getPaths(basedir)
 
   await fs
     .list(basedir)
@@ -72,282 +66,13 @@ const get = async (basedir: string) => {
       ),
     )
 
-  if (!files?.length) return
-
-  await Promise.all(files.map(fetchFileInfo)).then(() => {
-    files = files.filter(Boolean)
-  })
-
-  await verifyResolutionCache()
-
-  logger.scope(`fs`).timeEnd(`Initializing filesystem`)
-
-  return data
-}
-
-/**
- * Get value for a given config file
- *
- * @param name - file name
- */
-async function fetchFileInfo(filename: string) {
-  const parsed = parse(filename)
-  if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) {
-    logger.info(`Skipping`, filename, `(lockfile)`)
-    return
-  }
-
-  if (filename === `composer.json`) {
-    logger.info(`Skipping`, filename, `(php manifest)`)
-    return
-  }
-
-  if (parsed.ext && !COMPATIBLE_EXTENSIONS.includes(parsed.ext)) {
-    logger.info(`Skipping`, filename, `(unknown extension)`)
-    return
-  }
-
-  const inspect = await fs.inspect(filename, {
-    absolutePath: true,
-    checksum: `sha1`,
-    mode: true,
-    symlinks: `follow`,
-  })
-
-  if (!inspect?.name || inspect.type === `dir` || !inspect.absolutePath) {
-    logger.info(
-      `Skipping`,
-      inspect?.name,
-      inspect?.type,
-      inspect?.absolutePath,
-    )
-    return
-  }
-
-  const file: File = {
-    ...omit(inspect, `absolutePath`),
-    bud: inspect.name.includes(`bud`) && inspect.type === `file`,
-    dir: isEqual(inspect.type, `dir`),
-    file: isEqual(inspect.type, `file`),
-    local: inspect.name.includes(`local`),
-    parsed: parse(inspect.absolutePath),
-    path: inspect.absolutePath,
-    symlink: isEqual(inspect.type, `symlink`),
-    type: getFileType(inspect),
-  }
-
-  Object.assign(file, {
-    dynamic: isDynamicConfig(file),
-    extension: file.parsed?.ext.replace(`.`, ``),
-    static: isStaticConfig(file),
-  })
-
-  /**
-   * Static config files
-   */
-  if (file.static && file.file) {
-    try {
-      file.module = await fs.read(file.path)
-    } catch (cause) {
-      handleBudError(cause, file)
-    }
-  }
-
-  /**
-   * Import dynamic config files
-   */
-  if (file.dynamic && file.file) {
-    const tmpDir = dirname(file.path)
-    const tmpPath = join(
-      tmpDir,
-      `${file.sha1}${file.parsed.ext.replace(`ts`, `js`)}`,
-    )
-    const cachePath = join(
-      paths.storage,
-      `conf`,
-      `${file.sha1}${file.parsed.ext.replace(`ts`, `js`)}`,
-    )
-
-    try {
-      const getModuleValue = async () => {
-        try {
-          logger.scope(`fs`).time(`loading ${file.name}`)
-
-          if ([`.cts`, `.mts`, `.ts`].includes(file.parsed.ext)) {
-            if (!(await fs.exists(cachePath))) {
-              logger
-                .scope(`fs`)
-                .log(
-                  `${file.name} does not exist in cache. running transform.`,
-                  `file will be cached to ${cachePath}`,
-                )
-
-              await transformConfig({cachePath, file}).catch(error => {
-                throw error
-              })
-            }
-
-            logger.scope(`fs`).info(`copying`, cachePath, `to`, tmpPath)
-            await fs.copy(cachePath, tmpPath, {overwrite: true})
-
-            logger.scope(`fs`).info(`importing`, tmpPath)
-            const importValue = await import(tmpPath)
-
-            const value = importValue?.default ?? importValue
-
-            logger.scope(`fs`).info(`removing`, tmpPath)
-            await fs.remove(tmpPath)
-
-            return value
-          }
-
-          const importValue = await import(file.path)
-
-          logger.scope(`fs`).timeEnd(`loading ${file.name}`)
-
-          return importValue?.default ?? importValue
-        } catch (cause) {
-          await fs.remove(tmpPath)
-          throw cause
-        }
-      }
-
-      if (file.bud) {
-        file.module = async () =>
-          await getModuleValue().catch(error => {
-            throw BudError.normalize(error)
-          })
-      } else {
-        file.module = await getModuleValue()
-      }
-    } catch (cause) {
-      await fs.remove(tmpPath)
-      throw cause
-    }
-  }
-
-  Object.assign(data, {[file.name]: file})
-}
-
-/**
- * Transform import
- *
- * @param file - File to transform
- * @param cachePath - Path to cache file
- */
-async function transformConfig({
-  cachePath,
-  file,
-}: {
-  cachePath: string
-  file: File
-}): Promise<any> {
-  logger.time(`compiling ${file.name}`)
-
-  if (!transformer) {
-    transformer = await import(`../esbuild/index.js`)
-      .then(
-        async ({getImplementation}) => await getImplementation(file.path),
-      )
-      .catch(error => {
-        throw error
-      })
-  }
-
-  await transformer.build({
-    entryPoints: [file.path],
-    outfile: cachePath,
-    platform: `node`,
-  })
-
-  file.path = cachePath
-
-  logger.timeEnd(`compiling ${file.name}`)
-}
-
-/**
- * Handle bud errors
- *
- * @param ErrorClass - Error class to throw
- * @param cause - Caught exception
- * @param file - File that caused the error
- */
-async function handleBudError(cause: unknown, file: File) {
-  if (typeof file.name !== `string`) return
-  if (typeof file.dynamic !== `boolean`) return
-
-  /**
-   * Construct {@link BudError} object
-   */
-  const error = ModuleError.normalize(cause)
-
-  /* Throw if error occured in a bud config */
-  if (file.name?.includes(`bud`)) throw error
-
-  /* Otherwise, just log it */
-  logger
-    .scope(`fs`, file.name)
-    .warn(
-      `${file.name} causes an exception when ${
-        file.dynamic ? `imported` : `read`
-      }.`,
-      `\nSince ${file.name} does not appear to be a bud configuration file, bud.js is not throwing. Original error follows:`,
-      `\n\n${error.origin}`,
-    )
-}
-
-/**
- * Returns true if the file is a static config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isStaticConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
-  return STATIC_EXTENSIONS.includes(file.parsed.ext)
-}
-
-/**
- * Returns true if the file is a dynamic config file
- *
- * @param extension - file extension
- * @returns boolean
- */
-function isDynamicConfig(file?: File) {
-  if (!file?.parsed?.ext) return false
-  return DYNAMIC_EXTENSIONS.includes(file.parsed.ext)
-}
-
-/**
- * Upate checksums for found configs
- * @returns
- */
-async function verifyResolutionCache() {
-  const removeResolutions = async () => {
-    try {
-      logger.await(`removing old module resolutions`)
-      await fs.remove(join(paths.storage, `resolutions.yml`))
-      logger.success(`removing old module resolutions`)
-    } catch (err) {
-      logger.error(`error clearing outdated resolutions`, err)
-    }
-  }
-
-  if (await fs.exists(join(paths.storage, `checksum.yml`))) {
-    try {
-      const checksums = await fs.read(join(paths.storage, `checksum.yml`))
-
-      if (
-        !checksums ||
-        checksums[`package.json`] !== _get(data, [`package.json`, `sha1`])
-      ) {
-        await removeResolutions()
-      }
-    } catch (error) {
-      logger.error(`error reading checksums`, error)
-      await removeResolutions()
-    }
-  }
+  await Promise.all(files.map(getFileInfo))
+    .then(() => {
+      files = files.filter(Boolean)
+    })
+    .catch(error => {
+      throw error
+    })
 
   await fs.write(
     join(paths.storage, `checksum.yml`),
@@ -359,15 +84,220 @@ async function verifyResolutionCache() {
       {},
     ),
   )
+
+  logger.scope(`fs`).timeEnd(`Initializing filesystem`)
+
+  return data
 }
 
 /**
- * Returns string value representing if filename contains `.development`, `.production`, or neither
+ * Get value for a given config file
  */
-function getFileType(file: {name?: string}) {
+async function getFileInfo(filename: string) {
+  if (filename?.endsWith(`.lock`) || filename?.includes(`-lock`)) {
+    logger.info(`Skipping`, filename, `(lockfile)`)
+    return
+  }
+
+  if (filename === `composer.json`) {
+    logger.info(`Skipping`, filename, `(php manifest)`)
+    return
+  }
+
+  const inspect = await fs.inspect(filename, {
+    absolutePath: true,
+    checksum: `sha1`,
+    symlinks: `follow`,
+  })
+  if (!isNormalInspectResult(inspect)) return
+
+  const parsed = parse(filename)
+  const file: File = {
+    ...omit(inspect, `absolutePath`, `type`, `filename`),
+    bud: inspect.name.includes(`bud`),
+    local: inspect.name.includes(`local`),
+    path: inspect.absolutePath,
+    target: getFileTarget(inspect),
+    type: getFileType(inspect, parsed),
+    ...parsed,
+  }
+
+  /**
+   * Static config files
+   */
+  if (file.type === `file` || file.type === `json`) {
+    file.module = async () => await fs.read(file.path)
+  }
+
+  /**
+   * Import dynamic config files
+   */
+  if (file.type === `module`) {
+    file.module = async () => {
+      logger.scope(`fs`).time(`loading ${file.name}`)
+
+      const current = await fs
+        .inspect(file.path, {
+          absolutePath: true,
+          checksum: `sha1`,
+          symlinks: `follow`,
+        })
+        .catch(error => {
+          throw error
+        })
+
+      if (!isNormalInspectResult(current))
+        throw new Error(`Problem inspecting ${file.name} (${file.path})`)
+
+      /**
+       * Handle non-typescript files using native esm loader
+       */
+      if ([`.cjs`, `.js`, `.mjs`].includes(file.ext)) {
+        /**
+         * bust the cache with the {@link current} sha1
+         */
+        const path = `${file.path}?v=${current.sha1}`
+        const value = await import(path).catch(error => {
+          throw error
+        })
+
+        logger
+          .scope(`fs`)
+          .info(`loading ${file.name}`, value)
+          .timeEnd(`loading ${file.name}`)
+
+        return value?.default ?? value // returning early here
+      }
+
+      // the rest of the function is for files which require compilation
+
+      const outfile = join(
+        paths.storage,
+        `configs`,
+        file.base,
+        `${current.sha1}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
+      )
+
+      const modified = current.sha1 !== file.sha1
+      const uncompiled = !(await fs.exists(outfile))
+
+      if (modified || uncompiled) {
+        if (uncompiled)
+          logger.log(`${file.name} has not been compiled yet`)
+        else if (modified)
+          logger.log(`${file.name} has been modified since last compiled`)
+
+        // Update the hash to the current state
+        file.sha1 = current.sha1
+
+        await esTransform({file, outfile}).catch(error => {
+          throw error
+        })
+      }
+
+      const tmpfile = join(
+        paths.basedir,
+        file.dir,
+        `.${file.name}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
+      )
+
+      logger.scope(`fs`).info(`copying ${outfile} to tmpfile:`, tmpfile)
+      await fs
+        .copy(outfile, tmpfile, {overwrite: true})
+        .catch(makeCopyError(tmpfile))
+
+      logger.scope(`fs`).info(`importing tmpfile:`, tmpfile)
+      const value = await import(tmpfile).catch(
+        makeTmpFileImportError(tmpfile),
+      )
+
+      logger.scope(`fs`).info(`removing tmpfile:`, tmpfile)
+      await fs.remove(tmpfile).catch(makeRemoveError(tmpfile))
+
+      logger.scope(`fs`).timeEnd(`loading ${file.name}`)
+      return value?.default ?? value
+    }
+  }
+
+  logger.scope(`fs`).timeEnd(`loading ${file.name}`)
+
+  Object.assign(data, {[file.name]: file})
+}
+
+async function esTransform({
+  file,
+  outfile,
+}: {
+  file: File
+  outfile: string
+}): Promise<any> {
+  logger.scope(`fs`).time(`compiling ${file.name}`)
+
+  if (!transformer) {
+    transformer = await import(`@roots/bud-support/esbuild`)
+      .then(
+        async ({getImplementation}) => await getImplementation(file.path),
+      )
+      .catch(error => {
+        throw error
+      })
+  }
+
+  await transformer.build({
+    absWorkingDir: paths.basedir,
+    allowOverwrite: true,
+    entryPoints: [file.path],
+    outfile,
+    platform: `node`,
+  })
+
+  logger.scope(`fs`).timeEnd(`compiling ${file.name}`)
+}
+
+function getFileType(
+  file: {type: `file` | `symlink`},
+  {ext}: {ext: string},
+): `file` | `json` | `module` | `symlink` {
+  if (moduleExtensions.includes(ext)) return `module`
+  if (jsonExtensions.includes(ext)) return `json`
+  return file.type
+}
+
+function getFileTarget(file: {name?: string}) {
   if (file.name?.includes(`production`)) return `production`
   if (file.name?.includes(`development`)) return `development`
   return `base`
+}
+
+function isNormalInspectResult(
+  file?: InspectResult,
+): file is InspectResult & {
+  absolutePath: string
+  name: string
+  sha1: string
+  type: `file` | `symlink`
+} {
+  if (file === undefined) return false
+  if (file.sha1 === undefined) return false
+  if (file.name === undefined) return false
+  if (file.absolutePath === undefined) return false
+  if ([`dir`, false, undefined].includes(file.type)) return false
+
+  return true
+}
+
+const makeTmpFileImportError = (file: string) => async (error: Error) => {
+  await fs.remove(file).catch(makeRemoveError(file))
+  throw error
+}
+const makeRemoveError = (file: string) => (error: Error) => {
+  logger.scope(`fs`).error(`error removing file`, file, error)
+  throw error
+}
+const makeCopyError = (file: string) => async (error: Error) => {
+  logger.scope(`fs`).error(`error copying to file:`, file, error)
+  await fs.remove(file).catch(makeRemoveError(file))
+  throw error
 }
 
 export {data, get}

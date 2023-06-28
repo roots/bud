@@ -1,4 +1,7 @@
-import type {Configuration} from '@roots/bud-framework/config'
+import type {
+  Configuration,
+  FileCacheOptions,
+} from '@roots/bud-framework/config'
 
 /**
  * Cache service Interface
@@ -7,29 +10,32 @@ export interface Cache {
   /**
    * Cache build dependencies
    */
-  buildDependencies: Record<string, Array<string>>
+  buildDependencies: FileCacheOptions[`buildDependencies`]
 
   /**
    * Cache directory
    */
-  cacheDirectory: string
+  cacheDirectory: FileCacheOptions[`cacheDirectory`]
 
   /**
    * Cache configuration
    */
-  configuration: Configuration['cache']
+  readonly configuration: Configuration[`cache`]
 
   /**
    * Enabled?
    */
   enabled: boolean
 
+  /**
+   * Flush cache
+   */
   flush: () => Promise<void>
 
   /**
    * Cache name
    */
-  name: string
+  name: FileCacheOptions[`name`]
 
   /**
    * Cache type
@@ -39,5 +45,5 @@ export interface Cache {
   /**
    * Cache version
    */
-  version: string
+  version: FileCacheOptions[`version`]
 }

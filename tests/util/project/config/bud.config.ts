@@ -6,5 +6,4 @@ export default async (bud: Bud) => {
     .watch([bud.path(`@src`, `images`)])
     .serve(3015)
     .html()
-    .bundle(`react`, [`react`, `react-dom`])
 }

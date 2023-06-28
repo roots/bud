@@ -72,13 +72,13 @@
     "@types/node": "18.16.16"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-preset-recommend": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@roots/bud-tailwindcss-theme-json": "workspace:*",
-    "@roots/bud-wordpress-manifests": "workspace:*",
+    "@roots/bud-wordpress-dependencies": "workspace:*",
+    "@roots/bud-wordpress-externals": "workspace:*",
     "@roots/bud-wordpress-theme-json": "workspace:*",
     "@roots/wordpress-hmr": "workspace:*",
     "chalk": "5.2.0",

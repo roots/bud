@@ -80,7 +80,7 @@ export default class CriticalCssWebpackPlugin {
   public compilation(compilation: Webpack.Compilation): void {
     this.webpack.compilation = compilation
 
-    this.webpack.compilation.hooks.processAssets.tapAsync(
+    this.webpack.compilation.hooks.processAssets.tapPromise(
       this.plugin,
       this.processAssets,
     )
@@ -90,10 +90,7 @@ export default class CriticalCssWebpackPlugin {
    * Process assets
    */
   @bind
-  public async processAssets(
-    assets: Webpack.Compilation['assets'],
-    callback: () => any,
-  ) {
+  public async processAssets(assets: Webpack.Compilation['assets']) {
     const base =
       this.options.base ?? this.webpack.compilation.outputOptions.path
 
@@ -139,7 +136,5 @@ export default class CriticalCssWebpackPlugin {
         }
       }),
     )
-
-    callback()
   }
 }

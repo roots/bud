@@ -24,7 +24,8 @@ interface Options {
 @label(`@roots/bud-preset-wordpress`)
 @dependsOn([
   `@roots/bud-preset-recommend`,
-  `@roots/bud-wordpress-manifests`,
+  `@roots/bud-wordpress-externals`,
+  `@roots/bud-wordpress-dependencies`,
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
@@ -83,7 +84,6 @@ export default class BudPresetWordPress extends Extension<Options> {
       ...items,
       `@roots/wordpress-hmr/loader`,
     ])
-    // @ts-ignore
     build.rules.ts?.setUse((items = []) => [
       ...items,
       `@roots/wordpress-hmr/loader`,
@@ -96,12 +96,9 @@ export default class BudPresetWordPress extends Extension<Options> {
    * @todo remove in bud 7.0.0
    */
   public async compilerCheck({context}: Bud) {
-    const manifest = context?.files?.[`package.json`]?.module
-    if (!manifest) return
-
     const explicitDependencies = Object.keys({
-      ...(manifest.dependencies ?? {}),
-      ...(manifest.devDependencies ?? {}),
+      ...(context.manifest?.dependencies ?? {}),
+      ...(context.manifest?.devDependencies ?? {}),
     })
 
     const supportedCompilers = [

@@ -4,14 +4,13 @@ import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from '../../src/configuration/configuration.js'
-import {File} from '../../src/types/options/context.js'
+import {File} from '../../src/context.js'
 import {BudError} from '@roots/bud-support/errors'
 
 const testFileDescription: File = {
   name: `test.config.js`,
   local: false,
   bud: false,
-  dynamic: true,
   path: `foo/test.config.js`,
   dir: false,
   file: true,
@@ -60,7 +59,6 @@ describe(`@roots/bud-framework/configuration`, function () {
   })
 
   it(`calls dynamicConfig when config is a fn`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
     const configFn = vi.fn()
@@ -72,35 +70,31 @@ describe(`@roots/bud-framework/configuration`, function () {
     }
     await configuration.run(testDynamicConfig)
 
-    expect(logSpy).toHaveBeenCalledWith(
-      `processing as dynamic configuration:`,
-      testDynamicConfig.name,
-    )
-    expect(dynamicSpy).toHaveBeenCalledWith(testDynamicConfig)
+    expect(dynamicSpy).toHaveBeenCalledWith(configFn)
     expect(configFn).toHaveBeenCalledWith(bud)
     expect(staticSpy).not.toHaveBeenCalled()
   })
 
   it(`calls staticConfig when config is static`, async () => {
-    const logSpy = vi.spyOn(bud, `log`)
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
     const testStaticConfig = {
       ...testFileDescription,
       dynamic: false,
-      module: {
+      module: async () => ({
         foo: `bar`,
         info: [`foo`, `bar`],
-      },
+      }),
     }
     await configuration.run(testStaticConfig)
 
-    expect(logSpy).toHaveBeenCalledWith(
-      `processing as static configuration:`,
-      testStaticConfig.name,
-    )
     expect(dynamicSpy).not.toHaveBeenCalled()
-    expect(staticSpy).toHaveBeenCalledWith(testStaticConfig)
+    expect(staticSpy).toHaveBeenCalledWith(
+      expect.objectContaining({
+        foo: `bar`,
+        info: [`foo`, `bar`],
+      }),
+    )
   })
 })

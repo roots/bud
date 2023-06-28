@@ -8,7 +8,7 @@ describe(`bud.build.config`, function () {
   let build: Build
 
   beforeEach(async () => {
-    bud = await factory()
+    bud = await factory({cache: `filesystem`})
     build = new Build(() => bud)
     await build.register(bud)
     await build.make()
@@ -28,7 +28,7 @@ describe(`bud.build.config`, function () {
 
     expect(cache.type).toStrictEqual(`filesystem`)
 
-    expect(cache.version).toStrictEqual(expect.any(String))
+    expect(cache.version).toStrictEqual(undefined)
   })
 
   it(`should have expected context default`, async () => {
