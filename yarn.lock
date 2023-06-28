@@ -6792,7 +6792,7 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.40.1
+    "@types/eslint": 8.40.2
     "@types/node": 18.16.16
     eslint: 8.42.0
     eslint-webpack-plugin: 4.0.1
@@ -7429,7 +7429,7 @@ __metadata:
     "@babel/eslint-parser": 7.22.5
     "@skypack/package-check": 0.2.2
     "@types/babel__core": 7.20.1
-    "@types/eslint": 8.40.1
+    "@types/eslint": 8.40.2
     "@types/eslint-plugin-prettier": 3.1.0
     "@types/node": 18.16.16
     "@types/prettier": 2.7.3
@@ -8566,13 +8566,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/eslint@npm:*, @types/eslint@npm:8.40.1, @types/eslint@npm:^8.37.0":
+"@types/eslint@npm:*, @types/eslint@npm:^8.37.0":
   version: 8.40.1
   resolution: "@types/eslint@npm:8.40.1"
   dependencies:
     "@types/estree": "*"
     "@types/json-schema": "*"
   checksum: c210e4741f11d9fda0e06f4444a43f64af79ea72d60cd11ec4acc232374b34cbb49634286f949783d55d8a66b44fa0da041b6a90cfe37fcdf7f796b81776318b
+  languageName: node
+  linkType: hard
+
+"@types/eslint@npm:8.40.2":
+  version: 8.40.2
+  resolution: "@types/eslint@npm:8.40.2"
+  dependencies:
+    "@types/estree": "*"
+    "@types/json-schema": "*"
+  checksum: a4780e45e677e3af21c44a900846996cb6d9ae8f71d51940942a047163ae93a05444392c005f491ed46aa169f3b25f8be125ab42c5d8bdb571154bf62a7c828a
   languageName: node
   linkType: hard
 
@@ -12814,7 +12824,7 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
-    "@types/eslint": 8.40.1
+    "@types/eslint": 8.40.2
     "@types/express": 4.17.17
     "@types/lodash": 4.14.195
     "@types/node": 18.16.16
