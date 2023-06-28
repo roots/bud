@@ -6531,7 +6531,7 @@ __metadata:
     "@types/semver": 7.5.0
     "@yarnpkg/builder": 4.0.0-rc.45
     "@yarnpkg/cli": 4.0.0-rc.45
-    "@yarnpkg/core": 4.0.0-rc.45
+    "@yarnpkg/core": 4.0.0-rc.46
     "@yarnpkg/shell": 4.0.0-rc.45
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
@@ -6552,7 +6552,7 @@ __metadata:
     "@types/node": 18.16.16
     "@yarnpkg/builder": 4.0.0-rc.45
     "@yarnpkg/cli": 4.0.0-rc.45
-    "@yarnpkg/core": 4.0.0-rc.45
+    "@yarnpkg/core": 4.0.0-rc.46
     "@yarnpkg/shell": 4.0.0-rc.45
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
@@ -10733,7 +10733,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:4.0.0-rc.45, @yarnpkg/core@npm:^4.0.0-rc.45":
+"@yarnpkg/core@npm:4.0.0-rc.46":
+  version: 4.0.0-rc.46
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.46"
+  dependencies:
+    "@arcanis/slice-ansi": ^1.1.1
+    "@types/semver": ^7.1.0
+    "@types/treeify": ^1.0.0
+    "@yarnpkg/fslib": ^3.0.0-rc.46
+    "@yarnpkg/libzip": ^3.0.0-rc.46
+    "@yarnpkg/parsers": ^3.0.0-rc.46
+    "@yarnpkg/shell": ^4.0.0-rc.46
+    camelcase: ^5.3.1
+    chalk: ^3.0.0
+    ci-info: ^3.2.0
+    clipanion: ^3.2.1
+    cross-spawn: 7.0.3
+    diff: ^5.1.0
+    globby: ^11.0.1
+    got: ^11.7.0
+    lodash: ^4.17.15
+    micromatch: ^4.0.2
+    p-limit: ^2.2.0
+    semver: ^7.1.2
+    strip-ansi: ^6.0.0
+    tar: ^6.0.5
+    tinylogic: ^2.0.0
+    treeify: ^1.1.0
+    tslib: ^2.4.0
+    tunnel: ^0.0.6
+  checksum: ae64d5148f63b4af277a835617a68e1c29737f0c09007793f6e214d6a3cd2287d3b3eee08622c0b1a25a0620f4563c0b21bb83638b918a57595f7c2febd8abdb
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/core@npm:^4.0.0-rc.45":
   version: 4.0.0-rc.45
   resolution: "@yarnpkg/core@npm:4.0.0-rc.45"
   dependencies:
@@ -10784,6 +10817,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.46":
+  version: 3.0.0-rc.46
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.46"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 8f6fb40cd4724c5dbe74e498d5e8cdb9cf68d87fff32b15f438907b2afdf5bebbbe460a31a4b26267314b4fa5935e392120ebe1d40b0d41e660f62280c0e2ec1
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.45":
   version: 3.0.0-rc.45
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.45"
@@ -10809,6 +10851,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/libzip@npm:^3.0.0-rc.46":
+  version: 3.0.0-rc.46
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.46"
+  dependencies:
+    "@types/emscripten": ^1.39.6
+    "@yarnpkg/fslib": ^3.0.0-rc.46
+    tslib: ^2.4.0
+  peerDependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.46
+  checksum: 23363d28ae7cfb7c406a6817dee33506f085f02ec7eb0c643e79803c86bc2bb1b77dc817f892393de31e59f48feae061c7d6df0dc83ec8fafc67986a215034c0
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/nm@npm:^4.0.0-rc.45":
   version: 4.0.0-rc.45
   resolution: "@yarnpkg/nm@npm:4.0.0-rc.45"
@@ -10827,6 +10882,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: 10f3b10e2e9b0ac97f4fdc0a97e5f08d149c3e33bd09244bd148fe2c5ff3986c39fcc281129d2154aa4ce885bd5decf66feb7131327c2633d3f90f35c0bf71d2
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.46":
+  version: 3.0.0-rc.46
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.46"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: 35dfd1b1ac7ed9babf231721eb90b58156e840e575f6792a8e5ab559beaed6e2d60833b857310e67d6282c9406357648df2f510e670ec37ef4bd41657f329a51
   languageName: node
   linkType: hard
 
@@ -11225,6 +11290,24 @@ __metadata:
   bin:
     shell: ./lib/cli.js
   checksum: 537ea2da8292dff837cbc387a9652f5135835e074da8f7b3eafc48d24d5b0d0338ed187622fa65cfef19dd460e5250b846ec01475a722b760b37ab02dd4ef821
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/shell@npm:^4.0.0-rc.46":
+  version: 4.0.0-rc.46
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.46"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.46
+    "@yarnpkg/parsers": ^3.0.0-rc.46
+    chalk: ^3.0.0
+    clipanion: ^3.2.1
+    cross-spawn: 7.0.3
+    fast-glob: ^3.2.2
+    micromatch: ^4.0.2
+    tslib: ^2.4.0
+  bin:
+    shell: ./lib/cli.js
+  checksum: 5fc3ab9180a97ad1a04be92926e20ce02d22bf54d39810938dcae9b283bd86ab9706123f51576411648f60f166a53e99f6ad17e370bc51e476023e84c7d87dd1
   languageName: node
   linkType: hard
 
@@ -13693,7 +13776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clipanion@npm:3.2.1, clipanion@npm:^3.2.0-rc.10":
+"clipanion@npm:3.2.1, clipanion@npm:^3.2.0-rc.10, clipanion@npm:^3.2.1":
   version: 3.2.1
   resolution: "clipanion@npm:3.2.1"
   dependencies:
