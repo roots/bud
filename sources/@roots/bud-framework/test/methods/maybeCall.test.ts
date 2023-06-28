@@ -1,15 +1,15 @@
 import {Bud, factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 import {maybeCall as subject} from '../../src/methods/maybeCall.js'
 
 describe(
   `bud.maybeCall`,
-  function () {
+  () => {
     let maybeCall: subject
     let bud: Bud
 
-    beforeEach(async () => {
+    beforeAll(async () => {
       bud = await factory()
       maybeCall = subject.bind(bud)
     })

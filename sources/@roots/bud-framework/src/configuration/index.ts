@@ -59,11 +59,11 @@ export const process = async (app: Bud) => {
 
 const makeErrorHandler =
   (file: File) => (error: Error & {isBudError?: boolean}) => {
-    if (error.isBudError) throw error
     throw new ConfigError(`Error in ${file.name}`, {
       props: {
         file,
-        origin: BudError.normalize(error),
+        origin:
+          error instanceof BudError ? error : BudError.normalize(error),
       },
     })
   }

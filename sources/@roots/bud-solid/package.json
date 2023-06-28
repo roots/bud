@@ -76,16 +76,16 @@
     "@babel/core": "7.22.5",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.1",
-    "@types/node": "18.16.16"
+    "@types/node": "18.16.18"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
-    "babel-preset-solid": "1.7.4",
-    "solid-js": "1.7.6",
-    "tslib": "2.5.3"
+    "babel-preset-solid": "1.7.7",
+    "solid-js": "1.7.7",
+    "tslib": "2.6.0"
   },
   "volta": {
     "extends": "../../../package.json"

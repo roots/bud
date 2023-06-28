@@ -18,12 +18,12 @@ export const TS_CONFIG_PATH = path(`config`, `tsconfig.json`)
 export const REGISTRY_PROXY = `http://localhost:4873`
 
 export const paths = {
-  root: root,
   config: path(`config`),
-  sources: path(`sources`),
-  tests: path(`tests`),
-  storage: path(`storage`),
   fixtures: path(`storage`, `fixtures`),
+  root: root,
+  sources: path(`sources`),
+  storage: path(`storage`),
+  tests: path(`tests`),
 }
 
 let projectConfig

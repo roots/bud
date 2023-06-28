@@ -341,19 +341,19 @@ export default class BudCommand extends Command<CLIContext> {
           ? this.bud.compiler.instance.close(unmountDashboard)
           : await unmountDashboard()
       }
+    } else {
+      await this.renderStatic(
+        <Box flexDirection="column">
+          <Fallback.Error error={error} />
+        </Box>,
+      ).catch(error => {
+        logger.warn(error.message ?? error)
+      })
     }
-
-    await this.renderStatic(
-      <Box flexDirection="column">
-        <Fallback.Error error={error} />
-      </Box>,
-    ).catch(error => {
-      logger.warn(error.message ?? error)
-    })
 
     // fallthrough
     // eslint-disable-next-line n/no-process-exit
-    process.exit()
+    if (this.bud.isProduction) process.exit()
   }
 
   /**

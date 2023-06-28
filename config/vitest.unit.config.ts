@@ -1,8 +1,12 @@
-export default {
+import {env} from 'process'
+import GithubActionsReporter from 'vitest-github-actions-reporter'
+import {defineConfig} from 'vitest/config'
+
+export default defineConfig({
   test: {
     coverage: {
-      provider: `istanbul`,
-      reporter: [`text`, `json`, `html`],
+      provider: `v8`,
+      reporter: [`text`, `html`],
     },
     hookTimeout: 60000,
     include: [
@@ -13,6 +17,10 @@ export default {
       `tests/reproductions/**/*.test.ts`,
     ],
     includeSource: [`sources/@roots/*/src/**/*.{ts,tsx}`],
+    reporters: [
+      `basic`,
+      env.GITHUB_ACTIONS ? new GithubActionsReporter() : ``,
+    ],
     testTimeout: 60000,
   },
-}
+})

@@ -13,6 +13,6 @@ export class DocsDev extends Command {
 
   public async execute() {
     await this.cli.run([`@bud`, `docs`, `build`])
-    await this.cli.run([`workspace`, `@repo/docs`, `docusaurus`, `start`])
+    await this.cli.run([`@bud`, `docusaurus`, `start`])
   }
 }

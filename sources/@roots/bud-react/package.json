@@ -113,9 +113,9 @@
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.1",
-    "@types/node": "18.16.16",
-    "@types/react": "18.2.9",
-    "@types/react-dom": "18.2.4"
+    "@types/node": "18.16.18",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6"
   },
   "dependencies": {
     "@babel/preset-react": "7.22.5",
@@ -126,8 +126,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-refresh": "0.14.0",
-    "tslib": "2.5.3",
-    "webpack": "5.86.0"
+    "tslib": "2.6.0",
+    "webpack": "5.88.0"
   },
   "volta": {
     "extends": "../../../package.json"

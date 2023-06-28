@@ -1,4 +1,5 @@
 const {join, resolve} = require(`path`)
+const npm2yarn = require(`@docusaurus/remark-plugin-npm2yarn`)
 
 const config = require(`../../../../config/monorepo.config.cjs`)
 const themeConfig = require(`./docusaurus.theme.cjs`)
@@ -10,7 +11,9 @@ const pluginSearch = require.resolve(`docusaurus-lunr-search`)
 
 const docsPath = path => resolve(__dirname, `..`, path ?? ``)
 
-const sidebarPath = docsPath(`sidebars/docs.js`)
+const sidebarPath = docsPath(`sidebars/docs.cjs`)
+
+const remarkPlugins = [[npm2yarn, {sync: true}]]
 
 module.exports = {
   baseUrl: `/`,
@@ -32,9 +35,7 @@ module.exports = {
         },
         id: `releases`,
         path: docsPath(`generated/releases`),
-        remarkPlugins: [
-          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
-        ],
+        remarkPlugins,
         routeBasePath: `releases`,
         showReadingTime: true,
         tagsBasePath: `tags`,
@@ -47,11 +48,9 @@ module.exports = {
         id: `dev`,
         include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/dev`),
-        remarkPlugins: [
-          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
-        ],
+        remarkPlugins,
         routeBasePath: `dev`,
-        sidebarPath: docsPath(`sidebars/sidebar.js`),
+        sidebarPath: docsPath(`sidebars/sidebar.cjs`),
       },
     ],
     [
@@ -61,11 +60,9 @@ module.exports = {
         id: `guides`,
         include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/guides`),
-        remarkPlugins: [
-          [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
-        ],
+        remarkPlugins,
         routeBasePath: `guides`,
-        sidebarPath: docsPath(`sidebars/guides.js`),
+        sidebarPath: docsPath(`sidebars/guides.cjs`),
       },
     ],
     [
@@ -76,7 +73,7 @@ module.exports = {
         include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/extensions`),
         routeBasePath: `extensions`,
-        sidebarPath: docsPath(`sidebars/sidebar.js`),
+        sidebarPath: docsPath(`sidebars/sidebar.cjs`),
       },
     ],
     [
@@ -97,9 +94,7 @@ module.exports = {
         docs: {
           editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
           path: docsPath(`content/docs`),
-          remarkPlugins: [
-            [require(`@docusaurus/remark-plugin-npm2yarn`), {sync: true}],
-          ],
+          remarkPlugins,
           sidebarPath,
         },
         pages: {

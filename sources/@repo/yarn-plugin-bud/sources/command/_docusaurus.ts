@@ -2,23 +2,23 @@ import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
-export class Netlify extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `netlify`]]
+export class Docusaurus extends Command {
+  public static paths: CommandClass['paths'] = [[`@bud`, `docusaurus`]]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `run netlify`,
-    examples: [[`netlify usage info`, `yarn @bud netlify --help`]],
+    description: `run docusaurus`,
+    examples: [[`docusaurus usage info`, `yarn @bud docusaurus --help`]],
   }
 
-  public passthrough = Option.Proxy({name: `netlify options`})
+  public passthrough = Option.Proxy({name: `docusaurus options`})
 
   public async execute() {
     return await this.cli
       .run([
         `workspace`,
         `@repo/docs`,
-        `netlify`,
+        `docusaurus`,
         ...(this.passthrough ?? []),
       ])
       .catch(error => {

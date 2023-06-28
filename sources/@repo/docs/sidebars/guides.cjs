@@ -3,13 +3,6 @@ module.exports = {
     `index`,
     `create-bud-app`,
     {
-      type: `category`,
-      label: `Project config`,
-      link: {
-        type: `generated-index`,
-        description: `Get started configuring bud.js`,
-        slug: `/configure`,
-      },
       items: [
         `configure/bud.config.js`,
         `configure/paths`,
@@ -18,46 +11,51 @@ module.exports = {
         `configure/extensions`,
         `configure/editor-integration`,
       ],
+      label: `Project config`,
+      link: {
+        description: `Get started configuring bud.js`,
+        slug: `/configure`,
+        type: `generated-index`,
+      },
+      type: `category`,
     },
     {
-      type: `category`,
-      label: `Modules`,
-      link: {
-        type: `generated-index`,
-        description: `Using JS, CSS and static assets in your application code.`,
-        slug: `/guides/modules`,
-      },
       items: [
         `modules/js-modules`,
         `modules/css-modules`,
         `modules/static-assets`,
       ],
+      label: `Modules`,
+      link: {
+        description: `Using JS, CSS and static assets in your application code.`,
+        slug: `/guides/modules`,
+        type: `generated-index`,
+      },
+      type: `category`,
     },
     {
-      type: `category`,
-      label: `CLI`,
-      link: {
-        type: `doc`,
-        id: `cli/index`,
-      },
       items: [
         {
-          type: `category`,
+          items: [`cli/build/production`, `cli/build/development`],
           label: `bud build`,
           link: {
-            type: `doc`,
             id: `cli/build/index`,
+            type: `doc`,
           },
-          items: [`cli/build/production`, `cli/build/development`],
+          type: `category`,
         },
         `cli/clean`,
         `cli/doctor`,
         `cli/repl`,
       ],
+      label: `CLI`,
+      link: {
+        id: `cli/index`,
+        type: `doc`,
+      },
+      type: `category`,
     },
     {
-      type: `category`,
-      label: `Going deeper`,
       items: [
         `general-use/development-server`,
         `general-use/customizing-loaders`,
@@ -72,15 +70,17 @@ module.exports = {
         `general-use/managing-dependencies`,
         `general-use/pnpm`,
       ],
+      label: `Going deeper`,
+      type: `category`,
     },
     {
-      type: `category`,
+      items: [`extending/decorators`, `extending/packaging`],
       label: `Extending bud.js`,
       link: {
-        type: `doc`,
         id: `extending/index`,
+        type: `doc`,
       },
-      items: [`extending/decorators`, `extending/packaging`],
+      type: `category`,
     },
   ],
 }

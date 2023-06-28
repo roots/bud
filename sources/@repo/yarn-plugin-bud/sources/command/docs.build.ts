@@ -58,7 +58,7 @@ export class Docs extends Command {
         `Building docs`,
         `Built docs`,
         `Failed to build docs`,
-        this.cli.run([`workspace`, `@repo/docs`, `run`, `build`]),
+        this.cli.run([`@bud`, `docusaurus`, `build`]),
       )
     } catch (error) {
       throw error
