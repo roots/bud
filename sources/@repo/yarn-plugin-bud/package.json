@@ -13,7 +13,7 @@
     "@repo/constants": "workspace:*",
     "@yarnpkg/cli": "4.0.0-rc.45",
     "@yarnpkg/core": "4.0.0-rc.45",
-    "@yarnpkg/shell": "4.0.0-rc.45",
+    "@yarnpkg/shell": "4.0.0-rc.46",
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.1.4",
