@@ -7446,7 +7446,6 @@ __metadata:
     webpack-dev-middleware: 6.1.1
     webpack-manifest-plugin: 5.0.0
     yml-loader: 2.1.0
-    zod: 3.21.4
   peerDependencies:
     esbuild: 0.17.*
   peerDependenciesMeta:
@@ -35481,13 +35480,6 @@ __metadata:
     compress-commons: ^4.1.0
     readable-stream: ^3.6.0
   checksum: 4a73da856738b0634700b52f4ab3fe0bf0a532bea6820ad962d0bda0163d2d5525df4859f89a7238e204a378384e12551985049790c1894c3ac191866e85887f
-  languageName: node
-  linkType: hard
-
-"zod@npm:3.21.4":
-  version: 3.21.4
-  resolution: "zod@npm:3.21.4"
-  checksum: f185ba87342ff16f7a06686767c2b2a7af41110c7edf7c1974095d8db7a73792696bcb4a00853de0d2edeb34a5b2ea6a55871bc864227dace682a0a28de33e1f
   languageName: node
   linkType: hard
 

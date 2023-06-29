@@ -1,9 +1,10 @@
 export type Signifier = string
+export type Path = string
 
-export type Value = Array<string> | false | string
+export type Value = Array<Path> | false | Path
 
-export type Records = {[index: Signifier]: Value}
+export type Records = Record<Signifier, Value>
 
-export type Callback = (aliases: Records | undefined) => Promise<Records>
+export type Callback = (aliases?: Records) => Promise<Records>
 
 export type Parameters = [Callback] | [Records] | [Signifier, Value]

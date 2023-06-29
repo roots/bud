@@ -151,8 +151,7 @@
     "webpack": "5.88.0",
     "webpack-dev-middleware": "6.1.1",
     "webpack-manifest-plugin": "5.0.0",
-    "yml-loader": "2.1.0",
-    "zod": "3.21.4"
+    "yml-loader": "2.1.0"
   },
   "peerDependencies": {
     "esbuild": "0.17.*"

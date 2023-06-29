@@ -1,33 +1,44 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {InputError} from '@roots/bud-support/errors'
+
 import type {Parameters} from './types.js'
 
 import {handleCallback} from './handleCallback.js'
-import {handleFallthrough} from './handleFallthrough.js'
 import {handleRecords} from './handleRecords.js'
 import {handleSignifierValuePair} from './handleSignifierValuePair.js'
 import {isCallback} from './isCallback.js'
 import {isRecords} from './isRecords.js'
-import {isSignifierValuePair} from './isSignifierValuePair.js'
+import {isSignifier} from './isSignifier.js'
+import {isValue} from './isValue.js'
 
 export type {Parameters}
 
 export interface alias {
-  (...parameters: Parameters): Promise<Bud>
+  (...parameters: Parameters): Bud
 }
 
-export const alias: alias = async function (this: Bud, ...input) {
-  if (isCallback(input)) {
-    return await handleCallback(this, input)
+export const alias: alias = function (this: Bud, ...input) {
+  if (isCallback(input[0])) {
+    const [callback] = input
+    return handleCallback(this, callback)
   }
 
-  if (isRecords(input)) {
-    return await handleRecords(this, input)
+  if (isRecords(input[0])) {
+    const [records] = input
+    return handleRecords(this, records)
   }
 
-  if (isSignifierValuePair(input)) {
-    return await handleSignifierValuePair(this, input)
+  if (!isSignifier(input[0]))
+    throw new InputError(
+      `bud.alias received invalid input. param[0] must be a string.`,
+    )
+  if (!isValue(input[1])) {
+    throw new InputError(
+      `bud.alias received invalid input. param[1] must be a string.`,
+    )
   }
 
-  return await handleFallthrough(this, input)
+  const [signifier, value] = input
+  return handleSignifierValuePair(this, signifier, value)
 }

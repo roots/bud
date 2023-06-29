@@ -22,7 +22,7 @@ describe(`bud.alias`, () => {
   })
 
   it(`should set an alias from an object`, async () => {
-    const returned = await alias({'@foo': bud.path(`@src`, `foo`)})
+    const returned = alias({'@foo': bud.path(`@src`, `foo`)})
     expect(
       await returned.hooks.filterAsync(`build.resolve.alias`),
     ).toEqual(
@@ -33,7 +33,7 @@ describe(`bud.alias`, () => {
   })
 
   it(`should set async hook from signifier value pair`, async () => {
-    const returned = await alias('test', 'test')
+    const returned = alias('test', 'test')
     expect(
       await returned.hooks.filterAsync(`build.resolve.alias`),
     ).toEqual(
