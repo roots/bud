@@ -103,37 +103,40 @@ export class Module extends Service {
    * Import a module from its signifier
    */
   @bind
-  public async import<T extends string>(signifier: T, context?: string) {
+  public async import<T extends string>(
+    signifier: T,
+    context?: string,
+    handleDefault: boolean = true,
+  ) {
     if (this.resolved?.[signifier]) {
-      const result = await import(this.resolved[signifier])
-        .then(m => m.default ?? m)
-        .catch(error => {
+      const result = await import(this.resolved[signifier]).catch(
+        error => {
           logger
             .scope(`module`)
             .warn(
               `Could not import ${signifier} from ${this.resolved[signifier]}. Removing from cached module registry.`,
+              error,
             )
 
           this.resolved[signifier] = undefined
-        })
+        },
+      )
 
-      if (result) return result
+      if (handleDefault) return result?.default ?? result
+      if (!handleDefault) return result
     }
 
     const path = await this.resolve(signifier, context).catch(error => {
       throw error
     })
 
-    const result = await import(path)
-      .then(m => m.default ?? m)
-      .catch(error => {
-        throw error
-      })
+    const result = await import(path).catch(error => {
+      throw error
+    })
 
-    if (result)
-      logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
+    logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
 
-    return result
+    return handleDefault ? result?.default ?? result : result
   }
 
   /**

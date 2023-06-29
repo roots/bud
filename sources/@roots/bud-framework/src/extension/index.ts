@@ -456,9 +456,14 @@ export class Extension<
   public async import<T = any>(
     signifier: string,
     context?: string,
+    handleDefault: boolean = true,
   ): Promise<T | undefined> {
     try {
-      return await this.app.module.import(signifier, context)
+      return await this.app.module.import(
+        signifier,
+        context,
+        handleDefault,
+      )
     } catch (error) {
       throw new ExtensionError(`could not import ${signifier}`, {
         props: {
