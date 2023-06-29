@@ -456,22 +456,21 @@ export class Extension<
   public async import<T = any>(
     signifier: string,
     context?: string,
-    handleDefault: boolean = true,
+    options: {bustCache?: boolean; raw?: boolean} = {
+      bustCache: false,
+      raw: false,
+    },
   ): Promise<T | undefined> {
-    try {
-      return await this.app.module.import(
-        signifier,
-        context,
-        handleDefault,
-      )
-    } catch (error) {
-      throw new ExtensionError(`could not import ${signifier}`, {
-        props: {
-          origin: error,
-          thrownBy: this.label,
-        },
+    return await this.app.module
+      .import(signifier, context, options)
+      .catch(error => {
+        throw new ExtensionError(`could not import ${signifier}`, {
+          props: {
+            cause: error,
+            thrownBy: this.label,
+          },
+        })
       })
-    }
   }
 
   /**

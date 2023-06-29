@@ -25,6 +25,7 @@ import type {FS} from './fs.js'
 import type methods from './methods/index.js'
 import type {Module} from './module.js'
 import type {Notifier} from './notifier.js'
+import type {EventsStore} from './registry/index.js'
 
 import {bootstrap} from './bootstrap.js'
 
@@ -164,7 +165,7 @@ export class Bud {
    */
   @bind
   public async executeServiceCallbacks(
-    stage: `boot` | `bootstrap` | `register`,
+    stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
     await this.hooks.fire(stage, this)
     if (this.api?.queue?.length) await this.api.processQueue()

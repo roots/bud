@@ -74,17 +74,6 @@ const get = async (basedir: string) => {
       throw error
     })
 
-  await fs.write(
-    join(paths.storage, `checksum.yml`),
-    Object.entries(data).reduce(
-      (acc: Record<string, string>, [key, value]) => {
-        acc[key] = value.sha1
-        return acc
-      },
-      {},
-    ),
-  )
-
   logger.scope(`fs`).timeEnd(`Initializing filesystem`)
 
   return data

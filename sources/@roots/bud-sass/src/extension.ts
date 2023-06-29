@@ -46,11 +46,9 @@ export class BudSass extends BudSassOptions {
     if (!loader) return this.logger.error(`sass-loader not found`)
 
     /** Source sass implementation */
-    const implementation = await this.import(
-      `sass`,
-      import.meta.url,
-      false,
-    )
+    const implementation = await this.import(`sass`, import.meta.url, {
+      raw: true,
+    })
     if (!implementation) {
       return this.logger.error(`sass not found`)
     }

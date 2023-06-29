@@ -17,11 +17,14 @@ import Entrypoints from './entrypoints.view.js'
 
 export interface Props {
   borderColor?: string
+  collapsed?: boolean
   compilation: StatsCompilation
   context: Context
   debug?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
+  id: number
+  total: number
 }
 
 export interface Asset extends Partial<StatsAsset> {}
@@ -31,17 +34,28 @@ export interface AssetGroup {
 }
 
 const Compilation = ({
+  collapsed,
   compilation,
   context,
   displayAssets = true,
   displayEntrypoints = true,
+  id,
+  total,
 }: Props) => {
   const compilationColor = useCompilationColor(compilation)
   return (
     <View
+      head={
+        <Head
+          compilation={compilation}
+          context={context}
+          id={id}
+          total={total}
+        />
+      }
       borderColor={compilationColor}
+      collapsed={collapsed}
       footer={<Footer compilation={compilation} />}
-      head={<Head compilation={compilation} context={context} />}
     >
       <Box flexDirection="column" gap={1}>
         <Messages color="red" messages={compilation.errors} />
@@ -58,7 +72,7 @@ const Compilation = ({
   )
 }
 
-const Head = ({compilation, context}: Props) => {
+const Head = ({compilation, context, id, total}: Props) => {
   const color = useCompilationColor(compilation)
 
   if (!compilation) return <Text dimColor>Loading</Text>
@@ -76,7 +90,7 @@ const Head = ({compilation, context}: Props) => {
             {compilation.errorsCount > 0
               ? figures.cross
               : figures.hamburger}
-            {` `}
+            {` `}[{id}/{total}]{` `}
             {compilation.name?.split(`/`)?.pop() ?? ``}
           </Text>
 

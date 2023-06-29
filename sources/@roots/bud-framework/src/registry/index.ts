@@ -56,7 +56,7 @@ type AsyncStore = {
 }
 
 type EventsCallback<T extends keyof Events> = (
-  value: Events[T],
+  ...value: Events[T]
 ) => Promise<unknown>
 
 type EventsStore = {

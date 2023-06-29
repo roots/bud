@@ -33,11 +33,6 @@ export default async (
 
   const files: Context[`files`] = await projectFiles.get(basedir)
   const extensions: Context[`extensions`] = getExtensions(manifest)
-
-  Object.entries(files).map(([k, v]) =>
-    logger.scope(`bootstrap`).info(`file`, k, v),
-  )
-
   const context: Context = {
     ...(args ?? {}),
     ...options,

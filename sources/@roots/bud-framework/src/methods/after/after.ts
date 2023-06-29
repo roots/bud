@@ -12,11 +12,11 @@ export interface after {
  */
 export const after: after = function (
   this: Bud,
-  action: (app: Bud) => Promise<unknown>,
+  fn: (app: Bud) => Promise<unknown>,
   errorHandler?: (error: Error) => unknown,
 ): Bud {
-  this.hooks.action(`compiler.done`, async ([bud]) => {
-    await action(bud).catch(error => {
+  this.hooks.action(`compiler.done`, async bud => {
+    await fn(bud).catch(error => {
       if (!errorHandler) throw error
       errorHandler(error)
     })

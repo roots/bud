@@ -1,0 +1,39 @@
+{
+  "HtmlWebpackCompiler": [
+    {
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0-0": 563
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0-0": 563
+        },
+        "usedIds": [
+          563
+        ]
+      },
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": []
+      }
+    }
+  ],
+  "chunks": {
+    "byName": {
+      "app": 143,
+      "runtime": 666
+    },
+    "bySource": {
+      "0 app": 666,
+      "1 app": 143
+    },
+    "usedIds": [
+      143,
+      666
+    ]
+  },
+  "modules": {
+    "byIdentifier": {},
+    "usedIds": []
+  }
+}

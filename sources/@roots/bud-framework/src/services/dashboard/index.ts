@@ -46,6 +46,11 @@ export interface Dashboard {
   stderr: NodeJS.WriteStream & {fd: 2}
 
   /**
+   * Stdin stream
+   */
+  stdin: NodeJS.ReadStream & {fd: 0}
+
+  /**
    * Stdout stream
    */
   stdout: NodeJS.WriteStream & {fd: 1}

@@ -10,7 +10,7 @@ import type {BudHandler} from '@roots/bud-support/errors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, type ReactElement, render} from '@roots/bud-support/ink'
-import process from 'node:process'
+import {stderr, stdin, stdout} from 'node:process'
 
 import {Console} from './console/index.js'
 import {Application, TeletypeApplication} from './dashboard/index.js'
@@ -45,12 +45,17 @@ export class Dashboard extends Service implements BudDashboard {
   /**
    * Stdout
    */
-  public stderr = process.stderr
+  public stderr = stderr
+
+  /**
+   * Stdin
+   */
+  public stdin = stdin
 
   /**
    * Stderr
    */
-  public stdout = process.stdout
+  public stdout = stdout
 
   /**
    * Class constructor
@@ -129,7 +134,7 @@ export class Dashboard extends Service implements BudDashboard {
     const messages = this.app?.console?.fetchAndRemove() ?? []
 
     const App =
-      process.stdin.isTTY && this.app.isDevelopment
+      this.stdin.isTTY && this.app.isDevelopment
         ? TeletypeApplication
         : Application
 
@@ -141,12 +146,15 @@ export class Dashboard extends Service implements BudDashboard {
           close={cb =>
             this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
           }
+          collapsed={compilations.length > 2}
           compilations={compilations}
           context={this.app.context}
           debug={this.app.context.debug}
           devUrl={this.app.server?.publicUrl}
+          displayAssets={compilations.length < 2}
           displayServerInfo={this.app.mode === `development`}
           error={error}
+          isolated={0}
           mode={this.app.mode}
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
           proxyUrl={this.app.server?.publicProxyUrl}

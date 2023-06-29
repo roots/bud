@@ -8,6 +8,7 @@ export {Application, TeletypeApplication} from './app.js'
 export interface Props {
   close?: (callback: (error?: Error | null) => any) => void
   closed?: boolean
+  collapsed?: boolean
   compilations?: Array<StatsCompilation>
   context: Bud[`context`]
   debug: boolean
@@ -17,6 +18,7 @@ export interface Props {
   displayServerInfo?: boolean
   error?: BudHandler
   errors?: StatsCompilation[`errors`]
+  isolated?: number
   mode: Bud['mode']
   proxy?: boolean
   proxyUrl?: URL

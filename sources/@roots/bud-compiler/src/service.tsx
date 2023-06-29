@@ -88,7 +88,7 @@ export class Compiler extends Service implements BudCompiler {
       await this.onStats(stats)
 
       await this.app.hooks
-        .fire(`compiler.done`, [this.app, this.stats])
+        .fire(`compiler.done`, this.app, this.stats)
         .catch(error => {
           throw error
         })

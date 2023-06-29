@@ -48,7 +48,7 @@ interface Contract {
   /**
    * After Compiler service
    */
-  compilerDone([bud, stats]: [Bud, Stats & MultiStats]): Promise<any>
+  compilerDone(bud: Bud, stats: Stats & MultiStats): Promise<any>
 
   /**
    * After config callback
@@ -137,10 +137,7 @@ abstract class Base implements Partial<Contract> {
   /**
    * After Compiler service
    */
-  public async compilerDone([bud, stats]: [
-    Bud,
-    Stats & MultiStats,
-  ]): Promise<any> {}
+  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
 
   /**
    * After config callback
@@ -234,10 +231,7 @@ abstract class BaseContainer
   /**
    * After Compiler service
    */
-  public async compilerDone([bud, stats]: [
-    Bud,
-    Stats & MultiStats,
-  ]): Promise<any> {}
+  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
 
   /**
    * After config callback

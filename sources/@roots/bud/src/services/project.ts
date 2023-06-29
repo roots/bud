@@ -16,16 +16,6 @@ export default class Project extends Service {
    */
   @bind
   public override async buildAfter(bud: Bud) {
-    this.promised.push(
-      /**
-       * Module cache
-       */
-      bud.fs.write(bud.module.cacheLocation, {
-        resolutions: bud.module.resolved,
-        version: bud.context.bud.version,
-      }),
-    )
-
     if (bud.context.debug) {
       this.promised.push(
         bud.fs
@@ -83,7 +73,7 @@ export default class Project extends Service {
    * {@link Service.compilerDone}
    */
   @bind
-  public override async compilerDone([bud, stats]) {
+  public override async compilerDone(bud, stats) {
     this.logger.log(`compiler done`)
 
     if (!bud.context.debug) return
