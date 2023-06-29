@@ -22,10 +22,10 @@ export class TestRun extends Command {
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   public async execute() {
-    const args = [`@bud`, `vitest`, `--config`]
+    const args = [`@bud`, `vitest`]
 
     if ([`e2e`, `integration`].includes(this.configuration)) {
-      args.push(`run`)
+      args.push(`--run`)
 
       await fs.removeAsync(path(`storage`, `mocks`)).catch(error => {
         throw error
@@ -45,10 +45,13 @@ export class TestRun extends Command {
         })
     }
 
-    args.push(
-      path(`config`, `vitest.${this.configuration}.config.ts`),
-      ...this.passthrough,
-    )
+    !args.includes(`--config`) &&
+      args.push(
+        `--config`,
+        path(`config`, `vitest.${this.configuration}.config.ts`),
+      )
+
+    args.push(...this.passthrough)
 
     return await this.cli.run(args)
   }

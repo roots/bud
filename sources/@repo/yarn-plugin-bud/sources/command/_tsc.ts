@@ -14,14 +14,10 @@ export class Tsc extends Command {
 
   public passthrough = Option.Proxy({name: `tsc options`})
 
-  public tsconfig = path(`config/tsconfig.json`)
-
   public async execute() {
     const args = [
       `node`,
       path(`node_modules`, `.bin`, `tsc`),
-      `-b`,
-      this.tsconfig,
       ...this.passthrough,
     ]
 

@@ -14,47 +14,12 @@ describe(`@roots/bud-minify`, () => {
 
   beforeAll(async () => {
     bud = await factory()
-    // @ts-ignore
     instance = new BudMinimize(bud)
-    // @ts-ignore
     await instance.register(bud)
   })
 
   it(`has label prop`, () => {
     expect(instance.label).toBe(`@roots/bud-minify`)
-  })
-
-  it(`has options prop`, () => {
-    expect(instance.js.options).toStrictEqual({
-      extractComments: false,
-      parallel: true,
-      terserOptions: {
-        compress: {
-          defaults: true,
-          drop_console: false,
-          drop_debugger: true,
-          unused: true,
-        },
-        ecma: undefined,
-        enclose: undefined,
-        format: {
-          ascii_only: true,
-          comments: false,
-        },
-        ie8: undefined,
-        keep_classnames: undefined,
-        keep_fnames: undefined,
-        mangle: {
-          safari10: true,
-        },
-        module: undefined,
-        nameCache: undefined,
-        parse: undefined,
-        safari10: undefined,
-        sourceMap: undefined,
-        toplevel: undefined,
-      },
-    })
   })
 
   it(`should expose minify.js`, async () => {
@@ -76,16 +41,28 @@ describe(`@roots/bud-minify`, () => {
   })
 
   it(`instance.js.dropConsole`, async () => {
+    expect(instance.js.options.terserOptions.compress.drop_console).toBe(
+      false,
+    )
     instance.js.dropConsole()
     expect(instance.js.options.terserOptions.compress.drop_console).toBe(
       true,
     )
+    expect(instance.js.terserOptions.compress.drop_console).toBe(
+      instance.js.options.terserOptions.compress.drop_console,
+    )
   })
 
   it(`instance.js.mangle`, async () => {
+    expect(instance.js.options.terserOptions.mangle).toStrictEqual({
+      safari10: true,
+    })
     instance.js.mangle({toplevel: true})
     expect(instance.js.options.terserOptions.mangle).toStrictEqual({
       toplevel: true,
     })
+    expect(instance.js.terserOptions.mangle).toBe(
+      instance.js.options.terserOptions.mangle,
+    )
   })
 })

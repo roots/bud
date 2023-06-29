@@ -18,6 +18,7 @@ export class Docs extends Command {
   public async execute() {
     try {
       await this.cli.run([`@bud`, `build`])
+
       await this.promise(
         `Building @repo/markdown-kit`,
         `Built @repo/markdown-kit`,
