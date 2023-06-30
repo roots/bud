@@ -4,89 +4,16 @@
  * @public
  */
 module.exports = {
-  name: `bud.js`,
+  card: `https://bud.js.org/img/bud.js.png`,
   description: `⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix`,
   logo: `https://cdn.roots.io/app/uploads/logo-bud.svg`,
-  card: `https://bud.js.org/img/bud.js.png`,
-  url: {
-    discourse: `https://discourse.roots.io/c/bud/24`,
-    docs: `https://bud.js.org`,
-    git: `git@github.com:roots/bud`,
-    web: `https://github.com/roots/bud`,
-  },
+  name: `bud.js`,
   organization: {
+    favicon: `https://roots.io/favicon.ico`,
     name: `Roots Software Foundation LLC`,
     site: `https://roots.io`,
     twitter: `https://twitter.com/rootswp`,
-    favicon: `https://roots.io/favicon.ico`,
   },
-  contributors: {
-    kellymears: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    qwp6t: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    retlehs: {
-      type: [`🚀 steward`, `📕 docs`],
-    },
-    swalkinshaw: {
-      type: [`🚀 steward`, `💻 dev`, `📕 docs`],
-    },
-    joshuafredrickson: {
-      type: [`💻 dev`, `📕 docs`],
-    },
-    alwaysblank: {
-      type: [`🚀 steward`, `📕 docs`],
-    },
-    alexdanylyschyn: {
-      type: [`💻 dev`],
-    },
-    clayrisser: {
-      type: [`📕 docs`],
-    },
-    catgofire: {
-      type: [`📕 docs`],
-    },
-    unlocdavid: {
-      type: [`📕 docs`],
-    },
-    robrecord: {
-      type: [`📕 docs`],
-    },
-  },
-  sponsors: [
-    {
-      image: `https://cdn.roots.io/app/uploads/km-digital.svg`,
-      title: `KM Digital`,
-      url: `https://k-m.com/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/carrot.svg`,
-      title: `Carrot`,
-      url: `https://carrot.com/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/wordpress.svg`,
-      title: `WordPress.com`,
-      url: `https://wordpress.com/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/pantheon.svg`,
-      title: `Pantheon`,
-      url: `https://pantheon.io/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
-      title: `Worksite Safety`,
-      url: `https://worksitesafety.ca/careers/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/copia-digital.svg`,
-      title: `Copia Digital`,
-      url: `https://www.copiadigital.com/`,
-    },
-  ],
   packages: {
     core: [
       `@roots/bud`,
@@ -143,5 +70,43 @@ module.exports = {
       `@roots/wordpress-externals-webpack-plugin`,
       `@roots/wordpress-hmr`,
     ],
+  },
+  sponsors: [
+    {
+      image: `https://cdn.roots.io/app/uploads/km-digital.svg`,
+      title: `KM Digital`,
+      url: `https://k-m.com/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/carrot.svg`,
+      title: `Carrot`,
+      url: `https://carrot.com/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/wordpress.svg`,
+      title: `WordPress.com`,
+      url: `https://wordpress.com/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/pantheon.svg`,
+      title: `Pantheon`,
+      url: `https://pantheon.io/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
+      title: `Worksite Safety`,
+      url: `https://worksitesafety.ca/careers/`,
+    },
+    {
+      image: `https://cdn.roots.io/app/uploads/copia-digital.svg`,
+      title: `Copia Digital`,
+      url: `https://www.copiadigital.com/`,
+    },
+  ],
+  url: {
+    discourse: `https://discourse.roots.io/c/bud/24`,
+    docs: `https://bud.js.org`,
+    git: `git@github.com:roots/bud`,
+    web: `https://github.com/roots/bud`,
   },
 }
