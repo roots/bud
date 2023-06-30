@@ -59,7 +59,7 @@ const Entrypoints = ({
 
 const Head = ({color, name}) => (
   <Box flexDirection="column">
-    <Text color={color}>{name}</Text>
+    <Text color={color}>{name ?? `entrypoint`}</Text>
   </Box>
 )
 

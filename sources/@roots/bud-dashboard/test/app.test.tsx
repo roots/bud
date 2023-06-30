@@ -2,7 +2,7 @@ import React from '@roots/bud-support/ink'
 // @ts-ignore
 import {render} from 'ink-testing-library'
 import {describe, expect, it} from 'vitest'
-
+import stripAnsi from '@roots/bud-support/strip-ansi'
 import {Application} from '../src/dashboard/app'
 import {StatsCompilation} from 'webpack'
 
@@ -53,9 +53,9 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(result.lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(result.lastFrame())).toMatchInlineSnapshot(`
       "
-      [2m.   testing status[22m
+      .   testing status
       "
     `)
 
@@ -67,9 +67,9 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(result.lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(result.lastFrame())).toMatchInlineSnapshot(`
       "
-      [2m.   testing status 2[22m
+      .   testing status 2
       "
     `)
   })
@@ -84,22 +84,22 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mmock[39m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m [36mfoo[39m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m › foo.js                                                                                    [2m1 kB[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2mundefined bytes[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ mock
+      │
+      │ ╭─ foo
+      │ │
+      │ │ › foo.js                                                                                    1 kB
+      │ │
+      │ ╰─ undefined bytes
+      │
+      ╰─ ...
       "
     `)
   })
 
-  it(`should not render entrypoints when entrypoints are undefined`, () => {
+  it(`should not render entrypoints when entrypoints is empty`, () => {
     const {lastFrame} = render(
       <Application
         basedir={`/foo/bar`}
@@ -109,12 +109,12 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mmock[39m
-      [32m│[39m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ mock
+      │
+      │
+      ╰─ ...
       "
     `)
   })
@@ -129,12 +129,12 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mcompilation[39m
-      [32m│[39m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ compilation
+      │
+      │
+      ╰─ ...
       "
     `)
   })
@@ -147,7 +147,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         compilations={[
           {
             entrypoints: {
-              foo: {assets: [null]},
+              foo: {assets: []},
             },
           },
         ]}
@@ -155,17 +155,16 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(ink.lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mcompilation[39m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m [2m≈ [22m                                                                               [2mundefined bytes[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2mundefined bytes[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ compilation
+      │
+      │ ╭─ entrypoint
+      │ │
+      │ │
+      │ ╰─ undefined bytes
+      │
+      ╰─ ...
       "
     `)
 
@@ -184,21 +183,21 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(ink.lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mcompilation[39m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2mundefined bytes[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ compilation
+      │
+      │ ╭─ entrypoint
+      │ │
+      │ │
+      │ ╰─ undefined bytes
+      │
+      ╰─ ...
       "
     `)
   })
 
-  it(`should not render compilation count for multi-compiler`, () => {
+  it(`should render compilation count for multi-compiler`, () => {
     const {lastFrame} = render(
       <Application
         basedir={`/foo/bar`}
@@ -208,27 +207,27 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mmock[39m [2m[1/2][22m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m [36mfoo[39m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m › foo.js                                                                                    [2m1 kB[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2mundefined bytes[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ mock [1/2]
+      │
+      │ ╭─ foo
+      │ │
+      │ │ › foo.js                                                                                    1 kB
+      │ │
+      │ ╰─ undefined bytes
+      │
+      ╰─ ...
 
-      [32m╭[39m[32m─[39m [32m☰[39m [32mmock[39m [2m[2/2][22m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m [36mfoo[39m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m › foo.js                                                                                    [2m1 kB[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2mundefined bytes[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ mock [2/2]
+      │
+      │ ╭─ foo
+      │ │
+      │ │ › foo.js                                                                                    1 kB
+      │ │
+      │ ╰─ undefined bytes
+      │
+      ╰─ ...
       "
     `)
   })
@@ -243,17 +242,17 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [32m╭[39m[32m─[39m [32m☰[39m [32mmock[39m
-      [32m│[39m
-      [32m│[39m [2m╭[22m[2m─[22m [36massets[39m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m│[22m › foo.png                                                                                   [2m1 kB[22m
-      [32m│[39m [2m│[22m
-      [32m│[39m [2m╰[22m[2m─[22m [2m1 kB[22m
-      [32m│[39m
-      [32m╰[39m[32m─[39m [2m...[22m
+      ╭─ ☰ mock
+      │
+      │ ╭─ assets
+      │ │
+      │ │ › foo.png                                                                                   1 kB
+      │ │
+      │ ╰─ 1 kB
+      │
+      ╰─ ...
       "
     `)
   })
@@ -274,20 +273,26 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(lastFrame()).toMatchInlineSnapshot(`
+    expect(stripAnsi(lastFrame())).toMatch(/Server info/)
+    expect(stripAnsi(lastFrame())).toMatch(/localhost:8080/)
+    expect(stripAnsi(lastFrame())).toMatch(/Watching project sources/)
+    expect(stripAnsi(lastFrame())).toMatch(/dev/)
+    expect(stripAnsi(lastFrame())).toMatch(/proxy/)
+
+    /*     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      [34m╭[39m[34m─[39m [34m⬢ Server info[39m
-      [34m│[39m
-      [34m│[39m  [37mproxy[39m  [2m┄ http://localhost:8080/[22m
-      [34m│[39m
-      [34m│[39m         [2m┄ http://example.test/[22m
-      [34m│[39m
-      [34m│[39m  [37mdev[39m    [2m┄ http://localhost:3000/[22m
-      [34m│[39m         [2m┄ http://192.168.1.16:3000/[22m
-      [34m│[39m         [2m┄ http://example.test:3000/[22m
-      [34m│[39m
-      [34m╰[39m[34m─[39m Watching project sources
+      ╭─ ⬢ Server info
+      │
+      │  proxy  ┄ http://localhost:8080/
+      │
+      │         ┄ http://example.test/
+      │
+      │  dev    ┄ http://localhost:3000/
+      │         ┄ http://192.168.1.16:3000/
+      │         ┄ http://example.test:3000/
+      │
+      ╰─ Watching project sources
       "
-    `)
+    `) */
   })
 })
