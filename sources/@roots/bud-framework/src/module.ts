@@ -42,9 +42,7 @@ export class Module extends Service {
     if (!data?.resolutions) {
       logger
         .scope(`module`)
-        .warn(
-          `cache is enabled but resolution data is missing. resetting cache.`,
-        )
+        .warn(`cache is enabled but resolution data is missing`)
         .info(data)
 
       this.resolved = {}
@@ -69,6 +67,9 @@ export class Module extends Service {
     return true
   }
 
+  /**
+   * {@link Service.compilerBefore}
+   */
   @bind
   public override async compilerBefore(bud: Bud) {
     await bud.fs.write(this.resolutionsPath, {
@@ -77,6 +78,9 @@ export class Module extends Service {
     })
   }
 
+  /**
+   * {@link Service.compilerDone}
+   */
   @bind
   public override async compilerDone(bud: Bud) {
     await bud.fs.write(this.resolutionsPath, {

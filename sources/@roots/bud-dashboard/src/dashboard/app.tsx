@@ -30,6 +30,8 @@ export const Application = ({
   mode,
   proxy,
   proxyUrl,
+  publicDevUrl,
+  publicProxyUrl,
   status,
 }: Props) => {
   if (error) return <Error error={error} />
@@ -71,6 +73,8 @@ export const Application = ({
         mode={mode}
         proxy={proxy}
         proxyUrl={proxyUrl}
+        publicDevUrl={publicDevUrl}
+        publicProxyUrl={publicProxyUrl}
       />
     </Box>
   )

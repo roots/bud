@@ -154,7 +154,7 @@
     "yml-loader": "2.1.0"
   },
   "peerDependencies": {
-    "esbuild": "0.17.*"
+    "esbuild": ">=0.18.0"
   },
   "peerDependenciesMeta": {
     "esbuild": {

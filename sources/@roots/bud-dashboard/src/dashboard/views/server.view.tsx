@@ -10,6 +10,8 @@ interface Props {
   mode?: `development` | `production`
   proxy?: unknown
   proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
 }
 
 /**
@@ -21,6 +23,8 @@ export const Server = ({
   mode,
   proxy = false,
   proxyUrl,
+  publicDevUrl,
+  publicProxyUrl,
 }: Props) => {
   if (!displayServerInfo) return null
   if (mode !== `development`) return null
@@ -48,9 +52,17 @@ export const Server = ({
               <Text color="white">proxy</Text>
             </Box>
 
-            <Text dimColor wrap="truncate-end">
-              {figures.lineDashed0} {proxyUrl.href}
-            </Text>
+            <Box flexDirection="column" gap={1}>
+              <Text dimColor wrap="truncate-end">
+                {figures.lineDashed0} {proxyUrl.href}
+              </Text>
+
+              {publicProxyUrl?.href !== proxyUrl.href && (
+                <Text dimColor wrap="truncate-end">
+                  {figures.lineDashed0} {publicProxyUrl.href}
+                </Text>
+              )}
+            </Box>
           </Box>
         )}
 
@@ -64,9 +76,16 @@ export const Server = ({
               <Text dimColor wrap="truncate-end">
                 {figures.lineDashed0} {devUrl.href}
               </Text>
+
               {ipv4.href !== devUrl.href && (
                 <Text dimColor wrap="truncate-end">
                   {figures.lineDashed0} {ipv4.href}
+                </Text>
+              )}
+
+              {publicDevUrl?.href !== devUrl.href && (
+                <Text dimColor wrap="truncate-end">
+                  {figures.lineDashed0} {publicDevUrl.href}
                 </Text>
               )}
             </Box>

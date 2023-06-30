@@ -1,6 +1,7 @@
 export {alias} from './alias/index.js'
 export {assets, assets as copy} from './assets/index.js'
 export {bundle} from './bundle/index.js'
+export {compilePaths} from './compilePaths/index.js'
 export {
   config,
   config as webpackConfig,
@@ -19,12 +20,11 @@ export {minimize} from './minimize/index.js'
 export {persist} from './persist/index.js'
 export {provide} from './provide/index.js'
 export {proxy} from './proxy/index.js'
-export {compilePaths} from './compilePaths/index.js'
 export {runtime} from './runtime/index.js'
 export {serve} from './serve/index.js'
-export {setPublicUrl} from './setPublicUrl/index.js'
 export {setProxyUrl} from './setProxyUrl/index.js'
 export {setPublicProxyUrl} from './setPublicProxyUrl/index.js'
+export {setPublicUrl} from './setPublicUrl/index.js'
 export {setUrl} from './setUrl/index.js'
 export {splitChunks} from './splitChunks/index.js'
 export {use} from './use/index.js'

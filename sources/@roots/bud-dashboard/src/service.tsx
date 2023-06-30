@@ -150,14 +150,16 @@ export class Dashboard extends Service implements BudDashboard {
           compilations={compilations}
           context={this.app.context}
           debug={this.app.context.debug}
-          devUrl={this.app.server?.publicUrl}
+          devUrl={this.app.server?.url}
           displayAssets={compilations.length < 2}
           displayServerInfo={this.app.mode === `development`}
           error={error}
           isolated={0}
           mode={this.app.mode}
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
-          proxyUrl={this.app.server?.publicProxyUrl}
+          proxyUrl={this.app.server?.proxyUrl}
+          publicDevUrl={this.app.server?.publicUrl}
+          publicProxyUrl={this.app.server?.publicProxyUrl}
           status={status}
         />
       </Box>,

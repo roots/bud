@@ -74,7 +74,8 @@ const Compilation = ({
 
 const Head = ({compilation, context, id, total}: Props) => {
   const color = useCompilationColor(compilation)
-
+  const figure =
+    compilation.errorsCount > 0 ? figures.cross : figures.hamburger
   if (!compilation) return <Text dimColor>Loading</Text>
 
   return (
@@ -84,22 +85,17 @@ const Head = ({compilation, context, id, total}: Props) => {
       overflowX="hidden"
       width="100%"
     >
-      <Box flexShrink={0} overflowX="hidden">
-        <Text color={color} wrap="truncate-end">
-          <Text color={color}>
-            {compilation.errorsCount > 0
-              ? figures.cross
-              : figures.hamburger}
-            {` `}[{id}/{total}]{` `}
-            {compilation.name?.split(`/`)?.pop() ?? ``}
-          </Text>
+      <Box flexDirection="row" flexShrink={0} gap={1} overflowX="hidden">
+        <Text color={color}>{figure}</Text>
+        <Text color={color}>{compilation.name.split(`/`).pop()}</Text>
 
-          {compilation.hash && (
-            <Text color="dimColor">
-              {` `}[{compilation.hash ?? ``}]{` `}
-            </Text>
-          )}
-        </Text>
+        {total > 1 && (
+          <Text dimColor>
+            [{id}/{total}]
+          </Text>
+        )}
+
+        {compilation.hash && <Text dimColor>[{compilation.hash}]</Text>}
       </Box>
 
       {context.basedir && compilation.outputPath && (

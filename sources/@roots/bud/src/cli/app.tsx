@@ -15,7 +15,7 @@ import BudViewCommand from '@roots/bud/cli/commands/bud.view'
 import BudWebpackCommand from '@roots/bud/cli/commands/bud.webpack'
 import {Commands} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
-import {stdout, stderr, stdin, exit} from 'node:process'
+import {exit, stderr, stdin, stdout} from 'node:process'
 
 import type {CLIContext} from './index.js'
 

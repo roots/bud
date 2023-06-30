@@ -1,5 +1,4 @@
-import * as repo from '@repo/constants'
-import {CommandClass, Option} from 'clipanion'
+import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 

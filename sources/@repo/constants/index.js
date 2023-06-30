@@ -1,6 +1,6 @@
-import {createRequire} from 'node:module'
-import {join} from 'node:path'
-import {fileURLToPath} from 'node:url'
+import {createRequire} from 'module'
+import {join} from 'path'
+import {fileURLToPath} from 'url'
 
 export const root = (
   import.meta?.url && typeof import.meta.url !== `undefined`

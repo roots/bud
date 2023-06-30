@@ -22,6 +22,8 @@ export interface Props {
   mode: Bud['mode']
   proxy?: boolean
   proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
   status?: false | string
   warnings?: StatsCompilation[`warnings`]
 }

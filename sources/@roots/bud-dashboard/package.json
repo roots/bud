@@ -89,7 +89,6 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "ansi-escapes": "6.2.0",
     "react": "18.2.0",
     "tslib": "2.6.0",
     "webpack": "5.88.0"

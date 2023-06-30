@@ -7010,7 +7010,6 @@ __metadata:
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.18
     "@types/react": 18.2.14
-    ansi-escapes: 6.2.0
     ink-testing-library: 3.0.0
     react: 18.2.0
     tslib: 2.6.0
@@ -7065,6 +7064,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.18
+    esbuild: 0.18.10
     esbuild-loader: 3.0.1
     tslib: 2.6.0
     webpack: 5.88.0
@@ -7448,7 +7448,7 @@ __metadata:
     webpack-manifest-plugin: 5.0.0
     yml-loader: 2.1.0
   peerDependencies:
-    esbuild: 0.17.*
+    esbuild: 0.18.*
   peerDependenciesMeta:
     esbuild:
       optional: true
