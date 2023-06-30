@@ -63,46 +63,22 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types/index.js",
-      "default": "./lib/types/index.js"
-    },
-    "./bud/commands": {
-      "import": "./lib/bud/commands/index.js",
-      "default": "./lib/bud/commands/index.js"
-    },
-    "./bud/commands/tailwindcss": {
-      "import": "./lib/bud/commands/tailwindcss/index.js",
-      "default": "./lib/bud/commands/tailwindcss/index.js"
-    },
-    "./stylelint-config": {
-      "require": "./config/stylelint/default.cjs",
-      "default": "./config/stylelint/default.cjs"
-    },
-    "./stylelint-config/scss": {
-      "require": "./config/stylelint/scss.cjs",
-      "default": "./config/stylelint/scss.cjs"
-    },
-    "./stylelint": {
-      "require": "./config/stylelint/default.cjs",
-      "default": "./config/stylelint/default.cjs"
-    },
-    "./stylelint/scss": {
-      "require": "./config/stylelint/scss.cjs",
-      "default": "./config/stylelint/scss.cjs"
-    }
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension/index.js",
+    "./bud/commands": "./lib/bud/commands/index.js",
+    "./bud/commands/tailwindcss": "./lib/bud/commands/tailwindcss/index.js",
+    "./stylelint-config": "./config/stylelint/default.cjs",
+    "./stylelint-config/scss": "./config/stylelint/scss.cjs",
+    "./stylelint": "./config/stylelint/default.cjs",
+    "./stylelint/scss": "./config/stylelint/scss.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "types": [
-        "./lib/types/index.d.ts"
+      "extension": [
+        "./lib/extension/index.d.ts"
       ],
       "bud/commands": [
         "./lib/bud/commands/index.d.ts"

@@ -10,14 +10,16 @@ import {useCompilationColor} from '../hooks/useCompilationColor.js'
 import {useLongestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.js'
 
 export interface Props {
+  compact?: boolean
   compilation?: StatsCompilation
   displayAssets?: boolean
   limit?: number
 }
 
 export default function CompilationAssets({
+  compact,
   compilation,
-  displayAssets = true,
+  displayAssets,
   limit = 5,
 }: Props) {
   const minWidth = useLongestNamedObjectLength(
@@ -46,6 +48,7 @@ export default function CompilationAssets({
 
   return (
     <View
+      compact={compact}
       footer={<Footer assets={assets} hidden={hidden} />}
       head={<Text color={compilationColor}>assets</Text>}
     >

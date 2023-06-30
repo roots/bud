@@ -2,7 +2,6 @@ import type {
   StatsAsset,
   StatsCompilation,
 } from '@roots/bud-framework/config'
-import type {Context} from '@roots/bud-framework/context'
 
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
@@ -16,10 +15,10 @@ import Assets from './assets.view.js'
 import Entrypoints from './entrypoints.view.js'
 
 export interface Props {
+  basedir: string
   borderColor?: string
-  collapsed?: boolean
+  compact?: boolean
   compilation: StatsCompilation
-  context: Context
   debug?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
@@ -34,11 +33,11 @@ export interface AssetGroup {
 }
 
 const Compilation = ({
-  collapsed,
+  basedir,
+  compact,
   compilation,
-  context,
-  displayAssets = true,
-  displayEntrypoints = true,
+  displayAssets,
+  displayEntrypoints,
   id,
   total,
 }: Props) => {
@@ -47,14 +46,13 @@ const Compilation = ({
     <View
       head={
         <Head
+          basedir={basedir}
           compilation={compilation}
-          context={context}
           id={id}
           total={total}
         />
       }
       borderColor={compilationColor}
-      collapsed={collapsed}
       footer={<Footer compilation={compilation} />}
     >
       <Box flexDirection="column" gap={1}>
@@ -62,17 +60,22 @@ const Compilation = ({
         <Messages color="yellow" messages={compilation.warnings} />
 
         <Entrypoints
+          compact={compact}
           compilation={compilation}
           displayEntrypoints={displayEntrypoints}
         />
 
-        <Assets compilation={compilation} displayAssets={displayAssets} />
+        <Assets
+          compact={compact}
+          compilation={compilation}
+          displayAssets={displayAssets}
+        />
       </Box>
     </View>
   )
 }
 
-const Head = ({compilation, context, id, total}: Props) => {
+const Head = ({basedir, compilation, id, total}: Props) => {
   const color = useCompilationColor(compilation)
   const figure =
     compilation.errorsCount > 0 ? figures.cross : figures.hamburger
@@ -87,7 +90,9 @@ const Head = ({compilation, context, id, total}: Props) => {
     >
       <Box flexDirection="row" flexShrink={0} gap={1} overflowX="hidden">
         <Text color={color}>{figure}</Text>
-        <Text color={color}>{compilation.name.split(`/`).pop()}</Text>
+        <Text color={color}>
+          {compilation.name?.split(`/`).pop() ?? `compilation`}
+        </Text>
 
         {total > 1 && (
           <Text dimColor>
@@ -98,9 +103,9 @@ const Head = ({compilation, context, id, total}: Props) => {
         {compilation.hash && <Text dimColor>[{compilation.hash}]</Text>}
       </Box>
 
-      {context.basedir && compilation.outputPath && (
+      {basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          {` `}./{relative(context.basedir, compilation.outputPath)}
+          {` `}./{relative(basedir, compilation.outputPath)}
         </Text>
       )}
     </Box>
@@ -108,14 +113,17 @@ const Head = ({compilation, context, id, total}: Props) => {
 }
 
 const Footer = ({compilation}: Partial<Props>) => {
-  if (!compilation?.assets) return <Text dimColor>...</Text>
+  if (!compilation || !compilation?.assets)
+    return <Text dimColor>...</Text>
 
-  const moduleCount = compilation.modules?.filter(mod =>
-    mod.hasOwnProperty(`cached`),
-  ).length
+  const moduleCount = compilation.modules?.filter(
+    mod => mod && mod.hasOwnProperty(`cached`),
+  )?.length
   const cachedModuleCount = compilation.modules?.filter(
     mod => mod?.cached,
-  ).length
+  )?.length
+
+  if (!moduleCount || !cachedModuleCount) return <Text dimColor>...</Text>
 
   const formattedModuleCount = `${`${cachedModuleCount}/${moduleCount} modules cached`}`
   const formattedTime = `${duration(compilation.time)}`

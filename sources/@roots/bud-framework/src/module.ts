@@ -25,8 +25,9 @@ export class Module extends Service {
   @bind
   public override async bootstrap(bud: Bud) {
     if (args.force) {
-      logger.scope(`module`).warn(`flushing resolutions cache`)
-      await bud.fs.remove(this.resolutionsPath)
+      logger
+        .scope(`module`)
+        .info(`flushing resolutions`, this.resolutionsPath)
     }
 
     if (!this.cacheEnabled) {
@@ -42,8 +43,7 @@ export class Module extends Service {
     if (!data?.resolutions) {
       logger
         .scope(`module`)
-        .warn(`cache is enabled but resolution data is missing`)
-        .info(data)
+        .info(`cache is enabled but resolution data is missing`, data)
 
       this.resolved = {}
       return
@@ -51,8 +51,7 @@ export class Module extends Service {
 
     logger
       .scope(`module`)
-      .info(`cache is enabled and cached resolutions exist`)
-      .info(data)
+      .info(`cache is enabled and cached resolutions exist`, data)
 
     this.resolved = data.resolutions
   }
@@ -134,7 +133,7 @@ export class Module extends Service {
       const result = await import(path).catch(error => {
         logger
           .scope(`module`)
-          .warn(
+          .info(
             `Could not import ${signifier} from ${this.resolved[signifier]}. Removing from cached module registry.`,
             error,
           )

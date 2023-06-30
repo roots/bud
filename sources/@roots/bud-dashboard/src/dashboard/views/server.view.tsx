@@ -19,7 +19,7 @@ interface Props {
  */
 export const Server = ({
   devUrl,
-  displayServerInfo = true,
+  displayServerInfo,
   mode,
   proxy = false,
   proxyUrl,

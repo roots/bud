@@ -36,11 +36,6 @@ export interface Dashboard {
   renderString(stats: string): void
 
   /**
-   * Silent mode is enabled?
-   */
-  silent: boolean
-
-  /**
    * Stderr stream
    */
   stderr: NodeJS.WriteStream & {fd: 2}

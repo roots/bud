@@ -4,17 +4,16 @@ import {Box, Text} from '@roots/bud-support/ink'
 const View = ({
   borderColor = `dim`,
   children,
-  collapsed,
+  compact,
   footer,
   head,
 }: {
   borderColor?: string
   children?: any
-  collapsed?: boolean
+  compact?: boolean
   footer?: any
   head?: any
 }) => {
-  const showInner = !collapsed && children
   return (
     <Box flexDirection="column" overflowX="hidden" width="100%">
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
@@ -25,7 +24,7 @@ const View = ({
         {head}
       </Box>
 
-      {showInner && (
+      {!compact && (
         <Box
           borderBottom={false}
           borderColor={borderColor}

@@ -19,7 +19,7 @@
       "@roots/bud-tailwindcss"
     ],
   },
-  "files": ["./types.d.ts", "./config/bud.config.ts"],
+  "files": ["./types.d.ts", "./config/bud.config.js"],
   "include": ["./src"],
   "bud": {
     "useCompilerOptions": true

@@ -1,22 +1,20 @@
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import {dry} from '@roots/bud/cli/decorators/dry'
+import {render} from '@roots/bud-support/ink'
+import BudCommand from '@roots/bud/cli/commands/bud'
 import indent from '@roots/bud/cli/flags/indent'
 
-import BudCommand from '../bud.js'
-
 /**
- * `bud repl`
+ * {@link BudCommand}
  */
-@dry
 export default class BudReplCommand extends BudCommand {
   /**
-   * {@link Command.paths}
+   * {@link BudCommand.paths}
    */
   public static override paths = [[`repl`]]
 
   /**
-   * {@link Command.usage}
+   * {@link BudCommand.usage}
    */
   public static override usage = Command.Usage({
     description: `Use bud in a repl`,
@@ -31,7 +29,7 @@ export default class BudReplCommand extends BudCommand {
   public indent = indent
 
   /**
-   * {@link Command.execute}
+   * {@link BudCommand.execute}
    */
   @bind
   public override async execute() {
@@ -40,8 +38,6 @@ export default class BudReplCommand extends BudCommand {
 
     const {Repl} = await import(`./Repl.js`)
 
-    this.render(
-      <Repl app={this.bud} depth={this.depth} indent={this.indent} />,
-    )
+    render(<Repl app={this.bud} depth={this.depth} indent={this.indent} />)
   }
 }

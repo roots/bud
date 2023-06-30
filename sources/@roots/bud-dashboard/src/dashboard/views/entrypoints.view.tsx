@@ -9,25 +9,32 @@ import {useCompilationColor} from '../hooks/useCompilationColor.js'
 import {longestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.js'
 
 interface Props {
-  compilation: StatsCompilation
-  displayEntrypoints: boolean
+  compact?: boolean
+  compilation?: StatsCompilation
+  displayEntrypoints?: boolean
 }
 
-const Entrypoints = ({compilation, displayEntrypoints}: Props) => {
+const Entrypoints = ({
+  compact,
+  compilation,
+  displayEntrypoints,
+}: Props) => {
   const compilationColor = useCompilationColor(compilation, `cyan`)
 
   if (!displayEntrypoints) return null
   if (!compilation?.entrypoints) return null
 
-  const entrypoints = Object.values(compilation.entrypoints)
-    .filter(asset => asset?.name)
-    .map(entrypoint => ({
+  const entrypoints = Object.values(compilation.entrypoints).map(
+    entrypoint => ({
       ...entrypoint,
-      assets: entrypoint.assets.map(asset => ({
-        ...(asset ?? {}),
-        ...(compilation?.assets?.find(a => a?.name === asset?.name) ?? {}),
-      })),
-    }))
+      assets:
+        entrypoint.assets?.map(asset => ({
+          ...(asset ?? {}),
+          ...(compilation?.assets?.find(a => a?.name === asset?.name) ??
+            {}),
+        })) ?? [],
+    }),
+  )
 
   const minWidth = entrypoints.reduce(
     (longest, entry) =>
@@ -40,6 +47,7 @@ const Entrypoints = ({compilation, displayEntrypoints}: Props) => {
 
   return entrypoints.map(({assets, assetsSize, name}, key) => (
     <View
+      compact={compact}
       footer={<Foot bytes={assetsSize} />}
       head={<Head color={compilationColor} name={name} />}
       key={key}

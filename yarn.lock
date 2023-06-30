@@ -7448,7 +7448,7 @@ __metadata:
     webpack-manifest-plugin: 5.0.0
     yml-loader: 2.1.0
   peerDependencies:
-    esbuild: 0.18.*
+    esbuild: ">=0.18.0"
   peerDependenciesMeta:
     esbuild:
       optional: true
@@ -8594,9 +8594,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation":
+"@tests/tailwind-integration-test@workspace:sources/@roots/bud-tailwindcss/test/fixture":
   version: 0.0.0-use.local
-  resolution: "@tests/tailwind-integration@workspace:sources/@roots/bud-tailwindcss/test/implementation"
+  resolution: "@tests/tailwind-integration-test@workspace:sources/@roots/bud-tailwindcss/test/fixture"
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"

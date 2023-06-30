@@ -1,6 +1,6 @@
-import {Command} from '@roots/bud-support/clipanion'
+import type mode from '@roots/bud/cli/flags/mode'
 
-import type {Context} from './bud.js'
+import {Command} from '@roots/bud-support/clipanion'
 
 import BuildCommand from './bud.build.js'
 
@@ -28,14 +28,5 @@ export default class BuildProductionCommand extends BuildCommand {
     examples: [[`compile source assets`, `$0 build production`]],
   })
 
-  /**
-   * {@link BuildCommand.withSubcommandContext}
-   */
-  public override withSubcommandContext: BuildCommand[`withSubcommandContext`] =
-    async (context: Context) => {
-      return {
-        ...context,
-        mode: `production` as `production`,
-      }
-    }
+  public override mode: typeof mode = `production`
 }

@@ -1,4 +1,6 @@
 import {Option} from '@roots/bud-support/clipanion'
-export default Option.Boolean(`--silent,-s`, true, {
-  description: `silence stdout`,
-})
+
+export default (value?: boolean) =>
+  Option.Boolean(`--silent,-s`, value, {
+    description: `silence stdout`,
+  })

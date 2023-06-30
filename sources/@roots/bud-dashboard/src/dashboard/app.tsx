@@ -17,9 +17,9 @@ import {Error} from './views/node-error.view.js'
 import {Server} from './views/server.view.js'
 
 export const Application = ({
-  collapsed,
+  basedir,
+  compact,
   compilations,
-  context,
   debug,
   devUrl,
   displayAssets,
@@ -53,9 +53,9 @@ export const Application = ({
         return (
           <Box flexDirection="column" gap={1} key={id}>
             <Compilation
-              collapsed={collapsed}
+              basedir={basedir}
+              compact={compact}
               compilation={compilation}
-              context={context}
               debug={debug}
               displayAssets={displayAssets}
               displayEntrypoints={displayEntrypoints}
@@ -69,7 +69,7 @@ export const Application = ({
 
       <Server
         devUrl={devUrl}
-        displayServerInfo={displayServerInfo && compilations?.length > 0}
+        displayServerInfo={displayServerInfo}
         mode={mode}
         proxy={proxy}
         proxyUrl={proxyUrl}
@@ -94,7 +94,7 @@ export const TeletypeApplication = ({
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
   const [closed, setClosed] = useState(false)
-  const [collapsed, setCollapsed] = useState(props.collapsed)
+  const [compact, setCompact] = useState(props.compact)
   const [isolated, setIsolated] = useState(0)
 
   useInput((key, input) => {
@@ -102,7 +102,7 @@ export const TeletypeApplication = ({
     key === `e` && setDisplayEntrypoints(!displayEntrypoints)
     key === `d` && setDisplayDebug(!debug)
     key === `s` && setDisplayServerInfo(!displayServerInfo)
-    key === `c` && setCollapsed(!collapsed)
+    key === `c` && setCompact(!compact)
     key === `0` && setIsolated(0)
 
     new Array(9)
@@ -127,7 +127,7 @@ export const TeletypeApplication = ({
     <Application
       {...props}
       closed={closed}
-      collapsed={collapsed}
+      compact={compact}
       debug={debug}
       displayAssets={displayAssets}
       displayEntrypoints={displayEntrypoints}

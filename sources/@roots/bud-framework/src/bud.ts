@@ -54,9 +54,6 @@ export class Bud {
 
   public declare container: typeof methods.container
 
-  /**
-   * Context
-   */
   public declare context: Context
 
   public declare dashboard: Service & Dashboard
