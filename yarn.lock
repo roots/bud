@@ -6817,7 +6817,7 @@ __metadata:
     "@types/semver": 7.5.0
     "@yarnpkg/builder": 4.0.0-rc.46
     "@yarnpkg/cli": 4.0.0-rc.46
-    "@yarnpkg/core": 4.0.0-rc.46
+    "@yarnpkg/core": 4.0.0-rc.47
     "@yarnpkg/shell": 4.0.0-rc.46
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
@@ -6838,7 +6838,7 @@ __metadata:
     "@types/node": 18.16.18
     "@yarnpkg/builder": 4.0.0-rc.46
     "@yarnpkg/cli": 4.0.0-rc.46
-    "@yarnpkg/core": 4.0.0-rc.46
+    "@yarnpkg/core": 4.0.0-rc.47
     "@yarnpkg/shell": 4.0.0-rc.46
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
@@ -11238,7 +11238,41 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:4.0.0-rc.46, @yarnpkg/core@npm:^4.0.0-rc.46":
+"@yarnpkg/core@npm:4.0.0-rc.47":
+  version: 4.0.0-rc.47
+  resolution: "@yarnpkg/core@npm:4.0.0-rc.47"
+  dependencies:
+    "@arcanis/slice-ansi": ^1.1.1
+    "@types/semver": ^7.1.0
+    "@types/treeify": ^1.0.0
+    "@yarnpkg/fslib": ^3.0.0-rc.47
+    "@yarnpkg/libzip": ^3.0.0-rc.47
+    "@yarnpkg/parsers": ^3.0.0-rc.47
+    "@yarnpkg/shell": ^4.0.0-rc.47
+    camelcase: ^5.3.1
+    chalk: ^3.0.0
+    ci-info: ^3.2.0
+    clipanion: ^3.2.1
+    cross-spawn: 7.0.3
+    diff: ^5.1.0
+    dotenv: ^16.3.1
+    globby: ^11.0.1
+    got: ^11.7.0
+    lodash: ^4.17.15
+    micromatch: ^4.0.2
+    p-limit: ^2.2.0
+    semver: ^7.1.2
+    strip-ansi: ^6.0.0
+    tar: ^6.0.5
+    tinylogic: ^2.0.0
+    treeify: ^1.1.0
+    tslib: ^2.4.0
+    tunnel: ^0.0.6
+  checksum: b5fa11cdd6a5900b8444076a872ddf715f5152784656a62487866c44b9b6e0d4b52ca9d7a13ca60a058c1466916adcb24f3a4a2dd98c411cbafa2c60e6c49484
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/core@npm:^4.0.0-rc.46":
   version: 4.0.0-rc.46
   resolution: "@yarnpkg/core@npm:4.0.0-rc.46"
   dependencies:
@@ -11289,6 +11323,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.47":
+  version: 3.0.0-rc.47
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.47"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 9abf762620fbd0670e74d0cfb8d3f09a1e05b4da9e6be4421a491bf7ee4427a0adac9bfb1b35948359bdb3797c1805ecc6c229e36f080d9dbd49fa3883c3cb48
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.46":
   version: 3.0.0-rc.46
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.46"
@@ -11314,6 +11357,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/libzip@npm:^3.0.0-rc.47":
+  version: 3.0.0-rc.47
+  resolution: "@yarnpkg/libzip@npm:3.0.0-rc.47"
+  dependencies:
+    "@types/emscripten": ^1.39.6
+    "@yarnpkg/fslib": ^3.0.0-rc.47
+    tslib: ^2.4.0
+  peerDependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.47
+  checksum: 2287916b89557f00a2ca4efd5dbc25e4b0b66467282a5fb2ee64c2092c0c4485a7c934d0ed251ff9ecb7d85bcec7fc055247e328ef2cb93ba746ef0b4b49c922
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/nm@npm:^4.0.0-rc.46":
   version: 4.0.0-rc.46
   resolution: "@yarnpkg/nm@npm:4.0.0-rc.46"
@@ -11332,6 +11388,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: 35dfd1b1ac7ed9babf231721eb90b58156e840e575f6792a8e5ab559beaed6e2d60833b857310e67d6282c9406357648df2f510e670ec37ef4bd41657f329a51
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.47":
+  version: 3.0.0-rc.47.1
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.47.1"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: c0a434fba724468d3aee7031b67ca0041fe7b4e7c8ce78c78e1e92b75ef323a3c9f14f847f1cce8894b856f12aeeaf86bb43631e3857352606b77afefb194b79
   languageName: node
   linkType: hard
 
@@ -11730,6 +11796,24 @@ __metadata:
   bin:
     shell: ./lib/cli.js
   checksum: 5fc3ab9180a97ad1a04be92926e20ce02d22bf54d39810938dcae9b283bd86ab9706123f51576411648f60f166a53e99f6ad17e370bc51e476023e84c7d87dd1
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/shell@npm:^4.0.0-rc.47":
+  version: 4.0.0-rc.47
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.47"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.47
+    "@yarnpkg/parsers": ^3.0.0-rc.47
+    chalk: ^3.0.0
+    clipanion: ^3.2.1
+    cross-spawn: 7.0.3
+    fast-glob: ^3.2.2
+    micromatch: ^4.0.2
+    tslib: ^2.4.0
+  bin:
+    shell: ./lib/cli.js
+  checksum: 50b39c0035f0a19433c0b701c5ec13b44f5496bea602b4578ac4b925191b66a4fa52db2fbb464536461b0b06a5d0dbce3164b8173794daf26bef19c6fedf47b0
   languageName: node
   linkType: hard
 
@@ -16571,7 +16655,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:16.3.1":
+"dotenv@npm:16.3.1, dotenv@npm:^16.3.1":
   version: 16.3.1
   resolution: "dotenv@npm:16.3.1"
   checksum: 15d75e7279018f4bafd0ee9706593dd14455ddb71b3bcba9c52574460b7ccaf67d5cf8b2c08a5af1a9da6db36c956a04a1192b101ee102a3e0cf8817bbcf3dfd
