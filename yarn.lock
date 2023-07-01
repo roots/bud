@@ -6818,7 +6818,7 @@ __metadata:
     "@yarnpkg/builder": 4.0.0-rc.46
     "@yarnpkg/cli": 4.0.0-rc.46
     "@yarnpkg/core": 4.0.0-rc.46
-    "@yarnpkg/shell": 4.0.0-rc.46
+    "@yarnpkg/shell": 4.0.0-rc.47
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
     globby: 13.2.0
@@ -6839,7 +6839,7 @@ __metadata:
     "@yarnpkg/builder": 4.0.0-rc.46
     "@yarnpkg/cli": 4.0.0-rc.46
     "@yarnpkg/core": 4.0.0-rc.46
-    "@yarnpkg/shell": 4.0.0-rc.46
+    "@yarnpkg/shell": 4.0.0-rc.47
     clipanion: 3.2.1
     fs-jetpack: 5.1.0
     helpful-decorators: 2.1.0
@@ -11289,6 +11289,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^3.0.0-rc.47":
+  version: 3.0.0-rc.47
+  resolution: "@yarnpkg/fslib@npm:3.0.0-rc.47"
+  dependencies:
+    tslib: ^2.4.0
+  checksum: 9abf762620fbd0670e74d0cfb8d3f09a1e05b4da9e6be4421a491bf7ee4427a0adac9bfb1b35948359bdb3797c1805ecc6c229e36f080d9dbd49fa3883c3cb48
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/libui@npm:^3.0.0-rc.46":
   version: 3.0.0-rc.46
   resolution: "@yarnpkg/libui@npm:3.0.0-rc.46"
@@ -11332,6 +11341,16 @@ __metadata:
     js-yaml: ^3.10.0
     tslib: ^2.4.0
   checksum: 35dfd1b1ac7ed9babf231721eb90b58156e840e575f6792a8e5ab559beaed6e2d60833b857310e67d6282c9406357648df2f510e670ec37ef4bd41657f329a51
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/parsers@npm:^3.0.0-rc.47":
+  version: 3.0.0-rc.47.1
+  resolution: "@yarnpkg/parsers@npm:3.0.0-rc.47.1"
+  dependencies:
+    js-yaml: ^3.10.0
+    tslib: ^2.4.0
+  checksum: c0a434fba724468d3aee7031b67ca0041fe7b4e7c8ce78c78e1e92b75ef323a3c9f14f847f1cce8894b856f12aeeaf86bb43631e3857352606b77afefb194b79
   languageName: node
   linkType: hard
 
@@ -11715,7 +11734,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/shell@npm:4.0.0-rc.46, @yarnpkg/shell@npm:^4.0.0-rc.46":
+"@yarnpkg/shell@npm:4.0.0-rc.47":
+  version: 4.0.0-rc.47
+  resolution: "@yarnpkg/shell@npm:4.0.0-rc.47"
+  dependencies:
+    "@yarnpkg/fslib": ^3.0.0-rc.47
+    "@yarnpkg/parsers": ^3.0.0-rc.47
+    chalk: ^3.0.0
+    clipanion: ^3.2.1
+    cross-spawn: 7.0.3
+    fast-glob: ^3.2.2
+    micromatch: ^4.0.2
+    tslib: ^2.4.0
+  bin:
+    shell: ./lib/cli.js
+  checksum: 50b39c0035f0a19433c0b701c5ec13b44f5496bea602b4578ac4b925191b66a4fa52db2fbb464536461b0b06a5d0dbce3164b8173794daf26bef19c6fedf47b0
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/shell@npm:^4.0.0-rc.46":
   version: 4.0.0-rc.46
   resolution: "@yarnpkg/shell@npm:4.0.0-rc.46"
   dependencies:
