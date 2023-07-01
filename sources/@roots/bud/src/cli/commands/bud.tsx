@@ -342,6 +342,9 @@ export default class BudCommand extends Command<CLIContext> {
   public async makeBud() {
     checkDependencies(this.context)
 
+    if (this.mode) {
+      this.context.mode = this.mode
+    }
     if (isUndefined(this.dry)) {
       this.context.dry = true
     }
