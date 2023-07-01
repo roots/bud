@@ -1,12 +1,6 @@
 module.exports = {
   arrowParens: `avoid`,
   bracketSpacing: false,
-  tabWidth: 2,
-  printWidth: 75,
-  singleQuote: true,
-  useTabs: false,
-  trailingComma: `all`,
-  semi: false,
   overrides: [
     {
       files: `*.mdx`,
@@ -21,4 +15,10 @@ module.exports = {
       },
     },
   ],
+  printWidth: 75,
+  semi: false,
+  singleQuote: true,
+  tabWidth: 2,
+  trailingComma: `all`,
+  useTabs: false,
 }

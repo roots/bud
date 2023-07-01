@@ -10,7 +10,8 @@ import type {BudHandler} from '@roots/bud-support/errors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, type ReactElement, render} from '@roots/bud-support/ink'
-import process from 'node:process'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import {stderr, stdin, stdout} from 'node:process'
 
 import {Console} from './console/index.js'
 import {Application, TeletypeApplication} from './dashboard/index.js'
@@ -45,12 +46,17 @@ export class Dashboard extends Service implements BudDashboard {
   /**
    * Stdout
    */
-  public stderr = process.stderr
+  public stderr = stderr
+
+  /**
+   * Stdin
+   */
+  public stdin = stdin
 
   /**
    * Stderr
    */
-  public stdout = process.stdout
+  public stdout = stdout
 
   /**
    * Class constructor
@@ -60,38 +66,6 @@ export class Dashboard extends Service implements BudDashboard {
     super(app)
     this.formatStatsErrors = makeErrorFormatter(this.app)
     this.render({status: `Initializing bud.js`})
-  }
-
-  /**
-   * {@link Service.register}
-   */
-  @bind
-  public override async boot(bud: Bud) {
-    this.render({status: `Booting bud.js`})
-  }
-
-  /**
-   * {@link Service.register}
-   */
-  @bind
-  public override async buildBefore(bud: Bud) {
-    this.render({status: `Building configuration`})
-  }
-
-  /**
-   * {@link Service.register}
-   */
-  @bind
-  public override async compilerBefore(bud: Bud) {
-    this.render({status: `Compiling application modules`})
-  }
-
-  /**
-   * {@link Service.register}
-   */
-  @bind
-  public override async register(bud: Bud) {
-    this.render({status: `Registering bud.js services and extensions`})
   }
 
   /**
@@ -105,8 +79,8 @@ export class Dashboard extends Service implements BudDashboard {
     error?: BudHandler
     status?: false | string
   }) {
-    if (this.silent) return
-    if (this.app.context.ci) return
+    if (this.app.context.dashboard === false) return
+    if (this.app.context.silent === true) return
 
     const renderApplication = this.instance?.rerender
       ? this.instance.rerender
@@ -126,10 +100,28 @@ export class Dashboard extends Service implements BudDashboard {
       warnings: this.formatStatsErrors(compilation.warnings),
     }))
 
-    const messages = this.app?.console?.fetchAndRemove() ?? []
+    const assets = !isUndefined(this.app.context.dashboard?.assets)
+      ? this.app.context.dashboard.assets
+      : true
+
+    const compact = !isUndefined(this.app.context.dashboard?.compact)
+      ? this.app.context.dashboard.compact
+      : compilations.length > 2
+
+    const entrypoints = !isUndefined(
+      this.app.context.dashboard?.entrypoints,
+    )
+      ? this.app.context.dashboard.entrypoints
+      : true
+
+    const server = !isUndefined(this.app.context.dashboard?.server)
+      ? this.app.context.dashboard.server
+      : true
+
+    const messages = this.app?.console?.fetchAndRemove()
 
     const App =
-      process.stdin.isTTY && this.app.isDevelopment
+      this.stdin.isTTY && this.app.isDevelopment
         ? TeletypeApplication
         : Application
 
@@ -141,15 +133,21 @@ export class Dashboard extends Service implements BudDashboard {
           close={cb =>
             this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
           }
+          basedir={this.app.context.basedir}
+          compact={compact}
           compilations={compilations}
-          context={this.app.context}
           debug={this.app.context.debug}
-          devUrl={this.app.server?.publicUrl}
-          displayServerInfo={this.app.mode === `development`}
+          devUrl={this.app.server?.url}
+          displayAssets={assets}
+          displayEntrypoints={entrypoints}
+          displayServerInfo={this.app.mode === `development` && server}
           error={error}
+          isolated={0}
           mode={this.app.mode}
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
-          proxyUrl={this.app.server?.publicProxyUrl}
+          proxyUrl={this.app.server?.proxyUrl}
+          publicDevUrl={this.app.server?.publicUrl}
+          publicProxyUrl={this.app.server?.publicProxyUrl}
           status={status}
         />
       </Box>,
@@ -161,15 +159,8 @@ export class Dashboard extends Service implements BudDashboard {
    */
   @bind
   public renderString(text: string) {
-    if (this.silent) return
+    if (this.app.context.silent) return
     process.stdout.write(`${text}\n`)
-  }
-
-  /**
-   * Is silent?
-   */
-  public get silent() {
-    return this.app.context.silent === true
   }
 
   /**
@@ -180,10 +171,12 @@ export class Dashboard extends Service implements BudDashboard {
     stats: StatsCompilation,
     status: false | string = false,
   ): this {
-    this.hashes.add(stats.hash)
-    this.stats = stats
+    if (stats) {
+      this.hashes.add(stats.hash)
+      this.stats = stats
+    }
 
-    if (this.app.context.ci === true) {
+    if (this.app.context.dashboard === false && this.app.compiler?.stats) {
       this.renderString(
         this.app.compiler.stats.toString({
           color: true,

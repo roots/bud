@@ -9,30 +9,30 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.16",
+    "@types/node": "18.16.18",
     "@types/prettier": "2.7.3",
-    "vitest": "0.31.4"
+    "vitest": "0.32.2"
   },
   "dependencies": {
-    "@octokit/core": "4.2.1",
+    "@octokit/core": "4.2.4",
     "@octokit/plugin-paginate-rest": "6.1.2",
     "@repo/constants": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "dotenv": "16.1.4",
+    "dotenv": "16.3.1",
     "execa": "7.1.1",
     "fs-jetpack": "5.1.0",
-    "globby": "13.1.4",
+    "globby": "13.2.0",
     "gray-matter": "4.0.3",
     "handlebars": "4.7.7",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
-    "octokit": "2.0.19",
+    "octokit": "2.1.0",
     "prettier": "2.8.8",
     "strip-ansi": "7.1.0",
-    "tslib": "2.5.3",
-    "typescript": "5.1.3"
+    "tslib": "2.6.0",
+    "typescript": "5.1.5"
   },
   "scripts": {
     "build": "yarn tsc -b"

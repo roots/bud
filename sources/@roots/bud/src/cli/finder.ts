@@ -72,23 +72,17 @@ export class Commands {
    */
   @bind
   public async getCommands() {
+    const path = join(this.context.paths.storage, `bud.commands.yml`)
     try {
-      if (
-        await this.fs.exists(join(this.context.paths.storage, `commands`))
-      ) {
-        const paths = await this.fs.read(
-          join(this.context.paths.storage, `commands.yml`),
-        )
+      if (await this.fs.exists(path)) {
+        const paths = await this.fs.read(path)
         if (Array.isArray(paths)) return paths
       }
     } catch (error) {}
 
     const resolvedExtensionPaths = await this.getRegistrationModulePaths()
 
-    await this.fs.write(
-      join(this.context.paths.storage, `commands.yml`),
-      resolvedExtensionPaths,
-    )
+    await this.fs.write(path, resolvedExtensionPaths)
 
     return resolvedExtensionPaths
   }

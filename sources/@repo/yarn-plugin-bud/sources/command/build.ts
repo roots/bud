@@ -22,6 +22,8 @@ export class Build extends Command {
     examples: [[`build packages`, `yarn @bud build`]],
   }
 
+  public tsconfig = path(`config/tsconfig.json`)
+
   public async bundle({
     alias = {},
     external = [],
@@ -43,7 +45,6 @@ export class Build extends Command {
         `--minify`,
         `--log-level=warning`,
         `--platform=node`,
-
         ...Object.entries(alias).map(
           ([key, value]) => `--alias:${key}=${value}`,
         ),
@@ -152,7 +153,7 @@ export class Build extends Command {
       `Building from source`,
       `Built from source`,
       `Build failed`,
-      this.cli.run([`@bud`, `tsc`, `--force`]),
+      this.cli.run([`@bud`, `tsc`, `--build`, this.tsconfig, `--force`]),
     )
     if (result !== 0) throw new Error(`Build failed`)
   }

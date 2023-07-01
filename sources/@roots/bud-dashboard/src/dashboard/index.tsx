@@ -6,20 +6,24 @@ import {type Bud} from '@roots/bud-framework'
 export {Application, TeletypeApplication} from './app.js'
 
 export interface Props {
+  basedir?: string
   close?: (callback: (error?: Error | null) => any) => void
   closed?: boolean
-  compilations?: Array<StatsCompilation>
-  context: Bud[`context`]
-  debug: boolean
+  compact?: boolean
+  compilations?: Array<Partial<StatsCompilation>>
+  debug?: boolean
   devUrl?: URL
   displayAssets?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
   error?: BudHandler
   errors?: StatsCompilation[`errors`]
+  isolated?: number
   mode: Bud['mode']
   proxy?: boolean
   proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
   status?: false | string
   warnings?: StatsCompilation[`warnings`]
 }

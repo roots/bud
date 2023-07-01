@@ -1,5 +1,4 @@
-import * as repo from '@repo/constants'
-import {CommandClass, Option} from 'clipanion'
+import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
@@ -18,6 +17,7 @@ export class Docs extends Command {
   public async execute() {
     try {
       await this.cli.run([`@bud`, `build`])
+
       await this.promise(
         `Building @repo/markdown-kit`,
         `Built @repo/markdown-kit`,
@@ -58,7 +58,7 @@ export class Docs extends Command {
         `Building docs`,
         `Built docs`,
         `Failed to build docs`,
-        this.cli.run([`workspace`, `@repo/docs`, `run`, `build`]),
+        this.cli.run([`@bud`, `docusaurus`, `build`]),
       )
     } catch (error) {
       throw error

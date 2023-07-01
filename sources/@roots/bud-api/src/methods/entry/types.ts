@@ -1,17 +1,15 @@
 import type {EntryObject} from '@roots/bud-framework/config'
-
 export type {EntryObject}
 
+export type Name = string
+export type Signifier = string
+
+export type ImportValue = Array<Signifier> | Signifier
+export type ObjectInput = Record<string, ImportValue>
+
 export type Parameters =
-  | [
-      | Array<string>
-      | Record<string, Array<string> | EntryObject | string>
-      | string,
-    ]
-  | [string, Array<string> | string]
+  | [ImportValue]
+  | [Name, EntryObject | ImportValue]
+  | [Record<Name, EntryObject | ImportValue>]
 
-export type RawValue = Array<string> | EntryObject | string
-
-export type ObjectInput = Record<string, Array<string> | string>
-
-export type Records = {[signifier: string]: EntryObject}
+export type Records = Record<string, EntryObject>

@@ -4,14 +4,10 @@
  * @see {@link https://github.com/JamieMason/syncpack#-configuration-file}
  */
 module.exports = {
-  dev: true,
+  dependencyTypes: [`dev`, `prod`],
   filter: `^(?!@roots/).*$`,
   indent: `  `,
-  overrides: true,
-  dependencyTypes: [`dev`, `prod`],
-  pnpmOverrides: true,
-  prod: true,
-  resolutions: true,
+  semverRange: ``,
   sortFirst: [
     `name`,
     `private`,
@@ -46,23 +42,21 @@ module.exports = {
     `bud`,
     `volta`,
   ],
-  workspace: true,
-  semverRange: ``,
   versionGroups: [
     {
       dependencies: [`**`],
-      packages: [`@repo/docs`],
       label: `Docusaurus`,
+      packages: [`@repo/docs`],
     },
     {
       dependencies: [`**`],
-      packages: [`issue-*`],
       label: `Test code (fixtures)`,
+      packages: [`issue-*`],
     },
     {
       dependencies: [`**`],
-      packages: [`@examples/*`],
       label: `Example code`,
+      packages: [`@examples/*`],
     },
   ],
 }

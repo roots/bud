@@ -77,7 +77,7 @@ export interface Hooks {
    */
   fire: <T extends `${keyof Registry.Events & string}`>(
     id: T,
-    obj: Registry.Events[T],
+    ...obj: Registry.Events[T]
   ) => Promise<Bud>
 
   /**

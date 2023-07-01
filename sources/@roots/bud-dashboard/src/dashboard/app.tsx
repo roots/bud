@@ -1,13 +1,14 @@
 import {
   Box,
+  Fragment,
   type PropsWithChildren,
   Spinner,
   Text,
   useApp,
   useInput,
   useState,
-  useStdout,
 } from '@roots/bud-support/ink'
+import {exit, stdout} from 'node:process'
 
 import {type Props} from './index.js'
 import Compilation from './views/compilation.view.js'
@@ -16,21 +17,23 @@ import {Error} from './views/node-error.view.js'
 import {Server} from './views/server.view.js'
 
 export const Application = ({
+  basedir,
+  compact,
   compilations,
-  context,
   debug,
   devUrl,
   displayAssets,
   displayEntrypoints,
   displayServerInfo,
   error,
+  isolated = 0,
   mode,
   proxy,
   proxyUrl,
+  publicDevUrl,
+  publicProxyUrl,
   status,
 }: Props) => {
-  const {stdout} = useStdout()
-
   if (error) return <Error error={error} />
 
   return (
@@ -43,25 +46,35 @@ export const Application = ({
         </Text>
       )}
 
-      {compilations?.map((compilation, id) => (
-        <Box flexDirection="column" gap={1} key={id}>
-          <Compilation
-            compilation={compilation}
-            context={context}
-            debug={debug}
-            displayAssets={displayAssets}
-            displayEntrypoints={displayEntrypoints}
-          />
-          <Debug compilation={compilation} debug={debug} />
-        </Box>
-      ))}
+      {compilations?.map((compilation, id) => {
+        if (isolated > 0 && id + 1 !== isolated)
+          return <Fragment key={id}></Fragment>
+
+        return (
+          <Box flexDirection="column" gap={1} key={id}>
+            <Compilation
+              basedir={basedir}
+              compact={compact}
+              compilation={compilation}
+              debug={debug}
+              displayAssets={displayAssets}
+              displayEntrypoints={displayEntrypoints}
+              id={id + 1}
+              total={compilations.length}
+            />
+            <Debug compilation={compilation} debug={debug} />
+          </Box>
+        )
+      })}
 
       <Server
         devUrl={devUrl}
-        displayServerInfo={displayServerInfo && compilations?.length > 0}
+        displayServerInfo={displayServerInfo}
         mode={mode}
         proxy={proxy}
         proxyUrl={proxyUrl}
+        publicDevUrl={publicDevUrl}
+        publicProxyUrl={publicProxyUrl}
       />
     </Box>
   )
@@ -79,21 +92,33 @@ export const TeletypeApplication = ({
   )
   const [debug, setDisplayDebug] = useState(props.debug)
   const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
-  const [displayAssets, setDisplayAssets] = useState(true)
+  const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
   const [closed, setClosed] = useState(false)
+  const [compact, setCompact] = useState(props.compact)
+  const [isolated, setIsolated] = useState(0)
 
   useInput((key, input) => {
     key === `a` && setDisplayAssets(!displayAssets)
     key === `e` && setDisplayEntrypoints(!displayEntrypoints)
     key === `d` && setDisplayDebug(!debug)
     key === `s` && setDisplayServerInfo(!displayServerInfo)
+    key === `c` && setCompact(!compact)
+    key === `0` && setIsolated(0)
+
+    new Array(9)
+      .fill(0)
+      .forEach(
+        (_, i) =>
+          key === `${i + 1}` &&
+          isolated !== i + 1 &&
+          setIsolated(Math.min(i + 1, props.compilations.length)),
+      )
 
     if (input.escape) {
       setClosed(true)
       close((error?) => {
         app.exit(error)
-        // eslint-disable-next-line n/no-process-exit
-        process.exit(error ? 1 : 0)
+        exit(error ? 1 : 0)
       })
     }
   })
@@ -102,10 +127,12 @@ export const TeletypeApplication = ({
     <Application
       {...props}
       closed={closed}
+      compact={compact}
       debug={debug}
       displayAssets={displayAssets}
       displayEntrypoints={displayEntrypoints}
       displayServerInfo={displayServerInfo}
+      isolated={isolated}
     />
   )
 }

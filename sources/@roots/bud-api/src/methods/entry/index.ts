@@ -1,12 +1,14 @@
 import type {Bud} from '@roots/bud-framework'
 
+import isArray from '@roots/bud-support/lodash/isArray'
+import isString from '@roots/bud-support/lodash/isString'
+
 import type {Parameters} from './types.js'
 
-import {isNamed, isNormalRecord, isPrimitive} from './guards.js'
+import {isNamed} from './guards.js'
 import {handleNamed} from './handleNamed.js'
-import {handleNormalRecord} from './handleNormalRecord.js'
 import {handlePrimitive} from './handlePrimitive.js'
-import {handleSimpleRecord} from './handleSimpleRecord.js'
+import {handleRecords} from './handleRecords.js'
 
 export type {Parameters}
 
@@ -15,16 +17,21 @@ export interface entry {
 }
 
 export const entry: entry = async function (this: Bud, ...input) {
-  if (isNamed(input)) return await handleNamed(this, input)
-  if (isPrimitive(input)) return await handlePrimitive(this, input)
+  if (isNamed(input)) {
+    const [name, value] = input
+    return await handleNamed(this, name, value)
+  }
 
-  await Promise.all(
-    Object.entries(input[0]).map(async ([k, v]) => {
-      return isNormalRecord([{[k]: v}])
-        ? await handleNormalRecord(this, [{[k]: v}])
-        : await handleSimpleRecord(this, [{[k]: v}])
-    }),
-  )
+  if (isString(input[0])) {
+    const [value] = input
+    return await handlePrimitive(this, value)
+  }
 
-  return this
+  if (isArray(input[0])) {
+    const [value] = input
+    return await handlePrimitive(this, value)
+  }
+
+  const [records] = input
+  return await handleRecords(this, records)
 }

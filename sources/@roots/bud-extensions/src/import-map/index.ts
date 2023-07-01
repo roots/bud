@@ -15,7 +15,7 @@ export default class BudImportMapExtension extends Extension {
 
     Object.entries(bud.context.manifest.imports).map(
       ([k, v]: [string, string]) => {
-        if (!v.match(/https?:$/)) bud.alias(k, bud.path(v))
+        if (!v.match(/https?:^/)) bud.alias(k, bud.path(v))
       },
     )
   }

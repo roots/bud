@@ -11,11 +11,11 @@ describe('issue-1890', () => {
   })
 
   it('should generate scripts', async () => {
-    await execa(`yarn`, [`bud`, `clean`], {
+    await execa(`yarn`, [`bud`, `clean`, `--silent`], {
       cwd: join(paths.tests, `reproductions`, `issue-1890`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`, `--silent`], {
       cwd: join(paths.tests, `reproductions`, `issue-1890`),
     })
 

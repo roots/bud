@@ -6,7 +6,7 @@ import {useLongestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.
 import Asset from './asset.component.js'
 
 interface Props {
-  assets: Array<Partial<StatsAsset> & {name?: string; size?: number}>
+  assets?: Array<Partial<StatsAsset> & {name?: string; size?: number}>
   minWidth?: number
 }
 
@@ -17,15 +17,13 @@ const Assets = ({assets, minWidth}: Props) => {
 
   return (
     <Box flexDirection="column" overflowX="hidden" width="100%">
-      {assets
-        ?.filter(({type}) => type === `asset`)
-        .map((asset, index) => (
-          <Asset
-            key={index}
-            {...asset}
-            minWidth={minWidth ?? fallbackMinWidth}
-          />
-        ))}
+      {assets.map((asset, index) => (
+        <Asset
+          key={index}
+          {...asset}
+          minWidth={minWidth ?? fallbackMinWidth}
+        />
+      ))}
     </Box>
   )
 }

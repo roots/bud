@@ -1,7 +1,19 @@
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 
-const View = ({borderColor = `dim`, children, footer, head}) => {
+const View = ({
+  borderColor = `dim`,
+  children,
+  compact,
+  footer,
+  head,
+}: {
+  borderColor?: string
+  children?: any
+  compact?: boolean
+  footer?: any
+  head?: any
+}) => {
   return (
     <Box flexDirection="column" overflowX="hidden" width="100%">
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
@@ -9,27 +21,28 @@ const View = ({borderColor = `dim`, children, footer, head}) => {
           <Text color={borderColor}>{figures.lineDownRightArc}</Text>
           <Text color={borderColor}>{figures.line}</Text>
         </Box>
-
         {head}
       </Box>
 
-      <Box
-        borderBottom={false}
-        borderColor={borderColor}
-        borderLeft={true}
-        borderRight={false}
-        borderStyle="single"
-        borderTop={false}
-        flexDirection="column"
-        gap={1}
-        overflowX="hidden"
-        paddingBottom={1}
-        paddingLeft={1}
-        paddingTop={1}
-        width="100%"
-      >
-        {children}
-      </Box>
+      {!compact && (
+        <Box
+          borderBottom={false}
+          borderColor={borderColor}
+          borderLeft={true}
+          borderRight={false}
+          borderStyle="single"
+          borderTop={false}
+          flexDirection="column"
+          gap={1}
+          overflowX="hidden"
+          paddingBottom={1}
+          paddingLeft={1}
+          paddingTop={1}
+          width="100%"
+        >
+          {children}
+        </Box>
+      )}
 
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Box flexDirection="row" gap={0} minWidth={2}>

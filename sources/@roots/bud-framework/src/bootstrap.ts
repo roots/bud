@@ -224,13 +224,13 @@ export const bootstrap = async function (this: Bud) {
         }),
   )
 
+  this.hooks.action(`compiler.before`, this.module.compilerBefore)
+  this.hooks.action(`compiler.done`, this.module.compilerDone)
+
   await [`bootstrap`, `register`, `boot`].reduce(
     async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await this.hooks.fire(event, this)
-      if (this.api.processQueue && this.api?.queue?.length) {
-        await this.api.processQueue()
-      }
+      await this.executeServiceCallbacks(event)
     },
     Promise.resolve(),
   )

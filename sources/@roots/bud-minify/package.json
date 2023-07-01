@@ -55,18 +55,18 @@
   "devDependencies": {
     "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.16"
+    "@types/node": "18.16.18"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "css-minimizer-webpack-plugin": "5.0.0",
-    "lightningcss": "1.21.0",
-    "terser": "5.17.7",
+    "css-minimizer-webpack-plugin": "5.0.1",
+    "lightningcss": "1.21.1",
+    "terser": "5.18.2",
     "terser-webpack-plugin": "5.3.9",
-    "tslib": "2.5.3",
-    "webpack": "5.86.0"
+    "tslib": "2.6.0",
+    "webpack": "5.88.0"
   },
   "volta": {
     "extends": "../../../package.json"

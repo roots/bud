@@ -5,7 +5,6 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, Text} from '@roots/bud-support/ink'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import {dry} from '@roots/bud/cli/decorators/dry'
-import storage from '@roots/bud/cli/flags/storage'
 
 /**
  * `bud clean`
@@ -37,7 +36,7 @@ export default class BudCleanCommand extends BudCommand {
   public outputPositional = Option.Boolean(`@dist,dist,output`, false, {
     description: `empty @dist`,
   })
-  public storage = storage
+
   public storagePositional = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })

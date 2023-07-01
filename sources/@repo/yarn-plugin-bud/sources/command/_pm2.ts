@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
@@ -7,16 +8,20 @@ export class Pm2 extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
 
   public static usage: CommandClass['usage'] = {
-    category: `@bud-tools`,
+    category: `@bud`,
     description: `registry access`,
-    examples: [[`work with pm2`, `yarn @bud pm2`]],
+    examples: [[`pm2 usage info`, `yarn @bud pm2 --info`]],
   }
 
   public passthrough = Option.Proxy({name: `pm2 options`})
 
   public async execute() {
     await this.cli
-      .run([`pm2`, ...(this.passthrough ?? [])].filter(Boolean))
+      .run([
+        `node`,
+        path(`node_modules`, `.bin`, `pm2`),
+        ...this.passthrough,
+      ])
       .catch(error => {
         throw error
       })

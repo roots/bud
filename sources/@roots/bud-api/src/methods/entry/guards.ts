@@ -1,12 +1,9 @@
-import type {EntryObject, Parameters} from './types.js'
+import type {EntryObject, Name, Parameters} from './types.js'
 
 export function isPrimitive(
   input: Parameters,
-): input is [Array<string>] | [string] {
-  return (
-    input.length === 1 &&
-    (typeof input[0] === `string` || Array.isArray(input[0]))
-  )
+): input is [Array<string> | string] {
+  return typeof input[0] === `string` || Array.isArray(input[0])
 }
 
 export function isNamed(
@@ -20,7 +17,7 @@ export function isNamed(
 
 export function isNormalRecord(
   input: Parameters,
-): input is [Record<string, EntryObject>] {
+): input is [Record<Name, EntryObject>] {
   return (
     input.length === 1 &&
     typeof input[0] !== `string` &&

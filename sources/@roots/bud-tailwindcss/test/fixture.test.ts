@@ -4,7 +4,7 @@ import {execa, ExecaReturnValue} from 'execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 import fs from 'fs-jetpack'
 
-describe(`@tests/tailwind-implementation`, () => {
+describe(`@tests/tailwind-integration-test`, () => {
   let child: ExecaReturnValue
 
   beforeAll(async () => {
@@ -12,7 +12,7 @@ describe(`@tests/tailwind-implementation`, () => {
       `bud`,
       `clean`,
       `--cwd`,
-      `sources/@roots/bud-tailwindcss/test/implementation`,
+      `sources/@roots/bud-tailwindcss/test/fixture`,
     ])
 
     try {
@@ -22,7 +22,7 @@ describe(`@tests/tailwind-implementation`, () => {
         `--no-cache`,
         `--debug`,
         `--cwd`,
-        `sources/@roots/bud-tailwindcss/test/implementation`,
+        `sources/@roots/bud-tailwindcss/test/fixture`,
       ])
     } catch (error) {}
   }, 30000)
@@ -35,7 +35,7 @@ describe(`@tests/tailwind-implementation`, () => {
           `@roots`,
           `bud-tailwindcss`,
           `test`,
-          `implementation`,
+          `fixture`,
           `dist`,
           `css`,
           `main.css`,
@@ -49,7 +49,7 @@ describe(`@tests/tailwind-implementation`, () => {
           `@roots`,
           `bud-tailwindcss`,
           `test`,
-          `implementation`,
+          `fixture`,
           `dist`,
           `css`,
           `main.css`,

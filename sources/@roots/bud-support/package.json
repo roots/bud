@@ -92,7 +92,7 @@
     "@types/lodash-es": "4.17.7",
     "@types/minimist": "1.2.2",
     "@types/node-notifier": "8.0.2",
-    "@types/react": "18.2.9",
+    "@types/react": "18.2.14",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5"
   },
@@ -108,16 +108,16 @@
     "copy-webpack-plugin": "11.0.0",
     "css-loader": "6.8.1",
     "csv-loader": "3.0.5",
-    "dotenv": "16.1.4",
+    "dotenv": "16.3.1",
     "dotenv-expand": "10.0.0",
     "env-paths": "3.0.0",
-    "esbuild-wasm": "0.17.19",
+    "esbuild-wasm": "0.18.10",
     "execa": "7.1.1",
     "express": "4.18.2",
     "figures": "5.0.0",
     "file-loader": "6.2.0",
     "get-port": "6.1.2",
-    "globby": "13.1.4",
+    "globby": "13.2.0",
     "http-proxy-middleware": "3.0.0-beta.1",
     "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.2",
@@ -146,16 +146,15 @@
     "strip-ansi": "7.1.0",
     "style-loader": "3.3.3",
     "toml": "3.0.0",
-    "tslib": "2.5.3",
+    "tslib": "2.6.0",
     "typanion": "3.12.1",
-    "webpack": "5.86.0",
+    "webpack": "5.88.0",
     "webpack-dev-middleware": "6.1.1",
     "webpack-manifest-plugin": "5.0.0",
-    "yml-loader": "2.1.0",
-    "zod": "3.21.4"
+    "yml-loader": "2.1.0"
   },
   "peerDependencies": {
-    "esbuild": "0.17.*"
+    "esbuild": ">=0.18.0"
   },
   "peerDependenciesMeta": {
     "esbuild": {

@@ -2,6 +2,7 @@ import type {PathOrFileDescriptor} from 'node:fs'
 
 import {readFile, realpath} from 'node:fs'
 import {join} from 'node:path'
+import {cwd} from 'node:process'
 
 type Path = PathOrFileDescriptor & string
 
@@ -53,7 +54,7 @@ export const getPackageManagerField = async (
   return false
 }
 
-export default async function (basedir: string = process.cwd()) {
+export default async function (basedir: string = cwd()) {
   const packageField = await getPackageManagerField(basedir)
 
   if (packageField) {

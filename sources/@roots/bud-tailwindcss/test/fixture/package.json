@@ -1,9 +1,9 @@
 {
-  "name": "@tests/tailwind-integration",
+  "name": "@tests/tailwind-integration-test",
   "private": true,
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
-    "tslib": "2.5.3"
+    "tslib": "2.6.0"
   }
 }

@@ -34,5 +34,5 @@ jobs:
       - name: yarn
         run: yarn
 
-      - name: yarn @bud test unit run
-        run: yarn @bud test unit run
+      - name: yarn @bud test unit
+        run: yarn @bud test unit

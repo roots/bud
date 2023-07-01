@@ -16,7 +16,7 @@ export class EventHooks extends Hooks<EventsStore> {
   @bind
   public async get<T extends keyof Events & string>(
     id: T,
-    value: Events[T],
+    ...value: Events[T]
   ): Promise<Bud> {
     if (!(id in this.store) || !this.store[id].length) return this.app
 
@@ -26,7 +26,7 @@ export class EventHooks extends Hooks<EventsStore> {
 
     await Promise.all(
       actions.map(async (action, iteration) => {
-        await action(value as any).catch(error => {
+        await action(...(value as any)).catch(error => {
           throw BudError.normalize(error)
         })
       }),
@@ -40,7 +40,7 @@ export class EventHooks extends Hooks<EventsStore> {
   @bind
   public set<T extends keyof EventsStore & string>(
     id: T,
-    ...input: Array<(value: Events[T]) => Promise<unknown>>
+    ...input: Array<(...value: Events[T]) => Promise<unknown>>
   ): Bud {
     if (!(id in this.store)) this.store[id] = []
 

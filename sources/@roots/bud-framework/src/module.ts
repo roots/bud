@@ -20,29 +20,30 @@ export class Module extends Service {
   public resolved: Record<string, string> = {}
 
   /**
-   * {@link Service.init}
+   * {@link Service.bootstrap}
    */
   @bind
   public override async bootstrap(bud: Bud) {
+    if (args.force) {
+      logger
+        .scope(`module`)
+        .info(`flushing resolutions`, this.resolutionsPath)
+    }
+
     if (!this.cacheEnabled) {
       this.resolved = {}
       return
     }
 
-    if (!(await bud.fs.exists(this.cacheLocation))) {
+    const data = await bud.fs.read(this.resolutionsPath).catch(error => {
+      logger.scope(`module`).info(`cache is enabled but no cache exists`)
       this.resolved = {}
-      return
-    }
-
-    const data = await bud.fs.read(this.cacheLocation)
+    })
 
     if (!data?.resolutions) {
       logger
         .scope(`module`)
-        .warn(
-          `cache is enabled but resolution data is missing. resetting cache.`,
-        )
-        .info(data)
+        .info(`cache is enabled but resolution data is missing`, data)
 
       this.resolved = {}
       return
@@ -50,8 +51,7 @@ export class Module extends Service {
 
     logger
       .scope(`module`)
-      .info(`cache is enabled and cached resolutions exist`)
-      .info(data)
+      .info(`cache is enabled and cached resolutions exist`, data)
 
     this.resolved = data.resolutions
   }
@@ -67,10 +67,25 @@ export class Module extends Service {
   }
 
   /**
-   * Cache location
+   * {@link Service.compilerBefore}
    */
-  public get cacheLocation(): string {
-    return join(paths.storage, `resolutions.yml`)
+  @bind
+  public override async compilerBefore(bud: Bud) {
+    await bud.fs.write(this.resolutionsPath, {
+      resolutions: this.resolved,
+      version: bud.context.bud.version,
+    })
+  }
+
+  /**
+   * {@link Service.compilerDone}
+   */
+  @bind
+  public override async compilerDone(bud: Bud) {
+    await bud.fs.write(this.resolutionsPath, {
+      resolutions: this.resolved,
+      version: bud.context.bud.version,
+    })
   }
 
   /**
@@ -103,37 +118,43 @@ export class Module extends Service {
    * Import a module from its signifier
    */
   @bind
-  public async import<T extends string>(signifier: T, context?: string) {
+  public async import<T extends string>(
+    signifier: T,
+    context?: string,
+    options: {bustCache?: boolean; raw?: boolean} = {
+      bustCache: false,
+      raw: false,
+    },
+  ) {
     if (this.resolved?.[signifier]) {
-      const result = await import(this.resolved[signifier])
-        .then(m => m.default ?? m)
-        .catch(error => {
-          logger
-            .scope(`module`)
-            .warn(
-              `Could not import ${signifier} from ${this.resolved[signifier]}. Removing from cached module registry.`,
-            )
+      const path = options.bustCache
+        ? `${this.resolved[signifier]}?v=${Date.now()}`
+        : this.resolved[signifier]
+      const result = await import(path).catch(error => {
+        logger
+          .scope(`module`)
+          .info(
+            `Could not import ${signifier} from ${this.resolved[signifier]}. Removing from cached module registry.`,
+            error,
+          )
 
-          this.resolved[signifier] = undefined
-        })
+        this.resolved[signifier] = undefined
+      })
 
-      if (result) return result
+      return options.raw ? result : result?.default ?? result
     }
 
     const path = await this.resolve(signifier, context).catch(error => {
       throw error
     })
 
-    const result = await import(path)
-      .then(m => m.default ?? m)
-      .catch(error => {
-        throw error
-      })
+    const result = await import(path).catch(error => {
+      throw error
+    })
 
-    if (result)
-      logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
+    logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
 
-    return result
+    return options.raw ? result : result?.default ?? result
   }
 
   /**
@@ -158,6 +179,13 @@ export class Module extends Service {
       logger.scope(`module`).info(signifier, `manifest resolved to`, path)
       return await this.app.fs.read(path)
     })
+  }
+
+  /**
+   * Cache location
+   */
+  public get resolutionsPath(): string {
+    return join(paths.storage, `bud.resolutions.yml`)
   }
 
   /**

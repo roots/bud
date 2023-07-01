@@ -1,12 +1,15 @@
-import type {Context} from '@roots/bud-framework/context'
-
-import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import cache from '@roots/bud/cli/flags/cache'
 import ci from '@roots/bud/cli/flags/ci'
 import clean from '@roots/bud/cli/flags/clean'
+import dashboard from '@roots/bud/cli/flags/dashboard'
+import dashboardAssets from '@roots/bud/cli/flags/dashboard.assets'
+import dashboardCompact from '@roots/bud/cli/flags/dashboard.compact'
+import dashboardEntrypoints from '@roots/bud/cli/flags/dashboard.entrypoints'
+import dashboardServer from '@roots/bud/cli/flags/dashboard.server'
 import devtool from '@roots/bud/cli/flags/devtool'
 import discover from '@roots/bud/cli/flags/discover'
+import dry from '@roots/bud/cli/flags/dry'
 import editor from '@roots/bud/cli/flags/editor'
 import esm from '@roots/bud/cli/flags/esm'
 import force from '@roots/bud/cli/flags/force'
@@ -18,27 +21,27 @@ import minimize from '@roots/bud/cli/flags/minimize'
 import output from '@roots/bud/cli/flags/output'
 import publicPath from '@roots/bud/cli/flags/publicPath'
 import runtime from '@roots/bud/cli/flags/runtime'
+import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
+import verbose from '@roots/bud/cli/flags/verbose'
 
 /**
  * `bud build` command
  */
 export default class BudBuildCommand extends BudCommand {
   /**
-   * {@link Command.paths}
+   * {@link BudCommand.paths}
    */
   public static override paths = [[`build`]]
 
   /**
-   * {@link Command.usage}
+   * {@link BudCommand.usage}
    */
-  public static override usage = Command.Usage({
+  public static override usage = BudCommand.Usage({
     category: `build`,
-
     description: `Compile source assets`,
-
     details: `\
       \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
 
@@ -46,11 +49,20 @@ export default class BudBuildCommand extends BudCommand {
 
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
-
     examples: [[`compile source assets`, `$0 build`]],
   })
 
-  public cache = cache
+  public [`cache`] = cache
+
+  public [`dashboard.assets`] = dashboardAssets
+
+  public [`dashboard.compact`] = dashboardCompact
+
+  public [`dashboard.entrypoints`] = dashboardEntrypoints
+
+  public [`dashboard.server`] = dashboardServer
+
+  public [`dashboard`] = dashboard
 
   public ci = ci
 
@@ -60,9 +72,7 @@ export default class BudBuildCommand extends BudCommand {
 
   public discover = discover
 
-  public override dry = Option.Boolean(`--dry`, false, {
-    description: `run in dry mode`,
-  })
+  public override dry = dry(false)
 
   public editor = editor
 
@@ -86,53 +96,18 @@ export default class BudBuildCommand extends BudCommand {
 
   public runtime = runtime
 
-  public override silent = Option.Boolean(`--silent`, false, {
-    description: `suppress stdout output`,
-  })
+  public override silent = silent(false)
 
   public splitChunks = splitChunks
 
-  public storage = storage
+  public override storage = storage
 
   public use = use
 
-  /**
-   * {@link Command.withContext}
-   */
-  public override withContext = async (context: Context) => {
-    if (`withSubcommandContext` in this) {
-      context = await this.withSubcommandContext(context)
-    }
-
-    return {
-      ...context,
-      cache: this.cache,
-      ci: this.ci,
-      clean: this.clean,
-      debug: this.debug,
-      devtool: this.devtool,
-      discover: this.discover,
-      editor: this.editor,
-      esm: this.esm,
-      force: this.force,
-      hash: this.hash,
-      html: this.html,
-      immutable: this.immutable,
-      input: this.input,
-      minimize: this.minimize,
-      output: this.output,
-      publicPath: this.publicPath,
-      runtime: this.runtime,
-      silent: this.silent,
-      splitChunks: this.splitChunks,
-      storage: this.storage,
-      target: this.filter,
-      use: this.use,
-    }
-  }
+  public override verbose = verbose
 
   /**
-   * {@link Command.execute}
+   * {@link BudCommand.execute}
    */
   public override async execute() {
     await this.makeBud()

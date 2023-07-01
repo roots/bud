@@ -19,12 +19,10 @@ describe(`@roots/bud-dashboard`, () => {
   })
 
   it(`should return early from dashboard.update when there are no stats provided`, async () => {
-    try {
-      await dashboard.update(
-        // @ts-ignore
-        undefined,
-      )
-    } catch (e) {}
+    dashboard.update(
+      // @ts-ignore
+      undefined,
+    )
     expect(dashboard.stats).toBeUndefined()
   })
 })

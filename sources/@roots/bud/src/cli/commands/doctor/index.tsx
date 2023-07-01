@@ -1,6 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {Bud} from '@roots/bud'
-import type {Context} from '@roots/bud-framework/context'
 import type {Extension} from '@roots/bud-framework/extension'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
@@ -13,7 +12,6 @@ import {Box, Spacer, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
 import {isWindows} from './isWindows.js'
 import {WinError} from './WinError.js'
@@ -21,7 +19,6 @@ import {WinError} from './WinError.js'
 /**
  * bud doctor command
  */
-@dry
 export default class BudDoctorCommand extends BudCommand {
   public static override paths = [[`doctor`]]
 
@@ -49,6 +46,8 @@ for a lot of edge cases so it might return a false positive.
 
   public disabledExtensions: Array<[string, Extension]> = []
 
+  public override dry = true
+
   public enabledExtensions: Array<[string, Extension]> = []
 
   public entrypoints: Array<[string, webpack.EntryObject]> = []
@@ -63,14 +62,10 @@ for a lot of edge cases so it might return a false positive.
 
   public resolvedDependencies: Record<string, string> = {}
 
+  public override silent = true
+
   public timings: Record<string, string> = {}
 
-  /**
-   * {@link Command.withContext}
-   */
-  public override withContext = async (context: Context) => {
-    return {...context, cache: false, dry: true, silent: true}
-  }
   /**
    * Execute command
    */

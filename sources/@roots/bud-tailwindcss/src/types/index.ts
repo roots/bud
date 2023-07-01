@@ -10,6 +10,6 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-tailwindcss': BudTailwindCss
-    '@roots/bud-tailwindcss/virtual-module'?: any
+    '@roots/bud-tailwindcss/virtual-module': any
   }
 }

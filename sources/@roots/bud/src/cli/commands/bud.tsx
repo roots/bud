@@ -1,5 +1,6 @@
 import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
+import type browser from '@roots/bud/cli/flags/browser'
 
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
@@ -7,7 +8,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudHandler} from '@roots/bud-support/errors'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
-import omit from '@roots/bud-support/lodash/omit'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 import basedir from '@roots/bud/cli/flags/basedir'
 import color from '@roots/bud/cli/flags/color'
@@ -18,11 +19,12 @@ import log from '@roots/bud/cli/flags/log'
 import mode from '@roots/bud/cli/flags/mode'
 import notify from '@roots/bud/cli/flags/notify'
 import silent from '@roots/bud/cli/flags/silent'
+import storage from '@roots/bud/cli/flags/storage'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {checkDependencies} from '@roots/bud/cli/helpers/checkDependencies'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
-import process from 'node:process'
+import {env, exit} from 'node:process'
 
 import type {CLIContext} from '../index.js'
 
@@ -33,7 +35,7 @@ export type {BaseContext, Context}
 export {Option}
 
 /**
- * Bud command
+ * {@link Command}
  */
 export default class BudCommand extends Command<CLIContext> {
   /**
@@ -56,23 +58,19 @@ export default class BudCommand extends Command<CLIContext> {
 
   public basedir = basedir
 
-  /**
-   * Bud instance
-   */
+  public declare browser?: typeof browser
+
   public declare bud?: Bud | undefined
 
-  public color = color
+  public color: typeof color = color
 
-  /**
-   * {@link Command.context}
-   */
   public declare context: CLIContext
 
-  public debug = debug
+  public debug: typeof debug = debug
 
-  public dry = dry
+  public dry = dry(true)
 
-  public filter = filter
+  public filter: typeof filter = filter
 
   public log = log
 
@@ -80,31 +78,11 @@ export default class BudCommand extends Command<CLIContext> {
 
   public notify = notify
 
-  public render = render
+  public silent = silent(true)
 
-  public silent = silent
+  public storage = storage
 
-  public verbose = verbose
-
-  /**
-   * withContext
-   *
-   * @remarks
-   * For extending the context object from subcommands
-   */
-  public declare withContext?: (
-    context: Omit<Context, `stderr` | `stdio` | `stdout`>,
-  ) => Promise<Context>
-
-  /**
-   * withSubcommandContext
-   *
-   * @remaks
-   * For extending the context object from subcommands
-   */
-  public declare withSubcommandContext?: (
-    context: Context,
-  ) => Promise<Context>
+  public verbose: typeof verbose = false
 
   /**
    * Execute arbitrary sh command with inherited stdio
@@ -306,15 +284,13 @@ export default class BudCommand extends Command<CLIContext> {
    */
   public get bin() {
     // eslint-disable-next-line n/no-process-env
-    return process.env.BUD_JS_BIN
+    return env.BUD_JS_BIN
   }
 
   /**
    * Handle errors
    */
   public override async catch(error: BudHandler): Promise<void> {
-    process.exitCode = 1
-
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {
@@ -341,69 +317,51 @@ export default class BudCommand extends Command<CLIContext> {
           ? this.bud.compiler.instance.close(unmountDashboard)
           : await unmountDashboard()
       }
+    } else {
+      await this.renderStatic(
+        <Box flexDirection="column">
+          <Fallback.Error error={error} />
+        </Box>,
+      ).catch(error => {
+        logger.warn(error.message ?? error)
+      })
     }
-
-    await this.renderStatic(
-      <Box flexDirection="column">
-        <Fallback.Error error={error} />
-      </Box>,
-    ).catch(error => {
-      logger.warn(error.message ?? error)
-    })
 
     // fallthrough
     // eslint-disable-next-line n/no-process-exit
-    process.exit()
+    if (this.bud.isProduction) exit(1)
   }
 
   /**
    * {@link Command.execute}
    */
   public async execute() {
-    this.render(<Menu cli={this.cli} />)
+    render(<Menu cli={this.cli} />)
   }
 
   public async makeBud() {
-    const context = {
-      basedir: this.basedir,
-      color: this.color,
-      debug: this.debug,
-      dry: this.dry,
-      filter: this.filter,
-      log: this.log,
-      mode: this.mode,
-      notify: this.notify,
-      silent: this.silent,
-      target: this.filter,
-      verbose: this.verbose,
-      ...omit(this.context, [`stdin`, `stdout`, `stderr`, `colorDepth`]),
-    }
-
-    Object.assign(
-      this.context,
-      this.withContext ? await this.withContext(context) : context,
-    )
     checkDependencies(this.context)
+
+    if (this.mode) {
+      this.context.mode = this.mode
+    }
+    if (isUndefined(this.dry)) {
+      this.context.dry = true
+    }
+    if (isUndefined(this.silent)) {
+      this.context.silent = true
+    }
 
     await import(`../env.${this.context.mode}.js`)
 
     this.bud = instance.get()
 
-    logger.info(`bud.js configured with`, context)
+    logger.info(`bud.js configured with`, this.context)
 
-    try {
-      await this.bud.lifecycle(
-        omit(this.context, [
-          `stdin`,
-          `stdout`,
-          `stderr`,
-          `colorDepth`,
-        ]) as Context,
-      )
-    } catch (error) {
+    await this.bud.lifecycle(this.context).catch(error => {
       if (error.isBudError) throw error
       throw BudError.normalize(error)
-    }
+    })
 
     this.bud.hooks.action(`build.before`, async bud => {
       await this.applyBudEnv(bud)

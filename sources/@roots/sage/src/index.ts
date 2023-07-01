@@ -8,4 +8,5 @@
  * @see https://github.com/roots/sage
  */
 
+import './types/index.js'
 export {default} from './sage/index.js'

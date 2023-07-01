@@ -1,30 +1,28 @@
 import type {Bud} from '@roots/bud-framework'
 
-import type {Parameters} from './types.js'
+import isArray from '@roots/bud-support/lodash/isArray'
+import isString from '@roots/bud-support/lodash/isString'
 
-import {handleTypeError} from '../../errors/handleValidationTypeError.js'
-import {entrypointSignifier, importArray, importObject} from './schema.js'
+import type {EntryObject, Name, Signifier} from './types.js'
 
-export async function handleNamed(bud: Bud, input: Parameters) {
-  const [key, value] = input
-
-  const signifier = await entrypointSignifier.safeParseAsync(key)
-  if (!signifier.success)
-    return handleTypeError(bud, `bud.entry`, signifier)
-
-  const imports = Array.isArray(value)
-    ? await importArray.safeParseAsync(value)
-    : await importObject.safeParseAsync(value)
-
-  if (!imports.success) return handleTypeError(bud, `bud.entry`, imports)
-
+export async function handleNamed(
+  bud: Bud,
+  name: Name,
+  value: Array<Signifier> | EntryObject | Signifier,
+) {
   const current = bud.hooks.filter(`build.entry`, {})
-  bud.hooks.on(`build.entry`, {
-    ...current,
-    [signifier.data]: {
-      import: Array.isArray(imports.data) ? imports.data : [imports.data],
-    },
-  })
 
-  return bud
+  if (isArray(value) || isString(value)) {
+    return bud.hooks.on(`build.entry`, {
+      ...current,
+      [name]: {
+        import: Array.isArray(value) ? value : [value],
+      },
+    })
+  }
+
+  if (`import` in value) {
+    return bud.hooks.on(`build.entry`, {...current, [name]: value})
+  }
+  return bud.hooks.on(`build.entry`, {...current, [name]: value})
 }

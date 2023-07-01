@@ -16,4 +16,6 @@ export default async () => {
   }
 
   await execute(`yarn`, [`@bud`, `build`])
+
+  await execute(`yarn`, [`@bud`])
 }

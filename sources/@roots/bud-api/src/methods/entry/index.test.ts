@@ -104,25 +104,6 @@ describe(`bud.entry`, function () {
       `build.entry`,
       expect.objectContaining({
         primitiveString: {import: [`primitiveString.js`]},
-      }),
-    )
-
-    expect(onSpy).toHaveBeenNthCalledWith(
-      2,
-      `build.entry`,
-      expect.objectContaining({
-        primitiveString: {import: [`primitiveString.js`]},
-        primitiveArray: {
-          import: [`primitiveArray1.js`, `primitiveArray2.js`],
-        },
-      }),
-    )
-
-    expect(onSpy).toHaveBeenNthCalledWith(
-      3,
-      `build.entry`,
-      expect.objectContaining({
-        primitiveString: {import: [`primitiveString.js`]},
         primitiveArray: {
           import: [`primitiveArray1.js`, `primitiveArray2.js`],
         },

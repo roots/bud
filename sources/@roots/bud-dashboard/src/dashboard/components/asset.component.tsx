@@ -1,28 +1,10 @@
+import type {StatsAsset} from '@roots/bud-framework/config'
+
 import figures from '@roots/bud-support/figures'
 import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
-interface Props {
-  auxillaryChunkNames?: string[]
-  cached?: boolean
-  emitted?: boolean
-  id?: string
-  indent?: any
-  info?: {
-    chunkhash?: string | string[]
-    contenthash?: string | string[]
-    development?: boolean
-    fullhash?: string | string[]
-    hotModuleReplacement?: boolean
-    immutable?: boolean
-    javascriptModule?: boolean
-    minimized?: boolean
-    modulehash?: string | string[]
-    related?: Record<string, string | string[]>
-    size?: number
-    sourceFilename?: string
-  }
-  minWidth: number
+interface Props extends Partial<StatsAsset> {
   name?: string
   size?: number
 }

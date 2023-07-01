@@ -1,5 +1,4 @@
 const dracula = require(`prism-react-renderer/themes/dracula`)
-
 const config = require(`../../../../config/monorepo.config.cjs`)
 
 /**

@@ -84,6 +84,21 @@ export interface Context {
   clean?: boolean
 
   /**
+   * Render dashboard in CLI
+   *
+   * @remarks
+   * Set with `--dashboard` CLI flag.
+   */
+  dashboard?:
+    | {
+        assets?: boolean
+        compact?: boolean
+        entrypoints?: boolean
+        server?: boolean
+      }
+    | false
+
+  /**
    * Debug option
    *
    * @remarks

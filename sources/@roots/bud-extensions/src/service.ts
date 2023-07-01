@@ -1,5 +1,4 @@
 import type {Bud, Modules} from '@roots/bud-framework'
-import type {MultiStats, Stats} from '@roots/bud-framework/config'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import type {
   Extensions as BudExtensionsService,
@@ -197,10 +196,7 @@ export class Extensions extends Service implements BudExtensionsService {
   }
 
   @bind
-  public override async compilerDone([bud, _stats]: [
-    Bud,
-    Stats & MultiStats,
-  ]) {
+  public override async compilerDone(bud, stats) {
     await this.runAll(`compilerDone`)
   }
 

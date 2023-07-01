@@ -25,7 +25,6 @@ export class BudSass extends BudSassOptions {
   @bind
   public override async boot({build, postcss}) {
     postcss?.setSyntax(`postcss-scss`)
-
     build.rules.sass.setUse(() =>
       [
         build.items[`precss`],
@@ -47,11 +46,30 @@ export class BudSass extends BudSassOptions {
     if (!loader) return this.logger.error(`sass-loader not found`)
 
     /** Source sass implementation */
-    const implementation = await this.import(`sass`, import.meta.url)
+    const implementation = await this.import(`sass`, import.meta.url, {
+      raw: true,
+    })
     if (!implementation) {
       return this.logger.error(`sass not found`)
     }
-    this.setImplementation(implementation)
+
+    if (implementation.info) {
+      this.setImplementation(implementation)
+      this.logger.info(
+        `sass implementation set (import * as sass)`,
+        this.getImplementation()?.info,
+      )
+    } else if (!implementation.info && implementation.default) {
+      this.setImplementation(implementation.default)
+      this.logger.info(
+        `sass implementation set (import default)`,
+        this.getImplementation()?.info,
+      )
+    } else {
+      this.logger.warning(
+        `sass implementation not explicitly resolvable. falling back on sass loader default implementation.`,
+      )
+    }
 
     /** Set loader alias */
     hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({

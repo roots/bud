@@ -2,7 +2,6 @@ import type {
   StatsAsset,
   StatsCompilation,
 } from '@roots/bud-framework/config'
-import type {Context} from '@roots/bud-framework/context'
 
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
@@ -16,12 +15,15 @@ import Assets from './assets.view.js'
 import Entrypoints from './entrypoints.view.js'
 
 export interface Props {
+  basedir: string
   borderColor?: string
+  compact?: boolean
   compilation: StatsCompilation
-  context: Context
   debug?: boolean
   displayAssets?: boolean
   displayEntrypoints?: boolean
+  id: number
+  total: number
 }
 
 export interface Asset extends Partial<StatsAsset> {}
@@ -31,36 +33,52 @@ export interface AssetGroup {
 }
 
 const Compilation = ({
+  basedir,
+  compact,
   compilation,
-  context,
-  displayAssets = true,
-  displayEntrypoints = true,
+  displayAssets,
+  displayEntrypoints,
+  id,
+  total,
 }: Props) => {
   const compilationColor = useCompilationColor(compilation)
   return (
     <View
+      head={
+        <Head
+          basedir={basedir}
+          compilation={compilation}
+          id={id}
+          total={total}
+        />
+      }
       borderColor={compilationColor}
       footer={<Footer compilation={compilation} />}
-      head={<Head compilation={compilation} context={context} />}
     >
       <Box flexDirection="column" gap={1}>
         <Messages color="red" messages={compilation.errors} />
         <Messages color="yellow" messages={compilation.warnings} />
 
         <Entrypoints
+          compact={compact}
           compilation={compilation}
           displayEntrypoints={displayEntrypoints}
         />
 
-        <Assets compilation={compilation} displayAssets={displayAssets} />
+        <Assets
+          compact={compact}
+          compilation={compilation}
+          displayAssets={displayAssets}
+        />
       </Box>
     </View>
   )
 }
 
-const Head = ({compilation, context}: Props) => {
+const Head = ({basedir, compilation, id, total}: Props) => {
   const color = useCompilationColor(compilation)
-
+  const figure =
+    compilation.errorsCount > 0 ? figures.cross : figures.hamburger
   if (!compilation) return <Text dimColor>Loading</Text>
 
   return (
@@ -70,27 +88,24 @@ const Head = ({compilation, context}: Props) => {
       overflowX="hidden"
       width="100%"
     >
-      <Box flexShrink={0} overflowX="hidden">
-        <Text color={color} wrap="truncate-end">
-          <Text color={color}>
-            {compilation.errorsCount > 0
-              ? figures.cross
-              : figures.hamburger}
-            {` `}
-            {compilation.name?.split(`/`)?.pop() ?? ``}
-          </Text>
-
-          {compilation.hash && (
-            <Text color="dimColor">
-              {` `}[{compilation.hash ?? ``}]{` `}
-            </Text>
-          )}
+      <Box flexDirection="row" flexShrink={0} gap={1} overflowX="hidden">
+        <Text color={color}>{figure}</Text>
+        <Text color={color}>
+          {compilation.name?.split(`/`).pop() ?? `compilation`}
         </Text>
+
+        {total > 1 && (
+          <Text dimColor>
+            [{id}/{total}]
+          </Text>
+        )}
+
+        {compilation.hash && <Text dimColor>[{compilation.hash}]</Text>}
       </Box>
 
-      {context.basedir && compilation.outputPath && (
+      {basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          {` `}./{relative(context.basedir, compilation.outputPath)}
+          {` `}./{relative(basedir, compilation.outputPath)}
         </Text>
       )}
     </Box>
@@ -98,14 +113,17 @@ const Head = ({compilation, context}: Props) => {
 }
 
 const Footer = ({compilation}: Partial<Props>) => {
-  if (!compilation?.assets) return <Text dimColor>...</Text>
+  if (!compilation || !compilation?.assets)
+    return <Text dimColor>...</Text>
 
-  const moduleCount = compilation.modules?.filter(mod =>
-    mod.hasOwnProperty(`cached`),
-  ).length
+  const moduleCount = compilation.modules?.filter(
+    mod => mod && mod.hasOwnProperty(`cached`),
+  )?.length
   const cachedModuleCount = compilation.modules?.filter(
     mod => mod?.cached,
-  ).length
+  )?.length
+
+  if (!moduleCount || !cachedModuleCount) return <Text dimColor>...</Text>
 
   const formattedModuleCount = `${`${cachedModuleCount}/${moduleCount} modules cached`}`
   const formattedTime = `${duration(compilation.time)}`

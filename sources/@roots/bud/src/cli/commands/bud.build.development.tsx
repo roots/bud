@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework/context'
+import type mode from '@roots/bud/cli/flags/mode'
 
 import BuildCommand from '@roots/bud/cli/commands/bud.build'
 import browser from '@roots/bud/cli/flags/browser'
@@ -27,13 +27,10 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    */
   public static override usage = BuildCommand.Usage({
     category: `build`,
-
     description: `Compiles source assets in \`development\` mode.`,
-
     details: `\
       \`bud build development\` compiles source assets in \`development\` mode.
     `,
-
     examples: [
       [`compile source and serve`, `$0 build development`],
       [
@@ -51,11 +48,13 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
-  public browser = browser
+  public override browser = browser
 
   public hot = hot
 
   public indicator = indicator
+
+  public override mode: typeof mode = `development`
 
   public overlay = overlay
 
@@ -64,21 +63,4 @@ export default class BuildDevelopmentCommand extends BuildCommand {
   public proxy = proxy
 
   public reload = reload
-
-  /**
-   * {@link Command.withSubcommandContext}
-   */
-  public override withSubcommandContext = async (context: Context) => {
-    return {
-      ...context,
-      browser: this.browser,
-      hot: this.hot,
-      indicator: this.indicator,
-      mode: `development` as `development`,
-      overlay: this.overlay,
-      port: this.port,
-      proxy: this.proxy,
-      reload: this.reload,
-    }
-  }
 }

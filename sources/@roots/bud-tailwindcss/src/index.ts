@@ -2,13 +2,11 @@
 // Licensed under the MIT license.
 
 /**
- * Adds tailwindcss support to Bud
+ * @roots/bud-tailwindcss
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
 
-import {BudTailwindCss} from './extension/index.js'
 import './types/index.js'
-
-export default BudTailwindCss
+export {BudTailwindCss as default} from '@roots/bud-tailwindcss/extension'

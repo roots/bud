@@ -79,7 +79,7 @@ export class FS extends Filesystem implements Contract {
   /**
    * Fulfills {@link Contract.compilerDone}
    */
-  public async compilerDone([bud, _stats]: [Bud, Stats & MultiStats]) {}
+  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
   /**
    * Fulfills {@link Contract.configAfter}
    */

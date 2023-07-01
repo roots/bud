@@ -1,32 +1,35 @@
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import * as fs from 'fs-jetpack'
-import {join} from 'path'
 
 import {Command} from './base.command'
 
 export class TestRun extends Command {
   public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
+  public static usage: CommandClass['usage'] = {
+    category: `@bud`,
+    description: `run test suites`,
+    examples: [
+      [`run unit test suite`, `yarn @bud test unit`],
+      [`run integration test suite`, `yarn @bud test integration`],
+      [`run e2e test suite`, `yarn @bud test e2e`],
+    ],
+  }
+
   public configuration = Option.String({required: true})
 
   public passthrough = Option.Proxy({name: `vitest passthrough options`})
 
   public async execute() {
-    const args = [
-      `@bud`,
-      `vitest`,
-      this.configuration,
-      ...this.passthrough,
-    ]
+    const args = [`@bud`, `vitest`]
 
     if ([`e2e`, `integration`].includes(this.configuration)) {
-      await fs
-        .removeAsync(join(paths.root, `storage/mocks`))
-        .catch(error => {
-          this.result = 1
-          throw error
-        })
+      args.push(`--run`)
+
+      await fs.removeAsync(path(`storage`, `mocks`)).catch(error => {
+        throw error
+      })
 
       await this.cli
         .run([
@@ -38,10 +41,17 @@ export class TestRun extends Command {
           `http://localhost:4873/`,
         ])
         .catch(error => {
-          this.result = 1
           throw error
         })
     }
+
+    !args.includes(`--config`) &&
+      args.push(
+        `--config`,
+        path(`config`, `vitest.${this.configuration}.config.ts`),
+      )
+
+    args.push(...this.passthrough)
 
     return await this.cli.run(args)
   }
