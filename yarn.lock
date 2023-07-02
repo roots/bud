@@ -7023,9 +7023,7 @@ __metadata:
     "@types/node": 18.16.18
     "@types/react": 18.2.14
     ink-testing-library: 3.0.0
-    react: 18.2.0
     tslib: 2.6.0
-    webpack: 5.88.0
   languageName: unknown
   linkType: soft
 
@@ -13759,9 +13757,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489, caniuse-lite@npm:^1.0.30001503":
-  version: 1.0.30001509
-  resolution: "caniuse-lite@npm:1.0.30001509"
-  checksum: b08a98bf884182741d015569173162e5dfb804da22a14cb18c052be6b5f04e32312ff849b31f787b85091d1b1dfd58b128d9878c96e3bb632a1a0a8761548407
+  version: 1.0.30001510
+  resolution: "caniuse-lite@npm:1.0.30001510"
+  checksum: 4b5237c85760a8aea0d003eb329e84f66d00665e36a92f6b3795bd436ac590f67f304aa978111ca480913c893b8b37d806425d615853637b2b760db868d80041
   languageName: node
   linkType: hard
 
