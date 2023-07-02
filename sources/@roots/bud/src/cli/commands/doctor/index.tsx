@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud'
 import type {Extension} from '@roots/bud-framework/extension'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'

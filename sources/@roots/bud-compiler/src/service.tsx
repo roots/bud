@@ -13,7 +13,7 @@ import type {
   SourceFile,
 } from '@roots/bud-support/open'
 
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, type BudHandler} from '@roots/bud-support/errors'
