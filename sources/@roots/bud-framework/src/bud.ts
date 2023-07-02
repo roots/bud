@@ -165,7 +165,8 @@ export class Bud {
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
     await this.hooks.fire(stage, this)
-    if (this.api?.queue?.length) await this.api.processQueue()
+    await this.api.processQueue()
+
     return this
   }
 

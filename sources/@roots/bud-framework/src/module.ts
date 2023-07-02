@@ -70,7 +70,7 @@ export class Module extends Service {
    * {@link Service.compilerBefore}
    */
   @bind
-  public override async compilerBefore(bud: Bud) {
+  public override async compilerBefore?(bud: Bud) {
     await bud.fs.write(this.resolutionsPath, {
       resolutions: this.resolved,
       version: bud.context.bud.version,
@@ -81,7 +81,7 @@ export class Module extends Service {
    * {@link Service.compilerDone}
    */
   @bind
-  public override async compilerDone(bud: Bud) {
+  public override async compilerDone?(bud: Bud) {
     await bud.fs.write(this.resolutionsPath, {
       resolutions: this.resolved,
       version: bud.context.bud.version,
@@ -147,13 +147,11 @@ export class Module extends Service {
     const path = await this.resolve(signifier, context).catch(error => {
       throw error
     })
-
     const result = await import(path).catch(error => {
       throw error
     })
 
     logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
-
     return options.raw ? result : result?.default ?? result
   }
 

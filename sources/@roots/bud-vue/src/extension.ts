@@ -47,8 +47,7 @@ export default class Vue extends Extension<
     bud.webpackConfig(config => {
       config.module.rules = [
         {
-          exclude: [/node_modules/],
-          include: [bud.path(`@src`), bud.path(`@modules`)],
+          include: [bud.path(`@src`)],
           test: bud.hooks.filter(`pattern.vue`),
           use: [bud.build.items.vue.toWebpack()],
         },
@@ -69,7 +68,6 @@ export default class Vue extends Extension<
   @bind
   public override async configAfter(bud: Bud) {
     bud.alias(this.resolveAlias)
-
     bud.typescript?.setAppendTsSuffixTo([bud.hooks.filter(`pattern.vue`)])
   }
 
@@ -128,12 +126,13 @@ export default class Vue extends Extension<
     aliases = {},
   ): Promise<Record<string, Array<string> | string>> {
     const type = this.isVue2() ? `esm` : `esm-bundler`
+    const importPath =
+      this.options.runtimeOnly && !this.isVue2()
+        ? join(`vue`, `dist`, `vue.runtime.${type}.js`)
+        : join(`vue`, `dist`, `vue.${type}.js`)
+    aliases[`vue`] = await this.resolve(importPath, import.meta.url)
 
-    const vue = this.options.runtimeOnly
-      ? join(`vue`, `dist`, `vue.runtime.${type}.js`)
-      : join(`vue`, `dist`, `vue.${type}.js`)
-
-    return {...aliases, vue}
+    return aliases
   }
 
   /**

@@ -22,6 +22,7 @@ export type {
   StatsError,
   StatsModule,
   StatsOptions,
+  Webpack,
   WebpackError,
   WebpackPluginInstance,
 } from '@roots/bud-support/webpack'

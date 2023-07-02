@@ -116,25 +116,34 @@ const Footer = ({compilation}: Partial<Props>) => {
   if (!compilation || !compilation?.assets)
     return <Text dimColor>...</Text>
 
-  const moduleCount = compilation.modules?.filter(
-    mod => mod && mod.hasOwnProperty(`cached`),
-  )?.length
-  const cachedModuleCount = compilation.modules?.filter(
-    mod => mod?.cached,
-  )?.length
+  const cachedModuleCount =
+    compilation.modules?.filter(mod => mod?.cached)?.length ?? 0
 
-  if (!moduleCount || !cachedModuleCount) return <Text dimColor>...</Text>
+  const totalModuleCount =
+    compilation.modules?.filter(mod => mod && mod.hasOwnProperty(`cached`))
+      ?.length ?? 0
 
-  const formattedModuleCount = `${`${cachedModuleCount}/${moduleCount} modules cached`}`
+  const formattedErrorCount =
+    compilation.errorsCount > 1
+      ? `${compilation.errorsCount} errors`
+      : `${compilation.errorsCount} error`
+  const formattedModuleCount = `${cachedModuleCount}/${totalModuleCount} modules cached`
   const formattedTime = `${duration(compilation.time)}`
+
+  const figure =
+    compilation.errorsCount > 0
+      ? figures.cross
+      : compilation.warningsCount > 0
+      ? figures.warning
+      : figures.tick
 
   if (compilation.errorsCount > 0) {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
-          <Text color="red">{figures.cross}</Text>
+          <Text color="red">{figure}</Text>
           {` `}
-          {formattedTime}
+          {formattedErrorCount}
         </Text>
       </Box>
     )
@@ -144,7 +153,7 @@ const Footer = ({compilation}: Partial<Props>) => {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
-          <Text color="yellow">{figures.warning}</Text>
+          <Text color="yellow">{figure}</Text>
           {` `}
           {formattedTime}
           {` `}
@@ -157,7 +166,7 @@ const Footer = ({compilation}: Partial<Props>) => {
   return (
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text wrap="truncate-end">
-        <Text color="green">{figures.tick}</Text>
+        <Text color="green">{figure}</Text>
         {` `}
         {formattedTime}
         {` `}

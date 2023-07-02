@@ -94,7 +94,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       │ │
       │ ╰─ undefined bytes
       │
-      ╰─ ...
+      ╰─ ✔ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -114,7 +114,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       ╭─ ☰ mock
       │
       │
-      ╰─ ...
+      ╰─ ✔ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -124,6 +124,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       <Application
         basedir={`/foo/bar`}
         mode="production"
+        // @ts-ignore
         compilations={[{entrypoints: false}]}
         displayEntrypoints={true}
       />,
@@ -217,7 +218,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       │ │
       │ ╰─ undefined bytes
       │
-      ╰─ ...
+      ╰─ ✔ 0ms [0/0 modules cached]
 
       ╭─ ☰ mock [2/2]
       │
@@ -227,7 +228,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       │ │
       │ ╰─ undefined bytes
       │
-      ╰─ ...
+      ╰─ ✔ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -252,7 +253,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       │ │
       │ ╰─ 1 kB
       │
-      ╰─ ...
+      ╰─ ✔ 0ms [0/0 modules cached]
       "
     `)
   })

@@ -13,12 +13,10 @@ describe(`@roots/bud-server`, () => {
     expect(bud.context.dry).toBe(true)
     expect(bud.mode).toBe(`development`)
 
-    instance = new Server(() => bud)
-
-    await instance.register(bud)
-
     try {
-      await instance.run()
+      instance = new Server(() => bud)
+      if (instance.register) await instance.register(bud)
+      if (instance.serverBefore) await instance.serverBefore(bud)
     } catch (e) {}
   })
 

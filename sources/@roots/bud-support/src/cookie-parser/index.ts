@@ -1,3 +1,1 @@
-import cookieParser from 'cookie-parser'
-
-export default cookieParser
+export {default} from 'cookie-parser'

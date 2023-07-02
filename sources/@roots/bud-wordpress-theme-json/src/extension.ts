@@ -1,7 +1,4 @@
-import type {
-  Options,
-  Schema,
-} from '@roots/wordpress-theme-json-webpack-plugin'
+import type {Options} from '@roots/wordpress-theme-json-webpack-plugin'
 
 import {
   DynamicOption,
@@ -25,13 +22,10 @@ import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
  * Callback function used to configure wordpress `theme.json`
  */
 interface Mutator {
-  (
-    json:
-      | Container<Partial<Schema.SettingsAndStyles['settings']>>
-      | Partial<Schema.SettingsAndStyles['settings']>,
-  ):
-    | Container<Partial<Schema.SettingsAndStyles['settings']>>
-    | Partial<Schema.SettingsAndStyles['settings']>
+  (json: Container<Partial<Options['settings']>>): Container<
+    Partial<Options['settings']>
+  >
+  (json: Partial<Options['settings']>): Partial<Options['settings']>
 }
 
 type Api = StrictPublicExtensionApi<
@@ -128,59 +122,64 @@ class WordPressThemeJSON
   extends Extension<Options, ThemeJsonWebpackPlugin>
   implements Api
 {
-  public declare customTemplates: Api['customTemplates']
-
+  public declare readonly customTemplates: Api['customTemplates']
   public declare getCustomTemplates: Api['getCustomTemplates']
   public declare getPath: Api['getPath']
-
   public declare getPatterns: Api['getPatterns']
   public declare getSettings: Api['getSettings']
   public declare getStyles: Api['getStyles']
-
   public declare getTemplateParts: Api['getTemplateParts']
   public declare getVersion: Api['getVersion']
-  public declare path: Api['path']
-
-  public declare patterns: Api['patterns']
+  public declare readonly path: Api['path']
+  public declare readonly patterns: Api['patterns']
   public declare setCustomTemplates: Api['setCustomTemplates']
   public declare setPath: Api['setPath']
-
   public declare setPatterns: Api['setPatterns']
   public declare setSettings: Api['setSettings']
   public declare setStyles: Api['setStyles']
-
   public declare setTemplateParts: Api['setTemplateParts']
   public declare setVersion: Api['setVersion']
-  public declare styles: Api['styles']
+  public declare readonly styles: Api['styles']
+  public declare readonly templateParts: Api['templateParts']
+  public declare readonly version: Api['version']
 
-  public declare templateParts: Api['templateParts']
-  public declare version: Api['version']
   @bind
   // @ts-ignore
   public settings(
-    input?:
+    input:
       | boolean
-      | Container<Partial<Schema.SettingsAndStyles['settings']>>
+      | Container<Partial<Options['settings']>>
       | Mutator
-      | Partial<Schema.SettingsAndStyles['settings']>,
+      | Partial<Options['settings']>,
     raw?: boolean,
   ): this {
     if (!input) return this
 
+    if (isBoolean(input)) {
+      this.enable(input)
+      return this
+    }
     this.enable()
 
-    const value = isFunction(input)
-      ? input(
-          raw
-            ? this.options.settings
-            : this.app.container(this.options.settings),
-        )
-      : isBoolean(input)
-      ? this.options.settings
-      : input
+    let value: Partial<Options[`settings`]>
 
-    this.setSettings(value instanceof Container ? value.all() : value)
+    if (raw === true && isFunction(input)) {
+      const fn = input as (
+        input: Partial<Options[`settings`]>,
+      ) => Partial<Options[`settings`]>
+      this.setSettings(fn(this.options.settings))
+      return this
+    }
 
+    if (isFunction(input)) {
+      const fn = input as (
+        input: Container<Partial<Options['settings']>>,
+      ) => Container<Partial<Options['settings']>>
+      this.setSettings(fn(this.app.container(this.options.settings)).all())
+      return this
+    }
+
+    this.setSettings(value)
     return this
   }
 }

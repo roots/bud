@@ -51,6 +51,9 @@
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },

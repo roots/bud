@@ -1,7 +1,7 @@
 import type {Bud, Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import type {
-  Extensions as BudExtensionsService,
+  Extensions as BudExtensions,
   LifecycleMethods,
 } from '@roots/bud-framework/services/extensions'
 
@@ -19,7 +19,12 @@ import {isConstructor} from './helpers/isConstructor.js'
 /**
  * Extensions Service
  */
-export class Extensions extends Service implements BudExtensionsService {
+export class Extensions extends Service implements BudExtensions {
+  /**
+   * {@link Service.label}
+   */
+  public override label = `extensions`
+
   /**
    * Resolved options
    */
@@ -44,7 +49,7 @@ export class Extensions extends Service implements BudExtensionsService {
    *
    * @public
    */
-  public unresolvable: Set<string> = new Set()
+  public unresolvable: Set<string>
 
   /**
    *
@@ -58,6 +63,7 @@ export class Extensions extends Service implements BudExtensionsService {
       discover: true,
     })
     this.repository = {} as Modules
+    this.unresolvable = new Set()
   }
 
   /**
@@ -93,10 +99,18 @@ export class Extensions extends Service implements BudExtensionsService {
   }
 
   /**
-   * `booted` callback
+   * {@link BudExtensions.boot}
    */
-  @bind
-  public override async boot(bud: Bud): Promise<void> {
+  public override async boot?(bud: Bud) {
+    await this.runAll(`boot`)
+  }
+
+  /**
+   * {@link BudExtensions.bootstrap}
+   */
+  public override async bootstrap?(bud: Bud) {
+    handleManifestSchemaWarning.bind(this)(bud)
+
     const {extensions, manifest} = bud.context
 
     if (manifest?.bud?.extensions) {
@@ -138,10 +152,7 @@ export class Extensions extends Service implements BudExtensionsService {
       await Promise.all(
         extensions.builtIn
           .filter(Boolean)
-          .map(
-            async signifier =>
-              await this.import(signifier, true, `@roots/bud`),
-          ),
+          .map(async signifier => await this.import(signifier, true)),
       )
 
     if (!isUndefined(bud.context.discover)) {
@@ -158,10 +169,7 @@ export class Extensions extends Service implements BudExtensionsService {
         extensions.discovered
           .filter(Boolean)
           .filter(this.isAllowed)
-          .map(
-            async signifier =>
-              await this.import(signifier, true, this.app.label),
-          ),
+          .map(async signifier => await this.import(signifier, true)),
       )
     else if (this.options.isNotEmpty(`allowlist`))
       await Promise.all(
@@ -171,40 +179,36 @@ export class Extensions extends Service implements BudExtensionsService {
           .filter(this.isAllowed)
           .map(
             async (signifier: string) =>
-              await this.import(signifier, true, this.app.label),
+              await this.import(signifier, true),
           ),
       )
-
-    await this.runAll(`register`)
-    await this.runAll(`boot`)
   }
 
   /**
-   * {@link Extension.buildBefore}
+   * {@link BudExtensions.buildBefore}
    */
-  @bind
-  public override async buildAfter(bud: Bud) {
+  public override async buildAfter?(bud: Bud) {
     await this.runAll(`buildAfter`)
   }
 
   /**
-   * {@link Extension.buildBefore}
+   * {@link BudExtensions.buildBefore}
    */
-  @bind
-  public override async buildBefore(bud: Bud) {
+  public override async buildBefore?(bud: Bud) {
     await this.runAll(`buildBefore`)
   }
 
-  @bind
-  public override async compilerDone(bud, stats) {
+  /**
+   * {@link BudExtensions.compilerDone}
+   */
+  public override async compilerDone?(bud, stats) {
     await this.runAll(`compilerDone`)
   }
 
   /**
-   * `configAfter` callback
+   * {@link BudExtensions.configAfter}
    */
-  @bind
-  public override async configAfter(bud: Bud) {
+  public override async configAfter?(bud: Bud) {
     await this.runAll(`configAfter`)
   }
 
@@ -231,7 +235,6 @@ export class Extensions extends Service implements BudExtensionsService {
   public async import(
     signifier: string,
     required: boolean | number = true,
-    context: string,
   ): Promise<Extension> {
     if (required && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
@@ -263,10 +266,7 @@ export class Extensions extends Service implements BudExtensionsService {
       await Promise.all(
         Array.from(instance.dependsOn)
           .filter(dependency => !this.has(dependency))
-          .map(
-            async dependency =>
-              await this.import(dependency, true, signifier),
-          ),
+          .map(async dependency => await this.import(dependency, true)),
       )
 
     if (this.options.is(`discover`, true) && instance.dependsOnOptional)
@@ -279,7 +279,7 @@ export class Extensions extends Service implements BudExtensionsService {
           )
           .filter(optionalDependency => !this.has(optionalDependency))
           .map(async optionalDependency => {
-            await this.import(optionalDependency, false, signifier)
+            await this.import(optionalDependency, false)
             if (!this.has(optionalDependency))
               this.unresolvable.add(optionalDependency)
           }),
@@ -291,7 +291,7 @@ export class Extensions extends Service implements BudExtensionsService {
   }
 
   /**
-   * Instantiate a Framework extension class or object
+   * {@link BudExtensions.instantiate}
    */
   @bind
   public async instantiate(
@@ -329,6 +329,9 @@ export class Extensions extends Service implements BudExtensionsService {
     return new source()
   }
 
+  /**
+   * {@link BudExtensions.isAllowed}
+   */
   @bind
   public isAllowed(signifier: string): boolean {
     return (
@@ -358,15 +361,10 @@ export class Extensions extends Service implements BudExtensionsService {
   }
 
   /**
-   * `register` callback
-   *
-   * @todo
-   * All this is doing is helping transition people to using `bud.extensions` key for
-   * `allowList` and `denyList`. It can be removed in a future release. (2022-10-18)
+   * {@link BudExtensions.register}
    */
-  @bind
-  public override async register(bud: Bud): Promise<void> {
-    handleManifestSchemaWarning.bind(this)(bud)
+  public override async register?(bud: Bud) {
+    await this.runAll(`register`)
   }
 
   /**
@@ -439,8 +437,7 @@ export class Extensions extends Service implements BudExtensionsService {
         .filter((signifier: K) => !this.unresolvable.has(signifier))
         .reduce(async (promised, signifier: K) => {
           await promised
-          if (!this.has(signifier))
-            await this.import(signifier, true, instance.label)
+          if (!this.has(signifier)) await this.import(signifier, true)
 
           if (
             this.get(signifier) &&
@@ -456,8 +453,7 @@ export class Extensions extends Service implements BudExtensionsService {
         .filter((signifier: K) => !this.unresolvable.has(signifier))
         .reduce(async (promised, signifier: K) => {
           await promised
-          if (!this.has(signifier))
-            await this.import(signifier, false, instance.label)
+          if (!this.has(signifier)) await this.import(signifier, false)
           if (!this.has(signifier)) {
             this.unresolvable.add(signifier)
             return

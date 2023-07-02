@@ -1,5 +1,6 @@
-export type Signifier = string
 export type Path = string
+
+export type Signifier = string
 
 export type Value = Array<Path> | false | Path
 

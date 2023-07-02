@@ -5,9 +5,7 @@ import type {
   MultiStats,
   Stats,
   StatsCompilation,
-  StatsError,
 } from '@roots/bud-framework/config'
-import type {ErrorWithSourceFile} from '@roots/bud-support/open'
 
 /**
  * Compiler service
@@ -24,13 +22,6 @@ export interface Compiler {
    * @example
    * ```js
    * bud.compiler.compile()
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.compiler.compile([{
-   *   entry: {app: 'foo.js'}
-   * }])
    * ```
    */
   compile(bud: Bud): Promise<MultiCompiler>
@@ -50,24 +41,15 @@ export interface Compiler {
    */
   instance: MultiCompiler
 
-  label: string
-
   /**
    * Compiler error handler
    */
-  onError(error: Error): Promise<void>
+  onError(error: Error): void
 
   /**
    * Stats handler
    */
-  onStats(stats: MultiStats): Promise<void>
-
-  /**
-   * Determine source of module errors
-   */
-  sourceErrors(
-    errors: Array<StatsError>,
-  ): Array<ErrorWithSourceFile | StatsError>
+  onStats(stats: MultiStats): void
 
   /**
    * Raw stats
