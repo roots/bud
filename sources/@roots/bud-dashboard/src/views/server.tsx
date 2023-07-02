@@ -1,8 +1,7 @@
+import View from '@roots/bud-dashboard/components/view'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
-
-import View from '../components/view.component.js'
 
 interface Props {
   devUrl?: URL
@@ -95,3 +94,5 @@ export const Server = ({
     </View>
   )
 }
+
+export {Server as default}

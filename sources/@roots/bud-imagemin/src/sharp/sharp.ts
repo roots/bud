@@ -56,6 +56,8 @@ export class BudImageminSharp extends Extension<Options> {
    */
   @bind
   public override async configAfter({hooks, imagemin}) {
+    if (!this.isEnabled()) return
+
     hooks.on(`build.optimization.minimizer`, (minimizers = []) => [
       ...minimizers,
       imagemin.makePluginInstance({

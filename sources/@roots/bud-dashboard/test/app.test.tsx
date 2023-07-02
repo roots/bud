@@ -3,7 +3,7 @@ import React from '@roots/bud-support/ink'
 import {render} from 'ink-testing-library'
 import {describe, expect, it} from 'vitest'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-import {Application} from '../src/dashboard/app'
+import {Application} from '../src/application'
 import {StatsCompilation} from 'webpack'
 
 const mockCompilations: Array<Partial<StatsCompilation>> = [

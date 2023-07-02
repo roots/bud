@@ -45,7 +45,8 @@
   "files": [
     "docs",
     "lib",
-    "src"
+    "src",
+    "vendor"
   ],
   "type": "module",
   "exports": {

@@ -235,6 +235,13 @@ export class Server extends Service implements BudServer {
    * @readonly
    */
   public get url(): URL {
-    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
+    const url = this.app.hooks.filter(
+      `dev.url`,
+      new URL(`http://0.0.0.0:3000`),
+    )
+
+    if (this.app.context.port) url.port = this.app.context.port.toString()
+
+    return url
   }
 }

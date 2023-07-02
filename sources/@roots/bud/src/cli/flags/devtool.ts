@@ -4,6 +4,7 @@ import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
 export default Option.String(`--devtool`, undefined, {
   description: `Set devtool option`,
   env: `APP_DEVTOOL`,
+  tolerateBoolean: true,
   validator: isOneOf([
     isLiteral(false),
     isLiteral(`eval`),

@@ -7,15 +7,15 @@ import type {
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
 import type {BudHandler} from '@roots/bud-support/errors'
 
+import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, type ReactElement, render} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {stderr, stdin, stdout} from 'node:process'
 
+import {Application, TeletypeApplication} from './application.js'
 import {Console} from './console/index.js'
-import {Application, TeletypeApplication} from './dashboard/index.js'
-import {makeErrorFormatter} from './formatErrors.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -44,17 +44,17 @@ export class Dashboard extends Service implements BudDashboard {
   public stats?: StatsCompilation
 
   /**
-   * Stdout
+   * {@link BudDashboard.stdout}
    */
   public stderr = stderr
 
   /**
-   * Stdin
+   * {@link BudDashboard.stdin}
    */
   public stdin = stdin
 
   /**
-   * Stderr
+   * {@link BudDashboard.stderr}
    */
   public stdout = stdout
 
@@ -66,6 +66,7 @@ export class Dashboard extends Service implements BudDashboard {
     super(app)
     this.formatStatsErrors = makeErrorFormatter(this.app)
     this.render({status: `Initializing bud.js`})
+    this.stdin = this.app.context.stdin
   }
 
   /**
@@ -85,7 +86,11 @@ export class Dashboard extends Service implements BudDashboard {
     const renderApplication = this.instance?.rerender
       ? this.instance.rerender
       : (node: ReactElement) => {
-          this.instance = render(node)
+          this.instance = render(node, {
+            stderr: this.stderr,
+            stdin: this.stdin,
+            stdout: this.stdout,
+          })
         }
 
     const getCompilations = (): Compilations => {

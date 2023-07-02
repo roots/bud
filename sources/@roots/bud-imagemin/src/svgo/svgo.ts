@@ -75,6 +75,8 @@ export class BudImageminSvgo extends Extension<Options> {
    */
   @bind
   public override async configAfter({hooks, imagemin}) {
+    if (!this.isEnabled()) return
+
     this.encodeOptions &&
       hooks.on(`build.optimization.minimizer`, (minimizer = []) => [
         ...minimizer,

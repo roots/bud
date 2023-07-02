@@ -46,7 +46,7 @@ export default class BudViewCommand extends BudCommand {
 
     if (this.color) value = highlight(value)
 
-    await this.renderStatic(
+    BudViewCommand.renderStatic(
       <Box>
         <Text color="magenta">{this.subject ?? `build.config`}</Text>
         <Text>{` `}</Text>

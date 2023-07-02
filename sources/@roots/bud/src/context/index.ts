@@ -8,6 +8,7 @@ import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as projectPaths from '@roots/bud-support/utilities/paths'
 import {join} from 'node:path'
+import {stderr, stdin, stdout} from 'node:process'
 
 import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
@@ -56,6 +57,9 @@ export default async (
     mode: options?.mode ?? `production`,
     paths: {...paths, ...(options?.paths ?? {})},
     services: [...(services ?? []), ...(options?.services ?? [])],
+    stderr: options?.stderr ?? stderr,
+    stdin: options?.stdin ?? stdin,
+    stdout: options?.stdout ?? stdout,
   }
 
   logger

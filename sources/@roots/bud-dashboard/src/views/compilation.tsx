@@ -3,16 +3,16 @@ import type {
   StatsCompilation,
 } from '@roots/bud-framework/config'
 
+import Messages from '@roots/bud-dashboard/components/messages'
+import View from '@roots/bud-dashboard/components/view'
+import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 import {relative} from 'node:path'
 
-import Messages from '../components/messages.component.js'
-import View from '../components/view.component.js'
-import {useCompilationColor} from '../hooks/useCompilationColor.js'
-import Assets from './assets.view.js'
-import Entrypoints from './entrypoints.view.js'
+import Assets from './assets.js'
+import Entrypoints from './entrypoints.js'
 
 export interface Props {
   basedir: string

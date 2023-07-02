@@ -3,8 +3,7 @@ import {Error} from '@roots/bud-dashboard/app'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
-
-import {isWindows} from './isWindows.js'
+import {platform} from 'node:os'
 
 export const Doctor = ({name, timings}) => {
   return (
@@ -36,7 +35,7 @@ const Process = () => {
         </Ink.Text>
 
         <Ink.Text>
-          {isWindows() ? figures.cross : figures.tick} os:{` `}
+          {platform() === `win32` ? figures.cross : figures.tick} os:{` `}
           {process.platform}
         </Ink.Text>
 

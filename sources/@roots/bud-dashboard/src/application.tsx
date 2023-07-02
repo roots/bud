@@ -1,3 +1,11 @@
+import type {Bud} from '@roots/bud-framework'
+import type {StatsCompilation} from '@roots/bud-framework/config'
+import type {BudHandler} from '@roots/bud-support/errors'
+
+import Compilation from '@roots/bud-dashboard/views/compilation'
+import Debug from '@roots/bud-dashboard/views/debug'
+import Error from '@roots/bud-dashboard/views/node-error'
+import Server from '@roots/bud-dashboard/views/server'
 import {
   Box,
   Fragment,
@@ -10,11 +18,28 @@ import {
 } from '@roots/bud-support/ink'
 import {exit, stdout} from 'node:process'
 
-import {type Props} from './index.js'
-import Compilation from './views/compilation.view.js'
-import Debug from './views/debug.view.js'
-import {Error} from './views/node-error.view.js'
-import {Server} from './views/server.view.js'
+export interface Props {
+  basedir?: string
+  close?: (callback: (error?: Error | null) => any) => void
+  closed?: boolean
+  compact?: boolean
+  compilations?: Array<Partial<StatsCompilation>>
+  debug?: boolean
+  devUrl?: URL
+  displayAssets?: boolean
+  displayEntrypoints?: boolean
+  displayServerInfo?: boolean
+  error?: BudHandler
+  errors?: StatsCompilation[`errors`]
+  isolated?: number
+  mode: Bud['mode']
+  proxy?: boolean
+  proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
+  status?: false | string
+  warnings?: StatsCompilation[`warnings`]
+}
 
 export const Application = ({
   basedir,

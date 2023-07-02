@@ -45,7 +45,7 @@ const onError = (error: Error) => {
   exit(1)
 }
 
-const budContext = await getContext().catch(onError)
+const budContext = await getContext({stderr, stdin, stdout}).catch(onError)
 
 context = {...budContext, stderr, stdin, stdout}
 

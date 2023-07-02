@@ -44,8 +44,7 @@
   ],
   "files": [
     "lib",
-    "src",
-    "vendor"
+    "src"
   ],
   "type": "module",
   "exports": {

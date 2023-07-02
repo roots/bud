@@ -278,7 +278,6 @@ export class Extension<
   @bind
   public async _configAfter() {
     if (isUndefined(this.configAfter)) return
-    if (!this.isEnabled()) return
 
     if (this.meta[`configAfter`] === true) return
     this.meta[`configAfter`] = true

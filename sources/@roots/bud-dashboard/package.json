@@ -45,22 +45,14 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./app": {
-      "import": "./lib/app/index.js",
-      "default": "./lib/app/index.js"
-    },
-    "./console": {
-      "import": "./lib/console/index.js",
-      "default": "./lib/console/index.js"
-    },
-    "./service": {
-      "import": "./lib/service.js",
-      "default": "./lib/service.js"
-    }
+    ".": "./lib/index.js",
+    "./app": "./lib/app/index.js",
+    "./components/*": "./lib/components/*.js",
+    "./console": "./lib/console/index.js",
+    "./helpers/*": "./lib/helpers/*.js",
+    "./hooks/*": "./lib/hooks/*.js",
+    "./service": "./lib/service.js",
+    "./views/*": "./lib/views/*.js"
   },
   "typesVersions": {
     "*": {
@@ -70,11 +62,23 @@
       "app": [
         "./lib/app/index.d.ts"
       ],
+      "components/*": [
+        "./lib/components/*.d.ts"
+      ],
       "console": [
         "./lib/console/index.d.ts"
       ],
+      "helpers/*": [
+        "./lib/helpers/*.d.ts"
+      ],
+      "hooks/*": [
+        "./lib/hooks/*.d.ts"
+      ],
       "service": [
         "./lib/service.d.ts"
+      ],
+      "views/*": [
+        "./lib/views/*.d.ts"
       ]
     }
   },
@@ -89,9 +93,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "react": "18.2.0",
-    "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "tslib": "2.6.0"
   },
   "volta": {
     "extends": "../../../package.json"

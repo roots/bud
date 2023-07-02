@@ -110,6 +110,13 @@ export class Build extends Command {
                 `./runtime/getUrl.cjs`,
               ),
             )
+            await fs.copyAsync(
+              path(`node_modules/html-loader/dist/runtime/getUrl.js`),
+              path(
+                `sources/@roots/bud-support/vendor/html-loader/runtime/getUrl.cjs`,
+              ),
+              {overwrite: true},
+            )
           }),
           /**
            * html-webpack-plugin

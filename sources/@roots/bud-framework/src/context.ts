@@ -474,6 +474,21 @@ export interface Context {
   splitChunks?: boolean
 
   /**
+   * Stderr stream
+   */
+  stderr: NodeJS.WriteStream & {fd: 2}
+
+  /**
+   * Stdin stream
+   */
+  stdin: NodeJS.ReadStream & {fd: 0}
+
+  /**
+   * Stdout stream
+   */
+  stdout: NodeJS.WriteStream & {fd: 1}
+
+  /**
    * Storage option
    *
    * @remarks

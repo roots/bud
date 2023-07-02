@@ -1,6 +1,7 @@
 import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {render} from '@roots/bud-support/ink'
+import logger from '@roots/bud-support/logger'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import indent from '@roots/bud/cli/flags/indent'
 
@@ -29,12 +30,22 @@ export default class BudReplCommand extends BudCommand {
   public indent = indent
 
   /**
+   * {@link BudCommand.catch}
+   */
+  public override async catch(error: Error) {
+    logger.error(error.message)
+  }
+
+  /**
    * {@link BudCommand.execute}
    */
   @bind
   public override async execute() {
-    await this.makeBud()
-    await this.bud.run()
+    await this.makeBud().catch(logger.warn)
+
+    await this.bud.compiler.compile(this.bud).catch(error => {
+      throw error
+    })
 
     const {Repl} = await import(`./Repl.js`)
 

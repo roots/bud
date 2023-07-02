@@ -4,19 +4,18 @@ import type {SignaleOptions} from 'signale'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import args from '@roots/bud-support/utilities/args'
+import {stdout} from 'node:process'
 import Signale from 'signale'
 
 class Logger {
   public instance: Signale.Signale
 
-  public constructor() {
-    let options: SignaleOptions = {}
-
-    if (args.log === false) options.disabled = true
+  public constructor(public options: SignaleOptions) {
+    if (args.log === false) this.options.disabled = true
     options.logLevel = args.verbose ? `info` : args.log ? `log` : `warn`
 
     if (process.env) {
-      options.secrets = Object.entries(process.env)
+      this.options.secrets = Object.entries(process.env)
         .filter(
           (
             entry: [string, string | undefined],
@@ -26,7 +25,7 @@ class Logger {
         .map(([k, v]): string => v)
     }
 
-    this.instance = new Signale.Signale(options)
+    this.instance = new Signale.Signale(this.options)
     this.instance.config({displayLabel: false})
     if (args.silent && !args.log && !args.verbose) {
       this.instance.disable()
@@ -104,13 +103,14 @@ class Logger {
   }
 }
 
-let instance = undefined
+let instance: Logger = new Logger({
+  stream: [stdout],
+})
 
-export const initialize = () => {
-  instance = new Logger()
+export const initialize = (options: SignaleOptions) => {
+  instance = new Logger(options)
   instance.log(`logger initialized`)
   return instance
 }
 
-export default instance ?? initialize()
-export {instance, Logger}
+export {instance, instance as default, Logger}

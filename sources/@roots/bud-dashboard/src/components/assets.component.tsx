@@ -1,9 +1,8 @@
 import type {StatsAsset} from '@roots/bud-framework/config'
 
+import Asset from '@roots/bud-dashboard/components/asset'
+import {useLongestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
 import {Box} from '@roots/bud-support/ink'
-
-import {useLongestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.js'
-import Asset from './asset.component.js'
 
 interface Props {
   assets?: Array<Partial<StatsAsset> & {name?: string; size?: number}>
