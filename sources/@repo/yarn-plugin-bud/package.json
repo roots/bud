@@ -12,7 +12,7 @@
   "dependencies": {
     "@repo/constants": "workspace:*",
     "@yarnpkg/cli": "4.0.0-rc.46",
-    "@yarnpkg/core": "4.0.0-rc.46",
+    "@yarnpkg/core": "4.0.0-rc.48",
     "@yarnpkg/shell": "4.0.0-rc.46",
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
