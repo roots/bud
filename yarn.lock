@@ -8513,12 +8513,28 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/bud-entrypoints.html-flag@workspace:sources/@roots/bud/test/cli-flag-entrypoints.html/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-entrypoints.html-flag@workspace:sources/@roots/bud/test/cli-flag-entrypoints.html/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/bud-filter-flag@workspace:sources/@roots/bud/test/cli-flag-filter/project":
   version: 0.0.0-use.local
   resolution: "@tests/bud-filter-flag@workspace:sources/@roots/bud/test/cli-flag-filter/project"
   dependencies:
     "@roots/bud": "workspace:*"
     tslib: 2.6.0
+  languageName: unknown
+  linkType: soft
+
+"@tests/bud-hash-flag@workspace:sources/@roots/bud/test/cli-flag-hash/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-hash-flag@workspace:sources/@roots/bud/test/cli-flag-hash/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -8539,6 +8555,14 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-imagemin": "workspace:*"
     tslib: 2.6.0
+  languageName: unknown
+  linkType: soft
+
+"@tests/bud-runtime-flag@workspace:sources/@roots/bud/test/cli-flag-runtime/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/bud-runtime-flag@workspace:sources/@roots/bud/test/cli-flag-runtime/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -13757,9 +13781,9 @@ __metadata:
   linkType: hard
 
 "caniuse-lite@npm:^1.0.0, caniuse-lite@npm:^1.0.30001464, caniuse-lite@npm:^1.0.30001489, caniuse-lite@npm:^1.0.30001503":
-  version: 1.0.30001510
-  resolution: "caniuse-lite@npm:1.0.30001510"
-  checksum: 4b5237c85760a8aea0d003eb329e84f66d00665e36a92f6b3795bd436ac590f67f304aa978111ca480913c893b8b37d806425d615853637b2b760db868d80041
+  version: 1.0.30001511
+  resolution: "caniuse-lite@npm:1.0.30001511"
+  checksum: b7a8176673b15b9fbff689c6df1f38b69b877d68905120c5b1d4a1a6fa73d165f383aa1c818872435c0180681065b7be81c2cfff8303fed4b3cc54bd305fd67e
   languageName: node
   linkType: hard
 
