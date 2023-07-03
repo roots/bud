@@ -13,14 +13,14 @@ describe(`@roots/bud-extensions/clean-webpack-plugin`, () => {
     let instance = new extensionConstructor(bud)
 
     expect(bud.isProduction).toBe(true)
-    expect(await instance.isEnabled()).toBe(true)
+    expect(instance.isEnabled()).toBe(true)
   })
 
   it(`is disable-able`, async () => {
     let bud = await factory()
     let instance = new extensionConstructor(bud)
 
-    instance.disable()
-    expect(await instance.isEnabled()).toBe(false)
+    instance.enable(false)
+    expect(instance.isEnabled()).toBe(false)
   })
 })

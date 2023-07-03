@@ -1,19 +1,19 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Compiler as BudCompiler} from '@roots/bud-framework'
 import type {
-  Configuration,
   MultiCompiler,
   MultiStats,
   Stats,
   StatsCompilation,
   StatsError,
+  Webpack,
 } from '@roots/bud-framework/config'
 import type {
   ErrorWithSourceFile,
   SourceFile,
 } from '@roots/bud-support/open'
 
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, type BudHandler} from '@roots/bud-support/errors'
@@ -26,55 +26,54 @@ import process from 'node:process'
 import {pathToFileURL} from 'node:url'
 
 /**
- * Wepback compilation controller class
+ * {@link BudCompiler} implementation
  */
 export class Compiler extends Service implements BudCompiler {
   /**
-   * Compilation stats
+   * {@link BudCompiler.compilationStats}
    */
-  public compilationStats: StatsCompilation
+  public compilationStats: BudCompiler[`compilationStats`]
 
   /**
-   * Configuration
+   * {@link BudCompiler.config}
    */
-  public config: Array<Configuration> & {parallelism?: number} = []
+  public config: BudCompiler[`config`] = []
 
   /**
-   * Compiler implementation
+   * {@link BudCompiler.implementation}
    */
-  public implementation: typeof webpack
+  public implementation: BudCompiler[`implementation`] & typeof Webpack
 
   /**
-   * Compiler instance
+   * {@link BudCompiler.instance}
    */
   public instance: BudCompiler[`instance`]
 
-  public label = `compiler`
-
   /**
-   * Raw stats
+   * {@link BudCompiler.stats}
    */
   public stats: BudCompiler[`stats`]
 
   /**
-   * Initiates compilation
+   * {@link BudCompiler.compile}
    */
   @bind
   public async compile(bud: Bud): Promise<MultiCompiler> {
-    this.config = !this.app.hasChildren
-      ? [await this.app.build.make()]
+    this.config = !bud.hasChildren
+      ? [await bud.build.make()]
       : await Promise.all(
-          Object.values(this.app.children).map(
+          Object.values(bud.children).map(
             async (child: Bud) =>
               await child.build.make().catch(error => {
                 throw error
               }),
           ),
         )
-
     this.config.parallelism = Math.min(cpus().length - 1, 1)
 
-    await this.app.hooks.fire(`compiler.before`, this.app)
+    await bud.hooks.fire(`compiler.before`, bud).catch(error => {
+      throw error
+    })
 
     this.logger.timeEnd(`initialize`)
 
@@ -84,34 +83,27 @@ export class Compiler extends Service implements BudCompiler {
       throw BudError.normalize(error)
     }
 
-    this.instance.hooks.done.tap(this.app.label, async (stats: any) => {
-      await this.onStats(stats)
+    this.instance.hooks.done.tap(bud.label, (stats: any) => {
+      this.onStats(stats)
 
-      await this.app.hooks
-        .fire(`compiler.done`, this.app, this.stats)
-        .catch(error => {
-          throw error
-        })
+      bud.hooks.fire(`compiler.done`, bud, this.stats).catch(error => {
+        throw error
+      })
     })
 
     return this.instance
   }
 
   /**
-   * Compiler error event
+   * {@link BudCompiler.onError}
    */
   @bind
-  public async onError(error: BudHandler | webpack.WebpackError) {
+  public onError(error: BudHandler | webpack.WebpackError) {
     process.exitCode = 1
 
-    this.app.isDevelopment &&
-      this.app.server.appliedMiddleware?.hot?.publish({error})
+    this.app.server?.appliedMiddleware?.hot?.publish({error})
 
-    await this.app.hooks
-      .fire(`compiler.error`, error)
-      .catch(this.app.error)
-
-    this.app.notifier.notify({
+    this.app.notifier?.notify({
       group: this.app.label,
       message: error.message,
       subtitle: error.name,
@@ -125,10 +117,10 @@ export class Compiler extends Service implements BudCompiler {
   }
 
   /**
-   * Stats handler
+   * {@link BudCompiler.onStats}
    */
   @bind
-  public async onStats(stats: Stats & MultiStats) {
+  public onStats(stats: Stats & MultiStats) {
     const makeNoticeTitle = (child: StatsCompilation) =>
       this.app.label !== child.name
         ? `${this.app.label} (${child.name})`
@@ -136,31 +128,7 @@ export class Compiler extends Service implements BudCompiler {
 
     this.stats = stats
 
-    this.compilationStats = stats.toJson({
-      all: false,
-      children: {
-        all: false,
-        assets: true,
-        cached: true,
-        cachedAssets: true,
-        cachedModules: true,
-        entrypoints: true,
-        errorDetails: false,
-        errors: true,
-        errorsCount: true,
-        errorStack: false,
-        hash: true,
-        modules: true,
-        name: true,
-        outputPath: true,
-        reasons: this.app.context.debug ? true : false,
-        runtime: true,
-        timings: true,
-        warnings: true,
-        warningsCount: true,
-      },
-      name: true,
-    })
+    this.compilationStats = stats.toJson(statsOptions)
 
     this.app.dashboard.update(this.compilationStats)
 
@@ -222,19 +190,16 @@ export class Compiler extends Service implements BudCompiler {
    * {@link Service.register}
    */
   @bind
-  public override async register(bud: Bud): Promise<any> {
-    this.implementation = await this.app.module
-      .import(`webpack`, import.meta.url)
+  public override async register?(bud: Bud): Promise<any> {
+    this.implementation = await bud.module
+      .import(`@roots/bud-support/webpack`, import.meta.url)
       .catch(error => {
         throw BudError.normalize(error)
       })
   }
 
-  /**
-   * Parse errors from webpack stats
-   */
   @bind
-  public sourceErrors(
+  public sourceErrors?(
     errors: Array<StatsError>,
   ): Array<ErrorWithSourceFile | StatsError> {
     if (!errors || !errors.length) return []
@@ -273,4 +238,30 @@ export class Compiler extends Service implements BudCompiler {
       return []
     }
   }
+}
+
+const statsOptions = {
+  all: false,
+  children: {
+    all: false,
+    assets: true,
+    cached: true,
+    cachedAssets: true,
+    cachedModules: true,
+    entrypoints: true,
+    errorDetails: false,
+    errors: true,
+    errorsCount: true,
+    errorStack: false,
+    hash: true,
+    modules: true,
+    name: true,
+    outputPath: true,
+    reasons: false,
+    runtime: true,
+    timings: true,
+    warnings: true,
+    warningsCount: true,
+  },
+  name: true,
 }

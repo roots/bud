@@ -1,6 +1,5 @@
+import View from '@roots/bud-dashboard/components/view'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import View from '../components/view.component.js'
 
 type Fields = Array<unknown> | number | Record<string, unknown> | string
 

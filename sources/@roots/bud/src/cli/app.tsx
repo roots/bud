@@ -1,6 +1,6 @@
 import type {CommandClass} from '@roots/bud-support/clipanion'
 
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
@@ -45,7 +45,7 @@ const onError = (error: Error) => {
   exit(1)
 }
 
-const budContext = await getContext().catch(onError)
+const budContext = await getContext({stderr, stdin, stdout}).catch(onError)
 
 context = {...budContext, stderr, stdin, stdout}
 

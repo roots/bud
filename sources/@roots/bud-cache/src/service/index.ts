@@ -12,15 +12,14 @@ import {join} from 'node:path'
  */
 export default class Cache extends Service implements BudCache {
   /**
-   * Enabled
+   * {@link BudCache.enabled}
    */
   public enabled: boolean
 
   /**
    * {@link Extension.boot}
    */
-  @bind
-  public override async boot(bud: Bud) {
+  public override async boot?(bud: Bud) {
     if (bud.context.force === true) {
       await this.flush()
     }
@@ -47,7 +46,7 @@ export default class Cache extends Service implements BudCache {
   }
 
   /**
-   * Cache directory
+   * {@link BudCache.cacheDirectory}
    */
   public get cacheDirectory(): string {
     return this.app.hooks.filter(
@@ -82,8 +81,9 @@ export default class Cache extends Service implements BudCache {
       type: this.type,
     }
   }
+
   /**
-   * Flush cache
+   * {@link BudCache.flush}
    */
   @bind
   public async flush(): Promise<void> {
@@ -106,14 +106,16 @@ export default class Cache extends Service implements BudCache {
     this.app.hooks.on(`build.cache.name`, name)
   }
 
-  @bind
-  public override async register(bud: Bud) {
+  /**
+   * {@link BudCache.register}
+   */
+  public override async register?(bud: Bud) {
     this.enabled = bud.context.cache !== false
     this.version = bud.context.bud.version
   }
 
   /**
-   * Type
+   * {@link BudCache.type}
    */
   public get type(): 'filesystem' | 'memory' {
     return this.app.hooks.filter(
@@ -128,7 +130,7 @@ export default class Cache extends Service implements BudCache {
   }
 
   /**
-   * version
+   * {@link BudCache.version}
    */
   public get version(): string {
     return this.app.hooks.filter(`build.cache.version`, undefined)

@@ -10,18 +10,12 @@ export interface CompilationHooks {
 /**
  * Plugin options
  */
-export interface Options {
+export interface Options extends SettingsAndStyles {
   /**
    * Warning comment about the file being generated.
    */
   __generated__?: string
-  $schema?: string
-  customTemplates?: SettingsAndStyles['customTemplates']
   path: string
-  patterns?: SettingsAndStyles['patterns']
-  settings?: Partial<SettingsAndStyles['settings']>
-  styles?: SettingsAndStyles['styles']
-  templateParts?: SettingsAndStyles['templateParts']
   version: 2
 }
 

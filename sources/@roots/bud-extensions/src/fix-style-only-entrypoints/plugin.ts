@@ -1,13 +1,19 @@
-import type {Compiler} from '@roots/bud-framework/config'
+import type {
+  Compiler,
+  WebpackPluginInstance,
+} from '@roots/bud-framework/config'
+import type {ExtensionLiteral} from '@roots/bud-framework/extension'
 
 import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * Remove empty modules from the compilation
  */
-export default class FixStyleOnlyEntrypoints {
+export default class FixStyleOnlyEntrypoints
+  implements WebpackPluginInstance, ExtensionLiteral
+{
   /**
-   * Apply plugin
+   * {@link WebpackPluginInstance.apply}
    */
   public apply({hooks}: Compiler) {
     hooks.thisCompilation.tap(this.constructor.name, compilation =>
@@ -17,7 +23,8 @@ export default class FixStyleOnlyEntrypoints {
           if (!/\.(js|mjs)$/.test(file)) return
 
           const modules = new Set<string>()
-          const add = (id: unknown) => modules.add(isString(id) ? id : ``)
+          const add = (id: unknown) =>
+            id && isString(id) && modules.add(id)
 
           const chunkModules =
             compilation.chunkGraph.getChunkEntryModulesIterable(chunk)

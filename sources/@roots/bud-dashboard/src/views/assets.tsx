@@ -1,13 +1,12 @@
 import type {StatsCompilation} from '@roots/bud-framework/config'
 
+import Assets from '@roots/bud-dashboard/components/assets'
+import View from '@roots/bud-dashboard/components/view'
+import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
+import {useLongestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
 import figures from '@roots/bud-support/figures'
 import {size} from '@roots/bud-support/human-readable'
 import {Text} from '@roots/bud-support/ink'
-
-import Assets from '../components/assets.component.js'
-import View from '../components/view.component.js'
-import {useCompilationColor} from '../hooks/useCompilationColor.js'
-import {useLongestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.js'
 
 export interface Props {
   compact?: boolean

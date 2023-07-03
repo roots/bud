@@ -49,7 +49,6 @@ export interface Extensions {
   import<K extends `${keyof Modules}`>(
     signifier: K,
     fatalOnError: boolean,
-    context: string,
   ): Promise<Extension>
 
   instantiate<K extends `${keyof Modules & string}`>(

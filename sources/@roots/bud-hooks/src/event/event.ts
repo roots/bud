@@ -22,17 +22,17 @@ export class EventHooks extends Hooks<EventsStore> {
 
     this.app.hooks.logger.time(id)
 
-    const actions = [...this.store[id]]
-
     await Promise.all(
-      actions.map(async (action, iteration) => {
-        await action(...(value as any)).catch(error => {
-          throw BudError.normalize(error)
+      this.store[id].map(async (action: any) => {
+        await action(...value).catch((error: Error) => {
+          throw error instanceof BudError
+            ? error
+            : BudError.normalize(error)
         })
       }),
-    )
-
-    this.app.hooks.logger.timeEnd(id)
+    ).finally(() => {
+      this.app.hooks.logger.timeEnd(id)
+    })
 
     return this.app
   }

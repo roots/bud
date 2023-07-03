@@ -1,12 +1,11 @@
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
+import Assets from '@roots/bud-dashboard/components/assets'
+import View from '@roots/bud-dashboard/components/view'
+import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
+import {longestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
 import {size} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import Assets from '../components/assets.component.js'
-import View from '../components/view.component.js'
-import {useCompilationColor} from '../hooks/useCompilationColor.js'
-import {longestNamedObjectLength} from '../hooks/useLongestNamedObjectLength.js'
 
 interface Props {
   compact?: boolean
@@ -71,4 +70,4 @@ const Foot = ({bytes}: {bytes: number}) => {
   )
 }
 
-export default Entrypoints
+export {Entrypoints as default}

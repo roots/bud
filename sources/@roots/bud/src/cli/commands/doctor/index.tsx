@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud'
 import type {Extension} from '@roots/bud-framework/extension'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
@@ -12,14 +12,14 @@ import {Box, Spacer, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 import BudCommand from '@roots/bud/cli/commands/bud'
+import {platform} from 'node:os'
 
-import {isWindows} from './isWindows.js'
 import {WinError} from './WinError.js'
 
 /**
  * bud doctor command
  */
-export default class BudDoctorCommand extends BudCommand {
+export default class DoctorCommand extends BudCommand {
   public static override paths = [[`doctor`]]
 
   public static override usage = Command.Usage({
@@ -74,22 +74,24 @@ for a lot of edge cases so it might return a false positive.
 
     const buildTimer = this.makeTimer()
     await this.makeBud()
-    await this.bud.run()
+    await this.bud.compiler.compile(this.bud)
 
     this.timings.build = buildTimer()
 
-    if (isWindows()) {
-      this.renderStatic(<WinError />)
+    if (platform() === `win32`) {
+      DoctorCommand.renderStatic(<WinError />)
     }
 
     const name = this.bud.context.manifest.name
       ? this.bud.context.manifest.name
       : this.bud.path()
 
-    this.renderStatic(<Doctor name={name} timings={this.timings} />)
+    DoctorCommand.renderStatic(
+      <Doctor name={name} timings={this.timings} />,
+    )
 
     if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="yellow">
             {figures.info} Detected compilation cache
@@ -113,7 +115,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (this.bud.hasChildren) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Child compilers{`\n`}</Text>
           {Object.values(this.bud.children).map((child, i) => (
@@ -132,7 +134,7 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    this.renderStatic(
+    DoctorCommand.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Project paths</Text>
         <Text>{` `}</Text>
@@ -156,7 +158,7 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    this.renderStatic(
+    DoctorCommand.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Checking versions of core packages</Text>
         <Text>{` `}</Text>
@@ -172,7 +174,7 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    this.renderStatic(
+    DoctorCommand.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Mode</Text>
         <Text>{this.bud.mode}</Text>
@@ -184,7 +186,7 @@ for a lot of edge cases so it might return a false positive.
     )
 
     if (configs.length) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Bud configuration files{`\n`}</Text>
           {configs.map(({name, path}, i) => (
@@ -201,7 +203,7 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     } else {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Registered configurations{`\n`}</Text>
           <Text dimColor>No configuration files found in project</Text>
@@ -210,7 +212,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Config API calls{`\n`}</Text>
           <Text></Text>
@@ -232,7 +234,9 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     } catch (error) {
-      this.renderStatic(<Error error={BudError.normalize(error)} />)
+      DoctorCommand.renderStatic(
+        <Error error={BudError.normalize(error)} />,
+      )
     }
 
     try {
@@ -252,12 +256,14 @@ for a lot of edge cases so it might return a false positive.
         ),
       )
     } catch (error) {
-      this.renderStatic(<Error error={BudError.normalize(error)} />)
+      DoctorCommand.renderStatic(
+        <Error error={BudError.normalize(error)} />,
+      )
     }
 
     if (this.bud.env) {
       try {
-        this.renderStatic(
+        DoctorCommand.renderStatic(
           <Box flexDirection="column">
             <Text color="blue">Environment{`\n`}</Text>
             {this.bud.env.getEntries().map(([key, value]) => {
@@ -278,26 +284,30 @@ for a lot of edge cases so it might return a false positive.
           </Box>,
         )
       } catch (error) {
-        this.renderStatic(<Error error={BudError.normalize(error)} />)
+        DoctorCommand.renderStatic(
+          <Error error={BudError.normalize(error)} />,
+        )
       }
     }
 
     if (this.enabledExtensions) {
       try {
-        this.renderStatic(
+        DoctorCommand.renderStatic(
           <Box flexDirection="column">
             <Text color="blue">Enabled extensions{`\n`}</Text>
             {this.mapExtensions(this.enabledExtensions)}
           </Box>,
         )
-        this.renderStatic(
+        DoctorCommand.renderStatic(
           <Box flexDirection="column">
             <Text color="blue">Disabled extensions{`\n`}</Text>
             {this.mapExtensions(this.disabledExtensions)}
           </Box>,
         )
       } catch (error) {
-        this.renderStatic(<Error error={BudError.normalize(error)} />)
+        DoctorCommand.renderStatic(
+          <Error error={BudError.normalize(error)} />,
+        )
       }
     }
 
@@ -308,7 +318,7 @@ for a lot of edge cases so it might return a false positive.
       this.entrypoints[0][1].import[0] === `index` &&
       !(await this.bud.fs.exists(this.bud.path(`@src/index.js`)))
     ) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Error
           error={
             new InputError(`No entrypoint specified`, {
@@ -326,7 +336,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (this.mode === `development`) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Development server</Text>
           <Box flexDirection="row">
@@ -371,7 +381,7 @@ for a lot of edge cases so it might return a false positive.
     try {
       webpack.validate(this.configuration)
 
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box>
           <Text color="green">
             {figures.tick} webpack validated configuration
@@ -379,7 +389,7 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     } catch (error) {
-      this.renderStatic(
+      DoctorCommand.renderStatic(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,

@@ -1,4 +1,4 @@
-import type {Build as FrameworkService} from '@roots/bud-framework'
+import type {Bud, Build as BudBuild} from '@roots/bud-framework'
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
@@ -18,7 +18,7 @@ import {Rule} from './rule/index.js'
 /**
  * Webpack configuration builder class
  */
-export class Build extends Service implements FrameworkService {
+export class Build extends Service implements BudBuild {
   /**
    * Built config object
    */
@@ -27,26 +27,28 @@ export class Build extends Service implements FrameworkService {
   /**
    * Registered items
    */
-  public items: Items = {} as Items
+  public declare items: Items
 
   /**
    * Registered loaders
    */
-  public loaders: Loaders = {} as Loaders
+  public declare loaders: Loaders
 
   /**
-   * Service register event
-   *
-   * @remarks
-   * `loaders`, `items`, and `rules` are instantiated dumbly
-   * because it is painful to think about how to map the typings..
+   * {@link BudBuild.register}
    */
-  public override register = register.bind(this)
+  public override register? = register.bind(this)
 
   /**
    * Registered rules
    */
-  public rules: Rules = {} as Rules
+  public declare rules: Rules
+
+  public override async bootstrap?(app: Bud) {
+    this.items = {} as Items
+    this.loaders = {} as Loaders
+    this.rules = {} as Rules
+  }
 
   /**
    * Get item

@@ -134,3 +134,5 @@ export const Message = ({children}: React.PropsWithChildren<{}>) => (
     <Text>{children}</Text>
   </Box>
 )
+
+export {Error as default}

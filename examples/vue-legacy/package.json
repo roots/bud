@@ -1,21 +1,17 @@
 {
   "name": "@examples/vue-legacy",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-vue": "latest"
+    "@roots/bud": "*",
+    "@roots/bud-vue": "*"
   },
   "dependencies": {
-    "vue": "^2.7.14",
-    "vue-loader": "^15.9.4",
-    "vue-template-compiler": "^2.7.14"
+    "vue": "2.7.14",
+    "vue-loader": "15.9.4",
+    "vue-template-compiler": "2.7.14"
   }
 }

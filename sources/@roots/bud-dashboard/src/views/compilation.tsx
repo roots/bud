@@ -3,16 +3,16 @@ import type {
   StatsCompilation,
 } from '@roots/bud-framework/config'
 
+import Messages from '@roots/bud-dashboard/components/messages'
+import View from '@roots/bud-dashboard/components/view'
+import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 import {relative} from 'node:path'
 
-import Messages from '../components/messages.component.js'
-import View from '../components/view.component.js'
-import {useCompilationColor} from '../hooks/useCompilationColor.js'
-import Assets from './assets.view.js'
-import Entrypoints from './entrypoints.view.js'
+import Assets from './assets.js'
+import Entrypoints from './entrypoints.js'
 
 export interface Props {
   basedir: string
@@ -116,25 +116,34 @@ const Footer = ({compilation}: Partial<Props>) => {
   if (!compilation || !compilation?.assets)
     return <Text dimColor>...</Text>
 
-  const moduleCount = compilation.modules?.filter(
-    mod => mod && mod.hasOwnProperty(`cached`),
-  )?.length
-  const cachedModuleCount = compilation.modules?.filter(
-    mod => mod?.cached,
-  )?.length
+  const cachedModuleCount =
+    compilation.modules?.filter(mod => mod?.cached)?.length ?? 0
 
-  if (!moduleCount || !cachedModuleCount) return <Text dimColor>...</Text>
+  const totalModuleCount =
+    compilation.modules?.filter(mod => mod && mod.hasOwnProperty(`cached`))
+      ?.length ?? 0
 
-  const formattedModuleCount = `${`${cachedModuleCount}/${moduleCount} modules cached`}`
+  const formattedErrorCount =
+    compilation.errorsCount > 1
+      ? `${compilation.errorsCount} errors`
+      : `${compilation.errorsCount} error`
+  const formattedModuleCount = `${cachedModuleCount}/${totalModuleCount} modules cached`
   const formattedTime = `${duration(compilation.time)}`
+
+  const figure =
+    compilation.errorsCount > 0
+      ? figures.cross
+      : compilation.warningsCount > 0
+      ? figures.warning
+      : figures.tick
 
   if (compilation.errorsCount > 0) {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
-          <Text color="red">{figures.cross}</Text>
+          <Text color="red">{figure}</Text>
           {` `}
-          {formattedTime}
+          {formattedErrorCount}
         </Text>
       </Box>
     )
@@ -144,7 +153,7 @@ const Footer = ({compilation}: Partial<Props>) => {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
-          <Text color="yellow">{figures.warning}</Text>
+          <Text color="yellow">{figure}</Text>
           {` `}
           {formattedTime}
           {` `}
@@ -157,7 +166,7 @@ const Footer = ({compilation}: Partial<Props>) => {
   return (
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text wrap="truncate-end">
-        <Text color="green">{figures.tick}</Text>
+        <Text color="green">{figure}</Text>
         {` `}
         {formattedTime}
         {` `}

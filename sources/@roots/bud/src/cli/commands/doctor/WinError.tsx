@@ -1,4 +1,4 @@
-import {Error} from '@roots/bud-dashboard/app'
+import {Error} from '@roots/bud-dashboard/components/error'
 import {BudError} from '@roots/bud-support/errors'
 
 export const WinError = () => (

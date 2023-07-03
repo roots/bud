@@ -1,3 +1,4 @@
+import type {Bud} from '@roots/bud-framework'
 import type {Options} from '@roots/bud-support/clean-webpack-plugin'
 
 import {Extension} from '@roots/bud-framework/extension'
@@ -5,9 +6,9 @@ import {
   label,
   options,
   plugin,
-  production,
 } from '@roots/bud-framework/extension/decorators'
 import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
+
 /**
  * Clean webpack plugin configuration
  */
@@ -29,5 +30,14 @@ import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
    */
   protectWebpackAssets: true,
 })
-@production
-export default class BudClean extends Extension<Options, Plugin> {}
+export default class BudClean extends Extension<Options, Plugin> {
+  /**
+   * {@link Extension.when}
+   */
+  public override when(bud: Bud) {
+    if (this.enabled === false) return false
+    if (bud.context.clean === true) return true
+    if (bud.context.clean === false) return false
+    return bud.isProduction
+  }
+}

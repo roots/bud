@@ -1,3 +1,4 @@
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import cache from '@roots/bud/cli/flags/cache'
 import ci from '@roots/bud/cli/flags/ci'
@@ -11,6 +12,7 @@ import devtool from '@roots/bud/cli/flags/devtool'
 import discover from '@roots/bud/cli/flags/discover'
 import dry from '@roots/bud/cli/flags/dry'
 import editor from '@roots/bud/cli/flags/editor'
+import entrypointsHtml from '@roots/bud/cli/flags/entrypoints.html'
 import esm from '@roots/bud/cli/flags/esm'
 import force from '@roots/bud/cli/flags/force'
 import hash from '@roots/bud/cli/flags/hash'
@@ -64,6 +66,8 @@ export default class BudBuildCommand extends BudCommand {
 
   public [`dashboard`] = dashboard
 
+  public [`entrypoints.html`] = entrypointsHtml
+
   public ci = ci
 
   public clean = clean
@@ -111,6 +115,11 @@ export default class BudBuildCommand extends BudCommand {
    */
   public override async execute() {
     await this.makeBud()
+
+    if (isBoolean(this[`entrypoints.html`])) {
+      this.bud.entrypoints.set(`html`, this[`entrypoints.html`])
+    }
+
     await this.bud?.run()
   }
 }

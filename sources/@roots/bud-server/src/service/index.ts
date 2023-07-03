@@ -16,72 +16,77 @@ import {BudError, ServerError} from '@roots/bud-support/errors'
  */
 export class Server extends Service implements BudServer {
   /**
-   * Express instance
+   * {@link BudServer.application}
    */
   public application: Express.Application & {set: any; use: any}
 
   /**
-   * Applied middleware
+   * {@link BudServer.appliedMiddleware}
    */
   public appliedMiddleware: Partial<
     Record<keyof Middleware.Available, any>
   > = {}
 
   /**
-   * Available middleware
+   * {@link BudServer.availableMiddleware}
    */
-  public availableMiddleware = {
-    cookie: `@roots/bud-server/middleware/cookie`,
-    dev: `@roots/bud-server/middleware/dev`,
-    hot: `@roots/bud-server/middleware/hot`,
-    proxy: `@roots/bud-server/middleware/proxy`,
-  }
+  public declare availableMiddleware: Record<string, string>
 
   /**
-   * Server connections
+   * {@link BudServer.connection}
    */
-  public connection: Connection
+  public declare connection: Connection
 
   /**
-   * Watcher instance
+   * {@link BudServer.watcher}
    */
-  public watcher: Watcher
+  public declare watcher: Watcher
 
   /**
-   * Apply middleware
+   * {@link BudServer.applyMiddleware}
    */
   @bind
   public async applyMiddleware() {
-    try {
-      await Promise.all(
-        Object.entries(this.enabledMiddleware).map(
-          async ([key, signifier]) => {
-            if (this.app.context.hot === false && key === `hot`) return
+    await Promise.all(
+      Object.entries(this.enabledMiddleware).map(
+        async ([key, signifier]) => {
+          if (this.app.context.hot === false && key === `hot`) return
 
-            /** import middleware */
-            const {factory} = await this.app.module.import(
-              signifier,
-              import.meta.url,
-            )
-            /** save reference to middleware instance */
-            this.appliedMiddleware[key] = factory(this.app)
-            /** apply middleware */
-            this.application.use(this.appliedMiddleware[key])
-          },
-        ),
-      )
-    } catch (error) {
+          /** import middleware */
+          const {factory} = await this.app.module
+            .import(signifier, import.meta.url)
+            .catch(error => {
+              throw error
+            })
+
+          /** save reference to middleware instance */
+          this.appliedMiddleware[key] = factory(this.app)
+          /** apply middleware */
+          this.application.use(this.appliedMiddleware[key])
+        },
+      ),
+    ).catch(error => {
       throw new ServerError(`Error instantiating middleware`, {
         props: {
           origin: BudError.normalize(error),
           thrownBy: `bud.server.applyMiddleware`,
         },
       })
-    }
+    })
   }
 
   /**
-   * Utilized middleware
+   * {@link BudServer.compilerBefore}
+   */
+  @bind
+  public override async compilerBefore?(bud: Bud) {
+    await this.setConnection()
+    await this.injectScripts()
+  }
+
+  /**
+   * {@link BudServer.enabledMiddleware}
+   * @readonly
    */
   public get enabledMiddleware(): BudServer['enabledMiddleware'] {
     return this.app.hooks.filter(`dev.middleware.enabled`, [])?.reduce(
@@ -94,16 +99,14 @@ export class Server extends Service implements BudServer {
   }
 
   /**
-   * Inject scripts
+   * {@link BudServer.injectScripts}
    */
   @bind
   public async injectScripts() {
     const injectOn = async (instance: Bud) =>
       inject(
         instance,
-        Array.from(
-          this.app.hooks.filter(`dev.client.scripts`, new Set([])),
-        ),
+        Array.from(this.app.hooks.filter(`dev.client.scripts`)),
       )
 
     this.app.hasChildren
@@ -112,40 +115,56 @@ export class Server extends Service implements BudServer {
   }
 
   /**
-   * Proxy URL
+   * {@link BudServer.proxyUrl}
+   * @readonly
    */
   public get proxyUrl(): URL {
     return this.app.hooks.filter(`dev.proxyUrl`, new URL(`http://0.0.0.0`))
   }
 
   /**
-   * External proxy URL
+   * {@link BudServer.publicProxyUrl}
+   * @readonly
    */
   public get publicProxyUrl(): URL {
     return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxyUrl)
   }
 
   /**
-   * External development server URL
+   * {@link BudServer.publicUrl}
+   * @readonly
    */
   public get publicUrl(): URL {
     return this.app.hooks.filter(`dev.publicUrl`, this.url)
   }
 
   /**
-   * {@link Service.register}
+   * {@link BudServer.register}
    */
-  @bind
-  public override async register(bud: Bud) {
+  public override async register?(bud: Bud) {
     if (!bud.isDevelopment) return
 
-    this.application = await import(`@roots/bud-support/express`).then(
-      ({default: express}) => express(),
+    this.availableMiddleware = {
+      cookie: `@roots/bud-server/middleware/cookie`,
+      dev: `@roots/bud-server/middleware/dev`,
+      hot: `@roots/bud-server/middleware/hot`,
+      proxy: `@roots/bud-server/middleware/proxy`,
+    }
+
+    this.application = await bud.module
+      .import(`@roots/bud-support/express`, import.meta.url)
+      .then(app => app())
+
+    this.logger.log(
+      `server.application`,
+      this.application?.constructor.name,
     )
 
     this.watcher = await import(`@roots/bud-server/server/watcher`).then(
       ({Watcher}) => new Watcher(() => bud),
     )
+
+    this.logger.log(`server.watcher`, this.watcher?.constructor.name)
 
     bud.hooks.on(
       `dev.client.scripts`,
@@ -155,33 +174,41 @@ export class Server extends Service implements BudServer {
     )
 
     this.application.set(`x-powered-by`, false)
-
-    bud.hooks.action(`server.before`, async () => {
-      await this.setConnection()
-      await this.injectScripts()
-      await bud.compiler.compile(bud)
-      await this.applyMiddleware()
-      await this.watcher.watch()
-    })
   }
 
   /**
-   * Run development server
+   * {@link BudServer.run}
    */
   @bind
   public async run() {
-    await this.app.hooks.fire(`server.before`, this.app)
+    await this.app.hooks.fire(`server.before`, this.app).catch(error => {
+      throw error
+    })
 
     if (this.app.context.dry !== true) {
       await this.connection.createServer(this.application)
       await this.connection.listen()
     }
 
-    await this.app.hooks.fire(`server.after`, this.app)
+    await this.app.hooks.fire(`server.after`, this.app).catch(error => {
+      throw error
+    })
   }
 
   /**
-   * Set connection
+   * {@link BudServer.serverBefore}
+   */
+  @bind
+  public override async serverBefore?(bud: Bud) {
+    await this.setConnection()
+    await this.injectScripts()
+    await bud.compiler.compile(bud)
+    await this.applyMiddleware()
+    await this.watcher.watch()
+  }
+
+  /**
+   * {@link BudServer.setConnection}
    */
   @bind
   public async setConnection(connection?: Connection) {
@@ -204,9 +231,17 @@ export class Server extends Service implements BudServer {
   }
 
   /**
-   * Development server URL
+   * {@link BudServer.url}
+   * @readonly
    */
   public get url(): URL {
-    return this.app.hooks.filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
+    const url = this.app.hooks.filter(
+      `dev.url`,
+      new URL(`http://0.0.0.0:3000`),
+    )
+
+    if (this.app.context.port) url.port = this.app.context.port.toString()
+
+    return url
   }
 }

@@ -6,57 +6,48 @@ import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
 
 interface Contract {
-  _app: () => Bud
-
   /**
    * Bud instance
    */
   app: Bud
 
   /**
-   * Lifecycle method: boot
-   *
-   * @remarks
-   * `boot` is called once all services are registered.
-
+   * Boot callback
    */
-  boot(app: Bud): Promise<any>
+  boot?(app: Bud): Promise<any>
 
   /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+   * Bootstrap callback
    */
-  bootstrap(app: Bud): Promise<any>
+  bootstrap?(app: Bud): Promise<any>
 
   /**
-   * After build service
+   * After build callback
    */
-  buildAfter(app: Bud): Promise<any>
+  buildAfter?(app: Bud): Promise<any>
 
   /**
-   * Before build service
+   * Before build callback
    */
-  buildBefore(app: Bud): Promise<any>
+  buildBefore?(app: Bud): Promise<any>
 
   /**
-   * Before Compiler service
+   * Before compiler callback
    */
-  compilerBefore(app: Bud): Promise<any>
+  compilerBefore?(app: Bud): Promise<any>
 
   /**
-   * After Compiler service
+   * Compiler done callback
    */
-  compilerDone(bud: Bud, stats: Stats & MultiStats): Promise<any>
+  compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
 
   /**
    * After config callback
    */
-  configAfter(app: Bud): Promise<any>
+  configAfter?(app: Bud): Promise<any>
 
   /**
-   * Return the bud instance from the service context
+   * Return the bud instance
    */
   done(): Bud
 
@@ -71,13 +62,19 @@ interface Contract {
   logger: typeof logger
 
   /**
-   * Lifecycle method: register
-   *
-   * @remarks
-   * Intended for Service instances to register functionalities, modules,
-   * and bind functions to {@link Bud}
+   * Register callback
    */
-  register(app: Bud): Promise<any>
+  register?(app: Bud): Promise<any>
+
+  /**
+   * Server after callback
+   */
+  serverAfter?(app: Bud): Promise<any>
+
+  /**
+   * Server before callback
+   */
+  serverBefore?(app: Bud): Promise<any>
 }
 
 /**
@@ -88,14 +85,19 @@ interface Contract {
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  */
-abstract class Base implements Partial<Contract> {
+abstract class Base implements Contract {
+  /**
+   * {@link Contract.label}
+   */
+  public declare label: Contract[`label`]
+
   /**
    * Class constructor
    */
   public constructor(public _app: () => Bud) {}
 
   /**
-   * Bud instance
+   * {@link Contract.app}
    * @readonly
    */
   public get app(): Bud {
@@ -103,69 +105,68 @@ abstract class Base implements Partial<Contract> {
   }
 
   /**
-   * Lifecycle method: boot
-   *
-   * @remarks
-   * `boot` is called once all services are registered.
-
+   * {@link Contract.boot}
    */
-  public async boot(_app: Bud): Promise<any> {}
+  public boot?(app: Bud): Promise<any>
 
   /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+   * {@link Contract.bootstrap}
    */
-  public async bootstrap(_app: Bud): Promise<any> {}
+  public bootstrap?(app: Bud): Promise<any>
 
   /**
-   * After build service
+   * {@link Contract.buildAfter}
    */
-  public async buildAfter(_app: Bud): Promise<any> {}
+  public buildAfter?(app: Bud): Promise<any>
 
   /**
-   * Before build service
+   * {@link Contract.buildBefore}
    */
-  public async buildBefore(_app: Bud): Promise<any> {}
+  public buildBefore?(app: Bud): Promise<any>
 
   /**
-   * Before Compiler service
+   * {@link Contract.compilerBefore}
    */
-  public async compilerBefore(_app: Bud): Promise<any> {}
+  public compilerBefore?(app: Bud): Promise<any>
 
   /**
-   * After Compiler service
+   * {@link Contract.compilerDone}
    */
-  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
+  public compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
 
   /**
-   * After config callback
+   * {@link Contract.configAfter}
    */
-  public async configAfter(app: Bud): Promise<any> {}
+  public configAfter?(app: Bud): Promise<any>
 
   /**
-   * Return the Bud instance from the service context
+   * {@link Contract.done}
    */
   public done() {
     return this.app
   }
 
   /**
-   * Logger instance
+   * {@link Contract.logger}
    */
   public get logger(): typeof logger {
     return logger.scope(this.app.label, camelCase(this.constructor.name))
   }
 
   /**
-   * Lifecycle method: register
-   *
-   * @remarks
-   * Intended for Service instances to register functionalities, modules,
-   * and bind functions to {@link Bud}
+   * {@link Contract.register}
    */
-  public async register(_app: Bud): Promise<any> {}
+  public register?(bud: Bud): Promise<any>
+
+  /**
+   * {@link Contract.serverAfter}
+   */
+  public serverAfter?(app: Bud): Promise<any>
+
+  /**
+   * {@link Contract.serverBefore}
+   */
+  public serverBefore?(app: Bud): Promise<any>
 }
 
 /**
@@ -176,11 +177,11 @@ abstract class Base implements Partial<Contract> {
  *
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  */
-abstract class BaseContainer
-  extends Container
-  implements Partial<Contract>
-{
-  public declare label: string
+abstract class BaseContainer extends Container implements Contract {
+  /**
+   * {@link Contract.label}
+   */
+  public declare label: Contract[`label`]
 
   /**
    * Class constructor
@@ -190,7 +191,7 @@ abstract class BaseContainer
   }
 
   /**
-   * Bud instance
+   * {@link Contract.app}
    * @readonly
    */
   public get app(): Bud {
@@ -198,68 +199,68 @@ abstract class BaseContainer
   }
 
   /**
-   * Lifecycle method: boot
-   *
-   * @remarks
-   * `boot` is called once all services are registered.
+   * {@link Contract.boot}
    */
-  public async boot(app: Bud): Promise<any> {}
+  public boot?(app: Bud): Promise<any>
 
   /**
-   * Lifecycle method: bootstrap
-   *
-   * @remarks
-   * `bootstrap` is called when the Service is instantiated (but before all services are guaranteed to be instantiated).
+   * {@link Contract.bootstrap}
    */
-  public async bootstrap(app: Bud): Promise<any> {}
+  public bootstrap?(app: Bud): Promise<any>
 
   /**
-   * After configuration build
+   * {@link Contract.buildAfter}
    */
-  public async buildAfter(app: Bud): Promise<any> {}
+  public buildAfter?(app: Bud): Promise<any>
 
   /**
-   * Before configuration build
+   * {@link Contract.buildBefore}
    */
-  public async buildBefore(app: Bud): Promise<any> {}
+  public buildBefore?(app: Bud): Promise<any>
 
   /**
-   * Before Compiler
+   * {@link Contract.compilerBefore}
    */
-  public async compilerBefore(app: Bud): Promise<any> {}
+  public compilerBefore?(app: Bud): Promise<any>
 
   /**
-   * After Compiler service
+   * {@link Contract.compilerDone}
    */
-  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
+  public compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
 
   /**
-   * After config callback
+   * {@link Contract.configAfter}
    */
-  public async configAfter(app: Bud): Promise<any> {}
+  public configAfter?(app: Bud): Promise<any>
 
   /**
-   * Return the Bud instance from the service context
+   * {@link Contract.done}
    */
   public done() {
     return this.app
   }
 
   /**
-   * Logger instance
+   * {@link Contract.logger}
    */
   public get logger(): typeof logger {
     return logger.scope(this.app.label, camelCase(this.constructor.name))
   }
 
   /**
-   * Lifecycle method: register
-   *
-   * @remarks
-   * Intended for Service instances to register functionalities, modules,
-   * and bind functions to {@link Bud}
+   * {@link Contract.register}
    */
-  public async register(app: Bud): Promise<any> {}
+  public register?(bud: Bud): Promise<any>
+
+  /**
+   * {@link Contract.serverAfter}
+   */
+  public serverAfter?(app: Bud): Promise<any>
+
+  /**
+   * {@link Contract.serverBefore}
+   */
+  public serverBefore?(app: Bud): Promise<any>
 }
 
 export {

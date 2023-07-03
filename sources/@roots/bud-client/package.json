@@ -45,14 +45,8 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./lib/*": {
-      "import": "./lib/*",
-      "default": "./lib/*"
-    }
+    ".": "./lib/index.js",
+    "./lib/*": "./lib/*"
   },
   "typesVersions": {
     "*": {

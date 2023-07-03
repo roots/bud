@@ -1,4 +1,4 @@
-import type {Bud, Registry, Service} from '@roots/bud-framework'
+import type {Bud, BudService, Registry} from '@roots/bud-framework'
 
 import chalk from '@roots/bud-support/chalk'
 import {BudError} from '@roots/bud-support/errors'
@@ -16,7 +16,7 @@ import {Notifier} from './notifier.js'
  * Define the list of lifecycle events that are handled by the system
  */
 export const lifecycleHookHandles: Partial<
-  Array<keyof Registry.EventsStore & keyof Registry.EventsStore>
+  Array<`${keyof Registry.EventsStore & string}`>
 > = [
   `bootstrap`,
   `register`,
@@ -26,12 +26,14 @@ export const lifecycleHookHandles: Partial<
   `build.before`,
   `build.after`,
   `compiler.done`,
+  `server.before`,
+  `server.after`,
 ]
 
 /**
  * Define the corresponding methods in the Service class for each lifecycle event
  */
-export const lifecycleMethods: Partial<Array<keyof Service>> = [
+export const lifecycleMethods: Array<`${keyof BudService}`> = [
   `bootstrap`,
   `register`,
   `boot`,
@@ -40,6 +42,8 @@ export const lifecycleMethods: Partial<Array<keyof Service>> = [
   `buildBefore`,
   `buildAfter`,
   `compilerDone`,
+  `serverBefore`,
+  `serverAfter`,
 ]
 
 /**
@@ -59,17 +63,17 @@ export const DEVELOPMENT_SERVICES = [`@roots/bud-server`]
 /**
  * Map the lifecycle events to their corresponding Service class methods
  */
-export const LIFECYCLE_EVENT_MAP: Partial<
-  Record<keyof Registry.EventsStore, keyof Service>
-> = {
-  [`build.after`]: `buildAfter`,
-  [`build.before`]: `buildBefore`,
-  [`compiler.before`]: `compilerBefore`,
-  [`compiler.done`]: `compilerDone`,
-  [`config.after`]: `configAfter`,
+export const lifecycle = {
   boot: `boot`,
   bootstrap: `bootstrap`,
+  'build.after': `buildAfter`,
+  'build.before': `buildBefore`,
+  'compiler.before': `compilerBefore`,
+  'compiler.done': `compilerDone`,
+  'config.after': `configAfter`,
   register: `register`,
+  'server.after': `serverAfter`,
+  'server.before': `serverBefore`,
 }
 
 /**
@@ -204,24 +208,18 @@ export const bootstrap = async function (this: Bud) {
       }),
     )
 
-  Object.entries(LIFECYCLE_EVENT_MAP).map(
-    ([eventHandle, callbackName]: [
-      keyof Registry.EventsStore,
-      keyof Service,
-    ]) =>
-      [...this.services]
-        .map(service => [service, this[service]])
-        .map(([label, service]) => {
-          if (!service) {
-            logger.error(`service not found: ${label}`, this.services)
-          }
-
-          this.hooks.action(
-            eventHandle,
-            service[callbackName].bind(service),
-          )
-          logger.info(`${label}.${callbackName}`, `bound to`, eventHandle)
-        }),
+  Object.entries(lifecycle).map(([eventHandle, callbackName]) =>
+    [...this.services]
+      .map(service => [service, this[service]])
+      .filter(([, instance]) => instance)
+      .filter(([, instance]) => callbackName in instance)
+      .map(([label, service]) => {
+        this.hooks.action(
+          eventHandle as any,
+          service[callbackName].bind(service),
+        )
+        logger.log(`${label}.${callbackName}`, `bound to`, eventHandle)
+      }),
   )
 
   this.hooks.action(`compiler.before`, this.module.compilerBefore)

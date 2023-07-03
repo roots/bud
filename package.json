@@ -62,6 +62,7 @@
       "sources/@roots/*/src/__fixtures__/*",
       "sources/create-bud-app",
       "sources/deprecated/bud-terser",
+      "examples/vue-legacy",
       "tests/util/project",
       "tests/reproductions/*"
     ]

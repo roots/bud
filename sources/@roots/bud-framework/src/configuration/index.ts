@@ -39,7 +39,7 @@ export const process = async (app: Bud) => {
   await Promise.all(find(app.mode, false).map(processConfig))
   await Promise.all(find(app.mode, true).map(processConfig))
 
-  await app.hooks.fire(`config.after`, app).catch(error => {
+  await app.executeServiceCallbacks(`config.after`).catch(error => {
     throw error
   })
 
@@ -50,7 +50,7 @@ export const process = async (app: Bud) => {
       await child.api.processQueue().catch(error => {
         throw error
       })
-      await child.hooks.fire(`config.after`, app).catch(error => {
+      await child.executeServiceCallbacks(`config.after`).catch(error => {
         throw error
       })
     }),

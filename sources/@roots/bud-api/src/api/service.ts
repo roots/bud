@@ -17,17 +17,20 @@ import * as methods from '../methods/index.js'
  * call them, and otherwise manipulate them.
  */
 export class Api extends ServiceContainer implements BudApi {
-  public override label: ServiceContainer[`label`] = `api`
+  /**
+   * {@link BudApi.label}
+   */
+  public override label: BudApi[`label`] = `api`
 
   /**
-   * Queued method calls
+   * {@link BudApi.queue}
    */
-  public queue: BudApi['queue'] = []
+  public declare queue: BudApi['queue']
 
   /**
-   * Called methods
+   * {@link BudApi.trace}
    */
-  public trace: BudApi['trace'] = []
+  public declare trace: BudApi['trace']
 
   /**
    * Bind a synchronous facade for use in configs
@@ -47,8 +50,9 @@ export class Api extends ServiceContainer implements BudApi {
   /**
    * `bootstrap` callback
    */
-  @bind
-  public override async bootstrap(app: Bud) {
+  public override async bootstrap?(app: Bud) {
+    this.queue = []
+    this.trace = []
     Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
   }
 

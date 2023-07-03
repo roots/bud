@@ -1,1 +1,1 @@
-export {Error} from '@roots/bud-dashboard/app'
+export {Error} from '@roots/bud-dashboard/components/error'

@@ -1,4 +1,4 @@
-export {default} from 'webpack'
+export {default, default as Webpack} from 'webpack'
 
 export type {
   AssetInfo,

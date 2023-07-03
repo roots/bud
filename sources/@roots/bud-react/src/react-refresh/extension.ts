@@ -40,6 +40,7 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async configAfter(bud: Bud) {
+    if (bud.context.mode !== `development`) return
     if (bud.context.hot === false) return
 
     if (!this.transformExtension) {
@@ -71,36 +72,6 @@ export default class BudReactRefresh extends Extension<
         this.transformExtension.label,
       )
     }
-
-    /*
-
-    if (
-      this.transformExtension?.label !== `@roots/bud-react/babel-refresh`
-    )
-      return
-
-    this.logger.log(`Injecting react-refresh/runtime`)
-
-    const reactRefreshRuntime = await this.resolve(
-      `react-refresh/runtime`,
-      import.meta.url,
-    )
-
-    this.app.compilePaths([
-      this.app.path(`@src`),
-      dirname(reactRefreshRuntime),
-    ])
-
-    if (!bud.hasChildren)
-      bud.hooks.on(`dev.client.scripts`, (scripts = new Set([])) =>
-        scripts.add(() => reactRefreshRuntime),
-      )
-    else
-      Object.values(bud.children).forEach(instance =>
-        instance.hooks.on(`dev.client.scripts`, (scripts = new Set([])) =>
-          scripts.add(() => reactRefreshRuntime),
-        ),
-      ) */
   }
 
   /**

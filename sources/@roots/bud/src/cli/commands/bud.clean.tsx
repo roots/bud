@@ -49,7 +49,7 @@ export default class BudCleanCommand extends BudCommand {
           .filter(this.filterCompiler)
           .map(async child => {
             await this.bud.fs.remove(child.cache.cacheDirectory)
-            await this.renderStatic(
+            BudCleanCommand.renderStatic(
               <Box>
                 <Text color="green">
                   ✔ emptied {child.cache.cacheDirectory}
@@ -62,7 +62,7 @@ export default class BudCleanCommand extends BudCommand {
 
     await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
-    await this.renderStatic(
+    BudCleanCommand.renderStatic(
       <Box>
         <Text color="green">
           ✔ emptied {this.bud.cache.cacheDirectory}
@@ -72,7 +72,7 @@ export default class BudCleanCommand extends BudCommand {
 
     await this.bud.fs.remove(this.bud.path(`@storage`, `conf`))
 
-    await this.renderStatic(
+    BudCleanCommand.renderStatic(
       <Box>
         <Text color="green">
           ✔ emptied {this.bud.path(`@storage`, `conf`)}
@@ -89,7 +89,7 @@ export default class BudCleanCommand extends BudCommand {
           .filter(this.filterCompiler)
           .map(async child => {
             await this.bud.fs.remove(child.path(`@dist`))
-            await this.renderStatic(
+            BudCleanCommand.renderStatic(
               <Box>
                 <Text color="green">✔ emptied {child.path(`@dist`)}</Text>
               </Box>,
@@ -99,7 +99,7 @@ export default class BudCleanCommand extends BudCommand {
     }
 
     await this.bud.fs.remove(this.bud.path(`@dist`))
-    await this.renderStatic(
+    BudCleanCommand.renderStatic(
       <Box>
         <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
       </Box>,
@@ -114,7 +114,7 @@ export default class BudCleanCommand extends BudCommand {
           .filter(this.filterCompiler)
           .map(async child => {
             await this.bud.fs.remove(child.path(`@storage`))
-            await this.renderStatic(
+            BudCleanCommand.renderStatic(
               <Box>
                 <Text color="green">
                   ✔ emptied {child.path(`@storage`)}
@@ -128,7 +128,7 @@ export default class BudCleanCommand extends BudCommand {
     await this.bud.fs.remove(this.bud.path(`@storage`))
     await this.bud.fs.remove(this.bud.path(`@os-cache`))
 
-    await this.renderStatic(
+    BudCleanCommand.renderStatic(
       <Box>
         <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
       </Box>,

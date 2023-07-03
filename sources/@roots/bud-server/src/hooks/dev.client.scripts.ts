@@ -8,7 +8,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  *
  * @returns Set of client script callbacks
  */
-export const callback = () => new Set([hmrClient])
+export const callback = () => new Set([hmrClient, proxyClickInterceptor])
 
 /**
  * Proxy click interceptor

@@ -1,5 +1,4 @@
 import type {Bud} from '@roots/bud-framework'
-import type {MultiStats, Stats} from '@roots/bud-framework/config'
 import type {Contract} from '@roots/bud-framework/service'
 
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -56,40 +55,6 @@ export class FS extends Filesystem implements Contract {
   }
 
   /**
-   * Fulfills {@link Contract.boot}
-   */
-  public async boot() {}
-
-  /**
-   * Fulfills {@link Contract.bootstrap}
-   */
-  public async bootstrap() {}
-  /**
-   * Fulfills {@link Contract.buildAfter}
-   */
-  public async buildAfter() {}
-  /**
-   * Fulfills {@link Contract.buildBefore}
-   */
-  public async buildBefore() {}
-  /**
-   * Fulfills {@link Contract.compilerBefore}
-   */
-  public async compilerBefore() {}
-  /**
-   * Fulfills {@link Contract.compilerDone}
-   */
-  public async compilerDone(bud: Bud, stats: Stats & MultiStats) {}
-  /**
-   * Fulfills {@link Contract.configAfter}
-   */
-  public async configAfter() {}
-  /**
-   * Fulfills {@link Contract.configBefore}
-   */
-  public async configBefore() {}
-
-  /**
    * {@link Contract.done}
    */
   public done() {
@@ -102,11 +67,6 @@ export class FS extends Filesystem implements Contract {
   public get logger(): typeof logger {
     return logger.scope(`fs`)
   }
-
-  /**
-   * Fulfills {@link Contract.register}
-   */
-  public async register() {}
 
   /**
    * Set bucket
