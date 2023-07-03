@@ -86,7 +86,7 @@
     "sharp": "0.32.1",
     "svgo": "3.0.2",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "volta": {
     "extends": "../../../package.json"

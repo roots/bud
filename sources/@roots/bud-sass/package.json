@@ -103,7 +103,7 @@
     "@types/node": "18.16.18",
     "postcss": "8.4.24",
     "stylelint": "15.9.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

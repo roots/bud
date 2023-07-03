@@ -71,7 +71,7 @@
     "@roots/wordpress-transforms": "workspace:*",
     "helpful-decorators": "2.1.0",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "peerDependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:*"

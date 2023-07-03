@@ -92,7 +92,7 @@
     "terser": "5.18.2",
     "terser-webpack-plugin": "5.3.9",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "volta": {
     "extends": "../../../package.json"
