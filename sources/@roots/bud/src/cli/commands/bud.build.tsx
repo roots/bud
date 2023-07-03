@@ -117,7 +117,7 @@ export default class BudBuildCommand extends BudCommand {
     await this.makeBud()
 
     if (isBoolean(this[`entrypoints.html`])) {
-      this.bud.entrypoints.set(`html`, this[`entrypoints.html`])
+      this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 
     await this.bud?.run()
