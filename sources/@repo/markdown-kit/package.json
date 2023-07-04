@@ -32,7 +32,7 @@
     "prettier": "2.8.8",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.0",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "scripts": {
     "build": "yarn tsc -b"

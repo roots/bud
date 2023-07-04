@@ -1,14 +1,14 @@
 export type Supports =
-  | `swc`
-  | `typescript`
   | `babel`
   | `emotion`
-  | `sass`
-  | `postcss`
-  | `tailwindcss`
-  | `wordpress`
-  | `react`
-  | `vue`
   | `eslint`
-  | `stylelint`
+  | `postcss`
   | `prettier`
+  | `react`
+  | `sass`
+  | `stylelint`
+  | `swc`
+  | `tailwindcss`
+  | `typescript`
+  | `vue`
+  | `wordpress`

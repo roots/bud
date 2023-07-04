@@ -1,7 +1,8 @@
+import {isAbsolute} from 'node:path'
+
 import {InputError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import {isAbsolute} from 'node:path'
 
 import type {Parameters} from './setPath.js'
 

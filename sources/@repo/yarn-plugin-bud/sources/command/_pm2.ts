@@ -22,8 +22,7 @@ export class Pm2 extends Command {
         path(`node_modules`, `.bin`, `pm2`),
         ...this.passthrough,
       ])
-      .catch(error => {
-        throw error
-      })
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

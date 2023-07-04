@@ -21,8 +21,7 @@ export class Docusaurus extends Command {
         `docusaurus`,
         ...(this.passthrough ?? []),
       ])
-      .catch(error => {
-        throw error
-      })
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

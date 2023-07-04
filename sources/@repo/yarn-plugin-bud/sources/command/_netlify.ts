@@ -21,8 +21,7 @@ export class Netlify extends Command {
         `netlify`,
         ...(this.passthrough ?? []),
       ])
-      .catch(error => {
-        throw error
-      })
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

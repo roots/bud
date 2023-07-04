@@ -87,15 +87,15 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-build": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "18.16.18",
     "@types/webpack-env": "1.18.1",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "fork-ts-checker-webpack-plugin": "7.3.0",
@@ -104,7 +104,7 @@
     "ts-loader": "9.4.3",
     "ts-node": "10.9.1",
     "tslib": "2.6.0",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "volta": {
     "extends": "../../../package.json"

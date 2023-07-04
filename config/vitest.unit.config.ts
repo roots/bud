@@ -1,4 +1,5 @@
 import {env} from 'process'
+
 import GithubActionsReporter from 'vitest-github-actions-reporter'
 import {defineConfig} from 'vitest/config'
 

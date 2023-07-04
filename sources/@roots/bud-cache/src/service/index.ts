@@ -2,10 +2,11 @@ import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 import type {Cache as BudCache} from '@roots/bud-framework/services'
 
+import {join} from 'node:path'
+
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
-import {join} from 'node:path'
 
 /**
  * Cache service class

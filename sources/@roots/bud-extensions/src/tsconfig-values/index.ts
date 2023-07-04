@@ -1,5 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {isAbsolute, join} from 'node:path'
+
 import {
   Extension,
   type StrictPublicExtensionApi as PublicExtensionApi,
@@ -12,7 +14,6 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
-import {isAbsolute, join} from 'node:path'
 
 type CompilerOptions = {
   baseUrl?: string

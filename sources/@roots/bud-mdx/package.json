@@ -76,7 +76,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "volta": {
     "extends": "../../../package.json"

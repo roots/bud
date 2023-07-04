@@ -7,12 +7,13 @@ import type {
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
 import type {BudHandler} from '@roots/bud-support/errors'
 
+import {stderr, stdin, stdout} from 'node:process'
+
 import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, type ReactElement, render} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import {stderr, stdin, stdout} from 'node:process'
 
 import {Application, TeletypeApplication} from './application.js'
 import {Console} from './console/index.js'

@@ -1,6 +1,4 @@
 /* eslint-disable n/no-process-env */
-import {join} from 'node:path'
-
 import {Octokit} from '@octokit/core'
 import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
@@ -8,6 +6,7 @@ import {json, yml} from '@roots/bud-support/filesystem'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 import fs from 'fs-jetpack'
+import {join} from 'path'
 
 import ignoredCommits from './ignored_sha.js'
 
@@ -45,9 +44,9 @@ await fs.listAsync(join(sources, `@roots`)).then(
 
           await json.write(jsonPath, {
             ...pkgJson,
-            contributors: contributors.map(({name, email, url}) => ({
-              name,
+            contributors: contributors.map(({email, name, url}) => ({
               email,
+              name,
               url,
             })),
           })
@@ -64,9 +63,9 @@ async function getContributorsFromCommits(path) {
     `GET /repos/{owner}/{repo}/commits{?sha,path,author,tag,since,until,per_page,page}`,
     {
       owner: `roots`,
-      repo: `bud`,
       path,
       per_page: 100,
+      repo: `bud`,
     },
     response => {
       response?.data
@@ -82,12 +81,12 @@ async function getContributorsFromCommits(path) {
         .map(({author, commit}) => {
           contributors[author.login] = {
             ...(contributors[author.login] ?? {}),
-            name: commit.author.name,
-            login: author.login,
             avatar: author.avatar_url,
-            url: author.html_url,
             contributions:
               (contributors[author.login]?.contributions ?? 0) + 1,
+            login: author.login,
+            name: commit.author.name,
+            url: author.html_url,
           }
 
           if (

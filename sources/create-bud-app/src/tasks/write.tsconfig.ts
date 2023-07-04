@@ -1,4 +1,5 @@
 import type CreateCommand from '../commands/create.js'
+
 import formatSource from '../utilities/formatSource.js'
 
 export default async function writeTsConfig(command: CreateCommand) {

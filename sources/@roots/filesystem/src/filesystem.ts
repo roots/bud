@@ -14,13 +14,14 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types.js'
-import type {PathLike, ReadStream, WriteStream} from 'node:fs'
 import type {CreateWriteStreamOptions} from 'node:fs/promises'
+
+import type {PathLike, ReadStream, WriteStream} from 'node:fs'
+import {join} from 'node:path'
 
 import filesystem from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
 import isNumber from 'lodash/isNumber.js'
-import {join} from 'node:path'
 
 import * as json from './json.js'
 import * as yml from './yml.js'

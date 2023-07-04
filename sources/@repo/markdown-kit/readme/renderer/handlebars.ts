@@ -1,7 +1,8 @@
+import type {TemplateDelegate} from 'handlebars'
+
 import {path} from '@repo/constants'
 import fs from 'fs-jetpack'
 import {globby} from 'globby'
-import type {TemplateDelegate} from 'handlebars'
 import Handlebars from 'handlebars'
 
 let handlebars = Handlebars

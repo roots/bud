@@ -1,5 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {join} from 'node:path'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -8,7 +10,6 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import isString from '@roots/bud-support/lodash/isString'
-import {join} from 'node:path'
 
 import {
   BudTailwindOptionsApi,

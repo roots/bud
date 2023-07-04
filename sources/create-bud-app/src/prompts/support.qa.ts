@@ -12,10 +12,10 @@ const choices = {
 
 export default (command: CreateCommand) =>
   new MultiSelect({
-    name: `component-support`,
-    message: `Add support for linters & test frameworks`,
     choices: Object.values(choices),
     initial: command.support.filter(s => choices[s]),
+    message: `Add support for linters & test frameworks`,
+    name: `component-support`,
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,

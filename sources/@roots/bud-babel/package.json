@@ -86,7 +86,7 @@
     "@roots/bud-support": "workspace:*",
     "babel-loader": "9.1.2",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -10,10 +10,10 @@ const choices = {
 
 export default (command: CreateCommand) =>
   new MultiSelect({
-    name: `env-support`,
-    message: `Add support for runtime environments`,
     choices: Object.values(choices),
     initial: command.support.filter(s => choices[s]),
+    message: `Add support for runtime environments`,
+    name: `env-support`,
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,

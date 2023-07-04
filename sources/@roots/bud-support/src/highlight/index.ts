@@ -1,5 +1,5 @@
-/* eslint-disable n/no-extraneous-import */
 import isFunction from '@roots/bud-support/lodash/isFunction'
+/* eslint-disable n/no-extraneous-import */
 import hljs from 'highlight.js/lib/core'
 import css from 'highlight.js/lib/languages/css'
 import js from 'highlight.js/lib/languages/javascript'

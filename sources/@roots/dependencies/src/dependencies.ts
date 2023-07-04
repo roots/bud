@@ -1,11 +1,10 @@
-/* eslint-disable n/no-process-env */
-import {realpath} from 'fs/promises'
-import {join} from 'path'
+import {realpath} from 'node:fs/promises'
+import {join} from 'node:path'
 
 import type {IDependencyManager} from './index.js'
 
-import {Yarn} from './command/index.js'
 import {Npm} from './command/index.js'
+import {Yarn} from './command/index.js'
 
 export class Dependencies {
   public constructor(

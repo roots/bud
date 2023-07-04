@@ -15,10 +15,13 @@ export class Vitest extends Command {
   public passthrough = Option.Proxy({name: `vitest options`})
 
   public async execute() {
-    return await this.cli.run([
-      `node`,
-      path(`node_modules`, `.bin`, `vitest`),
-      ...this.passthrough,
-    ])
+    return await this.cli
+      .run([
+        `node`,
+        path(`node_modules`, `.bin`, `vitest`),
+        ...this.passthrough,
+      ])
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

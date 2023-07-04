@@ -85,7 +85,7 @@
     "postcss-nested": "6.0.1",
     "postcss-preset-env": "8.5.1",
     "tslib": "2.6.0",
-    "webpack": "5.88.0"
+    "webpack": "5.88.1"
   },
   "volta": {
     "extends": "../../../package.json"

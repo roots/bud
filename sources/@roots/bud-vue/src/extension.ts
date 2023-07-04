@@ -1,6 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import type {WebpackPluginInstance} from '@roots/bud-framework/config'
 
+import {join} from 'node:path'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -10,7 +12,6 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 import parseSemver from '@roots/bud-support/parse-semver'
-import {join} from 'node:path'
 
 interface Options {
   runtimeOnly: boolean

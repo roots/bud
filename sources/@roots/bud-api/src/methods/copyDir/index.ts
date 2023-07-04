@@ -1,8 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
-import isString from '@roots/bud-support/lodash/isString'
 import {isAbsolute} from 'node:path'
+
+import isString from '@roots/bud-support/lodash/isString'
 
 type FromToTuple = [string, string]
 

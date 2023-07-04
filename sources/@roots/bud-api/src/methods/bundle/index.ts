@@ -1,8 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {join, sep} from 'node:path'
+
 import isRegExp from '@roots/bud-support/lodash/isRegExp'
 import isString from '@roots/bud-support/lodash/isString'
-import {join, sep} from 'node:path'
 
 export type Parameters = [string, (Array<string> | RegExp | string)?]
 

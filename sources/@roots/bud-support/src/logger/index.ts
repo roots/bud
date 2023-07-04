@@ -1,10 +1,11 @@
 /* eslint-disable n/no-process-env */
 import type {SignaleOptions} from 'signale'
 
+import {stdout} from 'node:process'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import args from '@roots/bud-support/utilities/args'
-import {stdout} from 'node:process'
 import Signale from 'signale'
 
 class Logger {

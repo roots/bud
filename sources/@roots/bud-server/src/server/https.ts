@@ -1,9 +1,10 @@
 import type {Connection} from '@roots/bud-framework/services/server'
+
 import type {RequestListener} from 'node:http'
+import {createServer, Server as HttpsServer} from 'node:https'
 
 import {BaseServer} from '@roots/bud-server/server/base'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {createServer, Server as HttpsServer} from 'node:https'
 
 /**
  * HTTPS Server

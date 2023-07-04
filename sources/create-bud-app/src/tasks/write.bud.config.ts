@@ -1,6 +1,7 @@
 import {join} from 'node:path'
 
 import type CreateCommand from '../commands/create.js'
+
 import formatSource from '../utilities/formatSource.js'
 import templateEngine from '../utilities/templateEngine.js'
 
@@ -31,10 +32,10 @@ export default async function writeConfigTask(command: CreateCommand) {
     const template = templateEngine.compile(source)
 
     const result = template({
-      scriptExtension,
-      styleExtension,
       html: command.html,
       proxy: command.support.includes(`wordpress`),
+      scriptExtension,
+      styleExtension,
     })
 
     await command.fs.write(

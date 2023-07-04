@@ -2,13 +2,14 @@ import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
 import type {InspectResult} from '@roots/filesystem/filesystem'
 
+import {join, parse} from 'node:path'
+
 import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/lodash/get'
 import omit from '@roots/bud-support/lodash/omit'
 import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
 import {get as getPaths} from '@roots/bud-support/utilities/paths'
-import {join, parse} from 'node:path'
 
 const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
 const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]

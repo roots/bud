@@ -33,37 +33,32 @@ export class Release extends Command {
     required: false,
   })
 
+  public override async catch(error: Error) {
+    await this.resetRegistry()
+    throw error
+  }
+
   public async execute() {
     if (this.registry.startsWith(`http://localhost:4873`)) {
-      try {
-        await this.promise(
-          `Using local registry`,
-          `Local registry set`,
-          `Failed to set local registry`,
-          new Promise(async (resolve, reject) => {
-            await this.cli
-              .run([
-                `config`,
-                `set`,
-                `npmPublishRegistry`,
-                `http://localhost:4873`,
-              ])
-              .catch(reject)
+      await this.cli
+        .run([
+          `config`,
+          `set`,
+          `npmPublishRegistry`,
+          `http://localhost:4873`,
+        ])
+        .then(this.throwIfError)
+        .catch(this.catch)
 
-            await this.cli
-              .run([
-                `config`,
-                `set`,
-                `npmRegistryServer`,
-                `http://localhost:4873`,
-              ])
-              .catch(reject)
-            resolve(true)
-          }),
-        )
-      } catch (e) {
-        throw e
-      }
+      await this.cli
+        .run([
+          `config`,
+          `set`,
+          `npmRegistryServer`,
+          `http://localhost:4873`,
+        ])
+        .then(this.throwIfError)
+        .catch(this.catch)
     }
 
     if (!this.version) {
@@ -72,8 +67,8 @@ export class Release extends Command {
         date.getUTCMonth() + 1
       }.${date.getUTCDate()}`
 
-      try {
-        await this.cli.run([
+      await this.cli
+        .run([
           `exec`,
           `npm`,
           `show`,
@@ -83,61 +78,58 @@ export class Release extends Command {
           `--registry`,
           this.registry,
         ])
-
-        this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
-      } catch (e) {
-        this.version = utcSemver
-      }
+        .then(() => {
+          this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
+        })
+        .catch(() => {
+          this.version = utcSemver
+        })
     }
 
-    await this.cli.run([`@bud`, `version`, this.version])
+    await this.cli
+      .run([`@bud`, `version`, this.version])
+      .then(this.throwIfError)
+      .catch(this.catch)
 
-    try {
-      await this.promise(
-        `Publishing packages at ${this.version}`,
-        `Packages published`,
-        `Failed to publish packages`,
-        this.cli.run([
-          `workspaces`,
-          `foreach`,
-          `--no-private`,
-          `npm`,
-          `publish`,
-          `--access`,
-          `public`,
-          `--tag`,
-          this.tag,
-        ]),
-      )
-    } catch (e) {
-      throw e
-    }
+    await this.cli
+      .run([
+        `workspaces`,
+        `foreach`,
+        `--no-private`,
+        `npm`,
+        `publish`,
+        `--access`,
+        `public`,
+        `--tag`,
+        this.tag,
+      ])
+      .then(this.throwIfError)
+      .catch(this.catch)
 
-    await this.cli.run([`@bud`, `version`, `0.0.0`])
+    await this.resetRegistry()
+  }
 
-    try {
-      await this.promise(
-        `Resetting registry`,
-        `Registry reset`,
-        `Failed to reset registry`,
-        new Promise(async resolve => {
-          await this.cli.run([
-            `config`,
-            `set`,
-            `npmPublishRegistry`,
-            `https://registry.npmjs.org`,
-          ])
-          await this.cli.run([
-            `config`,
-            `set`,
-            `npmRegistryServer`,
-            `https://registry.npmjs.org`,
-          ])
-          resolve(true)
-        }),
-      )
-    } catch (e) {
-      throw e
-    }
+  public async resetRegistry() {
+    await this.cli
+      .run([
+        `config`,
+        `set`,
+        `npmPublishRegistry`,
+        `https://registry.npmjs.org`,
+      ])
+      .catch(e => {})
+
+    await this.cli
+      .run([
+        `config`,
+        `set`,
+        `npmRegistryServer`,
+        `https://registry.npmjs.org`,
+      ])
+      .catch(e => {})
+
+    await this.cli.run([`@bud`, `version`, `0.0.0`]).catch(e => {})
+
+    await this.cli.run([`install`]).catch(e => {})
   }
 }

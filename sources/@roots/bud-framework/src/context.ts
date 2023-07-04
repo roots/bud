@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
-import type {parse} from 'path'
+
+import type {parse} from 'node:path'
 
 /**
  * Bud context object

@@ -1,6 +1,7 @@
-/* eslint-disable n/no-process-env */
+import type {Options as OraOptions} from 'ora'
 
 import {dirname, join, normalize, relative, resolve, sep} from 'node:path'
+import {env} from 'node:process'
 import {fileURLToPath} from 'node:url'
 
 import {Filesystem} from '@roots/filesystem'
@@ -9,8 +10,9 @@ import {Command, Option} from 'clipanion'
 import {execa} from 'execa'
 import figures from 'figures'
 import isUndefined from 'lodash/isUndefined.js'
-import type {Options as OraOptions} from 'ora'
 import ora from 'ora'
+
+import type {Supports} from '../types.js'
 
 import confirmExistingFlag from '../flags/confirm-existing.js'
 import customizeFlag from '../flags/customize.js'
@@ -53,7 +55,6 @@ import writeSrcTask from '../tasks/write.src.js'
 import writeStylelintConfigTask from '../tasks/write.stylelint.config.js'
 import writeTailwindConfigTask from '../tasks/write.tailwind.config.js'
 import writeTsConfigTask from '../tasks/write.tsconfig.js'
-import type {Supports} from '../types.js'
 import getGitUser from '../utilities/getGitUser.js'
 import getLatestVersion from '../utilities/getLatestVersion.js'
 
@@ -156,11 +157,20 @@ export default class CreateCommand extends Command {
 
   public cwd = cwdFlag
 
-  public devDependencies = devDependenciesFlag
-
   public dependencies = dependenciesFlag
 
   public description = descriptionFlag
+
+  public devDependencies = devDependenciesFlag
+
+  public extensions = extensionsMap
+
+  /**
+   * Project files
+   */
+  public files: Array<string> = []
+
+  public fs: Filesystem
 
   public html = htmlFlag
 
@@ -178,6 +188,8 @@ export default class CreateCommand extends Command {
 
   public recommended = recommendedPresetFlag
 
+  public relativePath = Option.String({required: false})
+
   public support = supportFlag
 
   public username = usernameFlag
@@ -186,98 +198,28 @@ export default class CreateCommand extends Command {
 
   public wordpress = wordpressPresetFlag
 
-  public relativePath = Option.String({required: false})
-
-  public fs: Filesystem
-
-  public extensions = extensionsMap
-
   /**
-   * Run arbitrary shell commands
+   * CLI after
    */
-  public async sh(command: string, args: string[]) {
-    return execa(command, args, {
-      cwd: this.directory,
-      env: {
-        ...process.env,
-        NODE_ENV: `development`,
-      },
-    })
-  }
+  public async after() {
+    const pm = this.packageManager === `yarn` ? `yarn` : `npx`
 
-  /**
-   * Directory path
-   */
-  public get directory() {
-    return normalize(join(this.cwd, this.relativePath ?? ``))
-  }
-
-  /**
-   * Path to root of `create-bud-app`
-   */
-  public get createRoot() {
-    return resolve(
-      this.cwd,
-      join(dirname(fileURLToPath(import.meta.url)), `..`, `..`),
+    this.context.stdout.write(
+      [
+        `🎉 Project ready for you to start building!`,
+        `${
+          this.relativePath
+            ? `Navigate to ${chalk.blueBright(
+                `./${relative(this.cwd, this.directory)}`,
+              )} and run`
+            : `Run`
+        } ${chalk.blueBright(`${pm} bud dev`)} to get started.`,
+        `When you are ready to deploy, run ${chalk.blueBright(
+          `${pm} bud build`,
+        )} to compile your project for production.`,
+        `Happy hacking!`,
+      ].join(`\n\n`),
     )
-  }
-
-  /**
-   * Project files
-   */
-  public files: Array<string> = []
-
-  /**
-   * Project has a react compatible compiler selected for install
-   */
-  public get hasReactCompatibleCompiler() {
-    const compilers: Array<Supports> = [`swc`, `babel`, `typescript`]
-    return compilers.some(entry => this.support.includes(entry))
-  }
-
-  /**
-   * Project has an emotion compatible compiler selected for install
-   */
-  public get hasEmotionCompatibleCompiler() {
-    const compilers: Array<Supports> = [`swc`, `babel`]
-    return compilers.some(entry => this.support.includes(entry))
-  }
-
-  /**
-   * Create spinner instance
-   */
-  public createSpinner(options: OraOptions = {}) {
-    return ora({
-      stream: this.context.stdout,
-      ...options,
-    })
-  }
-
-  /**
-   * File or files exist in project
-   */
-  public exists(...args: Array<string>) {
-    return args.some(arg => this.files.some(file => file.includes(arg)))
-  }
-
-  /**
-   * Execute
-   */
-  public async execute() {
-    await this.before()
-
-    if (this.interactive) await this.runPrompts()
-    else this.context.stdout.write(`\n`)
-
-    this.context.stdout.write(`\n`)
-
-    await this.runTasks()
-
-    this.context.stdout.write(`\n`)
-
-    await this.after()
-
-    this.context.stdout.write(`\n`)
   }
 
   /**
@@ -365,27 +307,73 @@ export default class CreateCommand extends Command {
   }
 
   /**
-   * CLI after
+   * Path to root of `create-bud-app`
    */
-  public async after() {
-    const pm = this.packageManager === `yarn` ? `yarn` : `npx`
-
-    this.context.stdout.write(
-      [
-        `🎉 Project ready for you to start building!`,
-        `${
-          this.relativePath
-            ? `Navigate to ${chalk.blueBright(
-                `./${relative(this.cwd, this.directory)}`,
-              )} and run`
-            : `Run`
-        } ${chalk.blueBright(`${pm} bud dev`)} to get started.`,
-        `When you are ready to deploy, run ${chalk.blueBright(
-          `${pm} bud build`,
-        )} to compile your project for production.`,
-        `Happy hacking!`,
-      ].join(`\n\n`),
+  public get createRoot() {
+    return resolve(
+      this.cwd,
+      join(dirname(fileURLToPath(import.meta.url)), `..`, `..`),
     )
+  }
+
+  /**
+   * Create spinner instance
+   */
+  public createSpinner(options: OraOptions = {}) {
+    return ora({
+      stream: this.context.stdout,
+      ...options,
+    })
+  }
+
+  /**
+   * Directory path
+   */
+  public get directory() {
+    return normalize(join(this.cwd, this.relativePath ?? ``))
+  }
+
+  /**
+   * Execute
+   */
+  public async execute() {
+    await this.before()
+
+    if (this.interactive) await this.runPrompts()
+    else this.context.stdout.write(`\n`)
+
+    this.context.stdout.write(`\n`)
+
+    await this.runTasks()
+
+    this.context.stdout.write(`\n`)
+
+    await this.after()
+
+    this.context.stdout.write(`\n`)
+  }
+
+  /**
+   * File or files exist in project
+   */
+  public exists(...args: Array<string>) {
+    return args.some(arg => this.files.some(file => file.includes(arg)))
+  }
+
+  /**
+   * Project has an emotion compatible compiler selected for install
+   */
+  public get hasEmotionCompatibleCompiler() {
+    const compilers: Array<Supports> = [`swc`, `babel`]
+    return compilers.some(entry => this.support.includes(entry))
+  }
+
+  /**
+   * Project has a react compatible compiler selected for install
+   */
+  public get hasReactCompatibleCompiler() {
+    const compilers: Array<Supports> = [`swc`, `babel`, `typescript`]
+    return compilers.some(entry => this.support.includes(entry))
   }
 
   /**
@@ -476,5 +464,15 @@ export default class CreateCommand extends Command {
       // 😇
       await this.sh(`open`, [`raycast://confetti`])
     } catch (error) {}
+  }
+
+  /**
+   * Run arbitrary shell commands
+   */
+  public async sh(command: string, args: string[]) {
+    return execa(command, args, {
+      cwd: this.directory,
+      env: {...env, NODE_ENV: `development`},
+    })
   }
 }

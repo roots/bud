@@ -12,11 +12,6 @@ export class Clean extends Command {
   }
 
   public async execute() {
-    await this.promise(
-      `Removing found files`,
-      `Removed found files`,
-      `No files to remove`,
-      this.cli.run([`exec`, `git`, `clean`, `-fxd`]),
-    )
+    await this.cli.run([`exec`, `git`, `clean`, `-fxd`])
   }
 }

@@ -58,110 +58,97 @@ export class Build extends Command {
   }
 
   public async execute() {
-    try {
-      await this.promise(
-        `Bundling vendor entrypoints`,
-        `Bundled vendor entrypoints`,
-        `Failed to bundle vendor entrypoints`,
-        Promise.all([
-          /**
-           * @aws-sdk/client-s3
-           */
-          this.bundle({
-            format: `cjs`,
-            outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
-            source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
-          }),
-          /**
-           * highlight.js
-           */
-          this.bundle({
-            format: `esm`,
-            outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
-            source: `sources/@roots/bud-support/src/highlight/index.ts`,
-          }).then(async () => {
-            await fs.writeAsync(
-              path(
-                `sources/@roots/bud-support/vendor/highlight/index.d.ts`,
-              ),
-              `export declare const highlight: (code: string) => string;`,
-            )
-          }),
+    await Promise.all([
+      /**
+       * @aws-sdk/client-s3
+       */
+      this.bundle({
+        format: `cjs`,
+        outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
+        source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
+      }),
+      /**
+       * highlight.js
+       */
+      this.bundle({
+        format: `esm`,
+        outfile: `sources/@roots/bud-support/vendor/highlight/index.js`,
+        source: `sources/@roots/bud-support/src/highlight/index.ts`,
+      }).then(async () => {
+        await fs.writeAsync(
+          path(`sources/@roots/bud-support/vendor/highlight/index.d.ts`),
+          `export declare const highlight: (code: string) => string;`,
+        )
+      }),
 
-          /**
-           * html-loader
-           */
-          this.bundle({
-            external: [`./runtime/getUrl.js`],
-            format: `cjs`,
-            outfile: path(
-              `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
-            ),
-            source: path(`node_modules/html-loader/dist/index.js`),
-          }).then(async () => {
-            const modulePath = path(
-              `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
-            )
-            const code = await fs.readAsync(modulePath)
-            await fs.writeAsync(
-              modulePath,
-              code.replace(
-                /\.\/runtime\/getUrl\.js/g,
-                `./runtime/getUrl.cjs`,
-              ),
-            )
-            await fs.copyAsync(
-              path(`node_modules/html-loader/dist/runtime/getUrl.js`),
-              path(
-                `sources/@roots/bud-support/vendor/html-loader/runtime/getUrl.cjs`,
-              ),
-              {overwrite: true},
-            )
-          }),
-          /**
-           * html-webpack-plugin
-           */
-          this.bundle({
-            external: [`./lib/loader.js`],
-            format: `cjs`,
-            outfile: `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
-            source: `node_modules/html-webpack-plugin/index.js`,
-          }).then(async () => {
-            const outPath = path(
-              `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
-            )
-            const code = await fs.readAsync(outPath)
-            await fs.writeAsync(
-              outPath,
-              code.replace(/\.\/lib\/loader\.js/g, `./lib/loader.cjs`),
-            )
-          }),
-          fs.copyAsync(
-            path(`node_modules/html-webpack-plugin/lib/loader.js`),
-            path(
-              `sources/@roots/bud-support/vendor/html-webpack-plugin/lib/loader.cjs`,
-            ),
-            {overwrite: true},
+      /**
+       * html-loader
+       */
+      this.bundle({
+        external: [`./runtime/getUrl.js`],
+        format: `cjs`,
+        outfile: path(
+          `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
+        ),
+        source: path(`node_modules/html-loader/dist/index.js`),
+      }).then(async () => {
+        const modulePath = path(
+          `sources/@roots/bud-support/vendor/html-loader/index.cjs`,
+        )
+        const code = await fs.readAsync(modulePath)
+        await fs.writeAsync(
+          modulePath,
+          code.replace(/\.\/runtime\/getUrl\.js/g, `./runtime/getUrl.cjs`),
+        )
+        await fs.copyAsync(
+          path(`node_modules/html-loader/dist/runtime/getUrl.js`),
+          path(
+            `sources/@roots/bud-support/vendor/html-loader/runtime/getUrl.cjs`,
           ),
-          fs.copyAsync(
-            path(`node_modules/html-webpack-plugin/typings.d.ts`),
-            path(
-              `sources/@roots/bud-support/vendor/html-webpack-plugin/index.d.cts`,
-            ),
-            {overwrite: true},
-          ),
-        ]),
-      )
-    } catch (e) {
+          {overwrite: true},
+        )
+      }),
+      /**
+       * html-webpack-plugin
+       */
+      this.bundle({
+        external: [`./lib/loader.js`],
+        format: `cjs`,
+        outfile: `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
+        source: `node_modules/html-webpack-plugin/index.js`,
+      }).then(async () => {
+        const outPath = path(
+          `sources/@roots/bud-support/vendor/html-webpack-plugin/index.cjs`,
+        )
+        const code = await fs.readAsync(outPath)
+        await fs.writeAsync(
+          outPath,
+          code.replace(/\.\/lib\/loader\.js/g, `./lib/loader.cjs`),
+        )
+      }),
+      fs.copyAsync(
+        path(`node_modules/html-webpack-plugin/lib/loader.js`),
+        path(
+          `sources/@roots/bud-support/vendor/html-webpack-plugin/lib/loader.cjs`,
+        ),
+        {overwrite: true},
+      ),
+      fs.copyAsync(
+        path(`node_modules/html-webpack-plugin/typings.d.ts`),
+        path(
+          `sources/@roots/bud-support/vendor/html-webpack-plugin/index.d.cts`,
+        ),
+        {overwrite: true},
+      ),
+    ]).catch(e => {
       throw e
-    }
+    })
 
-    const result = await this.promise(
-      `Building from source`,
-      `Built from source`,
-      `Build failed`,
-      this.cli.run([`@bud`, `tsc`, `--build`, this.tsconfig, `--force`]),
-    )
+    const result = await this.cli
+      .run([`@bud`, `tsc`, `--build`, this.tsconfig, `--force`])
+      .catch(error => {
+        throw error
+      })
     if (result !== 0) throw new Error(`Build failed`)
   }
 }

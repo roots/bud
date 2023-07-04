@@ -1,0 +1,8 @@
+{
+  "name": "@tests/bud-entrypoints.html-flag",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*"
+  }
+}

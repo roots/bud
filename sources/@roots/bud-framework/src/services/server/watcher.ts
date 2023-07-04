@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+
 import type {FSWatcher, WatchOptions} from 'node:fs'
 
 /**

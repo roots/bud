@@ -1,9 +1,10 @@
+import {createHash} from 'node:crypto'
+import {join} from 'node:path'
+
 import {BudError} from '@roots/bud-support/errors'
 import args from '@roots/bud-support/utilities/args'
 import * as envBootstrap from '@roots/bud-support/utilities/env'
 import envPaths from 'env-paths'
-import {createHash} from 'node:crypto'
-import {join} from 'node:path'
 
 interface paths {
   /**

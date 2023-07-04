@@ -11,10 +11,10 @@ const choices = {
 
 export default (command: CreateCommand) =>
   new MultiSelect({
-    name: `css-compiler`,
-    message: `Add css compiler support`,
     choices: Object.values(choices),
     initial: command.support.filter(s => choices[s]),
+    message: `Add css compiler support`,
+    name: `css-compiler`,
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,
