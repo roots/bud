@@ -9,7 +9,7 @@
     "@yarnpkg/builder": "4.0.0-rc.46",
     "@yarnpkg/cli": "4.0.0-rc.46",
     "@yarnpkg/core": "4.0.0-rc.46",
-    "@yarnpkg/shell": "4.0.0-rc.46",
+    "@yarnpkg/shell": "4.0.0-rc.48",
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
