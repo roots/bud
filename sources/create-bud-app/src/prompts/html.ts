@@ -6,7 +6,7 @@ import type CreateCommand from '../commands/create.js'
 
 export default (command: CreateCommand) =>
   new Toggle({
-    name: `html`,
-    message: `Generate HTML wrapper for your application`,
     initial: command.html,
+    message: `Generate HTML wrapper for your application`,
+    name: `html`,
   })

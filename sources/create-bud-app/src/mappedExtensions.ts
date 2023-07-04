@@ -6,17 +6,17 @@ import type {Supports} from './types.js'
 const supportedExtensions: Record<`${Supports & string}`, string> = {
   babel: `@roots/bud-babel`,
   emotion: `@roots/bud-emotion`,
+  eslint: `@roots/bud-eslint`,
   postcss: `@roots/bud-postcss`,
+  prettier: `@roots/bud-prettier`,
   react: `@roots/bud-react`,
   sass: `@roots/bud-sass`,
+  stylelint: `@roots/bud-stylelint`,
   swc: `@roots/bud-swc`,
   tailwindcss: `@roots/bud-tailwindcss`,
   typescript: `@roots/bud-typescript`,
-  wordpress: `@roots/bud-preset-wordpress`,
   vue: `@roots/bud-vue`,
-  eslint: `@roots/bud-eslint`,
-  stylelint: `@roots/bud-stylelint`,
-  prettier: `@roots/bud-prettier`,
+  wordpress: `@roots/bud-preset-wordpress`,
 }
 
 export default supportedExtensions

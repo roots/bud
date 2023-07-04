@@ -15,12 +15,13 @@ export class Tsc extends Command {
   public passthrough = Option.Proxy({name: `tsc options`})
 
   public async execute() {
-    const args = [
-      `node`,
-      path(`node_modules`, `.bin`, `tsc`),
-      ...this.passthrough,
-    ]
-
-    return await this.cli.run(args)
+    return await this.cli
+      .run([
+        `node`,
+        path(`node_modules`, `.bin`, `tsc`),
+        ...this.passthrough,
+      ])
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

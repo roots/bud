@@ -4,27 +4,27 @@ import type CreateCommand from '../commands/create.js'
 
 export default (command: CreateCommand) =>
   new Form({
-    message: `Provide project details`,
     choices: [
       {
-        name: `name`,
-        message: `Project name`,
         initial: command.name,
+        message: `Project name`,
+        name: `name`,
       },
       {
-        name: `description`,
-        message: `Project description`,
         initial: command.description,
+        message: `Project description`,
+        name: `description`,
       },
       {
-        name: `username`,
-        message: `Github user name`,
         initial: command.username,
+        message: `Github user name`,
+        name: `username`,
       },
       {
-        name: `license`,
-        message: `Project license`,
         initial: command.license,
+        message: `Project license`,
+        name: `license`,
       },
     ],
+    message: `Provide project details`,
   })

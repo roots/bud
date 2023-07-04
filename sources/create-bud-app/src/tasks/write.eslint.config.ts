@@ -1,6 +1,7 @@
 import {join} from 'path'
 
 import type CreateCommand from '../commands/create.js'
+
 import formatSource from '../utilities/formatSource.js'
 import templateEngine from '../utilities/templateEngine.js'
 

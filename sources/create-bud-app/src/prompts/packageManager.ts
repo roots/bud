@@ -11,8 +11,8 @@ const choices = {
 
 export default (command: CreateCommand) =>
   new Select({
-    name: `packageManager`,
-    message: `Select a package manager`,
     choices: Object.values(choices),
     initial: command.packageManager,
+    message: `Select a package manager`,
+    name: `packageManager`,
   })

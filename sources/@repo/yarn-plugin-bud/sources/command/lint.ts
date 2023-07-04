@@ -16,60 +16,26 @@ export class Lint extends Command {
   }
 
   public async execute() {
-    const dirs = await globby([`sources/@roots/*`], {
-      onlyDirectories: true,
-    }).then(dirs => [...dirs, `sources/create-bud-app`])
-
     this.promised.push(
       this.cli
-        .run([
-          `eslint`,
-          path(`sources/*/*/src/**/*.{ts,tsx,js,jsx}`),
-          path(`sources/*/*/sources/**/*.{ts,tsx,js,jsx}`),
-          path(`tests/**/*.{ts,tsx,js,jsx}`),
-          path(`config/**/*.{ts,tsx,js,jsx}`),
-          `--config`,
-          path(`config/eslint.config.cjs`),
-          `--no-error-on-unmatched-pattern`,
-          `--fix`,
-        ])
+        .run([`@bud`, `eslint`])
         .then(this.throwIfError)
         .catch(this.catch),
 
       this.cli
-        .run([`constraints`])
+        .run([`@bud`, `syncpack`])
         .then(this.throwIfError)
         .catch(this.catch),
 
       this.cli
-        .run([
-          `syncpack`,
-          `list-mismatches`,
-          `--config`,
-          path(`config/syncpack.config.cjs`),
-        ])
+        .run([`@bud`, `prettier`])
         .then(this.throwIfError)
         .catch(this.catch),
 
       this.cli
-        .run([
-          `prettier`,
-          path(`sources/@roots/*/src/**/*`),
-          `--write`,
-          `--config`,
-          path(`config/prettier.config.cjs`),
-          `--ignore-unknown`,
-          `--no-error-on-unmatched-pattern`,
-        ])
+        .run([`@bud`, `package-check`])
         .then(this.throwIfError)
         .catch(this.catch),
-
-      ...dirs.flatMap(dir =>
-        this.cli
-          .run([`package-check`, `--cwd`, `${dir}`])
-          .then(this.throwIfError)
-          .catch(this.catch),
-      ),
     )
 
     await Promise.all(this.promised)

@@ -1,15 +1,16 @@
 import type {Options} from 'prettier'
+
 import {format} from 'prettier'
 
 export default (code: string, options: Partial<Options> = {}) => {
   return format(code, {
-    parser: `babel`,
     bracketSpacing: false,
-    tabWidth: 2,
+    parser: `babel`,
     printWidth: 75,
     singleQuote: true,
-    useTabs: false,
+    tabWidth: 2,
     trailingComma: `all`,
+    useTabs: false,
     ...options,
   })
 }

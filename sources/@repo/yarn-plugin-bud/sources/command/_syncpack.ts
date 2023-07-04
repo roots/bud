@@ -1,16 +1,18 @@
-/* eslint-disable no-console */
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
-export class Pm2 extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
+/**
+ * Syncpack command class
+ */
+export class Syncpack extends Command {
+  public static paths: CommandClass['paths'] = [[`@bud`, `syncpack`]]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,
-    description: `registry access`,
-    examples: [[`pm2 usage info`, `yarn @bud pm2 --info`]],
+    description: `Syncpack passthrough`,
+    examples: [[`syncpack usage info`, `yarn @bud syncpack --help`]],
   }
 
   public passthrough = Option.Proxy({name: `pm2 options`})
@@ -18,9 +20,10 @@ export class Pm2 extends Command {
   public async execute() {
     await this.cli
       .run([
-        `node`,
-        path(`node_modules`, `.bin`, `pm2`),
-        ...this.passthrough,
+        `syncpack`,
+        `list-mismatches`,
+        `--config`,
+        path(`config/syncpack.config.cjs`),
       ])
       .then(this.throwIfError)
       .catch(this.catch)

@@ -6,7 +6,7 @@ import type CreateCommand from '../commands/create.js'
 
 export default (command: CreateCommand) =>
   new Toggle({
-    name: `confirm-existing`,
-    message: `Confirm usage in existing directory`,
     initial: false,
+    message: `Confirm usage in existing directory`,
+    name: `confirm-existing`,
   })

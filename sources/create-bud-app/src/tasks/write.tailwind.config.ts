@@ -1,6 +1,7 @@
 import {join} from 'node:path'
 
 import type CreateCommand from '../commands/create.js'
+
 import templateEngine from '../utilities/templateEngine.js'
 
 export default async function writePackageManifest(
@@ -26,9 +27,9 @@ export default async function writePackageManifest(
     const template = templateEngine.compile(source)
 
     const result = template({
+      license: command.license,
       name: command.name,
       username: command.username,
-      license: command.license,
       version: command.version,
     })
 
