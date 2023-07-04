@@ -4,12 +4,13 @@ import type {
   NotificationCallback,
 } from '@roots/bud-support/node-notifier'
 
-import isEmpty from '@roots/bud-support/lodash/isEmpty'
-import isString from '@roots/bud-support/lodash/isString'
-import {open, openEditor} from '@roots/bud-support/open'
 import {platform} from 'node:os'
 import {dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
+
+import isEmpty from '@roots/bud-support/lodash/isEmpty'
+import isString from '@roots/bud-support/lodash/isString'
+import {open, openEditor} from '@roots/bud-support/open'
 
 const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),

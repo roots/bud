@@ -2,7 +2,7 @@ import {path} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
 import {execa} from 'execa'
 import fs from 'fs-jetpack'
-import {join} from 'node:path'
+import {join} from 'path'
 
 interface Options {
   buildCommand?: [string, Array<string>?]

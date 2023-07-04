@@ -2,6 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
 import type {BudHandler} from '@roots/bud-support/errors'
 
+import {exit, stdout} from 'node:process'
+
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
 import Error from '@roots/bud-dashboard/views/node-error'
@@ -16,7 +18,6 @@ import {
   useInput,
   useState,
 } from '@roots/bud-support/ink'
-import {exit, stdout} from 'node:process'
 
 export interface Props {
   basedir?: string

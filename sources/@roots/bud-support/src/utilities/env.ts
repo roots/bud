@@ -1,6 +1,7 @@
 /* eslint-disable n/no-process-env */
-import logger from '@roots/bud-support/logger'
 import {join, sep} from 'node:path'
+
+import logger from '@roots/bud-support/logger'
 
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
 

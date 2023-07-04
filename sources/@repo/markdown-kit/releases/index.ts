@@ -1,7 +1,6 @@
 import {Filesystem} from '@roots/bud-support/filesystem'
 
-import type {release} from './data.js'
-import {releases} from './data.js'
+import {type release, releases} from './data.js'
 import {body, path} from './release.js'
 
 const fs = new Filesystem()

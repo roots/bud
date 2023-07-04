@@ -18,35 +18,20 @@ export class RegistryClean extends Command {
   }
 
   public async execute() {
-    await this.promise(
-      `Removing existing mocks`,
-      `Existing mocks removed`,
-      `Failed to remove existing mocks`,
-      fs.removeAsync(path(`storage/mocks`)),
-    ).catch(error => {
-      throw error
-    })
-
-    await this.promise(
-      `Removing existing local packages`,
-      `Existing local packages removed`,
-      `Failed to remove existing local packages`,
-      fs.removeAsync(path(`storage`, `packages`)),
-    ).catch(error => {
-      throw error
-    })
+    await fs.removeAsync(path(`storage/mocks`)).catch(this.catch)
+    await fs.removeAsync(path(`storage`, `packages`)).catch(this.catch)
 
     const verdaccioDbExists = await fs.existsAsync(
       path(`storage`, `.verdaccio-db.json`),
     )
-
     if (verdaccioDbExists) {
-      const verdaccioDb = await fs.readAsync(
-        path(`storage`, `.verdaccio-db.json`),
-        `json`,
-      )
+      const verdaccioDb = await fs
+        .readAsync(path(`storage`, `.verdaccio-db.json`), `json`)
+        .catch(this.catch)
       verdaccioDb.list = []
-      await fs.writeAsync(path(`storage/.verdaccio-db.json`), verdaccioDb)
+      await fs
+        .writeAsync(path(`storage/.verdaccio-db.json`), verdaccioDb)
+        .catch(this.catch)
     }
   }
 }

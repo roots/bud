@@ -5,13 +5,14 @@ import type {
   LifecycleMethods,
 } from '@roots/bud-framework/services/extensions'
 
+import {randomUUID} from 'node:crypto'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
-import {randomUUID} from 'node:crypto'
 
 import {handleManifestSchemaWarning} from './helpers/handleManifestSchemaWarning.js'
 import {isConstructor} from './helpers/isConstructor.js'

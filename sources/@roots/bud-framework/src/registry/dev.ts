@@ -5,6 +5,7 @@ import type {
   Options,
 } from '@roots/bud-framework/services/server'
 import type {WatchOptions} from '@roots/bud-support/chokidar'
+
 import type {ListenOptions} from 'node:net'
 
 export interface Sync {

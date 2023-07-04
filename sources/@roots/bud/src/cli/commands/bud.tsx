@@ -2,6 +2,8 @@ import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
 import type browser from '@roots/bud/cli/flags/browser'
 
+import {env, exit} from 'node:process'
+
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -21,7 +23,6 @@ import storage from '@roots/bud/cli/flags/storage'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
-import {env, exit} from 'node:process'
 
 import type {CLIContext} from '../index.js'
 

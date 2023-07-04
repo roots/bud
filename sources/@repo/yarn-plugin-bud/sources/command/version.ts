@@ -14,23 +14,17 @@ export class Version extends Command {
   public version = Option.String()
 
   public async execute() {
-    try {
-      await this.promise(
-        `Versioning packages to ${this.version}`,
-        `Packages versioned`,
-        `Failed to version packages`,
-        this.cli.run([
-          `workspaces`,
-          `foreach`,
-          `--no-private`,
-          `package`,
-          `set`,
-          `version`,
-          this.version,
-        ]),
-      )
-    } catch (e) {
-      throw e
-    }
+    await this.cli
+      .run([
+        `workspaces`,
+        `foreach`,
+        `--no-private`,
+        `package`,
+        `set`,
+        `version`,
+        this.version,
+      ])
+      .then(this.throwIfError)
+      .catch(this.catch)
   }
 }

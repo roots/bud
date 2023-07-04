@@ -48,7 +48,7 @@
     "syncpack": "10.6.1",
     "ts-node": "10.9.1",
     "tslib": "2.6.0",
-    "typescript": "5.1.5",
+    "typescript": "5.1.6",
     "verdaccio": "5.25.0",
     "vitest": "0.32.2",
     "vitest-github-actions-reporter": "0.10.0",
@@ -62,7 +62,6 @@
       "sources/@roots/*/src/__fixtures__/*",
       "sources/create-bud-app",
       "sources/deprecated/bud-terser",
-      "examples/vue-legacy",
       "tests/util/project",
       "tests/reproductions/*"
     ]

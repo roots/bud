@@ -3,6 +3,8 @@ import type {Bud} from '@roots/bud'
 import type {Extension} from '@roots/bud-framework/extension'
 import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
+import {platform} from 'node:os'
+
 import {Error} from '@roots/bud-dashboard/components/error'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -12,7 +14,6 @@ import {Box, Spacer, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {platform} from 'node:os'
 
 import {WinError} from './WinError.js'
 

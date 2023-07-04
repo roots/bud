@@ -1,3 +1,5 @@
+import {join} from 'node:path'
+
 import {type Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -6,7 +8,6 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import merge from '@roots/bud-support/lodash/merge'
-import {join} from 'node:path'
 
 import {BudJSCApi, type BudJSCPublicInterface} from './jsc.js'
 import {BudSWCApi, type BudSWCPublicInterface} from './options.js'

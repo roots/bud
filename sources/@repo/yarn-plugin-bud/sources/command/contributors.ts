@@ -12,21 +12,16 @@ export class Contributors extends Command {
   }
 
   public async execute() {
-    try {
-      await this.promise(
-        `Updating contributors `,
-        `Contributors updated`,
-        `Failed to update contributors`,
-        this.cli.run([
-          `workspace`,
-          `@repo/markdown-kit`,
-          `exec`,
-          `node`,
-          `contributors/index.js`,
-        ]),
-      )
-    } catch (e) {
-      throw e
-    }
+    await this.cli
+      .run([
+        `workspace`,
+        `@repo/markdown-kit`,
+        `exec`,
+        `node`,
+        `contributors/index.js`,
+      ])
+      .catch(error => {
+        throw error
+      })
   }
 }

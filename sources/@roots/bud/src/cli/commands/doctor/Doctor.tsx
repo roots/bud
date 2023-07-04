@@ -1,8 +1,9 @@
+import {platform} from 'node:os'
+
 import {Error} from '@roots/bud-dashboard/components/error'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
-import {platform} from 'node:os'
 
 export const Doctor = ({name, timings}) => {
   return (

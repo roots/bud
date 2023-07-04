@@ -4,8 +4,9 @@ import type {
 } from '@roots/wordpress-theme-json-webpack-plugin'
 import type {Compiler, WebpackPluginInstance} from 'webpack'
 
-import omit from 'lodash/omit.js'
 import {relative} from 'node:path'
+
+import omit from 'lodash/omit.js'
 import {AsyncSeriesWaterfallHook, SyncWaterfallHook} from 'tapable'
 import Webpack from 'webpack'
 

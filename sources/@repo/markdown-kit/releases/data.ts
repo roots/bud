@@ -1,22 +1,22 @@
 import {Octokit} from 'octokit'
 
 interface ghRelease {
-  published_at: string
-  tag_name: string
   author: {
-    html_url: string
     avatar_url: string
+    html_url: string
     login: string
   }
   body: string
+  published_at: string
+  tag_name: string
 }
 
 interface release extends ghRelease {
+  intro: string
   major: number
   minor: number
   patch: number
   semver: string
-  intro: string
   tags: string
 }
 
@@ -59,13 +59,13 @@ const parse = (release: ghRelease): release => {
 
   return {
     ...release,
+    body: release.body.split(`\n`).slice(1).join(`\n`).trim(),
+    intro: release.body.split(`\n`).shift().trim().trim(),
     major: parseVersion(major),
     minor: parseVersion(minor),
     patch: parseVersion(patch),
     semver,
     tags: `[release, ${major}, ${major}.${minor}]`,
-    intro: release.body.split(`\n`).shift().trim().trim(),
-    body: release.body.split(`\n`).slice(1).join(`\n`).trim(),
   }
 }
 

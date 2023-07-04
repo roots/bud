@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Watcher as BudWatcher} from '@roots/bud-framework/services/server'
+
 import type {FSWatcher} from 'node:fs'
 
 import * as chokidar from '@roots/bud-support/chokidar'

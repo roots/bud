@@ -5,9 +5,10 @@ import type {
   WebpackPluginInstance,
 } from '@roots/bud-support/webpack'
 
+import {urlToHttpOptions} from 'node:url'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
-import {urlToHttpOptions} from 'node:url'
 
 /**
  * Acorn adapter

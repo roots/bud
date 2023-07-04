@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Compiler as BudCompiler} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 import type {
   MultiCompiler,
   MultiStats,
@@ -13,6 +13,10 @@ import type {
   SourceFile,
 } from '@roots/bud-support/open'
 
+import {cpus} from 'node:os'
+import process from 'node:process'
+import {pathToFileURL} from 'node:url'
+
 import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -21,9 +25,6 @@ import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import webpack from '@roots/bud-support/webpack'
-import {cpus} from 'node:os'
-import process from 'node:process'
-import {pathToFileURL} from 'node:url'
 
 /**
  * {@link BudCompiler} implementation

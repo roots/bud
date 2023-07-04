@@ -2,8 +2,8 @@
   "compilerOptions": {
     "experimentalDecorators": true,
     "module": "commonjs",
-    "target": "es2020",
-    "lib": ["es2020"]
+    "target": "es2021",
+    "lib": ["es2021"]
   },
   "include": ["sources/**/*.ts"]
 }

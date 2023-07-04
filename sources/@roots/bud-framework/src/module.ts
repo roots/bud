@@ -1,11 +1,12 @@
+import {join, normalize, relative} from 'node:path'
+import {fileURLToPath, pathToFileURL} from 'node:url'
+
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ModuleError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import {paths} from '@roots/bud-support/utilities/paths'
-import {join, normalize, relative} from 'node:path'
-import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import {type Bud} from './index.js'
 import {Service} from './service.js'

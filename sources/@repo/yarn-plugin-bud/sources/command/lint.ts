@@ -33,26 +33,14 @@ export class Lint extends Command {
           `--no-error-on-unmatched-pattern`,
           `--fix`,
         ])
-        .catch(error => {
-          throw error
-        })
-        .then(result => {
-          if (result !== 0) throw new Error(`Eslint failed`)
-        }),
-    )
+        .then(this.throwIfError)
+        .catch(this.catch),
 
-    this.promised.push(
       this.cli
         .run([`constraints`])
-        .catch(error => {
-          throw error
-        })
-        .then(result => {
-          if (result !== 0) throw new Error(`Constraints failed`)
-        }),
-    )
+        .then(this.throwIfError)
+        .catch(this.catch),
 
-    this.promised.push(
       this.cli
         .run([
           `syncpack`,
@@ -60,15 +48,9 @@ export class Lint extends Command {
           `--config`,
           path(`config/syncpack.config.cjs`),
         ])
-        .catch(error => {
-          throw error
-        })
-        .then(result => {
-          if (result !== 0) throw new Error(`Syncpack failed`)
-        }),
-    )
+        .then(this.throwIfError)
+        .catch(this.catch),
 
-    this.promised.push(
       this.cli
         .run([
           `prettier`,
@@ -79,34 +61,17 @@ export class Lint extends Command {
           `--ignore-unknown`,
           `--no-error-on-unmatched-pattern`,
         ])
-        .catch(error => {
-          throw error
-        })
-        .then(result => {
-          if (result !== 0) throw new Error(`Prettier failed`)
-        }),
-    )
+        .then(this.throwIfError)
+        .catch(this.catch),
 
-    this.promised.push(
-      ...dirs.map(dir =>
+      ...dirs.flatMap(dir =>
         this.cli
           .run([`package-check`, `--cwd`, `${dir}`])
-          .catch(error => {
-            throw error
-          })
-          .then(result => {
-            if (result !== 0) throw new Error(`Package check failed`)
-          }),
+          .then(this.throwIfError)
+          .catch(this.catch),
       ),
     )
 
-    await this.promise(
-      `Linting source files`,
-      `All source files linted successfully`,
-      `Linting failed`,
-      Promise.all(this.promised),
-    ).catch(error => {
-      throw error
-    })
+    await Promise.all(this.promised)
   }
 }

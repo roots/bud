@@ -3,6 +3,9 @@
   "private": true,
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
+  "engines": {
+    "node": "18.12.1"
+  },
   "devDependencies": {
     "@types/lodash": "4.14.195",
     "@types/node": "18.16.18",
@@ -11,17 +14,16 @@
   },
   "dependencies": {
     "@repo/constants": "workspace:*",
-    "@yarnpkg/cli": "4.0.0-rc.46",
-    "@yarnpkg/core": "4.0.0-rc.46",
+    "@yarnpkg/cli": "4.0.0-rc.48",
+    "@yarnpkg/core": "4.0.0-rc.48",
     "@yarnpkg/shell": "4.0.0-rc.48",
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.0",
     "lodash": "4.17.21",
-    "ora": "6.3.1",
     "semver": "7.5.3",
     "tslib": "2.6.0",
-    "typescript": "5.1.5"
+    "typescript": "5.1.6"
   },
   "scripts": {
     "build": "builder build plugin"

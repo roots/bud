@@ -1,8 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Optimization} from '@roots/bud-framework/config'
 
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {join, sep} from 'node:path'
+
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export type Parameters = [
   (

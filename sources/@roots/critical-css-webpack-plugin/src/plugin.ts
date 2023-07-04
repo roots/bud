@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
+import {join} from 'node:path'
+
 import * as critical from 'critical'
 import {bind} from 'helpful-decorators'
-import {join} from 'node:path'
 import vinyl from 'vinyl'
 import Webpack from 'webpack'
 

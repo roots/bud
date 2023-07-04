@@ -105,6 +105,33 @@ module.exports = {
     [`n/shebang`]: OFF,
     [`no-console`]: ERROR,
     [`no-extra-semi`]: OFF,
+    [`perfectionist/sort-imports`]: [
+      ERROR,
+      {
+        [`read-tsconfig`]: false,
+        'custom-groups': {
+          type: {
+            [`node`]: [`node:*`],
+          },
+          value: {
+            [`node`]: [`node:*`],
+          },
+        },
+        groups: [
+          [`type`],
+          [`node`, `builtin`],
+          `external`,
+          `internal-type`,
+          `internal`,
+          [`parent-type`, `sibling-type`, `index-type`],
+          [`parent`, `sibling`, `index`],
+          `object`,
+          `unknown`,
+        ],
+        order: `asc`,
+        type: `alphabetical`,
+      },
+    ],
     [`react-hooks/exhaustive-deps`]: WARN,
     [`react-hooks/rules-of-hooks`]: ERROR,
     [`react/prop-types`]: OFF,

@@ -15,53 +15,71 @@ export class Docs extends Command {
   }
 
   public async execute() {
-    try {
-      await this.cli.run([`@bud`, `build`])
-
-      await this.promise(
-        `Building @repo/markdown-kit`,
-        `Built @repo/markdown-kit`,
-        `Failed to build @repo/markdown-kit`,
-        this.cli.run([`workspace`, `@repo/markdown-kit`, `run`, `build`]),
+    await this.cli
+      .run([`@bud`, `build`])
+      .then(
+        res =>
+          res !== 0 &&
+          this.catch(
+            new Error(`\`@bud build\` returned error code ${res}`),
+          ),
       )
+      .catch(this.catch)
 
-      await this.promise(
-        `Updating README.md and co-located documentation`,
-        `Updated README.md and co-located documentation`,
-        `Failed to update README.md and co-located documentation`,
-        Promise.all([
-          this.cli.run([
-            `workspace`,
-            `@repo/markdown-kit`,
-            `exec`,
-            `node`,
-            `compiled/cli-examples/index.js`,
-          ]),
-          this.cli.run([
-            `workspace`,
-            `@repo/markdown-kit`,
-            `exec`,
-            `node`,
-            `compiled/releases/index.js`,
-          ]),
-          this.cli.run([
-            `workspace`,
-            `@repo/markdown-kit`,
-            `exec`,
-            `node`,
-            `compiled/readme/index.js`,
-          ]),
-        ]),
+    await this.cli
+      .run([`workspace`, `@repo/markdown-kit`, `run`, `build`])
+      .then(
+        res =>
+          res !== 0 &&
+          this.catch(
+            new Error(
+              `\`workspace @repo/markdown-kit run build\` returned error code ${res}`,
+            ),
+          ),
       )
+      .catch(this.catch)
 
-      await this.promise(
-        `Building docs`,
-        `Built docs`,
-        `Failed to build docs`,
-        this.cli.run([`@bud`, `docusaurus`, `build`]),
+    await Promise.all([
+      this.cli
+        .run([
+          `workspace`,
+          `@repo/markdown-kit`,
+          `exec`,
+          `node`,
+          `compiled/cli-examples/index.js`,
+        ])
+        .catch(this.catch),
+      this.cli
+        .run([
+          `workspace`,
+          `@repo/markdown-kit`,
+          `exec`,
+          `node`,
+          `compiled/releases/index.js`,
+        ])
+        .catch(this.catch),
+      this.cli
+        .run([
+          `workspace`,
+          `@repo/markdown-kit`,
+          `exec`,
+          `node`,
+          `compiled/readme/index.js`,
+        ])
+        .catch(this.catch),
+    ])
+
+    await this.cli
+      .run([`@bud`, `docusaurus`, `build`])
+      .then(
+        res =>
+          res !== 0 &&
+          this.catch(
+            new Error(
+              `\`@bud docusaurus build\` returned error code ${res}`,
+            ),
+          ),
       )
-    } catch (error) {
-      throw error
-    }
+      .catch(this.catch)
   }
 }

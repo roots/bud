@@ -1,6 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options} from '@roots/bud-support/html-webpack-plugin'
 
+import {dirname, resolve} from 'node:path'
+import {fileURLToPath} from 'node:url'
+
 import {
   type ApplyPlugin,
   DynamicOption,
@@ -11,8 +14,6 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import {dirname, resolve} from 'node:path'
-import {fileURLToPath} from 'node:url'
 
 /**
  * HTML Webpack plugin configuration

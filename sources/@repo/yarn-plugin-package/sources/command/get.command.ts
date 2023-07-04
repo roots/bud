@@ -1,7 +1,8 @@
+import {join} from 'path'
+
 import {CommandClass, Option} from 'clipanion'
 import * as fs from 'fs-jetpack'
 import {get, isString} from 'lodash-es'
-import {join} from 'path'
 
 import {Command} from './base.command'
 
