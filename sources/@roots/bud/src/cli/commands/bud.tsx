@@ -269,7 +269,7 @@ export default class BudCommand extends Command<CLIContext> {
     }
 
     if (this.bud?.dashboard?.instance) {
-      this.bud.dashboard.render({error})
+      this.bud.dashboard.render(error)
 
       if (this.bud.isProduction) {
         const unmountDashboard = async () =>

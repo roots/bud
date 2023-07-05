@@ -49,7 +49,13 @@
 
 ## Getting started
 
-Check out the [Getting Started guide](https://bud.js.org/guides/getting-started). There are many example [implementations available in the /examples directory of this repo](https://github.com/roots/bud/tree/master/examples).
+Quickly scaffold a new project with `create-bud-app`:
+
+> npx create-bud-app
+
+If you want to add bud.js to an existing project or want to further customize the scaffolded app check out the [Getting Started guide](https://bud.js.org/guides/getting-started).
+
+There are [many example implementations available](https://github.com/roots/bud/tree/master/examples).
 
 ## Modules
 
@@ -89,7 +95,6 @@ Check out the [Getting Started guide](https://bud.js.org/guides/getting-started)
 | [**@roots/bud-vue**](https://github.com/roots/bud/tree/main/sources/@roots/bud-vue)                                               | [📚 Usage](https://bud.js.org/extensions/bud-vue/)                        | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
 | [**@roots/bud-wordpress-dependencies**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-dependencies)         | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-dependencies/)     | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/bud-wordpress-externals**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-externals)               | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-externals/)        | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
-| [**@roots/bud-wordpress-manifests**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-manifests)               | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-manifests/)        | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/bud-wordpress-theme-json**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-theme-json)             | [📚 Usage](https://bud.js.org/extensions/bud-wordpress-theme-json/)       | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-theme-json.svg?color=%23525ddc&style=flat-square)   |
 
 Have you produced a bud.js extension and want to share it here? Please, create an issue sharing information about your project.
@@ -110,11 +115,11 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 | [**@roots/entrypoints-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/entrypoints-webpack-plugin)                       | ![npm](https://img.shields.io/npm/v/@roots/entrypoints-webpack-plugin.svg?color=%23525ddc&style=flat-square)            |
 | [**@roots/eslint-config**](https://github.com/roots/bud/tree/main/sources/@roots/eslint-config)                                                 | ![npm](https://img.shields.io/npm/v/@roots/eslint-config.svg?color=%23525ddc&style=flat-square)                         |
 | [**@roots/filesystem**](https://github.com/roots/bud/tree/main/sources/@roots/filesystem)                                                       | ![npm](https://img.shields.io/npm/v/@roots/filesystem.svg?color=%23525ddc&style=flat-square)                            |
-| [**@roots/merged-manifest-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/merged-manifest-webpack-plugin)               | ![npm](https://img.shields.io/npm/v/@roots/merged-manifest-webpack-plugin.svg?color=%23525ddc&style=flat-square)        |
 | [**@roots/wordpress-dependencies-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-dependencies-webpack-plugin) | ![npm](https://img.shields.io/npm/v/@roots/wordpress-dependencies-webpack-plugin.svg?color=%23525ddc&style=flat-square) |
 | [**@roots/wordpress-externals-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-externals-webpack-plugin)       | ![npm](https://img.shields.io/npm/v/@roots/wordpress-externals-webpack-plugin.svg?color=%23525ddc&style=flat-square)    |
 | [**@roots/wordpress-hmr**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-hmr)                                                 | ![npm](https://img.shields.io/npm/v/@roots/wordpress-hmr.svg?color=%23525ddc&style=flat-square)                         |
 | [**@roots/wordpress-theme-json-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin)     | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin.svg?color=%23525ddc&style=flat-square)   |
+| [**@roots/wordpress-transforms**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-transforms)                                   | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms.svg?color=%23525ddc&style=flat-square)                  |
 
 ## Contributing
 

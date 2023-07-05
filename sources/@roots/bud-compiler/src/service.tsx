@@ -77,6 +77,7 @@ export class Compiler extends Service implements BudCompiler {
     })
 
     this.logger.timeEnd(`initialize`)
+    this.app.dashboard.updateStatus(`compiling`)
 
     try {
       this.instance = this.implementation(this.config)
@@ -131,7 +132,7 @@ export class Compiler extends Service implements BudCompiler {
 
     this.compilationStats = stats.toJson(statsOptions)
 
-    this.app.dashboard.update(this.compilationStats)
+    this.app.dashboard.updateStats(this.compilationStats)
 
     if (stats.hasErrors()) {
       process.exitCode = 1

@@ -160,7 +160,8 @@ export class FS extends Filesystem implements Contract {
       destination ? join(destination, path) : path
 
     this.app.after(async () => {
-      this.app.dashboard.render(`Deploying files to S3`)
+      this.app.dashboard.updateStatus(`Deploying files to S3`)
+
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {

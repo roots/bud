@@ -1,4 +1,6 @@
 /* eslint-disable n/no-process-env */
+import {join} from 'path'
+
 import {Octokit} from '@octokit/core'
 import {paginateRest} from '@octokit/plugin-paginate-rest'
 import {paths} from '@repo/constants'
@@ -6,7 +8,6 @@ import {json, yml} from '@roots/bud-support/filesystem'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import sortBy from '@roots/bud-support/lodash/sortBy'
 import fs from 'fs-jetpack'
-import {join} from 'path'
 
 import ignoredCommits from './ignored_sha.js'
 

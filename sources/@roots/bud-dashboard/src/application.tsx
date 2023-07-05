@@ -64,7 +64,7 @@ export const Application = ({
 
   return (
     <Box flexDirection="column" gap={1} marginY={1} width={stdout.columns}>
-      {status && (
+      {!compilations?.length && status && (
         <Text dimColor wrap="truncate-end">
           <Spinner type="simpleDots" />
           {` `}

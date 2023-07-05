@@ -12,7 +12,6 @@ import type {
   Server,
   Service,
 } from '@roots/bud-framework'
-import type {Console} from '@roots/bud-framework/console'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {InputError} from '@roots/bud-support/errors'
@@ -49,8 +48,6 @@ export class Bud {
   public declare close: typeof methods.close
 
   public declare compiler: Service & Compiler
-
-  public declare console: Console
 
   public declare container: typeof methods.container
 

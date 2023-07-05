@@ -92,7 +92,7 @@ export class Server extends Service implements BudServer {
     return this.app.hooks.filter(`dev.middleware.enabled`, [])?.reduce(
       (enabled, key) => ({
         ...enabled,
-        [key]: this.availableMiddleware[key],
+        [key]: this.availableMiddleware?.[key],
       }),
       {},
     )
