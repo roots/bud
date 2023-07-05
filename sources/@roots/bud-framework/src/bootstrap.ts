@@ -164,6 +164,23 @@ export const bootstrap = async function (this: Bud) {
 
   this.hooks
     .fromMap({
+      'location.@dist':
+        isString(this.context.output) && this.context.output !== ``
+          ? this.context.output
+          : `dist`,
+      'location.@modules': isString(this.context.modules)
+        ? this.context.modules
+        : `node_modules`,
+      'location.@os-cache': this.context.paths[`os-cache`],
+      'location.@os-config': this.context.paths[`os-config`],
+      'location.@os-data': this.context.paths[`os-data`],
+      'location.@os-log': this.context.paths[`os-log`],
+      'location.@os-temp': this.context.paths[`os-temp`],
+      'location.@src':
+        isString(this.context.input) && this.context.input !== ``
+          ? this.context.input
+          : `src`,
+      'location.@storage': this.context.paths.storage,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.csv': /\.(csv|tsv)$/,
@@ -184,23 +201,6 @@ export const bootstrap = async function (this: Bud) {
       'pattern.webp': /\.webp$/,
       'pattern.xml': /\.xml$/,
       'pattern.yml': /\.ya?ml$/,
-    })
-    .hooks.fromMap({
-      'location.@dist': isString(this.context.output)
-        ? this.context.output
-        : `dist`,
-      'location.@modules': isString(this.context.modules)
-        ? this.context.modules
-        : `node_modules`,
-      'location.@os-cache': this.context.paths[`os-cache`],
-      'location.@os-config': this.context.paths[`os-config`],
-      'location.@os-data': this.context.paths[`os-data`],
-      'location.@os-log': this.context.paths[`os-log`],
-      'location.@os-temp': this.context.paths[`os-temp`],
-      'location.@src': isString(this.context.input)
-        ? this.context.input
-        : `src`,
-      'location.@storage': this.context.paths.storage,
     })
     .when(this.isDevelopment, ({hooks}) =>
       hooks.fromMap({

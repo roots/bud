@@ -91,8 +91,7 @@ const makeCallback =
 
     bud.hooks
       .on(`location.${key}` as keyof SyncRegistry, normal)
-      .log(`${key} set to ${normal}`)
-      .info({key, normal, value})
+      .log(key, `set to`, normal)
 
     bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
       ...paths,

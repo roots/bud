@@ -40,6 +40,7 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async configAfter(bud: Bud) {
+    if (!this.isEnabled()) return
     if (bud.context.mode !== `development`) return
     if (bud.context.hot === false) return
 

@@ -141,6 +141,8 @@ export default class BudTsConfigValues
    * {@link Extension.configAfter}
    */
   public override async configAfter(bud: Bud) {
+    if (!this.isEnabled()) return
+
     // If a base directory has been defined in the tsconfig.json (either as rootDir or baseUrl),
     // it is set as the @src path in the bud.js application.
     if (this.derivedBaseDir) {
