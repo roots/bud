@@ -18,10 +18,6 @@ import patchConsole from '@roots/bud-support/patch-console'
 import {Application, TeletypeApplication} from './application.js'
 import {Console} from './console/index.js'
 
-/**
- * Received messages
- */
-
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
 /**
@@ -31,17 +27,17 @@ export class Dashboard extends Service implements BudDashboard {
   /**
    * {@link BudDashboard.formatStatsErrors}
    */
-  public formatStatsErrors: (errors: StatsError[]) => StatsError[]
+  public declare formatStatsErrors: (errors: StatsError[]) => StatsError[]
 
   /**
    * {@link BudDashboard.instance}
    */
-  public instance?: BudDashboard[`instance`]
+  public declare instance?: BudDashboard[`instance`]
 
   /**
    * {@link BudDashboard.messages}
    */
-  public messages: BudDashboard[`messages`]
+  public declare messages: BudDashboard[`messages`]
 
   /**
    * Restore console function
@@ -50,17 +46,17 @@ export class Dashboard extends Service implements BudDashboard {
    * Returned from {@link patchConsole} call. Restores
    * the normal {@link console} behavior.
    */
-  public restore?: () => any
+  public declare restore?: () => any
 
   /**
    * {@link BudDashboard.stats}
    */
-  public stats?: StatsCompilation
+  public declare stats?: StatsCompilation
 
   /**
    * {@link BudDashboard.status}
    */
-  public status?: false | string
+  public declare status?: false | string
 
   /**
    * {@link BudDashboard.stdout}
@@ -123,9 +119,11 @@ export class Dashboard extends Service implements BudDashboard {
 
     if (!this.patched())
       /**
-       * Patch the console if it has not been patched already
+       * Patch the console if it has not been patched already.
+       *
+       * {@link patchConsole} returns a restore function which can be called
+       * after the dashboard has been unmounted.
        */
-      // Patch the console, and assign the restore function
       this.restore = patchConsole((stream, data) => {
         if (!data || data === ``) return
 
@@ -310,8 +308,15 @@ export class Dashboard extends Service implements BudDashboard {
    */
   @bind
   public updateStatus(status: string): BudDashboard {
+    /**
+     * Update the status prop
+     */
     this.status = status
 
+    /**
+     * Don't render status updates for silent, dashboard-less, or CI
+     * environments.
+     */
     if (
       this.app.context.silent === true ||
       this.app.context.dashboard === false ||
@@ -320,6 +325,9 @@ export class Dashboard extends Service implements BudDashboard {
       return this
     }
 
+    /**
+     * Render or re-render the application
+     */
     this.render()
     return this
   }
