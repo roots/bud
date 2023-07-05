@@ -3,6 +3,11 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 
+interface PatchedMessage {
+  message: string
+  stream: 'stderr' | 'stdout'
+}
+
 /**
  * Dashboard service container
  */
@@ -13,11 +18,6 @@ export interface Dashboard {
   formatStatsErrors: (stats: StatsError[]) => StatsError[]
 
   /**
-   * IDs of rendered stats for debouncing
-   */
-  hashes: Set<string>
-
-  /**
    * CLI instance
    */
   instance?: {
@@ -26,14 +26,34 @@ export interface Dashboard {
   }
 
   /**
-   * Render stats fully
+   * Intercepted console messages
    */
-  render: any
+  messages: Array<PatchedMessage>
+
+  /**
+   * Returns true if console is patched
+   */
+  patched: () => boolean
+
+  /**
+   * Render function
+   */
+  render: (error?: Error) => void
 
   /**
    * Render string to stdout
    */
   renderString(stats: string): void
+
+  /**
+   * Received stats
+   */
+  stats?: StatsCompilation
+
+  /**
+   * Received status
+   */
+  status?: false | string
 
   /**
    * Stderr stream
@@ -51,7 +71,12 @@ export interface Dashboard {
   stdout: NodeJS.WriteStream & {fd: 1}
 
   /**
-   * Update the dashboard
+   * Update the stats
    */
-  update(stats: StatsCompilation): this
+  updateStats(stats?: StatsCompilation): Dashboard
+
+  /**
+   * Update the status message
+   */
+  updateStatus(status?: string): Dashboard
 }

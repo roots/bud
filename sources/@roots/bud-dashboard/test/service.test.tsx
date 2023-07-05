@@ -19,7 +19,7 @@ describe(`@roots/bud-dashboard`, () => {
   })
 
   it(`should return early from dashboard.update when there are no stats provided`, async () => {
-    dashboard.update(
+    dashboard.updateStats(
       // @ts-ignore
       undefined,
     )

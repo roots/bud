@@ -2,7 +2,7 @@ import {Bud} from '@roots/bud-framework'
 
 export interface after {
   (
-    callback: (app: Bud) => Promise<unknown>,
+    callback: ((app: Bud) => Promise<unknown>) | ((app: Bud) => unknown),
     errorHandler?: (error: Error) => unknown,
   ): Bud
 }
@@ -12,14 +12,16 @@ export interface after {
  */
 export const after: after = function (
   this: Bud,
-  fn: (app: Bud) => Promise<unknown>,
+  fn: ((app: Bud) => Promise<unknown>) | ((app: Bud) => unknown),
   errorHandler?: (error: Error) => unknown,
 ): Bud {
   this.hooks.action(`compiler.done`, async bud => {
-    await fn(bud).catch(error => {
+    try {
+      await Promise.resolve(fn(bud))
+    } catch (error) {
       if (!errorHandler) throw error
       errorHandler(error)
-    })
+    }
   })
 
   return this

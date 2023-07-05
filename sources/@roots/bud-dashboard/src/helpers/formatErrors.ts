@@ -1,9 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsError} from '@roots/bud-framework/config'
 
-export const makeErrorFormatter = (bud: Bud) => (errors: StatsError[]) =>
+export const makeErrorFormatter = (bud: Bud) => (errors?: StatsError[]) =>
   errors
-    .filter(filterInternalErrors)
+    ?.filter(filterInternalErrors)
     .map(prettifyErrors)
     .map(error => {
       const unhandledModule = `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`

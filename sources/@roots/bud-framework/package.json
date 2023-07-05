@@ -68,7 +68,6 @@
     "./service": "./lib/service.js",
     "./services": "./lib/services/index.js",
     "./services/api": "./lib/services/api.js",
-    "./console": "./lib/console.js",
     "./fs": "./lib/fs.js",
     "./notifier": "./lib/notifier/index.js",
     "./services/build/*": "./lib/services/build/*.js",
@@ -92,9 +91,6 @@
       ],
       "context": [
         "./lib/context.d.ts"
-      ],
-      "console": [
-        "./lib/console.d.ts"
       ],
       "fs": [
         "./lib/fs.d.ts"

@@ -9,8 +9,24 @@ import args from '@roots/bud-support/utilities/args'
 import Signale from 'signale'
 
 class Logger {
+  /**
+   * Enabled
+   */
+  public enabled: boolean = false
+
+  /**
+   * Logger instance
+   */
   public instance: Signale.Signale
 
+  /**
+   * Verbose
+   */
+  public verbose: boolean = false
+
+  /**
+   * Class constructor
+   */
   public constructor(public options: SignaleOptions) {
     if (args.log === false) this.options.disabled = true
     options.logLevel = args.verbose ? `info` : args.log ? `log` : `warn`
@@ -28,20 +44,21 @@ class Logger {
 
     this.instance = new Signale.Signale(this.options)
     this.instance.config({displayLabel: false})
-    if (args.silent && !args.log && !args.verbose) {
-      this.instance.disable()
-    }
+    if (args.verbose) this.verbose = true
+    if (args.log) this.enabled = true
+    if (args.silent) this.enabled = false
   }
 
   @bind
   public await(...messages: Array<unknown>) {
+    if (!this.enabled) return this
     this.instance.await(...messages)
     return this
   }
 
   @bind
   public debug(...messages: Array<unknown>) {
-    if (!(`verbose` in args)) return this
+    if (!this.verbose) return this
     this.instance.debug(...messages)
     return this
   }
@@ -54,13 +71,14 @@ class Logger {
 
   @bind
   public info(...messages: Array<unknown>) {
-    if (!(`verbose` in args)) return this
+    if (!this.verbose) return this
     this.instance.info(...messages)
     return this
   }
 
   @bind
   public log(...messages: Array<unknown>) {
+    if (!this.enabled) return this
     this.instance.log(...messages)
     return this
   }
@@ -75,18 +93,21 @@ class Logger {
   }
   @bind
   public success(...messages: Array<unknown>) {
+    if (!this.enabled) return this
     this.instance.success(...messages)
     return this
   }
 
   @bind
   public time(label: string = `default`) {
+    if (!this.verbose) return this
     this.instance.time(label)
     return this
   }
 
   @bind
   public timeEnd(label: string = `default`) {
+    if (!this.verbose) return this
     this.instance.timeEnd(label)
     return this
   }

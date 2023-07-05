@@ -2,7 +2,6 @@ import type {Bud} from '@roots/bud-framework'
 import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
 
 import {Hooks} from '../base/base.js'
 
@@ -21,18 +20,24 @@ export class EventHooks extends Hooks<EventsStore> {
     if (!(id in this.store) || !this.store[id].length) return this.app
 
     this.app.hooks.logger.time(id)
+    this.app.dashboard?.updateStatus(id)
 
     await Promise.all(
       this.store[id].map(async (action: any) => {
         await action(...value).catch((error: Error) => {
-          throw error instanceof BudError
-            ? error
-            : BudError.normalize(error)
+          throw error
         })
       }),
-    ).finally(() => {
-      this.app.hooks.logger.timeEnd(id)
-    })
+    )
+      .catch(error => {
+        this.app.hooks.logger.error(id)
+        this.app.dashboard?.render()
+        throw error
+      })
+      .finally(() => {
+        this.app.hooks.logger.timeEnd(id)
+        this.app.dashboard?.render()
+      })
 
     return this.app
   }
