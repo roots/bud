@@ -2,4 +2,4 @@ import './global.css'
 
 document.querySelector('#root')?.classList.add('init')
 
-module?.hot?.accept(console.error)
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)

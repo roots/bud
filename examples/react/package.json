@@ -1,5 +1,6 @@
 {
   "name": "@examples/react",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",
   "browserslist": [

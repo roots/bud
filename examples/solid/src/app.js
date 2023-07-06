@@ -14,4 +14,5 @@ const Counter = () => {
 
 render(() => <Counter />, document.getElementById('root'))
 
-module?.hot?.accept(err => console.error(err))
+if (import.meta.webpackHot)
+  import.meta.webpackHot.accept(err => console.error(err))

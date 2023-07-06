@@ -1,8 +1,9 @@
+import {join} from 'path'
+
 import {path} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
 import {execa} from 'execa'
 import fs from 'fs-jetpack'
-import {join} from 'path'
 
 interface Options {
   buildCommand?: [string, Array<string>?]
@@ -31,19 +32,22 @@ class Project {
   public async build() {
     const build = this.options.buildCommand ?? [
       `node`,
-      [this.path(`node_modules`, `.bin`, `bud`), `build`],
+      [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
     ]
 
     const {stderr, stdout} = await execa(...build, {cwd: this.directory})
-    stdout && (await fs.writeAsync(this.path(`build.stdout.log`), stdout))
-    stderr && (await fs.writeAsync(this.path(`build.stderr.log`), stderr))
+    stdout &&
+      (await fs.writeAsync(this.getPath(`build.stdout.log`), stdout))
+    stderr &&
+      (await fs.writeAsync(this.getPath(`build.stderr.log`), stderr))
 
     this.entrypoints = await fs.readAsync(
-      this.path(this.options.dist ?? `dist`, `entrypoints.json`),
+      this.getPath(this.options.dist ?? `dist`, `entrypoints.json`),
       `json`,
     )
+
     this.manifest = await fs.readAsync(
-      this.path(this.options.dist ?? `dist`, `manifest.json`),
+      this.getPath(this.options.dist ?? `dist`, `manifest.json`),
       `json`,
     )
 
@@ -51,7 +55,7 @@ class Project {
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
           this.assets[name] = await fs.readAsync(
-            this.path(this.options.dist ?? `dist`, path),
+            this.getPath(this.options.dist ?? `dist`, path),
             `utf8`,
           )
         },
@@ -67,6 +71,31 @@ class Project {
       `fixtures`,
       this.options.label.replace(`@examples/`, ``),
     )
+  }
+
+  @bind
+  public getAsset(name: string) {
+    return this.assets[name]
+  }
+
+  @bind
+  public getEntrypoint(name: string) {
+    return this.entrypoints[name]
+  }
+
+  @bind
+  public getPath(...file: Array<string>) {
+    return join(this.directory, ...file)
+  }
+
+  @bind
+  public hasAsset(name: string) {
+    return name in this.assets
+  }
+
+  @bind
+  public hasEntrypoint(name: string) {
+    return name in this.entrypoints
   }
 
   @bind
@@ -86,7 +115,10 @@ class Project {
       })
 
     await fs
-      .writeAsync(this.path(`.npmrc`), `registry=http://localhost:4873/`)
+      .writeAsync(
+        this.getPath(`.npmrc`),
+        `registry=http://localhost:4873/`,
+      )
       .catch(error => {
         throw error
       })
@@ -98,28 +130,26 @@ class Project {
       .then(async result => {
         if (result?.stdout)
           await fs.writeAsync(
-            this.path(`install.stdout.log`),
+            this.getPath(`install.stdout.log`),
             result.stdout,
           )
         if (result?.stderr)
           await fs.writeAsync(
-            this.path(`install.stderr.log`),
+            this.getPath(`install.stderr.log`),
             result.stderr,
           )
 
         if (result?.exitCode !== 0) throw new Error(`npm install failed`)
       })
       .catch(async error => {
-        await fs.writeAsync(this.path(`install.error.log`), error.stderr)
+        await fs.writeAsync(
+          this.getPath(`install.error.log`),
+          error.stderr,
+        )
         throw error
       })
 
     return this
-  }
-
-  @bind
-  public path(...file: Array<string>) {
-    return join(this.directory, ...file)
   }
 }
 

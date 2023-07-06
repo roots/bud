@@ -1,0 +1,15 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "types": [
+      "@roots/bud",
+      "@roots/bud-postcss",
+      "@roots/bud-purgecss",
+      "node",
+      "webpack/module",
+    ]
+  },
+  "files": ["bud.config.js"],
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

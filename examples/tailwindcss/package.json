@@ -1,20 +1,13 @@
 {
   "name": "@examples/tailwindcss",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "bud": {
-    "extensions": {
-      "denylist": [
-        "@roots/bud-swc"
-      ]
-    }
-  },
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
     "@roots/bud-postcss": "latest",
     "@roots/bud-tailwindcss": "latest"
   }

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/babel > should compile js and css as expected 1`] = `
+exports[`examples/babel > should compile js as expected 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",

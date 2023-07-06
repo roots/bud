@@ -1,5 +1,6 @@
 {
   "name": "{{name}}",
+  "$schema": "https://bud.js.org/bud.package.json",
   "description": "{{description}}",
   "engines": {
     "node": ">=16"
@@ -15,7 +16,6 @@
   ],
   "scripts": {
     "build": "bud build production",
-    "dev": "bud build development",
-    "ci": "bud build --no-cache"
+    "dev": "bud build development"
   }
 }

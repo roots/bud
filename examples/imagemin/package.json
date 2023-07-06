@@ -1,15 +1,12 @@
 {
   "name": "@examples/imagemin",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-imagemin": "latest"
   }

@@ -1,11 +1,11 @@
-import type {TemplateDelegate} from './handlebars.js'
-
-import {Handlebars, handlebars} from './handlebars.js'
-
 import {path} from '@repo/constants'
 import fs from 'fs-jetpack'
 import {globby} from 'globby'
 import {format} from 'prettier'
+
+import type {TemplateDelegate} from './handlebars.js'
+
+import {handlebars, Handlebars} from './handlebars.js'
 
 const sources = await globby(
   path(`sources/@repo/markdown-kit/readme/templates/*.md`),
@@ -24,4 +24,4 @@ const templates: {
   }
 }, Promise.resolve({}))
 
-export {Handlebars, format, handlebars, sources, templates}
+export {format, handlebars, Handlebars, sources, templates}

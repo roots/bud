@@ -1,18 +1,11 @@
 {
   "name": "@examples/remote-sources",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
-  },
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-swc": "latest",

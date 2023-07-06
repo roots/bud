@@ -1,6 +1,7 @@
 {
   "name": "@tests/project",
   "private": true,
+  "$schema": "https://bud.js.org/bud.package.json",
   "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:*",

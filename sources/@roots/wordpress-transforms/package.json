@@ -5,7 +5,13 @@
   "engines": {
     "node": ">=16"
   },
-  "contributors": [],
+  "contributors": [
+    {
+      "email": "developers@tinypixel.dev",
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
   "license": "MIT",
   "funding": {
     "type": "github sponsors",
