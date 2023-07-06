@@ -119,30 +119,16 @@ export class EntrypointsWebpackPlugin {
               EntrypointsWebpackPlugin.getCompilationHooks(compilation)
             hooks.compilation.call(compilation)
 
-            const cache = compilation.getCache(this.constructor.name)
-            this.entrypoints = await cache.getPromise<Entrypoints>(
-              `entrypoints`,
-              null,
-            )
+            this.entrypoints = new Map()
 
-            if (!this.entrypoints) {
-              this.entrypoints = new Map()
+            for (const entry of compilation.entrypoints.values()) {
+              this.getChunkedFiles(entry.chunks).map(({file}) => {
+                const ident = entry.name
+                const path = this.options.publicPath.concat(file)
+                const type = path.split(`.`).pop()
 
-              for (const entry of compilation.entrypoints.values()) {
-                this.getChunkedFiles(entry.chunks).map(({file}) => {
-                  const ident = entry.name
-                  const path = this.options.publicPath.concat(file)
-                  const type = path.split(`.`).pop()
-
-                  this.addToManifest({ident, path, type})
-                })
-              }
-
-              await cache.storePromise(
-                `entrypoints`,
-                null,
-                this.entrypoints,
-              )
+                this.addToManifest({ident, path, type})
+              })
             }
 
             this.entrypoints = hooks.entrypoints.call(this.entrypoints)
