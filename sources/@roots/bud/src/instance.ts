@@ -18,4 +18,4 @@ const set = (bud: Bud) => {
   instance = bud
 }
 
-export {get, instance, set}
+export {get, instance as bud, instance, set}
