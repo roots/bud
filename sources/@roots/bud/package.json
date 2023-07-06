@@ -91,11 +91,23 @@
       "cli/flags": [
         "./lib/cli/flags/index.d.ts"
       ],
+      "cli/flags/*": [
+        "./lib/cli/flags/*.d.ts"
+      ],
+      "cli/helpers/*": [
+        "./lib/cli/helpers/*.d.ts"
+      ],
       "context": [
         "./lib/context/index.d.ts"
       ],
+      "context/*": [
+        "./lib/context/*.d.ts"
+      ],
       "factory": [
         "./lib/factory.d.ts"
+      ],
+      "instance": [
+        "./lib/instance.d.ts"
       ],
       "services/*": [
         "./lib/services/*.d.ts"
