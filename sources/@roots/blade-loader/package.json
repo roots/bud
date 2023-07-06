@@ -59,7 +59,7 @@
   "types": "./lib/plugin.d.ts",
   "main": "./lib/plugin.js",
   "devDependencies": {
-    "@babel/core": "7.22.5",
+    "@babel/core": "7.22.7",
     "@skypack/package-check": "0.2.2",
     "babel-loader": "9.1.2",
     "memfs": "3.5.3"

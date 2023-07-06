@@ -80,7 +80,7 @@
     "@types/react": "18.2.14"
   },
   "dependencies": {
-    "@babel/core": "7.22.5",
+    "@babel/core": "7.22.7",
     "@emotion/babel-plugin": "11.11.0",
     "@emotion/css": "11.11.2",
     "@emotion/react": "11.11.1",
