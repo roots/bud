@@ -8,9 +8,9 @@ describe(`examples/purgecss`, () => {
     await test.install()
     await test.build()
 
-    expect(test.assets[`app.css`].length).toBeGreaterThan(10)
-    expect(test.assets[`app.css`].includes(`@import`)).toBeFalsy()
-    expect(test.assets[`app.css`].includes(`h2`)).toBeTruthy()
-    expect(test.assets[`app.css`]).not.toMatch(/\.*h3.*/)
+    expect(test.assets[`main.css`].length).toBeGreaterThan(10)
+    expect(test.assets[`main.css`].includes(`@import`)).toBeFalsy()
+    expect(test.assets[`main.css`].includes(`h2`)).toBeTruthy()
+    expect(test.assets[`main.css`]).not.toMatch(/\.*h3.*/)
   })
 })

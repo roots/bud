@@ -1,18 +1,14 @@
 {
   "name": "@examples/node-api",
   "private": true,
-  "engines": {
-    "node": "18.12.1"
-  },
-  "packageManager": "npm@8.19.2",
+  "$schema": "https://bud.js.org/bud.package.json",
   "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
   "devDependencies": {
-    "@roots/browserslist-config": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "webpack-cli": "5.0.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ]
+  }
 }

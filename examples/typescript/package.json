@@ -1,13 +1,11 @@
 {
   "name": "@examples/typescript",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
-  "type": "module",
-  "scripts": {
-    "build": "yarn ts-bud build"
-  },
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",

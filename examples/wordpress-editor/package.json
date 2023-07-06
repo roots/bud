@@ -1,10 +1,8 @@
 {
   "name": "@examples/wordpress-editor",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
-  "packageManager": "npm@8.19.2",
-  "engines": {
-    "node": "18.12.1"
-  },
+  "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],

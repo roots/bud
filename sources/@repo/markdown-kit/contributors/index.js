@@ -80,14 +80,15 @@ async function getContributorsFromCommits(path) {
           )
         })
         .map(({author, commit}) => {
+          /* eslint-disable perfectionist/sort-objects */
           contributors[author.login] = {
             ...(contributors[author.login] ?? {}),
+            name: commit.author.name,
+            login: author.login,
             avatar: author.avatar_url,
+            url: author.html_url,
             contributions:
               (contributors[author.login]?.contributions ?? 0) + 1,
-            login: author.login,
-            name: commit.author.name,
-            url: author.html_url,
           }
 
           if (

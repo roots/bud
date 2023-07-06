@@ -1,16 +1,12 @@
 {
   "name": "@examples/stylelint",
   "private": true,
-  "packageManager": "npm@8.19.2",
   "type": "module",
-  "engines": {
-    "node": "18.12.1"
-  },
+  "$schema": "https://bud.js.org/bud.package.json",
   "browserslist": [
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/browserslist-config": "latest",
     "@roots/bud": "latest",
     "@roots/bud-stylelint": "latest",
     "@roots/stylelint-config": "latest"

@@ -1,12 +1,12 @@
-import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
-import globby from '@roots/bud-support/globby'
-
-import {templates} from './renderer/index.js'
+import type {GrayMatterFile} from 'gray-matter'
 
 import {path, projectConfig} from '@repo/constants'
-import type {GrayMatterFile} from 'gray-matter'
+import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
+import globby from '@roots/bud-support/globby'
 import matter from 'gray-matter'
 import {format} from 'prettier'
+
+import {templates} from './renderer/index.js'
 
 const fs = new Filesystem()
 

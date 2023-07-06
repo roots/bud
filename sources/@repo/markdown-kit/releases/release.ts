@@ -1,5 +1,6 @@
-import {paths} from '@repo/constants'
 import {join} from 'path'
+
+import {paths} from '@repo/constants'
 
 import type {release} from './data.js'
 

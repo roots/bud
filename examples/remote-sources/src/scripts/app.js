@@ -1,10 +1,3 @@
-const init = async () =>
-  window.requestAnimationFrame(async function ready() {
-    return document.body
-      ? await import('./components/main').then(({main}) => main())
-      : window.requestAnimationFrame(ready)
-  })
+await import('./components/main').then(({main}) => main())
 
-init()
-
-import.meta.webpackHot?.accept(console.error)
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)

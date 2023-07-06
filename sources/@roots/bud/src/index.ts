@@ -20,5 +20,5 @@
 /// <reference types="@roots/bud-server" />
 
 export {Bud} from '@roots/bud/bud'
-export * from '@roots/bud/factory'
-export * from '@roots/bud/instance'
+export {factory} from '@roots/bud/factory'
+export {get, instance as bud, set} from '@roots/bud/instance'
