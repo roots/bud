@@ -125,7 +125,8 @@ const navbar = {
     },
     {
       items: [
-        {label: `latest`, to: `/releases/tags/6-13`},
+        {label: `latest`, to: `/releases/tags/6-14`},
+        {label: `6.13`, to: `/releases/tags/6-13`},
         {label: `6.12`, to: `/releases/tags/6-12`},
         {label: `6.11`, to: `/releases/tags/6-11`},
         {label: `6.9`, to: `/releases/tags/6-9`},
