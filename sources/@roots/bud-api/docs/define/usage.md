@@ -16,7 +16,7 @@ Any instances of `APP_NAME` in your application code will be replaced with `My A
 console.log(APP_NAME)
 ```
 
-Replacements will also be made when compiling [html templates](/docs/bud.html).
+Replacements will also be made when compiling [html templates](/reference/bud.html).
 
 ```html title='public/index.html'
 <html>

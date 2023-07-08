@@ -56,7 +56,7 @@ export default async bud => {
 
 ## Globbing
 
-**bud.entry** can be used with [bud.glob](/docs/bud.glob) to find matching files.
+**bud.entry** can be used with [bud.glob](/reference/bud.glob) to find matching files.
 
 ```js title='bud.config.mjs'
 export default async bud => {

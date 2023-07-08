@@ -6,13 +6,14 @@ import stripAnsi from 'strip-ansi'
 const main = async () => {
   await Promise.all([
     generateMarkdown([`--help`]),
-    generateMarkdown([`dev`, `--help`]),
-    generateMarkdown([`doctor`, `--help`]),
-    generateMarkdown([`clean`, `--help`]),
     generateMarkdown([`build`, `--help`]),
     generateMarkdown([`build`, `production`, `--help`]),
     generateMarkdown([`build`, `development`, `--help`]),
+    generateMarkdown([`clean`, `--help`]),
+    generateMarkdown([`dev`, `--help`]),
+    generateMarkdown([`doctor`, `--help`]),
     generateMarkdown([`repl`, `--help`]),
+    generateMarkdown([`upgrade`, `--help`]),
     generateMarkdown([`view`, `--help`]),
   ])
 }

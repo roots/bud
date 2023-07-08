@@ -21,11 +21,11 @@ const footer = {
       items: [
         {
           label: `Getting started`,
-          to: `/guides/getting-started/`,
+          to: `/learn/getting-started/`,
         },
         {
-          label: `Configuration`,
-          to: `/docs/config/`,
+          label: `Reference`,
+          to: `/reference/bud.alias`,
         },
         {
           label: `Extensions`,
@@ -106,14 +106,14 @@ const navbar = {
   items: [
     {
       docId: `index`,
-      docsPluginId: `guides`,
-      label: `Guides`,
+      docsPluginId: `learn`,
+      label: `Learn`,
       position: `left`,
       type: `doc`,
     },
     {
-      href: `/docs/config`,
-      label: `Docs`,
+      href: `/reference/bud.assets`,
+      label: `Reference`,
       position: `left`,
     },
     {
@@ -139,12 +139,6 @@ const navbar = {
       label: `Releases`,
       position: `left`,
       to: `/releases`,
-    },
-    {
-      className: `header-github-link`,
-      href: `/dev`,
-      label: `Dev`,
-      position: `right`,
     },
     {
       className: `header-discourse-link`,
@@ -176,7 +170,6 @@ const prism = {
 }
 
 module.exports = {
-  announcementBar,
   footer,
   metadata,
   navbar,

@@ -56,7 +56,7 @@ function BlogTagsPostsPageContent({items, listMetadata, sidebar, tag}) {
     <Layout>
       <header className="margin-bottom--xl">
         {tag.label?.match(/\d*.\d*/) ? (
-          <Hero subtitle="Release notes" title={`bud ${tag.label}`} />
+          <Hero title={`v${tag.label}`} />
         ) : (
           <h1>{title}</h1>
         )}

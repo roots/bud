@@ -1,0 +1,143 @@
+---
+title: Extensions
+description: Interacting with extensions
+slug: extensions
+sidebar_label: Extensions
+---
+
+## Register an extension
+
+Extensions included in `package.json` are automatically instantiated. You can also add extensions using [bud.use](/reference/bud.use).
+
+However, you can choose to use the bud.js extensions API directly.
+
+You can add an imported module:
+
+```js title="bud.config.js"
+import BudMDX from '@roots/bud-mdx'
+export default async bud => {
+  await bud.extensions.add(BudMDX)
+}
+```
+
+You can add an extension from a resolvable signifier (must be the `default` export):
+
+```js title="bud.config.js"
+export default async bud => {
+  await bud.extensions.add(`@roots/bud-mdx`)
+}
+```
+
+You can add an extension from an inline definition:
+
+```js title="bud.config.js"
+export default async bud => {
+  await bud.extensions.add({
+    label: 'my-extension',
+    register: bud => {
+      bud.hooks.on('build.experiments', experiments => ({
+        ...(experiments ?? {}),
+        lazy: true,
+      }))
+    },
+  })
+}
+```
+
+Or, any combination of these in an `Array`.
+
+**bud.js extensions are a superset of Webpack plugins**.
+This means that you can add basically any Webpack plugin as demonstrated above.
+
+```js title="bud.config.js"
+import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
+export default async bud => {
+  await bud.extensions.add(new BrowserSyncWebpackPlugin({...options}))
+}
+```
+
+## Get an extension reference
+
+You may get an extension instance with `bud.extensions.get`:
+
+```js title="bud.config.js"
+bud.extensions.get('@roots/bud-extensions/copy-webpack-plugin')
+```
+
+## Enable a registered extension
+
+Call `enable` to enable an extension:
+
+```js title="bud.config.js"
+bud.extensions.get('@roots/bud-extensions/webpack-clean-plugin').enable()
+```
+
+## Disable a registered extension
+
+Or `disable` to disable it:
+
+```js title="bud.config.js"
+bud.extensions.get('@roots/bud-extensions/webpack-clean-plugin').disable()
+```
+
+## Set options
+
+Call `setOptions` to set `options`:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('@roots/bud-extensions/copy-webpack-plugin')
+  .setOptions({
+    patterns: [{from: bud.path('@src/images')}],
+  })
+```
+
+`setOptions` also takes a callback which is passed the current options value:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('@roots/bud-extensions/copy-webpack-plugin')
+  .setOptions(options => ({
+    ...options,
+    patterns: [{from: bud.path('@src/images')}],
+  }))
+```
+
+## Set an option
+
+Call `set` if you only need to set a single option and don't want to have to handle
+merging existing options:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('@roots/bud-extensions/copy-webpack-plugin')
+  .set('patterns', [{from: bud.path('@src/images')}])
+```
+
+Like `setOptions`, you can also utilize a callback if you want to merge options on to what already is in place:
+
+```js title="bud.config.js"
+bud.extensions
+  .get('@roots/bud-extensions/copy-webpack-plugin')
+  .set('patterns', patterns => [
+    ...patterns,
+    {from: bud.path('@src/images')},
+  ])
+```
+
+## Built-in extensions
+
+| label                                                       | description                                                                                          | exposed |
+| ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- | ------- |
+| @roots/bud-extensions/cdn                                   | Adds remote import functionality                                                                     | bud.cdn |
+| @roots/bud-extensions/esm                                   | Adds ESM support functionality                                                                       | bud.esm |
+| @roots/bud-extensions/clean-webpack-plugin                  | Cleans output directory on build                                                                     |         |
+| @roots/bud-extensions/copy-webpack-plugin                   | Copies assets (used by [bud.assets](/reference/bud.assets))                                          |         |
+| @roots/bud-extensions/fix-style-only-entrypoints            | Removes JS output from entrypoints which only contain CSS                                            |         |
+| @roots/bud-extensions/html-webpack-plugin                   | HTML functionality (used by [bud.html](/reference/bud.html))                                         |         |
+| @roots/bud-extensions/interpolate-html-webpack-plugin       | Adds `create-react-app`-like template variable support for HTML files                                |         |
+| @roots/bud-extensions/mini-css-extract-plugin               | Optimized CSS loading                                                                                |         |
+| @roots/bud-extensions/webpack-define-plugin                 | Defines variables which can be used in the application (used by [bud.define](/reference/bud.define)) |         |
+| @roots/bud-extensions/webpack-hot-module-replacement-plugin | Adds HMR support                                                                                     |         |
+| @roots/bud-extensions/webpack-manifest-plugin               | Emits `manifest.json`                                                                                |         |
+| @roots/bud-extensions/webpack-provide-plugin                | Provides import(s) globally to the application                                                       |         |

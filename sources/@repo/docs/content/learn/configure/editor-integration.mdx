@@ -1,0 +1,43 @@
+---
+title: IDE integration
+sidebar_label: IDE integration
+---
+
+You can enhance your experience in vscode and other editors using a `jsconfig.json` or `tsconfig.json` file.
+
+There are base configs provided by **@roots/bud** for you to extend:
+
+- [@roots/bud/config/jsconfig.json](https://github.com/roots/bud/tree/main/sources/@roots/bud/config/jsconfig.json)
+- [@roots/bud/config/tsconfig.json](https://github.com/roots/bud/tree/main/sources/@roots/bud/config/tsconfig.json)
+
+### Example
+
+```json title=tsconfig.json
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-postcss", "@roots/bud-swc"]
+  },
+  "files": ["bud.config.js"],
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
+}
+```
+
+### Notes
+
+- Add any extensions you are using to `compilerOptions.types` so that you're IDE can will pick up on the types.
+- Add any [aliases](/reference/bud.alias) you are using to `compilerOptions.paths` so that your IDE can resolve them.
+- Make sure `bud.config.js` is included in the `include` array so that your IDE will apply discovered types to the config file.
+
+## Intellisense for `bud.config.js`
+
+Add the following tsdoc comment directly above the exported config function:
+
+```js title=bud.config.js
+/** @param {import('@roots/bud').Bud} bud */
+export default async bud => {}
+```

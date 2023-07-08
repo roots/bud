@@ -1,57 +1,26 @@
+[dark-mode] .heroBanner {
+  color: white;
+}
+
 .heroBanner {
-  padding: 6rem 3rem;
+  padding: 8rem 3rem 6rem 3rem;
   text-align: center;
   position: relative;
   overflow: hidden;
-  color: white;
-  background: linear-gradient(217deg, rgb(86, 98, 218), rgb(71, 83, 220));
+}
+
+.heroBanner > div {
+  max-width: 900px;
 }
 
 @media screen and (max-width: 966px) {
   .heroBanner {
     padding: 3rem 2rem;
-    background: linear-gradient(
-      217deg,
-      rgb(86, 98, 218),
-      rgb(71, 83, 220)
-    );
   }
-}
-
-.section {
-  padding: 72px 0;
 }
 
 .sectionAlt {
   background-color: var(--ifm-color-emphasis-100);
-}
-
-.sectionInner {
-  margin: 0 auto;
-}
-
-.featureImage {
-  width: auto;
-  max-height: 128px;
-  margin: 0 auto;
-}
-
-.featureHeading {
-  font-size: var(--ifm-h1-font-size);
-  padding-top: 1rem;
-}
-
-.announcement {
-  font-weight: bold;
-  font-size: 24px;
-  padding: 48px;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.announcementInner {
-  margin: 0 auto;
-  max-width: 768px;
 }
 
 .banner {

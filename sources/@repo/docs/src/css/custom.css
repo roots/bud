@@ -21,12 +21,20 @@
   --icon-cog: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='stroke: rgb(82, 93, 220)' viewBox='0 0 24 24' class='w-6 h-6' fill='none' stroke-width='2'%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' /%3e%3cpath stroke-linecap='round' stroke-linejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' /%3e%3c/svg%3e");
 }
 
+.navbar {
+  box-shadow: none;
+}
+
 article[itemprop='blogPost'] header > h1[itemprop='headline'] {
   font-size: 2.5em !important;
 }
 
 .markdown > h2 {
   --ifm-h2-font-size: 1.8rem;
+}
+
+.theme-doc-sidebar-container {
+  border-right: none !important;
 }
 
 .alert--info {
@@ -38,30 +46,9 @@ article[itemprop='blogPost'] header > h1[itemprop='headline'] {
   --ifm-link-color: rgba(82, 93, 220, 0.8);
 }
 
-.announcement .navbar__items--right > :last-child {
-  padding-left: var(--ifm-navbar-item-padding-horizontal);
-}
-
-.card {
-  border: 1px solid rgba(206, 209, 247, 0.4);
-  box-shadow: none;
-}
-
-.docusaurus-highlight-code-line {
-  background: rgba(140, 146, 220, 0.3);
-  display: block;
-  margin: 0 calc(-1 * var(--ifm-pre-padding));
-  padding: 0 var(--ifm-pre-padding);
-}
-
-.navbar__search-input {
-  border-radius: 5px;
-}
-
 .footer {
-  background: var(--ifm-color-primary-darker);
+  background: var(--ifm-background-surface-color);
 }
-
 .markdown :not(button) a {
   color: var(--ifm-link-color);
   font-weight: bold;
@@ -96,26 +83,4 @@ article[itemprop='blogPost'] header > h1[itemprop='headline'] {
   article header h1 {
     font-size: 2.2rem !important;
   }
-}
-
-/* Announcement Bar */
-div[class^='announcementBar_'] {
-  background-color: var(--ifm-color-primary-light);
-  color: white !important;
-}
-
-*[class^='announcementBar'] button {
-  background-color: transparent;
-  color: white !important;
-}
-
-div[class^='announcementBar'] a {
-  color: white;
-  border-bottom: 1px solid white;
-  text-decoration: none;
-}
-
-div[class^='announcement'] a:hover {
-  color: white;
-  text-decoration: underline;
 }

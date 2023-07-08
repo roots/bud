@@ -1,0 +1,63 @@
+---
+title: Paths
+sidebar_label: Paths
+---
+
+## Setting application paths
+
+[bud.setPath](/reference/bud.setPath) is used to set project source and output paths.
+
+```js title=bud.config.js
+export default async bud => {
+  /* Set the source path.*/
+  bud.setPath('@src', 'source')
+  /* Set the output path.*/
+  bud.setPath('@dist', 'build')
+}
+```
+
+The `@src` and `@dist` handles are special handles associated with the input and output base directories.
+
+## Referencing application paths
+
+Once set, paths can be referenced using [bud.path](/reference/bud.path).
+
+```js title=bud.config.js
+export default async bud => {
+  bud.path('@src') // absolute path to app source
+  bud.path('@dist') // absolute path to app output
+}
+```
+
+## Reserved paths
+
+**bud.js** has a few path handles which fulfill a special role.
+
+| handle       | description                      | default          |
+| ------------ | -------------------------------- | ---------------- |
+| **@src**     | source directory                 | `./src`          |
+| **@dist**    | destination directory            | `./dist`         |
+| **@storage** | cache/artifact storage directory | `./.budfiles`    |
+| **@modules** | modules directory                | `./node_modules` |
+
+These paths can be overridden but should not be removed or hijacked for a purpose that differs from what is described.
+
+## Globbing
+
+[bud.glob](/reference/bud.glob) is a built-in globbing utility that can be used to generate a list of files matching a given pattern.
+
+This function is asychronous (returns a promise) and can be used in conjunction with `await`.
+
+```js title=bud.config.js
+export default async bud => {
+  await bud.glob('@src', '**/*.js') // returns an array of absolute paths
+}
+```
+
+There is a synchronous version available as well: [bud.globSync](/reference/bud.globSync).
+
+```js title=bud.config.js
+export default async bud => {
+  bud.globSync('@src', '**/*.js') // returns an array of absolute paths
+}
+```

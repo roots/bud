@@ -1,0 +1,115 @@
+---
+title: Static assets
+description: Learn how to manage assets in your bud.js app
+sidebar_label: Static assets
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+## Referencing assets
+
+It is straight forward to reference assets from application scripts and stylesheets.
+
+### With an alias
+
+You can use aliases to reference common directories. **bud.js** comes configured with a built-in `@src` alias, but more can easily be added.
+See the [bud.alias documentation](/reference/bud.alias) for more information on this function.
+
+<Tabs>
+<TabItem value="js">
+
+```js title='src/scripts/app.js'
+import src from '@src/images/image.png'
+
+const el = document.createElement('img')
+el.src = src
+document.body.appendChild(el)
+```
+
+</TabItem>
+<TabItem value="css">
+
+```css title=src/styles/app.css
+body {
+  background: url(@src/images/image.png);
+}
+```
+
+</TabItem>
+</Tabs>
+
+This is an excellent choice since it provides a lot of flexibility and makes managing asset paths less of a maintenance burden over time.
+
+### Using a relative path
+
+Assets can be referenced using an a relative path.
+
+<Tabs>
+<TabItem value="js">
+
+```js title='src/scripts/app.js'
+import src from '../images/image.png'
+```
+
+</TabItem>
+<TabItem value="css">
+
+```css title=src/styles/app.css
+body {
+  background: url('../images/image.png');
+}
+```
+
+</TabItem>
+</Tabs>
+
+### Using an absolute path
+
+Assets can be referenced using an absolute path. The root url is [the @src directory](/reference/bud.path).
+
+<Tabs>
+<TabItem value="js">
+
+```js title='src/scripts/app.js'
+import src from '/images/image.png'
+```
+
+</TabItem>
+<TabItem value="css">
+
+```css title=src/styles/app.css
+body {
+  background: url('/images/image.png');
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Inlining assets
+
+You can inline assets using the `?inline` uri query parameter.
+
+<Tabs>
+<TabItem value="js">
+
+```js title=src/scripts/app.js
+import icon from '@src/svg/icon.svg?inline'
+```
+
+</TabItem>
+<TabItem value="css">
+
+```css title=src/styles/app.css
+body {
+  background: url('@src/svg/image.svg?inline');
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Optimizing assets
+
+Images can be minimized using the [@roots/bud-imagemin extension](/extensions/bud-imagemin). Check out its documentation to get started.

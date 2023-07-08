@@ -1,0 +1,263 @@
+---
+title: JS modules
+description: Learn how to write JS modules for your bud.js app
+sidebar_label: JS modules
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+This guide covers using JS modules in your **bud.js** app.
+
+## Importing modules
+
+You can import JS modules using the `import` keyword.
+
+```js title='src/scripts/app.js'
+import slider from '@src/scripts/slider.js'
+
+slider()
+```
+
+## Exporting modules
+
+Likewise, you can export modules to make them available for import elsewhere.
+
+```js title='src/scripts/slider.js'
+export default function slider() {
+  console.log('sliding!')
+}
+```
+
+## Importing third-party modules
+
+You can import third-party modules using the `import` keyword. You don't need to include `node_modules/` in the `import` statement.
+
+```js title='src/scripts/app.js'
+import {slider} from 'example-slider-lib'
+
+slider()
+```
+
+## Dynamic imports
+
+You can import modules dynamically using the `import()` function.
+
+```js title='src/scripts/app.js'
+const app = async () => {
+  const {slider} = await import('example-slider-lib')
+  slider()
+}
+
+app()
+```
+
+## Importing css
+
+You can import css using the `import` keyword.
+
+```js title='src/scripts/app.js'
+import '@src/styles/app.css'
+```
+
+This is essentially the same as adding the css file to the [bud.entry](/reference/bud.entry) call in your
+[bud.config.js file](../configure). But, when considered alongside [dynamic imports](#dynamic-imports) it is much more powerful.
+
+### Conditional css
+
+This demo illustrates conditionally loading CSS based on the presence of a `.slider` element on the page:
+
+<Tabs>
+<TabItem value="app.js">
+
+The `app.js` file imports the `slider.js` module when a `.slider` element is present on the page.
+
+```js title=src/app.js
+const app = async () => {
+  if (document.querySelector('.slider')) {
+    const {slider} = await import('./slider.js')
+    slider()
+  }
+}
+
+app()
+```
+
+</TabItem>
+<TabItem value="slider.js">
+
+The `slider.js` module exports a `slider` function (which is called in `app.js`) and imports the `slider.css` stylesheet.
+
+```js title=src/slider.js
+import '@src/slider.css'
+
+export const slider = async () => {
+  console.log('sliding!')
+}
+```
+
+</TabItem>
+<TabItem value="slider.css">
+
+This css is never loaded unless the `.slider` element is present on the page.
+This is because the `slider.css` file is imported in the `slider.js` module and that
+module is only imported when the `.slider` element is present on the page.
+
+```css title=src/slider.css
+.slider {
+  background: black;
+}
+```
+
+</TabItem>
+</Tabs>
+
+### CSS modules
+
+By naming a css file with the `.module.css` extension, you can import it as a JS module and use it as a CSS module.
+
+```js title='src/scripts/app.js'
+import styles from '@src/styles/app.module.css'
+document.body.classList.add(styles.body)
+```
+
+```css title='src/styles/app.module.css'
+.body {
+  background: black;
+}
+```
+
+When this is compiled, the `styles` object will contain a `body` property with a unique class name.
+This class name will be added to the `body` element when the script executes.
+
+```html
+<body class="body_1j2k3l"></body>
+```
+
+It's a very nice way to avoid class name collisions.
+
+## Importing data
+
+You can use the `import` keyword to import a variety of data formats:
+
+### json
+
+```js title='src/scripts/app.js'
+import data from '@src/data.json'
+console.log(data.propertyName)
+```
+
+### yml
+
+```js title='src/scripts/app.js'
+import data from '@src/data.yml'
+console.log(data.propertyName)
+```
+
+### toml
+
+```js title='src/scripts/app.js'
+import data from '@src/data.toml'
+console.log(data.propertyName)
+```
+
+## Importing markup
+
+### html
+
+```js title='src/scripts/app.js'
+import html from '@src/data.html'
+console.log(html)
+```
+
+### markdown
+
+Will be imported as HTML:
+
+```js title='src/scripts/app.js'
+import html from '@src/data.md'
+console.log(html)
+```
+
+## Transpiling
+
+You have a choice of transpilers for your JS modules. By default **bud.js** does not include _any_ transpilation.
+
+Our recommended extension is [@roots/bud-swc](/extensions/bud-swc).
+
+### SWC
+
+[@roots/bud-swc](/extensions/bud-swc) is a [swc](https://swc.rs/) extension for **bud.js**.
+
+```npm2yarn
+yarn add @roots/bud-swc --dev
+```
+
+It is a very fast and modern transpiler. The extension supports JavaScript and TypeScript with zero configuration.
+
+### Babel
+
+[@roots/bud-babel](/extensions/bud-babel) is a [babel](https://babeljs.io/) extension for **bud.js**.
+
+```npm2yarn
+yarn add @roots/bud-babel --dev
+```
+
+It is a very popular transpiler. It is also very configurable.
+
+### TypeScript
+
+[@roots/bud-typescript](/extensions/bud-typescript) is a [typescript](https://www.typescriptlang.org/) extension for **bud.js**.
+
+```npm2yarn
+yarn add @roots/bud-typescript --dev
+```
+
+It is a very popular transpiler. The extension supports JavaScript and TypeScript with zero configuration.
+
+### ESBuild
+
+[@roots/bud-esbuild](/extensions/bud-esbuild) is a [esbuild](https://esbuild.github.io/) extension for **bud.js**.
+
+```npm2yarn
+yarn add @roots/bud-esbuild --dev
+```
+
+It is a very fast and modern transpiler. The extension supports JavaScript and TypeScript with zero configuration. This extension
+should be considered experimental.
+
+## Framework support
+
+### React
+
+You can add React support to your project by installing the [@roots/bud-react](/extensions/bud-react) extension.
+
+```npm2yarn
+yarn add @roots/bud-react --dev
+```
+
+This extension is compatible with [any of the transpilers mentioned above](#transpiling). A transpiler is required to use React.
+
+### Vue
+
+You can add Vue support to your project by installing the [@roots/bud-vue](/extensions/bud-vue) extension.
+
+```npm2yarn
+yarn add @roots/bud-vue --dev
+```
+
+By default the extension comes configured to use with Vue 3 SFCs. If you want to use Vue 2 refer to the [extension docs](/extensions/bud-vue).
+
+## Hot module reloading
+
+Here is a quick example of how to enable hot module reloading in your application entrypoint:
+
+```js title='src/scripts/app.js'
+const app = () => console.log(`foo`)
+
+app()
+
+import.meta.webpackHot?.accept(console.error)
+```
+
+You will need to refer to the webpack documentation for [hot module reloading](https://webpack.js.org/guides/hot-module-replacement/) for more information.

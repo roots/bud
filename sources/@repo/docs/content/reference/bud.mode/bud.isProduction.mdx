@@ -1,0 +1,27 @@
+---
+title: bud.isProduction
+description: Property that is `true` when bud.mode is `production`
+---
+
+# bud.isProduction
+
+**Boolean** property which is `true` when [bud.mode](/reference/bud.mode/) is `production`
+
+## Usage
+
+Very useful in conditionals:
+
+```js title=bud.config.js
+export default async bud => bud.isProduction && bud.devtool('source-map')
+```
+
+Pairs well with [bud.when](/reference/bud.when):
+
+```js {2} title=bud.config.js
+bud.when(bud.isProduction, bud => bud.minify())
+```
+
+## See also
+
+- [bud.mode](/reference/bud.mode/)
+- [bud.isDevelopment](/reference/bud.mode/bud.isDevelopment)

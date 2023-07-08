@@ -74,7 +74,7 @@ export default class BudCommand extends Command<CLIContext> {
 
   public mode = mode
 
-  public notify = notify
+  public declare notify: typeof notify
 
   public silent = silent(true)
 

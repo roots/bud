@@ -26,3 +26,15 @@
   to = "https://bud.js.org/extensions/bud-preset-wordpress"
   status = 301
   force = true
+
+[[redirects]]
+  from = "https://bud.js.org/guides/*"
+  to = "https://bud.js.org/learn/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://bud.js.org/docs/*"
+  to = "https://bud.js.org/reference/:splat"
+  status = 301
+  force = true

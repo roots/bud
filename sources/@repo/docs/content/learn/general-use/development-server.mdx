@@ -1,0 +1,61 @@
+---
+title: Configuring the dev server
+description: Configuring the dev server
+slug: dev-server
+sidebar_label: Configuring the dev server
+---
+
+The development server can be configured with [bud.serve](/reference/bud.serve).
+
+In general it's preferred to use the node `URL` interface to designate the host and port. This is because the `URL` interface is more flexible than a string.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve(new URL(`http://localhost:3000`))
+}
+```
+
+That said, you can use a `string`:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve(`http://localhost:3000`)
+}
+```
+
+If you only want to change the port, you may use a `number`:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve(3005)
+}
+```
+
+## Using a custom hostname
+
+Totally supported but it's on you to actually point the hostname.
+
+## Configuring SSL
+
+The development server can be [configured to use SSL](/reference/bud.serve#ssl).
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve({
+    url: new URL(`https://example.test`)
+    cert: `/path/to/example.test.crt`,
+    key: `/path/to/example.test.key`,
+  })
+}
+```
+
+## Proxying an existing server
+
+You can use [bud.proxy](/reference/bud.proxy) to proxy an existing server.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve(new URL(`http://localhost:3000`))
+  bud.proxy(new URL(`http://example.test`))
+}
+```

@@ -1,0 +1,40 @@
+---
+title: bud.setPublicPath
+description: Set the public path.
+---
+
+Set the public path. By default the public path will be `''` in production and `/` in development.
+
+To get the value set by this function you should use [publicPath](/reference/bud.publicPath)
+
+## Usage
+
+Set the public path using a string:
+
+```js
+bud.setPublicPath('/assets/')
+```
+
+Set the public path using a function:
+
+```js
+bud.setPublicPath(publicPath => {
+  return `https://cdn.com/${publicPath}`
+})
+```
+
+## Environment variable
+
+You may set the public path using an environment variable: `APP_PUBLIC_PATH`.
+
+```env
+APP_PUBLIC_PATH=/assets/
+```
+
+## CLI
+
+You may set the public path using the CLI using the `--publicPath` flag:
+
+```sh
+bud build --publicPath /assets/
+```
