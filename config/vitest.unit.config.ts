@@ -12,8 +12,8 @@ export default defineConfig({
     hookTimeout: 60000,
     include: [
       `sources/@roots/*/src/**/*.test.{ts,tsx}`,
-      `sources/@roots/*/test/**/*.{ts,tsx}`,
-      `sources/@roots/*/tests/**/*.{ts,tsx}`,
+      `sources/@roots/*/test/**/*.test.{ts,tsx}`,
+      `sources/@roots/*/tests/**/*.test.{ts,tsx}`,
       `tests/unit/**/*.test.ts`,
       `tests/reproductions/**/*.test.ts`,
     ],

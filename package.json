@@ -3,7 +3,7 @@
   "private": true,
   "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
   "engines": {
-    "node": "18.12.1",
+    "node": "18.16.1",
     "yarn": "1.22.19",
     "npm": "8.19.2"
   },
@@ -61,14 +61,12 @@
       "sources/@roots/*/test/**/*",
       "sources/@roots/*/src/__fixtures__/*",
       "sources/create-bud-app",
-      "sources/deprecated/bud-terser",
       "tests/util/project",
       "tests/reproductions/*"
     ]
   },
   "volta": {
-    "node": "18.12.1",
-    "yarn": "1.22.19",
-    "npm": "8.19.2"
+    "node": "18.16.1",
+    "yarn": "1.22.19"
   }
 }

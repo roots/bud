@@ -20,14 +20,29 @@ interface Entrypoints {
 }
 
 class Project {
+  /**
+   * Compiled modules keyed by asset name
+   */
   public assets: Record<string, string> = {}
 
+  /**
+   * entrypoints.json contents
+   */
   public entrypoints: Entrypoints = {}
 
+  /**
+   * manifest.json contents
+   */
   public manifest: Record<string, any> = {}
 
+  /**
+   * Class constructor
+   */
   public constructor(public options: Options) {}
 
+  /**
+   * Build the project
+   */
   @bind
   public async build() {
     const build = this.options.buildCommand ?? [
@@ -65,6 +80,9 @@ class Project {
     return this
   }
 
+  /**
+   * Get the project directory
+   */
   public get directory(): string {
     return path(
       `storage`,
@@ -73,16 +91,25 @@ class Project {
     )
   }
 
+  /**
+   * Get an asset by name
+   */
   @bind
   public getAsset(name: string) {
     return this.assets[name]
   }
 
+  /**
+   * Get an entrypoint by name
+   */
   @bind
   public getEntrypoint(name: string) {
     return this.entrypoints[name]
   }
 
+  /**
+   * Get the path to a file in the project
+   */
   @bind
   public getPath(...file: Array<string>) {
     return join(this.directory, ...file)
