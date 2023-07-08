@@ -14,7 +14,7 @@ jobs:
         platform:
           - ubuntu-latest
         node:
-          - 18.12.1
+          - 18.16.1
 
     name: integration test (node@v${{matrix.node}}/${{matrix.platform}})
     runs-on: ${{matrix.platform}}
