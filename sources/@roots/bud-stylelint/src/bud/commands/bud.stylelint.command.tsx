@@ -2,15 +2,13 @@ import {join} from 'node:path'
 
 import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
 /**
  * Bud stylelint command
  */
-@dry
 export class BudStylelintCommand extends BudCommand {
   /**
-   * Command paths
+   * {@link BudCommand.paths}
    */
   public static override paths = [
     [`lint`, `css`],
@@ -20,7 +18,7 @@ export class BudStylelintCommand extends BudCommand {
   ]
 
   /**
-   * Command usage
+   * {@link BudCommand.usage}
    */
   public static override usage = Command.Usage({
     category: `tools`,
@@ -43,8 +41,18 @@ export class BudStylelintCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    const stylelint = await this.bud.module.getDirectory(`stylelint`)
-    const bin = join(stylelint, `bin`, `stylelint.js`)
+    const stylelint = await this.bud.module
+      .getDirectory(`stylelint`)
+      .catch(this.catch)
+
+    if (!stylelint) {
+      throw `stylelint can't be resolved. You may need to install it.`
+    }
+
+    let bin = join(stylelint, `bin`, `stylelint.mjs`)
+    if (!(await this.bud.fs.exists(bin))) {
+      bin = join(stylelint, `bin`, `stylelint.js`)
+    }
 
     if (!this.options?.length)
       this.options = [this.bud.path(`@src`, `**`, `*.{css,scss,sass}`)]

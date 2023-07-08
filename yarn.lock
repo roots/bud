@@ -7357,7 +7357,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
+"@roots/bud-stylelint@workspace:*, @roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint"
   dependencies:
@@ -8612,6 +8612,15 @@ __metadata:
     "@roots/bud-swc": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@tailwindcss/forms": 0.5.3
+  languageName: unknown
+  linkType: soft
+
+"@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default":
+  version: 0.0.0-use.local
+  resolution: "@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
   languageName: unknown
   linkType: soft
 
