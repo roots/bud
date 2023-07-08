@@ -94,7 +94,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "stylelint": "15.9.0",
+    "stylelint": "15.10.1",
     "stylelint-config-standard": "33.0.0",
     "stylelint-webpack-plugin": "4.1.1",
     "tslib": "2.6.0"

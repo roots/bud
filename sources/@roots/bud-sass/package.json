@@ -102,7 +102,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.18",
     "postcss": "8.4.24",
-    "stylelint": "15.9.0",
+    "stylelint": "15.10.1",
     "webpack": "5.88.1"
   },
   "dependencies": {
