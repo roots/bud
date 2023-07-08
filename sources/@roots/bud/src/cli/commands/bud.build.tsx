@@ -123,6 +123,6 @@ export default class BudBuildCommand extends BudCommand {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 
-    await this.bud?.run()
+    await this.bud.run()
   }
 }

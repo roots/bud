@@ -6,7 +6,10 @@ import {Command} from './base.command'
  * Docs command class
  */
 export class Docs extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `docs`]]
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `docs`],
+    [`@bud`, `docs`, `build`],
+  ]
 
   public static usage: CommandClass['usage'] = {
     category: `@bud`,

@@ -1,3 +1,5 @@
+import {path} from '@repo/constants'
+import fs from 'fs-jetpack'
 import {Octokit} from 'octokit'
 
 interface ghRelease {
@@ -82,7 +84,28 @@ if (!request?.data) {
     throw error
   }
 }
-if (!releases) releases = request?.data?.filter(filter).map(parse)
+
+if (!releases) {
+  releases = request?.data
+    ?.filter(filter)
+    .map(parse)
+    .sort((a, b) => {
+      if (a.major > b.major) return -1
+      if (a.major < b.major) return 1
+      return 0
+    })
+    .sort((a, b) => {
+      if (a.minor > b.minor) return -1
+      if (a.minor < b.minor) return 1
+      return 0
+    })
+
+  await fs.writeAsync(
+    path(`sources/@repo/docs/generated/releases/data.json`),
+    releases,
+    {jsonIndent: 2},
+  )
+}
 
 export {releases}
 export type {release}
