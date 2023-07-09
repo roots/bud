@@ -18,14 +18,14 @@ const Home = () => {
           <div className={styles.buttons}>
             <Link
               className="button button--outline button--lg"
-              to="/learn/getting-started/"
+              to="/learn/getting-started"
             >
               Get started{`  `}→
             </Link>
 
             <Link
               className="button button--outline button--lg"
-              to="/reference/bud.after/"
+              to="/reference/bud.after"
             >
               API reference{`  `}→
             </Link>

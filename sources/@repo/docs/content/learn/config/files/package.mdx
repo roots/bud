@@ -1,0 +1,118 @@
+---
+title: package.json
+sidebar_label: package.json
+---
+
+Your project `package.json` has bud.js specific fields that can be used to configure your project.
+
+## JSON schema
+
+To make sure your `package.json` is valid, you can add the bud.js schema to your `package.json`: `https://bud.js.org/bud.package.json`. This is totally optional.
+
+```json title=package.json
+{
+  "name": "my-project",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "devDependencies": {
+    "@roots/bud": "latest"
+  }
+}
+```
+
+## bud.js fields
+
+bud.js specific fields are added to the top-level `bud` key in your `package.json`.
+
+### bud.extensions.discover
+
+Disable extension autoload by setting `bud.extensions.discover` to `false`.
+
+```json title=package.json
+{
+  "name": "my-project",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "bud": {
+    "extensions": {
+      "discover": false
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "latest"
+  }
+}
+```
+
+### bud.extensions.allowlist
+
+Allow only specified extensions to autoload by setting `bud.extensions.allowlist`.
+
+```json title=package.json
+{
+  "name": "my-project",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "bud": {
+    "extensions": {
+      "allowlist": ["@roots/bud-babel"]
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-postcss": "latest"
+  }
+}
+```
+
+### bud.extensions.denylist
+
+Prevent particular extensions from autoloading by setting `bud.extensions.denylist`.
+
+```json title=package.json
+{
+  "name": "my-project",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "bud": {
+    "extensions": {
+      "denylist": ["@roots/bud-postcss"]
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-postcss": "latest"
+  }
+}
+```
+
+## Multi-instance configurations
+
+If you are using bud.js in a multi-instance configuration, you can key the options by the instance names.
+
+Any top-level options will be applied to all instances, with instance-specific options taking precedence.
+
+```json title=package.json
+{
+  "name": "my-project",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "bud": {
+    "extensions": {
+      "discover": false
+    },
+    "instance-a": {
+      "extensions": {
+        "allowlist": ["@roots/bud-swc"]
+      }
+    },
+    "instance-b": {
+      "extensions": {
+        "allowlist": ["@roots/bud-babel"]
+      }
+    }
+  },
+  "devDependencies": {
+    "@roots/bud": "latest",
+    "@roots/bud-babel": "latest",
+    "@roots/bud-swc": "latest"
+  }
+}
+```

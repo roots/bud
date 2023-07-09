@@ -1,0 +1,209 @@
+---
+title: bud.config
+sidebar_label: bud.config.ts
+description: Used to configure bud.js
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+bud.js config files are the most straight forward way of interfacing with bud.js.
+
+- The file name should include `bud` in the name.
+- The module should be located in the project root or the `./config` directory.
+- The module can be written in JavaScript, TypeScript, YML or JSON5.
+- JavaScript and TypeScript configurations can either export a configuration function or import bud and use it directly.
+
+:::info esbuild-wasm
+
+By default bud.js uses [esbuild-wasm](https://www.npmjs.com/package/esbuild-wasm) to transpile the config file when authored with TypeScript.
+
+If you prefer you can install [esbuild](https://www.npmjs.com/package/esbuild) and it will be preferred.
+
+The esbuild team advises that using esbuild is faster than esbuild-wasm, but the benefit of esbuild-wasm is that it doesn't need to be built during installation.
+
+:::
+
+## Example configurations
+
+<Tabs>
+<TabItem value="bud.config.ts">
+
+```js title=bud.config.ts
+import type {Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
+  bud.entry(`app`, [`app.js`, `app.css`])
+}
+```
+
+</TabItem>
+
+<TabItem value="bud.config.js">
+
+```js title=bud.config.js
+/** @param {import('@roots/bud').Bud} bud */
+export default async bud => {
+  bud.entry(`app`, [`app.js`, `app.css`])
+}
+```
+
+</TabItem>
+
+<TabItem value="bud.config.yml">
+
+```yml title=bud.config.yml
+entry: ['app', ['app.js', 'app.css']]
+```
+
+</TabItem>
+
+<TabItem value="bud.config.json">
+
+```json title=bud.config.json
+{
+  "entry": ["app", ["app.js", "app.css"]]
+}
+```
+
+</TabItem>
+</Tabs>
+
+## Importing bud directly
+
+As mentioned above, you can also elect to import bud directly and use it in your configuration.
+
+```ts title=bud.config.ts
+import {bud} from '@roots/bud'
+
+bud.entry(`app`, [`app.js`, `app.css`])
+```
+
+## Using multiple configurations
+
+It is possible to create more than one bud.js configuration file.
+
+When more than one configuration file is present they are execuetd in the following order:
+
+1. `bud.*` - the standard, base configuration.
+2. `bud.local.*` - local configuration.
+3. `bud.{production,development}.*` - mode specific configuration. Applied when `bud.mode` matches.
+4. `bud.{production,development}.local.*` - mode specific local configuration. Applied when `bud.mode` matches.
+
+You may want to add `bud.local.*` to your `.gitignore` file. This way contributors to your project can make specific overrides using `bud.local.*` files
+without affecting the base configuration kept in source control.
+
+## Configuring bud.js with YML
+
+Each key is a reference to a `Bud` call. The supplied values are the arguments to that call.
+
+For instance, the equivalent of the following call to [bud.entry](/reference/bud.entry):
+
+```js
+bud.entry('app', 'app.js')
+```
+
+Would be:
+
+```yml
+entry: ['app', 'app.js']
+```
+
+There is some flexibility here if you are passing a single value and it is NOT an array. So, this is okay:
+
+```yml
+entry:
+  app: app.js
+```
+
+But, this would cause an error. it will be parsed as if it were a multi-parameter call:
+
+```yml
+# This is incorrect
+assets: ['src/**/*.html', 'app/**/*.html']
+```
+
+You can access nested properties no problem.
+
+```yml
+babel:
+  setPluginOptions:
+    - '@babel/plugin-transform-runtime'
+    - {helpers: true}
+```
+
+### Referencing bud.js values
+
+You can make reference to the `bud` object with `_bud`.
+
+```yml
+splitChunks: _bud.isProduction
+```
+
+You can tap `bud` with an arrow fn if needed. These functions will be called
+as they are encountered and supplied with the bud.js instance.
+
+```yml
+minimize: bud => bud.isProduction
+```
+
+### Treating a value as a function
+
+You can prefix a string with `=>` to indicate that it should be treated as a function. These functions will be called
+as they are encountered.
+
+This will log `4`:
+
+```yml
+log: => 2 + 2
+```
+
+### Handling callbacks
+
+Some functions accept functions as a value. In cases like these wrap the function in an additional `=>` so that the
+config parser does not call the function itself.
+
+```yml
+webpackConfig: >
+  => config => ({...config, parallelism: 1})
+```
+
+[bud.tap](/reference/bud.tap) and [bud.tapAsync](/reference/bud.tapAsync) can be helpful for dynamic configuration and work like this:
+
+```yml
+tap: >
+  => bud => {
+    // this is a very flexible
+    // area to do all sorts of dynamic config stuff
+    bud.log('hi!')
+  }
+
+tapAsync: >
+  => async bud => {
+    // same as above but async
+    bud.log('hi!', '...eventually')
+  }
+```
+
+If you're doing a lot of this remember that you can create JS configurations in addition to the yml one.
+
+## Configuring bud.js with JSON
+
+JSON uses the same rules as yml. You can use JSON5 syntax (comments, non-quoted keys) similar to what is supported in `tsconfig.json`.
+
+```json
+{
+  "entry": ["app", ["app.js"]],
+  "runtime": [true],
+  "assets": [["src/**/*.html"]],
+  "babel": {
+    "setPluginOptions": [
+      "@babel/plugin-transform-runtime",
+      {"helpers": false, "regenerator": false}
+    ]
+  }
+}
+```
+
+If you are doing a lot of dynamic configuration you may find it easier to use YML or JS. Ultimately, it's your choice, but
+we recommend using yml over json for more complicated configs.

@@ -1,0 +1,34 @@
+---
+title: Adding WordPress support
+description: How to get started with WordPress
+sidebar_label: Adding WordPress support
+---
+
+## Installing bud.js dependencies
+
+To get started with WordPress, install the [@roots/bud-preset-wordpress preset](/extensions/bud-preset-wordpress) along with a compatible compiler:
+
+- [@roots/bud-babel](/extensions/bud-babel)
+- [@roots/bud-esbuild](/extensions/bud-esbuild)
+- [@roots/bud-swc](/extensions/bud-swc)
+- [@roots/bud-typescript](/extensions/bud-typescript)
+
+We recommend using [@roots/bud-swc](/extensions/bud-swc):
+
+```bash npm2yarn
+npm install @roots/bud-preset-wordpress @roots/bud-swc --save-dev
+```
+
+## Included extensions
+
+The [@roots/bud-preset-wordpress preset](/extensions/bud-preset-wordpress) includes the following extensions:
+
+- [@roots/bud-react](/extensions/bud-react)
+- [@roots/bud-wordpress-dependencies](/extensions/bud-wordpress-dependencies)
+- [@roots/bud-wordpress-externals](/extensions/bud-wordpress-externals)
+- [@roots/bud-wordpress-theme-json](/extensions/bud-wordpress-theme-json)
+- [@roots/wordpress-hmr](/extensions/wordpress-hmr)
+
+## Configuration
+
+For more information on configuring WordPress, see the [@roots/bud-preset-wordpress documentation](/extensions/bud-preset-wordpress).

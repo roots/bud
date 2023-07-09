@@ -1,0 +1,56 @@
+---
+title: Assets
+sidebar_label: Assets
+---
+
+:::info No need to copy imported assets
+
+If you are already including assets by importing them in a script or stylesheet, you do not need
+to copy them explicitly.
+
+For example, given this stylesheet, copying `@src/fonts/MyFont.woff2` would be unnecessary:
+
+```js title='index.css'
+@font-face {
+  font-family: 'MyFont';
+  src: url(@src/fonts/MyFont.woff2) format('woff2');
+}
+```
+
+:::
+
+The [bud.assets](/reference/bud.assets) function is used to copy files to the output directory.
+
+The simplest way to use it is to pass an array of directories (relative to [your project `@src` directory](#project-paths)) you would like to copy:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.assets(['images', 'fonts'])
+}
+```
+
+If you want more control over the directory being output to, you can use an array of from/to pairs:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.assets([
+    ['images', 'assets/images'], // from `@src/images` to `@dist/assets/images`
+    ['fonts', 'assets/fonts'], // from `@src/fonts` to `@dist/assets/fonts`
+  ])
+}
+```
+
+For complete control, you can pass an object:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.assets({
+    from: bud.path(`@src`, 'images'),
+    to: bud.path(`@dist`, 'images', `@name`), // `@name` is the filename (including hash if applicable)
+    context: bud.path(`@src`),
+    noErrorOnMissing: true,
+    toType: `template`,
+  })
+```
+
+You can learn more about this and other details in the [bud.assets documentation](/reference/bud.assets).

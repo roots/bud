@@ -60,7 +60,7 @@ const navbar = {
   hideOnScroll: true,
   items: [
     {
-      docId: `index`,
+      docId: `getting-started/index`,
       docsPluginId: `learn`,
       label: `Learn`,
       position: `left`,
@@ -79,15 +79,24 @@ const navbar = {
       type: `doc`,
     },
     {
-      items: [
-        ...releaseData
-          .map((release, i) => {
-            const label = i === 0 ? `latest` : release.semver
-            return {label, to: `/releases/${release.semver}`}
-          })
-          .slice(0, 10),
-        {label: `all`, to: `/releases`},
-      ],
+      items: releaseData.reduce((items, release, i) => {
+        if (i === 0) {
+          return [
+            ...items,
+            {label: `Latest`, to: `/releases/${release.semver}`},
+          ]
+        }
+        if (release.patch === 0) {
+          return [
+            ...items,
+            {
+              label: release.semver,
+              to: `/releases/tags/${release.major}-${release.minor}`,
+            },
+          ]
+        }
+        return items
+      }, []),
       label: `Releases`,
       position: `left`,
       to: `/releases`,

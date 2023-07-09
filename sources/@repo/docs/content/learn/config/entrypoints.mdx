@@ -1,0 +1,47 @@
+---
+title: Entrypoints
+sidebar_label: Entrypoints
+---
+
+bud.js uses the concept of "entrypoints" to group application scripts and styles. Entrypoints are defined using [bud.entry](/reference/bud.entry).
+
+You can think of an entrypoint as a "page" in your application. Each entrypoint will have its own output file.
+
+:::info
+
+If your application's entrypoint is located at `@src/index.js` then you don't need to do anything. bud.js will automatically
+detect this and create an entrypoint for you.
+
+:::
+
+If you only have a single entrypoint then it is enough to just pass the filename:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.entry('app') // src/app.js
+}
+```
+
+If you have more than one file to include in the bundle, you can use an array:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.entry(['app.js', 'global.css'])
+}
+```
+
+If you have additional entrypoints you may call [bud.entry](/reference/bud.entry) multiple times.
+
+But, it might be preferable to use an object:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.entry({
+    app: ['app.js', 'global.css'],
+    landing: ['landing.js', 'landing.css'],
+  })
+}
+```
+
+There is still more that this function can do, but for our overview this is more than enough. You can learn more about this and
+other details in the [bud.entry documentation](/reference/bud.entry).

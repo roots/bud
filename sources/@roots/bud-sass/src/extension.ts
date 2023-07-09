@@ -25,15 +25,13 @@ export class BudSass extends BudSassOptions {
   @bind
   public override async boot({build, postcss}) {
     postcss?.setSyntax(`postcss-scss`)
-    build.rules.sass.setUse(() =>
-      [
-        build.items[`precss`],
-        build.items[`css`],
-        build.items[`postcss`],
-        build.items[`resolve-url`],
-        build.items[`sass`],
-      ].filter(Boolean),
-    )
+    build.rules.sass.setUse(() => [
+      `precss`,
+      `css`,
+      `postcss`,
+      `resolve-url`,
+      `sass`,
+    ])
   }
 
   /**
@@ -67,7 +65,7 @@ export class BudSass extends BudSassOptions {
       )
     } else {
       this.logger.warning(
-        `sass implementation not explicitly resolvable. falling back on sass loader default implementation.`,
+        `sass implementation not explicitly resolvable. falling back on default implementation.`,
       )
     }
 

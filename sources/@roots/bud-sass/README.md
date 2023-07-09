@@ -43,17 +43,17 @@ If you are using [@roots/bud-preset-recommend](https://bud.js.org/extensions/bud
 Use the `bud.sass.importGlobal` function to ensure a module is made available throughout your sass stylesheets, regardless of scope.
 
 ```ts
-bud.sass.importGlobal("@src/styles/variables");
+bud.sass.importGlobal('@src/styles/variables')
 ```
 
 If you have more than one stylesheet to import, you may use an array:
 
 ```ts
 bud.sass.importGlobal([
-  "@src/styles/variables",
-  "@src/styles/mixins",
-  "@src/styles/functions",
-]);
+  '@src/styles/variables',
+  '@src/styles/mixins',
+  '@src/styles/functions',
+])
 ```
 
 ## Global values
@@ -63,16 +63,16 @@ Use the `bud.sass.registerGlobal` function to ensure global styles are made avai
 This function differs from `bud.sass.importGlobal` in that it can be passed arbitrary values.
 
 ```ts
-bud.sass.registerGlobal("$foo: rgba(0, 0, 0, 1);");
+bud.sass.registerGlobal('$foo: rgba(0, 0, 0, 1);')
 ```
 
 If you want to divide these values up using an array, you may do so.
 
 ```ts
 bud.sass.registerGlobal([
-  "$foo: rgba(0, 0, 0, 1);",
-  "$bar: rgba(255, 255, 255, 1);",
-]);
+  '$foo: rgba(0, 0, 0, 1);',
+  '$bar: rgba(255, 255, 255, 1);',
+])
 ```
 
 ## URL imports
