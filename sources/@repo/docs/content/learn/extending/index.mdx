@@ -4,7 +4,7 @@ description: Overview of instantiating bud.js directly from Node
 sidebar_label: Extending
 ---
 
-You can add additional functionality to **bud.js** using the extensions API.
+You can add additional functionality to **bud.js** by writing a bud.js extension.
 
 ## Extension shape
 
@@ -44,12 +44,9 @@ export default class MyExtension extends Extension {
 }
 ```
 
-A `label` is not strictly required but extensions without a `label` will have a unique id generated for them. Because this id is generated there is no
-straight forward way to reference the extension from the outside.
-
 ### dependsOn
 
-Extensions may depend on other other extensions. For instance, if you are authoring an extension that manages postcss plugins then your extension
+Extensions may depend on other other extensions. For instance, if you are authoring an extension that manages PostCSS plugins then your extension
 depends on the presence of `@roots/bud-postcss`. To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
 
 The `dependsOn` property is expressed as a `Set`:

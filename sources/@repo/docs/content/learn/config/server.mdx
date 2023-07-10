@@ -17,17 +17,17 @@ export default async bud => {
 
 ## Setting the proxy URL
 
-Use [bud.setProxy](/reference/bud.setProxy) to set the development server proxy URL.
+Use [bud.setProxyUrl](/reference/bud.setProxyUrl) to set the development server proxy URL.
 
 ```js title=bud.config.js
 export default async bud => {
-  bud.setProxy(`http://example.test`)
+  bud.setProxyUrl(`http://example.test`)
 }
 ```
 
 ## Setting public URLs
 
-You can use [bud.setPublicUrl](/reference/bud.setPublicUrl) and [bud.setPublicProxyUrl] to set the public URL of the development server.
+You can use [bud.setPublicUrl](/reference/bud.setPublicUrl) and [bud.setPublicProxyUrl](/reference/bud.setPublicProxyUrl) to set the public URL of the development server.
 
 This is useful in containerized development environments like Docker where the internal URL is different from the external URL.
 

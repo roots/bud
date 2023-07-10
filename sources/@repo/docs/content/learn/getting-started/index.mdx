@@ -11,7 +11,7 @@ sidebar_label: Installation
 <div className="card">
   <div className="card__body">
     <ul>
-      <li>node.js LTS</li>
+      <li>Node LTS</li>
       <li>yarn, npm or pnpm</li>
       <li>Windows users must use Windows Subsystem for Linux</li>
     </ul>
@@ -50,22 +50,7 @@ npm run bud build
 
 No configuration is required. The bundled code will be output to `./dist/*`.
 
-If your application entrypoint is not located at `./src/index.js`, you can learn about how to configure it with [bud.entry](/reference/bud.entry) it in the [Entrypoints guide](/learn/configure/entrypoints).
-
-## Adding support for languages, frameworks and tools
-
-**bud.js** is built modularly. This means features can be added as needed by adding extensions to your project.
-
-The [configuration basics](configure) guide has more information on how to add extensions, but most of them start and end with installing a package.
-
-For example, you can add swc and postcss support by
-installing [@roots/bud-swc](/extensions/bud-swc) and [@roots/bud-postcss](/extensions/bud-postcss/):
-
-```bash npm2yarn
-npm install @roots/bud-swc @roots/bud-postcss --save-dev
-```
-
-Consult the [extensions directory](/extensions/) for available first-party extensions.
+If your application entrypoint is not located at `./src/index.js`, you can learn about how to configure it with [bud.entry](/reference/bud.entry) it in the [Entrypoints guide](/learn/config/entrypoints).
 
 ## Upgrading bud.js
 
