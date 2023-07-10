@@ -34,7 +34,7 @@ export interface transformEntry {
   (slug: Array<string>, color: string): WordPressColors[any]
 }
 export const transformEntry: transformEntry = (slug, color) => ({
-  color: color.toLowerCase().replace(/\/ <alpha-value>/g, '/ 1'),
+  color: color.toLowerCase().replace(/<alpha-value>/g, `1`),
   name: name(slug),
   slug: slug.join(`-`).toLowerCase(),
 })
