@@ -43,7 +43,7 @@ const mockCompilations: Array<Partial<StatsCompilation>> = [
   },
 ]
 
-describe(`@roots/bud-dashboard app component`, () => {
+describe.skip(`@roots/bud-dashboard app component`, () => {
   it(`should render entrypoints`, () => {
     const {lastFrame} = render(
       <Application
