@@ -43,127 +43,130 @@ const mockCompilations: Array<Partial<StatsCompilation>> = [
   },
 ]
 
-describe.skip(`@roots/bud-dashboard app component`, () => {
-  it(`should render entrypoints`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={mockCompilations}
-        displayEntrypoints={true}
-      />,
-    )
+describe.skipIf(process.env.CI)(
+  `@roots/bud-dashboard app component`,
+  () => {
+    it(`should render entrypoints`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={mockCompilations}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(lastFrame())).toMatchSnapshot()
-  })
+      expect(stripAnsi(lastFrame())).toMatchSnapshot()
+    })
 
-  it(`should not render entrypoints when entrypoints is empty`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={[{...mockCompilations[0], entrypoints: {}}]}
-        displayEntrypoints={true}
-      />,
-    )
-  })
+    it(`should not render entrypoints when entrypoints is empty`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={[{...mockCompilations[0], entrypoints: {}}]}
+          displayEntrypoints={true}
+        />,
+      )
+    })
 
-  it(`should not render entrypoints when entrypoints are undefined`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        // @ts-ignore
-        compilations={[{entrypoints: false}]}
-        displayEntrypoints={true}
-      />,
-    )
+    it(`should not render entrypoints when entrypoints are undefined`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          // @ts-ignore
+          compilations={[{entrypoints: false}]}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(lastFrame())).toMatchSnapshot()
-  })
+      expect(stripAnsi(lastFrame())).toMatchSnapshot()
+    })
 
-  it(`should not render entrypoints when entrypoint assets are undefined`, () => {
-    const ink = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={[
-          {
-            entrypoints: {
-              foo: {assets: []},
+    it(`should not render entrypoints when entrypoint assets are undefined`, () => {
+      const ink = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={[
+            {
+              entrypoints: {
+                foo: {assets: []},
+              },
             },
-          },
-        ]}
-        displayEntrypoints={true}
-      />,
-    )
+          ]}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
+      expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
 
-    ink.rerender(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={[
-          {
-            entrypoints: {
-              foo: {},
+      ink.rerender(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={[
+            {
+              entrypoints: {
+                foo: {},
+              },
             },
-          },
-        ]}
-        displayEntrypoints={true}
-      />,
-    )
+          ]}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
-  })
+      expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
+    })
 
-  it(`should render compilation count for multi-compiler`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={[mockCompilations[0], mockCompilations[0]]}
-        displayEntrypoints={true}
-      />,
-    )
+    it(`should render compilation count for multi-compiler`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={[mockCompilations[0], mockCompilations[0]]}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(lastFrame())).toMatchSnapshot()
-  })
+      expect(stripAnsi(lastFrame())).toMatchSnapshot()
+    })
 
-  it(`should render assets`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        compilations={mockCompilations}
-        displayAssets={true}
-      />,
-    )
+    it(`should render assets`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          mode="production"
+          compilations={mockCompilations}
+          displayAssets={true}
+        />,
+      )
 
-    expect(stripAnsi(lastFrame())).toMatchSnapshot()
-  })
+      expect(stripAnsi(lastFrame())).toMatchSnapshot()
+    })
 
-  it(`should render server info`, () => {
-    const {lastFrame} = render(
-      <Application
-        basedir={`/foo/bar`}
-        compilations={mockCompilations}
-        mode="development"
-        devUrl={new URL(`http://localhost:3000`)}
-        publicDevUrl={new URL(`http://example.test:3000/`)}
-        proxy={true}
-        proxyUrl={new URL(`http://localhost:8080/`)}
-        publicProxyUrl={new URL(`http://example.test/`)}
-        displayServerInfo={true}
-        displayAssets={true}
-        displayEntrypoints={true}
-      />,
-    )
+    it(`should render server info`, () => {
+      const {lastFrame} = render(
+        <Application
+          basedir={`/foo/bar`}
+          compilations={mockCompilations}
+          mode="development"
+          devUrl={new URL(`http://localhost:3000`)}
+          publicDevUrl={new URL(`http://example.test:3000/`)}
+          proxy={true}
+          proxyUrl={new URL(`http://localhost:8080/`)}
+          publicProxyUrl={new URL(`http://example.test/`)}
+          displayServerInfo={true}
+          displayAssets={true}
+          displayEntrypoints={true}
+        />,
+      )
 
-    expect(stripAnsi(lastFrame())).toMatch(/Network/)
-    expect(stripAnsi(lastFrame())).toMatch(/localhost:8080/)
-    expect(stripAnsi(lastFrame())).toMatch(/dev/)
-    expect(stripAnsi(lastFrame())).toMatch(/proxy/)
-  })
-})
+      expect(stripAnsi(lastFrame())).toMatch(/Network/)
+      expect(stripAnsi(lastFrame())).toMatch(/localhost:8080/)
+      expect(stripAnsi(lastFrame())).toMatch(/dev/)
+      expect(stripAnsi(lastFrame())).toMatch(/proxy/)
+    })
+  },
+)
