@@ -54,16 +54,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ mock 
-      │
-      │ foo
-      │  › foo.js                                                                                     1 kB
-      │
-      ╰ 0ms [0/0 modules cached]
-      "
-    `)
+    expect(stripAnsi(lastFrame())).toMatchSnapshot()
   })
 
   it(`should not render entrypoints when entrypoints is empty`, () => {
@@ -75,15 +66,6 @@ describe(`@roots/bud-dashboard app component`, () => {
         displayEntrypoints={true}
       />,
     )
-
-    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ mock 
-      │
-      │
-      ╰ 0ms [0/0 modules cached]
-      "
-    `)
   })
 
   it(`should not render entrypoints when entrypoints are undefined`, () => {
@@ -97,14 +79,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ compilation 
-      │
-      │
-      ╰ ...
-      "
-    `)
+    expect(stripAnsi(lastFrame())).toMatchSnapshot()
   })
 
   it(`should not render entrypoints when entrypoint assets are undefined`, () => {
@@ -123,15 +98,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ compilation 
-      │
-      │ entrypoint
-      │
-      ╰ ...
-      "
-    `)
+    expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
 
     ink.rerender(
       <Application
@@ -148,15 +115,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ compilation 
-      │
-      │ entrypoint
-      │
-      ╰ ...
-      "
-    `)
+    expect(stripAnsi(ink.lastFrame())).toMatchSnapshot()
   })
 
   it(`should render compilation count for multi-compiler`, () => {
@@ -169,23 +128,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ mock [1/2] 
-      │
-      │ foo
-      │  › foo.js                                                                                     1 kB
-      │
-      ╰ 0ms [0/0 modules cached]
-
-      ╭ mock [2/2] 
-      │
-      │ foo
-      │  › foo.js                                                                                     1 kB
-      │
-      ╰ 0ms [0/0 modules cached]
-      "
-    `)
+    expect(stripAnsi(lastFrame())).toMatchSnapshot()
   })
 
   it(`should render assets`, () => {
@@ -198,17 +141,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭ mock 
-      │
-      │ assets
-      │  › foo.png                                                                                    1 kB
-      │  … 1 additional asset not shown
-      │
-      ╰ 0ms [0/0 modules cached]
-      "
-    `)
+    expect(stripAnsi(lastFrame())).toMatchSnapshot()
   })
 
   it(`should render server info`, () => {
