@@ -20,37 +20,21 @@ export class Commands {
   public paths: Array<string>
 
   /**
+   * Class constructor
    */
-  private constructor(
+  public constructor(
     public context: Partial<Context>,
     public application: Cli,
   ) {}
 
   /**
-   * @public
-   * @static
+   * Clear command cache
    */
-  public static get(application: Cli, context: Partial<Context>) {
-    if (Commands.instance) return Commands.instance
-    else {
-      Commands.instance = new Commands(context, application)
-      return Commands.instance
-    }
-  }
-
-  public static async importCommandsFromPaths(
-    paths: Array<string>,
-  ): Promise<any> {
+  @bind
+  public async clearCommandCache() {
+    const path = join(this.context.paths.storage, `bud.commands.yml`)
     try {
-      return await Promise.all(
-        paths.map(async path => {
-          try {
-            return await import(path).then(
-              ({default: register}) => register,
-            )
-          } catch (error) {}
-        }),
-      )
+      if (await this.fs.exists(path)) await this.fs.remove(path)
     } catch (error) {}
   }
 
@@ -65,27 +49,17 @@ export class Commands {
   }
 
   /**
-   * Get commands
-   *
-   * @remarks
-   * Returns cached commands if they exist, otherwise
-   * resolves and caches commands from project dependencies.
+   * Get registration module paths
    */
   @bind
-  public async getCommands() {
-    const path = join(this.context.paths.storage, `bud.commands.yml`)
-    try {
-      if (await this.fs.exists(path)) {
-        const paths = await this.fs.read(path)
-        if (Array.isArray(paths)) return paths
-      }
-    } catch (error) {}
+  public async findRegistrationModules(): Promise<Array<any>> {
+    this.paths = await this.resolveExtensionCommandPaths(
+      this.getProjectDependencySignifiers(),
+    )
+      .then(this.findExtensionCommandPaths)
+      .then(this.resolveExtensionCommandPaths)
 
-    const resolvedExtensionPaths = await this.getRegistrationModulePaths()
-
-    await this.fs.write(path, resolvedExtensionPaths)
-
-    return resolvedExtensionPaths
+    return this.paths
   }
 
   /**
@@ -100,14 +74,41 @@ export class Commands {
   }
 
   /**
+   * Import commands
    */
   @bind
-  public async getRegistrationModulePaths(): Promise<Array<any>> {
-    return await this.resolveExtensionCommandPaths(
-      this.getProjectDependencySignifiers(),
-    )
-      .then(this.findExtensionCommandPaths)
-      .then(this.resolveExtensionCommandPaths)
+  public async importCommands(): Promise<any> {
+    return await Promise.all(
+      this.paths.map(async path => {
+        try {
+          return await import(path).then(({default: register}) => register)
+        } catch (error) {
+          await this.clearCommandCache()
+        }
+      }),
+    ).catch(this.clearCommandCache)
+  }
+
+  /**
+   * Get commands
+   *
+   * @remarks
+   * Returns cached commands if they exist, otherwise
+   * resolves and caches commands from project dependencies.
+   */
+  @bind
+  public async init() {
+    const path = join(this.context.paths.storage, `bud.commands.yml`)
+    try {
+      if (await this.fs.exists(path)) {
+        this.paths = await this.fs.read(path)
+        if (Array.isArray(this.paths)) return this.paths
+      }
+    } catch (error) {}
+
+    await this.findRegistrationModules()
+    await this.fs.write(path, this.paths)
+    return this.paths
   }
 
   @bind

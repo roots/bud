@@ -6,6 +6,7 @@ import {Error} from '@roots/bud-dashboard/components/error'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import * as args from '@roots/bud-support/utilities/args'
 import BudCommand from '@roots/bud/cli/commands/bud'
 import BudBuildCommand from '@roots/bud/cli/commands/bud.build'
@@ -60,19 +61,18 @@ application = new Cli({
 
 commands.map(command => application.register(command))
 
-await Commands.get(application, context)
-  .getCommands()
-  .then(Commands.importCommandsFromPaths)
-  .then(
-    async registrar =>
-      await Promise.all(
-        registrar.map(
-          async (registerCommand: (application: Cli) => Promise<any>) =>
-            await registerCommand(application).catch(onError),
-        ),
-      ),
-  )
-  .catch(onError)
+const finder = new Commands(context, application)
+await finder.init()
+const extensions = await finder.importCommands()
+
+await Promise.all(
+  extensions.map(
+    async (registerCommand: (application: Cli) => Promise<any>) => {
+      if (!isFunction(registerCommand)) return
+      await registerCommand(application).catch(onError)
+    },
+  ),
+)
 
 application.runExit(args.raw, context).catch(onError)
 
