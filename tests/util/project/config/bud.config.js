@@ -5,6 +5,4 @@ export default async bud => {
     .serve(3015)
     .html()
     .alias(`foo`, false)
-
-  console.log(`foo`)
 }

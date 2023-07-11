@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
 import type {BudHandler} from '@roots/bud-support/errors'
 
-import {exit, stdout} from 'node:process'
+import {exit} from 'node:process'
 
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
@@ -10,10 +10,7 @@ import Error from '@roots/bud-dashboard/views/node-error'
 import Server from '@roots/bud-dashboard/views/server'
 import {
   Box,
-  Fragment,
   type PropsWithChildren,
-  Spinner,
-  Text,
   useApp,
   useInput,
   useState,
@@ -62,19 +59,12 @@ export const Application = ({
 }: Props) => {
   if (error) return <Error error={error} />
 
-  return (
-    <Box flexDirection="column" gap={1} marginY={1} width={stdout.columns}>
-      {!compilations?.length && status && (
-        <Text dimColor wrap="truncate-end">
-          <Spinner type="simpleDots" />
-          {` `}
-          {status}
-        </Text>
-      )}
+  if (!compilations?.length) return null
 
+  return (
+    <Box flexDirection="column" gap={1} marginY={1}>
       {compilations?.map((compilation, id) => {
-        if (isolated > 0 && id + 1 !== isolated)
-          return <Fragment key={id}></Fragment>
+        if (isolated > 0 && id + 1 !== isolated) return null
 
         return (
           <Box flexDirection="column" gap={1} key={id}>
@@ -124,12 +114,28 @@ export const TeletypeApplication = ({
   const [isolated, setIsolated] = useState(0)
 
   useInput((key, input) => {
-    key === `a` && setDisplayAssets(!displayAssets)
-    key === `e` && setDisplayEntrypoints(!displayEntrypoints)
-    key === `d` && setDisplayDebug(!debug)
-    key === `s` && setDisplayServerInfo(!displayServerInfo)
-    key === `c` && setCompact(!compact)
-    key === `0` && setIsolated(0)
+    switch (key) {
+      case `a`:
+        setDisplayAssets(!displayAssets)
+        break
+      case `e`:
+        setDisplayEntrypoints(!displayEntrypoints)
+        break
+      case `d`:
+        setDisplayDebug(!debug)
+        break
+      case `s`:
+        setDisplayServerInfo(!displayServerInfo)
+        break
+      case `c`:
+        setCompact(!compact)
+        break
+      case `0`:
+        setIsolated(0)
+        break
+      default:
+        break
+    }
 
     new Array(9)
       .fill(0)

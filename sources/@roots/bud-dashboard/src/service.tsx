@@ -243,7 +243,7 @@ export class Dashboard extends Service implements BudDashboard {
      * the current state.
      */
     renderApplication(
-      <Box flexDirection="column" width="100%">
+      <Box flexDirection="column">
         <Console messages={this.messages} />
 
         <App
