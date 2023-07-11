@@ -1,10 +1,8 @@
 import type {StatsCompilation} from '@roots/bud-support/webpack'
 
 import Assets from '@roots/bud-dashboard/components/assets'
-import View from '@roots/bud-dashboard/components/view'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import {longestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
-import {size} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
 interface Props {
@@ -44,30 +42,31 @@ const Entrypoints = ({
     0,
   )
 
-  return entrypoints.map(({assets, assetsSize, name}, key) => (
-    <View
-      compact={compact}
-      footer={<Foot bytes={assetsSize} />}
-      head={<Head color={compilationColor} name={name} />}
-      key={key}
-    >
-      <Assets assets={assets} minWidth={minWidth} />
-    </View>
-  ))
-}
-
-const Head = ({color, name}) => (
-  <Box flexDirection="column">
-    <Text color={color}>{name ?? `entrypoint`}</Text>
-  </Box>
-)
-
-const Foot = ({bytes}: {bytes: number}) => {
-  return (
-    <Box flexDirection="row">
-      <Text dimColor>{`${size(bytes)}`}</Text>
+  return entrypoints.map(({assets, name}, key) => (
+    <Box flexDirection="column" key={key}>
+      {compact ? (
+        <Box
+          flexDirection="row"
+          flexWrap="wrap"
+          justifyContent="space-between"
+        >
+          <Text color={compilationColor}>{name ?? `entrypoint`}</Text>
+          <Text>{assets.length} modules</Text>
+        </Box>
+      ) : (
+        <Box flexDirection="column" key={key}>
+          <Box
+            flexDirection="row"
+            flexWrap="wrap"
+            justifyContent="space-between"
+          >
+            <Text color={compilationColor}>{name ?? `entrypoint`}</Text>
+          </Box>
+          <Assets assets={assets} minWidth={minWidth} />
+        </Box>
+      )}
     </Box>
-  )
+  ))
 }
 
 export {Entrypoints as default}

@@ -22,6 +22,7 @@ const Asset = (asset: Props) => {
     >
       <Box flexDirection="row" overflowX="hidden">
         <Text dimColor={!asset.emitted} wrap="truncate-end">
+          {` `}
           {!asset.emitted ? figures.almostEqual : figures.pointerSmall}
           {` `}
           {asset.name}
@@ -37,7 +38,9 @@ const Asset = (asset: Props) => {
             </Text>
           )}
         </Box>
-        <Text dimColor>{`${formatSize(asset.size)}`.trim()}</Text>
+        <Text dimColor>
+          {`${asset.size > 0 ? formatSize(asset.size) : `ø`}`.trim()}
+        </Text>
       </Box>
     </Box>
   )

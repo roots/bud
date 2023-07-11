@@ -44,36 +44,6 @@ const mockCompilations: Array<Partial<StatsCompilation>> = [
 ]
 
 describe(`@roots/bud-dashboard app component`, () => {
-  it(`should render status`, () => {
-    const result = render(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        status="testing status"
-      />,
-    )
-
-    expect(stripAnsi(result.lastFrame())).toMatchInlineSnapshot(`
-      "
-      .   testing status
-      "
-    `)
-
-    result.rerender(
-      <Application
-        basedir={`/foo/bar`}
-        mode="production"
-        status="testing status 2"
-      />,
-    )
-
-    expect(stripAnsi(result.lastFrame())).toMatchInlineSnapshot(`
-      "
-      .   testing status 2
-      "
-    `)
-  })
-
   it(`should render entrypoints`, () => {
     const {lastFrame} = render(
       <Application
@@ -86,15 +56,12 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ mock
+      ╭ mock 
       │
-      │ ╭─ foo
-      │ │
-      │ │ › foo.js                                                                                    1 kB
-      │ │
-      │ ╰─ undefined bytes
+      │ foo
+      │  › foo.js                                                                                     1 kB
       │
-      ╰─ ✔ 0ms [0/0 modules cached]
+      ╰ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -111,10 +78,10 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ mock
+      ╭ mock 
       │
       │
-      ╰─ ✔ 0ms [0/0 modules cached]
+      ╰ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -132,10 +99,10 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ compilation
+      ╭ compilation 
       │
       │
-      ╰─ ...
+      ╰ ...
       "
     `)
   })
@@ -158,14 +125,11 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ compilation
+      ╭ compilation 
       │
-      │ ╭─ entrypoint
-      │ │
-      │ │
-      │ ╰─ undefined bytes
+      │ entrypoint
       │
-      ╰─ ...
+      ╰ ...
       "
     `)
 
@@ -186,14 +150,11 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(ink.lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ compilation
+      ╭ compilation 
       │
-      │ ╭─ entrypoint
-      │ │
-      │ │
-      │ ╰─ undefined bytes
+      │ entrypoint
       │
-      ╰─ ...
+      ╰ ...
       "
     `)
   })
@@ -210,25 +171,19 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ mock [1/2]
+      ╭ mock [1/2] 
       │
-      │ ╭─ foo
-      │ │
-      │ │ › foo.js                                                                                    1 kB
-      │ │
-      │ ╰─ undefined bytes
+      │ foo
+      │  › foo.js                                                                                     1 kB
       │
-      ╰─ ✔ 0ms [0/0 modules cached]
+      ╰ 0ms [0/0 modules cached]
 
-      ╭─ ☰ mock [2/2]
+      ╭ mock [2/2] 
       │
-      │ ╭─ foo
-      │ │
-      │ │ › foo.js                                                                                    1 kB
-      │ │
-      │ ╰─ undefined bytes
+      │ foo
+      │  › foo.js                                                                                     1 kB
       │
-      ╰─ ✔ 0ms [0/0 modules cached]
+      ╰ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -245,15 +200,13 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
       "
-      ╭─ ☰ mock
+      ╭ mock 
       │
-      │ ╭─ assets
-      │ │
-      │ │ › foo.png                                                                                   1 kB
-      │ │
-      │ ╰─ 1 kB
+      │ assets
+      │  › foo.png                                                                                    1 kB
+      │  … 1 additional asset not shown
       │
-      ╰─ ✔ 0ms [0/0 modules cached]
+      ╰ 0ms [0/0 modules cached]
       "
     `)
   })
@@ -262,6 +215,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     const {lastFrame} = render(
       <Application
         basedir={`/foo/bar`}
+        compilations={mockCompilations}
         mode="development"
         devUrl={new URL(`http://localhost:3000`)}
         publicDevUrl={new URL(`http://example.test:3000/`)}
@@ -274,26 +228,9 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(lastFrame())).toMatch(/Server info/)
+    expect(stripAnsi(lastFrame())).toMatch(/Network/)
     expect(stripAnsi(lastFrame())).toMatch(/localhost:8080/)
-    expect(stripAnsi(lastFrame())).toMatch(/Watching project sources/)
     expect(stripAnsi(lastFrame())).toMatch(/dev/)
     expect(stripAnsi(lastFrame())).toMatch(/proxy/)
-
-    /*     expect(stripAnsi(lastFrame())).toMatchInlineSnapshot(`
-      "
-      ╭─ ⬢ Server info
-      │
-      │  proxy  ┄ http://localhost:8080/
-      │
-      │         ┄ http://example.test/
-      │
-      │  dev    ┄ http://localhost:3000/
-      │         ┄ http://192.168.1.16:3000/
-      │         ┄ http://example.test:3000/
-      │
-      ╰─ Watching project sources
-      "
-    `) */
   })
 })

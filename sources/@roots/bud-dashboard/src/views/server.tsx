@@ -1,4 +1,3 @@
-import View from '@roots/bud-dashboard/components/view'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import {externalNetworkInterface} from '@roots/bud-support/os'
@@ -33,65 +32,55 @@ export const Server = ({
   ipv4.port = devUrl.port
 
   return (
-    <View
-      footer={
-        <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
-          <Box flexDirection="row" minWidth="1" overflowX="hidden">
-            <Text wrap="truncate-end">Watching project sources</Text>
+    <Box flexDirection="column">
+      <Text color="blue">Network</Text>
+      <Text></Text>
+      {proxy && proxyUrl?.href && (
+        <Box flexDirection="row" gap={2} paddingLeft={1}>
+          <Box minWidth={7}>
+            <Text color="white">{figures.pointerSmall} proxy</Text>
+          </Box>
+
+          <Box flexDirection="column" gap={1}>
+            <Text dimColor wrap="truncate-end">
+              {figures.lineDashed0} {proxyUrl.href}
+            </Text>
+
+            {publicProxyUrl?.href !== proxyUrl.href && (
+              <Text dimColor wrap="truncate-end">
+                {figures.lineDashed0} {publicProxyUrl.href}
+              </Text>
+            )}
           </Box>
         </Box>
-      }
-      borderColor="blue"
-      head={<Text color="blue">{figures.nodejs} Server info</Text>}
-    >
-      <Box flexDirection="column" gap={1}>
-        {proxy && proxyUrl?.href && (
-          <Box flexDirection="row" gap={2} paddingLeft={1}>
-            <Box minWidth={5}>
-              <Text color="white">proxy</Text>
-            </Box>
+      )}
 
-            <Box flexDirection="column" gap={1}>
-              <Text dimColor wrap="truncate-end">
-                {figures.lineDashed0} {proxyUrl.href}
-              </Text>
-
-              {publicProxyUrl?.href !== proxyUrl.href && (
-                <Text dimColor wrap="truncate-end">
-                  {figures.lineDashed0} {publicProxyUrl.href}
-                </Text>
-              )}
-            </Box>
+      {devUrl?.href && (
+        <Box flexDirection="row" gap={2} paddingLeft={1}>
+          <Box minWidth={7}>
+            <Text color="white">{figures.pointerSmall} dev</Text>
           </Box>
-        )}
 
-        {devUrl?.href && (
-          <Box flexDirection="row" gap={2} paddingLeft={1}>
-            <Box minWidth={5}>
-              <Text color="white">dev</Text>
-            </Box>
+          <Box flexDirection="column">
+            <Text dimColor wrap="truncate-end">
+              {figures.lineDashed0} {devUrl.href}
+            </Text>
 
-            <Box flexDirection="column">
+            {ipv4.href !== devUrl.href && (
               <Text dimColor wrap="truncate-end">
-                {figures.lineDashed0} {devUrl.href}
+                {figures.lineDashed0} {ipv4.href}
               </Text>
+            )}
 
-              {ipv4.href !== devUrl.href && (
-                <Text dimColor wrap="truncate-end">
-                  {figures.lineDashed0} {ipv4.href}
-                </Text>
-              )}
-
-              {publicDevUrl?.href !== devUrl.href && (
-                <Text dimColor wrap="truncate-end">
-                  {figures.lineDashed0} {publicDevUrl.href}
-                </Text>
-              )}
-            </Box>
+            {publicDevUrl?.href !== devUrl.href && (
+              <Text dimColor wrap="truncate-end">
+                {figures.lineDashed0} {publicDevUrl.href}
+              </Text>
+            )}
           </Box>
-        )}
-      </Box>
-    </View>
+        </Box>
+      )}
+    </Box>
   )
 }
 

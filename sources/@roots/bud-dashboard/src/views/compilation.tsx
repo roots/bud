@@ -8,7 +8,6 @@ import {relative} from 'node:path'
 import Messages from '@roots/bud-dashboard/components/messages'
 import View from '@roots/bud-dashboard/components/view'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
-import figures from '@roots/bud-support/figures'
 import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
@@ -55,6 +54,7 @@ const Compilation = ({
       }
       borderColor={compilationColor}
       footer={<Footer compilation={compilation} />}
+      paddingY={1}
     >
       <Box flexDirection="column" gap={1}>
         <Messages color="red" messages={compilation.errors} />
@@ -78,35 +78,37 @@ const Compilation = ({
 
 const Head = ({basedir, compilation, id, total}: Props) => {
   const color = useCompilationColor(compilation)
-  const figure =
-    compilation.errorsCount > 0 ? figures.cross : figures.hamburger
   if (!compilation) return <Text dimColor>Loading</Text>
 
   return (
     <Box
       flexDirection="row"
       justifyContent="space-between"
-      overflowX="hidden"
+      overflow="hidden"
       width="100%"
     >
-      <Box flexDirection="row" flexShrink={0} gap={1} overflowX="hidden">
-        <Text color={color}>{figure}</Text>
-        <Text color={color}>
+      <Box flexDirection="row" overflow="hidden">
+        <Text color={color} wrap="truncate">
           {compilation.name?.split(`/`).pop() ?? `compilation`}
+          {` `}
         </Text>
 
         {total > 1 && (
-          <Text dimColor>
-            [{id}/{total}]
+          <Text dimColor wrap="truncate">
+            [{id}/{total}]{` `}
           </Text>
         )}
 
-        {compilation.hash && <Text dimColor>[{compilation.hash}]</Text>}
+        {compilation.hash && (
+          <Text dimColor wrap="truncate">
+            [{compilation.hash}]{` `}
+          </Text>
+        )}
       </Box>
 
       {basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          {` `}./{relative(basedir, compilation.outputPath)}
+          ./{relative(basedir, compilation.outputPath)}
         </Text>
       )}
     </Box>
@@ -131,21 +133,10 @@ const Footer = ({compilation}: Partial<Props>) => {
   const formattedModuleCount = `${cachedModuleCount}/${totalModuleCount} modules cached`
   const formattedTime = `${duration(compilation.time)}`
 
-  const figure =
-    compilation.errorsCount > 0
-      ? figures.cross
-      : compilation.warningsCount > 0
-      ? figures.warning
-      : figures.tick
-
   if (compilation.errorsCount > 0) {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
-        <Text wrap="truncate-end">
-          <Text color="red">{figure}</Text>
-          {` `}
-          {formattedErrorCount}
-        </Text>
+        <Text wrap="truncate-end">{formattedErrorCount}</Text>
       </Box>
     )
   }
@@ -154,8 +145,6 @@ const Footer = ({compilation}: Partial<Props>) => {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
-          <Text color="yellow">{figure}</Text>
-          {` `}
           {formattedTime}
           {` `}
           <Text dimColor>[{formattedModuleCount}]</Text>
@@ -167,8 +156,6 @@ const Footer = ({compilation}: Partial<Props>) => {
   return (
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text wrap="truncate-end">
-        <Text color="green">{figure}</Text>
-        {` `}
         {formattedTime}
         {` `}
         <Text dimColor>[{formattedModuleCount}]</Text>
