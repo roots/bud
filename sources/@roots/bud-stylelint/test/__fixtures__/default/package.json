@@ -1,5 +1,5 @@
 {
-  "name": "@examples/stylelint",
+  "name": "@tests/stylelint-command",
   "private": true,
   "type": "module",
   "$schema": "https://bud.js.org/bud.package.json",
@@ -7,7 +7,7 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-stylelint": "latest"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*"
   }
 }
