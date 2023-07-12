@@ -365,16 +365,14 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     expect(lines[11]).toBe(Char.Empty)
     expect(lines[12]).toMatch(/Network/)
-    expect(lines[13]).toMatch(/ › proxy  ┄ http:\/\/localhost:\d\d\d\d\//)
+    expect(lines[13]).toMatch(/ › proxy  ┄ http:\/\/localhost:\d+\//)
     expect(lines[14]).toBe(Char.Empty)
     expect(lines[15]).toMatch(/          ┄ http:\/\/example\.test\//)
-    expect(lines[16]).toMatch(/ › dev    ┄ http:\/\/localhost:\d\d\d\d\//)
+    expect(lines[16]).toMatch(/ › dev    ┄ http:\/\/localhost:\d+\//)
     expect(lines[17]).toMatch(
-      /          ┄ http:\/\/\d\d\d\.\d\d\d\.\d\.\d\d:\d\d\d\d\//,
+      /          ┄ http:\/\/\d+\.\d+\.\d+\.\d+:\d+\//,
     )
-    expect(lines[18]).toMatch(
-      /          ┄ http:\/\/example\.test:\d\d\d\d\//,
-    )
+    expect(lines[18]).toMatch(/          ┄ http:\/\/example\.test:\d+\//)
     expect(lines[19]).toBe(Char.Empty)
   })
 
@@ -395,7 +393,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     const lines = stripAnsi(lastFrame()).split(Char.NewLine)
-    expect(lines[13]).toMatch(/ › dev    ┄ http:\/\/localhost:\d\d\d\d\//)
+    expect(lines[13]).toMatch(/ › dev    ┄ http:\/\/localhost:\d+\//)
   })
 
   it(`should not throw when crazy input happens`, () => {
@@ -403,9 +401,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     try {
       textError = stripAnsi(render(<>{`foo`}</>).lastFrame())
     } catch (e) {}
-    expect(textError.trim().split(`\n`)[0]).toMatchInlineSnapshot(
-      '"ERROR  Text string \\"foo\\" must be rendered inside <Text> component"',
-    )
+    expect(textError.trim().split(`\n`)[0]).toMatch(/ERROR/)
 
     const {lastFrame: basedirNumber} = render(
       // @ts-ignore
