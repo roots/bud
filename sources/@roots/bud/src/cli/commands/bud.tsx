@@ -47,11 +47,28 @@ export default class BudCommand extends Command<CLIContext> {
   public static override usage = Command.Usage({
     description: `Run \`bud --help\` for usage information`,
     details: `\
-      \`bud build production\` compiles source assets in \`production\` mode. Run \`bud build production --help\` for usage.
+      Documentation for this command is available at https://bud.js.org/.
 
-      \`bud build development\` compiles source assets in \`development\` mode and serves updated modules. Run \`bud build development --help\` for usage.
+      Any flags which accept a boolean can be negated with the \`--no-\` prefix. For example, \`--no-color\` will disable color output.
+
+      Any command can be exited with \`esc\` or \`ctrl+c\`.
+
+      Run this command with no arguments for an interactive menu of available subcommands.
+
+      Common tasks:
+
+        - \`bud build production\` compiles source assets in \`production\` mode.
+        - \`bud build development\` compiles source assets in \`development\` mode and updates modules in the browser.
+        - \`bud doctor\` checks your system and project for common configuration issues. Try this before making an issue in the bud.js repo.
+
+      Helpful flags:
+
+        - \`--help\` can be appened to any command for usage information.
+        - \`--basedir\` sets the working directory for bud and will be treated as project root.
+        - \`--storage\` sets the storage directory. Defaults to the system tmp dir.
+        - \`--log\` enables logging. Use \`--log\` in tandem with \`--verbose\` for more detailed output.
+        - \`--debug\` enables debug mode. It is very noisy in the terminal but also produces useful output files in the storage directory.
     `,
-    examples: [[`compile source assets`, `$0 build`]],
   })
 
   public basedir = basedir

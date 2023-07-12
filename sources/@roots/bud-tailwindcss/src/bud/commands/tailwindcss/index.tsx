@@ -9,7 +9,7 @@ export class BudTailwindCommand extends BudCommand {
   public static override paths = [[`tailwindcss`], [`tw`]]
 
   public static override usage = BudCommand.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `tailwindcss CLI passthrough`,
     examples: [
       [`View tailwindcss usage information`, `$0 tailwindcss --help`],

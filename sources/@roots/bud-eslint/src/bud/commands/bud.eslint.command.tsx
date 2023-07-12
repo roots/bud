@@ -9,9 +9,9 @@ export class BudEslintCommand extends BudCommand {
   public static override paths = [[`lint`, `js`], [`eslint`]]
 
   public static override usage = BudCommand.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `eslint CLI passthrough`,
-    examples: [[`View eslint usage information`, `$0 eslint --help`]],
+    examples: [[`Run eslint on source files`, `$0 eslint`]],
   })
 
   public options = Option.Proxy({name: `eslint passthrough options`})

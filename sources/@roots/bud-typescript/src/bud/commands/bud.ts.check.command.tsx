@@ -9,7 +9,7 @@ export class BudTSCheckCommand extends BudCommand {
   public static override paths = [[`ts`, `check`]]
 
   public static override usage = BudCommand.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `Typecheck source code`,
     details: `
       This command runs the \`tsc\` command with the \`--noEmit\` flag.

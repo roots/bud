@@ -27,23 +27,12 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    */
   public static override usage = BuildCommand.Usage({
     category: `build`,
-    description: `Compiles source assets in \`development\` mode.`,
-    details: `\
-      \`bud build development\` compiles source assets in \`development\` mode.
-    `,
+    description: `Compile source assets in \`development\` mode.`,
+    details: `Compile source assets in \`development\` mode.`,
     examples: [
-      [`compile source and serve`, `$0 build development`],
       [
-        `open project in system default browser`,
-        `$0 build development --browser`,
-      ],
-      [
-        `do not force reload in the browser when encountering a fatal HMR error`,
-        `$0 build development --no-reload`,
-      ],
-      [
-        `do not display an error overlay when encountering errors in application code`,
-        `$0 build development --no-overlay`,
+        `Compile source assets in \`development\` mode.`,
+        `$0 build development`,
       ],
     ],
   })

@@ -20,7 +20,7 @@ export default class BudUpgradeCommand extends BudCommand {
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
-    category: `tasks`,
+    category: `task`,
     description: `Set bud.js version`,
     details: `
       This command will upgrade your bud.js installation to the latest stable version.
@@ -34,12 +34,7 @@ export default class BudUpgradeCommand extends BudCommand {
       This command is a passthrough to the package manager you are using.
     `,
     examples: [
-      [`Upgrade dependencies to latest`, `$0 upgrade`],
-      [`Upgrade dependencies to specific version`, `$0 upgrade 6.6.6`],
-      [
-        `Upgrade through a private registry`,
-        `$0 upgrade --registry http://localhost:4873`,
-      ],
+      [`Upgrade all bud dependencies to latest version`, `$0 upgrade`],
     ],
   })
 
