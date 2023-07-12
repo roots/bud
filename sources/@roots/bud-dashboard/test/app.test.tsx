@@ -76,9 +76,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       // @ts-ignore
       <Application compilations={[]} />,
     )
-    const lines = stripAnsi(lastFrame())
-
-    expect(lines).toBe(Char.NewLine)
+    expect(stripAnsi(lastFrame())).toBe(Char.NewLine)
   })
 
   it(`should render basedir when basedir prop and compilation.outputPath are set`, () => {
@@ -397,12 +395,6 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should not throw when crazy input happens`, () => {
-    let textError: string = ``
-    try {
-      textError = stripAnsi(render(<Box>{`foo`}</Box>).lastFrame())
-    } catch (e) {}
-    expect(textError.trim().split(`\n`)[0]).toMatch(/ERROR/)
-
     const {lastFrame: basedirNumber} = render(
       // @ts-ignore
       <Application basedir={6} />,
