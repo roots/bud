@@ -1,0 +1,58 @@
+---
+title: Development server
+description: Development server
+slug: dev-server
+sidebar_label: Development server
+---
+
+## Setting the dev URL
+
+Use [bud.setUrl](/reference/bud.setUrl) to set the development server URL.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.setUrl(3030) // Deltron zero hero not no small feat
+}
+```
+
+## Setting the proxy URL
+
+Use [bud.setProxyUrl](/reference/bud.setProxyUrl) to set the development server proxy URL.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.setProxyUrl(`http://example.test`)
+}
+```
+
+## Setting public URLs
+
+You can use [bud.setPublicUrl](/reference/bud.setPublicUrl) and [bud.setPublicProxyUrl](/reference/bud.setPublicProxyUrl) to set the public URL of the development server.
+
+This is useful in containerized development environments like Docker where the internal URL is different from the external URL.
+
+Here is an example of what this might look like, but it is going to depend heavily on your setup:
+
+```js title=bud.config.js
+bud
+  .setUrl(3000)
+  .setPublicUrl(`http://example.test:3000`)
+  .setProxyUrl(8080)
+  .setPublicProxyUrl(`http://example.test`)
+```
+
+## Advanced configuration
+
+The development server can be configured with [bud.serve](/reference/bud.serve). This is primarily used to handle
+configuring bud.js to use an [SSL certificate](/reference/bud.serve#ssl), but it exposes all node options so the possibilities
+are really only limited by the runtime.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.serve({
+    url: new URL(`https://example.test`)
+    cert: `/path/to/example.test.crt`,
+    key: `/path/to/example.test.key`,
+  })
+}
+```

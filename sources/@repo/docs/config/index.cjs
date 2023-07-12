@@ -11,7 +11,7 @@ const pluginSearch = require.resolve(`docusaurus-lunr-search`)
 
 const docsPath = path => resolve(__dirname, `..`, path ?? ``)
 
-const sidebarPath = docsPath(`sidebars/docs.cjs`)
+const sidebarPath = docsPath(`sidebars/reference.cjs`)
 
 const remarkPlugins = [[npm2yarn, {sync: true}]]
 
@@ -45,24 +45,12 @@ module.exports = {
       pluginDocs,
       {
         editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
-        id: `dev`,
+        id: `learn`,
         include: [`**/*.md`, `**/*.mdx`],
-        path: docsPath(`content/dev`),
+        path: docsPath(`content/learn`),
         remarkPlugins,
-        routeBasePath: `dev`,
-        sidebarPath: docsPath(`sidebars/sidebar.cjs`),
-      },
-    ],
-    [
-      pluginDocs,
-      {
-        editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
-        id: `guides`,
-        include: [`**/*.md`, `**/*.mdx`],
-        path: docsPath(`content/guides`),
-        remarkPlugins,
-        routeBasePath: `guides`,
-        sidebarPath: docsPath(`sidebars/guides.cjs`),
+        routeBasePath: `learn`,
+        sidebarPath: docsPath(`sidebars/learn.cjs`),
       },
     ],
     [
@@ -93,8 +81,9 @@ module.exports = {
         },
         docs: {
           editUrl: join(config.url.web, `edit/main/sources/@repo/docs/`),
-          path: docsPath(`content/docs`),
+          path: docsPath(`content/reference`),
           remarkPlugins,
+          routeBasePath: `reference`,
           sidebarPath,
         },
         pages: {

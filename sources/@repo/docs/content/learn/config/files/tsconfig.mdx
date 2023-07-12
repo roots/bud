@@ -1,0 +1,56 @@
+---
+title: tsconfig.json
+sidebar_label: tsconfig.json
+---
+
+You can enhance your developer experience in vscode and other editors by creating a `tsconfig.json` file.
+
+There are base configs provided by **@roots/bud** for you to extend:
+
+- [@roots/bud/config/jsconfig.json](https://github.com/roots/bud/tree/main/sources/@roots/bud/config/jsconfig.json)
+- [@roots/bud/config/tsconfig.json](https://github.com/roots/bud/tree/main/sources/@roots/bud/config/tsconfig.json)
+
+### Example tsconfig.json
+
+```json title=tsconfig.json
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./dist",
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": [
+      "node",
+      "webpack/module",
+      "@roots/bud",
+      "@roots/bud-postcss",
+      "@roots/bud-react",
+      "@roots/bud-swc",
+      "@roots/bud-tailwindcss"
+    ]
+  },
+  "files": ["bud.config.ts"],
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"],
+  "bud": {
+    "useCompilerOptions": false
+  }
+}
+```
+
+### Tips
+
+- Add any bud extensions you are using to `compilerOptions.types` so that you're IDE can will pick up on the types. We also recommend adding `node` and `webpack/module` to this array.
+- Add any [aliases](/reference/bud.alias) you are using to `compilerOptions.paths` so that your IDE can resolve them.
+- Make sure `bud.config.js` is included in the `include` array so that your IDE will apply discovered types to the config file.
+
+### bud.useCompilerOptions
+
+If you enable `bud.useCompilerOptions` in your `tsconfig.json` file then **@roots/bud** will apply certain options from `compilerOptions` to the bud config.
+
+- `compilerOptions.baseUrl` will set the `@src` path.
+- `compilerOptions.outDir` will set the `@dist` path.
+- `compilerOptions.paths` will create bud paths and aliases.
+- `include` will call `bud.compilePaths` on the supplied values.

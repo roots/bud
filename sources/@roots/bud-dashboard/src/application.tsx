@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
-import type {BudHandler} from '@roots/bud-support/errors'
+import type {BudErrorClass} from '@roots/bud-support/errors'
 
 import {exit} from 'node:process'
 
@@ -27,7 +27,7 @@ export interface Props {
   displayAssets?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
-  error?: BudHandler
+  error?: BudErrorClass
   errors?: StatsCompilation[`errors`]
   isolated?: number
   mode: Bud['mode']
@@ -59,11 +59,13 @@ export const Application = ({
 }: Props) => {
   if (error) return <Error error={error} />
 
-  if (!compilations?.length) return null
+  if (!compilations || !Array.isArray(compilations)) return null
 
   return (
     <Box flexDirection="column" gap={1} marginY={1}>
       {compilations?.map((compilation, id) => {
+        if (!compilation?.hash) return null
+
         if (isolated > 0 && id + 1 !== isolated) return null
 
         return (
@@ -96,6 +98,7 @@ export const Application = ({
   )
 }
 
+/* c8 ignore next 71 */
 export const TeletypeApplication = ({
   children,
   close,

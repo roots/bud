@@ -1,0 +1,388 @@
+---
+title: Extending
+description: Overview of instantiating bud.js directly from Node
+sidebar_label: Extending
+---
+
+You can add additional functionality to **bud.js** by writing a bud.js extension.
+
+## Extension shape
+
+Extensions can be provided as either a plain JS object or a class.
+
+```ts title="extension.ts"
+const MyExtension = {
+  register: async(bud) {}
+}
+```
+
+Extensions writen using JS classes should extend the `Extension` base class (exported from `@roots/bud-framework/extension`).
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+class MyExtension extends Extension {
+  public async register() {}
+}
+```
+
+The rest of this document assumes that extensions are being authored as a class and are being exported from an ESM package.
+
+## Interface
+
+### label
+
+The extension `label` serves as a handle for other extensions or the user config. It should be resolvable as a module signifier.
+
+For instance if your extension is published to npm as `bud-extension-name` then the `label` should match:
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension-name'
+}
+```
+
+### dependsOn
+
+Extensions may depend on other other extensions. For instance, if you are authoring an extension that manages PostCSS plugins then your extension
+depends on the presence of `@roots/bud-postcss`. To ensure dependencies are available, you may list their `label`s in a `dependsOn` public property.
+
+The `dependsOn` property is expressed as a `Set`:
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension-name'
+
+  public dependsOn = new Set(['@roots/bud-postcss'])
+}
+```
+
+### dependsOnOptional
+
+Extensions may depend on other extensions on an optional basis. **bud.js** will attempt to register the extension if it is available. Otherwise, it will silently proceed.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public dependsOnOptional = new Set(['@roots/bud-postcss'])
+}
+```
+
+### options
+
+Any extension options can be set in the `options` property.
+
+```ts title="extension.ts"
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public options = {
+    option: 'value',
+  }
+}
+```
+
+The `options` property is treated specially (using `getters` and `setters`).
+
+Each option value can be expressed as either the literal value itself or a function receives the **bud.js** instance object and returns the value.
+
+This is useful when you can't know the value up front (as is the case with user paths):
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public options = {
+    option: (bud: Bud) => bud.path('@src'),
+  }
+}
+```
+
+Now, if the user makes a change to the `@src` path, the reference will be updated in the extension.
+
+The only "gotcha" here is that if you have an extension option which is itself a function. Since **bud.js** will try to call the function to resolve the option value you
+may need to wrap it in another function:
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+/**
+ * This is the function we want to use an an option value
+ */
+const callback = (prop: string): string => 'hello, world!'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public options = {
+    /**
+     * Rather than passing the function directly, we wrap it in another function.
+     * This way, **bud.js** will not call the function when resolving the option value.
+     */
+    prop: () => callback,
+  }
+}
+```
+
+There are some additional methods available for working with extension options:
+
+#### setOption
+
+```ts title="extension.ts"
+extension.setOption('foo', value)
+```
+
+#### setOptions
+
+```ts title="extension.ts"
+extension.setOptions({
+  foo: `literal`,
+  bar: (bud: Bud) => () => `callback`.
+})
+```
+
+### init
+
+Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async init(bud) {
+    // do something
+  }
+}
+```
+
+### register
+
+Async callback. Try to do things in this method, when possible.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async register(bud) {
+    // do something
+  }
+}
+```
+
+### boot
+
+Async callback. Called after `register`. Good for business which requires another
+extension to have already had `register` called on it.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async boot(bud) {
+    // do something
+  }
+}
+```
+
+### configAfter
+
+Async callback. Called after user configuration has been processed.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async configAfter(bud) {
+    // do something
+  }
+}
+```
+
+### buildBefore
+
+Async callback. Called directly before configuration is constructed and passed to the compiler).
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async buildBefore(bud) {
+    // do something
+  }
+}
+```
+
+### make
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import {bind} from '@roots/bud-framework/extension/decorators'
+import Plugin from 'some-webpack-plugin'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  @bind
+  public async make() {
+    return new Plugin(this.options)
+  }
+
+  public options = {
+    option: (bud: Bud) => bud.path('@src'),
+  }
+}
+```
+
+### plugin
+
+A plugin constructor. Will be passed the extension options. Used in lieue of [make](#make).
+
+A plugin is defined as a newable class or function returning an object with an `apply` method. Here is how **bud.js** types it:
+
+```ts title="extension.d.ts"
+/**
+ * Webpack plugin.
+ */
+export interface ApplyPlugin {
+  /**
+   * Loose defined
+   */
+  [key: string]: any
+
+  /**
+   * Apply callback
+   *
+   * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
+   */
+  apply: (compiler?: Compiler) => unknown
+}
+
+/**
+ * Newable function or class that returns
+ * an {@link ApplyPlugin} instance.
+ */
+export interface ApplyPluginConstructor {
+  new (...args: any[]): ApplyPlugin
+}
+```
+
+And here is how you might use it:
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import Plugin from 'some-webpack-plugin'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public plugin = Plugin
+
+  public options = {
+    option: (bud: Bud) => bud.path('@src'),
+  }
+}
+```
+
+### apply
+
+An `apply` method indicates to **bud.js** that the extension is doing double duty as a compiler plugin and a **bud.js** extension.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+import Plugin from 'some-webpack-plugin'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public apply() {
+    // see webpack documentation. this is treated exactly the same as a pure webpack plugin.
+  }
+}
+```
+
+When present **bud.js** will pass the extension directly to the compiler.
+
+### when
+
+A callback that returns a boolean. The extension will be registered regardless of the value returned by this function, but certain methods
+will not be called if this function returns `false`.
+
+This function is passed the **bud.js** instance.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async when(bud) {
+    return bud.isProduction && this.options.set.size > 0
+  }
+}
+```
+
+If `Extension.when` returns `false` the following methods will be discarded:
+
+- [buildBefore](#buildBefore)
+- [buildAfter](#buildafter)
+- [configAfter](#configAfter)
+- [make](#make)
+
+`Extension.enabled` (a simple `boolean`) will always take precedence over `Extension.when` if it is set.
+
+```ts title="extension.ts"
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async register(bud) {
+    // this overrides `when`
+    this.enabled = true
+  }
+
+  /**
+   * This function will never be called because {@link Extension.enabled}
+   * was set to `true` in {@link Extension.register}.
+   */
+  public async when(bud) {
+    return bud.isProduction && options.set.size > 0
+  }
+}
+```
+
+This is by design; it makes it more straight-forward for the consuming developer to reason about enabling or disabling
+particular extensions should they wish to override your implementation.

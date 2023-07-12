@@ -1,4 +1,4 @@
 ## Related
 
-- [bud.copyFile](/docs/bud.copyFile)
-- [bud.copyDir](/docs/bud.copyDir)
+- [bud.copyFile](/reference/bud.copyFile)
+- [bud.copyDir](/reference/bud.copyDir)

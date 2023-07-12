@@ -1,0 +1,41 @@
+---
+title: Adding TypeScript
+description: How to get started with TypeScript
+sidebar_label: Adding TypeScript
+---
+
+## Installing bud.js dependencies
+
+There are a few options to add support for TypeScript to your application. We recommend the [@roots/bud-swc extension](/extensions/bud-swc).
+
+```sh npm2yarn
+npm install @roots/bud-swc --save-dev
+```
+
+## Other options
+
+### @roots/bud-typescript
+
+[@roots/bud-typescript](/extensions/bud-typescript) adds TypeScript support using the [official TypeScript compiler](https://www.typescriptlang.org/).
+The extension supports JavaScript and TypeScript with zero configuration.
+
+```sh npm2yarn
+npm install @roots/bud-typescript --save-dev
+```
+
+If you want to do type checking during compilation this is probably the best option.
+
+### @roots/bud-esbuild
+
+:::info Experimental
+
+This extension should be considered experimental. Not all features may work. In particular hot module replacement.
+
+:::
+
+[@roots/bud-esbuild](/extensions/bud-esbuild) adds TypeScript support using [esbuild](https://esbuild.github.io/).
+The extension supports JavaScript and TypeScript with zero configuration.
+
+```sh npm2yarn
+npm install @roots/bud-esbuild --save-dev
+```

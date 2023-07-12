@@ -4,7 +4,7 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
-import type {BudHandler} from '@roots/bud-support/errors'
+import type {BudErrorClass} from '@roots/bud-support/errors'
 
 import {stderr, stdin, stdout} from 'node:process'
 
@@ -103,7 +103,7 @@ export class Dashboard extends Service implements BudDashboard {
    * {@link BudDashboard.render}
    */
   @bind
-  public render(error?: BudHandler) {
+  public render(error?: BudErrorClass) {
     /**
      * Do not render if:
      * - dashboard is disabled

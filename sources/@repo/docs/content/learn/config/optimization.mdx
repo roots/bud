@@ -1,0 +1,53 @@
+---
+title: Optimization
+sidebar_label: Optimization
+---
+
+## File hashing
+
+Use the [bud.hash](/reference/bud.hash) function to generate a hash for each file in the bundle. This hash will be added to outputted files.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.hash()
+}
+```
+
+## Minimizing code
+
+Use the [bud.minimize](/reference/bud.minimize) function to run your application code through a minifier.
+
+```js title=bud.config.js
+export default async bud => {
+  bud.minimize()
+}
+```
+
+## Creating a runtime
+
+You may create an application runtime using [bud.runtime](/reference/bud.runtime). Using the `single` option is probably
+the simplest and best solution for most applications:
+
+```js title=bud.config.js
+export default async bud => {
+  bud.runtime('single')
+}
+```
+
+## Creating a vendor chunk
+
+You can perform general code splitting with [bud.splitChunks](/reference/bud.splitChunks).
+
+```js title=bud.config.js
+export default async bud => {
+  bud.splitChunks()
+}
+```
+
+## Optimizing images
+
+You can optimize images using the [@roots/bud-imagemin extension](/extensions/bud-imagemin).
+
+```sh npm2yarn
+npm install @roots/bud-imagemin --save-dev
+```

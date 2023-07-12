@@ -20,6 +20,7 @@ import html from '@roots/bud/cli/flags/html'
 import immutable from '@roots/bud/cli/flags/immutable'
 import input from '@roots/bud/cli/flags/input'
 import minimize from '@roots/bud/cli/flags/minimize'
+import notify from '@roots/bud/cli/flags/notify'
 import output from '@roots/bud/cli/flags/output'
 import publicPath from '@roots/bud/cli/flags/publicPath'
 import runtime from '@roots/bud/cli/flags/runtime'
@@ -94,6 +95,8 @@ export default class BudBuildCommand extends BudCommand {
 
   public minimize = minimize
 
+  public override notify = notify
+
   public output = output
 
   public publicPath = publicPath
@@ -120,6 +123,6 @@ export default class BudBuildCommand extends BudCommand {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 
-    await this.bud?.run()
+    await this.bud.run()
   }
 }

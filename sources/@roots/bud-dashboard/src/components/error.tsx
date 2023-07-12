@@ -1,12 +1,12 @@
 /* eslint-disable n/no-process-env */
 import cleanStack from '@roots/bud-support/clean-stack'
-import {BudError, type BudHandler} from '@roots/bud-support/errors'
+import {BudError, type BudErrorClass} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 
 export type Props = React.PropsWithChildren<{
-  error: BudHandler
+  error: BudErrorClass
   message?: string
   name?: string
 }>

@@ -1,0 +1,36 @@
+---
+title: Adding React
+description: How to get started with React
+sidebar_label: Adding React
+---
+
+## Installing bud.js dependencies
+
+To get started with React, install the [@roots/bud-react](/extensions/bud-react) extension to your project along with a compatible compiler:
+
+- [@roots/bud-babel](/extensions/bud-babel)
+- [@roots/bud-esbuild](/extensions/bud-esbuild)
+- [@roots/bud-swc](/extensions/bud-swc)
+- [@roots/bud-typescript](/extensions/bud-typescript)
+
+We recommend using [@roots/bud-swc](/extensions/bud-swc):
+
+```bash npm2yarn
+npm install @roots/bud-swc @roots/bud-typescript --save-dev
+```
+
+If you need to further customize React for your application, reference the [@roots/bud-react documentation](/extensions/bud-react).
+
+## Installing production dependencies
+
+React requires installing `react` and `react-dom` as production dependencies.
+
+We will try and resolve them for you but it is a good idea to install them as explicit dependencies:
+
+```bash npm2yarn
+npm install react react-dom --save
+```
+
+## Configuration
+
+No configuration is required. If you need to customize the provided defaults refer to the [@roots/bud-react documentation](/extensions/bud-react).

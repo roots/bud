@@ -42,6 +42,7 @@ const Compilation = ({
   total,
 }: Props) => {
   const compilationColor = useCompilationColor(compilation)
+
   return (
     <View
       head={
@@ -90,25 +91,24 @@ const Head = ({basedir, compilation, id, total}: Props) => {
       <Box flexDirection="row" overflow="hidden">
         <Text color={color} wrap="truncate">
           {compilation.name?.split(`/`).pop() ?? `compilation`}
-          {` `}
         </Text>
 
         {total > 1 && (
           <Text dimColor wrap="truncate">
-            [{id}/{total}]{` `}
+            {` `}[{id}/{total}]
           </Text>
         )}
 
         {compilation.hash && (
           <Text dimColor wrap="truncate">
-            [{compilation.hash}]{` `}
+            {` `}[{compilation.hash}]
           </Text>
         )}
       </Box>
 
       {basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          ./{relative(basedir, compilation.outputPath)}
+          ./{relative(`${basedir}`, `${compilation.outputPath}`)}
         </Text>
       )}
     </Box>
@@ -119,18 +119,22 @@ const Footer = ({compilation}: Partial<Props>) => {
   if (!compilation || !compilation?.assets)
     return <Text dimColor>...</Text>
 
-  const cachedModuleCount =
-    compilation.modules?.filter(mod => mod?.cached)?.length ?? 0
-
-  const totalModuleCount =
-    compilation.modules?.filter(mod => mod && mod.hasOwnProperty(`cached`))
-      ?.length ?? 0
-
   const formattedErrorCount =
     compilation.errorsCount > 1
       ? `${compilation.errorsCount} errors`
       : `${compilation.errorsCount} error`
-  const formattedModuleCount = `${cachedModuleCount}/${totalModuleCount} modules cached`
+
+  const cachedModuleCount =
+    compilation.modules?.filter(mod => mod?.cached)?.length ?? 0
+  const totalModuleCount =
+    compilation.modules?.filter(mod => mod && mod.hasOwnProperty(`cached`))
+      ?.length ?? 0
+
+  const formattedModuleCount =
+    cachedModuleCount > 0
+      ? `${cachedModuleCount}/${totalModuleCount} modules cached`
+      : `${totalModuleCount} modules`
+
   const formattedTime = `${duration(compilation.time)}`
 
   if (compilation.errorsCount > 0) {
@@ -141,13 +145,20 @@ const Footer = ({compilation}: Partial<Props>) => {
     )
   }
 
-  if (compilation.warningsCount > 0) {
+  if (totalModuleCount === 0) {
+    return (
+      <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
+        <Text wrap="truncate-end">{formattedTime}</Text>
+      </Box>
+    )
+  }
+
+  if (cachedModuleCount === 0) {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">
           {formattedTime}
-          {` `}
-          <Text dimColor>[{formattedModuleCount}]</Text>
+          <Text dimColor>{` ${totalModuleCount} modules`}</Text>
         </Text>
       </Box>
     )
@@ -157,8 +168,7 @@ const Footer = ({compilation}: Partial<Props>) => {
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text wrap="truncate-end">
         {formattedTime}
-        {` `}
-        <Text dimColor>[{formattedModuleCount}]</Text>
+        {<Text dimColor>{` [${formattedModuleCount}]`}</Text>}
       </Text>
     </Box>
   )

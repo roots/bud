@@ -1,12 +1,13 @@
 const dracula = require(`prism-react-renderer/themes/dracula`)
 const config = require(`../../../../config/monorepo.config.cjs`)
+const releaseData = require(`../generated/releases/data.json`)
 
 /**
- * Announcement bar config
+ * Color mode
  */
-const announcementBar = {
-  content: `Support bud.js <a href="https://github.com/sponsors/roots">on github sponsors</a>`,
-  id: `announcementBar-5`, // Increment on change
+const colorMode = {
+  disableSwitch: true,
+  respectPrefersColorScheme: true,
 }
 
 /**
@@ -16,52 +17,6 @@ const footer = {
   copyright: `Copyright © ${new Date().getFullYear()} ${
     config.organization.name
   }.`,
-  links: [
-    {
-      items: [
-        {
-          label: `Getting started`,
-          to: `/guides/getting-started/`,
-        },
-        {
-          label: `Configuration`,
-          to: `/docs/config/`,
-        },
-        {
-          label: `Extensions`,
-          to: `/extensions/`,
-        },
-      ],
-      title: `Links`,
-    },
-    {
-      items: [
-        {
-          href: config.organization.twitter,
-          label: `Twitter`,
-        },
-        {
-          href: config.url.discourse,
-          label: `Discourse`,
-        },
-      ],
-      title: `Community`,
-    },
-    {
-      items: [
-        {
-          label: `Releases`,
-          to: `/releases`,
-        },
-        {
-          href: config.url.web,
-          label: `GitHub`,
-        },
-      ],
-      title: `More`,
-    },
-  ],
-  style: `dark`,
 }
 
 /**
@@ -105,15 +60,15 @@ const navbar = {
   hideOnScroll: true,
   items: [
     {
-      docId: `index`,
-      docsPluginId: `guides`,
-      label: `Guides`,
+      docId: `getting-started/index`,
+      docsPluginId: `learn`,
+      label: `Learn`,
       position: `left`,
       type: `doc`,
     },
     {
-      href: `/docs/config`,
-      label: `Docs`,
+      href: `/reference/bud.after`,
+      label: `Reference`,
       position: `left`,
     },
     {
@@ -124,39 +79,40 @@ const navbar = {
       type: `doc`,
     },
     {
-      items: [
-        {label: `latest`, to: `/releases/tags/6-14`},
-        {label: `6.13`, to: `/releases/tags/6-13`},
-        {label: `6.12`, to: `/releases/tags/6-12`},
-        {label: `6.11`, to: `/releases/tags/6-11`},
-        {label: `6.9`, to: `/releases/tags/6-9`},
-        {label: `6.8`, to: `/releases/tags/6-8`},
-        {label: `6.7`, to: `/releases/tags/6-7`},
-        {label: `6.6`, to: `/releases/tags/6-6`},
-        {label: `6.5`, to: `/releases/tags/6-5`},
-        {label: `6.4`, to: `/releases/tags/6-4`},
-      ],
+      items: releaseData.reduce((items, release, i) => {
+        if (i === 0) {
+          return [
+            ...items,
+            {label: `Latest`, to: `/releases/${release.semver}`},
+          ]
+        }
+        if (release.patch === 0) {
+          return [
+            ...items,
+            {
+              label: release.semver,
+              to: `/releases/tags/${release.major}-${release.minor}`,
+            },
+          ]
+        }
+        return items
+      }, []),
       label: `Releases`,
       position: `left`,
       to: `/releases`,
     },
     {
-      className: `header-github-link`,
-      href: `/dev`,
-      label: `Dev`,
-      position: `right`,
-    },
-    {
+      'aria-label': `Discourse`,
       className: `header-discourse-link`,
       href: config.url.discourse,
-      label: `Community`,
+      label: ` `,
       position: `right`,
     },
     {
-      'aria-label': `GitHub repository`,
+      'aria-label': `GitHub`,
       className: `header-github-link`,
       href: config.url.web,
-      label: `GitHub`,
+      label: ` `,
       position: `right`,
     },
   ],
@@ -176,7 +132,7 @@ const prism = {
 }
 
 module.exports = {
-  announcementBar,
+  colorMode,
   footer,
   metadata,
   navbar,

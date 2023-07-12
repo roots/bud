@@ -1,0 +1,63 @@
+---
+title: Installation
+description: Installing bud.js
+sidebar_label: Installation
+---
+
+**bud.js** is a web-focused build tool with add-on support for Babel, React, PostCSS, Sass, Typescript, esbuild, ESLint, Prettier, and more.
+
+## Requirements
+
+<div className="card">
+  <div className="card__body">
+    <ul>
+      <li>Node LTS</li>
+      <li>yarn, npm or pnpm</li>
+      <li>Windows users must use Windows Subsystem for Linux</li>
+    </ul>
+  </div>
+</div>
+
+## Creating a new project
+
+The easiest way to get started with bud.js is to use the [create-bud-app command](/learn/getting-started/create-bud-app).
+
+```bash
+npx create-bud-app my-app
+```
+
+## Adding to an existing project
+
+Add **@roots/bud** as a development dependency using your choice of package manager.
+
+```bash npm2yarn
+npm install @roots/bud --save-dev
+```
+
+:::info
+
+If you are using pnpm add `--public-hoist-pattern=*` to the installation command and [use our .pnpmfile.cjs compatibility shim](/learn/general-use/pnpm#pnpmfilecjs-compatibilty-shim).
+
+:::
+
+## Building your project
+
+If your project's entrypoint is located at `./src/index.js` you can now compile it using the [bud build](/cli/build/index.mdx) command.
+
+```bash npm2yarn
+npm run bud build
+```
+
+No configuration is required. The bundled code will be output to `./dist/*`.
+
+If your application entrypoint is not located at `./src/index.js`, you can learn about how to configure it with [bud.entry](/reference/bud.entry) it in the [Entrypoints guide](/learn/config/entrypoints).
+
+## Upgrading bud.js
+
+In general, all dependencies with the `@roots/*` namespace should share the same version.
+
+To make it easy to keep versions in sync you can use the [bud upgrade](/cli/upgrade.mdx) command.
+
+```bash npm2yarn
+npm run bud upgrade
+```

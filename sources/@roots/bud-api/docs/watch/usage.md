@@ -2,7 +2,7 @@
 title: Usage
 ---
 
-It is preferred to specify files using [bud.path](/docs/bud.path) or [bud.glob](/docs/bud.glob).
+It is preferred to specify files using [bud.path](/reference/bud.path) or [bud.glob](/reference/bud.glob).
 
 ```typescript
 bud.watch(bud.path(`@src/pages/page.php`))

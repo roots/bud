@@ -21,8 +21,8 @@ const Entrypoints = ({
   if (!displayEntrypoints) return null
   if (!compilation?.entrypoints) return null
 
-  const entrypoints = Object.values(compilation.entrypoints).map(
-    entrypoint => ({
+  const entrypoints = Object.values(compilation.entrypoints)
+    .map(entrypoint => ({
       ...entrypoint,
       assets:
         entrypoint.assets?.map(asset => ({
@@ -30,8 +30,8 @@ const Entrypoints = ({
           ...(compilation?.assets?.find(a => a?.name === asset?.name) ??
             {}),
         })) ?? [],
-    }),
-  )
+    }))
+    .filter(({assets}) => assets.length > 0)
 
   const minWidth = entrypoints.reduce(
     (longest, entry) =>
@@ -41,6 +41,8 @@ const Entrypoints = ({
       ),
     0,
   )
+
+  if (entrypoints.length === 0) return null
 
   return entrypoints.map(({assets, name}, key) => (
     <Box flexDirection="column" key={key}>
