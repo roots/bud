@@ -1,4 +1,4 @@
-import React from '@roots/bud-support/ink'
+import React, {Box} from '@roots/bud-support/ink'
 // @ts-ignore
 import {render} from 'ink-testing-library'
 import {describe, expect, it} from 'vitest'
@@ -399,7 +399,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   it(`should not throw when crazy input happens`, () => {
     let textError: string = ``
     try {
-      textError = stripAnsi(render(<>{`foo`}</>).lastFrame())
+      textError = stripAnsi(render(<Box>{`foo`}</Box>).lastFrame())
     } catch (e) {}
     expect(textError.trim().split(`\n`)[0]).toMatch(/ERROR/)
 
