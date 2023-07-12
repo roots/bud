@@ -8,7 +8,7 @@ import {dry} from '@roots/bud/cli/decorators/dry'
 export class BudPrettierCommand extends BudCommand {
   public static override paths = [[`format`], [`prettier`]]
   public static override usage = Command.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `Prettier CLI`,
     examples: [[`View prettier usage information`, `$0 prettier --help`]],
   })

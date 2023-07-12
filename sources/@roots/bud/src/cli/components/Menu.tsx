@@ -1,3 +1,5 @@
+import {exit} from 'node:process'
+
 import figures from '@roots/bud-support/figures'
 import {
   Box,
@@ -9,75 +11,66 @@ import {
 
 import type BudCommand from '../commands/bud.js'
 
-const options: Array<[string, string, Array<string>]> = [
-  [
-    `build production`,
-    `build application for production`,
-    [`build`, `production`],
-  ],
-  [
-    `build development`,
-    `start development server`,
-    [`build`, `development`],
-  ],
-  [
-    `doctor`,
-    `check bud.js configuration for common errors and issues`,
-    [`doctor`],
-  ],
-  [
-    `repl`,
-    `open a repl to explore bud just prior to compilation`,
-    [`repl`],
-  ],
-  [
-    `upgrade`,
-    `upgrade bud.js and extensions to the latest stable version`,
-    [`upgrade`],
-  ],
-]
-
 export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
+  const [defined] = useState(cli.definitions())
   const [selected, setSelected] = useState(0)
   const [running, setRunning] = useState(false)
+  const [items, setItems] = useState([])
+
+  useEffect(() => {
+    setItems(
+      defined.reduce((acc, cmd, id) => {
+        return [
+          ...acc,
+          ...(cmd.examples ?? []).map(([description, path]) => {
+            return {cmd, description, id, path}
+          }),
+        ]
+      }, []),
+    )
+  }, [defined])
 
   useInput((key, input) => {
+    if (input.escape) {
+      // eslint-disable-next-line n/no-process-exit
+      exit()
+    }
+
     if (running) return
 
     input[`downArrow`] && setSelected(selected + 1)
     input[`upArrow`] && setSelected(selected - 1)
 
-    if (input.escape) {
-      // eslint-disable-next-line n/no-process-exit
-      process.exit(0)
-    }
-
     if (input.return) {
       setRunning(true)
-      cli.run(options[selected][2])
+      cli.run(items[selected].path.split(` `).slice(1))
     }
   })
 
   useEffect(() => {
-    if (selected > options.length - 1) setSelected(0)
-    if (selected < 0) setSelected(options.length - 1)
-  }, [selected])
+    if (selected > items.length - 1) setSelected(0)
+    if (selected < 0) setSelected(items.length - 1)
+  }, [items, selected])
 
   return (
-    <Box flexDirection="column" marginTop={1}>
-      {options.map(([option, description, command], index) => {
-        return (
-          <Text color={selected === index ? `blue` : `white`} key={index}>
-            {selected === index ? figures.radioOn : figures.radioOff}
-            {`  `}
-            {option}
-            <Text color="white" dimColor>
+    <Box flexDirection="column" gap={1} marginTop={1}>
+      <Text bold>bud.js (v{cli.binaryVersion})</Text>
+      <Box flexDirection="column" gap={0}>
+        {items.map(({cmd, description, path}, id) => {
+          return (
+            <Text color={selected === id ? `blue` : `white`} key={id}>
+              {selected === id ? figures.radioOn : figures.radioOff}
               {` `}
-              {description}
+              {path.trim()}
+
+              <Text color="white" dimColor>
+                {` `}
+                {description.trim()}
+              </Text>
             </Text>
-          </Text>
-        )
-      })}
+          )
+        })}
+      </Box>
     </Box>
   )
 }

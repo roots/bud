@@ -21,11 +21,10 @@ export class BudStylelintCommand extends BudCommand {
    * {@link BudCommand.usage}
    */
   public static override usage = Command.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `stylelint CLI passthrough`,
     examples: [
       [`Run stylelint on source files`, `$0 lint css`],
-      [`View stylelint usage information`, `$0 lint css --help`],
     ],
   })
 

@@ -14,7 +14,7 @@ export default class BudCleanCommand extends BudCommand {
   public static override paths = [[`clean`]]
 
   public static override usage = Command.Usage({
-    category: `tasks`,
+    category: `task`,
     description: `Clean project artifacts and caches`,
     details: `
       \`bud clean\` empties the \`@dist\` and \`@storage\` directories.
@@ -23,9 +23,9 @@ export default class BudCleanCommand extends BudCommand {
       \`bud clean cache\` empties the \`@storage/cache\` directory.
 `,
     examples: [
-      [`Clean artifacts/caches`, `$0 clean`],
-      [`Clean dist`, `$0 clean @dist`],
-      [`Clean storage`, `$0 clean @storage`],
+      [`Clean all`, `$0 clean`],
+      [`Clean dist`, `$0 clean output`],
+      [`Clean storage`, `$0 clean storage`],
     ],
   })
 
@@ -40,6 +40,9 @@ export default class BudCleanCommand extends BudCommand {
   public storagePositional = Option.Boolean(`@storage,storage`, false, {
     description: `empty @storage`,
   })
+
+  @bind
+  public override async catch(error: Error) {}
 
   @bind
   public async cleanCache() {

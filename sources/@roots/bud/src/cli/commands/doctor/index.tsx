@@ -24,6 +24,7 @@ export default class DoctorCommand extends BudCommand {
   public static override paths = [[`doctor`]]
 
   public static override usage = Command.Usage({
+    category: `debug`,
     description: `Check project for common errors`,
     details: `\
 The \`bud doctor\` command will:
@@ -39,7 +40,7 @@ In general, \`bud.js\` dependencies should be kept at the same version. This scr
 for a lot of edge cases so it might return a false positive.
 `,
     examples: [
-      [`Check compiled configuration against webpack`, `$0 doctor`],
+      [`Check project for common configuration issues`, `$0 doctor`],
     ],
   })
 

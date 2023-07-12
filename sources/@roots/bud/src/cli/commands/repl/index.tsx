@@ -18,6 +18,7 @@ export default class BudReplCommand extends BudCommand {
    * {@link BudCommand.usage}
    */
   public static override usage = Command.Usage({
+    category: `debug`,
     description: `Use bud in a repl`,
     examples: [[`repl`, `$0 repl`]],
   })

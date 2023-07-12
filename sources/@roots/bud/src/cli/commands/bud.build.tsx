@@ -52,7 +52,6 @@ export default class BudBuildCommand extends BudCommand {
 
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
-    examples: [[`compile source assets`, `$0 build`]],
   })
 
   public [`cache`] = cache

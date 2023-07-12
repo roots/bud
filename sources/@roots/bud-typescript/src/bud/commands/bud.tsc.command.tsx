@@ -9,7 +9,7 @@ export class BudTSCCommand extends BudCommand {
   public static override paths = [[`tsc`]]
 
   public static override usage = Command.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `TypeScript CLI passthrough`,
     examples: [[`View tsc usage information`, `$0 tsc --help`]],
   })

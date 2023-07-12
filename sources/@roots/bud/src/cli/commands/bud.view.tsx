@@ -13,11 +13,9 @@ export default class BudViewCommand extends BudCommand {
   public static override paths = [[`view`]]
 
   public static override usage = Command.Usage({
+    category: `debug`,
     description: `Explore bud object`,
-    examples: [
-      [`view compiled config`, `$0 view`],
-      [`view`, `$0 view env store`],
-    ],
+    examples: [[`view compiled config`, `$0 view build.config`]],
   })
 
   public indent = indent
@@ -47,7 +45,7 @@ export default class BudViewCommand extends BudCommand {
     if (this.color) value = highlight(value)
 
     BudViewCommand.renderStatic(
-      <Box>
+      <Box flexDirection="column">
         <Text color="magenta">{this.subject ?? `build.config`}</Text>
         <Text>{` `}</Text>
         <Text>{value}</Text>

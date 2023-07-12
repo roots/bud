@@ -18,9 +18,9 @@ export default class BudWebpackCommand extends BudCommand {
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
-    category: `tools`,
+    category: `tool`,
     description: `Webpack CLI passthrough`,
-    examples: [[`View webpack usage information`, `$0 webpack --help`]],
+    examples: [[`Run webpack`, `$0 webpack`]],
   })
 
   public options = Option.Proxy({name: `webpack passthrough options`})
