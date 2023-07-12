@@ -91,25 +91,24 @@ const Head = ({basedir, compilation, id, total}: Props) => {
       <Box flexDirection="row" overflow="hidden">
         <Text color={color} wrap="truncate">
           {compilation.name?.split(`/`).pop() ?? `compilation`}
-          {` `}
         </Text>
 
         {total > 1 && (
           <Text dimColor wrap="truncate">
-            [{id}/{total}]{` `}
+            {` `}[{id}/{total}]
           </Text>
         )}
 
         {compilation.hash && (
           <Text dimColor wrap="truncate">
-            [{compilation.hash}]{` `}
+            {` `}[{compilation.hash}]
           </Text>
         )}
       </Box>
 
       {basedir && compilation.outputPath && (
         <Text wrap="truncate">
-          ./{relative(basedir, compilation.outputPath)}
+          ./{relative(`${basedir}`, `${compilation.outputPath}`)}
         </Text>
       )}
     </Box>

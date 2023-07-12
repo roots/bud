@@ -59,11 +59,13 @@ export const Application = ({
 }: Props) => {
   if (error) return <Error error={error} />
 
-  if (!compilations?.length) return null
+  if (!compilations || !Array.isArray(compilations)) return null
 
   return (
     <Box flexDirection="column" gap={1} marginY={1}>
       {compilations?.map((compilation, id) => {
+        if (!compilation?.hash) return null
+
         if (isolated > 0 && id + 1 !== isolated) return null
 
         return (
