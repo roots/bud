@@ -7,7 +7,7 @@ import {env, exit} from 'node:process'
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, BudHandler} from '@roots/bud-support/errors'
+import {BudError, BudErrorClass} from '@roots/bud-support/errors'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import basedir from '@roots/bud/cli/flags/basedir'
@@ -252,7 +252,7 @@ export default class BudCommand extends Command<CLIContext> {
    * Handle errors
    */
   @bind
-  public override async catch(error: BudHandler): Promise<void> {
+  public override async catch(error: BudErrorClass): Promise<void> {
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {

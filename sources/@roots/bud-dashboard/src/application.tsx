@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
-import type {BudHandler} from '@roots/bud-support/errors'
+import type {BudErrorClass} from '@roots/bud-support/errors'
 
 import {exit} from 'node:process'
 
@@ -27,7 +27,7 @@ export interface Props {
   displayAssets?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
-  error?: BudHandler
+  error?: BudErrorClass
   errors?: StatsCompilation[`errors`]
   isolated?: number
   mode: Bud['mode']
@@ -96,6 +96,7 @@ export const Application = ({
   )
 }
 
+/* c8 ignore next 71 */
 export const TeletypeApplication = ({
   children,
   close,

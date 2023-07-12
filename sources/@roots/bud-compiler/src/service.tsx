@@ -20,7 +20,7 @@ import {pathToFileURL} from 'node:url'
 import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, type BudHandler} from '@roots/bud-support/errors'
+import {BudError, type BudErrorClass} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
@@ -100,7 +100,7 @@ export class Compiler extends Service implements BudCompiler {
    * {@link BudCompiler.onError}
    */
   @bind
-  public onError(error: BudHandler | webpack.WebpackError) {
+  public onError(error: BudErrorClass | webpack.WebpackError) {
     process.exitCode = 1
 
     this.app.server?.appliedMiddleware?.hot?.publish({error})

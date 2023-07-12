@@ -46,7 +46,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./app": "./lib/app/index.js",
+    "./application": "./lib/application.js",
     "./components/*": "./lib/components/*.js",
     "./console": "./lib/console/index.js",
     "./helpers/*": "./lib/helpers/*.js",
@@ -59,8 +59,8 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "app": [
-        "./lib/app/index.d.ts"
+      "application": [
+        "./lib/application.d.ts"
       ],
       "components/*": [
         "./lib/components/*.d.ts"
