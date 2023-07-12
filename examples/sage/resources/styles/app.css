@@ -1,9 +1,9 @@
-@import 'tailwindcss/base';
+@import "tailwindcss/base";
 
-@import 'common/global';
+@import "common/global";
 
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 body {
   background: blue;

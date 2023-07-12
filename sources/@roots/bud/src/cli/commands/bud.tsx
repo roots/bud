@@ -1,13 +1,17 @@
 import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
+import type {ExecaReturnValue} from '@roots/bud-support/execa'
 import type browser from '@roots/bud/cli/flags/browser'
 
+import {join, parse} from 'node:path'
 import {env, exit} from 'node:process'
 
 import {Bud} from '@roots/bud-framework'
+import chalk from '@roots/bud-support/chalk'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudErrorClass} from '@roots/bud-support/errors'
+import figures from '@roots/bud-support/figures'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import basedir from '@roots/bud/cli/flags/basedir'
@@ -69,6 +73,7 @@ export default class BudCommand extends Command<CLIContext> {
         - \`--log\` enables logging. Use \`--log\` in tandem with \`--verbose\` for more detailed output.
         - \`--debug\` enables debug mode. It is very noisy in the terminal but also produces useful output files in the storage directory.
     `,
+    examples: [[`Usage information`, `$0 --help`]],
   })
 
   public basedir = basedir
@@ -111,15 +116,32 @@ export default class BudCommand extends Command<CLIContext> {
    * Execute arbitrary sh command with inherited stdio
    */
   @bind
-  public async $(bin: string, args: Array<string>, options = {}) {
-    const {execa: command} = await import(`@roots/bud-support/execa`)
-    return await command(bin, args.filter(Boolean), {
+  public async $(
+    bin: string,
+    args: Array<string>,
+    options = {},
+  ): Promise<ExecaReturnValue<string>> {
+    const bail = () => setTimeout(exit, 100)
+
+    const {execa} = await import(`@roots/bud-support/execa`)
+    const process = execa(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
       stdio: `inherit`,
       ...options,
     })
+      .on(`data`, data => data && this.context.stdout.write(data))
+      .on(
+        `error`,
+        error => error && this.context.stderr.write(error.message),
+      )
+      .on(`exit`, bail)
+      .on(`disconnect`, bail)
+      .on(`close`, bail)
+
+    const result = await process
+    return result
   }
 
   /**
@@ -311,7 +333,7 @@ export default class BudCommand extends Command<CLIContext> {
   /**
    * {@link Command.execute}
    */
-  public async execute() {
+  public async execute(): Promise<number | void> {
     render(<Menu cli={this.cli} />)
   }
 
@@ -346,5 +368,84 @@ export default class BudCommand extends Command<CLIContext> {
     this.bud.hooks.action(`build.before`, applyCliOptionsCallback)
 
     return this.bud
+  }
+
+  /**
+   * Run a binary.
+   */
+  @bind
+  public async run(
+    path: Array<string>,
+    userArgs: Array<string>,
+    defaultArgs: Array<string> = [],
+  ) {
+    let [signifier, ...pathParts] = path
+
+    const binaryPath = await this.bud.module
+      .getDirectory(signifier)
+      .catch(this.catch)
+
+    if (typeof binaryPath !== `string`) {
+      process.exitCode = 3
+      throw new Error(`Could not find ${signifier} module`)
+    }
+
+    let binary = join(binaryPath, ...pathParts)
+
+    if (!(await this.bud.fs.exists(binary))) {
+      let checked = []
+      const parsedParts = parse(join(...pathParts))
+      const extensions = [`.js`, `.mjs`, `.cjs`].filter(
+        ext => ext !== parsedParts.ext,
+      )
+      pathParts = await extensions.reduce(async (promise, ext) => {
+        const result = await promise
+        if (result) return result
+        const path = [parsedParts.dir, `${parsedParts.name}${ext}`]
+        checked.push(join(...path))
+        if (await this.bud.fs.exists(join(binaryPath, ...path)))
+          return path
+      }, Promise.resolve(null))
+
+      if (!pathParts) {
+        process.exitCode = 2
+        throw new Error(
+          `Could not find ${signifier} binary\n\nChecked:\n - ${binary}\n - ${checked
+            .map(path => join(binaryPath, path))
+            .join(`\n - `)}`,
+        )
+      }
+
+      binary = join(binaryPath, ...pathParts)
+    }
+
+    const binaryArguments = userArgs?.length ? userArgs : defaultArgs
+
+    this.context.stdout.write(
+      chalk.dim(
+        `${figures.pointerSmall} ${signifier} ${binaryArguments.join(
+          ` `,
+        )}\n`
+          .replace(this.bud.path(`@src`), `@src`)
+          .replace(this.bud.path(), ``),
+      ),
+    )
+
+    const result = await this.$(binary, binaryArguments)
+
+    if (!result) process.exitCode = 1
+    else process.exitCode = result.exitCode
+
+    if (process.exitCode)
+      this.context.stderr.write(
+        chalk.red(
+          `${figures.cross} exiting with code ${process.exitCode}\n`,
+        ),
+      )
+    else {
+      this.context.stdout.write(chalk.green(`${figures.tick} success\n`))
+    }
+
+    return process.exitCode
   }
 }

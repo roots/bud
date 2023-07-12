@@ -53,7 +53,7 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
   }, [items, selected])
 
   return (
-    <Box flexDirection="column" gap={1} marginTop={1}>
+    <Box flexDirection="column" gap={1} marginY={1}>
       <Text bold>bud.js (v{cli.binaryVersion})</Text>
       <Box flexDirection="column" gap={0}>
         {items.map(({cmd, description, path}, id) => {

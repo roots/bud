@@ -1,32 +1,34 @@
-import {join, relative} from 'node:path'
+import {relative} from 'node:path'
 
 import {Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
-@dry
 export class BudTailwindCommand extends BudCommand {
+  /**
+   * {@link BudCommand.paths}
+   */
   public static override paths = [[`tailwindcss`], [`tw`]]
 
+  /**
+   * {@link BudCommand.usage}s
+   */
   public static override usage = BudCommand.Usage({
     category: `tool`,
     description: `tailwindcss CLI passthrough`,
-    examples: [
-      [`View tailwindcss usage information`, `$0 tailwindcss --help`],
-    ],
+    examples: [[`Run tailwindcss`, `$0 tailwindcss`]],
   })
 
+  /**
+   * {@link BudCommand.options}
+   */
   public options = Option.Proxy({name: `tailwindcss passthrough options`})
 
+  /**
+   * {@link BudCommand.execute}
+   */
   public override async execute() {
     await this.makeBud()
     await this.bud.run()
-
-    const tw = join(
-      await this.bud.module.getDirectory(`tailwindcss`),
-      `lib`,
-      `cli.js`,
-    )
 
     if (!this.options.length) {
       const input = await Promise.all(
@@ -47,8 +49,6 @@ export class BudTailwindCommand extends BudCommand {
       }
     }
 
-    this.context.stdout.write(`tailwindcss ${this.options.join(` `)}\n\n`)
-
-    await this.$(this.bin, [tw, ...(this.options ?? [])])
+    return await this.run([`tailwindcss`, `lib`, `cli.js`], this.options)
   }
 }

@@ -1,13 +1,18 @@
-import {join} from 'node:path'
-
 import {bind} from '@roots/bud-support/decorators/bind'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
-@dry
+/**
+ * Bud ts check command
+ */
 export class BudTSCheckCommand extends BudCommand {
+  /**
+   * {@link BudCommand.paths}
+   */
   public static override paths = [[`ts`, `check`]]
 
+  /**
+   * {@link BudCommand.usage}
+   */
   public static override usage = BudCommand.Usage({
     category: `tool`,
     description: `Typecheck source code`,
@@ -16,23 +21,16 @@ export class BudTSCheckCommand extends BudCommand {
 
       It is required that a \`tsconfig.json\` file exists in the project root.
     `,
-    examples: [[`bud ts check`, `Typecheck source`]],
+    examples: [[`Typecheck application source`, `$0 ts check`]],
   })
 
   /**
-   * Command execute
+   * {@link BudCommand.execute}
    */
   @bind
   public override async execute() {
     await this.makeBud()
     await this.bud.run()
-
-    const tsc = join(
-      await this.bud.module.getDirectory(`typescript`, import.meta.url),
-      `bin`,
-      `tsc`,
-    )
-
-    await this.$(this.bin, [tsc, `--noEmit`])
+    return await this.cli.run([`ts`, `--noEmit`])
   }
 }

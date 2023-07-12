@@ -5,6 +5,7 @@
   "type": "module",
   "devDependencies": {
     "@roots/bud": "latest",
+    "@roots/bud-prettier": "latest",
     "@roots/bud-tailwindcss": "latest",
     "@roots/sage": "latest"
   }
