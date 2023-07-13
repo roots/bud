@@ -19,9 +19,8 @@ export const Doctor = ({name, timings}) => {
 }
 
 const Process = () => {
-  const nv = process.version
-  const nodeGood = nv.match(/v1[7|8|9]/)
-  const nodeWarn = nv.match(/v16/)
+  const nodeGood = process.version.match(/v1[7|8|9]/)
+  const nodeWarn = process.version.match(/v16/)
   const nodeBad = !nodeGood && !nodeWarn
 
   const nodeColor = nodeGood ? `green` : nodeWarn ? `yellow` : `red`
@@ -40,6 +39,7 @@ const Process = () => {
   return (
     <Box flexDirection="column" gap={1}>
       <Text color="blue">System requirements</Text>
+
       <Box flexDirection="column">
         <Box flexDirection="row" gap={1}>
           <Text color={nodeColor}>
@@ -47,12 +47,13 @@ const Process = () => {
             {` `}node:
           </Text>
 
-          <Text>{nv}</Text>
+          <Text>{process.version}</Text>
         </Box>
 
         <Box flexDirection="row" gap={1}>
           <Text color={osColor}>
-            {osFigure} os:{` `}
+            {osFigure}
+            {` `}os:
           </Text>
 
           <Text>{os}</Text>
@@ -63,7 +64,7 @@ const Process = () => {
           error={
             new BudError(`node-version`, {
               props: {
-                details: `Please upgrade to Node v18 for long-term support. You are running node ${nv}.`,
+                details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
                 docs: new URL(`https://bud.js.org/guides/getting-started`),
               },
             })
