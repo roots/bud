@@ -71,6 +71,7 @@ export class Bud {
 
   /**
    * {@link Bud} Implementation
+   * @internal
    */
   public declare implementation: new () => Bud
 
@@ -156,6 +157,7 @@ export class Bud {
 
   /**
    * Log error
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public error(...messages: Array<any>): Bud {
@@ -165,9 +167,7 @@ export class Bud {
 
   /**
    * Execute service callbacks for a given stage
-   *
-   * @param stage - `bootstrap`, `register`, or `boot`
-   * @returns Bud (promise)
+   * @internal
    */
   @bind
   public async executeServiceCallbacks(
@@ -188,6 +188,7 @@ export class Bud {
 
   /**
    * Log info
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public info(...messages: any[]) {
@@ -235,6 +236,9 @@ export class Bud {
     return this.context?.label
   }
 
+  /**
+   * Bud lifecycle
+   */
   @bind
   public async lifecycle(context: Context): Promise<Bud> {
     this.promised = []
@@ -245,6 +249,7 @@ export class Bud {
 
   /**
    * Log message
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public log(...messages: any[]) {
@@ -253,7 +258,7 @@ export class Bud {
   }
 
   /**
-   * Creates a child with `bud.create` but returns the parent instance
+   * Creates a child and returns the parent instance
    */
   @bind
   public async make(
@@ -278,7 +283,7 @@ export class Bud {
       !isUndefined(this.context.filter) &&
       !this.context.filter.includes(context.label)
     ) {
-      this.log(
+      logger.log(
         `skipping child instance based on --filter flag:`,
         context.label,
       )
@@ -295,7 +300,7 @@ export class Bud {
       )
     }
 
-    this.log(`instantiating new bud instance`)
+    logger.log(`instantiating new bud instance`)
 
     this.children[context.label] =
       await new this.implementation().lifecycle({
@@ -371,6 +376,7 @@ export class Bud {
 
   /**
    * Log success
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public success(...messages: any[]) {
@@ -380,6 +386,7 @@ export class Bud {
 
   /**
    * Log warning
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public warn(...messages: any[]) {

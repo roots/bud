@@ -92,7 +92,6 @@ class Configuration {
     }
 
     const config = await description.module()
-
     isFunction(config)
       ? await this.dynamicConfig(config)
       : await this.staticConfig(config)
