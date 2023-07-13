@@ -25,16 +25,11 @@ export default class BudWebpackCommand extends BudCommand {
   public options = Option.Proxy({name: `webpack passthrough options`})
 
   /**
-   * {@link Command.catch}
-   */
-  public override async catch() {}
-
-  /**
    * {@link Command.execute}
    */
   public override async execute() {
     await this.makeBud()
-    await this.bud.run()
+    await this.bud.run().catch(e => {})
 
     await this.run([`webpack`, `bin`, `webpack.js`], this.options)
   }

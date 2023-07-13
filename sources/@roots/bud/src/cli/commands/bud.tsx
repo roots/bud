@@ -436,17 +436,17 @@ export default class BudCommand extends Command<CLIContext> {
       ),
     )
 
-    const result = await this.$(binary, binaryArguments)
-    const exitCode = isNumber(result?.exitCode) ? result.exitCode : 1
+    const result = await this.$(binary, binaryArguments).catch(() => {})
+    const code = result && isNumber(result?.exitCode) ? result.exitCode : 1
 
-    if (exitCode) {
+    if (code) {
       this.context.stderr.write(
-        chalk.red(`${figures.cross} exiting with code ${exitCode}\n`),
+        chalk.red(`${figures.cross} exiting with code ${code}\n`),
       )
-      return exitCode
+      return code
     }
 
     this.context.stdout.write(chalk.green(`${figures.tick} success\n`))
-    return exitCode
+    return code
   }
 }
