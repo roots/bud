@@ -41,14 +41,14 @@ describe(`proxy middleware`, () => {
 
   it(`should reflect changes made in bud.proxy`, async () => {
     bud.proxy({changeOrigin: false})
-    await bud.resolve()
+    await bud.awaitPromised()
 
     expect(middleware.makeOptions(bud).changeOrigin).toBe(false)
   })
 
   it(`should reflect changes to URL made in bud.proxy`, async () => {
     bud.proxy(`http://example.com`)
-    await bud.resolve()
+    await bud.awaitPromised()
     // @ts-ignore
     expect(middleware.makeOptions(bud).target.href).toBe(
       new URL(`http://example.com`).href,
@@ -57,11 +57,11 @@ describe(`proxy middleware`, () => {
 
   it(`should reflect changes to URL made in bud.proxy`, async () => {
     bud.proxy(`https://example.com`)
-    await bud.resolve()
+    await bud.awaitPromised()
     expect(middleware.makeOptions(bud).protocolRewrite).toBe(`https`)
 
     bud.proxy(`http://example.com`)
-    await bud.resolve()
+    await bud.awaitPromised()
     expect(middleware.makeOptions(bud).protocolRewrite).toBe(undefined)
   })
 })
