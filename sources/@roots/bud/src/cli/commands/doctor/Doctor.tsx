@@ -59,6 +59,20 @@ const Process = () => {
           <Text>{os}</Text>
         </Box>
       </Box>
+
+      {nodeWarn && (
+        <Box flexDirection="column" gap={1}>
+          <Text bold color="yellow">
+            Warning
+          </Text>
+
+          <Text>
+            Please upgrade to Node v18 for long-term support. You are
+            running node ${process.version}.
+          </Text>
+        </Box>
+      )}
+
       {nodeBad && (
         <Error
           error={
