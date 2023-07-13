@@ -6,6 +6,6 @@ export const expose =
     class extends constructor {
       public constructor(...args: any[]) {
         super(...args)
-        this.app[propName] = this
+        this.app.set(propName, this)
       }
     }

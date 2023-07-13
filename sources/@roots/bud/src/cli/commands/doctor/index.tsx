@@ -214,34 +214,6 @@ for a lot of edge cases so it might return a false positive.
     }
 
     try {
-      DoctorCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="blue">Config API calls{`\n`}</Text>
-          <Text></Text>
-          {!this.bud.api.trace.length ? (
-            <Text dimColor>No config calls logged</Text>
-          ) : (
-            this.bud.api.trace.map(([fn, args], i) => (
-              <Box flexDirection="row" key={i}>
-                <Text>
-                  {figures.triangleRightSmall} {fn}
-                </Text>
-                <Text>{` `}</Text>
-                <Text dimColor>
-                  {args.map(this.bud.fs.json.stringify).join(`, `)}
-                </Text>
-              </Box>
-            ))
-          )}
-        </Box>,
-      )
-    } catch (error) {
-      DoctorCommand.renderStatic(
-        <Error error={BudError.normalize(error)} />,
-      )
-    }
-
-    try {
       this.configuration = await this.bud.build.make()
       this.entrypoints = this.configuration.entry
         ? Object.entries(this.configuration.entry)

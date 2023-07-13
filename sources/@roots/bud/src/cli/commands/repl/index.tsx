@@ -19,8 +19,8 @@ export default class BudReplCommand extends BudCommand {
    */
   public static override usage = Command.Usage({
     category: `debug`,
-    description: `Use bud in a repl`,
-    examples: [[`repl`, `$0 repl`]],
+    description: `Explore the fully booted bud object`,
+    examples: [[`Explore the fully booted bud object`, `$0 repl`]],
   })
 
   public depth = Option.String(`--depth,-d`, `1`, {

@@ -19,14 +19,16 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
 
   useEffect(() => {
     setItems(
-      defined.reduce((acc, cmd, id) => {
-        return [
-          ...acc,
-          ...(cmd.examples ?? []).map(([description, path]) => {
-            return {cmd, description, id, path}
-          }),
-        ]
-      }, []),
+      defined
+        .filter(cmd => cmd.path !== `bud`)
+        .reduce((acc, cmd, id) => {
+          return [
+            ...acc,
+            ...(cmd.examples ?? []).map(([description, path]) => {
+              return {cmd, description, id, path}
+            }),
+          ]
+        }, []),
     )
   }, [defined])
 
@@ -52,9 +54,18 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
     if (selected < 0) setSelected(items.length - 1)
   }, [items, selected])
 
+  if (running) return null
+
   return (
     <Box flexDirection="column" gap={1} marginY={1}>
-      <Text bold>bud.js (v{cli.binaryVersion})</Text>
+      <Box flexDirection="row" justifyContent="space-between">
+        <Box flexDirection="row" gap={1}>
+          <Text bold>bud.js</Text>
+        </Box>
+        <Text>v{cli.binaryVersion}</Text>
+      </Box>
+      <Text italic>{defined[0].description.trim()}</Text>
+
       <Box flexDirection="column" gap={0}>
         {items.map(({cmd, description, path}, id) => {
           return (

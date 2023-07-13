@@ -94,6 +94,8 @@ export class Bud {
 
   public declare project: Project
 
+  public declare promised: Array<Promise<any>>
+
   public declare publicPath: typeof methods.publicPath
 
   public declare relPath: typeof methods.relPath
@@ -125,6 +127,16 @@ export class Bud {
    * @readonly
    */
   public declare yml: FS['yml']
+
+  /**
+   * Await all promised tasks
+   */
+  @bind
+  public async awaitPromised() {
+    if (!this.promised.length) return this
+    await Promise.all(this.promised.splice(0))
+    return this
+  }
 
   /**
    * Boot application services
@@ -162,8 +174,7 @@ export class Bud {
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
     await this.hooks.fire(stage, this)
-    await this.api.processQueue()
-
+    await this.awaitPromised()
     return this
   }
 
@@ -226,6 +237,7 @@ export class Bud {
 
   @bind
   public async lifecycle(context: Context): Promise<Bud> {
+    this.promised = []
     Object.assign(this, {}, {context: {...context}})
     await bootstrap.bind(this)()
     return this
@@ -284,13 +296,14 @@ export class Bud {
     }
 
     this.log(`instantiating new bud instance`)
+
     this.children[context.label] =
       await new this.implementation().lifecycle({
         ...context,
       })
     if (setupFn) await setupFn(this.children[context.label])
 
-    await this.children[context.label].api.processQueue()
+    await this.children[context.label].awaitPromised()
 
     this.get(context.label).hooks.on(
       `build.dependencies`,
@@ -346,10 +359,14 @@ export class Bud {
     bind: boolean = true,
   ): Bud {
     if (bind && isFunction(value) && `bind` in value) {
-      return Object.assign(this, {[key]: value.bind(this)})
+      Object.assign(this, {[key]: value.bind(this)})
+      this.success(`set`, `bud.${key}`, `to`, typeof value, `(bound)`)
+      return this
     }
 
-    return Object.assign(this, {[key]: value})
+    Object.assign(this, {[key]: value})
+    this.success(`set`, `bud.${key}`, `to`, typeof value)
+    return this
   }
 
   /**

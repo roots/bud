@@ -1,12 +1,13 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Api as BudApi} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
 
 import {ServiceContainer} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 
-import {factory} from '../facade/facade.factory.js'
+import type {Repository} from '../repository.js'
+
 import * as methods from '../methods/index.js'
 
 /**
@@ -23,20 +24,13 @@ export class Api extends ServiceContainer implements BudApi {
   public override label: BudApi[`label`] = `api`
 
   /**
-   * {@link BudApi.queue}
-   */
-  public declare queue: BudApi['queue']
-
-  /**
-   * {@link BudApi.trace}
-   */
-  public declare trace: BudApi['trace']
-
-  /**
    * Bind a synchronous facade for use in configs
    */
   @bind
-  public bindFacade(name: string, fn: CallableFunction) {
+  public bindFacade(
+    name: `${keyof Repository & string}`,
+    fn: CallableFunction,
+  ) {
     if (!isFunction(fn)) {
       throw new BudError(
         `bud.api.bindFacade error: ${name} is not a function`,
@@ -44,51 +38,19 @@ export class Api extends ServiceContainer implements BudApi {
     }
 
     this.set(name, fn.bind(this.app))
-    this.app.set(name as any, factory(this.app, name))
+    this.app.set(name, (...args: Array<any>) => {
+      const result = fn.bind(this.app)(...args)
+      if (result instanceof Promise) {
+        this.app.promised.push(result)
+      }
+      return this.app
+    })
   }
 
   /**
    * `bootstrap` callback
    */
   public override async bootstrap?(app: Bud) {
-    this.queue = []
-    this.trace = []
-    Object.entries(methods).map(([k, v]) => this.bindFacade(k, v))
-  }
-
-  /**
-   * Call an api method directly
-   */
-  @bind
-  public async call(name: string, args: Array<any>): Promise<Bud> {
-    this.logger.info(`bud.api.call: ${name}`, ...args)
-
-    if (!this.has(name)) {
-      throw new InputError(`${name} is not a function`)
-    }
-
-    return await this.get(name).call(this.app, ...args)
-  }
-
-  /**
-   * Execute all queued method calls
-   */
-  @bind
-  public async processQueue() {
-    const stack = [...this.queue]
-    this.queue = []
-
-    await Promise.all(
-      stack.map(async value => {
-        if (!value) {
-          this.logger.warn(`api.processQueue: undefined api call`)
-          return
-        }
-
-        const [name, args] = value
-        await this.call(name, args)
-        this.trace.push([name, args])
-      }),
-    )
+    Object.entries(methods).map(([k, v]) => this.bindFacade(k as any, v))
   }
 }

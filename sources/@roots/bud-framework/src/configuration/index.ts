@@ -27,12 +27,8 @@ export const process = async (app: Bud) => {
 
   const processConfig = async (file: File) => {
     app.log(`processing`, file.name)
-    await configuration.run(file).catch(makeErrorHandler(file))
-    await app.api.processQueue().catch(makeErrorHandler(file))
+    await configuration.run(file).catch(makeError(file))
   }
-
-  // process any queued api calls
-  await app.api.processQueue()
 
   await Promise.all(find(`base`, false).map(processConfig))
   await Promise.all(find(`base`, true).map(processConfig))
@@ -47,9 +43,6 @@ export const process = async (app: Bud) => {
 
   await Promise.all(
     Object.values(app.children).map(async child => {
-      await child.api.processQueue().catch(error => {
-        throw error
-      })
       await child.executeServiceCallbacks(`config.after`).catch(error => {
         throw error
       })
@@ -57,7 +50,7 @@ export const process = async (app: Bud) => {
   )
 }
 
-const makeErrorHandler =
+const makeError =
   (file: File) => (error: Error & {isBudError?: boolean}) => {
     throw new ConfigError(`Error in ${file.name}`, {
       props: {
