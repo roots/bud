@@ -3,57 +3,73 @@ import {platform} from 'node:os'
 import {Error} from '@roots/bud-dashboard/components/error'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import * as Ink from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 
 export const Doctor = ({name, timings}) => {
   return (
-    <Ink.Box flexDirection="column" marginTop={1}>
-      <Ink.Text underline>{`Diagnosis for ${name}\n`}</Ink.Text>
-      <Ink.Text dimColor>
-        {`Completed a dry run of your project's build (executed in
-        ${timings.build} seconds). If the information provided by this
-        command doesn't yield a solution consider running \`yarn bud repl\`
-        and exploring the finalized config (\`bud.build.config\`).`}
-      </Ink.Text>
+    <Box flexDirection="column" gap={1} marginTop={1}>
+      <Text bold>{name}</Text>
+      <Text italic>
+        {`Completed a dry run of your project's build (executed in ${timings.build} seconds). If the information provided by this command doesn't yield a solution consider running \`yarn bud repl\` and exploring the finalized config (\`bud.build.config\`).`}
+      </Text>
+
       <Process />
-    </Ink.Box>
+    </Box>
   )
 }
 
 const Process = () => {
+  const nv = process.version
+  const nodeGood = nv.match(/v1[7|8|9]/)
+  const nodeWarn = nv.match(/v16/)
+  const nodeBad = !nodeGood && !nodeWarn
+
+  const nodeColor = nodeGood ? `green` : nodeWarn ? `yellow` : `red`
+  const nodeFigure = nodeGood
+    ? figures.tick
+    : nodeWarn
+    ? figures.warning
+    : figures.cross
+
+  const os = platform()
+  const isWin = os === `win32`
+  const osGood = !isWin
+  const osColor = osGood ? `green` : `red`
+  const osFigure = osGood ? figures.tick : figures.cross
+
   return (
-    <Ink.Box flexDirection="column" marginTop={1}>
-      <Ink.Text color="blue">Checking system requirements{`\n`}</Ink.Text>
+    <Box flexDirection="column" gap={1}>
+      <Text color="blue">System requirements</Text>
+      <Box flexDirection="column">
+        <Box flexDirection="row" gap={1}>
+          <Text color={nodeColor}>
+            {nodeFigure}
+            {` `}node:
+          </Text>
 
-      <Ink.Box flexDirection="column">
-        <Ink.Text>
-          {process.version.match(/v1[6|7|8|9]/)
-            ? figures.tick
-            : figures.cross}
-          {` `}
-          node: {process.version}
-        </Ink.Text>
+          <Text>{nv}</Text>
+        </Box>
 
-        <Ink.Text>
-          {platform() === `win32` ? figures.cross : figures.tick} os:{` `}
-          {process.platform}
-        </Ink.Text>
+        <Box flexDirection="row" gap={1}>
+          <Text color={osColor}>
+            {osFigure} os:{` `}
+          </Text>
 
-        {!process.version.match(/v1[6|7|8|9]/) && (
-          <Error
-            error={
-              new BudError(`node-version`, {
-                props: {
-                  details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
-                  docs: new URL(
-                    `https://bud.js.org/guides/getting-started`,
-                  ),
-                },
-              })
-            }
-          />
-        )}
-      </Ink.Box>
-    </Ink.Box>
+          <Text>{os}</Text>
+        </Box>
+      </Box>
+      {nodeBad && (
+        <Error
+          error={
+            new BudError(`node-version`, {
+              props: {
+                details: `Please upgrade to Node v18 for long-term support. You are running node ${nv}.`,
+                docs: new URL(`https://bud.js.org/guides/getting-started`),
+              },
+            })
+          }
+        />
+      )}
+    </Box>
   )
 }
