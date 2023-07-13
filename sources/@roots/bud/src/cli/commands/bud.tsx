@@ -13,6 +13,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, BudErrorClass} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, render, Static} from '@roots/bud-support/ink'
+import isNumber from '@roots/bud-support/lodash/isNumber'
 import logger from '@roots/bud-support/logger'
 import basedir from '@roots/bud/cli/flags/basedir'
 import color from '@roots/bud/cli/flags/color'
@@ -43,13 +44,14 @@ export default class BudCommand extends Command<CLIContext> {
   /**
    * {@link Command.paths}
    */
-  public static override paths = [[]]
+  public static override paths: Array<Array<string>> = [Command.Default]
 
   /**
    * {@link Command.usage}
    */
   public static override usage = Command.Usage({
-    description: `Run \`bud --help\` for usage information`,
+    category: `build`,
+    description: `Configurable, extensible build tools for modern single and multi-page web applications`,
     details: `\
       Documentation for this command is available at https://bud.js.org/.
 
@@ -57,13 +59,12 @@ export default class BudCommand extends Command<CLIContext> {
 
       Any command can be exited with \`esc\` or \`ctrl+c\`.
 
-      Run this command with no arguments for an interactive menu of available subcommands.
-
       Common tasks:
 
         - \`bud build production\` compiles source assets in \`production\` mode.
         - \`bud build development\` compiles source assets in \`development\` mode and updates modules in the browser.
         - \`bud doctor\` checks your system and project for common configuration issues. Try this before making an issue in the bud.js repo.
+        - \`bud upgrade\` upgrades bud.js core packages and extensions to the latest version.
 
       Helpful flags:
 
@@ -73,7 +74,7 @@ export default class BudCommand extends Command<CLIContext> {
         - \`--log\` enables logging. Use \`--log\` in tandem with \`--verbose\` for more detailed output.
         - \`--debug\` enables debug mode. It is very noisy in the terminal but also produces useful output files in the storage directory.
     `,
-    examples: [[`Usage information`, `$0 --help`]],
+    examples: [[`Interactive menu of available subcommands`, `$0`]],
   })
 
   public basedir = basedir
@@ -104,6 +105,9 @@ export default class BudCommand extends Command<CLIContext> {
 
   public verbose: typeof verbose = false
 
+  /**
+   * Render static
+   */
   public static renderStatic(...children: Array<React.ReactElement>) {
     return render(
       <Static items={children}>
@@ -393,16 +397,17 @@ export default class BudCommand extends Command<CLIContext> {
     let binary = join(binaryPath, ...pathParts)
 
     if (!(await this.bud.fs.exists(binary))) {
-      let checked = []
+      const checkedPaths = []
       const parsedParts = parse(join(...pathParts))
       const extensions = [`.js`, `.mjs`, `.cjs`].filter(
         ext => ext !== parsedParts.ext,
       )
+
       pathParts = await extensions.reduce(async (promise, ext) => {
         const result = await promise
         if (result) return result
         const path = [parsedParts.dir, `${parsedParts.name}${ext}`]
-        checked.push(join(...path))
+        checkedPaths.push(join(...path))
         if (await this.bud.fs.exists(join(binaryPath, ...path)))
           return path
       }, Promise.resolve(null))
@@ -410,7 +415,7 @@ export default class BudCommand extends Command<CLIContext> {
       if (!pathParts) {
         process.exitCode = 2
         throw new Error(
-          `Could not find ${signifier} binary\n\nChecked:\n - ${binary}\n - ${checked
+          `Could not find ${signifier} binary\n\nChecked:\n - ${binary}\n - ${checkedPaths
             .map(path => join(binaryPath, path))
             .join(`\n - `)}`,
         )
@@ -432,20 +437,16 @@ export default class BudCommand extends Command<CLIContext> {
     )
 
     const result = await this.$(binary, binaryArguments)
+    const exitCode = isNumber(result?.exitCode) ? result.exitCode : 1
 
-    if (!result) process.exitCode = 1
-    else process.exitCode = result.exitCode
-
-    if (process.exitCode)
+    if (exitCode) {
       this.context.stderr.write(
-        chalk.red(
-          `${figures.cross} exiting with code ${process.exitCode}\n`,
-        ),
+        chalk.red(`${figures.cross} exiting with code ${exitCode}\n`),
       )
-    else {
-      this.context.stdout.write(chalk.green(`${figures.tick} success\n`))
+      return exitCode
     }
 
-    return process.exitCode
+    this.context.stdout.write(chalk.green(`${figures.tick} success\n`))
+    return exitCode
   }
 }
