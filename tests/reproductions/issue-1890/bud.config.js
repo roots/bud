@@ -5,11 +5,9 @@ export default async bud => {
         import: [`@src/foo`],
       },
     })
-
     .entry({
       simple: [`@src/foo`],
     })
-
     .entry({
       mixedNormal: {
         import: [`@src/foo`],

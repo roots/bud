@@ -1,7 +1,6 @@
 import type {Bud} from '@roots/bud'
-import type {Context} from '@roots/bud-framework/context'
 
-import makeContext from '@roots/bud/context'
+import makeContext, {type Options} from '@roots/bud/context'
 import * as instance from '@roots/bud/instance'
 
 /**
@@ -19,10 +18,8 @@ import * as instance from '@roots/bud/instance'
  * const bud = await factory({mode: 'development'})
  * ```
  */
-export async function factory(
-  options: Partial<Context> = {},
-): Promise<Bud> {
+export async function factory(options: Options = {}): Promise<Bud> {
   const bud = instance.get()
-  const resolvedContext = await makeContext(options)
-  return await bud.lifecycle({...resolvedContext})
+  const context = await makeContext(options)
+  return await bud.lifecycle({...context})
 }

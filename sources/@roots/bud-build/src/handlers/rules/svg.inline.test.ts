@@ -18,14 +18,13 @@ describe(`svg-inline`, () => {
     })
 
     const webpackOutput = result.toWebpack()
+
     expect(webpackOutput.test).toEqual(bud.hooks.filter(`pattern.svg`))
     expect(webpackOutput.include).toEqual([bud.path(`@src`)])
     expect(webpackOutput.resourceQuery).toEqual(/inline/)
     expect(webpackOutput.type).toEqual(`asset/inline`)
     expect(webpackOutput.generator).toEqual(
-      expect.objectContaining({
-        dataUrl,
-      }),
+      expect.objectContaining({dataUrl}),
     )
   })
 })

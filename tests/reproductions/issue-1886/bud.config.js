@@ -6,7 +6,7 @@ export default async bud =>
       options: {
         encodeOptions: {
           jpeg: {
-            quality: 75
+            quality: 75,
           },
         },
       },

@@ -15,9 +15,11 @@ import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
 import services from './services.js'
 
-export default async (
-  options: Partial<Context> = {},
-): Promise<Context> => {
+export type Options = Omit<Partial<Context>, `extensions`> & {
+  extensions?: Array<string>
+}
+
+export default async (options: Options = {}): Promise<Context> => {
   let basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
   if (paths.basedir !== basedir) basedir = paths.basedir
@@ -34,7 +36,11 @@ export default async (
   }
 
   const files: Context[`files`] = await projectFiles.get(basedir)
-  const extensions: Context[`extensions`] = getExtensions(manifest)
+  const extensions: Context[`extensions`] = getExtensions(
+    manifest,
+    options?.extensions,
+  )
+
   const context: Context = {
     ...(args ?? {}),
     ...options,
@@ -42,16 +48,7 @@ export default async (
     bin: (env.BUD_JS_BIN as Context[`bin`]) ?? `node`,
     bud: {...bud, ...(options?.bud ?? {})},
     env: {...(env ?? {}), ...(options?.env ?? {})},
-    extensions: {
-      builtIn: [
-        ...(extensions?.builtIn ?? []),
-        ...(options?.extensions?.builtIn ?? []),
-      ],
-      discovered: [
-        ...(extensions?.discovered ?? []),
-        ...(options?.extensions?.discovered ?? []),
-      ],
-    },
+    extensions,
     files: {...(files ?? {}), ...(options?.files ?? {})},
     label: options?.label ?? manifest?.name ?? bud?.label ?? `default`,
     manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
