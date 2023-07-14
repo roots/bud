@@ -190,14 +190,47 @@ describe('issue-1886', () => {
     expect([res1.failed, res2.failed, res3.failed]).toEqual(
       expect.arrayContaining([false, false, false]),
     )
-    expect(
-      [res1.stdout, res2.stdout, res3.stdout].map(extractStats),
-    ).toEqual(
-      expect.arrayContaining([
-        expectedStats,
-        expectedStats,
-        expectedStats,
-      ]),
-    )
+    expect(extractStats(res1.stdout)).toMatchInlineSnapshot(`
+      "│ main
+      │  › js/runtime.js                                                     ✔ 1.45 kB
+      │  › css/main.css                                                    ✔ 809 bytes
+      │  › js/main.js                                                      ✔ 972 bytes
+      │
+      │ assets
+      │  › images/generated.bud@1200x630.jpeg                                 17.75 kB
+      │  › images/generated.bud-css@1200x630.webp                              8.78 kB
+      │  › images/generated.bud@1200x630.webp                                  8.78 kB
+      │  › images/generated.bud-50@1200x630.webp                               6.66 kB
+      │  › images/bud.svg                                                  ✔ 585 bytes
+      │  … 5 additional assets not shown"
+    `)
+    expect(extractStats(res2.stdout)).toMatchInlineSnapshot(`
+      "│ main
+      │  › js/runtime.js                                                     ✔ 1.45 kB
+      │  › css/main.css                                                    ✔ 809 bytes
+      │  › js/main.js                                                      ✔ 972 bytes
+      │
+      │ assets
+      │  › images/generated.bud@1200x630.jpeg                                 17.75 kB
+      │  › images/generated.bud-css@1200x630.webp                              8.78 kB
+      │  › images/generated.bud@1200x630.webp                                  8.78 kB
+      │  › images/generated.bud-50@1200x630.webp                               6.66 kB
+      │  › images/bud.svg                                                  ✔ 585 bytes
+      │  … 5 additional assets not shown"
+    `)
+    expect(extractStats(res3.stdout)).toMatchInlineSnapshot(`
+      "│ main
+      │  › js/runtime.js                                                     ✔ 1.45 kB
+      │  › css/main.css                                                    ✔ 809 bytes
+      │  › js/main.js                                                      ✔ 972 bytes
+      │
+      │ assets
+      │  › images/generated.bud@1200x630.jpeg                                 17.75 kB
+      │  › images/generated.bud-css@1200x630.webp                              8.78 kB
+      │  › images/generated.bud@1200x630.webp                                  8.78 kB
+      │  › images/generated.bud-50@1200x630.webp                               6.66 kB
+      │  › images/bud.svg                                                  ✔ 585 bytes
+      │  … 5 additional assets not shown"
+    `)
   })
 }, 120000)
