@@ -224,7 +224,7 @@ export default class BudCommand extends Command<CLIContext> {
 
     context.use && (await bud.extensions.add(context.use as any))
 
-    await override(async bud => await bud.awaitPromised())
+    await override(async bud => await bud.promise())
   }
 
   /**
@@ -352,7 +352,7 @@ export default class BudCommand extends Command<CLIContext> {
         this.applyBudManifestOptions(bud),
         this.applyBudArguments(bud),
       ]).catch(this.catch)
-      await bud.awaitPromised()
+      await bud.promise()
     }
 
     this.context.dry = this.dry
@@ -363,7 +363,7 @@ export default class BudCommand extends Command<CLIContext> {
 
     this.bud = instance.get()
 
-    await this.bud.lifecycle(this.context).catch(this.catch)
+    await this.bud.initialize(this.context).catch(this.catch)
     await applyCliOptionsCallback(this.bud).catch(this.catch)
 
     await this.bud.processConfigs().catch(this.catch)

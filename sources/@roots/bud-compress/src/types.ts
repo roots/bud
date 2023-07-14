@@ -17,6 +17,7 @@ declare module '@roots/bud-framework' {
     compress: PublicCompressAPI
     gzip: PublicGzipAPI
   }
+
   interface Modules {
     '@roots/bud-compress': PublicCompressAPI
     '@roots/bud-compress/brotli': PublicBrotliAPI

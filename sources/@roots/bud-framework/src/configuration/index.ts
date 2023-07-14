@@ -2,6 +2,7 @@ import type {File} from '@roots/bud-framework/context'
 
 import {BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
+import logger from '@roots/bud-support/logger'
 
 import type {Bud} from '../index.js'
 
@@ -26,7 +27,7 @@ export const process = async (app: Bud) => {
     )
 
   const processConfig = async (file: File) => {
-    app.log(`processing`, file.name)
+    logger.log(`processing`, file.name)
     await configuration.run(file).catch(makeError(file))
   }
 

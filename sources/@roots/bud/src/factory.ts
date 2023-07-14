@@ -21,5 +21,5 @@ import * as instance from '@roots/bud/instance'
 export async function factory(options: Options = {}): Promise<Bud> {
   const bud = instance.get()
   const context = await makeContext(options)
-  return await bud.lifecycle({...context})
+  return await bud.initialize({...context})
 }

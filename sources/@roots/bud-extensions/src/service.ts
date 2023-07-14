@@ -395,7 +395,7 @@ export class Extensions extends Service implements BudExtensions {
       await this.runDependencies(extension, methodName)
       const method = extension[`_${methodName}`]
       if (isFunction(method)) await method()
-      await this.app.awaitPromised()
+      await this.app.promise()
 
       return this
     } catch (error) {

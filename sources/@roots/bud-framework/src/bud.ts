@@ -13,15 +13,16 @@ import type {
   Service,
 } from '@roots/bud-framework'
 
+import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import noop from '@roots/bud-support/lodash/noop'
 import logger from '@roots/bud-support/logger'
 
 import type {FS} from './fs.js'
-import type methods from './methods/index.js'
 import type {Module} from './module.js'
 import type {Notifier} from './notifier.js'
 import type {EventsStore} from './registry/index.js'
@@ -36,7 +37,7 @@ export class Bud {
 
   public declare api: Service & Api
 
-  public declare bindFacade: typeof methods.bindFacade
+  public bindFacade = methods.bindFacade.bind(this)
 
   public declare build: Service & Build
 
@@ -97,7 +98,7 @@ export class Bud {
 
   public declare project: Project
 
-  public declare promised: Array<Promise<any>>
+  public declare promised: Array<Promise<any | void>>
 
   public declare publicPath: typeof methods.publicPath
 
@@ -130,16 +131,6 @@ export class Bud {
    * @readonly
    */
   public declare yml: FS['yml']
-
-  /**
-   * Await all promised tasks
-   */
-  @bind
-  public async awaitPromised() {
-    if (!this.promised.length) return this
-    await Promise.all(this.promised.splice(0))
-    return this
-  }
 
   /**
    * Boot application services
@@ -175,8 +166,7 @@ export class Bud {
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
-    await this.hooks.fire(stage, this)
-    await this.awaitPromised()
+    await this.promise(async () => await this.hooks.fire(stage, this))
     return this
   }
 
@@ -195,6 +185,26 @@ export class Bud {
   @bind
   public info(...messages: any[]) {
     logger.scope(this.label).info(...messages)
+    return this
+  }
+
+  /**
+   * Bud initialize
+   */
+  @bind
+  public async initialize(context: Context): Promise<Bud> {
+    logger.time(`initialize`)
+
+    Object.entries(methods).forEach(([key, value]) => {
+      this.set(key as any, value)
+    })
+
+    this.set(`services`, [])
+      .set(`promised`, [])
+      .set(`context`, {...context})
+
+    await bootstrap(this)
+
     return this
   }
 
@@ -236,17 +246,6 @@ export class Bud {
    */
   public get label() {
     return this.context?.label
-  }
-
-  /**
-   * Bud lifecycle
-   */
-  @bind
-  public async lifecycle(context: Context): Promise<Bud> {
-    this.promised = []
-    Object.assign(this, {}, {context: {...context}})
-    await bootstrap.bind(this)()
-    return this
   }
 
   /**
@@ -305,12 +304,12 @@ export class Bud {
     logger.log(`instantiating new bud instance`)
 
     this.children[context.label] =
-      await new this.implementation().lifecycle({
+      await new this.implementation().initialize({
         ...context,
       })
     if (setupFn) await setupFn(this.children[context.label])
 
-    await this.children[context.label].awaitPromised()
+    await this.children[context.label].promise()
 
     this.get(context.label).hooks.on(
       `build.dependencies`,
@@ -335,6 +334,22 @@ export class Bud {
    */
   public get mode(): `development` | `production` {
     return this.context.mode ?? `production`
+  }
+
+  /**
+   * Await all promised tasks
+   */
+  @bind
+  public async promise(fn?: (bud: Bud) => any | Promise<any>) {
+    fn = fn ?? noop
+
+    await Promise.all(this.promised)
+      .then(async () => await Promise.resolve(fn(this)))
+      .catch(error => {
+        throw error
+      })
+
+    return this
   }
 
   /**
@@ -366,13 +381,26 @@ export class Bud {
     bind: boolean = true,
   ): Bud {
     if (bind && isFunction(value) && `bind` in value) {
-      Object.assign(this, {[key]: value.bind(this)})
-      this.success(`set`, `bud.${key}`, `to`, typeof value, `(bound)`)
+      this[key as any] = value.bind(this)
+
+      logger.success(
+        `set`,
+        `bud.${key}`,
+        `to`,
+        value.constructor.name,
+        `(bound)`,
+      )
+
       return this
     }
 
-    Object.assign(this, {[key]: value})
-    this.success(`set`, `bud.${key}`, `to`, typeof value)
+    this[key as any] = value
+    logger.success(
+      `set`,
+      `bud.${key}`,
+      `to`,
+      Array.isArray(value) ? `array` : typeof value,
+    )
     return this
   }
 

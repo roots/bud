@@ -15,7 +15,7 @@ describe(`bud.bundle`, () => {
   })
 
   it(`should set the bundle using a string`, async () => {
-    await instance(`react`).awaitPromised()
+    await instance(`react`).promise()
 
     expect(
       bud.hooks.filter(`build.optimization.splitChunks`),
@@ -23,7 +23,7 @@ describe(`bud.bundle`, () => {
   })
 
   it(`should set the bundle using a string name and a string test`, async () => {
-    await instance(`react`, `react`).awaitPromised()
+    await instance(`react`, `react`).promise()
 
     expect(
       bud.hooks.filter(`build.optimization.splitChunks`),
@@ -31,7 +31,7 @@ describe(`bud.bundle`, () => {
   })
 
   it(`should set the bundle using a string name and regular expression test`, async () => {
-    await instance(`react`, /react/).awaitPromised()
+    await instance(`react`, /react/).promise()
 
     expect(
       bud.hooks.filter(`build.optimization.splitChunks`),
@@ -39,7 +39,7 @@ describe(`bud.bundle`, () => {
   })
 
   it(`should set the bundle using a string name and array of strings test`, async () => {
-    await instance(`react`, [`react`, `react-dom`]).awaitPromised()
+    await instance(`react`, [`react`, `react-dom`]).promise()
 
     expect(
       bud.hooks.filter(`build.optimization.splitChunks`),

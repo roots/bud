@@ -116,7 +116,7 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
         const fn = makeFn(value)
         const results = await fn(app)
         processResults(results)
-        await app.awaitPromised()
+        await app.promise()
       } catch (err) {
         setResult(err.message)
       }

@@ -25,12 +25,11 @@ class Configuration {
   public async dynamicConfig(
     config: (bud: Bud) => Promise<any>,
   ): Promise<void> {
-    await config(this.bud).catch(error => {
-      throw error
-    })
-    await this.bud.awaitPromised().catch(error => {
-      throw error
-    })
+    await this.bud
+      .promise(async bud => await config(bud))
+      .catch(error => {
+        throw error
+      })
   }
 
   @bind
