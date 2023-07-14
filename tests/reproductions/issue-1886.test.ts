@@ -1,11 +1,12 @@
 import {join} from 'node:path'
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it, test} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
 
 describe('issue-1886', () => {
   let fs: Filesystem
+
   beforeAll(() => {
     fs = new Filesystem()
   })
@@ -15,7 +16,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -38,7 +39,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -61,7 +62,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -84,7 +85,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -107,7 +108,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
@@ -132,7 +133,7 @@ describe('issue-1886', () => {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--no-log`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })
 
