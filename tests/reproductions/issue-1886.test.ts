@@ -4,23 +4,6 @@ import execa from '@roots/bud-support/execa'
 import {beforeAll, describe, expect, it, test} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
 
-const expectedStats = `\
-│ main
-│  › js/runtime.js                                                     ✔ 1.45 kB
-│  › css/main.css                                                    ✔ 809 bytes
-│  › js/main.js                                                      ✔ 972 bytes
-│
-│ assets
-│  › images/generated.bud@1200x630.jpeg                                 17.75 kB
-│  › images/generated.bud-css@1200x630.webp                              8.78 kB
-│  › images/generated.bud@1200x630.webp                                  8.78 kB
-│  › images/generated.bud-50@1200x630.webp                               6.66 kB
-│  › images/bud.svg                                                  ✔ 585 bytes
-│  … 5 additional assets not shown`
-
-const extractStats = (stdout: string) =>
-  stdout.split(`\n`).slice(11, 23).join(`\n`)
-
 describe('issue-1886', () => {
   let fs: Filesystem
   beforeAll(() => {
@@ -190,8 +173,13 @@ describe('issue-1886', () => {
     expect([res1.failed, res2.failed, res3.failed]).toEqual(
       expect.arrayContaining([false, false, false]),
     )
+
+    const extractStats = (stdout: string) =>
+      stdout.split(`./dist\n│`).pop()?.split(`\n`).slice(0, 13).join(`\n`)
+
     expect(extractStats(res1.stdout)).toMatchInlineSnapshot(`
-      "│ main
+      "
+      │ main
       │  › js/runtime.js                                                     ✔ 1.45 kB
       │  › css/main.css                                                    ✔ 809 bytes
       │  › js/main.js                                                      ✔ 972 bytes
@@ -205,7 +193,8 @@ describe('issue-1886', () => {
       │  … 5 additional assets not shown"
     `)
     expect(extractStats(res2.stdout)).toMatchInlineSnapshot(`
-      "│ main
+      "
+      │ main
       │  › js/runtime.js                                                     ✔ 1.45 kB
       │  › css/main.css                                                    ✔ 809 bytes
       │  › js/main.js                                                      ✔ 972 bytes
@@ -219,7 +208,8 @@ describe('issue-1886', () => {
       │  … 5 additional assets not shown"
     `)
     expect(extractStats(res3.stdout)).toMatchInlineSnapshot(`
-      "│ main
+      "
+      │ main
       │  › js/runtime.js                                                     ✔ 1.45 kB
       │  › css/main.css                                                    ✔ 809 bytes
       │  › js/main.js                                                      ✔ 972 bytes
