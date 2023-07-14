@@ -36,6 +36,8 @@ export class Bud {
 
   public declare api: Service & Api
 
+  public declare bindFacade: typeof methods.bindFacade
+
   public declare build: Service & Build
 
   public declare cache: Service & Cache

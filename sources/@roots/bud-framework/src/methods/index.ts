@@ -1,6 +1,7 @@
 import type {Bud} from '../index.js'
 
 import {after} from './after/after.js'
+import {bindFacade} from './bindFacade.js'
 import {close} from './close.js'
 import {container} from './container.js'
 import {get} from './get.js'
@@ -25,6 +26,7 @@ type methods = Partial<{
 
 const methods = {
   after,
+  bindFacade,
   close,
   container,
   get,

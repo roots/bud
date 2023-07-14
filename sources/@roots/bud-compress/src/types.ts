@@ -13,7 +13,9 @@ interface PublicCompressAPI extends PublicExtensionApi<BudCompress> {
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    brotli: PublicBrotliAPI
     compress: PublicCompressAPI
+    gzip: PublicGzipAPI
   }
   interface Modules {
     '@roots/bud-compress': PublicCompressAPI
