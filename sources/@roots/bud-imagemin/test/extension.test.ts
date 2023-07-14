@@ -1,9 +1,9 @@
-import '../src/types/index.js'
+import '@roots/bud-imagemin/types'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
 
-import BudImageminExtension from '../src/index.js'
+import BudImageminExtension from '@roots/bud-imagemin'
 
 describe(`@roots/bud-imagemin`, () => {
   let bud: Bud

@@ -45,27 +45,21 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./sharp": {
-      "import": "./lib/sharp/index.js",
-      "default": "./lib/sharp/index.js"
-    },
-    "./svgo": {
-      "import": "./lib/svgo/index.js",
-      "default": "./lib/svgo/index.js"
-    },
-    "./types": {
-      "import": "./lib/types/index.js",
-      "default": "./lib/types/index.js"
-    }
+    ".": "./lib/index.js",
+    "./sharp": "./lib/sharp/index.js",
+    "./svgo": "./lib/svgo/index.js",
+    "./types": "./lib/types/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "sharp": [
+        "./lib/sharp/index.d.ts"
+      ],
+      "svgo": [
+        "./lib/svgo/index.d.ts"
       ],
       "types": [
         "./lib/types/index.d.ts"
