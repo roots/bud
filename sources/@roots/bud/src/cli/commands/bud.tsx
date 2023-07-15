@@ -352,7 +352,8 @@ export default class BudCommand extends Command<CLIContext> {
         this.applyBudManifestOptions(bud),
         this.applyBudArguments(bud),
       ]).catch(this.catch)
-      await bud.promise()
+
+      await bud.promise().catch(this.catch)
     }
 
     this.context.dry = this.dry

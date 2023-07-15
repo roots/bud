@@ -19,7 +19,6 @@ import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import noop from '@roots/bud-support/lodash/noop'
 import logger from '@roots/bud-support/logger'
 
 import type {FS} from './fs.js'
@@ -37,7 +36,7 @@ export class Bud {
 
   public declare api: Service & Api
 
-  public bindFacade = methods.bindFacade.bind(this)
+  public declare bindFacade: typeof methods.bindFacade
 
   public declare build: Service & Build
 
@@ -166,7 +165,10 @@ export class Bud {
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
-    await this.promise(async () => await this.hooks.fire(stage, this))
+    await this.promise()
+    await this.hooks.fire(stage, this)
+    await this.promise()
+
     return this
   }
 
@@ -194,9 +196,8 @@ export class Bud {
   @bind
   public async initialize(context: Context): Promise<Bud> {
     logger.time(`initialize`)
-
     Object.entries(methods).forEach(([key, value]) => {
-      this.set(key as any, value)
+      this[key] = value.bind(this)
     })
 
     this.set(`services`, [])
@@ -340,14 +341,10 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public async promise(fn?: (bud: Bud) => any | Promise<any>) {
-    fn = fn ?? noop
-
-    await Promise.all(this.promised)
-      .then(async () => await Promise.resolve(fn(this)))
-      .catch(error => {
-        throw error
-      })
+  public async promise() {
+    await Promise.all(this.promised).catch(error => {
+      throw error
+    })
 
     return this
   }
@@ -381,26 +378,11 @@ export class Bud {
     bind: boolean = true,
   ): Bud {
     if (bind && isFunction(value) && `bind` in value) {
-      this[key as any] = value.bind(this)
-
-      logger.success(
-        `set`,
-        `bud.${key}`,
-        `to`,
-        value.constructor.name,
-        `(bound)`,
-      )
-
+      Object.assign(this, {[key]: value.bind(this)})
       return this
     }
 
-    this[key as any] = value
-    logger.success(
-      `set`,
-      `bud.${key}`,
-      `to`,
-      Array.isArray(value) ? `array` : typeof value,
-    )
+    Object.assign(this, {[key]: value})
     return this
   }
 

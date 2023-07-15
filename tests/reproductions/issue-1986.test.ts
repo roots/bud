@@ -12,13 +12,13 @@ describe(`issue-1986`, () => {
     fs = new Filesystem()
 
     try {
-      await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+      await execa(`yarn`, [`bud`, `clean`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
       })
     } catch (error) {}
 
     try {
-      child = await execa(`yarn`, [`bud`, `build`, `--force`], {
+      child = await execa(`yarn`, [`bud`, `build`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
         reject: false,
       })

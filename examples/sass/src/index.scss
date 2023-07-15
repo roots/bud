@@ -8,6 +8,7 @@ body {
 
 body {
   background: $blue;
+  background-image: url(~@src/logo.svg?inline);
 
   div {
     border: $white;

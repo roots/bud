@@ -52,7 +52,7 @@ export default class BudBrotli extends Extension<Options, Plugin> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.bindFacade(`brotli`, this.config.bind(this), false)
+    bud.bindFacade(`brotli`, this.config, this)
   }
 }
 

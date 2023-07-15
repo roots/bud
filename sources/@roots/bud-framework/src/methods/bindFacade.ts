@@ -8,17 +8,17 @@ import type {Bud} from '../bud.js'
  */
 export function bindFacade(
   this: Bud,
-  name: string,
+  key: `${keyof Bud & string}`,
   fn: CallableFunction,
   binding?: unknown,
 ) {
   if (!isFunction(fn)) {
-    throw new BudError(`bud.bindFacade error: ${name} is not a function`)
+    throw new BudError(`bud.bindFacade error: ${key} is not a function.`)
   }
+  if (`bind` in fn) fn = fn.bind(binding ?? this)
 
-  this.set(name as any, (...args: Array<any>) => {
-    if (binding !== false && `bind` in fn) fn = fn.bind(binding ?? this)
-    this.promised.push(Promise.resolve(fn(...args)))
+  this.set(key, (...args: Array<any>) => {
+    this.promised.push(fn(...args))
     return this
   })
 }

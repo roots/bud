@@ -6,11 +6,7 @@ import {ServiceContainer} from '@roots/bud-framework/service'
 import * as methods from '../methods/index.js'
 
 /**
- * API service
- *
- * @remarks
- * Binds facade methods to the framework and provides a way to list them,
- * call them, and otherwise manipulate them.
+ * Bud.API {@link ServiceContainer}
  */
 export class Api extends ServiceContainer implements BudApi {
   /**
@@ -19,9 +15,11 @@ export class Api extends ServiceContainer implements BudApi {
   public override label: BudApi[`label`] = `api`
 
   /**
-   * `bootstrap` callback
+   * {@link ServiceContainer.bootstrap}
    */
   public override async bootstrap?(bud: Bud) {
-    Object.entries(methods).map(([k, v]) => bud.bindFacade(k as any, v))
+    Object.entries(methods).map(([k, v]: [any, any]) =>
+      bud.bindFacade(k, v, bud),
+    )
   }
 }

@@ -9,8 +9,6 @@ export interface run {
 }
 
 export const run: run = async function (this: Bud) {
-  await this.promise()
-
   if (this.isProduction) {
     const compilation = await this.compiler.compile(this).catch(error => {
       throw error

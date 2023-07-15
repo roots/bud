@@ -24,7 +24,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp.generators).toBeInstanceOf(Map)
   })
 
-  it(`should create webp generator on init`, async () => {
+  it(`should create webp generator during registration`, async () => {
     await sharp.register()
 
     expect(sharp.generators.get(`webp`)).toStrictEqual({

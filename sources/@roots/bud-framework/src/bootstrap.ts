@@ -214,11 +214,15 @@ export const bootstrap = async function (bud: Bud) {
   bud.hooks.action(`compiler.before`, bud.module.compilerBefore)
   bud.hooks.action(`compiler.done`, bud.module.compilerDone)
 
-  await [`bootstrap`, `register`, `boot`].reduce(
-    async (promised, event: keyof Registry.EventsStore) => {
+  await [`bootstrap`, `register`, `boot`]
+    .reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await bud.executeServiceCallbacks(event)
-    },
-    Promise.resolve(),
-  )
+      await bud.executeServiceCallbacks(event).catch(error => {
+        throw error
+      })
+    }, Promise.resolve())
+    .catch(error => {
+      logger.error(error)
+      throw error
+    })
 }

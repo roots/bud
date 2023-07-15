@@ -6,16 +6,15 @@ import {Filesystem} from '@roots/bud-support/filesystem'
 
 describe('issue-1995', () => {
   let fs: Filesystem
-  beforeAll(() => {
-    fs = new Filesystem()
-  })
 
   beforeAll(async () => {
-    await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+    fs = new Filesystem()
+
+    await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1955`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--debug`], {
+    await execa(`yarn`, [`bud`, `build`], {
       cwd: join(paths.tests, `reproductions`, `issue-1955`),
     })
   }, 30000)

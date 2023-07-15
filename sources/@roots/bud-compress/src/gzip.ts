@@ -49,7 +49,7 @@ export default class BudGzip extends Extension<Options, Plugin> {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.bindFacade(`gzip`, this.config.bind(this), false)
+    bud.bindFacade(`gzip`, this.config, this)
   }
 }
 

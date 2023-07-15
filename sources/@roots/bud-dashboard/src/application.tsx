@@ -69,7 +69,7 @@ export const Application = ({
       <Box>
         <Text dimColor>
           {`\n`}
-          {status}
+          {status ?? ``}
         </Text>
       </Box>
     )

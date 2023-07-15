@@ -2,11 +2,6 @@
   "name": "@tests/issue-1986",
   "private": true,
   "type": "module",
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
-  },
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-postcss": "workspace:*"

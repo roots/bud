@@ -29,6 +29,7 @@ export const process = async (app: Bud) => {
   const processConfig = async (file: File) => {
     logger.log(`processing`, file.name)
     await configuration.run(file).catch(makeError(file))
+    await app.promise().catch(makeError(file))
   }
 
   await Promise.all(find(`base`, false).map(processConfig))
@@ -44,6 +45,9 @@ export const process = async (app: Bud) => {
 
   await Promise.all(
     Object.values(app.children).map(async child => {
+      await child.promise().catch(error => {
+        throw error
+      })
       await child.executeServiceCallbacks(`config.after`).catch(error => {
         throw error
       })
