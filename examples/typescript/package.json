@@ -7,9 +7,9 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
-    "@roots/bud-typescript": "latest",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "ts-node": "10.9.1"
   }
 }

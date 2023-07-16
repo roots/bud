@@ -4,9 +4,9 @@
   "private": true,
   "type": "module",
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-prettier": "latest",
-    "@roots/bud-tailwindcss": "latest",
-    "@roots/sage": "latest"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-prettier": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*",
+    "@roots/sage": "workspace:*"
   }
 }

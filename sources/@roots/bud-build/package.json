@@ -50,12 +50,11 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./config": "./lib/config/index.js",
+    "./handlers": "./lib/handlers/index.js",
     "./item": "./lib/item/index.js",
-    "./items": "./lib/handlers/items/items.js",
     "./loader": "./lib/loader/index.js",
-    "./loaders": "./lib/handlers/loaders/loaders.js",
     "./rule": "./lib/rule/index.js",
-    "./rules": "./lib/handlers/rules/index.js",
     "./service": "./lib/service.js",
     "./types": "./lib/types.js"
   },
@@ -64,23 +63,20 @@
       "*": [
         "./lib/types.js"
       ],
+      "config": [
+        "./lib/config/index.d.ts"
+      ],
+      "handlers": [
+        "./lib/handlers/index.d.ts"
+      ],
       "item": [
         "./lib/item/index.d.ts"
-      ],
-      "items": [
-        "./lib/handlers/items/items.d.ts"
       ],
       "loader": [
         "./lib/loader/index.d.ts"
       ],
-      "loaders": [
-        "./lib/handlers/loaders/loaders.d.ts"
-      ],
       "rule": [
         "./lib/rule/index.d.ts"
-      ],
-      "rules": [
-        "./lib/handlers/rules/index.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

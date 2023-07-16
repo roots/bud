@@ -1,16 +1,26 @@
 import type {Bud} from '@roots/bud-framework'
+import type {EntryObject} from '@roots/bud-framework/config'
+
+export type Name = string
+export type Signifier = string
+
+export type ImportValue = Array<Signifier> | Signifier
+export type ObjectInput = Record<string, ImportValue>
+
+export type Parameters =
+  | [ImportValue]
+  | [Name, EntryObject | ImportValue]
+  | [Record<Name, EntryObject | ImportValue>]
+
+export type Records = Record<string, EntryObject>
 
 import isArray from '@roots/bud-support/lodash/isArray'
 import isString from '@roots/bud-support/lodash/isString'
-
-import type {Parameters} from './types.js'
 
 import {isNamed} from './guards.js'
 import {handleNamed} from './handleNamed.js'
 import {handlePrimitive} from './handlePrimitive.js'
 import {handleRecords} from './handleRecords.js'
-
-export type {Parameters}
 
 export interface entry {
   (...parameters: Parameters): Promise<Bud>
@@ -35,3 +45,5 @@ export const entry: entry = async function (this: Bud, ...input) {
   const [records] = input
   return await handleRecords(this, records)
 }
+
+export type {EntryObject}

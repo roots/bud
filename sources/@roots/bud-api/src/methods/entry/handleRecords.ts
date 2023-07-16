@@ -1,9 +1,12 @@
+import type {
+  EntryObject,
+  ImportValue,
+  Name,
+} from '@roots/bud-api/methods/entry'
 import type {Bud} from '@roots/bud-framework'
 
 import isArray from '@roots/bud-support/lodash/isArray'
 import isString from '@roots/bud-support/lodash/isString'
-
-import type {EntryObject, ImportValue, Name} from './types.js'
 
 export async function handleRecords(
   bud: Bud,

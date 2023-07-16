@@ -6,18 +6,12 @@ describe(`examples/remote-sources`, () => {
   it(`should compile js and css as expected`, async () => {
     const test = setup({
       label: `@examples/remote-sources`,
-      projectDir: globalThis.__INTEGRATION__
-        ? `storage/fixtures/remote-sources`
-        : `examples/remote-sources`,
     })
-    if (globalThis.__INTEGRATION__) {
-      await test.install()
-    }
-
+    await test.install()
     await test.build()
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
-    expect(test.assets[`app.js`].includes(`import `)).toBeFalsy()
+    expect(test.assets[`app.js`].includes(`import `)).toBe(false)
     expect(test.manifest[`app.js`]).toMatchSnapshot()
     expect(Object.keys(test.manifest)).toHaveLength(6)
   })

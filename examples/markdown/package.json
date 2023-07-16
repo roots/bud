@@ -15,7 +15,7 @@
     }
   },
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-mdx": "latest"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-mdx": "workspace:*"
   }
 }

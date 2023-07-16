@@ -11,7 +11,7 @@ export default defineConfig({
       `basic`,
       env.GITHUB_ACTIONS ? new GithubActionsReporter() : ``,
     ],
-    setupFiles: [`./vitest/integration-setup.ts`],
+    setupFiles: [`./config/vitest/integration-setup.ts`],
     testTimeout: 240000,
   },
 })

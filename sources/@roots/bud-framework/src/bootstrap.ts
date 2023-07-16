@@ -104,8 +104,20 @@ const filterServices =
 const instantiateServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const Service = await app.module.import(signifier)
-    const service = new Service(() => app)
+    const Service = await app.module.import(signifier).catch(error => {
+      throw error instanceof BudError ? BudError.normalize(error) : error
+    })
+
+    let service: BudService
+
+    try {
+      service = new Service(() => app)
+    } catch (error) {
+      const normalError =
+        error instanceof BudError ? BudError.normalize(error) : error
+      normalError.message = `Error instantiating service ${signifier}: ${normalError.message}`
+      return normalError
+    }
 
     const label =
       service.label ?? service.constructor?.name
@@ -145,9 +157,7 @@ export const bootstrap = async function (bud: Bud) {
     [...bud.context.services]
       .filter(filterServices(bud))
       .map(instantiateServices(bud)),
-  ).catch(error => {
-    throw BudError.normalize(error)
-  })
+  )
 
   bud.notifier = new Notifier(() => bud)
   await bud.notifier.make(bud)

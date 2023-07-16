@@ -5,6 +5,7 @@ import * as fs from './copy'
 
 export const e2eBeforeAll = async (dirname: string) => {
   await fs.copyDir(dirname)
+  await fs.overwriteJson(dirname)
 
   try {
     await execa(
