@@ -49,37 +49,45 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./item": {
-      "import": "./lib/item/index.js",
-      "default": "./lib/item/index.js"
-    },
-    "./items": {
-      "import": "./lib/handlers/items/items.js",
-      "default": "./lib/handlers/items/items.js"
-    },
-    "./loader": {
-      "import": "./lib/loader/index.js",
-      "default": "./lib/loader/index.js"
-    },
-    "./loaders": {
-      "import": "./lib/handlers/loaders/loaders.js",
-      "default": "./lib/handlers/loaders/loaders.js"
-    },
-    "./rule": {
-      "import": "./lib/rule/index.js",
-      "default": "./lib/rule/index.js"
-    },
-    "./rules": {
-      "import": "./lib/handlers/rules/index.js",
-      "default": "./lib/handlers/rules/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
+    ".": "./lib/index.js",
+    "./item": "./lib/item/index.js",
+    "./items": "./lib/handlers/items/items.js",
+    "./loader": "./lib/loader/index.js",
+    "./loaders": "./lib/handlers/loaders/loaders.js",
+    "./rule": "./lib/rule/index.js",
+    "./rules": "./lib/handlers/rules/index.js",
+    "./service": "./lib/service.js",
+    "./types": "./lib/types.js"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./lib/types.js"
+      ],
+      "item": [
+        "./lib/item/index.d.ts"
+      ],
+      "items": [
+        "./lib/handlers/items/items.d.ts"
+      ],
+      "loader": [
+        "./lib/loader/index.d.ts"
+      ],
+      "loaders": [
+        "./lib/handlers/loaders/loaders.d.ts"
+      ],
+      "rule": [
+        "./lib/rule/index.d.ts"
+      ],
+      "rules": [
+        "./lib/handlers/rules/index.d.ts"
+      ],
+      "service": [
+        "./lib/service.d.ts"
+      ],
+      "types": [
+        "./lib/types.d.ts"
+      ]
     }
   },
   "types": "./lib/index.d.ts",

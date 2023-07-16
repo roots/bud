@@ -1752,6 +1752,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/parser@npm:^7.18.4":
+  version: 7.22.7
+  resolution: "@babel/parser@npm:7.22.7"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 02209ddbd445831ee8bf966fdf7c29d189ed4b14343a68eb2479d940e7e3846340d7cc6bd654a5f3d87d19dc84f49f50a58cf9363bee249dc5409ff3ba3dab54
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression@npm:7.22.5"
@@ -3382,6 +3391,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@discoveryjs/json-ext@npm:^0.5.0":
+  version: 0.5.7
+  resolution: "@discoveryjs/json-ext@npm:0.5.7"
+  checksum: 2176d301cc258ea5c2324402997cf8134ebb212469c0d397591636cea8d3c02f2b3cf9fd58dcb748c7a0dade77ebdc1b10284fa63e608c033a1db52fddc69918
+  languageName: node
+  linkType: hard
+
 "@docsearch/css@npm:3.1.1":
   version: 3.1.1
   resolution: "@docsearch/css@npm:3.1.1"
@@ -4532,6 +4548,337 @@ __metadata:
   checksum: 580487a09c82ac169744d36e4af77bc4f582c9a37749d1e9481eb93626c8f3991b2390c6e4e69e5642e3b6e870912b839229a0e23594fae348156ea5a8ed7e2e
   languageName: node
   linkType: hard
+
+"@examples/babel@workspace:examples/babel":
+  version: 0.0.0-use.local
+  resolution: "@examples/babel@workspace:examples/babel"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/basic@workspace:examples/basic":
+  version: 0.0.0-use.local
+  resolution: "@examples/basic@workspace:examples/basic"
+  dependencies:
+    "@roots/bud": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/config-json@workspace:examples/config-json":
+  version: 0.0.0-use.local
+  resolution: "@examples/config-json@workspace:examples/config-json"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/config-yml@workspace:examples/config-yml":
+  version: 0.0.0-use.local
+  resolution: "@examples/config-yml@workspace:examples/config-yml"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/critical-css@workspace:examples/critical-css":
+  version: 0.0.0-use.local
+  resolution: "@examples/critical-css@workspace:examples/critical-css"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-criticalcss": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-tailwindcss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/emotion@workspace:examples/emotion":
+  version: 0.0.0-use.local
+  resolution: "@examples/emotion@workspace:examples/emotion"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-emotion": latest
+    "@roots/bud-react": latest
+    "@roots/bud-swc": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/esbuild@workspace:examples/esbuild":
+  version: 0.0.0-use.local
+  resolution: "@examples/esbuild@workspace:examples/esbuild"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-esbuild": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/eslint@workspace:examples/eslint":
+  version: 0.0.0-use.local
+  resolution: "@examples/eslint@workspace:examples/eslint"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-eslint": latest
+    "@roots/eslint-config": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/html-template@workspace:examples/html-template":
+  version: 0.0.0-use.local
+  resolution: "@examples/html-template@workspace:examples/html-template"
+  dependencies:
+    "@roots/bud": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/imagemin@workspace:examples/imagemin":
+  version: 0.0.0-use.local
+  resolution: "@examples/imagemin@workspace:examples/imagemin"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-imagemin": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/markdown@workspace:examples/markdown":
+  version: 0.0.0-use.local
+  resolution: "@examples/markdown@workspace:examples/markdown"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-mdx": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/multi@workspace:examples/multi-compiler":
+  version: 0.0.0-use.local
+  resolution: "@examples/multi@workspace:examples/multi-compiler"
+  dependencies:
+    "@roots/bud": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/node-api@workspace:examples/node-api":
+  version: 0.0.0-use.local
+  resolution: "@examples/node-api@workspace:examples/node-api"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
+    webpack-cli: 5.0.1
+  languageName: unknown
+  linkType: soft
+
+"@examples/postcss-sass@workspace:examples/postcss-sass":
+  version: 0.0.0-use.local
+  resolution: "@examples/postcss-sass@workspace:examples/postcss-sass"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-sass": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/postcss@workspace:examples/postcss":
+  version: 0.0.0-use.local
+  resolution: "@examples/postcss@workspace:examples/postcss"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/preset-recommend@workspace:examples/preset-recommend":
+  version: 0.0.0-use.local
+  resolution: "@examples/preset-recommend@workspace:examples/preset-recommend"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-preset-recommend": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/purgecss@workspace:examples/purgecss":
+  version: 0.0.0-use.local
+  resolution: "@examples/purgecss@workspace:examples/purgecss"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-purgecss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/react@workspace:examples/react":
+  version: 0.0.0-use.local
+  resolution: "@examples/react@workspace:examples/react"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-react": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/remote-sources@workspace:examples/remote-sources":
+  version: 0.0.0-use.local
+  resolution: "@examples/remote-sources@workspace:examples/remote-sources"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-swc": latest
+    "@roots/bud-tailwindcss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/sage@workspace:examples/sage":
+  version: 0.0.0-use.local
+  resolution: "@examples/sage@workspace:examples/sage"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-prettier": latest
+    "@roots/bud-tailwindcss": latest
+    "@roots/sage": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/sass-customized@workspace:examples/sass-customized":
+  version: 0.0.0-use.local
+  resolution: "@examples/sass-customized@workspace:examples/sass-customized"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-sass": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/sass-tailwindcss@workspace:examples/sass-tailwindcss":
+  version: 0.0.0-use.local
+  resolution: "@examples/sass-tailwindcss@workspace:examples/sass-tailwindcss"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-entrypoints": latest
+    "@roots/bud-sass": latest
+    "@roots/bud-tailwindcss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/sass@workspace:examples/sass":
+  version: 0.0.0-use.local
+  resolution: "@examples/sass@workspace:examples/sass"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-sass": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/solid@workspace:examples/solid":
+  version: 0.0.0-use.local
+  resolution: "@examples/solid@workspace:examples/solid"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+    "@roots/bud-solid": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/stylelint@workspace:examples/stylelint":
+  version: 0.0.0-use.local
+  resolution: "@examples/stylelint@workspace:examples/stylelint"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-stylelint": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/swc@workspace:examples/swc":
+  version: 0.0.0-use.local
+  resolution: "@examples/swc@workspace:examples/swc"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-swc": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/tailwindcss@workspace:examples/tailwindcss":
+  version: 0.0.0-use.local
+  resolution: "@examples/tailwindcss@workspace:examples/tailwindcss"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-postcss": latest
+    "@roots/bud-tailwindcss": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/typescript@workspace:examples/typescript":
+  version: 0.0.0-use.local
+  resolution: "@examples/typescript@workspace:examples/typescript"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-babel": latest
+    "@roots/bud-typescript": latest
+    ts-node: 10.9.1
+  languageName: unknown
+  linkType: soft
+
+"@examples/vue-3@workspace:examples/vue-3":
+  version: 0.0.0-use.local
+  resolution: "@examples/vue-3@workspace:examples/vue-3"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-sass": latest
+    "@roots/bud-vue": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/vue-legacy@workspace:examples/vue-legacy":
+  version: 0.0.0-use.local
+  resolution: "@examples/vue-legacy@workspace:examples/vue-legacy"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-vue": latest
+    vue: 2.7.14
+    vue-loader: 15.9.4
+    vue-template-compiler: 2.7.14
+  languageName: unknown
+  linkType: soft
+
+"@examples/vue-typescript@workspace:examples/vue-typescript":
+  version: 0.0.0-use.local
+  resolution: "@examples/vue-typescript@workspace:examples/vue-typescript"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-sass": latest
+    "@roots/bud-typescript": latest
+    "@roots/bud-vue": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/webpack-plugin@workspace:examples/webpack-plugin":
+  version: 0.0.0-use.local
+  resolution: "@examples/webpack-plugin@workspace:examples/webpack-plugin"
+  dependencies:
+    "@roots/bud": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/wordpress-editor@workspace:examples/wordpress-editor":
+  version: 0.0.0-use.local
+  resolution: "@examples/wordpress-editor@workspace:examples/wordpress-editor"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-preset-wordpress": latest
+  languageName: unknown
+  linkType: soft
+
+"@examples/wordpress-theme@workspace:examples/wordpress-theme":
+  version: 0.0.0-use.local
+  resolution: "@examples/wordpress-theme@workspace:examples/wordpress-theme"
+  dependencies:
+    "@roots/bud": latest
+    "@roots/bud-eslint": latest
+    "@roots/bud-preset-wordpress": latest
+    "@roots/bud-swc": latest
+  languageName: unknown
+  linkType: soft
 
 "@fastify/accept-negotiator@npm:^1.0.0":
   version: 1.1.0
@@ -6781,6 +7128,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/blade-loader@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/blade-loader@npm:6.14.3"
+  dependencies:
+    lodash: 4.17.21
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: df4de60c4a0d49529a4a032b5acc21b85dd1ff948ebc73accce126bbde1081ea1e69a19c28ed4073529e675d3c91420c973fe20f7362a6740a01c12cea587aab
+  languageName: node
+  linkType: hard
+
 "@roots/blade-loader@workspace:*, @roots/blade-loader@workspace:sources/@roots/blade-loader":
   version: 0.0.0-use.local
   resolution: "@roots/blade-loader@workspace:sources/@roots/blade-loader"
@@ -6795,6 +7153,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/browserslist-config@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/browserslist-config@npm:6.14.3"
+  dependencies:
+    browserslist: 4.21.9
+    execa: 7.1.1
+    tslib: 2.6.0
+    update-browserslist-db: 1.0.11
+  checksum: 1bb8b9905bf02534fc9ecaf13713bf91fc39bd214f319fe7595b67f42884004be493ca58c844ec72b1abb0389d627f9db183f26b38af631cf027f239332e6161
+  languageName: node
+  linkType: hard
+
 "@roots/browserslist-config@workspace:*, @roots/browserslist-config@workspace:sources/@roots/browserslist-config":
   version: 0.0.0-use.local
   resolution: "@roots/browserslist-config@workspace:sources/@roots/browserslist-config"
@@ -6807,6 +7177,20 @@ __metadata:
     update-browserslist-db: 1.0.11
   languageName: unknown
   linkType: soft
+
+"@roots/bud-api@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-api@npm:6.14.3"
+  dependencies:
+    "@roots/bud-extensions": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/container": 6.14.3
+    chalk: 5.2.0
+    tslib: 2.6.0
+  checksum: b970b96c0debb00ada55c4569b6518c056601c9c9d007577fc410d41df542bc45fb0653bdb0df4b2140d0f25f945876f6f69df880e6028cd610b82ce41312bd1
+  languageName: node
+  linkType: hard
 
 "@roots/bud-api@workspace:*, @roots/bud-api@workspace:sources/@roots/bud-api":
   version: 0.0.0-use.local
@@ -6823,6 +7207,24 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-babel@npm:6.14.3, @roots/bud-babel@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-babel@npm:6.14.3"
+  dependencies:
+    "@babel/core": 7.22.5
+    "@babel/plugin-transform-runtime": 7.22.5
+    "@babel/preset-env": 7.22.5
+    "@babel/runtime": 7.22.5
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    babel-loader: 9.1.2
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 9d060be008e1a9651b620e2250d2d2bf6364aa9798b02493cf188e731fe399b0bc415330521a13589f09b9399ea88b77437c2129be3ab960a06a558a058077bc
+  languageName: node
+  linkType: hard
 
 "@roots/bud-babel@workspace:*, @roots/bud-babel@workspace:sources/@roots/bud-babel":
   version: 0.0.0-use.local
@@ -6846,6 +7248,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-build@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-build@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    tslib: 2.6.0
+  checksum: b36cef9253b02a6ea03e6e18c5f138c76964a07a9b87d34a7062d7ddadbc4da988d03528027d2c0b78833c642b69e22168e351cdb938cce776003d53417ce53e
+  languageName: node
+  linkType: hard
+
 "@roots/bud-build@workspace:*, @roots/bud-build@workspace:sources/@roots/bud-build":
   version: 0.0.0-use.local
   resolution: "@roots/bud-build@workspace:sources/@roots/bud-build"
@@ -6860,6 +7273,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-cache@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-cache@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    strip-ansi: 7.1.0
+    tslib: 2.6.0
+  checksum: c95ad9aa189aff0da1aa4e947d0ada35ea791284ef58c837497122486585e7bc3ee70db00c9e5e5024835a2066a34a25f27de4aa68cec155c3b19abe75ccd323
+  languageName: node
+  linkType: hard
+
 "@roots/bud-cache@workspace:*, @roots/bud-cache@workspace:sources/@roots/bud-cache":
   version: 0.0.0-use.local
   resolution: "@roots/bud-cache@workspace:sources/@roots/bud-cache"
@@ -6872,6 +7297,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-client@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-client@npm:6.14.3"
+  dependencies:
+    tslib: 2.6.0
+  checksum: 485593fed7d1247488329cdf8fe8c47d98e0883b2a27705eafff005f642584ad14645d11098c36be6e15d9491f5475f21011679cac598fa8181295cd1d375ad0
+  languageName: node
+  linkType: hard
+
 "@roots/bud-client@workspace:*, @roots/bud-client@workspace:sources/@roots/bud-client":
   version: 0.0.0-use.local
   resolution: "@roots/bud-client@workspace:sources/@roots/bud-client"
@@ -6883,6 +7317,19 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-compiler@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-compiler@npm:6.14.3"
+  dependencies:
+    "@roots/bud-dashboard": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    react: 18.2.0
+    tslib: 2.6.0
+  checksum: 87607f53d89d409b540724c8c753f2f3b4b250b5aa63faf6d09508755d90428517d519cfca2cd6d65a2eba80f7a4c3dd48f2526e9d2152df4afe89b924e764d3
+  languageName: node
+  linkType: hard
 
 "@roots/bud-compiler@workspace:*, @roots/bud-compiler@workspace:sources/@roots/bud-compiler":
   version: 0.0.0-use.local
@@ -6915,6 +7362,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-criticalcss@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-criticalcss@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/critical-css-webpack-plugin": 6.14.3
+    critical: 5.1.1
+    tslib: 2.6.0
+    vinyl: 3.0.0
+  checksum: a7c8a3e7f1b7b95d2367cf18aad1ffe65317d55bef1f5fb6a7dcdef8ddc2ba304a0d1564f201a0078b3d411e23a1b11078454295912a96ead35c3e7ef5e0d94a
+  languageName: node
+  linkType: hard
+
 "@roots/bud-criticalcss@workspace:*, @roots/bud-criticalcss@workspace:sources/@roots/bud-criticalcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-criticalcss@workspace:sources/@roots/bud-criticalcss"
@@ -6932,6 +7394,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-dashboard@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-dashboard@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    tslib: 2.6.0
+  checksum: 4afe9e6c1637bfeaab3ee3a7ec25eea8a60f7a468d6cf7bda55f4433d6ad70164189f95c78974108ac149a119581839ee5bfea767d49718f416fc9d613ee0b81
+  languageName: node
+  linkType: hard
+
 "@roots/bud-dashboard@workspace:*, @roots/bud-dashboard@workspace:sources/@roots/bud-dashboard":
   version: 0.0.0-use.local
   resolution: "@roots/bud-dashboard@workspace:sources/@roots/bud-dashboard"
@@ -6945,6 +7418,25 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-emotion@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-emotion@npm:6.14.3"
+  dependencies:
+    "@babel/core": 7.22.5
+    "@emotion/babel-plugin": 11.11.0
+    "@emotion/css": 11.11.2
+    "@emotion/react": 11.11.1
+    "@emotion/styled": 11.11.0
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@swc/plugin-emotion": 2.5.68
+    react: 18.2.0
+    tslib: 2.6.0
+  checksum: 0f25a593733ff5f0f00a3dc637f3ba27c5ceef49ac148b7ee779ae9fe9b8de702479651c735aa0d1199b3e549a0aba6e91ff1a63cb4371f783f3f86e6b300b22
+  languageName: node
+  linkType: hard
 
 "@roots/bud-emotion@workspace:sources/@roots/bud-emotion":
   version: 0.0.0-use.local
@@ -6970,6 +7462,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-entrypoints@npm:6.14.3, @roots/bud-entrypoints@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-entrypoints@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/entrypoints-webpack-plugin": 6.14.3
+    tslib: 2.6.0
+  checksum: 5a250d18adffa3bba4e0495e45f9e7f23c48cf2023bdc3c4da617277ea3b49dae4f6f38f50893a0a441d2ec804a450bb18a8649b01c9297f638d665171bd32c5
+  languageName: node
+  linkType: hard
+
 "@roots/bud-entrypoints@workspace:*, @roots/bud-entrypoints@workspace:sources/@roots/bud-entrypoints":
   version: 0.0.0-use.local
   resolution: "@roots/bud-entrypoints@workspace:sources/@roots/bud-entrypoints"
@@ -6982,6 +7486,21 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-esbuild@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-esbuild@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    esbuild: 0.18.10
+    esbuild-loader: 3.0.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: affa2c8340c38593b4b44f3dcd7f73060db9006890f97e734626bfff03d7b97b4cb11f49ee173b9ce5d6bbc791804c304d586e0e6ef8075734d7dac6a18358c8
+  languageName: node
+  linkType: hard
 
 "@roots/bud-esbuild@workspace:*, @roots/bud-esbuild@workspace:sources/@roots/bud-esbuild":
   version: 0.0.0-use.local
@@ -7000,6 +7519,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-eslint@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-eslint@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    eslint: 8.43.0
+    eslint-webpack-plugin: 4.0.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 5cd140073cf632ed5a51d115727939d1210faff39cccd1d24a3abe61472910a2d517cd2396584dca285b0881b8bcd9f72b5519cd7f2469b91c2382f5b22b53b3
+  languageName: node
+  linkType: hard
+
 "@roots/bud-eslint@workspace:sources/@roots/bud-eslint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:sources/@roots/bud-eslint"
@@ -7017,6 +7551,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-extensions@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-extensions@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-minify": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/container": 6.14.3
+    tslib: 2.6.0
+  checksum: 5460495afc500832bd088fbace1aaca1c1165be6510aeacb97dd8e2f34cb492ee0b8a390d69dd4983f402bd6b5a14473aaf6142178bd57dc823b8f96c309bdbb
+  languageName: node
+  linkType: hard
+
 "@roots/bud-extensions@workspace:*, @roots/bud-extensions@workspace:sources/@roots/bud-extensions":
   version: 0.0.0-use.local
   resolution: "@roots/bud-extensions@workspace:sources/@roots/bud-extensions"
@@ -7031,6 +7578,21 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-framework@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-framework@npm:6.14.3"
+  dependencies:
+    "@roots/bud-support": 6.14.3
+    "@roots/container": 6.14.3
+    "@roots/filesystem": 6.14.3
+    chalk: 5.2.0
+    execa: 7.1.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 471e1dcb8e158191433b809de5be9f3e726020520c846b1943ab3fef285707c57c7652066d63b23a2b435582c487f453a03d56625e8b2ebe639a4335f98a1397
+  languageName: node
+  linkType: hard
 
 "@roots/bud-framework@workspace:*, @roots/bud-framework@workspace:sources/@roots/bud-framework":
   version: 0.0.0-use.local
@@ -7048,6 +7610,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-hooks@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-hooks@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    tslib: 2.6.0
+  checksum: d5cf706154cf7b5a6000539eae9f70bc94db9d05768093a5f293bfd79f294c9c460d552041974aa3d8098abcab0563b758e46ea707ce22dae8a0ff03f8fd6ace
+  languageName: node
+  linkType: hard
+
 "@roots/bud-hooks@workspace:*, @roots/bud-hooks@workspace:sources/@roots/bud-hooks":
   version: 0.0.0-use.local
   resolution: "@roots/bud-hooks@workspace:sources/@roots/bud-hooks"
@@ -7059,6 +7632,22 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-imagemin@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-imagemin@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    image-minimizer-webpack-plugin: 3.8.3
+    sharp: 0.32.1
+    svgo: 3.0.2
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 1a71260411cae87e56da8323cf097bb18dbc91c262c2d8ed93be530b3a8a7f7117a99b544aee4f056f96096a8a614e6102827ed07e65622b558387896cd056e1
+  languageName: node
+  linkType: hard
 
 "@roots/bud-imagemin@workspace:*, @roots/bud-imagemin@workspace:sources/@roots/bud-imagemin":
   version: 0.0.0-use.local
@@ -7076,6 +7665,21 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/bud-mdx@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-mdx@npm:6.14.3"
+  dependencies:
+    "@mdx-js/loader": 2.3.0
+    "@roots/bud": 6.14.3
+    "@roots/bud-babel": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-react": 6.14.3
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: d2d902a06c5b2dc49be1a50d083921167220166051b932f25277aa028672a5e772030eef14e6f34cd38d6ab09afaba68d84b3b93d8ecab5658baf82c946143b1
+  languageName: node
+  linkType: hard
 
 "@roots/bud-mdx@workspace:sources/@roots/bud-mdx":
   version: 0.0.0-use.local
@@ -7098,6 +7702,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-minify@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-minify@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    css-minimizer-webpack-plugin: 5.0.1
+    lightningcss: 1.21.1
+    terser: 5.18.2
+    terser-webpack-plugin: 5.3.9
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 783936694aaa6b06bdd2a20ec4fad4e1cf3322a7f73a19f56210100a31dc3fa3a153e67755f4032a9a8189db364618c9261a8e09782dc25a38c2141c721692f4
+  languageName: node
+  linkType: hard
+
 "@roots/bud-minify@workspace:*, @roots/bud-minify@workspace:sources/@roots/bud-minify":
   version: 0.0.0-use.local
   resolution: "@roots/bud-minify@workspace:sources/@roots/bud-minify"
@@ -7116,6 +7737,24 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/bud-postcss@npm:6.14.3, @roots/bud-postcss@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-postcss@npm:6.14.3"
+  dependencies:
+    "@roots/bud-build": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    postcss: 8.4.24
+    postcss-import: 15.1.0
+    postcss-loader: 7.3.3
+    postcss-nested: 6.0.1
+    postcss-preset-env: 8.5.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 18262d2a8b47fb51877a7cc9832a5625ddc8a1651e55ef07e33075e860c227c4b75aff4ea0315105fc27811bb11c1dfa7b2839c439378c5bba4f34cf2b524e2d
+  languageName: node
+  linkType: hard
 
 "@roots/bud-postcss@workspace:*, @roots/bud-postcss@workspace:sources/@roots/bud-postcss":
   version: 0.0.0-use.local
@@ -7137,6 +7776,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-preset-recommend@npm:6.14.3, @roots/bud-preset-recommend@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-preset-recommend@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-babel": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-postcss": 6.14.3
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: dcda139192f137eb42c539eb45fed30af8a898bbcbaf38f729e843d22dc4752333e15b57dd6bc30b8742613b35ed22bef199811b5632ca20c1766b8964fc87d8
+  languageName: node
+  linkType: hard
+
 "@roots/bud-preset-recommend@workspace:*, @roots/bud-preset-recommend@workspace:sources/@roots/bud-preset-recommend":
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:sources/@roots/bud-preset-recommend"
@@ -7154,6 +7807,26 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/bud-preset-wordpress@npm:6.14.3, @roots/bud-preset-wordpress@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-preset-wordpress@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-preset-recommend": 6.14.3
+    "@roots/bud-react": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/bud-tailwindcss-theme-json": 6.14.3
+    "@roots/bud-wordpress-dependencies": 6.14.3
+    "@roots/bud-wordpress-externals": 6.14.3
+    "@roots/bud-wordpress-theme-json": 6.14.3
+    "@roots/wordpress-hmr": 6.14.3
+    chalk: 5.2.0
+    figures: 5.0.0
+    tslib: 2.6.0
+  checksum: c01e30e9b5fda68745b38208229fcd239cdc5984d3c45e070f1503a1120e7e188d61649ae14f77bc76e4036e8fc2872379814b1160c663397fc8757ee2e41bcc
+  languageName: node
+  linkType: hard
 
 "@roots/bud-preset-wordpress@workspace:*, @roots/bud-preset-wordpress@workspace:sources/@roots/bud-preset-wordpress":
   version: 0.0.0-use.local
@@ -7176,6 +7849,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-prettier@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-prettier@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    prettier: 2.8.8
+    tslib: 2.6.0
+  checksum: 1388e54f87d179e6384aa47c4095b88f7b9e731eca1f3db651c64a75e0ae280edb12275257d4208c2030325b6c5f85fc1225548fb7a5b58715181b024d44090f
+  languageName: node
+  linkType: hard
+
 "@roots/bud-prettier@workspace:sources/@roots/bud-prettier":
   version: 0.0.0-use.local
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
@@ -7191,6 +7877,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-purgecss@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-purgecss@npm:6.14.3"
+  dependencies:
+    "@fullhuman/postcss-purgecss": 5.0.0
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    postcss: 8.4.24
+    tslib: 2.6.0
+  checksum: 303f5d2c0ac9e2a9e43460f5c365b4e21dcd3ee516361f1178caa7958efead907e2b4715358c09a48caadc4a7cebaed6c34fbbccf273c7154bd7c9fc0bcc384c
+  languageName: node
+  linkType: hard
+
 "@roots/bud-purgecss@workspace:sources/@roots/bud-purgecss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-purgecss@workspace:sources/@roots/bud-purgecss"
@@ -7205,6 +7904,24 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-react@npm:6.14.3, @roots/bud-react@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-react@npm:6.14.3"
+  dependencies:
+    "@babel/preset-react": 7.22.5
+    "@pmmmwh/react-refresh-webpack-plugin": 0.5.10
+    "@roots/bud-babel": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    react: 18.2.0
+    react-dom: 18.2.0
+    react-refresh: 0.14.0
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 7469ec770327884bbb41712186ef83b39feeb05746d0bf111db0c4292d2ebc5139206f0ba3200824523a55b1d441fa5e8ba3e2d547790c6e362abee18a579a6e
+  languageName: node
+  linkType: hard
 
 "@roots/bud-react@workspace:*, @roots/bud-react@workspace:sources/@roots/bud-react":
   version: 0.0.0-use.local
@@ -7233,6 +7950,24 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-sass@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-sass@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@types/sass-loader": 8.0.5
+    postcss-scss: 4.0.6
+    resolve-url-loader: 5.0.0
+    sass: 1.63.6
+    sass-loader: 13.3.2
+    stylelint-config-recommended-scss: 12.0.0
+    stylelint-scss: 5.0.1
+    tslib: 2.6.0
+  checksum: cc4f5354ca6fac6ca25aa039371336034ef23e82d28bd0aba1834811cfe9f7b45ed2c3d78ad9b5180058ad8fb96ceadb588d4561728a84146655462c303827b3
+  languageName: node
+  linkType: hard
+
 "@roots/bud-sass@workspace:*, @roots/bud-sass@workspace:sources/@roots/bud-sass":
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:sources/@roots/bud-sass"
@@ -7257,6 +7992,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-server@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-server@npm:6.14.3"
+  dependencies:
+    "@roots/bud-client": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    tslib: 2.6.0
+  checksum: 2a4e6d6a49c1efc5260bd1dd05a9076b42fbd9b86ed402e93a7fab763edf15683134fefc33ad1be7e6456e17abe94f1b94b546f0a4746b365209494588bfbe4f
+  languageName: node
+  linkType: hard
+
 "@roots/bud-server@workspace:*, @roots/bud-server@workspace:sources/@roots/bud-server":
   version: 0.0.0-use.local
   resolution: "@roots/bud-server@workspace:sources/@roots/bud-server"
@@ -7270,6 +8017,21 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-solid@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-solid@npm:6.14.3"
+  dependencies:
+    "@babel/plugin-syntax-jsx": 7.22.5
+    "@roots/bud": 6.14.3
+    "@roots/bud-babel": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    babel-preset-solid: 1.7.7
+    solid-js: 1.7.7
+    tslib: 2.6.0
+  checksum: f4769011e0863aa3c6c5d14b175873a1a26275b1982f171bba8ccaad2837d5ed520510bb23807414dbc2bc350900423f988a711e91792b278c684fcced89dd26
+  languageName: node
+  linkType: hard
 
 "@roots/bud-solid@workspace:sources/@roots/bud-solid":
   version: 0.0.0-use.local
@@ -7289,6 +8051,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-stylelint@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-stylelint@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    stylelint: 15.9.0
+    stylelint-config-standard: 33.0.0
+    stylelint-webpack-plugin: 4.1.1
+    tslib: 2.6.0
+  checksum: b3c060bcf0223751c358d00d0f251fc04b9505742e51e9a79bb80da42ec616dfd6be65aa708907298c3e9d0ee1605883d51d1c886ef0da9ca8f1228737a4be65
+  languageName: node
+  linkType: hard
+
 "@roots/bud-stylelint@workspace:*, @roots/bud-stylelint@workspace:sources/@roots/bud-stylelint":
   version: 0.0.0-use.local
   resolution: "@roots/bud-stylelint@workspace:sources/@roots/bud-stylelint"
@@ -7305,6 +8082,74 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/bud-support@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-support@npm:6.14.3"
+  dependencies:
+    "@roots/filesystem": 6.14.3
+    axios: 1.4.0
+    chalk: 5.2.0
+    chokidar: 3.5.3
+    clean-stack: 5.2.0
+    clean-webpack-plugin: 4.0.0
+    clipanion: 3.2.1
+    cookie-parser: 1.4.6
+    copy-webpack-plugin: 11.0.0
+    css-loader: 6.8.1
+    csv-loader: 3.0.5
+    dotenv: 16.3.1
+    dotenv-expand: 10.0.0
+    env-paths: 3.0.0
+    esbuild-wasm: 0.18.10
+    execa: 7.1.1
+    express: 4.18.2
+    figures: 5.0.0
+    file-loader: 6.2.0
+    get-port: 6.1.2
+    globby: 13.2.0
+    http-proxy-middleware: 3.0.0-beta.1
+    human-readable: 0.2.1
+    import-meta-resolve: 2.2.2
+    ink: 4.2.0
+    ink-big-text: 2.0.0
+    ink-gradient: 3.0.0
+    ink-spinner: 5.0.0
+    ink-text-input: 5.0.1
+    json5: 2.2.3
+    lodash: 4.17.21
+    mini-css-extract-plugin: 2.7.6
+    mini-svg-data-uri: 1.4.4
+    minimist: 1.2.8
+    modern-errors: 6.0.0
+    node-notifier: 10.0.1
+    open: 9.1.0
+    open-editor: 4.0.0
+    parse-semver: 1.1.1
+    patch-console: 2.0.0
+    pretty-format: 29.5.0
+    react: 18.2.0
+    remark: 14.0.3
+    remark-html: 15.0.2
+    remark-loader: 5.0.0
+    signale: 1.4.0
+    strip-ansi: 7.1.0
+    style-loader: 3.3.3
+    toml: 3.0.0
+    tslib: 2.6.0
+    typanion: 3.12.1
+    webpack: 5.88.1
+    webpack-dev-middleware: 6.1.1
+    webpack-manifest-plugin: 5.0.0
+    yml-loader: 2.1.0
+  peerDependencies:
+    esbuild: ">=0.18.0"
+  peerDependenciesMeta:
+    esbuild:
+      optional: true
+  checksum: a0361bf2331521c61849432a2bdb6525cfde7223bf3f47b53ee28ad59975c3a405bb26ae204e4b2e89cc4aa5bf496cd55887b3a8c772810e243fc8885dcaba69
+  languageName: node
+  linkType: hard
 
 "@roots/bud-support@workspace:*, @roots/bud-support@workspace:sources/@roots/bud-support":
   version: 0.0.0-use.local
@@ -7384,6 +8229,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-swc@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-swc@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@swc/core": 1.3.66
+    "@swc/helpers": 0.5.1
+    swc-loader: 0.2.3
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: e493b14b168823ed9d5870e9cf45dbb20b002c072e152d107b2cf5a7d5285bd32092b6d444b2fc098413bbfdbe52cf170a4e3bbec9a508e5e68bc179c8e70b9e
+  languageName: node
+  linkType: hard
+
 "@roots/bud-swc@workspace:*, @roots/bud-swc@workspace:sources/@roots/bud-swc":
   version: 0.0.0-use.local
   resolution: "@roots/bud-swc@workspace:sources/@roots/bud-swc"
@@ -7401,6 +8262,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-tailwindcss-theme-json@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-tailwindcss-theme-json@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/bud-wordpress-theme-json": 6.14.3
+    "@roots/wordpress-theme-json-webpack-plugin": 6.14.3
+    tslib: 2.6.0
+  checksum: 2bb80c46b7ed497afb01a09bc18631552899f67df644709ffe12716ab640baf6d78b9d206353fa27c0e866199b7157439d11c5e6221ad193a5ca2daba814c22b
+  languageName: node
+  linkType: hard
+
 "@roots/bud-tailwindcss-theme-json@workspace:*, @roots/bud-tailwindcss-theme-json@workspace:sources/@roots/bud-tailwindcss-theme-json":
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss-theme-json@workspace:sources/@roots/bud-tailwindcss-theme-json"
@@ -7416,6 +8291,23 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-tailwindcss@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-tailwindcss@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-postcss": 6.14.3
+    "@roots/bud-support": 6.14.3
+    postcss: 8.4.24
+    sucrase: 3.32.0
+    tailwindcss: 3.3.2
+    tslib: 2.6.0
+    webpack-virtual-modules: 0.5.0
+  checksum: cca9400005d4f77fae96630435ef1b002ce00c9207c9b208692d7b76258b93a03a16d49791763d145e45d02151f7f709a6924d738703ba931439fb51faf24ca6
+  languageName: node
+  linkType: hard
 
 "@roots/bud-tailwindcss@workspace:*, @roots/bud-tailwindcss@workspace:sources/@roots/bud-tailwindcss":
   version: 0.0.0-use.local
@@ -7437,6 +8329,25 @@ __metadata:
     webpack-virtual-modules: 0.5.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-typescript@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-typescript@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-build": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    fork-ts-checker-webpack-plugin: 7.3.0
+    react-refresh: 0.14.0
+    react-refresh-typescript: 2.0.9
+    ts-loader: 9.4.3
+    ts-node: 10.9.1
+    tslib: 2.6.0
+    typescript: 5.1.6
+  checksum: 9cdc87d8aa96099677721616b258c144fe9fa6271903c05d57c67e289a77e58526aab19e1e749f775d91b8acce84442726d9904b75c1124e09a44b2a6e028921
+  languageName: node
+  linkType: hard
 
 "@roots/bud-typescript@workspace:*, @roots/bud-typescript@workspace:sources/@roots/bud-typescript":
   version: 0.0.0-use.local
@@ -7463,6 +8374,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-vue@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud-vue@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@vue/compiler-sfc": 3.3.4
+    tslib: 2.6.0
+    vue: 3.3.4
+    vue-loader: 17.2.2
+    vue-style-loader: 4.1.3
+    vue-template-compiler: 2.7.14
+  checksum: 50a6ec4ac28206437d733ec07b24d19c8ea09eaac6215f5fadd98823cd860e6bdcc3f2f740f7e722f91444236d924ac4c352b1e6e0528e4497435b6cb7f1e54c
+  languageName: node
+  linkType: hard
+
 "@roots/bud-vue@workspace:*, @roots/bud-vue@workspace:sources/@roots/bud-vue":
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:sources/@roots/bud-vue"
@@ -7484,6 +8411,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-wordpress-dependencies@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-wordpress-dependencies@npm:6.14.3"
+  dependencies:
+    "@roots/bud": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/entrypoints-webpack-plugin": 6.14.3
+    "@roots/wordpress-dependencies-webpack-plugin": 6.14.3
+    tslib: 2.6.0
+  checksum: f145a8046b290df22ddead59bbe8ec1c82bab7ad1712659b90e28839a180b06ea86052d7505dfbc3bf26c7d05c37475d7e51fc8147bf0f4fe81ff8035fdaf3ca
+  languageName: node
+  linkType: hard
+
 "@roots/bud-wordpress-dependencies@workspace:*, @roots/bud-wordpress-dependencies@workspace:sources/@roots/bud-wordpress-dependencies":
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-dependencies@workspace:sources/@roots/bud-wordpress-dependencies"
@@ -7498,6 +8438,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/bud-wordpress-externals@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-wordpress-externals@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/wordpress-externals-webpack-plugin": 6.14.3
+    tslib: 2.6.0
+  checksum: ca076098ebba092f6143d1bc96b573f2ba6e7b5b32daf7d27028a8dc97c5d2434a484d0336bf5dbf31e8d57e60e2de62fa4c44e5bc226f109cad394b5eccddc4
+  languageName: node
+  linkType: hard
+
 "@roots/bud-wordpress-externals@workspace:*, @roots/bud-wordpress-externals@workspace:sources/@roots/bud-wordpress-externals":
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-externals@workspace:sources/@roots/bud-wordpress-externals"
@@ -7509,6 +8460,19 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud-wordpress-theme-json@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/bud-wordpress-theme-json@npm:6.14.3"
+  dependencies:
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/container": 6.14.3
+    "@roots/wordpress-theme-json-webpack-plugin": 6.14.3
+    tslib: 2.6.0
+  checksum: 362e4437fa6d414738e775da1ff341103fbaefd24b4cafee420333d932a13f35b4f5b70c0e5c2add0ac3515ddf801b5e8ca5f7a54b5c2d5430b03e29bb050cf1
+  languageName: node
+  linkType: hard
 
 "@roots/bud-wordpress-theme-json@workspace:*, @roots/bud-wordpress-theme-json@workspace:sources/@roots/bud-wordpress-theme-json":
   version: 0.0.0-use.local
@@ -7523,6 +8487,33 @@ __metadata:
     tslib: 2.6.0
   languageName: unknown
   linkType: soft
+
+"@roots/bud@npm:6.14.3, @roots/bud@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/bud@npm:6.14.3"
+  dependencies:
+    "@roots/browserslist-config": 6.14.3
+    "@roots/bud-api": 6.14.3
+    "@roots/bud-build": 6.14.3
+    "@roots/bud-cache": 6.14.3
+    "@roots/bud-client": 6.14.3
+    "@roots/bud-compiler": 6.14.3
+    "@roots/bud-dashboard": 6.14.3
+    "@roots/bud-entrypoints": 6.14.3
+    "@roots/bud-extensions": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-hooks": 6.14.3
+    "@roots/bud-minify": 6.14.3
+    "@roots/bud-server": 6.14.3
+    "@roots/bud-support": 6.14.3
+    tslib: 2.6.0
+  bin:
+    bud: ./bin/bud.mjs
+    bund: ./bin/bund.mjs
+    ts-bud: ./bin/ts-bud.mjs
+  checksum: bc62b803408b93d77b363a1c7b56e0847e61fbbeac92cb35dd4b8eb986529c75e67783a8859167a8e2c118ff49e86dd14d61457df7230157b33d2e71e64fbfcd
+  languageName: node
+  linkType: hard
 
 "@roots/bud@workspace:*, @roots/bud@workspace:sources/@roots/bud":
   version: 0.0.0-use.local
@@ -7552,6 +8543,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/container@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/container@npm:6.14.3"
+  dependencies:
+    helpful-decorators: 2.1.0
+    lodash: 4.17.21
+    tslib: 2.6.0
+  checksum: 8dd0d282dc22a725b673c14bcef20331caedf616bf1f682b6bda0c9222874ceb624b8da2ba8ac894c8c33ec6fc5f75a364434e9da0e6a42e6a17c16c2348af09
+  languageName: node
+  linkType: hard
+
 "@roots/container@workspace:*, @roots/container@workspace:sources/@roots/container":
   version: 0.0.0-use.local
   resolution: "@roots/container@workspace:sources/@roots/container"
@@ -7564,6 +8566,19 @@ __metadata:
     type-fest: 3.12.0
   languageName: unknown
   linkType: soft
+
+"@roots/critical-css-webpack-plugin@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/critical-css-webpack-plugin@npm:6.14.3"
+  dependencies:
+    critical: 5.1.1
+    helpful-decorators: 2.1.0
+    tslib: 2.6.0
+    vinyl: 3.0.0
+    webpack: 5.88.1
+  checksum: d21ae0c788590e970dcb21ff6ffbf173cc3a9ede9c9afe73961d85061cd9833350b84943bdd0235a34b6c54570bbc6700cc615b0f2564b2ab5972864600fb154
+  languageName: node
+  linkType: hard
 
 "@roots/critical-css-webpack-plugin@workspace:*, @roots/critical-css-webpack-plugin@workspace:sources/@roots/critical-css-webpack-plugin":
   version: 0.0.0-use.local
@@ -7591,6 +8606,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/entrypoints-webpack-plugin@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/entrypoints-webpack-plugin@npm:6.14.3"
+  dependencies:
+    helpful-decorators: 2.1.0
+    lodash: 4.17.21
+    tapable: 2.2.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 666b71aa083d3776eeb08e2cb188e89b44950d0cacca3329a285885450106c70e119971fe98c2a500294594dc1648fc42d0d26f135142c84938de9b2c7cdd30f
+  languageName: node
+  linkType: hard
+
 "@roots/entrypoints-webpack-plugin@workspace:*, @roots/entrypoints-webpack-plugin@workspace:sources/@roots/entrypoints-webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@roots/entrypoints-webpack-plugin@workspace:sources/@roots/entrypoints-webpack-plugin"
@@ -7605,6 +8633,24 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/eslint-config@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/eslint-config@npm:6.14.3"
+  dependencies:
+    "@babel/eslint-parser": 7.22.5
+    "@typescript-eslint/eslint-plugin": 5.60.1
+    "@typescript-eslint/parser": 5.60.1
+    eslint-config-prettier: 8.8.0
+    eslint-plugin-import: 2.27.5
+    eslint-plugin-jsx-a11y: 6.7.1
+    eslint-plugin-prettier: 4.2.1
+    eslint-plugin-react: 7.32.2
+    eslint-plugin-react-hooks: 4.6.0
+    tslib: 2.6.0
+  checksum: cde1597d8fc3f17d343c9cf5b08df2b049a0cbc48d43c38fcf35df04e0ced5e0a72325bb881f27223d918e9acddfdc45946163e8b57f1f344429de84cbddc17b
+  languageName: node
+  linkType: hard
 
 "@roots/eslint-config@workspace:sources/@roots/eslint-config":
   version: 0.0.0-use.local
@@ -7632,6 +8678,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/filesystem@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/filesystem@npm:6.14.3"
+  dependencies:
+    fs-jetpack: 5.1.0
+    globby: 13.2.0
+    helpful-decorators: 2.1.0
+    js-yaml: 4.1.0
+    json5: 2.2.3
+    lodash: 4.17.21
+    mime-types: 2.1.35
+    safe-json-stringify: 1.2.0
+    tslib: 2.6.0
+  checksum: a52d240f75abb81d970d13e278368d8f5ea79648d77a6e802ab641010a03c2e382060a3e810471e7af61f7c0fea8c1d767ef3def7dcccca4c58e58ffc7e404cd
+  languageName: node
+  linkType: hard
+
 "@roots/filesystem@workspace:*, @roots/filesystem@workspace:sources/@roots/filesystem":
   version: 0.0.0-use.local
   resolution: "@roots/filesystem@workspace:sources/@roots/filesystem"
@@ -7654,6 +8717,23 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/sage@npm:latest":
+  version: 6.14.3
+  resolution: "@roots/sage@npm:6.14.3"
+  dependencies:
+    "@roots/blade-loader": 6.14.3
+    "@roots/bud": 6.14.3
+    "@roots/bud-build": 6.14.3
+    "@roots/bud-framework": 6.14.3
+    "@roots/bud-preset-wordpress": 6.14.3
+    "@roots/bud-support": 6.14.3
+    "@roots/container": 6.14.3
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 408d19c0691379848cc7aede2b12d5271a99774421da92b3f29f6e0ceeac46882b5fe64b10ae0ab9a6c578dfda411ae4f4783599a889f465266b7eb4d1f34a85
+  languageName: node
+  linkType: hard
+
 "@roots/sage@workspace:*, @roots/sage@workspace:sources/@roots/sage":
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:sources/@roots/sage"
@@ -7661,6 +8741,7 @@ __metadata:
     "@roots/blade-loader": "workspace:*"
     "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
+    "@roots/bud-entrypoints": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-preset-wordpress": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -7671,6 +8752,23 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/wordpress-dependencies-webpack-plugin@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/wordpress-dependencies-webpack-plugin@npm:6.14.3"
+  dependencies:
+    "@roots/wordpress-transforms": 6.14.3
+    helpful-decorators: 2.1.0
+    tslib: 2.6.0
+    webpack: 5.88.1
+  peerDependencies:
+    "@roots/entrypoints-webpack-plugin": 6.14.3
+  peerDependenciesMeta:
+    "@roots/entrypoints-webpack-plugin":
+      optional: true
+  checksum: 1509a96fb4771fb3bd9c94b279fbb69a3b8ced88062123c551ba308cfb54fd81e2cc9458e24b25c93d458f77edac63c24c7ed51b7fef65457b3b72e013133942
+  languageName: node
+  linkType: hard
 
 "@roots/wordpress-dependencies-webpack-plugin@workspace:*, @roots/wordpress-dependencies-webpack-plugin@workspace:sources/@roots/wordpress-dependencies-webpack-plugin":
   version: 0.0.0-use.local
@@ -7690,6 +8788,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/wordpress-externals-webpack-plugin@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/wordpress-externals-webpack-plugin@npm:6.14.3"
+  dependencies:
+    "@roots/wordpress-transforms": 6.14.3
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 30d70647e72c6528dd278f3b3ec59c66df576a210f19006bfb8583209ac47ad44aeed14ab643ba615ec915071f5e664b6fd4b1261868bafd4d8030011a760cf4
+  languageName: node
+  linkType: hard
+
 "@roots/wordpress-externals-webpack-plugin@workspace:*, @roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:sources/@roots/wordpress-externals-webpack-plugin"
@@ -7701,6 +8810,16 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/wordpress-hmr@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/wordpress-hmr@npm:6.14.3"
+  dependencies:
+    react: 18.2.0
+    tslib: 2.6.0
+  checksum: c4c2e7805a0850d0b9953bd88344ae22a945d3c7c2ef23f05c2fdb55be00b1af9d3b2ded069260e98d53fa721cd4ce03dba985e6bba2ffbdc832a20fd38fa0e0
+  languageName: node
+  linkType: hard
 
 "@roots/wordpress-hmr@workspace:*, @roots/wordpress-hmr@workspace:sources/@roots/wordpress-hmr":
   version: 0.0.0-use.local
@@ -7722,6 +8841,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@roots/wordpress-theme-json-webpack-plugin@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/wordpress-theme-json-webpack-plugin@npm:6.14.3"
+  dependencies:
+    fs-jetpack: 5.1.0
+    helpful-decorators: 2.1.0
+    lodash: 4.17.21
+    tapable: 2.2.1
+    tslib: 2.6.0
+    webpack: 5.88.1
+  checksum: 38be0e6f172d4a479ab36fefeefe72b7a7d12f5e5bbf5de9c2937af3ef76db7c303de76aed02ad96dccabdb339dc33b9f5afa85b627996f80c6c1d430a066166
+  languageName: node
+  linkType: hard
+
 "@roots/wordpress-theme-json-webpack-plugin@workspace:*, @roots/wordpress-theme-json-webpack-plugin@workspace:sources/@roots/wordpress-theme-json-webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-theme-json-webpack-plugin@workspace:sources/@roots/wordpress-theme-json-webpack-plugin"
@@ -7738,6 +8871,15 @@ __metadata:
     webpack: 5.88.1
   languageName: unknown
   linkType: soft
+
+"@roots/wordpress-transforms@npm:6.14.3":
+  version: 6.14.3
+  resolution: "@roots/wordpress-transforms@npm:6.14.3"
+  dependencies:
+    tslib: 2.6.0
+  checksum: dcd965b2c67d6ed5ba12bb3e9c32d90c429de8b28010337fc26e90acc07eca7f5ef933159a0a3dc6a2497c45ef5208e38d406757963b02c04371619c4e8cbc39
+  languageName: node
+  linkType: hard
 
 "@roots/wordpress-transforms@workspace:*, @roots/wordpress-transforms@workspace:sources/@roots/wordpress-transforms":
   version: 0.0.0-use.local
@@ -10092,6 +11234,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vue/compiler-sfc@npm:2.7.14":
+  version: 2.7.14
+  resolution: "@vue/compiler-sfc@npm:2.7.14"
+  dependencies:
+    "@babel/parser": ^7.18.4
+    postcss: ^8.4.14
+    source-map: ^0.6.1
+  checksum: 25e00abaecb311f1effbf539bc3e4fdeedb39d35f9c2947b2640187a047e6a7400e693fd7da1d3a98977b9078c5bf629ca47f8b9a59dc14a080c0a1e1dd06a49
+  languageName: node
+  linkType: hard
+
 "@vue/compiler-sfc@npm:3.3.4":
   version: 3.3.4
   resolution: "@vue/compiler-sfc@npm:3.3.4"
@@ -10117,6 +11270,26 @@ __metadata:
     "@vue/compiler-dom": 3.3.4
     "@vue/shared": 3.3.4
   checksum: 5d1875d55ea864080dd90e5d81a29f93308e312faf00163db5b391b38c2fe799fd3eb58955823dc632f2f8bdd271a4534cc0020646b7f82717be1a8d30dc16e7
+  languageName: node
+  linkType: hard
+
+"@vue/component-compiler-utils@npm:^3.1.0":
+  version: 3.3.0
+  resolution: "@vue/component-compiler-utils@npm:3.3.0"
+  dependencies:
+    consolidate: ^0.15.1
+    hash-sum: ^1.0.2
+    lru-cache: ^4.1.2
+    merge-source-map: ^1.1.0
+    postcss: ^7.0.36
+    postcss-selector-parser: ^6.0.2
+    prettier: ^1.18.2 || ^2.0.0
+    source-map: ~0.6.1
+    vue-template-es2015-compiler: ^1.9.0
+  dependenciesMeta:
+    prettier:
+      optional: true
+  checksum: 70fee2289a4f54ec1be4d46136ee9b9893e31bf5622cead5be06c3dfb83449c3dbe6f8c03404625ccf302d0628ff9e2ea1debfae609d1bfe1d065d8f57c5dba8
   languageName: node
   linkType: hard
 
@@ -10330,6 +11503,39 @@ __metadata:
     "@webassemblyjs/ast": 1.11.6
     "@xtuc/long": 4.2.2
   checksum: d2fa6a4c427325ec81463e9c809aa6572af6d47f619f3091bf4c4a6fc34f1da3df7caddaac50b8e7a457f8784c62cd58c6311b6cb69b0162ccd8d4c072f79cf8
+  languageName: node
+  linkType: hard
+
+"@webpack-cli/configtest@npm:^2.0.1":
+  version: 2.1.1
+  resolution: "@webpack-cli/configtest@npm:2.1.1"
+  peerDependencies:
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
+  checksum: 9f9f9145c2d05471fc83d426db1df85cf49f329836b0c4b9f46b6948bed4b013464c00622b136d2a0a26993ce2306976682592245b08ee717500b1db45009a72
+  languageName: node
+  linkType: hard
+
+"@webpack-cli/info@npm:^2.0.1":
+  version: 2.0.2
+  resolution: "@webpack-cli/info@npm:2.0.2"
+  peerDependencies:
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
+  checksum: 8f9a178afca5c82e113aed1efa552d64ee5ae4fdff63fe747c096a981ec74f18a5d07bd6e89bbe6715c3e57d96eea024a410e58977169489fe1df044c10dd94e
+  languageName: node
+  linkType: hard
+
+"@webpack-cli/serve@npm:^2.0.1":
+  version: 2.0.5
+  resolution: "@webpack-cli/serve@npm:2.0.5"
+  peerDependencies:
+    webpack: 5.x.x
+    webpack-cli: 5.x.x
+  peerDependenciesMeta:
+    webpack-dev-server:
+      optional: true
+  checksum: 75f0e54681796d567a71ac3e2781d2901a8d8cf1cdfc82f261034dddac59a8343e8c3bc5e32b4bb9d6766759ba49fb29a5cd86ef1701d79c506fe886bb63ac75
   languageName: node
   linkType: hard
 
@@ -12844,6 +14050,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bluebird@npm:^3.1.1":
+  version: 3.7.2
+  resolution: "bluebird@npm:3.7.2"
+  checksum: 869417503c722e7dc54ca46715f70e15f4d9c602a423a02c825570862d12935be59ed9c7ba34a9b31f186c017c23cac6b54e35446f8353059c101da73eac22ef
+  languageName: node
+  linkType: hard
+
 "blueimp-md5@npm:^2.10.0":
   version: 2.19.0
   resolution: "blueimp-md5@npm:2.19.0"
@@ -14170,7 +15383,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"colorette@npm:2.0.20, colorette@npm:^2.0.10":
+"colorette@npm:2.0.20, colorette@npm:^2.0.10, colorette@npm:^2.0.14":
   version: 2.0.20
   resolution: "colorette@npm:2.0.20"
   checksum: 0c016fea2b91b733eb9f4bcdb580018f52c0bc0979443dad930e5037a968237ac53d9beb98e218d2e9235834f8eebce7f8e080422d6194e957454255bde71d3d
@@ -14306,6 +15519,13 @@ __metadata:
   version: 9.4.1
   resolution: "commander@npm:9.4.1"
   checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
+  languageName: node
+  linkType: hard
+
+"commander@npm:^9.4.1":
+  version: 9.5.0
+  resolution: "commander@npm:9.5.0"
+  checksum: c7a3e27aa59e913b54a1bafd366b88650bc41d6651f0cbe258d4ff09d43d6a7394232a4dadd0bf518b3e696fdf595db1028a0d82c785b88bd61f8a440cecfade
   languageName: node
   linkType: hard
 
@@ -14495,6 +15715,15 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
+  languageName: node
+  linkType: hard
+
+"consolidate@npm:^0.15.1":
+  version: 0.15.1
+  resolution: "consolidate@npm:0.15.1"
+  dependencies:
+    bluebird: ^3.1.1
+  checksum: 5a44ee975f8403dd3ff8ff3472fda7db0484b19f153eaac38e784465505a0741939c72d703befda7c75649739fc7a68f9659a86e2a62469336a8d531bd7a10df
   languageName: node
   linkType: hard
 
@@ -16525,6 +17754,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"envinfo@npm:^7.7.3":
+  version: 7.10.0
+  resolution: "envinfo@npm:7.10.0"
+  bin:
+    envinfo: dist/cli.js
+  checksum: 05e81a5768c42cbd5c580dc3f274db3401facadd53e9bd52e2aa49dfbb5d8b26f6181c25a6652d79618a6994185bd2b1c137673101690b147f758e4e71d42f7d
+  languageName: node
+  linkType: hard
+
 "equivalent-key-map@npm:^0.2.2":
   version: 0.2.2
   resolution: "equivalent-key-map@npm:0.2.2"
@@ -17856,7 +19094,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fastest-levenshtein@npm:1.0.16, fastest-levenshtein@npm:^1.0.16":
+"fastest-levenshtein@npm:1.0.16, fastest-levenshtein@npm:^1.0.12, fastest-levenshtein@npm:^1.0.16":
   version: 1.0.16
   resolution: "fastest-levenshtein@npm:1.0.16"
   checksum: a78d44285c9e2ae2c25f3ef0f8a73f332c1247b7ea7fb4a191e6bb51aa6ee1ef0dfb3ed113616dcdc7023e18e35a8db41f61c8d88988e877cf510df8edafbc71
@@ -20359,6 +21597,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"import-local@npm:^3.0.2":
+  version: 3.1.0
+  resolution: "import-local@npm:3.1.0"
+  dependencies:
+    pkg-dir: ^4.2.0
+    resolve-cwd: ^3.0.0
+  bin:
+    import-local-fixture: fixtures/cli.js
+  checksum: bfcdb63b5e3c0e245e347f3107564035b128a414c4da1172a20dc67db2504e05ede4ac2eee1252359f78b0bfd7b19ef180aec427c2fce6493ae782d73a04cddd
+  languageName: node
+  linkType: hard
+
 "import-meta-resolve@npm:2.2.2":
   version: 2.2.2
   resolution: "import-meta-resolve@npm:2.2.2"
@@ -20697,6 +21947,13 @@ __metadata:
   version: 1.4.0
   resolution: "interpret@npm:1.4.0"
   checksum: 2e5f51268b5941e4a17e4ef0575bc91ed0ab5f8515e3cf77486f7c14d13f3010df9c0959f37063dcc96e78d12dc6b0bb1b9e111cdfe69771f4656d2993d36155
+  languageName: node
+  linkType: hard
+
+"interpret@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "interpret@npm:3.1.1"
+  checksum: 35cebcf48c7351130437596d9ab8c8fe131ce4038da4561e6d665f25640e0034702a031cf7e3a5cea60ac7ac548bf17465e0571ede126f3d3a6933152171ac82
   languageName: node
   linkType: hard
 
@@ -22851,6 +24108,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:^4.1.2":
+  version: 4.1.5
+  resolution: "lru-cache@npm:4.1.5"
+  dependencies:
+    pseudomap: ^1.0.2
+    yallist: ^2.1.2
+  checksum: 4bb4b58a36cd7dc4dcec74cbe6a8f766a38b7426f1ff59d4cf7d82a2aa9b9565cd1cb98f6ff60ce5cd174524868d7bc9b7b1c294371851356066ca9ac4cf135a
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^5.1.1":
   version: 5.1.1
   resolution: "lru-cache@npm:5.1.1"
@@ -23400,6 +24667,15 @@ __metadata:
   dependencies:
     is-plain-obj: ^2.1.0
   checksum: d86ddb3dd6e85d558dbf25dc944f3527b6bacb944db3fdda6e84a3f59c4e4b85231095f58b835758b9a57708342dee0f8de0dffa352974a48221487fe9f4584f
+  languageName: node
+  linkType: hard
+
+"merge-source-map@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "merge-source-map@npm:1.1.0"
+  dependencies:
+    source-map: ^0.6.1
+  checksum: 945a83dcc59eff77dde709be1d3d6cb575c11cd7164a7ccdc1c6f0d463aad7c12750a510bdf84af2c05fac4615c4305d97ac90477975348bb901a905c8e92c4b
   languageName: node
   linkType: hard
 
@@ -26135,6 +27411,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"picocolors@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "picocolors@npm:0.2.1"
+  checksum: 3b0f441f0062def0c0f39e87b898ae7461c3a16ffc9f974f320b44c799418cabff17780ee647fda42b856a1dc45897e2c62047e1b546d94d6d5c6962f45427b2
+  languageName: node
+  linkType: hard
+
 "picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
@@ -26297,7 +27580,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-dir@npm:^4.1.0":
+"pkg-dir@npm:^4.1.0, pkg-dir@npm:^4.2.0":
   version: 4.2.0
   resolution: "pkg-dir@npm:4.2.0"
   dependencies:
@@ -27719,6 +29002,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss@npm:^7.0.36":
+  version: 7.0.39
+  resolution: "postcss@npm:7.0.39"
+  dependencies:
+    picocolors: ^0.2.1
+    source-map: ^0.6.1
+  checksum: 4ac793f506c23259189064bdc921260d869a115a82b5e713973c5af8e94fbb5721a5cc3e1e26840500d7e1f1fa42a209747c5b1a151918a9bc11f0d7ed9048e3
+  languageName: node
+  linkType: hard
+
 "prebuild-install@npm:^7.1.1":
   version: 7.1.1
   resolution: "prebuild-install@npm:7.1.1"
@@ -27800,7 +29093,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prettier@npm:2.8.8, prettier@npm:^2.6.2":
+"prettier@npm:2.8.8, prettier@npm:^1.18.2 || ^2.0.0, prettier@npm:^2.6.2":
   version: 2.8.8
   resolution: "prettier@npm:2.8.8"
   bin:
@@ -28057,6 +29350,13 @@ __metadata:
   version: 8.1.0
   resolution: "ps-list@npm:8.1.0"
   checksum: afaa24953f2b1beba3245423c0af78957b1d1e70107cb445a439a2b2d74ba5aec615450dd0770db797975ce8a45fc331c161f079b86602d82d1e677cb58a5e94
+  languageName: node
+  linkType: hard
+
+"pseudomap@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "pseudomap@npm:1.0.2"
+  checksum: 856c0aae0ff2ad60881168334448e898ad7a0e45fe7386d114b150084254c01e200c957cf378378025df4e052c7890c5bd933939b0e0d2ecfcc1dc2f0b2991f5
   languageName: node
   linkType: hard
 
@@ -28991,6 +30291,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rechoir@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "rechoir@npm:0.8.0"
+  dependencies:
+    resolve: ^1.20.0
+  checksum: ad3caed8afdefbc33fbc30e6d22b86c35b3d51c2005546f4e79bcc03c074df804b3640ad18945e6bef9ed12caedc035655ec1082f64a5e94c849ff939dc0a788
+  languageName: node
+  linkType: hard
+
 "recursive-readdir@npm:^2.2.2":
   version: 2.2.2
   resolution: "recursive-readdir@npm:2.2.2"
@@ -29491,6 +30800,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"resolve-cwd@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "resolve-cwd@npm:3.0.0"
+  dependencies:
+    resolve-from: ^5.0.0
+  checksum: 546e0816012d65778e580ad62b29e975a642989108d9a3c5beabfb2304192fa3c9f9146fbdfe213563c6ff51975ae41bac1d3c6e047dd9572c94863a057b4d81
+  languageName: node
+  linkType: hard
+
 "resolve-from@npm:^4.0.0":
   version: 4.0.0
   resolution: "resolve-from@npm:4.0.0"
@@ -29532,7 +30850,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.22.1, resolve@npm:^1.22.2, resolve@npm:^1.3.2":
+"resolve@npm:^1.1.6, resolve@npm:^1.1.7, resolve@npm:^1.10.0, resolve@npm:^1.12.0, resolve@npm:^1.14.2, resolve@npm:^1.19.0, resolve@npm:^1.20.0, resolve@npm:^1.22.1, resolve@npm:^1.22.2, resolve@npm:^1.3.2":
   version: 1.22.3
   resolution: "resolve@npm:1.22.3"
   dependencies:
@@ -29558,7 +30876,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
+"resolve@patch:resolve@^1.1.6#~builtin<compat/resolve>, resolve@patch:resolve@^1.1.7#~builtin<compat/resolve>, resolve@patch:resolve@^1.10.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.12.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.14.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.19.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.20.0#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.1#~builtin<compat/resolve>, resolve@patch:resolve@^1.22.2#~builtin<compat/resolve>, resolve@patch:resolve@^1.3.2#~builtin<compat/resolve>":
   version: 1.22.3
   resolution: "resolve@patch:resolve@npm%3A1.22.3#~builtin<compat/resolve>::version=1.22.3&hash=c3c19d"
   dependencies:
@@ -34028,6 +35346,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-hot-reload-api@npm:^2.3.0":
+  version: 2.3.4
+  resolution: "vue-hot-reload-api@npm:2.3.4"
+  checksum: 9befc0b3d6c1cc69430813fb7cfd2125c6a228730a36fad0653e4ddb60c8d4cf3ddc9649d2c9105c3d6044b42e8c8dce62b3c245bc65a6f187c1e2ca82a79252
+  languageName: node
+  linkType: hard
+
+"vue-loader@npm:15.9.4":
+  version: 15.9.4
+  resolution: "vue-loader@npm:15.9.4"
+  dependencies:
+    "@vue/component-compiler-utils": ^3.1.0
+    hash-sum: ^1.0.2
+    loader-utils: ^1.1.0
+    vue-hot-reload-api: ^2.3.0
+    vue-style-loader: ^4.1.0
+  peerDependencies:
+    css-loader: "*"
+    webpack: ^3.0.0 || ^4.1.0 || ^5.0.0-0
+  peerDependenciesMeta:
+    cache-loader:
+      optional: true
+    vue-template-compiler:
+      optional: true
+  checksum: ecff791f5badf701b6e9c89aab969cd8394192d4db5b4e15cc4458c8e61a0ae277e8cdc0cc1965738b19a247c2834f1dd7b6212a02722fd46b5fda237c1a33bb
+  languageName: node
+  linkType: hard
+
 "vue-loader@npm:17.2.2":
   version: 17.2.2
   resolution: "vue-loader@npm:17.2.2"
@@ -34046,7 +35392,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue-style-loader@npm:4.1.3":
+"vue-style-loader@npm:4.1.3, vue-style-loader@npm:^4.1.0":
   version: 4.1.3
   resolution: "vue-style-loader@npm:4.1.3"
   dependencies:
@@ -34063,6 +35409,23 @@ __metadata:
     de-indent: ^1.0.2
     he: ^1.2.0
   checksum: eba9d2eed6b7110c963bc356b47bdd11d4023d25148abb7e5f7826db2fefe7ad8a575787ee0d8fa47701d44a6f54bde475279b1319f44e1049271eb2419f93a7
+  languageName: node
+  linkType: hard
+
+"vue-template-es2015-compiler@npm:^1.9.0":
+  version: 1.9.1
+  resolution: "vue-template-es2015-compiler@npm:1.9.1"
+  checksum: ad1e85662783be3ee262c323b05d12e6a5036fca24f16dc0f7ab92736b675919cb4fa4b79b28753eac73119b709d1b36789bf60e8ae423f50c4db35de9370e8b
+  languageName: node
+  linkType: hard
+
+"vue@npm:2.7.14":
+  version: 2.7.14
+  resolution: "vue@npm:2.7.14"
+  dependencies:
+    "@vue/compiler-sfc": 2.7.14
+    csstype: ^3.1.0
+  checksum: 8b06da67cc40870c66a30b7a6bc2874950cd4383792c371eb30497dd14fc7b41cf308b1c4517368d8f0e7ac16198c08de19236f6a79fe43f4bdbc4a1d9d4ad07
   languageName: node
   linkType: hard
 
@@ -34191,6 +35554,38 @@ __metadata:
   languageName: node
   linkType: hard
 
+"webpack-cli@npm:5.0.1":
+  version: 5.0.1
+  resolution: "webpack-cli@npm:5.0.1"
+  dependencies:
+    "@discoveryjs/json-ext": ^0.5.0
+    "@webpack-cli/configtest": ^2.0.1
+    "@webpack-cli/info": ^2.0.1
+    "@webpack-cli/serve": ^2.0.1
+    colorette: ^2.0.14
+    commander: ^9.4.1
+    cross-spawn: ^7.0.3
+    envinfo: ^7.7.3
+    fastest-levenshtein: ^1.0.12
+    import-local: ^3.0.2
+    interpret: ^3.1.1
+    rechoir: ^0.8.0
+    webpack-merge: ^5.7.3
+  peerDependencies:
+    webpack: 5.x.x
+  peerDependenciesMeta:
+    "@webpack-cli/generators":
+      optional: true
+    webpack-bundle-analyzer:
+      optional: true
+    webpack-dev-server:
+      optional: true
+  bin:
+    webpack-cli: bin/cli.js
+  checksum: b1544eea669442e78c3dba9f79c0f8d0136759b8b2fe9cd32c0d410250fd719988ae037778ba88993215d44971169f2c268c0c934068be561711615f1951bd53
+  languageName: node
+  linkType: hard
+
 "webpack-dev-middleware@npm:6.1.1":
   version: 6.1.1
   resolution: "webpack-dev-middleware@npm:6.1.1"
@@ -34277,6 +35672,16 @@ __metadata:
   peerDependencies:
     webpack: ^5.47.0
   checksum: 864d68f90870e194074756e71caf3df36b777d687a50286ba27eb1958480642b125c2cf47a2787beac52eba4b1ccf1fe8141f017c81f1e87e953481f852a7c48
+  languageName: node
+  linkType: hard
+
+"webpack-merge@npm:^5.7.3":
+  version: 5.9.0
+  resolution: "webpack-merge@npm:5.9.0"
+  dependencies:
+    clone-deep: ^4.0.1
+    wildcard: ^2.0.0
+  checksum: 64fe2c23aacc5f19684452a0e84ec02c46b990423aee6fcc5c18d7d471155bd14e9a6adb02bd3656eb3e0ac2532c8e97d69412ad14c97eeafe32fa6d10050872
   languageName: node
   linkType: hard
 
@@ -34845,6 +36250,13 @@ __metadata:
   version: 5.0.8
   resolution: "y18n@npm:5.0.8"
   checksum: 54f0fb95621ee60898a38c572c515659e51cc9d9f787fb109cef6fde4befbe1c4602dc999d30110feee37456ad0f1660fa2edcfde6a9a740f86a290999550d30
+  languageName: node
+  linkType: hard
+
+"yallist@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "yallist@npm:2.1.2"
+  checksum: 9ba99409209f485b6fcb970330908a6d41fa1c933f75e08250316cce19383179a6b70a7e0721b89672ebb6199cc377bf3e432f55100da6a7d6e11902b0a642cb
   languageName: node
   linkType: hard
 

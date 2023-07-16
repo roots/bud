@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import provideExtension from '../../src/webpack-provide-plugin/index.js'
+import provideExtension from '@roots/bud-extensions/webpack-provide-plugin'
 
 describe(`@roots/bud-extensions/webpack-provide-plugin`, () => {
   it(`is an instance of Extension`, () => {

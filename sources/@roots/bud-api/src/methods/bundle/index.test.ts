@@ -3,7 +3,7 @@ import '@roots/bud-api'
 import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {bundle} from './index.js'
+import {bundle} from '@roots/bud-api/methods/bundle'
 
 describe(`bud.bundle`, () => {
   let bud

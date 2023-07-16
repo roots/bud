@@ -9,7 +9,7 @@
   "devDependencies": {
     "@roots/bud": "latest",
     "@roots/bud-eslint": "latest",
-    "@roots/bud-swc": "latest",
-    "@roots/bud-preset-wordpress": "latest"
+    "@roots/bud-preset-wordpress": "latest",
+    "@roots/bud-swc": "latest"
   }
 }

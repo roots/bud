@@ -1,9 +1,9 @@
-import '../../src/index.js'
+import '@roots/bud-extensions'
 
 import {factory} from '@repo/test-kit'
 import {describe, expect, it, vi} from 'vitest'
 
-import extensionConstructor from '../../src/esm/index.js'
+import extensionConstructor from '@roots/bud-extensions/esm'
 
 describe(`@roots/bud-extensions/esm`, () => {
   it(`is constructable`, () => {

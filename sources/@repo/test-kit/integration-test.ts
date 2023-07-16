@@ -9,6 +9,7 @@ interface Options {
   buildCommand?: [string, Array<string>?]
   dist?: string
   label: string
+  projectDir?: string
 }
 
 interface Entrypoints {
@@ -47,7 +48,9 @@ class Project {
   public async build() {
     const build = this.options.buildCommand ?? [
       `node`,
-      [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
+      globalThis.integration
+        ? [this.getPath(`node_modules`, `.bin`, `bud`), `build`]
+        : [path(`node_modules`, `.bin`, `bud`), `build`],
     ]
 
     const {stderr, stdout} = await execa(...build, {cwd: this.directory})
@@ -84,11 +87,16 @@ class Project {
    * Get the project directory
    */
   public get directory(): string {
-    return path(
-      `storage`,
-      `fixtures`,
-      this.options.label.replace(`@examples/`, ``),
-    )
+    if (this.options.projectDir) return path(this.options.projectDir)
+
+    if (globalThis.__INTEGRATION__) {
+      return path(
+        `storage`,
+        `fixtures`,
+        this.options.label.replace(`@examples/`, ``),
+      )
+    }
+    return path(this.options.label.replace(`@examples/`, `examples/`))
   }
 
   /**
@@ -127,6 +135,8 @@ class Project {
 
   @bind
   public async install(): Promise<this> {
+    if (!globalThis.__INTEGRATION__) return this
+
     await fs.removeAsync(this.directory).catch(error => {
       throw error
     })

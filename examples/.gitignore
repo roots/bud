@@ -1,6 +1,5 @@
 **/node_modules
-**/composer.lock
-**/yarn.lock
+**/*.lock
 **/vendor
 **/package.ref
 

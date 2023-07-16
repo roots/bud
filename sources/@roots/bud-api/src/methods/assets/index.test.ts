@@ -1,7 +1,7 @@
 import {factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {assets} from './index.js'
+import {assets} from '@roots/bud-api/methods/assets'
 
 describe(`bud.assets`, () => {
   let bud

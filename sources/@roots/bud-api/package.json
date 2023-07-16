@@ -51,7 +51,7 @@
     ".": "./lib/index.js",
     "./api": "./lib/api/index.js",
     "./methods": "./lib/methods/index.js",
-    "./methods/*": "./lib/methods/*.js"
+    "./methods/*": "./lib/methods/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -65,7 +65,7 @@
         "./lib/methods/index.d.ts"
       ],
       "methods/*": [
-        "./lib/methods/*.d.ts"
+        "./lib/methods/*/index.d.ts"
       ]
     }
   },

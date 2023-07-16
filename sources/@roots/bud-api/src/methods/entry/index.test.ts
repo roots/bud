@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {entry as entryFn} from './index.js'
+import {entry as entryFn} from '@roots/bud-api/methods/entry'
 
 describe(`bud.entry`, function () {
   let bud: Bud

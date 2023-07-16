@@ -1,6 +1,6 @@
 import {describe, expect, it, test} from 'vitest'
 
-import extensionConstructor from '../../src/fix-style-only-entrypoints/index.js'
+import extensionConstructor from '@roots/bud-extensions/fix-style-only-entrypoints'
 
 describe(`bud-esm`, () => {
   it(`is an instance of Extension`, () => {

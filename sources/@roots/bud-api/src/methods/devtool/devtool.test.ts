@@ -1,13 +1,13 @@
-import {factory} from '@repo/test-kit'
+import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {devtool} from './index.js'
+import {devtool} from '@roots/bud-api/methods/devtool'
 
 const callback = vi.fn() as any
 
 describe(`bud.devtool`, function () {
   let method: devtool
-  let bud
+  let bud: Bud
 
   beforeEach(async () => {
     bud = await factory()

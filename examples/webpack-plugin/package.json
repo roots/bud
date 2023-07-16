@@ -1,7 +1,6 @@
 {
   "name": "@examples/webpack-plugin",
   "$schema": "https://bud.js.org/bud.package.json",
-  "private": "true",
   "type": "module",
   "browserslist": [
     "extends @roots/browserslist-config"
