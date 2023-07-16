@@ -10,10 +10,10 @@ describe(`toml loader`, () => {
     bud = await factory()
     const result = await toml({
       filter: bud.hooks.filter,
+      isProduction: bud.isProduction,
       makeItem: bud.build.makeItem,
       makeLoader: bud.build.makeLoader,
       makeRule: bud.build.makeRule,
-      isProduction: bud.isProduction,
       path: bud.path,
       resolve: bud.module.resolve,
     })

@@ -1,8 +1,7 @@
-import {type Bud, factory} from '@repo/test-kit'
 import {path} from '@repo/constants'
-import {beforeAll, describe, expect, it} from 'vitest'
-
+import {type Bud, factory} from '@repo/test-kit'
 import {alias as aliasFn} from '@roots/bud-api/methods/alias'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`bud.alias`, () => {
   let bud: Bud
@@ -33,12 +32,12 @@ describe(`bud.alias`, () => {
   })
 
   it(`should set async hook from signifier value pair`, async () => {
-    const returned = alias('test', 'test')
+    const returned = alias(`test`, `test`)
     expect(
       await returned.hooks.filterAsync(`build.resolve.alias`),
     ).toEqual(
       expect.objectContaining({
-        test: 'test',
+        test: `test`,
       }),
     )
   })

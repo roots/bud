@@ -1,7 +1,6 @@
 import {factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it} from 'vitest'
-
 import {assets} from '@roots/bud-api/methods/assets'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`bud.assets`, () => {
   let bud
@@ -33,10 +32,10 @@ describe(`bud.assets`, () => {
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          from: expect.stringContaining(`images`),
-          to: expect.stringMatching(/\[path\]\[name\]\[ext\]$/),
           context: expect.stringContaining(`src`),
+          from: expect.stringContaining(`images`),
           noErrorOnMissing: true,
+          to: expect.stringMatching(/\[path\]\[name\]\[ext\]$/),
         }),
       ]),
     )
@@ -57,19 +56,19 @@ describe(`bud.assets`, () => {
 
     expect(patterna).toEqual(
       expect.objectContaining({
-        from: `images`,
-        to: `images/[path][name][ext]`,
         context: expect.stringMatching(/src$/),
+        from: `images`,
         noErrorOnMissing: true,
+        to: `images/[path][name][ext]`,
       }),
     )
 
     expect(patternb).toEqual(
       expect.objectContaining({
-        from: `fonts/font.woff`,
-        to: `fonts/font.woff`,
         context: expect.stringContaining(`src`),
+        from: `fonts/font.woff`,
         noErrorOnMissing: true,
+        to: `fonts/font.woff`,
       }),
     )
   })

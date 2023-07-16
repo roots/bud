@@ -1,6 +1,6 @@
 import {describe, expect, it} from 'vitest'
 
-import {inlineSvg, dataUrl} from './svg.inline.js'
+import {dataUrl, inlineSvg} from './svg.inline.js'
 
 describe(`svg-inline`, () => {
   it(`should return a rule`, async () => {
@@ -9,10 +9,10 @@ describe(`svg-inline`, () => {
     )
     const result = await inlineSvg({
       filter: bud.hooks.filter,
+      isProduction: bud.isProduction,
       makeItem: bud.build.makeItem,
       makeLoader: bud.build.makeLoader,
       makeRule: bud.build.makeRule,
-      isProduction: bud.isProduction,
       path: bud.path,
       resolve: bud.module.resolve,
     })

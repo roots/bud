@@ -4,9 +4,7 @@ import {describe, expect, it} from 'vitest'
 
 describe(`examples/react`, () => {
   it(`should compile js and css as expected`, async () => {
-    const test = setup({
-      label: `@examples/react`,
-    })
+    const test = setup({label: `@examples/react`})
     await test.install()
     await test.build()
 

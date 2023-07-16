@@ -1,8 +1,8 @@
+import {factory} from '@repo/test-kit'
+import {Bud} from '@roots/bud-framework'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {externals as subject} from './index.js'
-import {factory} from '@repo/test-kit'
-import {Bud} from '@roots/bud-framework'
 
 describe(`bud.entry`, function () {
   let externals: subject
@@ -46,10 +46,10 @@ describe(`bud.entry`, function () {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await externals({react: `window.React`})
-    await externals(externals => ({...externals, foo: ['bar']}))
+    await externals(externals => ({...externals, foo: [`bar`]}))
     expect(onSpy).toHaveBeenLastCalledWith(`build.externals`, {
+      foo: [`bar`],
       react: `window.React`,
-      foo: ['bar'],
     })
   })
 })

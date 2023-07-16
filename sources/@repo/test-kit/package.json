@@ -6,7 +6,8 @@
   "exports": {
     ".": "./compiled/index.js",
     "./project": "./compiled/project.js",
-    "./setup": "./compiled/setup.js"
+    "./setup": "./compiled/setup.js",
+    "./tests": "./tests/index.js"
   },
   "typesVersions": {
     "*": {
@@ -18,6 +19,9 @@
       ],
       "./project": [
         "./compiled/project.d.ts"
+      ],
+      "./tests": [
+        "./compiled/tests.d.ts"
       ]
     }
   },

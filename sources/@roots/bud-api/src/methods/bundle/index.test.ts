@@ -1,9 +1,7 @@
-import '@roots/bud-api'
-
 import {factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it} from 'vitest'
-
+import '@roots/bud-api'
 import {bundle} from '@roots/bud-api/methods/bundle'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`bud.bundle`, () => {
   let bud

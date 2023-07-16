@@ -47,7 +47,7 @@ class Project {
    */
   @bind
   public async build() {
-    await fs.removeAsync(this.getPath(this.options.dist ?? `dist`))
+    await fs.removeAsync(this.getPath(this.getBaseUrl()))
     await fs.removeAsync(this.getPath(`build.stdout.log`))
     await fs.removeAsync(this.getPath(`build.stderr.log`))
 
@@ -77,6 +77,7 @@ class Project {
         this.getPath(`build.stdout.log`),
         stripAnsi(results.stdout),
       ))
+
     results.stderr &&
       (await fs.writeAsync(
         this.getPath(`build.stderr.log`),
@@ -84,12 +85,12 @@ class Project {
       ))
 
     this.entrypoints = await fs.readAsync(
-      this.getPath(this.options.dist ?? `dist`, `entrypoints.json`),
+      this.getPath(this.getBaseUrl(), `entrypoints.json`),
       `json`,
     )
 
     this.manifest = await fs.readAsync(
-      this.getPath(this.options.dist ?? `dist`, `manifest.json`),
+      this.getPath(this.getBaseUrl(), `manifest.json`),
       `json`,
     )
 
@@ -97,7 +98,7 @@ class Project {
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
           this.assets[name] = await fs.readAsync(
-            this.getPath(this.options.dist ?? `dist`, path),
+            this.getPath(this.getBaseUrl(), path),
             `utf8`,
           )
         },
@@ -132,6 +133,19 @@ class Project {
     return this.assets[name]
   }
 
+  @bind
+  public getAssetPath(name: string) {
+    return this.getPath(this.manifest[name])
+  }
+
+  /**
+   * Get base url
+   */
+  @bind
+  public getBaseUrl() {
+    return this.options.dist ?? `dist`
+  }
+
   /**
    * Get an entrypoint by name
    */
@@ -148,16 +162,25 @@ class Project {
     return join(this.directory, ...file)
   }
 
+  /**
+   * Has asset?
+   */
   @bind
   public hasAsset(name: string) {
     return name in this.assets
   }
 
+  /**
+   * Has entrypoint?
+   */
   @bind
   public hasEntrypoint(name: string) {
     return name in this.entrypoints
   }
 
+  /**
+   * Install
+   */
   @bind
   public async install(): Promise<this> {
     if (globalThis.__INTEGRATION__ !== true) return this

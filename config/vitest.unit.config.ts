@@ -9,6 +9,7 @@ export default defineConfig({
   test: {
     alias,
     coverage: {
+      include: [`sources/@roots/*/src/**/*.{ts,tsx}`],
       provider: `v8`,
       reporter: [`text`, `html`],
     },
@@ -24,7 +25,7 @@ export default defineConfig({
     ],
     includeSource: [`sources/@roots/*/src/**/*.{ts,tsx}`],
     reporters: [
-      `basic`,
+      `default`,
       env.GITHUB_ACTIONS ? new GithubActionsReporter() : ``,
     ],
     testTimeout: 60000,

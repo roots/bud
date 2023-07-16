@@ -1,14 +1,18 @@
 import setup, {type Project} from '@repo/test-kit/setup'
-
+import {
+  testIsCompiledCss,
+  testIsMinimized,
+  testThemeJson,
+} from '@repo/test-kit/tests'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/sage`, () => {
   let sage: Project
 
   beforeAll(async () => {
-    sage = await setup({label: `@examples/sage`, dist: `public`})
-      .install()
-      .then(async project => await project.build())
+    sage = setup({label: `@examples/sage`, dist: `public`})
+    await sage.install()
+    await sage.build()
   })
 
   it(`should index 'app' entrypoint as expected`, () => {
@@ -78,17 +82,19 @@ describe(`examples/sage`, () => {
     expect(asset.includes(`import `)).toBeFalsy()
   })
 
-  it(`should build 'editor.css' asset as expected`, () => {
-    const asset = sage.getAsset(`editor.css`)
-
-    expect(asset.length).toBeGreaterThan(10)
-    expect(asset.includes(`@import`)).toBe(false)
-    expect(asset.includes(`@apply`)).toBe(false)
-    expect(asset.match(/    /)).toBeFalsy()
-    expect(asset.match(/\\n/)).toBeFalsy()
+  it(`should have expected app.css asset`, () => {
+    testIsCompiledCss(sage.getAsset(`app.css`))
+    testIsMinimized(sage.getAsset(`app.css`))
   })
 
-  it(`should build 'theme.json' asset as expected`, () => {
+  it(`should have expected editor.css asset`, () => {
+    testIsCompiledCss(sage.getAsset(`editor.css`))
+    testIsMinimized(sage.getAsset(`editor.css`))
+  })
+
+  it(`should have expected theme.json asset`, async () => {
+    testThemeJson(JSON.parse(sage.getAsset(`../theme.json`)))
+
     expect(sage.getAsset(`../theme.json`)).toMatchInlineSnapshot(`
       "{
         \\"__generated__\\": \\"⚠️ This file is generated. Do not edit.\\",
