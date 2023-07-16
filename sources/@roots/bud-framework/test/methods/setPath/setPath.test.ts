@@ -1,6 +1,6 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
-import {setPath as subject} from '../../../src/methods/setPath/setPath.js'
+import {setPath as subject} from '@roots/bud-framework/methods/setPath'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`bud.setPath`, () => {
   let bud: Bud
@@ -56,18 +56,18 @@ describe(`bud.setPath`, () => {
     const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
 
     setPath({
-      '@src': `src-test`,
       '@dist': `dist-test`,
+      '@src': `src-test`,
     })
 
     expect(hooksOnSpy).toHaveBeenNthCalledWith(
       1,
-      `location.@src`,
+      `location.@dist`,
       `test-return`,
     )
 
     expect(hooksOnSpy).toHaveBeenLastCalledWith(
-      `location.@dist`,
+      `location.@src`,
       `test-return`,
     )
   })

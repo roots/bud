@@ -1,4 +1,4 @@
-import type {Parameters} from './setPath.js'
+import type {Parameters} from '@roots/bud-framework/methods/setPath'
 
 export const baseDir = (params: Parameters): params is [string] => {
   return params.length < 2 && typeof params[0] === `string`

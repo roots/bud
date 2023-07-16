@@ -1,8 +1,8 @@
 import {join} from 'node:path'
 
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
-import {path as subject} from '../../../src/methods/path/path.js'
+import {path as subject} from '@roots/bud-framework/methods/path'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`bud.path`, () => {
   let bud: Bud

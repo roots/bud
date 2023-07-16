@@ -1,6 +1,6 @@
-import {isAbsolute, join, resolve, sep} from 'node:path'
+import type {Bud} from '@roots/bud-framework'
 
-import type {Bud} from '../../index.js'
+import {isAbsolute, join, resolve, sep} from 'node:path'
 
 /**
  * Transform `@alias` path

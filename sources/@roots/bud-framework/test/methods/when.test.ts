@@ -1,5 +1,6 @@
-import {SpyInstance, beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
+import {beforeEach, describe, expect, it, SpyInstance, vi} from 'vitest'
+
 import {when as source} from '../../src/methods/when'
 
 describe(

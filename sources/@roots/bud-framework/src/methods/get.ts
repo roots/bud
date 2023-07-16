@@ -1,6 +1,6 @@
-import {InputError} from '@roots/bud-support/errors'
+import type {Bud} from '@roots/bud-framework'
 
-import type {Bud} from '../index.js'
+import {InputError} from '@roots/bud-support/errors'
 
 export interface get {
   (label: string, tap?: (bud: Bud) => Bud): Bud

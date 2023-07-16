@@ -4,12 +4,15 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "paths": {
-      "@roots/bud-framework": ["./src/index.ts"],
+      "@roots/bud-framework": ["./src"],
+      "@roots/bud-framework/service": ["./src/service"],
+      "@roots/bud-framework/methods/setPath": ["./src/methods/setPath"],
+      "@roots/bud-framework/methods": ["./src/methods"]
     },
     "types": ["express"]
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"],
+  "exclude": ["./test"],
   "references": [
     {"path": "../container/tsconfig.json"},
     {"path": "../bud-support/tsconfig.json"}

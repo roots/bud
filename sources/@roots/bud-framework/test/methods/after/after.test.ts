@@ -1,7 +1,6 @@
 import {type Bud, factory} from '@repo/test-kit'
+import {after as subject} from '@roots/bud-framework/methods/after'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import {after as subject} from '../../../src/methods/after/after.js'
 
 describe(`bud.after`, function () {
   let after: subject

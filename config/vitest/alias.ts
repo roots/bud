@@ -10,6 +10,7 @@ export default {
   '@roots/bud-build/handlers': path(
     `sources/@roots/bud-build/src/handlers`,
   ),
+  '@roots/bud-cache': path(`sources/@roots/bud-cache/src`),
   '@roots/bud-compiler': path(`sources/@roots/bud-compiler/src`),
   '@roots/bud-dashboard': path(`sources/@roots/bud-dashboard/src`),
   '@roots/bud-extensions': path(`sources/@roots/bud-extensions/src`),
