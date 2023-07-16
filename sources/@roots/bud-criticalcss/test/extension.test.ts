@@ -18,7 +18,7 @@ describe(`@roots/bud-criticalcss`, () => {
     expect(await readCritical(`no-extract`)).toMatchSnapshot()
     expect(await readOriginal(`no-extract`)).toMatchSnapshot()
   }, 60000)
-})
+}, 60000)
 
 const baseParts = [
   paths.sources,
@@ -38,12 +38,8 @@ const runFixture = async target =>
       `bud`,
       `build`,
       `--no-cache`,
-      `--ci`,
     ],
-    {
-      reject: false,
-      timeout: 30000,
-    },
+    {reject: false, timeout: 30000},
   )
 
 const readOriginal = async target =>
