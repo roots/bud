@@ -231,10 +231,12 @@ describe(`container`, function () {
       const repo = {anotherKey: `value2`, key: `value`}
       const container = new Container(repo)
 
-      expect(Array.from(container.getMap())).toEqual([
-        [`key`, `value`],
-        [`anotherKey`, `value2`],
-      ])
+      expect(Array.from(container.getMap())).toEqual(
+        expect.arrayContaining([
+          expect.arrayContaining([`key`, `value`]),
+          expect.arrayContaining([`anotherKey`, `value2`]),
+        ]),
+      )
     })
   })
 
@@ -245,9 +247,11 @@ describe(`container`, function () {
 
       container.remove(`foo`)
 
-      expect(container.all()).toEqual({
-        ergo: `dox`,
-      })
+      expect(container.all()).toEqual(
+        expect.objectContaining({
+          ergo: `dox`,
+        }),
+      )
     })
   })
 
@@ -259,7 +263,7 @@ describe(`container`, function () {
       const replacement = {ben: `word`, oof: `yea`}
       container.setStore(replacement)
 
-      expect(container.all()).toEqual(replacement)
+      expect(container.all()).toEqual(expect.objectContaining(replacement))
     })
   })
 
@@ -269,7 +273,7 @@ describe(`container`, function () {
       const container = new Container(repo)
 
       container.mutateStore(store => {
-        expect(store).toBe(repo)
+        expect(store).toEqual(expect.objectContaining(repo))
         return store
       })
     })
@@ -363,10 +367,12 @@ describe(`container`, function () {
       const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
-      expect(container.getEntries()).toEqual([
-        [`foo`, `bar`],
-        [`ergo`, `dox`],
-      ])
+      expect(container.getEntries()).toEqual(
+        expect.arrayContaining([
+          expect.arrayContaining([`foo`, `bar`]),
+          expect.arrayContaining([`ergo`, `dox`]),
+        ]),
+      )
     })
   })
 

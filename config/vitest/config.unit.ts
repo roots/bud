@@ -3,7 +3,7 @@ import {env} from 'process'
 import GithubActionsReporter from 'vitest-github-actions-reporter'
 import {defineConfig} from 'vitest/config'
 
-import alias from './vitest/alias.js'
+import alias from './alias.js'
 
 export default defineConfig({
   test: {

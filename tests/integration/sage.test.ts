@@ -1,6 +1,7 @@
 import setup, {type Project} from '@repo/test-kit/setup'
 import {
   testIsCompiledCss,
+  testIsCompiledJs,
   testIsMinimized,
   testThemeJson,
 } from '@repo/test-kit/tests'
@@ -48,54 +49,52 @@ describe(`examples/sage`, () => {
   it(`should build 'runtime.js' asset as expected`, () => {
     expect(sage.hasAsset(`runtime.js`)).toBe(true)
 
-    const asset = sage.getAsset(`runtime.js`)
-
-    expect(asset.length).toBeGreaterThan(10)
-    expect(asset.includes(`import `)).toBeFalsy()
+    const js = sage.getAsset(`runtime.js`)
+    testIsCompiledJs(js)
+    testIsMinimized(js)
   })
 
   it(`should build 'app.js' asset as expected`, () => {
-    const asset = sage.getAsset(`app.js`)
+    expect(sage.hasAsset(`app.js`)).toBe(true)
 
-    expect(asset.length).toBeGreaterThan(10)
-    expect(asset.includes(`import `)).toBeFalsy()
-  })
-
-  it(`should build 'app.css' asset as expected`, () => {
-    const asset = sage.getAsset(`app.css`)
-
-    expect(asset.length).toBeGreaterThan(10)
-    expect(asset.includes(`@import`)).toBe(false)
-
-    expect(asset.includes(`@apply`)).toBe(false)
-    expect(asset.match(/    /)).toBeFalsy()
-    expect(asset.match(/\\n/)).toBeFalsy()
-
-    expect(asset.includes(`.text-xl{font-size:1.25rem`)).toBeTruthy()
-    expect(asset.includes(`.text-custom{font-size:.625rem`)).toBeTruthy()
+    const js = sage.getAsset(`app.js`)
+    testIsCompiledJs(js)
+    testIsMinimized(js)
   })
 
   it(`should build 'editor.js' asset as expected`, () => {
-    const asset = sage.getAsset(`editor.js`)
+    expect(sage.hasAsset(`editor.js`)).toBe(true)
 
-    expect(asset.length).toBeGreaterThan(10)
-    expect(asset.includes(`import `)).toBeFalsy()
+    const js = sage.getAsset(`editor.js`)
+    testIsCompiledJs(js)
+    testIsMinimized(js)
   })
 
   it(`should have expected app.css asset`, () => {
-    testIsCompiledCss(sage.getAsset(`app.css`))
-    testIsMinimized(sage.getAsset(`app.css`))
+    expect(sage.hasAsset(`app.css`)).toBe(true)
+
+    const css = sage.getAsset(`app.css`)
+    testIsCompiledCss(css)
+    testIsMinimized(css)
+    expect(css.includes(`.text-xl{font-size:1.25rem`)).toBeTruthy()
+    expect(css.includes(`.text-custom{font-size:.625rem`)).toBeTruthy()
   })
 
   it(`should have expected editor.css asset`, () => {
-    testIsCompiledCss(sage.getAsset(`editor.css`))
-    testIsMinimized(sage.getAsset(`editor.css`))
+    expect(sage.hasAsset(`editor.css`)).toBe(true)
+
+    const css = sage.getAsset(`editor.css`)
+    testIsCompiledCss(css)
+    testIsMinimized(css)
   })
 
   it(`should have expected theme.json asset`, async () => {
-    testThemeJson(JSON.parse(sage.getAsset(`../theme.json`)))
+    expect(sage.hasAsset(`../theme.json`)).toBe(true)
 
-    expect(sage.getAsset(`../theme.json`)).toMatchInlineSnapshot(`
+    const json = sage.getAsset(`../theme.json`)
+    testThemeJson(JSON.parse(json))
+
+    expect(json).toMatchInlineSnapshot(`
       "{
         \\"__generated__\\": \\"⚠️ This file is generated. Do not edit.\\",
         \\"$schema\\": \\"https://schemas.wp.org/trunk/theme.json\\",

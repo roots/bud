@@ -733,7 +733,7 @@ export default class Container<I = any> {
    * ```
    */
   @bind
-  public mutateStore(mutationFn: (value?: I) => I): this {
+  public mutateStore(mutationFn: (value?: any) => any): this {
     const transform = this.transformStore(mutationFn)
 
     this.setStore(transform)
