@@ -33,9 +33,9 @@ describe(`bud.copyDir`, () => {
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
+          context: bud.path(`@src`),
           from: `images`,
           to: `images/[path][name][ext]`,
-          context: bud.path(`@src`),
         }),
       ]),
     )
@@ -50,9 +50,9 @@ describe(`bud.copyDir`, () => {
 
     expect(patterna).toEqual(
       expect.objectContaining({
+        context: bud.path(`@src`),
         from: `images`,
         to: `foo/images/[path][name][ext]`,
-        context: bud.path(`@src`),
       }),
     )
   })

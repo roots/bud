@@ -3,11 +3,10 @@ import type {BudMinimizeCSSPublicInterface} from '@roots/bud-minify/minify-css'
 import type {BudMinimizeJSPublicInterface} from '@roots/bud-minify/minify-js'
 
 import {Extension} from '@roots/bud-framework/extension'
+import {dependsOn} from '@roots/bud-framework/extension/decorators/dependsOn'
 import {expose} from '@roots/bud-framework/extension/decorators/expose'
 import {label} from '@roots/bud-framework/extension/decorators/label'
 import {production} from '@roots/bud-framework/extension/decorators/production'
-import BudMinimizeCSS from '@roots/bud-minify/minify-css'
-import BudMinimizeJS from '@roots/bud-minify/minify-js'
 import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
@@ -15,6 +14,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
  */
 @label(`@roots/bud-minify`)
 @expose(`minify`)
+@dependsOn([`@roots/bud-minify/minify-css`, `@roots/bud-minify/minify-js`])
 @production
 class BudMinimize extends Extension {
   /**
@@ -40,14 +40,14 @@ class BudMinimize extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    await bud.extensions.add(BudMinimizeCSS)
-    await bud.extensions.add(BudMinimizeJS)
-
     this.js = bud.extensions.get(`@roots/bud-minify/minify-js`)
-    this.css = bud.extensions.get(`@roots/bud-minify/minify-css`)
+    bud.set(`terser`, bud.extensions.get(`@roots/bud-minify/minify-js`))
 
-    bud.set(`terser`, this.js)
-    bud.set(`minimizeCss`, this.css)
+    this.css = bud.extensions.get(`@roots/bud-minify/minify-css`)
+    bud.set(
+      `minimizeCss`,
+      bud.extensions.get(`@roots/bud-minify/minify-css`),
+    )
   }
 }
 

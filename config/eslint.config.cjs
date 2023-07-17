@@ -13,8 +13,6 @@ module.exports = {
     `**/*.html`,
     `**/*.json`,
     `**/.budfiles`,
-    `*.test.ts`,
-    `*.test.tsx`,
     `**/dist`,
     `**/lib`,
     `**/node_modules`,
@@ -24,9 +22,9 @@ module.exports = {
     `sources/@repo/docs/content/dev/api`,
     `sources/@repo/test-kit/compiled`,
     `sources/create-bud-app/templates`,
+    `**/public`,
     `storage`,
     `sources/deprecated`,
-    `tests`,
   ],
   overrides: [
     {

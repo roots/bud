@@ -19,6 +19,13 @@
 /// <reference types="@roots/bud-minify" />
 /// <reference types="@roots/bud-server" />
 
-export {Bud} from '@roots/bud/bud'
+import {Bud} from '@roots/bud/bud'
+
+interface Config {
+  (bud: Bud): Promise<any>
+}
+
+export {Bud, type Config}
+
 export {factory} from '@roots/bud/factory'
 export {get, instance as bud, set} from '@roots/bud/instance'

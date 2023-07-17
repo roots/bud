@@ -48,7 +48,7 @@ export class TestRun extends Command {
     !args.includes(`--config`) &&
       args.push(
         `--config`,
-        path(`config`, `vitest.${this.configuration}.config.ts`),
+        path(`config`, `vitest`, `config.${this.configuration}.ts`),
       )
 
     args.push(...this.passthrough)

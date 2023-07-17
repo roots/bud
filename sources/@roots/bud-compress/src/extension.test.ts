@@ -1,8 +1,8 @@
-import {factory, Bud} from '@repo/test-kit'
+import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, test} from 'vitest'
+
 import BudBrotli from './brotli.js'
 import BudGzip from './gzip.js'
-
 import Extension from './index.js'
 
 describe(`@roots/bud-compress`, () => {

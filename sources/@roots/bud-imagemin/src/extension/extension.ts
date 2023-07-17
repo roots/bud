@@ -112,26 +112,27 @@ export class BudImageminExtension extends Extension {
       () => (_: unknown, files: Array<{name: string; path: string}>) => {
         return files.reduce((records, {name, path}) => {
           // Try to match the path with a specific pattern that looks for generated files
-          const match = path.match(/generated\..*@(\d*)x(\d*)\.(.*)$/)
+          const match = path.match(
+            /(.*)generated\.(.*)@(\d*)x(\d*)\.(.*)\.(.*)$/,
+          )
 
           // If the path does not match the pattern, add the name and path to the accumulator (records) object
           if (!match) return {...records, [name]: path}
 
           // If the match is successful, extract the width, height, and rest of the path
-          const [_, width, height, rest] = match
+          const [_, _base, _asset, width, height, _hash, rest] = match
           const as = rest.split(`.`).pop()
 
           // Create new keys with the name and query parameters for 'as', 'width' and 'height',
           // and associate them with the file path.
+          const baseQueryName = `${name}?as=${as}`
           const widthOnlyQueryName = `${name}?as=${as}&width=${width}`
           const widthAndHeightQueryName = `${name}?as=${as}&width=${width}&height=${height}`
 
-          // If the key with 'as' query parameter doesn't exist, add it to the records
-          if (!records[`${name}?as=${as}`])
-            records[`${name}?as=${as}`] = path
-
           return {
             ...records,
+            // Add the name with just the 'as' query parameter and its associated path
+            [baseQueryName]: records[baseQueryName] ?? path,
             // Add the name with 'width' and 'height' query parameters and its associated path
             [widthAndHeightQueryName]: path,
             // Add the name with 'width' query parameter and its associated path

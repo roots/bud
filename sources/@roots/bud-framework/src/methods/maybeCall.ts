@@ -1,6 +1,6 @@
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import type {Bud} from '@roots/bud-framework'
 
-import type {Bud} from '../index.js'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 type Parameters = Array<undefined | unknown>
 

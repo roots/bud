@@ -53,22 +53,24 @@
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
+    "./configuration": "./lib/configuration/index.js",
+    "./config": "./lib/config/index.js",
     "./context": "./lib/context.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension": "./lib/extension/index.js",
+    "./fs": "./lib/fs.js",
+    "./methods/setPath": "./lib/methods/setPath/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./methods": "./lib/methods/index.js",
     "./module": "./lib/module.js",
     "./options": "./lib/options/index.js",
-    "./config": "./lib/config/index.js",
     "./options/*": "./lib/options/*.js",
     "./registry": "./lib/registry/index.js",
     "./registry/*": "./lib/registry/*.js",
     "./service": "./lib/service.js",
     "./services": "./lib/services/index.js",
     "./services/api": "./lib/services/api.js",
-    "./fs": "./lib/fs.js",
     "./notifier": "./lib/notifier/index.js",
     "./services/build/*": "./lib/services/build/*.js",
     "./services/*": "./lib/services/*/index.js",
@@ -89,6 +91,9 @@
       "config": [
         "./lib/config/index.d.ts"
       ],
+      "configuration": [
+        "./lib/configuration/index.d.ts"
+      ],
       "context": [
         "./lib/context.d.ts"
       ],
@@ -104,11 +109,14 @@
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
       ],
-      "methods": [
-        "./lib/methods/index.d.ts"
+      "methods/setPath": [
+        "./lib/methods/setPath/index.d.ts"
       ],
       "methods/*": [
         "./lib/methods/*.d.ts"
+      ],
+      "methods": [
+        "./lib/methods/index.d.ts"
       ],
       "module": [
         "./lib/module.d.ts"

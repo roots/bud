@@ -1,8 +1,9 @@
 import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`issue-1986`, () => {
   let child: ExecaReturnValue
@@ -12,13 +13,13 @@ describe(`issue-1986`, () => {
     fs = new Filesystem()
 
     try {
-      await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
+      await execa(`yarn`, [`bud`, `clean`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
       })
     } catch (error) {}
 
     try {
-      child = await execa(`yarn`, [`bud`, `build`, `--force`], {
+      child = await execa(`yarn`, [`bud`, `build`], {
         cwd: join(paths.tests, `reproductions`, `issue-1986`),
         reject: false,
       })

@@ -6,4 +6,4 @@ interface Props {
 }
 
 export const assetModuleFilename = ({filter, relPath}: Props) =>
-  filter(`build.output.assetModuleFilename`, relPath(`@file`))
+  filter(`build.output.assetModuleFilename`, relPath(`@file[query]`))

@@ -15,6 +15,6 @@ export default class BudPurgeCSS extends Extension {
    * {@link Extension.register}
    */
   public override async register(bud: Bud) {
-    bud.api.bindFacade(`purgecss`, purgecss)
+    bud.bindFacade(`purgecss`, purgecss)
   }
 }

@@ -57,6 +57,9 @@
     "./copy-webpack-plugin": "./lib/copy-webpack-plugin/index.js",
     "./esm": "./lib/esm/index.js",
     "./fix-style-only-entrypoints": "./lib/fix-style-only-entrypoints/index.js",
+    "./helpers": "./lib/helpers/index.js",
+    "./helpers/isConstructor": "./lib/helpers/isConstructor.js",
+    "./helpers/handleManifestSchemaWarning": "./lib/helpers/handleManifestSchemaWarning.js",
     "./html-webpack-plugin": "./lib/html-webpack-plugin/index.js",
     "./import-map": "./lib/import-map/index.js",
     "./interpolate-html-webpack-plugin": "./lib/interpolate-html-webpack-plugin/index.js",
@@ -91,6 +94,15 @@
       ],
       "fix-style-only-entrypoints": [
         "./lib/fix-style-only-entrypoints/index.d.ts"
+      ],
+      "helpers": [
+        "./lib/helpers/index.d.ts"
+      ],
+      "helpers/isConstructor": [
+        "./lib/helpers/isConstructor.d.ts"
+      ],
+      "helpers/handleManifestSchemaWarning": [
+        "./lib/helpers/handleManifestSchemaWarning.d.ts"
       ],
       "html-webpack-plugin": [
         "./lib/html-webpack-plugin/index.d.ts"

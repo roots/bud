@@ -1,6 +1,6 @@
-import logger from '@roots/bud-support/logger'
 import {path} from '@repo/constants'
 import {type Bud, factory} from '@repo/test-kit'
+import logger from '@roots/bud-support/logger'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`mock project`, () => {

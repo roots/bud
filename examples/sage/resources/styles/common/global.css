@@ -5,5 +5,5 @@ body {
 #root {
   @apply font-medium text-indigo-500 text-xl;
 
-  background: url('~@images/image.jpeg');
+  background: url("~@images/image.jpeg");
 }

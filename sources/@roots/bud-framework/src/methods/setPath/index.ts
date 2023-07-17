@@ -4,8 +4,8 @@ import type {SyncRegistry} from '@roots/bud-framework/registry'
 import {isAbsolute} from 'node:path'
 
 import {InputError} from '@roots/bud-support/errors'
+import logger from '@roots/bud-support/logger'
 
-import * as isType from './isType.js'
 import * as validate from './validate.js'
 
 export type Parameters =
@@ -39,10 +39,10 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   parameters = validate.all(parameters)
 
   /* Set basedir */
-  if (isType.baseDir(parameters)) {
+  if (baseDir(parameters)) {
     const basedir = validate.baseDir(parameters)
     this.context.basedir = basedir
-    this.log(`basedir set to ${basedir}`)
+    logger.log(`basedir set to ${basedir}`)
 
     return this
   }
@@ -51,9 +51,9 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   const setHookValue = makeCallback(this)
 
   /* Set path from key, value */
-  if (isType.stringPair(parameters)) {
+  if (stringPair(parameters)) {
     if (parameters[0] === `@storage`) {
-      this.warn(
+      logger.warn(
         `bud.setPath: @storage must be set by args or env\n\n`,
         `The @storage path may be set by the \`--storage\` argument or the \`APP_STORAGE_PATH\` environment variable. It cannot be set after bud.js is bootstrapped.`,
         `In the future this will throw an error.\n\nFor now, you may encounter problems with caching and other features which read and write to \`@storage\`, as there have
@@ -66,7 +66,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   }
 
   /* Set multiple paths */
-  if (isType.pathMap(parameters)) {
+  if (pathMap(parameters)) {
     Object.entries(parameters[0]).map(setHookValue)
     return this
   }
@@ -89,9 +89,8 @@ const makeCallback =
     const [key, value] = validate.stringPair(pair)
     const normal = !isAbsolute(value) ? bud.relPath(value) : value
 
-    bud.hooks
-      .on(`location.${key}` as keyof SyncRegistry, normal)
-      .log(key, `set to`, normal)
+    bud.hooks.on(`location.${key}` as keyof SyncRegistry, normal)
+    logger.log(key, `set to`, normal)
 
     bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
       ...paths,
@@ -100,3 +99,26 @@ const makeCallback =
 
     return bud
   }
+
+/**
+ * Is basedir?
+ */
+const baseDir = (params: Parameters): params is [string] => {
+  return params.length < 2 && typeof params[0] === `string`
+}
+
+/**
+ * Is string pair?
+ */
+const stringPair = (params: Parameters): params is [string, string] => {
+  return params.length === 2
+}
+
+/**
+ * Is path object?
+ */
+const pathMap = (
+  params: Parameters,
+): params is [Record<string, string>] => {
+  return params.length === 1 && typeof params[0] === `object`
+}

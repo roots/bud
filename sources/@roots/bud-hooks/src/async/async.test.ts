@@ -1,8 +1,8 @@
+import {Bud, factory} from '@repo/test-kit'
+import Value from '@roots/bud-support/value'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {factory, Bud} from '@repo/test-kit'
 
 import {AsyncHooks} from './async.js'
-import Value from '@roots/bud-support/value'
 
 describe(`@roots/bud-hooks/async`, () => {
   describe(`class`, () => {
@@ -165,12 +165,12 @@ describe(`@roots/bud-hooks/async`, () => {
 
     it(`should set store records`, async () => {
       asyncHooks.setRecords({
+        bar: () => `baz`,
         // @ts-ignore
-        foo: 'bar',
-        bar: () => 'baz',
+        foo: `bar`,
       })
-      expect(asyncHooks.store['foo']).toHaveLength(1)
-      expect(asyncHooks.store['bar']).toHaveLength(1)
+      expect(asyncHooks.store[`foo`]).toHaveLength(1)
+      expect(asyncHooks.store[`bar`]).toHaveLength(1)
       // @ts-ignore
       expect(await asyncHooks.get(`foo`)).toBe(`bar`)
     })

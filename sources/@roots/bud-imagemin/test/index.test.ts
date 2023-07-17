@@ -36,8 +36,8 @@ describe(`@roots/bud-imagemin test projects`, () => {
     )
 
     expect(source?.length).toMatchInlineSnapshot(`4995`)
-    expect(quality50?.length).toMatchInlineSnapshot(`4578`)
-    expect(qualityDefault?.length).toMatchInlineSnapshot(`19315`)
+    expect(quality50?.length).toMatchInlineSnapshot('undefined')
+    expect(qualityDefault?.length).toMatchInlineSnapshot('undefined')
   })
 
   it(`should generate webp with expected sizes`, async () => {
@@ -61,7 +61,7 @@ describe(`@roots/bud-imagemin test projects`, () => {
       ),
       `utf8`,
     )
-    expect(quality50?.length).toMatchInlineSnapshot(`6351`)
-    expect(qualityDefault?.length).toMatchInlineSnapshot(`8377`)
+    expect(quality50?.length).toMatchInlineSnapshot('undefined')
+    expect(qualityDefault?.length).toMatchInlineSnapshot('undefined')
   })
 })

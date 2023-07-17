@@ -1,7 +1,6 @@
 import {factory} from '@repo/test-kit'
+import {copyFile as copyFileFn} from '@roots/bud-api/methods/copyFile'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import {copyFile as copyFileFn} from './index.js'
 
 describe(`bud.copyFile`, () => {
   let bud
@@ -33,9 +32,9 @@ describe(`bud.copyFile`, () => {
     ).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
+          context: expect.stringMatching(/tests\/util\/project\/src$/),
           from: `images/image.jpeg`,
           to: `images/[path][name][ext]`,
-          context: expect.stringMatching(/tests\/util\/project\/src$/),
         }),
       ]),
     )
@@ -50,9 +49,9 @@ describe(`bud.copyFile`, () => {
 
     expect(pattern).toEqual(
       expect.objectContaining({
+        context: expect.stringMatching(/tests\/util\/project\/src$/),
         from: `images/image.jpeg`,
         to: `foo/image.jpeg`,
-        context: expect.stringMatching(/tests\/util\/project\/src$/),
       }),
     )
   })

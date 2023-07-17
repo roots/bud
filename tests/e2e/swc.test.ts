@@ -2,8 +2,8 @@ import fs from "fs-jetpack";
 import { Browser, chromium, Page } from "playwright";
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
-import { e2eBeforeAll, runDev } from "./util/install";
 import { destinationPath } from "./util/copy";
+import { e2eBeforeAll, runDev } from "./util/install";
 
 describe(`html output of examples/swc`, () => {
   let browser: Browser;

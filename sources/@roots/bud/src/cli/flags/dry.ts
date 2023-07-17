@@ -1,6 +1,6 @@
 import {Option} from '@roots/bud-support/clipanion'
 
-export default value =>
+export default (value: boolean) =>
   Option.Boolean(`--dry`, value, {
-    description: `run in dry mode`,
+    description: `Run in dry mode`,
   })

@@ -1,8 +1,7 @@
+import type {Signifier} from '@roots/bud-api/methods/entry'
 import type {Bud} from '@roots/bud-framework'
 
 import {join, parse} from 'node:path'
-
-import type {Signifier} from './types.js'
 
 export async function handlePrimitive(
   bud: Bud,

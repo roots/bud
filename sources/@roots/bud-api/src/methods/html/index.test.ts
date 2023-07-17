@@ -1,8 +1,10 @@
-import {factory} from '@repo/test-kit'
-import {Bud} from '@roots/bud'
-import {SpyInstance, beforeAll, describe, expect, it, vi} from 'vitest'
 import type HTMLPlugin from '@roots/bud-extensions/html-webpack-plugin'
 import type InterpolatePlugin from '@roots/bud-extensions/interpolate-html-webpack-plugin'
+
+import {factory} from '@repo/test-kit'
+import {Bud} from '@roots/bud'
+import {beforeAll, describe, expect, it, SpyInstance, vi} from 'vitest'
+
 import * as source from './index.js'
 
 describe(`bud.html`, () => {
@@ -68,7 +70,7 @@ describe(`bud.html`, () => {
   })
 
   it(`should pass options to html-webpack-plugin extension`, async () => {
-    await html({template: `test`, replace: {foo: `bar`}})
+    await html({replace: {foo: `bar`}, template: `test`})
 
     expect(interpolateEnableSpy).toHaveBeenCalledWith(true)
     expect(interpolateSetSpy).toHaveBeenCalledWith(`foo`, `bar`)

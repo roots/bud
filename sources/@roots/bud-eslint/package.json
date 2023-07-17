@@ -49,18 +49,9 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./cache-fix": {
-      "import": "./lib/cache-fix/index.js",
-      "default": "./lib/cache-fix/index.js"
-    },
-    "./commands": {
-      "import": "./lib/bud/commands.js",
-      "default": "./lib/bud/commands.js"
-    }
+    ".": "./lib/index.js",
+    "./cache-fix": "./lib/cache-fix/index.js",
+    "./commands": "./lib/bud/commands.js"
   },
   "typesVersions": {
     "*": {

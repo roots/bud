@@ -1,36 +1,34 @@
+import type {Records} from '@roots/bud-build/config'
+import type {Options as RuleOptions} from '@roots/bud-build/rule'
 import type {Bud, Build as BudBuild} from '@roots/bud-framework'
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
+import {register} from '@roots/bud-build/handlers'
+import {Item} from '@roots/bud-build/item'
+import {Loader} from '@roots/bud-build/loader'
+import {Rule} from '@roots/bud-build/rule'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
-import type {Records} from './config/index.js'
-import type {Options as RuleOptions} from './rule/index.js'
-
-import {register} from './handlers/register.js'
-import {Item} from './item/index.js'
-import {Loader} from './loader/index.js'
-import {Rule} from './rule/index.js'
-
 /**
- * Webpack configuration builder class
+ * {@link BudBuild}
  */
 export class Build extends Service implements BudBuild {
   /**
-   * Built config object
+   * {@link BudBuild.config}
    */
   public config: Partial<Configuration> = {}
 
   /**
-   * Registered items
+   * {@link BudBuild.items}
    */
   public declare items: Items
 
   /**
-   * Registered loaders
+   * {@link BudBuild.loaders}
    */
   public declare loaders: Loaders
 
@@ -40,10 +38,13 @@ export class Build extends Service implements BudBuild {
   public override register? = register.bind(this)
 
   /**
-   * Registered rules
+   * {@link BudBuild.rules}
    */
   public declare rules: Rules
 
+  /**
+   * {@link Service.register}
+   */
   public override async bootstrap?(app: Bud) {
     this.items = {} as Items
     this.loaders = {} as Loaders
@@ -51,7 +52,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Get item
+   * {@link BudBuild.getItem}
    */
   @bind
   public getItem(name: `${keyof Items & string}`): Item {
@@ -64,7 +65,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Get loader
+   * {@link BudBuild.getLoader}
    */
   @bind
   public getLoader(name: string): Loader {
@@ -77,14 +78,15 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Get rule
+   * {@link BudBuild.getRule}
    */
   @bind
   public getRule<K extends `${keyof Rules & string}`>(ident: K): Rules[K] {
     return this.rules[ident]
   }
+
   /**
-   * Make webpack configuration
+   * {@link BudBuild.make}
    */
   @bind
   public async make(): Promise<Configuration> {
@@ -115,7 +117,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Make item
+   * {@link BudBuild.makeItem}
    */
   @bind
   public makeItem(options?: Partial<Item['options']>): Item {
@@ -123,7 +125,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Make loader
+   * {@link BudBuild.makeLoader}
    */
   @bind
   public makeLoader(src?: string, definition?: string): Loader {
@@ -131,7 +133,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Make Rule
+   * {@link BudBuild.makeRule}
    */
   @bind
   public makeRule(options?: RuleOptions): Rule {
@@ -139,7 +141,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Set item
+   * {@link BudBuild.setItem}
    */
   @bind
   public setItem<K extends `${keyof Items & string}`>(
@@ -161,7 +163,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Set loader
+   * {@link BudBuild.setLoader}
    */
   @bind
   public setLoader<K extends `${keyof Loaders & string}`>(
@@ -181,7 +183,7 @@ export class Build extends Service implements BudBuild {
   }
 
   /**
-   * Set Rule
+   * {@link BudBuild.setRule}
    */
   @bind
   public setRule<K extends `${keyof Rules & string}`>(

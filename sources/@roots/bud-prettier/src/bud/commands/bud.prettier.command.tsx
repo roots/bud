@@ -1,35 +1,43 @@
-import {join} from 'node:path'
-
 import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
-@dry
+/**
+ * `bud prettier` command
+ */
 export class BudPrettierCommand extends BudCommand {
+  /**
+   * {@link Command.paths}
+   */
   public static override paths = [[`format`], [`prettier`]]
+
+  /**
+   * {@link Command.usage}
+   */
   public static override usage = Command.Usage({
     category: `tool`,
     description: `Prettier CLI`,
-    examples: [[`View prettier usage information`, `$0 prettier --help`]],
+    examples: [[`Run  prettier`, `$0 prettier`]],
   })
 
+  /**
+   * Command options
+   */
   public options = Option.Proxy({name: `prettier passthrough options`})
 
+  /**
+   * {@link Command.execute}
+   */
   public override async execute() {
     await this.makeBud()
     await this.bud.run()
 
-    const prettier = join(
-      await this.bud.module.getDirectory(`prettier`),
-      `bin-prettier.js`,
-    )
-
-    if (!this.options?.length)
-      this.options = [
-        this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx,css,scss,sass}`),
-        `--write`,
-      ]
-
-    await this.$(this.bin, [prettier, ...this.options])
+    await this.run([`prettier`, `bin-prettier.js`], this.options, [
+      this.bud.path(
+        `@src`,
+        `**`,
+        `*.{ts,tsx,js,jsx,css,scss,sass,json,yml,yaml,md,json5,html,htm}`,
+      ),
+      `--write`,
+    ])
   }
 }

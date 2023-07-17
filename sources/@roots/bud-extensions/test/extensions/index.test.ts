@@ -1,19 +1,19 @@
 import {describe, expect, it} from 'vitest'
 
-import CDN from '../../src/cdn/index.js'
-import ESM from '../../src/esm/index.js'
-import FixStyleOnlyEntrypoints from '../../src/fix-style-only-entrypoints/index.js'
-import Clean from '../../src/clean-webpack-plugin/index.js'
-import Copy from '../../src/copy-webpack-plugin/index.js'
-import Html from '../../src/html-webpack-plugin/index.js'
-import Interpolate from '../../src/interpolate-html-webpack-plugin/index.js'
-import MiniCssExtract from '../../src/mini-css-extract-plugin/index.js'
-import TSConfigValues from '../../src/tsconfig-values/index.js'
+import CDN from '@roots/bud-extensions/cdn'
+import ESM from '@roots/bud-extensions/esm'
+import FixStyleOnlyEntrypoints from '@roots/bud-extensions/fix-style-only-entrypoints'
+import Clean from '@roots/bud-extensions/clean-webpack-plugin'
+import Copy from '@roots/bud-extensions/copy-webpack-plugin'
+import Html from '@roots/bud-extensions/html-webpack-plugin'
+import Interpolate from '@roots/bud-extensions/interpolate-html-webpack-plugin'
+import MiniCssExtract from '@roots/bud-extensions/mini-css-extract-plugin'
+import TSConfigValues from '@roots/bud-extensions/tsconfig-values'
 
-import Define from '../../src/webpack-define-plugin/index.js'
-import HotModuleReplacement from '../../src/webpack-hot-module-replacement-plugin/index.js'
-import Manifest from '../../src/webpack-manifest-plugin/index.js'
-import Provide from '../../src/webpack-provide-plugin/index.js'
+import Define from '@roots/bud-extensions/webpack-define-plugin'
+import HotModuleReplacement from '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
+import Manifest from '@roots/bud-extensions/webpack-manifest-plugin'
+import Provide from '@roots/bud-extensions/webpack-provide-plugin'
 
 describe(`@roots/bud-extensions`, () => {
   it(`exports extensions`, async () => {

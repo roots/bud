@@ -6,5 +6,5 @@
 @import 'tailwindcss/utilities';
 
 body {
-  background: blue;
+  background: url(@src/images/logo.svg?inline) no-repeat;
 }

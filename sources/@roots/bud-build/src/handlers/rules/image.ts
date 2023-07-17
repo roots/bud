@@ -5,3 +5,6 @@ export const image: Factory = async ({filter, makeRule, path}) =>
     .setTest(filter(`pattern.image`))
     .setInclude([() => path(`@src`)])
     .setType(`asset/resource`)
+    .setGenerator({
+      filename: `[path][name].[contenthash][ext][query]`,
+    })

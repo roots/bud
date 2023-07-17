@@ -8,6 +8,7 @@
     "./index.ts",
     "./integration-test.ts",
     "./setup.ts",
+    "./tests",
   ],
   "references": [
     {"path": "./../../@roots/bud/tsconfig.json"},

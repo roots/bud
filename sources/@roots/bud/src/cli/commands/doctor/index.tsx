@@ -10,7 +10,7 @@ import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import {Box, Spacer, Text} from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 import BudCommand from '@roots/bud/cli/commands/bud'
@@ -48,14 +48,13 @@ for a lot of edge cases so it might return a false positive.
 
   public disabledExtensions: Array<[string, Extension]> = []
 
-  public override dry = true
-
   public enabledExtensions: Array<[string, Extension]> = []
 
   public entrypoints: Array<[string, webpack.EntryObject]> = []
 
   public makeTimer = () => {
     const start = process.hrtime()
+
     return () => {
       const end = process.hrtime(start)
       return this.seconds(end)
@@ -76,7 +75,7 @@ for a lot of edge cases so it might return a false positive.
 
     const buildTimer = this.makeTimer()
     await this.makeBud()
-    await this.bud.compiler.compile(this.bud)
+    await this.bud.run()
 
     this.timings.build = buildTimer()
 
@@ -92,34 +91,11 @@ for a lot of edge cases so it might return a false positive.
       <Doctor name={name} timings={this.timings} />,
     )
 
-    if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
-      DoctorCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="yellow">
-            {figures.info} Detected compilation cache
-          </Text>
-          <Spacer />
-          <Text>
-            If you are experiencing issues with bud.js you should start by
-            clearing the cache.{`\n`}
-          </Text>
-          <Text>
-            {figures.triangleRightSmall} To delete this directory with the
-            CLI run{` `}
-            <Text color="green">`bud clean`</Text>, or;
-          </Text>
-          <Text>
-            {figures.triangleRightSmall} Use the{` `}
-            <Text color="green">`--force`</Text> flag on your next build
-          </Text>
-        </Box>,
-      )
-    }
-
     if (this.bud.hasChildren) {
       DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Child compilers{`\n`}</Text>
+
           {Object.values(this.bud.children).map((child, i) => (
             <Box flexDirection="row" key={i}>
               <Text>{figures.triangleRightSmall}</Text>
@@ -210,34 +186,6 @@ for a lot of edge cases so it might return a false positive.
           <Text color="blue">Registered configurations{`\n`}</Text>
           <Text dimColor>No configuration files found in project</Text>
         </Box>,
-      )
-    }
-
-    try {
-      DoctorCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="blue">Config API calls{`\n`}</Text>
-          <Text></Text>
-          {!this.bud.api.trace.length ? (
-            <Text dimColor>No config calls logged</Text>
-          ) : (
-            this.bud.api.trace.map(([fn, args], i) => (
-              <Box flexDirection="row" key={i}>
-                <Text>
-                  {figures.triangleRightSmall} {fn}
-                </Text>
-                <Text>{` `}</Text>
-                <Text dimColor>
-                  {args.map(this.bud.fs.json.stringify).join(`, `)}
-                </Text>
-              </Box>
-            ))
-          )}
-        </Box>,
-      )
-    } catch (error) {
-      DoctorCommand.renderStatic(
-        <Error error={BudError.normalize(error)} />,
       )
     }
 

@@ -451,10 +451,7 @@ export interface Context {
   runtime?: `multiple` | `single` | boolean
 
   /**
-   * bud.js {@link Service} instances
-   *
-   * @remarks
-   * Services from this array are imported and instantiated during {@link Bud.lifecycle}
+   * bud.js {@link Service} import paths
    */
   services: Array<string>
 

@@ -1,6 +1,6 @@
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import type {Bud} from '@roots/bud-framework'
 
-import type {Bud} from '../../index.js'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Pipe callback

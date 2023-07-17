@@ -1,28 +1,55 @@
 import {Bud, factory} from '@repo/test-kit'
-import {beforeAll, describe, expect, it} from 'vitest'
+import logger from '@roots/bud-support/logger'
+import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 describe(`bud`, function () {
   describe(`logging`, () => {
-    let bud: Bud
+    describe(`log`, () => {
+      let bud: Bud
 
-    beforeAll(async () => {
-      bud = await factory()
+      beforeAll(async () => {
+        bud = await factory({log: true})
+      })
+
+      it(`should be a function`, () => {
+        expect(bud.log).toBeInstanceOf(Function)
+      })
     })
 
-    it(`log is a function`, () => {
-      expect(bud.log).toBeInstanceOf(Function)
+    describe(`info`, () => {
+      let bud: Bud
+
+      beforeAll(async () => {
+        bud = await factory({log: true})
+      })
+
+      it(`should be a function`, () => {
+        expect(bud.info).toBeInstanceOf(Function)
+      })
     })
 
-    it(`info is a function`, () => {
-      expect(bud.info).toBeInstanceOf(Function)
+    describe(`warn`, () => {
+      let bud: Bud
+
+      beforeAll(async () => {
+        bud = await factory({log: true})
+      })
+
+      it(`should be a function`, () => {
+        expect(bud.warn).toBeInstanceOf(Function)
+      })
     })
 
-    it(`warn is a function`, () => {
-      expect(bud.warn).toBeInstanceOf(Function)
-    })
+    describe(`error`, () => {
+      let bud: Bud
 
-    it(`error is a function`, () => {
-      expect(bud.error).toBeInstanceOf(Function)
+      beforeAll(async () => {
+        bud = await factory({log: true})
+      })
+
+      it(`should be a function`, () => {
+        expect(bud.error).toBeInstanceOf(Function)
+      })
     })
   })
 })

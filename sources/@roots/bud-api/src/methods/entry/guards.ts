@@ -1,4 +1,8 @@
-import type {EntryObject, Name, Parameters} from './types.js'
+import type {
+  EntryObject,
+  Name,
+  Parameters,
+} from '@roots/bud-api/methods/entry'
 
 export function isPrimitive(
   input: Parameters,

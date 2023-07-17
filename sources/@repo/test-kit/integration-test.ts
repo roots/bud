@@ -2,13 +2,15 @@ import {join} from 'path'
 
 import {path} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
-import {execa} from 'execa'
+import {execa, type ExecaReturnValue} from 'execa'
 import fs from 'fs-jetpack'
+import stripAnsi from 'strip-ansi'
 
 interface Options {
   buildCommand?: [string, Array<string>?]
   dist?: string
   label: string
+  projectDir?: string
 }
 
 interface Entrypoints {
@@ -45,24 +47,62 @@ class Project {
    */
   @bind
   public async build() {
-    const build = this.options.buildCommand ?? [
-      `node`,
-      [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
-    ]
+    await fs.removeAsync(this.getPath(this.getBaseUrl()))
+    await fs.removeAsync(this.getPath(`build.stdout.log`))
+    await fs.removeAsync(this.getPath(`build.stderr.log`))
 
-    const {stderr, stdout} = await execa(...build, {cwd: this.directory})
-    stdout &&
-      (await fs.writeAsync(this.getPath(`build.stdout.log`), stdout))
-    stderr &&
-      (await fs.writeAsync(this.getPath(`build.stderr.log`), stderr))
+    let results: ExecaReturnValue
+
+    if (this.options.buildCommand) {
+      results = await execa(...this.options.buildCommand, {
+        cwd: this.directory,
+      })
+    } else if (globalThis.__INTEGRATION__) {
+      await execa(
+        `node`,
+        [this.getPath(`node_modules`, `.bin`, `bud`), `clean`],
+        {cwd: this.directory},
+      )
+      results = await execa(
+        `node`,
+        [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
+        {cwd: this.directory},
+      )
+    } else {
+      await execa(`yarn`, [
+        `bud`,
+        `--basedir`,
+        this.options.label.replace(`@examples/`, `examples/`),
+        `clean`,
+      ])
+
+      results = await execa(`yarn`, [
+        `bud`,
+        `--basedir`,
+        this.options.label.replace(`@examples/`, `examples/`),
+        `build`,
+      ])
+    }
+
+    results.stdout &&
+      (await fs.writeAsync(
+        this.getPath(`build.stdout.log`),
+        stripAnsi(results.stdout),
+      ))
+
+    results.stderr &&
+      (await fs.writeAsync(
+        this.getPath(`build.stderr.log`),
+        stripAnsi(results.stderr),
+      ))
 
     this.entrypoints = await fs.readAsync(
-      this.getPath(this.options.dist ?? `dist`, `entrypoints.json`),
+      this.getPath(this.getBaseUrl(), `entrypoints.json`),
       `json`,
     )
 
     this.manifest = await fs.readAsync(
-      this.getPath(this.options.dist ?? `dist`, `manifest.json`),
+      this.getPath(this.getBaseUrl(), `manifest.json`),
       `json`,
     )
 
@@ -70,7 +110,7 @@ class Project {
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
           this.assets[name] = await fs.readAsync(
-            this.getPath(this.options.dist ?? `dist`, path),
+            this.getPath(this.getBaseUrl(), path),
             `utf8`,
           )
         },
@@ -84,11 +124,17 @@ class Project {
    * Get the project directory
    */
   public get directory(): string {
-    return path(
-      `storage`,
-      `fixtures`,
-      this.options.label.replace(`@examples/`, ``),
-    )
+    if (this.options.projectDir) return path(this.options.projectDir)
+
+    if (globalThis.__INTEGRATION__) {
+      return path(
+        `storage`,
+        `fixtures`,
+        this.options.label.replace(`@examples/`, ``),
+      )
+    }
+
+    return path(this.options.label.replace(`@examples/`, `examples/`))
   }
 
   /**
@@ -97,6 +143,19 @@ class Project {
   @bind
   public getAsset(name: string) {
     return this.assets[name]
+  }
+
+  @bind
+  public getAssetPath(name: string) {
+    return this.getPath(this.manifest[name])
+  }
+
+  /**
+   * Get base url
+   */
+  @bind
+  public getBaseUrl() {
+    return this.options.dist ?? `dist`
   }
 
   /**
@@ -115,18 +174,29 @@ class Project {
     return join(this.directory, ...file)
   }
 
+  /**
+   * Has asset?
+   */
   @bind
   public hasAsset(name: string) {
     return name in this.assets
   }
 
+  /**
+   * Has entrypoint?
+   */
   @bind
   public hasEntrypoint(name: string) {
     return name in this.entrypoints
   }
 
+  /**
+   * Install
+   */
   @bind
   public async install(): Promise<this> {
+    if (globalThis.__INTEGRATION__ !== true) return this
+
     await fs.removeAsync(this.directory).catch(error => {
       throw error
     })
@@ -149,6 +219,23 @@ class Project {
       .catch(error => {
         throw error
       })
+
+    const packageJson = await fs.readAsync(
+      this.getPath(`package.json`),
+      `json`,
+    )
+
+    packageJson.devDependencies = Object.entries(
+      packageJson?.devDependencies ?? {},
+    ).reduce(
+      (json, [key, value]: [string, string]) => ({
+        ...json,
+        [key]: value.replace(`workspace:*`, `latest`),
+      }),
+      {},
+    )
+
+    await fs.writeAsync(this.getPath(`package.json`), packageJson)
 
     await execa(`npm`, [`install`, `--registry=http://localhost:4873/`], {
       cwd: this.directory,

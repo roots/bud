@@ -11,9 +11,9 @@
       ]
     }
   },
-  "dependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-postcss": "latest",
-    "@roots/bud-sass": "latest"
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-sass": "workspace:*"
   }
 }

@@ -7,9 +7,9 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-criticalcss": "latest",
-    "@roots/bud-postcss": "latest",
-    "@roots/bud-tailwindcss": "latest"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-criticalcss": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
   }
 }

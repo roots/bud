@@ -4,18 +4,20 @@ import type {Context} from '@roots/bud-framework/context'
 import {path} from '@repo/constants'
 import {factory} from '@roots/bud/factory'
 
-const makeTestBud = async (
-  overrides: Partial<Context> = {},
-): Promise<Bud> => {
+export type Options = Omit<Partial<Context>, `extensions`> & {
+  extensions?: Array<string>
+}
+
+const makeTestBud = async (options: Options = {}): Promise<Bud> => {
   const bud = await factory({
-    basedir: overrides.basedir ?? path(`tests`, `util`, `project`),
+    basedir: options.basedir ?? path(`tests`, `util`, `project`),
     cache: false,
     dry: true,
     force: true,
     mode: `production`,
     notify: false,
     silent: true,
-    ...overrides,
+    ...options,
   })
 
   return bud

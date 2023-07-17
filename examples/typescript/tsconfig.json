@@ -6,6 +6,8 @@
     "paths": {
       "@src": ["./src"]
     },
+    "outDir": "./dist",
+    "noEmit": false,
     "types": ["@roots/bud", "@roots/bud-typescript", "webpack/module"]
   },
   "include": ["./src", "./types"],

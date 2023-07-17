@@ -59,8 +59,8 @@ describe(`Build Rule`, function () {
 
   it(`getExclude`, () => {
     const definition = {
-      test: /.foo$/,
       exclude: [/.bar$/],
+      test: /.foo$/,
     }
 
     const rule = new Rule(() => bud, definition)

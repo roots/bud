@@ -13,6 +13,7 @@ import type {
   Service,
 } from '@roots/bud-framework'
 
+import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -21,7 +22,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 
 import type {FS} from './fs.js'
-import type methods from './methods/index.js'
 import type {Module} from './module.js'
 import type {Notifier} from './notifier.js'
 import type {EventsStore} from './registry/index.js'
@@ -35,6 +35,8 @@ export class Bud {
   public declare after: typeof methods.after
 
   public declare api: Service & Api
+
+  public declare bindFacade: typeof methods.bindFacade
 
   public declare build: Service & Build
 
@@ -71,6 +73,7 @@ export class Bud {
 
   /**
    * {@link Bud} Implementation
+   * @internal
    */
   public declare implementation: new () => Bud
 
@@ -93,6 +96,8 @@ export class Bud {
   public declare processConfigs: typeof methods.processConfigs
 
   public declare project: Project
+
+  public declare promised: Array<Promise<any | void>>
 
   public declare publicPath: typeof methods.publicPath
 
@@ -144,6 +149,7 @@ export class Bud {
 
   /**
    * Log error
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public error(...messages: Array<any>): Bud {
@@ -153,16 +159,15 @@ export class Bud {
 
   /**
    * Execute service callbacks for a given stage
-   *
-   * @param stage - `bootstrap`, `register`, or `boot`
-   * @returns Bud (promise)
+   * @internal
    */
   @bind
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
+    await this.promise()
     await this.hooks.fire(stage, this)
-    await this.api.processQueue()
+    await this.promise()
 
     return this
   }
@@ -177,10 +182,30 @@ export class Bud {
 
   /**
    * Log info
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public info(...messages: any[]) {
     logger.scope(this.label).info(...messages)
+    return this
+  }
+
+  /**
+   * Bud initialize
+   */
+  @bind
+  public async initialize(context: Context): Promise<Bud> {
+    logger.time(`initialize`)
+    Object.entries(methods).forEach(([key, value]) => {
+      this[key] = value.bind(this)
+    })
+
+    this.set(`services`, [])
+      .set(`promised`, [])
+      .set(`context`, {...context})
+
+    await bootstrap(this)
+
     return this
   }
 
@@ -224,15 +249,9 @@ export class Bud {
     return this.context?.label
   }
 
-  @bind
-  public async lifecycle(context: Context): Promise<Bud> {
-    Object.assign(this, {}, {context: {...context}})
-    await bootstrap.bind(this)()
-    return this
-  }
-
   /**
    * Log message
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public log(...messages: any[]) {
@@ -241,7 +260,7 @@ export class Bud {
   }
 
   /**
-   * Creates a child with `bud.create` but returns the parent instance
+   * Creates a child and returns the parent instance
    */
   @bind
   public async make(
@@ -266,7 +285,7 @@ export class Bud {
       !isUndefined(this.context.filter) &&
       !this.context.filter.includes(context.label)
     ) {
-      this.log(
+      logger.log(
         `skipping child instance based on --filter flag:`,
         context.label,
       )
@@ -283,14 +302,15 @@ export class Bud {
       )
     }
 
-    this.log(`instantiating new bud instance`)
+    logger.log(`instantiating new bud instance`)
+
     this.children[context.label] =
-      await new this.implementation().lifecycle({
+      await new this.implementation().initialize({
         ...context,
       })
     if (setupFn) await setupFn(this.children[context.label])
 
-    await this.children[context.label].api.processQueue()
+    await this.children[context.label].promise()
 
     this.get(context.label).hooks.on(
       `build.dependencies`,
@@ -315,6 +335,18 @@ export class Bud {
    */
   public get mode(): `development` | `production` {
     return this.context.mode ?? `production`
+  }
+
+  /**
+   * Await all promised tasks
+   */
+  @bind
+  public async promise() {
+    await Promise.all(this.promised).catch(error => {
+      throw error
+    })
+
+    return this
   }
 
   /**
@@ -346,14 +378,17 @@ export class Bud {
     bind: boolean = true,
   ): Bud {
     if (bind && isFunction(value) && `bind` in value) {
-      return Object.assign(this, {[key]: value.bind(this)})
+      Object.assign(this, {[key]: value.bind(this)})
+      return this
     }
 
-    return Object.assign(this, {[key]: value})
+    Object.assign(this, {[key]: value})
+    return this
   }
 
   /**
    * Log success
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public success(...messages: any[]) {
@@ -363,6 +398,7 @@ export class Bud {
 
   /**
    * Log warning
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public warn(...messages: any[]) {

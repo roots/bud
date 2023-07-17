@@ -7,6 +7,6 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "latest"
+    "@roots/bud": "workspace:*"
   }
 }

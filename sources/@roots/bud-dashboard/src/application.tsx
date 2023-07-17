@@ -11,6 +11,7 @@ import Server from '@roots/bud-dashboard/views/server'
 import {
   Box,
   type PropsWithChildren,
+  Text,
   useApp,
   useInput,
   useState,
@@ -59,7 +60,19 @@ export const Application = ({
 }: Props) => {
   if (error) return <Error error={error} />
 
-  if (!compilations || !Array.isArray(compilations)) return null
+  if (
+    !compilations ||
+    !Array.isArray(compilations) ||
+    !compilations.length
+  )
+    return (
+      <Box>
+        <Text dimColor>
+          {`\n`}
+          {status ?? ``}
+        </Text>
+      </Box>
+    )
 
   return (
     <Box flexDirection="column" gap={1} marginY={1}>

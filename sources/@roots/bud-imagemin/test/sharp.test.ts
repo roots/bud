@@ -1,10 +1,10 @@
-import '../src/types/index.js'
+import '@roots/bud-imagemin/types'
 
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
 import Plugin from 'image-minimizer-webpack-plugin'
 
-import {BudImageminSharp} from '../src/sharp/sharp.js'
+import BudImageminSharp from '@roots/bud-imagemin/sharp'
 
 describe(`@roots/bud-imagemin/sharp`, () => {
   let bud: Bud
@@ -24,7 +24,7 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp.generators).toBeInstanceOf(Map)
   })
 
-  it(`should create webp generator on init`, async () => {
+  it(`should create webp generator during registration`, async () => {
     await sharp.register()
 
     expect(sharp.generators.get(`webp`)).toStrictEqual({

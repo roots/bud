@@ -201,11 +201,11 @@ describe(`use`, () => {
     })
 
     const plugin = {
-      // @ts-ignore
-      label: `my-plugin`,
       apply() {
         // noop
       },
+      // @ts-ignore
+      label: `my-plugin`,
     }
 
     await use(plugin)

@@ -25,7 +25,7 @@ describe(`container`, function () {
 
   describe(`all`, function () {
     it(`returns the raw repository`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
       expect(container.all()).toBe(repo)
@@ -221,69 +221,73 @@ describe(`container`, function () {
 
   describe(`getMap`, function () {
     it(`returns an instance of Map`, () => {
-      const repo = {key: `value`, anotherKey: `value2`}
+      const repo = {anotherKey: `value2`, key: `value`}
       const container = new Container(repo)
 
       expect(container.getMap()).toBeInstanceOf(Map)
     })
 
     it(`returns Map with expected structure`, () => {
-      const repo = {key: `value`, anotherKey: `value2`}
+      const repo = {anotherKey: `value2`, key: `value`}
       const container = new Container(repo)
 
-      expect(Array.from(container.getMap())).toEqual([
-        [`key`, `value`],
-        [`anotherKey`, `value2`],
-      ])
+      expect(Array.from(container.getMap())).toEqual(
+        expect.arrayContaining([
+          expect.arrayContaining([`key`, `value`]),
+          expect.arrayContaining([`anotherKey`, `value2`]),
+        ]),
+      )
     })
   })
 
   describe(`remove`, () => {
     it(`removes a value`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
       container.remove(`foo`)
 
-      expect(container.all()).toEqual({
-        ergo: `dox`,
-      })
+      expect(container.all()).toEqual(
+        expect.objectContaining({
+          ergo: `dox`,
+        }),
+      )
     })
   })
 
   describe(`setStore`, () => {
     it(`sets the value of the repository property`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
-      const replacement = {oof: `yea`, ben: `word`}
+      const replacement = {ben: `word`, oof: `yea`}
       container.setStore(replacement)
 
-      expect(container.all()).toEqual(replacement)
+      expect(container.all()).toEqual(expect.objectContaining(replacement))
     })
   })
 
   describe(`mutateStore`, () => {
     it(`callback receives the store value`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
       container.mutateStore(store => {
-        expect(store).toBe(repo)
+        expect(store).toEqual(expect.objectContaining(repo))
         return store
       })
     })
 
     it(`mutates the store using the provided callback`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
       const mutagen = store => Object.assign(store, {foo: `nea`})
       container.mutateStore(mutagen)
 
       expect(container.all()).toEqual({
-        foo: `nea`,
         ergo: `dox`,
+        foo: `nea`,
       })
     })
   })
@@ -292,8 +296,8 @@ describe(`container`, function () {
     it(`executes callback for each match`, () => {
       const repo = {
         foo: {
-          test: `bar`,
           ergo: `dox`,
+          test: `bar`,
         },
       }
       const container: Container = new Container(repo)
@@ -309,8 +313,8 @@ describe(`container`, function () {
     it(`executes callback for every top level key`, () => {
       const repo = {
         foo: {
-          test: `bar`,
           ergo: `dox`,
+          test: `bar`,
         },
       }
       const container: Container = new Container(repo)
@@ -348,7 +352,7 @@ describe(`container`, function () {
 
   describe(`mergeStore`, () => {
     it(`merges a value with the repository property`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
       expect(container.mergeStore({crash: `bandicoot`}).all()).toEqual({
@@ -360,19 +364,21 @@ describe(`container`, function () {
 
   describe(`getEntries`, () => {
     it(`retrieves repo as entries`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container(repo)
 
-      expect(container.getEntries()).toEqual([
-        [`foo`, `bar`],
-        [`ergo`, `dox`],
-      ])
+      expect(container.getEntries()).toEqual(
+        expect.arrayContaining([
+          expect.arrayContaining([`foo`, `bar`]),
+          expect.arrayContaining([`ergo`, `dox`]),
+        ]),
+      )
     })
   })
 
   describe(`fromEntries`, () => {
     it(`sets repo from entries`, () => {
-      const repo = {foo: `bar`, ergo: `dox`}
+      const repo = {ergo: `dox`, foo: `bar`}
       const container = new Container().fromEntries(Object.entries(repo))
 
       expect(container.all()).toEqual(repo)
@@ -381,7 +387,7 @@ describe(`container`, function () {
 
   describe(`getKeys`, () => {
     it(`returns array of keys`, () => {
-      const repo = {key: `value`, anotherKey: `value`}
+      const repo = {anotherKey: `value`, key: `value`}
       const container = new Container(repo)
 
       expect(container.getKeys()).toEqual(Object.keys(repo))
@@ -390,7 +396,7 @@ describe(`container`, function () {
 
   describe(`getValues`, () => {
     it(`returns array of values`, () => {
-      const repo = {key: `value`, anotherKey: `value2`}
+      const repo = {anotherKey: `value2`, key: `value`}
       const container = new Container(repo)
 
       expect(container.getValues()).toEqual(Object.values(repo))

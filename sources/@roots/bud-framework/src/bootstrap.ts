@@ -8,7 +8,6 @@ import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 
 import {FS} from './fs.js'
-import methods from './methods/index.js'
 import {Module} from './module.js'
 import {Notifier} from './notifier.js'
 
@@ -105,8 +104,20 @@ const filterServices =
 const instantiateServices =
   (app: Bud) =>
   async (signifier: string): Promise<void> => {
-    const Service = await app.module.import(signifier)
-    const service = new Service(() => app)
+    const Service = await app.module.import(signifier).catch(error => {
+      throw error instanceof BudError ? BudError.normalize(error) : error
+    })
+
+    let service: BudService
+
+    try {
+      service = new Service(() => app)
+    } catch (error) {
+      const normalError =
+        error instanceof BudError ? BudError.normalize(error) : error
+      normalError.message = `Error instantiating service ${signifier}: ${normalError.message}`
+      return normalError
+    }
 
     const label =
       service.label ?? service.constructor?.name
@@ -115,7 +126,7 @@ const instantiateServices =
 
     app[label] = service
 
-    app.log(
+    logger.log(
       chalk.blue(`bud.${label}`),
       figures.arrowLeft,
       chalk.cyan(!isString(signifier) ? `[object]` : signifier),
@@ -126,6 +137,7 @@ const instantiateServices =
 
 /**
  * Bootstrap the application. This involves the following steps:
+ *
  * - Initialize the application context and an empty list of services
  * - Bind the application's methods to the application context
  * - Instantiate the necessary services and initialize the application
@@ -133,54 +145,42 @@ const instantiateServices =
  * - Fire lifecycle events in order and process any queued API calls after each event
  * - Write the module's resolutions and file checksums to the filesystem
  *
- * @param this - Bud instance
- * @param context - Bud context
- *
+ * @param bud - Bud instance
  * @returns Promise<void>
  */
-export const bootstrap = async function (this: Bud) {
-  this.services = []
-
-  Object.entries(methods).map(([handle, value]) => {
-    this.set(handle as `${keyof Bud & string}`, value)
-  })
-
-  logger.time(`initialize`)
-
-  this.fs = new FS(() => this)
-  this.module = new Module(() => this)
-  await this.module.bootstrap(this)
+export const bootstrap = async function (bud: Bud) {
+  bud.fs = new FS(() => bud)
+  bud.module = new Module(() => bud)
+  await bud.module.bootstrap(bud)
 
   await Promise.all(
-    [...this.context.services]
-      .filter(filterServices(this))
-      .map(instantiateServices(this)),
-  ).catch(error => {
-    throw BudError.normalize(error)
-  })
+    [...bud.context.services]
+      .filter(filterServices(bud))
+      .map(instantiateServices(bud)),
+  )
 
-  this.notifier = new Notifier(() => this)
-  await this.notifier.make(this)
+  bud.notifier = new Notifier(() => bud)
+  await bud.notifier.make(bud)
 
-  this.hooks
+  bud.hooks
     .fromMap({
       'location.@dist':
-        isString(this.context.output) && this.context.output !== ``
-          ? this.context.output
+        isString(bud.context.output) && bud.context.output !== ``
+          ? bud.context.output
           : `dist`,
-      'location.@modules': isString(this.context.modules)
-        ? this.context.modules
+      'location.@modules': isString(bud.context.modules)
+        ? bud.context.modules
         : `node_modules`,
-      'location.@os-cache': this.context.paths[`os-cache`],
-      'location.@os-config': this.context.paths[`os-config`],
-      'location.@os-data': this.context.paths[`os-data`],
-      'location.@os-log': this.context.paths[`os-log`],
-      'location.@os-temp': this.context.paths[`os-temp`],
+      'location.@os-cache': bud.context.paths[`os-cache`],
+      'location.@os-config': bud.context.paths[`os-config`],
+      'location.@os-data': bud.context.paths[`os-data`],
+      'location.@os-log': bud.context.paths[`os-log`],
+      'location.@os-temp': bud.context.paths[`os-temp`],
       'location.@src':
-        isString(this.context.input) && this.context.input !== ``
-          ? this.context.input
+        isString(bud.context.input) && bud.context.input !== ``
+          ? bud.context.input
           : `src`,
-      'location.@storage': this.context.paths.storage,
+      'location.@storage': bud.context.paths.storage,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.csv': /\.(csv|tsv)$/,
@@ -202,34 +202,37 @@ export const bootstrap = async function (this: Bud) {
       'pattern.xml': /\.xml$/,
       'pattern.yml': /\.ya?ml$/,
     })
-    .when(this.isDevelopment, ({hooks}) =>
+    .when(bud.isDevelopment, ({hooks}) =>
       hooks.fromMap({
         'dev.middleware.enabled': [`dev`, `hot`],
       }),
     )
 
   Object.entries(lifecycle).map(([eventHandle, callbackName]) =>
-    [...this.services]
-      .map(service => [service, this[service]])
-      .filter(([, instance]) => instance)
-      .filter(([, instance]) => callbackName in instance)
-      .map(([label, service]) => {
-        this.hooks.action(
+    [...bud.services]
+      .map(service => bud[service])
+      .filter(Boolean)
+      .filter(instance => callbackName in instance)
+      .map(instance => {
+        bud.hooks.action(
           eventHandle as any,
-          service[callbackName].bind(service),
+          instance[callbackName].bind(instance),
         )
-        logger.log(`${label}.${callbackName}`, `bound to`, eventHandle)
       }),
   )
 
-  this.hooks.action(`compiler.before`, this.module.compilerBefore)
-  this.hooks.action(`compiler.done`, this.module.compilerDone)
+  bud.hooks.action(`compiler.before`, bud.module.compilerBefore)
+  bud.hooks.action(`compiler.done`, bud.module.compilerDone)
 
-  await [`bootstrap`, `register`, `boot`].reduce(
-    async (promised, event: keyof Registry.EventsStore) => {
+  await [`bootstrap`, `register`, `boot`]
+    .reduce(async (promised, event: keyof Registry.EventsStore) => {
       await promised
-      await this.executeServiceCallbacks(event)
-    },
-    Promise.resolve(),
-  )
+      await bud.executeServiceCallbacks(event).catch(error => {
+        throw error
+      })
+    }, Promise.resolve())
+    .catch(error => {
+      logger.error(error)
+      throw error
+    })
 }

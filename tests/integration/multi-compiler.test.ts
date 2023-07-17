@@ -1,18 +1,20 @@
 import setup from '@repo/test-kit/setup'
-
+import {testIsCompiledCss, testIsCompiledJs} from '@repo/test-kit/tests'
 import {describe, expect, it} from 'vitest'
 
-describe.skip(`examples/multi-compiler`, () => {
+describe(`examples/multi-compiler`, () => {
   it(`should compile js and css as expected`, async () => {
     const test = setup({
-      label: `@examples/multi-compiler`,
       dist: `plugin/dist`,
+      label: `@examples/multi-compiler`,
     })
+
     await test.install()
     await test.build()
 
-    expect(test.assets[`plugin.js`].length).toBeGreaterThan(10)
-    expect(test.assets[`plugin.js`].includes(`import `)).toBeFalsy()
+    testIsCompiledJs(test.getAsset(`plugin.js`))
+    testIsCompiledCss(test.getAsset(`plugin.css`))
+
     expect(test.manifest).toMatchSnapshot()
   })
 })

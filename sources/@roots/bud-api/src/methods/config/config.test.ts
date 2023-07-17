@@ -4,13 +4,13 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {config as configFn} from './index.js'
 
 const mockBud = {
-  set: vi.fn(() => null),
+  error: vi.fn(() => null),
+  fatal: vi.fn(() => null),
   hooks: {
     action: vi.fn(() => null),
   },
   log: vi.fn(() => null),
-  error: vi.fn(() => null),
-  fatal: vi.fn(() => null),
+  set: vi.fn(() => null),
 } as unknown as Bud
 
 describe(`bud.config`, function () {

@@ -6,11 +6,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-postcss": "workspace:*"
   },
-  "bud": {
-    "extensions": {
-      "discovery": false
-    }
-  },
   "volta": {
     "node": "16.18.0"
   }

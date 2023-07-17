@@ -70,7 +70,7 @@ export class Compiler extends Service implements BudCompiler {
               }),
           ),
         )
-    this.config.parallelism = Math.min(cpus().length - 1, 1)
+    this.config.parallelism = Math.max(cpus().length - 1, 1)
 
     await bud.hooks.fire(`compiler.before`, bud).catch(error => {
       throw error

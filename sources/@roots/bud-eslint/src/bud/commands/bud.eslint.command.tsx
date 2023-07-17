@@ -1,34 +1,35 @@
-import {join} from 'node:path'
-
 import {Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
-@dry
+/**
+ * Bud eslint command
+ */
 export class BudEslintCommand extends BudCommand {
+  /**
+   * {@link BudCommand.paths}
+   */
   public static override paths = [[`lint`, `js`], [`eslint`]]
 
+  /**
+   * {@link BudCommand.usage}
+   */
   public static override usage = BudCommand.Usage({
     category: `tool`,
-    description: `eslint CLI passthrough`,
+    description: `Run eslint on source files`,
     examples: [[`Run eslint on source files`, `$0 eslint`]],
   })
 
   public options = Option.Proxy({name: `eslint passthrough options`})
 
+  /**
+   * {@link BudCommand.execute}
+   */
   public override async execute() {
     await this.makeBud()
     await this.bud.run()
 
-    const eslint = join(
-      await this.bud.module.getDirectory(`eslint`, import.meta.url),
-      `bin`,
-      `eslint.js`,
-    )
-
-    if (!this.options?.length)
-      this.options = [this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx}`)]
-
-    await this.$(this.bin, [eslint, ...this.options])
+    return await this.run([`eslint`, `bin`, `eslint.js`], this.options, [
+      this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx}`),
+    ])
   }
 }

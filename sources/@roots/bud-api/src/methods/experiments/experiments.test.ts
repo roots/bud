@@ -1,15 +1,14 @@
+import {experiments as subject} from '@roots/bud-api/methods/experiments'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {experiments as subject} from './index.js'
 
 const callback = vi.fn() as any
 const bud = {
-  label: `bud`,
   hooks: {
     on: vi.fn((_label: string, value: any) => {
       return callback(value())
     }),
   },
+  label: `bud`,
 } as any
 
 describe(`bud.entry`, function () {

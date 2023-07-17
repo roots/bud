@@ -1,4 +1,4 @@
-import React, {Box} from '@roots/bud-support/ink'
+import React from '@roots/bud-support/ink'
 // @ts-ignore
 import {render} from 'ink-testing-library'
 import {describe, expect, it} from 'vitest'
@@ -399,7 +399,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       // @ts-ignore
       <Application basedir={6} />,
     )
-    expect(basedirNumber()).toBe(Char.Empty)
+    expect(basedirNumber()).toBe(Char.NewLine)
 
     const {lastFrame: compilationTypeStringArray} = render(
       // @ts-ignore
@@ -417,6 +417,6 @@ describe(`@roots/bud-dashboard app component`, () => {
       // @ts-ignore
       <Application compilations={`foo`} />,
     )
-    expect(stripAnsi(compilationTypeString())).toBe(Char.Empty)
+    expect(stripAnsi(compilationTypeString())).toBe(Char.NewLine)
   })
 })

@@ -24,7 +24,7 @@ export const output: Factory<`output`> = async ({
     iife: filter(`build.output.iife`, undefined),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
-    pathinfo: filter(`build.output.pathinfo`, false),
+    pathinfo: filter(`build.output.pathinfo`, true),
     publicPath: filter(`build.output.publicPath`, `auto`),
     scriptType: filter(
       `build.output.scriptType`,

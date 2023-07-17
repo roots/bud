@@ -24,7 +24,7 @@ class Configuration {
   @bind
   public async dynamicConfig(
     config: (bud: Bud) => Promise<any>,
-  ): Promise<unknown> {
+  ): Promise<void> {
     try {
       return await config(this.bud)
     } catch (cause) {
@@ -91,7 +91,6 @@ class Configuration {
     }
 
     const config = await description.module()
-
     isFunction(config)
       ? await this.dynamicConfig(config)
       : await this.staticConfig(config)

@@ -7,8 +7,8 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-eslint": "latest",
-    "@roots/eslint-config": "latest"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-eslint": "workspace:*",
+    "@roots/eslint-config": "workspace:*"
   }
 }

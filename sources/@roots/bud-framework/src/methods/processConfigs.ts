@@ -1,6 +1,6 @@
-import type {Bud} from '../index.js'
+import type {Bud} from '@roots/bud-framework'
 
-import * as configuration from '../configuration/index.js'
+import * as configuration from '@roots/bud-framework/configuration'
 
 /**
  * Process user configurations
@@ -10,7 +10,6 @@ export interface processConfigs {
 }
 
 export const processConfigs: processConfigs = async function () {
-  const app = this as Bud
-  await configuration.process(app)
-  return app
+  await configuration.process(this)
+  return this
 }

@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import * as source from '@roots/bud-framework/methods/glob'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import * as source from '../../../src/methods/glob/glob.js'
 
 describe(`bud.glob`, function () {
   let bud: Bud
@@ -38,16 +37,6 @@ describe(`bud.glob`, function () {
         expect.stringContaining(`scripts/components/app.tsx`),
       ]),
     )
-  })
-
-  it(`calls bud.success and bud.info`, async () => {
-    const infoSpy = vi.spyOn(bud, `info`)
-    const successSpy = vi.spyOn(bud, `success`)
-
-    await glob([`src/**/*.tsx`, `src/**/app.*`])
-
-    expect(infoSpy).toHaveBeenCalledOnce()
-    expect(successSpy).toHaveBeenCalledOnce()
   })
 
   it(`returns glob results from array`, async () => {

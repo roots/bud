@@ -49,17 +49,39 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./axios": "./lib/axios/index.js",
+    "./chalk": "./lib/chalk/index.js",
+    "./chokidar": "./lib/chokidar/index.js",
+    "./clean-stack": "./lib/clean-stack/index.js",
+    "./clean-webpack-plugin": "./lib/clean-webpack-plugin/index.js",
+    "./clipanion": "./lib/clipanion/index.js",
+    "./cookie-parser": "./lib/cookie-parser/index.js",
+    "./copy-webpack-plugin": "./lib/copy-webpack-plugin/index.js",
     "./css-loader": "./lib/css-loader/index.cjs",
     "./csv-loader": "./lib/csv-loader/index.cjs",
+    "./decorators": "./lib/decorators/index.js",
+    "./decorators/bind": "./lib/decorators/bind.js",
+    "./decorators/deprecated": "./lib/decorators/deprecated.js",
+    "./decorators/*": "./lib/decorators/*.js",
+    "./dotenv": "./lib/dotenv/index.js",
+    "./errors": "./lib/errors/index.js",
+    "./esbuild": "./lib/esbuild/index.js",
+    "./esbuild-wasm": "./lib/esbuild-wasm/index.js",
+    "./execa": "./lib/execa/index.js",
+    "./express": "./lib/express/index.js",
+    "./figures": "./lib/figures/index.js",
     "./file-loader": "./lib/file-loader/index.cjs",
+    "./filesystem": "./lib/filesystem/index.js",
+    "./get-port": "./lib/get-port/index.js",
+    "./globby": "./lib/globby/index.js",
+    "./highlight": "./vendor/highlight/index.js",
     "./remark-loader": "./lib/remark-loader/index.cjs",
     "./style-loader": "./lib/style-loader/index.cjs",
     "./yml-loader": "./lib/yml-loader/index.cjs",
-    "./decorators/*": "./lib/decorators/*.js",
     "./utilities/*": "./lib/utilities/*.js",
-    "./highlight": "./vendor/highlight/index.js",
     "./html-loader": "./vendor/html-loader/index.cjs",
     "./html-webpack-plugin": "./vendor/html-webpack-plugin/index.cjs",
+    "./ink": "./lib/ink/index.js",
     "./*": "./lib/*/index.js"
   },
   "typesVersions": {
@@ -67,14 +89,95 @@
       ".": [
         "./lib/index.d.ts"
       ],
+      "./axios": [
+        "./lib/axios/index.d.ts"
+      ],
+      "./chalk": [
+        "./lib/chalk/index.d.ts"
+      ],
+      "./chokidar": [
+        "./lib/chokidar/index.d.ts"
+      ],
+      "./clean-stack": [
+        "./lib/clean-stack/index.d.ts"
+      ],
+      "./clean-webpack-plugin": [
+        "./lib/clean-webpack-plugin/index.d.ts"
+      ],
+      "./clipanion": [
+        "./lib/clipanion/index.d.ts"
+      ],
+      "./cookie-parser": [
+        "./lib/cookie-parser/index.d.ts"
+      ],
+      "./copy-webpack-plugin": [
+        "./lib/copy-webpack-plugin/index.d.ts"
+      ],
+      "./css-loader": [
+        "./lib/css-loader/index.d.ts"
+      ],
+      "./csv-loader": [
+        "./lib/csv-loader/index.d.ts"
+      ],
+      "./dotenv": [
+        "./lib/dotenv/index.d.ts"
+      ],
+      "./errors": [
+        "./lib/errors/index.d.ts"
+      ],
+      "./esbuild": [
+        "./lib/esbuild/index.d.ts"
+      ],
+      "./esbuild-wasm": [
+        "./lib/esbuild-wasm/index.d.ts"
+      ],
+      "./execa": [
+        "./lib/execa/index.d.ts"
+      ],
+      "./express": [
+        "./lib/express/index.d.ts"
+      ],
+      "./figures": [
+        "./lib/figures/index.d.ts"
+      ],
+      "./file-loader": [
+        "./lib/file-loader/index.d.ts"
+      ],
+      "./filesystem": [
+        "./lib/filesystem/index.d.ts"
+      ],
+      "./get-port": [
+        "./lib/get-port/index.d.ts"
+      ],
+      "./globby": [
+        "./lib/globby/index.d.ts"
+      ],
+      "./remark-loader": [
+        "./lib/remark-loader/index.d.ts"
+      ],
+      "./style-loader": [
+        "./lib/style-loader/index.d.ts"
+      ],
+      "./yml-loader": [
+        "./lib/yml-loader/index.d.ts"
+      ],
+      "./decorators/*": [
+        "./lib/decorators/*.d.ts"
+      ],
       "utilities/*": [
         "./lib/utilities/*.d.ts"
       ],
       "highlight": [
         "./vendor/highlight/index.d.ts"
       ],
+      "./html-loader": [
+        "./vendor/html-loader/index.d.ts"
+      ],
       "html-webpack-plugin": [
         "./vendor/html-webpack-plugin/index.d.cts"
+      ],
+      "./ink": [
+        "./lib/ink/index.d.ts"
       ],
       "*": [
         "./lib/*/index.d.ts"

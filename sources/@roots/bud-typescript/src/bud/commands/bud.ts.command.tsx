@@ -1,31 +1,35 @@
-import {join} from 'node:path'
-
 import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
 
-@dry
+/**
+ * Bud tsc command
+ */
 export class BudTSCCommand extends BudCommand {
-  public static override paths = [[`tsc`]]
+  /**
+   * {@link BudCommand.paths}
+   */
+  public static override paths = [[`ts`], [`tsc`]]
 
+  /**
+   * {@link BudCommand.usage}
+   */
   public static override usage = Command.Usage({
     category: `tool`,
     description: `TypeScript CLI passthrough`,
-    examples: [[`View tsc usage information`, `$0 tsc --help`]],
+    examples: [[`Run the typescript compiler`, `$0 ts`]],
   })
 
+  /**
+   * Command options
+   */
   public options = Option.Proxy({name: `tsc passthrough options`})
 
+  /**
+   * {@link BudCommand.execute}
+   */
   public override async execute() {
     await this.makeBud()
     await this.bud.run()
-
-    const tsc = join(
-      await this.bud.module.getDirectory(`typescript`, import.meta.url),
-      `bin`,
-      `tsc`,
-    )
-
-    await this.$(this.bin, [tsc, ...(this.options ?? [])])
+    return await this.run([`typescript`, `bin`, `tsc`], this.options)
   }
 }

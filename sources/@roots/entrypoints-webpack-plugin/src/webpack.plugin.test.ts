@@ -26,8 +26,8 @@ describe(`entrypoints.json`, () => {
 
     entrypoints.addToManifest({
       ident: `runtime`,
-      type: `js`,
       path: `foo.js`,
+      type: `js`,
     })
 
     expect(entrypoints.entrypoints.get(`runtime`)?.get(`js`)).toEqual(

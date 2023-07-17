@@ -50,11 +50,11 @@ describe(`multi-compiler`, () => {
   it(`children object is expected shape`, async () => {
     expect(bud.children).toEqual(
       expect.objectContaining({
-        theme: expect.objectContaining({
-          label: expect.stringMatching(/theme/),
-        }),
         plugin: expect.objectContaining({
           label: expect.stringMatching(/plugin/),
+        }),
+        theme: expect.objectContaining({
+          label: expect.stringMatching(/theme/),
         }),
       }),
     )

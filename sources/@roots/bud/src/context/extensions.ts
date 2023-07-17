@@ -44,8 +44,12 @@ const extensions: Extensions = {
   discovered: [],
 }
 
-export default (manifest?: Context[`manifest`]) => {
-  if (!manifest || args.discovery === false) return extensions
+export default (
+  manifest?: Context[`manifest`],
+  options?: Array<string>,
+) => {
+  if (!manifest || args.discovery === false)
+    return withOptions(extensions, options)
 
   Object.keys({
     ...(manifest?.devDependencies ?? {}),
@@ -75,5 +79,15 @@ export default (manifest?: Context[`manifest`]) => {
       extensions.discovered.push(signifier),
     )
 
-  return extensions
+  return withOptions(extensions, options)
+}
+
+const withOptions = (
+  extensions: Context[`extensions`],
+  options: Array<string>,
+) => {
+  return {
+    ...extensions,
+    discovered: options ?? extensions.discovered,
+  }
 }

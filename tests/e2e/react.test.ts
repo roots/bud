@@ -10,8 +10,8 @@ import {
   it,
 } from 'vitest'
 
-import {e2eBeforeAll, runDev} from './util/install'
 import {destinationPath} from './util/copy'
+import {e2eBeforeAll, runDev} from './util/install'
 
 describe(`html output of examples/react`, () => {
   let browser: Browser

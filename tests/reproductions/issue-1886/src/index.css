@@ -1,3 +1,13 @@
 body {
-  background: url(@src/images/bud-css.png?as=webp);
+  background: url('@src/images/bud-css.png?as=webp');
+}
+
+div::before {
+  position: relative;
+  content: url('@src/images/bud.svg');
+}
+
+div::after {
+  position: relative;
+  content: url('@src/images/bud.svg?inline');
 }

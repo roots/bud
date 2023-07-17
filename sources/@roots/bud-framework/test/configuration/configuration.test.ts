@@ -6,20 +6,20 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import Configuration from '../../src/configuration/configuration.js'
 import {File} from '../../src/context.js'
 import {BudError} from '@roots/bud-support/errors'
+import {parse} from 'node:path'
 
 const testFileDescription: File = {
   name: `test.config.js`,
   local: false,
   bud: false,
   path: `foo/test.config.js`,
-  dir: false,
-  file: true,
-  extension: `js`,
-  type: `base`,
-  symlink: false,
+  target: `base`,
+  type: `module`,
+  parsed: parse(`foo/test.config.js`),
   size: 0,
   sha1: `abcdefg`,
   mode: 0,
+  // @ts-ignore intentionally invalid
   module: undefined,
 }
 
@@ -29,7 +29,7 @@ describe(`@roots/bud-framework/configuration`, function () {
 
   beforeEach(async () => {
     bud = await factory()
-    configuration = new Configuration(bud as any)
+    configuration = new Configuration(bud)
   })
 
   it(`is constructable`, () => {
@@ -45,23 +45,20 @@ describe(`@roots/bud-framework/configuration`, function () {
   })
 
   it(`throws when there is no module`, async () => {
-    const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
-    const staticSpy = vi.spyOn(configuration, `staticConfig`)
-
-    try {
-      await configuration.run(testFileDescription)
-    } catch (e) {
-      expect(e).toBeInstanceOf(BudError)
-    }
-
-    expect(dynamicSpy).not.toHaveBeenCalled()
-    expect(staticSpy).not.toHaveBeenCalled()
+    let error
+    await configuration
+      .run(testFileDescription)
+      .catch(e => {
+        error = e
+      })
+      .finally(() => {
+        expect(error).toBeInstanceOf(BudError)
+      })
   })
 
   it(`calls dynamicConfig when config is a fn`, async () => {
     const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
-    const staticSpy = vi.spyOn(configuration, `staticConfig`)
-    const configFn = vi.fn()
+    const configFn = vi.fn(async bud => bud)
 
     const testDynamicConfig = {
       ...testFileDescription,
@@ -72,11 +69,9 @@ describe(`@roots/bud-framework/configuration`, function () {
 
     expect(dynamicSpy).toHaveBeenCalledWith(configFn)
     expect(configFn).toHaveBeenCalledWith(bud)
-    expect(staticSpy).not.toHaveBeenCalled()
   })
 
   it(`calls staticConfig when config is static`, async () => {
-    const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
     const staticSpy = vi.spyOn(configuration, `staticConfig`)
 
     const testStaticConfig = {
@@ -89,7 +84,6 @@ describe(`@roots/bud-framework/configuration`, function () {
     }
     await configuration.run(testStaticConfig)
 
-    expect(dynamicSpy).not.toHaveBeenCalled()
     expect(staticSpy).toHaveBeenCalledWith(
       expect.objectContaining({
         foo: `bar`,

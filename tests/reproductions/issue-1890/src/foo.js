@@ -1,1 +1,1 @@
-console.log(`foo`)
+document.body.innerHTML = `<div>foo</div>`

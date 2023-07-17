@@ -5,7 +5,7 @@
       "@scripts/*": ["./src/scripts/*"],
       "@styles/*": ["./src/styles/*"]
     },
-    "types": ["node", "webpack-env", "@roots/bud"]
+    "types": ["@roots/bud", "@roots/bud-postcss", "node", "webpack-env"]
   },
   "include": ["./src"],
   "exclude": ["./node_modules"]

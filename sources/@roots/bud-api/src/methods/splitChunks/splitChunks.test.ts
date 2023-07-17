@@ -51,31 +51,31 @@ describe(`bud.splitChunks`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await splitChunks({
-      chunks: `all`,
       automaticNameDelimiter: `/`,
-      minSize: 0,
       cacheGroups: {
         MOCK: {
-          idHint: `mock`,
           filename: `js/bundle/vendor.js`,
-          test: /[\\/]node_modules[\\/]/,
+          idHint: `mock`,
           priority: -20,
+          test: /[\\/]node_modules[\\/]/,
         },
       },
+      chunks: `all`,
+      minSize: 0,
     })
 
     expect(onSpy).toHaveBeenCalledWith(`build.optimization.splitChunks`, {
-      chunks: `all`,
       automaticNameDelimiter: `/`,
-      minSize: 0,
       cacheGroups: {
         MOCK: {
-          idHint: `mock`,
           filename: `js/bundle/vendor.js`,
-          test: /[\\/]node_modules[\\/]/,
+          idHint: `mock`,
           priority: -20,
+          test: /[\\/]node_modules[\\/]/,
         },
       },
+      chunks: `all`,
+      minSize: 0,
     })
   })
 

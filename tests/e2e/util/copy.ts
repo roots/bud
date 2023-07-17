@@ -31,3 +31,25 @@ export const copyOriginalSource = async (dir: string) => {
     throw error
   }
 }
+
+export const overwriteJson = async (dir: string) => {
+  const packageJson = await fs.readAsync(
+    destinationPath(dir, `package.json`),
+    `json`,
+  )
+
+  if (!packageJson) throw new Error(`No package.json found`)
+  if (!packageJson?.devDependencies) packageJson.devDependencies = {}
+
+  packageJson.devDependencies = Object.entries(
+    packageJson?.devDependencies,
+  ).reduce(
+    (json, [key, value]) => ({
+      ...json,
+      [key]: (value as string).replace(`workspace:*`, `latest`),
+    }),
+    {},
+  )
+
+  await fs.writeAsync(destinationPath(dir, `package.json`), packageJson)
+}

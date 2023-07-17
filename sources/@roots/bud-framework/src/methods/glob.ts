@@ -1,6 +1,7 @@
-import globby, {globbySync} from '@roots/bud-support/globby'
+import type {Bud} from '@roots/bud-framework'
 
-import type {Bud} from '../../index.js'
+import globby, {globbySync} from '@roots/bud-support/globby'
+import logger from '@roots/bud-support/logger'
 
 export interface globSync {
   (...searches: Array<Array<string> | string>): Array<string>
@@ -17,18 +18,16 @@ export interface glob {
  * Uses fast-glob syntax
  */
 export const globSync: globSync = function (...searches) {
-  const app = this as Bud
-
   try {
-    const paths = searches.flatMap(search => transformPaths(app, search))
-    app.info(`glob (sync)`, `[paths]`, paths)
+    const paths = searches.flatMap(search => transformPaths(this, search))
+    logger.info(`glob (sync)`, `[paths]`, paths)
 
     const results = globbySync(paths)
-    app.info(`glob (sync)`, `[results]`, results)
+    logger.info(`glob (sync)`, `[results]`, results)
 
     return results
   } catch (error) {
-    app.error(error)
+    logger.error(error)
   }
 }
 
@@ -39,18 +38,16 @@ export const globSync: globSync = function (...searches) {
  * Uses fast-glob syntax
  */
 export const glob: glob = async function (...searches) {
-  const app = this as Bud
-
   try {
-    const paths = searches.flatMap(search => transformPaths(app, search))
-    app.info(`glob (async)`, ...paths)
+    const paths = searches.flatMap(search => transformPaths(this, search))
+    logger.info(`glob (async)`, ...paths)
 
     const results = await globby(paths)
-    app.success(`glob (sync)`, ...results)
+    logger.success(`glob (sync)`, ...results)
 
     return results
   } catch (error) {
-    app.error(error)
+    logger.error(error)
   }
 }
 

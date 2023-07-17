@@ -3,10 +3,12 @@ export default async bud => {
 
   bud.entry(`index.css`)
 
-  bud.critical.html(
+  bud.critical
+    .html(
       `<html>
         <body>
           <div class="foo"></div>
+          <!-- the following should not included in generated critical stylesheet -->
           <div class="ignore-style">
             <div class="test"></div>
           </div>

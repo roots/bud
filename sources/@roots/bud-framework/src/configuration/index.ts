@@ -2,6 +2,7 @@ import type {File} from '@roots/bud-framework/context'
 
 import {BudError, ConfigError} from '@roots/bud-support/errors'
 import sortBy from '@roots/bud-support/lodash/sortBy'
+import logger from '@roots/bud-support/logger'
 
 import type {Bud} from '../index.js'
 
@@ -26,13 +27,10 @@ export const process = async (app: Bud) => {
     )
 
   const processConfig = async (file: File) => {
-    app.log(`processing`, file.name)
-    await configuration.run(file).catch(makeErrorHandler(file))
-    await app.api.processQueue().catch(makeErrorHandler(file))
+    logger.log(`processing`, file.name)
+    await configuration.run(file).catch(makeError(file))
+    await app.promise().catch(makeError(file))
   }
-
-  // process any queued api calls
-  await app.api.processQueue()
 
   await Promise.all(find(`base`, false).map(processConfig))
   await Promise.all(find(`base`, true).map(processConfig))
@@ -47,7 +45,7 @@ export const process = async (app: Bud) => {
 
   await Promise.all(
     Object.values(app.children).map(async child => {
-      await child.api.processQueue().catch(error => {
+      await child.promise().catch(error => {
         throw error
       })
       await child.executeServiceCallbacks(`config.after`).catch(error => {
@@ -57,7 +55,7 @@ export const process = async (app: Bud) => {
   )
 }
 
-const makeErrorHandler =
+const makeError =
   (file: File) => (error: Error & {isBudError?: boolean}) => {
     throw new ConfigError(`Error in ${file.name}`, {
       props: {

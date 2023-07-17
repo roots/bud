@@ -7,15 +7,14 @@ import type {
 
 import {randomUUID} from 'node:crypto'
 
+import {handleManifestSchemaWarning} from '@roots/bud-extensions/helpers/handleManifestSchemaWarning'
+import {isConstructor} from '@roots/bud-extensions/helpers/isConstructor'
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
-
-import {handleManifestSchemaWarning} from './helpers/handleManifestSchemaWarning.js'
-import {isConstructor} from './helpers/isConstructor.js'
 
 /**
  * Extensions Service
@@ -395,7 +394,7 @@ export class Extensions extends Service implements BudExtensions {
       await this.runDependencies(extension, methodName)
       const method = extension[`_${methodName}`]
       if (isFunction(method)) await method()
-      await this.app.api.processQueue()
+      await this.app.promise()
 
       return this
     } catch (error) {
