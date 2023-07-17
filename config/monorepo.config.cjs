@@ -1,11 +1,8 @@
 /**
  * Monorepo configuration
- *
- * @public
  */
 module.exports = {
-  card: `https://bud.js.org/img/bud.js.png`,
-  description: `⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix`,
+  description: `Configurable, extensible build tools for modern single and multi-page web applications`,
   logo: `https://cdn.roots.io/app/uploads/logo-bud.svg`,
   name: `bud.js`,
   organization: {
@@ -13,63 +10,6 @@ module.exports = {
     name: `Roots Software Foundation LLC`,
     site: `https://roots.io`,
     twitter: `https://twitter.com/rootswp`,
-  },
-  packages: {
-    core: [
-      `@roots/bud`,
-      `@roots/bud-api`,
-      `@roots/bud-build`,
-      `@roots/bud-cache`,
-      `@roots/bud-compiler`,
-      `@roots/bud-dashboard`,
-      `@roots/bud-extensions`,
-      `@roots/bud-framework`,
-      `@roots/bud-hooks`,
-      `@roots/bud-server`,
-    ],
-    extension: [
-      `@roots/bud-babel`,
-      `@roots/bud-compress`,
-      `@roots/bud-criticalcss`,
-      `@roots/bud-emotion`,
-      `@roots/bud-entrypoints`,
-      `@roots/bud-esbuild`,
-      `@roots/bud-eslint`,
-      `@roots/bud-imagemin`,
-      `@roots/bud-mdx`,
-      `@roots/bud-postcss`,
-      `@roots/bud-preset-recommend`,
-      `@roots/bud-preset-wordpress`,
-      `@roots/bud-prettier`,
-      `@roots/bud-purgecss`,
-      `@roots/bud-react`,
-      `@roots/bud-sass`,
-      `@roots/bud-solid`,
-      `@roots/bud-stylelint`,
-      `@roots/bud-swc`,
-      `@roots/bud-tailwindcss`,
-      `@roots/bud-minify`,
-      `@roots/bud-typescript`,
-      `@roots/bud-vue`,
-      `@roots/bud-wordpress-dependencies`,
-      `@roots/bud-wordpress-externals`,
-      `@roots/bud-wordpress-manifests`,
-      `@roots/sage`,
-    ],
-    library: [
-      `@roots/browserslist-config`,
-      `@roots/bud-client`,
-      `@roots/container`,
-      `@roots/critical-css-webpack-plugin`,
-      `@roots/dependencies`,
-      `@roots/entrypoints-webpack-plugin`,
-      `@roots/eslint-config`,
-      `@roots/filesystem`,
-      `@roots/merged-manifest-webpack-plugin`,
-      `@roots/wordpress-dependencies-webpack-plugin`,
-      `@roots/wordpress-externals-webpack-plugin`,
-      `@roots/wordpress-hmr`,
-    ],
   },
   sponsors: [
     {

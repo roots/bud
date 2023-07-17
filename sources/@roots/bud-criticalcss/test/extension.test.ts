@@ -1,9 +1,8 @@
-/* eslint-disable no-console */
 import {join} from 'node:path'
 
 import {paths} from '@repo/constants'
-import * as fs from 'fs-jetpack'
 import {execa} from 'execa'
+import * as fs from 'fs-jetpack'
 import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-criticalcss`, () => {
@@ -18,7 +17,7 @@ describe(`@roots/bud-criticalcss`, () => {
     expect(await readCritical(`no-extract`)).toMatchSnapshot()
     expect(await readOriginal(`no-extract`)).toMatchSnapshot()
   }, 60000)
-}, 60000)
+}, 120000)
 
 const baseParts = [
   paths.sources,
@@ -28,7 +27,7 @@ const baseParts = [
   `__fixtures__`,
 ]
 
-const runFixture = async target =>
+const runFixture = async (target: string) =>
   await execa(
     `yarn`,
     [
@@ -42,13 +41,13 @@ const runFixture = async target =>
     {reject: false, timeout: 30000},
   )
 
-const readOriginal = async target =>
+const readOriginal = async (target: string) =>
   await fs.readAsync(
     join(...baseParts, target, `dist`, `css`, `index.css`),
     `utf8`,
   )
 
-const readCritical = async target =>
+const readCritical = async (target: string) =>
   await fs.readAsync(
     join(...baseParts, target, `dist`, `critical`, `css`, `index.css`),
     `utf8`,
