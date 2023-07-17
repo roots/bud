@@ -1,6 +1,5 @@
 // Font Awesome
-import {library, dom} from '@fortawesome/fontawesome-svg-core'
-
+import {dom, library} from '@fortawesome/fontawesome-svg-core'
 import {faAngleDown} from '@fortawesome/free-solid-svg-icons'
 
 // Add the imported icons to the library

@@ -1,8 +1,9 @@
 import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`issue-1986`, () => {
   let child: ExecaReturnValue

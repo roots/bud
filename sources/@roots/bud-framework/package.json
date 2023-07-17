@@ -110,7 +110,7 @@
         "./lib/extension/decorators/*.d.ts"
       ],
       "methods/setPath": [
-        "./lib/methods/setPath.d.ts"
+        "./lib/methods/setPath/index.d.ts"
       ],
       "methods/*": [
         "./lib/methods/*.d.ts"

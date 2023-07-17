@@ -1,10 +1,11 @@
 import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import {beforeAll, describe, expect, it} from 'vitest'
 
-describe('issue-1995', () => {
+describe(`issue-1995`, () => {
   let fs: Filesystem
 
   beforeAll(async () => {
@@ -19,7 +20,7 @@ describe('issue-1995', () => {
     })
   }, 30000)
 
-  it('should generate app.js', async () => {
+  it(`should generate app.js`, async () => {
     const file = await fs.read(
       join(
         paths.tests,

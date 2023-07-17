@@ -1,10 +1,11 @@
 import {join} from 'node:path'
+
 import {paths} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
-import {beforeAll, describe, expect, it} from 'vitest'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import {beforeAll, describe, expect, it} from 'vitest'
 
-describe('issue-1886', () => {
+describe(`issue-1886`, () => {
   let fs: Filesystem
 
   beforeAll(async () => {
@@ -17,7 +18,7 @@ describe('issue-1886', () => {
     })
   })
 
-  it('should generate webp from png included in js source', async () => {
+  it(`should generate webp from png included in js source`, async () => {
     const manifest = await fs.read(
       join(
         paths.tests,
@@ -32,10 +33,10 @@ describe('issue-1886', () => {
       join(paths.tests, `reproductions`, `issue-1886`, `dist`, path),
       `utf8`,
     )
-    expect(image.length).toMatchInlineSnapshot('8377')
+    expect(image.length).toMatchInlineSnapshot(`8377`)
   })
 
-  it('should generate webp from png included in css source', async () => {
+  it(`should generate webp from png included in css source`, async () => {
     const manifest = await fs.read(
       join(
         paths.tests,
@@ -53,10 +54,10 @@ describe('issue-1886', () => {
       join(paths.tests, `reproductions`, `issue-1886`, `dist`, path),
       `utf8`,
     )
-    expect(image.length).toMatchInlineSnapshot('8377')
+    expect(image.length).toMatchInlineSnapshot(`8377`)
   })
 
-  it('should inline svg when url appended with ?inline  in css source', async () => {
+  it(`should inline svg when url appended with ?inline  in css source`, async () => {
     const css = await fs.read(
       join(
         paths.tests,
@@ -69,11 +70,11 @@ describe('issue-1886', () => {
       `utf8`,
     )
     expect(css).toMatchInlineSnapshot(
-      "\"body{background:url(../images/generated.bud-css@1200x630.715bf314fbd1a288.webp)}div:before{content:url(../images/bud.svg);position:relative}div:after{content:url(\\\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 81 77'%3E%3Cg fill='none' stroke='%23fff'%3E%3Cpath d='m79.9 38.1-7.2-22-12.8-4.2L52 1H28.8l-7.9 10.9L8.2 16 1 38.1 8.9 49v13.4L27.6 76l12.8-4.2L53.2 76 72 62.4V48.9z'/%3E%3Cpath d='m40.4 52.4-.5-.4-12.5-9.1 4.8-14.7.2-.6h16l5 15.3L42.3 51zm33.1-15.3L68 44.6l-8.9-2.9-5.4-16.5 5.5-7.6 8.9 2.9 5.4 16.6zM31.8 6.7h17.3l5.5 7.6-.8 1.1-4.7 6.5H31.7L27 15.3l-.7-1zM12.7 20.6l8.9-2.9 5.5 7.6-.1.2-5.3 16.2-8.9 2.9L7.3 37zm1.9 38.9v-9.4l1.1-.4 7.8-2.5 12.7 9.2 1.4 1v9.4l-8.9 2.9zm37.6 10.1-8.9-2.9v-9.4l1.2-.9 12.8-9.3 6.3 2.1 2.6.8v9.5z'/%3E%3C/g%3E%3C/svg%3E\\\");position:relative}\"",
+      `"body{background:url(../images/generated.bud-css@1200x630.715bf314fbd1a288.webp)}div:before{content:url(../images/bud.svg);position:relative}div:after{content:url(\\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 81 77'%3E%3Cg fill='none' stroke='%23fff'%3E%3Cpath d='m79.9 38.1-7.2-22-12.8-4.2L52 1H28.8l-7.9 10.9L8.2 16 1 38.1 8.9 49v13.4L27.6 76l12.8-4.2L53.2 76 72 62.4V48.9z'/%3E%3Cpath d='m40.4 52.4-.5-.4-12.5-9.1 4.8-14.7.2-.6h16l5 15.3L42.3 51zm33.1-15.3L68 44.6l-8.9-2.9-5.4-16.5 5.5-7.6 8.9 2.9 5.4 16.6zM31.8 6.7h17.3l5.5 7.6-.8 1.1-4.7 6.5H31.7L27 15.3l-.7-1zM12.7 20.6l8.9-2.9 5.5 7.6-.1.2-5.3 16.2-8.9 2.9L7.3 37zm1.9 38.9v-9.4l1.1-.4 7.8-2.5 12.7 9.2 1.4 1v9.4l-8.9 2.9zm37.6 10.1-8.9-2.9v-9.4l1.2-.9 12.8-9.3 6.3 2.1 2.6.8v9.5z'/%3E%3C/g%3E%3C/svg%3E\\");position:relative}"`,
     )
   })
 
-  it('should inline svg when url appended with ?inline in js source', async () => {
+  it(`should inline svg when url appended with ?inline in js source`, async () => {
     const js = await fs.read(
       join(
         paths.tests,
@@ -90,7 +91,7 @@ describe('issue-1886', () => {
     )
   })
 
-  it.skip('should work with disk caching', async () => {
+  it.skip(`should work with disk caching`, async () => {
     await execa(`yarn`, [`bud`, `clean`], {
       cwd: join(paths.tests, `reproductions`, `issue-1886`),
     })

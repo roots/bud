@@ -1,6 +1,5 @@
-import setup from '@repo/test-kit/setup'
-
 import {path} from '@repo/constants'
+import setup from '@repo/test-kit/setup'
 import fs from 'fs-jetpack'
 import {describe, expect, it} from 'vitest'
 

@@ -10,8 +10,8 @@ import {
   it,
 } from 'vitest'
 
-import * as install from './util/install'
 import {destinationPath} from './util/copy'
+import * as install from './util/install'
 
 describe(`html output of examples/babel`, () => {
   let browser: Browser

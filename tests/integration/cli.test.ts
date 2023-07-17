@@ -27,7 +27,7 @@ describe.skip(`cli`, () => {
   })
 
   it(`should run bud build command`, async () => {
-    const {stdout, stderr} = await execa(`yarn`, [`bud`, `build`], {
+    const {stderr, stdout} = await execa(`yarn`, [`bud`, `build`], {
       cwd: tmpProjectDir,
     })
 
@@ -45,11 +45,11 @@ describe.skip(`cli`, () => {
     expect(lines[6]).toMatch(/│   ├─ css\/app.css .*/)
     expect(lines[7]).toMatch(/│   └─ js\/app.js .*/)
 
-    expect(stderr).toMatchInlineSnapshot('""')
+    expect(stderr).toMatchInlineSnapshot(`""`)
   })
 
   it(`should run bud doctor command`, async () => {
-    const {stdout, stderr} = await execa(`yarn`, [`bud`, `doctor`], {
+    const {stderr, stdout} = await execa(`yarn`, [`bud`, `doctor`], {
       cwd: tmpProjectDir,
     })
 
@@ -62,7 +62,7 @@ describe.skip(`cli`, () => {
 
       ✅ dependencies synced"
     `)
-    expect(stderr).toMatchInlineSnapshot('""')
+    expect(stderr).toMatchInlineSnapshot(`""`)
   })
 
   it(`should run bud upgrade command`, async () => {

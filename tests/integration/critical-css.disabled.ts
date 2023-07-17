@@ -1,7 +1,7 @@
-import {default as setup, type Project} from '@repo/test-kit/setup'
-
-import * as FS from '@roots/bud-support/filesystem'
 import {join} from 'path'
+
+import {type Project, default as setup} from '@repo/test-kit/setup'
+import * as FS from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe.skip(`critical-css`, () => {

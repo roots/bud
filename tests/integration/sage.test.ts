@@ -11,7 +11,7 @@ describe(`examples/sage`, () => {
   let sage: Project
 
   beforeAll(async () => {
-    sage = setup({label: `@examples/sage`, dist: `public`})
+    sage = setup({dist: `public`, label: `@examples/sage`})
     await sage.install()
     await sage.build()
   })
