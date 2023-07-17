@@ -80,7 +80,7 @@
     "@babel/core": "7.22.9",
     "@babel/plugin-transform-runtime": "7.22.5",
     "@babel/preset-env": "7.22.5",
-    "@babel/runtime": "7.22.5",
+    "@babel/runtime": "7.22.6",
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
