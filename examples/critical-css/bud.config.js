@@ -6,5 +6,5 @@ export default async bud => {
 
   bud.html({template: bud.path('public/index.html')})
 
-  bud.critical.set(`src`, app.path(`public/index.html`)).enable()
+  bud.critical.set(`src`, bud.path(`public/index.html`)).enable()
 }

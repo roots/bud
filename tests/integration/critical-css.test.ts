@@ -4,7 +4,7 @@ import {type Project, default as setup} from '@repo/test-kit/setup'
 import * as FS from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-describe.skip(`critical-css`, () => {
+describe(`critical-css`, () => {
   let test: Project
   let fs: FS.Filesystem
 
