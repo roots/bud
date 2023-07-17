@@ -58,12 +58,24 @@ class Project {
         cwd: this.directory,
       })
     } else if (globalThis.__INTEGRATION__) {
+      await execa(
+        `node`,
+        [this.getPath(`node_modules`, `.bin`, `bud`), `clean`],
+        {cwd: this.directory},
+      )
       results = await execa(
         `node`,
         [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
         {cwd: this.directory},
       )
     } else {
+      await execa(`yarn`, [
+        `bud`,
+        `--basedir`,
+        this.options.label.replace(`@examples/`, `examples/`),
+        `clean`,
+      ])
+
       results = await execa(`yarn`, [
         `bud`,
         `--basedir`,
