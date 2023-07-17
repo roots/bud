@@ -106,7 +106,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.22.5",
+    "@babel/core": "7.22.9",
     "@roots/bud": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-swc": "workspace:*",
