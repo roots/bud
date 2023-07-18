@@ -4,7 +4,7 @@ updates:
   - package-ecosystem: npm
     assignees:
       - kellymears
-    directory: /@sources
+    directory: /sources
     schedule:
       interval: daily
       time: '09:00'
