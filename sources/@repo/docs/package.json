@@ -1,7 +1,7 @@
 {
   "name": "@repo/docs",
   "private": true,
-  "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
+  "description": "Configurable, extensible build tools for modern single and multi-page web applications",
   "engines": {
     "node": "^16.3.0"
   },

@@ -3,12 +3,16 @@ import type {GrayMatterFile} from 'gray-matter'
 import {path, projectConfig} from '@repo/constants'
 import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
+import {Logger} from '@roots/bud-support/logger'
 import matter from 'gray-matter'
 import {format} from 'prettier'
 
 import {templates} from './renderer/index.js'
 
 const fs = new Filesystem()
+const logger = new Logger({
+  logLevel: `info`,
+})
 
 type Chunks = Array<string> | Promise<Array<string>>
 type File = GrayMatterFile<string>
@@ -33,9 +37,17 @@ const generateReadme = async (signifier: string) => {
     path(`sources`, signifier, `docs`, `*.{md,mdx}`),
   ).then(
     async files =>
-      await files.sort().reduce(async (files, path) => {
-        const body = await fs.read(path, `utf8`)
-        return [...(await files), matter(body)]
+      await files.sort().reduce(async (accumulator, path, i) => {
+        logger.log(`writing ${signifier} ${i + 1}/${files.length}`)
+        const body = await fs.read(path, `utf8`).catch(error => {
+          logger.error(error.message)
+        })
+        logger.log(
+          `${signifier} ${i + 1}/${files.length} body is ${
+            body.length
+          } characters`,
+        )
+        return [...(await accumulator), matter(body)]
       }, Promise.resolve([])),
   )
 
@@ -55,7 +67,7 @@ const generateReadme = async (signifier: string) => {
 
   await fs.write(
     path(`sources`, signifier, `README.md`),
-    format(templates.core(data), {parser: `markdown`}),
+    await format(templates.core(data), {parser: `markdown`}),
   )
 }
 
@@ -107,5 +119,13 @@ const data = {
   ...(await getProps(`@roots/bud`)),
   name: `bud.js`,
 }
-const readme = format(templates.root(data), {parser: `markdown`})
-await fs.write(outputPath, readme)
+const body = templates.root(data)
+logger.log(`repo readme.md is ${body.length} characters`)
+const formatted = await format(templates.root(data), {
+  parser: `markdown`,
+}).catch(error => logger.error(`repo readme.md`, error.message))
+logger.log(formatted)
+await fs
+  .write(outputPath, formatted)
+  .catch(error => logger.error(`repo readme.md`, error.message))
+  .finally(() => logger.log(`Wrote repo readme.md`))

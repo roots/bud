@@ -27,8 +27,8 @@ handlebars.registerHelper(`dotPath`, function (context, options) {
   return `${options.fn(this).replace(/\./, options.data.root.name)}`
 })
 
-handlebars.registerHelper(`raw`, function (options) {
-  return options.fn(this)
+handlebars.registerHelper(`raw`, function (context) {
+  return context.fn(this)
 })
 
 export {handlebars, Handlebars}

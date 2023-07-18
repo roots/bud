@@ -52,6 +52,7 @@ export class Docs extends Command {
           `compiled/cli-examples/index.js`,
         ])
         .catch(this.catch),
+
       this.cli
         .run([
           `workspace`,
@@ -61,6 +62,7 @@ export class Docs extends Command {
           `compiled/releases/index.js`,
         ])
         .catch(this.catch),
+
       this.cli
         .run([
           `workspace`,

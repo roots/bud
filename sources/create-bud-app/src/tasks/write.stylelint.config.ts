@@ -45,7 +45,10 @@ export default async function writeStylelintConfigTask(
 
     const result = template({extends: configExtends})
 
-    await command.fs.write(`stylelint.config.cjs`, formatSource(result))
+    await command.fs.write(
+      `stylelint.config.cjs`,
+      await formatSource(result),
+    )
   } catch (error) {
     spinner.fail()
     throw error

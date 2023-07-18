@@ -40,7 +40,7 @@ export default async function writeConfigTask(command: CreateCommand) {
 
     await command.fs.write(
       `bud.config.ts`,
-      formatSource(result, {parser: `typescript`}),
+      await formatSource(result, {parser: `typescript`}),
     )
 
     spinner.succeed()

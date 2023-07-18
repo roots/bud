@@ -51,7 +51,7 @@ export default async function writeTsConfig(command: CreateCommand) {
 
     await command.fs.write(
       `tsconfig.json`,
-      formatSource(source, {parser: `json`}),
+      await formatSource(source, {parser: `json`}),
     )
   } catch (error) {
     spinner.fail()

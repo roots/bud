@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud</strong></h1>
 
 <p align="center">
-  Frontend build tools combining the best parts of Symfony Encore and Laravel Mix
+  Configurable, extensible build tools for modern single and multi-page web applications
 </p>
 
 ---
