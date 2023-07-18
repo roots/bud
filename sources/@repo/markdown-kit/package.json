@@ -14,8 +14,8 @@
     "vitest": "0.33.0"
   },
   "dependencies": {
-    "@octokit/core": "4.2.4",
-    "@octokit/plugin-paginate-rest": "6.1.2",
+    "@octokit/core": "5.0.0",
+    "@octokit/plugin-paginate-rest": "8.0.0",
     "@repo/constants": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
@@ -28,8 +28,8 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
-    "octokit": "2.1.0",
-    "prettier": "2.8.8",
+    "octokit": "3.0.0",
+    "prettier": "3.0.0",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.0",
     "typescript": "5.1.6"

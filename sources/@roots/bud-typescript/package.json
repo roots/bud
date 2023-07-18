@@ -91,7 +91,7 @@
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
     "@types/node": "18.16.19",
     "@types/webpack-env": "1.18.1",
-    "webpack": "5.88.1"
+    "webpack": "5.88.2"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",

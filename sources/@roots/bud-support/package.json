@@ -251,7 +251,7 @@
     "toml": "3.0.0",
     "tslib": "2.6.0",
     "typanion": "3.13.0",
-    "webpack": "5.88.1",
+    "webpack": "5.88.2",
     "webpack-dev-middleware": "6.1.1",
     "webpack-manifest-plugin": "5.0.0",
     "yml-loader": "2.1.0"

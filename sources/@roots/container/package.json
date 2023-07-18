@@ -74,7 +74,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.19",
-    "type-fest": "3.13.1"
+    "type-fest": "4.0.0"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
