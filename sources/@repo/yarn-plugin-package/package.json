@@ -4,9 +4,9 @@
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
   "dependencies": {
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.18",
-    "@yarnpkg/builder": "4.0.0-rc.46",
+    "@types/lodash-es": "4.17.8",
+    "@types/node": "18.16.19",
+    "@yarnpkg/builder": "4.0.0-rc.48",
     "@yarnpkg/cli": "4.0.0-rc.48",
     "@yarnpkg/core": "4.0.0-rc.48",
     "@yarnpkg/shell": "4.0.0-rc.48",

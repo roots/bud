@@ -72,14 +72,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.18",
+    "@types/node": "18.16.19",
     "@types/postcss-import": "14.0.0"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "postcss": "8.4.24",
+    "postcss": "8.4.26",
     "postcss-import": "15.1.0",
     "postcss-loader": "7.3.3",
     "postcss-nested": "6.0.1",

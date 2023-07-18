@@ -67,8 +67,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.7",
-    "@types/node": "18.16.18",
+    "@types/lodash-es": "4.17.8",
+    "@types/node": "18.16.19",
     "json-schema-to-typescript": "13.0.2"
   },
   "dependencies": {

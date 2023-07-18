@@ -67,13 +67,13 @@
   "devDependencies": {
     "@roots/bud-build": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.18"
+    "@types/node": "18.16.19"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "esbuild": "0.18.10",
+    "esbuild": "0.18.13",
     "esbuild-loader": "3.0.1",
     "tslib": "2.6.0",
     "webpack": "5.88.1"

@@ -61,7 +61,7 @@
   "devDependencies": {
     "@babel/core": "7.22.9",
     "@skypack/package-check": "0.2.2",
-    "babel-loader": "9.1.2",
+    "babel-loader": "9.1.3",
     "memfs": "3.5.3"
   },
   "dependencies": {

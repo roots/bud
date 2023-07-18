@@ -169,13 +169,13 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.18"
+    "@types/node": "18.16.19"
   },
   "dependencies": {
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",
     "@roots/filesystem": "workspace:*",
-    "chalk": "5.2.0",
+    "chalk": "5.3.0",
     "execa": "7.1.1",
     "tslib": "2.6.0",
     "webpack": "5.88.1"
