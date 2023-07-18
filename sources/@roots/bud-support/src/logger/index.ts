@@ -27,25 +27,34 @@ class Logger {
   /**
    * Class constructor
    */
-  public constructor(public options: SignaleOptions) {
-    if (args.log === false) this.options.disabled = true
-    options.logLevel = args.verbose ? `info` : args.log ? `log` : `warn`
+  public constructor(public options: SignaleOptions = {}) {
+    if (args.log === false || options?.disabled === true)
+      this.options.disabled = true
 
     if (process.env) {
-      this.options.secrets = Object.entries(process.env)
-        .filter(
-          (
-            entry: [string, string | undefined],
-          ): entry is [string, string] =>
-            !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
-        )
-        .map(([k, v]): string => v)
+      this.options.secrets =
+        options?.secrets ??
+        Object.entries(process.env)
+          .filter(
+            (
+              entry: [string, string | undefined],
+            ): entry is [string, string] =>
+              !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
+          )
+          .map(([k, v]): string => v)
     }
 
     this.instance = new Signale.Signale(this.options)
     this.instance.config({displayLabel: false})
-    if (args.verbose) this.verbose = true
-    if (args.log) this.enabled = true
+
+    if (args.verbose || this.options.logLevel === `info`)
+      this.verbose = true
+    if (
+      args.log ||
+      (this.options.logLevel &&
+        [`info`, `log`].includes(this.options.logLevel))
+    )
+      this.enabled = true
     if (args.silent) this.enabled = false
   }
 

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud",
   "version": "0.0.0",
-  "description": "Frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+  "description": "Configurable, extensible build tools for modern single and multi-page web applications",
   "engines": {
     "node": ">=16.0.0"
   },

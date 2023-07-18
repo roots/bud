@@ -29,7 +29,7 @@ export default async function writeStylelintConfigTask(
   const result = template({})
 
   try {
-    await command.fs.write(`.prettierrc.cjs`, formatSource(result))
+    await command.fs.write(`.prettierrc.cjs`, await formatSource(result))
   } catch (error) {
     spinner.fail()
     throw error

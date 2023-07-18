@@ -1,7 +1,7 @@
 {
   "name": "bud",
   "private": true,
-  "description": "⚡️ Lightning fast frontend build tools combining the best parts of Symfony Encore and Laravel Mix",
+  "description": "Configurable, extensible build tools for modern single and multi-page web applications",
   "engines": {
     "node": "18.16.1",
     "yarn": "1.22.19",

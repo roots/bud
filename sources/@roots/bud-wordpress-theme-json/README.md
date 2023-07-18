@@ -61,7 +61,7 @@ bud.wptheme
     theme
       .set("typography.customFontSizes", true)
       .set("typography.fontWeight", false)
-      .merge("spacing.units", ["px", "%", "em"])
+      .merge("spacing.units", ["px", "%", "em"]),
   )
   .enable();
 ```
