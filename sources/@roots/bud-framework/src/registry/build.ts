@@ -24,8 +24,7 @@ export interface Sync {
   externals: Record<string, Array<RegExp | string> | RegExp | string>
   externalsType: Configuration[`externalsType`]
   infrastructureLogging: Configuration[`infrastructureLogging`]
-  'infrastructureLogging.console':
-    | Configuration[`infrastructureLogging`][`console`]
+  'infrastructureLogging.console': Configuration[`infrastructureLogging`][`console`]
   'infrastructureLogging.level': Configuration[`infrastructureLogging`][`level`]
   loader: Configuration[`loader`]
   mode: Configuration[`mode`] & ('development' | 'production')
@@ -50,8 +49,7 @@ export interface Sync {
   'optimization.nodeEnv': Configuration[`optimization`][`nodeEnv`]
   'optimization.providedExports': Configuration[`optimization`][`providedExports`]
   'optimization.removeAvailableModules': Configuration[`optimization`][`removeAvailableModules`]
-  'optimization.removeEmptyChunks':
-    | Configuration[`optimization`][`removeEmptyChunks`]
+  'optimization.removeEmptyChunks': Configuration[`optimization`][`removeEmptyChunks`]
   'optimization.runtimeChunk': Configuration[`optimization`][`runtimeChunk`]
   'optimization.sideEffects': Configuration[`optimization`][`sideEffects`]
   'optimization.splitChunks': false | Optimization.SplitChunks
@@ -65,10 +63,8 @@ export interface Sync {
   'output.environment': Configuration[`output`][`environment`]
   'output.filename': Configuration[`output`][`filename`]
   'output.hashFunction': Configuration[`output`][`hashFunction`]
-  'output.hotUpdateChunkFilename':
-    | Configuration[`output`][`hotUpdateChunkFilename`]
-  'output.hotUpdateMainFilename':
-    | Configuration[`output`][`hotUpdateMainFilename`]
+  'output.hotUpdateChunkFilename': Configuration[`output`][`hotUpdateChunkFilename`]
+  'output.hotUpdateMainFilename': Configuration[`output`][`hotUpdateMainFilename`]
   'output.iife': Configuration[`output`][`iife`]
   'output.module': Configuration[`output`][`module`]
   'output.path': Configuration[`output`][`path`]

@@ -87,15 +87,15 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.18",
-    "webpack": "5.88.1"
+    "@types/node": "18.16.19",
+    "webpack": "5.88.2"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "stylelint": "15.9.0",
-    "stylelint-config-standard": "33.0.0",
+    "stylelint": "15.10.1",
+    "stylelint-config-standard": "34.0.0",
     "stylelint-webpack-plugin": "4.1.1",
     "tslib": "2.6.0"
   },

@@ -2,7 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
 export type Parameters<
-  T extends `${keyof Configuration[`experiments`]}` = `${keyof Configuration[`experiments`]}`,
+  T extends
+    `${keyof Configuration[`experiments`]}` = `${keyof Configuration[`experiments`]}`,
 > = [
   Partial<Configuration[`experiments`]> | T,
   Configuration[`experiments`][T]?,

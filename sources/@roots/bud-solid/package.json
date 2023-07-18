@@ -76,7 +76,7 @@
     "@babel/core": "7.22.9",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.1",
-    "@types/node": "18.16.18"
+    "@types/node": "18.16.19"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",
@@ -84,7 +84,7 @@
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "babel-preset-solid": "1.7.7",
-    "solid-js": "1.7.7",
+    "solid-js": "1.7.8",
     "tslib": "2.6.0"
   },
   "volta": {

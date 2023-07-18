@@ -22,9 +22,9 @@ import ThemeJsonWebpackPlugin from '@roots/wordpress-theme-json-webpack-plugin'
  * Callback function used to configure wordpress `theme.json`
  */
 interface Mutator {
-  (json: Container<Partial<Options['settings']>>): Container<
-    Partial<Options['settings']>
-  >
+  (
+    json: Container<Partial<Options['settings']>>,
+  ): Container<Partial<Options['settings']>>
   (json: Partial<Options['settings']>): Partial<Options['settings']>
 }
 

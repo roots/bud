@@ -10,9 +10,13 @@ import {rules} from './rules/index.js'
  * Registry factory curry function
  */
 export interface makeRegister {
-  <T, F extends CallableFunction>(props: Partial<Bud>, setRule: F): <
-    K extends keyof T & string,
-  >([key, factory]: [K, Factory<T[K]>]) => void
+  <T, F extends CallableFunction>(
+    props: Partial<Bud>,
+    setRule: F,
+  ): <K extends keyof T & string>([key, factory]: [
+    K,
+    Factory<T[K]>,
+  ]) => void
 }
 
 /**

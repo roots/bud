@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.195",
-    "@types/node": "18.16.18",
+    "@types/node": "18.16.19",
     "@types/semver": "7.5.0",
     "@yarnpkg/builder": "4.0.0-rc.46",
     "typescript": "5.1.6"
@@ -20,9 +20,9 @@
     "@yarnpkg/shell": "4.0.0-rc.48",
     "clipanion": "3.2.1",
     "fs-jetpack": "5.1.0",
-    "globby": "13.2.0",
+    "globby": "13.2.2",
     "lodash": "4.17.21",
-    "semver": "7.5.3",
+    "semver": "7.5.4",
     "tslib": "2.6.0"
   },
   "scripts": {
