@@ -83,10 +83,11 @@ export const client = async (
    * Webpack HMR error handler
    */
   const onErrored = (error: any) => {
-    window.bud.controllers.map(controller =>
-      controller?.update({
-        errors: [error],
-      }),
+    window.bud.controllers.map(
+      controller =>
+        controller?.update({
+          errors: [error],
+        }),
     )
   }
 
