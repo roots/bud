@@ -8334,7 +8334,7 @@ __metadata:
     dotenv: 16.3.1
     dotenv-expand: 10.0.0
     env-paths: 3.0.0
-    esbuild-wasm: 0.18.13
+    esbuild-wasm: 0.18.14
     execa: 7.1.1
     express: 4.18.2
     figures: 5.0.0
@@ -18640,12 +18640,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-wasm@npm:0.18.13":
-  version: 0.18.13
-  resolution: "esbuild-wasm@npm:0.18.13"
+"esbuild-wasm@npm:0.18.14":
+  version: 0.18.14
+  resolution: "esbuild-wasm@npm:0.18.14"
   bin:
     esbuild: bin/esbuild
-  checksum: a472d9b23399f992900b9a41e36919ff7d076faf83fbdd90f692c847fdf26e695133e5bcd67506ca976f373ab9a205cd3ac54e6611210f3ea9ff006cc7409b55
+  checksum: 9db0b6d3922951c10e67ed2def420f9671bd8030a5a1e72153c6a53c2097111ff37b6f3ddc7f1108d642be9fbc01dd20a515ba48563a12ee4b0e2ed01ef32ee2
   languageName: node
   linkType: hard
 
