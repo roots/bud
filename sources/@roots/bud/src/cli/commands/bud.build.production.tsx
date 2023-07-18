@@ -25,7 +25,12 @@ export default class BuildProductionCommand extends BuildCommand {
       If you run this command without a bud configuration file \`bud\` will
       look for an entrypoint at \`@src/index.js\`.
     `,
-    examples: [[`compile source assets`, `$0 build production`]],
+    examples: [
+      [
+        `Compile source assets in \`production\` mode`,
+        `$0 build production`,
+      ],
+    ],
   })
 
   public override mode: typeof mode = `production`
