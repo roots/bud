@@ -20,7 +20,8 @@ export class Syncpack extends Command {
   public async execute() {
     await this.cli
       .run([
-        `syncpack`,
+        `node`,
+        path(`node_modules`, `.bin`, `syncpack`),
         `list-mismatches`,
         `--config`,
         path(`config/syncpack.config.cjs`),

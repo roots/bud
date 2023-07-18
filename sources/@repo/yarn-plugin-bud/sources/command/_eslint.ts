@@ -20,6 +20,7 @@ export class Eslint extends Command {
   public async execute() {
     await this.cli
       .run([
+        `node`,
         path(`node_modules`, `.bin`, `eslint`),
         path(`examples/**/*.{ts,tsx,js,jsx}`),
         path(`sources/**/src/**/*.{ts,tsx,js,jsx}`),

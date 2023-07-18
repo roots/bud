@@ -1,3 +1,4 @@
+import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {globby} from 'globby'
 
@@ -29,7 +30,12 @@ export class PackageCheck extends Command {
             [...dirs, `sources/create-bud-app`].flatMap(
               async dir =>
                 await this.cli
-                  .run([`package-check`, `--cwd`, dir])
+                  .run([
+                    `node`,
+                    path(`node_modules`, `.bin`, `package-check`),
+                    `--cwd`,
+                    dir,
+                  ])
                   .then(this.throwIfError)
                   .catch(this.catch),
             ),

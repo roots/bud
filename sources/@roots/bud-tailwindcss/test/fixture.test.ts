@@ -1,5 +1,5 @@
 import {join} from 'node:path'
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {execa, ExecaReturnValue} from 'execa'
 import {beforeAll, describe, expect, it} from 'vitest'
 import fs from 'fs-jetpack'
@@ -30,8 +30,8 @@ describe(`@tests/tailwind-integration-test`, () => {
   it(`should generate bg-primary class`, async () => {
     expect(
       await fs.existsAsync(
-        join(
-          paths.sources,
+        path(
+          `sources`,
           `@roots`,
           `bud-tailwindcss`,
           `test`,
@@ -44,8 +44,8 @@ describe(`@tests/tailwind-integration-test`, () => {
     ).toBe(`file`)
     expect(
       await fs.readAsync(
-        join(
-          paths.sources,
+        path(
+          `sources`,
           `@roots`,
           `bud-tailwindcss`,
           `test`,

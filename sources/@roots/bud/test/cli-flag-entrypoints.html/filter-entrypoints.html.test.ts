@@ -1,13 +1,11 @@
-import {join} from 'node:path'
 import {test, expect} from 'vitest'
 import fs from 'fs-jetpack'
 import {execa} from 'execa'
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 
 test('--entrypoints.html', async () => {
   await fs.removeAsync(
-    join(
-      paths.root,
+    path(
       'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist',
     ),
   )
@@ -22,8 +20,7 @@ test('--entrypoints.html', async () => {
 
   expect(
     await fs.existsAsync(
-      join(
-        paths.root,
+      path(
         'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
       ),
     ),
@@ -40,8 +37,7 @@ test('--entrypoints.html', async () => {
 
   expect(
     await fs.existsAsync(
-      join(
-        paths.root,
+      path(
         'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
       ),
     ),
@@ -58,8 +54,7 @@ test('--entrypoints.html', async () => {
 
   expect(
     await fs.existsAsync(
-      join(
-        paths.root,
+      path(
         'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
       ),
     ),
