@@ -7746,7 +7746,7 @@ __metadata:
     "@types/lodash": 4.14.195
     "@types/node": 18.16.19
     "@types/semver": 7.5.0
-    "@yarnpkg/builder": 4.0.0-rc.46
+    "@yarnpkg/builder": 4.0.0-rc.48
     "@yarnpkg/cli": 4.0.0-rc.48
     "@yarnpkg/core": 4.0.0-rc.48
     "@yarnpkg/shell": 4.0.0-rc.48
@@ -12707,24 +12707,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/builder@npm:4.0.0-rc.46":
-  version: 4.0.0-rc.46
-  resolution: "@yarnpkg/builder@npm:4.0.0-rc.46"
-  dependencies:
-    "@yarnpkg/cli": ^4.0.0-rc.46
-    "@yarnpkg/core": ^4.0.0-rc.46
-    "@yarnpkg/fslib": ^3.0.0-rc.46
-    chalk: ^3.0.0
-    clipanion: ^3.2.1
-    esbuild: "npm:esbuild-wasm@^0.15.15"
-    semver: ^7.1.2
-    tslib: ^2.4.0
-  bin:
-    builder: ./lib/cli.js
-  checksum: 68071849395e87add29b772992c76225338d011b159ca10c40a5a5d45d6d28c729d2b15138fcfa83e70571ad93de6d0079b5a34ea5a459cce941624241ae86dc
-  languageName: node
-  linkType: hard
-
 "@yarnpkg/builder@npm:4.0.0-rc.48":
   version: 4.0.0-rc.48
   resolution: "@yarnpkg/builder@npm:4.0.0-rc.48"
@@ -12743,7 +12725,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/cli@npm:4.0.0-rc.48, @yarnpkg/cli@npm:^4.0.0-rc.46, @yarnpkg/cli@npm:^4.0.0-rc.48":
+"@yarnpkg/cli@npm:4.0.0-rc.48, @yarnpkg/cli@npm:^4.0.0-rc.48":
   version: 4.0.0-rc.48
   resolution: "@yarnpkg/cli@npm:4.0.0-rc.48"
   dependencies:
@@ -12786,7 +12768,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/core@npm:4.0.0-rc.48, @yarnpkg/core@npm:^4.0.0-rc.46, @yarnpkg/core@npm:^4.0.0-rc.48":
+"@yarnpkg/core@npm:4.0.0-rc.48, @yarnpkg/core@npm:^4.0.0-rc.48":
   version: 4.0.0-rc.48
   resolution: "@yarnpkg/core@npm:4.0.0-rc.48"
   dependencies:
@@ -12829,7 +12811,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/fslib@npm:^3.0.0-rc.46, @yarnpkg/fslib@npm:^3.0.0-rc.48":
+"@yarnpkg/fslib@npm:^3.0.0-rc.48":
   version: 3.0.0-rc.48
   resolution: "@yarnpkg/fslib@npm:3.0.0-rc.48"
   dependencies:
