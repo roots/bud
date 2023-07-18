@@ -2,17 +2,20 @@ version: 2
 
 updates:
   - package-ecosystem: npm
-    directory: /
+    assignees:
+      - kellymears
+    directory: /@sources
     schedule:
       interval: daily
       time: '09:00'
     commit-message:
       prefix: '📦 deps'
-      include: scope
     labels:
       - dependencies
 
   - package-ecosystem: github-actions
+    assignees:
+      - kellymears
     directory: /
     schedule:
       interval: daily
@@ -21,4 +24,3 @@ updates:
       - dependencies
     commit-message:
       prefix: '⚙️ internal'
-      include: scope

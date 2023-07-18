@@ -20,10 +20,10 @@ export class Prettier extends Command {
   public async execute() {
     await this.cli
       .run([
-        `prettier`,
-        path(`sources/@roots/*/src/**/*`),
+        path(`node_modules`, `.bin`, `prettier`),
+        path(`sources`, `@roots`, `*`, `src`, `**`, `*`),
         `--config`,
-        path(`config/prettier.config.cjs`),
+        path(`config`, `prettier.config.js`),
         `--ignore-unknown`,
         `--no-error-on-unmatched-pattern`,
         `--write`,

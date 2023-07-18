@@ -1,5 +1,6 @@
 /* eslint-disable n/no-process-env */
 import {CommandClass, Option} from 'clipanion'
+import {noop} from 'lodash'
 
 import {Command} from './base.command'
 
@@ -33,9 +34,14 @@ export class Release extends Command {
     required: false,
   })
 
-  public override async catch(error: Error) {
+  public constructor() {
+    super()
+    this.catch = this.catch.bind(this)
+    this.resetRegistry = this.resetRegistry.bind(this)
+  }
+
+  public override async catch() {
     await this.resetRegistry()
-    throw error
   }
 
   public async execute() {
@@ -63,27 +69,13 @@ export class Release extends Command {
 
     if (!this.version) {
       const date = new Date()
-      const utcSemver = `${date.getUTCFullYear()}.${
-        date.getUTCMonth() + 1
-      }.${date.getUTCDate()}`
+      const utcSemver = [
+        date.getUTCFullYear(),
+        date.getUTCMonth() + 1,
+        date.getUTCDate(),
+      ].join(`.`)
 
-      await this.cli
-        .run([
-          `exec`,
-          `npm`,
-          `show`,
-          `@roots/bud@${utcSemver}`,
-          `--tag`,
-          this.tag,
-          `--registry`,
-          this.registry,
-        ])
-        .then(() => {
-          this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
-        })
-        .catch(() => {
-          this.version = utcSemver
-        })
+      this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
     }
 
     await this.cli
@@ -117,7 +109,7 @@ export class Release extends Command {
         `npmPublishRegistry`,
         `https://registry.npmjs.org`,
       ])
-      .catch(e => {})
+      .catch(noop)
 
     await this.cli
       .run([
@@ -126,10 +118,9 @@ export class Release extends Command {
         `npmRegistryServer`,
         `https://registry.npmjs.org`,
       ])
-      .catch(e => {})
+      .catch(noop)
 
-    await this.cli.run([`@bud`, `version`, `0.0.0`]).catch(e => {})
-
-    await this.cli.run([`install`]).catch(e => {})
+    await this.cli.run([`@bud`, `version`, `0.0.0`]).catch(noop)
+    await this.cli.run([`install`]).catch(noop)
   }
 }
