@@ -6,5 +6,5 @@ export default async (bud: Bud) => {
   bud.stylelint
     .setFailOnError(bud.isProduction)
     .setFailOnWarning(false)
-    .setFix(true)
+    .setFix(false)
 }

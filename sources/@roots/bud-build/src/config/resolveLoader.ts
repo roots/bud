@@ -13,11 +13,8 @@ export const resolveLoader: Factory<`resolveLoader`> = async ({
       'html-loader': await module.resolve(
         `@roots/bud-support/html-loader`,
       ),
-      json5: await module.resolve(`@roots/bud-support/json5`),
-      'mini-svg-data-uri': await module.resolve(`mini-svg-data-uri`),
       'style-loader': await module.resolve(
         `@roots/bud-support/style-loader`,
       ),
-      toml: await module.resolve(`@roots/bud-support/toml`),
     }),
   })

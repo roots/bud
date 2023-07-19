@@ -70,7 +70,16 @@ export class Compiler extends Service implements BudCompiler {
               }),
           ),
         )
-    this.config.parallelism = Math.max(cpus().length - 1, 1)
+
+    const cores = Math.max(cpus().length, 1)
+    const compilations = Math.max(
+      Object.keys(bud.children ?? []).length,
+      1,
+    )
+    const parallelism = Math.max(Math.floor(cores / compilations), 1)
+
+    this.config.parallelism = parallelism
+    this.logger.info(`parallel compilations: ${this.config.parallelism}`)
 
     await bud.hooks.fire(`compiler.before`, bud).catch(error => {
       throw error
@@ -236,7 +245,7 @@ export class Compiler extends Service implements BudCompiler {
 
       return errors?.map(parseError).filter(Boolean)
     } catch (error) {
-      this.app.warn(`error parsing errors`, error)
+      this.logger.warn(`error parsing errors`, error)
       return []
     }
   }

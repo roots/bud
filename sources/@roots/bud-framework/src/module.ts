@@ -21,6 +21,17 @@ export class Module extends Service {
   public resolved: Record<string, string> = {}
 
   /**
+   * At end of process write resolutions to cache
+   */
+  @bind
+  public async after() {
+    await this.app.fs.write(this.resolutionsPath, {
+      resolutions: this.resolved,
+      version: this.app.context.bud.version,
+    })
+  }
+
+  /**
    * {@link Service.bootstrap}
    */
   @bind
@@ -71,22 +82,18 @@ export class Module extends Service {
    * {@link Service.compilerBefore}
    */
   @bind
-  public override async compilerBefore?(bud: Bud) {
-    await bud.fs.write(this.resolutionsPath, {
-      resolutions: this.resolved,
-      version: bud.context.bud.version,
-    })
-  }
-
-  /**
-   * {@link Service.compilerDone}
-   */
-  @bind
-  public override async compilerDone?(bud: Bud) {
-    await bud.fs.write(this.resolutionsPath, {
-      resolutions: this.resolved,
-      version: bud.context.bud.version,
-    })
+  public override async compilerBefore(bud: Bud) {
+    await bud.fs
+      .write(this.resolutionsPath, {
+        resolutions: this.resolved,
+        version: bud.context.bud.version,
+      })
+      .catch(error => {
+        this.logger.error(error)
+      })
+      .then(result => {
+        bud.fs.read(this.resolutionsPath)
+      })
   }
 
   /**

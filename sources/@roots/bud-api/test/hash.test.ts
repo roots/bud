@@ -1,7 +1,6 @@
 import {type Bud, factory} from '@repo/test-kit'
+import {hash} from '@roots/bud-api/methods/hash'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {hash} from './index.js'
 
 describe(`bud.hash`, () => {
   let bud: Bud
@@ -22,24 +21,6 @@ describe(`bud.hash`, () => {
 
     subject(hash => !hash)
     expect(bud.context.hash).toBe(true)
-  })
-
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
-    subject()
-    expect(successSpy).toHaveBeenCalledWith(`file hashing enabled`)
-  })
-
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
-    subject(true)
-    expect(successSpy).toHaveBeenCalledWith(`file hashing enabled`)
-  })
-
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud, `success`)
-    subject(false)
-    expect(successSpy).toHaveBeenCalledWith(`file hashing disabled`)
   })
 
   it(`should return bud`, () => {

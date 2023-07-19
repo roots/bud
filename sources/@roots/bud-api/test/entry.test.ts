@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
-
 import {entry as entryFn} from '@roots/bud-api/methods/entry'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`bud.entry`, function () {
   let bud: Bud
@@ -91,26 +90,26 @@ describe(`bud.entry`, function () {
     const onSpy = vi.spyOn(bud.hooks, `on`)
 
     await entry({
-      primitiveString: `primitiveString.js`,
-      primitiveArray: [`primitiveArray1.js`, `primitiveArray2.js`],
       normalRecord: {
-        import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
         dependOn: [`primitiveString`],
+        import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
       },
+      primitiveArray: [`primitiveArray1.js`, `primitiveArray2.js`],
+      primitiveString: `primitiveString.js`,
     })
 
     expect(onSpy).toHaveBeenNthCalledWith(
       1,
       `build.entry`,
       expect.objectContaining({
-        primitiveString: {import: [`primitiveString.js`]},
+        normalRecord: {
+          dependOn: [`primitiveString`],
+          import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
+        },
         primitiveArray: {
           import: [`primitiveArray1.js`, `primitiveArray2.js`],
         },
-        normalRecord: {
-          import: [`normalRecordImport1.js`, `normalRecordImport2.js`],
-          dependOn: [`primitiveString`],
-        },
+        primitiveString: {import: [`primitiveString.js`]},
       }),
     )
   })

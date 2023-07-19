@@ -28,8 +28,7 @@ class Logger {
    * Class constructor
    */
   public constructor(public options: SignaleOptions = {}) {
-    if (args.log === false || options?.disabled === true)
-      this.options.disabled = true
+    if (args.log === false || this.options.disabled) this.enabled = false
 
     if (process.env) {
       this.options.secrets =
@@ -49,6 +48,7 @@ class Logger {
 
     if (args.verbose || this.options.logLevel === `info`)
       this.verbose = true
+
     if (
       args.log ||
       (this.options.logLevel &&

@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 
 import {BudError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import logger from '@roots/bud-support/logger'
 
 export interface bindFacade {
   (
@@ -22,7 +23,15 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
   if (`bind` in fn) fn = fn.bind(binding ?? this)
 
   this.set(key, (...args: Array<any>) => {
-    this.promised.push(fn(...args))
+    this.promised
+      .then(async () => await fn(...args))
+      .catch(error => {
+        logger.error(error)
+        throw error
+      })
+      .finally(() => {
+        logger.success(`finished promised call:`, `bud.${key}`)
+      })
     return this
   })
 

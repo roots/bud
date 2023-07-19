@@ -1,0 +1,13 @@
+{
+  "name": "@tests/stylelintrc-no-extension",
+  "private": true,
+  "type": "module",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*"
+  }
+}

@@ -15,6 +15,7 @@ import figures from '@roots/bud-support/figures'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import logger from '@roots/bud-support/logger'
+import args from '@roots/bud-support/utilities/args'
 import basedir from '@roots/bud/cli/flags/basedir'
 import color from '@roots/bud/cli/flags/color'
 import debug from '@roots/bud/cli/flags/debug'
@@ -169,60 +170,60 @@ export default class BudCommand extends Command<CLIContext> {
         : await fn(bud)
     }
 
-    const {context} = bud
+    isset(args.input) && bud.setPath(`@src`, args.input)
+    isset(args.output) && bud.setPath(`@dist`, args.output)
+    isset(args.publicPath) && bud.setPublicPath(args.publicPath)
+    isset(args.modules) && bud.setPath(`@modules`, args.modules)
 
-    isset(context.input) && bud.setPath(`@src`, context.input)
-
-    isset(context.output) && bud.setPath(`@dist`, context.output)
-
-    isset(context.publicPath) && bud.setPublicPath(context.publicPath)
-
-    isset(context.modules) && bud.setPath(`@modules`, context.modules)
-
-    isset(context.hot) &&
+    isset(args.hot) &&
       bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
         middleware.filter(key =>
-          context.hot === false ? key !== `hot` : context.hot,
+          args.hot === false ? key !== `hot` : args.hot,
         ),
       )
 
-    isset(context.proxy) &&
+    isset(args.proxy) &&
       bud.hooks.on(
         `dev.middleware.proxy.options.target`,
-        new URL(context.proxy),
+        new URL(args.proxy),
       )
-    isset(context.cache) &&
-      (await override(async bud => bud.persist(context.cache)))
 
-    isset(context.minimize) &&
-      (await override(async bud => bud.minimize(context.minimize)))
+    isset(args.cache) &&
+      (await override(async bud => bud.persist(args.cache)))
 
-    isset(context.devtool) &&
-      (await override(async bud => bud.devtool(context.devtool)))
+    isset(args.minimize) &&
+      (await override(async bud => bud.minimize(args.minimize)))
 
-    isset(context.esm) &&
-      (await override(async bud => bud.esm.enable(context.esm)))
+    isset(args.devtool) &&
+      (await override(async bud => bud.devtool(args.devtool)))
 
-    isset(context.html) &&
+    isset(args.esm) &&
+      (await override(async bud => bud.esm.enable(args.esm)))
+
+    isset(args.html) &&
       (await override(async bud => {
-        typeof context.html === `string`
-          ? bud.html({template: context.html})
-          : bud.html(context.html)
+        typeof args.html === `string`
+          ? bud.html({template: args.html})
+          : bud.html(args.html)
       }))
 
-    isset(context.immutable) &&
-      (await override(async bud => bud.cdn.freeze(context.immutable)))
+    isset(args.immutable) &&
+      (await override(async bud => bud.cdn.freeze(args.immutable)))
 
-    isset(context.hash) &&
-      (await override(async bud => bud.hash(context.hash)))
+    if (isset(args.hash)) {
+      await override(async bud => {
+        bud.context.hash = args.hash
+        logger.log(`hash set from --hash flag`, `value:`, args.hash)
+      })
+    }
 
-    isset(context.runtime) &&
-      (await override(async bud => bud.runtime(context.runtime)))
+    isset(args.runtime) &&
+      (await override(async bud => bud.runtime(args.runtime)))
 
-    isset(context.splitChunks) &&
-      (await override(async bud => bud.splitChunks(context.splitChunks)))
+    isset(args.splitChunks) &&
+      (await override(async bud => bud.splitChunks(args.splitChunks)))
 
-    context.use && (await bud.extensions.add(context.use as any))
+    isset(args.use) && (await bud.extensions.add(args.use as any))
 
     await override(async bud => await bud.promise())
   }
@@ -269,11 +270,11 @@ export default class BudCommand extends Command<CLIContext> {
       .when(isset(manifest.publicPath), bud =>
         bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath),
       )
-      .when(isset(manifest.paths?.src), bud =>
-        bud.hooks.on(`location.@src`, manifest.bud.paths.src),
+      .when(isset(manifest.paths?.input), bud =>
+        bud.hooks.on(`location.@src`, manifest.bud.paths.input),
       )
-      .when(isset(manifest.paths?.dist), bud =>
-        bud.hooks.on(`location.@dist`, manifest.bud.paths.dist),
+      .when(isset(manifest.paths?.output), bud =>
+        bud.hooks.on(`location.@dist`, manifest.bud.paths.output),
       )
       .when(isset(manifest.paths?.storage), bud =>
         bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
