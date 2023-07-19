@@ -1,6 +1,4 @@
-import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
-import {globby} from 'globby'
 
 import {Command} from './base.command'
 

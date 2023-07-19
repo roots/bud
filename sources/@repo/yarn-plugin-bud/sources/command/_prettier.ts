@@ -28,6 +28,7 @@ export class Prettier extends Command {
 
     await this.cli
       .run([
+        `node`,
         path(`node_modules/.bin/prettier`),
         path(`sources/@roots/*/src/**/*`),
         `--config=${path(`config`, `prettier.config.js`)}`,
