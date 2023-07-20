@@ -68,9 +68,9 @@ const Compilation = ({
       }
       borderColor={compilationColor}
       footer={<Footer compilation={current} />}
-      paddingY={1}
+      paddingY={compact ? 0 : 1}
     >
-      <Box flexDirection="column" gap={1}>
+      <Box flexDirection="column" gap={compact ? 0 : 1}>
         <Messages color="red" messages={current?.errors} />
         <Messages color="yellow" messages={current?.warnings} />
 

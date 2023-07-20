@@ -3,6 +3,7 @@ import type {StatsCompilation} from '@roots/bud-framework/config'
 import Assets from '@roots/bud-dashboard/components/assets'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import figures from '@roots/bud-support/figures'
+import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
 export interface Props {
@@ -54,8 +55,15 @@ export default function CompilationAssets({
       flexWrap="wrap"
       justifyContent="space-between"
     >
-      <Text color={compilationColor}>{`assets`}</Text>
-      <Text>{compilation.assets.length} modules</Text>
+      <Text color={compilationColor}>assets</Text>
+      <Box flexDirection="row" flexWrap="wrap" gap={2}>
+        <Text>{assets.length} modules</Text>
+        <Text>
+          {`${formatSize(
+            assets.reduce((acc, asset) => acc + asset.size, 0),
+          )}`}
+        </Text>
+      </Box>
     </Box>
   ) : (
     <Box flexDirection="column">
