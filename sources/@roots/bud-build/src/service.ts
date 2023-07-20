@@ -111,6 +111,7 @@ export class Build extends Service implements BudBuild {
     )
 
     this.logger.success(`configuration successfully built`)
+    this.logger.info(this.config)
     await this.app.hooks.fire(`build.after`, this.app)
 
     return this.config
