@@ -3,6 +3,7 @@ import type {StatsCompilation} from '@roots/bud-support/webpack'
 import Assets from '@roots/bud-dashboard/components/assets'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import {longestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
+import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
 
 interface Props {
@@ -53,7 +54,14 @@ const Entrypoints = ({
           justifyContent="space-between"
         >
           <Text color={compilationColor}>{name ?? `entrypoint`}</Text>
-          <Text>{assets.length} modules</Text>
+          <Box flexDirection="row" flexWrap="wrap" gap={2}>
+            <Text>{assets.length} modules</Text>
+            <Text>
+              {`${formatSize(
+                assets.reduce((acc, asset) => acc + asset.size, 0),
+              )}`}
+            </Text>
+          </Box>
         </Box>
       ) : (
         <Box flexDirection="column" key={key}>

@@ -15,7 +15,7 @@ export default class BudViewCommand extends BudCommand {
   public static override usage = Command.Usage({
     category: `debug`,
     description: `Explore bud object`,
-    examples: [[`view compiled config`, `$0 view build.config`]],
+    examples: [[`View compiled config`, `$0 view build.config`]],
   })
 
   public indent = indent

@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
+import {noop} from 'lodash'
 
 import {Command} from './base.command'
 
@@ -22,7 +23,6 @@ export class Pm2 extends Command {
         path(`node_modules`, `.bin`, `pm2`),
         ...this.passthrough,
       ])
-      .then(this.throwIfError)
-      .catch(this.catch)
+      .catch(noop)
   }
 }

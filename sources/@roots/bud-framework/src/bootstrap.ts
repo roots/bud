@@ -222,7 +222,6 @@ export const bootstrap = async function (bud: Bud) {
   )
 
   bud.hooks.action(`compiler.before`, bud.module.compilerBefore)
-  bud.hooks.action(`compiler.done`, bud.module.compilerDone)
 
   await [`bootstrap`, `register`, `boot`]
     .reduce(async (promised, event: keyof Registry.EventsStore) => {
@@ -235,4 +234,6 @@ export const bootstrap = async function (bud: Bud) {
       logger.error(error)
       throw error
     })
+
+  bud.after(bud.module.after)
 }

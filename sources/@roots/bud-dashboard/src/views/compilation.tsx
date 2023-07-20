@@ -9,7 +9,7 @@ import Messages from '@roots/bud-dashboard/components/messages'
 import View from '@roots/bud-dashboard/components/view'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import {duration} from '@roots/bud-support/human-readable'
-import {Box, Text} from '@roots/bud-support/ink'
+import {Box, Text, useEffect, useState} from '@roots/bud-support/ink'
 
 import Assets from './assets.js'
 import Entrypoints from './entrypoints.js'
@@ -41,35 +41,48 @@ const Compilation = ({
   id,
   total,
 }: Props) => {
+  const [current, setCurrent] = useState(compilation)
   const compilationColor = useCompilationColor(compilation)
+
+  useEffect(() => {
+    if (!current) {
+      setCurrent(compilation)
+      return
+    }
+
+    if (!compilation.hash) return
+    if (compilation.hash === current?.hash) return
+
+    setCurrent(compilation)
+  }, [current, compilation])
 
   return (
     <View
       head={
         <Head
           basedir={basedir}
-          compilation={compilation}
+          compilation={current}
           id={id}
           total={total}
         />
       }
       borderColor={compilationColor}
-      footer={<Footer compilation={compilation} />}
-      paddingY={1}
+      footer={<Footer compilation={current} />}
+      paddingY={compact ? 0 : 1}
     >
-      <Box flexDirection="column" gap={1}>
-        <Messages color="red" messages={compilation.errors} />
-        <Messages color="yellow" messages={compilation.warnings} />
+      <Box flexDirection="column" gap={compact ? 0 : 1}>
+        <Messages color="red" messages={current?.errors} />
+        <Messages color="yellow" messages={current?.warnings} />
 
         <Entrypoints
           compact={compact}
-          compilation={compilation}
+          compilation={current}
           displayEntrypoints={displayEntrypoints}
         />
 
         <Assets
           compact={compact}
-          compilation={compilation}
+          compilation={current}
           displayAssets={displayAssets}
         />
       </Box>

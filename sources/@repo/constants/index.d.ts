@@ -1,13 +1,9 @@
-export declare const root: string
+/**
+ * Absolute path from repo relative path
+ */
 export declare const path: (...path: Array<string>) => string
 
-export declare const paths: {
-  root: string
-  config: string
-  sources: string
-  tests: string
-  storage: string
-  fixtures: string
-}
-
+/**
+ * bud repository configuration
+ */
 export declare const projectConfig: Record<string, any>

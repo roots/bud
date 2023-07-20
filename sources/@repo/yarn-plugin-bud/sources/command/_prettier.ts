@@ -15,15 +15,23 @@ export class Prettier extends Command {
     examples: [[`prettier usage info`, `yarn @bud prettier --help`]],
   }
 
-  public passthrough = Option.Proxy({name: `pm2 options`})
+  public passthrough = Option.Proxy({name: `prettier options`})
 
   public async execute() {
+    if (!this.passthrough.length) {
+      this.passthrough = [
+        `--ignore-unknown`,
+        `--no-error-on-unmatched-pattern`,
+        `--write`,
+      ]
+    }
+
     await this.cli
       .run([
-        `prettier`,
+        `node`,
+        path(`node_modules/.bin/prettier`),
         path(`sources/@roots/*/src/**/*`),
-        `--config`,
-        path(`config/prettier.config.cjs`),
+        `--config=${path(`config`, `prettier.config.js`)}`,
         `--ignore-unknown`,
         `--no-error-on-unmatched-pattern`,
         `--write`,

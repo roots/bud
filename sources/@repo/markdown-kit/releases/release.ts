@@ -1,7 +1,3 @@
-import {join} from 'path'
-
-import {paths} from '@repo/constants'
-
 import type {release} from './data.js'
 
 import {releases} from './data.js'
@@ -48,13 +44,3 @@ ${release.intro}
 ${updateNotice(release)}
 ${release.body}
 `
-
-export const path = (release: release) =>
-  join(
-    paths.sources,
-    `@repo`,
-    `docs`,
-    `generated`,
-    `releases`,
-    `${release.semver}.mdx`,
-  )

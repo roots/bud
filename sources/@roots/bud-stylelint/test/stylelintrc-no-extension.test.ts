@@ -1,14 +1,14 @@
 import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
 
-describe(`bud stylelint command`, () => {
+describe(`bud build with extensionless stylelintrc`, () => {
   it(`should return 0`, async () => {
     const result = await execa(`yarn`, [
       `workspace`,
-      `@tests/stylelint-command`,
+      `@tests/stylelintrc-no-extension`,
       `run`,
       `bud`,
-      `stylelint`,
+      `build`,
     ])
 
     expect(result.exitCode).toBe(0)

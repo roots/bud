@@ -10,7 +10,6 @@ export interface hash {
 
 export const hash: hash = function (this: Bud, value = true) {
   this.context.hash = this.maybeCall(value, this.context.hash)
-  this.success(`file hashing ${value ? `enabled` : `disabled`}`)
 
   return this
 }

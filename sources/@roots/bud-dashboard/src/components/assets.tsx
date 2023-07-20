@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const Assets = ({assets, minWidth}: Props) => {
-  const fallbackMinWidth = useLongestNamedObjectLength(assets)
+  const fallbackWidth = useLongestNamedObjectLength(assets)
 
   if (!assets) return null
 
@@ -20,7 +20,7 @@ export const Assets = ({assets, minWidth}: Props) => {
         <Asset
           key={index}
           {...asset}
-          minWidth={minWidth ?? fallbackMinWidth}
+          minWidth={minWidth ?? fallbackWidth}
         />
       ))}
     </Box>

@@ -3,14 +3,17 @@ import {cpus} from 'node:os'
 import type {Factory} from './index.js'
 
 export const parallelism: Factory<`parallelism`> = async ({
+  build,
   hooks,
   root,
 }) => {
-  const factor = 10
-  const procs = Math.min(cpus().length - 1, 1)
-  const comps = root.hasChildren
-    ? Math.min(Object.keys(root.children).length)
-    : 1
+  const concurrency = 100
+  const cores = Math.max(cpus().length, 1)
 
-  return hooks.filter(`build.parallelism`, (procs * factor) / comps)
+  const available = cores * concurrency
+  const compilations = Math.max(Object.keys(root.children ?? []).length, 1)
+  const parallelism = Math.max(Math.floor(available / compilations), 1)
+
+  build.logger.info(`parallelism set to`, parallelism)
+  return hooks.filter(`build.parallelism`, parallelism)
 }

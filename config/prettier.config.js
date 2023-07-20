@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   arrowParens: `avoid`,
   bracketSpacing: false,
   overrides: [

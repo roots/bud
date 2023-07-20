@@ -69,7 +69,7 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
     const configFile = Object.values(context.files).find(({name}) =>
       name.includes(`stylelint`),
     )
-    if (!configFile) return
+    if (!configFile?.parsed?.ext) return
 
     this.setConfig(await configFile.module())
   }

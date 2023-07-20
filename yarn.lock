@@ -7766,7 +7766,7 @@ __metadata:
   dependencies:
     "@types/lodash-es": 4.17.8
     "@types/node": 18.16.19
-    "@yarnpkg/builder": 4.0.0-rc.48
+    "@yarnpkg/builder": 4.0.0-rc.46
     "@yarnpkg/cli": 4.0.0-rc.48
     "@yarnpkg/core": 4.0.0-rc.48
     "@yarnpkg/shell": 4.0.0-rc.48
@@ -8321,6 +8321,7 @@ __metadata:
     "@types/react": 18.2.15
     "@types/signale": 1.4.4
     "@types/webpack-manifest-plugin": 3.0.5
+    ansi-regex: 6.0.1
     axios: 1.4.0
     chalk: 5.3.0
     chokidar: 3.5.3
@@ -8345,6 +8346,7 @@ __metadata:
     human-readable: 0.2.1
     import-meta-resolve: 2.2.2
     ink: 4.3.0
+    ink-ansi: 1.0.0
     ink-big-text: 2.0.0
     ink-gradient: 3.0.0
     ink-spinner: 5.0.0
@@ -8371,6 +8373,7 @@ __metadata:
     toml: 3.0.0
     tslib: 2.6.0
     typanion: 3.13.0
+    unicoderegexp: 0.4.1
     webpack: 5.88.2
     webpack-dev-middleware: 6.1.1
     webpack-manifest-plugin: 5.0.0
@@ -9990,6 +9993,15 @@ __metadata:
 "@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default":
   version: 0.0.0-use.local
   resolution: "@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@tests/stylelintrc-no-extension@workspace:sources/@roots/bud-stylelint/test/__fixtures__/stylelintrc-no-extension":
+  version: 0.0.0-use.local
+  resolution: "@tests/stylelintrc-no-extension@workspace:sources/@roots/bud-stylelint/test/__fixtures__/stylelintrc-no-extension"
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-stylelint": "workspace:*"
@@ -12725,25 +12737,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@yarnpkg/builder@npm:4.0.0-rc.48":
-  version: 4.0.0-rc.48
-  resolution: "@yarnpkg/builder@npm:4.0.0-rc.48"
-  dependencies:
-    "@yarnpkg/cli": ^4.0.0-rc.48
-    "@yarnpkg/core": ^4.0.0-rc.48
-    "@yarnpkg/fslib": ^3.0.0-rc.48
-    chalk: ^3.0.0
-    clipanion: ^3.2.1
-    esbuild: "npm:esbuild-wasm@^0.15.15"
-    semver: ^7.1.2
-    tslib: ^2.4.0
-  bin:
-    builder: ./lib/cli.js
-  checksum: 850c5d00762ccae3daefd0f951623cf2c77d9312b501b22031186e270622cb7b4d9272f15e6e3896693859f6904b6ea4e1c7626c80b5d1baec0d98a1c48dee4d
-  languageName: node
-  linkType: hard
-
-"@yarnpkg/cli@npm:4.0.0-rc.48, @yarnpkg/cli@npm:^4.0.0-rc.46, @yarnpkg/cli@npm:^4.0.0-rc.48":
+"@yarnpkg/cli@npm:4.0.0-rc.48, @yarnpkg/cli@npm:^4.0.0-rc.46":
   version: 4.0.0-rc.48
   resolution: "@yarnpkg/cli@npm:4.0.0-rc.48"
   dependencies:
@@ -13669,6 +13663,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-regex@npm:6.0.1, ansi-regex@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "ansi-regex@npm:6.0.1"
+  checksum: 1ff8b7667cded1de4fa2c9ae283e979fc87036864317da86a2e546725f96406746411d0d85e87a2d12fa5abd715d90006de7fa4fa0477c92321ad3b4c7d4e169
+  languageName: node
+  linkType: hard
+
 "ansi-regex@npm:^2.0.0":
   version: 2.1.1
   resolution: "ansi-regex@npm:2.1.1"
@@ -13690,17 +13691,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ansi-regex@npm:^5.0.1":
+"ansi-regex@npm:^5.0.0, ansi-regex@npm:^5.0.1":
   version: 5.0.1
   resolution: "ansi-regex@npm:5.0.1"
   checksum: 2aa4bb54caf2d622f1afdad09441695af2a83aa3fe8b8afa581d205e57ed4261c183c4d3877cee25794443fde5876417d859c108078ab788d6af7e4fe52eb66b
-  languageName: node
-  linkType: hard
-
-"ansi-regex@npm:^6.0.1":
-  version: 6.0.1
-  resolution: "ansi-regex@npm:6.0.1"
-  checksum: 1ff8b7667cded1de4fa2c9ae283e979fc87036864317da86a2e546725f96406746411d0d85e87a2d12fa5abd715d90006de7fa4fa0477c92321ad3b4c7d4e169
   languageName: node
   linkType: hard
 
@@ -22452,6 +22446,19 @@ __metadata:
   version: 1.3.8
   resolution: "ini@npm:1.3.8"
   checksum: dfd98b0ca3a4fc1e323e38a6c8eb8936e31a97a918d3b377649ea15bdb15d481207a0dda1021efbd86b464cae29a0d33c1d7dcaf6c5672bee17fa849bc50a1b3
+  languageName: node
+  linkType: hard
+
+"ink-ansi@npm:1.0.0":
+  version: 1.0.0
+  resolution: "ink-ansi@npm:1.0.0"
+  dependencies:
+    ansi-regex: ^5.0.0
+    unicoderegexp: ^0.4.1
+  peerDependencies:
+    ink: "*"
+    react: "*"
+  checksum: 8ea9b79bb4944d8e6449fa7e30b5c1b37d18c5b40a69a7a147cb8486421a441aeb5613a1cbd1d4e4109d9cf357b6fcbe62540d77016d452f3d7a204b4fc5f1c3
   languageName: node
   linkType: hard
 
@@ -35380,6 +35387,13 @@ __metadata:
   version: 2.0.0
   resolution: "unicode-property-aliases-ecmascript@npm:2.0.0"
   checksum: dda4d39128cbbede2ac60fbb85493d979ec65913b8a486bf7cb7a375a2346fa48cbf9dc6f1ae23376e7e8e684c2b411434891e151e865a661b40a85407db51d0
+  languageName: node
+  linkType: hard
+
+"unicoderegexp@npm:0.4.1, unicoderegexp@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "unicoderegexp@npm:0.4.1"
+  checksum: 61f7c23ccffcf4b62648711a5d6243f7ed1788a5bfc5e820979fb0996a1e12978c343d3542a28c0c261681bdd06d7f03969445e11f87f61741894e751ec29287
   languageName: node
   linkType: hard
 

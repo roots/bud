@@ -97,7 +97,7 @@ export class Bud {
 
   public declare project: Project
 
-  public declare promised: Array<Promise<any | void>>
+  public promised: Promise<any> = Promise.resolve()
 
   public declare publicPath: typeof methods.publicPath
 
@@ -165,11 +165,7 @@ export class Bud {
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
-    await this.promise()
-    await this.hooks.fire(stage, this)
-    await this.promise()
-
-    return this
+    return await this.promise(async () => this.hooks.fire(stage, this))
   }
 
   /**
@@ -201,7 +197,7 @@ export class Bud {
     })
 
     this.set(`services`, [])
-      .set(`promised`, [])
+      .set(`promised`, Promise.resolve())
       .set(`context`, {...context})
 
     await bootstrap(this)
@@ -341,10 +337,15 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public async promise() {
-    await Promise.all(this.promised).catch(error => {
-      throw error
-    })
+  public async promise(promised?: (bud: Bud) => Promise<any>) {
+    if (promised)
+      await this.promised.then(promised).catch(error => {
+        throw error
+      })
+    else
+      await this.promised.catch(error => {
+        throw error
+      })
 
     return this
   }

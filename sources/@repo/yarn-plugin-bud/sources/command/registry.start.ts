@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
+import {noop} from 'lodash'
 
 import {Command} from './base.command'
 
@@ -19,8 +20,8 @@ export class RegistryStart extends Command {
   }
 
   public async execute() {
-    try {
-      await this.cli.run([
+    await this.cli
+      .run([
         `@bud`,
         `pm2`,
         `start`,
@@ -31,10 +32,9 @@ export class RegistryStart extends Command {
         `--config`,
         path(`config`, `verdaccio`, `config.yaml`),
       ])
-    } catch {}
-
-    try {
-      await this.cli.run([`@bud`, `pm2`, `save`])
-    } catch {}
+      .catch(noop)
+      .finally(async () => {
+        await this.cli.run([`@bud`, `pm2`, `save`]).catch(noop)
+      })
   }
 }

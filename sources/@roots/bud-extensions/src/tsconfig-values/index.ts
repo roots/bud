@@ -150,8 +150,6 @@ export default class BudTsConfigValues
         `setting @src dir as specified in jsconfig/tsconfig: ${this.derivedBaseDir}`,
       )
       bud.setPath({'@src': this.derivedBaseDir})
-      // @ts-ignore
-      bud.alias({'@src': this.makeAbsolute(this.derivedBaseDir)})
     }
 
     // If an output directory has been defined in the tsconfig.json, it is set as the @dist path in the bud.js application.

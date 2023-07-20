@@ -1,12 +1,12 @@
 import {join} from 'path'
 
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {execa} from 'execa'
 import fs from 'fs-jetpack'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-const exampleProjectDir = `${paths.root}/examples/node-api`
-const tmpProjectDir = `${paths.root}/storage/fixtures/node-api`
+const exampleProjectDir = path(`examples/node-api`)
+const tmpProjectDir = path(`storage/fixtures/node-api`)
 
 describe.skip(`node-api`, () => {
   beforeAll(async () => {

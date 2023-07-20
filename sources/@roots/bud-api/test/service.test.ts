@@ -1,8 +1,7 @@
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
-
 import Api from '@roots/bud-api'
 import * as methods from '@roots/bud-api/methods'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-api`, () => {
   let bud: Bud

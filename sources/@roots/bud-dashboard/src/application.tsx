@@ -60,25 +60,21 @@ export const Application = ({
 }: Props) => {
   if (error) return <Error error={error} />
 
-  if (
-    !compilations ||
-    !Array.isArray(compilations) ||
-    !compilations.length
-  )
+  compilations = Array.isArray(compilations)
+    ? compilations?.filter(compilation => compilation.hash) ?? []
+    : []
+
+  if (!compilations.length) {
     return (
       <Box>
-        <Text dimColor>
-          {`\n`}
-          {status ?? ``}
-        </Text>
+        <Text dimColor>{status ? `\n${status}` : ``}</Text>
       </Box>
     )
+  }
 
   return (
     <Box flexDirection="column" gap={1} marginY={1}>
       {compilations?.map((compilation, id) => {
-        if (!compilation?.hash) return null
-
         if (isolated > 0 && id + 1 !== isolated) return null
 
         return (

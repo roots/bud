@@ -1,4 +1,5 @@
 import {CommandClass} from 'clipanion'
+import {noop} from 'lodash'
 
 import {Command} from './base.command'
 
@@ -17,9 +18,7 @@ export class RegistryStop extends Command {
   }
 
   public async execute() {
-    try {
-      await this.cli.run([`@bud`, `pm2`, `stop`, `verdaccio`])
-      await this.cli.run([`@bud`, `pm2`, `delete`, `verdaccio`])
-    } catch (e) {}
+    await this.cli.run([`@bud`, `pm2`, `stop`, `verdaccio`]).catch(noop)
+    await this.cli.run([`@bud`, `pm2`, `delete`, `verdaccio`]).catch(noop)
   }
 }

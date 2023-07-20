@@ -16,7 +16,7 @@ export class BudPrettierCommand extends BudCommand {
   public static override usage = Command.Usage({
     category: `tool`,
     description: `Prettier CLI`,
-    examples: [[`Run  prettier`, `$0 prettier`]],
+    examples: [[`Run prettier`, `$0 prettier`]],
   })
 
   /**
@@ -31,11 +31,11 @@ export class BudPrettierCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    await this.run([`prettier`, `bin-prettier.js`], this.options, [
+    await this.run([`prettier`, `bin`, `prettier.cjs`], this.options, [
       this.bud.path(
         `@src`,
         `**`,
-        `*.{ts,tsx,js,jsx,css,scss,sass,json,yml,yaml,md,json5,html,htm}`,
+        `*.{css,htm,html,js,json,json5,jsx,md,mdx,sass,scss,ts,tsx,yaml,yml}`,
       ),
       `--write`,
     ])
