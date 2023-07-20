@@ -167,6 +167,7 @@ export class Compiler extends Service implements BudCompiler {
               subtitle: error.file ? `Error in ${error.name}` : error.name,
               title: makeNoticeTitle(child),
             })
+
             this.app.notifier.openEditor(error.file)
           } catch (error) {
             this.logger.error(error)
@@ -223,15 +224,42 @@ export class Compiler extends Service implements BudCompiler {
 
         const moduleIdent = error.moduleId ?? error.moduleName
 
-        const module = this.compilationStats.children
+        /**
+         * In a perfect world webpack plugins would use the
+         * `nameForCondition` property to identify the module.
+         */
+        let module = this.compilationStats.children
           .flatMap(child => child?.modules)
           .find(
             module =>
               module?.id === moduleIdent || module?.name === moduleIdent,
           )
 
+        /**
+         * If the module is not found, we try to parse the error message
+         */
+        if (!moduleIdent) {
+          const stylelintExtracted = error.message.match(
+            /file:\/\/(.*)\x07(.*)\x1B]8;;/,
+          )
+
+          if (stylelintExtracted?.[1]) {
+            module = {
+              name: stylelintExtracted[2] ?? stylelintExtracted[1],
+              nameForCondition: stylelintExtracted[1],
+            }
+          }
+        }
+
+        /**
+         * If the module is still not found, we return the error as-is
+         */
         if (!module) return error
 
+        /**
+         * We'll prefer the `nameForCondition` property if it exists,
+         * otherwise we'll use the `name` property.
+         */
         if (module.nameForCondition) {
           file = module.nameForCondition
         } else if (module.name) {
@@ -246,7 +274,7 @@ export class Compiler extends Service implements BudCompiler {
       return errors?.map(parseError).filter(Boolean)
     } catch (error) {
       this.logger.warn(`error parsing errors`, error)
-      return []
+      return errors
     }
   }
 }

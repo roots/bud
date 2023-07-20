@@ -10,6 +10,7 @@ import {fileURLToPath} from 'node:url'
 
 import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
+import logger from '@roots/bud-support/logger'
 import {open, openEditor} from '@roots/bud-support/open'
 
 const notifierPath = resolve(
@@ -73,6 +74,9 @@ export class Notifier {
     ): Notifier[`notificationCenter`]
   }
 
+  /**
+   * Class constructor
+   */
   public constructor(public _app: () => Bud) {
     this.make = this.make.bind(this)
     this.notify = this.notify.bind(this)
@@ -95,13 +99,16 @@ export class Notifier {
       const {NotificationCenter} = await import(
         `@roots/bud-support/node-notifier`
       )
+
       this.notificationCenter =
         platform() !== `darwin`
           ? new NotificationCenter()
           : new NotificationCenter({customPath: notifierPath})
     }
 
-    if (bud.env.has(`BUD_EDITOR`)) {
+    if (typeof bud.context.editor === `string`) {
+      this.editor = bud.context.editor
+    } else if (bud.env.has(`BUD_EDITOR`)) {
       this.editor = bud.env.get(`BUD_EDITOR`)
     } else if (bud.env.has(`VISUAL`)) {
       this.editor = bud.env.get(`VISUAL`)
@@ -166,20 +173,41 @@ export class Notifier {
    */
   public openEditor(input: Array<string> | string) {
     if (!this.openEditorEnabled) return
-    if (!isString(this.editor)) return
+
     if (!input || isEmpty(input)) return
+
+    logger.scope(`notifier`, `openEditor`).log(`input received`, input)
 
     const files = Array.isArray(input) ? input : [input]
 
-    files.map(file => this.app.info(`opening`, file, `in`, this.editor))
+    files.map(file =>
+      logger.scope(`notifier`).log(`opening`, file, `in`, this.editor),
+    )
 
-    return openEditor(files, {editor: this.editor})
+    if (typeof this.editor === `string`)
+      return openEditor(files, {editor: this.editor})
+    else return openEditor(files)
   }
 
   /**
    * True if editor opening is enabled
    */
   public get openEditorEnabled(): boolean {
-    return this.app?.context.editor === true
+    if (!this.editor) {
+      logger
+        .scope(`notifier`, `editor check`)
+        .warn(
+          `Editor not set.`,
+          `\n\nYou should set an editor using any of the following env vars:\n`,
+          `\n  - BUD_EDITOR (bud specific; preferred)`,
+          `\n  - VISUAL (unix standard)`,
+          `\n  - EDITOR (unix standard)`,
+          `\n\nAlternatively, use the --editor flag.`,
+        )
+    }
+    return (
+      this.app.context.editor === true || // if true, fall back to default behavior
+      typeof this.app.context.editor === `string` // if string, opens in that editor
+    )
   }
 }
