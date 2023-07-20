@@ -71,14 +71,7 @@ export class Compiler extends Service implements BudCompiler {
           ),
         )
 
-    const cores = Math.max(cpus().length, 1)
-    const compilations = Math.max(
-      Object.keys(bud.children ?? []).length,
-      1,
-    )
-    const parallelism = Math.max(Math.floor(cores / compilations), 1)
-
-    this.config.parallelism = parallelism
+    this.config.parallelism = Math.max(cpus().length - 1, 1)
     this.logger.info(`parallel compilations: ${this.config.parallelism}`)
 
     await bud.hooks.fire(`compiler.before`, bud).catch(error => {
@@ -96,7 +89,6 @@ export class Compiler extends Service implements BudCompiler {
 
     this.instance.hooks.done.tap(bud.label, (stats: any) => {
       this.onStats(stats)
-
       bud.hooks.fire(`compiler.done`, bud, this.stats).catch(error => {
         throw error
       })
@@ -111,6 +103,7 @@ export class Compiler extends Service implements BudCompiler {
   @bind
   public onError(error: BudErrorClass | webpack.WebpackError) {
     process.exitCode = 1
+    if (!error) return
 
     this.app.server?.appliedMiddleware?.hot?.publish({error})
 
