@@ -174,7 +174,6 @@ export class Notifier {
    */
   public openEditor(input: Array<string> | string) {
     if (!this.openEditorEnabled) return
-
     if (!input || isEmpty(input)) return
 
     logger.scope(`notifier`, `openEditor`).log(`input received`, input)
