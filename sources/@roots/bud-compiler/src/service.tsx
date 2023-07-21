@@ -214,32 +214,31 @@ export class Compiler extends Service implements BudCompiler {
         error: StatsError,
       ): ErrorWithSourceFile | StatsError => {
         let file: SourceFile[`file`] | undefined
+        let module: undefined | Webpack.StatsModule
 
-        const moduleIdent = error.moduleId ?? error.moduleName
+        const ident = error.moduleId ?? error.moduleName
 
         /**
          * In a perfect world webpack plugins would use the
          * `nameForCondition` property to identify the module.
          */
-        let module = this.compilationStats.children
-          .flatMap(child => child?.modules)
-          .find(
-            module =>
-              module?.id === moduleIdent || module?.name === moduleIdent,
-          )
+        if (ident) {
+          module = this.compilationStats.children
+            .flatMap(child => child?.modules)
+            .find(module => [module?.id, module?.name].includes(ident))
 
-        /**
-         * If the module is not found, we try to parse the error message
-         */
-        if (!moduleIdent) {
-          const stylelintExtracted = error.message.match(
-            /file:\/\/(.*)\x07(.*)\x1B]8;;/,
-          )
+          /**
+           * If the module is not found, we try to parse the error message
+           */
+        } else {
+          const styleError = error.message
+            .split(`\n`)?.[1]
+            ?.match(/file:\/\/(.*)\x07(.*)\x1B]8;;/)
 
-          if (stylelintExtracted?.[1]) {
+          if (styleError?.[1]) {
             module = {
-              name: stylelintExtracted[2] ?? stylelintExtracted[1],
-              nameForCondition: stylelintExtracted[1],
+              name: styleError[2] ?? styleError[1],
+              nameForCondition: styleError[1],
             }
           }
         }
@@ -259,14 +258,16 @@ export class Compiler extends Service implements BudCompiler {
           file = this.app.path(`@src`, module.name)
         }
 
-        return !file
-          ? {...error, name: module.name ?? error.name}
-          : {...error, file, name: module.name ?? error.name}
+        const name = module.name ?? error.name ?? `error`
+        return {...error, file, name}
       }
 
       return errors?.map(parseError).filter(Boolean)
     } catch (error) {
-      this.logger.warn(`error parsing errors`, error)
+      this.logger.warn(
+        `Problem parsing errors. This probably won't break anything but please report it: https://github.com/roots/bud/issues/new`,
+        error,
+      )
       return errors
     }
   }
@@ -281,16 +282,12 @@ const statsOptions = {
     cachedAssets: true,
     cachedModules: true,
     entrypoints: true,
-    errorDetails: false,
     errors: true,
     errorsCount: true,
-    errorStack: false,
     hash: true,
     modules: true,
     name: true,
     outputPath: true,
-    reasons: false,
-    runtime: true,
     timings: true,
     warnings: true,
     warningsCount: true,

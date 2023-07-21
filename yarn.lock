@@ -4688,6 +4688,7 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-react": "workspace:*"
+    preact: 10.16.0
   languageName: unknown
   linkType: soft
 
@@ -8362,6 +8363,7 @@ __metadata:
     open-editor: 4.0.0
     parse-semver: 1.1.1
     patch-console: 2.0.0
+    preact: 10.16.0
     pretty-format: 29.6.1
     react: 18.2.0
     remark: 14.0.3
@@ -29939,6 +29941,13 @@ __metadata:
     picocolors: ^1.0.0
     source-map-js: ^1.0.2
   checksum: 814e2126dacfea313588eda09cc99a9b4c26ec55c059188aa7a916d20d26d483483106dc5ff9e560731b59f45c5bb91b945dfadc670aed875cc90ddbbf4e787d
+  languageName: node
+  linkType: hard
+
+"preact@npm:10.16.0":
+  version: 10.16.0
+  resolution: "preact@npm:10.16.0"
+  checksum: 47a91f47d583b68a4afe971a7f992c06547df6d637cadf56eb3b69fee1fb202659b199af37d0e1a90637385144cadd75aa40acdb4e125cc4b3155e2883c24c07
   languageName: node
   linkType: hard
 

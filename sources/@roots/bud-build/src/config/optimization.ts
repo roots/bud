@@ -31,7 +31,7 @@ export const optimization: Factory<`optimization`> = async ({
     ),
     removeEmptyChunks: filter(
       `build.optimization.removeEmptyChunks`,
-      isProduction,
+      false,
     ),
     runtimeChunk: filter(`build.optimization.runtimeChunk`, `single`),
     sideEffects: filter(`build.optimization.sideEffects`, isProduction),
