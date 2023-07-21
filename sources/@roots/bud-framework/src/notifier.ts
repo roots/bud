@@ -12,6 +12,7 @@ import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 import {open, openEditor} from '@roots/bud-support/open'
+import chalk from 'chalk'
 
 const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
@@ -173,7 +174,6 @@ export class Notifier {
    */
   public openEditor(input: Array<string> | string) {
     if (!this.openEditorEnabled) return
-
     if (!input || isEmpty(input)) return
 
     logger.scope(`notifier`, `openEditor`).log(`input received`, input)
@@ -193,21 +193,23 @@ export class Notifier {
    * True if editor opening is enabled
    */
   public get openEditorEnabled(): boolean {
-    if (!this.editor) {
+    const enabled =
+      this.app.context.editor === true || // if true, fall back to default behavior
+      typeof this.app.context.editor === `string` // if string, opens in that editor
+
+    if (enabled && !this.editor) {
       logger
         .scope(`notifier`, `editor check`)
         .warn(
-          `Editor not set.`,
-          `\n\nYou should set an editor using any of the following env vars:\n`,
-          `\n  - BUD_EDITOR (bud specific; preferred)`,
-          `\n  - VISUAL (unix standard)`,
-          `\n  - EDITOR (unix standard)`,
-          `\n\nAlternatively, use the --editor flag.`,
+          chalk.magenta(`\n\nEditor not defined.`),
+          `\n\nYou should set an editor using any of the following ENV variables:\n`,
+          `\n  - ${chalk.blue(`BUD_EDITOR`)} (bud specific; preferred)`,
+          `\n  - ${chalk.blue(`VISUAL`)} (unix standard)`,
+          `\n  - ${chalk.blue(`EDITOR`)} (unix standard)`,
+          `\n\nAlternatively, use the ${chalk.blue(`--editor`)} flag.`,
         )
     }
-    return (
-      this.app.context.editor === true || // if true, fall back to default behavior
-      typeof this.app.context.editor === `string` // if string, opens in that editor
-    )
+
+    return enabled
   }
 }

@@ -23,6 +23,8 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, type BudErrorClass} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
+import isNull from '@roots/bud-support/lodash/isNull'
+import isString from '@roots/bud-support/lodash/isString'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import webpack from '@roots/bud-support/webpack'
 
@@ -210,63 +212,71 @@ export class Compiler extends Service implements BudCompiler {
     if (!errors || !errors.length) return []
 
     try {
-      const parseError = (
-        error: StatsError,
-      ): ErrorWithSourceFile | StatsError => {
-        let file: SourceFile[`file`] | undefined
+      return errors
+        ?.map((error: StatsError): ErrorWithSourceFile | StatsError => {
+          let file: SourceFile[`file`] | undefined
+          let module: undefined | Webpack.StatsModule
 
-        const moduleIdent = error.moduleId ?? error.moduleName
+          const ident = error.moduleId ?? error.moduleName
 
-        /**
-         * In a perfect world webpack plugins would use the
-         * `nameForCondition` property to identify the module.
-         */
-        let module = this.compilationStats.children
-          .flatMap(child => child?.modules)
-          .find(
-            module =>
-              module?.id === moduleIdent || module?.name === moduleIdent,
-          )
-
-        /**
-         * If the module is not found, we try to parse the error message
-         */
-        if (!moduleIdent) {
-          const stylelintExtracted = error.message.match(
-            /file:\/\/(.*)\x07(.*)\x1B]8;;/,
-          )
-
-          if (stylelintExtracted?.[1]) {
-            module = {
-              name: stylelintExtracted[2] ?? stylelintExtracted[1],
-              nameForCondition: stylelintExtracted[1],
-            }
+          /**
+           * In a perfect world webpack plugins would use the
+           * `nameForCondition` property to identify the module.
+           */
+          if (ident) {
+            module = this.compilationStats.children
+              .flatMap(child => child?.modules)
+              .find(module => [module?.id, module?.name].includes(ident))
           }
-        }
 
-        /**
-         * If the module is still not found, we return the error as-is
-         */
-        if (!module) return error
+          /**
+           * If the module is not found, we try to parse the error message
+           */
+          if (!ident && error.message?.includes(`[stylelint]`)) {
+            // try to get the origin of the stylelint error,
+            // which is contained in the second line of the error message
+            const unparsedOrigin = error.message?.split(`\n`)?.[1]
 
-        /**
-         * We'll prefer the `nameForCondition` property if it exists,
-         * otherwise we'll use the `name` property.
-         */
-        if (module.nameForCondition) {
-          file = module.nameForCondition
-        } else if (module.name) {
-          file = this.app.path(`@src`, module.name)
-        }
+            // if the origin is not a string or too long, we return the error as-is
+            if (!isString(unparsedOrigin) || unparsedOrigin.length > 100)
+              return error
 
-        return !file
-          ? {...error, name: module.name ?? error.name}
-          : {...error, file, name: module.name ?? error.name}
-      }
+            // extract absolute path and context relative name of module
+            const styleError = unparsedOrigin.match(
+              /file:\/\/(.*)\x07(.*)\x1B]8;;/,
+            )
+            if (isNull(styleError)) return error
 
-      return errors?.map(parseError).filter(Boolean)
+            // get parts of matched error
+            const [, file, name] = styleError
+            // return enriched error
+            return {...error, file, name, nameForCondition: file}
+          }
+
+          /**
+           * If the module is still not found, we return the error as-is
+           */
+          if (!module) return error
+
+          /**
+           * We'll prefer the `nameForCondition` property if it exists,
+           * otherwise we'll use the `name` property.
+           */
+          if (module.nameForCondition) {
+            file = module.nameForCondition
+          } else if (module.name) {
+            file = this.app.path(`@src`, module.name)
+          }
+
+          const name = module.name ?? error.name ?? `error`
+          return {...error, file, name}
+        })
+        .filter(Boolean)
     } catch (error) {
-      this.logger.warn(`error parsing errors`, error)
+      this.logger.warn(
+        `Problem parsing errors. This probably won't break anything but please report it: https://github.com/roots/bud/issues/new`,
+        error,
+      )
       return errors
     }
   }
@@ -281,16 +291,12 @@ const statsOptions = {
     cachedAssets: true,
     cachedModules: true,
     entrypoints: true,
-    errorDetails: false,
     errors: true,
     errorsCount: true,
-    errorStack: false,
     hash: true,
     modules: true,
     name: true,
     outputPath: true,
-    reasons: false,
-    runtime: true,
     timings: true,
     warnings: true,
     warningsCount: true,
