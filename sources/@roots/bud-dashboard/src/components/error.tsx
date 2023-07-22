@@ -47,19 +47,6 @@ export const Error = ({error}: {error: BudError}) => {
         </Box>
       )}
 
-      {error.thrownBy && (
-        <Box marginTop={1}>
-          <Text>
-            <Text color="blue">
-              {figures.ellipsis}
-              {` `}Thrown by{` `}
-            </Text>
-
-            <Text>{error.thrownBy}</Text>
-          </Text>
-        </Box>
-      )}
-
       {error.details && !error.details.startsWith(`resolve`) && (
         <Box marginTop={1}>
           <Text>
@@ -69,6 +56,19 @@ export const Error = ({error}: {error: BudError}) => {
             </Text>
 
             <Text>{error.details.replace(basePath, `.`)}</Text>
+          </Text>
+        </Box>
+      )}
+
+      {error.thrownBy && (
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
+              {figures.ellipsis}
+              {` `}Thrown by{` `}
+            </Text>
+
+            <Text>{error.thrownBy}</Text>
           </Text>
         </Box>
       )}

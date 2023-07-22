@@ -9,7 +9,7 @@ export default async function (basedir: string = cwd()) {
 
   if (packageField) {
     if (packageField.includes(`yarn`)) {
-      if (await hasYarnBerryRc(basedir)) return `yarn berry`
+      if (await hasYarn3Rc(basedir)) return `yarn3`
       return `yarn`
     }
 
@@ -18,25 +18,50 @@ export default async function (basedir: string = cwd()) {
   }
 
   if (await hasYarnLockfile(basedir)) {
-    if (await hasYarnBerryRc(basedir)) return `yarn berry`
+    if (await hasYarn3Rc(basedir)) return `yarn3`
     return `yarn`
   }
-
   if (await hasNpmLockfile(basedir)) return `npm`
   if (await hasPnpmLockfile(basedir)) return `pnpm`
 }
 
-export const hasYarnLockfile = async (basedir: string): Promise<boolean> =>
-  await fileExists(join(basedir, `yarn.lock`))
+export const hasYarnLockfile = async (
+  basedir: string,
+): Promise<boolean> => {
+  try {
+    return await fileExists(join(basedir, `yarn.lock`))
+  } catch (error) {
+    return false
+  }
+}
 
-export const hasYarnBerryRc = async (basedir: string): Promise<boolean> =>
-  await fileExists(join(basedir, `.yarnrc.yml`))
+export const hasYarn3Rc = async (basedir: string): Promise<boolean> => {
+  try {
+    return await fileExists(join(basedir, `.yarnrc.yml`))
+  } catch (error) {
+    return false
+  }
+}
 
-export const hasNpmLockfile = async (basedir: string): Promise<boolean> =>
-  await fileExists(join(basedir, `package-lock.json`))
+export const hasNpmLockfile = async (
+  basedir: string,
+): Promise<boolean> => {
+  try {
+    return await fileExists(join(basedir, `package-lock.json`))
+  } catch (error) {
+    return false
+  }
+}
 
-export const hasPnpmLockfile = async (basedir: string): Promise<boolean> =>
-  await fileExists(join(basedir, `pnpm-lock.yaml`))
+export const hasPnpmLockfile = async (
+  basedir: string,
+): Promise<boolean> => {
+  try {
+    return await fileExists(join(basedir, `pnpm-lock.yaml`))
+  } catch (error) {
+    return false
+  }
+}
 
 export const getPackageManagerField = async (
   basedir: string,
@@ -55,5 +80,13 @@ export const getPackageManagerField = async (
 const isString = (value: unknown): value is string =>
   typeof value === `string`
 
-const fileExists = async (path: string): Promise<boolean> =>
-  isString(await realpath(path)) ? true : false
+const fileExists = async (path: string): Promise<boolean> => {
+  let resolvedPath: string
+  try {
+    resolvedPath = await realpath(path)
+  } catch (error) {
+    return false
+  }
+
+  return isString(resolvedPath) ? true : false
+}
