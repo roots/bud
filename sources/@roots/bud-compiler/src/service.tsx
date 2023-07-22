@@ -20,7 +20,7 @@ import {pathToFileURL} from 'node:url'
 import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, type BudErrorClass} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import isNull from '@roots/bud-support/lodash/isNull'
@@ -65,11 +65,10 @@ export class Compiler extends Service implements BudCompiler {
     this.config = !bud.hasChildren
       ? [await bud.build.make()]
       : await Promise.all(
-          Object.values(bud.children).map(
-            async (child: Bud) =>
-              await child.build.make().catch(error => {
-                throw error
-              }),
+          Object.values(bud.children).map(async (child: Bud) =>
+            child.build.make().catch(error => {
+              throw error
+            }),
           ),
         )
 
@@ -86,7 +85,7 @@ export class Compiler extends Service implements BudCompiler {
     try {
       this.instance = this.implementation(this.config)
     } catch (error) {
-      throw BudError.normalize(error)
+      this.onError(error)
     }
 
     this.instance.hooks.done.tap(bud.label, (stats: any) => {
@@ -103,7 +102,7 @@ export class Compiler extends Service implements BudCompiler {
    * {@link BudCompiler.onError}
    */
   @bind
-  public onError(error: BudErrorClass | webpack.WebpackError) {
+  public onError(error: BudError | webpack.WebpackError) {
     process.exitCode = 1
     if (!error) return
 

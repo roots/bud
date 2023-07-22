@@ -10,7 +10,7 @@ import {Bud} from '@roots/bud-framework'
 import chalk from '@roots/bud-support/chalk'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, BudErrorClass} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, render, Static} from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
@@ -296,7 +296,7 @@ export default class BudCommand extends Command<CLIContext> {
    * Handle errors
    */
   @bind
-  public override async catch(error: BudErrorClass): Promise<void> {
+  public override async catch(error: BudError): Promise<void> {
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {

@@ -15,7 +15,7 @@ import type {
 
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {InputError} from '@roots/bud-support/errors'
+import {BudError, InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -147,6 +147,18 @@ export class Bud {
     await this.executeServiceCallbacks(`bootstrap`)
   }
 
+  @bind
+  public catch(error: Error): never {
+    if (error instanceof BudError) {
+      error.instance = this.label
+      throw error
+    }
+
+    const normalizedError = BudError.normalize(error)
+    normalizedError.instance = this.label
+    throw normalizedError
+  }
+
   /**
    * Log error
    * @deprecated Import logger instance from `@roots/bud-support/logger`
@@ -165,7 +177,9 @@ export class Bud {
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<Bud> {
-    return await this.promise(async () => this.hooks.fire(stage, this))
+    return await this.promise(async () =>
+      this.hooks.fire(stage, this),
+    ).catch(this.catch)
   }
 
   /**
@@ -200,7 +214,7 @@ export class Bud {
       .set(`promised`, Promise.resolve())
       .set(`context`, {...context})
 
-    await bootstrap(this)
+    await bootstrap(this).catch(this.catch)
 
     return this
   }
@@ -264,8 +278,8 @@ export class Bud {
     setupFn?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot) {
-      throw new InputError(
-        `bud.make: must be called from the root context`,
+      return this.catch(
+        new InputError(`bud.make: must be called from the root context`),
       )
     }
 
@@ -274,7 +288,9 @@ export class Bud {
       : {...this.context, ...request, root: this}
 
     if (isUndefined(context.label)) {
-      throw new InputError(`bud.make: context.label must be a string`)
+      return this.catch(
+        new InputError(`bud.make: context.label must be a string`),
+      )
     }
 
     if (
@@ -288,17 +304,17 @@ export class Bud {
       return this
     }
 
-    if (!this.children) {
-      this.children = {}
-    }
+    if (!this.children) this.children = {}
 
     if (this.children[context.label]) {
-      throw new InputError(
-        `bud.make: child instance ${context.label} already exists`,
+      return this.catch(
+        new InputError(
+          `bud.make: child instance ${context.label} already exists`,
+        ),
       )
     }
 
-    logger.log(`instantiating new bud instance`)
+    logger.log(`instantiating ${context.label}`)
 
     this.children[context.label] =
       await new this.implementation().initialize({
@@ -337,15 +353,9 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public async promise(promised?: (bud: Bud) => Promise<any>) {
-    if (promised)
-      await this.promised.then(promised).catch(error => {
-        throw error
-      })
-    else
-      await this.promised.catch(error => {
-        throw error
-      })
+  public async promise(promise?: (bud: Bud) => Promise<any>) {
+    if (promise) await this.promised.then(promise).catch(this.catch)
+    else await this.promised.catch(this.catch)
 
     return this
   }

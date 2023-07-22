@@ -272,13 +272,11 @@ for a lot of edge cases so it might return a false positive.
         <Error
           error={
             new InputError(`No entrypoint specified`, {
-              props: {
-                details: `No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
-                  `@src/index.js`,
-                )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
-                  `@src/index.js`,
-                )}\`.`,
-              },
+              details: `No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
+                `@src/index.js`,
+              )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
+                `@src/index.js`,
+              )}\`.`,
             })
           }
         />,

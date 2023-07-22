@@ -1,10 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsError} from '@roots/bud-framework/config'
 
+import cleanStack from '@roots/bud-support/clean-stack'
+
 export const makeErrorFormatter = (bud: Bud) => (errors?: StatsError[]) =>
   errors
     ?.filter(filterInternalErrors)
-    .map(prettifyErrors)
+    .map(makePrettifier(bud))
     .map(error => {
       const unhandledModule = `You may need an appropriate loader to handle this file type, currently no loaders are configured to process this file. See https://webpack.js.org/concepts#loaders`
 
@@ -59,7 +61,7 @@ const filterInternalErrors = (error: StatsError) =>
 /**
  * Prettify errors
  */
-const prettifyErrors = (error: StatsError) => {
+const makePrettifier = (bud: Bud) => (error: StatsError) => {
   error.message = error.message
     .replace(`Module parse failed:`, ``)
     .replace(/Module build failed \(.*\):?/, ``)
@@ -67,7 +69,14 @@ const prettifyErrors = (error: StatsError) => {
     .trim()
     .split(`Error:`)
     .pop()
+    .split(`    at`)
+    .shift()
     .trim()
+
+  error.message = cleanStack(error.message, {
+    basePath: process.cwd(),
+    pretty: true,
+  })
 
   return error
 }

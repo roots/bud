@@ -27,10 +27,8 @@ export const get: get = function (label, tap) {
     throw new InputError(
       `bud.get: bud.children['${label}'] is undefined`,
       {
-        props: {
-          details: `There are no instances with the label "${label}" associated with this instance`,
-          thrownBy: `bud.get`,
-        },
+        details: `There are no instances with the label "${label}" associated with this instance`,
+        thrownBy: `bud.get`,
       },
     )
   }

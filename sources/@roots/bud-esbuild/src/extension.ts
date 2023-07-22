@@ -95,8 +95,7 @@ export default class BudEsbuild extends Extension<Options> {
       `esbuild-loader`,
       import.meta.url,
     )
-    if (!this.moduleLoader)
-      return this.logger.error(`Esbuild loader not found`)
+    if (!this.moduleLoader) return this.catch(`Esbuild loader not found`)
 
     build.setLoader(`esbuild`, `esbuild-loader`)
 
@@ -128,8 +127,8 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public use(): Bud[`esbuild`] {
-    if (!this.moduleLoader)
-      return this.logger.error(`Esbuild loader not found`)
+    if (!this.moduleLoader) return this.catch(`Esbuild loader not found`)
+
     this.app.hooks
       .on(`build.resolve.extensions`, (extensions = new Set()) =>
         extensions.add(`.ts`).add(`.jsx`).add(`.tsx`).add(`.mts`),

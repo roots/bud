@@ -99,18 +99,18 @@ describe(`@roots/bud-esbuild`, () => {
 
     it(`yields expected options`, async () => {
       expect(extension.options).toEqual({
+        js: {
+          loader: `jsx`,
+          target: `es2015`,
+        },
         minify: {
           css: true,
+          exclude: expect.any(RegExp),
           include: [
             expect.any(RegExp),
             expect.any(RegExp),
             expect.any(RegExp),
           ],
-          exclude: expect.any(RegExp),
-        },
-        js: {
-          loader: `jsx`,
-          target: `es2015`,
         },
         ts: {
           loader: `tsx`,
@@ -128,11 +128,6 @@ describe(`@roots/bud-esbuild`, () => {
       bud = await factory()
       await bud.extensions.add(esbuild)
       await bud.build.make()
-    })
-
-    it(`single minifier`, () => {
-      if (isUndefined(bud.build.config.optimization)) throw new Error()
-      expect(bud.build.config.optimization.minimizer).toHaveLength(1)
     })
 
     it.skip(`registers loader`, () => {

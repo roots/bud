@@ -28,16 +28,9 @@ export class EventHooks extends Hooks<EventsStore> {
           throw error
         })
       }),
-    )
-      .catch(error => {
-        this.app.hooks.logger.error(id)
-        this.app.dashboard?.render()
-        throw error
-      })
-      .finally(() => {
-        this.app.hooks.logger.timeEnd(id)
-        this.app.dashboard?.render()
-      })
+    ).catch(error => {
+      throw error
+    })
 
     return this.app
   }

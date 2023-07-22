@@ -64,14 +64,12 @@ export function when(
     throw new InputError(
       `bud.when: all supplied conditionals must be functions`,
       {
-        props: {
-          details: `\n  This is incorrect: bud.when(() => true, ${chalk.red(
-            `bud.vendor()`,
-          )}).\n  This is what you wanted: bud.when(() => true, ${chalk.green(
-            `() => bud.vendor()`,
-          )})`,
-          docs: new URL(`https://bud.js.org/docs/bud.when`),
-        },
+        details: `\n  This is incorrect: bud.when(() => true, ${chalk.red(
+          `bud.vendor()`,
+        )}).\n  This is what you wanted: bud.when(() => true, ${chalk.green(
+          `() => bud.vendor()`,
+        )})`,
+        docs: new URL(`https://bud.js.org/docs/bud.when`),
       },
     )
   }

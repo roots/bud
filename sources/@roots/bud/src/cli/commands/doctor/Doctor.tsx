@@ -77,10 +77,8 @@ const Process = () => {
         <Error
           error={
             new BudError(`node-version`, {
-              props: {
-                details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
-                docs: new URL(`https://bud.js.org/guides/getting-started`),
-              },
+              details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
+              docs: new URL(`https://bud.js.org/guides/getting-started`),
             })
           }
         />

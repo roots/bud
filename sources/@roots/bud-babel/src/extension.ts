@@ -201,10 +201,8 @@ export default class BabelExtension extends Extension {
       throw new InputError(
         `When defined without options the babel plugin name must be a string.`,
         {
-          props: {
-            docs: new URL(`https://bud.js.org/extensions/bud-babel`),
-            thrownBy: `bud.babel.setPlugin`,
-          },
+          docs: new URL(`https://bud.js.org/extensions/bud-babel`),
+          thrownBy: `bud.babel.setPlugin`,
         },
       )
     }

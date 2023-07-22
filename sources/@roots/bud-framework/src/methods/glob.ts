@@ -27,7 +27,7 @@ export const globSync: globSync = function (...searches) {
 
     return results
   } catch (error) {
-    logger.error(error)
+    this.catch(error)
   }
 }
 
@@ -47,7 +47,7 @@ export const glob: glob = async function (...searches) {
 
     return results
   } catch (error) {
-    logger.error(error)
+    this.catch(error)
   }
 }
 

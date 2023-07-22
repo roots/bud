@@ -18,10 +18,8 @@ export const config: config = function (this: Bud, input): Bud {
     throw new InputError(
       `config input must pass a callback function that returns a webpack configuration`,
       {
-        props: {
-          docs: new URL(`https://bud.js.org/docs/bud.config`),
-          thrownBy: `bud.config`,
-        },
+        docs: new URL(`https://bud.js.org/docs/bud.config`),
+        thrownBy: `bud.config`,
       },
     )
 

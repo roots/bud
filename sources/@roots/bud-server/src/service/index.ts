@@ -67,10 +67,8 @@ export class Server extends Service implements BudServer {
       ),
     ).catch(error => {
       throw new ServerError(`Error instantiating middleware`, {
-        props: {
-          origin: BudError.normalize(error),
-          thrownBy: `bud.server.applyMiddleware`,
-        },
+        origin: BudError.normalize(error),
+        thrownBy: `bud.server.applyMiddleware`,
       })
     })
   }
