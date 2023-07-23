@@ -218,16 +218,7 @@ export class Extension<
     if (this.meta[`boot`] === true) return
     this.meta[`boot`] = true
 
-    this.logger.time(`boot`)
-
-    await this.boot(this.app)
-      .catch(error => {
-        this.logger.timeEnd(`boot`)
-        throw ExtensionError.normalize(error)
-      })
-      .finally(() => {
-        this.logger.timeEnd(`boot`)
-      })
+    await this.boot(this.app).catch(this.catch)
   }
 
   /**
@@ -241,14 +232,7 @@ export class Extension<
     if (this.meta[`buildAfter`] === true) return
     this.meta[`buildAfter`] = true
 
-    this.logger.time(`buildAfter`)
-
-    await this.buildAfter(this.app).catch(error => {
-      this.logger.timeEnd(`buildAfter`)
-      throw ExtensionError.normalize(error)
-    })
-
-    this.logger.timeEnd(`buildAfter`)
+    await this.buildAfter(this.app).catch(this.catch)
   }
 
   /**
@@ -262,14 +246,7 @@ export class Extension<
     if (this.meta[`buildBefore`] === true) return
     this.meta[`buildBefore`] = true
 
-    this.logger.time(`buildBefore`)
-
-    await this.buildBefore(this.app).catch(error => {
-      this.logger.timeEnd(`buildBefore`)
-      throw ExtensionError.normalize(error)
-    })
-
-    this.logger.timeEnd(`buildBefore`)
+    await this.buildBefore(this.app).catch(this.catch)
   }
 
   /**
@@ -282,14 +259,7 @@ export class Extension<
     if (this.meta[`configAfter`] === true) return
     this.meta[`configAfter`] = true
 
-    this.logger.time(`configAfter`)
-
-    await this.configAfter(this.app).catch(error => {
-      this.logger.timeEnd(`configAfter`)
-      throw ExtensionError.normalize(error)
-    })
-
-    this.logger.timeEnd(`configAfter`)
+    await this.configAfter(this.app).catch(this.catch)
   }
 
   /**
@@ -297,13 +267,8 @@ export class Extension<
    */
   @bind
   public async _make() {
-    if (isUndefined(this.make) && isUndefined(this.plugin)) {
-      return false
-    }
-
-    if (this.isEnabled() === false) {
-      return false
-    }
+    if (isUndefined(this.make) && isUndefined(this.plugin)) return false
+    if (this.isEnabled() === false) return false
 
     try {
       if (!isUndefined(this.apply)) {
@@ -323,20 +288,7 @@ export class Extension<
         return plugin
       }
     } catch (error) {
-      const ident =
-        this.label ?? this.constructor?.name ?? `unknown_extension`
-
-      throw new ExtensionError(`Error instantiating ${ident}`, {
-        props: {
-          details: `Check options for ${ident}`,
-          docs: new URL(`https://bud.js.org/docs/extensions`),
-          issues: new URL(
-            `https://github.com/roots/bud/search?q=is:issue+${ident} in:title`,
-          ),
-          origin: BudError.normalize(error),
-          thrownBy: this.constructor.name,
-        },
-      })
+      this.catch(error)
     }
   }
 
@@ -350,14 +302,7 @@ export class Extension<
     if (this.meta[`register`] === true) return
     this.meta[`register`] = true
 
-    this.logger.time(`register`)
-
-    await this.register(this.app).catch(error => {
-      this.logger.timeEnd(`register`)
-      throw ExtensionError.normalize(error)
-    })
-
-    this.logger.timeEnd(`register`)
+    await this.register(this.app).catch(this.catch)
   }
 
   /**
@@ -386,6 +331,30 @@ export class Extension<
    * `buildBefore` callback
    */
   public async buildBefore?(app: Bud): Promise<unknown | void>
+
+  @bind
+  public catch(error: Error | string): never {
+    const thrownBy =
+      this.label ?? this.constructor?.name ?? `unknown_extension`
+
+    if (error instanceof ExtensionError) {
+      error.instance = this.app.label
+      error.thrownBy = error.thrownBy ?? thrownBy
+      throw error
+    }
+
+    throw new ExtensionError(
+      typeof error === `string` ? error : error.message,
+      {
+        docs: new URL(`https://bud.js.org/docs/extensions`),
+        issue: new URL(
+          `https://github.com/roots/bud/search?q=is:issue+${thrownBy} in:title`,
+        ),
+        origin: BudError.normalize(error),
+        thrownBy,
+      },
+    )
+  }
 
   /**
    * `configAfter` callback
@@ -462,14 +431,7 @@ export class Extension<
   ): Promise<T | undefined> {
     return await this.app.module
       .import(signifier, context, options)
-      .catch(error => {
-        throw new ExtensionError(`could not import ${signifier}`, {
-          props: {
-            cause: error,
-            thrownBy: this.label,
-          },
-        })
-      })
+      .catch(this.catch)
   }
 
   /**
@@ -507,12 +469,12 @@ export class Extension<
     try {
       return await this.app.module.resolve(signifier, context)
     } catch (error) {
-      throw new ExtensionError(`could not resolve ${signifier}`, {
-        props: {
+      this.catch(
+        new ExtensionError(`could not resolve ${signifier}`, {
           origin: error,
           thrownBy: this.label,
-        },
-      })
+        }),
+      )
     }
   }
 

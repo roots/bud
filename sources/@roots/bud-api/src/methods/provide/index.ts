@@ -31,10 +31,8 @@ export const provide: provide = async function (this: Bud, ...params) {
       throw new InputError(
         `bud.provide: when specifying a key and value, both must be strings or arrays`,
         {
-          props: {
-            docs: new URL(`https://roots.io/bud/docs/bud.provide`),
-            thrownBy: `bud.provide`,
-          },
+          docs: new URL(`https://roots.io/bud/docs/bud.provide`),
+          thrownBy: `bud.provide`,
         },
       )
     }

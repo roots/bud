@@ -7,7 +7,6 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import Value from '@roots/bud-support/value'
-import {EsbuildPlugin} from 'esbuild-loader'
 
 /**
  * Esbuild options
@@ -75,6 +74,11 @@ export interface Options {
 })
 export default class BudEsbuild extends Extension<Options> {
   /**
+   * Module loader
+   */
+  public declare moduleLoader: string
+
+  /**
    * {@link Extension.boot}
    */
   @bind
@@ -87,14 +91,11 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public override async register({build, hooks}: Bud) {
-    const loader = await this.resolve(`esbuild-loader`, import.meta.url)
-    if (!loader) return this.logger.error(`Esbuild loader not found`)
-
-    hooks.on(`build.resolve.extensions`, ext => ext.add(`.ts`).add(`.tsx`))
-    hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
-      ...aliases,
-      [`esbuild-loader`]: loader,
-    }))
+    this.moduleLoader = await this.resolve(
+      `esbuild-loader`,
+      import.meta.url,
+    )
+    if (!this.moduleLoader) return this.catch(`Esbuild loader not found`)
 
     build.setLoader(`esbuild`, `esbuild-loader`)
 
@@ -115,7 +116,7 @@ export default class BudEsbuild extends Extension<Options> {
    * Use esbuild
    *
    * @remarks
-   * This method is called automatically when the extension is booted.
+   * This method is called automatically when the extension is registered.
    *
    * If you have multiple compilers installed you may need to call this manually.
    *
@@ -126,14 +127,19 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public use(): Bud[`esbuild`] {
-    this.app.minify.js.enable(false)
-    this.app.minify.css.enable(false)
+    if (!this.moduleLoader) return this.catch(`Esbuild loader not found`)
 
     this.app.hooks
-      .on(`build.optimization.minimizer`, minimizer => [
-        new EsbuildPlugin(this.get(`minify`)),
-      ])
-      .build.setRule(`ts`, {
+      .on(`build.resolve.extensions`, (extensions = new Set()) =>
+        extensions.add(`.ts`).add(`.jsx`).add(`.tsx`).add(`.mts`),
+      )
+      .hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
+        ...aliases,
+        [`esbuild-loader`]: this.moduleLoader,
+      }))
+
+    this.app.build
+      .setRule(`ts`, {
         include: [({path}) => path(`@src`)],
         resolve: {
           fullySpecified: false,
@@ -142,17 +148,6 @@ export default class BudEsbuild extends Extension<Options> {
         use: [`esbuild-ts`],
       })
       .rules.js.setUse([`esbuild-js`])
-
-    this.app.hooks.on(
-      `build.resolve.extensions`,
-      (extensions = new Set()) =>
-        extensions
-          .add(`.ts`)
-          .add(`.jsx`)
-          .add(`.tsx`)
-          .add(`.mts`)
-          .add(`.cts`),
-    )
 
     return this
   }

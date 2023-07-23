@@ -4,6 +4,7 @@ import type {Contract} from '@roots/bud-framework/service'
 import {join} from 'node:path'
 
 import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -53,6 +54,14 @@ export class FS extends Filesystem implements Contract {
    */
   public get app(): Bud {
     return this._app()
+  }
+
+  public catch(error: BudError | string): never {
+    if (typeof error === `string`) {
+      throw BudError.normalize(error)
+    }
+
+    throw error
   }
 
   /**
@@ -190,8 +199,7 @@ export class FS extends Filesystem implements Contract {
               await this.s3.write(s3Path(file), contents)
               this.logger.success(`Upload ${file} to ${this.s3.ident}`)
             } catch (error) {
-              this.logger.error(`Upload ${file} to ${this.s3.ident}`)
-              throw error
+              this.catch(error)
             }
           }),
         )

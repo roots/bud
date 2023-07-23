@@ -41,10 +41,8 @@ export default class Project extends Service {
           })
           .catch(error => {
             throw new BudError(`Could not write profile.yml`, {
-              props: {
-                details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
-                origin: BudError.normalize(error),
-              },
+              details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
+              origin: BudError.normalize(error),
             })
           }),
         bud.fs
@@ -57,10 +55,8 @@ export default class Project extends Service {
           })
           .catch(error => {
             throw new BudError(`Could not write webpack.output.yml`, {
-              props: {
-                details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
-                origin: BudError.normalize(error),
-              },
+              details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
+              origin: BudError.normalize(error),
             })
           }),
       )

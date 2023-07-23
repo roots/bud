@@ -32,6 +32,8 @@
     }
   ],
   "license": "MIT",
+  "bugs": "https://github.com/roots/bud/issues",
+  "documentation": "https://bud.js.org/extensions/sage",
   "funding": {
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
@@ -41,7 +43,6 @@
     "url": "https://github.com/roots/bud",
     "directory": "sources/@roots/sage"
   },
-  "bugs": "https://github.com/roots/bud/issues",
   "keywords": [
     "bud",
     "sage"
@@ -54,54 +55,17 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./acorn": {
-      "import": "./lib/acorn/index.js",
-      "default": "./lib/acorn/index.js"
-    },
-    "./acorn-v2-public-path": {
-      "import": "./lib/acorn-v2-public-path/index.js",
-      "default": "./lib/acorn-v2-public-path/index.js"
-    },
-    "./blade-loader": {
-      "import": "./lib/blade-loader/index.js",
-      "default": "./lib/blade-loader/index.js"
-    },
-    "./client": {
-      "import": "./lib/client/index.js",
-      "default": "./lib/client/index.js"
-    },
-    "./client/dom-ready": {
-      "import": "./lib/client/dom-ready.js",
-      "default": "./lib/client/dom-ready.js"
-    },
-    "./client/lazy": {
-      "import": "./lib/client/lazy.js",
-      "default": "./lib/client/lazy.js"
-    },
-    "./sage": {
-      "import": "./lib/sage/index.js",
-      "default": "./lib/sage/index.js"
-    },
-    "./types": {
-      "import": "./lib/types/index.js",
-      "default": "./lib/types/index.js"
-    },
-    "./stylelint": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
-    "./stylelint-config": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
-    "./config/stylelint": {
-      "require": "./config/stylelint.cjs",
-      "default": "./config/stylelint.cjs"
-    },
+    ".": "./lib/index.js",
+    "./acorn": "./lib/acorn/index.js",
+    "./acorn-v2-public-path": "./lib/acorn-v2-public-path/index.js",
+    "./blade-loader": "./lib/blade-loader/index.js",
+    "./client": "./lib/client/index.js",
+    "./client/dom-ready": "./lib/client/dom-ready.js",
+    "./client/lazy": "./lib/client/lazy.js",
+    "./sage": "./lib/sage/index.js",
+    "./stylelint": "./config/stylelint.cjs",
+    "./stylelint-config": "./config/stylelint.cjs",
+    "./config/stylelint": "./config/stylelint.cjs",
     "./config/jsconfig.json": "./config/jsconfig.json",
     "./config/tsconfig.json": "./config/tsconfig.json"
   },
@@ -130,9 +94,6 @@
       ],
       "sage": [
         "./lib/sage/index.d.ts"
-      ],
-      "types": [
-        "./lib/types/index.d.ts"
       ]
     }
   },
@@ -156,6 +117,5 @@
   },
   "volta": {
     "extends": "../../../package.json"
-  },
-  "documentation": "https://bud.js.org/extensions/sage"
+  }
 }

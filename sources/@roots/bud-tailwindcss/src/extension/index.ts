@@ -29,7 +29,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
   @bind
   public override async boot(bud: Bud) {
     if (!bud.postcss) {
-      throw new Error(
+      return this.catch(
         `@roots/bud-postcss is required to run @roots/bud-tailwindcss`,
       )
     }

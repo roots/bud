@@ -74,17 +74,21 @@ const Compilation = ({
         <Messages color="red" messages={current?.errors} />
         <Messages color="yellow" messages={current?.warnings} />
 
-        <Entrypoints
-          compact={compact}
-          compilation={current}
-          displayEntrypoints={displayEntrypoints}
-        />
+        {current.errorsCount === 0 && (
+          <>
+            <Entrypoints
+              compact={compact}
+              compilation={current}
+              displayEntrypoints={displayEntrypoints}
+            />
 
-        <Assets
-          compact={compact}
-          compilation={current}
-          displayAssets={displayAssets}
-        />
+            <Assets
+              compact={compact}
+              compilation={current}
+              displayAssets={displayAssets}
+            />
+          </>
+        )}
       </Box>
     </View>
   )

@@ -80,17 +80,15 @@ class Configuration {
    * Process configuration
    */
   @bind
-  public async run(description: File): Promise<void> {
-    if (!description?.module) {
+  public async run(file: File): Promise<void> {
+    if (!file?.module) {
       throw new BudError(`No module found`, {
-        props: {
-          details: `There should be a module here. This is like an error with bud.js`,
-          file: description,
-        },
+        details: `There should be a module here. This is like an error with bud.js`,
+        file,
       })
     }
 
-    const config = await description.module()
+    const config = await file.module()
     isFunction(config)
       ? await this.dynamicConfig(config)
       : await this.staticConfig(config)

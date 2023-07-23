@@ -57,9 +57,7 @@ export default class BudReactRefresh extends Extension<
         throw new ExtensionError(
           `@roots/bud-react/react-refresh: no transformer found`,
           {
-            props: {
-              details: `Install @roots/bud-swc, @roots/bud-typescript or @roots/bud-babel`,
-            },
+            details: `Install @roots/bud-swc, @roots/bud-typescript or @roots/bud-babel`,
           },
         )
       }

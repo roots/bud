@@ -1,11 +1,7 @@
-import type {InstanceOptions} from 'modern-errors'
-
-import ModernError from 'modern-errors'
-
 /**
  * Props for Bud errors
  */
-interface BudErrorProps {
+interface BudErrorProps extends Error {
   details: string
   docs: URL
   file: {
@@ -16,25 +12,25 @@ interface BudErrorProps {
   }
   instance: string
   isBudError: true
-  issues: URL
+  issue: URL
   message: string
-  origin: BudErrorClass
+  origin: BudError
   thrownBy: string
 }
 
 /**
  * Error base class
  */
-class BudErrorClass extends ModernError {
+class BudError extends Error {
   /**
    * Details
    */
   public declare details: false | string
+
   /**
    * Documentation URL
    */
   public declare docs: false | URL
-
   /**
    * Information about file related to error
    */
@@ -61,9 +57,14 @@ class BudErrorClass extends ModernError {
   public declare issues: false | URL
 
   /**
+   * Error display name
+   */
+  public override name = `BudError`
+
+  /**
    * Original error
    */
-  public declare origin: BudErrorClass | false
+  public declare origin: BudError | false
 
   /**
    * Name of method that threw error
@@ -73,75 +74,76 @@ class BudErrorClass extends ModernError {
   /**
    * Class constructor
    */
-  public constructor(
-    message: string,
-    options?: InstanceOptions & {props?: Partial<BudErrorProps>},
-  ) {
-    super(message, options)
+  public constructor(message: string, options?: Partial<BudErrorProps>) {
+    super(message)
 
-    this.thrownBy = options?.props?.thrownBy ?? false
-    this.instance = options?.props?.instance ?? `default`
-    this.origin = options?.props?.origin ?? false
-    this.details = options?.props?.details ?? false
-    this.issues = options?.props?.issues ?? false
-    this.docs = options?.props?.docs ?? false
+    options && Object.assign(this, options)
+
+    if (!this.instance) this.instance = `default`
 
     this.isBudError = true
+  }
+
+  public static normalize(error: unknown) {
+    if (error instanceof BudError) return error
+
+    if (error instanceof Error) {
+      const {message, ...rest} = error
+      return new BudError(message, rest)
+    }
+
+    if (typeof error === `string`) {
+      return new BudError(error)
+    }
+
+    return new BudError(`unknown error`)
   }
 }
 
 /**
- * BudError
- */
-const BudError = BudErrorClass.subclass(`BudError`, {
-  custom: BudErrorClass,
-})
-
-/**
  * ModuleError
  */
-const ModuleError = BudErrorClass.subclass(`ModuleError`, {
-  custom: BudErrorClass,
-})
+class ModuleError extends BudError {
+  public override name = `ModuleError`
+}
 
 /**
  * ConfigError
  */
-const ConfigError = BudErrorClass.subclass(`ConfigurationError`, {
-  custom: BudErrorClass,
-})
+class ConfigError extends BudError {
+  public override name = `ConfigurationError`
+}
 
 /**
  * InputError
  */
-const InputError = BudErrorClass.subclass(`InputError`, {
-  custom: BudErrorClass,
-})
+class InputError extends BudError {
+  public override name = `InputError`
+}
 
 /**
  * CompilerError
  */
-const CompilerError = BudErrorClass.subclass(`CompilerError`, {
-  custom: BudErrorClass,
-})
+class CompilerError extends BudError {
+  public override name = `CompilerError`
+}
 
 /**
  * ServerError
  */
-const ServerError = BudErrorClass.subclass(`ServerError`, {
-  custom: BudErrorClass,
-})
+class ServerError extends BudError {
+  public override name = `ServerError`
+}
 
 /**
  * ExtensionError
  */
-const ExtensionError = BudErrorClass.subclass(`ExtensionError`, {
-  custom: BudErrorClass,
-})
+class ExtensionError extends BudError {
+  public override name = `ExtensionError`
+}
 
 export {
   BudError,
-  BudErrorClass,
   CompilerError,
   ConfigError,
   ExtensionError,

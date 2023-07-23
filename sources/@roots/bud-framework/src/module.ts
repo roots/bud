@@ -4,6 +4,7 @@ import {fileURLToPath, pathToFileURL} from 'node:url'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ModuleError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
+import noop from '@roots/bud-support/lodash/noop'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import {paths} from '@roots/bud-support/utilities/paths'
@@ -88,9 +89,7 @@ export class Module extends Service {
         resolutions: this.resolved,
         version: bud.context.bud.version,
       })
-      .catch(error => {
-        this.logger.error(error)
-      })
+      .catch(this.catch)
       .then(result => {
         bud.fs.read(this.resolutionsPath)
       })
@@ -105,9 +104,7 @@ export class Module extends Service {
       .then(path => relative(this.app.context.basedir, path))
       .then(path => path.split(signifier).shift())
       .then(path => this.app.path(path as any, signifier))
-      .catch(error => {
-        throw error
-      })
+      .catch(this.catch)
   }
 
   /**
@@ -117,9 +114,7 @@ export class Module extends Service {
   public async getManifestPath(pkgName: string) {
     return await this.getDirectory(pkgName)
       .then(dir => this.app.path(dir, `package.json`))
-      .catch(error => {
-        throw error
-      })
+      .catch(this.catch)
   }
 
   /**
@@ -152,12 +147,8 @@ export class Module extends Service {
       return options.raw ? result : result?.default ?? result
     }
 
-    const path = await this.resolve(signifier, context).catch(error => {
-      throw error
-    })
-    const result = await import(path).catch(error => {
-      throw error
-    })
+    const path = await this.resolve(signifier, context).catch(this.catch)
+    const result = await import(path).catch(this.catch)
 
     logger.scope(`module`).info(`[cache miss]`, `imported`, signifier)
     return options.raw ? result : result?.default ?? result
@@ -202,8 +193,6 @@ export class Module extends Service {
     signifier: string,
     context?: string,
   ): Promise<string> {
-    let errors = []
-
     if (this.resolved?.[signifier]) {
       logger
         .scope(`module`)
@@ -225,11 +214,7 @@ export class Module extends Service {
             `resolved ${signifier} to ${this.resolved[signifier]}`,
           )
       })
-      .catch(error => {
-        errors.push(
-          `Could not resolve ${signifier} from ${context}: ${error.message}`,
-        )
-      })
+      .catch(noop)
 
     if (this.resolved[signifier]) return this.resolved[signifier]
 
@@ -243,18 +228,10 @@ export class Module extends Service {
             `resolved ${signifier} to ${this.resolved[signifier]}`,
           )
       })
-      .catch(error => {
-        errors.push(
-          `Could not resolve ${signifier} from ${this.makeContextURL(
-            context,
-          )}: ${error.message}`,
-        )
-      })
+      .catch(noop)
 
     if (this.resolved[signifier]) return this.resolved[signifier]
 
-    throw new ModuleError(`Could not resolve ${signifier}`, {
-      cause: errors.reverse().join(`\n`),
-    })
+    throw new ModuleError(`Could not resolve ${signifier}`)
   }
 }

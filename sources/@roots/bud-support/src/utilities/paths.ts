@@ -60,16 +60,14 @@ const get = (directory?: string): paths => {
 
   if (!directory)
     throw new BudError(
-      `paths: directory is required if paths not already initialized`,
+      `directory is required if paths not already initialized`,
       {
-        props: {
-          details: `\
+        details: `\
 This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized.
 This is most likely a problem with the internals of bud.js.`,
-          issue: new URL(
-            `https://github.com/roots/bud/search?q=paths+error+is:issue`,
-          ),
-        },
+        issue: new URL(
+          `https://github.com/roots/bud/search?q=paths+error+is:issue`,
+        ),
       },
     )
 

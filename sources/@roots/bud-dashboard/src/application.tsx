@@ -1,12 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
-import type {BudErrorClass} from '@roots/bud-support/errors'
+import type {BudError} from '@roots/bud-support/errors'
 
 import {exit} from 'node:process'
 
+import {Error} from '@roots/bud-dashboard/components/error'
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
-import Error from '@roots/bud-dashboard/views/node-error'
 import Server from '@roots/bud-dashboard/views/server'
 import {
   Box,
@@ -28,7 +28,7 @@ export interface Props {
   displayAssets?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
-  error?: BudErrorClass
+  error?: BudError
   errors?: StatsCompilation[`errors`]
   isolated?: number
   mode: Bud['mode']

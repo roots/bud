@@ -1,6 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 import type {MultiStats, Stats} from '@roots/bud-framework/config'
 
+import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
@@ -30,6 +32,11 @@ interface Contract {
    * Before build callback
    */
   buildBefore?(app: Bud): Promise<any>
+
+  /**
+   * Handle errors
+   */
+  catch(error: BudError | string): never
 
   /**
    * Before compiler callback
@@ -125,6 +132,18 @@ abstract class Base implements Contract {
   public buildBefore?(app: Bud): Promise<any>
 
   /**
+   * {@link Contract.catch}
+   */
+  @bind
+  public catch(error: BudError | string): never {
+    if (typeof error === `string`) {
+      throw BudError.normalize(error)
+    }
+
+    throw error
+  }
+
+  /**
    * {@link Contract.compilerBefore}
    */
   public compilerBefore?(app: Bud): Promise<any>
@@ -217,6 +236,18 @@ abstract class BaseContainer extends Container implements Contract {
    * {@link Contract.buildBefore}
    */
   public buildBefore?(app: Bud): Promise<any>
+
+  /**
+   * {@link Contract.catch}
+   */
+  @bind
+  public catch(error: BudError | string): never {
+    if (typeof error === `string`) {
+      throw BudError.normalize(error)
+    }
+
+    throw error
+  }
 
   /**
    * {@link Contract.compilerBefore}

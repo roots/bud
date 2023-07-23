@@ -38,9 +38,7 @@ class BudPostCss extends BudPostCssOptionsApi {
     name = this.normalizePluginName(name)
     if (!(name in this.plugins)) {
       throw new InputError(`Plugin ${name} does not exist`, {
-        props: {
-          thrownBy: `bud.postcss.getPlugin`,
-        },
+        thrownBy: `bud.postcss.getPlugin`,
       })
     }
     return this.plugins[name]

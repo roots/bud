@@ -72,11 +72,8 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
   }
 
   throw new InputError(`Invalid parameters passed to bud.setPath`, {
-    props: {
-      docs: new URL(`https://bud.js.org/docs/bud.setPath`),
-      isBudError: true,
-      thrownBy: `bud.setPath`,
-    },
+    docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+    thrownBy: `bud.setPath`,
   })
 }
 

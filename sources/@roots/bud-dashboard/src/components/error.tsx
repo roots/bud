@@ -1,22 +1,15 @@
 /* eslint-disable n/no-process-env */
-import cleanStack from '@roots/bud-support/clean-stack'
-import {BudError, type BudErrorClass} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import isString from '@roots/bud-support/lodash/isString'
 
-export type Props = React.PropsWithChildren<{
-  error: BudErrorClass
-  message?: string
-  name?: string
-}>
-
 const basePath =
   process.env.PROJECT_CWD ?? process.env.INIT_CWD ?? process.cwd()
 
-export const Error = ({error, ...props}: Props) => {
+export const Error = ({error}: {error: BudError}) => {
   if (!error) {
-    error = BudError.normalize({...props})
+    error = BudError.normalize(`Unknown error`)
   }
 
   if (isString(error)) {
@@ -29,7 +22,7 @@ export const Error = ({error, ...props}: Props) => {
           <Text>
             <Text color="red">{figures.cross}</Text>
             {` `}
-            {error}
+            {error.replace(basePath, `.`)}
           </Text>
         </Box>
       </Box>
@@ -49,36 +42,33 @@ export const Error = ({error, ...props}: Props) => {
           <Text>
             <Text color="red">{figures.cross}</Text>
             {` `}
-            {error.message}
+            {error.message.replace(basePath, `.`).replace(`Error: `, ``)}
           </Text>
         </Box>
       )}
 
-      {error.details && (
+      {error.details && !error.details.startsWith(`resolve`) && (
         <Box marginTop={1}>
           <Text>
             <Text color="blue">
               {figures.ellipsis}
-              {` `}Error details{` `}
+              {` `}Details{` `}
             </Text>
 
-            <Text>{error.details}</Text>
+            <Text>{error.details.replace(basePath, `.`)}</Text>
           </Text>
         </Box>
       )}
 
-      {!error.origin && error.stack && (
-        <Box flexDirection="column" marginTop={1}>
-          <Text color="blue">
-            {figures.hamburger}
-            {` `}Stack trace
-          </Text>
+      {error.thrownBy && (
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
+              {figures.ellipsis}
+              {` `}Thrown by{` `}
+            </Text>
 
-          <Text dimColor>
-            {cleanStack(error.stack, {
-              basePath,
-              pretty: true,
-            })}
+            <Text>{error.thrownBy}</Text>
           </Text>
         </Box>
       )}

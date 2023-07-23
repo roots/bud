@@ -9,11 +9,9 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 export const all = (parameters: Parameters): Parameters => {
   if (isUndefined(parameters[0])) {
     throw new InputError(`bud.setPath: no parameters provided`, {
-      props: {
-        details: `At least one parameter must be provided.`,
-        docs: new URL(`https://bud.js.org/docs/bud.setPath`),
-        thrownBy: `bud.setPath`,
-      },
+      details: `At least one parameter must be provided.`,
+      docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+      thrownBy: `bud.setPath`,
     })
   }
 
@@ -25,11 +23,9 @@ export const baseDir = ([basedir]: [string]): string => {
     throw new InputError(
       `bud.setPath: when only one parameter is provided, it must be an absolute path.`,
       {
-        props: {
-          details: `The provided path is not absolute. Received \`${basedir}\`. This will be used as the base directory for all other paths.`,
-          docs: new URL(`https://bud.js.org/docs/bud.setPath`),
-          thrownBy: `bud.setPath`,
-        },
+        details: `The provided path is not absolute. Received \`${basedir}\`. This will be used as the base directory for all other paths.`,
+        docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+        thrownBy: `bud.setPath`,
       },
     )
   }
@@ -42,11 +38,9 @@ export const stringPair = ([key, value]: [string, string]) => {
     throw new InputError(
       `bud.setPath: tried to set path with a non-string value`,
       {
-        props: {
-          details: `Path value must be a string. Received \`${typeof value}\``,
-          docs: new URL(`https://bud.js.org/docs/bud.setPath`),
-          thrownBy: `bud.setPath`,
-        },
+        details: `Path value must be a string. Received \`${typeof value}\``,
+        docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+        thrownBy: `bud.setPath`,
       },
     )
   }
@@ -55,11 +49,9 @@ export const stringPair = ([key, value]: [string, string]) => {
     throw new InputError(
       `bud.setPath: Tried to set path with a non-string key`,
       {
-        props: {
-          details: `Path label must be a string. Received \`${typeof key}\``,
-          docs: new URL(`https://bud.js.org/docs/bud.setPath`),
-          thrownBy: `bud.setPath`,
-        },
+        details: `Path label must be a string. Received \`${typeof key}\``,
+        docs: new URL(`https://bud.js.org/docs/bud.setPath`),
+        thrownBy: `bud.setPath`,
       },
     )
   }

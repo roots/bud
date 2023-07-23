@@ -24,13 +24,6 @@ export const compilePaths: compilePaths = function (
       if (!match) {
         throw new InputError(
           `bud.compilePaths: \`${rule}\` is not a valid rule name.`,
-          {
-            props: {
-              [`valid rule names`]: Object.keys(bud.build.rules).join(
-                `, `,
-              ),
-            },
-          },
         )
       }
 

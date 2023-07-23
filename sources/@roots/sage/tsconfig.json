@@ -3,10 +3,6 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "paths": {
-      "@roots/sage": ["./src/index.ts"],
-      "@roots/sage/*": ["./src/*/index.ts"]
-    },
     "types": [
       "node",
       "@roots/bud-framework",
@@ -18,9 +14,7 @@
       "@roots/bud-preset-wordpress"
     ]
   },
-  "files": ["src/types/index.ts"],
-  "include": ["src"],
-  "exclude": ["types"],
+  "include": ["./src"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-entrypoints/tsconfig.json"},

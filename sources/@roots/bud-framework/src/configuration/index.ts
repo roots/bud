@@ -58,10 +58,8 @@ export const process = async (app: Bud) => {
 const makeError =
   (file: File) => (error: Error & {isBudError?: boolean}) => {
     throw new ConfigError(`Error in ${file.name}`, {
-      props: {
-        file,
-        origin:
-          error instanceof BudError ? error : BudError.normalize(error),
-      },
+      file,
+      origin:
+        error instanceof BudError ? error : BudError.normalize(error),
     })
   }

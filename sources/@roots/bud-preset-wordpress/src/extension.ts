@@ -60,7 +60,7 @@ export default class BudPresetWordPress extends Extension<Options> {
       import.meta.url,
     )
     /** Bail if unresolvable */
-    if (!loader) return this.logger.error(`HMR loader not found`)
+    if (!loader) return this.catch(`HMR loader not found`)
 
     /** Set loader alias */
     hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({

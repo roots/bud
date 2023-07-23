@@ -25,10 +25,7 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
   this.set(key, (...args: Array<any>) => {
     this.promised
       .then(async () => await fn(...args))
-      .catch(error => {
-        logger.error(error)
-        throw error
-      })
+      .catch(this.catch)
       .finally(() => {
         logger.success(`finished promised call:`, `bud.${key}`)
       })
