@@ -16,4 +16,8 @@ describe(`wordpress-transforms`, () => {
   it(`should return undefined for non-provided signifier`, () => {
     expect(window.transform(`canvas-confetti`)).not.toBeDefined()
   })
+
+  it(`should return undefined for omitted signifier`, () => {
+    expect(window.transform(`@wordpress/icons`)).not.toBeDefined()
+  })
 })
