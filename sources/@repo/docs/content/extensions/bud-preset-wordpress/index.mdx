@@ -13,10 +13,8 @@ If you plan on using it in a WordPress theme you should consider using [@roots/s
 
 It includes the following extensisons:
 
-- [@roots/bud-babel](/extensions/bud-babel)
 - [@roots/bud-postcss](/extensions/bud-postcss)
 - [@roots/bud-react](/extensions/bud-react)
-- [@roots/bud-entrypoints](/extensions/bud-entrypoints)
 - [@roots/wordpress-hmr](/extensions/bud-preset-wordpress/editor-integration)
 
 ## Installation
@@ -24,3 +22,19 @@ It includes the following extensisons:
 ```npm2yarn
 npm install @roots/bud-preset-wordpress --save-dev
 ```
+
+## Excluding predefined externals
+
+If WordPress provides a package in your bundle any references you make to it will be replaced by a reference to the WP provided global.
+
+There may be situations where you want to exclude a package from this behavior. For example, you may wish to use a different version of jQuery than the one provided by WordPress.
+
+To that end you can pass an array of packages to exclude:
+
+```ts title=bud.config.ts
+export default async (bud: Bud) => {
+  bud.wp.externals.exclude(['jquery'])
+}
+```
+
+With that, your custom jQuery will now be bundled with your application.

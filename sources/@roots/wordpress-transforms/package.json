@@ -44,13 +44,13 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "./handle": [
+      "handle": [
         "./lib/handle.d.ts"
       ],
-      "./wordpress": [
+      "wordpress": [
         "./lib/wordpress.d.ts"
       ],
-      "./window": [
+      "window": [
         "./lib/window.d.ts"
       ]
     }

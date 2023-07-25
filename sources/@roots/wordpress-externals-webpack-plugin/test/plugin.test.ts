@@ -1,6 +1,5 @@
+import Plugin from '@roots/wordpress-externals-webpack-plugin'
 import {describe, expect, it} from 'vitest'
-
-import Plugin from './index.js'
 
 describe(`@roots/wordpress-externals-webpack-plugin`, () => {
   it(`should be constructable`, () => {

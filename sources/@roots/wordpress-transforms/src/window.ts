@@ -15,6 +15,8 @@ export const transform = (
 ): Array<string> | string | undefined => {
   if (!isProvided(request)) return
 
+  if (isLibrary(request)) return getGlobal(request)
+
   if (isWordPressRequest(request))
     return [
       `wp`,
@@ -22,6 +24,4 @@ export const transform = (
         .replace(/^@wordpress\/(.*)$/, `$1`)
         .replace(/-(.)/g, (_, g) => g.toUpperCase()),
     ]
-
-  if (isLibrary(request)) return getGlobal(request)
 }

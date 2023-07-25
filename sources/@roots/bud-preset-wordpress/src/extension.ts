@@ -29,7 +29,7 @@ interface Options {
   `@roots/bud-wordpress-theme-json`,
   `@roots/bud-react`,
 ])
-@options({
+@options<Options>({
   hmr: true,
   notify: true,
 })
@@ -84,6 +84,7 @@ export default class BudPresetWordPress extends Extension<Options> {
       ...items,
       `@roots/wordpress-hmr/loader`,
     ])
+
     build.rules.ts?.setUse((items = []) => [
       ...items,
       `@roots/wordpress-hmr/loader`,
@@ -163,5 +164,12 @@ export default class BudPresetWordPress extends Extension<Options> {
         `you will also want to add ${chalk.blue(`@roots/bud-postcss`)}`,
       )
     }
+  }
+
+  /**
+   * {@link BudWordPressExternals}
+   */
+  public get externals() {
+    return this.app.extensions.get(`@roots/bud-wordpress-externals`)
   }
 }

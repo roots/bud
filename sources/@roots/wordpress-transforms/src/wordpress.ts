@@ -40,7 +40,7 @@ export const isProvided = (request: string): boolean => {
 }
 
 export const isWordPressRequest = (request: string): boolean =>
-  request.includes(`@wordpress`)
+  request.includes(`@wordpress`) && !omitted.includes(request)
 
 export const normalize = (request: string): string => {
   if (request.includes(`@babel/runtime/regenerator`))
