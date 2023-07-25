@@ -12,7 +12,7 @@ export class WordPressExternalsWebpackPlugin
   /**
    * Class constructor
    */
-  public constructor(public options: Options) {}
+  public constructor(public options?: Options) {}
 
   /**
    * {@link WebpackPluginInstance.apply}
@@ -20,7 +20,7 @@ export class WordPressExternalsWebpackPlugin
   public apply(compiler: Webpack.Compiler) {
     new Webpack.ExternalsPlugin(`window`, ({request}, callback) => {
       // bail on excluded signifiers
-      if (this.options.exclude?.includes(request)) return callback()
+      if (this.options?.exclude?.includes(request)) return callback()
 
       const lookup = window.transform(request)
       return lookup ? callback(null, lookup) : callback()
