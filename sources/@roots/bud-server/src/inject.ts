@@ -14,11 +14,6 @@ export const inject = async (
       (entrypoints, [name, entry]) => {
         name = name ?? `main`
 
-        app.server.logger.info(
-          `injecting scripts ${name}`,
-          ...injection.map(fn => fn(app)).filter(Boolean),
-        )
-
         return {
           ...entrypoints,
           [name]: {
