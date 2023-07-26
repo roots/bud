@@ -10,10 +10,15 @@ import {fileURLToPath} from 'node:url'
 
 import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
-import logger from '@roots/bud-support/logger'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import {open, openEditor} from '@roots/bud-support/open'
-import chalk from 'chalk'
 
+/**
+ * Path to roots-notifier binary
+ *
+ * @description
+ * Used to open notifications on macOS
+ */
 const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
   `..`, // bud-framework
@@ -25,17 +30,20 @@ const notifierPath = resolve(
   `roots-notifier`,
 )
 
+/**
+ * Notification
+ */
 interface Notification extends NodeNotification {
-  actions?: string | string[] | undefined
-  closeLabel?: string | undefined
-  contentImage?: string | undefined
-  dropdownLabel?: string | undefined
+  actions?: string | string[]
+  closeLabel?: string
+  contentImage?: string
+  dropdownLabel?: string
   group?: string
-  open?: string | undefined | URL
-  reply?: boolean | undefined
-  sound?: boolean | string | undefined
-  subtitle?: string | undefined
-  timeout?: false | number | undefined
+  open?: string | URL
+  reply?: boolean
+  sound?: boolean | string
+  subtitle?: string
+  timeout?: false | number
 }
 
 /**
@@ -58,12 +66,7 @@ export class Notifier {
    *
    * @see {@link https://github.com/roots/bud/issues/2041}
    */
-  public browserOpened = false
-
-  /**
-   * Editor to open on error
-   */
-  public editor: boolean | string
+  public declare browserOpened: boolean
 
   /**
    * Node-notifier notification center instance
@@ -83,6 +86,7 @@ export class Notifier {
     this.notify = this.notify.bind(this)
     this.openBrowser = this.openBrowser.bind(this)
     this.openEditor = this.openEditor.bind(this)
+    this.browserOpened = false
   }
 
   /**
@@ -90,6 +94,29 @@ export class Notifier {
    */
   public get app(): Bud {
     return this._app()
+  }
+
+  /**
+   * Editor to open on error
+   */
+  public get editor(): boolean | string {
+    if (!isUndefined(this.app.context.editor)) {
+      return this.app.context.editor
+    }
+
+    if (this.app.env.has(`BUD_EDITOR`)) {
+      return this.app.env.get(`BUD_EDITOR`)
+    }
+
+    if (this.app.env.has(`VISUAL`)) {
+      return this.app.env.get(`VISUAL`)
+    }
+
+    if (this.app.env.has(`EDITOR`)) {
+      return this.app.env.get(`EDITOR`)
+    }
+
+    return false
   }
 
   /**
@@ -105,16 +132,6 @@ export class Notifier {
         platform() !== `darwin`
           ? new NotificationCenter()
           : new NotificationCenter({customPath: notifierPath})
-    }
-
-    if (typeof bud.context.editor === `string`) {
-      this.editor = bud.context.editor
-    } else if (bud.env.has(`BUD_EDITOR`)) {
-      this.editor = bud.env.get(`BUD_EDITOR`)
-    } else if (bud.env.has(`VISUAL`)) {
-      this.editor = bud.env.get(`VISUAL`)
-    } else if (bud.env.has(`EDITOR`)) {
-      this.editor = bud.env.get(`EDITOR`)
     }
   }
 
@@ -176,40 +193,21 @@ export class Notifier {
     if (!this.openEditorEnabled) return
     if (!input || isEmpty(input)) return
 
-    logger.scope(`notifier`, `openEditor`).log(`input received`, input)
-
     const files = Array.isArray(input) ? input : [input]
 
-    files.map(file =>
-      logger.scope(`notifier`).log(`opening`, file, `in`, this.editor),
-    )
-
-    if (typeof this.editor === `string`)
+    if (isString(this.editor))
       return openEditor(files, {editor: this.editor})
-    else return openEditor(files)
+
+    return openEditor(files)
   }
 
   /**
-   * True if editor opening is enabled
+   * If --editor flag is passed
    */
   public get openEditorEnabled(): boolean {
-    const enabled =
-      this.app.context.editor === true || // if true, fall back to default behavior
-      typeof this.app.context.editor === `string` // if string, opens in that editor
-
-    if (enabled && !this.editor) {
-      logger
-        .scope(`notifier`, `editor check`)
-        .warn(
-          chalk.magenta(`\n\nEditor not defined.`),
-          `\n\nYou should set an editor using any of the following ENV variables:\n`,
-          `\n  - ${chalk.blue(`BUD_EDITOR`)} (bud specific; preferred)`,
-          `\n  - ${chalk.blue(`VISUAL`)} (unix standard)`,
-          `\n  - ${chalk.blue(`EDITOR`)} (unix standard)`,
-          `\n\nAlternatively, use the ${chalk.blue(`--editor`)} flag.`,
-        )
-    }
-
-    return enabled
+    return (
+      !isUndefined(this.app.context.editor) &&
+      this.app.context.editor !== false
+    )
   }
 }

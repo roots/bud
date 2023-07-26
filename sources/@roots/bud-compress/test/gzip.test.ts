@@ -1,32 +1,29 @@
 import {Bud, factory} from '@repo/test-kit'
+import BudCompress from '@roots/bud-compress'
+import BudGzip from '@roots/bud-compress/gzip'
 import {beforeEach, describe, expect, it, vitest} from 'vitest'
-
-import BudBrotli from './brotli.js'
-import Brotli from './brotli.js'
-import Compression from './extension.js'
-import BudGzip from './gzip.js'
 
 describe(`@roots/bud-compress`, () => {
   let bud: Bud
-  let compress: Compression
-  let brotli: Brotli
+  let compress: BudCompress
+  let gzip: BudGzip
 
   beforeEach(async () => {
     bud = await factory()
-    brotli = new Brotli(bud)
-    compress = new Compression(bud)
+    gzip = new BudGzip(bud)
+    compress = new BudCompress(bud)
 
-    await bud.extensions.add([BudBrotli, BudGzip])
+    await bud.extensions.add([BudGzip])
     await compress.register(bud)
   })
 
   it(`should be constructable`, () => {
-    expect(brotli).toBeInstanceOf(Brotli)
+    expect(gzip).toBeInstanceOf(BudGzip)
   })
 
   it(`should call enabled when config is called`, () => {
-    const enableSpy = vitest.spyOn(brotli, `enable`)
-    brotli.config()
+    const enableSpy = vitest.spyOn(gzip, `enable`)
+    gzip.config()
     expect(enableSpy).toHaveBeenCalled()
   })
   it(`should call setOptions when config is called`, () => {
@@ -39,8 +36,8 @@ describe(`@roots/bud-compress`, () => {
       test: /test-regex$/,
       threshold: 9001,
     }
-    const setOptionsSpy = vitest.spyOn(brotli, `setOptions`)
-    brotli.config(options)
+    const setOptionsSpy = vitest.spyOn(gzip, `setOptions`)
+    gzip.config(options)
     expect(setOptionsSpy).toHaveBeenCalledWith(options)
   })
 })
