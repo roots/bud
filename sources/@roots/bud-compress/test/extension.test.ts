@@ -1,23 +1,22 @@
 import {Bud, factory} from '@repo/test-kit'
+import BudCompress from '@roots/bud-compress'
+import BudBrotli from '@roots/bud-compress/brotli'
+import BudGzip from '@roots/bud-compress/gzip'
 import {beforeEach, describe, expect, it, test} from 'vitest'
-
-import BudBrotli from './brotli.js'
-import BudGzip from './gzip.js'
-import Extension from './index.js'
 
 describe(`@roots/bud-compress`, () => {
   let bud: Bud
-  let compress: Extension
+  let compress: BudCompress
 
   beforeEach(async () => {
     bud = await factory()
-    compress = new Extension(bud)
+    compress = new BudCompress(bud)
     await bud.extensions.add([BudBrotli, BudGzip])
     await compress.register(bud)
   })
 
   it(`should be constructable`, () => {
-    expect(Extension).toBeInstanceOf(Function)
+    expect(BudCompress).toBeInstanceOf(Function)
   })
 
   it(`should have gzip interface`, () => {

@@ -4706,7 +4706,6 @@ __metadata:
   resolution: "@examples/sage@workspace:examples/sage"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-prettier": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@roots/sage": "workspace:*"
   languageName: unknown
@@ -8175,7 +8174,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-prettier@workspace:*, @roots/bud-prettier@workspace:sources/@roots/bud-prettier":
+"@roots/bud-prettier@workspace:sources/@roots/bud-prettier":
   version: 0.0.0-use.local
   resolution: "@roots/bud-prettier@workspace:sources/@roots/bud-prettier"
   dependencies:

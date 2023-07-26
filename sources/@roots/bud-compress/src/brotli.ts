@@ -1,3 +1,7 @@
+import type {Options} from '@roots/bud-compress'
+
+import zlib from 'node:zlib'
+
 import {type Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
@@ -10,8 +14,6 @@ import {
 import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'compression-webpack-plugin'
 
-import type {Options} from './extension.js'
-
 /**
  * Brotli compression configuration
  */
@@ -19,12 +21,16 @@ import type {Options} from './extension.js'
 @plugin(Plugin)
 @options<Options>({
   algorithm: `brotliCompress`,
-  compressionOptions: {level: 11},
+  compressionOptions: {
+    params: {
+      [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+    },
+  },
   deleteOriginalAssets: false,
-  filename: `[name].br[query]`,
+  filename: `[path][name].gz[query]`,
   minRatio: 0.8,
-  test: /\.js$|\.css$|\.html$|\.htm$/,
-  threshold: 10240,
+  test: /\.(js|css|html?|svg)$/,
+  threshold: 0,
 })
 @disabled
 export default class BudBrotli extends Extension<Options, Plugin> {

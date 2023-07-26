@@ -50,18 +50,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./brotli": {
-      "import": "./lib/brotli.js",
-      "default": "./lib/brotli.js"
-    },
-    "./gzip": {
-      "import": "./lib/gzip.js",
-      "default": "./lib/gzip.js"
-    }
+    ".": "./lib/index.js",
+    "./brotli": "./lib/brotli.js",
+    "./gzip": "./lib/gzip.js",
+    "./extension": "./lib/extension.js"
   },
   "typesVersions": {
     "*": {
@@ -73,6 +65,9 @@
       ],
       "gzip": [
         "./lib/gzip.d.ts"
+      ],
+      "extension": [
+        "./lib/extension.d.ts"
       ]
     }
   },
