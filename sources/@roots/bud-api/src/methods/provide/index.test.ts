@@ -24,7 +24,6 @@ describe(`bud.provide`, () => {
   it(`should call mockExtension.get when called`, async () => {
     const getSpy = vi.spyOn(bud.extensions, `get`)
     await provide({jquery: [`$`, `jQuery`]})
-
     expect(getSpy).toHaveBeenCalled()
   })
 
@@ -34,7 +33,6 @@ describe(`bud.provide`, () => {
     )
     const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
     await provide({jquery: [`$`, `jQuery`]})
-
     expect(setOptionsSpy).toHaveBeenCalledWith(
       expect.objectContaining({$: `jquery`, jQuery: `jquery`}),
     )

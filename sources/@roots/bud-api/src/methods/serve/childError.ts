@@ -5,10 +5,11 @@ import {highlight} from '@roots/bud-support/highlight'
 import type {Parameters} from './index.js'
 
 export const checkChildInstanceError = (
-  {api, isChild, label}: Bud,
+  bud: Bud,
   ...input: Parameters
 ) => {
-  if (!isChild) return
+  const {api, label, server} = bud
+  if (server) return
 
   api.logger.warn(
     `server configuration is being moved to the root instance of bud: ${label}`,

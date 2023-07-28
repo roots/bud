@@ -64,7 +64,7 @@ class Bud extends Framework.Bud {
 
   public declare cdn: BudCDN
 
-  public declare compiler: Compiler
+  public declare compiler?: Compiler
 
   public declare dashboard: Dashboard
 
@@ -78,7 +78,7 @@ class Bud extends Framework.Bud {
 
   public declare manifest: WebpackManifestPlugin
 
-  public declare server: Server
+  public declare server?: Server
 
   public declare tsconfig: BudTsConfigValues
 }

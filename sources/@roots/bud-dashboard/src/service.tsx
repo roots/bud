@@ -289,7 +289,10 @@ export class Dashboard extends Service implements BudDashboard {
 
     if (this.app.context.silent === true) return this
 
-    if (this.app.context.dashboard === false || this.app.context.ci) {
+    if (
+      (this.app.compiler?.stats && this.app.context.dashboard === false) ||
+      this.app.context.ci
+    ) {
       this.renderString(
         this.app.compiler.stats.toString({
           color: true,

@@ -21,15 +21,13 @@ export interface close {
  * ```
  */
 export function close(onComplete?: () => unknown) {
-  const application = this as Bud
-
   try {
-    if (application.compiler?.instance?.running) {
-      application.compiler.instance.close(() => {
-        closeDevelopmentServer(application)
+    if (this.compiler?.instance?.running) {
+      this.compiler.instance.close(() => {
+        closeDevelopmentServer(this)
       })
     } else {
-      closeDevelopmentServer(application)
+      closeDevelopmentServer(this)
     }
   } catch (error) {
     throw error
@@ -38,22 +36,20 @@ export function close(onComplete?: () => unknown) {
   if (onComplete) return onComplete()
 }
 
-const closeDevelopmentServer = (application: Bud) => {
+const closeDevelopmentServer = (bud: Bud) => {
   try {
     if (
-      application.isDevelopment &&
-      isFunction(application.server?.watcher?.instance?.close)
+      bud.isDevelopment &&
+      isFunction(bud.server?.watcher?.instance?.close)
     ) {
-      application.server.watcher.instance.close()
-      application.success(`closed fs watch`)
+      bud.server.watcher.instance.close()
     }
 
     if (
-      application.isDevelopment &&
-      isFunction(application.server?.connection?.instance?.close)
+      bud.isDevelopment &&
+      isFunction(bud.server?.connection?.instance?.close)
     ) {
-      application.server.connection.instance.close()
-      application.success(`closed development server`)
+      bud.server.connection.instance.close()
     }
   } catch (error) {
     throw error

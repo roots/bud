@@ -9,10 +9,10 @@ export interface run {
 }
 
 export const run: run = async function (this: Bud) {
-  if (this.isProduction) {
-    const compilation = await this.compiler.compile(this).catch(error => {
-      throw error
-    })
+  if (this.isProduction && this.compiler) {
+    const compilation = await this.compiler
+      ?.compile(this)
+      .catch(this.catch)
 
     compilation?.run((error: WebpackError) => {
       if (error) this.compiler.onError(error)
@@ -23,8 +23,6 @@ export const run: run = async function (this: Bud) {
     })
   }
 
-  if (this.isDevelopment)
-    await this.server.run().catch(error => {
-      throw error
-    })
+  if (this.isDevelopment && this.server)
+    await this.server.run().catch(this.server.catch)
 }

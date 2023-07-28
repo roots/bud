@@ -13,10 +13,7 @@ export function isPrimitive(
 export function isNamed(
   input: Parameters,
 ): input is [string, Array<string> | string] {
-  return (
-    input.length === 2 &&
-    (typeof input[1] === `string` || Array.isArray(input[1]))
-  )
+  return input.length === 2
 }
 
 export function isNormalRecord(

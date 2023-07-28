@@ -14,20 +14,14 @@ export const inject = async (
       (entrypoints, [name, entry]) => {
         name = name ?? `main`
 
-        app.server.logger.info(
-          `injecting scripts ${name}`,
-          ...injection.map(fn => fn(app)).filter(Boolean),
-        )
+        const importArray = [
+          ...(entry?.import ?? `index`),
+          ...injection.map(fn => fn(app)),
+        ].filter(Boolean)
 
         return {
           ...entrypoints,
-          [name]: {
-            ...(entry ?? {}),
-            import: [
-              ...(entry?.import ?? `index`),
-              ...injection.map(fn => fn(app)),
-            ].filter(Boolean),
-          },
+          [name]: {...(entry ?? {}), import: importArray},
         }
       },
       {},

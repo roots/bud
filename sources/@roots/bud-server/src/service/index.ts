@@ -10,6 +10,7 @@ import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 
 /**
  * Server service class
@@ -198,9 +199,16 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public override async serverBefore?(bud: Bud) {
+    if (!isFunction(bud.compiler?.compile))
+      this.catch(
+        new BudError(`Compiler not found`, {
+          thrownBy: `bud.server.serverBefore`,
+        }),
+      )
+
     await this.setConnection()
     await this.injectScripts()
-    await bud.compiler.compile(bud)
+    await bud.compiler?.compile(bud)
     await this.applyMiddleware()
     await this.watcher.watch()
   }
@@ -210,20 +218,21 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public async setConnection(connection?: Connection) {
-    if (!connection) {
-      const isHttps = this.url.protocol === `https:`
-
-      this.connection = await this.app.module
-        .import(
-          isHttps
-            ? `@roots/bud-server/server/https`
-            : `@roots/bud-server/server/http`,
-          import.meta.url,
-        )
-        .then(({Server}) => new Server(this.app))
-    } else {
+    if (connection) {
       this.connection = connection
+      return this.connection
     }
+
+    const isHttps = this.url.protocol === `https:`
+
+    this.connection = await this.app.module
+      .import(
+        isHttps
+          ? `@roots/bud-server/server/https`
+          : `@roots/bud-server/server/http`,
+        import.meta.url,
+      )
+      .then(({Server}) => new Server(this.app))
 
     return this.connection
   }

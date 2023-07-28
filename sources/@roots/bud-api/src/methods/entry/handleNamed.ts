@@ -24,8 +24,5 @@ export async function handleNamed(
     })
   }
 
-  if (`import` in value) {
-    return bud.hooks.on(`build.entry`, {...current, [name]: value})
-  }
   return bud.hooks.on(`build.entry`, {...current, [name]: value})
 }
