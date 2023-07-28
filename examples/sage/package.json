@@ -5,7 +5,6 @@
   "type": "module",
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-prettier": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
     "@roots/sage": "workspace:*"
   }

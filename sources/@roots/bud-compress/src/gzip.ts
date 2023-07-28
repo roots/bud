@@ -1,3 +1,4 @@
+import type {Options} from '@roots/bud-compress'
 import type {Bud} from '@roots/bud-framework'
 
 import {Extension} from '@roots/bud-framework/extension'
@@ -11,21 +12,19 @@ import {
 import {deprecated} from '@roots/bud-support/decorators'
 import Plugin from 'compression-webpack-plugin'
 
-import type {Options} from './extension.js'
-
 /**
  * Gzip compression configuration
  */
 @label(`@roots/bud-compress/gzip`)
 @plugin(Plugin)
 @options({
-  algorithm: `brotliCompress`,
+  algorithm: `gzip`,
   compressionOptions: {level: 11},
   deleteOriginalAssets: false,
-  filename: `[name].br[query]`,
+  filename: `[path][name].gz[query]`,
   minRatio: 0.8,
-  test: /\.js$|\.css$|\.html$|\.htm$/,
-  threshold: 10240,
+  test: /\.(js|css|html?|svg)$/,
+  threshold: 0,
 })
 @disabled
 export default class BudGzip extends Extension<Options, Plugin> {

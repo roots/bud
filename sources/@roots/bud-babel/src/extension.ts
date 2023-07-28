@@ -89,7 +89,9 @@ export default class BabelExtension extends Extension {
       plugins: Object.values(this.plugins),
       presets: Object.values(this.presets),
       root: this.root,
-      targets: this.app.context.manifest?.browserslist ?? `defaults`,
+      targets: this.app.context.manifest?.browserslist ?? {
+        esmodules: true,
+      },
     }
   }
 

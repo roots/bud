@@ -12,6 +12,7 @@ export default {
   ),
   '@roots/bud-cache': path(`sources/@roots/bud-cache/src`),
   '@roots/bud-compiler': path(`sources/@roots/bud-compiler/src`),
+  '@roots/bud-compress': path(`sources/@roots/bud-compress/src`),
   '@roots/bud-dashboard': path(`sources/@roots/bud-dashboard/src`),
   '@roots/bud-extensions': path(`sources/@roots/bud-extensions/src`),
   '@roots/bud-framework': path(`sources/@roots/bud-framework/src`),

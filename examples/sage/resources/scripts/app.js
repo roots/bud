@@ -7,7 +7,5 @@ const init = () =>
 
 init()
 
-if (import.meta.webpackHot) {
-  if (import.meta.webpackHot)
-    import.meta.webpackHot.accept('./components/main.js', init)
-}
+if (import.meta.webpackHot)
+  import.meta.webpackHot.accept('./components/main.js', init)
