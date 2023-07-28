@@ -44,7 +44,7 @@ export default class BudReplCommand extends BudCommand {
   public override async execute() {
     await this.makeBud().catch(logger.warn)
 
-    await this.bud.compiler.compile(this.bud).catch(error => {
+    await this.bud.compiler?.compile(this.bud).catch(error => {
       throw error
     })
 

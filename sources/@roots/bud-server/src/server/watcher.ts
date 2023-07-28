@@ -5,6 +5,7 @@ import type {FSWatcher} from 'node:fs'
 
 import * as chokidar from '@roots/bud-support/chokidar'
 import {bind} from '@roots/bud-support/decorators/bind'
+import logger from '@roots/bud-support/logger'
 
 /**
  * FS Watcher
@@ -43,7 +44,7 @@ export class Watcher implements BudWatcher {
    * Logger
    */
   public get logger(): any {
-    return this.app.server.logger.scope(`watcher`)
+    return logger.scope(`watcher`)
   }
 
   /**

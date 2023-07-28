@@ -14,15 +14,14 @@ export const inject = async (
       (entrypoints, [name, entry]) => {
         name = name ?? `main`
 
+        const importArray = [
+          ...(entry?.import ?? `index`),
+          ...injection.map(fn => fn(app)),
+        ].filter(Boolean)
+
         return {
           ...entrypoints,
-          [name]: {
-            ...(entry ?? {}),
-            import: [
-              ...(entry?.import ?? `index`),
-              ...injection.map(fn => fn(app)),
-            ].filter(Boolean),
-          },
+          [name]: {...(entry ?? {}), import: importArray},
         }
       },
       {},

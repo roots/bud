@@ -49,7 +49,7 @@ export class Bud {
 
   public declare close: typeof methods.close
 
-  public declare compiler: Service & Compiler
+  public declare compiler?: Service & Compiler
 
   public declare container: typeof methods.container
 
@@ -109,7 +109,7 @@ export class Bud {
 
   public declare sequenceSync: typeof methods.sequenceSync
 
-  public declare server: Server & Service
+  public declare server?: Service & Server
 
   public declare services: Array<string>
 

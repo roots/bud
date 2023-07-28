@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud'
+import type {Stats} from '@roots/bud-framework/config'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -69,7 +70,7 @@ export default class Project extends Service {
    * {@link Service.compilerDone}
    */
   @bind
-  public override async compilerDone(bud, stats) {
+  public override async compilerDone(bud: Bud, stats: Stats) {
     this.logger.log(`compiler done`)
 
     if (!bud.context.debug) return
@@ -78,7 +79,7 @@ export default class Project extends Service {
     await bud.fs.write(
       bud.path(`@storage`, bud.label, `debug`, `stats.yml`),
       {
-        compilation: bud.compiler.stats.toJson({all: true}),
+        compilation: bud.compiler?.stats.toJson({all: true}),
         message: stats.toString(),
       },
     )

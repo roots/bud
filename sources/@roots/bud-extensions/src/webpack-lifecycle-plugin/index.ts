@@ -78,7 +78,7 @@ export default class BudWebpackLifecyclePlugin extends Extension {
 
   @bind
   public failed(error: Error & Partial<WebpackError> & {error?: Error}) {
-    this.app.compiler.onError(error)
+    this.app.compiler?.onError(error)
     return error
   }
 

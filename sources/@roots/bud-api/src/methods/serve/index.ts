@@ -23,7 +23,7 @@ export type {Options, Parameters, ServerOptions}
  * bud.serve
  */
 export const serve: serve = async function (this: Bud, input, options) {
-  if (!this.isDevelopment) return this
+  if (!this.isDevelopment || !this.server) return this
 
   checkChildInstanceError(this, input)
 
@@ -44,7 +44,7 @@ export const serve: serve = async function (this: Bud, input, options) {
     !isArray(input) &&
     typeof input === `object`
   ) {
-    resolvedUrl = await makeURLFromObject(this, input, resolvedUrl)
+    resolvedUrl = await makeURLFromObject(input, resolvedUrl)
     resolvedOptions = await makeHttpOptions(this, input, resolvedOptions)
   }
 
@@ -58,7 +58,6 @@ export const serve: serve = async function (this: Bud, input, options) {
  * Process specification object
  */
 const makeURLFromObject = async function (
-  bud: Bud,
   options: Options,
   url: URL,
 ): Promise<URL> {

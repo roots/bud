@@ -48,9 +48,12 @@ export const provide: provide = async function (this: Bud, ...params) {
   }
 
   const modified = Object.entries(params[0]).reduce(
-    (acc, [key, value]) => {
-      if (!Array.isArray(value)) return {...acc, [value]: key}
-      return value.reduce((all, item) => ({...all, [item]: key}), acc)
+    (acc, [key, values]) => {
+      if (!Array.isArray(values)) return {...acc, [values]: key}
+      return values.reduce(
+        (all, value) => ({...all, [`${value}`]: key}),
+        acc,
+      )
     },
     plugin.options ?? {},
   )
