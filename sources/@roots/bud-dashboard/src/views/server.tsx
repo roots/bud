@@ -1,15 +1,15 @@
-import figures from "@roots/bud-support/figures";
-import { Box, Text } from "@roots/bud-support/ink";
-import { externalNetworkInterface } from "@roots/bud-support/os";
+import figures from '@roots/bud-support/figures'
+import {Box, Text} from '@roots/bud-support/ink'
+import {externalNetworkInterface} from '@roots/bud-support/os'
 
 interface Props {
-  devUrl?: URL;
-  displayServerInfo?: boolean;
-  mode?: `development` | `production`;
-  proxy?: unknown;
-  proxyUrl?: URL;
-  publicDevUrl?: URL;
-  publicProxyUrl?: URL;
+  devUrl?: URL
+  displayServerInfo?: boolean
+  mode?: `development` | `production`
+  proxy?: unknown
+  proxyUrl?: URL
+  publicDevUrl?: URL
+  publicProxyUrl?: URL
 }
 
 /**
@@ -30,10 +30,10 @@ export const Server = ({
     !devUrl ||
     !(devUrl instanceof URL)
   )
-    return null;
+    return null
 
-  const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol);
-  ipv4.port = devUrl.port;
+  const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol)
+  ipv4.port = devUrl.port
 
   return (
     <Box flexDirection="column">
@@ -72,19 +72,19 @@ export const Server = ({
         </Box>
       )}
     </Box>
-  );
-};
+  )
+}
 
 const Proxy = ({
   proxy,
   proxyUrl,
   publicProxyUrl,
 }: {
-  proxy?: Props[`proxy`];
-  proxyUrl?: Props[`proxyUrl`];
-  publicProxyUrl?: Props[`publicProxyUrl`];
+  proxy?: Props[`proxy`]
+  proxyUrl?: Props[`proxyUrl`]
+  publicProxyUrl?: Props[`publicProxyUrl`]
 }) => {
-  if (!proxy || !proxyUrl || !(proxyUrl instanceof URL)) return null;
+  if (!proxy || !proxyUrl || !(proxyUrl instanceof URL)) return null
 
   return (
     <Box flexDirection="row" gap={2} paddingLeft={1}>
@@ -97,14 +97,15 @@ const Proxy = ({
           {figures.lineDashed0} {proxyUrl.href}
         </Text>
 
-        {publicProxyUrl?.href && publicProxyUrl?.href !== proxyUrl.href && (
-          <Text dimColor wrap="truncate-end">
-            {figures.lineDashed0} {publicProxyUrl.href}
-          </Text>
-        )}
+        {publicProxyUrl?.href &&
+          publicProxyUrl?.href !== proxyUrl.href && (
+            <Text dimColor wrap="truncate-end">
+              {figures.lineDashed0} {publicProxyUrl.href}
+            </Text>
+          )}
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export { Server as default };
+export {Server as default}
