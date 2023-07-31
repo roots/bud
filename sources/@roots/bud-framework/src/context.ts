@@ -9,8 +9,6 @@ import type {parse} from 'node:path'
  * The context object is constructing during bootstrapping. You shouldn't modify
  * or reference this object unless you know what you're doing and are okay with updating
  * your code when the context object changes between releases.
- *
- * @internal
  */
 export interface Context {
   /**

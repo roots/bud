@@ -8,6 +8,10 @@ export * as plugins from './plugins.js'
 export * as styles from './styles.js'
 export * as variations from './variations.js'
 
+export interface AfterCallback {
+  (changed?: Array<{name: string}>): unknown
+}
+
 export interface ContextFactory {
   (): __WebpackModuleApi.RequireContext
 }

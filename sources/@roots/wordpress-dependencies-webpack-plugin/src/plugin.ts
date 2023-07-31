@@ -17,6 +17,8 @@ export interface Options {
 export default class WordPressDependenciesWebpackPlugin {
   public dependencies: Map<string, Set<string>>
 
+  public outputPath: string
+
   public plugin = {
     name: `WordPressDependenciesWebpackPlugin`,
     stage: Infinity,
@@ -24,9 +26,8 @@ export default class WordPressDependenciesWebpackPlugin {
 
   public requested: Map<string, Set<string>>
 
-  public constructor(public options?: Options) {
-    if (!this.options.outputPath)
-      this.options.outputPath = `wordpress.json`
+  public constructor(public options: Options = {emitWordPressJson: true}) {
+    this.outputPath = this.options.outputPath ?? `wordpress.json`
 
     if (
       typeof this.options.emitWordPressJson === `undefined` &&
@@ -49,12 +50,13 @@ export default class WordPressDependenciesWebpackPlugin {
     key: string,
     item: string,
   ) {
-    if (!obj.has(key)) {
+    const items = obj.get(key)
+    if (!items) {
       obj.set(key, new Set([item]))
       return
     }
 
-    obj.set(key, obj.get(key).add(item))
+    obj.set(key, items.add(item))
   }
 
   /**
@@ -72,6 +74,8 @@ export default class WordPressDependenciesWebpackPlugin {
     })
 
     compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
+      if (!this.options) return
+
       if (this.options.entrypointsPlugin) {
         const hooks =
           this.options.entrypointsPlugin.getCompilationHooks(compilation)
@@ -86,14 +90,14 @@ export default class WordPressDependenciesWebpackPlugin {
         )
       }
 
-      if (this.options.emitWordPressJson) {
+      if (this.options?.emitWordPressJson) {
         compilation.hooks.processAssets.tapPromise(
           this.plugin,
           async () => {
             this.extractDependenciesFromCompilation(compilation)
 
             compilation.emitAsset(
-              this.options.outputPath,
+              this.outputPath,
               new compiler.webpack.sources.RawSource(
                 JSON.stringify(this.dependencies, null, 2),
               ),
@@ -107,6 +111,8 @@ export default class WordPressDependenciesWebpackPlugin {
   @bind
   public extractDependenciesFromCompilation(compilation: Compilation) {
     for (const {chunks, name} of compilation.entrypoints.values()) {
+      if (!name) continue
+
       for (const chunk of chunks) {
         const records: any = compilation.chunkGraph.getChunkModules(chunk)
 
@@ -130,12 +136,17 @@ export default class WordPressDependenciesWebpackPlugin {
    */
   @bind
   public processChunkRequest(name: string, userRequest: string) {
-    if (!name || !userRequest || !this.requested.has(userRequest)) return
+    if (!name || !userRequest) return
 
-    for (const request of this.requested.get(userRequest)) {
+    const requested = this.requested.get(userRequest)
+    if (!requested) return
+
+    for (const request of requested) {
       if (!wordpress.isProvided(request)) continue
 
-      this.addItemToMap(this.dependencies, name, handle.transform(request))
+      const wordPressHandle = handle.transform(request)
+      if (!wordPressHandle) continue
+      this.addItemToMap(this.dependencies, name, wordPressHandle)
     }
   }
 
@@ -144,13 +155,24 @@ export default class WordPressDependenciesWebpackPlugin {
    */
   @bind
   public tapEntrypointsManifestObject(entrypoints: Entrypoints) {
-    for (const [ident, entrypoint] of entrypoints.entries())
-      if (this.dependencies.has(ident))
-        for (const dependency of this.dependencies.get(ident))
-          entrypoint.has(`dependencies`)
-            ? entrypoint.get(`dependencies`).add(dependency)
-            : entrypoint.set(`dependencies`, new Set([dependency]))
-      else entrypoint.set(`dependencies`, new Set())
+    for (const [ident, entrypoint] of entrypoints.entries()) {
+      const dependencies = this.dependencies.get(ident)
+
+      if (!dependencies) {
+        entrypoint.set(`dependencies`, new Set())
+        continue
+      }
+
+      for (const dependency of dependencies) {
+        const entrypointDependencies = entrypoint.get(`dependencies`)
+        if (!entrypointDependencies) {
+          entrypoint.set(`dependencies`, new Set([dependency]))
+          continue
+        }
+
+        entrypointDependencies.add(dependency)
+      }
+    }
 
     return entrypoints
   }

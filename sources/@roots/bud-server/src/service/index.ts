@@ -51,17 +51,33 @@ export class Server extends Service implements BudServer {
     await Promise.all(
       Object.entries(this.enabledMiddleware).map(
         async ([key, signifier]) => {
-          if (this.app.context.hot === false && key === `hot`) return
+          if (this.app.context.hot === false && key === `hot`) {
+            this.logger
+              .scope(this.app.label, `server`, `middleware`, key)
+              .log(`disabled`, `bud.context.hot is false`)
+            return
+          }
 
           /** import middleware */
           const {factory} = await this.app.module
             .import(signifier, import.meta.url)
-            .catch(error => {
-              throw error
-            })
+            .catch(this.catch)
 
           /** save reference to middleware instance */
           this.appliedMiddleware[key] = factory(this.app)
+
+          if (typeof this.appliedMiddleware[key] !== `function`) {
+            this.logger
+              .scope(this.app.label, `server`, `middleware`, key)
+              .log(`unused`)
+            return
+          }
+
+          this.logger
+            .scope(this.app.label, `server`, `middleware`, key)
+            .log(`applied`)
+            .info(this.appliedMiddleware[key])
+
           /** apply middleware */
           this.application.use(this.appliedMiddleware[key])
         },
@@ -72,6 +88,18 @@ export class Server extends Service implements BudServer {
         thrownBy: `bud.server.applyMiddleware`,
       })
     })
+  }
+
+  /**
+   * {@link Contract.catch}
+   */
+  @bind
+  public override catch(error: BudError | string): never {
+    if (typeof error === `string`) {
+      throw ServerError.normalize(error)
+    }
+
+    throw error
   }
 
   /**
@@ -165,12 +193,11 @@ export class Server extends Service implements BudServer {
 
     this.logger.log(`server.watcher`, this.watcher?.constructor.name)
 
-    bud.hooks.on(
-      `dev.client.scripts`,
-      await import(`@roots/bud-server/hooks`).then(
-        ({devClientScripts}) => devClientScripts.callback,
-      ),
-    )
+    const scripts = await import(`@roots/bud-server/hooks`)
+      .catch(this.catch)
+      .then(result => result?.devClientScripts.callback)
+
+    bud.hooks.on(`dev.client.scripts`, scripts)
 
     this.application.set(`x-powered-by`, false)
   }

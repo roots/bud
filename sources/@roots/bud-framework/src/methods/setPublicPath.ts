@@ -1,9 +1,15 @@
 import {sep} from 'node:path'
 
+import isString from '@roots/bud-support/lodash/isString'
+
 import type {Bud} from '../index.js'
 
 export interface setPublicPath {
-  (publicPath: ((publicPath: string) => string) | string): Bud
+  (
+    publicPath:
+      | ((publicPath: string | undefined) => string | undefined)
+      | string,
+  ): Bud
 }
 
 /**
@@ -31,15 +37,15 @@ export interface setPublicPath {
  * @see {@link https://bud.js.org/docs/bud.setPublicPath}
  */
 export const setPublicPath: setPublicPath = function (publicPath) {
-  const app = this as Bud
-
-  app.hooks.on(`build.output.publicPath`, publicPath)
+  this.hooks.on(`build.output.publicPath`, publicPath)
 
   // Normalize the publicPath in case the user did not end it with a slash.
-  app.hooks.on(`build.output.publicPath`, value => {
+  this.hooks.on(`build.output.publicPath`, (value = `auto`) => {
     if (value === `` || value === `auto`) return value
+    if (!isString(value)) return value
+
     return !value.endsWith(sep) ? `${value}${sep}` : value
   })
 
-  return app
+  return this
 }

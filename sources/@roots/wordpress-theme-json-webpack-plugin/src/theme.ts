@@ -6,6 +6,8 @@
  * `yarn workspace @roots/wordpress-theme-json-webpack-plugin exec node ./scripts/build-types.js`
  */
 
+// @ts-nocheck
+
 export type SettingsProperties = SettingsPropertiesAppearanceTools &
   SettingsPropertiesBorder &
   SettingsPropertiesColor &

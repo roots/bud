@@ -133,6 +133,7 @@ export class Module extends Service {
       const path = options.bustCache
         ? `${this.resolved[signifier]}?v=${Date.now()}`
         : this.resolved[signifier]
+
       const result = await import(path).catch(error => {
         logger
           .scope(`module`)
@@ -141,7 +142,7 @@ export class Module extends Service {
             error,
           )
 
-        this.resolved[signifier] = undefined
+        delete this.resolved[signifier]
       })
 
       return options.raw ? result : result?.default ?? result

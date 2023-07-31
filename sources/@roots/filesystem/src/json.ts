@@ -8,12 +8,13 @@ export interface WriteOptions {
 }
 
 export const read = async (path: string): Promise<any> => {
-  let source: string
+  const source: string | undefined = await fs
+    .readAsync(path, `utf8`)
+    .catch((error: Error) => {
+      error.name = `json read error: ${path}`
+      throw error
+    })
 
-  source = await fs.readAsync(path, `utf8`).catch((error: Error) => {
-    error.name = `json read error: ${path}`
-    throw error
-  })
   if (!source) {
     const error = new Error(`File read returned no value to parse`)
     error.name = `json read error: ${path}`

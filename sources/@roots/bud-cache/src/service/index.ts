@@ -31,14 +31,21 @@ export default class Cache extends Service implements BudCache {
    *{@link BudCache.buildDependencies}
    */
   public get buildDependencies(): Record<string, Array<string>> {
-    return this.app.hooks.filter(`build.cache.buildDependencies`, {
+    const baseDependencies = {
       bud: [
         this.app.context.files[`package`]?.path,
         ...Object.values(this.app.context.files)
           .filter(({bud}) => bud)
           .map(({path}) => path),
       ].filter(Boolean),
-    })
+    }
+
+    return (
+      this.app.hooks.filter(
+        `build.cache.buildDependencies`,
+        baseDependencies,
+      ) ?? baseDependencies
+    )
   }
   public set buildDependencies(
     dependencies: Record<string, Array<string>>,
@@ -50,9 +57,11 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.cacheDirectory}
    */
   public get cacheDirectory(): string {
-    return this.app.hooks.filter(
-      `build.cache.cacheDirectory`,
-      this.app.path(`@storage`, this.app.label, `cache`),
+    return (
+      this.app.hooks.filter(
+        `build.cache.cacheDirectory`,
+        this.app.path(`@storage`, this.app.label, `cache`),
+      ) ?? this.app.path(`@storage`, this.app.label, `cache`)
     )
   }
   public set cacheDirectory(directory: string) {
@@ -95,12 +104,14 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.name}
    */
   public get name(): string {
-    return this.app.hooks.filter(
-      `build.cache.name`,
+    return (
       this.app.hooks.filter(
-        `build.name`,
-        join(this.app.mode, ...Object.values(this.app.context._ ?? {})),
-      ),
+        `build.cache.name`,
+        this.app.hooks.filter(
+          `build.name`,
+          join(this.app.mode, ...Object.values(this.app.context._ ?? {})),
+        ),
+      ) ?? join(this.app.mode, ...Object.values(this.app.context._ ?? {}))
     )
   }
   public set name(name: string) {
@@ -119,11 +130,13 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.type}
    */
   public get type(): 'filesystem' | 'memory' {
-    return this.app.hooks.filter(
-      `build.cache.type`,
-      isString(this.app.context.cache)
-        ? this.app.context.cache
-        : `filesystem`,
+    return (
+      this.app.hooks.filter(
+        `build.cache.type`,
+        isString(this.app.context.cache)
+          ? this.app.context.cache
+          : `filesystem`,
+      ) ?? `filesystem`
     )
   }
   public set type(type: 'filesystem' | 'memory') {
@@ -133,7 +146,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link BudCache.version}
    */
-  public get version(): string {
+  public get version(): string | undefined {
     return this.app.hooks.filter(`build.cache.version`, undefined)
   }
   public set version(version: string) {

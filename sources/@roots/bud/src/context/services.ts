@@ -1,5 +1,5 @@
 export default [
-  `@roots/bud/services/env`,
+  `@roots/bud-framework/env`,
   `@roots/bud-hooks`,
   `@roots/bud-api`,
   `@roots/bud-build`,
@@ -8,5 +8,5 @@ export default [
   `@roots/bud-dashboard`,
   `@roots/bud-extensions`,
   `@roots/bud-server`,
-  `@roots/bud/services/project`,
+  `@roots/bud-framework/project`,
 ]

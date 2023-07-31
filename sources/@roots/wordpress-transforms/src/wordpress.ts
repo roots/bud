@@ -26,11 +26,18 @@ export const isLibrary = (request: string): boolean =>
 export const isOmitted = (request: string): boolean =>
   omitted.includes(normalize(request))
 
-export const getGlobal = (request: string): string =>
-  requestMap.get(normalize(request))[0]
+export const getGlobal = (request: string): string => {
+  const result = requestMap.get(normalize(request))
+  if (!result?.[0]) throw new Error(`No global found for ${request}`)
+  return result[0]
+}
 
-export const getScriptDependencyHandle = (request: string): string =>
-  requestMap.get(normalize(request))[1]
+export const getScriptDependencyHandle = (request: string): string => {
+  const result = requestMap.get(normalize(request))
+  if (!result?.[1])
+    throw new Error(`No script dependency handle found for ${request}`)
+  return result[1]
+}
 
 export const isProvided = (request: string): boolean => {
   if (isOmitted(request)) return false

@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {RequestHandler} from '@roots/bud-support/express'
 
 export interface MiddlewareFactory {
-  (app: Bud): RequestHandler
+  (app: Bud): RequestHandler | undefined
 }
 
 export * as cookie from '@roots/bud-server/middleware/cookie'

@@ -45,7 +45,7 @@ describe(`context.get`, () => {
     expect(context.mode).toBe(`production`)
     expect(context.services).toEqual(
       expect.arrayContaining([
-        `@roots/bud/services/env`,
+        `@roots/bud-framework/env`,
         `@roots/bud-hooks`,
         `@roots/bud-api`,
         `@roots/bud-build`,
@@ -54,7 +54,7 @@ describe(`context.get`, () => {
         `@roots/bud-dashboard`,
         `@roots/bud-extensions`,
         `@roots/bud-server`,
-        `@roots/bud/services/project`,
+        `@roots/bud-framework/project`,
       ]),
     )
   })

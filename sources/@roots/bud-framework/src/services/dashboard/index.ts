@@ -15,7 +15,9 @@ export interface Dashboard {
   /**
    * Format stats errors
    */
-  formatStatsErrors: (stats: StatsError[]) => StatsError[]
+  formatStatsErrors: (
+    errors: StatsError[] | undefined,
+  ) => StatsError[] | undefined
 
   /**
    * CLI instance

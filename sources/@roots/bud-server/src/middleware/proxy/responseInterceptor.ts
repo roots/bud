@@ -56,6 +56,7 @@ const transformResponseBuffer = (
   buffer: Buffer,
 ) => {
   if (!isTransformable(proxy)) return buffer
+  if (!url.dev?.origin || !url.publicProxy.origin) return buffer
 
   return bud.hooks
     .filter(`dev.middleware.proxy.replacements`, [

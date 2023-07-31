@@ -25,7 +25,12 @@ export const sh: sh = function (
     .map(str => str.split(` `))
     .flat()
 
-  const child = execa(commandInput.shift(), commandInput.filter(Boolean), {
+  const bin = commandInput.shift()
+  if (!bin) {
+    throw new Error(`No command provided`)
+  }
+
+  const child = execa(bin, commandInput.filter(Boolean), {
     cwd: bud.context.basedir,
     ...options,
   })

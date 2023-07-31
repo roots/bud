@@ -63,7 +63,7 @@ export interface Factory<
   Key extends keyof Config,
   Config = Configuration,
 > {
-  (app: Bud): Promise<Config[Key]>
+  (app: Bud): Promise<Config[Key] | undefined>
 }
 
 export type Records<Config = Configuration> = {

@@ -8,7 +8,9 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  *
  * @returns Set of client script callbacks
  */
-export const callback = () => new Set([hmrClient, proxyClickInterceptor])
+export const callback = (): Set<(app: Bud) => false | string> => {
+  return new Set([hmrClient, proxyClickInterceptor])
+}
 
 /**
  * Proxy click interceptor
@@ -18,7 +20,7 @@ export const callback = () => new Set([hmrClient, proxyClickInterceptor])
  */
 export const proxyClickInterceptor = (app: Bud) => {
   if (!app.hooks.filter(`dev.middleware.enabled`, []).includes(`proxy`))
-    return
+    return false
 
   const params = new URLSearchParams({
     replace: `/`,
@@ -38,7 +40,7 @@ export const proxyClickInterceptor = (app: Bud) => {
  * @returns string
  */
 export const hmrClient = (app: Bud) => {
-  if (app.context.hot === false) return
+  if (app.context.hot === false) return false
 
   const params = new URLSearchParams({
     indicator:

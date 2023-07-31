@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {BudError} from '@roots/bud-support/errors'
 import {highlight} from '@roots/bud-support/highlight'
 import {
   Box,
@@ -21,8 +22,8 @@ interface ReplProps {
 export const Repl = ({app, depth, indent}: ReplProps) => {
   const [search, setSearch] = useState(``)
   const [result, setResult] = useState(``)
-  const [paged, setPaged] = useState([])
-  const [page, setPage] = useState(0)
+  const [paged, setPaged] = useState<Array<string>>([])
+  const [page, setPage] = useState<number>(0)
   const [action, setAction] = useState(``)
 
   const pageSize = 10
@@ -75,11 +76,10 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
 
   useEffect(() => {
     if (result) {
-      setPaged(
-        chunk<string>(result.split(`\n`), pageSize).map(page =>
-          page.join(`\n`),
-        ),
+      const page = chunk(result.split(`\n`), pageSize).map(page =>
+        page.join(`\n`),
       )
+      setPaged(page)
     }
   }, [result, pageSize])
 
@@ -106,7 +106,8 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
       )
       setResult(result)
     } catch (e) {
-      setResult(e.message)
+      const error = BudError.normalize(e)
+      setResult(error.message)
     }
   }
 
@@ -117,8 +118,8 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
         const results = await fn(app)
         processResults(results)
         await app.promise()
-      } catch (err) {
-        setResult(err.message)
+      } catch (error) {
+        setResult(BudError.normalize(error).message)
       }
     })()
   }

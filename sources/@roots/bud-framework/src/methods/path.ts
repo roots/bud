@@ -13,10 +13,8 @@ export interface path {
   (...values: Array<string>): string
 }
 export const path: path = function (...values) {
-  const app = this as Bud
-
   /* Exit early with context.basedir if no path was passed */
-  if (!values?.length) return app.context.basedir
+  if (!values?.length) return this.context.basedir
 
   if (isAbsolute(join(...values))) {
     return join(...values)
@@ -24,19 +22,23 @@ export const path: path = function (...values) {
 
   values = values.flatMap(value => value.split(sep))
 
-  const hash = app.hooks.filter(`value.hashFormat`, `[contenthash:6]`)
-  const name = app.hooks.filter(`value.fileFormat`, `[name]`)
+  const hash =
+    this.hooks.filter(`value.hashFormat`, `[contenthash:6]`) ??
+    `[contenthash:6]`
+  const name = this.hooks.filter(`value.fileFormat`, `[name]`) ?? `[name]`
 
   const transformMagicString = makeParseMagicString(
-    app.context.hash ? `${name}.${hash}` : name,
+    this.context.hash ? `${name}.${hash}` : name,
     hash,
   )
 
-  const parseAlias = makeParseAlias(app)
+  const parseAlias = makeParseAlias(this)
 
   const result = join(...values.map(transformMagicString).map(parseAlias))
 
-  return isAbsolute(result) ? result : resolve(app.context.basedir, result)
+  return isAbsolute(result)
+    ? result
+    : resolve(this.context.basedir, result)
 }
 
 /**

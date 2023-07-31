@@ -1,12 +1,16 @@
 import {dispatch} from '@wordpress/data'
 
-import type {AcceptCallback, ContextFactory} from './index.js'
+import type {
+  AcceptCallback,
+  AfterCallback,
+  ContextFactory,
+} from './index.js'
 
 import {Cache} from './cache.js'
 
 export interface Props {
   accept: AcceptCallback
-  after?: (changed?: Array<{name: string}>) => unknown
+  after?: AfterCallback
   api: {
     register: (...args: Array<any>) => void
     unregister: (...args: Array<any>) => void
@@ -21,19 +25,13 @@ export const setNotify = (value: boolean) => {
   notify = value
 }
 
-export const load = ({
-  accept,
-  after = () => null,
-  api,
-  before = () => null,
-  getContext,
-}: Props) => {
+export const load = ({accept, after, api, before, getContext}: Props) => {
   const cache = new Cache()
 
   const handler = () => {
-    const changed = []
+    const changed: Array<{name: string}> = []
 
-    before()
+    before && before()
 
     const context = getContext()
 
@@ -49,7 +47,7 @@ export const load = ({
       cache.set(key, source)
     })
 
-    after(changed)
+    after && after(changed)
 
     if (notify && import.meta.webpackHot) {
       if (!initial) {

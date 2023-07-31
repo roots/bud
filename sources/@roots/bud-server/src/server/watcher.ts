@@ -51,7 +51,7 @@ export class Watcher implements BudWatcher {
    * Initialize watch files
    */
   @bind
-  public async watch(): Promise<Watcher['instance']> {
+  public async watch(): Promise<undefined | Watcher['instance']> {
     if (this.app.context.dry) return
 
     this.files = this.app.hooks.filter(`dev.watch.files`, new Set([]))
@@ -84,7 +84,7 @@ export class Watcher implements BudWatcher {
       `triggered reload`,
     )
 
-    this.app.server.appliedMiddleware?.hot?.publish({
+    this.app.server?.appliedMiddleware?.hot?.publish({
       action: `reload`,
       message: `Detected file change: ${path}. Reloading window.`,
     })

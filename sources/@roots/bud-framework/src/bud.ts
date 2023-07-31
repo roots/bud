@@ -256,7 +256,7 @@ export class Bud {
    * @readonly
    */
   public get label() {
-    return this.context?.label
+    return this.context?.label ?? `bud`
   }
 
   /**

@@ -2,8 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
 export type Parameters<
-  T extends
-    `${keyof Configuration[`experiments`]}` = `${keyof Configuration[`experiments`]}`,
+  T extends `${keyof Configuration[`experiments`] &
+    string}` = `${keyof Configuration[`experiments`] & string}`,
 > = [
   Partial<Configuration[`experiments`]> | T,
   Configuration[`experiments`][T]?,
@@ -17,12 +17,14 @@ export const experiments: experiments = function (
   this: Bud,
   ...params
 ): Bud {
-  if (params.length === 1) {
+  if (typeof params[0] === `object`) {
+    const experimentsObject = params[0] as Configuration[`experiments`]
+
     this.hooks.on(`build.experiments`, (experiments = {}) => ({
       ...experiments,
-      ...params[0],
+      ...experimentsObject,
     }))
-  } else if (typeof params[0] === `string`) {
+  } else {
     this.hooks.on(`build.experiments`, (experiments = {}) => ({
       ...experiments,
       [`${params[0]}`]: params[1],

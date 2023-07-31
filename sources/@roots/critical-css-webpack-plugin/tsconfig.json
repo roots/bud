@@ -4,6 +4,7 @@
     "rootDir": "src",
     "outDir": "lib",
   },
+  "files": ["./@types/critical/index.d.ts"],
   "include": ["src"],
   "exclude": ["lib", "node_modules"]
 }

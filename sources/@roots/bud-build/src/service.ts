@@ -89,7 +89,7 @@ export class Build extends Service implements BudBuild {
    * {@link BudBuild.make}
    */
   @bind
-  public async make(): Promise<Configuration> {
+  public async make(): Promise<Partial<Configuration>> {
     this.logger.log(`bud.build.make called`)
     await this.app.hooks.fire(`build.before`, this.app)
 

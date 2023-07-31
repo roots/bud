@@ -6,9 +6,10 @@
  */
 
 import type {SyncHook, SyncWaterfallHook} from 'tapable'
+import type {Compilation} from 'webpack'
 
 export interface CompilationHooks {
-  compilation: SyncHook<Record<string, any>>
+  compilation: SyncHook<Compilation>
   entrypoints: SyncWaterfallHook<Entrypoints>
 }
 

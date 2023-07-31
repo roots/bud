@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {StatsError} from '@roots/bud-framework/config'
 
 import cleanStack from '@roots/bud-support/clean-stack'
+import isString from '@roots/bud-support/lodash/isString'
 
 export const makeErrorFormatter = (bud: Bud) => (errors?: StatsError[]) =>
   errors
@@ -62,18 +63,22 @@ const filterInternalErrors = (error: StatsError) =>
  * Prettify errors
  */
 const makePrettifier = (bud: Bud) => (error: StatsError) => {
-  error.message = error.message
+  let message = error.message ?? error.details
+  if (!message || !isString(message)) return error
+
+  const segments = message
     .replace(`Module parse failed:`, ``)
     .replace(/Module build failed \(.*\):?/, ``)
     .replace(/    at .*?\/(webpack|tapable)\/?.*/gm, ``)
     .trim()
     .split(`Error:`)
-    .pop()
-    .split(`    at`)
-    .shift()
-    .trim()
+  const lastSegment = segments.pop()
+  if (!lastSegment) return error
 
-  error.message = cleanStack(error.message, {
+  const beforeStack = lastSegment.split(`    at`).shift()
+  if (!beforeStack) return error
+
+  error.message = cleanStack(error.message.trim(), {
     basePath: process.cwd(),
     pretty: true,
   })

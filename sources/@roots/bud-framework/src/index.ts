@@ -14,6 +14,7 @@ export {
   default as Service,
   ServiceContainer,
 } from './service.js'
+
 export type {Context} from '@roots/bud-framework/context'
 export type * from '@roots/bud-framework/config'
 export type * as Registry from './registry/index.js'

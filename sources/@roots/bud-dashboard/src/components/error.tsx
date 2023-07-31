@@ -7,9 +7,11 @@ import isString from '@roots/bud-support/lodash/isString'
 const basePath =
   process.env.PROJECT_CWD ?? process.env.INIT_CWD ?? process.cwd()
 
-export const Error = ({error}: {error: BudError}) => {
+export const Error = ({error}: {error: BudError | Error}) => {
+  let normalError: BudError
+
   if (!error) {
-    error = BudError.normalize(`Unknown error`)
+    normalError = BudError.normalize(`Unknown error`)
   }
 
   if (isString(error)) {
@@ -29,38 +31,44 @@ export const Error = ({error}: {error: BudError}) => {
     )
   }
 
+  normalError =
+    error instanceof BudError ? error : BudError.normalize(error)
+
   return (
     <Box flexDirection="column" paddingTop={1}>
       <Text backgroundColor="red" color="white">
         {` `}
-        {error.name ?? `Error`}
+        {normalError.name ?? `Error`}
         {` `}
       </Text>
 
-      {error.message && (
+      {normalError.message && (
         <Box marginTop={1}>
           <Text>
             <Text color="red">{figures.cross}</Text>
             {` `}
-            {error.message.replace(basePath, `.`).replace(`Error: `, ``)}
+            {normalError.message
+              .replace(basePath, `.`)
+              .replace(`Error: `, ``)}
           </Text>
         </Box>
       )}
 
-      {error.details && !error.details.startsWith(`resolve`) && (
-        <Box marginTop={1}>
-          <Text>
-            <Text color="blue">
-              {figures.ellipsis}
-              {` `}Details{` `}
+      {normalError.details &&
+        !normalError.details.startsWith(`resolve`) && (
+          <Box marginTop={1}>
+            <Text>
+              <Text color="blue">
+                {figures.ellipsis}
+                {` `}Details{` `}
+              </Text>
+
+              <Text>{normalError.details.replace(basePath, `.`)}</Text>
             </Text>
+          </Box>
+        )}
 
-            <Text>{error.details.replace(basePath, `.`)}</Text>
-          </Text>
-        </Box>
-      )}
-
-      {error.thrownBy && (
+      {normalError.thrownBy && (
         <Box marginTop={1}>
           <Text>
             <Text color="blue">
@@ -68,12 +76,12 @@ export const Error = ({error}: {error: BudError}) => {
               {` `}Thrown by{` `}
             </Text>
 
-            <Text>{error.thrownBy}</Text>
+            <Text>{normalError.thrownBy}</Text>
           </Text>
         </Box>
       )}
 
-      {error.docs && (
+      {normalError.docs && (
         <Box marginTop={1}>
           <Text>
             <Text color="blue">
@@ -81,12 +89,12 @@ export const Error = ({error}: {error: BudError}) => {
               {` `}Documentation
             </Text>
             {` `}
-            <Text>{error.docs.href}</Text>
+            <Text>{normalError.docs.href}</Text>
           </Text>
         </Box>
       )}
 
-      {error.issues && (
+      {normalError.issues && (
         <Box marginTop={1}>
           <Text>
             <Text color="blue">
@@ -95,24 +103,39 @@ export const Error = ({error}: {error: BudError}) => {
               Issues
             </Text>
             {` `}
-            <Text>{error.issues.href}</Text>
+            <Text>{normalError.issues.href}</Text>
           </Text>
         </Box>
       )}
 
-      {error.origin && (
-        <Box>
-          <Error error={error.origin} />
-        </Box>
-      )}
-
-      {error.file && (
+      {normalError.file && (
         <Box marginTop={1}>
           <Text color="blue">
             {figures.info}
             {` `}See file{` `}
           </Text>
-          <Text>{error.file.path}</Text>
+          <Text>{normalError.file.path}</Text>
+        </Box>
+      )}
+
+      {normalError.origin && (
+        <Box flexDirection="column">
+          <Text color="blue">
+            {figures.home}
+            {` `}Originating error{` `}
+          </Text>
+
+          <Box
+            borderBottom={false}
+            borderColor="red"
+            borderLeft
+            borderRight={false}
+            borderStyle="single"
+            borderTop={false}
+            paddingLeft={1}
+          >
+            <Error error={normalError.origin} />
+          </Box>
         </Box>
       )}
     </Box>

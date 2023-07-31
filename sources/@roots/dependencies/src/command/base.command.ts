@@ -13,7 +13,7 @@ export abstract class Command {
   public async execute(commandArgs: Array<string>): Promise<any> {
     const [bin, ...args] = commandArgs
     return new Promise((resolve, reject) => {
-      const message = []
+      const message: Array<string> = []
 
       const command = spawn(bin, args)
 
@@ -36,7 +36,7 @@ export abstract class Command {
     dependencies: Array<[string, string] | string>,
   ): Array<string> {
     return dependencies
-      .reduce((acc, dependency) => {
+      .reduce((acc: Array<string>, dependency) => {
         if (Array.isArray(dependency)) {
           acc.push(`${dependency[0]}@${dependency[1]}`)
         } else {

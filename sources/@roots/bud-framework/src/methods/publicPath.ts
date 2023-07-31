@@ -1,7 +1,5 @@
 import {join} from 'node:path'
 
-import type {Bud} from '../index.js'
-
 export interface publicPath {
   (...parts: Array<string>): string
 }
@@ -13,9 +11,7 @@ export interface publicPath {
  * Path from web root to assets
  */
 export const publicPath: publicPath = function (...parts) {
-  const ctx = this as Bud
-
-  const basePath = ctx.hooks.filter(`build.output.publicPath`, `auto`)
+  const basePath = this.hooks.filter(`build.output.publicPath`, `auto`)
 
   if (!parts.length) return basePath
   if (basePath !== `auto`) return join(basePath, ...parts)

@@ -19,9 +19,6 @@ export default (command: CreateCommand) =>
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,
     ) {
-      return Object.keys(this.map(answer)).reduce(
-        (all, support) => [...all, support],
-        [],
-      )
+      return [...Object.keys(this.map(answer))]
     },
   })

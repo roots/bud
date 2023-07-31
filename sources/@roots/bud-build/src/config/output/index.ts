@@ -1,6 +1,5 @@
 import type {Factory} from '../index.js'
 
-import {isMjs} from '../../helpers/isMjs.js'
 import {assetModuleFilename} from './assetModuleFilename.js'
 import {filename} from './filename.js'
 
@@ -27,12 +26,11 @@ export const output: Factory<`output`> = async ({
     /**
      * Path info is not necessary unless the user
      * really knows what's going on.
+     *
+     * @see {@link https://medium.com/@kenneth_chau/speeding-up-webpack-typescript-incremental-builds-by-7x-3912ba4c1d15}
      */
     pathinfo: filter(`build.output.pathinfo`, false),
     publicPath: filter(`build.output.publicPath`, `auto`),
-    scriptType: filter(
-      `build.output.scriptType`,
-      isMjs(filter) ? `module` : `text/javascript`,
-    ),
+    scriptType: filter(`build.output.scriptType`, undefined),
     uniqueName: filter(`build.output.uniqueName`, `@roots/bud`),
   })

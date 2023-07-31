@@ -37,7 +37,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       cookieDomainRewrite: app.hooks.filter(
         `dev.middleware.proxy.options.cookieDomainRewrite`,
-        url.dev.host,
+        url.dev?.host,
       ),
       cookiePathRewrite: app.hooks.filter(
         `dev.middleware.proxy.options.cookiePathRewrite`,
@@ -57,7 +57,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       hostRewrite: app.hooks.filter(
         `dev.middleware.proxy.options.hostRewrite`,
-        url.dev.host,
+        url.dev?.host,
       ),
       ignorePath: app.hooks.filter(
         `dev.middleware.proxy.options.ignorePath`,
@@ -69,7 +69,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       logger: app.hooks.filter(
         `dev.middleware.proxy.options.logger`,
-        app.context.log
+        app.context.log && app.server?.logger
           ? app.server.logger.scope(app.label, `proxy`)
           : app.context.ci
           ? console

@@ -68,7 +68,7 @@ class Configuration {
 
     if (isObject(request))
       await Promise.all(
-        Object.entries(value).map(async ([key, value]) => {
+        Object.entries(parsedValue).map(async ([key, value]) => {
           return await Promise.resolve(
             this.handleConfigEntry(request, [key, value]),
           )

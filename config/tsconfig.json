@@ -5,7 +5,7 @@
     "composite": true,
     "declaration": true,
     "declarationMap": false,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "forceConsistentCasingInFileNames": true,

@@ -51,9 +51,9 @@ export const assignUrl = (bud: Bud, maybeURL: string | URL) => {
  */
 export const assignOptionsCallback = (
   bud: Bud,
-  callback: (options?: Options) => Options,
+  value: ((options: Options | undefined) => Options) | Options,
 ) => {
-  bud.hooks.on(`dev.middleware.proxy.options`, callback)
+  bud.hooks.on(`dev.middleware.proxy.options`, value)
 }
 
 /**

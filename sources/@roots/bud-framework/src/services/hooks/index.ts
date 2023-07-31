@@ -48,10 +48,10 @@ export interface Hooks {
    * )
    * ```
    */
-  filter: <T extends keyof Registry.SyncStore>(
-    id: T,
-    callback?: Registry.SyncCallback[T] | Registry.SyncRegistry[T],
-  ) => Registry.SyncRegistry[T]
+  filter: <K extends `${keyof Registry.SyncRegistry & string}`>(
+    id: K,
+    callback?: Registry.SyncRegistry[K],
+  ) => Registry.SyncRegistry[K]
 
   /**
    * Async version of hook.filter

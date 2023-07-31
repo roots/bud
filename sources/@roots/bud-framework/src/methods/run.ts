@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
-import type {WebpackError} from '@roots/bud-framework/config'
+import type {Bud, Compiler} from '@roots/bud-framework'
 
 /**
  * Run the build
@@ -9,15 +8,21 @@ export interface run {
 }
 
 export const run: run = async function (this: Bud) {
-  if (this.isProduction && this.compiler) {
+  if (!hasCompiler(this)) {
+    throw new Error(`Compiiler not found`)
+  }
+
+  if (this.isProduction) {
     const compilation = await this.compiler
       ?.compile(this)
       .catch(this.catch)
 
-    compilation?.run((error: WebpackError) => {
+    compilation?.run((error?: Error | null | undefined) => {
+      if (!hasCompiler(this)) return
       if (error) this.compiler.onError(error)
 
-      compilation.close((error: WebpackError) => {
+      compilation.close((error?: Error | null | undefined) => {
+        if (!hasCompiler(this)) return
         if (error) this.compiler.onError(error)
       })
     })
@@ -25,4 +30,8 @@ export const run: run = async function (this: Bud) {
 
   if (this.isDevelopment && this.server)
     await this.server.run().catch(this.server.catch)
+}
+
+function hasCompiler(bud: Bud): bud is Bud & {compiler: Compiler} {
+  return bud.compiler !== undefined
 }

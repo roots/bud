@@ -1,6 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
 import type {StatsCompilation} from '@roots/bud-framework/config'
-import type {BudError} from '@roots/bud-support/errors'
 
 import {exit} from 'node:process'
 
@@ -28,7 +27,7 @@ export interface Props {
   displayAssets?: boolean
   displayEntrypoints?: boolean
   displayServerInfo?: boolean
-  error?: BudError
+  error?: Error
   errors?: StatsCompilation[`errors`]
   isolated?: number
   mode: Bud['mode']
@@ -87,7 +86,7 @@ export const Application = ({
               displayAssets={displayAssets}
               displayEntrypoints={displayEntrypoints}
               id={id + 1}
-              total={compilations.length}
+              total={compilations?.length}
             />
             <Debug compilation={compilation} debug={debug} />
           </Box>
@@ -149,21 +148,22 @@ export const TeletypeApplication = ({
         break
     }
 
-    new Array(9)
-      .fill(0)
-      .forEach(
-        (_, i) =>
-          key === `${i + 1}` &&
-          isolated !== i + 1 &&
-          setIsolated(Math.min(i + 1, props.compilations.length)),
-      )
+    new Array(9).fill(0).forEach((_, i) => {
+      if (!props.compilations) return
+      key === `${i + 1}` &&
+        isolated !== i + 1 &&
+        setIsolated(Math.min(i + 1, props.compilations.length))
+    })
 
     if (input.escape) {
       setClosed(true)
-      close((error?) => {
-        app.exit(error)
-        exit(error ? 1 : 0)
-      })
+      if (close)
+        close((error?) => {
+          if (error) app.exit(error)
+          else app.exit()
+
+          exit(error ? 1 : 0)
+        })
     }
   })
 

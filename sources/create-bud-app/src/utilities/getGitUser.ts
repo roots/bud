@@ -8,8 +8,8 @@ export default async function getGitUser(command: CreateCommand) {
     const stdio = result.stdout.concat(result.stderr)
 
     if (stdio) {
-      const [, match] = stdio.split(`\n`)[1].match(/as (.*) /)
-      return match
+      const result = stdio.split(`\n`)[1].match(/as (.*) /)
+      return result?.[1]
     }
   } catch (err) {
     // fallthrough

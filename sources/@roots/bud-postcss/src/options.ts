@@ -35,9 +35,11 @@ type BudPostCssPublicInterface = StrictPublicExtensionApi<
   BudPostCssOptionsApi,
   Options
 > & {
+  getConfig(): boolean
   getPlugin(name: string): PluginReference
   getPluginOptions(name: string): Record<string, any>
   getPluginPath(name: string): string
+  setConfig(config: boolean): BudPostCssPublicInterface
   setPlugin(name: string, plugin?: PluginInput): BudPostCssPublicInterface
   setPluginOptions(
     name: string,

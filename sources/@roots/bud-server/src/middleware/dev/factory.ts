@@ -7,8 +7,10 @@ import type {
 
 import WebpackDevMiddleware from '@roots/bud-support/webpack-dev-middleware'
 
-export const factory: MiddlewareFactory = (app: Bud) =>
-  WebpackDevMiddleware<IncomingMessage, ServerResponse>(
+export const factory: MiddlewareFactory = (app: Bud) => {
+  if (!app.compiler) return undefined
+
+  return WebpackDevMiddleware<IncomingMessage, ServerResponse>(
     app.compiler.instance as any,
     app.hooks.filter(`dev.middleware.dev.options`, {
       headers: app.hooks.filter(`dev.middleware.dev.options.headers`, [
@@ -30,3 +32,4 @@ export const factory: MiddlewareFactory = (app: Bud) =>
       ),
     }),
   )
+}

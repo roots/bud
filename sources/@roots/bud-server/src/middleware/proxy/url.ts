@@ -19,8 +19,8 @@ export class ApplicationURL {
   /**
    * Node URL for dev
    */
-  public get dev(): URL {
-    return this.app.server.publicUrl
+  public get dev(): undefined | URL {
+    return this.app.server?.publicUrl
   }
 
   /**
