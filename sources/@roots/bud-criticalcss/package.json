@@ -48,7 +48,6 @@
     ".": "./lib/index.js",
     "./bud.extractCss": "./lib/bud.extractCss.js",
     "./extension": "./lib/extension.js"
-
   },
   "typesVersions": {
     "*": {
