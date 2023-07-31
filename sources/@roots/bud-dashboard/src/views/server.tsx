@@ -41,9 +41,9 @@ export const Server = ({
       <Text>{` `}</Text>
 
       <Proxy
+        proxy={proxy}
         proxyUrl={proxyUrl}
         publicProxyUrl={publicProxyUrl}
-        proxy={proxy}
       />
 
       {devUrl?.href && (
