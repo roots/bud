@@ -7941,6 +7941,8 @@ __metadata:
     "@types/react": 18.2.15
     ink-testing-library: 3.0.0
     tslib: 2.6.0
+    vitest: 0.33.0
+    webpack: 5.88.2
   languageName: unknown
   linkType: soft
 

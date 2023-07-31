@@ -14,7 +14,6 @@ import type {
   WritableData,
   WriteOptions,
 } from 'fs-jetpack/types.js'
-import type {CreateWriteStreamOptions} from 'node:fs/promises'
 
 import type {PathLike, ReadStream, WriteStream} from 'node:fs'
 import {join} from 'node:path'
@@ -94,10 +93,7 @@ export default class Filesystem {
    * Create a {@link WriteStream}
    */
   @bind
-  public createWriteStream(
-    path: PathLike,
-    options?: BufferEncoding | CreateWriteStreamOptions,
-  ): WriteStream {
+  public createWriteStream(path: PathLike, options?: any): WriteStream {
     return this.fs.createWriteStream(path, options)
   }
 
@@ -112,7 +108,7 @@ export default class Filesystem {
     path: string,
     criteria?: DirCriteria,
   ): Promise<Filesystem> {
-    this.fs.dirAsync(path, criteria)
+    await this.fs.dirAsync(path, criteria)
     return this
   }
 
@@ -144,7 +140,7 @@ export default class Filesystem {
     options?: Array<string> | FindOptions | string,
   ): Promise<string[]> {
     if (typeof options === `string` || Array.isArray(options)) {
-      return this.fs.findAsync({matching: options})
+      return await this.fs.findAsync({matching: options})
     }
 
     return await this.fs.findAsync(options)
@@ -200,7 +196,6 @@ export default class Filesystem {
     options?: MoveOptions,
   ): Promise<Filesystem> {
     await this.fs.moveAsync(from, to, options) // returns void
-
     return this
   }
 
@@ -244,7 +239,6 @@ export default class Filesystem {
   @bind
   public async remove(path?: string): Promise<Filesystem> {
     await this.fs.removeAsync(path) // returns void
-
     return this
   }
 

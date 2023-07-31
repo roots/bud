@@ -16,7 +16,7 @@ import {Plugin} from '@roots/bud-support/copy-webpack-plugin'
 @label(`@roots/bud-extensions/copy-webpack-plugin`)
 @plugin(Plugin)
 @options<Options>({patterns: []})
-@when((_app, options) => options.patterns?.length > 0)
+@when((_app, options) => options?.patterns?.length > 0)
 class BudCopyPlugin extends Extension<Options, Plugin> {
   public getPatterns: () => Options[`patterns`]
 

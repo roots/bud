@@ -1,5 +1,5 @@
 import {Option} from 'clipanion'
 
-export default Option.String(`--username,-u`, undefined, {
+export default Option.String(`--username,-u`, {
   description: `Github username`,
 })

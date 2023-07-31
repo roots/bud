@@ -236,7 +236,7 @@ export default class Container<I = any> {
       new Map(),
     ]
 
-    return this.getEntries(key ?? null).reduce(...reducer)
+    return this.getEntries(key).reduce(...reducer)
   }
 
   /**

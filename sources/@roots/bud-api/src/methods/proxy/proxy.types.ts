@@ -13,25 +13,33 @@ export interface Options extends HttpProxy.Options {
   autoRewrite?: boolean
   buffer?: Stream
   changeOrigin?: boolean
-  cookieDomainRewrite?: Record<string, string>
-  cookiePathRewrite?: Record<string, string>
-  ejectPlugins?: boolean
+  cookieDomainRewrite?:
+    | {[oldDomain: string]: string}
+    | false
+    | string
+    | undefined
+  cookiePathRewrite?:
+    | {[oldDomain: string]: string}
+    | false
+    | string
+    | undefined
+  ejectPlugins: boolean
   followRedirects?: boolean
   forward?: ProxyOptions[`forward`]
   headers?: Record<string, string>
   hostRewrite?: string
   ignorePath?: boolean
   localAddress?: string
-  logger?: Pick<Console, `error` | `info` | `warn`>
-  on?: ProxyOptions[`on`]
+  logger: Pick<Console, `error` | `info` | `warn`>
+  on: ProxyOptions[`on`]
   onProxyReq?: any
   onProxyRes?: any
-  pathFilter?: Array<string>
-  pathRewrite?: Record<string, string>
-  plugins?: ProxyOptions[`plugins`]
+  pathFilter: Array<string>
+  pathRewrite?: HttpProxy.Options[`pathRewrite`]
+  plugins: ProxyOptions[`plugins`]
   prependPath?: boolean
   preserveHeaderKeyCase?: boolean
-  protocolRewrite?: `http` | `https`
+  protocolRewrite?: HttpProxy.Options[`protocolRewrite`]
   proxyTimeout?: number
   /**
    * Not a proxy-party option
@@ -39,11 +47,11 @@ export interface Options extends HttpProxy.Options {
    * Used by default `onProxyRes` handler to rewrite the page body
    */
   replacements?: ReplacementCallback | ReplacementTuples
-  router?: Record<string, string | URL>
+  router?: HttpProxy.Options[`router`]
   secure?: boolean
   selfHandleResponse?: boolean
   ssl?: HttpsServerOptions
-  target?: URL
+  target?: HttpProxy.Options[`target`]
   timeout?: number
   toProxy?: boolean
   ws?: boolean

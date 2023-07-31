@@ -46,7 +46,7 @@ export interface Build {
   /**
    * Compiler configuration
    */
-  config: Configuration
+  config: Partial<Configuration>
 
   /**
    * Get a {@link Item} instance

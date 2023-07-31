@@ -16,11 +16,13 @@ import loggerInstance from '@roots/bud-support/logger'
 
 const middlewarePath = `/bud/hot`
 
-let latestStats = null
+let latestStats: null | StatsCompilation = null
 let closed = false
 let logger: typeof loggerInstance
 
 export const factory: MiddlewareFactory = (app: Bud) => {
+  if (!app.compiler) return
+
   logger = loggerInstance.scope(app.label, `hmr`) as typeof logger
   return makeHandler(app.compiler.instance)
 }
@@ -80,12 +82,12 @@ export const publish = (
   const compilations = collectCompilations(
     statsCompilation.toJson({
       all: false,
-      cached: true,
-      children: true,
+      assets: true,
+      errorDetails: false,
       errors: true,
       hash: true,
-      modules: true,
       timings: true,
+      warnings: true,
     }),
   )
 
@@ -107,16 +109,19 @@ export const publish = (
   })
 }
 
-export const collectModules = (modules: Array<StatsModule>) =>
-  modules?.reduce(
-    (modules, module) => ({...modules, [module.id]: module.name}),
-    {},
-  )
+export const collectModules = (modules?: Array<StatsModule>) => {
+  if (!modules) return {}
+
+  return modules?.reduce((modules, module) => {
+    if (!module.id || !module.name) return modules
+    return {...modules, [module.id]: module.name}
+  }, {})
+}
 
 export const collectCompilations = (
   stats: StatsCompilation,
 ): Array<StatsCompilation> => {
-  let collection = []
+  let collection: Array<StatsCompilation> = []
 
   // Stats has modules, single bundle
   if (stats.modules) collection.push(stats)

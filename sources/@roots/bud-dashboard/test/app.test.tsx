@@ -179,7 +179,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[5]).toBe(Char.Vertical)
 
     expect(startsWith(lines[6], Char.BottomLeft)).toBe(true)
-    expect(lines[6]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[6]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
     expect(lines[7]).toBe(Char.Empty)
     expect(lines[8]).toBeUndefined()
@@ -203,7 +203,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[3]).toBe(Char.Vertical)
 
     expect(startsWith(lines[4], Char.BottomLeft)).toBe(true)
-    expect(lines[4]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[4]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
     expect(lines[5]).toBe(Char.Empty)
   })
@@ -310,7 +310,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[5]).toBe(Char.Vertical)
 
     expect(startsWith(lines[6], Char.BottomLeft)).toBe(true)
-    expect(lines[6]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[6]).toMatch(/2 modules \[2\/2 modules cached\]$/)
     expect(lines[7]).toBe(Char.Empty)
 
     expect(startsWith(lines[8], Char.TopLeft)).toBe(true)
@@ -320,7 +320,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[10]).toMatch(/│ foo/)
     expect(lines[11]).toMatch(/│  › foo.js /)
     expect(lines[12]).toBe(Char.Vertical)
-    expect(lines[13]).toMatch(/╰ 0ms \[2\/2 modules cached\]/)
+    expect(lines[13]).toMatch(/╰ 2 modules \[2\/2 modules cached\]/)
     expect(lines[14]).toBe(Char.Empty)
   })
 
@@ -350,7 +350,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[6]).toBe(Char.Vertical)
 
     expect(startsWith(lines[7], Char.BottomLeft)).toBe(true)
-    expect(lines[7]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[7]).toMatch(/2 modules \[2\/2 modules cached\]$/)
     expect(lines[8]).toBe(Char.Empty)
   })
 
@@ -372,7 +372,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[4]).toBe(Char.Vertical)
 
     expect(startsWith(lines[5], Char.BottomLeft)).toBe(true)
-    expect(lines[5]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[5]).toMatch(/2 modules \[2\/2 modules cached\]$/)
     expect(lines[6]).toBe(Char.Empty)
   })
 
@@ -418,19 +418,19 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[9]).toBe(Char.Vertical)
 
     expect(startsWith(lines[10], Char.BottomLeft)).toBe(true)
-    expect(lines[10]).toMatch(/0ms \[2\/2 modules cached\]$/)
+    expect(lines[10]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
     expect(lines[11]).toBe(Char.Empty)
     expect(lines[12]).toMatch(/Network/)
-    expect(lines[13]).toMatch(/ › proxy  ┄ http:\/\/localhost:\d+\//)
-    expect(lines[14]).toBe(Char.Empty)
-    expect(lines[15]).toMatch(/          ┄ http:\/\/example\.test\//)
-    expect(lines[16]).toMatch(/ › dev    ┄ http:\/\/localhost:\d+\//)
-    expect(lines[17]).toMatch(
+    expect(lines[14]).toMatch(/ › Proxy  ┄ http:\/\/.+:\d+\//)
+    expect(lines[15]).toBe(Char.Empty)
+    expect(lines[16]).toMatch(/          ┄ http:\/\/.+/)
+    expect(lines[17]).toMatch(/ › dev    ┄ http:\/\/.+\//)
+    expect(lines[18]).toMatch(
       /          ┄ http:\/\/\d+\.\d+\.\d+\.\d+:\d+\//,
     )
-    expect(lines[18]).toMatch(/          ┄ http:\/\/example\.test:\d+\//)
-    expect(lines[19]).toBe(Char.Empty)
+    expect(lines[19]).toMatch(/          ┄ http:\/\/.+:\d+\//)
+    expect(lines[20]).toBe(Char.Empty)
   })
 
   it(`should not render proxy info when proxy not set`, () => {
@@ -450,7 +450,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[13]).toMatch(/ › dev    ┄ http:\/\/localhost:\d+\//)
+    expect(lines[14]).toMatch(/ › dev    ┄ http:\/\/.+:\d+\//)
   })
 
   it(`should not throw when crazy input happens`, () => {

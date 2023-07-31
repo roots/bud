@@ -19,6 +19,9 @@ export class WordPressExternalsWebpackPlugin
    */
   public apply(compiler: Webpack.Compiler) {
     new Webpack.ExternalsPlugin(`window`, ({request}, callback) => {
+      // evidently this can be undefined? OK.
+      if (!request) return callback()
+
       // bail on excluded signifiers
       if (this.options?.exclude?.includes(request)) return callback()
 

@@ -4,7 +4,6 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
-import type {BudError} from '@roots/bud-support/errors'
 
 import {stderr, stdin, stdout} from 'node:process'
 
@@ -27,7 +26,9 @@ export class Dashboard extends Service implements BudDashboard {
   /**
    * {@link BudDashboard.formatStatsErrors}
    */
-  public declare formatStatsErrors: (errors: StatsError[]) => StatsError[]
+  public declare formatStatsErrors: (
+    errors: StatsError[] | undefined,
+  ) => StatsError[] | undefined
 
   /**
    * {@link BudDashboard.instance}
@@ -103,7 +104,7 @@ export class Dashboard extends Service implements BudDashboard {
    * {@link BudDashboard.render}
    */
   @bind
-  public render(error?: BudError) {
+  public render(error?: Error) {
     /**
      * Do not render if:
      * - dashboard is disabled
@@ -192,14 +193,14 @@ export class Dashboard extends Service implements BudDashboard {
     /**
      * Get dashboard.assets option
      */
-    const assets = !isUndefined(this.app.context.dashboard?.assets)
+    const assets = !isUndefined(this.app.context.dashboard)
       ? this.app.context.dashboard.assets
       : true
 
     /**
      * Get dashboard.compact option
      */
-    const compact = !isUndefined(this.app.context.dashboard?.compact)
+    const compact = !isUndefined(this.app.context.dashboard)
       ? this.app.context.dashboard.compact
       : compilations.length > 2
 
@@ -209,14 +210,14 @@ export class Dashboard extends Service implements BudDashboard {
     const entrypoints = !isUndefined(
       this.app.context.dashboard?.entrypoints,
     )
-      ? this.app.context.dashboard.entrypoints
+      ? this.app.context.dashboard?.entrypoints
       : true
 
     /**
      * Get dashboard.server option
      */
     const server = !isUndefined(this.app.context.dashboard?.server)
-      ? this.app.context.dashboard.server
+      ? this.app.context.dashboard?.server
       : true
 
     /**
@@ -285,6 +286,8 @@ export class Dashboard extends Service implements BudDashboard {
    */
   @bind
   public updateStats(stats: StatsCompilation): BudDashboard {
+    if (!this.app.compiler) return this
+
     if (stats) this.stats = stats
 
     if (this.app.context.silent === true) return this

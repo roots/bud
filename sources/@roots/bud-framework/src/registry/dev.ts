@@ -16,7 +16,7 @@ export interface Sync {
   /**
    * Scripts included in dev builds
    */
-  'client.scripts': Set<(app: Bud) => string>
+  'client.scripts': Set<(app: Bud) => false | string>
 
   'client.standalone': boolean
 

@@ -29,7 +29,7 @@ export interface Compiler {
   /**
    * The compiler configuration
    */
-  config: Array<Configuration> & {parallelism?: number}
+  config: Array<Partial<Configuration>> & {parallelism?: number}
 
   /**
    * Compiler implementation

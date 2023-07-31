@@ -192,9 +192,9 @@ export default class CreateCommand extends Command {
 
   public support = supportFlag
 
-  public username = usernameFlag
+  public username? = usernameFlag
 
-  public version = versionFlag
+  public version? = versionFlag
 
   public wordpress = wordpressPresetFlag
 

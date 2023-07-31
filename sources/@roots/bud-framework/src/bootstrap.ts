@@ -171,16 +171,16 @@ export const bootstrap = async function (bud: Bud) {
       'location.@modules': isString(bud.context.modules)
         ? bud.context.modules
         : `node_modules`,
-      'location.@os-cache': bud.context.paths[`os-cache`],
-      'location.@os-config': bud.context.paths[`os-config`],
-      'location.@os-data': bud.context.paths[`os-data`],
-      'location.@os-log': bud.context.paths[`os-log`],
-      'location.@os-temp': bud.context.paths[`os-temp`],
+      'location.@os-cache': bud.context.paths?.[`os-cache`],
+      'location.@os-config': bud.context.paths?.[`os-config`],
+      'location.@os-data': bud.context.paths?.[`os-data`],
+      'location.@os-log': bud.context.paths?.[`os-log`],
+      'location.@os-temp': bud.context.paths?.[`os-temp`],
       'location.@src':
         isString(bud.context.input) && bud.context.input !== ``
           ? bud.context.input
           : `src`,
-      'location.@storage': bud.context.paths.storage,
+      'location.@storage': bud.context.paths?.storage ?? `.bud`,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.csv': /\.(csv|tsv)$/,
@@ -223,12 +223,23 @@ export const bootstrap = async function (bud: Bud) {
 
   bud.hooks.action(`compiler.before`, bud.module.compilerBefore)
 
-  await [`bootstrap`, `register`, `boot`]
-    .reduce(async (promised, event: keyof Registry.EventsStore) => {
-      await promised
-      await bud.executeServiceCallbacks(event).catch(bud.catch)
-    }, Promise.resolve())
-    .catch(bud.catch)
+  const initializeEvents: Array<`${keyof Registry.EventsStore}`> = [
+    `bootstrap`,
+    `register`,
+    `boot`,
+  ]
+
+  await initializeEvents.reduce(
+    async (promised: Promise<any>, event: any) => {
+      try {
+        await promised
+        await bud.executeServiceCallbacks(event).catch(bud.catch)
+      } catch (error) {
+        throw error
+      }
+    },
+    Promise.resolve({}),
+  )
 
   bud.after(bud.module.after)
 }

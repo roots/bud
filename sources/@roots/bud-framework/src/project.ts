@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 import type {Stats} from '@roots/bud-framework/config'
 
 import {Service} from '@roots/bud-framework/service'
@@ -79,7 +79,7 @@ export default class Project extends Service {
     await bud.fs.write(
       bud.path(`@storage`, bud.label, `debug`, `stats.yml`),
       {
-        compilation: bud.compiler?.stats.toJson({all: true}),
+        compilation: bud.compiler?.stats.toJson(`verbose`),
         message: stats.toString(),
       },
     )

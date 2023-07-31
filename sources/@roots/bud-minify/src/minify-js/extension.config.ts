@@ -44,15 +44,15 @@ type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
   BudMinimizeJSPublicApi,
   BudMinimizeJSOptions
 > & {
-  dropComments: (enable?: boolean) => BudMinimizeJSPublicInterface
-  dropConsole: (enable?: boolean) => BudMinimizeJSPublicInterface
-  dropDebugger: (enable?: boolean) => BudMinimizeJSPublicInterface
+  dropComments: (enable?: boolean) => BudMinimizeJSPublicApi
+  dropConsole: (enable?: boolean) => BudMinimizeJSPublicApi
+  dropDebugger: (enable?: boolean) => BudMinimizeJSPublicApi
   mangle: (
     mangle: OptionCallback<
-      BudMinimizeJSPublicInterface['terserOptions'],
+      BudMinimizeJSPublicApi['terserOptions'],
       `mangle`
     >,
-  ) => BudMinimizeJSPublicInterface
+  ) => BudMinimizeJSPublicApi
 }
 
 /**
@@ -71,24 +71,22 @@ type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
       drop_debugger: true,
       unused: true,
     },
-    ecma: undefined,
-    enclose: undefined,
+    ecma: `2020` as any,
+    enclose: false,
     format: {
       ascii_only: true,
       comments: false,
     },
-    ie8: undefined,
-    keep_classnames: undefined,
-    keep_fnames: undefined,
-    mangle: {
-      safari10: true,
-    },
-    module: undefined,
-    nameCache: undefined,
-    parse: undefined,
-    safari10: undefined,
-    sourceMap: undefined,
-    toplevel: undefined,
+    ie8: false,
+    keep_classnames: false,
+    keep_fnames: false,
+    mangle: {},
+    module: false,
+    nameCache: {},
+    parse: {},
+    safari10: false,
+    sourceMap: false,
+    toplevel: true,
   },
 })
 class BudMinimizeJSPublicApi
@@ -280,6 +278,7 @@ class BudMinimizeJSPublicApi
    * ```
    */
   @bind
+  // @ts-ignore
   public mangle(
     mangle: BudMinimizeJSPublicInterface['terserOptions']['mangle'],
   ): this {

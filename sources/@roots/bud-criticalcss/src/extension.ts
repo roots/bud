@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options} from '@roots/critical-css-webpack-plugin'
 
+import {extractCss} from '@roots/bud-criticalcss/bud.extractCss'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
@@ -13,8 +14,6 @@ import {
 import {deprecated} from '@roots/bud-support/decorators'
 import Value from '@roots/bud-support/value'
 import CriticalCssWebpackPlugin from '@roots/critical-css-webpack-plugin'
-
-import {extractCss} from './api/extract.js'
 
 /**
  * Critical css configuration

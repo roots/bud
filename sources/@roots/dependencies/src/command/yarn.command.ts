@@ -21,6 +21,9 @@ export class Yarn extends Command implements IDependencyManager {
     ])
 
     if (result?.shift) return result.shift().trim()
+
+    // #todo: this is bad
+    return `latest` // fallback
   }
 
   /**

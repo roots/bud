@@ -19,7 +19,10 @@ export class Npm extends Command implements IDependencyManager {
       signifier,
       `version`,
     ])
+
     if (result?.shift) return result.shift().trim()
+    // #todo: this is bad
+    return `latest` // fallback
   }
 
   /**

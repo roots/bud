@@ -33,7 +33,7 @@ export interface Watcher {
   /**
    * Initialize watch files
    */
-  watch(): Promise<FSWatcher>
+  watch(): Promise<undefined | Watcher['instance']>
 
   /**
    * Watcher callback

@@ -44,7 +44,7 @@ export default class BabelExtension extends Extension {
    * Cache directory
    */
   public get cacheDirectory(): LoaderOptions[`cacheDirectory`] {
-    return this.app.cache.enabled
+    return this.app.cache.enabled && this.app.cache.cacheDirectory
       ? this.app.path(this.app.cache.cacheDirectory, `babel`)
       : false
   }
@@ -52,7 +52,7 @@ export default class BabelExtension extends Extension {
   /**
    * Config file accessor
    */
-  public get configFile(): Record<string, any> {
+  public get configFile(): Record<string, any> | undefined {
     return Object.values(this.app.context.files).find(
       file =>
         file.name === `.babelrc` ||
@@ -116,7 +116,7 @@ export default class BabelExtension extends Extension {
       this.configFileOptions =
         this.configFile.module?.default ?? this.configFile.module
 
-      hooks.on(`build.cache.buildDependencies`, paths => {
+      hooks.on(`build.cache.buildDependencies`, (paths = {}) => {
         if (isString(this.configFile)) {
           paths.babel = [this.configFile]
           this.logger.success(
@@ -294,8 +294,7 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public unsetPlugin(plugin: string) {
-    if (!isUndefined(this.plugins[plugin]))
-      this.plugins[plugin] = undefined
+    if (!isUndefined(this.plugins[plugin])) delete this.plugins[plugin]
 
     return this
   }
@@ -305,8 +304,7 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public unsetPreset(preset: string) {
-    if (!isUndefined(this.presets[preset]))
-      this.presets[preset] = undefined
+    if (!isUndefined(this.presets[preset])) delete this.presets[preset]
 
     return this
   }

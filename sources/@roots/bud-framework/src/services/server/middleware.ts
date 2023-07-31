@@ -39,10 +39,10 @@ export type Middleware<V extends 'factory' | 'options'> = {
  * Key mapped middleware
  */
 export interface Available {
-  cookie?: Definition<null>
-  dev?: Definition<DevOptions>
-  hot?: Definition<null>
-  proxy?: Definition<ProxyOptions>
+  cookie: Definition<null>
+  dev: Definition<DevOptions>
+  hot: Definition<null>
+  proxy: Definition<ProxyOptions>
 }
 
 /**

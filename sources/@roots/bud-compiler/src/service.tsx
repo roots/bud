@@ -1,5 +1,5 @@
-import type {Compiler as BudCompiler} from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-framework'
+import type {Compiler as BudCompiler} from '@roots/bud-framework'
 import type {
   MultiCompiler,
   MultiStats,
@@ -21,9 +21,9 @@ import {Error} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import {duration} from '@roots/bud-support/human-readable'
 import {render} from '@roots/bud-support/ink'
 import isNull from '@roots/bud-support/lodash/isNull'
+import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 import webpack from '@roots/bud-support/webpack'
@@ -62,7 +62,7 @@ export class Compiler extends Service implements BudCompiler {
    */
   @bind
   public async compile(bud: Bud): Promise<MultiCompiler> {
-    this.config = !bud.hasChildren
+    const config = !bud.hasChildren
       ? [await bud.build.make()]
       : await Promise.all(
           Object.values(bud.children).map(async (child: Bud) =>
@@ -71,6 +71,8 @@ export class Compiler extends Service implements BudCompiler {
             }),
           ),
         )
+
+    this.config = config?.filter(Boolean)
 
     this.config.parallelism = Math.max(cpus().length - 1, 1)
     this.logger.info(`parallel compilations: ${this.config.parallelism}`)
@@ -143,12 +145,17 @@ export class Compiler extends Service implements BudCompiler {
       this.compilationStats.children = this.compilationStats.children?.map(
         child => ({
           ...child,
-          errors: this.sourceErrors(child.errors),
+          errors:
+            child.errors && this.sourceErrors
+              ? this.sourceErrors(child.errors)
+              : child.errors ?? [],
         }),
       )
 
       this.compilationStats.children
-        ?.filter(child => child.errorsCount > 0)
+        ?.filter(
+          child => isNumber(child.errorsCount) && child.errorsCount > 0,
+        )
         .forEach(child => {
           try {
             const error = child.errors?.shift()
@@ -162,7 +169,7 @@ export class Compiler extends Service implements BudCompiler {
               title: makeNoticeTitle(child),
             })
 
-            this.app.notifier.openEditor(error.file)
+            error.file && this.app.notifier.openEditor(error.file)
           } catch (error) {
             this.logger.error(error)
           }
@@ -176,16 +183,15 @@ export class Compiler extends Service implements BudCompiler {
           this.app.notifier.notify({
             group: `${this.app.label}-${child.name}`,
             message: child.modules
-              ? `${child.modules.length} modules compiled in ${duration(
-                  child.time,
-                )}`
-              : `Compiled in ${duration(child.time)}`,
+              ? `${child.modules.length} modules compiled`
+              : `Modules compiled successfully`,
             open: this.app.server?.publicUrl.href,
             subtitle: `Build successful`,
             title: makeNoticeTitle(child),
           })
 
-          this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
+          this.app.server?.publicUrl.href &&
+            this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
         } catch (error) {
           this.logger.error(error)
         }
@@ -206,7 +212,7 @@ export class Compiler extends Service implements BudCompiler {
 
   @bind
   public sourceErrors?(
-    errors: Array<StatsError>,
+    errors: Array<StatsError> | undefined,
   ): Array<ErrorWithSourceFile | StatsError> {
     if (!errors || !errors.length) return []
 
@@ -222,7 +228,7 @@ export class Compiler extends Service implements BudCompiler {
            * In a perfect world webpack plugins would use the
            * `nameForCondition` property to identify the module.
            */
-          if (ident) {
+          if (ident && this.compilationStats?.children) {
             module = this.compilationStats.children
               .flatMap(child => child?.modules)
               .find(module => [module?.id, module?.name].includes(ident))
@@ -290,6 +296,7 @@ const statsOptions = {
     cachedAssets: true,
     cachedModules: true,
     entrypoints: true,
+    errorDetails: false,
     errors: true,
     errorsCount: true,
     hash: true,

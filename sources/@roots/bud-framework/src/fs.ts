@@ -7,7 +7,9 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import {Filesystem, json, yml} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isNumber from '@roots/bud-support/lodash/isNumber'
+import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 import {S3} from '@roots/filesystem'
 
@@ -18,7 +20,7 @@ export class FS extends Filesystem implements Contract {
   /**
    * JSON
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/json}
+   * @see {@link https://bud.js.org/reference/bud.fs/json}
    */
   public json: typeof json = json
 
@@ -30,14 +32,14 @@ export class FS extends Filesystem implements Contract {
   /**
    * S3
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3}
    */
-  public s3?: S3
+  public s3: S3
 
   /**
    * YML
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/yml}
+   * @see {@link https://bud.js.org/reference/bud.fs/yml}
    */
   public yml: typeof yml = yml
 
@@ -83,7 +85,7 @@ export class FS extends Filesystem implements Contract {
    *
    * @param bucket - {@link S3.bucket}
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3#setup}
    */
   @bind
   public setBucket(bucket: string) {
@@ -99,7 +101,7 @@ export class FS extends Filesystem implements Contract {
    *
    * @param credentials - {@link S3.credentials}
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3#setup}
    */
   @bind
   public setCredentials(credentials: S3[`config`][`credentials`]) {
@@ -115,7 +117,7 @@ export class FS extends Filesystem implements Contract {
    *
    * @param endpoint - S3 endpoint
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3#setup}
    */
   @bind
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
@@ -131,7 +133,7 @@ export class FS extends Filesystem implements Contract {
    *
    * @param region - S3 region
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3#setup}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3#setup}
    */
   @bind
   public setRegion(region: S3[`config`][`region`]) {
@@ -147,7 +149,7 @@ export class FS extends Filesystem implements Contract {
    *
    * @param options - upload options
    *
-   * @see {@link https://bud.js.org/docs/bud.fs/s3#uploading-files}
+   * @see {@link https://bud.js.org/reference/bud.fs/s3#uploading-files}
    */
   @bind
   public upload(options?: {
@@ -156,13 +158,20 @@ export class FS extends Filesystem implements Contract {
     keep?: false | number
     source?: string
   }): this {
+    if (!this.s3) {
+      throw new BudError(
+        `S3 is not configured. See https://budjs.dev/reference/bud.fs/s3`,
+      )
+    }
+
     const {destination, files, keep, source} = {
       destination: options?.destination,
-      files: isUndefined(options?.files) ? `**/*` : options.files,
-      keep: isUndefined(options?.keep) ? 5 : options.keep,
-      source: isUndefined(options?.source)
-        ? this.app.path(`@dist`)
-        : options.source,
+      files: options?.files ?? `**/*`,
+      keep:
+        isNumber(options?.keep) || isBoolean(options?.keep)
+          ? options?.keep
+          : 5,
+      source: options?.source ?? this.app.path(`@dist`),
     }
 
     const s3Path = (path: string) =>
@@ -211,14 +220,17 @@ export class FS extends Filesystem implements Contract {
 
         await Promise.all(
           [...new Set(stale)]
-            .flatMap(([key, value]: [string, Array<string>]) => value)
+            .flatMap(([, value]) => value)
             .filter(
               key =>
-                !entries.some(([_, value]: [string, Array<string>]) =>
-                  value.includes(key),
+                !entries.some(
+                  ([_, value]) =>
+                    Array.isArray(value) && value.includes(key),
                 ),
             )
             .map(async key => {
+              if (!isString(key)) return
+
               const fileExists = await this.s3.exists(key)
               if (!fileExists) return
 

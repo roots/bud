@@ -12,6 +12,7 @@ import {isConstructor} from '@roots/bud-extensions/helpers/isConstructor'
 import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
+import {ExtensionError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
@@ -246,7 +247,7 @@ export class Extensions extends Service implements BudExtensions {
 
     if (this.has(signifier)) {
       this.logger.info(signifier, `already imported`)
-      return this.get(signifier)
+      return this.get(signifier) as Extension
     }
 
     const extension: Extension = await this.app.module
@@ -255,8 +256,13 @@ export class Extensions extends Service implements BudExtensions {
         this.unresolvable.add(signifier)
         if (required) throw error
       })
+
     if (!extension) {
-      if (required) throw `Extension ${signifier} not found but required`
+      if (required)
+        throw new ExtensionError(
+          `Extension ${signifier} not found but required`,
+        )
+
       return
     }
 
@@ -434,8 +440,8 @@ export class Extensions extends Service implements BudExtensions {
     if (instance.dependsOn) {
       await Array.from(instance.dependsOn)
         .filter(this.isAllowed)
-        .filter((signifier: K) => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier: K) => {
+        .filter((signifier: string) => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier: any) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, true)
 
@@ -450,8 +456,8 @@ export class Extensions extends Service implements BudExtensions {
     if (this.options.is(`discover`, true) && instance.dependsOnOptional)
       await Array.from(instance.dependsOnOptional)
         .filter(this.isAllowed)
-        .filter((signifier: K) => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier: K) => {
+        .filter((signifier: string) => !this.unresolvable.has(signifier))
+        .reduce(async (promised, signifier: any) => {
           await promised
           if (!this.has(signifier)) await this.import(signifier, false)
           if (!this.has(signifier)) {
@@ -472,7 +478,7 @@ export class Extensions extends Service implements BudExtensions {
    */
   @bind
   public set(value: Extension): this {
-    const key = value.label ?? randomUUID()
+    const key = (value.label ?? randomUUID()) as any
     this.repository[key] = value
     this.logger.success(`set`, key)
 

@@ -1,12 +1,9 @@
-import '@roots/bud-minify/types'
-
 import {type Bud, factory} from '@repo/test-kit'
-import {Extension} from '@roots/bud-framework/extension'
-import {beforeAll, describe, expect, it} from 'vitest'
-
 import BudMinimize from '@roots/bud-minify'
 import BudMinimizeCss from '@roots/bud-minify/minify-css'
 import BudMinimizeJs from '@roots/bud-minify/minify-js'
+import '@roots/bud-minify/types'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-minify`, () => {
   let bud: Bud
@@ -54,9 +51,7 @@ describe(`@roots/bud-minify`, () => {
   })
 
   it(`instance.js.mangle`, async () => {
-    expect(instance.js.options.terserOptions.mangle).toStrictEqual({
-      safari10: true,
-    })
+    expect(instance.js.options.terserOptions.mangle).toStrictEqual({})
     instance.js.mangle({toplevel: true})
     expect(instance.js.options.terserOptions.mangle).toStrictEqual({
       toplevel: true,

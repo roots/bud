@@ -16,10 +16,10 @@ import {
 import isString from '@roots/bud-support/lodash/isString'
 
 type CompilerOptions = {
-  baseUrl?: string
-  outDir?: string
-  paths?: Record<string, Array<string>>
-  rootDir?: string
+  baseUrl: string | undefined
+  outDir: string | undefined
+  paths: Record<string, Array<string>> | undefined
+  rootDir: string | undefined
 }
 
 type BudOptions = {
@@ -27,13 +27,23 @@ type BudOptions = {
 }
 
 type Options = {
-  bud?: BudOptions
-  compilerOptions?: CompilerOptions
-  exclude?: Array<string>
-  include?: Array<string>
+  bud: BudOptions | undefined
+  compilerOptions: CompilerOptions | undefined
+  exclude: Array<string> | undefined
+  include: Array<string> | undefined
 }
 
-type Api = PublicExtensionApi<BudTsConfigValues, Options>
+type Api = PublicExtensionApi<BudTsConfigValues, Options> & {
+  getBud: () => Api['bud']
+  getCompilerOptions: () => Api['compilerOptions']
+  getExclude: () => Api['exclude']
+  getInclude: () => Api['include']
+
+  setBud: (bud: BudOptions) => Api
+  setCompilerOptions: (options: CompilerOptions) => Api
+  setExclude: (exclude: Array<string>) => Api
+  setInclude: (include: Array<string>) => Api
+}
 
 /**
  * The BudTsConfigValues class configures the bud.js application using settings
@@ -164,18 +174,19 @@ export default class BudTsConfigValues
     // and then set as paths w/ aliases in the bud.js application.
     if (this.compilerOptions?.paths) {
       const normalPaths = this.normalizePaths(this.compilerOptions.paths)
-      bud
-        .setPath(normalPaths)
-        // @ts-ignore
-        .alias(
-          Object.entries(normalPaths).reduce(
-            (a, [k, v]) => ({
-              ...a,
-              [k]: this.makeAbsolute(v),
-            }),
-            {},
-          ),
-        )
+      if (normalPaths)
+        bud
+          .setPath(normalPaths)
+          // @ts-ignore
+          .alias(
+            Object.entries(normalPaths).reduce(
+              (a, [k, v]) => ({
+                ...a,
+                [k]: this.makeAbsolute(v),
+              }),
+              {},
+            ),
+          )
     }
 
     // If specific directories have been defined to be included in the tsconfig.json,
@@ -235,12 +246,14 @@ export default class BudTsConfigValues
    */
   @bind
   public normalizePaths(
-    paths: Options['compilerOptions']['paths'],
+    paths: Record<string, Array<string>>,
   ): Record<string, string> | undefined {
     if (!paths) return
 
     const normalPaths = Object.entries(paths)
-      .map(([k, v]: [string, Array<string>]) => [k, v[0]])
+      .filter(([k, v]) => Array.isArray(v))
+      .map(([k, v]) => [k, v[0]])
+      .filter(Boolean)
       .map(tuple => tuple.map((str: string) => str.replace(`/*`, ``)))
       .reduce(
         (acc, [key, value]) => ({

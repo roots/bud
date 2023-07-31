@@ -23,7 +23,7 @@ export type Options = {
   cacheLocation: false | string
   frozen: boolean
   lockfileLocation: string
-  proxy: string
+  proxy: false | string
   upgrade: boolean
 }
 
@@ -96,7 +96,7 @@ export default class Cdn extends Extension<Options> implements Api {
     bud.hooks.on(`build.experiments`, experiments => ({
       ...(experiments ?? {}),
       buildHttp: {
-        allowedUris: Array.from(this.allowedUris),
+        allowedUris: Array.from(this.allowedUris ?? []),
         cacheLocation: this.cacheEnabled ? this.cacheLocation : false,
         frozen: this.frozen,
         lockfileLocation: this.lockfileLocation,
@@ -114,7 +114,7 @@ export default class Cdn extends Extension<Options> implements Api {
           : Array.isArray(rule.include)
           ? rule.include
           : []),
-        ...Array.from(this.allowedUris),
+        ...Array.from(this.allowedUris ?? []),
       ])
     })
 

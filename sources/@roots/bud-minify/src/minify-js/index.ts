@@ -1,3 +1,5 @@
+import type {Bud} from '@roots/bud-framework'
+
 import {Extension} from '@roots/bud-framework/extension'
 import {label} from '@roots/bud-framework/extension/decorators/label'
 import {production} from '@roots/bud-framework/extension/decorators/production'
@@ -18,7 +20,7 @@ class BudMinimizeJS extends BudMinimizeJSPublicApi {
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore({extensions, hooks}) {
+  public override async buildBefore({extensions, hooks}: Bud) {
     const {
       default: Minimizer,
       esbuildMinify,

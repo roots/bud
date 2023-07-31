@@ -35,17 +35,14 @@ export interface pipe {
  * ) // resulting value is 3
  * ```
  */
-export const pipe: pipe = async function <T = unknown>(
-  this: Bud,
-  functions: Array<Callback<T>>,
-  maybeInitialValue?: T,
-) {
-  const initialValue = Promise.resolve(
-    !isUndefined(maybeInitialValue) ? maybeInitialValue : (this as T),
-  )
-
+export const pipe: pipe = async function (functions, maybeInitialValue) {
   return await functions.reduce(
-    async (value, fn) => await fn(await value),
-    initialValue,
+    async (value, fn) => {
+      const nextValue = await value
+      return await fn(nextValue)
+    },
+    Promise.resolve(
+      !isUndefined(maybeInitialValue) ? maybeInitialValue : this,
+    ),
   )
 }

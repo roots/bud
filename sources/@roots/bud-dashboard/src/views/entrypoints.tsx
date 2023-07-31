@@ -5,6 +5,7 @@ import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColo
 import {longestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
 import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
+import isNumber from '@roots/bud-support/lodash/isNumber'
 
 interface Props {
   compact?: boolean
@@ -58,7 +59,12 @@ const Entrypoints = ({
             <Text>{assets.length} modules</Text>
             <Text>
               {`${formatSize(
-                assets.reduce((acc, asset) => acc + asset.size, 0),
+                assets.reduce(
+                  (acc, asset) =>
+                    acc +
+                    (asset?.size && isNumber(asset.size) ? asset.size : 0),
+                  0,
+                ),
               )}`}
             </Text>
           </Box>

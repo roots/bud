@@ -10,12 +10,13 @@ import View from '@roots/bud-dashboard/components/view'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text, useEffect, useState} from '@roots/bud-support/ink'
+import isNumber from '@roots/bud-support/lodash/isNumber'
 
 import Assets from './assets.js'
 import Entrypoints from './entrypoints.js'
 
 export interface Props {
-  basedir: string
+  basedir?: string
   borderColor?: string
   compact?: boolean
   compilation: StatsCompilation
@@ -23,7 +24,7 @@ export interface Props {
   displayAssets?: boolean
   displayEntrypoints?: boolean
   id: number
-  total: number
+  total?: number
 }
 
 export interface Asset extends Partial<StatsAsset> {}
@@ -110,7 +111,7 @@ const Head = ({basedir, compilation, id, total}: Props) => {
           {compilation.name?.split(`/`).pop() ?? `compilation`}
         </Text>
 
-        {total > 1 && (
+        {total && total > 1 && (
           <Text dimColor wrap="truncate">
             {` `}[{id}/{total}]
           </Text>
@@ -136,10 +137,11 @@ const Footer = ({compilation}: Partial<Props>) => {
   if (!compilation || !compilation?.assets)
     return <Text dimColor>...</Text>
 
+  const errorsCount = isNumber(compilation.errorsCount)
+    ? compilation.errorsCount
+    : 0
   const formattedErrorCount =
-    compilation.errorsCount > 1
-      ? `${compilation.errorsCount} errors`
-      : `${compilation.errorsCount} error`
+    errorsCount > 1 ? `${errorsCount} errors` : `${errorsCount} error`
 
   const cachedModuleCount =
     compilation.modules?.filter(mod => mod?.cached)?.length ?? 0
@@ -147,36 +149,16 @@ const Footer = ({compilation}: Partial<Props>) => {
     compilation.modules?.filter(mod => mod && mod.hasOwnProperty(`cached`))
       ?.length ?? 0
 
-  const formattedModuleCount =
-    cachedModuleCount > 0
-      ? `${cachedModuleCount}/${totalModuleCount} modules cached`
-      : `${totalModuleCount} modules`
+  const formattedModuleCount = `${cachedModuleCount}/${totalModuleCount} modules cached`
 
-  const formattedTime = `${duration(compilation.time)}`
+  const formattedTime = compilation.time
+    ? `${duration(compilation.time)} `
+    : ``
 
-  if (compilation.errorsCount > 0) {
+  if (errorsCount > 0) {
     return (
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Text wrap="truncate-end">{formattedErrorCount}</Text>
-      </Box>
-    )
-  }
-
-  if (totalModuleCount === 0) {
-    return (
-      <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
-        <Text wrap="truncate-end">{formattedTime}</Text>
-      </Box>
-    )
-  }
-
-  if (cachedModuleCount === 0) {
-    return (
-      <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
-        <Text wrap="truncate-end">
-          {formattedTime}
-          <Text dimColor>{` ${totalModuleCount} modules`}</Text>
-        </Text>
       </Box>
     )
   }
@@ -185,7 +167,8 @@ const Footer = ({compilation}: Partial<Props>) => {
     <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
       <Text wrap="truncate-end">
         {formattedTime}
-        {<Text dimColor>{` [${formattedModuleCount}]`}</Text>}
+        <Text dimColor>{`${totalModuleCount} modules`}</Text>
+        <Text dimColor>{` [${formattedModuleCount}]`}</Text>
       </Text>
     </Box>
   )

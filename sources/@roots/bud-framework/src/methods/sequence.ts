@@ -44,9 +44,7 @@ export interface sequenceSync {
 export const sequenceSync: sequenceSync = (
   fns: Array<SyncCallback>,
 ): Bud => {
-  const app = this as Bud
+  fns.map(fn => fn.call(this, this))
 
-  fns.map(fn => fn.call(this, app))
-
-  return app
+  return this as unknown as Bud
 }

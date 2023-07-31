@@ -37,17 +37,19 @@ export function close(onComplete?: () => unknown) {
 }
 
 const closeDevelopmentServer = (bud: Bud) => {
+  if (!bud.server) return
+
   try {
     if (
       bud.isDevelopment &&
-      isFunction(bud.server?.watcher?.instance?.close)
+      isFunction(bud.server.watcher?.instance?.close)
     ) {
       bud.server.watcher.instance.close()
     }
 
     if (
       bud.isDevelopment &&
-      isFunction(bud.server?.connection?.instance?.close)
+      isFunction(bud.server.connection?.instance?.close)
     ) {
       bud.server.connection.instance.close()
     }

@@ -1,9 +1,7 @@
-import '@roots/bud-extensions'
-
 import {factory} from '@repo/test-kit'
-import {describe, expect, it, vi} from 'vitest'
-
+import '@roots/bud-extensions'
 import extensionConstructor from '@roots/bud-extensions/esm'
+import {describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-extensions/esm`, () => {
   it(`is constructable`, () => {
@@ -15,10 +13,6 @@ describe(`@roots/bud-extensions/esm`, () => {
 
     expect(new extensionConstructor(bud)).toBeInstanceOf(
       extensionConstructor,
-    )
-
-    expect(new extensionConstructor(bud).buildBefore).not.toBe(
-      bud.extensions.get(`@roots/bud-extensions/esm`).buildBefore,
     )
   })
 

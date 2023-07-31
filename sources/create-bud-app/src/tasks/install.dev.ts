@@ -34,7 +34,10 @@ function createSignifierFormatter(
   command: CreateCommand,
 ): (key: string) => string {
   return (key: string) => {
-    if (key.startsWith(`@roots`) && !key.split(`/`).pop().includes(`@`)) {
+    if (
+      key?.startsWith(`@roots`) &&
+      !key.split(`/`).pop()?.includes(`@`)
+    ) {
       return `${key}@${command.version}`
     }
     if (command.extensions[key]) {

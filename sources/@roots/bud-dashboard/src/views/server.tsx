@@ -24,9 +24,13 @@ export const Server = ({
   publicDevUrl,
   publicProxyUrl,
 }: Props) => {
-  if (!displayServerInfo) return null
-  if (mode !== `development`) return null
-  if (!devUrl || !(devUrl instanceof URL)) return null
+  if (
+    !displayServerInfo ||
+    mode !== `development` ||
+    !devUrl ||
+    !(devUrl instanceof URL)
+  )
+    return null
 
   const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol)
   ipv4.port = devUrl.port
@@ -34,26 +38,13 @@ export const Server = ({
   return (
     <Box flexDirection="column">
       <Text color="blue">Network</Text>
-      <Text></Text>
-      {proxy && proxyUrl?.href && (
-        <Box flexDirection="row" gap={2} paddingLeft={1}>
-          <Box minWidth={7}>
-            <Text color="white">{figures.pointerSmall} proxy</Text>
-          </Box>
+      <Text>{` `}</Text>
 
-          <Box flexDirection="column" gap={1}>
-            <Text dimColor wrap="truncate-end">
-              {figures.lineDashed0} {proxyUrl.href}
-            </Text>
-
-            {publicProxyUrl?.href !== proxyUrl.href && (
-              <Text dimColor wrap="truncate-end">
-                {figures.lineDashed0} {publicProxyUrl.href}
-              </Text>
-            )}
-          </Box>
-        </Box>
-      )}
+      <Proxy
+        proxy={proxy}
+        proxyUrl={proxyUrl}
+        publicProxyUrl={publicProxyUrl}
+      />
 
       {devUrl?.href && (
         <Box flexDirection="row" gap={2} paddingLeft={1}>
@@ -72,7 +63,7 @@ export const Server = ({
               </Text>
             )}
 
-            {publicDevUrl?.href !== devUrl.href && (
+            {publicDevUrl && publicDevUrl?.href !== devUrl.href && (
               <Text dimColor wrap="truncate-end">
                 {figures.lineDashed0} {publicDevUrl.href}
               </Text>
@@ -80,6 +71,39 @@ export const Server = ({
           </Box>
         </Box>
       )}
+    </Box>
+  )
+}
+
+const Proxy = ({
+  proxy,
+  proxyUrl,
+  publicProxyUrl,
+}: {
+  proxy?: Props[`proxy`]
+  proxyUrl?: Props[`proxyUrl`]
+  publicProxyUrl?: Props[`publicProxyUrl`]
+}) => {
+  if (!proxy || !proxyUrl || !(proxyUrl instanceof URL)) return null
+
+  return (
+    <Box flexDirection="row" gap={2} paddingLeft={1}>
+      <Box minWidth={7}>
+        <Text color="white">{figures.pointerSmall} Proxy</Text>
+      </Box>
+
+      <Box flexDirection="column" gap={1}>
+        <Text dimColor wrap="truncate-end">
+          {figures.lineDashed0} {proxyUrl.href}
+        </Text>
+
+        {publicProxyUrl?.href &&
+          publicProxyUrl?.href !== proxyUrl.href && (
+            <Text dimColor wrap="truncate-end">
+              {figures.lineDashed0} {publicProxyUrl.href}
+            </Text>
+          )}
+      </Box>
     </Box>
   )
 }

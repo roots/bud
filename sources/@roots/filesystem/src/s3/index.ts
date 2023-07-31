@@ -1,5 +1,4 @@
 import type {
-  GetObjectOutput,
   ListObjectsCommandInput,
   PutObjectCommandInput,
   S3Client,
@@ -158,13 +157,10 @@ export class S3 {
    * @throws Error - If the file does not exist
    */
   @bind
-  public async read(
-    key: string,
-    raw = false,
-  ): Promise<GetObjectOutput | string> {
+  public async read(key: string, raw = false): Promise<any> {
     const streamToString = ({Body: stream}: {Body: Readable}) =>
       new Promise((resolve, reject) => {
-        const chunks = []
+        const chunks: Array<any> = []
 
         stream
           .on(`data`, chunk => chunks.push(chunk))
@@ -180,12 +176,8 @@ export class S3 {
     })
 
     try {
-      // @ts-ignore
-      const request = (await client.send(GetObjectCommandOutput)) as {
-        Body: Readable
-      }
-
-      return raw ? request : streamToString(request)
+      const request: any = await client.send(GetObjectCommandOutput)
+      if (!request) return raw ? request : streamToString(request)
     } catch (error) {
       throw error
     }
@@ -208,7 +200,7 @@ export class S3 {
       Bucket: this.config.bucket,
       ContentType: null,
       Key: null,
-    }
+    } as any
 
     if (typeof params[0] !== `string`) Object.assign(putProps, params[0])
     else Object.assign(putProps, {Body: params[1], Key: params[0]})

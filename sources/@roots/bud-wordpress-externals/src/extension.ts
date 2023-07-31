@@ -4,15 +4,17 @@ import {
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
-import WordPressExternals from '@roots/wordpress-externals-webpack-plugin'
+import WordPressExternals, {
+  type Options,
+} from '@roots/wordpress-externals-webpack-plugin'
 
 @label(`@roots/bud-wordpress-externals`)
 @plugin(WordPressExternals)
-@options({
+@options<Options>({
   exclude: [],
 })
 export default class BudWordPressExternals extends Extension<
-  null,
+  Options,
   WordPressExternals
 > {
   /**

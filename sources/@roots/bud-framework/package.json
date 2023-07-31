@@ -56,6 +56,7 @@
     "./configuration": "./lib/configuration/index.js",
     "./config": "./lib/config/index.js",
     "./context": "./lib/context.js",
+    "./env": "./lib/env.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension": "./lib/extension/index.js",
@@ -66,6 +67,7 @@
     "./module": "./lib/module.js",
     "./options": "./lib/options/index.js",
     "./options/*": "./lib/options/*.js",
+    "./project": "./lib/project.js",
     "./registry": "./lib/registry/index.js",
     "./registry/*": "./lib/registry/*.js",
     "./service": "./lib/service.js",
@@ -97,6 +99,9 @@
       "context": [
         "./lib/context.d.ts"
       ],
+      "env": [
+        "./lib/env.d.ts"
+      ],
       "fs": [
         "./lib/fs.d.ts"
       ],
@@ -108,6 +113,9 @@
       ],
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
+      ],
+      "project": [
+        "./lib/project.d.ts"
       ],
       "methods/setPath": [
         "./lib/methods/setPath/index.d.ts"

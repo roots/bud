@@ -20,10 +20,9 @@ export default (command: CreateCommand) =>
     result(
       this: typeof MultiSelect,
       answer: Array<Record<string, string>>,
-    ) {
-      return Object.keys(this.map(answer)).reduce(
-        (all, support) => [...all, support],
-        [],
-      )
+    ): Array<string> {
+      const records = this.map(answer) as Record<string, unknown>
+      const answers = Object.keys(records)
+      return answers
     },
   })

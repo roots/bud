@@ -5,9 +5,9 @@ import type {Bud} from '@roots/bud-framework'
  */
 export const inject = async (
   app: Bud,
-  injection: Array<(app: Bud) => string>,
+  injection: Array<(app: Bud) => false | string>,
 ) => {
-  app.hooks.on(`build.entry`, entrypoints => {
+  app.hooks.on(`build.entry`, (entrypoints = {}) => {
     if (!injection) return entrypoints
 
     return Object.entries(entrypoints ?? {}).reduce(

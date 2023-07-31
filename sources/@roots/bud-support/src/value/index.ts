@@ -54,7 +54,9 @@ class Value<T> {
   /**
    * Check {@link Value.identity} type
    */
-  public static isValue<T>(value: T | Value<T>): value is Value<T> {
+  public static isValue<T extends any>(
+    value: T | Value<T>,
+  ): value is Value<T> {
     return (
       typeof value === `object` &&
       value !== null &&
