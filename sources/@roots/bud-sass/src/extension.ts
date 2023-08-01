@@ -23,8 +23,9 @@ export class BudSass extends BudSassOptions {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot({build, postcss}) {
-    postcss?.setSyntax(`postcss-scss`)
+  public override async boot({ build, postcss }: Bud) {
+    if (postcss.setSyntax) postcss.setSyntax(`postcss-scss`)
+
     build.rules.sass.setUse(() => [
       `precss`,
       `css`,
@@ -76,7 +77,7 @@ export class BudSass extends BudSassOptions {
     }))
 
     /** Resolve .scss and .sass extensions */
-    hooks.on(`build.resolve.extensions`, ext =>
+    hooks.on(`build.resolve.extensions`, (ext = new Set()) =>
       ext.add(`.scss`).add(`.sass`),
     )
 

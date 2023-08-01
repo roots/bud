@@ -29,11 +29,17 @@ export default class Acorn
     compilation: Compilation,
   ) {
     return () => {
-      const data = {
-        dev: urlToHttpOptions(this.app.root?.server?.publicUrl),
-        proxy: urlToHttpOptions(this.app.root?.server?.publicProxyUrl),
+      const data: Record<string, any> = {
         publicPath: this.app.publicPath().replace(/auto$/, ``),
       }
+
+      if (this.app.root?.server?.publicUrl)
+        data.dev = urlToHttpOptions(this.app.root.server.publicUrl)
+      if (this.app.root?.server?.publicProxyUrl)
+        data.proxy = urlToHttpOptions(
+          this.app.root.server.publicProxyUrl,
+        )
+
 
       const source = new compiler.webpack.sources.RawSource(
         JSON.stringify(data, null, 2),

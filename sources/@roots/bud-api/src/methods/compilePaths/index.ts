@@ -1,3 +1,6 @@
-export {compilePaths} from './compilePaths.method.js'
+export {compilePaths} from './compilePaths.js'
+import type {Rules} from '@roots/bud-framework'
 
-export type {Parameters} from './compilePaths.types.js'
+type Source = Array<RegExp | string> | RegExp | string
+
+export type Parameters = [Source, Array<`${keyof Rules & string}`>?]

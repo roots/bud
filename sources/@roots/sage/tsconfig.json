@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "strict": true,
     "types": [
       "node",
       "@roots/bud-framework",
@@ -17,7 +18,6 @@
   "include": ["./src"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
-    {"path": "../bud-entrypoints/tsconfig.json"},
     {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-minify/tsconfig.json"},

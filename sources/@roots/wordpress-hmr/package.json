@@ -45,17 +45,75 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./block": "./lib/block.js",
+    "./blocks": "./lib/blocks.js",
+    "./cache": "./lib/cache.js",
+    "./editor": "./lib/editor.js",
+    "./filter": "./lib/filter.js",
+    "./filters": "./lib/filters.js",
+    "./format": "./lib/format.js",
+    "./formats": "./lib/formats.js",
     "./loader": "./lib/loader.cjs",
-    "./types": "./lib/types.js",
-    "./*": "./lib/*.js"
+    "./plugin": "./lib/plugin.js",
+    "./plugins": "./lib/plugins.js",
+    "./style": "./lib/style.js",
+    "./styles": "./lib/styles.js",
+    "./utility": "./lib/utility.js",
+    "./variation": "./lib/variation.js",
+    "./variations": "./lib/variations.js"
   },
   "typesVersions": {
     "*": {
       ".": [
-        "/lib/index.d.ts"
+        "lib/index.d.ts"
       ],
-      "types": [
-        "/lib/types.d.ts"
+      "block": [
+        "lib/block.d.ts"
+      ],
+      "blocks": [
+        "lib/blocks.d.ts"
+      ],
+      "cache": [
+        "lib/cache.d.ts"
+      ],
+      "editor": [
+        "lib/editor.d.ts"
+      ],
+      "filter": [
+        "lib/filter.d.ts"
+      ],
+      "filters": [
+        "lib/filters.d.ts"
+      ],
+      "format": [
+        "lib/format.d.ts"
+      ],
+      "formats": [
+        "lib/formats.d.ts"
+      ],
+      "loader": [
+        "lib/loader.d.ts"
+      ],
+      "plugin": [
+        "lib/plugin.d.ts"
+      ],
+      "plugins": [
+        "lib/plugins.d.ts"
+      ],
+      "style": [
+        "lib/style.d.ts"
+      ],
+      "styles": [
+        "lib/styles.d.ts"
+      ],
+      "utility": [
+        "lib/utility.d.ts"
+      ],
+      "variation": [
+        "lib/variation.d.ts"
+      ],
+      "variations": [
+        "lib/variations.d.ts"
       ]
     }
   },

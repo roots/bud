@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import type {Context} from '@roots/bud-framework'
 
 import {join} from 'node:path'
@@ -22,20 +21,19 @@ export type Options = Omit<Partial<Context>, `extensions`> & {
 export default async (options: Options = {}): Promise<Context> => {
   let basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
-  if (paths.basedir !== basedir) basedir = paths.basedir
 
-  const fs = filesystem.get(basedir)
-  const env = projectEnv.get(basedir)
+  const fs = filesystem.get(paths.basedir)
+  const env = projectEnv.get(paths.basedir)
   const bud = await budManifest.get(fs)
 
   let manifest: Context[`manifest`]
   try {
-    manifest = await fs.read(join(basedir, `package.json`))
+    manifest = await fs.read(join(paths.basedir, `package.json`))
   } catch (e) {
     logger.scope(`bootstrap`).warn(`📦`, `no package.json found`)
   }
 
-  const files: Context[`files`] = await projectFiles.get(basedir)
+  const files: Context[`files`] = await projectFiles.get(paths.basedir)
   const extensions: Context[`extensions`] = getExtensions(
     manifest,
     options?.extensions,
@@ -44,7 +42,7 @@ export default async (options: Options = {}): Promise<Context> => {
   const context: Context = {
     ...(args ?? {}),
     ...options,
-    basedir,
+    basedir: paths.basedir,
     bin: (env.BUD_JS_BIN as Context[`bin`]) ?? `node`,
     bud: {...bud, ...(options?.bud ?? {})},
     env: {...(env ?? {}), ...(options?.env ?? {})},
@@ -64,9 +62,7 @@ export default async (options: Options = {}): Promise<Context> => {
     .unscope()
     .scope(`bootstrap`)
     .log(`🏗️`, `building`, context.label)
-    .scope(`bootstrap`)
     .log(`📂`, `basedir`, context.basedir)
-    .scope(`bootstrap`)
     .log(`😎`, `version`, context.bud.version)
     .scope(context.label)
 

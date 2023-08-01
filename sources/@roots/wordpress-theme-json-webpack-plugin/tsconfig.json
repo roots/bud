@@ -3,10 +3,7 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "paths": {
-      "@roots/wordpress-theme-json-webpack-plugin": ["./src/index.ts"],
-      "@roots/wordpress-theme-json-webpack-plugin/*": ["./src/*"]
-    }
+    "strict": true,
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"]

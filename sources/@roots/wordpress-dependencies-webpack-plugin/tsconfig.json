@@ -3,11 +3,10 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "strict": true,
   },
   "include": ["src"],
   "references": [
-    {
-      "path": "../../@roots/wordpress-transforms/tsconfig.json"
-    }
+    {"path": "../../@roots/wordpress-transforms/tsconfig.json"}
   ],
 }

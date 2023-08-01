@@ -1,8 +1,7 @@
 /* eslint-disable n/no-extraneous-import */
 import {factory} from '@repo/test-kit'
+import {use as subject} from '@roots/bud-api/methods/use'
 import {describe, expect, it, vi} from 'vitest'
-
-import {use as subject} from './index.js'
 
 describe(`use`, () => {
   it(`is a function`, async () => {

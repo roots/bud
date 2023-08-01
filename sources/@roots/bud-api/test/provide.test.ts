@@ -1,7 +1,6 @@
 import {type Bud, factory} from '@repo/test-kit'
+import {provide as provideFn} from '@roots/bud-api/methods/provide'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {provide as provideFn} from './index.js'
 
 describe(`bud.provide`, () => {
   let bud: Bud

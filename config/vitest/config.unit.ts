@@ -16,8 +16,11 @@ export default defineConfig({
     exclude: [`sources/@repo/**/*`, `**/node_modules/**/*`],
     hookTimeout: 60000,
     include: [
+      `sources/@roots/*/src/*.test.{ts,tsx}`,
       `sources/@roots/*/src/**/*.test.{ts,tsx}`,
+      `sources/@roots/*/test/*.test.{ts,tsx}`,
       `sources/@roots/*/test/**/*.test.{ts,tsx}`,
+      `sources/@roots/*/tests/*.test.{ts,tsx}`,
       `sources/@roots/*/tests/**/*.test.{ts,tsx}`,
       `tests/unit/**/*.test.ts`,
       `tests/reproductions/**/*.test.ts`,

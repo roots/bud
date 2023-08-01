@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import BudPostCss from '@roots/bud-postcss'
 import {describe, expect, it} from 'vitest'
-
-import BudPostCss from '../src/index.js'
 
 const resetPlugins = (bud: Bud) => bud.postcss.set(`plugins`, {})
 
@@ -9,8 +8,8 @@ describe(`@roots/bud-postcss`, () => {
   it(`label`, async () => {
     const bud = await factory()
     bud.extensions.repository = {} as any
-    await bud.extensions.add(BudPostCss)
-    expect(bud.postcss.label).toBe(`@roots/bud-postcss`)
+    const extension = new BudPostCss(bud)
+    expect(extension.label).toBe(`@roots/bud-postcss`)
   })
 
   it(`getPlugins`, async () => {
@@ -26,6 +25,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugins({foo: [`bar`]})
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.foo`)).toStrictEqual([`bar`])
   })
 
@@ -37,6 +37,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugins({bang: [`bop`]})
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.bang`)).toStrictEqual([`bop`])
   })
 
@@ -49,6 +50,7 @@ describe(`@roots/bud-postcss`, () => {
     bud.postcss.setPlugins({bang: [`bop`]})
     bud.postcss.setPluginPath(`bang`, `newPath`)
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.bang`)?.[0]).toStrictEqual(`newPath`)
   })
 
@@ -97,6 +99,7 @@ describe(`@roots/bud-postcss`, () => {
 
     bud.postcss.setPlugin(`boop`)
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.boop`)).toEqual(
       expect.arrayContaining([expect.stringContaining(`boop`)]),
     )
@@ -111,6 +114,7 @@ describe(`@roots/bud-postcss`, () => {
     const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, signifier)
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.env`)).toEqual(
       expect.arrayContaining([expect.stringContaining(signifier)]),
     )
@@ -125,6 +129,7 @@ describe(`@roots/bud-postcss`, () => {
     const signifier = `postcss-preset-env`
     bud.postcss.setPlugin(`env`, [signifier, {option: `value`}])
 
+    // @ts-ignore
     expect(bud.postcss.get(`plugins.env`)).toEqual(
       expect.arrayContaining([
         expect.stringContaining(signifier),

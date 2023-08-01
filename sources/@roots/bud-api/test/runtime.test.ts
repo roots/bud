@@ -1,9 +1,8 @@
 import {factory} from '@repo/test-kit'
+import {runtime} from '@roots/bud-api/methods/runtime'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {runtime} from './index.js'
-
-describe(`bud.splitChunks`, () => {
+describe(`bud.runtime`, () => {
   let bud
   let subject
 

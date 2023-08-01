@@ -3,9 +3,8 @@ import type InterpolatePlugin from '@roots/bud-extensions/interpolate-html-webpa
 
 import {factory} from '@repo/test-kit'
 import {Bud} from '@roots/bud'
+import * as source from '@roots/bud-api/methods/html'
 import {beforeAll, describe, expect, it, SpyInstance, vi} from 'vitest'
-
-import * as source from './index.js'
 
 describe(`bud.html`, () => {
   let bud: Bud

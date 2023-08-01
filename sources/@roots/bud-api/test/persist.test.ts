@@ -1,7 +1,6 @@
 import {factory} from '@repo/test-kit'
+import {persist} from '@roots/bud-api/methods/persist'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {persist} from './index.js'
 
 describe(`bud.persist`, () => {
   let bud

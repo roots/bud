@@ -4,9 +4,9 @@ import type {
   AcceptCallback,
   AfterCallback,
   ContextFactory,
-} from './index.js'
+} from '@roots/wordpress-hmr'
 
-import {Cache} from './cache.js'
+import {Cache} from '@roots/wordpress-hmr/cache'
 
 export interface Props {
   accept: AcceptCallback

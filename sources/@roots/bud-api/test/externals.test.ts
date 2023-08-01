@@ -1,10 +1,9 @@
 import {factory} from '@repo/test-kit'
+import {externals as subject} from '@roots/bud-api/methods/externals'
 import {Bud} from '@roots/bud-framework'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {externals as subject} from './index.js'
-
-describe(`bud.entry`, function () {
+describe(`bud.externals`, function () {
   let externals: subject
   let bud: Bud
 

@@ -48,12 +48,16 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./plugin": "./lib/plugin.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "plugin": [
+        "./lib/plugin.d.ts"
       ]
     }
   },

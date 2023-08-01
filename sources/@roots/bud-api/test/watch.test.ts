@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import {watch as subject} from '@roots/bud-api/methods/watch'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {watch as subject} from './index.js'
 
 describe(`bud.watch`, () => {
   describe(`in development`, () => {

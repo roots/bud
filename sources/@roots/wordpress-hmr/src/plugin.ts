@@ -6,9 +6,9 @@ import {
   unregisterPlugin,
 } from '@wordpress/plugins'
 
-import type * as Filter from './filter.js'
+import type * as Filter from '@roots/wordpress-hmr/filter'
 
-import {filterCallback} from './utility.js'
+import {filterCallback} from '@roots/wordpress-hmr/utility'
 
 export interface Props extends WPPlugin {
   filters?: Filter.KeyedFilters
