@@ -1,4 +1,6 @@
+import {path} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit'
+import webpack from '@roots/bud-support/webpack'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 import Compiler from '../src/index.js'
@@ -12,8 +14,12 @@ describe(`@roots/bud-compiler`, function () {
     bud = await factory({mode: `development`})
     compiler = new Compiler(() => bud)
     logSpy = vi.spyOn(compiler.logger, `log`)
-    await compiler.register(bud)
+    await compiler.register?.(bud)
     await compiler.compile(bud)
+  })
+
+  it(`should have implementation`, () => {
+    expect(compiler.implementation).toBe(webpack)
   })
 
   it(`should have compile fn`, () => {
@@ -30,6 +36,10 @@ describe(`@roots/bud-compiler`, function () {
 
   it(`should have close handler`, () => {
     expect(compiler.onError).toBeInstanceOf(Function)
+  })
+
+  it(`should have sourceError transformer`, () => {
+    expect(compiler.sourceErrors).toBeInstanceOf(Function)
   })
 
   it(`should call logger.log`, async () => {

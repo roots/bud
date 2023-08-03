@@ -12,8 +12,10 @@ export default {
   ...packages.reduce((aliases, packageRoot) => {
     const signifier = relative(path(), packageRoot)
     aliases[signifier] = join(packageRoot, `src`)
+    aliases[join(signifier, `*`)] = join(packageRoot, `src`, `*`)
     return aliases
   }, {}),
+  '@roots/bud-cache': path(`sources/@roots/bud-cache/src`),
   '@roots/filesystem/src/vendor/sdk': path(
     `sources/@roots/filesystem/vendor/sdk`,
   ),

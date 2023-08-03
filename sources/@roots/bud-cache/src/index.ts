@@ -8,4 +8,4 @@
  * @see {@link https://github.com/roots/bud}
  */
 
-export {default} from './service/index.js'
+export {default} from '@roots/bud-cache/service'

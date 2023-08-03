@@ -1,5 +1,5 @@
-import {describe, expect, it} from 'vitest'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
+import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-emotion dependencies`, () => {
   it(`should resolve dependencies from hoisted modules`, async () => {

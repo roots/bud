@@ -17,7 +17,7 @@ import {cpus} from 'node:os'
 import process from 'node:process'
 import {pathToFileURL} from 'node:url'
 
-import {Error} from '@roots/bud-dashboard/components/error'
+import {Error as DisplayError} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
@@ -26,7 +26,6 @@ import isNull from '@roots/bud-support/lodash/isNull'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-import webpack from '@roots/bud-support/webpack'
 
 /**
  * {@link BudCompiler} implementation
@@ -35,7 +34,7 @@ export class Compiler extends Service implements BudCompiler {
   /**
    * {@link BudCompiler.compilationStats}
    */
-  public compilationStats: BudCompiler[`compilationStats`]
+  public declare compilationStats: BudCompiler[`compilationStats`]
 
   /**
    * {@link BudCompiler.config}
@@ -50,12 +49,12 @@ export class Compiler extends Service implements BudCompiler {
   /**
    * {@link BudCompiler.instance}
    */
-  public instance: BudCompiler[`instance`]
+  public declare instance: BudCompiler[`instance`]
 
   /**
    * {@link BudCompiler.stats}
    */
-  public stats: BudCompiler[`stats`]
+  public declare stats: BudCompiler[`stats`]
 
   /**
    * {@link BudCompiler.compile}
@@ -86,8 +85,9 @@ export class Compiler extends Service implements BudCompiler {
 
     try {
       this.instance = this.implementation(this.config)
-    } catch (error) {
-      this.onError(error)
+    } catch (error: unknown) {
+      const normalError = error instanceof Error ? error : BudError.normalize(error)
+      this.onError(normalError)
     }
 
     this.instance.hooks.done.tap(bud.label, (stats: any) => {
@@ -104,7 +104,7 @@ export class Compiler extends Service implements BudCompiler {
    * {@link BudCompiler.onError}
    */
   @bind
-  public onError(error: BudError | webpack.WebpackError) {
+  public onError(error: Error) {
     process.exitCode = 1
     if (!error) return
 
@@ -117,9 +117,9 @@ export class Compiler extends Service implements BudCompiler {
     })
 
     if (`isBudError` in error) {
-      render(<Error error={error} />)
+      render(<DisplayError error={error} />)
     } else {
-      render(<Error error={BudError.normalize(error)} />)
+      render(<DisplayError error={BudError.normalize(error)} />)
     }
   }
 

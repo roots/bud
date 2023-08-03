@@ -1,4 +1,2 @@
-import domReady from './dom-ready.js'
-import lazy from './lazy.js'
-
-export {domReady, lazy}
+export {default as domReady} from '@roots/bud-client/dom-ready'
+export {default as lazy} from '@roots/bud-client/lazy'

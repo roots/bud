@@ -8,8 +8,8 @@ import * as vue from './vue.cjs'
 
 export const repository = {
   css: {...css, loader: require.resolve(`./css.cjs`)},
-  scss: {...scss, loader: require.resolve(`./scss.cjs`)},
   js: {...js, loader: require.resolve(`./js.cjs`)},
+  scss: {...scss, loader: require.resolve(`./scss.cjs`)},
   ts: {...ts, loader: require.resolve(`./ts.cjs`)},
   vue: {...vue, loader: require.resolve(`./vue.cjs`)},
 }

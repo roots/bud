@@ -1,6 +1,6 @@
-import {join} from 'node:path'
-
 import type {LoaderDefinitionFunction} from 'webpack'
+
+import {join} from 'node:path'
 
 const loader: LoaderDefinitionFunction<{publicPath?: string}> =
   async function (source: string) {

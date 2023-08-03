@@ -124,7 +124,9 @@ export class EntrypointsWebpackPlugin {
             for (const entry of compilation.entrypoints.values()) {
               this.getChunkedFiles(entry.chunks).map(({file}) => {
                 const ident = entry.name as string
-                const path = (this.options.publicPath as string).concat(file)
+                const path = (this.options.publicPath as string).concat(
+                  file,
+                )
                 const type = path.split(`.`).pop() ?? `default`
 
                 this.addToManifest({ident, path, type})
@@ -168,8 +170,10 @@ export class EntrypointsWebpackPlugin {
   /**
    * Get assets from an entrypoint
    */
-  public getChunkedFiles(chunks: Webpack.Chunk[]): Array<{file: string, ident: string}> {
-    const files: Array<{file: string, ident: string}> = []
+  public getChunkedFiles(
+    chunks: Webpack.Chunk[],
+  ): Array<{file: string; ident: string}> {
+    const files: Array<{file: string; ident: string}> = []
 
     for (const chunk of chunks) {
       Array.from(chunk.files).map(file => {
