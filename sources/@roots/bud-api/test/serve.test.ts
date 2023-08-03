@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import {serve as serveFn} from '@roots/bud-api/methods/serve'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {serve as serveFn} from './index.js'
 
 describe(`bud.serve`, () => {
   let bud: Bud

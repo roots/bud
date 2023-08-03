@@ -1,5 +1,3 @@
-import {describe, expect, it} from 'vitest'
-
 import {
   alias,
   assets,
@@ -25,7 +23,8 @@ import {
   version,
   watch,
   webpackConfig,
-} from './index.js'
+} from '@roots/bud-api/methods'
+import {describe, expect, it} from 'vitest'
 
 describe(`methods`, () => {
   it(`should export alias fn`, async () => {

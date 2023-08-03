@@ -1,9 +1,8 @@
+import type {RegisterFn} from '@roots/wordpress-hmr'
+
+import * as api from '@roots/wordpress-hmr/block'
+import * as editor from '@roots/wordpress-hmr/editor'
 import {dispatch, select} from '@wordpress/data'
-
-import type {RegisterFn} from './index.js'
-
-import * as api from './block.js'
-import * as editor from './editor.js'
 
 let selected = null
 

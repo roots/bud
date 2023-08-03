@@ -71,15 +71,16 @@ export class HtmlEmitter {
   @bind
   public makeScript(
     attributes: Record<string, boolean | string>,
-    inner: string = ``,
-  ): string {
+    inner: null | string = ``,
+  ): string | undefined {
+    if (typeof inner !== `string`) return
     inner = inner ? `\n\t${inner}\n` : ``
 
     const stringyAttributes = attributes
       ? Object.entries(attributes)
           .filter(([, v]) => typeof v !== `undefined` && v !== false)
           .map(([k, v]) => (v === true ? k : `${k}=${v}`))
-          .reduce((acc, v) => [...acc, v], [])
+          .reduce((acc: Array<string>, v: string) => [...acc, v], [])
           .filter(Boolean)
           .join(` `)
       : ``

@@ -2,9 +2,9 @@ import type {
   KeyedFilters,
   RegisterProps,
   RegistrationModule,
-} from './filter.js'
+} from '@roots/wordpress-hmr/filter'
 
-import * as api from './filter.js'
+import * as api from '@roots/wordpress-hmr/filter'
 
 export const enforceNamespace = (id: string, name: string) =>
   id.startsWith(name) ? id : `${name}/${id}`

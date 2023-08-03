@@ -1,18 +1,16 @@
+import type * as Filter from '@roots/wordpress-hmr/filter'
+import type {Style} from '@roots/wordpress-hmr/style'
+import type {Variant} from '@roots/wordpress-hmr/variation'
 import type {BlockConfiguration} from '@wordpress/blocks'
 
+import * as blockStyle from '@roots/wordpress-hmr/style'
+import {filterCallback} from '@roots/wordpress-hmr/utility'
+import * as blockVariant from '@roots/wordpress-hmr/variation'
 import {
   getBlockType,
   registerBlockType,
   unregisterBlockType,
 } from '@wordpress/blocks'
-
-import type * as Filter from './filter.js'
-import type {Style} from './style.js'
-import type {Variant} from './variation.js'
-
-import * as blockStyle from './style.js'
-import {filterCallback} from './utility.js'
-import * as blockVariant from './variation.js'
 
 export interface Props extends BlockConfiguration<Record<string, any>> {
   filters?: Filter.KeyedFilters

@@ -1,12 +1,31 @@
 import './types.js'
 
-export * as blocks from './blocks.js'
-export * as cache from './cache.js'
-export * as editor from './editor.js'
-export * as formats from './formats.js'
-export * as plugins from './plugins.js'
-export * as styles from './styles.js'
-export * as variations from './variations.js'
+export * as blocks from '@roots/wordpress-hmr/blocks'
+export * as cache from '@roots/wordpress-hmr/cache'
+export * as editor from '@roots/wordpress-hmr/editor'
+export * as formats from '@roots/wordpress-hmr/formats'
+export * as plugins from '@roots/wordpress-hmr/plugins'
+export * as styles from '@roots/wordpress-hmr/styles'
+export * as variations from '@roots/wordpress-hmr/variations'
+
+declare global {
+  interface Window {
+    roots: {
+      register: {
+        blocks: (path: string) => void
+        filters: (path: string) => void
+        formats: (path: string) => void
+        plugins: (path: string) => void
+        styles: (path: string) => void
+      }
+    }
+  }
+}
+
+declare module '@wordpress/data' {
+  export function dispatch(namespace: string): any
+  export function select(namespace: string): any
+}
 
 export interface AfterCallback {
   (changed?: Array<{name: string}>): unknown

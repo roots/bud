@@ -51,4 +51,4 @@ export interface Options {
 export {
   EntrypointsWebpackPlugin,
   EntrypointsWebpackPlugin as default,
-} from './webpack.plugin.js'
+} from '@roots/entrypoints-webpack-plugin/plugin'

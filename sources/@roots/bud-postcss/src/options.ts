@@ -69,11 +69,11 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * Get postcss config
    */
-  public getConfig: BudPostCssPublicInterface[`getConfig`]
+  public declare getConfig: BudPostCssPublicInterface[`getConfig`]
   /**
    * Get PostCss plugin order
    */
-  public getOrder: BudPostCssPublicInterface[`getOrder`]
+  public declare getOrder: BudPostCssPublicInterface[`getOrder`]
 
   /**
    * Get PostCss parser
@@ -82,7 +82,7 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * Get PostCss plugins
    */
-  public getPlugins: BudPostCssPublicInterface[`getPlugins`]
+  public declare getPlugins: BudPostCssPublicInterface[`getPlugins`]
   /**
    * get postcssOptions
    */
@@ -99,7 +99,7 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * PostCss plugin order
    */
-  public order: BudPostCssPublicInterface[`order`]
+  public declare order: BudPostCssPublicInterface[`order`]
 
   /**
    * Parser
@@ -108,7 +108,7 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * PostCss plugins
    */
-  public plugins: BudPostCssPublicInterface[`plugins`]
+  public declare plugins: BudPostCssPublicInterface[`plugins`]
   /**
    * postcssOptions
    */
@@ -117,11 +117,11 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * Set postcss config
    */
-  public setConfig: BudPostCssPublicInterface[`setConfig`]
+  public declare setConfig: BudPostCssPublicInterface[`setConfig`]
   /**
    * Set PostCss plugin order
    */
-  public setOrder: BudPostCssPublicInterface[`setOrder`]
+  public declare setOrder: BudPostCssPublicInterface[`setOrder`]
   /**
    * Set PostCss parser
    */
@@ -130,7 +130,7 @@ class BudPostCssOptionsApi extends Extension<Options> {
   /**
    * Set PostCss plugins
    */
-  public setPlugins: BudPostCssPublicInterface[`setPlugins`]
+  public declare setPlugins: BudPostCssPublicInterface[`setPlugins`]
   /**
    * set postcssOptions
    */

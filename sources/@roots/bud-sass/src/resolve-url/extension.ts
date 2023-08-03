@@ -29,7 +29,7 @@ export class BudResolveUrl extends Extension {
     /** Setup rule */
     build.setLoader(`resolve-url`, loader).setItem(`resolve-url`, {
       loader: `resolve-url`,
-      options: ({path}) => ({root: path(`@src`), sourceMap: true}),
+      options: ({path}: Bud) => ({root: path(`@src`), sourceMap: true}),
     })
   }
 }

@@ -73,7 +73,7 @@ export class EntrypointsWebpackPlugin {
   public static getCompilationHooks(
     compilation: Webpack.Compilation,
   ): CompilationHooks {
-    let hooks: CompilationHooks = hookMap.get(compilation)
+    let hooks = hookMap.get(compilation)
 
     if (hooks === undefined) {
       hooks = {
@@ -97,9 +97,9 @@ export class EntrypointsWebpackPlugin {
   }) {
     !this.entrypoints.has(ident) && this.entrypoints.set(ident, new Map())
 
-    !this.entrypoints.get(ident).has(type)
-      ? this.entrypoints.get(ident).set(type, new Set([path]))
-      : this.entrypoints.get(ident).get(type).add(path)
+    !this.entrypoints.get(ident)?.has(type)
+      ? this.entrypoints.get(ident)?.set(type, new Set([path]))
+      : this.entrypoints.get(ident)?.get(type)?.add(path)
   }
 
   /**
@@ -123,9 +123,9 @@ export class EntrypointsWebpackPlugin {
 
             for (const entry of compilation.entrypoints.values()) {
               this.getChunkedFiles(entry.chunks).map(({file}) => {
-                const ident = entry.name
-                const path = this.options.publicPath.concat(file)
-                const type = path.split(`.`).pop()
+                const ident = entry.name as string
+                const path = (this.options.publicPath as string).concat(file)
+                const type = path.split(`.`).pop() ?? `default`
 
                 this.addToManifest({ident, path, type})
               })
@@ -138,11 +138,11 @@ export class EntrypointsWebpackPlugin {
                 compilation,
                 assets,
                 this.entrypoints,
-                this.options.publicPath,
+                this.options.publicPath as string,
               ).emit()
             }
 
-            let source = {}
+            let source: any = {}
             for (const [name, entry] of this.entrypoints.entries()) {
               if (!source[name]) source[name] = {}
 
@@ -154,7 +154,7 @@ export class EntrypointsWebpackPlugin {
             }
 
             compilation.emitAsset(
-              this.options.name,
+              this.options.name as string,
               new compiler.webpack.sources.RawSource(
                 JSON.stringify(source, null, 2),
               ),
@@ -168,12 +168,12 @@ export class EntrypointsWebpackPlugin {
   /**
    * Get assets from an entrypoint
    */
-  public getChunkedFiles(chunks: Webpack.Chunk[]) {
-    const files = []
+  public getChunkedFiles(chunks: Webpack.Chunk[]): Array<{file: string, ident: string}> {
+    const files: Array<{file: string, ident: string}> = []
 
     for (const chunk of chunks) {
       Array.from(chunk.files).map(file => {
-        files.push({file, ident: chunk.name})
+        files.push({file, ident: chunk.name as string})
       })
     }
 

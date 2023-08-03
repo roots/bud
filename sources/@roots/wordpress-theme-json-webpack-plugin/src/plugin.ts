@@ -19,6 +19,9 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  * ThemeJSONWebpackPlugin
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
+  /**
+   * Plugin data
+   */
   public data: Record<string, any> = {
     __generated__: `⚠️ This file is generated. Do not edit.`,
     $schema: `https://schemas.wp.org/trunk/theme.json`,
@@ -38,7 +41,7 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   public static getCompilationHooks(
     compilation: Webpack.Compilation,
   ): CompilationHooks {
-    let hooks: CompilationHooks = hookMap.get(compilation)
+    let hooks = hookMap.get(compilation)
 
     if (hooks === undefined) {
       hooks = {
@@ -77,7 +80,10 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
             )
 
             compilation.emitAsset(
-              relative(compilation.options.output.path, this.options.path),
+              relative(
+                compilation.options.output.path as string,
+                this.options.path as string,
+              ),
               source,
             )
           },

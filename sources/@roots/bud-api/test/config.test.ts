@@ -1,7 +1,6 @@
 import {Bud} from '@repo/test-kit'
+import {config as configFn} from '@roots/bud-api/methods/config'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {config as configFn} from './index.js'
 
 const mockBud = {
   error: vi.fn(() => null),

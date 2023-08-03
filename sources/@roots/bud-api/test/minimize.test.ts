@@ -1,7 +1,6 @@
 import {type Bud, factory} from '@repo/test-kit'
+import {minimize as minimizeFn} from '@roots/bud-api/methods/minimize'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import {minimize as minimizeFn} from './index.js'
 
 describe(`bud.minimize`, () => {
   let bud: Bud

@@ -1,8 +1,7 @@
+import {Cache} from '@roots/wordpress-hmr/cache'
+import * as Editor from '@roots/wordpress-hmr/editor'
+import * as Plugins from '@roots/wordpress-hmr/plugins'
 import {describe, expect, it} from 'vitest'
-
-import {Cache} from './cache.js'
-import * as Editor from './editor.js'
-import * as Plugins from './plugins.js'
 
 describe(`@roots/wordpress-hmr`, () => {
   it(`cache should be constructable`, () => {

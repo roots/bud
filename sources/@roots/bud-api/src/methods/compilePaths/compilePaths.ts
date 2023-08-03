@@ -1,9 +1,8 @@
+import type {Parameters} from '@roots/bud-api/methods/compilePaths'
 import type {Bud, Rules} from '@roots/bud-framework'
 
 import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
-
-import type {Parameters} from './compilePaths.types.js'
 
 export interface compilePaths {
   (this: Bud, ...value: Parameters): Bud
