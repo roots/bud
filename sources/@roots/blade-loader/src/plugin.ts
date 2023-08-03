@@ -16,7 +16,7 @@ export default class BladeWebpackPlugin implements WebpackPluginInstance {
   }
 
   /**
-   * Apply plugin
+   * {@link WebpackPluginInstance.apply}
    */
   public async apply(compiler: Compiler) {
     const use = [`@roots/blade-loader/asset-loader`]

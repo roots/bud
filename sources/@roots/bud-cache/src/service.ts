@@ -9,16 +9,16 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
 
 /**
- * Cache service class
+ * {@link Bud.cache}
  */
 export default class Cache extends Service implements BudCache {
   /**
    * {@link BudCache.enabled}
    */
-  public enabled: boolean
+  public declare enabled: boolean
 
   /**
-   * {@link Extension.boot}
+   * {@link Service.boot}
    */
   public override async boot?(bud: Bud) {
     if (bud.context.force === true) {

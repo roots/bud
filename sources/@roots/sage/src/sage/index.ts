@@ -8,7 +8,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 
-import type AcornExtension from '../acorn/index.js'
+import type Acorn from '../acorn/index.js'
 
 /**
  * roots/sage
@@ -27,7 +27,7 @@ class Sage extends Extension {
   /**
    * {@link Acorn}
    */
-  public get acorn(): AcornExtension {
+  public get acorn(): Acorn {
     return this.app.extensions.get(`@roots/sage/acorn`)
   }
 

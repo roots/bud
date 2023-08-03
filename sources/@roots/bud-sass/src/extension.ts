@@ -23,7 +23,7 @@ export class BudSass extends BudSassOptions {
    * {@link Extension.boot}
    */
   @bind
-  public override async boot({ build, postcss }: Bud) {
+  public override async boot({build, postcss}: Bud) {
     if (postcss.setSyntax) postcss.setSyntax(`postcss-scss`)
 
     build.rules.sass.setUse(() => [

@@ -28,19 +28,16 @@ export default class Acorn
     compiler: Compiler,
     compilation: Compilation,
   ) {
+    const data: Record<string, any> = {
+      publicPath: this.app.publicPath().replace(/auto$/, ``),
+    }
+
+    if (this.app.root?.server?.publicUrl)
+      data.dev = urlToHttpOptions(this.app.root.server.publicUrl)
+    if (this.app.root?.server?.publicProxyUrl)
+      data.proxy = urlToHttpOptions(this.app.root.server.publicProxyUrl)
+
     return () => {
-      const data: Record<string, any> = {
-        publicPath: this.app.publicPath().replace(/auto$/, ``),
-      }
-
-      if (this.app.root?.server?.publicUrl)
-        data.dev = urlToHttpOptions(this.app.root.server.publicUrl)
-      if (this.app.root?.server?.publicProxyUrl)
-        data.proxy = urlToHttpOptions(
-          this.app.root.server.publicProxyUrl,
-        )
-
-
       const source = new compiler.webpack.sources.RawSource(
         JSON.stringify(data, null, 2),
       )
@@ -53,8 +50,8 @@ export default class Acorn
    * {@link WebpackPluginInstance.apply}
    */
   @bind
-  public override apply(compiler: Compiler) {
-    if (!this.app.isDevelopment) return
+  public override apply(compiler: Compiler): boolean {
+    if (!this.app.isDevelopment) return false
 
     compiler.hooks.thisCompilation.tap(
       `@roots/sage/acorn`,
@@ -69,6 +66,8 @@ export default class Acorn
         )
       },
     )
+
+    return true
   }
 
   /**

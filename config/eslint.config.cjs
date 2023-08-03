@@ -28,7 +28,13 @@ module.exports = {
   ],
   overrides: [
     {
-      files: [`tests/**/*`, `**/*.spec.ts`, `**/*.test.ts`],
+      files: [
+        `**/tests/**`,
+        `**/*.test.ts`,
+        `**/*.test.tsx`,
+        `**/*.test.cts`,
+        `**/*.test.mts`,
+      ],
       rules: {
         [`n/no-extraneous-import`]: OFF,
         [`n/no-unpublished-import`]: OFF,

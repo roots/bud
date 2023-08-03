@@ -1,14 +1,12 @@
+import type * as Filter from '@roots/wordpress-hmr/filter'
 import type {WPPlugin} from '@wordpress/plugins'
 
+import {filterCallback} from '@roots/wordpress-hmr/utility'
 import {
   getPlugins,
   registerPlugin,
   unregisterPlugin,
 } from '@wordpress/plugins'
-
-import type * as Filter from '@roots/wordpress-hmr/filter'
-
-import {filterCallback} from '@roots/wordpress-hmr/utility'
 
 export interface Props extends WPPlugin {
   filters?: Filter.KeyedFilters
