@@ -3,14 +3,8 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "paths": {
-      "@roots/blade-loader": ["./src/plugin.ts"],
-      "@roots/blade-loader/asset-loader": ["./src/asset-loader.cts"],
-      "@roots/blade-loader/module-loader": ["./src/module-loader.cts"],
-      "@roots/blade-loader/plugin": ["./src/plugin.ts"]
-    },
+    "strict": true,
     "verbatimModuleSyntax": false
   },
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules", "**/*.test.ts"]
 }

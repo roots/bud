@@ -67,7 +67,6 @@
     "./context/*": "./lib/context/*.js",
     "./factory": "./lib/factory.js",
     "./instance": "./lib/instance.js",
-    "./services/*": "./lib/services/*.js",
     "./config/jsconfig.json": "./config/jsconfig.json",
     "./config/tsconfig.json": "./config/tsconfig.json"
   },
@@ -108,9 +107,6 @@
       ],
       "instance": [
         "./lib/instance.d.ts"
-      ],
-      "services/*": [
-        "./lib/services/*.d.ts"
       ]
     }
   },

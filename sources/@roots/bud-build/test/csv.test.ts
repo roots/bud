@@ -1,7 +1,6 @@
 import {factory} from '@repo/test-kit'
+import {csv} from '@roots/bud-build/handlers/rules/csv'
 import {describe, expect, it} from 'vitest'
-
-import {csv} from './csv.js'
 
 describe(`csv loader`, () => {
   it(`should return a rule`, async () => {

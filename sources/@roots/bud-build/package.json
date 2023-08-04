@@ -52,15 +52,16 @@
     ".": "./lib/index.js",
     "./config": "./lib/config/index.js",
     "./handlers": "./lib/handlers/index.js",
+    "./handlers/rules": "./lib/handlers/rules/index.js",
+    "./handlers/rules/csv": "./lib/handlers/rules/csv.js",
     "./item": "./lib/item/index.js",
     "./loader": "./lib/loader/index.js",
     "./rule": "./lib/rule/index.js",
-    "./service": "./lib/service.js",
-    "./types": "./lib/types.js"
+    "./service": "./lib/service.js"
   },
   "typesVersions": {
     "*": {
-      "*": [
+      ".": [
         "./lib/types.js"
       ],
       "config": [
@@ -68,6 +69,12 @@
       ],
       "handlers": [
         "./lib/handlers/index.d.ts"
+      ],
+      "handlers/rules": [
+        "./lib/handlers/rules/index.d.ts"
+      ],
+      "handlers/rules/csv": [
+        "./lib/handlers/rules/csv.d.ts"
       ],
       "item": [
         "./lib/item/index.d.ts"
@@ -80,9 +87,6 @@
       ],
       "service": [
         "./lib/service.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },

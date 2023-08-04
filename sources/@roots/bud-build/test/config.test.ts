@@ -1,7 +1,6 @@
-import {Bud, factory} from '@repo/test-kit'
+import {type Bud, factory} from '@repo/test-kit'
+import Build from '@roots/bud-build'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import {Build} from '../service.js'
 
 describe(`bud.build.config`, function () {
   let bud: Bud
@@ -10,7 +9,7 @@ describe(`bud.build.config`, function () {
   beforeEach(async () => {
     bud = await factory({cache: `filesystem`})
     build = new Build(() => bud)
-    await build.register(bud)
+    await build.register?.(bud)
     await build.make()
   })
 

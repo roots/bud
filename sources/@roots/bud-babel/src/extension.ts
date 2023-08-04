@@ -1,3 +1,4 @@
+import type {LoaderOptions, Registry} from '@roots/bud-babel'
 import type {Bud} from '@roots/bud-framework'
 
 import {Extension} from '@roots/bud-framework/extension'
@@ -6,20 +7,17 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {InputError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-
-import type {LoaderOptions, Registry} from './types.js'
 
 /**
  * Babel configuration
  */
 @label(`@roots/bud-babel`)
 @expose(`babel`)
-export default class BabelExtension extends Extension {
+export class BabelExtension extends Extension {
   /**
-   * Babel configuration options (if overridden by project config file)
+   * Babel configuration options (sourced from babelrc)
    */
   public declare configFileOptions: Record<string, any> | undefined
 
@@ -175,41 +173,20 @@ export default class BabelExtension extends Extension {
    */
   @bind
   public setPlugin(
-    name: [any, any] | string,
-    plugin?: [any, any] | string,
+    name: [any, any?] | string,
+    plugin?: [any, any?] | string,
   ): this {
-    if (this.configFile) {
-      this.logger.warn(
-        `Babel configuration is being overridden by project configuration file.\n`,
-        `bud.babel.setPlugin will not work as expected\n`,
-        `tried to set`,
-        name,
-        `to`,
-        plugin,
-      )
-    }
-
-    if (!plugin && Array.isArray(name)) {
-      this.plugins[name[0]] = name
-      return this
-    }
-
-    if (!plugin && !Array.isArray(name)) {
-      this.plugins[name] = [name]
+    if (!plugin) {
+      this.plugins[name[0]] = Array.isArray(name) ? name : [name]
       return this
     }
 
     if (Array.isArray(name)) {
-      throw new InputError(
-        `When defined without options the babel plugin name must be a string.`,
-        {
-          docs: new URL(`https://bud.js.org/extensions/bud-babel`),
-          thrownBy: `bud.babel.setPlugin`,
-        },
-      )
+      this.plugins[name[0]] = name
+      return this
     }
 
-    this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
+    this.plugins[name] = [name]
     return this
   }
 
@@ -223,20 +200,15 @@ export default class BabelExtension extends Extension {
   }
 
   /**
-   * Set babel presets
+   * Set babel plugins
    */
   @bind
-  public setPlugins(plugins: {[key: string]: [any, any] | string}): this {
+  public setPlugins(plugins: {[key: string]: [any, any?] | string}): this {
     this.plugins = Object.entries(plugins).reduce(
-      (plugins, [name, plugin]) => {
-        if (Array.isArray(plugin)) {
-          plugins[name] = plugin
-          return plugins
-        }
-
-        plugins[name] = [plugin]
-        return plugins
-      },
+      (plugins, [name, plugin]) => ({
+        ...plugins,
+        [name]: Array.isArray(plugin) ? plugin : [plugin],
+      }),
       {},
     )
 
@@ -247,13 +219,21 @@ export default class BabelExtension extends Extension {
    * Set a babel preset
    */
   @bind
-  public setPreset(name: string, preset?: [string, any] | string): this {
+  public setPreset(
+    name: [any, any?] | string,
+    preset?: [any, any?] | string,
+  ): this {
     if (!preset) {
-      this.presets[name] = [name]
+      this.presets[name[0]] = Array.isArray(name) ? name : [name]
       return this
     }
 
-    this.presets[name] = Array.isArray(preset) ? preset : [preset]
+    if (Array.isArray(name)) {
+      this.presets[name[0]] = name
+      return this
+    }
+
+    this.presets[name] = [name]
     return this
   }
 
@@ -274,15 +254,10 @@ export default class BabelExtension extends Extension {
     [key: string]: [string, any] | string
   }): this {
     this.presets = Object.entries(presets).reduce(
-      (presets, [name, preset]) => {
-        if (Array.isArray(preset)) {
-          presets[name] = preset
-          return presets
-        }
-
-        presets[name] = [preset]
-        return presets
-      },
+      (presets, [name, preset]) => ({
+        ...presets,
+        [name]: Array.isArray(preset) ? preset : [preset],
+      }),
       {},
     )
 

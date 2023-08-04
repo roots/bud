@@ -147,11 +147,11 @@ export class Build extends Service implements BudBuild {
   @bind
   public setItem<K extends `${keyof Items & string}`>(
     ident: K,
-    options?: ((item: Items[K]) => Items[K]) | Items[K]['options'],
+    definition?: ((item: Items[K]) => Items[K]) | Items[K]['options'],
   ): this {
-    const maybeOptionsCallback = isUndefined(options)
+    const maybeOptionsCallback = isUndefined(definition)
       ? {ident, loader: ident}
-      : options
+      : definition
 
     const item = isFunction(maybeOptionsCallback)
       ? maybeOptionsCallback(this.makeItem())
@@ -189,14 +189,17 @@ export class Build extends Service implements BudBuild {
   @bind
   public setRule<K extends `${keyof Rules & string}`>(
     name: K,
-    input?: Rule | RuleOptions,
+    definition?: Rule | RuleOptions,
   ): this {
-    this.rules[name] =
-      input instanceof Rule
-        ? input
-        : isFunction(input)
-        ? input(this.makeRule())
-        : this.makeRule(input as any)
+    const rule =
+      definition instanceof Rule
+        ? definition
+        : isFunction(definition)
+        ? definition(this.makeRule())
+        : this.makeRule(definition as any)
+
+    this.rules[name] = rule
+    this.logger.info(`set rule`, rule)
 
     return this
   }

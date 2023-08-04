@@ -10,6 +10,7 @@ class Loader extends Base {
    * Factory returning the loader path
    */
   public src: string
+
   /**
    * Class constructor
    *

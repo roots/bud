@@ -1,10 +1,9 @@
-import {factory} from '@repo/test-kit'
+import {type Bud, factory} from '@repo/test-kit'
+import {Rule} from '@roots/bud-build/rule'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-import {Rule} from './index.js'
-
 describe(`Build Rule`, function () {
-  let bud
+  let bud: Bud
 
   beforeAll(async () => {
     bud = await factory()

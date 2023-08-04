@@ -6,7 +6,6 @@
     "types": ["node", "@roots/bud-framework", "@roots/bud-hooks"]
   },
   "include": ["./src"],
-  "exclude": ["**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
