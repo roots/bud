@@ -14,21 +14,13 @@ export interface Parser extends Record<string, any> {}
  */
 export interface Options {
   exclude?: Array<((app: Bud) => RegExp | string) | RegExp | string>
-
   generator?: ((app: Bud) => Output[`generator`]) | Output[`generator`]
-
   include?: Array<((app: Bud) => RegExp | string) | RegExp | string>
-
   parser?: ((app: Bud) => Output[`parser`]) | Output[`parser`]
-
   resolve?: ((app: Bud) => Output[`resolve`]) | Output[`resolve`]
-
   resourceQuery?: Output[`resourceQuery`]
-
   test?: ((app: Bud) => Output[`test`]) | Output[`test`]
-
   type?: ((app: Bud) => Output[`type`]) | Output[`type`]
-
   use?: Array<`${keyof Items & string}` | Item | undefined>
 }
 

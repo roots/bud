@@ -50,7 +50,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    "./extension": "./lib/extension/index.js"
   },
   "typesVersions": {
     "*": {
@@ -58,7 +58,7 @@
         "./lib/index.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/extension/index.d.ts"
       ]
     }
   },

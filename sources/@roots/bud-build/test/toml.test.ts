@@ -1,10 +1,9 @@
-import {factory} from '@repo/test-kit'
+import {type Bud, factory} from '@repo/test-kit'
+import toml from '@roots/bud-build/rules/toml'
 import {describe, expect, it} from 'vitest'
 
-import {toml} from './toml'
-
 describe(`toml loader`, () => {
-  let bud
+  let bud: Bud
 
   it(`should return a rule`, async () => {
     bud = await factory()

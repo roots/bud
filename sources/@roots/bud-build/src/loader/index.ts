@@ -1,11 +1,11 @@
 import type {Bud} from '@roots/bud-framework'
 
-import Base from '../shared/base.js'
+import Registrable from '@roots/bud-build/helpers/registrable'
 
 /**
  * Bud Loader
  */
-class Loader extends Base {
+class Loader extends Registrable {
   /**
    * Factory returning the loader path
    */
@@ -18,12 +18,12 @@ class Loader extends Base {
    */
   public constructor(
     public override _app: () => Bud,
-    src: string,
+    src?: string,
     definition?: string,
   ) {
     super(_app)
     this._app = _app
-    this.src = definition ?? src
+    this.src = definition ?? src ?? ``
   }
 
   public getSrc(): string {
@@ -36,4 +36,4 @@ class Loader extends Base {
   }
 }
 
-export {Loader}
+export {Loader as default}

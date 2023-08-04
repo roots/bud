@@ -10,7 +10,7 @@
 
 import type {PublicExtensionApi} from '@roots/bud-framework/extension'
 
-import {BabelExtension} from '@roots/bud-babel/extension'
+import {default as BabelExtension} from '@roots/bud-babel/extension'
 
 interface LoaderOptions {
   cacheCompression?: boolean

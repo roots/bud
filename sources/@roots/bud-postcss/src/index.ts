@@ -8,11 +8,11 @@
  * @see https://github.com/roots/bud
  */
 
-import type {Item} from '@roots/bud-build/item'
-import type {Loader} from '@roots/bud-build/loader'
+import type Item from '@roots/bud-build/item'
+import type Loader from '@roots/bud-build/loader'
 
 import {
-  BudPostCss,
+  default as BudPostCss,
   type BudPostCssPublicInterface,
 } from '@roots/bud-postcss/extension'
 

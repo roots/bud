@@ -1,6 +1,6 @@
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
-import type {Factory} from './index.js'
+import type {Factory} from '@roots/bud-build/config'
 
 export const dependencies: Factory<`dependencies`> = async ({
   hooks,

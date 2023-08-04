@@ -8,34 +8,35 @@
  * @see https://github.com/roots/bud
  */
 
-import type {Api as Service} from './api/service.js'
-import type * as Alias from './methods/alias/index.js'
-import type * as Assets from './methods/assets/index.js'
-import type * as Bundle from './methods/bundle/index.js'
-import type * as CompilePaths from './methods/compilePaths/index.js'
-import type * as Config from './methods/config/index.js'
-import type * as CopyDir from './methods/copyDir/index.js'
-import type * as CopyFile from './methods/copyFile/index.js'
-import type * as Define from './methods/define/index.js'
-import type * as Devtool from './methods/devtool/index.js'
-import type * as Entry from './methods/entry/index.js'
-import type * as Experiments from './methods/experiments/index.js'
-import type * as Externals from './methods/externals/index.js'
-import type * as Hash from './methods/hash/index.js'
-import type * as Html from './methods/html/index.js'
-import type * as Minimize from './methods/minimize/index.js'
-import type * as Persist from './methods/persist/index.js'
-import type * as Provide from './methods/provide/index.js'
-import type * as Proxy from './methods/proxy/index.js'
-import type * as Runtime from './methods/runtime/index.js'
-import type * as Serve from './methods/serve/index.js'
-import type * as SetProxyUrl from './methods/setProxyUrl/index.js'
-import type * as SetPublicProxyUrl from './methods/setPublicProxyUrl/index.js'
-import type * as SetPublicUrl from './methods/setPublicUrl/index.js'
-import type * as SetUrl from './methods/setUrl/index.js'
-import type * as SplitChunks from './methods/splitChunks/index.js'
-import type * as Use from './methods/use/index.js'
-import type * as Watch from './methods/watch/index.js'
+import type * as Alias from '@roots/bud-api/methods/alias'
+import type * as Assets from '@roots/bud-api/methods/assets'
+import type * as Bundle from '@roots/bud-api/methods/bundle'
+import type * as CompilePaths from '@roots/bud-api/methods/compilePaths'
+import type * as Config from '@roots/bud-api/methods/config'
+import type * as CopyDir from '@roots/bud-api/methods/copyDir'
+import type * as CopyFile from '@roots/bud-api/methods/copyFile'
+import type * as Define from '@roots/bud-api/methods/define'
+import type * as Devtool from '@roots/bud-api/methods/devtool'
+import type * as Entry from '@roots/bud-api/methods/entry'
+import type * as Experiments from '@roots/bud-api/methods/experiments'
+import type * as Externals from '@roots/bud-api/methods/externals'
+import type * as Hash from '@roots/bud-api/methods/hash'
+import type * as Html from '@roots/bud-api/methods/html'
+import type * as Minimize from '@roots/bud-api/methods/minimize'
+import type * as Persist from '@roots/bud-api/methods/persist'
+import type * as Provide from '@roots/bud-api/methods/provide'
+import type * as Proxy from '@roots/bud-api/methods/proxy'
+import type * as Runtime from '@roots/bud-api/methods/runtime'
+import type * as Serve from '@roots/bud-api/methods/serve'
+import type * as SetProxyUrl from '@roots/bud-api/methods/setProxyUrl'
+import type * as SetPublicProxyUrl from '@roots/bud-api/methods/setPublicProxyUrl'
+import type * as SetPublicUrl from '@roots/bud-api/methods/setPublicUrl'
+import type * as SetUrl from '@roots/bud-api/methods/setUrl'
+import type * as SplitChunks from '@roots/bud-api/methods/splitChunks'
+import type * as Use from '@roots/bud-api/methods/use'
+import type * as Watch from '@roots/bud-api/methods/watch'
+
+import {default as Service} from '@roots/bud-api/service'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -172,6 +173,11 @@ declare module '@roots/bud-framework' {
     html(...params: Html.Parameters): Bud
 
     /**
+     * @roots/bud-minify
+     */
+    minify: import('@roots/bud-minify').default
+
+    /**
      * ## bud.minimize
      *
      * {@link https://bud.js.org/docs/bud.minimize 📕 Documentation}
@@ -298,6 +304,11 @@ declare module '@roots/bud-framework' {
   }
 
   type Api = Service
+
+  interface Services {
+    api: Service
+    extensions: import('@roots/bud-extensions').default
+  }
 }
 
-export {Api as default} from './api/service.js'
+export {Service as default}

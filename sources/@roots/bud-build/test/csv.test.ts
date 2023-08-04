@@ -1,5 +1,5 @@
 import {factory} from '@repo/test-kit'
-import {csv} from '@roots/bud-build/handlers/rules/csv'
+import {default as csv} from '@roots/bud-build/rules/csv'
 import {describe, expect, it} from 'vitest'
 
 describe(`csv loader`, () => {

@@ -24,7 +24,7 @@ import type BudWebpackLifecyclePlugin from '@roots/bud-extensions/webpack-lifecy
 import type WebpackManifestPlugin from '@roots/bud-extensions/webpack-manifest-plugin'
 import type WebpackProvidePlugin from '@roots/bud-extensions/webpack-provide-plugin'
 
-import {Extensions} from '@roots/bud-extensions/service'
+import {default as Service} from '@roots/bud-extensions/service'
 
 declare module '@roots/bud-framework' {
   interface Bud {
@@ -53,8 +53,8 @@ declare module '@roots/bud-framework' {
   }
 
   interface Services {
-    extensions: Extensions
+    extensions: Service
   }
 }
 
-export default Extensions
+export {Service as default}

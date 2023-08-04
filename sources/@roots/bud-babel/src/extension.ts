@@ -7,6 +7,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import { InputError } from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
@@ -15,7 +16,7 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
  */
 @label(`@roots/bud-babel`)
 @expose(`babel`)
-export class BabelExtension extends Extension {
+class BabelExtension extends Extension {
   /**
    * Babel configuration options (sourced from babelrc)
    */
@@ -182,11 +183,11 @@ export class BabelExtension extends Extension {
     }
 
     if (Array.isArray(name)) {
-      this.plugins[name[0]] = name
-      return this
+      throw new InputError(`Invalid plugin name`)
     }
 
-    this.plugins[name] = [name]
+    this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
+
     return this
   }
 
@@ -229,11 +230,11 @@ export class BabelExtension extends Extension {
     }
 
     if (Array.isArray(name)) {
-      this.presets[name[0]] = name
-      return this
+      throw new InputError(`Invalid preset name`)
     }
 
-    this.presets[name] = [name]
+    this.presets[name] = Array.isArray(preset) ? preset : [preset]
+
     return this
   }
 
@@ -284,3 +285,5 @@ export class BabelExtension extends Extension {
     return this
   }
 }
+
+export {BabelExtension as default}

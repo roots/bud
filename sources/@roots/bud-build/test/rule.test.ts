@@ -1,5 +1,5 @@
 import {type Bud, factory} from '@repo/test-kit'
-import {Rule} from '@roots/bud-build/rule'
+import Rule from '@roots/bud-build/rule'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`Build Rule`, function () {

@@ -1,6 +1,5 @@
+import {dataUrl, default as inlineSvg} from '@roots/bud-build/rules/svg.inline'
 import {describe, expect, it} from 'vitest'
-
-import {dataUrl, inlineSvg} from './svg.inline.js'
 
 describe(`svg-inline`, () => {
   it(`should return a rule`, async () => {

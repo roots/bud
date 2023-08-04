@@ -1,63 +1,33 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
-import {bail} from './bail.js'
-import {cache} from './cache.js'
-import {context} from './context.js'
-import {dependencies} from './dependencies.js'
-import {devtool} from './devtool.js'
-import {entry} from './entry.js'
-import {experiments} from './experiments.js'
-import {externals} from './externals.js'
-import {externalsType} from './externalsType.js'
-import {infrastructureLogging} from './infrastructureLogging.js'
-import {loader} from './loader.js'
-import {mode} from './mode.js'
-import {module} from './module.js'
-import {name} from './name.js'
-import {node} from './node.js'
-import {optimization} from './optimization.js'
-import {output} from './output/index.js'
-import {parallelism} from './parallelism.js'
-import {performance} from './performance.js'
-import {plugins} from './plugins.js'
-import {profile} from './profile.js'
-import {recordsPath} from './recordsPath.js'
-import {resolve} from './resolve.js'
-import {resolveLoader} from './resolveLoader.js'
-import {snapshot} from './snapshot.js'
-import {stats} from './stats.js'
-import {target} from './target.js'
-
-export {
-  bail,
-  cache,
-  context,
-  dependencies,
-  devtool,
-  entry,
-  experiments,
-  externals,
-  externalsType,
-  infrastructureLogging,
-  loader,
-  mode,
-  module,
-  name,
-  node,
-  optimization,
-  output,
-  parallelism,
-  performance,
-  plugins,
-  profile,
-  recordsPath,
-  resolve,
-  resolveLoader,
-  snapshot,
-  stats,
-  target,
-}
+export {bail} from './bail.js'
+export {cache} from './cache.js'
+export {context} from './context.js'
+export {dependencies} from './dependencies.js'
+export {devtool} from './devtool.js'
+export {entry} from './entry.js'
+export {experiments} from './experiments.js'
+export {externals} from './externals.js'
+export {externalsType} from './externalsType.js'
+export {infrastructureLogging} from './infrastructureLogging.js'
+export {loader} from './loader.js'
+export {mode} from './mode.js'
+export {module} from './module.js'
+export {name} from './name.js'
+export {node} from './node.js'
+export {optimization} from './optimization.js'
+export {output} from './output/index.js'
+export {parallelism} from './parallelism.js'
+export {performance} from './performance.js'
+export {plugins} from './plugins.js'
+export {profile} from './profile.js'
+export {recordsPath} from './recordsPath.js'
+export {resolve} from './resolve.js'
+export {resolveLoader} from './resolveLoader.js'
+export {snapshot} from './snapshot.js'
+export {stats} from './stats.js'
+export {target} from './target.js'
 
 export interface Factory<
   Key extends keyof Config,

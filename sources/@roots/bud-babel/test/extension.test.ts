@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import BabelExtension from '@roots/bud-babel'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import BabelExtension from '../src/index'
 
 describe(`@roots/bud-babel`, () => {
   let bud: Bud
@@ -20,31 +19,31 @@ describe(`@roots/bud-babel`, () => {
     expect(BabelInstance.register).toBeDefined()
   })
 
-  it(`config class shoudl have setPlugins`, async () => {
+  it(`should have setPlugins method`, async () => {
     expect(BabelInstance.setPlugins).toBeInstanceOf(Function)
   })
 
-  it(`config class shoudl have setPresets`, async () => {
+  it(`should have setPresets method`, async () => {
     expect(BabelInstance.setPresets).toBeInstanceOf(Function)
   })
 
-  it(`config class shoudl have setPlugin`, async () => {
+  it(`should have setPlugin method`, async () => {
     expect(BabelInstance.setPlugin).toBeInstanceOf(Function)
   })
 
-  it(`config class shoudl have setPreset`, async () => {
+  it(`should have setPreset method`, async () => {
     expect(BabelInstance.setPreset).toBeInstanceOf(Function)
   })
 
-  it(`config class shoudl have setPluginOptions`, async () => {
+  it(`should have setPluginOptions method`, async () => {
     expect(BabelInstance.setPluginOptions).toBeInstanceOf(Function)
   })
 
-  it(`config class shoudl have setPluginOptions`, async () => {
+  it(`should have setPluginOptions method`, async () => {
     expect(BabelInstance.setPresetOptions).toBeInstanceOf(Function)
   })
 
-  it(`bud.babel.setPresets should behave as expected`, async () => {
+  it(`should setPresets`, async () => {
     BabelInstance.presets = {}
 
     const value: Record<string, [string, any]> = {

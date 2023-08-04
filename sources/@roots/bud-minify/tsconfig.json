@@ -8,7 +8,7 @@
       "@roots/bud-minify/minify-css": ["./src/minify-css/index.ts"],
       "@roots/bud-minify/minify-js": ["./src/minify-js/index.ts"]
     },
-    "types": ["node", "@roots/bud-framework"]
+    "strict": true
   },
   "include": ["./src"],
   "references": [

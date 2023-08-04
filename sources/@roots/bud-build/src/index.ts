@@ -8,10 +8,10 @@
  * @see https://github.com/roots/bud
  */
 
-import {Item} from '@roots/bud-build/item'
-import {Loader} from '@roots/bud-build/loader'
-import {Rule} from '@roots/bud-build/rule'
-import {Build} from '@roots/bud-build/service'
+import {default as Item} from '@roots/bud-build/item'
+import {default as Loader} from '@roots/bud-build/loader'
+import {default as Rule} from '@roots/bud-build/rule'
+import {default as Build} from '@roots/bud-build/service'
 
 declare module '@roots/bud-framework' {
   interface Services {
@@ -65,6 +65,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default Build
-
-export {Item, Loader, Rule}
+export {Build as default, Item, Loader, Rule}

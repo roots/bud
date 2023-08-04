@@ -1,9 +1,7 @@
-import {path} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit'
+import Compiler from '@roots/bud-compiler'
 import webpack from '@roots/bud-support/webpack'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
-
-import Compiler from '../src/index.js'
 
 describe(`@roots/bud-compiler`, function () {
   let bud: Bud

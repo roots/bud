@@ -1,4 +1,4 @@
-import type {Factory} from '../index.js'
+import type {Factory} from '@roots/bud-build/config'
 
 import {assetModuleFilename} from './assetModuleFilename.js'
 import {filename} from './filename.js'

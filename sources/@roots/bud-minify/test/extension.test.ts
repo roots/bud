@@ -2,7 +2,6 @@ import {type Bud, factory} from '@repo/test-kit'
 import BudMinimize from '@roots/bud-minify'
 import BudMinimizeCss from '@roots/bud-minify/minify-css'
 import BudMinimizeJs from '@roots/bud-minify/minify-js'
-import '@roots/bud-minify/types'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-minify`, () => {
@@ -20,11 +19,11 @@ describe(`@roots/bud-minify`, () => {
   })
 
   it(`should expose minify.js`, async () => {
-    expect(instance.js).toBeInstanceOf(BudMinimizeJs)
+    expect(instance.js.label).toBe(`@roots/bud-minify/minify-js`)
   })
 
   it(`should expose minify.css`, async () => {
-    expect(instance.css).toBeInstanceOf(BudMinimizeCss)
+    expect(instance.css.label).toBe(`@roots/bud-minify/minify-css`)
   })
 
   it(`should set terserOptions.format.comments to false when minify.js.dropComments is called`, async () => {

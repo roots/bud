@@ -8,7 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import {Compiler} from './service.js'
+import {default as Compiler} from '@roots/bud-compiler/service'
 
 declare module '@roots/bud-framework' {
   interface Services {

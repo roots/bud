@@ -43,7 +43,7 @@ export const assets: assets = async function assets(
 
   app.extensions
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
-    .set(`patterns`, (patterns = []) => [
+    ?.set(`patterns`, (patterns = []) => [
       ...patterns,
       ...arrayedRequest.map(valueMapper),
     ])

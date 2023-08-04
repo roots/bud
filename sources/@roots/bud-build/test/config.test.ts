@@ -104,7 +104,7 @@ describe(`bud.build.config`, function () {
 
   it(`should have expected plugins`, async () => {
     const plugins = build.config.plugins
-      ?.map(plugin => plugin.constructor.name)
+      ?.map(plugin => plugin?.constructor.name)
       .sort()
 
     expect(plugins).toContain(`CleanWebpackPlugin`)

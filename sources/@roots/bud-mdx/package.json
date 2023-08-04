@@ -49,19 +49,25 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "lib/index.d.ts"
+      ],
+      "extension": [
+        "lib/extension.d.ts"
+      ]
     }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-build": "workspace:*",
+    "@roots/bud-esbuild": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.19",
     "@types/react": "18.2.15",
@@ -72,7 +78,7 @@
   "dependencies": {
     "@mdx-js/loader": "2.3.0",
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "tslib": "2.6.0",
