@@ -70,6 +70,5 @@ const makeRegister: makeRegister =
       }),
     )
 
-
 export {items, loaders, makeRegister, register, rules}
 export type {Factory, Props}

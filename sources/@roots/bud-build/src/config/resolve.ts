@@ -1,6 +1,6 @@
-import isString from '@roots/bud-support/lodash/isString'
-
 import type {Factory} from '@roots/bud-build/config'
+
+import isString from '@roots/bud-support/lodash/isString'
 
 export const resolve: Factory<`resolve`> = async bud => {
   return await bud.hooks.filterAsync(`build.resolve`, {
