@@ -1,0 +1,140 @@
+---
+title: '@roots/bud-preset-wordpress'
+description: 'Recommended extensions and base configuration for WordPress projects'
+sidebar_label: '@roots/bud-preset-wordpress'
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+The [@roots/bud-preset-wordpress](/extensions/bud-preset-wordpress) package is a great starting point for WordPress plugins & themes.
+
+If you plan on using it in a WordPress theme you should consider using [@roots/sage](https://github.com/roots/sage).
+
+It includes the following extensisons:
+
+- [@roots/bud-postcss](/extensions/bud-postcss)
+- [@roots/bud-react](/extensions/bud-react)
+- [@roots/wordpress-hmr](/extensions/bud-preset-wordpress/editor-integration)
+
+## Installation
+
+```npm2yarn
+npm install @roots/bud-preset-wordpress --save-dev
+```
+
+## Managing WordPress enqueues
+
+If you are using [roots/sage](https://roots.io/sage) these details are handled for you by Acorn.
+
+Otherwise you will want to do something like this:
+
+```php
+add_action('enqueue_block_editor_assets', function () {
+  // couple helper functions
+  $get_path = ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
+  $read = ($endpoint) => file_get_contents($dist_path($endpoint));
+
+  // entrypoints.json as an object
+  $entrypoints = json_decode($read('entrypoints.json'));
+
+  wp_enqueue_script(
+    'my-theme/editor/js',
+    $get_path($entrypoints->editor->js[1]),
+    [],
+    null,
+    true
+  );
+
+  wp_enqueue_inline_script(
+    'my-theme/editor/js',
+    $read($entrypoints->editor->js[0]),
+    'before',
+  );
+
+  wp_enqueue_style(
+    'my-theme/editor/css',
+    $get_path($entrypoints->editor->css[0]),
+    [],
+    null
+  );
+});
+```
+
+## Managing WordPress runtime dependencies
+
+If WordPress provides a package any references you make to it will be replaced by a reference to the WP provided global.
+
+For example, if you import jquery in your application like so:
+
+```
+import $ from 'jquery'
+```
+
+It will be bundled as something like this:
+
+```js
+const e = window.wp.blocks
+```
+
+If you check out `entrypoints.json` you'll see the WordPress dependencies listed per entrypoint under the `dependencies` key:
+
+```json
+{
+  "editor": {
+    "js": [
+      "js/runtime.6390bb.js",
+      "js/editor.b7e1d1.js"
+    ],
+    "css": [
+      "css/editor.8cd6ea.css"
+    ],
+    "dependencies": [
+      "jquery",
+      "wp-blocks",
+      "wp-dom-ready"
+    ]
+  }
+}
+```
+
+The intent is for you to read this file in your WordPress theme or plugin and enqueue the dependencies dynamically.
+
+For example, building off the previous example code, this is how one might handle enqueues in a WordPress theme:
+
+```php
+add_action('enqueue_block_editor_assets', function () {
+  // couple helper functions
+  $get_path = ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
+  $read = ($endpoint) => file_get_contents($dist_path($endpoint));
+
+  // entrypoints.json as an object
+  $entrypoints = json_decode($read('entrypoints.json'));
+
+  wp_enqueue_script(
+    'my-theme/editor/js',
+    $get_path($entrypoints->editor->js[1]),
+    $entrypoints->editor->dependencies,
+    null,
+    true
+  );
+
+  // ...
+});
+```
+
+### Excluding modules
+
+There may be situations where you want to exclude a package from this behavior. For example, you may wish to use a different version of jQuery than the one provided by WordPress.
+
+To address this, you can pass an array of packages to exclude:
+
+```ts title=bud.config.ts
+import type {Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
+  bud.wp.externals.exclude(['jquery'])
+}
+```
+
+With that, your custom jQuery will now be bundled with your application.
