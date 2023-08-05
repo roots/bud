@@ -32,8 +32,8 @@ Otherwise you will want to do something like this:
 ```php
 add_action('enqueue_block_editor_assets', function () {
   // couple helper functions
-  $get_path = ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
-  $read = ($endpoint) => file_get_contents($dist_path($endpoint));
+  $get_path = fn ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
+  $read = fn ($endpoint) => file_get_contents($dist_path($endpoint));
 
   // entrypoints.json as an object
   $entrypoints = json_decode($read('entrypoints.json'));
@@ -105,8 +105,8 @@ For example, building off the previous example code, this is how one might handl
 ```php
 add_action('enqueue_block_editor_assets', function () {
   // couple helper functions
-  $get_path = ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
-  $read = ($endpoint) => file_get_contents($dist_path($endpoint));
+  $get_path = fn ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
+  $read = fn ($endpoint) => file_get_contents($dist_path($endpoint));
 
   // entrypoints.json as an object
   $entrypoints = json_decode($read('entrypoints.json'));
