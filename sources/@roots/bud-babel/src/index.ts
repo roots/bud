@@ -25,8 +25,7 @@ interface LoaderOptions {
   targets?: any
 }
 
-interface BabelPublicApi
-  extends PublicExtensionApi<BabelExtension> {
+interface BabelPublicApi extends PublicExtensionApi<BabelExtension> {
   plugins: BabelExtension[`plugins`]
   presets: BabelExtension[`presets`]
   setPlugin: BabelExtension[`setPlugin`]
@@ -97,6 +96,13 @@ declare module '@roots/bud-framework' {
   }
 }
 
-
 export default BabelExtension
-export type {BabelPublicApi, LoaderOptions, NormalizedPlugin, Options, Plugin, Registrable, Registry}
+export type {
+  BabelPublicApi,
+  LoaderOptions,
+  NormalizedPlugin,
+  Options,
+  Plugin,
+  Registrable,
+  Registry,
+}

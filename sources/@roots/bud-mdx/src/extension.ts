@@ -78,7 +78,9 @@ class BudMDX extends Extension<Options> {
     const loader = await this.resolve(`@mdx-js/loader`, import.meta.url)
     if (!loader) return this.logger.error(`MDX loader not found`)
 
-    hooks.on(`build.resolve.extensions`, (ext = new Set()) => ext.add(`.md`).add(`.mdx`))
+    hooks.on(`build.resolve.extensions`, (ext = new Set()) =>
+      ext.add(`.md`).add(`.mdx`),
+    )
     hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
       ...aliases,
       [`@mdx-js/loader`]: loader,

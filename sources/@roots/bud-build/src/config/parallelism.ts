@@ -1,6 +1,6 @@
-import {cpus} from 'node:os'
-
 import type {Factory} from '@roots/bud-build/config'
+
+import {cpus} from 'node:os'
 
 export const parallelism: Factory<`parallelism`> = async ({
   build,

@@ -86,7 +86,8 @@ class Compiler extends Service implements BudCompiler {
     try {
       this.instance = this.implementation(this.config)
     } catch (error: unknown) {
-      const normalError = error instanceof Error ? error : BudError.normalize(error)
+      const normalError =
+        error instanceof Error ? error : BudError.normalize(error)
       this.onError(normalError)
     }
 

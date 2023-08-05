@@ -1,6 +1,5 @@
-import type {Bud} from '@roots/bud-framework'
-
 import type {Factory} from '@roots/bud-build/config'
+import type {Bud} from '@roots/bud-framework'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]
