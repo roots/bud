@@ -1,4 +1,4 @@
-import type {Factory} from './index.js'
+import type {Factory} from '@roots/bud-build/config'
 
 export const snapshot: Factory<`snapshot`> = async ({env, hooks, path}) =>
   hooks.filter(`build.snapshot`, {

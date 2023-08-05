@@ -27,7 +27,7 @@ interface Options {
   rehypePlugins: {},
   remarkPlugins: {},
 })
-export class BudMDX extends Extension<Options> {
+class BudMDX extends Extension<Options> {
   /**
    * Get rehype plugins
    */
@@ -78,7 +78,7 @@ export class BudMDX extends Extension<Options> {
     const loader = await this.resolve(`@mdx-js/loader`, import.meta.url)
     if (!loader) return this.logger.error(`MDX loader not found`)
 
-    hooks.on(`build.resolve.extensions`, ext => ext.add(`.md`).add(`.mdx`))
+    hooks.on(`build.resolve.extensions`, (ext = new Set()) => ext.add(`.md`).add(`.mdx`))
     hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
       ...aliases,
       [`@mdx-js/loader`]: loader,
@@ -97,3 +97,5 @@ export class BudMDX extends Extension<Options> {
     })
   }
 }
+
+export {BudMDX as default}

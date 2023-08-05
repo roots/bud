@@ -1,10 +1,9 @@
 import {dirname} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
-
-import Sage from '../../src'
+import Sage from '@roots/sage'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/sage`, async () => {
   let bud: Bud
@@ -42,12 +41,12 @@ describe(`@roots/sage`, async () => {
     await sage.register(bud)
 
     expect(setPathSpy).toHaveBeenCalledWith({
-      '@src': `resources`,
+      '@dist': `public`,
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
+      '@src': `resources`,
       '@styles': `@src/styles`,
-      '@dist': `public`,
       '@views': `@src/views`,
     })
 

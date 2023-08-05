@@ -3,13 +3,11 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "types": ["node", "@roots/bud-framework", "@roots/bud-hooks"]
+    "types": ["node", "@roots/bud-framework", "@roots/bud-hooks"],
   },
   "include": ["./src"],
-  "exclude": ["**/*.test.ts"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-hooks/tsconfig.json"},
-    {"path": "./../bud-support/tsconfig.json"}
   ]
 }

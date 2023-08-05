@@ -3,6 +3,10 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "paths": {
+      "@roots/bud-compiler": ["./src/index.ts"],
+      "@roots/bud-compiler/service": ["./src/service/index.tsx"]
+    },
     "strict": true,
   },
   "include": [

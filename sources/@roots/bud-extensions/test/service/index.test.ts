@@ -1,9 +1,9 @@
-import {Bud, factory} from '@repo/test-kit'
 import type {Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Extensions} from '@roots/bud-extensions/service'
+import {Bud, factory} from '@repo/test-kit'
+import Extensions from '@roots/bud-extensions/service'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-extensions`, () => {
   let bud: Bud
@@ -26,11 +26,11 @@ describe(`@roots/bud-extensions`, () => {
     const mockWebpackPlugin: ApplyPlugin = {apply: vi.fn()}
 
     const mockModule: any = {
-      label: `mock_extension`,
-      register: vi.fn(async () => null),
       boot: vi.fn(async () => null),
-      options: options,
+      label: `mock_extension`,
       make: vi.fn(async () => mockWebpackPlugin),
+      options: options,
+      register: vi.fn(async () => null),
       when: vi.fn(async () => true),
     }
 

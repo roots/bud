@@ -8083,10 +8083,12 @@ __metadata:
   dependencies:
     "@mdx-js/loader": 2.3.0
     "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
     "@roots/bud-build": "workspace:*"
+    "@roots/bud-esbuild": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-react": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
+    "@roots/bud-typescript": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.16.19
     "@types/react": 18.2.15

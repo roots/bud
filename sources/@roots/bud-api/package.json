@@ -49,36 +49,140 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./api": "./lib/api/index.js",
     "./methods": "./lib/methods/index.js",
-    "./methods/*": "./lib/methods/*/index.js"
+    "./methods/alias": "./lib/methods/alias/index.js",
+    "./methods/assets": "./lib/methods/assets/index.js",
+    "./methods/bundle": "./lib/methods/bundle/index.js",
+    "./methods/compilePaths": "./lib/methods/compilePaths/index.js",
+    "./methods/config": "./lib/methods/config/index.js",
+    "./methods/copyDir": "./lib/methods/copyDir/index.js",
+    "./methods/copyFile": "./lib/methods/copyFile/index.js",
+    "./methods/define": "./lib/methods/define/index.js",
+    "./methods/devtool": "./lib/methods/devtool/index.js",
+    "./methods/entry": "./lib/methods/entry/index.js",
+    "./methods/experiments": "./lib/methods/experiments/index.js",
+    "./methods/externals": "./lib/methods/externals/index.js",
+    "./methods/hash": "./lib/methods/hash/index.js",
+    "./methods/html": "./lib/methods/html/index.js",
+    "./methods/minimize": "./lib/methods/minimize/index.js",
+    "./methods/persist": "./lib/methods/persist/index.js",
+    "./methods/provide": "./lib/methods/provide/index.js",
+    "./methods/proxy": "./lib/methods/proxy/index.js",
+    "./methods/runtime": "./lib/methods/runtime/index.js",
+    "./methods/serve": "./lib/methods/serve/index.js",
+    "./methods/setProxyUrl": "./lib/methods/setProxyUrl/index.js",
+    "./methods/setPublicProxyUrl": "./lib/methods/setPublicProxyUrl/index.js",
+    "./methods/setPublicUrl": "./lib/methods/setPublicUrl/index.js",
+    "./methods/setUrl": "./lib/methods/setUrl/index.js",
+    "./methods/splitChunks": "./lib/methods/splitChunks/index.js",
+    "./methods/use": "./lib/methods/use/index.js",
+    "./methods/watch": "./lib/methods/watch/index.js",
+    "./service": "./lib/service/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "api": [
-        "./lib/api/index.d.ts"
-      ],
       "methods": [
         "./lib/methods/index.d.ts"
       ],
-      "methods/*": [
-        "./lib/methods/*/index.d.ts"
+      "methods/alias": [
+        "./lib/methods/alias/index.d.ts"
+      ],
+      "methods/assets": [
+        "./lib/methods/assets/index.d.ts"
+      ],
+      "methods/bundle": [
+        "./lib/methods/bundle/index.d.ts"
+      ],
+      "methods/compilePaths": [
+        "./lib/methods/compilePaths/index.d.ts"
+      ],
+      "methods/config": [
+        "./lib/methods/config/index.d.ts"
+      ],
+      "methods/copyDir": [
+        "./lib/methods/copyDir/index.d.ts"
+      ],
+      "methods/copyFile": [
+        "./lib/methods/copyFile/index.d.ts"
+      ],
+      "methods/define": [
+        "./lib/methods/define/index.d.ts"
+      ],
+      "methods/devtool": [
+        "./lib/methods/devtool/index.d.ts"
+      ],
+      "methods/entry": [
+        "./lib/methods/entry/index.d.ts"
+      ],
+      "methods/experiments": [
+        "./lib/methods/experiments/index.d.ts"
+      ],
+      "methods/externals": [
+        "./lib/methods/externals/index.d.ts"
+      ],
+      "methods/hash": [
+        "./lib/methods/hash/index.d.ts"
+      ],
+      "methods/html": [
+        "./lib/methods/html/index.d.ts"
+      ],
+      "methods/minimize": [
+        "./lib/methods/minimize/index.d.ts"
+      ],
+      "methods/persist": [
+        "./lib/methods/persist/index.d.ts"
+      ],
+      "methods/provide": [
+        "./lib/methods/provide/index.d.ts"
+      ],
+      "methods/proxy": [
+        "./lib/methods/proxy/index.d.ts"
+      ],
+      "methods/runtime": [
+        "./lib/methods/runtime/index.d.ts"
+      ],
+      "methods/serve": [
+        "./lib/methods/serve/index.d.ts"
+      ],
+      "methods/setProxyUrl": [
+        "./lib/methods/setProxyUrl/index.d.ts"
+      ],
+      "methods/setPublicProxyUrl": [
+        "./lib/methods/setPublicProxyUrl/index.d.ts"
+      ],
+      "methods/setPublicUrl": [
+        "./lib/methods/setPublicUrl/index.d.ts"
+      ],
+      "methods/setUrl": [
+        "./lib/methods/setUrl/index.d.ts"
+      ],
+      "methods/splitChunks": [
+        "./lib/methods/splitChunks/index.d.ts"
+      ],
+      "methods/use": [
+        "./lib/methods/use/index.d.ts"
+      ],
+      "methods/watch": [
+        "./lib/methods/watch/index.d.ts"
+      ],
+      "service": [
+        "./lib/service/index.d.ts"
       ]
     }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-minify": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.16.19"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
+    "@roots/bud-minify": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@roots/container": "workspace:*",
     "chalk": "5.3.0",

@@ -1,8 +1,7 @@
+import * as client from '@roots/sage/client'
+import domReady from '@roots/sage/client/dom-ready'
+import lazy from '@roots/sage/client/lazy'
 import {describe, expect, it} from 'vitest'
-
-import domReady from '../../src/client/dom-ready.js'
-import * as client from '../../src/client/index.js'
-import lazy from '../../src/client/lazy.js'
 
 describe(`@roots/sage`, () => {
   it(`@roots/sage/client`, () => {

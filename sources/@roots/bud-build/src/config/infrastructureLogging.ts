@@ -1,6 +1,6 @@
 import logger from '@roots/bud-support/logger'
 
-import type {Factory} from './index.js'
+import type {Factory} from '@roots/bud-build/config'
 
 export const infrastructureLogging: Factory<
   `infrastructureLogging`

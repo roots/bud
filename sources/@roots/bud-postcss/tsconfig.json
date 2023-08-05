@@ -3,6 +3,10 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
+    "paths": {
+      "@roots/bud-postcss": ["./src/index.ts"],
+      "@roots/bud-postcss/*": ["./src/*/index.ts"],
+    },
     "strict": true,
     "types": ["node", "@roots/bud-framework", "@roots/bud-api", "@roots/bud-build"]
   },

@@ -1,4 +1,4 @@
-import type {Factory} from './index.js'
+import type {Factory} from '@roots/bud-build/config'
 
 export const experiments: Factory<`experiments`> = async ({
   hooks,

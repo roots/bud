@@ -1,20 +1,19 @@
 import type {Bud, Loaders} from '@roots/bud-framework'
 import type * as Build from '@roots/bud-framework/services/build'
 
-import {basename} from 'path'
+import {basename} from 'node:path'
 
+import Registrable from '@roots/bud-build/helpers/registrable'
+import Loader from '@roots/bud-build/loader'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
-
-import {Loader} from '../loader/index.js'
-import Base from '../shared/base.js'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions
 
 /**
  * Item class
  */
-class Item extends Base implements Build.Item {
+class Item extends Registrable implements Build.Item {
   /**
    * Identifier
    */
@@ -153,4 +152,4 @@ class Item extends Base implements Build.Item {
   }
 }
 
-export {Item}
+export {Item as default}

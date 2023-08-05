@@ -7,16 +7,15 @@ import type {
   Parser,
 } from '@roots/bud-framework/services/build/rule'
 
+import Registrable from '@roots/bud-build/helpers/registrable'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 
-import Base from '../shared/base.js'
-
 /**
  * RuleSetRule
  */
-class Rule extends Base implements Interface {
+class Rule extends Registrable implements Interface {
   /**
    * RuleSetRule exclude
    */
@@ -280,5 +279,5 @@ class Rule extends Base implements Interface {
   }
 }
 
-export {Rule}
+export {Rule as default}
 export type {Interface, Options, Output, Parser}

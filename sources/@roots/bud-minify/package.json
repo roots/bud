@@ -30,23 +30,23 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./extension": "./lib/extension/index.js",
     "./minify-css": "./lib/minify-css/index.js",
-    "./minify-js": "./lib/minify-js/index.js",
-    "./types": "./lib/types.js"
+    "./minify-js": "./lib/minify-js/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
+      "extension": [
+        "./lib/extension/index.d.ts"
+      ],
       "minify-js": [
         "./lib/minify-js/index.d.ts"
       ],
       "minify-css": [
         "./lib/minify-css/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },

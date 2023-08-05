@@ -5,7 +5,7 @@
     "outDir": "./lib",
     "paths": {
       "@roots/bud-extensions": ["./src/index.ts"],
-      "@roots/bud-extensions/service": ["./src/service.ts"],
+      "@roots/bud-extensions/service": ["./src/service/index.ts"],
       "@roots/bud-extensions/*": ["./src/*/index.ts"]
     },
     "types": ["node", "@roots/bud-framework", "@roots/bud-minify"]

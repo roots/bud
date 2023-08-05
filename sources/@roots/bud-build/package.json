@@ -51,38 +51,118 @@
   "exports": {
     ".": "./lib/index.js",
     "./config": "./lib/config/index.js",
-    "./handlers": "./lib/handlers/index.js",
+    "./helpers/isMjs": "./lib/helpers/isMjs.js",
+    "./helpers/registrable": "./lib/helpers/registrable.js",
+    "./helpers/script-extension": "./lib/helpers/script-extension.js",
     "./item": "./lib/item/index.js",
+    "./items": "./lib/items/index.js",
     "./loader": "./lib/loader/index.js",
+    "./loaders": "./lib/loaders/index.js",
+    "./registry": "./lib/registry/index.js",
     "./rule": "./lib/rule/index.js",
-    "./service": "./lib/service.js",
-    "./types": "./lib/types.js"
+    "./rules": "./lib/rules/index.js",
+    "./rules/css": "./lib/rules/css.js",
+    "./rules/css.module": "./lib/rules/css.module.js",
+    "./rules/csv": "./lib/rules/csv.js",
+    "./rules/font": "./lib/rules/font.js",
+    "./rules/font.inline": "./lib/rules/font.inline.js",
+    "./rules/html": "./lib/rules/html.js",
+    "./rules/image": "./lib/rules/image.js",
+    "./rules/image.inline": "./lib/rules/image.inline.js",
+    "./rules/js": "./lib/rules/js.js",
+    "./rules/json": "./lib/rules/json.js",
+    "./rules/svg": "./lib/rules/svg.js",
+    "./rules/svg.inline": "./lib/rules/svg.inline.js",
+    "./rules/toml": "./lib/rules/toml.js",
+    "./rules/webp": "./lib/rules/webp.js",
+    "./rules/yml": "./lib/rules/yml.js",
+    "./service": "./lib/service/index.js"
   },
   "typesVersions": {
     "*": {
-      "*": [
+      ".": [
         "./lib/types.js"
       ],
       "config": [
         "./lib/config/index.d.ts"
       ],
-      "handlers": [
-        "./lib/handlers/index.d.ts"
+      "helpers/isMjs": [
+        "./lib/helpers/isMjs.d.ts"
+      ],
+      "helpers/registrable": [
+        "./lib/helpers/registrable.d.ts"
+      ],
+      "helpers/script-extension": [
+        "./lib/helpers/script-extension.d.ts"
       ],
       "item": [
         "./lib/item/index.d.ts"
       ],
+      "items": [
+        "./lib/items/index.d.ts"
+      ],
       "loader": [
         "./lib/loader/index.d.ts"
+      ],
+      "loaders": [
+        "./lib/loaders/index.d.ts"
+      ],
+      "registry": [
+        "./lib/registry/index.d.ts"
       ],
       "rule": [
         "./lib/rule/index.d.ts"
       ],
-      "service": [
-        "./lib/service.d.ts"
+      "rules": [
+        "./lib/rules/index.d.ts"
       ],
-      "types": [
-        "./lib/types.d.ts"
+      "rules/css": [
+        "./lib/rules/css.d.ts"
+      ],
+      "rules/css.module": [
+        "./lib/rules/css.module.d.ts"
+      ],
+      "rules/csv": [
+        "./lib/rules/csv.d.ts"
+      ],
+      "rules/font": [
+        "./lib/rules/font.d.ts"
+      ],
+      "rules/font.inline": [
+        "./lib/rules/font.inline.d.ts"
+      ],
+      "rules/html": [
+        "./lib/rules/html.d.ts"
+      ],
+      "rules/image": [
+        "./lib/rules/image.d.ts"
+      ],
+      "rules/image.inline": [
+        "./lib/rules/image.inline.d.ts"
+      ],
+      "rules/js": [
+        "./lib/rules/js.d.ts"
+      ],
+      "rules/json": [
+        "./lib/rules/json.d.ts"
+      ],
+      "rules/svg": [
+        "./lib/rules/svg.d.ts"
+      ],
+      "rules/svg.inline": [
+        "./lib/rules/svg.inline.d.ts"
+      ],
+      "rules/toml": [
+        "./lib/rules/toml.d.ts"
+      ],
+      "rules/webp": [
+        "./lib/rules/webp.d.ts"
+      ],
+      "rules/yml": [
+        "./lib/rules/yml.d.ts"
+      ],
+      "service": [
+        "./lib/service/index.d.ts"
       ]
     }
   },

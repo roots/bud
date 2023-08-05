@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import Acorn from '@roots/sage/acorn'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import Acorn from '../../src/acorn/index.js'
 
 describe(`@roots/sage/acorn`, async () => {
   let bud: Bud

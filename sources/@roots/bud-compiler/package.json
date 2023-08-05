@@ -49,12 +49,16 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./service": "./lib/service/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "service": [
+        "./lib/service/index.d.ts"
       ]
     }
   },
