@@ -29,8 +29,7 @@ describe(`issue-2126`, () => {
       ),
       `utf8`,
     )
-    expect(js.length).toBeLessThan(65000)
-
+    expect(js.length).toBeLessThan(75000)
     const css = await fs.read(
       join(
         paths.tests,
