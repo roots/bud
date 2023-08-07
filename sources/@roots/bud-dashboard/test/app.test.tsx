@@ -425,7 +425,7 @@ describe(`@roots/bud-dashboard app component`, () => {
     expect(lines[14]).toMatch(/ › Proxy  ┄ http:\/\/.+:\d+\//)
     expect(lines[15]).toBe(Char.Empty)
     expect(lines[16]).toMatch(/          ┄ http:\/\/.+/)
-    expect(lines[17]).toMatch(/ › dev    ┄ http:\/\/.+\//)
+    expect(lines[17]).toMatch(/ › Dev    ┄ http:\/\/.+\//)
     expect(lines[18]).toMatch(
       /          ┄ http:\/\/\d+\.\d+\.\d+\.\d+:\d+\//,
     )
@@ -450,7 +450,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[14]).toMatch(/ › dev    ┄ http:\/\/.+:\d+\//)
+    expect(lines[14]).toMatch(/ › Dev    ┄ http:\/\/.+:\d+\//)
   })
 
   it(`should not throw when crazy input happens`, () => {
