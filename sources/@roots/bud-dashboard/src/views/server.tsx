@@ -32,9 +32,6 @@ export const Server = ({
   )
     return null
 
-  const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol)
-  ipv4.port = devUrl.port
-
   return (
     <Box flexDirection="column">
       <Text color="blue">Network</Text>
@@ -46,31 +43,7 @@ export const Server = ({
         publicProxyUrl={publicProxyUrl}
       />
 
-      {devUrl?.href && (
-        <Box flexDirection="row" gap={2} paddingLeft={1}>
-          <Box minWidth={7}>
-            <Text color="white">{figures.pointerSmall} dev</Text>
-          </Box>
-
-          <Box flexDirection="column">
-            <Text dimColor wrap="truncate-end">
-              {figures.lineDashed0} {devUrl.href}
-            </Text>
-
-            {ipv4.href !== devUrl.href && (
-              <Text dimColor wrap="truncate-end">
-                {figures.lineDashed0} {ipv4.href}
-              </Text>
-            )}
-
-            {publicDevUrl && publicDevUrl?.href !== devUrl.href && (
-              <Text dimColor wrap="truncate-end">
-                {figures.lineDashed0} {publicDevUrl.href}
-              </Text>
-            )}
-          </Box>
-        </Box>
-      )}
+      <Dev devUrl={devUrl} publicDevUrl={publicDevUrl} />
     </Box>
   )
 }
@@ -107,5 +80,45 @@ const Proxy = ({
     </Box>
   )
 }
+
+const Dev = ({
+  devUrl,
+  publicDevUrl,
+}: {
+  devUrl: Props[`devUrl`]
+  publicDevUrl: Props[`publicDevUrl`]
+}) => {
+  if (!devUrl?.href) return null
+
+  const ipv4 = externalNetworkInterface.ipv4Url(devUrl.protocol)
+  ipv4.port = devUrl.port
+
+  return (
+    <Box flexDirection="row" gap={2} paddingLeft={1}>
+      <Box minWidth={7}>
+        <Text color="white">{figures.pointerSmall} Dev</Text>
+      </Box>
+
+      <Box flexDirection="column">
+        <Text dimColor wrap="truncate-end">
+          {figures.lineDashed0} {devUrl.href}
+        </Text>
+
+        {ipv4.href !== devUrl.href && (
+          <Text dimColor wrap="truncate-end">
+            {figures.lineDashed0} {ipv4.href}
+          </Text>
+        )}
+
+        {publicDevUrl && publicDevUrl?.href !== devUrl.href && (
+          <Text dimColor wrap="truncate-end">
+            {figures.lineDashed0} {publicDevUrl.href}
+          </Text>
+        )}
+      </Box>
+    </Box>
+  )
+}
+
 
 export {Server as default}
