@@ -63,35 +63,20 @@ describe(`@roots/sage`, async () => {
     expect(spy).toHaveBeenCalled()
   })
 
-  it(`should call bud.minimize in production`, async () => {
+  it(`should call bud.hash in production`, async () => {
     const bud = await factory({mode: `production`})
     expect(bud.isProduction).toBe(true)
 
     const whenSpy = vi.spyOn(bud, `when`)
-    const spy = vi.spyOn(bud, `minimize`)
-    await sage.register(bud)
-    expect(whenSpy).toHaveBeenCalledWith(
-      true,
-      expect.any(Function),
-      expect.any(Function),
-    )
-    expect(spy).toHaveBeenCalled()
-  })
-
-  it(`should call bud.splitChunks in production`, async () => {
-    const bud = await factory({mode: `production`})
-    expect(bud.isProduction).toBe(true)
-
-    const whenSpy = vi.spyOn(bud, `when`)
-    const spy = vi.spyOn(bud, `splitChunks`)
     const devtoolSpy = vi.spyOn(bud, `devtool`)
+    const hashSpy = vi.spyOn(bud, `hash`)
     await sage.register(bud)
     expect(whenSpy).toHaveBeenCalledWith(
       true,
       expect.any(Function),
       expect.any(Function),
     )
-    expect(spy).toHaveBeenCalled()
+    expect(hashSpy).toHaveBeenCalled()
     expect(devtoolSpy).not.toHaveBeenCalled()
   })
 
@@ -100,7 +85,7 @@ describe(`@roots/sage`, async () => {
     expect(bud.isProduction).toBe(false)
     const whenSpy = vi.spyOn(bud, `when`)
     const devtoolSpy = vi.spyOn(bud, `devtool`)
-    const splitChunksSpy = vi.spyOn(bud, `splitChunks`)
+    const hashSpy = vi.spyOn(bud, `hash`)
     await sage.register(bud)
     expect(whenSpy).toHaveBeenCalledWith(
       false,
@@ -108,6 +93,6 @@ describe(`@roots/sage`, async () => {
       expect.any(Function),
     )
     expect(devtoolSpy).toHaveBeenCalled()
-    expect(splitChunksSpy).not.toHaveBeenCalled()
+    expect(hashSpy).not.toHaveBeenCalled()
   })
 })
