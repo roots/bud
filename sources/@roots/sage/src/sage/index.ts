@@ -47,7 +47,7 @@ class Sage extends Extension {
       })
       .when(
         bud.isProduction,
-        () => bud.minimize().hash().splitChunks(),
+        () => bud.hash(),
         () => bud.devtool(),
       )
       .hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
