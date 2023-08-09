@@ -33,7 +33,8 @@ export class Finder {
   @bind
   public async cacheClear() {
     try {
-      if (await this.fs.exists(this.cachePath)) await this.fs.remove(this.cachePath)
+      if (await this.fs.exists(this.cachePath))
+        await this.fs.remove(this.cachePath)
     } catch (error) {}
   }
 
@@ -49,8 +50,7 @@ export class Finder {
    */
   @bind
   public async cacheWrite() {
-    if (this.paths)
-      await this.fs.write(this.cachePath, this.paths)
+    if (this.paths) await this.fs.write(this.cachePath, this.paths)
   }
 
   /**
@@ -96,7 +96,10 @@ export class Finder {
     return await Promise.all(
       this.paths.map(async path => {
         try {
-          return [path, await import(path).then(({default: register}) => register)]
+          return [
+            path,
+            await import(path).then(({default: register}) => register),
+          ]
         } catch (error) {
           await this.cacheClear()
         }

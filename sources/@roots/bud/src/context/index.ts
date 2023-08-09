@@ -3,7 +3,7 @@ import type {Context} from '@roots/bud-framework/context'
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
-import { getDefaultColorDepth } from '@roots/bud-support/clipanion'
+import {getDefaultColorDepth} from '@roots/bud-support/clipanion'
 import * as filesystem from '@roots/bud-support/filesystem'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'

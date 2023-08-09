@@ -1,4 +1,4 @@
-import cleanStack from "clean-stack"
+import cleanStack from 'clean-stack'
 
 /**
  * Props for Bud errors
@@ -85,12 +85,16 @@ class BudError extends Error {
 
     if (this.stack) {
       this.stack = cleanStack(this.stack, {
-        pathFilter: path => !path.includes(`react-reconciler`) && !path.includes(`bud-support/lib/errors`),
+        pathFilter: path =>
+          !path.includes(`react-reconciler`) &&
+          !path.includes(`bud-support/lib/errors`),
       })
     }
     if (this.message) {
       this.message = cleanStack(this.message, {
-        pathFilter: path => !path.includes(`react-reconciler`) && !path.includes(`bud-support/lib/errors`),
+        pathFilter: path =>
+          !path.includes(`react-reconciler`) &&
+          !path.includes(`bud-support/lib/errors`),
       })
     }
     this.isBudError = true
