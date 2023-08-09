@@ -37,7 +37,7 @@ export type {BaseContext, Context}
 export {Option}
 
 /**
- * {@link Command}
+ * Base {@link Command}
  */
 export default class BudCommand extends Command<BaseContext & Context> {
   /**

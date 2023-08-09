@@ -7,6 +7,7 @@ import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
 import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import * as args from '@roots/bud-support/utilities/args'
 import BudCommand from '@roots/bud/cli/commands'
 import BudBuildCommand from '@roots/bud/cli/commands/build'
@@ -31,9 +32,30 @@ const onError = (error: Error) => {
 }
 
 /**
- * Built-in commands
+ * {@link Context}
  */
-const commands: Array<CommandClass<BaseContext & Context>> = [
+const context: Context = {
+  ...(await getContext({stderr, stdin, stdout}).catch(onError)),
+  stderr,
+  stdin,
+  stdout,
+}
+
+/**
+ * {@link Cli}
+ */
+const application = new Cli<BaseContext & Context>({
+  binaryLabel: `bud`,
+  binaryName: `bud`,
+  binaryVersion: context.bud.version,
+  enableCapture: true,
+  enableColors: context.env?.color !== `false`,
+})
+
+/**
+ * Register built-ins
+ */
+;[
   Builtins.HelpCommand,
   Builtins.VersionCommand,
   BudCommand,
@@ -46,30 +68,20 @@ const commands: Array<CommandClass<BaseContext & Context>> = [
   BudUpgradeCommand,
   BudViewCommand,
   BudWebpackCommand,
-]
+].map(command => application.register(command))
 
 /**
- * {@link Context}
+ * --force flag
+ * {@link Context.force}
  */
-const context: Context = {
-  ...(await getContext({stderr, stdin, stdout}).catch(onError)),
-  stderr,
-  stdin,
-  stdout,
-}
-
-const application = new Cli<BaseContext & Context>({
-  binaryLabel: `bud`,
-  binaryName: `bud`,
-  binaryVersion: context.bud.version,
-  enableCapture: true,
-  enableColors: context.env?.color !== `false`,
-})
+const forceFlag = !isUndefined(context.force) ? context.force : false
 
 /**
  * Register command extensions
+ *
+ * @param force - force rebuilding of extension cache
  */
-const registerFoundCommands = async (force: boolean = false) => {
+const registerFoundCommands = async (force: boolean = forceFlag) => {
   try {
     const finder = new Finder(context, application)
     if (!force) await finder.init()
@@ -102,23 +114,36 @@ const registerFoundCommands = async (force: boolean = false) => {
   }
 }
 
-commands.map(command => application.register(command))
-
 try {
+  // first round will attempt to register extensions from cache
+  // if cache does not exist, it will be created
   await registerFoundCommands()
 } catch (error) {
-  // first round failed to load extensions for some reason
-  // so we'll try searching again
   try {
-    await registerFoundCommands(true).catch(onError)
+    // first round failed to load extensions for some reason
+    // maybe a cached extension no longer exists
+    // or maybe a cached extension has been updated and the old path is resolvable but no longer valid
+    // so we'll try searching again
+    await registerFoundCommands(true)
   } catch (innerError) {
-    const fatalError = BudError.normalize(innerError)
-    fatalError.cause = error
-    fatalError.message = `Failed to load bud cli extensions`
-    onError(fatalError)
+    // at this point we know that the error is not related to a suspect cache
+    // so we'll present it to the user
+    // and bail on the application
+    const initializeExtensionsError =
+      innerError instanceof BudError
+        ? innerError
+        : BudError.normalize(innerError)
+
+    initializeExtensionsError.origin =
+      error instanceof BudError ? error : BudError.normalize(error)
+
+    onError(initializeExtensionsError)
   }
 }
 
+/**
+ * Run application and exit when process is complete
+ */
 application.runExit(args.raw, context).catch(onError)
 
 export {application, Builtins, Cli}
