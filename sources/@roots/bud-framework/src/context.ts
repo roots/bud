@@ -83,6 +83,11 @@ export interface Context {
   clean?: boolean
 
   /**
+   * Color depth
+   */
+  colorDepth: number
+
+  /**
    * Render dashboard in CLI
    *
    * @remarks

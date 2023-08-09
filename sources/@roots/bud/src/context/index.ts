@@ -1,8 +1,9 @@
-import type {Context} from '@roots/bud-framework'
+import type {Context} from '@roots/bud-framework/context'
 
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
+import { getDefaultColorDepth } from '@roots/bud-support/clipanion'
 import * as filesystem from '@roots/bud-support/filesystem'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
@@ -19,7 +20,7 @@ export type Options = Omit<Partial<Context>, `extensions`> & {
 }
 
 export default async (options: Options = {}): Promise<Context> => {
-  let basedir = options?.basedir ?? process.cwd()
+  const basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
 
   const fs = filesystem.get(paths.basedir)
@@ -45,6 +46,7 @@ export default async (options: Options = {}): Promise<Context> => {
     basedir: paths.basedir,
     bin: (env.BUD_JS_BIN as Context[`bin`]) ?? `node`,
     bud: {...bud, ...(options?.bud ?? {})},
+    colorDepth: options?.colorDepth ?? getDefaultColorDepth(),
     env: {...(env ?? {}), ...(options?.env ?? {})},
     extensions,
     files: {...(files ?? {}), ...(options?.files ?? {})},

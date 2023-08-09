@@ -1,9 +1,2 @@
-import type {Context} from '@roots/bud-framework/context'
-
-export interface CLIContext extends Context {
-  colorDepth: number
-}
-
-export type {Builtins, Cli, CommandClass} from './app.js'
-
-export {application} from './app.js'
+export type {Context} from '@roots/bud-framework/context'
+export {application, type Builtins, Cli, type CommandClass} from '@roots/bud/cli/app'

@@ -1,6 +1,6 @@
 import type mode from '@roots/bud/cli/flags/mode'
 
-import BuildCommand from '@roots/bud/cli/commands/bud.build'
+import BuildCommand from '@roots/bud/cli/commands/build'
 import browser from '@roots/bud/cli/flags/browser'
 import hot from '@roots/bud/cli/flags/hot'
 import indicator from '@roots/bud/cli/flags/indicator'

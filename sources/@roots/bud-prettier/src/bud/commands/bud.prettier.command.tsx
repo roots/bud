@@ -1,5 +1,5 @@
 import {Command, Option} from '@roots/bud-support/clipanion'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 
 /**
  * `bud prettier` command

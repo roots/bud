@@ -14,8 +14,8 @@ import type {Cli} from './app.js'
 /**
  * Command finder class
  */
-export class Commands {
-  public static instance: Commands
+export class Finder {
+  public static instance: Finder
   public fs: typeof filesystem = filesystem
   public paths: Array<string>
 
@@ -31,11 +31,26 @@ export class Commands {
    * Clear command cache
    */
   @bind
-  public async clearCommandCache() {
-    const path = join(this.context.paths.storage, `bud.commands.yml`)
+  public async cacheClear() {
     try {
-      if (await this.fs.exists(path)) await this.fs.remove(path)
+      if (await this.fs.exists(this.cachePath)) await this.fs.remove(this.cachePath)
     } catch (error) {}
+  }
+
+  /**
+   * Command cache path
+   */
+  public get cachePath() {
+    return join(this.context.paths.storage, `bud.commands.yml`)
+  }
+
+  /**
+   * Write command cache
+   */
+  @bind
+  public async cacheWrite() {
+    if (this.paths)
+      await this.fs.write(this.cachePath, this.paths)
   }
 
   /**
@@ -81,12 +96,12 @@ export class Commands {
     return await Promise.all(
       this.paths.map(async path => {
         try {
-          return await import(path).then(({default: register}) => register)
+          return [path, await import(path).then(({default: register}) => register)]
         } catch (error) {
-          await this.clearCommandCache()
+          await this.cacheClear()
         }
       }),
-    ).catch(this.clearCommandCache)
+    ).catch(this.cacheClear)
   }
 
   /**
@@ -102,13 +117,18 @@ export class Commands {
     try {
       if (await this.fs.exists(path)) {
         this.paths = await this.fs.read(path)
-        if (Array.isArray(this.paths)) return this.paths
+        if (Array.isArray(this.paths)) return this
+        else throw new Error(`Invalid command cache.`)
       }
     } catch (error) {}
 
     await this.findRegistrationModules()
     await this.fs.write(path, this.paths)
-    return this.paths
+    return this
+  }
+
+  @bind public async readCache() {
+    return await this.fs.read(this.cachePath)
   }
 
   @bind

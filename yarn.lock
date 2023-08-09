@@ -4705,6 +4705,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@examples/sage@workspace:examples/sage"
   dependencies:
+    "@roots/browserslist-config": "workspace:*"
     "@roots/bud": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@roots/sage": "workspace:*"

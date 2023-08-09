@@ -1,8 +1,7 @@
 import type mode from '@roots/bud/cli/flags/mode'
 
 import {Command} from '@roots/bud-support/clipanion'
-
-import BuildCommand from './bud.build.js'
+import BuildCommand from '@roots/bud/cli/commands/build'
 
 /**
  * `bud build production` command

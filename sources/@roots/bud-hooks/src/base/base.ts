@@ -32,7 +32,7 @@ export abstract class Hooks<Store> {
 
   @bind
   public catch(e: Error, id?: string, iteration?: number): void {
-    throw new BudError(`problem running hook ${id}`, {cause: e})
+    throw new BudError(`problem running hook ${id}`, {origin: e})
   }
 
   /**

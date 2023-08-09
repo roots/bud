@@ -3,13 +3,11 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/lodash/isString'
 import whichPm from '@roots/bud-support/which-pm'
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
+import BudCommand from '@roots/bud/cli/commands'
 
 /**
  * `bud upgrade` command
  */
-@dry
 export default class BudUpgradeCommand extends BudCommand {
   /**
    * {@link Command.paths}

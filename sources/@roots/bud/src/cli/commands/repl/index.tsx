@@ -2,7 +2,7 @@ import {bind} from '@roots/bud-framework/extension/decorators'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 import indent from '@roots/bud/cli/flags/indent'
 
 /**

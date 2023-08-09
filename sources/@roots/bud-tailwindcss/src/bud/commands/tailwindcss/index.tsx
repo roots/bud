@@ -1,7 +1,7 @@
 import {relative} from 'node:path'
 
 import {Option} from '@roots/bud-support/clipanion'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 
 export class BudTailwindCommand extends BudCommand {
   /**

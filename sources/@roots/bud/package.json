@@ -58,11 +58,23 @@
   "exports": {
     ".": "./lib/index.js",
     "./bud": "./lib/bud.js",
-    "./cli/commands/*": "./lib/cli/commands/*.js",
-    "./cli/decorators/*": "./lib/cli/decorators/*.js",
+    "./cli": "./lib/cli/index.js",
+    "./cli/app": "./lib/cli/app.js",
+    "./cli/commands": "./lib/cli/commands/index.js",
+    "./cli/commands/bud": "./lib/cli/commands/index.js",
+    "./cli/commands/build": "./lib/cli/commands/build/index.js",
+    "./cli/commands/build/development": "./lib/cli/commands/build/development/index.js",
+    "./cli/commands/build/production": "./lib/cli/commands/build/production/index.js",
+    "./cli/commands/clean": "./lib/cli/commands/clean/index.js",
+    "./cli/commands/doctor": "./lib/cli/commands/doctor/index.js",
+    "./cli/commands/repl": "./lib/cli/commands/repl/index.js",
+    "./cli/commands/upgrade": "./lib/cli/commands/upgrade/index.js",
+    "./cli/commands/view": "./lib/cli/commands/view/index.js",
+    "./cli/commands/webpack": "./lib/cli/commands/webpack/index.js",
+    "./cli/finder": "./lib/cli/finder.js",
     "./cli/flags": "./lib/cli/flags/index.js",
+    "./cli/flags/*": "./lib/cli/flags/*.js",
     "./cli/helpers/*": "./lib/cli/helpers/*.js",
-    "./cli/*": "./lib/cli/*.js",
     "./context": "./lib/context/index.js",
     "./context/*": "./lib/context/*.js",
     "./factory": "./lib/factory.js",
@@ -81,11 +93,44 @@
       "cli": [
         "./lib/cli/index.d.ts"
       ],
+      "cli/app": [
+        "./lib/cli/app.d.ts"
+      ],
       "cli/commands": [
         "./lib/cli/commands/index.d.ts"
       ],
-      "cli/decorators/*": [
-        "./lib/cli/decorators/*.d.ts"
+      "cli/commands/bud": [
+        "./lib/cli/commands/index.d.ts"
+      ],
+      "cli/commands/build": [
+        "./lib/cli/commands/build/index.d.ts"
+      ],
+      "cli/commands/build/development": [
+        "./lib/cli/commands/build/development/index.d.ts"
+      ],
+      "cli/commands/build/production": [
+        "./lib/cli/commands/build/production/index.d.ts"
+      ],
+      "cli/commands/clean": [
+        "./lib/cli/commands/clean/index.d.ts"
+      ],
+      "cli/commands/doctor": [
+        "./lib/cli/commands/doctor/index.d.ts"
+      ],
+      "cli/commands/repl": [
+        "./lib/cli/commands/repl/index.d.ts"
+      ],
+      "cli/commands/upgrade": [
+        "./lib/cli/commands/upgrade/index.d.ts"
+      ],
+      "cli/commands/view": [
+        "./lib/cli/commands/view/index.d.ts"
+      ],
+      "cli/commands/webpack": [
+        "./lib/cli/commands/webpack/index.d.ts"
+      ],
+      "cli/finder": [
+        "./lib/cli/finder.d.ts"
       ],
       "cli/flags": [
         "./lib/cli/flags/index.d.ts"

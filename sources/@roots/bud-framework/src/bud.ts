@@ -324,7 +324,7 @@ export class Bud {
 
     await this.children[context.label].promise()
 
-    this.get(context.label).hooks.on(
+    this.get(context.label)?.hooks.on(
       `build.dependencies`,
       typeof request !== `string` && request.dependsOn
         ? request.dependsOn

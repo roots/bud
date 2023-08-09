@@ -1,3 +1,5 @@
+import type BudCommand from '@roots/bud/cli/commands'
+
 import {exit} from 'node:process'
 
 import figures from '@roots/bud-support/figures'
@@ -8,8 +10,6 @@ import {
   useInput,
   useState,
 } from '@roots/bud-support/ink'
-
-import type BudCommand from '../commands/bud.js'
 
 export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
   const [defined] = useState(cli.definitions())

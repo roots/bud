@@ -13,7 +13,7 @@ import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 
 import {WinError} from './WinError.js'
 
