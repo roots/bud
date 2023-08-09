@@ -71,7 +71,8 @@ const makePrettifier = (bud: Bud) => (error: StatsError) => {
     .replace(/Module build failed \(.*\):?/, ``)
     .replace(/    at .*?\/(webpack|tapable)\/?.*/gm, ``)
     .trim()
-    .split(`Error:`)
+    .split(/\s?.*?Error:\s/)
+
   const lastSegment = segments.pop()
   if (!lastSegment) return error
 

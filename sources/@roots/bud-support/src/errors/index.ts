@@ -76,10 +76,10 @@ class BudError extends Error {
   /**
    * Class constructor
    */
-  public constructor(message: string, options?: Partial<BudErrorProps>) {
+  public constructor(message: string, options: Partial<BudErrorProps> = {}) {
     super(message)
 
-    options && Object.assign(this, options)
+    Object.assign(this, options)
 
     if (!this.instance) this.instance = `default`
 
@@ -90,6 +90,7 @@ class BudError extends Error {
           !path.includes(`bud-support/lib/errors`),
       })
     }
+
     if (this.message) {
       this.message = cleanStack(this.message, {
         pathFilter: path =>
@@ -97,6 +98,11 @@ class BudError extends Error {
           !path.includes(`bud-support/lib/errors`),
       })
     }
+
+    if (this.thrownBy) {
+      this.thrownBy = this.thrownBy.replace(process.cwd(), ``)
+    }
+
     this.isBudError = true
   }
 
