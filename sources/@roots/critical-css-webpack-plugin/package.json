@@ -42,6 +42,7 @@
     "webpack"
   ],
   "files": [
+    "@types",
     "docs",
     "lib",
     "src"

@@ -39,6 +39,7 @@
     "criticalcss"
   ],
   "files": [
+    "@types",
     "docs",
     "lib",
     "src"
