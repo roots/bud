@@ -1,5 +1,5 @@
 import {bind} from '@roots/bud-support/decorators/bind'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 
 /**
  * Bud ts check command

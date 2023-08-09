@@ -3,7 +3,7 @@ import {highlight} from '@roots/bud-support/highlight'
 import {Box, Text} from '@roots/bud-support/ink'
 import get from '@roots/bud-support/lodash/get'
 import format from '@roots/bud-support/pretty-format'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 import indent from '@roots/bud/cli/flags/indent'
 
 /**

@@ -1,4 +1,4 @@
-import type {Context} from '@roots/bud-framework'
+import type {Context} from '@roots/bud-framework/context'
 
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
@@ -19,7 +19,7 @@ export type Options = Omit<Partial<Context>, `extensions`> & {
 }
 
 export default async (options: Options = {}): Promise<Context> => {
-  let basedir = options?.basedir ?? process.cwd()
+  const basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
 
   const fs = filesystem.get(paths.basedir)

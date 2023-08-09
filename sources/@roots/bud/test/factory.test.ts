@@ -1,14 +1,13 @@
 import {join} from 'node:path'
 
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
+import {factory} from '@roots/bud/factory'
 import {describe, expect, test} from 'vitest'
-
-import {factory} from '../src/factory.js'
 
 describe(`@roots/bud/factory`, () => {
   test(`should merge overrides`, async () => {
     const bud = await factory({
-      basedir: join(paths.tests, `util`, `project`),
+      basedir: join(path(`tests`), `util`, `project`),
       dry: true,
       log: false,
     })

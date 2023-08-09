@@ -1,5 +1,5 @@
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
-import BudCommand from '@roots/bud/cli/commands/bud'
+import BudCommand from '@roots/bud/cli/commands'
 import cache from '@roots/bud/cli/flags/cache'
 import ci from '@roots/bud/cli/flags/ci'
 import clean from '@roots/bud/cli/flags/clean'

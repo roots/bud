@@ -3,13 +3,11 @@ import type {Bud} from '@roots/bud'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, Text} from '@roots/bud-support/ink'
-import BudCommand from '@roots/bud/cli/commands/bud'
-import {dry} from '@roots/bud/cli/decorators/dry'
+import BudCommand from '@roots/bud/cli/commands'
 
 /**
  * `bud clean`
  */
-@dry
 export default class BudCleanCommand extends BudCommand {
   public static override paths = [[`clean`]]
 

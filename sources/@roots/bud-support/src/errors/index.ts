@@ -1,3 +1,5 @@
+import cleanStack from 'clean-stack'
+
 /**
  * Props for Bud errors
  */
@@ -14,7 +16,7 @@ interface BudErrorProps extends Error {
   isBudError: true
   issue: URL
   message: string
-  origin: BudError
+  origin: BudError | Error | string
   thrownBy: string
 }
 
@@ -64,7 +66,7 @@ class BudError extends Error {
   /**
    * Original error
    */
-  public declare origin: BudError | false
+  public declare origin: BudError | Error | string
 
   /**
    * Name of method that threw error
@@ -81,6 +83,20 @@ class BudError extends Error {
 
     if (!this.instance) this.instance = `default`
 
+    if (this.stack) {
+      this.stack = cleanStack(this.stack, {
+        pathFilter: path =>
+          !path.includes(`react-reconciler`) &&
+          !path.includes(`bud-support/lib/errors`),
+      })
+    }
+    if (this.message) {
+      this.message = cleanStack(this.message, {
+        pathFilter: path =>
+          !path.includes(`react-reconciler`) &&
+          !path.includes(`bud-support/lib/errors`),
+      })
+    }
     this.isBudError = true
   }
 

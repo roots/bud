@@ -30,8 +30,6 @@ import verbose from '@roots/bud/cli/flags/verbose'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
 
-import type {CLIContext} from '../index.js'
-
 import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
 
@@ -39,9 +37,9 @@ export type {BaseContext, Context}
 export {Option}
 
 /**
- * {@link Command}
+ * Base {@link Command}
  */
-export default class BudCommand extends Command<CLIContext> {
+export default class BudCommand extends Command<BaseContext & Context> {
   /**
    * {@link Command.paths}
    */
@@ -85,8 +83,6 @@ export default class BudCommand extends Command<CLIContext> {
   public declare bud?: Bud | undefined
 
   public color: typeof color = color
-
-  public declare context: CLIContext
 
   public debug: typeof debug = debug
 
