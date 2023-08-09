@@ -1,4 +1,4 @@
-import type {CommandClass} from '@roots/bud-support/clipanion'
+import type {BaseContext, CommandClass} from '@roots/bud-support/clipanion'
 
 import {exit, stderr, stdin, stdout} from 'node:process'
 
@@ -33,7 +33,7 @@ const onError = (error: Error) => {
 /**
  * Built-in commands
  */
-const commands: Array<CommandClass> = [
+const commands: Array<CommandClass<BaseContext & Context>> = [
   Builtins.HelpCommand,
   Builtins.VersionCommand,
   BudCommand,
@@ -58,7 +58,7 @@ const context: Context = {
   stdout,
 }
 
-const application = new Cli({
+const application = new Cli<BaseContext & Context>({
   binaryLabel: `bud`,
   binaryName: `bud`,
   binaryVersion: context.bud.version,

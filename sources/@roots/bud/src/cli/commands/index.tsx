@@ -39,7 +39,7 @@ export {Option}
 /**
  * {@link Command}
  */
-export default class BudCommand extends Command<Context> {
+export default class BudCommand extends Command<BaseContext & Context> {
   /**
    * {@link Command.paths}
    */
@@ -83,8 +83,6 @@ export default class BudCommand extends Command<Context> {
   public declare bud?: Bud | undefined
 
   public color: typeof color = color
-
-  public declare context: Context
 
   public debug: typeof debug = debug
 

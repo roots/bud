@@ -26,6 +26,5 @@ interface Config {
 }
 
 export {Bud, type Config}
-
 export {factory} from '@roots/bud/factory'
 export {get, instance as bud, set} from '@roots/bud/instance'

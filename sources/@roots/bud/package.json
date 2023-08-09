@@ -57,7 +57,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./bud": "./lib/bud.js",
+    "./bud": "./lib/bud/index.js",
     "./cli": "./lib/cli/index.js",
     "./cli/app": "./lib/cli/app.js",
     "./cli/commands": "./lib/cli/commands/index.js",
@@ -77,8 +77,8 @@
     "./cli/helpers/*": "./lib/cli/helpers/*.js",
     "./context": "./lib/context/index.js",
     "./context/*": "./lib/context/*.js",
-    "./factory": "./lib/factory.js",
-    "./instance": "./lib/instance.js",
+    "./factory": "./lib/factory/index.js",
+    "./instance": "./lib/instance/index.js",
     "./config/jsconfig.json": "./config/jsconfig.json",
     "./config/tsconfig.json": "./config/tsconfig.json"
   },
@@ -88,7 +88,7 @@
         "./lib/index.d.ts"
       ],
       "bud": [
-        "./lib/bud.d.ts"
+        "./lib/bud/index.d.ts"
       ],
       "cli": [
         "./lib/cli/index.d.ts"
@@ -148,10 +148,10 @@
         "./lib/context/*.d.ts"
       ],
       "factory": [
-        "./lib/factory.d.ts"
+        "./lib/factory/index.d.ts"
       ],
       "instance": [
-        "./lib/instance.d.ts"
+        "./lib/instance/index.d.ts"
       ]
     }
   },
