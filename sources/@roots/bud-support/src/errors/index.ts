@@ -76,7 +76,10 @@ class BudError extends Error {
   /**
    * Class constructor
    */
-  public constructor(message: string, options: Partial<BudErrorProps> = {}) {
+  public constructor(
+    message: string,
+    options: Partial<BudErrorProps> = {},
+  ) {
     super(message)
 
     Object.assign(this, options)

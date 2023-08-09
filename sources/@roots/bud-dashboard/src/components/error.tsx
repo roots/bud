@@ -13,11 +13,12 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
     normalError = BudError.normalize(`Unknown error`)
   }
 
-
   normalError =
     error instanceof BudError ? error : BudError.normalize(error)
 
-  const hasOrigin = normalError.origin instanceof BudError && `message` in normalError.origin
+  const hasOrigin =
+    normalError.origin instanceof BudError &&
+    `message` in normalError.origin
 
   return (
     <Static items={[0]}>
@@ -131,9 +132,14 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
                 paddingLeft={1}
               >
                 {/* @ts-ignore */}
-                <Text>{normalError.origin.message}{`\n`}</Text>
+                <Text>
+                  {normalError.origin.message}
+                  {`\n`}
+                </Text>
                 {/* @ts-ignore */}
-                {normalError.origin.stack && <Text>{normalError.origin.stack}</Text>}
+                {normalError.origin.stack && (
+                  <Text>{normalError.origin.stack}</Text>
+                )}
               </Box>
             </Box>
           )}
