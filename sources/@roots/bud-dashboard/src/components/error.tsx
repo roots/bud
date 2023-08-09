@@ -10,15 +10,10 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
   let normalError: BudError
 
   if (!error) {
-    normalError = BudError.normalize(`Unknown error`)
+    error = BudError.normalize(`Unknown error`)
   }
-
   normalError =
     error instanceof BudError ? error : BudError.normalize(error)
-
-  const hasOrigin =
-    normalError.origin instanceof BudError &&
-    `message` in normalError.origin
 
   return (
     <Static items={[0]}>
@@ -93,7 +88,7 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
             </Box>
           )}
 
-          {!hasOrigin && normalError.stack && (
+          {normalError.origin && !(normalError.origin instanceof BudError) && normalError.stack && (
             <Box flexDirection="column" marginTop={1}>
               <Text color="blue">
                 {figures.home}
@@ -114,7 +109,7 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
             </Box>
           )}
 
-          {hasOrigin && (
+          {normalError.origin && (normalError.origin instanceof BudError) && normalError.stack && (
             <Box flexDirection="column" marginTop={1}>
               <Text color="blue">
                 {figures.home}
@@ -131,12 +126,10 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
                 flexDirection="column"
                 paddingLeft={1}
               >
-                {/* @ts-ignore */}
                 <Text>
                   {normalError.origin.message}
                   {`\n`}
                 </Text>
-                {/* @ts-ignore */}
                 {normalError.origin.stack && (
                   <Text>{normalError.origin.stack}</Text>
                 )}

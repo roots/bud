@@ -102,9 +102,7 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
             throw `${path} does not export a module exporting a registration function.`
 
           await registerCommand(application).catch(error => {
-            throw new BudError(error, {
-              thrownBy: path,
-            })
+            throw new BudError(error, {thrownBy: path})
           })
         },
       ),
