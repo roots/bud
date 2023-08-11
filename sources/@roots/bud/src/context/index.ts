@@ -36,6 +36,7 @@ export default async (options: Options = {}): Promise<Context> => {
   const files: Context[`files`] = await projectFiles.get(paths.basedir)
   const extensions: Context[`extensions`] = getExtensions(
     manifest,
+    args.use ?? [],
     options?.extensions,
   )
 

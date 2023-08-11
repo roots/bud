@@ -46,7 +46,8 @@ const extensions: Extensions = {
 
 export default (
   manifest?: Context[`manifest`],
-  options?: Array<string>,
+  flagged: Array<string> = [],
+  options: Array<string> = [],
 ) => {
   if (!manifest || args.discovery === false)
     return withOptions(extensions, options)
@@ -79,6 +80,8 @@ export default (
       extensions.discovered.push(signifier),
     )
 
+  ;(flagged ?? []).forEach(signifier => extensions.discovered.push(signifier))
+
   return withOptions(extensions, options)
 }
 
@@ -88,6 +91,6 @@ const withOptions = (
 ) => {
   return {
     ...extensions,
-    discovered: options ?? extensions.discovered,
+    discovered: [...extensions.discovered, ...options],
   }
 }
