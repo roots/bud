@@ -86,7 +86,7 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
     const finder = new Finder(context, application)
     if (!force) await finder.init()
     else {
-      await finder.findRegistrationModules()
+      await finder.getModules()
       await finder.cacheWrite()
     }
 

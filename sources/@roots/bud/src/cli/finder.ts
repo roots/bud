@@ -1,11 +1,10 @@
-/* eslint-disable no-console */
 import type {Context} from '@roots/bud-framework/context'
 
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {filesystem} from '@roots/bud-support/filesystem'
+import {filesystem as fs} from '@roots/bud-support/filesystem'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/lodash/isString'
 
@@ -15,8 +14,9 @@ import type {Cli} from './app.js'
  * Command finder class
  */
 export class Finder {
-  public static instance: Finder
-  public fs: typeof filesystem = filesystem
+  /**
+   * Command paths
+   */
   public paths: Array<string>
 
   /**
@@ -28,64 +28,84 @@ export class Finder {
   ) {}
 
   /**
-   * Clear command cache
+   * Is cacheable
+   */
+  public get cacheable(): boolean {
+    return (
+      !this.context.use &&
+      this.context.cache !== false &&
+      this.context.force !== true
+    )
+  }
+
+  /**
+   * Clear cache
    */
   @bind
   public async cacheClear() {
     try {
-      if (await this.fs.exists(this.cachePath))
-        await this.fs.remove(this.cachePath)
+      if (await fs.exists(this.cachePath)) await fs.remove(this.cachePath)
     } catch (error) {}
   }
 
   /**
-   * Command cache path
+   * Cache path
    */
   public get cachePath() {
     return join(this.context.paths.storage, `bud.commands.yml`)
   }
 
   /**
-   * Write command cache
+   * Read cache
    */
   @bind
-  public async cacheWrite() {
-    if (this.paths) await this.fs.write(this.cachePath, this.paths)
+  public async cacheRead() {
+    return await fs.read(this.cachePath)
   }
 
   /**
-   * Find commands shipped with a given extension
+   * Write cache
    */
   @bind
-  public findExtensionCommandPaths(paths: Array<string>) {
-    return paths
-      .map(dirname)
-      .map(path => join(path, join(`bud`, `commands`, `index.js`)))
+  public async cacheWrite() {
+    if (this.paths && this.cacheable)
+      await fs.write(this.cachePath, this.paths)
   }
 
   /**
    * Get registration module paths
    */
   @bind
-  public async findRegistrationModules(): Promise<Array<any>> {
-    this.paths = await this.resolveExtensionCommandPaths(
-      this.getProjectDependencySignifiers(),
-    )
-      .then(this.findExtensionCommandPaths)
-      .then(this.resolveExtensionCommandPaths)
+  public async getModules(): Promise<Array<any>> {
+    this.paths = await this.resolve(this.getSignifiers())
+      .then(this.getPaths)
+      .then(this.resolve)
 
     return this.paths
   }
 
   /**
-   * Get array of project dependency and devDependency signifiers
+   * Get paths
    */
   @bind
-  public getProjectDependencySignifiers(): Array<string> {
-    return Object.keys({
-      ...(this.context.manifest?.dependencies ?? {}),
-      ...(this.context.manifest?.devDependencies ?? {}),
-    }).filter(signifier => !signifier.startsWith(`@types`))
+  public getPaths(paths: Array<string>) {
+    return paths
+      .map(dirname)
+      .map(path => join(path, join(`bud`, `commands`, `index.js`)))
+  }
+
+  /**
+   * Get array of project dependencies
+   */
+  @bind
+  public getSignifiers(): Array<string> {
+    return [
+      ...Object.keys({
+        ...(this.context.manifest?.dependencies ?? {}),
+        ...(this.context.manifest?.devDependencies ?? {}),
+      }),
+      ...(this.context.use ?? []),
+    ].filter(signifier => !signifier.startsWith(`@types`))
   }
 
   /**
@@ -118,24 +138,26 @@ export class Finder {
   public async init() {
     const path = join(this.context.paths.storage, `bud.commands.yml`)
     try {
-      if (await this.fs.exists(path)) {
-        this.paths = await this.fs.read(path)
+      if (
+        (await fs.exists(path)) &&
+        this.cacheable
+      ) {
+        this.paths = await fs.read(path)
         if (Array.isArray(this.paths)) return this
-        else throw new Error(`Invalid command cache.`)
+        else throw new Error()
       }
     } catch (error) {}
 
-    await this.findRegistrationModules()
-    await this.fs.write(path, this.paths)
+    await this.getModules()
+    await this.cacheWrite()
     return this
   }
 
-  @bind public async readCache() {
-    return await this.fs.read(this.cachePath)
-  }
-
+  /**
+   * Resolve signifiers against import.meta.url
+   */
   @bind
-  public async resolveExtensionCommandPaths(paths: Array<string>) {
+  public async resolve(paths: Array<string>) {
     return await Promise.all(
       paths.map(async path => {
         try {
@@ -149,7 +171,7 @@ export class Finder {
           await Promise.all(
             paths.map(async path => {
               try {
-                const exists = await this.fs.exists(path)
+                const exists = await fs.exists(path)
                 if (exists) return path
               } catch (error) {}
             }),

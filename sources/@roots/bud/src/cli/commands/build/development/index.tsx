@@ -37,7 +37,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
-  public override browser = browser
+  public browser = browser
 
   public hot = hot
 

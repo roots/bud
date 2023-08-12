@@ -1,7 +1,6 @@
 import type {Context} from '@roots/bud-framework/context'
 import type {BaseContext} from '@roots/bud-support/clipanion'
 import type {ExecaReturnValue} from '@roots/bud-support/execa'
-import type browser from '@roots/bud/cli/flags/browser'
 
 import {join, parse} from 'node:path'
 import {env, exit} from 'node:process'
@@ -17,15 +16,18 @@ import isNumber from '@roots/bud-support/lodash/isNumber'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import basedir from '@roots/bud/cli/flags/basedir'
+import cache from '@roots/bud/cli/flags/cache'
 import color from '@roots/bud/cli/flags/color'
 import debug from '@roots/bud/cli/flags/debug'
 import dry from '@roots/bud/cli/flags/dry'
 import filter from '@roots/bud/cli/flags/filter'
+import force from '@roots/bud/cli/flags/force'
 import log from '@roots/bud/cli/flags/log'
 import mode from '@roots/bud/cli/flags/mode'
 import notify from '@roots/bud/cli/flags/notify'
 import silent from '@roots/bud/cli/flags/silent'
 import storage from '@roots/bud/cli/flags/storage'
+import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
@@ -78,17 +80,19 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public basedir = basedir
 
-  public declare browser?: typeof browser
-
   public declare bud?: Bud | undefined
 
-  public color: typeof color = color
+  public cache = cache
 
-  public debug: typeof debug = debug
+  public color = color
+
+  public debug = debug
 
   public dry = dry(true)
 
-  public filter: typeof filter = filter
+  public filter = filter
+
+  public force = force
 
   public log = log
 
@@ -99,6 +103,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
   public silent = silent(true)
 
   public storage = storage
+
+  public use = use
 
   public verbose: typeof verbose = false
 
@@ -141,8 +147,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
       .on(`disconnect`, bail)
       .on(`close`, bail)
 
-    const result = await process
-    return result
+    return await process
   }
 
   /**
