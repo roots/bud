@@ -5,6 +5,10 @@ export default async function installTask(command: CreateCommand) {
   const spinner = command.createSpinner()
   spinner.start(`Installing runtime dependencies...`)
 
+  if (!command.dependencies?.length) {
+    return spinner.succeed(`No runtime dependencies to install.`)
+  }
+
   try {
     switch (command.packageManager) {
       case `npm`:
