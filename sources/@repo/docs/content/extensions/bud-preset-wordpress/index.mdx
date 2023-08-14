@@ -27,36 +27,22 @@ npm install @roots/bud-preset-wordpress --save-dev
 
 If you are using [roots/sage](https://roots.io/sage) these details are handled for you by Acorn.
 
-Otherwise you will want to do something like this:
+If not, you will want to do something like this:
 
 ```php
 add_action('enqueue_block_editor_assets', function () {
-  // couple helper functions
-  $get_path = fn ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
-  $read = fn ($endpoint) => file_get_contents($dist_path($endpoint));
+  $url = fn ($endpoint) => join("/", [plugin_dir_url(__FILE__), 'dist', $endpoint]);
+  $path = fn ($endpoint) => join("/", [plugin_dir_path(__FILE__), 'dist', $endpoint]);
+  $read = fn ($endpoint) => file_get_contents($path($endpoint));
 
-  // entrypoints.json as an object
   $entrypoints = json_decode($read('entrypoints.json'));
 
   wp_enqueue_script(
-    'my-theme/editor/js',
-    $get_path($entrypoints->editor->js[1]),
+    'my-plugin/js',
+    $url($entrypoints->app->js[0]),
     [],
     null,
     true
-  );
-
-  wp_enqueue_inline_script(
-    'my-theme/editor/js',
-    $read($entrypoints->editor->js[0]),
-    'before',
-  );
-
-  wp_enqueue_style(
-    'my-theme/editor/css',
-    $get_path($entrypoints->editor->css[0]),
-    [],
-    null
   );
 });
 ```
@@ -100,26 +86,23 @@ If you check out `entrypoints.json` you'll see the WordPress dependencies listed
 
 The intent is for you to read this file in your WordPress theme or plugin and enqueue the dependencies dynamically.
 
-For example, building off the previous example code, this is how one might handle enqueues in a WordPress theme:
+Building off the previous example code, this is how one might handle enqueueing dependencies with the WordPress API:
 
 ```php
 add_action('enqueue_block_editor_assets', function () {
-  // couple helper functions
-  $get_path = fn ($endpoint) => join([get_template_directory(), 'dist', $endpoint], '/');
-  $read = fn ($endpoint) => file_get_contents($dist_path($endpoint));
+  $url = fn ($endpoint) => join("/", [plugin_dir_url(__FILE__), 'dist', $endpoint]);
+  $path = fn ($endpoint) => join("/", [plugin_dir_path(__FILE__), 'dist', $endpoint]);
+  $read = fn ($endpoint) => file_get_contents($path($endpoint));
 
-  // entrypoints.json as an object
   $entrypoints = json_decode($read('entrypoints.json'));
 
   wp_enqueue_script(
-    'my-theme/editor/js',
-    $get_path($entrypoints->editor->js[1]),
-    $entrypoints->editor->dependencies,
+    'my-plugin/js',
+    $url($entrypoints->app->js[0]),
+    $entrypoints->app->dependencies,
     null,
     true
   );
-
-  // ...
 });
 ```
 
