@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.8",
-    "@types/node": "18.16.19",
+    "@types/node": "18.17.5",
     "@types/prettier": "2.7.3",
-    "vitest": "0.33.0"
+    "vitest": "0.34.1"
   },
   "dependencies": {
     "@octokit/core": "5.0.0",
@@ -20,18 +20,18 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "dotenv": "16.3.1",
-    "execa": "7.1.1",
+    "execa": "7.2.0",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",
     "gray-matter": "4.0.3",
-    "handlebars": "4.7.7",
+    "handlebars": "4.7.8",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
-    "octokit": "3.0.0",
-    "prettier": "3.0.0",
+    "octokit": "3.1.0",
+    "prettier": "3.0.1",
     "strip-ansi": "7.1.0",
-    "tslib": "2.6.0",
+    "tslib": "2.6.1",
     "typescript": "5.1.6"
   },
   "scripts": {

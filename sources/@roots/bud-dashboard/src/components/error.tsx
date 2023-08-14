@@ -88,54 +88,58 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
             </Box>
           )}
 
-          {normalError.origin && !(normalError.origin instanceof BudError) && normalError.stack && (
-            <Box flexDirection="column" marginTop={1}>
-              <Text color="blue">
-                {figures.home}
-                {` `}Stack trace{` `}
-              </Text>
-
-              <Box
-                borderBottom={false}
-                borderColor="red"
-                borderLeft
-                borderRight={false}
-                borderStyle="single"
-                borderTop={false}
-                paddingLeft={1}
-              >
-                <Text>{normalError.stack}</Text>
-              </Box>
-            </Box>
-          )}
-
-          {normalError.origin && (normalError.origin instanceof BudError) && normalError.stack && (
-            <Box flexDirection="column" marginTop={1}>
-              <Text color="blue">
-                {figures.home}
-                {` `}Originating error{` `}
-              </Text>
-
-              <Box
-                borderBottom={false}
-                borderColor="red"
-                borderLeft
-                borderRight={false}
-                borderStyle="single"
-                borderTop={false}
-                flexDirection="column"
-                paddingLeft={1}
-              >
-                <Text>
-                  {normalError.origin.message}
-                  {`\n`}
+          {normalError.origin &&
+            !(normalError.origin instanceof BudError) &&
+            normalError.stack && (
+              <Box flexDirection="column" marginTop={1}>
+                <Text color="blue">
+                  {figures.home}
+                  {` `}Stack trace{` `}
                 </Text>
-                {normalError.origin.stack && (
-                  <Text>{normalError.origin.stack}</Text>
-                )}
+
+                <Box
+                  borderBottom={false}
+                  borderColor="red"
+                  borderLeft
+                  borderRight={false}
+                  borderStyle="single"
+                  borderTop={false}
+                  paddingLeft={1}
+                >
+                  <Text>{normalError.stack}</Text>
+                </Box>
               </Box>
-            </Box>
-          )}
+            )}
+
+          {normalError.origin &&
+            normalError.origin instanceof BudError &&
+            normalError.stack && (
+              <Box flexDirection="column" marginTop={1}>
+                <Text color="blue">
+                  {figures.home}
+                  {` `}Originating error{` `}
+                </Text>
+
+                <Box
+                  borderBottom={false}
+                  borderColor="red"
+                  borderLeft
+                  borderRight={false}
+                  borderStyle="single"
+                  borderTop={false}
+                  flexDirection="column"
+                  paddingLeft={1}
+                >
+                  <Text>
+                    {normalError.origin.message}
+                    {`\n`}
+                  </Text>
+                  {normalError.origin.stack && (
+                    <Text>{normalError.origin.stack}</Text>
+                  )}
+                </Box>
+              </Box>
+            )}
         </Box>
       )}
     </Static>

@@ -121,20 +121,20 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.19",
-    "@types/react": "18.2.15",
+    "@types/node": "18.17.5",
+    "@types/react": "18.2.20",
     "@types/wordpress__blocks": "12.5.0",
     "@types/wordpress__plugins": "3.0.0",
     "@types/wordpress__rich-text": "6.4.0",
-    "@wordpress/blocks": "12.14.0",
-    "@wordpress/data": "9.7.0",
-    "@wordpress/hooks": "3.37.0",
-    "@wordpress/plugins": "6.5.0",
-    "@wordpress/rich-text": "6.14.0"
+    "@wordpress/blocks": "12.16.0",
+    "@wordpress/data": "9.9.0",
+    "@wordpress/hooks": "3.39.0",
+    "@wordpress/plugins": "6.7.0",
+    "@wordpress/rich-text": "6.16.0"
   },
   "dependencies": {
     "react": "18.2.0",
-    "tslib": "2.6.0"
+    "tslib": "2.6.1"
   },
   "volta": {
     "extends": "../../../package.json"

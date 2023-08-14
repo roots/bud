@@ -87,17 +87,17 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.19",
+    "@types/node": "18.17.5",
     "webpack": "5.88.2"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "stylelint": "15.10.1",
+    "stylelint": "15.10.2",
     "stylelint-config-standard": "34.0.0",
     "stylelint-webpack-plugin": "4.1.1",
-    "tslib": "2.6.0"
+    "tslib": "2.6.1"
   },
   "volta": {
     "extends": "../../../package.json"
