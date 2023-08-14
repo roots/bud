@@ -45,3 +45,23 @@ export default async bud => {
 
 There is still more that this function can do, but for our overview this is more than enough. You can learn more about this and
 other details in the [bud.entry documentation](/reference/bud.entry).
+
+## Entrypoints manifest
+
+When you build your application, bud.js will generate a manifest file that contains a list of all the entrypoints and their
+corresponding output files. This file is located at `@dist/entrypoints.json`.
+
+```json title=dist/entrypoints.json
+{
+  "app": {
+    "js": ["app.js"],
+    "css": ["app.css"]
+  },
+  "landing": {
+    "js": ["landing.js"],
+    "css": ["landing.css"]
+  }
+}
+```
+
+You can use this file to load your application scripts and styles using server-side languages like PHP or Ruby.
