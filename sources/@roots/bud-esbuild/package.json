@@ -67,15 +67,15 @@
   "devDependencies": {
     "@roots/bud-build": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.16.19"
+    "@types/node": "18.17.5"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "esbuild": "0.18.14",
-    "esbuild-loader": "3.0.1",
-    "tslib": "2.6.0",
+    "esbuild": "0.18.20",
+    "esbuild-loader": "3.2.0",
+    "tslib": "2.6.1",
     "webpack": "5.88.2"
   },
   "volta": {

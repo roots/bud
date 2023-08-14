@@ -106,15 +106,15 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.22.9",
+    "@babel/core": "7.22.10",
     "@roots/bud": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.1",
-    "@types/node": "18.16.19",
-    "@types/react": "18.2.15",
+    "@types/node": "18.17.5",
+    "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7"
   },
   "dependencies": {
@@ -126,7 +126,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-refresh": "0.14.0",
-    "tslib": "2.6.0",
+    "tslib": "2.6.1",
     "webpack": "5.88.2"
   },
   "volta": {

@@ -138,10 +138,7 @@ export class Finder {
   public async init() {
     const path = join(this.context.paths.storage, `bud.commands.yml`)
     try {
-      if (
-        (await fs.exists(path)) &&
-        this.cacheable
-      ) {
+      if ((await fs.exists(path)) && this.cacheable) {
         this.paths = await fs.read(path)
         if (Array.isArray(this.paths)) return this
         else throw new Error()

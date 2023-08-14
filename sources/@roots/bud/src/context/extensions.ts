@@ -79,8 +79,9 @@ export default (
     .map((signifier: keyof Modules & string) =>
       extensions.discovered.push(signifier),
     )
-
-  ;(flagged ?? []).forEach(signifier => extensions.discovered.push(signifier))
+  ;(flagged ?? []).forEach(signifier =>
+    extensions.discovered.push(signifier),
+  )
 
   return withOptions(extensions, options)
 }
