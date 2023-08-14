@@ -5,6 +5,10 @@ export default async function installTask(command: CreateCommand) {
   const spinner = command.createSpinner()
   spinner.start(`Installing development dependencies...`)
 
+  if (!command.dependencies?.length) {
+    return spinner.succeed(`No development dependencies to install.`)
+  }
+
   try {
     const formatSignifier = createSignifierFormatter(command)
 
