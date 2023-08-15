@@ -5,14 +5,11 @@ export default async function installTask(command: CreateCommand) {
   const spinner = command.createSpinner()
   spinner.start(`Installing development dependencies...`)
 
-  if (!command.dependencies?.length) {
-    return spinner.succeed(`No development dependencies to install.`)
-  }
-
   try {
     const formatSignifier = createSignifierFormatter(command)
 
     const dependencies = new Set([
+      `@roots/bud`,
       ...command.support.map(formatSignifier).filter(Boolean),
       ...command.devDependencies.map(formatSignifier).filter(Boolean),
     ])
@@ -26,12 +23,12 @@ export default async function installTask(command: CreateCommand) {
         await command.sh(`yarn`, [`add`, ...dependencies, `--dev`])
         break
     }
+
+    spinner.succeed()
   } catch (error) {
     spinner.fail()
     throw error
   }
-
-  spinner.succeed()
 }
 
 function createSignifierFormatter(
