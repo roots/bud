@@ -54,8 +54,8 @@ class BabelExtension extends Extension {
   public get configFile(): Record<string, any> | undefined {
     return Object.values(this.app.context.files).find(
       file =>
-        file.name === `.babelrc` ||
-        (file.name === `babel.config` && file.type === `module`),
+        file.name.includes(`babelrc`) ||
+        file.name === `babel.config`,
     )
   }
 
@@ -75,15 +75,16 @@ class BabelExtension extends Extension {
     const baseOptions = {
       cacheDirectory: this.cacheDirectory,
       cacheIdentifier: `babel`,
-      configFile: false,
     }
 
     if (this.configFile) {
       return {...baseOptions, ...this.configFileOptions}
     }
 
+
     return {
       ...baseOptions,
+      configFile: false,
       env: this.env,
       plugins: Object.values(this.plugins),
       presets: Object.values(this.presets),
@@ -118,10 +119,12 @@ class BabelExtension extends Extension {
       hooks.on(`build.cache.buildDependencies`, (paths = {}) => {
         if (isString(this.configFile)) {
           paths.babel = [this.configFile]
+
           this.logger.success(
             `babel config added to webpack build dependencies`,
           )
         }
+
         return paths
       })
 

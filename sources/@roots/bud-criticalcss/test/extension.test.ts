@@ -1,6 +1,6 @@
 import {join} from 'node:path'
 
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {execa} from 'execa'
 import * as fs from 'fs-jetpack'
 import {describe, expect, it} from 'vitest'
@@ -20,11 +20,12 @@ describe(`@roots/bud-criticalcss`, () => {
 }, 120000)
 
 const baseParts = [
-  paths.sources,
+  path(`sources`,
   `@roots`,
   `bud-criticalcss`,
   `test`,
   `__fixtures__`,
+  ),
 ]
 
 const runFixture = async (target: string) =>
