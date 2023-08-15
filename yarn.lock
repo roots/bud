@@ -9930,15 +9930,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tests/bud-babel__babelrc@workspace:sources/@roots/bud-babel/test/__fixtures__/babelrc":
-  version: 0.0.0-use.local
-  resolution: "@tests/bud-babel__babelrc@workspace:sources/@roots/bud-babel/test/__fixtures__/babelrc"
-  dependencies:
-    "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-  languageName: unknown
-  linkType: soft
-
 "@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract-func":
   version: 0.0.0-use.local
   resolution: "@tests/bud-criticalcss__extract-func@workspace:sources/@roots/bud-criticalcss/test/__fixtures__/extract-func"
