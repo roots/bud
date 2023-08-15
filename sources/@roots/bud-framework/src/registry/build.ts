@@ -2,6 +2,7 @@ import type {
   Compiler,
   Configuration,
   EntryObject,
+  FileCacheOptions,
   Optimization,
   RuleSetRule,
   StatsOptions,
@@ -10,11 +11,12 @@ import type {
 export interface Sync {
   bail: boolean
   cache: any
-  'cache.buildDependencies': Record<string, Array<string>>
-  'cache.cacheDirectory': string
-  'cache.managedPaths': Array<string>
-  'cache.name': string
-  'cache.type': `filesystem` | `memory`
+  'cache.allowCollectingMemory': FileCacheOptions[`allowCollectingMemory`]
+  'cache.buildDependencies': FileCacheOptions[`buildDependencies`]
+  'cache.cacheDirectory': FileCacheOptions[`cacheDirectory`]
+  'cache.managedPaths': FileCacheOptions[`managedPaths`]
+  'cache.name': FileCacheOptions[`name`]
+  'cache.type': FileCacheOptions[`type`]
   'cache.version': string
   context: Configuration[`context`]
   dependencies: Configuration[`dependencies`]
