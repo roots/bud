@@ -46,14 +46,47 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./hot": "./lib/hot/index.js",
+    "./hot/client": "./lib/hot/client/index.js",
+    "./hot/components": "./lib/hot/components/index.js",
+    "./hot/components/indicator": "./lib/hot/components/indicator/index.js",
+    "./hot/components/overlay": "./lib/hot/components/overlay/index.js",
+    "./hot/events": "./lib/hot/events/index.js",
+    "./hot/log": "./lib/hot/log/index.js",
+    "./hot/options": "./lib/hot/options/index.js",
     "./dom-ready": "./lib/dom-ready.js",
     "./lazy": "./lib/lazy.js",
-    "./lib/*": "./lib/*"
+    "./lib/*": "./lib/*",
+    "./log": "./lib/log.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "hot": [
+        "./lib/hot/index.d.ts"
+      ],
+      "hot/client": [
+        "./lib/hot/client/index.d.ts"
+      ],
+      "hot/components": [
+        "./lib/hot/components/index.d.ts"
+      ],
+      "hot/components/indicator": [
+        "./lib/hot/components/indicator/index.d.ts"
+      ],
+      "hot/components/overlay": [
+        "./lib/hot/components/overlay/index.d.ts"
+      ],
+      "hot/events": [
+        "./lib/hot/events/index.d.ts"
+      ],
+      "hot/log": [
+        "./lib/hot/log/index.d.ts"
+      ],
+      "hot/options": [
+        "./lib/hot/options/index.d.ts"
       ],
       "dom-ready": [
         "./lib/dom-ready.d.ts"
@@ -63,6 +96,12 @@
       ],
       "lib/*": [
         "./lib/*"
+      ],
+      "log": [
+        "./lib/log.d.ts"
+      ],
+      "types": [
+        "./lib/types/index.d.ts"
       ]
     }
   },

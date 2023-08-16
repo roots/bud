@@ -1,5 +1,5 @@
-import {Component} from './overlay.component.js'
-import {Controller} from './overlay.controller.js'
+import {Component} from './component.js'
+import {Controller} from './controller.js'
 
 export const make = (): {
   update: (data: Payload) => void

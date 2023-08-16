@@ -49,6 +49,6 @@ declare var bud: {
 
 declare module global {
   interface Window {
-    bud: typeof bud
+    bud?: typeof bud
   }
 }

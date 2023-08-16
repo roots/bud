@@ -2,15 +2,15 @@
 /* global __resourceQuery */
 /* global __webpack_hash__ */
 
-import * as components from './components/index.js'
-import {injectEvents} from './events.js'
-import {makeLogger} from './log.js'
-import * as clientOptions from './options.js'
+import * as components from '@roots/bud-client/hot/components'
+import {injectEvents} from '@roots/bud-client/hot/events'
+import {makeLogger} from '@roots/bud-client/hot/log'
+import * as clientOptions from '@roots/bud-client/hot/options'
 
 /**
  * Initializes bud.js HMR handling
  */
-export const client = async (
+export const initializeClient = async (
   queryString: string,
   webpackHot: __WebpackModuleApi.Hot,
 ) => {
@@ -34,20 +34,18 @@ export const client = async (
   /* Setup logger */
   const logger = makeLogger(options)
 
-  if (typeof window.bud === `undefined`) {
-    window.bud = {
-      controllers: [],
-      current: {},
-      hmr: {},
-      listeners: {},
-    }
+  window.bud = {
+    ...window.bud ?? {},
+    controllers: [...window.bud?.controllers ?? []],
+    current: {
+      ...window.bud?.current ?? {},
+      [options.name]: window.bud?.current?.[options.name] ?? null,
+    },
+    hmr: {...window.bud?.hmr ?? {}},
+    listeners: {...window.bud?.listeners ?? {}},
   }
 
-  if (!window.bud.current[options.name]) {
-    window.bud.current[options.name] = null
-  }
-
-  const isStale = (hash?: string) => {
+  const isStale = (hash?: string): boolean => {
     if (hash) window.bud.current[options.name] = hash
     return __webpack_hash__ === window.bud.current[options.name]
   }
@@ -61,7 +59,25 @@ export const client = async (
 
       requestAnimationFrame(async function whenReady() {
         if (webpackHot.status() === `ready`) {
-          await update()
+          await webpackHot
+            .apply({
+              ignoreDeclined: true,
+              ignoreErrored: true,
+              ignoreUnaccepted: true,
+              onDeclined: onUnacceptedOrDeclined,
+              onErrored: (error: any) => {
+                window.bud.controllers.map(
+                  controller =>
+                    controller?.update({
+                      errors: [error],
+                    }),
+                )
+              },
+              onUnaccepted: onUnacceptedOrDeclined,
+            })
+            .catch(logger.error)
+
+          if (!isStale()) await check()
         } else {
           requestAnimationFrame(whenReady)
         }
@@ -75,46 +91,12 @@ export const client = async (
   const onUnacceptedOrDeclined = (
     info: __WebpackModuleApi.HotNotifierInfo,
   ) => {
-    console.warn(`[${options.name}] ${info.type}`, info)
+    logger.warn(info.type, info)
     options.reload && window.location.reload()
   }
 
-  /**
-   * Webpack HMR error handler
-   */
-  const onErrored = (error: any) => {
-    window.bud.controllers.map(
-      controller =>
-        controller?.update({
-          errors: [error],
-        }),
-    )
-  }
-
-  /**
-   * Webpack HMR update handler
-   */
-  const update = async () => {
-    try {
-      await webpackHot.apply({
-        ignoreDeclined: true,
-        ignoreErrored: true,
-        ignoreUnaccepted: true,
-        onDeclined: onUnacceptedOrDeclined,
-        onErrored,
-        onUnaccepted: onUnacceptedOrDeclined,
-      })
-
-      if (!isStale()) await check()
-    } catch (error) {
-      logger.error(error)
-    }
-  }
-
   /* Instantiate indicator, overlay */
-  try {
-    await components.make(options)
-  } catch (error) {}
+  await components.make(options).catch(err => {})
 
   /* Instantiate eventSource */
   const events = injectEvents(EventSource).make(options)
@@ -127,6 +109,7 @@ export const client = async (
         return window.location.reload()
 
       if (payload.name !== options.name) return
+
       window.bud.controllers.map(controller => controller?.update(payload))
 
       if (payload.errors?.length > 0) return

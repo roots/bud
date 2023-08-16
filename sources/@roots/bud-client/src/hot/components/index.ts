@@ -1,5 +1,5 @@
-import * as Indicator from './indicator/index.js'
-import * as Overlay from './overlay/index.js'
+import * as Indicator from '@roots/bud-client/hot/components/indicator'
+import * as Overlay from '@roots/bud-client/hot/components/overlay'
 
 export const make: (
   options: Options,

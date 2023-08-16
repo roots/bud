@@ -2,15 +2,7 @@
 /* global __resourceQuery */
 /* global module */
 
-import {client} from './client.js'
-
-/**
- * Client entrypoint
- */
 ;(async function () {
-  try {
-    await client(__resourceQuery, import.meta.webpackHot)
-  } catch (err) {
-    console.error(err)
-  }
+  const {initializeClient} = await import(`@roots/bud-client/hot/client`)
+  await initializeClient(__resourceQuery, import.meta.webpackHot).catch(console.error)
 })()
