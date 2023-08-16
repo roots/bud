@@ -50,12 +50,16 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./helpers": "./lib/helpers.js",
     "./service": "./lib/service.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "./helpers": [
+        "./lib/helpers.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"

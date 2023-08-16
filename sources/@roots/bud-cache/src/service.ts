@@ -1,9 +1,16 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Configuration} from '@roots/bud-framework/config'
-import type {Cache as BudCache} from '@roots/bud-framework/services'
+import type {
+  Configuration,
+  FileCacheOptions,
+} from '@roots/bud-framework/config'
+import type {
+  Cache as BudCache,
+  CacheCallback as Callback,
+} from '@roots/bud-framework/services/cache'
 
 import {join} from 'node:path'
 
+import {isBuildDependency} from '@roots/bud-cache/helpers'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
@@ -16,6 +23,24 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.enabled}
    */
   public declare enabled: boolean
+  public set allowCollectingMemory(
+    value: Callback<FileCacheOptions[`allowCollectingMemory`]>,
+  ) {
+    this.app.hooks.on(`build.cache.allowCollectingMemory`, value)
+  }
+
+  /**
+   * {@link BudCache.allowCollectingMemory}
+   */
+  public get allowCollectingMemory(): FileCacheOptions[`allowCollectingMemory`] {
+    const fallback = true
+
+    const value = this.app.hooks.filter(
+      `build.cache.allowCollectingMemory`,
+      fallback,
+    )
+    return typeof value === `boolean` ? value : fallback
+  }
 
   /**
    * {@link Service.boot}
@@ -30,25 +55,26 @@ export default class Cache extends Service implements BudCache {
   /**
    *{@link BudCache.buildDependencies}
    */
-  public get buildDependencies(): Record<string, Array<string>> {
-    const baseDependencies = {
-      bud: [
+  public get buildDependencies(): FileCacheOptions[`buildDependencies`] {
+    const dependencies = new Set(
+      [
         this.app.context.files[`package`]?.path,
         ...Object.values(this.app.context.files)
-          .filter(({bud}) => bud)
+          .filter(isBuildDependency)
           .map(({path}) => path),
       ].filter(Boolean),
+    )
+    const records = {
+      bud: [...dependencies],
     }
 
     return (
-      this.app.hooks.filter(
-        `build.cache.buildDependencies`,
-        baseDependencies,
-      ) ?? baseDependencies
+      this.app.hooks.filter(`build.cache.buildDependencies`, records) ??
+      records
     )
   }
   public set buildDependencies(
-    dependencies: Record<string, Array<string>>,
+    dependencies: Callback<FileCacheOptions[`buildDependencies`]>,
   ) {
     this.app.hooks.on(`build.cache.buildDependencies`, dependencies)
   }
@@ -57,14 +83,16 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.cacheDirectory}
    */
   public get cacheDirectory(): string {
+    const fallback = this.app.path(`@storage`, this.app.label, `cache`)
     return (
-      this.app.hooks.filter(
-        `build.cache.cacheDirectory`,
-        this.app.path(`@storage`, this.app.label, `cache`),
-      ) ?? this.app.path(`@storage`, this.app.label, `cache`)
+      this.app.hooks.filter(`build.cache.cacheDirectory`, fallback) ??
+      fallback
     )
   }
-  public set cacheDirectory(directory: string) {
+
+  public set cacheDirectory(
+    directory: Callback<FileCacheOptions[`cacheDirectory`]>,
+  ) {
     this.app.hooks.on(`build.cache.cacheDirectory`, directory)
   }
 
@@ -77,7 +105,7 @@ export default class Cache extends Service implements BudCache {
     if (this.type === `memory`) return true
 
     return {
-      allowCollectingMemory: true,
+      allowCollectingMemory: this.allowCollectingMemory,
       buildDependencies: this.buildDependencies,
       cacheDirectory: this.cacheDirectory,
       compression: this.app.isDevelopment ? false : `brotli`,
@@ -91,7 +119,6 @@ export default class Cache extends Service implements BudCache {
       type: this.type,
     }
   }
-
   /**
    * {@link BudCache.flush}
    */
@@ -101,19 +128,47 @@ export default class Cache extends Service implements BudCache {
   }
 
   /**
+   * Get {@link BudCache.allowCollectingMemory}
+   */
+  public getAllowCollectingMemory() {
+    return this.allowCollectingMemory
+  }
+  /**
+   * Get {@link BudCache.buildDependencies}
+   */
+  public getBuildDependencies() {
+    return this.buildDependencies
+  }
+
+  /**
+   * Get {@link BudCache.cacheDirectory}
+   */
+  public getCacheDirectory() {
+    return this.cacheDirectory
+  }
+  /**
+   * Get {@link BudCache.type}
+   */
+  public getType() {
+    return this.type
+  }
+
+  /**
    * {@link BudCache.name}
    */
   public get name(): string {
+    const fallback = join(
+      this.app.mode,
+      ...Object.values(this.app.context._ ?? {}),
+    )
     return (
       this.app.hooks.filter(
         `build.cache.name`,
-        this.app.hooks.filter(
-          `build.name`,
-          join(this.app.mode, ...Object.values(this.app.context._ ?? {})),
-        ),
-      ) ?? join(this.app.mode, ...Object.values(this.app.context._ ?? {}))
+        this.app.hooks.filter(`build.name`, fallback),
+      ) ?? fallback
     )
   }
+
   public set name(name: string) {
     this.app.hooks.on(`build.cache.name`, name)
   }
@@ -125,31 +180,70 @@ export default class Cache extends Service implements BudCache {
     this.enabled = bud.context.cache !== false
     this.version = bud.context.bud.version
   }
+  /**
+   * Set {@link BudCache.allowCollectingMemory}
+   */
+  public setAllowCollectingMemory(
+    value: Callback<FileCacheOptions[`allowCollectingMemory`]>,
+  ): this {
+    this.allowCollectingMemory = value
+    return this
+  }
+
+  /**
+   * Set {@link BudCache.buildDependencies}
+   */
+  public setBuildDependencies(
+    dependencies:
+      | ((
+          records?: Record<string, Array<string>>,
+        ) => Record<string, Array<string>>)
+      | Record<string, Array<string>>,
+  ) {
+    this.buildDependencies = dependencies
+    return this
+  }
+
+  /**
+   * Set {@link BudCache.cacheDirectory}
+   */
+  public setCacheDirectory(
+    directory: Callback<FileCacheOptions[`cacheDirectory`]>,
+  ) {
+    this.cacheDirectory = directory
+    return this
+  }
+
+  /**
+   * Set {@link BudCache.type}
+   */
+  public setType(type: Callback<FileCacheOptions[`type`]>) {
+    this.type = type
+    return this
+  }
+
+  public set type(type: Callback<FileCacheOptions[`type`]>) {
+    this.app.hooks.on(`build.cache.type`, type)
+  }
 
   /**
    * {@link BudCache.type}
    */
   public get type(): 'filesystem' | 'memory' {
-    return (
-      this.app.hooks.filter(
-        `build.cache.type`,
-        isString(this.app.context.cache)
-          ? this.app.context.cache
-          : `filesystem`,
-      ) ?? `filesystem`
-    )
-  }
-  public set type(type: 'filesystem' | 'memory') {
-    this.app.hooks.on(`build.cache.type`, type)
+    const fallback = isString(this.app.context.cache)
+      ? this.app.context.cache
+      : `filesystem`
+
+    return this.app.hooks.filter(`build.cache.type`) ?? fallback
   }
 
+  public set version(version: string) {
+    this.app.hooks.on(`build.cache.version`, version)
+  }
   /**
    * {@link BudCache.version}
    */
   public get version(): string | undefined {
     return this.app.hooks.filter(`build.cache.version`, undefined)
-  }
-  public set version(version: string) {
-    this.app.hooks.on(`build.cache.version`, version)
   }
 }

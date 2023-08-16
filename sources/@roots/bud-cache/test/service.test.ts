@@ -48,11 +48,12 @@ describe(`@roots/bud-cache`, () => {
         "allowCollectingMemory": true,
         "buildDependencies": {
           "bud": [
-            "${bud.path()}/package.json",
-            "${bud.path()}/config/bud.config.js",
+            "${bud.path(`package.json`)}",
+            "${bud.path(`tsconfig.json`)}",
+            "${bud.path(`config/bud.config.js`)}",
           ],
           "tailwind": [
-            "${bud.path()}/config/tailwind.config.js",
+            "${bud.path(`config/tailwind.config.js`)}",
           ],
         },
         "cacheDirectory": "${bud.context.paths?.[`os-cache`]}/@tests/project/cache",
@@ -62,7 +63,7 @@ describe(`@roots/bud-cache`, () => {
         "idleTimeoutForInitialStore": 0,
         "managedPaths": [
           "${bud.context.paths?.[`os-cache`]}/@tests/project/cache",
-          "${bud.path()}/node_modules",
+          "${bud.path(`@modules`)}",
         ],
         "name": "production",
         "profile": false,
