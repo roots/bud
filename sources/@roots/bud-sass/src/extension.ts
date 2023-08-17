@@ -41,7 +41,7 @@ export class BudSass extends BudSassOptions {
   @bind
   public override async register({build, hooks}: Bud) {
     /** Source loader */
-    const loader = await this.resolve(`sass-loader`)
+    const loader = await this.resolve(`sass-loader`, import.meta.url)
     if (!loader) return this.logger.error(`sass-loader not found`)
 
     /** Source sass implementation */
