@@ -423,7 +423,7 @@ export class Extension<
   @bind
   public async import<T = any>(
     signifier: string,
-    context?: string,
+    context: string,
     options: {bustCache?: boolean; raw?: boolean} = {
       bustCache: false,
       raw: false,
@@ -464,7 +464,7 @@ export class Extension<
   @bind
   public async resolve(
     signifier: string,
-    context?: string,
+    context: string,
   ): Promise<string> {
     try {
       return await this.app.module.resolve(signifier, context)
