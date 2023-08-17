@@ -1,0 +1,57 @@
+diff --git a/lib/commands/build/bundle.js b/lib/commands/build/bundle.js
+index a7f4f2bdfcbdb0acf18424deccfadcffe853645c..442682828ab3787d12e9b203d43ab6aa8de3a08d 100644
+--- a/lib/commands/build/bundle.js
++++ b/lib/commands/build/bundle.js
+@@ -15,6 +15,7 @@ const util_1 = require("util");
+ const package_json_1 = tslib_1.__importDefault(require("../../../package.json"));
+ const findPlugins_1 = require("../../tools/findPlugins");
+ const execFile = (0, util_1.promisify)(child_process_1.default.execFile);
++const stripNodePath = require("../../tools/stripNodePath");
+ const pkgJsonVersion = (basedir) => {
+     return require(`${basedir}/package.json`).version;
+ };
+@@ -106,7 +107,7 @@ class BuildBundleCommand extends clipanion_1.Command {
+                     logLevel: `silent`,
+                     format: `iife`,
+                     platform: `node`,
+-                    plugins: [valLoader],
++                    plugins: [valLoader, stripNodePath],
+                     minify: !this.noMinify,
+                     sourcemap: this.sourceMap ? `inline` : false,
+                     target: `node${semver_1.default.minVersion(package_json_1.default.engines.node).version}`,
+diff --git a/lib/commands/build/plugin.js b/lib/commands/build/plugin.js
+index 03671b6a5bebcbfa468ee725ba8dd8574a0d8ce4..8391eec56abd7abc7d29978acd6c6285301a7bc2 100644
+--- a/lib/commands/build/plugin.js
++++ b/lib/commands/build/plugin.js
+@@ -9,6 +9,7 @@ const path_1 = tslib_1.__importDefault(require("path"));
+ const semver_1 = tslib_1.__importDefault(require("semver"));
+ const package_json_1 = tslib_1.__importDefault(require("../../../package.json"));
+ const isDynamicLib_1 = require("../../tools/isDynamicLib");
++const stripNodePath = require("../../tools/stripNodePath");
+ const matchAll = /()/;
+ // Splits a require request into its components, or return null if the request is a file path
+ const pathRegExp = /^(?![a-zA-Z]:[\\/]|\\\\|\.{0,2}(?:\/|$))((?:@[^/]+\/)?[^/]+)\/*(.*|)$/;
+@@ -90,7 +91,7 @@ class BuildPluginCommand extends clipanion_1.Command {
+                     logLevel: `silent`,
+                     format: `iife`,
+                     platform: `node`,
+-                    plugins: [dynamicLibResolver],
++                    plugins: [dynamicLibResolver, stripNodePath],
+                     minify: !this.noMinify,
+                     sourcemap: this.sourceMap ? `inline` : false,
+                     target: `node${semver_1.default.minVersion(package_json_1.default.engines.node).version}`,
+diff --git a/lib/tools/stripNodePath.js b/lib/tools/stripNodePath.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..60906a379ab5fd4b35e4dd2fa85b95f4768e320e
+--- /dev/null
++++ b/lib/tools/stripNodePath.js
+@@ -0,0 +1,8 @@
++module.exports = {
++  name: 'strip-node-path',
++  setup(build) {
++    build.onResolve({ filter: /^node:/ }, args => {
++      return { external: true, path: args.path.slice('node:'.length) }
++    })
++  }
++}
+\ No newline at end of file
