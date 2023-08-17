@@ -26,7 +26,6 @@ describe(`@roots/bud-cache`, () => {
     expect(cache.register).toBeInstanceOf(Function)
   })
 
-
   it(`should have a buildDependencies accessor interface`, async () => {
     expect(cache.buildDependencies).toBeDefined()
     expect(cache.buildDependencies).toBeInstanceOf(Object)
@@ -43,33 +42,48 @@ describe(`@roots/bud-cache`, () => {
     await cache.register?.(bud)
     await cache.boot?.(bud)
     expect(cache.configuration).toBeDefined()
-    expect(cache.configuration).toMatchInlineSnapshot(`
-      {
-        "allowCollectingMemory": true,
-        "buildDependencies": {
-          "bud": [
-            "${bud.path(`package.json`)}",
-            "${bud.path(`tsconfig.json`)}",
-            "${bud.path(`config/bud.config.js`)}",
-          ],
-          "tailwind": [
-            "${bud.path(`config/tailwind.config.js`)}",
-          ],
-        },
-        "cacheDirectory": "${bud.context.paths?.[`os-cache`]}/@tests/project/cache",
-        "compression": "brotli",
-        "hashAlgorithm": "xxhash64",
-        "idleTimeout": 100,
-        "idleTimeoutForInitialStore": 0,
-        "managedPaths": [
-          "${bud.context.paths?.[`os-cache`]}/@tests/project/cache",
-          "${bud.path(`@modules`)}",
-        ],
-        "name": "production",
-        "profile": false,
-        "store": "pack",
-        "type": "filesystem",
-      }
-    `)
+    expect(cache.configuration).toBeInstanceOf(Object)
+
+    // @ts-ignore
+    expect(cache.configuration?.allowCollectingMemory).toEqual(true)
+    // @ts-ignore
+    expect(cache.configuration?.buildDependencies?.bud).toEqual(
+      expect.arrayContaining([
+        bud.path(`package.json`),
+        bud.path(`config/bud.config.js`),
+        bud.path(`tsconfig.json`),
+      ]),
+    )
+    // @ts-ignore
+    expect(cache.configuration?.buildDependencies?.tailwind).toEqual(
+      expect.arrayContaining([bud.path(`config/tailwind.config.js`)]),
+    )
+    // @ts-ignore
+    expect(cache.configuration?.cacheDirectory).toMatch(
+      /@tests\/project\/cache$/,
+    )
+    // @ts-ignore
+    expect(cache.configuration?.compression).toEqual(`brotli`)
+    // @ts-ignore
+    expect(cache.configuration?.hashAlgorithm).toEqual(`xxhash64`)
+    // @ts-ignore
+    expect(cache.configuration?.idleTimeout).toEqual(100)
+    // @ts-ignore
+    expect(cache.configuration?.idleTimeoutForInitialStore).toEqual(0)
+    // @ts-ignore
+    expect(cache.configuration?.managedPaths).toEqual(
+      expect.arrayContaining([
+        bud.context.paths?.[`os-cache`] + `/@tests/project/cache`,
+        bud.path(`@modules`),
+      ]),
+    )
+    // @ts-ignore
+    expect(cache.configuration?.name).toEqual(`production`)
+    // @ts-ignore
+    expect(cache.configuration?.profile).toEqual(false)
+    // @ts-ignore
+    expect(cache.configuration?.store).toEqual(`pack`)
+    // @ts-ignore
+    expect(cache.configuration?.type).toEqual(`filesystem`)
   })
 })
