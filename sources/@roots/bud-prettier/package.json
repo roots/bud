@@ -79,7 +79,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "prettier": "3.0.1",
+    "prettier": "3.0.2",
     "tslib": "2.6.1"
   },
   "volta": {

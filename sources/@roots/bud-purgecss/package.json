@@ -79,7 +79,7 @@
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
-    "postcss": "8.4.27",
+    "postcss": "8.4.28",
     "tslib": "2.6.1"
   },
   "volta": {

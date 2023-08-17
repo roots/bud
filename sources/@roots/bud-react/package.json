@@ -119,7 +119,7 @@
   },
   "dependencies": {
     "@babel/preset-react": "7.22.5",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.5.10",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
