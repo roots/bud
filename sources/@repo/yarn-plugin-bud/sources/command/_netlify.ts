@@ -1,3 +1,4 @@
+import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
@@ -11,6 +12,12 @@ export class Netlify extends Command {
     examples: [[`netlify usage info`, `yarn @bud netlify --help`]],
   }
 
+  public dir = Option.String(
+    `--dir`,
+    path(`sources`, `@repo`, `docs`, `build`),
+    {description: `directory to deploy`},
+  )
+
   public passthrough = Option.Proxy({name: `netlify options`})
 
   public async execute() {
@@ -20,6 +27,8 @@ export class Netlify extends Command {
         `@repo/docs`,
         `netlify`,
         ...(this.passthrough ?? []),
+        `--dir`,
+        `${this.dir}`,
       ])
       .then(this.throwIfError)
       .catch(this.catch)
