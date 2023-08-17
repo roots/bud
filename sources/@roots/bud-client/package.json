@@ -46,6 +46,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./dom-ready": "./lib/dom-ready.js",
     "./hot": "./lib/hot/index.js",
     "./hot/client": "./lib/hot/client/index.js",
     "./hot/components": "./lib/hot/components/index.js",
@@ -54,15 +55,16 @@
     "./hot/events": "./lib/hot/events/index.js",
     "./hot/log": "./lib/hot/log/index.js",
     "./hot/options": "./lib/hot/options/index.js",
-    "./dom-ready": "./lib/dom-ready.js",
     "./lazy": "./lib/lazy.js",
-    "./lib/*": "./lib/*",
-    "./log": "./lib/log.js"
+    "./lib/*": "./lib/*"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "dom-ready": [
+        "./lib/dom-ready.d.ts"
       ],
       "hot": [
         "./lib/hot/index.d.ts"
@@ -88,17 +90,11 @@
       "hot/options": [
         "./lib/hot/options/index.d.ts"
       ],
-      "dom-ready": [
-        "./lib/dom-ready.d.ts"
-      ],
       "lazy": [
         "./lib/lazy.d.ts"
       ],
       "lib/*": [
         "./lib/*"
-      ],
-      "log": [
-        "./lib/log.d.ts"
       ],
       "types": [
         "./lib/types/index.d.ts"

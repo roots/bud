@@ -3,7 +3,7 @@ import {Controller} from './controller.js'
 
 export const make = (): {
   update: (data: Payload) => void
-} => {
+} | undefined => {
   if (customElements.get(`bud-error`)) return
 
   customElements.define(`bud-error`, Component)

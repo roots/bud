@@ -41,7 +41,7 @@ declare interface Options {
 }
 
 declare var bud: {
-  current?: Record<string, string>
+  current?: Record<string, string | null>
   controllers?: Array<Controller>
   hmr?: Record<string, Events & EventSource>
   listeners?: Record<string, Listener>

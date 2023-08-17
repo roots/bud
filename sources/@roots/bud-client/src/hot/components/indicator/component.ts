@@ -17,7 +17,7 @@ export class Component extends HTMLElement {
   /**
    * Timer
    */
-  public hideTimeout: NodeJS.Timer
+  public declare hideTimeout: NodeJS.Timer
 
   /**
    * Component name
@@ -27,7 +27,7 @@ export class Component extends HTMLElement {
   /**
    * Has component rendered
    */
-  public rendered: boolean
+  public declare rendered: boolean
 
   /**
    * Class constructor
@@ -78,7 +78,7 @@ export class Component extends HTMLElement {
    */
   public hide() {
     this.hideTimeout = setTimeout(() => {
-      this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
+      this.shadowRoot?.querySelector(this.selector)?.classList.remove(`show`)
     }, 2000)
   }
 
@@ -89,9 +89,9 @@ export class Component extends HTMLElement {
     this.show()
 
     this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`warning`, `success`, `pending`)
-    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
+      ?.querySelector(this.selector)
+      ?.classList.remove(`warning`, `success`, `pending`)
+    this.shadowRoot?.querySelector(this.selector)?.classList.add(`error`)
   }
 
   /**
@@ -101,10 +101,10 @@ export class Component extends HTMLElement {
     this.show()
 
     this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `success`)
+      ?.querySelector(this.selector)
+      ?.classList.remove(`error`, `warning`, `success`)
 
-    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
+    this.shadowRoot?.querySelector(this.selector)?.classList.add(`pending`)
 
     this.hide()
   }
@@ -116,10 +116,10 @@ export class Component extends HTMLElement {
     this.show()
 
     this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `pending`)
+      ?.querySelector(this.selector)
+      ?.classList.remove(`error`, `warning`, `pending`)
 
-    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
+    this.shadowRoot?.querySelector(this.selector)?.classList.add(`success`)
 
     this.hide()
   }
@@ -131,10 +131,10 @@ export class Component extends HTMLElement {
     this.show()
 
     this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `success`, `pending`)
+      ?.querySelector(this.selector)
+      ?.classList.remove(`error`, `success`, `pending`)
 
-    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
+    this.shadowRoot?.querySelector(this.selector)?.classList.add(`warning`)
   }
 
   /**
@@ -196,6 +196,6 @@ export class Component extends HTMLElement {
    */
   public show() {
     this.hideTimeout && clearTimeout(this.hideTimeout)
-    this.shadowRoot.querySelector(this.selector).classList.add(`show`)
+    this.shadowRoot?.querySelector(this.selector)?.classList.add(`show`)
   }
 }

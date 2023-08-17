@@ -21,33 +21,43 @@ export const initializeClient = async (
     )
     return false
   }
-  /* Guard: webpackHot api availability */
-  if (!webpackHot) {
-    console.error(
-      `[bud] hot module reload requires the webpack hot api to be available`,
-    )
-    return false
-  }
 
   /* Set client options from URL params */
   const options = clientOptions.setFromParameters(queryString)
   /* Setup logger */
   const logger = makeLogger(options)
 
+  /**
+   * Setup window.bud
+   */
   window.bud = {
-    ...window.bud ?? {},
-    controllers: [...window.bud?.controllers ?? []],
+    ...(window.bud ?? {}),
+    controllers: window.bud?.controllers ?? [],
     current: {
-      ...window.bud?.current ?? {},
+      ...(window.bud?.current ?? {}),
       [options.name]: window.bud?.current?.[options.name] ?? null,
     },
-    hmr: {...window.bud?.hmr ?? {}},
-    listeners: {...window.bud?.listeners ?? {}},
+    hmr: window.bud?.hmr ?? {},
+    listeners: window.bud?.listeners ?? {},
   }
 
+  /**
+   * Is update stale?
+   */
   const isStale = (hash?: string): boolean => {
+    if (!window.bud.current) return false
     if (hash) window.bud.current[options.name] = hash
     return __webpack_hash__ === window.bud.current[options.name]
+  }
+
+  /**
+   * Unaccepted & declined module handler
+   */
+  const onUnacceptedOrDeclined = (
+    info: __WebpackModuleApi.HotNotifierInfo,
+  ) => {
+    logger.warn(info.type, info)
+    options.reload && window.location.reload()
   }
 
   /**
@@ -66,11 +76,8 @@ export const initializeClient = async (
               ignoreUnaccepted: true,
               onDeclined: onUnacceptedOrDeclined,
               onErrored: (error: any) => {
-                window.bud.controllers.map(
-                  controller =>
-                    controller?.update({
-                      errors: [error],
-                    }),
+                window.bud.controllers?.map(
+                  c => c?.update({errors: [error]}),
                 )
               },
               onUnaccepted: onUnacceptedOrDeclined,
@@ -85,21 +92,15 @@ export const initializeClient = async (
     }
   }
 
-  /**
-   * Webpack HMR unaccepted module handler
-   */
-  const onUnacceptedOrDeclined = (
-    info: __WebpackModuleApi.HotNotifierInfo,
-  ) => {
-    logger.warn(info.type, info)
-    options.reload && window.location.reload()
-  }
-
   /* Instantiate indicator, overlay */
   await components.make(options).catch(err => {})
 
   /* Instantiate eventSource */
   const events = injectEvents(EventSource).make(options)
+
+  if (!window.bud.listeners) {
+    window.bud.listeners = {}
+  }
 
   if (!window.bud.listeners?.[options.name]) {
     window.bud.listeners[options.name] = async payload => {
@@ -110,9 +111,9 @@ export const initializeClient = async (
 
       if (payload.name !== options.name) return
 
-      window.bud.controllers.map(controller => controller?.update(payload))
+      window.bud.controllers?.map(controller => controller?.update(payload))
 
-      if (payload.errors?.length > 0) return
+      if (typeof payload.errors !== `undefined` && payload.errors.length > 0) return
 
       if (payload.action === `built` || payload.action === `sync`) {
         if (isStale(payload.hash)) return

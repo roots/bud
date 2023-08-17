@@ -18,7 +18,7 @@ export class Controller {
   /**
    * HMR update
    */
-  public payload: Payload
+  public declare payload: Payload
 
   /**
    * Class constructor
@@ -39,7 +39,7 @@ export class Controller {
   /**
    * Formatted error message
    */
-  public get message(): string {
+  public get message(): string | undefined {
     return this.payload.errors?.reduce((a, c) => {
       const msg = c?.message ?? c?.error ?? c
       if (!msg) return a
@@ -65,7 +65,7 @@ export class Controller {
 
     this.element.setAttribute(`message`, this.message ?? ``)
 
-    if (this.payload.errors?.length > 0) {
+    if (this.payload.errors && this.payload.errors?.length > 0) {
       return this.createError()
     }
 

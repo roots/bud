@@ -27,10 +27,13 @@ export class Component extends HTMLElement {
     if (this.getAttribute(`message`)) {
       document.body.style.overflow = `hidden`
 
-      this.shadowRoot.querySelector(`.overlay`).classList.add(`visible`)
+      this.shadowRoot?.querySelector(`.overlay`)?.classList.add(`visible`)
 
-      this.shadowRoot.querySelector(`.messages`).innerHTML =
-        this.getAttribute(`message`)
+      const message = this.getAttribute(`message`)
+      const messages = this.shadowRoot?.querySelector(`.messages`)
+
+      if (messages && `innerHTML` in messages && typeof message === `string`)
+        messages.innerHTML = message
 
       return
     }
@@ -39,7 +42,7 @@ export class Component extends HTMLElement {
       document.body.style.overflow = this.documentBodyStyle.overflow
     }
 
-    this.shadowRoot.querySelector(`.overlay`).classList.remove(`visible`)
+    this.shadowRoot?.querySelector(`.overlay`)?.classList.remove(`visible`)
   }
 
   public connectedCallback() {
