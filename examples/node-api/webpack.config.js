@@ -9,16 +9,36 @@ import {factory} from '@roots/bud'
  */
 
 /**
- * Instantiate bud
+ * Create a new bud instance.
  */
-const bud = await factory()
+const bud = await factory({
+  clean: false,
+  dashboard: false,
+})
 
 /**
- * Set entrypoints and do other config as usual
+ * Configure bud as you would in your project.
  */
-bud.minimize().splitChunks()
+bud.setPath(`@dist`, `dist/build-b`)
 
 /**
- * Export for webpack
+ * Produce a webpack config object.
  */
-export default bud.build.make
+const config = await bud.build.make()
+
+ /**
+ * You probably want to set `stats`, since bud.js doesn't use this interface.
+ */
+config.stats = true
+
+/**
+ * You'll also want to set up `watch` and `server` options as
+ * bud.js doesn't use these either.
+ */
+if (bud.isDevelopment)
+  config.watch = true
+
+/**
+ * Export the final config for webpack to consume.
+ */
+export default config
