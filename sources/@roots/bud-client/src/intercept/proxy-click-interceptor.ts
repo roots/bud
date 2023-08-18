@@ -7,10 +7,15 @@ window.requestAnimationFrame(async function ready() {
   if (!__resourceQuery) return
 
   const params = new URLSearchParams(__resourceQuery)
-  if (!params || !params.has(`search`) || !params.has(`replace`)) return
+  if (!params) return
 
-  const search = decodeURI(params.get(`search`))
-  const replace = decodeURI(params.get(`replace`))
+  const searchUri = params.get(`search`)
+  if (!searchUri) return
+  const search = decodeURI(searchUri)
+
+  const replaceUri = params.get(`replace`)
+  if (!replaceUri) return
+  const replace = decodeURI(replaceUri)
 
   return document.body
     ? intercept(search, replace)

@@ -5,6 +5,7 @@
     "outDir": "./lib",
     "rootDir": "./src",
     "sourceMap": false,
+    "strict": true,
     "target": "ES2021",
   },
   "files": [

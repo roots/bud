@@ -30,18 +30,18 @@ declare interface Controller {
 }
 
 declare interface Options {
-  timeout: number
-  reload: boolean
-  debug: boolean
-  log: boolean
-  name: string
-  path: string
-  indicator: boolean
-  overlay: boolean
+  timeout?: number
+  reload?: boolean
+  debug?: boolean
+  log?: boolean
+  name?: string
+  path?: string
+  indicator?: boolean
+  overlay?: boolean
 }
 
 declare var bud: {
-  current?: Record<string, string>
+  current?: Record<string, string | null>
   controllers?: Array<Controller>
   hmr?: Record<string, Events & EventSource>
   listeners?: Record<string, Listener>
@@ -49,6 +49,6 @@ declare var bud: {
 
 declare module global {
   interface Window {
-    bud: typeof bud
+    bud?: typeof bud
   }
 }

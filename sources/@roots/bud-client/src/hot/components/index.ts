@@ -1,21 +1,23 @@
-import * as Indicator from './indicator/index.js'
-import * as Overlay from './overlay/index.js'
+import * as Indicator from '@roots/bud-client/hot/components/indicator'
+import * as Overlay from '@roots/bud-client/hot/components/overlay'
 
 export const make: (
   options: Options,
 ) => Promise<Array<Controller>> = async options => {
   if (options.indicator && !customElements.get(`bud-activity-indicator`)) {
-    maybePushController(Indicator.make())
+    const indicator = Indicator.make()
+    if (indicator) maybePushController(indicator)
   }
 
   if (options.overlay && !customElements.get(`bud-error`)) {
-    maybePushController(Overlay.make())
+    const overlay = Overlay.make()
+    if (overlay) maybePushController(overlay)
   }
 
-  return window.bud.controllers
+  return window.bud.controllers ?? []
 }
 
-const maybePushController = (controller: Controller | undefined) => {
+const maybePushController = (controller: any) => {
   if (!controller) return
-  window.bud.controllers.push(controller)
+  window.bud.controllers?.push(controller)
 }

@@ -1,14 +1,13 @@
-import '../src/types/index.d.ts'
-
-/* eslint-disable no-console */
 /**
  * @vitest-environment jsdom
  */
+
+import {initializeClient} from '@roots/bud-client/hot/client'
+import {injectEvents} from '@roots/bud-client/hot/events'
+import * as options from '@roots/bud-client/hot/options'
 import {describe, expect, it, vi} from 'vitest'
 
-import {client} from '../src/hot/client.js'
-import {injectEvents} from '../src/hot/events.js'
-import * as options from '../src/hot/options.js'
+import '../src/types/index.d.ts'
 
 // @ts-ignore
 global.EventSource = class Events {
@@ -27,27 +26,29 @@ const webpackHotMock = {
 
 describe(`@roots/bud-client`, () => {
   it(`should be a fn module`, () => {
-    expect(client).toBeInstanceOf(Function)
+    expect(initializeClient).toBeInstanceOf(Function)
   })
 
   it(`should add window.bud`, async () => {
-    await client(`?name=test`, webpackHotMock)
+    await initializeClient(`?name=test`, webpackHotMock)
     expect(window.bud).toBeDefined()
   })
 
   it(`should add window.bud.hmr as an instance of EventSource`, async () => {
-    await client(`?name=test`, webpackHotMock)
+    await initializeClient(`?name=test`, webpackHotMock)
     expect(window.bud?.hmr?.test).toBeInstanceOf(EventSource)
   })
 
   it(`should set clientOptions`, async () => {
-    await client(`?name=test`, webpackHotMock)
-    expect(options.data).toEqual(
+    await initializeClient(`?name=test`, webpackHotMock)
+
+    const optionsObject = options.setFromParameters(`?name=test`)
+    expect(optionsObject).toEqual(
       expect.objectContaining({
         debug: true,
         indicator: true,
         log: true,
-        name: `@roots/bud-client`,
+        name: `test`,
         overlay: true,
         path: `/bud/hot`,
         reload: true,
@@ -57,8 +58,10 @@ describe(`@roots/bud-client`, () => {
   })
 
   it(`should call listener from onmessage`, async () => {
-    await client(`?name=test`, webpackHotMock)
-    const events = Events.make(options.data)
+    await initializeClient(`?name=test`, webpackHotMock)
+    // @ts-ignore
+    const events = Events.make({name: `test`, path: `/bud/hot`})
+    if (!events) throw new Error(`Events not defined`)
 
     const listenerMock = vi.fn(async () => {})
     events.addListener(listenerMock)

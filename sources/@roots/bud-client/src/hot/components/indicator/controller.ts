@@ -15,7 +15,7 @@ export class Controller {
   /**
    * Timer handler
    */
-  public timer: NodeJS.Timeout
+  public declare timer: NodeJS.Timeout
 
   /**
    * Initialization

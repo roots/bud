@@ -14,12 +14,12 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
     /**
      * Registered listeners
      */
-    public listeners: Set<Listener> = new Set<Listener>()
+    public listeners: Set<Listener> = new Set<Listener>([])
 
     /**
      * EventSource `onmessage` handler
      */
-    public override onmessage = async function (payload: MessageEvent) {
+    public override onmessage = async function (this: any, payload: MessageEvent) {
       if (!payload?.data || payload.data == `\uD83D\uDC93`) {
         return
       }
@@ -49,7 +49,7 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
      *
      */
     private constructor(
-      public options: Partial<Options> & {name: string; path: string},
+      public options: {name: string; path: string},
     ) {
       super(options.path)
 
@@ -63,11 +63,17 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
      *
      */
     public static make(
-      options: Partial<Options> & {name: string; path: string},
-    ): Events {
-      if (typeof window.bud.hmr[options.name] === `undefined`)
+      options: {name?: string; path?: string},
+    ): Events | undefined {
+      if (!options?.name || !options?.path) return
+
+      if (typeof window.bud.hmr === `undefined`) {
+        window.bud.hmr = {}
+      }
+
+      if (typeof window.bud.hmr?.[options.name] === `undefined`)
         Object.assign(window.bud.hmr, {
-          [options.name]: new Events(options),
+          [options.name]: new Events(options as any),
         })
 
       return window.bud.hmr[options.name]

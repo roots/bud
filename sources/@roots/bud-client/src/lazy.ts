@@ -9,7 +9,7 @@
  */
 interface lazy {
   <T = any>(
-    module: Promise<{default: T}>,
+    module: Promise<T>,
     handler: (module: T) => Promise<unknown> | unknown,
     errorHandler?: (error: unknown) => unknown,
   ): Promise<unknown>
@@ -25,16 +25,18 @@ const defaultErrorHandler = (error: unknown) => {
 }
 
 const lazy: lazy = async function lazy<T = any>(
-  module: Promise<{default: T}>,
-  handler: (module: T) => Promise<unknown> | unknown,
-  errorHandler?: (error: unknown) => unknown,
+  module: Promise<T>,
+  onImport: (module: T) => Promise<unknown> | unknown,
+  onError?: (error: unknown) => unknown,
 ) {
   try {
-    const {default: request} = await module
-    return await handler(request)
+    const request = await module
+    if (!request) throw new Error(`module not found: ${module}`)
+    const result = await onImport(request)
+    return result
   } catch (error: unknown) {
-    const handle = errorHandler ? errorHandler : defaultErrorHandler
-    handle(error)
+    const errorFn = onError ? onError : defaultErrorHandler
+    errorFn(error)
   }
 }
 
