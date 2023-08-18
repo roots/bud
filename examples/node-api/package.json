@@ -9,6 +9,7 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-swc": "workspace:*",
+    "webpack": "5.88.2",
     "webpack-cli": "5.1.4"
   }
 }
