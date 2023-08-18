@@ -30,14 +30,14 @@ declare interface Controller {
 }
 
 declare interface Options {
-  timeout: number
-  reload: boolean
-  debug: boolean
-  log: boolean
-  name: string
-  path: string
-  indicator: boolean
-  overlay: boolean
+  timeout?: number
+  reload?: boolean
+  debug?: boolean
+  log?: boolean
+  name?: string
+  path?: string
+  indicator?: boolean
+  overlay?: boolean
 }
 
 declare var bud: {

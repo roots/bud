@@ -1,7 +1,4 @@
-/**
- * Client options
- */
-const data: Record<string, any> = {
+const defaultOptions: Options = {
   debug: true,
   indicator: true,
   log: true,
@@ -13,22 +10,20 @@ const data: Record<string, any> = {
 }
 
 /**
- * Get client option
- */
-const get = (name: `${keyof Options & string}`) => data[name]
-const set = (name: `${keyof Options & string}`, value: any) => data[name] = value
-/**
  * Set client data based on URL parameters
  */
 const setFromParameters = (query: string): Options => {
-  new window.URLSearchParams(query).forEach((value: any, key: any) => {
-    data[key] =
+  /**
+   * Client options
+   */
+  const data: Partial<Options> = {...defaultOptions}
+
+  new window.URLSearchParams(query).forEach((value: any, key: string) => {
+    data[key as unknown as `${keyof Options & string}`] =
       value === `true` ? true : value === `false` ? false : value
   })
 
-  data[data.name] = {...data, ...data}
-
-  return data[data.name]
+  return data
 }
 
-export {data, get, set, setFromParameters}
+export {setFromParameters}

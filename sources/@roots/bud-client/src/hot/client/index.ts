@@ -24,6 +24,7 @@ export const initializeClient = async (
 
   /* Set client options from URL params */
   const options = clientOptions.setFromParameters(queryString)
+  if (!options.name || !options.path) return
   /* Setup logger */
   const logger = makeLogger(options)
 
@@ -45,6 +46,7 @@ export const initializeClient = async (
    * Is update stale?
    */
   const isStale = (hash?: string): boolean => {
+    if (!options.name) return true
     if (!window.bud.current) return false
     if (hash) window.bud.current[options.name] = hash
     return __webpack_hash__ === window.bud.current[options.name]
@@ -95,7 +97,6 @@ export const initializeClient = async (
   /* Instantiate indicator, overlay */
   await components.make(options).catch(err => {})
 
-  /* Instantiate eventSource */
   const events = injectEvents(EventSource).make(options)
 
   if (!window.bud.listeners) {
@@ -130,6 +131,6 @@ export const initializeClient = async (
      * Instantiate HMR event source
      * and register client listeners
      */
-    events.addListener(window.bud.listeners[options.name])
+    options.name && events && events.addListener(window.bud.listeners[options.name])
   }
 }

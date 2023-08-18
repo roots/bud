@@ -41,12 +41,14 @@ describe(`@roots/bud-client`, () => {
 
   it(`should set clientOptions`, async () => {
     await initializeClient(`?name=test`, webpackHotMock)
-    expect(options.data).toEqual(
+
+    const optionsObject = options.setFromParameters(`?name=test`)
+    expect(optionsObject).toEqual(
       expect.objectContaining({
         debug: true,
         indicator: true,
         log: true,
-        name: `@roots/bud-client`,
+        name: `test`,
         overlay: true,
         path: `/bud/hot`,
         reload: true,
@@ -57,7 +59,9 @@ describe(`@roots/bud-client`, () => {
 
   it(`should call listener from onmessage`, async () => {
     await initializeClient(`?name=test`, webpackHotMock)
-    const events = Events.make(options.data)
+    // @ts-ignore
+    const events = Events.make({name: `test`, path: `/bud/hot`})
+    if (!events) throw new Error(`Events not defined`)
 
     const listenerMock = vi.fn(async () => {})
     events.addListener(listenerMock)
