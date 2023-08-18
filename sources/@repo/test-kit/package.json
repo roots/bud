@@ -39,7 +39,7 @@
     "json5": "2.2.3",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.1",
-    "vitest": "0.34.1"
+    "vitest": "0.34.2"
   },
   "volta": {
     "extends": "../../../package.json"

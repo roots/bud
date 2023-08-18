@@ -17,7 +17,7 @@
     "@docusaurus/preset-classic": "2.4.1",
     "@docusaurus/remark-plugin-npm2yarn": "2.4.1",
     "@repo/constants": "workspace:*",
-    "@svgr/webpack": "8.0.1",
+    "@svgr/webpack": "8.1.0",
     "@tsconfig/docusaurus": "2.0.0",
     "@types/file-loader": "5.0.1",
     "@types/node": "18.17.5",
@@ -36,7 +36,7 @@
     "@docusaurus/theme-common": "2.4.1",
     "axios": "1.4.0",
     "clsx": "2.0.0",
-    "docusaurus-lunr-search": "2.3.2",
+    "docusaurus-lunr-search": "2.4.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "2.6.1"

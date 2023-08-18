@@ -8,6 +8,7 @@ import {
 export interface Props {
   className: string
   edit: CallableFunction
+  interactive: boolean
   name: string
   tagName: string
   title: string

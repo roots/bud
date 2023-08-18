@@ -11,7 +11,7 @@
     "@types/lodash-es": "4.17.8",
     "@types/node": "18.17.5",
     "@types/prettier": "2.7.3",
-    "vitest": "0.34.1"
+    "vitest": "0.34.2"
   },
   "dependencies": {
     "@octokit/core": "5.0.0",
@@ -29,7 +29,7 @@
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
     "octokit": "3.1.0",
-    "prettier": "3.0.1",
+    "prettier": "3.0.2",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.1",
     "typescript": "5.1.6"

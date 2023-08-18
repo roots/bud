@@ -65,7 +65,7 @@
     "handlebars": "4.7.8",
     "lodash": "4.17.21",
     "ora": "7.0.1",
-    "prettier": "3.0.1",
+    "prettier": "3.0.2",
     "tslib": "2.6.1",
     "typanion": "3.14.0"
   },

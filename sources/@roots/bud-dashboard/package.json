@@ -89,7 +89,7 @@
     "@types/node": "18.17.5",
     "@types/react": "18.2.20",
     "ink-testing-library": "3.0.0",
-    "vitest": "0.34.1",
+    "vitest": "0.34.2",
     "webpack": "5.88.2"
   },
   "dependencies": {
