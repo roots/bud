@@ -3,8 +3,17 @@ import {describe, expect, it} from 'vitest'
 
 describe(`examples/remote-sources`, () => {
   it(`should compile js and css as expected`, async () => {
-    const test = setup({label: `@examples/remote-sources`})
-    await test.install()
+    const test = setup({
+      label: `@examples/remote-sources`,
+      projectDir: globalThis.__INTEGRATION__
+        ? `storage/fixtures/remote-sources`
+        : `examples/remote-sources`,
+    })
+
+    if (globalThis.__INTEGRATION__) {
+      await test.install()
+    }
+
     await test.build()
 
     expect(test.assets[`app.js`].length).toBeGreaterThan(10)
