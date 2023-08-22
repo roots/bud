@@ -4734,6 +4734,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/css-module@workspace:examples/css-module":
+  version: 0.0.0-use.local
+  resolution: "@examples/css-module@workspace:examples/css-module"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/emotion@workspace:examples/emotion":
   version: 0.0.0-use.local
   resolution: "@examples/emotion@workspace:examples/emotion"
