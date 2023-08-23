@@ -5011,6 +5011,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/watch@workspace:examples/watch":
+  version: 0.0.0-use.local
+  resolution: "@examples/watch@workspace:examples/watch"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-react": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/webpack-plugin@workspace:examples/webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@examples/webpack-plugin@workspace:examples/webpack-plugin"
