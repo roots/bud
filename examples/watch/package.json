@@ -1,0 +1,15 @@
+{
+  "name": "@examples/watch",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "@roots/bud-swc": "workspace:*"
+  }
+}

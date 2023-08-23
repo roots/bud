@@ -28,10 +28,12 @@ declare module '@roots/bud-framework' {
   interface Items {
     'resolve-url': Item
     sass: Item
+    ['sass-module']: Item
   }
 
   interface Rules {
     sass: Rule
+    ['sass-module']: Rule
   }
 }
 

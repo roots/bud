@@ -4,6 +4,7 @@ import type {Bud} from '@roots/bud-framework'
 import * as items from '@roots/bud-build/items'
 import * as loaders from '@roots/bud-build/loaders'
 import * as rules from '@roots/bud-build/rules'
+import kebabCase from '@roots/bud-support/lodash/kebabCase'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]
@@ -58,7 +59,7 @@ const makeRegister: makeRegister =
   ({build, hooks, isProduction, module: {resolve}, path}, setRule) =>
   async ([key, factory]) =>
     setRule(
-      key,
+      kebabCase(key),
       await factory({
         filter: hooks.filter,
         isProduction,

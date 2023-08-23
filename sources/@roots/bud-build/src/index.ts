@@ -32,8 +32,8 @@ declare module '@roots/bud-framework' {
   }
 
   interface Items {
+    [`css-module`]: Item
     css: Item
-    cssModule: Item
     csv: Item
     file: Item
     font: Item
@@ -48,8 +48,8 @@ declare module '@roots/bud-framework' {
   }
 
   interface Rules {
+    [`css-module`]: Rule
     css: Rule
-    cssModule: Rule
     csv: Rule
     font: Rule
     html: Rule

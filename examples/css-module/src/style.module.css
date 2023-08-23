@@ -1,0 +1,9 @@
+.container {
+  @apply bg-black;
+
+  border: white;
+}
+
+.title {
+  color: blue;
+}

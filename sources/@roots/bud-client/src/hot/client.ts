@@ -21,6 +21,7 @@ export const client = async (
     )
     return false
   }
+
   /* Guard: webpackHot api availability */
   if (!webpackHot) {
     console.error(
@@ -40,6 +41,9 @@ export const client = async (
       current: {},
       hmr: {},
       listeners: {},
+      reload: () => {
+        window.location.reload()
+      },
     }
   }
 
@@ -124,7 +128,7 @@ export const client = async (
       if (!payload) return
 
       if (options.reload && payload.action === `reload`)
-        return window.location.reload()
+        return window.bud.reload()
 
       if (payload.name !== options.name) return
       window.bud.controllers.map(controller => controller?.update(payload))

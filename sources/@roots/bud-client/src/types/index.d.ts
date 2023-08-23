@@ -41,10 +41,11 @@ declare interface Options {
 }
 
 declare var bud: {
-  current?: Record<string, string>
-  controllers?: Array<Controller>
-  hmr?: Record<string, Events & EventSource>
-  listeners?: Record<string, Listener>
+  current: Record<string, string>
+  controllers: Array<Controller>
+  hmr: Record<string, Events & EventSource>
+  listeners: Record<string, Listener>
+  reload: () => void
 }
 
 declare module global {

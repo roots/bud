@@ -1,8 +1,7 @@
-import {join} from 'node:path'
 import {path} from '@repo/constants'
 import {execa, ExecaReturnValue} from 'execa'
-import {beforeAll, describe, expect, it} from 'vitest'
 import fs from 'fs-jetpack'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@tests/tailwind-integration-test`, () => {
   let child: ExecaReturnValue

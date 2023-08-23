@@ -1,9 +1,7 @@
+import {Bud, factory} from '@repo/test-kit'
 import '@roots/bud-postcss'
-import '../../src/types/index.js'
-
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
-import {Bud, factory} from '@repo/test-kit'
 
 import BudTailwindCss from '../../src/index.js'
 

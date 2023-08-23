@@ -1,0 +1,12 @@
+{
+  "name": "@examples/sass-module",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-sass": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
+  }
+}

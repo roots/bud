@@ -7,12 +7,12 @@ import isBoolean from '@roots/bud-support/lodash/isBoolean'
  * CSS loader
  */
 export const css: Factory<Item> = async ({makeItem}) =>
-  makeItem()
-    .setIdent(`css`)
-    .setLoader(`css`)
-    .setOptions(({build: {rules}, hooks: {filter}}) => ({
-      importLoaders: rules.css.getUse().length - 2,
-      modules: false,
+  makeItem({
+    ident: `css`,
+    loader: `css`,
+    options: {modules: false},
+  })
+    .setOptions(({hooks: {filter}}) => ({
       sourceMap: isBoolean(filter(`build.devtool`, false))
         ? filter(`build.devtool`, false)
         : true,
@@ -22,14 +22,15 @@ export const css: Factory<Item> = async ({makeItem}) =>
  * CSS module loader
  */
 export const cssModule: Factory<Item> = async ({makeItem}) =>
-  makeItem()
-    .setIdent(`cssModule`)
-    .setLoader(`css`)
-    .setOptions(({build: {rules}, hooks: {filter}}) => ({
-      importLoaders: rules.cssModule.getUse().length - 2,
-      modules: true,
-      sourceMap: isBoolean(filter(`build.devtool`, false))
-        ? filter(`build.devtool`, false)
+  makeItem({
+    ident: `css-module`,
+    loader: `css`,
+    options: {modules: true},
+  })
+    .setOptions(({build, hooks}) => ({
+      importLoaders: build.rules[`css-module`].getUse().length - 2,
+      sourceMap: isBoolean(hooks.filter(`build.devtool`, false))
+        ? hooks.filter(`build.devtool`, false)
         : true,
     }))
 

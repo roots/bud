@@ -8,5 +8,20 @@
  * @see https://github.com/roots/bud
  */
 
-import './types/index.js'
+import {
+  BudTailwindCss,
+  type BudTailwindOptionsPublicInterface,
+} from '@roots/bud-tailwindcss/extension'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    tailwind: BudTailwindOptionsPublicInterface & BudTailwindCss
+  }
+
+  interface Modules {
+    '@roots/bud-tailwindcss': BudTailwindCss
+    '@roots/bud-tailwindcss/virtual-module': any
+  }
+}
+
 export {BudTailwindCss as default} from '@roots/bud-tailwindcss/extension'

@@ -8,6 +8,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
 
 import {type BudSassApi, BudSassOptions} from './options.js'
 
@@ -26,7 +27,7 @@ export class BudSass extends BudSassOptions {
   public override async boot({build, postcss}: Bud) {
     if (postcss.setSyntax) postcss.setSyntax(`postcss-scss`)
 
-    build.rules.sass.setUse(() => [
+    build.rules.sass.setUse([
       `precss`,
       `css`,
       `postcss`,
@@ -81,17 +82,33 @@ export class BudSass extends BudSassOptions {
       ext.add(`.scss`).add(`.sass`),
     )
 
-    /** Setup rule */
+    /** .scss */
     build
       .setLoader(`sass`, `sass-loader`)
       .setItem(`sass`, {
-        ident: `sass`,
         loader: `sass`,
         options: () => this.options,
       })
       .setRule(`sass`, {
         include: [({path}) => path(`@src`)],
         test: ({hooks}) => hooks.filter(`pattern.sass`),
+      })
+
+    /** .module.scss */
+    build
+      .setItem(`sass-module`, {
+        loader: `css`,
+        options: {
+          importLoaders: 3,
+          sourceMap: isBoolean(hooks.filter(`build.devtool`, false))
+            ? hooks.filter(`build.devtool`, false)
+            : true,
+        },
+      })
+      .setRule(`sass-module`, {
+        include: [({path}) => path(`@src`)],
+        test: ({hooks}) => hooks.filter(`pattern.sassModule`),
+        use: [`precss`, `sass-module`, `postcss`, `resolve-url`, `sass`],
       })
   }
 }
