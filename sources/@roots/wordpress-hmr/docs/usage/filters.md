@@ -56,16 +56,17 @@ export default {
   hook: `blocks.registerBlockType`,
   /** Filter callback */
   callback: (settings, name) => {
-  if (name !== 'core/list') return settings;
+    if (name !== 'core/list') return settings;
 
-  return assign({}, settings, {
-    example: {
-      innerBlocks: [
-        {name: 'core/list-item', attributes: {content: 'Item a'}},
-        {name: 'core/list-item', attributes: {content: 'Item b'}},
-      ],
-    },
-  })
+    return assign({}, settings, {
+      example: {
+        innerBlocks: [
+          {name: 'core/list-item', attributes: {content: 'Item a'}},
+          {name: 'core/list-item', attributes: {content: 'Item b'}},
+        ],
+      },
+    })
+  }
 }
 ```
 
