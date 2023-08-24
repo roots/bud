@@ -10,10 +10,12 @@ import Server from '@roots/bud-dashboard/views/server'
 import {
   Box,
   type PropsWithChildren,
+  Static,
   Text,
   useApp,
   useInput,
   useState,
+  useStdout,
 } from '@roots/bud-support/ink'
 
 export interface Props {
@@ -57,6 +59,8 @@ export const Application = ({
   publicProxyUrl,
   status,
 }: Props) => {
+  const {stdout}  = useStdout()
+
   if (error) return <Error error={error} />
 
   compilations = Array.isArray(compilations)
@@ -72,37 +76,43 @@ export const Application = ({
   }
 
   return (
-    <Box flexDirection="column" gap={1} marginY={1}>
-      {compilations?.map((compilation, id) => {
-        if (isolated > 0 && id + 1 !== isolated) return null
+    <Static items={[0]}>
+      {(item, id) => (
+        <Box key={`app-${id}`} width={stdout.columns - 2}>
+          <Box flexDirection="column" gap={1}>
+            {compilations?.map((compilation, id) => {
+              if (isolated > 0 && id + 1 !== isolated) return null
 
-        return (
-          <Box flexDirection="column" gap={1} key={id}>
-            <Compilation
-              basedir={basedir}
-              compact={compact}
-              compilation={compilation}
-              debug={debug}
-              displayAssets={displayAssets}
-              displayEntrypoints={displayEntrypoints}
-              id={id + 1}
-              total={compilations?.length}
+              return (
+                <Box flexDirection="column" gap={1} key={id}>
+                  <Compilation
+                    basedir={basedir}
+                    compact={compact}
+                    compilation={compilation}
+                    debug={debug}
+                    displayAssets={displayAssets}
+                    displayEntrypoints={displayEntrypoints}
+                    id={id + 1}
+                    total={compilations?.length}
+                  />
+                  <Debug compilation={compilation} debug={debug} />
+                </Box>
+              )
+            })}
+
+            <Server
+              devUrl={devUrl}
+              displayServerInfo={displayServerInfo}
+              mode={mode}
+              proxy={proxy}
+              proxyUrl={proxyUrl}
+              publicDevUrl={publicDevUrl}
+              publicProxyUrl={publicProxyUrl}
             />
-            <Debug compilation={compilation} debug={debug} />
           </Box>
-        )
-      })}
-
-      <Server
-        devUrl={devUrl}
-        displayServerInfo={displayServerInfo}
-        mode={mode}
-        proxy={proxy}
-        proxyUrl={proxyUrl}
-        publicDevUrl={publicDevUrl}
-        publicProxyUrl={publicProxyUrl}
-      />
-    </Box>
+        </Box>
+      )}
+    </Static>
   )
 }
 
