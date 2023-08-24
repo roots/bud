@@ -65,14 +65,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.5"
+    "@types/node": "18.17.9"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/entrypoints-webpack-plugin": "workspace:*",
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:*",
-    "tslib": "2.6.1"
+    "tslib": "2.6.2"
   },
   "volta": {
     "extends": "../../../package.json"

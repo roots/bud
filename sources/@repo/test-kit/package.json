@@ -30,7 +30,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@types/node": "18.17.5",
+    "@types/node": "18.17.9",
     "chalk": "5.3.0",
     "execa": "7.2.0",
     "fs-jetpack": "5.1.0",
@@ -38,7 +38,7 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "strip-ansi": "7.1.0",
-    "tslib": "2.6.1",
+    "tslib": "2.6.2",
     "vitest": "0.34.2"
   },
   "volta": {

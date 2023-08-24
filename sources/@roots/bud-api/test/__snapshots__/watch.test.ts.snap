@@ -6,12 +6,6 @@ exports[`bud.watch > [Array, Options] parameters > should add watch files and op
 ]
 `;
 
-exports[`bud.watch > in development > adds watch files 1`] = `
-[
-  "1/*.js",
-]
-`;
-
 exports[`bud.watch > in development > should add watch files 1`] = `
 [
   "1/*.js",

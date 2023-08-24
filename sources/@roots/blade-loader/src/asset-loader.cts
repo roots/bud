@@ -6,6 +6,7 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
   async function (source: string) {
     const options = this.getOptions()
     this.addBuildDependency(this.resource)
+
     const matches = source.matchAll(/@asset\(['"](.*?)['"]\)/g)
 
     if (matches) {
@@ -13,9 +14,11 @@ const loader: LoaderDefinitionFunction<{publicPath?: string}> =
         [...matches].map(async ([match, request]) => {
           const absolutePath = join(this.rootContext, request)
           this.addBuildDependency(absolutePath)
+
           const resolvedPath = await this.importModule(request, {
             publicPath: options?.publicPath ?? ``,
           })
+
           source = source.replace(match, resolvedPath)
         }),
       )

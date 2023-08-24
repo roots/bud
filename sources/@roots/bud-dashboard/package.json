@@ -86,8 +86,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.5",
-    "@types/react": "18.2.20",
+    "@types/node": "18.17.9",
+    "@types/react": "18.2.21",
     "ink-testing-library": "3.0.0",
     "vitest": "0.34.2",
     "webpack": "5.88.2"
@@ -95,7 +95,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "tslib": "2.6.1"
+    "tslib": "2.6.2"
   },
   "volta": {
     "extends": "../../../package.json"

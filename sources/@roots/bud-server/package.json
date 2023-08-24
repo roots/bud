@@ -102,7 +102,7 @@
     "@roots/bud-client": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "tslib": "2.6.1"
+    "tslib": "2.6.2"
   },
   "volta": {
     "extends": "../../../package.json"
