@@ -1,6 +1,18 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
+exports[`bud.watch > [Array, Options] parameters > should add watch files and options 1`] = `
+[
+  "1/*.js",
+]
+`;
+
 exports[`bud.watch > in development > adds watch files 1`] = `
+[
+  "1/*.js",
+]
+`;
+
+exports[`bud.watch > in development > should add watch files 1`] = `
 [
   "1/*.js",
 ]

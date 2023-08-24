@@ -193,11 +193,12 @@ export class Server extends Service implements BudServer {
 
     this.logger.log(`server.watcher`, this.watcher?.constructor.name)
 
-    const scripts = await import(`@roots/bud-server/hooks`)
-      .catch(this.catch)
-      .then(result => result?.devClientScripts.callback)
-
-    bud.hooks.on(`dev.client.scripts`, scripts)
+    bud.hooks.on(
+      `dev.client.scripts`,
+      await import(`@roots/bud-server/hooks`)
+        .catch(this.catch)
+        .then(result => result?.devClientScripts.callback),
+    )
 
     this.application.set(`x-powered-by`, false)
   }
