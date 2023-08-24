@@ -147,10 +147,8 @@ describe(`@roots/bud-dashboard app component`, () => {
 
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
 
-    expect(lines[0]).toBe(Char.Empty)
-
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock\s\[mock\-hash\]\s+\.\/\.\.\/to$/)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
+    expect(lines[0]).toMatch(/mock\s\[mock\-hash\]\s+\.\/\.\.\/to$/)
   })
 
   it(`should render entrypoints`, () => {
@@ -163,26 +161,24 @@ describe(`@roots/bud-dashboard app component`, () => {
     )
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
 
-    expect(lines[0]).toBe(Char.Empty)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
+    expect(lines[0]).toMatch(/mock \[mock\-hash\]$/)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[mock\-hash\]$/)
+    expect(lines[1]).toBe(Char.Vertical)
 
-    expect(lines[2]).toBe(Char.Vertical)
+    expect(startsWith(lines[2], Char.Vertical)).toBe(true)
+    expect(lines[2]).toMatch(/ foo/)
 
-    expect(startsWith(lines[3], Char.Vertical)).toBe(true)
-    expect(lines[3]).toMatch(/ foo/)
+    expect(isFormattedAsset(lines[3])).toBe(true)
+    expect(lines[3]).toMatch(/\sfoo\.js\s/)
 
-    expect(isFormattedAsset(lines[4])).toBe(true)
-    expect(lines[4]).toMatch(/\sfoo\.js\s/)
+    expect(lines[4]).toBe(Char.Vertical)
 
-    expect(lines[5]).toBe(Char.Vertical)
+    expect(startsWith(lines[5], Char.BottomLeft)).toBe(true)
+    expect(lines[5]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
-    expect(startsWith(lines[6], Char.BottomLeft)).toBe(true)
-    expect(lines[6]).toMatch(/2 modules \[2\/2 modules cached\]$/)
-
-    expect(lines[7]).toBe(Char.Empty)
-    expect(lines[8]).toBeUndefined()
+    expect(lines[6]).toBe(Char.Empty)
+    expect(lines[7]).toBeUndefined()
   })
 
   it(`should not render entrypoints when entrypoints is empty`, () => {
@@ -194,18 +190,17 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     const lines = stripAnsi(frames2.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[mock\-hash\]$/)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
+    expect(lines[0]).toMatch(/mock \[mock\-hash\]$/)
 
+    expect(lines[1]).toBe(Char.Vertical)
     expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toBe(Char.Vertical)
 
-    expect(startsWith(lines[4], Char.BottomLeft)).toBe(true)
-    expect(lines[4]).toMatch(/2 modules \[2\/2 modules cached\]$/)
+    expect(startsWith(lines[3], Char.BottomLeft)).toBe(true)
+    expect(lines[3]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
-    expect(lines[5]).toBe(Char.Empty)
+    expect(lines[4]).toBe(Char.Empty)
   })
 
   it(`should not render entrypoints when entrypoints are undefined`, () => {
@@ -219,15 +214,15 @@ describe(`@roots/bud-dashboard app component`, () => {
     )
 
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/ compilation \[foo\]$/)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
+    expect(lines[0]).toMatch(/ compilation \[foo\]$/)
+
+    expect(lines[1]).toBe(Char.Vertical)
     expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toBe(Char.Vertical)
 
-    expect(startsWith(lines[4], Char.BottomLeft)).toBe(true)
-    expect(lines[4]).toMatch(/...$/)
+    expect(startsWith(lines[3], Char.BottomLeft)).toBe(true)
+    expect(lines[3]).toMatch(/...$/)
   })
 
   it(`should not render entrypoints when entrypoint assets are undefined`, () => {
@@ -247,17 +242,16 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     let lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/ compilation \[foo\]$/)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
+    expect(lines[0]).toMatch(/ compilation \[foo\]$/)
 
+    expect(lines[1]).toBe(Char.Vertical)
     expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toBe(Char.Vertical)
 
-    expect(startsWith(lines[4], Char.BottomLeft)).toBe(true)
-    expect(lines[4]).toMatch(/\.\.\.$/)
-    expect(lines[5]).toBe(Char.Empty)
+    expect(startsWith(lines[3], Char.BottomLeft)).toBe(true)
+    expect(lines[3]).toMatch(/\.\.\.$/)
+    expect(lines[4]).toBe(Char.Empty)
 
     const {frames: frames2} = ink.render(
       <Application
@@ -275,18 +269,13 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    lines = stripAnsi(frames2.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
-
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/compilation \[foo\]$/)
-    expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toBe(Char.Vertical)
-
-    expect(startsWith(lines[4], Char.BottomLeft)).toBe(true)
-    expect(lines[4]).toMatch(/.../)
-
-    expect(lines[5]).toBe(Char.Empty)
+    expect(stripAnsi(frames2.pop())).toMatchInlineSnapshot(`
+      "╭ compilation [foo]
+      │
+      │
+      ╰ ...
+      "
+    `)
   })
 
   it(`should render compilation count for multi-compiler`, () => {
@@ -298,30 +287,23 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[1\/2\] \[mock\-hash\]$/)
+    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+      "╭ mock [1/2] [mock-hash]
+      │
+      │ foo
+      │  › foo.js                                                                                   1 kB
+      │
+      ╰ 2 modules [2/2 modules cached]
 
-    expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toMatch(/│ foo/)
-    expect(lines[4]).toMatch(/│  › foo.js /)
-    expect(lines[5]).toBe(Char.Vertical)
-
-    expect(startsWith(lines[6], Char.BottomLeft)).toBe(true)
-    expect(lines[6]).toMatch(/2 modules \[2\/2 modules cached\]$/)
-    expect(lines[7]).toBe(Char.Empty)
-
-    expect(startsWith(lines[8], Char.TopLeft)).toBe(true)
-    expect(lines[8]).toMatch(/mock \[2\/2\] \[mock\-hash\]$/)
-
-    expect(lines[9]).toBe(Char.Vertical)
-    expect(lines[10]).toMatch(/│ foo/)
-    expect(lines[11]).toMatch(/│  › foo.js /)
-    expect(lines[12]).toBe(Char.Vertical)
-    expect(lines[13]).toMatch(/╰ 2 modules \[2\/2 modules cached\]/)
-    expect(lines[14]).toBe(Char.Empty)
+      ╭ mock [2/2] [mock-hash]
+      │
+      │ foo
+      │  › foo.js                                                                                   1 kB
+      │
+      ╰ 2 modules [2/2 modules cached]
+      "
+    `)
   })
 
   it(`should render assets`, () => {
@@ -332,26 +314,16 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="production"
       />,
     )
-    const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
-
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[mock\-hash\]$/)
-
-    expect(lines[2]).toBe(Char.Vertical)
-
-    expect(startsWith(lines[3], Char.Vertical)).toBe(true)
-    expect(lines[3]).toMatch(/│ assets/)
-
-    expect(isFormattedAsset(lines[4])).toBe(true)
-    expect(lines[4]).toMatch(/foo.png/)
-
-    expect(lines[5]).toMatch(/│  … 1 additional asset not shown/)
-    expect(lines[6]).toBe(Char.Vertical)
-
-    expect(startsWith(lines[7], Char.BottomLeft)).toBe(true)
-    expect(lines[7]).toMatch(/2 modules \[2\/2 modules cached\]$/)
-    expect(lines[8]).toBe(Char.Empty)
+    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+      "╭ mock [mock-hash]
+      │
+      │ assets
+      │  › foo.png                                                                                  1 kB
+      │  … 1 additional asset not shown
+      │
+      ╰ 2 modules [2/2 modules cached]
+      "
+    `)
   })
 
   it(`should render error`, () => {
@@ -361,19 +333,14 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="production"
       />,
     )
-    const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
-
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[mock\-hash\]$/)
-
-    expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toMatch(/│ │ Bad error/)
-    expect(lines[4]).toBe(Char.Vertical)
-
-    expect(startsWith(lines[5], Char.BottomLeft)).toBe(true)
-    expect(lines[5]).toMatch(/2 modules \[2\/2 modules cached\]$/)
-    expect(lines[6]).toBe(Char.Empty)
+    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+      "╭ mock [mock-hash]
+      │
+      │ │ Bad error
+      │
+      ╰ 2 modules [2/2 modules cached]
+      "
+    `)
   })
 
   it(`should render server info`, () => {
@@ -393,44 +360,42 @@ describe(`@roots/bud-dashboard app component`, () => {
     )
 
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[0]).toBe(Char.Empty)
+    expect(lines[0]).toMatch(/mock \[mock-hash\]$/)
+    expect(startsWith(lines[0], Char.TopLeft)).toBe(true)
 
-    expect(startsWith(lines[1], Char.TopLeft)).toBe(true)
-    expect(lines[1]).toMatch(/mock \[mock\-hash\]$/)
+    expect(lines[1]).toBe(Char.Vertical)
+    expect(lines[2]).toMatch(/│ foo/)
 
-    expect(lines[2]).toBe(Char.Vertical)
-    expect(lines[3]).toMatch(/│ foo/)
+    expect(isFormattedAsset(lines[3])).toBe(true)
+    expect(lines[3]).toMatch(/foo.js /)
+    expect(lines[3]).toMatch(/1 kB$/)
 
-    expect(isFormattedAsset(lines[4])).toBe(true)
-    expect(lines[4]).toMatch(/foo.js /)
-    expect(lines[4]).toMatch(/1 kB$/)
+    expect(lines[4]).toBe(Char.Vertical)
 
-    expect(lines[5]).toBe(Char.Vertical)
+    expect(startsWith(lines[5], Char.Vertical)).toBe(true)
+    expect(lines[5]).toMatch(/assets$/)
 
-    expect(startsWith(lines[6], Char.Vertical)).toBe(true)
-    expect(lines[6]).toMatch(/assets$/)
+    expect(isFormattedAsset(lines[6])).toBe(true)
+    expect(lines[6]).toMatch(/ foo.png /)
+    expect(lines[6]).toMatch(/1 kB$/)
 
-    expect(isFormattedAsset(lines[7])).toBe(true)
-    expect(lines[7]).toMatch(/ foo.png /)
-    expect(lines[7]).toMatch(/1 kB$/)
+    expect(lines[7]).toMatch(/│  … 1 additional asset not shown/)
+    expect(lines[8]).toBe(Char.Vertical)
 
-    expect(lines[8]).toMatch(/│  … 1 additional asset not shown/)
-    expect(lines[9]).toBe(Char.Vertical)
+    expect(startsWith(lines[9], Char.BottomLeft)).toBe(true)
+    expect(lines[9]).toMatch(/2 modules \[2\/2 modules cached\]$/)
 
-    expect(startsWith(lines[10], Char.BottomLeft)).toBe(true)
-    expect(lines[10]).toMatch(/2 modules \[2\/2 modules cached\]$/)
-
-    expect(lines[11]).toBe(Char.Empty)
-    expect(lines[12]).toMatch(/Network/)
-    expect(lines[14]).toMatch(/ › Proxy  ┄ http:\/\/.+:\d+\//)
-    expect(lines[15]).toBe(Char.Empty)
-    expect(lines[16]).toMatch(/          ┄ http:\/\/.+/)
-    expect(lines[17]).toMatch(/ › Dev    ┄ http:\/\/.+\//)
-    expect(lines[18]).toMatch(
+    expect(lines[10]).toBe(Char.Empty)
+    expect(lines[11]).toMatch(/Network/)
+    expect(lines[13]).toMatch(/ › Proxy  ┄ http:\/\/.+:\d+\//)
+    expect(lines[14]).toBe(Char.Empty)
+    expect(lines[15]).toMatch(/          ┄ http:\/\/.+/)
+    expect(lines[16]).toMatch(/ › Dev    ┄ http:\/\/.+\//)
+    expect(lines[17]).toMatch(
       /          ┄ http:\/\/\d+\.\d+\.\d+\.\d+:\d+\//,
     )
-    expect(lines[19]).toMatch(/          ┄ http:\/\/.+:\d+\//)
-    expect(lines[20]).toBe(Char.Empty)
+    expect(lines[18]).toMatch(/          ┄ http:\/\/.+:\d+\//)
+    expect(lines[19]).toBe(Char.Empty)
   })
 
   it(`should not render proxy info when proxy not set`, () => {
@@ -450,7 +415,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
     const lines = stripAnsi(frames.pop()).split(Char.NewLine)
-    expect(lines[14]).toMatch(/ › Dev    ┄ http:\/\/.+:\d+\//)
+    expect(lines[13]).toMatch(/ › Dev    ┄ http:\/\/.+:\d+\//)
   })
 
   it(`should not throw when crazy input happens`, () => {
