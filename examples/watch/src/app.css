@@ -10,11 +10,6 @@ code {
     monospace;
 }
 
-.test {
-  .foo {
-  }
-}
-
 .App {
   width: 100vw;
   max-width: 100vw;
