@@ -7,7 +7,7 @@
     "@roots/bud-criticalcss": "workspace:*"
   },
   "dependencies": {
-    "tslib": "2.6.1"
+    "tslib": "2.6.2"
   },
   "scripts": {
     "build": "bud build"

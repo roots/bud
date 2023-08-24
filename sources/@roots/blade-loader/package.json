@@ -47,14 +47,14 @@
   "types": "./lib/plugin.d.ts",
   "main": "./lib/plugin.js",
   "devDependencies": {
-    "@babel/core": "7.22.10",
+    "@babel/core": "7.22.11",
     "@skypack/package-check": "0.2.2",
     "babel-loader": "9.1.3",
     "memfs": "4.2.1"
   },
   "dependencies": {
     "lodash": "4.17.21",
-    "tslib": "2.6.1",
+    "tslib": "2.6.2",
     "webpack": "5.88.2"
   },
   "volta": {

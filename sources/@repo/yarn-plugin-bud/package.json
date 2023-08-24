@@ -8,22 +8,22 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.197",
-    "@types/node": "18.17.5",
+    "@types/node": "18.17.9",
     "@types/semver": "7.5.0",
     "@yarnpkg/builder": "4.0.0-rc.49",
-    "typescript": "5.1.6"
+    "typescript": "5.2.2"
   },
   "dependencies": {
     "@repo/constants": "workspace:*",
-    "@yarnpkg/cli": "4.0.0-rc.49",
-    "@yarnpkg/core": "4.0.0-rc.49",
-    "@yarnpkg/shell": "4.0.0-rc.49",
+    "@yarnpkg/cli": "4.0.0-rc.50",
+    "@yarnpkg/core": "4.0.0-rc.50",
+    "@yarnpkg/shell": "4.0.0-rc.50",
     "clipanion": "4.0.0-rc.2",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",
     "lodash": "4.17.21",
     "semver": "7.5.4",
-    "tslib": "2.6.1"
+    "tslib": "2.6.2"
   },
   "scripts": {
     "build": "builder build plugin"
