@@ -1,14 +1,15 @@
 {
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
+    "jsxImportSource": "react",
     "rootDir": "./src",
     "rootDirs": ["./src", "./vendor"],
     "outDir": "./lib",
     "strict": true,
     "types": ["express", "node", "react", "webpack"]
   },
-  "include": ["./src/**/*"],
-  "exclude": ["./src/highlight/**/*", "./vendor"],
+  "include": ["src"],
+  "exclude": ["src/highlight/**/*", "./vendor"],
   "references": [
     {"path": "./../filesystem/tsconfig.json"}
   ]
