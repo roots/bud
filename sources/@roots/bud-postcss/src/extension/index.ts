@@ -119,7 +119,10 @@ class BudPostCss extends BudPostCssOptionsApi {
       })
 
     build.rules.css.setUse((items = []) => [...items, `postcss`])
-    build.rules[`css-module`]?.setUse((items = []) => [...items, `postcss`])
+    build.rules[`css-module`]?.setUse((items = []) => [
+      ...items,
+      `postcss`,
+    ])
 
     const config = Object.values(context.files).find(
       file => file?.name?.includes(`postcss`) && file?.module,

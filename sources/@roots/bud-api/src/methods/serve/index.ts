@@ -1,6 +1,9 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, Server} from '@roots/bud-framework'
 
-import getPort from '@roots/bud-support/get-port'
+import {
+  portOrPortsToNumbers,
+  requestPorts,
+} from '@roots/bud-support/get-port'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isEqual from '@roots/bud-support/lodash/isEqual'
 import isNumber from '@roots/bud-support/lodash/isNumber'
@@ -8,8 +11,6 @@ import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import type {Options, Parameters, ServerOptions} from './serve.types.js'
-
-import {checkChildInstanceError} from './childError.js'
 
 /**
  * bud.serve
@@ -23,58 +24,77 @@ export type {Options, Parameters, ServerOptions}
  * bud.serve
  */
 export const serve: serve = async function (this: Bud, input, options) {
-  if (!this.isDevelopment || !this.server) return this
+  const bud = this.root
+  if (!bud.isDevelopment) return bud
+  if (!bud?.server) return bud
 
-  checkChildInstanceError(this, input)
+  let normalizedUrl = input instanceof URL ? input : bud.server.url
+  let normalizedOptions = options ?? bud.hooks.filter(`dev.options`, {})
 
-  let resolvedUrl = input instanceof URL ? input : this.server.url
-  let resolvedOptions = options ?? this.hooks.filter(`dev.options`, {})
+  /**
+   * If input is a string, convert it to a {@link URL}
+   */
+  if (isString(input)) normalizedUrl = new URL(input)
 
-  if (isString(input)) resolvedUrl = new URL(input)
-
+  /**
+   * If input is a number or array of numbers,
+   * try to resolve the requested port(s) and
+   * assign to the {@link URL}
+   */
   if (isArray(input) || isNumber(input)) {
-    resolvedUrl.port = await requestPorts(
-      this,
-      portOrPortsToNumbers(input),
+    normalizedUrl.port = await requestPorts(
+      portOrPortsToNumbers(bud.context.port ?? input),
     )
   }
 
+  /**
+   * If input is an object, convert it to a {@link URL}
+   * and {@link ServerOptions}
+   */
   if (
     !(input instanceof URL) &&
     !isArray(input) &&
     typeof input === `object`
   ) {
-    resolvedUrl = await makeURLFromObject(input, resolvedUrl)
-    resolvedOptions = await makeHttpOptions(this, input, resolvedOptions)
+    normalizedUrl = await makeURLFromObject(bud, input, normalizedUrl)
+    normalizedOptions = await makeHttpOptions(
+      bud,
+      input,
+      normalizedOptions,
+    )
   }
 
-  this.hooks.on(`dev.url`, resolvedUrl)
-  this.hooks.on(`dev.options`, resolvedOptions)
+  bud.hooks.on(`dev.url`, normalizedUrl)
+  bud.hooks.on(`dev.options`, normalizedOptions)
 
-  return this
+  return bud
 }
 
 /**
  * Process specification object
  */
 const makeURLFromObject = async function (
+  bud: Bud,
   options: Options,
-  url: URL,
-): Promise<URL> {
+  url: Server[`url`],
+): Promise<Server[`url`]> {
   if (options.url) {
     return options.url instanceof URL ? options.url : new URL(options.url)
   }
 
   if (options.host) url.hostname = options.host
-  if (options.port) url.port = `${options.port}`
+  if (options.port)
+    url.port = await requestPorts(portOrPortsToNumbers(options.port))
+
   if (
+    url.protocol !== `https:` &&
     [
       !isUndefined(options.ssl),
       !isUndefined(options.cert),
       !isUndefined(options.key),
       !isUndefined(options?.options?.cert),
       !isUndefined(options?.options?.key),
-      isEqual(options.port, 443),
+      isEqual(url.port, 443),
     ].some(Boolean)
   )
     url.protocol = `https:`
@@ -101,34 +121,3 @@ const makeHttpOptions = async function (
 
   return resolvedOptions
 }
-
-/**
- * Get a free port
- */
-const requestPorts = async (
-  bud: Bud,
-  include: Array<number>,
-  exclude: Array<number> = [],
-) => {
-  const request = {exclude, port: include}
-
-  const port = await getPort(request)
-
-  if (!request.port?.includes(port)) {
-    bud.warn(`None of the requested ports could be resolved.`)
-    bud.warn(`A port was automatically selected: ${port}`)
-  }
-
-  return `${port}`
-}
-
-/**
- * Convert a string, number, or array of strings/numbers
- * to an array of numbers
- */
-const portOrPortsToNumbers = (
-  port: Array<number | string> | number | string,
-): Array<number> =>
-  Array.isArray(port)
-    ? port.map(port => (isString(port) ? parseInt(port) : port))
-    : [isString(port) ? parseInt(port) : port]

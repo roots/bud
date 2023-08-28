@@ -44,11 +44,13 @@
   ],
   "files": [
     "lib",
+    "types",
     "vendor"
   ],
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./ansi-escapes": "./lib/ansi-escapes/index.js",
     "./axios": "./lib/axios/index.js",
     "./chalk": "./lib/chalk/index.js",
     "./chokidar": "./lib/chokidar/index.js",
@@ -75,112 +77,203 @@
     "./get-port": "./lib/get-port/index.js",
     "./globby": "./lib/globby/index.js",
     "./highlight": "./vendor/highlight/index.js",
-    "./remark-loader": "./lib/remark-loader/index.cjs",
-    "./style-loader": "./lib/style-loader/index.cjs",
-    "./yml-loader": "./lib/yml-loader/index.cjs",
-    "./utilities/*": "./lib/utilities/*.js",
     "./html-loader": "./vendor/html-loader/index.cjs",
     "./html-webpack-plugin": "./vendor/html-webpack-plugin/index.cjs",
+    "./http-proxy-middleware": "./lib/http-proxy-middleware/index.js",
+    "./human-readable": "./lib/human-readable/index.js",
     "./ink": "./lib/ink/index.js",
-    "./*": "./lib/*/index.js"
+    "./import-meta-resolve": "./lib/import-meta-resolve/index.js",
+    "./json5": "./lib/json5/index.js",
+    "./jsx-runtime": "./lib/jsx-runtime/index.cjs",
+    "./lodash/*": "./lib/lodash/*/index.js",
+    "./logger": "./lib/logger/index.js",
+    "./mini-css-extract-plugin": "./lib/mini-css-extract-plugin/index.js",
+    "./mini-svg-data-uri": "./lib/mini-svg-data-uri/index.js",
+    "./node-notifier": "./lib/node-notifier/index.js",
+    "./open": "./lib/open/index.js",
+    "./os": "./lib/os/index.js",
+    "./parse-semver": "./lib/parse-semver/index.js",
+    "./patch-console": "./lib/patch-console/index.js",
+    "./pretty-format": "./lib/pretty-format/index.js",
+    "./remark-loader": "./lib/remark-loader/index.cjs",
+    "./strip-ansi": "./lib/strip-ansi/index.js",
+    "./style-loader": "./lib/style-loader/index.cjs",
+    "./toml": "./lib/toml/index.js",
+    "./typanion": "./lib/typanion/index.js",
+    "./utilities/*": "./lib/utilities/*.js",
+    "./value": "./lib/value/index.js",
+    "./webpack": "./lib/webpack/index.js",
+    "./webpack-dev-middleware": "./lib/webpack-dev-middleware/index.js",
+    "./webpack-manifest-plugin": "./lib/webpack-manifest-plugin/index.js",
+    "./which-pm": "./lib/which-pm/index.js",
+    "./yml-loader": "./lib/yml-loader/index.cjs"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "./axios": [
+      "ansi-escapes": [
+        "./lib/ansi-escapes/index.d.ts"
+      ],
+      "axios": [
         "./lib/axios/index.d.ts"
       ],
-      "./chalk": [
+      "chalk": [
         "./lib/chalk/index.d.ts"
       ],
-      "./chokidar": [
+      "chokidar": [
         "./lib/chokidar/index.d.ts"
       ],
-      "./clean-stack": [
+      "clean-stack": [
         "./lib/clean-stack/index.d.ts"
       ],
-      "./clean-webpack-plugin": [
+      "clean-webpack-plugin": [
         "./lib/clean-webpack-plugin/index.d.ts"
       ],
-      "./clipanion": [
+      "clipanion": [
         "./lib/clipanion/index.d.ts"
       ],
-      "./cookie-parser": [
+      "cookie-parser": [
         "./lib/cookie-parser/index.d.ts"
       ],
-      "./copy-webpack-plugin": [
+      "copy-webpack-plugin": [
         "./lib/copy-webpack-plugin/index.d.ts"
       ],
-      "./css-loader": [
+      "css-loader": [
         "./lib/css-loader/index.d.ts"
       ],
-      "./csv-loader": [
+      "csv-loader": [
         "./lib/csv-loader/index.d.ts"
       ],
-      "./dotenv": [
+      "dotenv": [
         "./lib/dotenv/index.d.ts"
       ],
-      "./errors": [
+      "errors": [
         "./lib/errors/index.d.ts"
       ],
-      "./esbuild": [
+      "esbuild": [
         "./lib/esbuild/index.d.ts"
       ],
-      "./esbuild-wasm": [
+      "esbuild-wasm": [
         "./lib/esbuild-wasm/index.d.ts"
       ],
-      "./execa": [
+      "execa": [
         "./lib/execa/index.d.ts"
       ],
-      "./express": [
+      "express": [
         "./lib/express/index.d.ts"
       ],
-      "./figures": [
+      "figures": [
         "./lib/figures/index.d.ts"
       ],
-      "./file-loader": [
+      "file-loader": [
         "./lib/file-loader/index.d.ts"
       ],
-      "./filesystem": [
+      "filesystem": [
         "./lib/filesystem/index.d.ts"
       ],
-      "./get-port": [
+      "get-port": [
         "./lib/get-port/index.d.ts"
       ],
-      "./globby": [
+      "globby": [
         "./lib/globby/index.d.ts"
-      ],
-      "./remark-loader": [
-        "./lib/remark-loader/index.d.ts"
-      ],
-      "./style-loader": [
-        "./lib/style-loader/index.d.ts"
-      ],
-      "./yml-loader": [
-        "./lib/yml-loader/index.d.ts"
-      ],
-      "./decorators/*": [
-        "./lib/decorators/*.d.ts"
-      ],
-      "utilities/*": [
-        "./lib/utilities/*.d.ts"
       ],
       "highlight": [
         "./vendor/highlight/index.d.ts"
       ],
-      "./html-loader": [
+      "human-readable": [
+        "./lib/human-readable/index.d.ts"
+      ],
+      "html-loader": [
         "./vendor/html-loader/index.d.ts"
       ],
       "html-webpack-plugin": [
         "./vendor/html-webpack-plugin/index.d.cts"
       ],
-      "./ink": [
+      "http-proxy-middleware": [
+        "./lib/http-proxy-middleware/index.d.ts"
+      ],
+      "import-meta-resolve": [
+        "./lib/import-meta-resolve/index.d.ts"
+      ],
+      "ink": [
         "./lib/ink/index.d.ts"
       ],
-      "*": [
-        "./lib/*/index.d.ts"
+      "json5": [
+        "./lib/json5/index.d.ts"
+      ],
+      "jsx-runtime": [
+        "./lib/jsx-runtime/index.d.cts"
+      ],
+      "lodash/*": [
+        "./lib/lodash/*/index.d.ts"
+      ],
+      "logger": [
+        "./lib/logger/index.d.ts"
+      ],
+      "mini-css-extract-plugin": [
+        "./lib/mini-css-extract-plugin/index.d.ts"
+      ],
+      "mini-svg-data-uri": [
+        "./lib/mini-svg-data-uri/index.d.ts"
+      ],
+      "node-notifier": [
+        "./lib/node-notifier/index.d.ts"
+      ],
+      "open": [
+        "./lib/open/index.d.ts"
+      ],
+      "os": [
+        "./lib/os/index.d.ts"
+      ],
+      "parse-semver": [
+        "./lib/parse-semver/index.d.ts"
+      ],
+      "patch-console": [
+        "./lib/patch-console/index.d.ts"
+      ],
+      "pretty-format": [
+        "./lib/pretty-format/index.d.ts"
+      ],
+      "remark-loader": [
+        "./lib/remark-loader/index.d.ts"
+      ],
+      "strip-ansi": [
+        "./lib/strip-ansi/index.d.ts"
+      ],
+      "style-loader": [
+        "./lib/style-loader/index.d.ts"
+      ],
+      "toml": [
+        "./lib/toml/index.d.ts"
+      ],
+      "typanion": [
+        "./lib/typanion/index.d.ts"
+      ],
+      "value": [
+        "./lib/value/index.d.ts"
+      ],
+      "webpack": [
+        "./lib/webpack/index.d.ts"
+      ],
+      "webpack-dev-middleware": [
+        "./lib/webpack-dev-middleware/index.d.ts"
+      ],
+      "webpack-manifest-plugin": [
+        "./lib/webpack-manifest-plugin/index.d.ts"
+      ],
+      "which-pm": [
+        "./lib/which-pm/index.d.ts"
+      ],
+      "yml-loader": [
+        "./lib/yml-loader/index.d.ts"
+      ],
+      "decorators/*": [
+        "./lib/decorators/*.d.ts"
+      ],
+      "utilities/*": [
+        "./lib/utilities/*.d.ts"
       ]
     }
   },
@@ -201,6 +294,7 @@
   },
   "dependencies": {
     "@roots/filesystem": "workspace:*",
+    "ansi-escapes": "6.2.0",
     "ansi-regex": "6.0.1",
     "axios": "1.4.0",
     "chalk": "5.3.0",

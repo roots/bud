@@ -68,33 +68,27 @@ export interface Cache {
   name: FileCacheOptions[`name`]
 
   setAllowCollectingMemory(
-    value:
-      CacheCallback<FileCacheOptions[`allowCollectingMemory`]>
+    value: CacheCallback<FileCacheOptions[`allowCollectingMemory`]>,
   ): this
 
   /**
    * Set build dependencies
    */
   setBuildDependencies(
-    value:
-      CacheCallback<FileCacheOptions[`buildDependencies`]>
+    value: CacheCallback<FileCacheOptions[`buildDependencies`]>,
   ): this
 
   /**
    * Set cache directory
    */
   setCacheDirectory(
-    value:
-      CacheCallback<FileCacheOptions[`cacheDirectory`]>
+    value: CacheCallback<FileCacheOptions[`cacheDirectory`]>,
   ): this
 
   /**
    * Set cache type
    */
-  setType(
-    value:
-      CacheCallback<FileCacheOptions[`type`]>
-  ): this
+  setType(value: CacheCallback<FileCacheOptions[`type`]>): this
 
   /**
    * Cache type

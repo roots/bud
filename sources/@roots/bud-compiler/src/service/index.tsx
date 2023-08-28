@@ -306,7 +306,6 @@ const statsOptions = {
     warnings: true,
     warningsCount: true,
   },
-  name: true,
 }
 
 export {Compiler as default}

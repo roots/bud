@@ -275,7 +275,7 @@ export class Server extends Service implements BudServer {
       new URL(`http://0.0.0.0:3000`),
     )
 
-    if (this.app.context.port) url.port = this.app.context.port.toString()
+    if (this.app.context.port) url.port = this.app.context.port
 
     return url
   }

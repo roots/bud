@@ -12,6 +12,7 @@
     "importHelpers": true,
     "incremental": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@roots/bud-support",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "NodeNext",
     "moduleDetection": "force",

@@ -6,5 +6,5 @@
     "strict": true,
     "verbatimModuleSyntax": false
   },
-  "include": ["./src"],
+  "include": ["./src"]
 }

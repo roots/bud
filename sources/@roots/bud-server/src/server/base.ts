@@ -13,6 +13,10 @@ import type {Server as HttpsServer} from 'node:https'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
+import {
+  portOrPortsToNumbers,
+  requestPorts,
+} from '@roots/bud-support/get-port'
 import logger from '@roots/bud-support/logger'
 
 /**
@@ -39,11 +43,34 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public async listen() {
+    if (!this.app.server) {
+      throw new Error(`No server instance found.`)
+    }
+
+    const port = Number(
+      await requestPorts(portOrPortsToNumbers(this.app.server?.url.port)),
+    )
+
+    if (`${port}` !== `${this.app.server.url.port}`) {
+      const axios = await import(`@roots/bud-support/axios`).then(
+        pkg => pkg.default,
+      )
+      const request = await axios.get(this.app.server.url.port)
+      this.app.server.logger.warn(
+        `Could not bind to port ${this.app.server.url.port}. It may already be in use.`,
+        `\n`,
+        `Request to ${this.app.server.url.port} returned ${request.status}.`,
+        `\n`,
+        request.headers,
+      )
+      this.app.server.logger.warn(`Using port ${port} instead.`)
+    }
+
     this.instance
       .listen(
         this.app.hooks.filter(`dev.listenOptions`, {
           host: this.app.server?.url.hostname,
-          port: Number(this.app.server?.url.port),
+          port,
         }),
       )
       .on(

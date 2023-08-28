@@ -3,6 +3,7 @@ import type {
   Connection,
   Middleware,
   Options,
+  Server,
 } from '@roots/bud-framework/services/server'
 import type {WatchOptions} from '@roots/bud-support/chokidar'
 
@@ -100,19 +101,19 @@ export interface Sync {
   /**
    * Proxy URL
    */
-  proxyUrl: URL
+  proxyUrl: Server[`proxyUrl`]
   /**
    * Public proxy URL
    */
-  publicProxyUrl: URL
+  publicProxyUrl: Server[`publicProxyUrl`]
   /**
    * External URL
    */
-  publicUrl: URL
+  publicUrl: Server[`publicUrl`]
   /**
    * Server URL
    */
-  url: URL
+  url: Server[`url`]
   /**
    * Files which trigger a full browser reload
    */

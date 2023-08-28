@@ -354,7 +354,10 @@ export class Bud {
    */
   @bind
   public async promise(promise?: (bud: Bud) => Promise<any>) {
-    if (promise) await this.promised.then(promise).catch(this.catch)
+    if (promise)
+      await this.promised
+        .then(async () => await promise(this))
+        .catch(this.catch)
     else await this.promised.catch(this.catch)
 
     return this

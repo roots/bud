@@ -67,6 +67,7 @@ export class Build extends Command {
         outfile: `sources/@roots/filesystem/vendor/sdk/index.cjs`,
         source: `node_modules/@aws-sdk/client-s3/dist-es/index.js`,
       }),
+
       /**
        * highlight.js
        */
@@ -108,6 +109,7 @@ export class Build extends Command {
           {overwrite: true},
         )
       }),
+
       /**
        * html-webpack-plugin
        */

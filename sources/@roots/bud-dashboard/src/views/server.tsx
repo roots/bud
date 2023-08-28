@@ -34,6 +34,7 @@ export const Server = ({
 
   return (
     <Box flexDirection="column">
+      <Text>{` `}</Text>
       <Text color="blue">Network</Text>
       <Text>{` `}</Text>
 

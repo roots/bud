@@ -54,8 +54,7 @@ class BabelExtension extends Extension {
   public get configFile(): Record<string, any> | undefined {
     return Object.values(this.app.context.files).find(
       file =>
-        file.name.includes(`babelrc`) ||
-        file.name === `babel.config`,
+        file.name.includes(`babelrc`) || file.name === `babel.config`,
     )
   }
 
@@ -80,7 +79,6 @@ class BabelExtension extends Extension {
     if (this.configFile) {
       return {...baseOptions, ...this.configFileOptions}
     }
-
 
     return {
       ...baseOptions,

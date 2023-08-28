@@ -11,12 +11,11 @@ export const css: Factory<Item> = async ({makeItem}) =>
     ident: `css`,
     loader: `css`,
     options: {modules: false},
-  })
-    .setOptions(({hooks: {filter}}) => ({
-      sourceMap: isBoolean(filter(`build.devtool`, false))
-        ? filter(`build.devtool`, false)
-        : true,
-    }))
+  }).setOptions(({hooks: {filter}}) => ({
+    sourceMap: isBoolean(filter(`build.devtool`, false))
+      ? filter(`build.devtool`, false)
+      : true,
+  }))
 
 /**
  * CSS module loader
@@ -26,13 +25,12 @@ export const cssModule: Factory<Item> = async ({makeItem}) =>
     ident: `css-module`,
     loader: `css`,
     options: {modules: true},
-  })
-    .setOptions(({build, hooks}) => ({
-      importLoaders: build.rules[`css-module`].getUse().length - 2,
-      sourceMap: isBoolean(hooks.filter(`build.devtool`, false))
-        ? hooks.filter(`build.devtool`, false)
-        : true,
-    }))
+  }).setOptions(({build, hooks}) => ({
+    importLoaders: build.rules[`css-module`].getUse().length - 2,
+    sourceMap: isBoolean(hooks.filter(`build.devtool`, false))
+      ? hooks.filter(`build.devtool`, false)
+      : true,
+  }))
 
 /**
  * CSV loader
