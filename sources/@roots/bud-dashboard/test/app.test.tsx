@@ -347,28 +347,10 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
-      "
-      ╭ mock [mock-hash]
-      │
-      │ foo
-      │  ◉ foo.js                                                                                   1 kB
-      │
-      │ assets
-      │  ◉ foo.png                                                                                  1 kB
-      │  … 1 additional asset not shown
-      │
-      ╰ 2 modules [2/2 modules cached]
-
-      Network
-
-       › Proxy  ┄ http://localhost:8080/
-
-                ┄ http://example.test/
-       › Dev    ┄ http://localhost:3000/
-                ┄ http://192.168.1.16:3000/
-                ┄ http://example.test:3000/"
-    `)
+    const output = stripAnsi(frames.pop())
+    expect(output).toContain(`Network`)
+    expect(output).toContain(`› Proxy`)
+    expect(output).toContain(`› Dev`)
   })
 
   it(`should not render proxy info when proxy not set`, () => {

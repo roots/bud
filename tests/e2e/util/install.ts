@@ -1,5 +1,5 @@
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
-import getPort from '@roots/bud-support/get-port'
+import {getPort} from '@roots/bud-support/get-port'
 
 import * as fs from './copy'
 
