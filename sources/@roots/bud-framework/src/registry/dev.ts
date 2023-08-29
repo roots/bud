@@ -39,19 +39,16 @@ export interface Sync {
    * Enabled middleware
    */
   'middleware.enabled': Array<keyof Middleware.Available>
-  'middleware.proxy.options': Middleware.Available['proxy']['options']
+  'middleware.proxy.options': Partial<Middleware.Available['proxy']['options']>
   'middleware.proxy.options.agent': Middleware.Available['proxy']['options']['agent']
   'middleware.proxy.options.auth': Middleware.Available['proxy']['options']['auth']
-
   'middleware.proxy.options.autoRewrite': Middleware.Available['proxy']['options']['autoRewrite']
-
   'middleware.proxy.options.buffer': Middleware.Available['proxy']['options']['buffer']
   'middleware.proxy.options.changeOrigin': Middleware.Available['proxy']['options']['changeOrigin']
   'middleware.proxy.options.cookieDomainRewrite': Middleware.Available['proxy']['options']['cookieDomainRewrite']
   'middleware.proxy.options.cookiePathRewrite': Middleware.Available['proxy']['options']['cookiePathRewrite']
   'middleware.proxy.options.ejectPlugins': Middleware.Available['proxy']['options']['ejectPlugins']
   'middleware.proxy.options.followRedirects': Middleware.Available['proxy']['options']['followRedirects']
-
   'middleware.proxy.options.forward': Middleware.Available['proxy']['options']['forward']
   'middleware.proxy.options.headers': Record<string, string>
   'middleware.proxy.options.hostRewrite': Middleware.Available['proxy']['options']['hostRewrite']

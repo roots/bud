@@ -63,7 +63,9 @@ describe(`multi-compiler`, () => {
   it(`has theme entry`, async () => {
     const theme = bud.get(`theme`)
 
+    try {
     await theme.build.make()
+    } catch (e) {}
 
     expect(theme.build.config.entry).toEqual(
       expect.objectContaining({

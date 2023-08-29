@@ -2,17 +2,11 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "outDir": "./lib",
-    "paths": {
-      "@roots/bud-api": ["./src/index.ts"],
-      "@roots/bud-api/methods": ["./src/methods/index.ts"],
-      "@roots/bud-api/methods/*": ["./src/methods/*/index.ts"],
-      "@roots/bud-api/service": ["./src/service/index.ts"],
-    },
     "rootDir": "./src",
     "strict": true,
     "types": ["node", "@roots/bud-framework", "@roots/bud-extensions", "@roots/bud-minify"]
   },
-  "include": ["./src"],
+  "include": ["src"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-extensions/tsconfig.json"},

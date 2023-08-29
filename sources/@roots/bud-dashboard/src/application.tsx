@@ -83,7 +83,7 @@ export const Application = ({
                 displayAssets={displayAssets}
                 displayEntrypoints={displayEntrypoints}
                 id={id}
-                key={`${compilation.name}-${compilation.hash}`}
+                key={`${compilation.name}-${compilation.hash}-${id}`}
                 stdout={stdout}
               />
             )
@@ -105,7 +105,7 @@ export const Application = ({
           displayAssets={displayAssets}
           displayEntrypoints={displayEntrypoints}
           id={id}
-          key={`${compilation.name}-${compilation.hash}`}
+          key={`${compilation.name}-${compilation.hash}-${id}`}
           stdout={stdout}
         />
       ))}
@@ -148,7 +148,6 @@ export const RenderCompilation = ({
     <Box
       flexDirection="column"
       gap={1}
-      key={`${compilation.name}-${compilation.hash}`}
       width={stdout.columns - 2}
     >
       <Compilation

@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import * as hot from '@roots/bud-server/middleware/hot'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
-
-import * as hot from './index.js'
 
 describe(`@roots/bud-server/middleware/hot`, () => {
   let bud: Bud

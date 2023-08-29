@@ -1,0 +1,17 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`@roots/bud-server > should have availableMiddleware property 1`] = `
+{
+  "cookie": "@roots/bud-server/middleware/cookie",
+  "dev": "@roots/bud-server/middleware/dev",
+  "hot": "@roots/bud-server/middleware/hot",
+  "proxy": "@roots/bud-server/middleware/proxy",
+}
+`;
+
+exports[`@roots/bud-server > should have enabledMiddleware property 1`] = `
+{
+  "dev": "@roots/bud-server/middleware/dev",
+  "hot": "@roots/bud-server/middleware/hot",
+}
+`;
