@@ -1,4 +1,5 @@
 /* eslint-disable no-console */
+import { ExecaReturnValue } from 'execa'
 import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
 import {afterEach, beforeEach, describe, expect, it} from 'vitest'
@@ -15,19 +16,21 @@ declare global {
 
 describe(`bud.watch functionality`, () => {
   let browser: Browser
+  let dev: Promise<ExecaReturnValue>
   let page: Page
   let port: number
 
   beforeEach(async () => {
     port = await e2eBeforeAll(`watch`)
-    if (!port) throw new Error(`Port could not be found`)
+    if (!port) throw new Error(`Error installing or allocating an open port`)
 
-    runDev(`watch`, port)
+    dev = runDev(`watch`, port)
+    if (!dev) throw new Error(`Error starting dev process`)
 
     browser = await chromium.launch()
     if (!browser) throw new Error(`Browser could not be launched`)
 
-    page = await browser?.newPage()
+    page = await browser.newPage()
     if (!page) throw new Error(`Page could not be created`)
 
     await page.waitForTimeout(5000)

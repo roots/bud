@@ -17,7 +17,7 @@ describe(`html output of examples/swc`, () => {
     browser = await chromium.launch()
     if (!browser) throw new Error(`Browser could not be launched`)
 
-    page = await browser?.newPage()
+    page = await browser.newPage()
     if (!page) throw new Error(`Page could not be created`)
 
     await page.waitForTimeout(5000)
@@ -31,18 +31,16 @@ describe(`html output of examples/swc`, () => {
       `\
 import './styles.css'
 
-document.querySelector('body').classList.add('hot')
+document.querySelector(\`body\`).classList.add(\`hot\`)
 
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept(console.error)
 }
 `,
     )
-
     await page.waitForTimeout(12000)
 
-    const hot = await page.$(`.hot`)
-    expect(hot).toBeTruthy()
+    expect(await page.$(`.hot`)).toBeTruthy()
 
     await page.close()
     await browser.close()
