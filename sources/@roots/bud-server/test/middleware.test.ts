@@ -1,6 +1,5 @@
+import * as exports from '@roots/bud-server/middleware'
 import {describe, expect, it} from 'vitest'
-
-import * as exports from './index.js'
 
 describe(`@roots/bud-server/middleware`, () => {
   it(`should export dev factory`, () => {

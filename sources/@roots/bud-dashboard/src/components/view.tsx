@@ -7,6 +7,7 @@ export interface Props {
   compact?: boolean
   footer?: any
   head?: any
+  marginTop?: number
   paddingY?: number
 }
 
@@ -16,10 +17,16 @@ const View = ({
   compact,
   footer,
   head,
+  marginTop = 1,
   paddingY = 0,
 }: Props) => {
   return (
-    <Box flexDirection="column" overflowX="hidden" width="100%">
+    <Box
+      flexDirection="column"
+      marginTop={marginTop}
+      overflowX="hidden"
+      width="100%"
+    >
       <Box flexDirection="row" gap={1} overflowX="hidden" width="100%">
         <Box flexDirection="row" gap={0} minWidth={1}>
           <Text color={borderColor}>{figures.lineDownRightArc}</Text>

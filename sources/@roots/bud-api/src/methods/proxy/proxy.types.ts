@@ -65,9 +65,9 @@ export type ReplacementCallback = (
   replacements: ReplacementTuples | undefined,
 ) => ReplacementTuples
 
-export type OptionsCallback = (options: Options | undefined) => Options
+export type OptionsCallback = (options: Partial<Options> | undefined) => Partial<Options>
 
 export type Parameters = [
-  (boolean | number | Options | OptionsCallback | string | URL)?,
-  (Options | ReplacementCallback | ReplacementTuples)?,
+  (boolean | number | OptionsCallback | Partial<Options> | string | URL)?,
+  (Partial<Options> | ReplacementCallback | ReplacementTuples)?,
 ]

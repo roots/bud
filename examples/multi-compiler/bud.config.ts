@@ -4,7 +4,6 @@ import {bud} from '@roots/bud'
  * Configuration which runs two instances of bud.
  *
  * Each can be uniquely configured.
- * ```
  */
 await Promise.all([
   /**

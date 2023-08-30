@@ -27,11 +27,13 @@ const Entrypoints = ({
     .map(entrypoint => ({
       ...entrypoint,
       assets:
-        entrypoint.assets?.map(asset => ({
-          ...(asset ?? {}),
-          ...(compilation?.assets?.find(a => a?.name === asset?.name) ??
-            {}),
-        })) ?? [],
+        entrypoint.assets
+          ?.filter(asset => !asset?.name?.includes(`hot-update`))
+          .map(asset => ({
+            ...(asset ?? {}),
+            ...(compilation?.assets?.find(a => a?.name === asset?.name) ??
+              {}),
+          })) ?? [],
     }))
     .filter(({assets}) => assets.length > 0)
 
@@ -54,7 +56,7 @@ const Entrypoints = ({
           flexWrap="wrap"
           justifyContent="space-between"
         >
-          <Text color={compilationColor}>{name ?? `entrypoint`}</Text>
+          {name && <Text color={compilationColor}>{name}</Text>}
           <Box flexDirection="row" flexWrap="wrap" gap={2}>
             <Text>{assets.length} modules</Text>
             <Text>
@@ -76,7 +78,9 @@ const Entrypoints = ({
             flexWrap="wrap"
             justifyContent="space-between"
           >
-            <Text color={compilationColor}>{name ?? `entrypoint`}</Text>
+            {name && name !== compilation.name && (
+              <Text color={compilationColor}>{name}</Text>
+            )}
           </Box>
           <Assets assets={assets} minWidth={minWidth} />
         </Box>

@@ -13,16 +13,18 @@
       "@roots/bud-extensions",
       "@roots/bud-minify",
       "@roots/bud-entrypoints",
-      "@roots/bud-preset-wordpress"
+      "@roots/bud-preset-wordpress",
+      "@roots/bud-support"
     ]
   },
-  "include": ["./src"],
+  "include": ["src"],
   "references": [
     {"path": "../bud-build/tsconfig.json"},
     {"path": "../bud-client/tsconfig.json"},
     {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-minify/tsconfig.json"},
-    {"path": "../bud-preset-wordpress/tsconfig.json"}
+    {"path": "../bud-preset-wordpress/tsconfig.json"},
+    {"path": "../bud-support/tsconfig.json"}
   ]
 }

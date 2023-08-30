@@ -75,7 +75,7 @@ export class Release extends Command {
         date.getUTCDate(),
       ].join(`.`)
 
-      this.version = `${utcSemver}-${date.getUTCHours()}${date.getUTCMinutes()}`
+      this.version = `${utcSemver}-${parseInt(`${date.getUTCHours()}`)}${parseInt(`${date.getUTCMinutes()}`)}`
     }
 
     await this.cli

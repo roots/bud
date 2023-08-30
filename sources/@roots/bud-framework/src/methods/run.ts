@@ -8,10 +8,6 @@ export interface run {
 }
 
 export const run: run = async function (this: Bud) {
-  if (!hasCompiler(this)) {
-    throw new Error(`Compiiler not found`)
-  }
-
   if (this.isProduction) {
     const compilation = await this.compiler
       ?.compile(this)

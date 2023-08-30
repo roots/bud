@@ -11,7 +11,6 @@ import {
   Box,
   type PropsWithChildren,
   Static,
-  Text,
   useApp,
   useInput,
   useState,
@@ -59,7 +58,7 @@ export const Application = ({
   publicProxyUrl,
   status,
 }: Props) => {
-  const {stdout}  = useStdout()
+  const {stdout} = useStdout()
 
   if (error) return <Error error={error} />
 
@@ -67,52 +66,102 @@ export const Application = ({
     ? compilations?.filter(compilation => compilation.hash) ?? []
     : []
 
-  if (!compilations.length) {
+  if (mode === `production`) {
     return (
-      <Box>
-        <Text dimColor>{status ? `\n${status}` : ``}</Text>
+      <Box flexDirection="column" gap={1}>
+        <Static items={compilations}>
+          {(compilation, id) => {
+            if (isolated > 0 && id + 1 !== isolated) return null
+
+            return (
+              <RenderCompilation
+                basedir={basedir}
+                compact={compact}
+                compilation={compilation}
+                compilations={compilations}
+                debug={debug}
+                displayAssets={displayAssets}
+                displayEntrypoints={displayEntrypoints}
+                id={id}
+                key={`${compilation.name}-${compilation.hash}-${id}`}
+                stdout={stdout}
+              />
+            )
+          }}
+        </Static>
       </Box>
     )
   }
 
   return (
-    <Static items={[0]}>
-      {(item, id) => (
-        <Box key={`app-${id}`} width={stdout.columns - 2}>
-          <Box flexDirection="column" gap={1}>
-            {compilations?.map((compilation, id) => {
-              if (isolated > 0 && id + 1 !== isolated) return null
+    <>
+      {compilations.map((compilation, id) => (
+        <RenderCompilation
+          basedir={basedir}
+          compact={compact}
+          compilation={compilation}
+          compilations={compilations}
+          debug={debug}
+          displayAssets={displayAssets}
+          displayEntrypoints={displayEntrypoints}
+          id={id}
+          key={`${compilation.name}-${compilation.hash}-${id}`}
+          stdout={stdout}
+        />
+      ))}
 
-              return (
-                <Box flexDirection="column" gap={1} key={id}>
-                  <Compilation
-                    basedir={basedir}
-                    compact={compact}
-                    compilation={compilation}
-                    debug={debug}
-                    displayAssets={displayAssets}
-                    displayEntrypoints={displayEntrypoints}
-                    id={id + 1}
-                    total={compilations?.length}
-                  />
-                  <Debug compilation={compilation} debug={debug} />
-                </Box>
-              )
-            })}
+      <Server
+        devUrl={devUrl}
+        displayServerInfo={displayServerInfo}
+        mode={mode}
+        proxy={proxy}
+        proxyUrl={proxyUrl}
+        publicDevUrl={publicDevUrl}
+        publicProxyUrl={publicProxyUrl}
+      />
+    </>
+  )
+}
 
-            <Server
-              devUrl={devUrl}
-              displayServerInfo={displayServerInfo}
-              mode={mode}
-              proxy={proxy}
-              proxyUrl={proxyUrl}
-              publicDevUrl={publicDevUrl}
-              publicProxyUrl={publicProxyUrl}
-            />
-          </Box>
-        </Box>
-      )}
-    </Static>
+export const RenderCompilation = ({
+  basedir,
+  compact,
+  compilation,
+  compilations,
+  debug,
+  displayAssets,
+  displayEntrypoints,
+  id,
+  stdout,
+}: {
+  basedir?: string
+  compact?: boolean
+  compilation: Partial<StatsCompilation>
+  compilations?: Array<Partial<StatsCompilation>>
+  debug?: boolean
+  displayAssets?: boolean
+  displayEntrypoints?: boolean
+  id: number
+  stdout: NodeJS.WriteStream
+}) => {
+  return (
+    <Box
+      flexDirection="column"
+      gap={1}
+      width={stdout.columns - 2}
+    >
+      <Compilation
+        basedir={basedir}
+        compact={compact}
+        compilation={compilation}
+        debug={debug}
+        displayAssets={displayAssets}
+        displayEntrypoints={displayEntrypoints}
+        id={id + 1}
+        total={compilations?.length}
+      />
+      <Debug compilation={compilation} debug={debug} />
+    </Box>
   )
 }
 

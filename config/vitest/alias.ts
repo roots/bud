@@ -1,19 +1,6 @@
-import {join, relative} from 'node:path'
-
 import {path} from '@repo/constants'
-import globby from '@roots/bud-support/globby'
-
-const packages = await globby(path(`sources/@roots/*`), {
-  absolute: true,
-  onlyDirectories: true,
-})
 
 export default {
-  ...packages.reduce((aliases, packageRoot) => {
-    const signifier = relative(path(), packageRoot)
-    aliases[signifier] = join(packageRoot, `src`)
-    return aliases
-  }, {}),
   '@roots/blade-loader': path(`sources/@roots/blade-loader/src/plugin.ts`),
   '@roots/browserslist-config': path(`sources/@roots/browserslist-config`),
   '@roots/bud': path(`sources/@roots/bud/src`),
@@ -37,8 +24,12 @@ export default {
   '@roots/bud-mdx': path(`sources/@roots/bud-mdx/src`),
   '@roots/bud-minify': path(`sources/@roots/bud-minify/src`),
   '@roots/bud-postcss': path(`sources/@roots/bud-postcss/src`),
-  '@roots/bud-preset-recommend': path(`sources/@roots/bud-preset-recommend/src`),
-  '@roots/bud-preset-wordpress': path(`sources/@roots/bud-preset-wordpress/src`),
+  '@roots/bud-preset-recommend': path(
+    `sources/@roots/bud-preset-recommend/src`,
+  ),
+  '@roots/bud-preset-wordpress': path(
+    `sources/@roots/bud-preset-wordpress/src`,
+  ),
   '@roots/bud-prettier': path(`sources/@roots/bud-prettier/src`),
   '@roots/bud-purgecss': path(`sources/@roots/bud-purgecss/src`),
   '@roots/bud-react': path(`sources/@roots/bud-react/src`),
@@ -47,14 +38,30 @@ export default {
   '@roots/bud-solid': path(`sources/@roots/bud-solid/src`),
   '@roots/bud-stylelint': path(`sources/@roots/bud-stylelint/src`),
   '@roots/bud-support': path(`sources/@roots/bud-support/src`),
+  '@roots/bud-support/jsx-dev-runtime': path(
+    `sources/@roots/bud-support/jsx-dev-runtime/index.cjs`,
+  ),
+  '@roots/bud-support/jsx-runtime': path(
+    `sources/@roots/bud-support/jsx-runtime/index.cjs`,
+  ),
   '@roots/bud-swc': path(`sources/@roots/bud-swc/src`),
   '@roots/bud-tailwindcss': path(`sources/@roots/bud-tailwindcss/src`),
-  '@roots/bud-tailwindcss-theme-json': path(`sources/@roots/bud-tailwindcss-theme-json/src`),
+  '@roots/bud-tailwindcss-theme-json': path(
+    `sources/@roots/bud-tailwindcss-theme-json/src`,
+  ),
   '@roots/bud-typescript': path(`sources/@roots/bud-typescript/src`),
   '@roots/bud-vue': path(`sources/@roots/bud-vue/src`),
-  '@roots/bud-wordpress-dependencies': path(`sources/@roots/bud-wordpress-dependencies/src`),
+  '@roots/bud-wordpress-dependencies': path(
+    `sources/@roots/bud-wordpress-dependencies/src`,
+  ),
   '@roots/filesystem/src/vendor/sdk': path(
     `sources/@roots/filesystem/vendor/sdk`,
   ),
   '@roots/sage': path(`sources/@roots/sage/src`),
+  '/sources/@roots/bud-support/src/jsx-dev-runtime': path(
+    `sources/@roots/bud-support/jsx-dev-runtime/index.cjs`,
+  ),
+  '/sources/@roots/bud-support/src/jsx-runtime': path(
+    `sources/@roots/bud-support/jsx-runtime/index.cjs`,
+  ),
 }

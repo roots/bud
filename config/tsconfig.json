@@ -12,6 +12,7 @@
     "importHelpers": true,
     "incremental": true,
     "jsx": "react-jsx",
+    "jsxImportSource": "@roots/bud-support",
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "NodeNext",
     "moduleDetection": "force",
@@ -29,6 +30,7 @@
   },
   "files": [],
   "references": [
+    {"path": "../sources/@roots/bud-support/tsconfig.json"},
     {"path": "../sources/@repo/markdown-kit/tsconfig.json"},
     {"path": "../sources/@repo/test-kit/tsconfig.json"},
     {"path": "../sources/@roots/bud/tsconfig.json"},
@@ -61,7 +63,6 @@
     {"path": "../sources/@roots/bud-sass/tsconfig.json"},
     {"path": "../sources/@roots/bud-server/tsconfig.json"},
     {"path": "../sources/@roots/bud-solid/tsconfig.json"},
-    {"path": "../sources/@roots/bud-support/tsconfig.json"},
     {"path": "../sources/@roots/bud-stylelint/tsconfig.json"},
     {"path": "../sources/@roots/bud-swc/tsconfig.json"},
     {"path": "../sources/@roots/bud-tailwindcss/tsconfig.json"},

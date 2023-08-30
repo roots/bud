@@ -287,6 +287,7 @@ export class Dashboard extends Service implements BudDashboard {
   @bind
   public updateStats(stats: StatsCompilation): BudDashboard {
     if (!this.app.compiler) return this
+    if (stats && `hash` in stats && stats.hash === this.stats?.hash) return this
 
     if (stats) this.stats = stats
 

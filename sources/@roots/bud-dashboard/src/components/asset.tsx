@@ -24,7 +24,7 @@ const Asset = (asset: Props) => {
       <Box flexDirection="row" overflowX="hidden">
         <Text dimColor={!asset.emitted} wrap="truncate-end">
           {` `}
-          {!asset.emitted ? figures.almostEqual : figures.pointerSmall}
+          {!asset.emitted ? figures.circle : figures.circleFilled}
           {` `}
           {asset.name}
         </Text>

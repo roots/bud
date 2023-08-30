@@ -69,11 +69,11 @@ export const makeOptions = (app: Bud): Options => {
       ),
       logger: app.hooks.filter(
         `dev.middleware.proxy.options.logger`,
-        app.context.log && app.server?.logger
-          ? app.server.logger.scope(app.label, `proxy`)
-          : app.context.ci
-          ? console
-          : undefined,
+       () => {
+        if (!app.context.log) return undefined
+        if (app.server?.logger) return app.server.logger.scope(app.label, `proxy`)
+        return console
+       },
       ),
       on: filterUndefined(
         app.hooks.filter(`dev.middleware.proxy.options.on`, {

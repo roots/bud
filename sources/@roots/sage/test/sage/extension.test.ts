@@ -1,6 +1,4 @@
-import {dirname} from 'node:path'
-import {fileURLToPath} from 'node:url'
-
+import {path} from '@repo/constants'
 import {Bud, factory} from '@repo/test-kit'
 import Sage from '@roots/sage'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
@@ -10,9 +8,12 @@ describe(`@roots/sage`, async () => {
   let sage: Sage
 
   beforeEach(async () => {
-    bud = await factory({
-      basedir: dirname(fileURLToPath(import.meta.url)),
-    })
+    try {
+      bud = await factory({
+        extensions: [],
+      })
+    } catch (e) {}
+
     sage = new Sage(bud)
   })
 

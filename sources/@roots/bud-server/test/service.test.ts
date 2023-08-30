@@ -1,7 +1,6 @@
 import {Bud, factory} from '@repo/test-kit'
+import {Server} from '@roots/bud-server/service'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import {Server} from './index.js'
 
 describe(`@roots/bud-server`, () => {
   let bud: Bud

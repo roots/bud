@@ -30,7 +30,7 @@ export interface Options {
   /**
    * Port
    */
-  port?: number
+  port?: Array<number> | number
 
   /**
    * Use ssl connection

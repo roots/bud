@@ -1,3 +1,2 @@
-export {factory} from './factory.js'
-
+export {factory, makeOptions} from './factory.js'
 export {ApplicationURL} from './url.js'
