@@ -145,11 +145,7 @@ export const RenderCompilation = ({
   stdout: NodeJS.WriteStream
 }) => {
   return (
-    <Box
-      flexDirection="column"
-      gap={1}
-      width={stdout.columns - 2}
-    >
+    <Box flexDirection="column" gap={1} width={stdout.columns - 2}>
       <Compilation
         basedir={basedir}
         compact={compact}

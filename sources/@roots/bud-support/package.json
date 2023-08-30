@@ -75,6 +75,7 @@
     "./figures": "./lib/figures/index.js",
     "./file-loader": "./lib/file-loader/index.cjs",
     "./filesystem": "./lib/filesystem/index.js",
+    "./filter-undefined": "./lib/filter-undefined/index.js",
     "./get-port": "./lib/get-port/index.js",
     "./globby": "./lib/globby/index.js",
     "./highlight": "./vendor/highlight/index.js",
@@ -174,6 +175,9 @@
       ],
       "filesystem": [
         "./lib/filesystem/index.d.ts"
+      ],
+      "filter-undefined": [
+        "./lib/filter-undefined/index.d.ts"
       ],
       "get-port": [
         "./lib/get-port/index.d.ts"

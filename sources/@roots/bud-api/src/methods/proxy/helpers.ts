@@ -51,7 +51,9 @@ export const assignUrl = (bud: Bud, maybeURL: string | URL) => {
  */
 export const assignOptionsCallback = (
   bud: Bud,
-  value: ((options: Partial<Options> | undefined) => Partial<Options>) | Partial<Options>,
+  value:
+    | ((options: Partial<Options> | undefined) => Partial<Options>)
+    | Partial<Options>,
 ) => {
   bud.hooks.on(`dev.middleware.proxy.options`, value)
 }
@@ -122,7 +124,10 @@ export const isOptionsObject = (
  * @param bud
  * @param options
  */
-export const assignOptions = (bud: Bud, options: Partial<Options>): void => {
+export const assignOptions = (
+  bud: Bud,
+  options: Partial<Options>,
+): void => {
   Object.entries(options).map(([key, value]) => {
     if (key === `replacements`)
       return bud.hooks.on(

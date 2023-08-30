@@ -39,7 +39,9 @@ export interface Sync {
    * Enabled middleware
    */
   'middleware.enabled': Array<keyof Middleware.Available>
-  'middleware.proxy.options': Partial<Middleware.Available['proxy']['options']>
+  'middleware.proxy.options': Partial<
+    Middleware.Available['proxy']['options']
+  >
   'middleware.proxy.options.agent': Middleware.Available['proxy']['options']['agent']
   'middleware.proxy.options.auth': Middleware.Available['proxy']['options']['auth']
   'middleware.proxy.options.autoRewrite': Middleware.Available['proxy']['options']['autoRewrite']

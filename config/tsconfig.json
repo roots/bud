@@ -25,7 +25,7 @@
     "skipLibCheck": true,
     "strictBindCallApply": true,
     "target": "es2022",
-    "types": ["node", "webpack", "webpack-env"],
+    "types": ["node", "vitest/importMeta", "webpack", "webpack-env"],
     "verbatimModuleSyntax": true
   },
   "files": [],
@@ -73,23 +73,15 @@
     {"path": "../sources/@roots/bud-wordpress-externals/tsconfig.json"},
     {"path": "../sources/@roots/bud-wordpress-theme-json/tsconfig.json"},
     {"path": "../sources/@roots/container/tsconfig.json"},
-    {
-      "path": "../sources/@roots/critical-css-webpack-plugin/tsconfig.json"
-    },
+    {"path": "../sources/@roots/critical-css-webpack-plugin/tsconfig.json"},
     {"path": "../sources/@roots/dependencies/tsconfig.json"},
     {"path": "../sources/@roots/entrypoints-webpack-plugin/tsconfig.json"},
     {"path": "../sources/@roots/filesystem/tsconfig.json"},
     {"path": "../sources/@roots/sage/tsconfig.json"},
-    {
-      "path": "../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"
-    },
-    {
-      "path": "../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"
-    },
+    {"path": "../sources/@roots/wordpress-dependencies-webpack-plugin/tsconfig.json"},
+    {"path": "../sources/@roots/wordpress-externals-webpack-plugin/tsconfig.json"},
     {"path": "../sources/@roots/wordpress-hmr/tsconfig.json"},
-    {
-      "path": "../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"
-    },
+    {"path": "../sources/@roots/wordpress-theme-json-webpack-plugin/tsconfig.json"},
     {"path": "../sources/@roots/wordpress-transforms/tsconfig.json"},
     {"path": "../sources/create-bud-app/tsconfig.json"}
   ]

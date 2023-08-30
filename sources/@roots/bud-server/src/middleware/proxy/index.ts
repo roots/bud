@@ -1,2 +1,2 @@
 export {factory, makeOptions} from './factory.js'
-export {ApplicationURL} from './url.js'
+export * as responseInterceptor from './responseInterceptor.js'
