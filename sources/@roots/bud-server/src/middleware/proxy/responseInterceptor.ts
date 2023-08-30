@@ -4,8 +4,6 @@ import type {IncomingMessage, ServerResponse} from 'node:http'
 
 import {responseInterceptor} from '@roots/bud-support/http-proxy-middleware'
 
-import type {ApplicationURL} from './url.js'
-
 declare module 'node:http' {
   interface IncomingMessage {
     cookies?: Record<string, any>
@@ -15,8 +13,8 @@ declare module 'node:http' {
   }
 }
 
-const factory = (bud: Bud, url: ApplicationURL) =>
-  responseInterceptor(async (buffer, proxy, request, response) => {
+const factory = (bud: Bud, url: Record<string, URL>) => {
+  return responseInterceptor(async (buffer, proxy, request, response) => {
     response.setHeader(`x-proxy-by`, `@roots/bud`)
     response.removeHeader(`content-security-policy`)
     response.removeHeader(`x-http-method-override`)
@@ -25,6 +23,7 @@ const factory = (bud: Bud, url: ApplicationURL) =>
 
     return transformResponseBuffer(bud, url, proxy, buffer)
   })
+}
 
 const setResponseCookies = (
   request: IncomingMessage,
@@ -51,7 +50,7 @@ const setResponseCookies = (
 
 const transformResponseBuffer = (
   bud: Bud,
-  url: ApplicationURL,
+  url: Record<string, URL>,
   proxy: IncomingMessage,
   buffer: Buffer,
 ) => {

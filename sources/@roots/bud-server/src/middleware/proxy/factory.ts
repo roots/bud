@@ -1,12 +1,12 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Options} from '@roots/bud-support/http-proxy-middleware'
 
+import filterUndefined from '@roots/bud-support/filter-undefined'
 import {createProxyMiddleware} from '@roots/bud-support/http-proxy-middleware'
 
 import type {MiddlewareFactory} from '../index.js'
 
 import * as responseInterceptor from './responseInterceptor.js'
-import {ApplicationURL} from './url.js'
 
 /**
  * Proxy middleware factory
@@ -15,7 +15,11 @@ export const factory: MiddlewareFactory = (app: Bud) =>
   createProxyMiddleware(makeOptions(app))
 
 export const makeOptions = (app: Bud): Options => {
-  const url = new ApplicationURL(() => app)
+  const url = {
+    dev: app.server.publicUrl,
+    proxy: app.server.proxyUrl,
+    publicProxy: app.server.publicProxyUrl,
+  }
 
   return filterUndefined(
     app.hooks.filter(`dev.middleware.proxy.options`, {
@@ -69,11 +73,7 @@ export const makeOptions = (app: Bud): Options => {
       ),
       logger: app.hooks.filter(
         `dev.middleware.proxy.options.logger`,
-       () => {
-        if (!app.context.log) return undefined
-        if (app.server?.logger) return app.server.logger.scope(app.label, `proxy`)
-        return console
-       },
+        app.server.logger?.scope(app.label, `proxy`) ?? console,
       ),
       on: filterUndefined(
         app.hooks.filter(`dev.middleware.proxy.options.on`, {
@@ -144,11 +144,4 @@ export const makeOptions = (app: Bud): Options => {
       ),
     }),
   )
-}
-
-export const filterUndefined = (obj: Record<string, any>) => {
-  return Object.entries(obj).reduce((a, [k, v]) => {
-    if (v === undefined) return a
-    return {...a, [k]: v}
-  }, {})
 }

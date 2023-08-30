@@ -1387,7 +1387,9 @@ if (process.env.NODE_ENV !== `production`) {
         if (fragment.ref !== null) {
           setCurrentlyValidatingElement$1(fragment)
 
-          error(`Invalid attribute \`ref\` supplied to \`React.Fragment\`.`)
+          error(
+            `Invalid attribute \`ref\` supplied to \`React.Fragment\`.`,
+          )
 
           setCurrentlyValidatingElement$1(null)
         }
@@ -1442,8 +1444,7 @@ if (process.env.NODE_ENV !== `production`) {
               `<` +
               (getComponentNameFromType(type.type) || `Unknown`) +
               ` />`
-            info =
-              ` Did you accidentally export a JSX literal instead of a component?`
+            info = ` Did you accidentally export a JSX literal instead of a component?`
           } else {
             typeString = typeof type
           }
