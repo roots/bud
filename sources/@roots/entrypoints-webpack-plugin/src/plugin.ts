@@ -95,6 +95,8 @@ export class EntrypointsWebpackPlugin {
     path: string
     type: string
   }) {
+    if (path.includes(`.map`) || path.includes(`hot-update`)) return
+
     !this.entrypoints.has(ident) && this.entrypoints.set(ident, new Map())
 
     !this.entrypoints.get(ident)?.has(type)

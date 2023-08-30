@@ -16,16 +16,12 @@ declare global {
 
 describe(`bud.watch functionality`, () => {
   let browser: Browser
-  let dev: Promise<ExecaReturnValue>
   let page: Page
   let port: number
 
   beforeEach(async () => {
     port = await e2eBeforeAll(`watch`)
-    if (!port) throw new Error(`Error installing or allocating an open port`)
-
-    dev = runDev(`watch`, port)
-    if (!dev) throw new Error(`Error starting dev process`)
+    runDev(`watch`, port)
 
     browser = await chromium.launch()
     if (!browser) throw new Error(`Browser could not be launched`)
@@ -34,11 +30,6 @@ describe(`bud.watch functionality`, () => {
     if (!page) throw new Error(`Page could not be created`)
 
     await page.waitForTimeout(5000)
-  })
-
-  afterEach(async () => {
-    await page.close()
-    await browser.close()
   })
 
   it(`reloads on change`, async () => {
@@ -56,10 +47,13 @@ describe(`bud.watch functionality`, () => {
       `foo`,
     )
 
-    await page.waitForTimeout(5000)
+    await page.waitForTimeout(12000)
 
     expect(
       await page.evaluate(() => window.reloadCalled),
     ).toBe(true)
+
+    await page.close()
+    await browser.close()
   })
 })
