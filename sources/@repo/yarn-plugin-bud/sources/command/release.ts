@@ -1,4 +1,3 @@
-/* eslint-disable n/no-process-env */
 import {CommandClass, Option} from 'clipanion'
 import {noop} from 'lodash'
 
@@ -68,14 +67,7 @@ export class Release extends Command {
     }
 
     if (!this.version) {
-      const date = new Date()
-      const utcSemver = [
-        date.getUTCFullYear(),
-        date.getUTCMonth() + 1,
-        date.getUTCDate(),
-      ].join(`.`)
-
-      this.version = `${utcSemver}-${parseInt(`${date.getUTCHours()}`)}${parseInt(`${date.getUTCMinutes()}`)}`
+      this.version = this.makeVersion()
     }
 
     await this.cli
@@ -99,6 +91,20 @@ export class Release extends Command {
       .catch(this.catch)
 
     await this.resetRegistry()
+  }
+
+  /**
+   * Get a unique identifier for the build.
+   */
+  public makeVersion(): string {
+    const date = new Date()
+    const utc = [
+      date.getUTCFullYear(),
+      date.getUTCMonth() + 1,
+      date.getUTCDate(),
+    ]
+    const rc = [parseInt(`${date.getUTCHours()}`), date.getUTCMinutes()]
+    return [utc.join(`.`), rc.join(``)].join(`-`)
   }
 
   public async resetRegistry() {
