@@ -91,6 +91,8 @@ export class Release extends Command {
       .catch(this.catch)
 
     await this.resetRegistry()
+
+    this.context.stdout.write(`\n\n📦 Released: ${this.version}\n\n`)
   }
 
   /**
@@ -103,8 +105,8 @@ export class Release extends Command {
       date.getUTCMonth() + 1,
       date.getUTCDate(),
     ]
-    const rc = [parseInt(`${date.getUTCHours()}`), date.getUTCMinutes()]
-    return [utc.join(`.`), rc.join(``)].join(`-`)
+    const rc = [date.getUTCHours(), date.getUTCMinutes()]
+    return [utc.join(`.`), parseInt(rc.join(``))].join(`-`)
   }
 
   public async resetRegistry() {
