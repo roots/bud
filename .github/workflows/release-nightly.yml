@@ -19,8 +19,6 @@ jobs:
           node-version: 18.16.1
           cache: yarn
 
-      - run: npm install -g npm
-
       - run: yarn
 
       - run: yarn config set npmAuthToken ${{ secrets.NODE_AUTH_TOKEN }}
