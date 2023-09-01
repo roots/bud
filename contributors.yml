@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 875
+  contributions: 923
   email: developers@tinypixel.dev
 - name: QWp6t
   login: QWp6t
@@ -38,6 +38,12 @@
   url: https://github.com/talss89
   contributions: 2
   email: tom.lawton@cndu.it
+- name: Nicolas Lemoine
+  login: nlemoine
+  avatar: https://avatars.githubusercontent.com/u/2526939?v=4
+  url: https://github.com/nlemoine
+  contributions: 2
+  email: nico.lemoine@gmail.com
 - name: Jam Risser
   login: clayrisser
   avatar: https://avatars.githubusercontent.com/u/6234038?v=4
@@ -79,15 +85,26 @@
   url: https://github.com/Log1x
   contributions: 1
   email: brandon@tendency.me
-- name: Nicolas Lemoine
-  login: nlemoine
-  avatar: https://avatars.githubusercontent.com/u/2526939?v=4
-  url: https://github.com/nlemoine
-  contributions: 1
-  email: nico.lemoine@gmail.com
 - name: Christian Widlund
   login: chrillep
   avatar: https://avatars.githubusercontent.com/u/1267931?v=4
   url: https://github.com/chrillep
   contributions: 1
   email: christian.widlund@gmail.com
+- name: Studio Rectangle
+  login: StudioRectangle
+  avatar: https://avatars.githubusercontent.com/u/138102850?v=4
+  url: https://github.com/StudioRectangle
+  contributions: 1
+- name: Xeader
+  login: xeader
+  avatar: https://avatars.githubusercontent.com/u/1153759?v=4
+  url: https://github.com/xeader
+  contributions: 1
+  email: a.gatta@xeader.com
+- name: '999'
+  login: Hansanghyeon
+  avatar: https://avatars.githubusercontent.com/u/42893446?v=4
+  url: https://github.com/Hansanghyeon
+  contributions: 1
+  email: 999@hyeon.pro
