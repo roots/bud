@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 23
+  contributions: 27
   email: developers@tinypixel.dev
 - name: Ben Word
   login: retlehs
@@ -16,3 +16,8 @@
   url: https://github.com/Log1x
   contributions: 1
   email: brandon@tendency.me
+- name: Studio Rectangle
+  login: StudioRectangle
+  avatar: https://avatars.githubusercontent.com/u/138102850?v=4
+  url: https://github.com/StudioRectangle
+  contributions: 1
