@@ -6,8 +6,16 @@ export default async function buildTask(command: CreateCommand) {
 
   try {
     switch (command.packageManager) {
+      case `pnpm`:
+        await command.sh(`pnpm`, [`bud`, `build`, `production`])
+        break
+
       case `npm`:
         await command.sh(`npx`, [`bud`, `build`, `production`])
+        break
+
+      case `yarn classic`:
+        await command.sh(`yarn`, [`bud`, `build`, `production`])
         break
 
       case `yarn`:

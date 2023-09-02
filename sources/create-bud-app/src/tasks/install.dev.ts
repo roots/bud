@@ -15,8 +15,16 @@ export default async function installTask(command: CreateCommand) {
     ])
 
     switch (command.packageManager) {
+      case `pnpm`:
+        await command.sh(`pnpm`, [`install`, ...dependencies, `--save-dev`, `--public-hoist-pattern="*"`])
+        break
+
       case `npm`:
         await command.sh(`npm`, [`install`, ...dependencies, `--save-dev`])
+        break
+
+      case `yarn classic`:
+         await command.sh(`yarn`, [`add`, ...dependencies, `--dev`])
         break
 
       case `yarn`:

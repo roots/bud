@@ -8,7 +8,7 @@ export default async function writePackageManifest(
   command: CreateCommand,
 ) {
   const spinner = command.createSpinner()
-  spinner.start(`writing readme...`)
+  spinner.start(`Writing README.md...`)
 
   if (!command.overwrite && command.exists(`readme`)) {
     return spinner.warn(`readme already exists. skipping write task.`)
@@ -26,8 +26,11 @@ export default async function writePackageManifest(
       description: command.description,
       license: command.license,
       name: command.name,
+      npm: command.packageManager === `npm`,
+      pnpm: command.packageManager === `pnpm`,
       username: command.username,
       version: command.version,
+      yarn: [`yarn classic`, `yarn`].includes(command.packageManager),
     })
 
     await command.fs.write(`README.md`, result)

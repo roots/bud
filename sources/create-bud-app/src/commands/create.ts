@@ -55,6 +55,9 @@ import writeSrcTask from '../tasks/write.src.js'
 import writeStylelintConfigTask from '../tasks/write.stylelint.config.js'
 import writeTailwindConfigTask from '../tasks/write.tailwind.config.js'
 import writeTsConfigTask from '../tasks/write.tsconfig.js'
+import writeYarnLockfile from '../tasks/write.yarn.lock.js'
+import writeYarnRCTask from '../tasks/write.yarnrc.js'
+import yarnVersionTask from '../tasks/yarn-version.js'
 import getGitUser from '../utilities/getGitUser.js'
 import getLatestVersion from '../utilities/getLatestVersion.js'
 
@@ -165,9 +168,6 @@ export default class CreateCommand extends Command {
 
   public extensions = extensionsMap
 
-  /**
-   * Project files
-   */
   public files: Array<string> = []
 
   public fs: Filesystem
@@ -202,24 +202,48 @@ export default class CreateCommand extends Command {
    * CLI after
    */
   public async after() {
-    const pm = this.packageManager === `yarn` ? `yarn` : `npx`
+    const messages = [`🎉 Project ready for you to start building!`]
 
-    this.context.stdout.write(
-      [
-        `🎉 Project ready for you to start building!`,
-        `${
-          this.relativePath
-            ? `Navigate to ${chalk.blueBright(
-                `./${relative(this.cwd, this.directory)}`,
-              )} and run`
-            : `Run`
-        } ${chalk.blueBright(`${pm} bud dev`)} to get started.`,
-        `When you are ready to deploy, run ${chalk.blueBright(
-          `${pm} bud build`,
-        )} to compile your project for production.`,
-        `Happy hacking!`,
-      ].join(`\n\n`),
+    let devMessage = this.relativePath
+      ? `Navigate to ${chalk.blueBright(
+          `./${relative(this.cwd, this.directory)}`,
+        )} and run`
+      : `Run`
+
+    if ([`yarn classic`, `yarn`].includes(this.packageManager)) {
+      devMessage = `${devMessage} ${chalk.blueBright(`yarn bud dev`)}`
+    }
+    if (this.packageManager === `pnpm`) {
+      devMessage = `${devMessage} ${chalk.blueBright(`pnpm bud dev`)}`
+    }
+    if (this.packageManager === `npm`) {
+      devMessage = `${devMessage} ${chalk.blueBright(`npx bud dev`)}`
+    }
+
+    messages.push(`${devMessage} to get started.`)
+
+    let buildMessage = `When you are ready to deploy, run`
+
+    if ([`yarn classic`, `yarn`].includes(this.packageManager)) {
+      buildMessage = `${buildMessage} ${chalk.blueBright(`yarn bud build`)}`
+    }
+    if (this.packageManager === `pnpm`) {
+      buildMessage = `${buildMessage} ${chalk.blueBright(
+        `pnpm bud build`,
+      )}`
+    }
+    if (this.packageManager === `npm`) {
+      buildMessage = `${buildMessage} ${chalk.blueBright(
+        `npx bud build`,
+      )}`
+    }
+
+    messages.push(
+      `${buildMessage} to compile your project for production.`,
+      `Happy hacking!`,
     )
+
+    this.context.stdout.write(messages.join(`\n\n`))
   }
 
   /**
@@ -442,6 +466,9 @@ export default class CreateCommand extends Command {
 
     await writePackageJSONTask(this)
     await writeReadmeTask(this)
+    await yarnVersionTask(this)
+    await writeYarnRCTask(this)
+    await writeYarnLockfile(this)
     await writeGitignoreConfigTask(this)
     await writeTsConfigTask(this)
     await writeConfigTask(this)

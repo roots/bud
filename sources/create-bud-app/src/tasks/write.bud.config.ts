@@ -17,6 +17,7 @@ export default async function writeConfigTask(command: CreateCommand) {
     const isTs =
       command.support.includes(`typescript`) ||
       command.support.includes(`swc`)
+
     const isReact = command.support.includes(`react`)
 
     const scriptExtension = isReact && isTs ? `tsx` : isTs ? `ts` : `js`

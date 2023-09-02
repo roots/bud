@@ -6,7 +6,10 @@ import type CreateCommand from '../commands/create.js'
 
 const choices = {
   npm: {name: `npm`, value: `npm`},
+  pnpm: {name: `pnpm`, value: `pnpm`},
   yarn: {name: `yarn`, value: `yarn`},
+  // eslint-disable-next-line perfectionist/sort-objects
+  [`yarn-classic`]: {name: `yarn classic`, value: `yarn classic`},
 }
 
 export default (command: CreateCommand) =>
