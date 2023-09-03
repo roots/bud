@@ -261,6 +261,40 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   public declare useEslintrc: Api['useEslintrc']
 
   /**
+   * Eslint plugins
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.plugins)
+   * ```
+   */
+  public get plugins(): Api[`overrideConfig`][`plugins`] {
+    return this.overrideConfig.plugins
+  }
+  public set plugins(plugins: Api[`overrideConfig`][`plugins`]) {
+    this.setOverrideConfig((config = {}) => {
+      return {...config, plugins: [...(config?.plugins ?? []), ...plugins]}
+    })
+  }
+
+  /**
+   * Eslint rules
+   *
+   * @example
+   * ```js
+   * console.log(bud.eslint.rules)
+   * ```
+   */
+  public get rules(): Api[`overrideConfig`][`rules`] {
+    return this.overrideConfig.rules
+  }
+  public set rules(rules: Api[`overrideConfig`][`rules`]) {
+    this.setOverrideConfig((config = {}) => {
+      return {...config, rules: {...config.rules, ...rules}}
+    })
+  }
+
+  /**
    * {@link Options.overrideConfig}
    */
   public get config() {
@@ -327,62 +361,6 @@ export class BudEslintPublicApi extends Extension<Options, Plugin> {
   @bind
   public getRules() {
     return this.rules
-  }
-
-  /**
-   * Get eslint plugins
-   *
-   * @example
-   * ```js
-   * console.log(bud.eslint.plugins)
-   * ```
-   */
-  public get plugins(): Api[`overrideConfig`][`plugins`] {
-    return this.overrideConfig.plugins
-  }
-
-  /**
-   * Set eslint plugins
-   *
-   * @example
-   * ```js
-   * bud.eslint.plugins = {
-   *  'no-console': 'off',
-   * }
-   * ```
-   */
-  public set plugins(plugins: Api[`overrideConfig`][`plugins`]) {
-    this.setOverrideConfig((config = {}) => {
-      return {...config, plugins: [...(config?.plugins ?? []), ...plugins]}
-    })
-  }
-
-  /**
-   * Get eslint rules
-   *
-   * @example
-   * ```js
-   * console.log(bud.eslint.rules)
-   * ```
-   */
-  public get rules(): Api[`overrideConfig`][`rules`] {
-    return this.overrideConfig.rules
-  }
-
-  /**
-   * Set eslint rules
-   *
-   * @example
-   * ```js
-   * bud.eslint.rules = {
-   *  'no-console': 'off',
-   * }
-   * ```
-   */
-  public set rules(rules: Api[`overrideConfig`][`rules`]) {
-    this.setOverrideConfig((config = {}) => {
-      return {...config, rules: {...config.rules, ...rules}}
-    })
   }
 
   /**

@@ -1,7 +1,7 @@
 import {env} from 'node:process'
 
-import GithubActionsReporter from 'vitest-github-actions-reporter'
 import {defineConfig} from 'vitest/config'
+import GithubActionsReporter from 'vitest-github-actions-reporter'
 
 import alias from './alias.js'
 

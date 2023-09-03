@@ -1,6 +1,4 @@
-import {join} from 'node:path'
-
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
@@ -13,16 +11,16 @@ describe(`issue-1890`, () => {
 
   it(`should generate scripts`, async () => {
     await execa(`yarn`, [`bud`, `clean`, `--silent`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1890`),
+      cwd: path(`tests`, `reproductions`, `issue-1890`),
     })
 
     await execa(`yarn`, [`bud`, `build`, `--silent`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1890`),
+      cwd: path(`tests`, `reproductions`, `issue-1890`),
     })
 
     const normalJs = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1890`,
         `dist`,
@@ -32,8 +30,8 @@ describe(`issue-1890`, () => {
       `utf8`,
     )
     const simpleJs = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1890`,
         `dist`,
@@ -43,8 +41,8 @@ describe(`issue-1890`, () => {
       `utf8`,
     )
     const mixedNormalJs = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1890`,
         `dist`,
@@ -54,8 +52,8 @@ describe(`issue-1890`, () => {
       `utf8`,
     )
     const mixedSimpleJs = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1890`,
         `dist`,

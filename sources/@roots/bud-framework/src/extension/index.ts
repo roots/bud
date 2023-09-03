@@ -136,22 +136,18 @@ export class Extension<
    * Application
    */
   public _app: () => Bud
-
   /**
    * Extension options
    */
   public _options: Partial<InternalOptionsValues<ExtensionOptions>>
-
   /**
    * Depends on
    */
   public dependsOn?: Set<keyof Modules & string>
-
   /**
    * Depends on (optional)
    */
   public dependsOnOptional?: Set<`${keyof Modules & string}`>
-
   /**
    * Is extension enabled
    *
@@ -161,14 +157,11 @@ export class Extension<
    * - {@link Extension.make}
    */
   public enabled: boolean = true
-
   public get = this.getOption
-
   /**
    * The module name
    */
   public label: `${keyof Modules & string}`
-
   /**
    * Extension meta
    */
@@ -179,19 +172,16 @@ export class Extension<
     configAfter: false,
     register: false,
   }
-
   /**
    * Extension options
    *
    * @readonly
    */
   public options: ExtensionOptions
-
   /**
    * Plugin constructor
    */
   public plugin?: ApplyPluginConstructor
-
   public set = this.setOption
 
   /**
@@ -208,6 +198,197 @@ export class Extension<
     })
   }
 
+  /**
+   * Application accessor
+   */
+  public get app(): Bud {
+    return this._app()
+  }
+  /**
+   * {@link ApplyPlugin.apply}
+   */
+  public apply?(compiler: Compiler): unknown | void
+  /**
+   * `boot` callback
+   */
+  public async boot?(app: Bud): Promise<unknown | void>
+  /**
+   * `buildAfter` callback
+   */
+  public async buildAfter?(app: Bud): Promise<unknown | void>
+  /**
+   * `buildBefore` callback
+   */
+  public async buildBefore?(app: Bud): Promise<unknown | void>
+  @bind
+  public catch(error: Error | string): never {
+    const thrownBy =
+      this.label ?? this.constructor?.name ?? `unknown_extension`
+
+    if (error instanceof ExtensionError) {
+      error.instance = this.app.label
+      error.thrownBy = error.thrownBy ?? thrownBy
+      throw error
+    }
+
+    throw new ExtensionError(
+      typeof error === `string` ? error : error.message,
+      {
+        docs: new URL(`https://bud.js.org/docs/extensions`),
+        issue: new URL(
+          `https://github.com/roots/bud/search?q=is:issue+${thrownBy} in:title`,
+        ),
+        origin: BudError.normalize(error),
+        thrownBy,
+      },
+    )
+  }
+  /**
+   * `configAfter` callback
+   */
+  public async configAfter?(app: Bud): Promise<unknown | void>
+  /**
+   * Disable extension
+   * @deprecated pass `false` to {@link Extension.enable}
+   */
+  @bind
+  public disable() {
+    this.enabled = false
+  }
+  /**
+   * Return to bud instance from extension
+   */
+  @bind
+  public done(): Bud {
+    return this.app
+  }
+  /**
+   * Enable extension
+   */
+  @bind
+  public enable(enabled: boolean = true) {
+    this.enabled = enabled
+    return this
+  }
+  /**
+   * Get extension option
+   */
+  @bind
+  public getOption<K extends string>(key: K): ExtensionOptions[K] {
+    return get(this.options, key)
+  }
+  public getOptions(): ExtensionOptions {
+    return Object.entries(this._options).reduce((acc, [key, value]) => {
+      if (isUndefined(value)) return acc
+      if (!isObject(value)) return {...acc, [key]: value}
+
+      const isDynamicOption = (
+        value: any,
+      ): value is DynamicOption<any> => {
+        return (
+          value instanceof DynamicOption ||
+          (`isBudValue` in value && value.isBudValue)
+        )
+      }
+
+      const unwrapped = isDynamicOption(value)
+        ? value.get()(this.app)
+        : value
+
+      if (isUndefined(unwrapped)) return acc
+      return {...acc, [key]: unwrapped}
+    }, {} as ExtensionOptions)
+  }
+  /**
+   * Import ESM module
+   */
+  @bind
+  public async import<T = any>(
+    signifier: string,
+    context: string,
+    options: {bustCache?: boolean; raw?: boolean} = {
+      bustCache: false,
+      raw: false,
+    },
+  ): Promise<T | undefined> {
+    return await this.app.module
+      .import(signifier, context, options)
+      .catch(this.catch)
+  }
+  /**
+   * Is extension enabled?
+   */
+  @bind
+  public isEnabled(): boolean {
+    return this.when(this.app, this.options)
+  }
+  /**
+   * Logger instance
+   */
+  public get logger(): any {
+    return logger.scope(...[this.app.label, this.label].filter(Boolean))
+  }
+  /**
+   * `make` callback
+   */
+  public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
+  /**
+   * {@link Extension.register}
+   */
+  public async register?(app: Bud): Promise<any>
+  /**
+   * Resolve module using `import.meta.resolve` api
+   */
+  @bind
+  public async resolve(
+    signifier: string,
+    context: string,
+  ): Promise<string> {
+    try {
+      return await this.app.module.resolve(signifier, context)
+    } catch (error) {
+      this.catch(
+        new ExtensionError(`could not resolve ${signifier}`, {
+          origin: error,
+          thrownBy: this.label,
+        }),
+      )
+    }
+  }
+  /**
+   * Set extension option
+   */
+  @bind
+  public setOption<K extends string>(
+    key: K,
+    valueOrCallback: OptionCallbackValue<ExtensionOptions, K>,
+  ): this {
+    if (isFunction(valueOrCallback)) {
+      set(this._options, key, valueOrCallback(this.get(key)))
+      return this
+    }
+
+    set(this._options, key, valueOrCallback)
+    return this
+  }
+  /**
+   * Set extension options
+   */
+  public setOptions(
+    value: Partial<InternalOptionsValues<ExtensionOptions>>,
+  ): this {
+    this._options = value
+    return this
+  }
+  /**
+   * Function returning a boolean indicating if the {@link Extension} should be utilized.
+   *
+   * @remarks
+   * By default returns {@link Extension.enabled}
+   */
+  public when(bud: Bud, options?: ExtensionOptions): boolean {
+    return this.enabled
+  }
   /**
    * `boot` callback handler
    */
@@ -303,216 +484,6 @@ export class Extension<
     this.meta[`register`] = true
 
     await this.register(this.app).catch(this.catch)
-  }
-
-  /**
-   * Application accessor
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
-  /**
-   * {@link ApplyPlugin.apply}
-   */
-  public apply?(compiler: Compiler): unknown | void
-
-  /**
-   * `boot` callback
-   */
-  public async boot?(app: Bud): Promise<unknown | void>
-
-  /**
-   * `buildAfter` callback
-   */
-  public async buildAfter?(app: Bud): Promise<unknown | void>
-
-  /**
-   * `buildBefore` callback
-   */
-  public async buildBefore?(app: Bud): Promise<unknown | void>
-
-  @bind
-  public catch(error: Error | string): never {
-    const thrownBy =
-      this.label ?? this.constructor?.name ?? `unknown_extension`
-
-    if (error instanceof ExtensionError) {
-      error.instance = this.app.label
-      error.thrownBy = error.thrownBy ?? thrownBy
-      throw error
-    }
-
-    throw new ExtensionError(
-      typeof error === `string` ? error : error.message,
-      {
-        docs: new URL(`https://bud.js.org/docs/extensions`),
-        issue: new URL(
-          `https://github.com/roots/bud/search?q=is:issue+${thrownBy} in:title`,
-        ),
-        origin: BudError.normalize(error),
-        thrownBy,
-      },
-    )
-  }
-
-  /**
-   * `configAfter` callback
-   */
-  public async configAfter?(app: Bud): Promise<unknown | void>
-
-  /**
-   * Disable extension
-   * @deprecated pass `false` to {@link Extension.enable}
-   */
-  @bind
-  public disable() {
-    this.enabled = false
-  }
-
-  /**
-   * Return to bud instance from extension
-   */
-  @bind
-  public done(): Bud {
-    return this.app
-  }
-
-  /**
-   * Enable extension
-   */
-  @bind
-  public enable(enabled: boolean = true) {
-    this.enabled = enabled
-    return this
-  }
-
-  /**
-   * Get extension option
-   */
-  @bind
-  public getOption<K extends string>(key: K): ExtensionOptions[K] {
-    return get(this.options, key)
-  }
-
-  public getOptions(): ExtensionOptions {
-    return Object.entries(this._options).reduce((acc, [key, value]) => {
-      if (isUndefined(value)) return acc
-      if (!isObject(value)) return {...acc, [key]: value}
-
-      const isDynamicOption = (
-        value: any,
-      ): value is DynamicOption<any> => {
-        return (
-          value instanceof DynamicOption ||
-          (`isBudValue` in value && value.isBudValue)
-        )
-      }
-
-      const unwrapped = isDynamicOption(value)
-        ? value.get()(this.app)
-        : value
-
-      if (isUndefined(unwrapped)) return acc
-      return {...acc, [key]: unwrapped}
-    }, {} as ExtensionOptions)
-  }
-  /**
-   * Import ESM module
-   */
-  @bind
-  public async import<T = any>(
-    signifier: string,
-    context: string,
-    options: {bustCache?: boolean; raw?: boolean} = {
-      bustCache: false,
-      raw: false,
-    },
-  ): Promise<T | undefined> {
-    return await this.app.module
-      .import(signifier, context, options)
-      .catch(this.catch)
-  }
-
-  /**
-   * Is extension enabled?
-   */
-  @bind
-  public isEnabled(): boolean {
-    return this.when(this.app, this.options)
-  }
-  /**
-   * Logger instance
-   */
-  public get logger(): any {
-    return logger.scope(...[this.app.label, this.label].filter(Boolean))
-  }
-
-  /**
-   * `make` callback
-   */
-  public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
-
-  /**
-   * {@link Extension.register}
-   */
-  public async register?(app: Bud): Promise<any>
-
-  /**
-   * Resolve module using `import.meta.resolve` api
-   */
-  @bind
-  public async resolve(
-    signifier: string,
-    context: string,
-  ): Promise<string> {
-    try {
-      return await this.app.module.resolve(signifier, context)
-    } catch (error) {
-      this.catch(
-        new ExtensionError(`could not resolve ${signifier}`, {
-          origin: error,
-          thrownBy: this.label,
-        }),
-      )
-    }
-  }
-
-  /**
-   * Set extension option
-   */
-  @bind
-  public setOption<K extends string>(
-    key: K,
-    valueOrCallback: OptionCallbackValue<ExtensionOptions, K>,
-  ): this {
-    if (isFunction(valueOrCallback)) {
-      set(this._options, key, valueOrCallback(this.get(key)))
-      return this
-    }
-
-    set(this._options, key, valueOrCallback)
-    return this
-  }
-
-  /**
-   * Set extension options
-   */
-  public setOptions(
-    value: Partial<InternalOptionsValues<ExtensionOptions>>,
-  ): this {
-    this._options = value
-    return this
-  }
-
-  /**
-   * Function returning a boolean indicating if the {@link Extension} should be utilized.
-   *
-   * @remarks
-   * By default returns {@link Extension.enabled}
-   */
-  public when(bud: Bud, options?: ExtensionOptions): boolean {
-    return this.enabled
   }
 }
 

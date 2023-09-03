@@ -32,7 +32,7 @@ import supportFlag from '../flags/support.js'
 import usernameFlag from '../flags/username.js'
 import versionFlag from '../flags/version.js'
 import wordpressPresetFlag from '../flags/wordpress.js'
-import extensionsMap from '../mappedExtensions.js'
+import supportKeyMap from '../mappedExtensions.js'
 import createConfirmPrompt from '../prompts/confirmExisting.js'
 import createHtmlPrompt from '../prompts/html.js'
 import createPackageManagerPrompt from '../prompts/packageManager.js'
@@ -55,6 +55,7 @@ import writeSrcTask from '../tasks/write.src.js'
 import writeStylelintConfigTask from '../tasks/write.stylelint.config.js'
 import writeTailwindConfigTask from '../tasks/write.tailwind.config.js'
 import writeTsConfigTask from '../tasks/write.tsconfig.js'
+import writeTypes from '../tasks/write.types.js'
 import writeYarnLockfile from '../tasks/write.yarn.lock.js'
 import writeYarnRCTask from '../tasks/write.yarnrc.js'
 import yarnVersionTask from '../tasks/yarn-version.js'
@@ -154,50 +155,169 @@ export default class CreateCommand extends Command {
     ],
   })
 
-  public confirmExisting = confirmExistingFlag
+  private _confirmExisting = confirmExistingFlag
+  private _customize = customizeFlag
+  private _cwd = cwdFlag
+  private _dependencies = dependenciesFlag
+  private _description = descriptionFlag
+  private _devDependencies = devDependenciesFlag
+  private _html = htmlFlag
+  private _interactive = interactiveFlag
+  private _license = licenseFlag
+  private _name = nameFlag
+  private _overwrite = overwriteFlag
+  private _packageManager = packageManagerFlag
+  private _react = reactPresetFlag
+  private _recommended = recommendedPresetFlag
+  private _relativePath = Option.String({required: false})
+  private _support = supportFlag
+  private _username? = usernameFlag
+  private _version? = versionFlag
+  private _wordpress = wordpressPresetFlag
 
-  public customize = customizeFlag
+  public declare fs: Filesystem
+  public files: string[] = []
 
-  public cwd = cwdFlag
+  public get customize() {
+    return this._customize
+  }
+  public set customize(customize: boolean) {
+    this._customize = customize
+  }
 
-  public dependencies = dependenciesFlag
+  public get cwd() {
+    return this._cwd
+  }
+  public set cwd(cwd: string) {
+    this._cwd = cwd
+  }
 
-  public description = descriptionFlag
+  public get dependencies() {
+    return this._dependencies
+  }
+  public set dependencies(dependencies: Array<string>) {
+    this._dependencies = dependencies
+  }
 
-  public devDependencies = devDependenciesFlag
+  public get description() {
+    return this._description
+  }
+  public set description(description: string) {
+    this._description = description
+  }
 
-  public extensions = extensionsMap
+  public get devDependencies() {
+    return [...this._devDependencies, ...this.support.map(k => supportKeyMap[k])]
+  }
+  public set devDependencies(devDependencies: Array<string>) {
+    this._devDependencies = devDependencies
+  }
 
-  public files: Array<string> = []
+  public get html() {
+    return this._html
+  }
+  public set html(html: typeof this._html) {
+    this._html = html
+  }
 
-  public fs: Filesystem
+  public get interactive() {
+    return this._interactive
+  }
+  public set interactive(interactive: boolean) {
+    this._interactive = interactive
+  }
 
-  public html = htmlFlag
+  public get license() {
+    return this._license
+  }
+  public set license(license: string) {
+    this._license = license
+  }
 
-  public interactive = interactiveFlag
+  public get name() {
+    return this._name
+  }
+  public set name(name: string) {
+    this._name = name
+  }
 
-  public license = licenseFlag
+  public get overwrite() {
+    return this._overwrite
+  }
+  public set overwrite(overwrite: boolean) {
+    this._overwrite = overwrite
+  }
 
-  public name = nameFlag
+  public get packageManager() {
+    return this._packageManager
+  }
+  public set packageManager(packageManager: typeof this._packageManager) {
+    this._packageManager = packageManager
+  }
 
-  public overwrite = overwriteFlag
+  public get react() {
+    return this._react
+  }
+  public set react(react: boolean) {
+    this._react = react
+  }
 
-  public packageManager = packageManagerFlag
+  public get recommended() {
+    return this._recommended
+  }
+  public set recommended(recommended: boolean) {
+    this._recommended = recommended
+  }
 
-  public react = reactPresetFlag
+  public get relativePath() {
+    return this._relativePath
+  }
+  public set relativePath(relativePath: string) {
+    this._relativePath = relativePath
+  }
 
-  public recommended = recommendedPresetFlag
+  public get support() {
+    return this._support
+  }
+  public set support(support: typeof this._support) {
+    this._support = support
+  }
 
-  public relativePath = Option.String({required: false})
+  public get username() {
+    return this._username
+  }
+  public set username(username: string) {
+    this._username = username
+  }
 
-  public support = supportFlag
+  public get version() {
+    return this._version
+  }
+  public set version(version: string) {
+    this._version = version
+  }
 
-  public username? = usernameFlag
+  public get wordpress() {
+    return this._wordpress
+  }
+  public set wordpress(wordpress: boolean) {
+    this._wordpress = wordpress
+  }
 
-  public version? = versionFlag
+  public addDevDependencies(...devDependencies: Array<string>): this {
+    this._devDependencies.push(...devDependencies)
+    return this
+  }
 
-  public wordpress = wordpressPresetFlag
+  public addDependencies(...dependencies: Array<string>): this {
+    this._dependencies.push(...dependencies)
+    return this
+  }
 
+  public addSupport(...support: Array<Supports>): this {
+    this._support.push(...support)
+    return this
+  }
   /**
    * CLI after
    */
@@ -225,7 +345,9 @@ export default class CreateCommand extends Command {
     let buildMessage = `When you are ready to deploy, run`
 
     if ([`yarn classic`, `yarn`].includes(this.packageManager)) {
-      buildMessage = `${buildMessage} ${chalk.blueBright(`yarn bud build`)}`
+      buildMessage = `${buildMessage} ${chalk.blueBright(
+        `yarn bud build`,
+      )}`
     }
     if (this.packageManager === `pnpm`) {
       buildMessage = `${buildMessage} ${chalk.blueBright(
@@ -233,9 +355,7 @@ export default class CreateCommand extends Command {
       )}`
     }
     if (this.packageManager === `npm`) {
-      buildMessage = `${buildMessage} ${chalk.blueBright(
-        `npx bud build`,
-      )}`
+      buildMessage = `${buildMessage} ${chalk.blueBright(`npx bud build`)}`
     }
 
     messages.push(
@@ -273,18 +393,18 @@ export default class CreateCommand extends Command {
     }
 
     if (this.wordpress) {
-      this.support.push(`wordpress`, `swc`, `postcss`)
+      this.addSupport(`wordpress`, `swc`, `postcss`)
       this.html = false
       if (!this.customize) this.interactive = false
     }
 
     if (this.recommended) {
-      this.support.push(`swc`, `postcss`)
+      this.addSupport(`swc`, `postcss`)
       if (!this.customize) this.interactive = false
     }
 
     if (this.react) {
-      this.support.push(`swc`, `postcss`, `react`)
+      this.addSupport(`swc`, `postcss`, `react`)
       if (!this.customize) this.interactive = false
     }
 
@@ -329,7 +449,9 @@ export default class CreateCommand extends Command {
       throw new Error()
     }
   }
-
+  public get confirmExisting() {
+    return this._confirmExisting
+  }
   /**
    * Path to root of `create-bud-app`
    */
@@ -339,7 +461,6 @@ export default class CreateCommand extends Command {
       join(dirname(fileURLToPath(import.meta.url)), `..`, `..`),
     )
   }
-
   /**
    * Create spinner instance
    */
@@ -351,7 +472,7 @@ export default class CreateCommand extends Command {
   }
 
   /**
-   * Directory path
+   * @readonly
    */
   public get directory() {
     return normalize(join(this.cwd, this.relativePath ?? ``))
@@ -383,7 +504,6 @@ export default class CreateCommand extends Command {
   public exists(...args: Array<string>) {
     return args.some(arg => this.files.some(file => file.includes(arg)))
   }
-
   /**
    * Project has an emotion compatible compiler selected for install
    */
@@ -408,11 +528,11 @@ export default class CreateCommand extends Command {
 
     this.packageManager = await createPackageManagerPrompt(this).run()
 
-    this.support.push(...(await createEnvPrompt(this).run()))
-    this.support.push(...(await createJsSupportPrompt(this).run()))
-    this.support.push(...(await createCssSupportPrompt(this).run()))
-    this.support.push(...(await createComponentsSupportPrompt(this).run()))
-    this.support.push(...(await createTestSupportPrompt(this).run()))
+    this.addSupport(...(await createEnvPrompt(this).run()))
+    this.addSupport(...(await createJsSupportPrompt(this).run()))
+    this.addSupport(...(await createCssSupportPrompt(this).run()))
+    this.addSupport(...(await createComponentsSupportPrompt(this).run()))
+    this.addSupport(...(await createTestSupportPrompt(this).run()))
     this.html = await createHtmlPrompt(this).run()
   }
 
@@ -421,9 +541,10 @@ export default class CreateCommand extends Command {
    */
   public async runTasks() {
     if (this.support.includes(`react`)) {
-      this.dependencies.push(`react`, `react-dom`)
+      this.addDependencies(`react`, `react-dom`)
+
       if (!this.hasReactCompatibleCompiler) {
-        this.support.push(`swc`)
+        this.addSupport(`swc`)
         this.createSpinner().warn(
           `A compatible JS compiler is required for React. Adding swc (@roots/bud-swc).\n`,
         )
@@ -431,9 +552,10 @@ export default class CreateCommand extends Command {
     }
 
     if (this.support.includes(`tailwindcss`)) {
-      this.dependencies.push(`tailwindcss`)
+      this.addDependencies(`tailwindcss`)
+
       if (!this.support.includes(`postcss`)) {
-        this.support.push(`postcss`)
+        this.addSupport(`postcss`)
         this.createSpinner().warn(
           `PostCSS is required for TailwindCSS. Adding postcss (@roots/bud-postcss).\n`,
         )
@@ -442,7 +564,8 @@ export default class CreateCommand extends Command {
 
     if (this.support.includes(`emotion`)) {
       if (!this.hasEmotionCompatibleCompiler) {
-        this.support.push(`swc`)
+        this.addSupport(`swc`)
+
         this.createSpinner().warn(
           `A compatible JS compiler is required for Emotion. Adding swc (@roots/bud-swc).\n`,
         )
@@ -450,17 +573,17 @@ export default class CreateCommand extends Command {
     }
 
     if (this.support.includes(`vue`)) {
-      this.dependencies.push(`vue`)
+      this.addDependencies(`vue`)
     }
 
     if (this.support.includes(`eslint`)) {
-      this.devDependencies.push(`@roots/eslint-config`)
+      this.addDevDependencies(`@roots/eslint-config`)
 
       if (
         this.support.includes(`swc`) &&
         !this.support.includes(`typescript`)
       ) {
-        this.devDependencies.push(`typescript`)
+        this.addDevDependencies(`typescript`)
       }
     }
 
@@ -471,6 +594,7 @@ export default class CreateCommand extends Command {
     await writeYarnLockfile(this)
     await writeGitignoreConfigTask(this)
     await writeTsConfigTask(this)
+    await writeTypes(this)
     await writeConfigTask(this)
     await writeSrcTask(this)
     await writeStylelintConfigTask(this)

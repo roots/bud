@@ -4,6 +4,9 @@ import {pulse} from './indicator.pulse.js'
  * Indicator web component
  */
 export class Component extends HTMLElement {
+  public static get observedAttributes() {
+    return [`has-errors`, `has-warnings`, `action`]
+  }
   /**
    * Status indicator colors
    */
@@ -37,10 +40,57 @@ export class Component extends HTMLElement {
     this.renderShadow()
   }
 
-  public static get observedAttributes() {
-    return [`has-errors`, `has-warnings`, `action`]
-  }
+  /**
+   * Status is error
+   */
+  public onError() {
+    this.show()
 
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`warning`, `success`, `pending`)
+    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
+  }
+  /**
+   * Status is pending
+   */
+  public onPending() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `success`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
+
+    this.hide()
+  }
+  /**
+   * Status is success
+   */
+  public onSuccess() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `warning`, `pending`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
+
+    this.hide()
+  }
+  /**
+   * Status is warning
+   */
+  public onWarning() {
+    this.show()
+
+    this.shadowRoot
+      .querySelector(this.selector)
+      .classList.remove(`error`, `success`, `pending`)
+
+    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
+  }
   public attributeChangedCallback() {
     if (this.hasAttribute(`has-errors`)) return this.onError()
     if (this.hasAttribute(`has-warnings`)) return this.onWarning()
@@ -80,61 +130,6 @@ export class Component extends HTMLElement {
     this.hideTimeout = setTimeout(() => {
       this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
     }, 2000)
-  }
-
-  /**
-   * Status is error
-   */
-  public onError() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`warning`, `success`, `pending`)
-    this.shadowRoot.querySelector(this.selector).classList.add(`error`)
-  }
-
-  /**
-   * Status is pending
-   */
-  public onPending() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `success`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`pending`)
-
-    this.hide()
-  }
-
-  /**
-   * Status is success
-   */
-  public onSuccess() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `warning`, `pending`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`success`)
-
-    this.hide()
-  }
-
-  /**
-   * Status is warning
-   */
-  public onWarning() {
-    this.show()
-
-    this.shadowRoot
-      .querySelector(this.selector)
-      .classList.remove(`error`, `success`, `pending`)
-
-    this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
   }
 
   /**

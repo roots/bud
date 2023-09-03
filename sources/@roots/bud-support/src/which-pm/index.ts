@@ -36,7 +36,9 @@ export const hasYarnLockfile = async (
   }
 }
 
-export const hasYarnBerryConfig = async (basedir: string): Promise<boolean> => {
+export const hasYarnBerryConfig = async (
+  basedir: string,
+): Promise<boolean> => {
   try {
     return await fileExists(join(basedir, `.yarnrc.yml`))
   } catch (error) {

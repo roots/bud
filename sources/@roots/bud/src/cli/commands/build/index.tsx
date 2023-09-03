@@ -1,4 +1,3 @@
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import BudCommand from '@roots/bud/cli/commands'
 import ci from '@roots/bud/cli/flags/ci'
 import clean from '@roots/bud/cli/flags/clean'
@@ -26,6 +25,7 @@ import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
 import verbose from '@roots/bud/cli/flags/verbose'
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
 
 /**
  * `bud build` command

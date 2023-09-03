@@ -2,6 +2,9 @@
  * Component container
  */
 export class Component extends HTMLElement {
+  public static get observedAttributes() {
+    return [`message`]
+  }
   public documentBodyStyle: any
 
   public name: string = `bud-overlay`
@@ -14,10 +17,6 @@ export class Component extends HTMLElement {
   public constructor() {
     super()
     this.renderShadow()
-  }
-
-  public static get observedAttributes() {
-    return [`message`]
   }
 
   public attributeChangedCallback() {

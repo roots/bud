@@ -1,11 +1,11 @@
 import Link from '@docusaurus/Link'
+import {translate} from '@docusaurus/Translate'
 import {
   HtmlClassNameProvider,
   PageMetadata,
   ThemeClassNames,
   usePluralForm,
 } from '@docusaurus/theme-common'
-import {translate} from '@docusaurus/Translate'
 import {Hero} from '@site/src/components/hero'
 import BlogPostItems from '@theme/BlogPostItems'
 import Layout from '@theme/Layout'

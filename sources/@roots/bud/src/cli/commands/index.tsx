@@ -5,16 +5,6 @@ import type {ExecaReturnValue} from '@roots/bud-support/execa'
 import {join, parse} from 'node:path'
 import {env, exit} from 'node:process'
 
-import {Bud} from '@roots/bud-framework'
-import chalk from '@roots/bud-support/chalk'
-import {Command, Option} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
-import figures from '@roots/bud-support/figures'
-import {Box, render, Static} from '@roots/bud-support/ink'
-import isNumber from '@roots/bud-support/lodash/isNumber'
-import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
 import basedir from '@roots/bud/cli/flags/basedir'
 import cache from '@roots/bud/cli/flags/cache'
 import color from '@roots/bud/cli/flags/color'
@@ -31,6 +21,16 @@ import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
+import {Bud} from '@roots/bud-framework'
+import chalk from '@roots/bud-support/chalk'
+import {Command, Option} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
+import figures from '@roots/bud-support/figures'
+import {Box, render, Static} from '@roots/bud-support/ink'
+import isNumber from '@roots/bud-support/lodash/isNumber'
+import logger from '@roots/bud-support/logger'
+import args from '@roots/bud-support/utilities/args'
 
 import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
@@ -78,6 +78,16 @@ export default class BudCommand extends Command<BaseContext & Context> {
     examples: [[`Interactive menu of available subcommands`, `$0`]],
   })
 
+  /**
+   * Render static
+   */
+  public static renderStatic(...children: Array<React.ReactElement>) {
+    return render(
+      <Static items={children}>
+        {(child, id) => <Box key={id}>{child}</Box>}
+      </Static>,
+    ).unmount()
+  }
   public basedir = basedir
 
   public declare bud?: Bud | undefined
@@ -107,17 +117,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
   public use = use
 
   public verbose: typeof verbose = false
-
-  /**
-   * Render static
-   */
-  public static renderStatic(...children: Array<React.ReactElement>) {
-    return render(
-      <Static items={children}>
-        {(child, id) => <Box key={id}>{child}</Box>}
-      </Static>,
-    ).unmount()
-  }
 
   /**
    * Execute arbitrary sh command with inherited stdio

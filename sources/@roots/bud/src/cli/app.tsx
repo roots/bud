@@ -2,13 +2,6 @@ import type {BaseContext, CommandClass} from '@roots/bud-support/clipanion'
 
 import {exit, stderr, stdin, stdout} from 'node:process'
 
-import {Error} from '@roots/bud-dashboard/components/error'
-import {Builtins, Cli} from '@roots/bud-support/clipanion'
-import {BudError} from '@roots/bud-support/errors'
-import {render} from '@roots/bud-support/ink'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import * as args from '@roots/bud-support/utilities/args'
 import BudCommand from '@roots/bud/cli/commands'
 import BudBuildCommand from '@roots/bud/cli/commands/build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/build/development'
@@ -21,6 +14,13 @@ import BudViewCommand from '@roots/bud/cli/commands/view'
 import BudWebpackCommand from '@roots/bud/cli/commands/webpack'
 import {Finder} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
+import {Error} from '@roots/bud-dashboard/components/error'
+import {Builtins, Cli} from '@roots/bud-support/clipanion'
+import {BudError} from '@roots/bud-support/errors'
+import {render} from '@roots/bud-support/ink'
+import isFunction from '@roots/bud-support/lodash/isFunction'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import * as args from '@roots/bud-support/utilities/args'
 
 /**
  * Error handler

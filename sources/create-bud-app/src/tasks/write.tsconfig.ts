@@ -44,7 +44,7 @@ export default async function writeTsConfig(command: CreateCommand) {
         },
         "types": [${types.reduce((all, type) => `${all} "${type}",`, ``)}]
       },
-      "files": ["./bud.config.ts"],
+      "files": ["./bud.config.ts", "./types.d.ts"],
       "include": ["./src"],
       "exclude": ["./node_modules", "./dist"]
     }

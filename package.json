@@ -73,5 +73,8 @@
   },
   "resolutions": {
     "@yarnpkg/builder@4.0.0-rc.49": "patch:@yarnpkg/builder@npm%3A4.0.0-rc.49#./.yarn/patches/@yarnpkg-builder-npm-4.0.0-rc.49-3bed67fd94.patch"
+  },
+  "devDependencies": {
+    "eslint-plugin-sort-class-members": "1.18.0"
   }
 }
