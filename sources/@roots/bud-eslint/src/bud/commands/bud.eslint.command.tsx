@@ -2,7 +2,7 @@ import BudCommand from '@roots/bud/cli/commands'
 import {Option} from '@roots/bud-support/clipanion'
 
 /**
- * Bud eslint command
+ * {@link BudCommand}
  */
 export class BudEslintCommand extends BudCommand {
   /**
@@ -19,6 +19,7 @@ export class BudEslintCommand extends BudCommand {
     examples: [[`Run eslint on source files`, `$0 eslint`]],
   })
 
+
   public options = Option.Proxy({name: `eslint passthrough options`})
 
   /**
@@ -28,8 +29,13 @@ export class BudEslintCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    return await this.run([`eslint`, `bin`, `eslint.js`], this.options, [
-      this.bud.path(`@src`, `**`, `*.{ts,tsx,js,jsx}`),
+    const eslintrc = Object.values(this.bud.context.files).find((file) => file.name.includes(`eslintrc`) || file.name.includes(`eslint.config`))?.path
+
+    await this.run([`eslint`, `bin`, `eslint.js`], this.options, [
+      `--ext`,
+      `.js,.jsx,.ts,.tsx`,
+      ...(eslintrc ? [`--config`, eslintrc]: []),
+      this.bud.relPath(`@src`),
     ])
   }
 }

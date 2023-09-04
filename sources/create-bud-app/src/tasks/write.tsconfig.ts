@@ -35,8 +35,10 @@ export default async function writeTsConfig(command: CreateCommand) {
         `@roots/bud-wordpress-manifests`,
       )
 
+    types.push(`webpack/module`)
+
     const source = `{
-      "extends": "@roots/bud/config/jsconfig.json",
+      "extends": ["@roots/bud/config/tsconfig.json"],
       "compilerOptions": {
         "allowJs": true,
         "paths": {
