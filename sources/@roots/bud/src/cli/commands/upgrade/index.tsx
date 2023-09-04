@@ -1,9 +1,10 @@
+import BudCommand from '@roots/bud/cli/commands'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import isString from '@roots/bud-support/lodash/isString'
+import logger from '@roots/bud-support/logger'
+import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
 import whichPm from '@roots/bud-support/which-pm'
-import BudCommand from '@roots/bud/cli/commands'
 
 /**
  * `bud upgrade` command
@@ -32,7 +33,9 @@ export default class BudUpgradeCommand extends BudCommand {
       This command is a passthrough to the package manager you are using.
     `,
     examples: [
-      [`Upgrade all bud dependencies to latest version`, `$0 upgrade`],
+      [`Upgrade all bud dependencies to latest`, `$0 upgrade`],
+      [`Upgrade all bud dependencies to version 6.15.2`, `$0 upgrade 6.15.2`],
+      [`Upgrade all bud dependencies to version 6.15.2 using yarn-classic`, `$0 upgrade 6.15.2 --pm yarn-classic`],
     ],
   })
 
@@ -42,25 +45,30 @@ export default class BudUpgradeCommand extends BudCommand {
    * Package manager option
    */
   public pm = Option.String(`--pm`, undefined, {
-    description: `Package manager to use. One of: npm, yarn, yarn3, pnpm`,
+    description: `Package manager to use. One of: \`npm\`, \`yarn-classic\`, \`pnpm\` (experimental), or \`yarn\` (experimental)`,
+    validator: isOneOf([
+      isLiteral(`npm`),
+      isLiteral(`pnpm`),
+      isLiteral(`yarn`),
+      isLiteral(`yarn-classic`),
+    ]),
   })
 
   /**
    * Registry option
    */
-  public registry = Option.String(`--registry`, undefined, {
-    description: `custom registry`,
-  })
+  public registry = Option.String(
+    `--registry`,
+    `https://registry.npmjs.org`,
+    {
+      description: `custom registry`,
+    },
+  )
 
   /**
    * Version option
    */
   public version = Option.String({required: false})
-
-  public get binary() {
-    if (this.pm === `yarn3`) return `yarn`
-    return this.pm
-  }
 
   /**
    * Catch fetch errors
@@ -79,27 +87,28 @@ export default class BudUpgradeCommand extends BudCommand {
     await this.makeBud()
 
     if (!this.pm) {
-      const pacman = await whichPm(this.bud.context.basedir).catch(
-        error => {
-          const normalError = BudError.normalize(error)
-          normalError.details = normalError.message
-          normalError.thrownBy = `@roots/bud-support/which-pm`
-          throw error
-        },
-      )
-
-      if (!this.isSupportedPackageManager(pacman)) {
-        const error = new BudError(
-          `bud upgrade only supports yarn classic and npm`,
-        )
-        error.details = `You are using ${
-          pacman ?? `an unknown package manager`
-        }`
-        error.thrownBy = `@roots/bud/cli/commands/upgrade`
+      this.pm = await whichPm(this.bud.context.basedir).catch(error => {
+        const normalError = BudError.normalize(error)
+        normalError.details = normalError.message
+        normalError.thrownBy = `@roots/bud-support/which-pm`
         throw error
+      })
+    }
+
+    if (this.pm === `yarn`) {
+      if (this.registry !== `https://registry.npmjs.org`) {
+        logger.warn(
+          `Yarn berry does not support custom registries set by CLI. Ignoring registry flag. Set your custom registry in \`.yarnrc.yml\``,
+        )
+        this.registry = `https://registry.npmjs.org`
       }
 
-      this.pm = pacman
+      const yarnrc = await this.bud.fs.yml.read(
+        this.bud.path(`.yarnrc.yml`),
+      )
+      if (yarnrc?.[`npmRegistryServer`]) {
+        this.registry = yarnrc[`npmRegistryServer`]
+      }
     }
 
     this.command = this.pm === `npm` ? `install` : `add`
@@ -121,17 +130,8 @@ export default class BudUpgradeCommand extends BudCommand {
         return this.catchFetchError(new Error(`No version found`))
     }
 
-    if (this.pm === `yarn3` && this.registry) {
-      const error = new BudError(
-        `yarn 3 does not support custom registries via the CLI`,
-      )
-      error.details = `Set the registry in your .yarnrc.yml`
-      error.thrownBy = `@roots/bud/cli/commands/upgrade`
-      throw error
-    }
-
     if (this.hasUpgradeableDependencies(`devDependencies`)) {
-      await this.$(this.binary, [
+      await this.$(this.pm, [
         this.command,
         ...this.getUpgradeableDependencies(`devDependencies`),
         ...this.getFlags(`devDependencies`),
@@ -139,12 +139,21 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (this.hasUpgradeableDependencies(`dependencies`)) {
-      await this.$(this.binary, [
+      await this.$(this.pm, [
         this.command,
         ...this.getUpgradeableDependencies(`dependencies`),
         ...this.getFlags(`dependencies`),
       ]).catch(this.catch)
     }
+
+    if (this.pm === `pnpm`) {
+      await this.$(`pnpm`, [`install`, `--shamefully-hoist`])
+    }
+
+    /**
+     * Clean old caches and distributables
+     */
+    await this.$(this.pm, [`bud`, `clean`])
   }
 
   @bind
@@ -160,20 +169,17 @@ export default class BudUpgradeCommand extends BudCommand {
   public getFlags(type: `dependencies` | `devDependencies`) {
     const flags = []
 
-    if (this.registry) flags.push(`--registry`, this.registry)
-
     if (type === `devDependencies`) {
       switch (this.pm) {
         case `npm`:
-          flags.push(`--save-dev`)
+          flags.push(`--save-dev`, `--registry`, this.registry)
           break
+
         case `pnpm`:
-          flags.push(`--save-dev`)
+          flags.push(`--save-dev`, `--registry`, this.registry)
           break
-        case `yarn`:
-          flags.push(`--dev`)
-          break
-        case `yarn3`:
+
+        default:
           flags.push(`--dev`)
           break
       }
@@ -182,10 +188,18 @@ export default class BudUpgradeCommand extends BudCommand {
     if (type === `dependencies`)
       switch (this.pm) {
         case `npm`:
-          flags.push(`--save`)
+          flags.push(`--save`, `--registry`, this.registry)
           break
+
         case `pnpm`:
-          flags.push(`--save-prod`)
+          flags.push(`--save-prod`, `--registry`, this.registry)
+          break
+
+        case `yarn-classic`:
+          flags.push(`--registry`, this.registry)
+          break
+
+        case `yarn`:
           break
       }
 
@@ -207,13 +221,5 @@ export default class BudUpgradeCommand extends BudCommand {
     type: `dependencies` | `devDependencies`,
   ): boolean {
     return this.getUpgradeableDependencies(type)?.length > 0
-  }
-
-  public isSupportedPackageManager(
-    pacman: false | string,
-  ): pacman is `npm` | `pnpm` | `yarn` | `yarn3` {
-    return (
-      isString(pacman) && [`npm`, `pnpm`, `yarn`, `yarn3`].includes(pacman)
-    )
   }
 }

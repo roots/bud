@@ -15812,6 +15812,7 @@ __metadata:
     eslint-plugin-perfectionist: 1.5.1
     eslint-plugin-react: 7.33.2
     eslint-plugin-react-hooks: 4.6.0
+    eslint-plugin-sort-class-members: 1.18.0
     execa: 7.2.0
     highlight.js: 11.8.0
     html-loader: 4.2.0
@@ -20141,6 +20142,15 @@ __metadata:
   peerDependencies:
     eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
   checksum: b4c3d76390b0ae6b6f9fed78170604cc2c04b48e6778a637db339e8e3911ec9ef22510b0ae77c429698151d0f1b245f282177f384105b6830e7b29b9c9b26610
+  languageName: node
+  linkType: hard
+
+"eslint-plugin-sort-class-members@npm:1.18.0":
+  version: 1.18.0
+  resolution: "eslint-plugin-sort-class-members@npm:1.18.0"
+  peerDependencies:
+    eslint: ">=0.8.0"
+  checksum: aeeccef0c7c68936225558258a3270cafecad9fbed01551d7140bf725512b98dddf881824693457ca602ada07697307de66e63b851aebdc9709c19a721449403
   languageName: node
   linkType: hard
 

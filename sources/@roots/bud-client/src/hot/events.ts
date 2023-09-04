@@ -12,6 +12,20 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
    */
   return class Events extends eventSource {
     /**
+     * Singleton constructor
+     *
+     */
+    public static make(
+      options: Partial<Options> & {name: string; path: string},
+    ): Events {
+      if (typeof window.bud.hmr[options.name] === `undefined`)
+        Object.assign(window.bud.hmr, {
+          [options.name]: new Events(options),
+        })
+
+      return window.bud.hmr[options.name]
+    }
+    /**
      * Registered listeners
      */
     public listeners: Set<Listener> = new Set<Listener>()
@@ -56,21 +70,6 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
       this.onopen = this.onopen.bind(this)
       this.onmessage = this.onmessage.bind(this)
       this.addListener = this.addListener.bind(this)
-    }
-
-    /**
-     * Singleton constructor
-     *
-     */
-    public static make(
-      options: Partial<Options> & {name: string; path: string},
-    ): Events {
-      if (typeof window.bud.hmr[options.name] === `undefined`)
-        Object.assign(window.bud.hmr, {
-          [options.name]: new Events(options),
-        })
-
-      return window.bud.hmr[options.name]
     }
 
     /**

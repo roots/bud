@@ -1,5 +1,5 @@
-import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands'
+import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
  * Bud stylelint command

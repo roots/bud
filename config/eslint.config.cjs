@@ -7,6 +7,7 @@ module.exports = {
     `plugin:react/recommended`,
     `plugin:n/recommended-module`,
     `plugin:perfectionist/recommended-alphabetical`,
+    `plugin:sort-class-members/recommended`,
   ],
   ignorePatterns: [
     `**/*.d.ts`,
@@ -54,6 +55,7 @@ module.exports = {
     `react-hooks`,
     `eslint-plugin-n`,
     `perfectionist`,
+    `sort-class-members`,
   ],
   rules: {
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
@@ -109,6 +111,7 @@ module.exports = {
     [`n/shebang`]: OFF,
     [`no-console`]: ERROR,
     [`no-extra-semi`]: OFF,
+    [`perfectionist/sort-classes`]: OFF,
     [`perfectionist/sort-imports`]: [
       ERROR,
       {
@@ -133,13 +136,33 @@ module.exports = {
           `unknown`,
         ],
         order: `asc`,
-        type: `alphabetical`,
+        type: `natural`,
       },
     ],
     [`react-hooks/exhaustive-deps`]: WARN,
     [`react-hooks/rules-of-hooks`]: ERROR,
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: OFF,
+    [`sort-class-members/sort-class-members`]: [
+      ERROR,
+      {
+        accessorPairPositioning: `getThenSet`,
+        groups: {
+          [`event-handlers`]: [{name: `/on.+/`, type: `method`}],
+        },
+        order: [
+          `[static-properties]`,
+          `[static-methods]`,
+          `[conventional-private-properties]`,
+          `[properties]`,
+          `[accessor-pairs]`,
+          `constructor`,
+          `[event-handlers]`,
+          `[methods]`,
+          `[conventional-private-methods]`,
+        ],
+      },
+    ],
   },
   settings: {
     n: {

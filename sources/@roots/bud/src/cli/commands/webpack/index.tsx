@@ -1,18 +1,11 @@
-import {Command, Option} from '@roots/bud-support/clipanion'
 import BudCommand from '@roots/bud/cli/commands'
+import {Command, Option} from '@roots/bud-support/clipanion'
 
 /**
  * `bud webpack` command
  */
 export default class BudWebpackCommand extends BudCommand {
-  /**
-   * {@link Command.paths}
-   */
   public static override paths = [[`webpack`]]
-
-  /**
-   * {@link Command.usage}
-   */
   public static override usage = Command.Usage({
     category: `tool`,
     description: `Webpack CLI passthrough`,

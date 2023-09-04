@@ -1,6 +1,4 @@
-import {join} from 'node:path'
-
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
@@ -11,26 +9,26 @@ describe(`issue-1886`, () => {
   beforeAll(async () => {
     fs = new Filesystem()
     await execa(`yarn`, [`bud`, `clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
     await execa(`yarn`, [`bud`, `build`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
   })
 
   it(`should generate webp from png included in js source`, async () => {
     const manifest = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1886`,
         `dist`,
         `manifest.json`,
       ),
     )
-    const path = manifest[`images/bud.png?as=webp`]
+    const targetPath = manifest[`images/bud.png?as=webp`]
     const image = await fs.read(
-      join(paths.tests, `reproductions`, `issue-1886`, `dist`, path),
+      path(`tests`, `reproductions`, `issue-1886`, `dist`, targetPath),
       `utf8`,
     )
     expect(image.length).toMatchInlineSnapshot(`8377`)
@@ -38,8 +36,8 @@ describe(`issue-1886`, () => {
 
   it(`should generate webp from png included in css source`, async () => {
     const manifest = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1886`,
         `dist`,
@@ -47,11 +45,11 @@ describe(`issue-1886`, () => {
       ),
     )
 
-    const path =
+    const targetPath =
       manifest[`images/bud-css.png?as=webp&width=1200&height=630`]
 
     const image = await fs.read(
-      join(paths.tests, `reproductions`, `issue-1886`, `dist`, path),
+      path(`tests`, `reproductions`, `issue-1886`, `dist`, targetPath),
       `utf8`,
     )
     expect(image.length).toMatchInlineSnapshot(`8377`)
@@ -59,8 +57,8 @@ describe(`issue-1886`, () => {
 
   it(`should inline svg when url appended with ?inline  in css source`, async () => {
     const css = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1886`,
         `dist`,
@@ -76,8 +74,8 @@ describe(`issue-1886`, () => {
 
   it(`should inline svg when url appended with ?inline in js source`, async () => {
     const js = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-1886`,
         `dist`,
@@ -93,17 +91,17 @@ describe(`issue-1886`, () => {
 
   it.skip(`should work with disk caching`, async () => {
     await execa(`yarn`, [`bud`, `clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
 
     const res1 = await execa(`yarn`, [`bud`, `build`, `--no-clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
     const res2 = await execa(`yarn`, [`bud`, `build`, `--no-clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
     const res3 = await execa(`yarn`, [`bud`, `build`, `--no-clean`], {
-      cwd: join(paths.tests, `reproductions`, `issue-1886`),
+      cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
 
     expect([res1.exitCode, res2.exitCode, res3.exitCode]).toEqual(

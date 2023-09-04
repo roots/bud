@@ -1,17 +1,16 @@
+import BudCommand from '@roots/bud/cli/commands'
+import indent from '@roots/bud/cli/flags/indent'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import {Box, Text} from '@roots/bud-support/ink'
 import get from '@roots/bud-support/lodash/get'
 import format from '@roots/bud-support/pretty-format'
-import BudCommand from '@roots/bud/cli/commands'
-import indent from '@roots/bud/cli/flags/indent'
 
 /**
  * `bud view` command
  */
 export default class BudViewCommand extends BudCommand {
   public static override paths = [[`view`]]
-
   public static override usage = Command.Usage({
     category: `debug`,
     description: `Explore bud object`,

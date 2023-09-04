@@ -29,6 +29,27 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  */
 export class EntrypointsWebpackPlugin {
   /**
+   * Compilation hooks
+   *
+   * @param compilation
+   * @returns
+   */
+  public static getCompilationHooks(
+    compilation: Webpack.Compilation,
+  ): CompilationHooks {
+    let hooks = hookMap.get(compilation)
+
+    if (hooks === undefined) {
+      hooks = {
+        compilation: new SyncHook([`compilation`]),
+        entrypoints: new SyncWaterfallHook([`entrypoints`]),
+      }
+      hookMap.set(compilation, hooks)
+    }
+
+    return hooks
+  }
+  /**
    * Collected assets
    */
   public entrypoints: Entrypoints
@@ -62,28 +83,6 @@ export class EntrypointsWebpackPlugin {
     this.addToManifest = this.addToManifest.bind(this)
     this.getChunkedFiles = this.getChunkedFiles.bind(this)
     this.apply = this.apply.bind(this)
-  }
-
-  /**
-   * Compilation hooks
-   *
-   * @param compilation
-   * @returns
-   */
-  public static getCompilationHooks(
-    compilation: Webpack.Compilation,
-  ): CompilationHooks {
-    let hooks = hookMap.get(compilation)
-
-    if (hooks === undefined) {
-      hooks = {
-        compilation: new SyncHook([`compilation`]),
-        entrypoints: new SyncWaterfallHook([`entrypoints`]),
-      }
-      hookMap.set(compilation, hooks)
-    }
-
-    return hooks
   }
 
   public addToManifest({

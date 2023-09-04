@@ -20,22 +20,6 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  */
 export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   /**
-   * Plugin data
-   */
-  public data: Record<string, any> = {
-    __generated__: `⚠️ This file is generated. Do not edit.`,
-    $schema: `https://schemas.wp.org/trunk/theme.json`,
-    version: 2,
-  }
-
-  /**
-   * Class constructor
-   *
-   * @param options - Plugin options
-   */
-  public constructor(public options: Options) {}
-
-  /**
    * {@see https://webpack.js.org/api/compilation-hooks/}
    */
   public static getCompilationHooks(
@@ -53,6 +37,21 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
 
     return hooks
   }
+  /**
+   * Plugin data
+   */
+  public data: Record<string, any> = {
+    __generated__: `⚠️ This file is generated. Do not edit.`,
+    $schema: `https://schemas.wp.org/trunk/theme.json`,
+    version: 2,
+  }
+
+  /**
+   * Class constructor
+   *
+   * @param options - Plugin options
+   */
+  public constructor(public options: Options) {}
 
   /**
    * {@link WebpackPluginInstance.apply}

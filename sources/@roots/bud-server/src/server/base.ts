@@ -35,6 +35,37 @@ export abstract class BaseServer implements Connection {
   public constructor(public app: Bud) {}
 
   /**
+   * Server error event
+   */
+  @bind
+  public onError(error: Error) {
+    const cause = BudError.normalize(error)
+    throw new ServerError(cause.message, {cause})
+  }
+  /**
+   * Server listen event
+   */
+  @bind
+  public onListening(...param: any[]) {
+    this.logger.info(`listening`, ...param)
+  }
+  /**
+   * Server request event
+   */
+  @bind
+  public async onRequest(
+    request: IncomingMessage,
+    response: ServerResponse,
+  ) {
+    this.logger.log(
+      `[${response.statusCode}]`,
+      request.url,
+      response.statusMessage ?? ``,
+    )
+
+    return response
+  }
+  /**
    * Listen
    */
   @bind
@@ -66,40 +97,6 @@ export abstract class BaseServer implements Connection {
    */
   public get logger(): any {
     return logger.scope(`server`, this.constructor.name.toLowerCase())
-  }
-
-  /**
-   * Server error event
-   */
-  @bind
-  public onError(error: Error) {
-    const cause = BudError.normalize(error)
-    throw new ServerError(cause.message, {cause})
-  }
-
-  /**
-   * Server listen event
-   */
-  @bind
-  public onListening(...param: any[]) {
-    this.logger.info(`listening`, ...param)
-  }
-
-  /**
-   * Server request event
-   */
-  @bind
-  public async onRequest(
-    request: IncomingMessage,
-    response: ServerResponse,
-  ) {
-    this.logger.log(
-      `[${response.statusCode}]`,
-      request.url,
-      response.statusMessage ?? ``,
-    )
-
-    return response
   }
 
   /**

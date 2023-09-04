@@ -57,49 +57,6 @@ class Compiler extends Service implements BudCompiler {
   public declare stats: BudCompiler[`stats`]
 
   /**
-   * {@link BudCompiler.compile}
-   */
-  @bind
-  public async compile(bud: Bud): Promise<MultiCompiler> {
-    const config = !bud.hasChildren
-      ? [await bud.build.make()]
-      : await Promise.all(
-          Object.values(bud.children).map(async (child: Bud) =>
-            child.build.make().catch(error => {
-              throw error
-            }),
-          ),
-        )
-
-    this.config = config?.filter(Boolean)
-
-    this.config.parallelism = Math.max(cpus().length - 1, 1)
-    this.logger.info(`parallel compilations: ${this.config.parallelism}`)
-
-    await bud.hooks.fire(`compiler.before`, bud).catch(error => {
-      throw error
-    })
-
-    this.logger.timeEnd(`initialize`)
-    this.app.dashboard.updateStatus(`compiling`)
-
-    try {
-      this.instance = this.implementation(this.config)
-    } catch (error: unknown) {
-      const normalError =
-        error instanceof Error ? error : BudError.normalize(error)
-      this.onError(normalError)
-    }
-
-    this.instance.hooks.done.tap(bud.label, (stats: any) => {
-      this.onStats(stats)
-      bud.hooks.fire(`compiler.done`, bud, this.stats).catch(this.onError)
-    })
-
-    return this.instance
-  }
-
-  /**
    * {@link BudCompiler.onError}
    */
   @bind
@@ -121,7 +78,6 @@ class Compiler extends Service implements BudCompiler {
       render(<DisplayError error={BudError.normalize(error)} />)
     }
   }
-
   /**
    * {@link BudCompiler.onStats}
    */
@@ -195,6 +151,48 @@ class Compiler extends Service implements BudCompiler {
           this.logger.error(error)
         }
       })
+  }
+  /**
+   * {@link BudCompiler.compile}
+   */
+  @bind
+  public async compile(bud: Bud): Promise<MultiCompiler> {
+    const config = !bud.hasChildren
+      ? [await bud.build.make()]
+      : await Promise.all(
+          Object.values(bud.children).map(async (child: Bud) =>
+            child.build.make().catch(error => {
+              throw error
+            }),
+          ),
+        )
+
+    this.config = config?.filter(Boolean)
+
+    this.config.parallelism = Math.max(cpus().length - 1, 1)
+    this.logger.info(`parallel compilations: ${this.config.parallelism}`)
+
+    await bud.hooks.fire(`compiler.before`, bud).catch(error => {
+      throw error
+    })
+
+    this.logger.timeEnd(`initialize`)
+    this.app.dashboard.updateStatus(`compiling`)
+
+    try {
+      this.instance = this.implementation(this.config)
+    } catch (error: unknown) {
+      const normalError =
+        error instanceof Error ? error : BudError.normalize(error)
+      this.onError(normalError)
+    }
+
+    this.instance.hooks.done.tap(bud.label, (stats: any) => {
+      this.onStats(stats)
+      bud.hooks.fire(`compiler.done`, bud, this.stats).catch(this.onError)
+    })
+
+    return this.instance
   }
 
   /**

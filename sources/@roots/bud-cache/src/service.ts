@@ -23,12 +23,6 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.enabled}
    */
   public declare enabled: boolean
-  public set allowCollectingMemory(
-    value: Callback<FileCacheOptions[`allowCollectingMemory`]>,
-  ) {
-    this.app.hooks.on(`build.cache.allowCollectingMemory`, value)
-  }
-
   /**
    * {@link BudCache.allowCollectingMemory}
    */
@@ -41,15 +35,10 @@ export default class Cache extends Service implements BudCache {
     )
     return typeof value === `boolean` ? value : fallback
   }
-
-  /**
-   * {@link Service.boot}
-   */
-  public override async boot?(bud: Bud) {
-    if (bud.context.force === true) {
-      await this.flush()
-    }
-    this.enabled = bud.context.cache !== false
+  public set allowCollectingMemory(
+    value: Callback<FileCacheOptions[`allowCollectingMemory`]>,
+  ) {
+    this.app.hooks.on(`build.cache.allowCollectingMemory`, value)
   }
 
   /**
@@ -89,11 +78,63 @@ export default class Cache extends Service implements BudCache {
       fallback
     )
   }
-
   public set cacheDirectory(
     directory: Callback<FileCacheOptions[`cacheDirectory`]>,
   ) {
     this.app.hooks.on(`build.cache.cacheDirectory`, directory)
+  }
+
+  /**
+   * {@link BudCache.name}
+   */
+  public get name(): string {
+    const fallback = join(
+      this.app.mode,
+      ...Object.values(this.app.context._ ?? {}),
+    )
+    return (
+      this.app.hooks.filter(
+        `build.cache.name`,
+        this.app.hooks.filter(`build.name`, fallback),
+      ) ?? fallback
+    )
+  }
+  public set name(name: string) {
+    this.app.hooks.on(`build.cache.name`, name)
+  }
+
+  /**
+   * {@link BudCache.type}
+   */
+  public get type(): 'filesystem' | 'memory' {
+    const fallback = isString(this.app.context.cache)
+      ? this.app.context.cache
+      : `filesystem`
+
+    return this.app.hooks.filter(`build.cache.type`) ?? fallback
+  }
+  public set type(type: Callback<FileCacheOptions[`type`]>) {
+    this.app.hooks.on(`build.cache.type`, type)
+  }
+
+  /**
+   * {@link BudCache.version}
+   */
+  public get version(): string | undefined {
+    return this.app.hooks.filter(`build.cache.version`, undefined)
+  }
+  public set version(version: string) {
+    this.app.hooks.on(`build.cache.version`, version)
+  }
+
+  /**
+   * {@link Service.boot}
+   */
+  public override async boot?(bud: Bud) {
+    if (bud.context.force === true) {
+      await this.flush()
+    }
+    this.enabled = bud.context.cache !== false
   }
 
   /**
@@ -154,26 +195,6 @@ export default class Cache extends Service implements BudCache {
   }
 
   /**
-   * {@link BudCache.name}
-   */
-  public get name(): string {
-    const fallback = join(
-      this.app.mode,
-      ...Object.values(this.app.context._ ?? {}),
-    )
-    return (
-      this.app.hooks.filter(
-        `build.cache.name`,
-        this.app.hooks.filter(`build.name`, fallback),
-      ) ?? fallback
-    )
-  }
-
-  public set name(name: string) {
-    this.app.hooks.on(`build.cache.name`, name)
-  }
-
-  /**
    * {@link BudCache.register}
    */
   public override async register?(bud: Bud) {
@@ -220,30 +241,5 @@ export default class Cache extends Service implements BudCache {
   public setType(type: Callback<FileCacheOptions[`type`]>) {
     this.type = type
     return this
-  }
-
-  public set type(type: Callback<FileCacheOptions[`type`]>) {
-    this.app.hooks.on(`build.cache.type`, type)
-  }
-
-  /**
-   * {@link BudCache.type}
-   */
-  public get type(): 'filesystem' | 'memory' {
-    const fallback = isString(this.app.context.cache)
-      ? this.app.context.cache
-      : `filesystem`
-
-    return this.app.hooks.filter(`build.cache.type`) ?? fallback
-  }
-
-  public set version(version: string) {
-    this.app.hooks.on(`build.cache.version`, version)
-  }
-  /**
-   * {@link BudCache.version}
-   */
-  public get version(): string | undefined {
-    return this.app.hooks.filter(`build.cache.version`, undefined)
   }
 }

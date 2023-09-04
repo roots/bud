@@ -228,6 +228,38 @@ export class BudStylelintPublicApi extends Extension<Options, Plugin> {
   public declare threads: Api['threads']
 
   /**
+   * Stylelint plugins
+   *
+   * @example
+   * ```js
+   * console.log(bud.stylelint.plugins)
+   * ```
+   */
+  public get plugins(): Api[`config`][`plugins`] {
+    return this.config.plugins
+  }
+  public set plugins(plugins: Api[`config`][`plugins`]) {
+    this.setConfig((config = {}) => ({...config, plugins}))
+  }
+
+  /**
+   * Stylelint rules
+   *
+   * @example
+   * ```js
+   * console.log(bud.stylelint.rules)
+   * ```
+   */
+  public get rules(): Api[`config`][`rules`] {
+    return this.config.rules
+  }
+  public set rules(rules: Api[`config`][`rules`]) {
+    this.setConfig((config = {}) => {
+      return {...config, rules: {...config.rules, ...rules}}
+    })
+  }
+
+  /**
    * Extend config
    *
    * @example
@@ -278,56 +310,6 @@ export class BudStylelintPublicApi extends Extension<Options, Plugin> {
   @bind
   public getRules() {
     return this.rules
-  }
-
-  /**
-   * Get stylelint plugins
-   *
-   * @example
-   * ```js
-   * console.log(bud.stylelint.plugins)
-   * ```
-   */
-  public get plugins(): Api[`config`][`plugins`] {
-    return this.config.plugins
-  }
-
-  /**
-   * Set stylelint plugins
-   *
-   * @example
-   * ```js
-   * bud.stylelint.plugins = []
-   * ```
-   */
-  public set plugins(plugins: Api[`config`][`plugins`]) {
-    this.setConfig((config = {}) => ({...config, plugins}))
-  }
-
-  /**
-   * Get stylelint rules
-   *
-   * @example
-   * ```js
-   * console.log(bud.stylelint.rules)
-   * ```
-   */
-  public get rules(): Api[`config`][`rules`] {
-    return this.config.rules
-  }
-
-  /**
-   * Set stylelint rules
-   *
-   * @example
-   * ```js
-   * bud.stylelint.rules = {'no-descending-specificity': null}
-   * ```
-   */
-  public set rules(rules: Api[`config`][`rules`]) {
-    this.setConfig((config = {}) => {
-      return {...config, rules: {...config.rules, ...rules}}
-    })
   }
 
   /**

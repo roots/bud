@@ -5,7 +5,7 @@ import type CreateCommand from '../commands/create.js'
 import formatSource from '../utilities/formatSource.js'
 import templateEngine from '../utilities/templateEngine.js'
 
-export default async function writeStylelintConfigTask(
+export default async function writeEslintConfigTask(
   command: CreateCommand,
 ) {
   if (!command.support.includes(`eslint`)) return
@@ -39,7 +39,7 @@ export default async function writeStylelintConfigTask(
     configExtends.push(`@roots/eslint-config/wordpress`)
 
   const source = await command.fs.read(
-    join(command.createRoot, `templates`, `eslint.config.js.hbs`),
+    join(command.createRoot, `templates`, `.eslintrc.cjs.hbs`),
     `utf8`,
   )
 
@@ -48,7 +48,7 @@ export default async function writeStylelintConfigTask(
 
     const result = template({extends: configExtends})
 
-    await command.fs.write(`eslint.config.js`, await formatSource(result))
+    await command.fs.write(`.eslintrc.cjs`, await formatSource(result))
   } catch (error) {
     spinner.fail()
     throw error

@@ -9,8 +9,8 @@ export default async function (basedir: string = cwd()) {
 
   if (packageField) {
     if (packageField.includes(`yarn`)) {
-      if (await hasYarn3Rc(basedir)) return `yarn3`
-      return `yarn`
+      if (await hasYarnBerryConfig(basedir)) return `yarn`
+      return `yarn-classic`
     }
 
     if (packageField.includes(`npm`)) return `npm`
@@ -18,9 +18,10 @@ export default async function (basedir: string = cwd()) {
   }
 
   if (await hasYarnLockfile(basedir)) {
-    if (await hasYarn3Rc(basedir)) return `yarn3`
-    return `yarn`
+    if (await hasYarnBerryConfig(basedir)) return `yarn`
+    return `yarn-classic`
   }
+
   if (await hasNpmLockfile(basedir)) return `npm`
   if (await hasPnpmLockfile(basedir)) return `pnpm`
 }
@@ -35,7 +36,9 @@ export const hasYarnLockfile = async (
   }
 }
 
-export const hasYarn3Rc = async (basedir: string): Promise<boolean> => {
+export const hasYarnBerryConfig = async (
+  basedir: string,
+): Promise<boolean> => {
   try {
     return await fileExists(join(basedir, `.yarnrc.yml`))
   } catch (error) {

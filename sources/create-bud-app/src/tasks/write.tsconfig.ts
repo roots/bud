@@ -35,8 +35,10 @@ export default async function writeTsConfig(command: CreateCommand) {
         `@roots/bud-wordpress-manifests`,
       )
 
+    types.push(`webpack/module`)
+
     const source = `{
-      "extends": "@roots/bud/config/jsconfig.json",
+      "extends": ["@roots/bud/config/tsconfig.json"],
       "compilerOptions": {
         "allowJs": true,
         "paths": {
@@ -44,7 +46,8 @@ export default async function writeTsConfig(command: CreateCommand) {
         },
         "types": [${types.reduce((all, type) => `${all} "${type}",`, ``)}]
       },
-      "include": ["./bud.config.ts", "./src"],
+      "files": ["./bud.config.ts", "./types.d.ts"],
+      "include": ["./src"],
       "exclude": ["./node_modules", "./dist"]
     }
     `

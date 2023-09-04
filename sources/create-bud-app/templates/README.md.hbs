@@ -2,13 +2,21 @@
 
 This project was bootstrapped with [Create Bud App](https://github.com/roots/bud/tree/main/sources/@roots/create-bud-app).
 
-Consult [the bud documentation](https://bud.js.org) for information on configuring and using bud.js.
+Consult [the bud.js documentation](https://bud.js.org) for information on configuring and using bud.js.
 
 ## Available Scripts
 
 In the project directory, you can run:
 
-### `npm dev`
+{{#if npm}}
+### `npx bud dev`
+{{/if}}
+{{#if yarn}}
+### `yarn bud dev`
+{{/if}}
+{{#if pnpm}}
+### `pnpm bud dev`
+{{/if}}
 
 Runs the app in the development mode.
 
@@ -16,7 +24,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.
 
-### `npm run build`
+{{#if npm}}
+### `npx bud build`
+{{/if}}
+{{#if yarn}}
+### `yarn bud build`
+{{/if}}
+{{#if pnpm}}
+### `pnpm bud build`
+{{/if}}
 
 Builds the app for production to the `dist` folder. The build will be optimized for performance.
 

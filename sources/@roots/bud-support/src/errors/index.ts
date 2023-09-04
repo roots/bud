@@ -24,6 +24,20 @@ interface BudErrorProps extends Error {
  * Error base class
  */
 class BudError extends Error {
+  public static normalize(error: unknown) {
+    if (error instanceof BudError) return error
+
+    if (error instanceof Error) {
+      const {message, ...rest} = error
+      return new BudError(message, rest)
+    }
+
+    if (typeof error === `string`) {
+      return new BudError(error)
+    }
+
+    return new BudError(`unknown error`)
+  }
   /**
    * Details
    */
@@ -107,21 +121,6 @@ class BudError extends Error {
     }
 
     this.isBudError = true
-  }
-
-  public static normalize(error: unknown) {
-    if (error instanceof BudError) return error
-
-    if (error instanceof Error) {
-      const {message, ...rest} = error
-      return new BudError(message, rest)
-    }
-
-    if (typeof error === `string`) {
-      return new BudError(error)
-    }
-
-    return new BudError(`unknown error`)
   }
 }
 
