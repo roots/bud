@@ -67,16 +67,16 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.8",
-    "@types/node": "18.16.19",
-    "json-schema-to-typescript": "13.0.2"
+    "@types/lodash-es": "4.17.9",
+    "@types/node": "18.17.14",
+    "json-schema-to-typescript": "13.1.1"
   },
   "dependencies": {
     "fs-jetpack": "5.1.0",
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tapable": "2.2.1",
-    "tslib": "2.6.0",
+    "tslib": "2.6.2",
     "webpack": "5.88.2"
   },
   "volta": {

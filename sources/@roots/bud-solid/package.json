@@ -73,10 +73,10 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.22.9",
+    "@babel/core": "7.22.15",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.1",
-    "@types/node": "18.16.19"
+    "@types/node": "18.17.14"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",
@@ -84,8 +84,8 @@
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "babel-preset-solid": "1.7.7",
-    "solid-js": "1.7.8",
-    "tslib": "2.6.0"
+    "solid-js": "1.7.11",
+    "tslib": "2.6.2"
   },
   "volta": {
     "extends": "../../../package.json"

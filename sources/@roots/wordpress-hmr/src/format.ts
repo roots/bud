@@ -38,7 +38,7 @@ export const register = ({name, ...settings}: Props) => {
   if (!name || !settings) return
 
   isRegistered(name) && unregister({name})
-  registerFormatType(name, {name, ...settings})
+  registerFormatType(name, {interactive: true, name,  ...settings})
 }
 
 export const unregister = ({name}) => {

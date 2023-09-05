@@ -89,7 +89,7 @@
     "@roots/bud-babel": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/fork-ts-checker-webpack-plugin": "0.4.5",
-    "@types/node": "18.16.19",
+    "@types/node": "18.17.14",
     "@types/webpack-env": "1.18.1",
     "webpack": "5.88.2"
   },
@@ -103,8 +103,8 @@
     "react-refresh-typescript": "2.0.9",
     "ts-loader": "9.4.4",
     "ts-node": "10.9.1",
-    "tslib": "2.6.0",
-    "typescript": "5.1.6"
+    "tslib": "2.6.2",
+    "typescript": "5.2.2"
   },
   "volta": {
     "extends": "../../../package.json"

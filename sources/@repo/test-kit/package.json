@@ -30,16 +30,16 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@types/node": "18.16.19",
+    "@types/node": "18.17.14",
     "chalk": "5.3.0",
-    "execa": "7.1.1",
+    "execa": "8.0.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "strip-ansi": "7.1.0",
-    "tslib": "2.6.0",
-    "vitest": "0.33.0"
+    "tslib": "2.6.2",
+    "vitest": "0.34.3"
   },
   "volta": {
     "extends": "../../../package.json"

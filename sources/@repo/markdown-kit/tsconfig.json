@@ -2,7 +2,7 @@
   "extends": "../../../config/tsconfig.json",
   "compilerOptions": {
     "outDir": "compiled",
-    "module": "esnext",
+    "module": "NodeNext",
     "types": [
       "node"
     ]
