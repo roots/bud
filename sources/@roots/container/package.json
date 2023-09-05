@@ -73,8 +73,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
-    "type-fest": "4.2.0"
+    "@types/node": "18.17.14",
+    "type-fest": "4.3.1"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

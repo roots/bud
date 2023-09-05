@@ -60,13 +60,13 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9"
+    "@types/node": "18.17.14"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@swc/core": "1.3.78",
+    "@swc/core": "1.3.82",
     "@swc/helpers": "0.5.1",
     "swc-loader": "0.2.3",
     "tslib": "2.6.2",

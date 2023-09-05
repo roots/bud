@@ -2,8 +2,8 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@types/node": "18.17.9",
-    "vitest": "0.34.2"
+    "@types/node": "18.17.14",
+    "vitest": "0.34.3"
   },
   "dependencies": {
     "tslib": "2.6.2"

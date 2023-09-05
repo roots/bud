@@ -8,8 +8,8 @@
   },
   "devDependencies": {
     "@types/lodash": "4.14.197",
-    "@types/node": "18.17.9",
-    "@types/semver": "7.5.0",
+    "@types/node": "18.17.14",
+    "@types/semver": "7.5.1",
     "@yarnpkg/builder": "4.0.0-rc.49",
     "typescript": "5.2.2"
   },

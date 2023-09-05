@@ -75,8 +75,8 @@
     "@roots/bud-build": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
-    "postcss": "8.4.28",
+    "@types/node": "18.17.14",
+    "postcss": "8.4.29",
     "stylelint": "15.10.3",
     "webpack": "5.88.2"
   },
@@ -88,7 +88,7 @@
     "resolve-url-loader": "5.0.0",
     "sass": "1.66.1",
     "sass-loader": "13.3.2",
-    "stylelint-config-recommended-scss": "12.0.0",
+    "stylelint-config-recommended-scss": "13.0.0",
     "stylelint-scss": "5.1.0",
     "tslib": "2.6.2"
   },

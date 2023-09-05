@@ -72,8 +72,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
-    "@types/prettier": "2.7.3"
+    "@types/node": "18.17.14",
+    "@types/prettier": "3.0.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
