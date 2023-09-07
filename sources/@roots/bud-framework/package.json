@@ -130,10 +130,10 @@
         "./lib/module.d.ts"
       ],
       "options": [
-        "./lib/types/options/index.d.ts"
+        "./lib/options/index.d.ts"
       ],
       "options/*": [
-        "./lib/types/options/*.d.ts"
+        "./lib/options/*.d.ts"
       ],
       "parsers": [
         "./lib/parsers/index.d.ts"
@@ -142,16 +142,16 @@
         "./lib/parsers/*.d.ts"
       ],
       "registry": [
-        "./lib/types/registry/index.d.ts"
+        "./lib/registry/index.d.ts"
       ],
       "registry/*": [
-        "./lib/types/registry/*.d.ts"
+        "./lib/registry/*.d.ts"
       ],
       "service": [
         "./lib/service.d.ts"
       ],
       "services": [
-        "./lib/types/services/index.d.ts"
+        "./lib/services/index.d.ts"
       ],
       "services/api": [
         "./lib/services/api.d.ts"
@@ -163,10 +163,10 @@
         "./lib/services/fs.d.ts"
       ],
       "services/build/*": [
-        "./lib/types/services/build/*.d.ts"
+        "./lib/services/build/*.d.ts"
       ],
       "services/*": [
-        "./lib/types/services/*/index.d.ts"
+        "./lib/services/*/index.d.ts"
       ],
       "value": [
         "./lib/value.d.ts"
