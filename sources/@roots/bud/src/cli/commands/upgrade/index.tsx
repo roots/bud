@@ -112,6 +112,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     this.command = this.pm === `npm` ? `install` : `add`
+    this.pm = this.pm === `yarn-classic` ? `yarn` : this.pm
 
     if (!this.version) {
       const get = await import(`@roots/bud-support/axios`)
