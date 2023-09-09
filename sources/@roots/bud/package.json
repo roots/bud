@@ -44,9 +44,7 @@
     "webpack"
   ],
   "bin": {
-    "bud": "./bin/bud.mjs",
-    "bund": "./bin/bund.mjs",
-    "ts-bud": "./bin/ts-bud.mjs"
+    "bud": "./bin/bud.mjs"
   },
   "files": [
     "bin",
