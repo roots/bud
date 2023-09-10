@@ -1,14 +1,42 @@
-// Copyright © Roots Software Foundation LLC
-// Licensed under the MIT license.
+import type {Bud} from '@roots/bud-framework'
+
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  development,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 /**
- * Adds TypeScript react-refresh transform
- *
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
- *
- * @packageDocumentation
+ * Typescript react-refresh configuration
  */
+@label(`@roots/bud-react/typescript-refresh`)
+@development
+export default class BudTypeScriptRefresh extends Extension {
+  /**
+   * {@link Extension.buildBefore}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    this.registerTransform(bud)
+  }
 
-import BudTypeScriptRefresh from './extension.js'
-export default BudTypeScriptRefresh
+  /**
+   * Register tsc react-refresh transform
+   */
+  @bind
+  public async registerTransform(bud: Bud) {
+    this.logger.log(`Registering react-refresh-typescript transformer`)
+
+    const transform = await this.import(
+      `react-refresh-typescript`,
+      import.meta.url,
+    )
+
+    bud.extensions
+      .get(`@roots/bud-typescript`)
+      .set(`getCustomTransformers`, () => ({
+        before: [transform()],
+      }))
+  }
+}
