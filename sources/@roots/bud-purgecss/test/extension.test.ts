@@ -1,11 +1,8 @@
-import '../src/index.js'
-
 import {Bud, factory} from '@repo/test-kit'
 import postcss from '@roots/bud-postcss'
+import BudPurgeCSS from '@roots/bud-purgecss'
+import {purgecss} from '@roots/bud-purgecss/facade'
 import {beforeEach, describe, expect, it} from 'vitest'
-
-import {purgecss} from '../src/api.js'
-import BudPurgeCSS from '../src/extension.js'
 
 describe(
   `@roots/bud-purgecss`,
@@ -17,15 +14,14 @@ describe(
       bud = await factory()
       await bud.build.make()
       await bud.extensions.add(postcss)
-      // @ts-ignore
       Extension = new BudPurgeCSS(bud)
     })
 
     it(`should be constructable`, () => {
       expect(Extension).toEqual(
         expect.objectContaining({
-          label: `@roots/bud-purgecss`,
           dependsOn: expect.any(Set),
+          label: `@roots/bud-purgecss`,
           register: expect.any(Function),
         }),
       )

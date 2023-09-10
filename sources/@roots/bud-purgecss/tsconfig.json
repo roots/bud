@@ -3,10 +3,10 @@
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "lib",
-    "types": ["@roots/bud-framework", "@roots/bud-postcss"]
+    "types": ["@roots/bud-framework", "@roots/bud-postcss", "node"]
   },
   "include": ["src"],
-  "exclude": ["**/*.test.ts"],
+  "exclude": ["test"],
   "references": [
     {"path": "./../bud-framework/tsconfig.json"},
     {"path": "./../bud-api/tsconfig.json"},

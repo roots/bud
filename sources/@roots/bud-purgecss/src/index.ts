@@ -8,13 +8,28 @@
  * @see https://github.com/roots/bud
  */
 
-import type {purgecss} from './api.js'
+import type {purgecss} from '@roots/bud-purgecss/facade'
 
-import BudPurgeCSS from './extension.js'
+import BudPurgeCSS from '@roots/bud-purgecss/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    purgecss: typeof purgecss
+    /**
+     * Purge unused CSS from compiled stylesheets
+     *
+     * @remarks
+     * For more information, see [the PurgeCSS API](https://purgecss.com/configuration.html)
+     *
+     * @example
+     * ```js
+     * app.purgecss({
+     *   content: [app.path('resources/views/**')],
+     *   allow: require('purgecss-with-wordpress').whitelist,
+     *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+     * })
+     * ```
+     */
+    purgecss: purgecss
   }
 
   interface Modules {
