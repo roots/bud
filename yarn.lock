@@ -8293,7 +8293,6 @@ __metadata:
   resolution: "@roots/bud-purgecss@workspace:sources/@roots/bud-purgecss"
   dependencies:
     "@fullhuman/postcss-purgecss": 5.0.0
-    "@roots/bud": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@skypack/package-check": 0.2.2
