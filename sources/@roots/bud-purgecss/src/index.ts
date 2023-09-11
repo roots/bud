@@ -12,6 +12,8 @@ import type {purgecss} from '@roots/bud-purgecss/facade'
 
 import BudPurgeCSS from '@roots/bud-purgecss/extension'
 
+import type { BudPurgeCSSPublicInterface } from './extension/model.js'
+
 declare module '@roots/bud-framework' {
   interface Bud {
     /**
@@ -27,6 +29,19 @@ declare module '@roots/bud-framework' {
      *   allow: require('purgecss-with-wordpress').whitelist,
      *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
      * })
+     * ```
+     */
+    purge: BudPurgeCSSPublicInterface
+
+    /**
+     * Purge unused CSS from compiled stylesheets
+     *
+     * @deprecated
+     * Use `bud.purge` instead.
+     *
+     * @example
+     * ```js
+     * bud.purge.set('content', [bud.path('resources/views/**')])
      * ```
      */
     purgecss: purgecss

@@ -4,10 +4,13 @@ import type {Bud} from '@roots/bud-framework'
 import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
   dependsOn,
+  expose,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {purgecss} from '@roots/bud-purgecss/facade'
+
+import BudPurgeCSSPublicAPI from './base.js'
 
 /**
  * PurgeCSS configuration
@@ -16,13 +19,30 @@ import {purgecss} from '@roots/bud-purgecss/facade'
  */
 @label(`@roots/bud-purgecss`)
 @dependsOn([`@roots/bud-postcss`])
+@expose(`purge`)
 @options<Options>({
+  blocklist: undefined,
   content: DynamicOption.make((bud: Bud) => [
-    bud.path(`@src/*.{js,jsx,ts,tsx,vue,html,php,pug,rb}`),
-    bud.path(`@src/**/*.{js,jsx,ts,tsx,vue,html,php,pug,rb}`),
+    bud.path(`@src/*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
+    bud.path(`@src/**/*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
   ]),
+  contentFunction: undefined,
+  defaultExtractor: undefined,
+  dynamicAttributes: undefined,
+  extractors: undefined,
+  fontFace: undefined,
+  keyframes: undefined,
+  output: undefined,
+  rejected: undefined,
+  rejectedCss: undefined,
+  safelist: undefined,
+  skippedContentGlobs: undefined,
+  sourceMap: undefined,
+  stdin: undefined,
+  stdout: undefined,
+  variables: undefined,
 })
-export default class BudPurgeCSS extends Extension<Options> {
+export default class BudPurgeCSS extends BudPurgeCSSPublicAPI {
   /**
    * {@link Extension.register}
    */
@@ -34,10 +54,17 @@ export default class BudPurgeCSS extends Extension<Options> {
    * {@link Extension.buildBefore}
    */
   public override async buildBefore(bud: Bud) {
-    // Return early if purgecss is already setup
+    /**
+     * Return early if purgecss is already setup
+     * Which can happen if the user has called the deprecated {@link Bud.purgecss} method
+     */
     if (bud.postcss.hasPlugin(`purgecss`)) return
 
-    // Set up plugin with default options
-    bud.purgecss(this.getOptions())
+    // Add purgecss to postcss plugins
+    bud.postcss
+      .setPlugin(`purgecss`, [`@fullhuman/postcss-purgecss`, this.options])
+      .use(plugins => [...plugins, `purgecss`])
   }
 }
+
+export {BudPurgeCSSPublicAPI}
