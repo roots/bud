@@ -84,7 +84,7 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 
 | Package                                                                                                                                         | Latest                                                                                                                  |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| [**bud-embedded**]({{projectConfig.url.web}}/tree/main/sources/bud-embedded)                                                   | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square)                          |
+| [**bud-embedded**](https://github.com/talss89/bud-embedded)                                                   | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square)                          |
 
 ## Contributing
 
