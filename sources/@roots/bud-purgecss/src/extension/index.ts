@@ -7,6 +7,7 @@ import {
   expose,
   label,
   options,
+  production,
 } from '@roots/bud-framework/extension/decorators'
 import {purgecss} from '@roots/bud-purgecss/facade'
 
@@ -42,6 +43,7 @@ import BudPurgeCSSPublicAPI from './base.js'
   stdout: undefined,
   variables: undefined,
 })
+@production
 export default class BudPurgeCSS extends BudPurgeCSSPublicAPI {
   /**
    * {@link Extension.register}
@@ -67,4 +69,4 @@ export default class BudPurgeCSS extends BudPurgeCSSPublicAPI {
   }
 }
 
-export {BudPurgeCSSPublicAPI}
+export type {BudPurgeCSSPublicAPI}

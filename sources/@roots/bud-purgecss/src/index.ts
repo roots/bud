@@ -26,8 +26,7 @@ declare module '@roots/bud-framework' {
      * ```js
      * app.purgecss({
      *   content: [app.path('resources/views/**')],
-     *   allow: require('purgecss-with-wordpress').whitelist,
-     *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+     *   safestlist: require('purgecss-with-wordpress').safelist,
      * })
      * ```
      */
@@ -37,11 +36,13 @@ declare module '@roots/bud-framework' {
      * Purge unused CSS from compiled stylesheets
      *
      * @deprecated
-     * Use `bud.purge` instead.
+     * Use {@link Bud.purge} instead.
      *
      * @example
      * ```js
-     * bud.purge.set('content', [bud.path('resources/views/**')])
+     * bud.purge
+     *  .setContent([bud.path('resources/views/**')])
+     *  .setSafelist((await import('purgecss-with-wordpress')).safelist)
      * ```
      */
     purgecss: purgecss
