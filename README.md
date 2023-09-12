@@ -14,20 +14,16 @@
 
 ---
 
-## What is bud.js?
-
-Configurable, extensible build tools for modern single and multi-page web applications.
-
-### Goals
+## Goals
 
 **bud.js** wants to be:
 
 - **Reliable**, yielding consistent and predictable behaviors regardless of specified options.
 - **Fast**, leveraging parallel processing, smart caching and an asyncronous events based API to keep build times minimal.
-- **Extensible**, with a fully featured plugin system to support an ecosystem of packaged modules
-- **Simple**, to get started and straight forward to maintain
+- **Extensible**, with a fully featured plugin system to support an ecosystem of packaged modules.
+- **Simple**, to get started and straight forward to maintain.
 
-### Features
+## Features
 
 - Zero config by default. Check out this [codesandbox template with react, postcss modules and no config](https://codesandbox.io/s/bud-zero-config-or4tby).
 - Modular by design. Use only what you need.
@@ -118,6 +114,12 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 | [**@roots/wordpress-hmr**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-hmr)                                                 | ![npm](https://img.shields.io/npm/v/@roots/wordpress-hmr.svg?color=%23525ddc&style=flat-square)                         |
 | [**@roots/wordpress-theme-json-webpack-plugin**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin)     | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin.svg?color=%23525ddc&style=flat-square)   |
 | [**@roots/wordpress-transforms**](https://github.com/roots/bud/tree/main/sources/@roots/wordpress-transforms)                                   | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms.svg?color=%23525ddc&style=flat-square)                  |
+
+## Community extensions
+
+| Package                                                                         | Latest                                                                                  |
+| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [**bud-embedded**](https://github.com/roots/bud/tree/main/sources/bud-embedded) | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square) |
 
 ## Contributing
 
