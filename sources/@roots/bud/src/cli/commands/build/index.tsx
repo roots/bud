@@ -24,7 +24,6 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
-import verbose from '@roots/bud/cli/flags/verbose'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 
 /**
@@ -100,8 +99,6 @@ export default class BudBuildCommand extends BudCommand {
   public splitChunks = splitChunks
 
   public override storage = storage
-
-  public override verbose = verbose
 
   /**
    * {@link BudCommand.execute}

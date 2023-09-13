@@ -116,7 +116,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public use = use
 
-  public verbose: typeof verbose = false
+  public verbose = verbose
 
   /**
    * Execute arbitrary sh command with inherited stdio

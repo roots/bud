@@ -230,7 +230,7 @@ export default class BudUpgradeCommand extends BudCommand {
   ): Promise<Array<string>> {
     const allBudSignifiers = this.getAllDependenciesOfType(type).filter(
       signifier =>
-        signifier.includes(`bud-`) || signifier === `@roots/sage`,
+        signifier.startsWith(`bud-`) || signifier.includes(`/bud-`) || signifier === `@roots/sage`,
     )
 
     const rootsPackages = allBudSignifiers
