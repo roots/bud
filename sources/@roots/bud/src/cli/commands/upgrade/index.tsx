@@ -47,7 +47,17 @@ export default class BudUpgradeCommand extends BudCommand {
     ],
   })
 
+  /**
+   * {@link BudCommand.clean}
+   */
+  public override clean = true
+
   public command: `add` | `install`
+
+  /**
+   * {@link BudCommand.force}
+   */
+  public override force = true
 
   /**
    * Package manager option
@@ -79,13 +89,29 @@ export default class BudUpgradeCommand extends BudCommand {
   public version = Option.String({required: false})
 
   /**
-   * Catch fetch errors
+   * Do registry request
    */
-  public catchFetchError(error: Error | string): never {
-    const normalError = BudError.normalize(error)
-    normalError.details = `There was a problem fetching the latest version of bud.js`
-    normalError.thrownBy = `@roots/bud-support/axios`
-    throw normalError
+  @bind
+  public async doRegistryRequest(uri: string) {
+    const request = `${this.registry}/${uri}`
+
+    const response = await axios
+      .get(request)
+      .catch((error: Error | string): never => {
+        const normalError = BudError.normalize(error)
+        normalError.details = `There was a problem requesting data from ${request}`
+        normalError.thrownBy = `@roots/bud-support/axios`
+        throw normalError
+      })
+
+    if (response.status !== 200) {
+      const badResponse = BudError.normalize(response.statusText)
+      badResponse.details = `There was a problem requesting data from ${request}`
+      badResponse.thrownBy = `@roots/bud-support/axios`
+      throw badResponse
+    }
+
+    return response.data
   }
 
   /**
@@ -99,7 +125,7 @@ export default class BudUpgradeCommand extends BudCommand {
         const normalError = BudError.normalize(error)
         normalError.details = normalError.message
         normalError.thrownBy = `@roots/bud-support/which-pm`
-        throw error
+        throw normalError
       })
     }
 
@@ -116,20 +142,25 @@ export default class BudUpgradeCommand extends BudCommand {
       )
       if (yarnrc?.[`npmRegistryServer`]) {
         this.registry = yarnrc[`npmRegistryServer`]
+        logger.log(
+          `registry set to`,
+          this.registry,
+          `(setting sourced from .yarnrc.yml)`,
+        )
       }
     }
 
     this.command = this.pm === `npm` ? `install` : `add`
     this.pm = this.pm === `yarn-classic` ? `yarn` : this.pm
+    logger.log(`set package manager to`, this.pm)
 
-    if (!this.version) {
-      this.version = await axios
-        .get(`${this.registry}/@roots/bud/latest`)
-        .then(async res => res.data?.version)
-        .catch(this.catchFetchError)
-
-      if (!this.version)
-        return this.catchFetchError(new Error(`No version found`))
+    if (!isString(this.version)) {
+      const requestData = await this.doRegistryRequest(
+        `@roots/bud/latest`,
+      )
+      logger.info(`latest version request data`, requestData)
+      this.version = requestData?.version
+      logger.log(`version set to`, this.version)
     }
 
     if (await this.hasUpgradeableDependencies(`devDependencies`)) {
@@ -137,7 +168,9 @@ export default class BudUpgradeCommand extends BudCommand {
         await this.getUpgradeableDependencies(`devDependencies`)
       devDependencies.unshift(`@roots/bud@${this.version}`)
       logger.log(
-        `Upgrading devDependencies: ${devDependencies.join(`, `)}`,
+        `Upgrading devDependencies`,
+        `\n`,
+        devDependencies.join(`\n `),
       )
 
       await this.$(this.pm, [
@@ -148,8 +181,9 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (await this.hasUpgradeableDependencies(`dependencies`)) {
-      const dependencies = await this.getUpgradeableDependencies(`dependencies`)
-      logger.log(`Upgrading dependencies: ${dependencies.join(`, `)}`)
+      const dependencies =
+        await this.getUpgradeableDependencies(`dependencies`)
+      logger.log(`Upgrading dependencies`, `\n`, dependencies.join(`\n `))
 
       await this.$(this.pm, [
         this.command,
@@ -161,11 +195,6 @@ export default class BudUpgradeCommand extends BudCommand {
     if (this.pm === `pnpm`) {
       await this.$(`pnpm`, [`install`, `--shamefully-hoist`])
     }
-
-    /**
-     * Clean old caches and distributables
-     */
-    await this.$(this.pm, [`bud`, `clean`])
   }
 
   @bind
@@ -230,7 +259,9 @@ export default class BudUpgradeCommand extends BudCommand {
   ): Promise<Array<string>> {
     const allBudSignifiers = this.getAllDependenciesOfType(type).filter(
       signifier =>
-        signifier.startsWith(`bud-`) || signifier.includes(`/bud-`) || signifier === `@roots/sage`,
+        signifier.startsWith(`bud-`) ||
+        signifier.includes(`/bud-`) ||
+        signifier === `@roots/sage`,
     )
 
     const rootsPackages = allBudSignifiers
@@ -241,8 +272,8 @@ export default class BudUpgradeCommand extends BudCommand {
       allBudSignifiers
         .filter(signifier => !signifier.startsWith(`@roots/`))
         .map(async signifier => {
-          const {data} = await axios.get(`${this.registry}/${signifier}`)
-          const manifests = Object.values(data.versions).reverse()
+          const {versions} = await this.doRegistryRequest(signifier)
+          const manifests = Object.values(versions).reverse()
 
           const match: {version?: string} = manifests.find(
             ({bud}: {bud?: {version?: string}}) => {

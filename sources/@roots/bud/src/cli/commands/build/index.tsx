@@ -1,6 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
 import ci from '@roots/bud/cli/flags/ci'
-import clean from '@roots/bud/cli/flags/clean'
 import dashboard from '@roots/bud/cli/flags/dashboard'
 import dashboardAssets from '@roots/bud/cli/flags/dashboard.assets'
 import dashboardCompact from '@roots/bud/cli/flags/dashboard.compact'
@@ -63,8 +62,6 @@ export default class BudBuildCommand extends BudCommand {
   public [`entrypoints.html`] = entrypointsHtml
 
   public ci = ci
-
-  public clean = clean
 
   public devtool = devtool
 

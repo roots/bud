@@ -7,6 +7,7 @@ import {env, exit} from 'node:process'
 
 import basedir from '@roots/bud/cli/flags/basedir'
 import cache from '@roots/bud/cli/flags/cache'
+import clean from '@roots/bud/cli/flags/clean'
 import color from '@roots/bud/cli/flags/color'
 import debug from '@roots/bud/cli/flags/debug'
 import dry from '@roots/bud/cli/flags/dry'
@@ -88,11 +89,14 @@ export default class BudCommand extends Command<BaseContext & Context> {
       </Static>,
     ).unmount()
   }
+
   public basedir = basedir
 
   public declare bud?: Bud | undefined
 
   public cache = cache
+
+  public clean = clean
 
   public color = color
 
