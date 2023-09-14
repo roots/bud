@@ -117,9 +117,9 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 
 ## Community extensions
 
-| Package                                                                         | Latest                                                                                  |
-| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [**bud-embedded**](https://github.com/roots/bud/tree/main/sources/bud-embedded) | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square) |
+| Package                                                     | Latest                                                                                  |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [**bud-embedded**](https://github.com/talss89/bud-embedded) | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square) |
 
 ## Contributing
 
