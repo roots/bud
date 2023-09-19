@@ -1,18 +1,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import type {Bud} from '@roots/bud'
 import type {Extension} from '@roots/bud-framework/extension'
-import type {InspectTreeResult} from 'fs-jetpack/types.js'
 
 import {platform} from 'node:os'
 
 import BudCommand from '@roots/bud/cli/commands'
 import {Error} from '@roots/bud-dashboard/components/error'
 import {Command} from '@roots/bud-support/clipanion'
-import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
-import prettyFormat from '@roots/bud-support/pretty-format'
 import webpack from '@roots/bud-support/webpack'
 
 import {WinError} from './WinError.js'
@@ -117,18 +114,22 @@ for a lot of edge cases so it might return a false positive.
         <Text color="blue">Project paths</Text>
         <Text>{` `}</Text>
         <Text>project: {this.bud.path()}</Text>
+
         <Text>
           input:{` `}
           {this.bud.path(`@src`).replace(this.bud.path(), `@project`)}
         </Text>
+
         <Text>
           output:{` `}
           {this.bud.path(`@dist`).replace(this.bud.path(), `@project`)}
         </Text>
+
         <Text>
           cache:{` `}
           {this.bud.path(`@os-cache`)}
         </Text>
+
         <Text>
           storage:{` `}
           {this.bud.path(`@storage`).replace(this.bud.path(), `@project`)}
@@ -218,6 +219,7 @@ for a lot of edge cases so it might return a false positive.
             <Text color="blue">Environment{`\n`}</Text>
             {this.bud.env.getEntries().map(([key, value]) => {
               const color = value.length === 0 ? `yellow` : `dimColor`
+
               return (
                 <Box flexDirection="row" key={key}>
                   <Text>{figures.triangleRightSmall}</Text>
@@ -283,45 +285,25 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    if (this.mode === `development`) {
+    if (this.bud.mode === `development`) {
       DoctorCommand.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Development server</Text>
           <Box flexDirection="row">
             <Text>URL:</Text>
             <Text>
-              {this.bud.hooks
-                .filter(`dev.url`, new URL(`http://0.0.0.0:3000`))
-                .toString()}
+              {` `}{this.bud.server.url.href}
             </Text>
           </Box>
-          {this.bud.hooks
-            .filter(`dev.middleware.enabled`)
-            .includes(`proxy`) ? (
+
+          {this.bud.server?.enabledMiddleware && Object.keys(this.bud.server.enabledMiddleware).includes(`proxy`) && this.bud.server.proxyUrl && (
             <Box flexDirection="row">
               <Text>Proxy:</Text>
               <Text>
-                {this.bud.hooks
-                  .filter(
-                    `dev.middleware.proxy.options.target`,
-                    new URL(`http://0.0.0.0:8000`),
-                  )
-                  .toString()}
+                {` `}{this.bud.server.proxyUrl.href}
               </Text>
             </Box>
-          ) : null}
-          <Box flexDirection="column">
-            <Text>Client scripts:</Text>
-            {[...this.bud.hooks.filter(`dev.client.scripts`, new Set([]))]
-              .map(fn => fn(this.bud))
-              .map((script, key) => {
-                return (
-                  <Text key={key}>
-                    {figures.triangleRightSmall} {script}
-                  </Text>
-                )
-              })}
-          </Box>
+          )}
         </Box>,
       )
     }
@@ -343,101 +325,6 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     }
-  }
-
-  @bind
-  public formatDepCheck(
-    [dependency, requestedVersion],
-    key: number | string,
-  ) {
-    if (dependency.startsWith(`@roots`)) return null
-
-    const renderMessage = (type: `dependencies` | `devDependencies`) => (
-      <Text key={key}>
-        <Text color="yellow">
-          {figures.warning}
-          {`  `}
-          {dependency}
-        </Text>
-        {` `}is overridden in your project `{type}`. If you do not require
-        a custom version of{` `}
-        {dependency} you should remove it.
-      </Text>
-    )
-
-    if (
-      this.bud.context.manifest.devDependencies &&
-      Object.keys(this.bud.context.manifest.devDependencies).includes(
-        dependency,
-      )
-    ) {
-      return renderMessage(`devDependencies`)
-    }
-
-    if (
-      this.bud.context.manifest.dependencies &&
-      Object.keys(this.bud.context.manifest.dependencies).includes(
-        dependency,
-      )
-    ) {
-      return renderMessage(`dependencies`)
-    }
-
-    return (
-      <Text key={key}>
-        <Text color="green">
-          {figures.tick} {dependency}
-        </Text>
-        {` `}
-        is managed by bud.js ({requestedVersion})
-      </Text>
-    )
-  }
-
-  public async ls(path: string) {
-    const formatFilesArray = (files: Array<InspectTreeResult>) => {
-      return files.map((file, id) => {
-        return (
-          <Box
-            flexDirection={file.children ? `column` : `row`}
-            key={`${file.name}-file`}
-          >
-            <Text>
-              <Text dimColor>
-                {file.children ? figures.ellipsis : figures.pointerSmall}
-              </Text>
-              {` `}
-              {file.name}
-            </Text>
-            {file.children ? (
-              <Box flexDirection="column" paddingLeft={2}>
-                {formatFilesArray(file.children)}
-              </Box>
-            ) : null}
-          </Box>
-        )
-      })
-    }
-
-    const files = await this.bud.fs.inspectTree(path)
-    return files.children ? formatFilesArray(files.children) : null
-  }
-
-  public mapEntrypoints(
-    entrypoints: Array<[string, webpack.EntryObject]>,
-  ) {
-    return entrypoints.map(([name, entry]) => {
-      return (
-        <Box flexDirection="column" key={`${name}-entry`}>
-          <Text>{name}</Text>
-          <Text dimColor>
-            {prettyFormat(entry, {
-              printBasicPrototype: false,
-            })}
-          </Text>
-        </Box>
-      )
-    })
   }
 
   public mapExtensions(extensions: Array<[string, Extension]>) {
