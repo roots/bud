@@ -72,14 +72,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
-    "@types/prettier": "2.7.3"
+    "@types/node": "18.17.18",
+    "@types/prettier": "3.0.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "prettier": "3.0.2",
+    "prettier": "3.0.3",
     "tslib": "2.6.2"
   },
   "volta": {
