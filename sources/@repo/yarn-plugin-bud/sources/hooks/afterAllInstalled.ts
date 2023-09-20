@@ -7,4 +7,5 @@ export default async () => {
   await execute(`yarn`, [`@bud`, `registry`, `start`]).catch(noop)
   await execute(`yarn`, [`@bud`, `build`])
   await execute(`yarn`, [`@bud`])
+  await execute(`yarn`, [`playwright`, `install`])
 }
