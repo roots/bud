@@ -49,34 +49,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./babel-refresh": {
-      "import": "./lib/babel-refresh/index.js",
-      "default": "./lib/babel-refresh/index.js"
-    },
-    "./extension": {
-      "import": "./lib/extension.js",
-      "default": "./lib/extension.js"
-    },
-    "./react-refresh": {
-      "import": "./lib/react-refresh/index.js",
-      "default": "./lib/react-refresh/index.js"
-    },
-    "./swc-refresh": {
-      "import": "./lib/swc-refresh/index.js",
-      "default": "./lib/swc-refresh/index.js"
-    },
-    "./typescript-refresh": {
-      "import": "./lib/typescript-refresh/index.js",
-      "default": "./lib/typescript-refresh/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./babel-refresh": "./lib/babel-refresh/index.js",
+    "./extension": "./lib/extension/index.js",
+    "./react-refresh": "./lib/react-refresh/index.js",
+    "./swc-refresh": "./lib/swc-refresh/index.js",
+    "./typescript-refresh": "./lib/typescript-refresh/index.js"
   },
   "typesVersions": {
     "*": {
@@ -87,7 +65,7 @@
         "./lib/babel-refresh/index.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/extension/index.d.ts"
       ],
       "react-refresh": [
         "./lib/react-refresh/index.d.ts"
@@ -97,9 +75,6 @@
       ],
       "typescript-refresh": [
         "./lib/typescript-refresh/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
@@ -108,6 +83,7 @@
   "devDependencies": {
     "@babel/core": "7.22.15",
     "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
@@ -120,7 +96,6 @@
   "dependencies": {
     "@babel/preset-react": "7.22.15",
     "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
-    "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "react": "18.2.0",

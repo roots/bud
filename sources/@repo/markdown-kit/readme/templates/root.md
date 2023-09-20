@@ -1,7 +1,5 @@
 {{>banner}}
 
-## What is bud.js?
-
 {{>what}}
 
 ## Requirements
@@ -81,6 +79,12 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 | [**@roots/wordpress-hmr**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-hmr)                                                 | ![npm](https://img.shields.io/npm/v/@roots/wordpress-hmr.svg?color=%23525ddc&style=flat-square)                         |
 | [**@roots/wordpress-theme-json-webpack-plugin**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin)     | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin.svg?color=%23525ddc&style=flat-square)   |
 | [**@roots/wordpress-transforms**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-transforms)                                   | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms.svg?color=%23525ddc&style=flat-square)                  |
+
+## Community extensions
+
+| Package                                                                                                                                         | Latest                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [**bud-embedded**](https://github.com/talss89/bud-embedded)                                                   | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square)                          |
 
 ## Contributing
 

@@ -1,8 +1,5 @@
-import '@roots/bud-react'
-
+import Extension from '@roots/bud-react/swc-refresh'
 import {describe, expect, it} from 'vitest'
-
-import Extension from '../../src/index.js'
 
 describe(`@roots/bud-react/swc-refresh`, () => {
   it(`should be constructable`, () => {

@@ -1,6 +1,5 @@
+import Extension from '@roots/bud-react/extension'
 import {describe, expect, it} from 'vitest'
-
-import Extension from '../src/extension/extension.js'
 
 describe(`@roots/bud-react`, () => {
   it(`should be constructable`, () => {
