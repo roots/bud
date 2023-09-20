@@ -8,6 +8,17 @@
  * @see https://github.com/roots/bud/tree/main/sources/@roots/bud-styelint
  */
 
-import BudStylelint from './extension.js'
-import './types.js'
-export default BudStylelint
+import type {BudStylelintPublicApi} from './extension/base.js'
+import BudStylelint from './extension/index.js'
+
+declare module '@roots/bud-framework' {
+  interface Bud {
+    stylelint: BudStylelintPublicApi
+  }
+
+  interface Modules {
+    '@roots/bud-stylelint': BudStylelint
+  }
+}
+
+export {BudStylelint as default}

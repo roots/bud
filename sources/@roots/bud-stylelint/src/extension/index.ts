@@ -10,7 +10,7 @@ import {
 import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import Plugin from 'stylelint-webpack-plugin'
 
-import {BudStylelintPublicApi} from './api.js'
+import {BudStylelintPublicApi} from './base.js'
 
 export type Options = Plugin.Options & {
   config?: Plugin.Options & {
@@ -69,8 +69,22 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
     const configFile = Object.values(context.files).find(({name}) =>
       name.includes(`stylelint`),
     )
-    if (!configFile?.parsed?.ext) return
+    if (!configFile) return
 
-    this.setConfig(await configFile.module())
+    this.logger.log(`stylelint config candidate found`, configFile)
+
+    if (!configFile.ext) return
+
+    const config = await configFile.module().catch(e => {
+      this.logger.warning(`error importing ${configFile.path}`, e)
+    })
+    if (!config) {
+      this.logger.warning(`stylelint config found but could not be loaded`, configFile)
+      return
+    }
+
+    this.logger.log(`stylelint config loaded`, config)
+
+    this.setConfig(config)
   }
 }

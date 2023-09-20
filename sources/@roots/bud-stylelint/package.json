@@ -49,26 +49,10 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.cjs"
-    },
-    "./config": {
-      "require": "./config/index.cjs",
-      "default": "./config/index.js"
-    },
-    "./extension": {
-      "import": "./lib/extension.js",
-      "default": "./lib/extension.cjs"
-    },
-    "./bud/commands": {
-      "import": "./lib/bud/commands/index.js",
-      "default": "./lib/bud/commands/index.cjs"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js",
+    "./config": "./config/index.cjs",
+    "./extension": "./lib/extension/index.js",
+    "./bud/commands": "./lib/bud/commands/index.js"
   },
   "typesVersions": {
     "*": {
@@ -76,10 +60,7 @@
         "./lib/index.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
+        "./lib/extension/index.d.ts"
       ]
     }
   },
