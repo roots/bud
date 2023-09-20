@@ -59,7 +59,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.14"
+    "@types/node": "18.17.18"
   },
   "dependencies": {
     "tslib": "2.6.2"
