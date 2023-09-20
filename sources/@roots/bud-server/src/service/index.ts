@@ -10,7 +10,6 @@ import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ServerError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 
 /**
  * Server service class
@@ -19,14 +18,7 @@ export class Server extends Service implements BudServer {
   /**
    * {@link BudServer.application}
    */
-  public application: Express.Application & {set: any; use: any}
-
-  /**
-   * {@link BudServer.appliedMiddleware}
-   */
-  public appliedMiddleware: Partial<
-    Record<keyof Middleware.Available, any>
-  > = {}
+  public declare application: Express.Application & {set: any; use: any}
 
   /**
    * {@link BudServer.availableMiddleware}
@@ -42,6 +34,53 @@ export class Server extends Service implements BudServer {
    * {@link BudServer.watcher}
    */
   public declare watcher: Watcher
+
+    /**
+   * {@link BudServer.appliedMiddleware}
+   */
+    public appliedMiddleware: Partial<
+    Record<keyof Middleware.Available, any>
+  > = {}
+
+
+  /**
+   * {@link BudServer.proxyUrl}
+   * @readonly
+   */
+  public get proxyUrl(): URL {
+    return this.app.hooks.filter(`dev.proxyUrl`, new URL(`http://0.0.0.0`))
+  }
+
+  /**
+   * {@link BudServer.publicProxyUrl}
+   * @readonly
+   */
+  public get publicProxyUrl(): URL {
+    return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxyUrl)
+  }
+
+  /**
+   * {@link BudServer.publicUrl}
+   * @readonly
+   */
+  public get publicUrl(): URL {
+    return this.app.hooks.filter(`dev.publicUrl`, this.url)
+  }
+
+  /**
+   * {@link BudServer.url}
+   * @readonly
+   */
+  public get url(): URL {
+    const url = this.app.hooks.filter(
+      `dev.url`,
+      new URL(`http://0.0.0.0:3000`),
+    )
+
+    if (this.app.context.port) url.port = this.app.context.port
+
+    return url
+  }
 
   /**
    * {@link BudServer.applyMiddleware}
@@ -83,10 +122,10 @@ export class Server extends Service implements BudServer {
         },
       ),
     ).catch(error => {
-      throw new ServerError(`Error instantiating middleware`, {
+      this.catch(new ServerError(`Error instantiating middleware`, {
         origin: BudError.normalize(error),
         thrownBy: `bud.server.applyMiddleware`,
-      })
+      }))
     })
   }
 
@@ -142,30 +181,6 @@ export class Server extends Service implements BudServer {
   }
 
   /**
-   * {@link BudServer.proxyUrl}
-   * @readonly
-   */
-  public get proxyUrl(): URL {
-    return this.app.hooks.filter(`dev.proxyUrl`, new URL(`http://0.0.0.0`))
-  }
-
-  /**
-   * {@link BudServer.publicProxyUrl}
-   * @readonly
-   */
-  public get publicProxyUrl(): URL {
-    return this.app.hooks.filter(`dev.publicProxyUrl`, this.proxyUrl)
-  }
-
-  /**
-   * {@link BudServer.publicUrl}
-   * @readonly
-   */
-  public get publicUrl(): URL {
-    return this.app.hooks.filter(`dev.publicUrl`, this.url)
-  }
-
-  /**
    * {@link BudServer.register}
    */
   public override async register?(bud: Bud) {
@@ -208,18 +223,18 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public async run() {
-    await this.app.hooks.fire(`server.before`, this.app).catch(error => {
-      throw error
-    })
+    if (this.app.context.dry === true) return
 
-    if (this.app.context.dry !== true) {
-      await this.connection.createServer(this.application)
-      await this.connection.listen()
-    }
+    await this.app.hooks
+      .fire(`server.before`, this.app)
+      .catch(this.catch)
 
-    await this.app.hooks.fire(`server.after`, this.app).catch(error => {
-      throw error
-    })
+    await this.connection.createServer(this.application).catch(this.catch)
+
+    await this.connection.listen()
+    await this.app.hooks
+      .fire(`server.after`, this.app)
+      .catch(this.catch)
   }
 
   /**
@@ -227,16 +242,9 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public override async serverBefore?(bud: Bud) {
-    if (!isFunction(bud.compiler?.compile))
-      this.catch(
-        new BudError(`Compiler not found`, {
-          thrownBy: `bud.server.serverBefore`,
-        }),
-      )
-
     await this.setConnection()
     await this.injectScripts()
-    await bud.compiler?.compile(bud)
+    await bud.compiler.compile(bud)
     await this.applyMiddleware()
     await this.watcher.watch()
   }
@@ -263,20 +271,5 @@ export class Server extends Service implements BudServer {
       .then(({Server}) => new Server(this.app))
 
     return this.connection
-  }
-
-  /**
-   * {@link BudServer.url}
-   * @readonly
-   */
-  public get url(): URL {
-    const url = this.app.hooks.filter(
-      `dev.url`,
-      new URL(`http://0.0.0.0:3000`),
-    )
-
-    if (this.app.context.port) url.port = this.app.context.port
-
-    return url
   }
 }
