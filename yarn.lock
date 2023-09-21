@@ -10865,6 +10865,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/stylelint-command-with-errors@workspace:sources/@roots/bud-stylelint/test/__fixtures__/with-errors":
+  version: 0.0.0-use.local
+  resolution: "@tests/stylelint-command-with-errors@workspace:sources/@roots/bud-stylelint/test/__fixtures__/with-errors"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default":
   version: 0.0.0-use.local
   resolution: "@tests/stylelint-command@workspace:sources/@roots/bud-stylelint/test/__fixtures__/default"

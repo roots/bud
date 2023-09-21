@@ -523,7 +523,7 @@ export interface Context {
 /**
  * Virtual file system file
  */
-export interface File {
+export interface File extends ReturnType<typeof parse> {
   /**
    * Is a bud configuration file
    *
@@ -554,11 +554,6 @@ export interface File {
    * Filename
    */
   name: string
-
-  /**
-   * Parsed file path
-   */
-  parsed: ReturnType<typeof parse>
 
   /**
    * Absolute filepath

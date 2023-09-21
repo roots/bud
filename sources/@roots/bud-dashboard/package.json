@@ -48,7 +48,6 @@
     ".": "./lib/index.js",
     "./application": "./lib/application.js",
     "./components/*": "./lib/components/*.js",
-    "./console": "./lib/console/index.js",
     "./helpers/*": "./lib/helpers/*.js",
     "./hooks/*": "./lib/hooks/*.js",
     "./service": "./lib/service.js",
@@ -64,9 +63,6 @@
       ],
       "components/*": [
         "./lib/components/*.d.ts"
-      ],
-      "console": [
-        "./lib/console/index.d.ts"
       ],
       "helpers/*": [
         "./lib/helpers/*.d.ts"

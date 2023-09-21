@@ -60,8 +60,6 @@ export const Application = ({
 }: Props) => {
   const {stdout} = useStdout()
 
-  if (error) return <Error error={error} />
-
   compilations = Array.isArray(compilations)
     ? compilations?.filter(compilation => compilation.hash) ?? []
     : []
@@ -69,6 +67,8 @@ export const Application = ({
   if (mode === `production`) {
     return (
       <Box flexDirection="column" gap={1}>
+        {error && <Error error={error} />}
+
         <Static items={compilations}>
           {(compilation, id) => {
             if (isolated > 0 && id + 1 !== isolated) return null
@@ -95,6 +95,7 @@ export const Application = ({
 
   return (
     <>
+      {error && <Error error={error} />}
       {compilations.map((compilation, id) => (
         <RenderCompilation
           basedir={basedir}
@@ -161,7 +162,6 @@ export const RenderCompilation = ({
   )
 }
 
-/* c8 ignore next 71 */
 export const TeletypeApplication = ({
   children,
   close,
