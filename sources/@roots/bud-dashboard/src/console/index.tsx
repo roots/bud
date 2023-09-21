@@ -15,7 +15,7 @@ export const Console = ({messages}: Props) => {
     <Static items={messages}>
       {(message, i) => (
         <Box flexDirection="column" key={i}>
-          <Log key={i} {...message} />
+          <Log {...message} />
         </Box>
       )}
     </Static>

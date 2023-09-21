@@ -83,9 +83,9 @@ export class Dashboard extends Service implements BudDashboard {
 
     this.messages = []
 
-    this.stdin = this.app.context.stdin
-    this.stdout = this.app.context.stdout
-    this.stderr = this.app.context.stderr
+    this.stdin = this.app.context.stdin ?? stdin
+    this.stdout = this.app.context.stdout ?? stdout
+    this.stderr = this.app.context.stderr ?? stderr
 
     this.formatStatsErrors = makeErrorFormatter(this.app)
     this.updateStatus(`Initializing`)
@@ -132,14 +132,6 @@ export class Dashboard extends Service implements BudDashboard {
 
         // Ignore empty messages
         if (!message) return
-
-        // Ignore messages that have been logged before
-        if (
-          this.messages.some(
-            stale => stale.message === message && stale.stream === stream,
-          )
-        )
-          return
 
         // Push to queue
         this.messages.push({message, stream})
@@ -320,18 +312,6 @@ export class Dashboard extends Service implements BudDashboard {
      * Update the status prop
      */
     this.status = status
-
-    /**
-     * Don't render status updates for silent, dashboard-less, or CI
-     * environments.
-     */
-    if (
-      this.app.context.silent === true ||
-      this.app.context.dashboard === false ||
-      this.app.context.ci === true
-    ) {
-      return this
-    }
 
     /**
      * Render or re-render the application

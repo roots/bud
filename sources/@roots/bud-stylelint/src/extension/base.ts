@@ -11,6 +11,7 @@ export type Options = Plugin.Options &
     cache: Plugin.Options[`cache`]
     cacheLocation: Plugin.Options[`cacheLocation`]
     config: Plugin.Options[`config`]
+    configFile: Plugin.Options[`configFile`]
     context: Plugin.Options[`context`]
     extensions: Plugin.Options[`extensions`]
     failOnError: Plugin.Options[`failOnError`]
@@ -49,19 +50,21 @@ export type Api = PublicExtensionApi<BudStylelintPublicApi, Options> & {
 
 @options<Options>({
   cache: DynamicOption.make(
-    ({context, env}) => !context.ci && !env.isTrue(`CI`),
+    ({context}) => !context.ci && context.cache !== false,
   ),
   cacheLocation: DynamicOption.make(({cache, path}) =>
     path(cache.cacheDirectory, `stylelint.json`),
   ),
   config: undefined,
+  configFile: undefined,
   context: DynamicOption.make(({path}) => path(`@src`)),
   failOnError: DynamicOption.make(({isProduction}) => isProduction),
+  cacheStrategy: `content`,
   failOnWarning: false,
   files: undefined,
   fix: false,
   formatter: undefined,
-  lintDirtyModulesOnly: true,
+  lintDirtyModulesOnly: false,
   stylelintPath: undefined,
   threads: false,
 })
@@ -104,6 +107,19 @@ export class BudStylelintPublicApi extends Extension<Options, Plugin> {
    * {@link Options.config}
    */
   public declare setConfig: Api[`setConfig`]
+
+  /**
+   * {@link Options.configFile}
+   */
+  public declare configFile: Api[`configFile`]
+  /**
+   * {@link Options.configFile}
+   */
+  public declare getConfigFile: Api[`getConfigFile`]
+  /**
+   * {@link Options.configFile}
+   */
+  public declare setConfigFile: Api[`setConfigFile`]
 
   /**
    * {@link Options.context}

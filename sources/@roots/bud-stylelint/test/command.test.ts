@@ -11,6 +11,10 @@ describe(`bud stylelint command`, () => {
       `stylelint`,
     ])
 
+    expect(result.stdout).toMatchInlineSnapshot(`
+      "› stylelint @src/**/*.{css,sass,scss}
+      ✔ success"
+    `)
     expect(result.exitCode).toBe(0)
   })
 })
