@@ -15,7 +15,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import patchConsole from '@roots/bud-support/patch-console'
 
 import {Application, TeletypeApplication} from './application.js'
-import {Console} from './console/index.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -81,8 +80,6 @@ export class Dashboard extends Service implements BudDashboard {
   public constructor(app: () => Bud) {
     super(app)
 
-    this.messages = []
-
     this.stdin = this.app.context.stdin ?? stdin
     this.stdout = this.app.context.stdout ?? stdout
     this.stderr = this.app.context.stderr ?? stderr
@@ -117,26 +114,6 @@ export class Dashboard extends Service implements BudDashboard {
       this.app.context.ci
     )
       return
-
-    if (!this.patched())
-      /**
-       * Patch the console if it has not been patched already.
-       *
-       * {@link patchConsole} returns a restore function which can be called
-       * after the dashboard has been unmounted.
-       */
-      this.restore = patchConsole((stream, data) => {
-        if (!data || data === ``) return
-
-        const message = data.trim()
-
-        // Ignore empty messages
-        if (!message) return
-
-        // Push to queue
-        this.messages.push({message, stream})
-      })
-
     /**
      * Set the render function
      *
@@ -237,8 +214,6 @@ export class Dashboard extends Service implements BudDashboard {
      */
     renderApplication(
       <Box flexDirection="column">
-        <Console messages={this.messages} />
-
         <App
           close={cb =>
             this.app.compiler?.instance?.compilers?.map(c => c.close(cb))

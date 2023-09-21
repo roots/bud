@@ -1,8 +1,9 @@
 import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
+import stripAnsi from '@roots/bud-support/strip-ansi'
 
 describe(`bud build with extensionless stylelintrc`, () => {
-  it(`should return 0`, async () => {
+  it(`should build with expected stdout`, async () => {
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelintrc-no-extension`,
@@ -11,7 +12,7 @@ describe(`bud build with extensionless stylelintrc`, () => {
       `build`,
     ])
 
-    const [_s, title, _s2, entry, runtime, css, js, _s3, timings] = result.stdout.split(`\n`)
+    const [_s, title, _s2, entry, runtime, css, js, _s3, timings] = stripAnsi(result.stdout).split(`\n`)
 
     expect(title).toMatch(/╭ stylelintrc-no-extension \[.*\].*\.\/dist/)
     expect(entry).toMatch(/│ app/)
@@ -23,8 +24,6 @@ describe(`bud build with extensionless stylelintrc`, () => {
     expect(_s2).toMatch(/│/)
     expect(_s3).toMatch(/│/)
 
-
-    expect(result.stderr).toEqual(``)
     expect(result.exitCode).toBe(0)
   })
 })

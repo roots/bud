@@ -1,28 +1,18 @@
 import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
+import stripAnsi from '@roots/bud-support/strip-ansi'
 
 describe(`bud build with extensionless stylelintrc`, () => {
-  it(`should return 0`, async () => {
+  it(`should return 1`, async () => {
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelint-command-with-errors`,
       `run`,
       `bud`,
       `build`,
-    ])
+    ], {reject: false})
 
-    expect(result.stdout).toMatchInlineSnapshot(`
-      "
-      ╭ stylelint-command-with-errors [3244904a84f8f4f6]                          ./dist
-      │
-      │ app
-      │  ◉ js/runtime.js                                                     ✔ 933 bytes
-      │  ◉ css/app.css                                                               ✔ ø
-      │
-      ╰ 105ms 2 modules [2/2 modules cached]
-      "
-    `)
-
+    expect(stripAnsi(result.stdout)).toContain(`│ │ 1 problem (1 error, 0 warnings)`)
     expect(result.exitCode).toBe(1)
   })
 })
