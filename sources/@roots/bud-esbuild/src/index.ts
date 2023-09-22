@@ -2,13 +2,44 @@
 // Licensed under the MIT license.
 
 /**
- * ESBuild support for Bud projects
+ * @roots/bud-esbuild
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
  */
 
-import BudEsbuild from './extension.js'
-import './types.js'
+import type {Item, Loader, Rule} from '@roots/bud-build'
+import BudEsbuild from '@roots/bud-esbuild/extension'
 
-export default BudEsbuild
+declare module '@roots/bud-framework' {
+  interface Bud {
+    esbuild: {
+      enable: BudEsbuild[`enable`]
+      get: BudEsbuild[`get`]
+      getOptions: BudEsbuild[`getOptions`]
+      set: BudEsbuild[`set`]
+      setOptions: BudEsbuild[`setOptions`]
+      use: BudEsbuild[`use`]
+    }
+  }
+
+  interface Modules {
+    '@roots/bud-esbuild': Bud[`esbuild`]
+  }
+
+  interface Loaders {
+    esbuild: Loader
+  }
+
+  interface Items {
+    'esbuild-js': Item
+    'esbuild-ts': Item
+  }
+
+  interface Rules {
+    js: Rule
+    ts: Rule
+  }
+}
+
+export {BudEsbuild as default}

@@ -8660,7 +8660,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-esbuild@workspace:sources/@roots/bud-esbuild"
   dependencies:
-    "@roots/bud": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
