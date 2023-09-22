@@ -51,33 +51,31 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./api": "./lib/api.js",
-    "./extension": "./lib/extension.js"
+    "./facade": "./lib/facade/index.js",
+    "./extension": "./lib/extension/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "api": [
-        "./lib/api.d.ts"
+      "facade": [
+        "./lib/facade/index.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/extension/index.d.ts"
       ]
     }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.17.18"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "postcss": "8.4.30",
     "tslib": "2.6.2"
