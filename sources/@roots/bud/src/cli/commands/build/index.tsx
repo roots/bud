@@ -1,6 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
 import ci from '@roots/bud/cli/flags/ci'
-import clean from '@roots/bud/cli/flags/clean'
 import dashboard from '@roots/bud/cli/flags/dashboard'
 import dashboardAssets from '@roots/bud/cli/flags/dashboard.assets'
 import dashboardCompact from '@roots/bud/cli/flags/dashboard.compact'
@@ -24,7 +23,6 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
-import verbose from '@roots/bud/cli/flags/verbose'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 
 /**
@@ -65,8 +63,6 @@ export default class BudBuildCommand extends BudCommand {
 
   public ci = ci
 
-  public clean = clean
-
   public devtool = devtool
 
   public discover = discover
@@ -100,8 +96,6 @@ export default class BudBuildCommand extends BudCommand {
   public splitChunks = splitChunks
 
   public override storage = storage
-
-  public override verbose = verbose
 
   /**
    * {@link BudCommand.execute}

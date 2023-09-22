@@ -12,7 +12,7 @@ Quickly scaffold a new project with `create-bud-app`:
 
 > npx create-bud-app
 
-If you want to add bud.js to an existing project or want to further customize the scaffolded app check out the [Getting Started guide]({{projectConfig.url.docs}}/guides/getting-started).
+If you want to add bud.js to an existing project or want to further customize the scaffolded app check out the [Getting Started guide]({{projectConfig.url.docs}}/learn/getting-started).
 
 There are [many example implementations available]({{projectConfig.url.web}}/tree/master/examples).
 
@@ -58,7 +58,7 @@ There are [many example implementations available]({{projectConfig.url.web}}/tre
 
 Have you produced a bud.js extension and want to share it here? Please, create an issue sharing information about your project.
 
-For more information on authoring your own extension [consult the documentation](https://bud.js.org/guides/extending/) and the source code of the extensions in this repository.
+For more information on authoring your own extension [consult the documentation](https://bud.js.org/learn/extending/) and the source code of the extensions in this repository.
 
 ### Packages
 

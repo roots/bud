@@ -99,6 +99,7 @@
     "./patch-console": "./lib/patch-console/index.js",
     "./pretty-format": "./lib/pretty-format/index.js",
     "./remark-loader": "./lib/remark-loader/index.cjs",
+    "./semver": "./lib/semver/index.js",
     "./strip-ansi": "./lib/strip-ansi/index.js",
     "./style-loader": "./lib/style-loader/index.cjs",
     "./toml": "./lib/toml/index.js",
@@ -248,6 +249,9 @@
       "remark-loader": [
         "./lib/remark-loader/index.d.ts"
       ],
+      "semver": [
+        "./lib/semver/index.d.ts"
+      ],
       "strip-ansi": [
         "./lib/strip-ansi/index.d.ts"
       ],
@@ -298,6 +302,7 @@
     "@types/minimist": "1.2.2",
     "@types/node-notifier": "8.0.2",
     "@types/react": "18.2.22",
+    "@types/semver": "7.5.0",
     "@types/signale": "1.4.4",
     "@types/webpack-manifest-plugin": "3.0.5"
   },
@@ -349,6 +354,7 @@
     "remark": "15.0.1",
     "remark-html": "15.0.2",
     "remark-loader": "5.0.0",
+    "semver": "7.5.4",
     "signale": "1.4.0",
     "strip-ansi": "7.1.0",
     "style-loader": "3.3.3",
