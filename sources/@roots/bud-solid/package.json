@@ -51,22 +51,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
