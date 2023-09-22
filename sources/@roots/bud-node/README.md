@@ -6,28 +6,28 @@
   <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
 </p>
 
-<h1 align="center"><strong>@roots/bud-emotion</strong></h1>
+<h1 align="center"><strong>@roots/bud-node</strong></h1>
 
 <p align="center">
-  CSS-in-JS for bud.js
+  Node JS support for bud.js
 </p>
 
 ---
 
 ## Installation
 
-Install **@roots/bud-emotion** to your project.
+Install **@roots/bud-node** to your project.
 
 Yarn:
 
 ```sh
-yarn add @roots/bud-emotion --dev
+yarn add @roots/bud-node --dev
 ```
 
 npm:
 
 ```sh
-npm install @roots/bud-emotion --save-dev
+npm install @roots/bud-node --save-dev
 ```
 
 ## Contributing
@@ -38,7 +38,7 @@ We have [contribution guidelines](https://github.com/roots/guidelines/blob/maste
 
 ## License
 
-@roots/bud-emotion is licensed under MIT.
+@roots/bud-node is licensed under MIT.
 
 ## Community
 
