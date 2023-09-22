@@ -92,7 +92,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
+    "@types/node": "18.17.18",
     "@types/tailwindcss": "3.1.0",
     "@types/webpack-virtual-modules": "0.1.1",
     "webpack": "5.88.2"
@@ -102,7 +102,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "postcss": "8.4.28",
+    "postcss": "8.4.30",
     "sucrase": "3.34.0",
     "tailwindcss": "3.3.3",
     "tslib": "2.6.2",

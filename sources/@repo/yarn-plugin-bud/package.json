@@ -7,9 +7,9 @@
     "node": "18.12.1"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.197",
-    "@types/node": "18.17.9",
-    "@types/semver": "7.5.0",
+    "@types/lodash": "4.14.198",
+    "@types/node": "18.17.18",
+    "@types/semver": "7.5.2",
     "@yarnpkg/builder": "4.0.0-rc.49",
     "typescript": "5.2.2"
   },

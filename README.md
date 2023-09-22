@@ -117,9 +117,9 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 
 ## Community extensions
 
-| Package                                                                         | Latest                                                                                  |
-| ------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| [**bud-embedded**](https://github.com/roots/bud/tree/main/sources/bud-embedded) | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square) |
+| Package                                                     | Latest                                                                                  |
+| ----------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| [**bud-embedded**](https://github.com/talss89/bud-embedded) | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square) |
 
 ## Contributing
 
@@ -165,4 +165,7 @@ However, the amount of effort needed to maintain and develop new features and pr
 </a>
 <a href="https://www.copiadigital.com/">
 <img src="https://cdn.roots.io/app/uploads/copia-digital.svg" alt="Copia Digital" width="200" height="150"/>
+</a>
+<a href="https://www.freave.com/">
+<img src="https://cdn.roots.io/app/uploads/freave.svg" alt="Freave" width="200" height="150"/>
 </a>

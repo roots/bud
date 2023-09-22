@@ -15,7 +15,6 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import patchConsole from '@roots/bud-support/patch-console'
 
 import {Application, TeletypeApplication} from './application.js'
-import {Console} from './console/index.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -81,11 +80,9 @@ export class Dashboard extends Service implements BudDashboard {
   public constructor(app: () => Bud) {
     super(app)
 
-    this.messages = []
-
-    this.stdin = this.app.context.stdin
-    this.stdout = this.app.context.stdout
-    this.stderr = this.app.context.stderr
+    this.stdin = this.app.context.stdin ?? stdin
+    this.stdout = this.app.context.stdout ?? stdout
+    this.stderr = this.app.context.stderr ?? stderr
 
     this.formatStatsErrors = makeErrorFormatter(this.app)
     this.updateStatus(`Initializing`)
@@ -117,34 +114,6 @@ export class Dashboard extends Service implements BudDashboard {
       this.app.context.ci
     )
       return
-
-    if (!this.patched())
-      /**
-       * Patch the console if it has not been patched already.
-       *
-       * {@link patchConsole} returns a restore function which can be called
-       * after the dashboard has been unmounted.
-       */
-      this.restore = patchConsole((stream, data) => {
-        if (!data || data === ``) return
-
-        const message = data.trim()
-
-        // Ignore empty messages
-        if (!message) return
-
-        // Ignore messages that have been logged before
-        if (
-          this.messages.some(
-            stale => stale.message === message && stale.stream === stream,
-          )
-        )
-          return
-
-        // Push to queue
-        this.messages.push({message, stream})
-      })
-
     /**
      * Set the render function
      *
@@ -245,8 +214,6 @@ export class Dashboard extends Service implements BudDashboard {
      */
     renderApplication(
       <Box flexDirection="column">
-        <Console messages={this.messages} />
-
         <App
           close={cb =>
             this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
@@ -320,18 +287,6 @@ export class Dashboard extends Service implements BudDashboard {
      * Update the status prop
      */
     this.status = status
-
-    /**
-     * Don't render status updates for silent, dashboard-less, or CI
-     * environments.
-     */
-    if (
-      this.app.context.silent === true ||
-      this.app.context.dashboard === false ||
-      this.app.context.ci === true
-    ) {
-      return this
-    }
 
     /**
      * Render or re-render the application
