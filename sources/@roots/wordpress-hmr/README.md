@@ -231,7 +231,7 @@ export const callback = (settings, name) => {
 Using a default export
 
 ```js title=src/example.filter.js
-import {assign} from 'lodash'
+import { assign } from "lodash";
 
 export default {
   /** Filter id */
@@ -240,17 +240,18 @@ export default {
   hook: `blocks.registerBlockType`,
   /** Filter callback */
   callback: (settings, name) => {
-  if (name !== 'core/list') return settings;
+    if (name !== "core/list") return settings;
 
-  return assign({}, settings, {
-    example: {
-      innerBlocks: [
-        {name: 'core/list-item', attributes: {content: 'Item a'}},
-        {name: 'core/list-item', attributes: {content: 'Item b'}},
-      ],
-    },
-  })
-}
+    return assign({}, settings, {
+      example: {
+        innerBlocks: [
+          { name: "core/list-item", attributes: { content: "Item a" } },
+          { name: "core/list-item", attributes: { content: "Item b" } },
+        ],
+      },
+    });
+  },
+};
 ```
 
 ## Registering filters from a block or plugin
@@ -402,4 +403,7 @@ However, the amount of effort needed to maintain and develop new features and pr
 </a>
 <a href="https://www.copiadigital.com/">
 <img src="https://cdn.roots.io/app/uploads/copia-digital.svg" alt="Copia Digital" width="200" height="150"/>
+</a>
+<a href="https://www.freave.com/">
+<img src="https://cdn.roots.io/app/uploads/freave.svg" alt="Freave" width="200" height="150"/>
 </a>

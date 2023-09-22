@@ -4,8 +4,8 @@
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
   "dependencies": {
-    "@types/lodash-es": "4.17.8",
-    "@types/node": "18.17.9",
+    "@types/lodash-es": "4.17.9",
+    "@types/node": "18.17.18",
     "@yarnpkg/builder": "4.0.0-rc.49",
     "@yarnpkg/cli": "4.0.0-rc.50",
     "@yarnpkg/core": "4.0.0-rc.50",
@@ -16,7 +16,7 @@
     "lodash-es": "4.17.21",
     "tslib": "2.6.2",
     "typescript": "5.2.2",
-    "vitest": "0.34.2"
+    "vitest": "0.34.4"
   },
   "scripts": {
     "build": "builder build plugin"

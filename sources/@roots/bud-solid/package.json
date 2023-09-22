@@ -51,40 +51,30 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    },
-    "./types": {
-      "import": "./lib/types.js",
-      "default": "./lib/types.js"
-    }
+    ".": "./lib/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
-      ],
-      "types": [
-        "./lib/types.d.ts"
       ]
     }
   },
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.22.11",
+    "@babel/core": "7.22.20",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.1",
-    "@types/node": "18.17.9"
+    "@types/babel__core": "7.20.2",
+    "@types/node": "18.17.18"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
-    "babel-preset-solid": "1.7.7",
-    "solid-js": "1.7.11",
+    "babel-preset-solid": "1.7.12",
+    "solid-js": "1.7.12",
     "tslib": "2.6.2"
   },
   "volta": {

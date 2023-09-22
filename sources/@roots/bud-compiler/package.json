@@ -67,8 +67,8 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.9",
-    "@types/react": "18.2.21"
+    "@types/node": "18.17.18",
+    "@types/react": "18.2.22"
   },
   "dependencies": {
     "@roots/bud-dashboard": "workspace:*",

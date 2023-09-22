@@ -63,7 +63,7 @@
   },
   "dependencies": {
     "browserslist": "4.21.10",
-    "execa": "7.2.0",
+    "execa": "8.0.1",
     "tslib": "2.6.2",
     "update-browserslist-db": "1.0.11"
   },

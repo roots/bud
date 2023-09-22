@@ -1,11 +1,47 @@
+/**
+ * This element is present in `index.html` and can be found in the final CSS file.
+ */
 h1 {
   color: black;
 }
 
+/**
+ * This element is present in `index.html` and can be found in the final CSS file.
+ */
 h2 {
   color: red;
 }
 
-h3.exclude {
+/**
+ * This element is not found in any source file and will not be found in the final CSS file.
+ */
+h3 {
   color: yellow;
+}
+
+/**
+ * This element is dynamically inserted into the DOM in `index.js` and
+ * can be found in the final CSS file.
+ */
+.include {
+  color: green;
+}
+
+/**
+ * This is a test of postcss syntax. There is no `.li` element within a `div` in any source file,
+ * but there is a `.li` element within a `section`. This will not be found in the final CSS file.
+ */
+div {
+  .li {
+    color: purple;
+  }
+}
+
+/**
+ * This is a test of comment hinting. There is a dynamically inserted element in `index.js`
+ * which matches this selector. However, the class name is constructed by joining multiple
+ * strings together. We use a comment to make sure that this rule is preserved.
+ */
+.comment-test {
+  color: orange;
 }

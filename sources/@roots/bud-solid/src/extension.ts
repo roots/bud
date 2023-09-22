@@ -18,9 +18,12 @@ export default class BudSolid extends Extension {
    */
   @bind
   public override async boot(bud: Bud) {
-    bud.babel.setPreset(
+    const babelPresetSolid = await this.resolve(
       `babel-preset-solid`,
-      await this.resolve(`babel-preset-solid`, import.meta.url),
+      import.meta.url,
     )
+    if (!babelPresetSolid) return
+
+    bud.babel.setPreset(`babel-preset-solid`, babelPresetSolid)
   }
 }

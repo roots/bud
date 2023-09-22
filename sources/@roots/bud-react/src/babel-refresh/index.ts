@@ -1,14 +1,28 @@
-// Copyright © Roots Software Foundation LLC
-// Licensed under the MIT license.
+import type {Bud} from '@roots/bud-framework'
+
+import {Extension} from '@roots/bud-framework/extension'
+import {
+  bind,
+  development,
+  label,
+} from '@roots/bud-framework/extension/decorators'
 
 /**
- * Adds TypeScript react-refresh transform
- *
- * @see https://bud.js.org
- * @see https://github.com/roots/bud
- *
- * @packageDocumentation
+ * Register `react-refresh-typescript` transform with TSC compiler
  */
+@label(`@roots/bud-react/babel-refresh`)
+@development
+export default class BudBabelRefresh extends Extension {
+  /**
+   * {@link Extension.register}
+   */
+  @bind
+  public override async register(bud: Bud) {
+    this.logger.log(`Registering react-refresh-babel transformer`)
 
-import BudBabelRefresh from './extension.js'
-export default BudBabelRefresh
+    bud.babel.setPlugin(
+      `react-refresh/babel`,
+      await this.resolve(`react-refresh/babel`, import.meta.url),
+    )
+  }
+}

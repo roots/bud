@@ -1,7 +1,5 @@
 {{>banner}}
 
-## What is bud.js?
-
 {{>what}}
 
 ## Requirements
@@ -14,7 +12,7 @@ Quickly scaffold a new project with `create-bud-app`:
 
 > npx create-bud-app
 
-If you want to add bud.js to an existing project or want to further customize the scaffolded app check out the [Getting Started guide]({{projectConfig.url.docs}}/guides/getting-started).
+If you want to add bud.js to an existing project or want to further customize the scaffolded app check out the [Getting Started guide]({{projectConfig.url.docs}}/learn/getting-started).
 
 There are [many example implementations available]({{projectConfig.url.web}}/tree/master/examples).
 
@@ -60,7 +58,7 @@ There are [many example implementations available]({{projectConfig.url.web}}/tre
 
 Have you produced a bud.js extension and want to share it here? Please, create an issue sharing information about your project.
 
-For more information on authoring your own extension [consult the documentation](https://bud.js.org/guides/extending/) and the source code of the extensions in this repository.
+For more information on authoring your own extension [consult the documentation](https://bud.js.org/learn/extending/) and the source code of the extensions in this repository.
 
 ### Packages
 
@@ -81,6 +79,12 @@ Also included in the bud monorepo are packages which are not specific to bud.js 
 | [**@roots/wordpress-hmr**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-hmr)                                                 | ![npm](https://img.shields.io/npm/v/@roots/wordpress-hmr.svg?color=%23525ddc&style=flat-square)                         |
 | [**@roots/wordpress-theme-json-webpack-plugin**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin)     | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin.svg?color=%23525ddc&style=flat-square)   |
 | [**@roots/wordpress-transforms**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-transforms)                                   | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms.svg?color=%23525ddc&style=flat-square)                  |
+
+## Community extensions
+
+| Package                                                                                                                                         | Latest                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
+| [**bud-embedded**](https://github.com/talss89/bud-embedded)                                                   | ![npm](https://img.shields.io/npm/v/bud-embedded.svg?color=%23525ddc&style=flat-square)                          |
 
 ## Contributing
 

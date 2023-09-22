@@ -9,7 +9,6 @@
       "webpack/module",
     ]
   },
-  "files": ["bud.config.js"],
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "files": ["bud.config.ts"],
+  "include": ["src"]
 }

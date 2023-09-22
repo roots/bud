@@ -8,10 +8,10 @@
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.8",
-    "@types/node": "18.17.9",
-    "@types/prettier": "2.7.3",
-    "vitest": "0.34.2"
+    "@types/lodash-es": "4.17.9",
+    "@types/node": "18.17.18",
+    "@types/prettier": "3.0.0",
+    "vitest": "0.34.4"
   },
   "dependencies": {
     "@octokit/core": "5.0.0",
@@ -20,7 +20,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "dotenv": "16.3.1",
-    "execa": "7.2.0",
+    "execa": "8.0.1",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",
     "gray-matter": "4.0.3",
@@ -29,7 +29,7 @@
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
     "octokit": "3.1.0",
-    "prettier": "3.0.2",
+    "prettier": "3.0.3",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.2",
     "typescript": "5.2.2"

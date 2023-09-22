@@ -67,6 +67,11 @@ class BudPostCss extends BudPostCssOptionsApi {
   }
 
   @bind
+  public hasPlugin(name: string): boolean {
+    return this.normalizePluginName(name) in this.plugins
+  }
+
+  @bind
   protected normalizePluginName(name: string): string {
     if (name.startsWith(`postcss-`)) name = name.replace(`postcss-`, ``)
     if (name === `nested`) name = `nesting`

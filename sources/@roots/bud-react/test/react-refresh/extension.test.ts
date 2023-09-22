@@ -1,8 +1,5 @@
-import '@roots/bud-react/types'
-
+import Extension from '@roots/bud-react/react-refresh'
 import {describe, expect, it} from 'vitest'
-
-import Extension from '../../src/extension/index.js'
 
 describe(`@roots/bud-react/react-refresh`, () => {
   it(`should be constructable`, () => {
