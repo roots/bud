@@ -109,7 +109,7 @@ export default class BudEsbuild extends Extension<Options> {
       options: () => this.get(`ts`),
     })
 
-    build.getRule(`js`).setUse(items => [...items, `esbuild-js`])
+    build.getRule(`js`).setUse((items = []) => [...items, `esbuild-js`])
   }
 
   /**

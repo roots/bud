@@ -4,7 +4,7 @@ import isArray from 'lodash/isArray.js'
 import isUndefined from 'lodash/isUndefined.js'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import Extension from '../src/index.js'
+import Extension from '@roots/bud-esbuild'
 
 describe(`@roots/bud-esbuild`, () => {
   let bud: Bud

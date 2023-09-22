@@ -1,4 +1,4 @@
-import './demo'
+import './demo.js'
 
 const target = document.querySelector('body')
 target.innerHTML = `
@@ -7,4 +7,6 @@ target.innerHTML = `
   </div>
 `
 
-if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept(console.error)
+}

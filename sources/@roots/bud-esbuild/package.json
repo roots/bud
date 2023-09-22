@@ -50,15 +50,16 @@
   ],
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./lib/index.js",
-      "default": "./lib/index.js"
-    }
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
       ]
     }
   },
@@ -70,7 +71,6 @@
     "@types/node": "18.17.18"
   },
   "dependencies": {
-    "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "esbuild": "0.19.3",
