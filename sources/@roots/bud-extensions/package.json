@@ -142,6 +142,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
+    "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.17.18",
     "palette-webpack-plugin": "1.0.5"

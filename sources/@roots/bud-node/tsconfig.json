@@ -1,0 +1,20 @@
+{
+  "extends": "../../../config/tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "lib",
+    "types": [
+      "node",
+      "@roots/bud-api",
+      "@roots/bud-entrypoints",
+      "@roots/bud-framework"
+    ]
+  },
+  "include": ["src"],
+  "exclude": ["test"],
+  "references": [
+    {"path": "./../bud-api/tsconfig.json"},
+    {"path": "./../bud-entrypoints/tsconfig.json"},
+    {"path:": "./../bud-framework/tsconfig.json"}
+  ]
+}

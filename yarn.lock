@@ -5355,6 +5355,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/node-lib@workspace:examples/node-lib":
+  version: 0.0.0-use.local
+  resolution: "@examples/node-lib@workspace:examples/node-lib"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-node": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/postcss-sass@workspace:examples/postcss-sass":
   version: 0.0.0-use.local
   resolution: "@examples/postcss-sass@workspace:examples/postcss-sass"
@@ -8693,6 +8703,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-extensions@workspace:sources/@roots/bud-extensions"
   dependencies:
+    "@roots/bud-api": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-minify": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -8788,6 +8799,19 @@ __metadata:
     terser-webpack-plugin: 5.3.9
     tslib: 2.6.2
     webpack: 5.88.2
+  languageName: unknown
+  linkType: soft
+
+"@roots/bud-node@workspace:*, @roots/bud-node@workspace:sources/@roots/bud-node":
+  version: 0.0.0-use.local
+  resolution: "@roots/bud-node@workspace:sources/@roots/bud-node"
+  dependencies:
+    "@roots/bud-api": "workspace:*"
+    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-support": "workspace:*"
+    "@skypack/package-check": 0.2.2
+    "@types/node": 18.17.18
+    tslib: 2.6.2
   languageName: unknown
   linkType: soft
 

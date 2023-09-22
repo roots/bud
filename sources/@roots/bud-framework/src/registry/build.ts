@@ -7,6 +7,7 @@ import type {
   RuleSetRule,
   StatsOptions,
 } from '@roots/bud-framework/config'
+import type { LibraryOptions } from 'webpack'
 
 export interface Sync {
   bail: boolean
@@ -24,6 +25,7 @@ export interface Sync {
   entry: Record<string, EntryObject>
   experiments: Configuration[`experiments`]
   externals: Record<string, Array<RegExp | string> | RegExp | string>
+  externalsPresets: Configuration[`externalsPresets`]
   externalsType: Configuration[`externalsType`]
   infrastructureLogging: Configuration[`infrastructureLogging`]
   'infrastructureLogging.console': Configuration[`infrastructureLogging`][`console`]
@@ -62,12 +64,18 @@ export interface Sync {
   'output.chunkFormat': Configuration[`output`][`chunkFormat`]
   'output.chunkLoading': Configuration[`output`][`chunkLoading`]
   'output.clean': Configuration[`output`][`clean`] & boolean
+  'output.enabledLibraryTypes': Configuration[`output`][`enabledLibraryTypes`]
   'output.environment': Configuration[`output`][`environment`]
   'output.filename': Configuration[`output`][`filename`]
   'output.hashFunction': Configuration[`output`][`hashFunction`]
   'output.hotUpdateChunkFilename': Configuration[`output`][`hotUpdateChunkFilename`]
   'output.hotUpdateMainFilename': Configuration[`output`][`hotUpdateMainFilename`]
   'output.iife': Configuration[`output`][`iife`]
+  'output.library': Configuration[`output`][`library`] & LibraryOptions
+  'output.library.export': LibraryOptions[`export`]
+  'output.library.name': LibraryOptions[`name`]
+  'output.library.type': LibraryOptions[`type`]
+  'output.libraryTarget': Configuration[`output`][`libraryTarget`]
   'output.module': Configuration[`output`][`module`]
   'output.path': Configuration[`output`][`path`]
   'output.pathinfo': Configuration[`output`][`pathinfo`]

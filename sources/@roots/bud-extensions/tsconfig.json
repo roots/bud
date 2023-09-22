@@ -10,10 +10,10 @@
     },
     "types": ["node", "@roots/bud-framework", "@roots/bud-minify"]
   },
-  "include": ["./src"],
-  "exclude": ["**/*.test.ts", "./test"],
+  "include": ["src"],
+  "exclude": ["test"],
   "references": [
     {"path": "../bud-framework/tsconfig.json"},
-    {"path": "../bud-minify/tsconfig.json"},
+    {"path": "../bud-minify/tsconfig.json"}
   ]
 }

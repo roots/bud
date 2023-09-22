@@ -17,10 +17,17 @@ export const output: Factory<`output`> = async ({
      */
     // chunkFilename: chunkFilename({filter, relPath}),
     clean: filter(`build.output.clean`, isProduction),
+    enabledLibraryTypes: filter(`build.output.enabledLibraryTypes`, undefined),
     environment: filter(`build.output.environment`, undefined),
     filename: filename({filter, relPath}),
     hashFunction: filter(`build.output.hashFunction`, `xxhash64`),
     iife: filter(`build.output.iife`, undefined),
+    library: filter(`build.output.library`, {
+      name: filter(`build.output.library.name`, undefined),
+      export: filter(`build.output.library.export`, undefined),
+      type: filter(`build.output.library.type`, undefined),
+    }),
+    libraryTarget: filter(`build.output.libraryTarget`, undefined),
     module: filter(`build.output.module`, false),
     path: filter(`build.output.path`, path(`@dist`)),
     /**

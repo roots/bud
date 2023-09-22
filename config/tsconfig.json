@@ -54,6 +54,7 @@
     {"path": "../sources/@roots/bud-imagemin/tsconfig.json"},
     {"path": "../sources/@roots/bud-mdx/tsconfig.json"},
     {"path": "../sources/@roots/bud-minify/tsconfig.json"},
+    {"path": "../sources/@roots/bud-node/tsconfig.json"},
     {"path": "../sources/@roots/bud-postcss/tsconfig.json"},
     {"path": "../sources/@roots/bud-preset-recommend/tsconfig.json"},
     {"path": "../sources/@roots/bud-preset-wordpress/tsconfig.json"},

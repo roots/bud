@@ -1,0 +1,62 @@
+{
+  "name": "@roots/bud-node",
+  "version": "0.0.0",
+  "description": "Node JS support for bud.js",
+  "engines": {
+    "node": ">=16"
+  },
+  "contributors": [],
+  "license": "MIT",
+  "homepage": "https://roots.io/bud",
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "sources/@roots/bud-node"
+  },
+  "bugs": "https://github.com/roots/bud/issues",
+  "keywords": [
+    "bud",
+    "extension",
+    "emotion"
+  ],
+  "files": [
+    "docs",
+    "lib",
+    "src"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension/index.js"
+  },
+  "typesVersions": {
+    "*": {
+      ".": [
+        "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
+      ]
+    }
+  },
+  "types": "./lib/index.d.ts",
+  "module": "./lib/index.js",
+  "devDependencies": {
+    "@roots/bud-api": "workspace:*",
+    "@roots/bud-entrypoints": "workspace:*",
+    "@skypack/package-check": "0.2.2",
+    "@types/node": "18.17.18"
+  },
+  "dependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "tslib": "2.6.2"
+  },
+  "volta": {
+    "extends": "../../../package.json"
+  }
+}
