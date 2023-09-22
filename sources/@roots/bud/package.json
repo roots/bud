@@ -43,9 +43,7 @@
     "roots",
     "webpack"
   ],
-  "bin": {
-    "bud": "./bin/bud.mjs"
-  },
+  "bin": "./bin/bud.mjs",
   "files": [
     "bin",
     "docs",
