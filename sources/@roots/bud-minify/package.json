@@ -55,7 +55,7 @@
   "devDependencies": {
     "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.18"
+    "@types/node": "18.17.19"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -63,7 +63,7 @@
     "@roots/bud-support": "workspace:*",
     "css-minimizer-webpack-plugin": "5.0.1",
     "lightningcss": "1.22.0",
-    "terser": "5.19.4",
+    "terser": "5.20.0",
     "terser-webpack-plugin": "5.3.9",
     "tslib": "2.6.2",
     "webpack": "5.88.2"

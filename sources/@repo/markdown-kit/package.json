@@ -9,13 +9,13 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.9",
-    "@types/node": "18.17.18",
+    "@types/node": "18.17.19",
     "@types/prettier": "3.0.0",
-    "vitest": "0.34.4"
+    "vitest": "0.34.5"
   },
   "dependencies": {
-    "@octokit/core": "5.0.0",
-    "@octokit/plugin-paginate-rest": "8.0.0",
+    "@octokit/core": "5.0.1",
+    "@octokit/plugin-paginate-rest": "9.0.0",
     "@repo/constants": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",

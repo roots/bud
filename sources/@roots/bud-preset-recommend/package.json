@@ -63,7 +63,7 @@
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.18"
+    "@types/node": "18.17.19"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",

@@ -52,7 +52,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@types/node": "18.17.18",
+    "@types/node": "18.17.19",
     "@types/prettier": "3.0.0"
   },
   "dependencies": {

@@ -66,8 +66,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.18",
-    "@types/postcss-import": "14.0.0"
+    "@types/node": "18.17.19",
+    "@types/postcss-import": "14.0.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:*",

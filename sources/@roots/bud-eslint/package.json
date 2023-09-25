@@ -70,14 +70,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "8.44.2",
-    "@types/node": "18.17.18"
+    "@types/eslint": "8.44.3",
+    "@types/node": "18.17.19"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "eslint": "8.49.0",
+    "eslint": "8.50.0",
     "eslint-webpack-plugin": "4.0.1",
     "tslib": "2.6.2",
     "webpack": "5.88.2"
