@@ -123,7 +123,7 @@ There are [many example implementations available](https://github.com/roots/bud/
 | [**@roots/bud-wordpress-externals**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-externals)       | [📚 README](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals/latest.svg?color=%23525ddc&style=flat-square&logo=npm)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals/nightly.svg?color=%23525ddc&style=flat-square&logo=npm)    |
 | [**@roots/bud-wordpress-theme-json**](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-theme-json)     | [📚 README](https://github.com/roots/bud/tree/main/sources/@roots/bud-wordpress-theme-json/README.md)   | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-theme-json/latest.svg?color=%23525ddc&style=flat-square&logo=npm)   | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-theme-json/nightly.svg?color=%23525ddc&style=flat-square&logo=npm)   |
 
-## Community extensions
+### Community extensions
 
 > ℹ The following extensions are maintained by the community. Please refrain from making issues in this repo regarding these extensions.
 
@@ -137,7 +137,7 @@ Have you produced a bud.js extension and want to share it here? Please, create a
 
 For more information on authoring your own extension [consult the documentation](https://bud.js.org/learn/extending/) and the source code of the extensions in this repository.
 
-## Core modules
+### Core modules
 
 > ℹ [@roots/bud](https://github.com/roots/bud/tree/main/sources/@roots/bud) is actually made up of a number of packages. **You only need to install `@roots/bud` to use bud.js.**
 
@@ -158,7 +158,7 @@ For more information on authoring your own extension [consult the documentation]
 | [**@roots/bud-server**](https://github.com/roots/bud/tree/main/sources/@roots/bud-server)           | [📚 README](https://github.com/roots/bud/tree/main/sources/@roots/bud-server/README.md)      | ![npm](https://img.shields.io/npm/v/@roots/bud-server/latest.svg?color=%23525ddc&style=flat-square&logo=npm)      | ![npm](https://img.shields.io/npm/v/@roots/bud-server/nightly.svg?color=%23525ddc&style=flat-square&logo=npm)      |
 | [**@roots/bud-support**](https://github.com/roots/bud/tree/main/sources/@roots/bud-support)         | [📚 README](https://github.com/roots/bud/tree/main/sources/@roots/bud-support/README.md)     | ![npm](https://img.shields.io/npm/v/@roots/bud-support/latest.svg?color=%23525ddc&style=flat-square&logo=npm)     | ![npm](https://img.shields.io/npm/v/@roots/bud-support/nightly.svg?color=%23525ddc&style=flat-square&logo=npm)     |
 
-## Support modules
+### Support modules
 
 > ℹ These packages are not specific to bud.js but are used by the framework. They could be used in other projects outside of the context of bud.js.
 
