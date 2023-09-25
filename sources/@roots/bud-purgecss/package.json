@@ -72,7 +72,7 @@
   "devDependencies": {
     "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.18"
+    "@types/node": "18.17.19"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
