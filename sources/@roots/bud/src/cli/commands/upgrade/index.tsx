@@ -8,6 +8,9 @@ import logger from '@roots/bud-support/logger'
 import semver from '@roots/bud-support/semver'
 import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
 import whichPm from '@roots/bud-support/which-pm'
+
+type Type = `dependencies` | `devDependencies`
+
 /**
  * `bud upgrade` command
  */
@@ -31,8 +34,6 @@ export default class BudUpgradeCommand extends BudCommand {
       If a version is specified, the command will upgrade to that version.
 
       If a private registry is specified, the command will upgrade through that registry.
-
-      This command is a passthrough to the package manager you are using.
     `,
     examples: [
       [`Upgrade all bud dependencies to latest`, `$0 upgrade`],
@@ -41,8 +42,12 @@ export default class BudUpgradeCommand extends BudCommand {
         `$0 upgrade 6.15.2`,
       ],
       [
-        `Upgrade all bud dependencies to version 6.15.2 using yarn-classic`,
+        `Upgrade all bud dependencies to version 6.15.2 using yarn v1`,
         `$0 upgrade 6.15.2 --pm yarn-classic`,
+      ],
+      [
+        `Upgrade all bud dependencies to version 6.15.2 using npm and a custom registry`,
+        `$0 upgrade 6.15.2 --pm npm --registry http://localhost:4873`,
       ],
     ],
   })
@@ -51,8 +56,6 @@ export default class BudUpgradeCommand extends BudCommand {
    * {@link BudCommand.clean}
    */
   public override clean = true
-
-  public command: `add` | `install`
 
   /**
    * {@link BudCommand.force}
@@ -89,11 +92,41 @@ export default class BudUpgradeCommand extends BudCommand {
   public version = Option.String({required: false})
 
   /**
+   * Package manager bin
+   */
+  public get bin(): `yarn` | `npm` | `pnpm` {
+    if (this.pm === `yarn-classic`) {
+      return `yarn`
+    }
+
+    return this.pm
+  }
+
+  /**
+   * Package manager subcommand
+   */
+  public get subcommand(): `add` | `install` {
+    return this.pm === `npm` ? `install` : `add`
+  }
+
+  /**
+   * Index of upgradeable package signifiers
+   */
+  public upgradeable: {
+    dependencies: Array<string>
+    devDependencies: Array<string>
+  } = {
+    dependencies: undefined,
+    devDependencies: undefined,
+  }
+
+  /**
    * Do registry request
    */
   @bind
   public async doRegistryRequest(uri: string) {
     const request = `${this.registry}/${uri}`
+    logger.info(`fielding request`, request)
 
     const response = await axios
       .get(request)
@@ -111,6 +144,7 @@ export default class BudUpgradeCommand extends BudCommand {
       throw badResponse
     }
 
+    logger.info(`registry request data for`, uri, response.data)
     return response.data
   }
 
@@ -118,105 +152,222 @@ export default class BudUpgradeCommand extends BudCommand {
    * {@link Command.execute}
    */
   public override async execute() {
-    await this.makeBud()
+    await this.makeBud().catch(error => {
+      logger.warn(`error making bud`, error)
+    })
+    const basedir = this.bud?.context?.basedir ?? process.cwd()
+    logger.log(`using basedir:`, basedir)
 
     if (!this.pm) {
-      this.pm = await whichPm(this.bud.context.basedir).catch(error => {
-        const normalError = BudError.normalize(error)
-        normalError.details = normalError.message
-        normalError.thrownBy = `@roots/bud-support/which-pm`
-        throw normalError
-      })
+      await whichPm(basedir)
+        .catch(thrownError => {
+          const error = BudError.normalize(thrownError)
+          error.details = error.message
+          error.thrownBy = `@roots/bud-support/which-pm`
+          throw error
+        })
+        .then(pm => {
+          if (pm === false) {
+            logger.info(`no package manager could be detected.`)
+            this.pm = `npm`
+            return
+          }
+
+          this.pm = pm
+        })
+        .catch(e => {
+          logger.info(`error getting package manager`, `\n`, e)
+          this.pm = `npm`
+        })
     }
+    logger.log(`using package manager:`, this.pm)
 
     if (this.pm === `yarn`) {
       if (this.registry !== `https://registry.npmjs.org`) {
         logger.warn(
-          `Yarn berry does not support custom registries set by CLI. Ignoring registry flag. Set your custom registry in \`.yarnrc.yml\``,
+          `Yarn berry does not support custom registries set by CLI. Ignoring --registry flag; set your custom registry in \`.yarnrc.yml\``,
         )
         this.registry = `https://registry.npmjs.org`
       }
 
-      const yarnrc = await this.bud.fs.yml.read(
-        this.bud.path(`.yarnrc.yml`),
-      )
-      if (yarnrc?.[`npmRegistryServer`]) {
-        this.registry = yarnrc[`npmRegistryServer`]
-        logger.log(
-          `registry set to`,
-          this.registry,
-          `(setting sourced from .yarnrc.yml)`,
-        )
-      }
-    }
+      await this.bud.fs.yml
+        .read(this.bud.path(`.yarnrc.yml`))
+        .then(yarnrc => {
+          if (!yarnrc) return
 
-    this.command = this.pm === `npm` ? `install` : `add`
-    this.pm = this.pm === `yarn-classic` ? `yarn` : this.pm
-    logger.log(`set package manager to`, this.pm)
+          if (yarnrc[`npmRegistryServer`]) {
+            this.registry = yarnrc[`npmRegistryServer`]
+
+            logger.log(
+              `registry set to`,
+              this.registry,
+              `(setting sourced from .yarnrc.yml)`,
+            )
+          }
+        })
+        .catch(error => {
+          logger.warn(`error reading .yarnrc.yml`, error)
+        })
+    }
+    logger.log(`using registry:`, this.registry)
 
     if (!isString(this.version)) {
-      const requestData = await this.doRegistryRequest(
-        `@roots/bud/latest`,
-      )
-      logger.info(`latest version request data`, requestData)
-      this.version = requestData?.version
-      logger.log(`version set to`, this.version)
+      logger.log(`getting latest version from registry`)
+      const data = await this.doRegistryRequest(`@roots/bud/latest`)
+      this.version = data?.version
     }
+    logger.log(`upgrading to target version:`, this.version)
 
-    if (await this.hasUpgradeableDependencies(`devDependencies`)) {
-      const devDependencies =
-        await this.getUpgradeableDependencies(`devDependencies`)
-      devDependencies.unshift(`@roots/bud@${this.version}`)
-      logger.log(
-        `Upgrading devDependencies`,
-        `\n`,
-        devDependencies.join(`\n `),
-      )
+    /**
+     * Upgrade dependencies
+     */
+    await this.upgrade(`devDependencies`)
+    await this.upgrade(`dependencies`)
 
-      await this.$(this.pm, [
-        this.command,
-        ...devDependencies,
-        ...this.getFlags(`devDependencies`),
-      ]).catch(this.catch)
-    }
-
-    if (await this.hasUpgradeableDependencies(`dependencies`)) {
-      const dependencies =
-        await this.getUpgradeableDependencies(`dependencies`)
-      logger.log(`Upgrading dependencies`, `\n`, dependencies.join(`\n `))
-
-      await this.$(this.pm, [
-        this.command,
-        ...dependencies,
-        ...this.getFlags(`dependencies`),
-      ]).catch(this.catch)
-    }
-
-    if (this.pm === `pnpm`) {
-      await this.$(`pnpm`, [`install`, `--shamefully-hoist`])
+    /**
+     * Handle pnpm hoisting
+     */
+    if (this.bin === `pnpm`) {
+      logger.log(`hoisting installed dependencies with pnpm`)
+      await this.$(this.bin, [`install`, `--shamefully-hoist`])
     }
   }
 
+  /**
+   * Find relevant signifiers for bud packages
+   */
   @bind
-  public getAllDependenciesOfType(
-    type: `dependencies` | `devDependencies`,
-  ): Array<string> {
-    if (!this.bud?.context.manifest?.[type]) return []
-    const dependencies = this.bud.context.manifest[type]
+  public findCandidates(type: Type): Array<string> {
+    const dependencies = this.bud.context.manifest?.[type]
+    if (!dependencies) {
+      logger.log(`no candidates found in manifest`)
+      return []
+    }
 
-    return Object.entries(dependencies)
-      .filter(
-        ([, version]: [string, string]) =>
-          version && !version?.includes(`workspace:`),
-      )
+    const results = Object.entries(dependencies)
+      .filter(([signifier, version]: [string, string]) => {
+        if (!version || !signifier) return false
+        if (version.includes(`workspace:`)) return false
+
+        if (
+          signifier.includes(`bud-`) ||
+          signifier.includes(`/bud`) ||
+          signifier.includes(`@roots/sage`)
+        )
+          return true
+
+        return false
+      })
       .map(([signifier]) => signifier)
+
+    logger.log(`candidates:`, `\n`, results)
+
+    return results
+  }
+
+  /**
+   * Get upgradeable dependencies and their versions
+   * from the registry
+   */
+  @bind
+  public async getUpgradeableDependencies(
+    type: Type,
+  ): Promise<Array<string>> {
+    if (typeof this.upgradeable[type] !== `undefined`) {
+      logger.log(
+        `using cached results for`,
+        type,
+        `\n`,
+        this.upgradeable[type],
+      )
+      return this.upgradeable[type]
+    }
+    this.upgradeable[type] = []
+
+    /**
+     * Add `@roots/*` packages to upgradeable dependencies
+     */
+    logger.log(`finding upgradeable @roots packages in`, type, `...`)
+    this.findCandidates(type)
+      .filter(signifier => signifier.startsWith(`@roots/`))
+      .map(signifier => `${signifier}@${this.version}`)
+      .forEach(signifier => {
+        logger.log(`adding`, signifier, `to upgradeable`, type)
+        this.upgradeable[type].push(signifier)
+      })
+
+    /**
+     * Add non-`@roots/*` packages to upgradeable dependencies
+     * and try to find a compatible version in the registry
+     */
+    logger.log(`finding upgradeable community packages in`, type, `...`)
+    const communityDependencies = this.findCandidates(type).filter(
+      signifier => !signifier.startsWith(`@roots/`),
+    )
+    logger.log(`found community dependencies`, communityDependencies)
+    await Promise.all(
+      communityDependencies.map(async signifier => {
+        const {versions} = await this.doRegistryRequest(signifier)
+        const manifests = Object.values(versions).reverse()
+
+        /**
+         * Find the first version that satisfies the semver range
+         */
+        const match: {version?: string} = manifests.find(
+          ({
+            bud,
+            version,
+          }: {
+            bud?: {version?: string}
+            version: string
+          }) => {
+            // no specific version requested
+            if (!bud?.version) return false
+
+            const satisfies = semver.satisfies(this.version, bud.version)
+            if (satisfies) {
+              signifier = `${signifier}@${version}`
+              logger.log(`adding`, signifier, `to upgradeable`, type)
+              this.upgradeable[type].push(signifier)
+            }
+
+            return satisfies
+          },
+        )
+        /**
+         * If no compatible version is found
+         * add the latest version to the upgradeable list
+         */
+        if (!match) {
+          logger.warn(
+            `No version of ${signifier} found which is compatible with ${this.version}. Installing ${signifier}@latest.`,
+          )
+          this.upgradeable[type].push(`${signifier}@latest`)
+          return
+        }
+      }),
+    ).catch(error => {
+      logger.warn(`error getting upgradeable`, type, `\n`, error)
+    })
+
+    logger.log(
+      `discovered upgradeable`,
+      type,
+      `:\n`,
+      this.upgradeable[type],
+    )
+    return this.upgradeable[type]
   }
 
   @bind
-  public getFlags(type: `dependencies` | `devDependencies`) {
-    const flags = []
+  public async upgrade(type: Type, flags = []) {
+    const signifiers = await this.getUpgradeableDependencies(type)
+    if (!signifiers?.length) {
+      logger.log(`No`, type, `to upgrade`)
+      return
+    }
 
-    if (type === `devDependencies`) {
+    if (type === `devDependencies`)
       switch (this.pm) {
         case `npm`:
           flags.push(`--save-dev`)
@@ -230,7 +381,6 @@ export default class BudUpgradeCommand extends BudCommand {
           flags.push(`--dev`)
           break
       }
-    }
 
     if (type === `dependencies`)
       switch (this.pm) {
@@ -246,68 +396,21 @@ export default class BudUpgradeCommand extends BudCommand {
           break
       }
 
-    if (this.pm !== `yarn`) {
+    if (
+      this.pm !== `yarn` &&
+      this.registry !== `https://registry.npmjs.org`
+    ) {
       flags.push(`--registry`, this.registry)
     }
 
-    return flags
-  }
+    logger.log(this.bin, this.subcommand, ...signifiers, ...flags)
 
-  @bind
-  public async getUpgradeableDependencies(
-    type: `dependencies` | `devDependencies`,
-  ): Promise<Array<string>> {
-    const allBudSignifiers = this.getAllDependenciesOfType(type).filter(
-      signifier =>
-        signifier.startsWith(`bud-`) ||
-        signifier.includes(`/bud-`) ||
-        signifier === `@roots/sage`,
-    )
-
-    const rootsPackages = allBudSignifiers
-      .filter(signifier => signifier.startsWith(`@roots/`))
-      .map(signifier => `${signifier}@${this.version}`)
-
-    const communityPackages = await Promise.all(
-      allBudSignifiers
-        .filter(signifier => !signifier.startsWith(`@roots/`))
-        .map(async signifier => {
-          const {versions} = await this.doRegistryRequest(signifier)
-          const manifests = Object.values(versions).reverse()
-
-          const match: {version?: string} = manifests.find(
-            ({bud}: {bud?: {version?: string}}) => {
-              if (!bud?.version) return false
-
-              const satisfies = semver.satisfies(this.version, bud.version)
-              logger.log({
-                required: bud.version,
-                satisfies,
-                version: this.version,
-              })
-              return satisfies
-            },
-          )
-
-          const install = !match?.version
-            ? `${signifier}@latest`
-            : `${signifier}@${match.version}`
-
-          return install
-        }),
-    )
-
-    const installList = [...rootsPackages, ...communityPackages].filter(
-      isString,
-    )
-
-    return installList
-  }
-
-  @bind
-  public async hasUpgradeableDependencies(
-    type: `dependencies` | `devDependencies`,
-  ): Promise<boolean> {
-    return (await this.getUpgradeableDependencies(type))?.length > 0
+    await this.$(this.bin, [
+      this.subcommand,
+      ...signifiers,
+      ...flags,
+    ], undefined, () => {}).catch(error => {
+      logger.error(error)
+    })
   }
 }

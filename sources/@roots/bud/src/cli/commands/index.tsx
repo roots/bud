@@ -3,7 +3,7 @@ import type {BaseContext} from '@roots/bud-support/clipanion'
 import type {ExecaReturnValue} from '@roots/bud-support/execa'
 
 import {join, parse} from 'node:path'
-import {env, exit} from 'node:process'
+import {exit} from 'node:process'
 
 import basedir from '@roots/bud/cli/flags/basedir'
 import cache from '@roots/bud/cli/flags/cache'
@@ -130,9 +130,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
     bin: string,
     args: Array<string>,
     options = {},
+    bail: () => any = () => setTimeout(exit, 100),
   ): Promise<ExecaReturnValue<string>> {
-    const bail = () => setTimeout(exit, 100)
-
     const {execa} = await import(`@roots/bud-support/execa`)
     const process = execa(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
@@ -283,17 +282,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
       .when(isset(manifest.paths?.storage), bud =>
         bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
       )
-  }
-
-  /**
-   * Binary
-   *
-   * @remarks
-   * String like `node`, `ts-node`, or `bun`. For executing child
-   * processes with the same binary as the parent.
-   */
-  public get bin() {
-    return env.BUD_JS_BIN
   }
 
   /**
