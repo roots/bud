@@ -1,95 +1,41 @@
-import {readFile, realpath} from 'node:fs/promises'
-import {join} from 'node:path'
-import {cwd} from 'node:process'
+import {env} from 'node:process'
 
-type Path = string
+import cwd from './basedir.js'
+import * as file from './file.js'
+import * as manifest from './manifest.js'
+import * as pmString from './pmString.js'
 
-export default async function (basedir: string = cwd()) {
-  const packageField = await getPackageManagerField(basedir)
-
-  if (packageField) {
-    if (packageField.includes(`yarn`)) {
-      if (await hasYarnBerryConfig(basedir)) return `yarn`
-      return `yarn-classic`
-    }
-
-    if (packageField.includes(`npm`)) return `npm`
-    if (packageField.includes(`pnpm`)) return `pnpm`
+export default async function (
+  basedir: string = cwd,
+): Promise<`yarn` | `yarn-classic` | `npm` | `pnpm` | false> {
+  /**
+   * If set, it will be something like: `npm/7.20.3 node/v14.17.3 darwin x64`
+   */
+  if (env?.npm_config_user_agent) {
+    const manager = pmString.parse(env.npm_config_user_agent)
+    if (manager) return manager
   }
 
-  if (await hasYarnLockfile(basedir)) {
-    if (await hasYarnBerryConfig(basedir)) return `yarn`
-    return `yarn-classic`
+  /**
+   * If set, it will be something like: `npm@7.20.3`
+   */
+  const manifestString = await manifest.getField(basedir, `packageManager`)
+  if (manifestString) {
+    const manager = pmString.parse(manifestString)
+    if (manager) return manager
   }
 
-  if (await hasNpmLockfile(basedir)) return `npm`
-  if (await hasPnpmLockfile(basedir)) return `pnpm`
-}
+  /** This config file is only present in Yarn 3 projects. */
+  if (await file.exists(basedir, `.yarnrc.yml`)) return `yarn`
 
-export const hasYarnLockfile = async (
-  basedir: string,
-): Promise<boolean> => {
-  try {
-    return await fileExists(join(basedir, `yarn.lock`))
-  } catch (error) {
-    return false
-  }
-}
+  /** If there is a `yarn.lock` file and no `.yarnrc.yml`, it's a Yarn Classic project. */
+  if (await file.exists(basedir, `yarn.lock`)) return `yarn-classic`
 
-export const hasYarnBerryConfig = async (
-  basedir: string,
-): Promise<boolean> => {
-  try {
-    return await fileExists(join(basedir, `.yarnrc.yml`))
-  } catch (error) {
-    return false
-  }
-}
+  /** If there is a `package-lock.json` file, it's an npm project. */
+  if (await file.exists(basedir, `package-lock.json`)) return `npm`
 
-export const hasNpmLockfile = async (
-  basedir: string,
-): Promise<boolean> => {
-  try {
-    return await fileExists(join(basedir, `package-lock.json`))
-  } catch (error) {
-    return false
-  }
-}
+  /** If there is a `pnpm-lock.yaml` file, it's a pnpm project. */
+  if (await file.exists(basedir, `pnpm-lock.yaml`)) return `pnpm`
 
-export const hasPnpmLockfile = async (
-  basedir: string,
-): Promise<boolean> => {
-  try {
-    return await fileExists(join(basedir, `pnpm-lock.yaml`))
-  } catch (error) {
-    return false
-  }
-}
-
-export const getPackageManagerField = async (
-  basedir: string,
-): Promise<false | Path> => {
-  try {
-    const path = await realpath(join(basedir, `package.json`))
-    const packageManager = await readFile(path)
-    const data = JSON.parse(packageManager.toString())
-    if (`packageManager` in data) return data.packageManager
-    return false
-  } catch (error) {
-    return false
-  }
-}
-
-const isString = (value: unknown): value is string =>
-  typeof value === `string`
-
-const fileExists = async (path: string): Promise<boolean> => {
-  let resolvedPath: string
-  try {
-    resolvedPath = await realpath(path)
-  } catch (error) {
-    return false
-  }
-
-  return isString(resolvedPath) ? true : false
+  return false
 }
