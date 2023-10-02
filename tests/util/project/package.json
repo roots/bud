@@ -10,7 +10,7 @@
     "@roots/bud-tailwindcss": "workspace:*"
   },
   "volta": {
-    "node": "18.12.1"
+    "node": "20.8.0"
   },
   "browserslist": [
     "extends @roots/browserslist-config"

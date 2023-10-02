@@ -1,3 +1,4 @@
+export {Browserslist} from './browserslist.js'
 export {Docusaurus} from './_docusaurus.js'
 export {Eslint} from './_eslint.js'
 export {Netlify} from './_netlify.js'

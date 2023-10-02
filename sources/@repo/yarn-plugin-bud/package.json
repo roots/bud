@@ -4,20 +4,20 @@
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
   "engines": {
-    "node": "18.12.1"
+    "node": "20.8.0"
   },
   "devDependencies": {
     "@types/lodash": "4.14.199",
-    "@types/node": "18.17.19",
-    "@types/semver": "7.5.2",
+    "@types/node": "20.8.0",
+    "@types/semver": "7.5.3",
     "@yarnpkg/builder": "4.0.0-rc.51",
     "typescript": "5.2.2"
   },
   "dependencies": {
     "@repo/constants": "workspace:*",
-    "@yarnpkg/cli": "4.0.0-rc.51",
-    "@yarnpkg/core": "4.0.0-rc.51",
-    "@yarnpkg/shell": "4.0.0-rc.51",
+    "@yarnpkg/cli": "4.0.0-rc.52",
+    "@yarnpkg/core": "4.0.0-rc.52",
+    "@yarnpkg/shell": "4.0.0-rc.52",
     "clipanion": "4.0.0-rc.2",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",

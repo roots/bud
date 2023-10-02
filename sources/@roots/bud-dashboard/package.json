@@ -82,10 +82,10 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19",
-    "@types/react": "18.2.22",
+    "@types/node": "20.8.0",
+    "@types/react": "18.2.24",
     "ink-testing-library": "3.0.0",
-    "vitest": "0.34.5",
+    "vitest": "0.34.6",
     "webpack": "5.88.2"
   },
   "dependencies": {

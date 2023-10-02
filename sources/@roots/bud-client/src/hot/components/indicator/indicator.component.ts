@@ -20,7 +20,7 @@ export class Component extends HTMLElement {
   /**
    * Timer
    */
-  public hideTimeout: NodeJS.Timer
+  public hideTimeout: NodeJS.Timeout
 
   /**
    * Component name

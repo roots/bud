@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.9",
-    "@types/node": "18.17.19",
+    "@types/node": "20.8.0",
     "@types/prettier": "3.0.0",
-    "vitest": "0.34.5"
+    "vitest": "0.34.6"
   },
   "dependencies": {
     "@octokit/core": "5.0.1",
@@ -28,7 +28,7 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
-    "octokit": "3.1.0",
+    "octokit": "3.1.1",
     "prettier": "3.0.3",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.2",

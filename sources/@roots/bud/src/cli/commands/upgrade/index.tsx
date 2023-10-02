@@ -9,6 +9,10 @@ import semver from '@roots/bud-support/semver'
 import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
 import whichPm from '@roots/bud-support/which-pm'
 
+type ExtensionManifest = {
+  bud?: {version?: string}
+  version: string
+}
 type Type = `dependencies` | `devDependencies`
 
 /**
@@ -314,13 +318,7 @@ export default class BudUpgradeCommand extends BudCommand {
          * Find the first version that satisfies the semver range
          */
         const match: {version?: string} = manifests.find(
-          ({
-            bud,
-            version,
-          }: {
-            bud?: {version?: string}
-            version: string
-          }) => {
+          ({bud, version}: ExtensionManifest) => {
             // no specific version requested
             if (!bud?.version) return false
 
@@ -405,11 +403,12 @@ export default class BudUpgradeCommand extends BudCommand {
 
     logger.log(this.bin, this.subcommand, ...signifiers, ...flags)
 
-    await this.$(this.bin, [
-      this.subcommand,
-      ...signifiers,
-      ...flags,
-    ], undefined, () => {}).catch(error => {
+    await this.$(
+      this.bin,
+      [this.subcommand, ...signifiers, ...flags],
+      undefined,
+      () => {},
+    ).catch(error => {
       logger.error(error)
     })
   }

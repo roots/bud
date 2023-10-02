@@ -66,8 +66,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19",
-    "@types/vinyl": "2.0.7"
+    "@types/node": "20.8.0",
+    "@types/vinyl": "2.0.8"
   },
   "dependencies": {
     "critical": "6.0.0",

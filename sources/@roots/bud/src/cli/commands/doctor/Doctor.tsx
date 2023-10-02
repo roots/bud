@@ -19,9 +19,8 @@ export const Doctor = ({name, timings}) => {
 }
 
 const Process = () => {
-  const nodeGood = process.version.match(/v1[7|8|9]/)
-  const nodeWarn = process.version.match(/v16/)
-  const nodeBad = !nodeGood && !nodeWarn
+  const nodeGood = process.version.match(/^v20/)
+  const nodeWarn = process.version.match(/^v[17|18|19]/)
 
   const nodeColor = nodeGood ? `green` : nodeWarn ? `yellow` : `red`
   const nodeFigure = nodeGood
@@ -30,11 +29,16 @@ const Process = () => {
     ? figures.warning
     : figures.cross
 
-  const os = platform()
-  const isWin = os === `win32`
-  const osGood = !isWin
-  const osColor = osGood ? `green` : `red`
-  const osFigure = osGood ? figures.tick : figures.cross
+  const os = {
+    platform: platform(),
+    color: `yellow`,
+    figure: figures.warning,
+  }
+
+  if (os.platform !== `win32`) {
+    os.color = `green`
+    os.figure = figures.tick
+  }
 
   return (
     <Box flexDirection="column" gap={1}>
@@ -51,12 +55,12 @@ const Process = () => {
         </Box>
 
         <Box flexDirection="row" gap={1}>
-          <Text color={osColor}>
-            {osFigure}
+          <Text color={os.color}>
+            {os.figure}
             {` `}os:
           </Text>
 
-          <Text>{os}</Text>
+          <Text>{os.platform}</Text>
         </Box>
       </Box>
 
@@ -68,17 +72,17 @@ const Process = () => {
 
           <Text>
             Please upgrade to Node v18 for long-term support. You are
-            running node ${process.version}.
+            running node {process.version}.
           </Text>
         </Box>
       )}
 
-      {nodeBad && (
+      {!nodeGood && !nodeWarn && (
         <Error
           error={
             new BudError(`node-version`, {
               details: `Please upgrade to Node v18 for long-term support. You are running node ${process.version}.`,
-              docs: new URL(`https://bud.js.org/guides/getting-started`),
+              docs: new URL(`https://bud.js.org/learn/getting-started`),
             })
           }
         />

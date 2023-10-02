@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "Create bud app CLI",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   },
   "contributors": [
     {
@@ -52,11 +52,12 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@types/node": "18.17.19",
+    "@types/node": "20.8.0",
     "@types/prettier": "3.0.0"
   },
   "dependencies": {
     "@roots/filesystem": "workspace:*",
+    "axios": "1.5.1",
     "chalk": "5.3.0",
     "clipanion": "4.0.0-rc.2",
     "enquirer": "2.4.1",

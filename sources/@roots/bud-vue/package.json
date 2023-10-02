@@ -74,7 +74,7 @@
     "@roots/bud-sass": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19",
+    "@types/node": "20.8.0",
     "webpack": "5.88.2"
   },
   "dependencies": {

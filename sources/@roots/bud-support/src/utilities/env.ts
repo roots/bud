@@ -7,8 +7,13 @@ import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
 let env: Record<string, Record<string, string>> = {}
 
-const get = (basedir: string) => {
+const get = (basedir: string): Record<string, string> => {
   if (basedir in env) return env[basedir]
+
+  process.env.BUD_JS_BIN = `node`
+  if (process.env.BROWSERSLIST_IGNORE_OLD_DATA === undefined)
+    process.env.BROWSERSLIST_IGNORE_OLD_DATA = `true`
+
   env[basedir] = {}
 
   logger.scope(`env`).time(`sourcing .env values for ${basedir}`)
@@ -29,7 +34,14 @@ const get = (basedir: string) => {
 
   logger.scope(`env`).timeEnd(`sourcing .env values for ${basedir}`)
 
-  return env[basedir]
+  return Object.entries(env[basedir]).reduce(
+    (a, [k, v]: [string, boolean | string | number]) => {
+      if (v === 1 || v === `1` || v === `true`) v = true
+      if (v === 0 || v === `0` || v === `false`) v = false
+      return {...a, [k]: v}
+    },
+    {},
+  )
 }
 
 function tryRegisteringFromPath(

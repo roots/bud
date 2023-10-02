@@ -83,11 +83,15 @@ export default class BudCommand extends Command<BaseContext & Context> {
    * Render static
    */
   public static renderStatic(...children: Array<React.ReactElement>) {
-    return render(
-      <Static items={children}>
-        {(child, id) => <Box key={id}>{child}</Box>}
-      </Static>,
-    ).unmount()
+    try {
+      return render(
+        <Static items={children}>
+          {(child, id) => <Box key={id}>{child}</Box>}
+        </Static>,
+      ).unmount()
+    } catch (e) {
+      // fallthrough
+    }
   }
 
   public basedir = basedir

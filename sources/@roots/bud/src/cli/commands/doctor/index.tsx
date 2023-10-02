@@ -217,22 +217,39 @@ for a lot of edge cases so it might return a false positive.
         DoctorCommand.renderStatic(
           <Box flexDirection="column">
             <Text color="blue">Environment{`\n`}</Text>
-            {this.bud.env.getEntries().map(([key, value]) => {
-              const color = value.length === 0 ? `yellow` : `dimColor`
+            {this.bud.env
+              .getEntries()
+              .toSorted((a, b) => a[0].localeCompare(b[0]))
+              .map(([key, value]) => {
+                const text = {color: `dimColor`, value}
 
-              return (
-                <Box flexDirection="row" key={key}>
-                  <Text>{figures.triangleRightSmall}</Text>
-                  <Text>{` `}</Text>
-                  <Text color={color}>{key}</Text>
-                  <Text>{` `}</Text>
+                if (
+                  [
+                    value !== `1`,
+                    value !== `true`,
+                    value !== `0`,
+                    value !== `false`,
+                    value.length > 0,
+                  ].every(Boolean)
+                )
+                  text.value = `************`
 
-                  <Text color={color}>
-                    {value.length > 0 ? `************` : `empty string`}
-                  </Text>
-                </Box>
-              )
-            })}
+                if (value.length === 0) {
+                  text.color = `yellow`
+                  text.value = `empty string`
+                }
+
+                return (
+                  <Box flexDirection="row" key={key}>
+                    <Text>{figures.triangleRightSmall}</Text>
+                    <Text>{` `}</Text>
+                    <Text color={text.color}>{key}</Text>
+                    <Text>{` `}</Text>
+
+                    <Text color={text.color}>{text.value}</Text>
+                  </Box>
+                )
+              })}
           </Box>,
         )
       } catch (error) {
@@ -292,18 +309,24 @@ for a lot of edge cases so it might return a false positive.
           <Box flexDirection="row">
             <Text>URL:</Text>
             <Text>
-              {` `}{this.bud.server.url.href}
+              {` `}
+              {this.bud.server.url.href}
             </Text>
           </Box>
 
-          {this.bud.server?.enabledMiddleware && Object.keys(this.bud.server.enabledMiddleware).includes(`proxy`) && this.bud.server.proxyUrl && (
-            <Box flexDirection="row">
-              <Text>Proxy:</Text>
-              <Text>
-                {` `}{this.bud.server.proxyUrl.href}
-              </Text>
-            </Box>
-          )}
+          {this.bud.server?.enabledMiddleware &&
+            Object.keys(this.bud.server.enabledMiddleware).includes(
+              `proxy`,
+            ) &&
+            this.bud.server.proxyUrl && (
+              <Box flexDirection="row">
+                <Text>Proxy:</Text>
+                <Text>
+                  {` `}
+                  {this.bud.server.proxyUrl.href}
+                </Text>
+              </Box>
+            )}
         </Box>,
       )
     }
