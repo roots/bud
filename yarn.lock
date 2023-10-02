@@ -9113,8 +9113,6 @@ __metadata:
     tslib: 2.6.2
   bin:
     bud: ./bin/bud.mjs
-    bund: ./bin/bund.mjs
-    ts-bud: ./bin/ts-bud.mjs
   languageName: unknown
   linkType: soft
 
