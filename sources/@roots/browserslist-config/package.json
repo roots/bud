@@ -41,34 +41,26 @@
     "default.cjs",
     "last-2-versions.cjs",
     "last-3-versions.cjs",
-    "next.cjs",
-    "scripts",
     "types.d.ts",
     "wordpress.cjs"
   ],
   "exports": {
     ".": "./default.cjs",
-    "./default": "./default.cjs",
+    "./last-2-versions": "./last-2-versions.cjs",
+    "./last-3-versions": "./last-3-versions.cjs",
+    "./wordpress": "./wordpress.cjs",
     "./broad": "./last-3-versions.cjs",
     "./current": "./last-2-versions.cjs",
-    "./next": "./next.cjs",
-    "./wordpress": "./wordpress.cjs"
+    "./default": "./default.cjs",
+    "./next": "./default.cjs"
   },
   "types": "./types.d.ts",
   "main": "./index.cjs",
   "module": "./index.cjs",
   "devDependencies": {
     "@roots/bud-support": "workspace:*",
-    "@skypack/package-check": "0.2.2"
-  },
-  "dependencies": {
-    "browserslist": "4.21.11",
-    "execa": "8.0.1",
-    "tslib": "2.6.2",
-    "update-browserslist-db": "1.0.13"
-  },
-  "scripts": {
-    "postinstall": "node scripts/postinstall.mjs"
+    "@skypack/package-check": "0.2.2",
+    "browserslist": "4.21.11"
   },
   "volta": {
     "extends": "../../../package.json"

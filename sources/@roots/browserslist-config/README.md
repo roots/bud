@@ -32,11 +32,23 @@ npm install @roots/browserslist-config --save-dev
 
 ## Exported configurations
 
-| Signifier                            | Description           |
-| ------------------------------------ | --------------------- |
-| `@roots/browserslist-config`         | Last 3 major versions |
-| `@roots/browserslist-config/current` | Last 2 major versions |
-| `@roots/browserslist-config/broad`   | Last 4 major versions |
+All browserslist configurations are deterministic. This means that the configurations are not constructed using unchanging targets, as opposed to queries based on market share (`> 2%`, `not dead`) or versions (`last 2 versions`, `last 3 versions`).
+
+| Signifier                                    | Description                                       | Coverage |
+| -------------------------------------------- | ------------------------------------------------- | -------- |
+| `@roots/browserslist-config`                 | Recommended browserslist config                   | 89%      |
+| `@roots/browserslist-config/last-2-versions` | Last 2 major versions                             | 79%      |
+| `@roots/browserslist-config/last-3-versions` | Last 3 major versions                             | 90%      |
+| `@roots/browserslist-config/wordpress`       | Very similar to WordPress maintained browserslist | 81%      |
+
+## Deprecated configs
+
+| Signifier                            | Description                                      |
+| ------------------------------------ | ------------------------------------------------ |
+| `@roots/browserslist-config/broad`   | Use `@roots/browserslist-config/last-3-versions` |
+| `@roots/browserslist-config/current` | Use `@roots/browserslist-config/last-2-versions` |
+| `@roots/browserslist-config/default` | Use `@roots/browserslist-config`                 |
+| `@roots/browserslist-config/next`    | Use `@roots/browserslist-config`                 |
 
 ## Contributing
 

@@ -7,6 +7,10 @@ import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
 let env: Record<string, Record<string, string>> = {}
 
+if (process.env.BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
+  process.env.BROWSERSLIST_IGNORE_OLD_DATA = `true`
+}
+
 const get = (basedir: string) => {
   if (basedir in env) return env[basedir]
   env[basedir] = {}
