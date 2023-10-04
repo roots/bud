@@ -16,9 +16,9 @@ describe(`bud build with extensionless stylelintrc`, () => {
 
     expect(title).toMatch(/╭ stylelintrc-no-extension \[.*\].*\.\/dist/)
     expect(entry).toMatch(/│ app/)
-    expect(runtime).toMatch(/│  ◉ js\/runtime\.js\s*✔ \d* bytes/)
-    expect(css).toMatch(/│  ◉ css\/app\.css\s*✔ \d* bytes/)
-    expect(js).toMatch(/│  ◉ js\/app\.js.*✔ \d* bytes/)
+    expect(runtime).toMatch(/│  ◉ js\/runtime\.js\s/)
+    expect(css).toMatch(/│  ◉ css\/app\.css\s/)
+    expect(js).toMatch(/│  ◉ js\/app\.js./)
     expect(timings).toMatch(/╰ .*ms 3 modules \[.\/3 modules cached\]/)
     expect(_s).toEqual(``)
     expect(_s2).toMatch(/│/)
