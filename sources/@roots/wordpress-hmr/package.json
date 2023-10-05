@@ -126,16 +126,16 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19",
-    "@types/react": "18.2.22",
-    "@types/wordpress__blocks": "12.5.4",
-    "@types/wordpress__plugins": "3.0.0",
-    "@types/wordpress__rich-text": "6.4.1",
-    "@wordpress/blocks": "12.19.0",
-    "@wordpress/data": "9.12.0",
-    "@wordpress/hooks": "3.42.0",
-    "@wordpress/plugins": "6.10.0",
-    "@wordpress/rich-text": "6.19.0"
+    "@types/node": "18.18.3",
+    "@types/react": "18.2.25",
+    "@types/wordpress__blocks": "12.5.5",
+    "@types/wordpress__plugins": "3.0.1",
+    "@types/wordpress__rich-text": "6.4.2",
+    "@wordpress/blocks": "12.20.0",
+    "@wordpress/data": "9.13.0",
+    "@wordpress/hooks": "3.43.0",
+    "@wordpress/plugins": "6.11.0",
+    "@wordpress/rich-text": "6.20.0"
   },
   "dependencies": {
     "react": "18.2.0",

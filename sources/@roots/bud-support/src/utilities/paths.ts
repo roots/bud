@@ -76,10 +76,11 @@ This is most likely a problem with the internals of bud.js.`,
   let hash: string
   let env = envBootstrap.get(directory)
 
-  if (args.cwd || args.basedir || env.APP_BASE_PATH) {
+  const specified = args.basedir ?? env.APP_BASE_PATH
+  if (specified && !directory.endsWith(specified)) {
     basedir = join(
       directory,
-      args.cwd ?? args.basedir ?? env.APP_BASE_PATH,
+      specified,
     )
     sha1.update(basedir)
     env = envBootstrap.get(basedir)

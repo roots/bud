@@ -232,36 +232,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
   }
 
   /**
-   * Apply context from env to bud.js instance
-   */
-  @bind
-  public async applyBudEnv(bud: Bud) {
-    bud
-      .when(bud.env.isString(`APP_MODE`), ({hooks}) =>
-        hooks.on(`build.mode`, bud.env.get(`APP_MODE`)),
-      )
-      .when(
-        bud.env.isString(`APP_BASE_PATH`),
-        bud => (bud.context.basedir = bud.env.get(`APP_BASE_PATH`)),
-      )
-      .when(bud.env.isString(`APP_PUBLIC_PATH`), ({hooks}) =>
-        hooks.on(
-          `build.output.publicPath`,
-          bud.env.get(`APP_PUBLIC_PATH`),
-        ),
-      )
-      .when(bud.env.isString(`APP_SRC_PATH`), ({hooks}) =>
-        hooks.on(`location.@src`, bud.env.get(`APP_SRC_PATH`)),
-      )
-      .when(bud.env.isString(`APP_DIST_PATH`), ({hooks}) =>
-        hooks.on(`location.@dist`, bud.env.get(`APP_DIST_PATH`)),
-      )
-      .when(bud.env.isString(`APP_STORAGE_PATH`), ({hooks}) =>
-        hooks.on(`location.@storage`, bud.env.get(`APP_STORAGE_PATH`)),
-      )
-  }
-
-  /**
    * Apply context from manifest to bud.js instance
    */
   @bind
@@ -340,20 +310,15 @@ export default class BudCommand extends Command<BaseContext & Context> {
   @bind
   public async makeBud() {
     const applyCliOptionsCallback = async (bud: Bud) => {
-      await Promise.all([
-        this.applyBudEnv(bud),
+      await bud.promise(async bud => await Promise.all([
         this.applyBudManifestOptions(bud),
         this.applyBudArguments(bud),
-      ]).catch(this.catch)
-
-      await bud.promise().catch(this.catch)
+      ]).catch(this.catch)).catch(this.catch)
     }
 
     this.context.dry = this.dry
     this.context.mode = this.mode ?? this.context.mode ?? `production`
     this.context.silent = this.silent
-
-    await import(`../env.${this.context.mode}.js`).catch(this.catch)
 
     this.bud = instance.get()
 
@@ -374,7 +339,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
   @bind
   public async run(
     path: Array<string>,
-    userArgs: Array<string>,
+    userArgs?: Array<string>,
     defaultArgs: Array<string> = [],
   ) {
     let [signifier, ...pathParts] = path

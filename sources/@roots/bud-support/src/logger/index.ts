@@ -30,18 +30,16 @@ class Logger {
   public constructor(public options: SignaleOptions = {}) {
     if (args.log === false || this.options.disabled) this.enabled = false
 
-    if (process.env) {
-      this.options.secrets =
-        options?.secrets ??
-        Object.entries(process.env)
-          .filter(
-            (
-              entry: [string, string | undefined],
-            ): entry is [string, string] =>
-              !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
-          )
-          .map(([k, v]): string => v)
-    }
+    this.options.secrets =
+      options?.secrets ??
+      Object.entries(global.process.env)
+        .filter(
+          (
+            entry: [string, string | undefined],
+          ): entry is [string, string] =>
+            !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
+        )
+        .map(([k, v]): string => v)
 
     this.instance = new Signale.Signale(this.options)
     this.instance.config({displayLabel: false})

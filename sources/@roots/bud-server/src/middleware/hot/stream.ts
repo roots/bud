@@ -63,7 +63,7 @@ export class HotEventStream {
   /**
    * hmr interval Timer
    */
-  public interval: NodeJS.Timer
+  public interval: NodeJS.Timeout
 
   /**
    * Class constructor

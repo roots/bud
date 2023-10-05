@@ -71,8 +71,8 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19",
-    "@types/webpack-env": "1.18.1"
+    "@types/node": "18.18.3",
+    "@types/webpack-env": "1.18.2"
   },
   "dependencies": {
     "tslib": "2.6.2"

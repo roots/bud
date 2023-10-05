@@ -160,35 +160,7 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    const configs = Object.values(this.bud.context.files).filter(
-      ({bud}) => bud,
-    )
-
-    if (configs.length) {
-      DoctorCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="blue">Bud configuration files{`\n`}</Text>
-          {configs.map(({name, path}, i) => (
-            <Box key={i}>
-              <Text>
-                {figures.triangleRightSmall} {name}
-              </Text>
-              <Text>{` `}</Text>
-              <Text dimColor>
-                {path.replace(this.bud.context.basedir, `.`)}
-              </Text>
-            </Box>
-          ))}
-        </Box>,
-      )
-    } else {
-      DoctorCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="blue">Registered configurations{`\n`}</Text>
-          <Text dimColor>No configuration files found in project</Text>
-        </Box>,
-      )
-    }
+    await this.cli.run([`config`])
 
     try {
       this.configuration = await this.bud.build.make()
@@ -212,35 +184,7 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    if (this.bud.env) {
-      try {
-        DoctorCommand.renderStatic(
-          <Box flexDirection="column">
-            <Text color="blue">Environment{`\n`}</Text>
-            {this.bud.env.getEntries().map(([key, value]) => {
-              const color = value.length === 0 ? `yellow` : `dimColor`
-
-              return (
-                <Box flexDirection="row" key={key}>
-                  <Text>{figures.triangleRightSmall}</Text>
-                  <Text>{` `}</Text>
-                  <Text color={color}>{key}</Text>
-                  <Text>{` `}</Text>
-
-                  <Text color={color}>
-                    {value.length > 0 ? `************` : `empty string`}
-                  </Text>
-                </Box>
-              )
-            })}
-          </Box>,
-        )
-      } catch (error) {
-        DoctorCommand.renderStatic(
-          <Error error={BudError.normalize(error)} />,
-        )
-      }
-    }
+    await this.cli.run([`env`])
 
     if (this.enabledExtensions) {
       try {

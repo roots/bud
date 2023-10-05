@@ -7,8 +7,11 @@ import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
 let env: Record<string, Record<string, string>> = {}
 
-if (process.env.BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
-  process.env.BROWSERSLIST_IGNORE_OLD_DATA = `true`
+if (global.process.env.BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
+  global.process.env.BROWSERSLIST_IGNORE_OLD_DATA = `true`
+}
+if (global.process.env.NODE_ENV === undefined) {
+  global.process.env.NODE_ENV = `production`
 }
 
 const get = (basedir: string) => {
@@ -17,7 +20,8 @@ const get = (basedir: string) => {
 
   logger.scope(`env`).time(`sourcing .env values for ${basedir}`)
 
-  Object.assign(env[basedir], {}, process.env)
+  Object.assign(env[basedir], {}, global.process.env)
+  Object.assign(global.process.env, {}, env[basedir])
 
   basedir
     .split(sep)

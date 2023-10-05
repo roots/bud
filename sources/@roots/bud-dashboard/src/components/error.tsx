@@ -4,7 +4,7 @@ import figures from '@roots/bud-support/figures'
 import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
 
 const basePath =
-  process.env.PROJECT_CWD ?? process.env.INIT_CWD ?? process.cwd()
+  global.process.env.PROJECT_CWD ?? global.process.env.INIT_CWD ?? process.cwd()
 
 export const Error = ({error}: {error: unknown}): ReactNode => {
   let normalError: BudError
