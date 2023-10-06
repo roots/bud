@@ -14,7 +14,9 @@ describe(`html output of examples/swc`, () => {
     port = await e2eBeforeAll(`swc`)
     runDev(`swc`, port)
 
-    browser = await chromium.launch()
+    browser = await chromium.launch({
+      headless: !!process.env.CI,
+    })
     if (!browser) throw new Error(`Browser could not be launched`)
 
     page = await browser.newPage()

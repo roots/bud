@@ -16640,16 +16640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-css@npm:5.2.0":
-  version: 5.2.0
-  resolution: "clean-css@npm:5.2.0"
-  dependencies:
-    source-map: ~0.6.0
-  checksum: ccb63b244b200abf53a005429b50132845a49b994fb6a2889a7eb775d53fbde7cb0d0b13655e435b0c3a6788d5d0fbcd2f56ccf32da852ef21ae933198dcad24
-  languageName: node
-  linkType: hard
-
-"clean-css@npm:^5.1.2, clean-css@npm:^5.2.2, clean-css@npm:^5.3.0, clean-css@npm:^5.3.1, clean-css@npm:^5.3.2":
+"clean-css@npm:^5.1.2, clean-css@npm:^5.2.2, clean-css@npm:^5.3.0, clean-css@npm:^5.3.1, clean-css@npm:^5.3.2, clean-css@npm:~5.3.2":
   version: 5.3.2
   resolution: "clean-css@npm:5.3.2"
   dependencies:
@@ -17154,7 +17145,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:10.0.1, commander@npm:^10.0.1":
+"commander@npm:10.0.1, commander@npm:^10.0.0, commander@npm:^10.0.1":
   version: 10.0.1
   resolution: "commander@npm:10.0.1"
   checksum: 436901d64a818295803c1996cd856621a74f30b9f9e28a588e726b2b1670665bccd7c1a77007ebf328729f0139838a88a19265858a0fa7a8728c4656796db948
@@ -17210,7 +17201,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^9.0.0, commander@npm:^9.3.0, commander@npm:^9.4.0":
+"commander@npm:^9.0.0, commander@npm:^9.3.0":
   version: 9.4.1
   resolution: "commander@npm:9.4.1"
   checksum: bfb18e325a5bdf772763c2213d5c7d9e77144d944124e988bcd8e5e65fb6d45d5d4e86b09155d0f2556c9a59c31e428720e57968bcd050b2306e910a0bf3cf13
@@ -19479,7 +19470,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"entities@npm:^4.2.0, entities@npm:^4.3.0, entities@npm:^4.3.1, entities@npm:^4.4.0":
+"entities@npm:^4.2.0, entities@npm:^4.3.0, entities@npm:^4.4.0":
   version: 4.4.0
   resolution: "entities@npm:4.4.0"
   checksum: 84d250329f4b56b40fa93ed067b194db21e8815e4eb9b59f43a086f0ecd342814f6bc483de8a77da5d64e0f626033192b1b4f1792232a7ea6b970ebe0f3187c2
@@ -23352,19 +23343,19 @@ __metadata:
   linkType: hard
 
 "html-minifier-terser@npm:^7.0.0":
-  version: 7.0.0
-  resolution: "html-minifier-terser@npm:7.0.0"
+  version: 7.2.0
+  resolution: "html-minifier-terser@npm:7.2.0"
   dependencies:
     camel-case: ^4.1.2
-    clean-css: 5.2.0
-    commander: ^9.4.0
-    entities: ^4.3.1
+    clean-css: ~5.3.2
+    commander: ^10.0.0
+    entities: ^4.4.0
     param-case: ^3.0.4
     relateurl: ^0.2.7
-    terser: ^5.14.2
+    terser: ^5.15.1
   bin:
     html-minifier-terser: cli.js
-  checksum: eabd3b4835d9663bf7c30ea0f1c57870b0d8f7dc27b9fa17852ea57bfdd5fdc0ed9b7b83a7f13edd8626ccf98d3082e347764754278a661cab291469fd37dced
+  checksum: 39feed354b5a8aafc8e910977d68cfd961d6db330a8e1a5b16a528c86b8ee7745d8945134822cf00acf7bf0d0135bf1abad650bf308bee4ea73adb003f5b8656
   languageName: node
   linkType: hard
 
@@ -36450,7 +36441,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:5.21.0":
+"terser@npm:5.21.0, terser@npm:^5.15.1":
   version: 5.21.0
   resolution: "terser@npm:5.21.0"
   dependencies:
@@ -36464,7 +36455,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"terser@npm:^5.10.0, terser@npm:^5.14.2, terser@npm:^5.16.8":
+"terser@npm:^5.10.0, terser@npm:^5.16.8":
   version: 5.18.2
   resolution: "terser@npm:5.18.2"
   dependencies:

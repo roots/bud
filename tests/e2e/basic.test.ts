@@ -25,8 +25,14 @@ describe(`html output of examples/basic`, () => {
 
   beforeEach(async () => {
     dev = runDev(`basic`, port)
-    browser = await chromium.launch()
+    browser = await chromium.launch({
+      headless: !!process.env.CI,
+    })
+    if (!browser) throw new Error(`Browser could not be launched`)
+
     page = await browser?.newPage()
+    if (!page) throw new Error(`Page could not be created`)
+
     await page?.waitForTimeout(5000)
   })
 
