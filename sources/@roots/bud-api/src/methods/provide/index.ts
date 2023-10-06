@@ -24,14 +24,10 @@ export const provide: provide = async function (this: Bud, ...params) {
   )
 
   if (!isUndefined(params[1])) {
-    const invalidAccessor =
-      !Array.isArray(params[0]) && !isString(params[0])
+    const value = params[0]
+    const accessors = !Array.isArray(params[1]) ? [params[1]] : params[1]
 
-    const invalidValue =
-      (!Array.isArray(params[1]) && !isString(params[1])) ||
-      !isString(params[0])
-
-    if (invalidAccessor || invalidValue) {
+    if (!valid(value) || !valid(accessors)) {
       throw new InputError(
         `bud.provide: when specifying a key and value using multiple parameters, the key should be a string and the value should be a string or array of strings`,
         {
@@ -40,9 +36,6 @@ export const provide: provide = async function (this: Bud, ...params) {
         },
       )
     }
-
-    const value = params[0]
-    const accessors = !Array.isArray(params[1]) ? [params[1]] : params[1]
 
     accessors.forEach(accessor =>
       plugin.setOptions({...plugin.options, [`${accessor}`]: value}),
@@ -66,3 +59,6 @@ export const provide: provide = async function (this: Bud, ...params) {
 
   return this
 }
+
+const valid = (param: unknown): param is Array<unknown> | string =>
+  Array.isArray(param) || isString(param)
