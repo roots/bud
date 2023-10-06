@@ -8,6 +8,7 @@
   ],
   "devDependencies": {
     "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
     "@roots/bud-preset-wordpress": "workspace:*"
   }
 }

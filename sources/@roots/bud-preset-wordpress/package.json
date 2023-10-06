@@ -72,6 +72,7 @@
     "@types/node": "18.18.3"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-preset-recommend": "workspace:*",
     "@roots/bud-react": "workspace:*",
