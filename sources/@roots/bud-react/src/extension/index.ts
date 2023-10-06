@@ -24,7 +24,7 @@ export default class BudReact extends Extension {
    */
   @bind
   public override async boot(bud: Bud) {
-    bud.provide(await bud.module.resolve(`react`), [`React`])
+    bud.provide(await this.resolve(`react`, import.meta.url), [`React`])
 
     if (
       ![this.useSWC, this.useTypeScript, this.useBabel].some(
