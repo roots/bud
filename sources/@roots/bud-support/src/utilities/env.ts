@@ -3,21 +3,16 @@ import {join, sep} from 'node:path'
 
 import logger from '@roots/bud-support/logger'
 
+import args from './args.js'
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
 let env: Record<string, Record<string, string>> = {}
-
-if (process.env.BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
-  process.env.BROWSERSLIST_IGNORE_OLD_DATA = `true`
-}
 
 const get = (basedir: string) => {
   if (basedir in env) return env[basedir]
   env[basedir] = {}
 
   logger.scope(`env`).time(`sourcing .env values for ${basedir}`)
-
-  Object.assign(env[basedir], {}, process.env)
 
   basedir
     .split(sep)
@@ -32,6 +27,24 @@ const get = (basedir: string) => {
     }, sep)
 
   logger.scope(`env`).timeEnd(`sourcing .env values for ${basedir}`)
+
+  if (env[basedir].BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
+    env[basedir].BROWSERSLIST_IGNORE_OLD_DATA = `true`
+  }
+
+  if (!env[basedir].NODE_ENV) {
+    if (process.env.NODE_ENV) env[basedir].NODE_ENV = process.env.NODE_ENV
+    if (args.mode) env[basedir].NODE_ENV = args.mode
+    if (args._?.includes(`production`))
+      env[basedir].NODE_ENV = `production`
+    if (args._?.includes(`development`) || args._?.includes(`dev`))
+      env[basedir].NODE_ENV = `development`
+
+    if (!env[basedir].NODE_ENV) env[basedir].NODE_ENV = `production`
+  }
+
+  Object.assign(env[basedir], {}, global.process.env)
+  Object.assign(global.process.env, {}, env[basedir])
 
   return env[basedir]
 }

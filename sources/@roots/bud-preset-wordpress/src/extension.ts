@@ -1,6 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {Extension} from '@roots/bud-framework/extension'
+import {
+  Extension,
+  type Option,
+  type PublicExtensionApi,
+} from '@roots/bud-framework/extension'
 import {
   dependsOn,
   expose,
@@ -16,6 +20,21 @@ import figures from '@roots/bud-support/figures'
 interface Options {
   hmr: boolean
   notify: boolean
+  react: boolean
+}
+
+interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
+  hmr: Option<PublicExtension, Options, `hmr`>[`value`]
+  getHmr: Option<PublicExtension, Options, `hmr`>[`get`]
+  setHmr: Option<PublicExtension, Options, `hmr`>[`set`]
+
+  notify: Option<PublicExtension, Options, `notify`>[`value`]
+  getNotify: Option<PublicExtension, Options, `notify`>[`get`]
+  setNotify: Option<PublicExtension, Options, `notify`>[`set`]
+
+  react: Option<PublicExtension, Options, `react`>[`value`]
+  getReact: Option<PublicExtension, Options, `react`>[`get`]
+  setReact: Option<PublicExtension, Options, `react`>[`set`]
 }
 
 /**
@@ -32,9 +51,32 @@ interface Options {
 @options<Options>({
   hmr: true,
   notify: true,
+  react: true,
 })
 @expose(`wp`)
-export default class BudPresetWordPress extends Extension<Options> {
+export default class BudPresetWordPress
+  extends Extension<Options>
+  implements PublicExtension
+{
+  public declare hmr: PublicExtension[`hmr`]
+  public declare getHmr: PublicExtension[`getHmr`]
+  public declare setHmr: PublicExtension[`setHmr`]
+
+  public declare notify: PublicExtension[`notify`]
+  public declare getNotify: PublicExtension[`getNotify`]
+  public declare setNotify: PublicExtension[`setNotify`]
+
+  public declare react: PublicExtension[`react`]
+  public declare getReact: PublicExtension[`getReact`]
+  public declare setReact: PublicExtension[`setReact`]
+
+  /**
+   * {@link BudWordPressExternals}
+   */
+  public get externals() {
+    return this.app.extensions.get(`@roots/bud-wordpress-externals`)
+  }
+
   /**
    * {@link Extension.boot}
    */
@@ -43,22 +85,41 @@ export default class BudPresetWordPress extends Extension<Options> {
 
     if (bud.extensions.has(`@roots/bud-tailwindcss`))
       await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
-
-    bud.react?.refresh?.enable(false)
   }
 
   /**
    * {@link Extension.buildBefore}
    */
-  public override async buildBefore({build, hooks}) {
+  public override async buildBefore({build, extensions, hooks}) {
+    /**
+     * If react is to resolve to `window.React`
+     * then remove `react` from webpack-provide-plugin if present.
+     */
+    if (this.getReact()) {
+      const provided = extensions.get(
+        `@roots/bud-extensions/webpack-provide-plugin`,
+      )
+      if (provided.get(`React`)) provided.set(`React`, undefined)
+
+      /**
+       * Otherwise, make sure that react is excluded from being externalized.
+       */
+    } else {
+      this.externals.setExclude([
+        ...(this.externals.options.exclude ?? []),
+        `react`,
+      ])
+    }
+
     /** Bail if hmr option is false */
-    if (!this.get(`hmr`)) return
+    if (!this.hmr) return
 
     /** Source loader */
     const loader = await this.resolve(
       `@roots/wordpress-hmr/loader`,
       import.meta.url,
     )
+
     /** Bail if unresolvable */
     if (!loader) return this.catch(`HMR loader not found`)
 
@@ -165,11 +226,6 @@ export default class BudPresetWordPress extends Extension<Options> {
       )
     }
   }
-
-  /**
-   * {@link BudWordPressExternals}
-   */
-  public get externals() {
-    return this.app.extensions.get(`@roots/bud-wordpress-externals`)
-  }
 }
+
+export type {PublicExtension}

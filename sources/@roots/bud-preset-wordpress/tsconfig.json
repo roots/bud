@@ -4,6 +4,7 @@
     "rootDir": "src",
     "outDir": "lib",
     "types": [
+      "@roots/bud-extensions",
       "@roots/bud-framework",
       "@roots/bud-preset-recommend",
       "@roots/bud-react",
@@ -17,6 +18,7 @@
   "exclude": ["test"],
   "references": [
     {"path": "../bud/tsconfig.json"},
+    {"path": "../bud-extensions/tsconfig.json"},
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-preset-recommend/tsconfig.json"},
     {"path": "../bud-react/tsconfig.json"},

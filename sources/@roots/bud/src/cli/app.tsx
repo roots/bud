@@ -7,7 +7,9 @@ import BudBuildCommand from '@roots/bud/cli/commands/build'
 import BudBuildDevelopmentCommand from '@roots/bud/cli/commands/build/development'
 import BudBuildProductionCommand from '@roots/bud/cli/commands/build/production'
 import BudCleanCommand from '@roots/bud/cli/commands/clean'
+import BudConfigCommand from '@roots/bud/cli/commands/config'
 import BudDoctorCommand from '@roots/bud/cli/commands/doctor'
+import BudEnvCommand from '@roots/bud/cli/commands/env'
 import BudReplCommand from '@roots/bud/cli/commands/repl'
 import BudUpgradeCommand from '@roots/bud/cli/commands/upgrade'
 import BudViewCommand from '@roots/bud/cli/commands/view'
@@ -63,7 +65,9 @@ const application = new Cli<BaseContext & Context>({
   BudBuildDevelopmentCommand,
   BudBuildProductionCommand,
   BudCleanCommand,
+  BudConfigCommand,
   BudDoctorCommand,
+  BudEnvCommand,
   BudReplCommand,
   BudUpgradeCommand,
   BudViewCommand,

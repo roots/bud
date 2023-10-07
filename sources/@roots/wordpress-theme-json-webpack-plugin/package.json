@@ -68,7 +68,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.9",
-    "@types/node": "18.17.19",
+    "@types/node": "18.18.3",
     "json-schema-to-typescript": "13.1.1"
   },
   "dependencies": {

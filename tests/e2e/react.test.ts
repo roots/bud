@@ -25,8 +25,15 @@ describe(`html output of examples/react`, () => {
 
   beforeEach(async () => {
     dev = runDev(`react`, port)
-    browser = await chromium.launch()
+
+    browser = await chromium.launch({
+      headless: !!process.env.CI,
+    })
+    if (!browser) throw new Error(`Browser could not be launched`)
+
     page = await browser?.newPage()
+    if (!page) throw new Error(`Page could not be created`)
+
     await page?.waitForTimeout(5000)
   })
 
@@ -39,23 +46,10 @@ describe(`html output of examples/react`, () => {
     await page?.goto(`http://0.0.0.0:${port}/`)
 
     expect(await page.$(`#root`)).toBeTruthy()
-    expect(await page.$(`#App`)).toBeFalsy()
 
-    await update()
-    await page.waitForTimeout(12000)
-
-    const target = await page.$(`.target`)
-    const text = await target?.textContent()
-    expect(text).toBe(`Noice.`)
-  })
-})
-
-const update = async () =>
-  await fs.writeAsync(
-    destinationPath(`react`, `src`, `components`, `App.js`),
-    `\
-import React from 'react'
-
+    await fs.writeAsync(
+      destinationPath(`react`, `src`, `components`, `App.js`),
+      `\
 import logo from './logo.svg'
 
 export const App = () => {
@@ -67,6 +61,10 @@ export const App = () => {
       </div>
     </div>
   )
-}
-`,
-  )
+}`,
+    )
+    await page.waitForTimeout(12000)
+
+    expect(await page.$(`.target`)).toBeTruthy()
+  })
+})

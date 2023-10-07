@@ -1,0 +1,11 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-preset-recommend", "@roots/bud-preset-wordpress"]
+  },
+  "include": ["./src"],
+  "exclude": ["./dist"]
+}

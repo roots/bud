@@ -63,10 +63,10 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.22.20",
+    "@babel/core": "7.23.0",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.2",
-    "@types/node": "18.17.19"
+    "@types/node": "18.18.3"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",

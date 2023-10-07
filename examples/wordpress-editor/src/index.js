@@ -1,7 +1,7 @@
-roots.register.blocks(`./`)
-roots.register.formats(`./`)
-roots.register.variations(`./`)
-roots.register.plugins(`./`)
+roots.register.blocks(`@src`)
+roots.register.formats(`@src`)
+roots.register.variations(`@src`)
+roots.register.plugins(`@src`)
 
 if (import.meta.webpackHot) {
   import.meta.webpackHot.accept(console.error);

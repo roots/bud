@@ -20,7 +20,7 @@ export class Component extends HTMLElement {
   /**
    * Timer
    */
-  public hideTimeout: NodeJS.Timer
+  public timeout: NodeJS.Timeout
 
   /**
    * Component name
@@ -127,7 +127,7 @@ export class Component extends HTMLElement {
    * Hide status indicator
    */
   public hide() {
-    this.hideTimeout = setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.shadowRoot.querySelector(this.selector).classList.remove(`show`)
     }, 2000)
   }
@@ -190,7 +190,7 @@ export class Component extends HTMLElement {
    * Show status indicator
    */
   public show() {
-    this.hideTimeout && clearTimeout(this.hideTimeout)
+    this.timeout && clearTimeout(this.timeout)
     this.shadowRoot.querySelector(this.selector).classList.add(`show`)
   }
 }

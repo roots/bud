@@ -8,13 +8,11 @@
  * @see https://github.com/roots/bud
  */
 
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
-
-import BudPresetWordPress from '@roots/bud-preset-wordpress/extension'
+import BudPresetWordPress, {type PublicExtension} from '@roots/bud-preset-wordpress/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    wp: PublicExtensionApi<BudPresetWordPress>
+    wp: PublicExtension
   }
 
   interface Modules {

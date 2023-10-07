@@ -19,32 +19,18 @@ import type BudReactRefresh from '../react-refresh/index.js'
 @expose(`react`)
 export default class BudReact extends Extension {
   /**
-   * {@link Extension.configAfter}
-   *
+   * Compiler
    */
-  @bind
-  public override async boot(bud: Bud) {
+  public get compiler(): `babel` | `swc` | `typescript` | false {
+    if (this.app.extensions.has(`@roots/bud-swc`)) return `swc`
     if (
-      ![this.useSWC, this.useTypeScript, this.useBabel].some(
-        t => t === true,
-      )
-    ) {
-      this.logger.warn(`No supported compiler found.`)
-    }
+      this.app.extensions.has(`@roots/bud-typescript`) &&
+      !this.app.extensions.get(`@roots/bud-typescript`).get(`babel`)
+    )
+      return `typescript`
+    if (this.app.extensions.has(`@roots/bud-babel`)) return `babel`
 
-    if (this.useSWC) {
-      bud.swc.setJsc(
-        merge(bud.swc.jsc, {transform: {react: {runtime: `automatic`}}}),
-      )
-    }
-
-    if (this.useBabel) {
-      const babelPluginUrl = await this.resolve(`@babel/preset-react`, import.meta.url).catch(bud.catch)
-      this.app.babel.setPreset(
-        `@babel/preset-react`,
-        babelPluginUrl,
-      )
-    }
+    return false
   }
 
   /**
@@ -57,37 +43,29 @@ export default class BudReact extends Extension {
   }
 
   /**
-   * Use babel
+   * {@link Extension.configAfter}
    *
-   * @readonly
    */
-  public get useBabel(): boolean {
-    if (this.useTypeScript) return false
-    if (this.useSWC) return false
-    return this.app.extensions.has(`@roots/bud-babel`)
-  }
+  @bind
+  public override async boot(bud: Bud) {
+    bud.provide(await this.resolve(`react`, import.meta.url), [`React`])
 
-  /**
-   * Use SWC
-   *
-   * @readonly
-   */
-  public get useSWC(): boolean {
-    return this.app.extensions.has(`@roots/bud-swc`)
-  }
-
-  /**
-   * Use TypeScript
-   *
-   * @readonly
-   */
-  public get useTypeScript(): boolean {
-    if (this.useSWC) return false
-
-    if (this.app.extensions.has(`@roots/bud-typescript`)) {
-      return !this.app.extensions.get(`@roots/bud-typescript`).get(`babel`)
+    if (this.compiler === false) {
+      this.logger.warn(`No supported compiler found.`)
     }
 
-    return false
+    if (this.compiler === `swc`) {
+      bud.swc.setJsc(
+        merge(bud.swc.jsc, {transform: {react: {runtime: `automatic`}}}),
+      )
+    }
+
+    if (this.compiler === `babel`) {
+      const babelPluginUrl = await this.resolve(
+        `@babel/preset-react`,
+        import.meta.url,
+      ).catch(bud.catch)
+      this.app.babel.setPreset(`@babel/preset-react`, babelPluginUrl)
+    }
   }
 }

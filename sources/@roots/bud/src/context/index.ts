@@ -59,6 +59,8 @@ export default async (options: Options = {}): Promise<Context> => {
     stdout: options?.stdout ?? stdout,
   }
 
+  global.process.env.mode = context.mode
+
   logger
     .unscope()
     .scope(`bootstrap`)

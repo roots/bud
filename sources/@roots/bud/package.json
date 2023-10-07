@@ -66,7 +66,9 @@
     "./cli/commands/build/development": "./lib/cli/commands/build/development/index.js",
     "./cli/commands/build/production": "./lib/cli/commands/build/production/index.js",
     "./cli/commands/clean": "./lib/cli/commands/clean/index.js",
+    "./cli/commands/config": "./lib/cli/commands/config/index.js",
     "./cli/commands/doctor": "./lib/cli/commands/doctor/index.js",
+    "./cli/commands/env": "./lib/cli/commands/env/index.js",
     "./cli/commands/repl": "./lib/cli/commands/repl/index.js",
     "./cli/commands/upgrade": "./lib/cli/commands/upgrade/index.js",
     "./cli/commands/view": "./lib/cli/commands/view/index.js",
@@ -114,8 +116,14 @@
       "cli/commands/clean": [
         "./lib/cli/commands/clean/index.d.ts"
       ],
+      "cli/commands/config": [
+        "./lib/cli/commands/config/index.d.ts"
+      ],
       "cli/commands/doctor": [
         "./lib/cli/commands/doctor/index.d.ts"
+      ],
+      "cli/commands/env": [
+        "./lib/cli/commands/env/index.d.ts"
       ],
       "cli/commands/repl": [
         "./lib/cli/commands/repl/index.d.ts"
@@ -159,7 +167,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.17.19"
+    "@types/node": "18.18.3"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:*",
