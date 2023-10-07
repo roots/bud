@@ -4,7 +4,7 @@
     "paths": {
       "@src/*": ["./src/*"]
     },
-    "types": ["@roots/bud", "@roots/sage"]
+    "types": ["@roots/bud", "@roots/bud-preset-wordpress", "@roots/sage"]
   },
   "files": ["bud.config.js"],
   "include": ["./src"],

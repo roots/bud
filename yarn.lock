@@ -8723,11 +8723,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-wordpress@workspace:sources/@roots/bud-preset-wordpress"
   dependencies:
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-preset-recommend": "workspace:*"
     "@roots/bud-react": "workspace:*"
     "@roots/bud-support": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
     "@roots/bud-tailwindcss-theme-json": "workspace:*"
     "@roots/bud-wordpress-dependencies": "workspace:*"
     "@roots/bud-wordpress-externals": "workspace:*"

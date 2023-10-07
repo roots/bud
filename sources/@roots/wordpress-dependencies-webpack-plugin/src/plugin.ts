@@ -12,6 +12,7 @@ export interface Options {
   emitWordPressJson: boolean
   entrypointsPlugin?: typeof EntrypointsWebpackPlugin
   outputPath?: string
+  exclude?: string[]
 }
 
 export default class WordPressDependenciesWebpackPlugin {
@@ -142,10 +143,12 @@ export default class WordPressDependenciesWebpackPlugin {
     if (!requested) return
 
     for (const request of requested) {
+      if (this.options.exclude?.includes(request)) continue
       if (!wordpress.isProvided(request)) continue
 
       const wordPressHandle = handle.transform(request)
       if (!wordPressHandle) continue
+
       this.addItemToMap(this.dependencies, name, wordPressHandle)
     }
   }

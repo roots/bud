@@ -68,6 +68,8 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
+    "@roots/bud-build": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.18.3"
   },
