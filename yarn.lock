@@ -5259,8 +5259,7 @@ __metadata:
   resolution: "@examples/react@workspace:examples/react"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
     "@roots/bud-react": "workspace:*"
   languageName: unknown
   linkType: soft

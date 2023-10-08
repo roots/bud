@@ -1,7 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/react > should compile js and css as expected 1`] = `"js/app.js"`;
+exports[`examples/react > should compile js and css as expected 1`] = `"js/main.js"`;
 
-exports[`examples/react > should compile js and css as expected 2`] = `"js/runtime.js"`;
+exports[`examples/react > should compile js and css as expected 2`] = `"css/main.css"`;
 
-exports[`examples/react > should compile js and css as expected 3`] = `"components/logo.svg"`;
+exports[`examples/react > should compile js and css as expected 3`] = `"js/runtime.js"`;
+
+exports[`examples/react > should compile js and css as expected 4`] = `"components/logo.svg"`;
