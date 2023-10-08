@@ -66,11 +66,11 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.3",
+    "@types/node": "18.18.4",
     "@types/vinyl": "2.0.8"
   },
   "dependencies": {
-    "critical": "6.0.0",
+    "critical": "6.0.2",
     "helpful-decorators": "2.1.0",
     "tslib": "2.6.2",
     "vinyl": "3.0.0",

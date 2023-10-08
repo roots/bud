@@ -92,7 +92,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.3",
+    "@types/node": "18.18.4",
     "@types/tailwindcss": "3.1.0",
     "@types/webpack-virtual-modules": "0.1.2",
     "webpack": "5.88.2"
@@ -106,7 +106,7 @@
     "sucrase": "3.34.0",
     "tailwindcss": "3.3.3",
     "tslib": "2.6.2",
-    "webpack-virtual-modules": "0.5.0"
+    "webpack-virtual-modules": "0.6.0"
   },
   "volta": {
     "extends": "../../../package.json"

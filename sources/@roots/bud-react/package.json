@@ -89,9 +89,9 @@
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.2",
-    "@types/node": "18.18.3",
+    "@types/node": "18.18.4",
     "@types/react": "18.2.25",
-    "@types/react-dom": "18.2.7"
+    "@types/react-dom": "18.2.11"
   },
   "dependencies": {
     "@babel/preset-react": "7.22.15",
