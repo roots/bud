@@ -7,5 +7,7 @@ const init = () =>
 
 init()
 
+createRoot(document.getElementById('app')).render(<ReactComponent />)
+
 if (import.meta.webpackHot)
   import.meta.webpackHot.accept('./components/main.js', init)
