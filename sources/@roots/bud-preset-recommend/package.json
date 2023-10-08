@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-preset-recommend",
   "version": "0.0.0",
-  "description": "Recommended preset for Bud projects",
+  "description": "Recommended preset for bud.js projects",
   "engines": {
     "node": ">=16"
   },
@@ -59,17 +59,14 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@roots/bud-esbuild": "workspace:*",
-    "@roots/bud-swc": "workspace:*",
-    "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/node": "18.18.3"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-swc": "workspace:*",
     "tslib": "2.6.2",
     "webpack": "5.88.2"
   },

@@ -5242,6 +5242,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/react-legacy@workspace:examples/react-legacy":
+  version: 0.0.0-use.local
+  resolution: "@examples/react-legacy@workspace:examples/react-legacy"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+    "@roots/bud-react": "workspace:*"
+    react: 17.0.2
+    react-dom: 17.0.2
+  languageName: unknown
+  linkType: soft
+
 "@examples/react@workspace:examples/react":
   version: 0.0.0-use.local
   resolution: "@examples/react@workspace:examples/react"
@@ -8706,12 +8718,9 @@ __metadata:
   resolution: "@roots/bud-preset-recommend@workspace:sources/@roots/bud-preset-recommend"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-esbuild": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-swc": "workspace:*"
-    "@roots/bud-typescript": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.18.3
     tslib: 2.6.2
@@ -32632,7 +32641,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2, react-dom@npm:^17.0.1, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -32895,6 +32904,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react@npm:17.0.2, react@npm:^17.0.1, react@npm:^17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
+  dependencies:
+    loose-envify: ^1.1.0
+    object-assign: ^4.1.1
+  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
+  languageName: node
+  linkType: hard
+
 "react@npm:^16.13.1":
   version: 16.14.0
   resolution: "react@npm:16.14.0"
@@ -32903,16 +32922,6 @@ __metadata:
     object-assign: ^4.1.1
     prop-types: ^15.6.2
   checksum: 8484f3ecb13414526f2a7412190575fc134da785c02695eb92bb6028c930bfe1c238d7be2a125088fec663cc7cda0a3623373c46807cf2c281f49c34b79881ac
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.1, react@npm:^17.0.2":
-  version: 17.0.2
-  resolution: "react@npm:17.0.2"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: b254cc17ce3011788330f7bbf383ab653c6848902d7936a87b09d835d091e3f295f7e9dd1597c6daac5dc80f90e778c8230218ba8ad599f74adcc11e33b9d61b
   languageName: node
   linkType: hard
 

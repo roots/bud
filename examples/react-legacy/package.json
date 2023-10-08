@@ -1,0 +1,16 @@
+{
+  "name": "@examples/react-legacy",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  }
+}
