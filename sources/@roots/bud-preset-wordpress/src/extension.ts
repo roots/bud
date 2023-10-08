@@ -25,21 +25,6 @@ interface Options {
   exclude: Array<string>
   hmr: boolean
   notify: boolean
-  react: boolean
-}
-
-interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
-  hmr: Option<PublicExtension, Options, `hmr`>[`value`]
-  getHmr: Option<PublicExtension, Options, `hmr`>[`get`]
-  setHmr: Option<PublicExtension, Options, `hmr`>[`set`]
-
-  notify: Option<PublicExtension, Options, `notify`>[`value`]
-  getNotify: Option<PublicExtension, Options, `notify`>[`get`]
-  setNotify: Option<PublicExtension, Options, `notify`>[`set`]
-
-  react: Option<PublicExtension, Options, `react`>[`value`]
-  getReact: Option<PublicExtension, Options, `react`>[`get`]
-  setReact: Option<PublicExtension, Options, `react`>[`set`]
 }
 
 /**
@@ -165,7 +150,6 @@ interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
   exclude: [],
   hmr: true,
   notify: true,
-  react: true,
 })
 @expose(`wp`)
 export default class BudPresetWordPress
@@ -291,11 +275,11 @@ export default class BudPresetWordPress
     })
 
     const supportedCompilers = [
-      `@roots/sage`,
-      `@roots/bud-preset-recommend`,
       `@roots/bud-babel`,
+      `@roots/bud-preset-recommend`,
       `@roots/bud-swc`,
       `@roots/bud-typescript`,
+      `@roots/sage`,
     ]
 
     const hasInstalledCompiler = supportedCompilers.some(compiler =>
