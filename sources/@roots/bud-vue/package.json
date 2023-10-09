@@ -74,7 +74,7 @@
     "@roots/bud-sass": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.3",
+    "@types/node": "18.18.4",
     "webpack": "5.88.2"
   },
   "dependencies": {
@@ -83,7 +83,7 @@
     "@vue/compiler-sfc": "3.3.4",
     "tslib": "2.6.2",
     "vue": "3.3.4",
-    "vue-loader": "17.2.2",
+    "vue-loader": "17.3.0",
     "vue-style-loader": "4.1.3",
     "vue-template-compiler": "2.7.14"
   },

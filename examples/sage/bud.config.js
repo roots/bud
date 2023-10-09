@@ -1,4 +1,9 @@
-export default async app => {
+// @ts-check
+
+/**
+ * @param {import('@roots/bud').Bud} app
+ */
+export default async (app) => {
   app
     .entry({
       app: ['@scripts/app', '@styles/app'],

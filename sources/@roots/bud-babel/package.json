@@ -68,7 +68,7 @@
     "@types/babel__core": "7.20.2",
     "@types/babel__plugin-transform-runtime": "7.9.3",
     "@types/babel__preset-env": "7.9.3",
-    "@types/node": "18.18.3"
+    "@types/node": "18.18.4"
   },
   "dependencies": {
     "@babel/core": "7.23.0",

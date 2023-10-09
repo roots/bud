@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-framework/extension'
+import {Extension, type Option} from '@roots/bud-framework/extension'
 import {
   label,
   options,
@@ -18,14 +18,32 @@ export default class BudWordPressExternals extends Extension<
   WordPressExternals
 > {
   /**
-   * Set excluded packages
-   *
-   * @param exclude - Array of packages to exclude
+   * Excluded packages
+   */
+  public declare exclude: Option<BudWordPressExternals, Options, `exclude`>[`value`]
+  /**
+   * Get excluded packages
    *
    * @example
    * ```js
-   * externalsExtension.setExclude(['jquery'])
+   * extension.getExclude()
    * ```
    */
-  public declare setExclude: (exclude: Array<string>) => this
+  public declare getExclude: Option<BudWordPressExternals, Options, `exclude`>[`get`]
+  /**
+   * Set excluded packages
+   *
+   * @param exclude - Array or callback function that returns an array
+   *
+   * @example
+   * ```js
+   * extension.setExclude(['jquery'])
+   * ```
+   *
+   * @example
+   * ```js
+   * extension.setExclude((exclude = []) => [...exclude, 'jquery'])
+   * ```
+   */
+  public declare setExclude: Option<BudWordPressExternals, Options, `exclude`>[`set`]
 }

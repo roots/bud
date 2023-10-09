@@ -62,7 +62,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.3"
+    "@types/node": "18.18.4"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

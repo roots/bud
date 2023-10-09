@@ -9,7 +9,7 @@
 <h1 align="center"><strong>@roots/bud-preset-recommend</strong></h1>
 
 <p align="center">
-  Recommended preset for Bud projects
+  Recommended preset for bud.js projects
 </p>
 
 ---

@@ -11,23 +11,36 @@ The [@roots/bud-preset-wordpress](/extensions/bud-preset-wordpress) package is a
 
 If you plan on using it in a WordPress theme you should consider using [@roots/sage](https://github.com/roots/sage).
 
-It includes the following extensisons:
-
-- [@roots/bud-postcss](/extensions/bud-postcss)
-- [@roots/bud-react](/extensions/bud-react)
-- [@roots/wordpress-hmr](/extensions/bud-preset-wordpress/editor-integration)
-
 ## Installation
 
-```npm2yarn
-npm install @roots/bud-preset-wordpress --save-dev
+To get started with WordPress, install the [@roots/bud-preset-wordpress preset](/extensions/bud-preset-wordpress) along with a compatible compiler:
+
+- [@roots/bud-babel](/extensions/bud-babel)
+- [@roots/bud-esbuild](/extensions/bud-esbuild)
+- [@roots/bud-swc](/extensions/bud-swc)
+- [@roots/bud-typescript](/extensions/bud-typescript)
+
+We recommend using [@roots/bud-swc](/extensions/bud-swc), which is included in [@roots/bud-preset-recommend](/extensions/bud-preset-recommend):
+
+```bash npm2yarn
+npm install @roots/bud-preset-wordpress @roots/bud-preset-recommend --save-dev
 ```
+
+## Included extensions
+
+The [@roots/bud-preset-wordpress preset](/extensions/bud-preset-wordpress) includes the following extensions:
+
+- [@roots/bud-react](/extensions/bud-react)
+- @roots/bud-wordpress-dependencies
+- @roots/bud-wordpress-externals
+- @roots/bud-wordpress-theme-json
+- @roots/wordpress-hmr
 
 ## Managing WordPress enqueues
 
-If you are using [roots/sage](https://roots.io/sage) these details are handled for you by Acorn.
+If you are using [roots/sage](https://roots.io/sage) these details are handled for you by Acorn (or if you are using Acorn in a site specific plugins, etc.)
 
-If not, you will want to do something like this:
+If Acorn isn't available, you will want to do something like this:
 
 ```php
 add_action('enqueue_block_editor_assets', function () {
@@ -106,18 +119,26 @@ add_action('enqueue_block_editor_assets', function () {
 });
 ```
 
-### Excluding modules
+### Excluding dependencies
 
 There may be situations where you want to exclude a package from this behavior. For example, you may wish to use a different version of jQuery than the one provided by WordPress.
 
-To address this, you can pass an array of packages to exclude:
+To address this, you can use `bud.wp.setExclude`:
 
 ```ts title=bud.config.ts
 import type {Bud} from '@roots/bud'
 
 export default async (bud: Bud) => {
-  bud.wp.externals.exclude(['jquery'])
+  bud.wp.setExclude(['jquery'])
 }
 ```
 
-With that, your custom jQuery will now be bundled with your application.
+You can also use `bud.wp.setExclude` with a callback:
+
+```ts title=bud.config.ts
+import type {Bud} from '@roots/bud'
+
+export default async (bud: Bud) => {
+  bud.wp.setExclude((exclude = []) => [...exclude, 'jquery'])
+}
+```

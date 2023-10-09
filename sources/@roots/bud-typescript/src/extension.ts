@@ -4,7 +4,7 @@ import type * as TsLoader from 'ts-loader'
 import {
   DynamicOption,
   Extension,
-  type OptionCallbackValue,
+  type Option,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -61,53 +61,48 @@ interface Options extends TsLoader.Options {
   compilerOptions: undefined,
   configFile: `tsconfig.json`,
   context: DynamicOption.make(({path}) => path()),
+  getCustomTransformers: undefined,
+  instance: undefined,
   transpileOnly: true,
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
 export default class BudTypeScript extends Extension<Options> {
-  public declare appendTsSuffixTo: Options['appendTsSuffixTo']
+  public declare appendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`value`]
+  public declare getAppendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`get`]
+  public declare setAppendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`set`]
 
-  public declare appendTsxSuffixTo: Options['appendTsxSuffixTo']
+  public declare appendTsxSuffixTo: Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`value`]
+  public declare getAppendTsxSuffixTo: () => Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`get`]
+  public declare setAppendTsxSuffixTo: Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`set`]
 
-  public declare babel: Options['babel']
-  public declare compilerOptions: Options['compilerOptions']
-  public declare configFile: Options['configFile']
+  public declare babel: Option<BudTypeScript, Options, `babel`>[`value`]
+  public declare getBabel: Option<BudTypeScript, Options, `babel`>[`get`]
+  public declare setBabel: Option<BudTypeScript, Options, `babel`>[`set`]
 
-  public declare context: Options['context']
-  public declare getAppendTsSuffixTo: () => Options['appendTsSuffixTo']
-  public declare getAppendTsxSuffixTo: () => Options['appendTsxSuffixTo']
+  public declare compilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`value`]
+  public declare getCompilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`get`]
+  public declare setCompilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`set`]
 
-  public declare getBabel: () => Options['babel']
-  public declare getCompilerOptions: () => Options['compilerOptions']
-  public declare getConfigFile: () => Options['configFile']
+  public declare configFile: Option<BudTypeScript, Options, `configFile`>[`value`]
+  public declare getConfigFile: Option<BudTypeScript, Options, `configFile`>[`get`]
+  public declare setConfigFile: Option<BudTypeScript, Options, `configFile`>[`set`]
 
-  public declare getContext: () => Options['context']
-  public declare getTranspileOnly: () => Options['transpileOnly']
-  public declare setAppendTsSuffixTo: (
-    suffixes: OptionCallbackValue<Options, 'appendTsSuffixTo'>,
-  ) => this
+  public declare context: Option<BudTypeScript, Options, `context`>[`value`]
+  public declare getContext: Option<BudTypeScript, Options, `context`>[`get`]
+  public declare setContext: Option<BudTypeScript, Options, `context`>[`set`]
 
-  public declare setAppendTsxSuffixTo: (
-    suffixes: OptionCallbackValue<Options, 'appendTsxSuffixTo'>,
-  ) => this
-  public declare setBabel: (
-    enable: OptionCallbackValue<Options, 'babel'>,
-  ) => this
-  public declare setCompilerOptions: (
-    enable: OptionCallbackValue<Options, 'compilerOptions'>,
-  ) => this
+  public declare getCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`value`]
+  public declare getGetCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`get`]
+  public declare setGetCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`set`]
 
-  public declare setConfigFile: (
-    enable: OptionCallbackValue<Options, 'configFile'>,
-  ) => this
-  public declare setContext: (
-    enable: OptionCallbackValue<Options, 'context'>,
-  ) => this
-  public declare setTranspileOnly: (
-    enable: OptionCallbackValue<Options, 'transpileOnly'>,
-  ) => this
+  public declare instance: Option<BudTypeScript, Options, `instance`>[`value`]
+  public declare getInstance: Option<BudTypeScript, Options, `instance`>[`get`]
+  public declare setInstance: Option<BudTypeScript, Options, `instance`>[`set`]
 
-  public declare transpileOnly: Options['transpileOnly']
+  public declare transpileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`value`]
+  public declare getTranspileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`get`]
+  public declare setTranspileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`set`]
+
   /**
    * {@link Extension.configAfter}
    */
@@ -136,15 +131,22 @@ export default class BudTypeScript extends Extension<Options> {
     const loader = await this.resolve(`ts-loader`, import.meta.url)
     if (!loader) return this.logger.error(`ts-loader not found`)
 
-    const typescript = await this.resolve(`typescript`, import.meta.url)
-    if (!typescript) return this.logger.error(`typescript not found`)
+    const typescriptPath = await this.resolve(`typescript`, import.meta.url)
+    if (!typescriptPath) {
+      return this.logger.error(`typescript not found`)
+    }
+
+    /**
+     * Set the instance path
+     */
+    this.setInstance(typescriptPath)
 
     /**
      * If a tsconfig.json file is present
      */
     if (
-      context.files[`tsconfig`].path &&
-      context.files[`tsconfig`].type === `json`
+      context.files[`tsconfig`]?.path &&
+      context.files[`tsconfig`]?.type === `json`
     ) {
       // Set the tsconfig file path
       this.setConfigFile(context.files[`tsconfig`].path)
@@ -210,9 +212,9 @@ export default class BudTypeScript extends Extension<Options> {
    * ```
    */
   @bind
-  @deprecated(`bud.typescript`, `Use bud.typescript.set instead`, [
-    [`Enable babel`, `bud.typescript.set('babel', true)`],
-    [`Disable babel`, `bud.typescript.set('babel', false)`],
+  @deprecated(`bud.typescript`, `Use bud.typescript.setBabel instead`, [
+    [`Enable babel`, `bud.typescript.setBabel(true)`],
+    [`Disable babel`, `bud.typescript.setBabel(false)`],
   ])
   public useBabel(enable: boolean = true): this {
     this.setBabel(enable)
