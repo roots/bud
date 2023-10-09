@@ -3,7 +3,7 @@ import type {
   Compilation,
   Compiler,
   WebpackPluginInstance,
-} from '@roots/bud-support/webpack'
+} from '@roots/bud-framework/config'
 
 import {urlToHttpOptions} from 'node:url'
 

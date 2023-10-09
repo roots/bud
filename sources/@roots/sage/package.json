@@ -106,13 +106,14 @@
   "dependencies": {
     "@roots/blade-loader": "workspace:*",
     "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-client": "workspace:*",
     "@roots/bud-entrypoints": "workspace:*",
     "@roots/bud-framework": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "@roots/bud-preset-wordpress": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@roots/container": "workspace:*",
     "tslib": "2.6.2",
     "webpack": "5.88.2"
   },

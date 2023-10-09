@@ -50,7 +50,7 @@ class Sage extends Extension {
         () => bud.hash(),
         () => bud.devtool(),
       )
-      .hooks.on(`build.output.uniqueName`, `@roots/bud/sage/${bud.label}`)
+      .hooks.on(`build.output.uniqueName`, bud.label !== `sage` ? `@roots/bud/sage/${bud.label}` : `@roots/bud/sage`)
   }
 
   /**
@@ -60,7 +60,7 @@ class Sage extends Extension {
    */
   @deprecated(
     `bud.sage`,
-    `This function is no longer needed and should be removed`,
+    `This function is no longer needed. Remove the call from your configuration.`,
   )
   public setAcornVersion(version: 'v2' | 'v3') {}
 }
