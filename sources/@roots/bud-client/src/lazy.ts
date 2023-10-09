@@ -33,7 +33,7 @@ const lazy: lazy = async function lazy<T = any>(
     const {default: request} = await module
     return await handler(request)
   } catch (error: unknown) {
-    const handle = errorHandler ? errorHandler : defaultErrorHandler
+    const handle = errorHandler ?? defaultErrorHandler
     handle(error)
   }
 }
