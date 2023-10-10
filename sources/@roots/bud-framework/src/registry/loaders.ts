@@ -1,4 +1,4 @@
-import type {Loader} from '../services/build/loader.js'
+import type {Loader} from '@roots/bud-framework/build/loader'
 
 interface Loaders {
   _?: Loader

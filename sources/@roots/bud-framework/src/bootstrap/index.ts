@@ -7,9 +7,9 @@ import camelCase from '@roots/bud-support/lodash/camelCase'
 import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 
-import {FS} from './fs.js'
-import {Module} from './module.js'
-import {Notifier} from './notifier.js'
+import {FS} from '@roots/bud-framework/fs'
+import {Module} from '@roots/bud-framework/module'
+import {Notifier} from '@roots/bud-framework/notifier'
 
 /**
  * Define the list of lifecycle events that are handled by the system

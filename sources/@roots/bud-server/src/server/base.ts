@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {
   Connection,
   Options,
-} from '@roots/bud-framework/services/server'
+} from '@roots/bud-framework/server'
 
 import type {
   Server as HttpServer,

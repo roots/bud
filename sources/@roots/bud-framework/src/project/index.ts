@@ -1,16 +1,16 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
 import type {Stats} from '@roots/bud-framework/config'
 
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import omit from '@roots/bud-support/lodash/omit'
-import * as args from '@roots/bud-support/utilities/args'
+import * as args from '@roots/bud-framework/context/args'
 
 /**
  * Project service
  */
-export default class Project extends Service {
+export class Project extends Service {
   /**
    * {@link Service.buildAfter}
    */
@@ -83,3 +83,8 @@ export default class Project extends Service {
     )
   }
 }
+
+/**
+ * Default export for bud.js service instantiation
+ */
+export {Project as default}

@@ -1,5 +1,5 @@
 import type {Factory} from '@roots/bud-build/registry'
-import type {Loader} from '@roots/bud-framework/services/build'
+import type {Loader} from '@roots/bud-framework/build'
 
 import * as MiniCss from '@roots/bud-support/mini-css-extract-plugin'
 

@@ -1,4 +1,4 @@
-import type {Item} from '../services/build/item.js'
+import type {Item} from '@roots/bud-framework/build/item'
 
 interface Items {
   _?: Item

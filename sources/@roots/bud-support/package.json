@@ -104,7 +104,6 @@
     "./style-loader": "./lib/style-loader/index.cjs",
     "./toml": "./lib/toml/index.js",
     "./typanion": "./lib/typanion/index.js",
-    "./utilities/*": "./lib/utilities/*.js",
     "./value": "./lib/value/index.js",
     "./webpack": "./lib/webpack/index.js",
     "./webpack-dev-middleware": "./lib/webpack-dev-middleware/index.js",
@@ -284,9 +283,6 @@
       ],
       "decorators/*": [
         "./lib/decorators/*.d.ts"
-      ],
-      "utilities/*": [
-        "./lib/utilities/*.d.ts"
       ]
     }
   },

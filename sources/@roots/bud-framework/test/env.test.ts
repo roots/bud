@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit'
 import {Bud} from '@roots/bud'
-import Env from '@roots/bud-framework/env'
+import {Env} from '@roots/bud-framework/env'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud/services/env`, () => {

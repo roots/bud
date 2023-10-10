@@ -4,7 +4,7 @@ import type {
   Middleware,
   Options,
   Server,
-} from '@roots/bud-framework/services/server'
+} from '@roots/bud-framework/server'
 import type {WatchOptions} from '@roots/bud-support/chokidar'
 
 import type {ListenOptions} from 'node:net'
@@ -23,22 +23,24 @@ export interface Sync {
 
   listenOptions: ListenOptions
 
+  /**
+   * See webpack-dev-middleware documentation
+   */
   'middleware.dev.options': Middleware.Available['dev']['options']
-
   'middleware.dev.options.headers': Middleware.Available['dev']['options']['headers']
-
   'middleware.dev.options.index': Middleware.Available['dev']['options']['index']
-
   'middleware.dev.options.methods': Middleware.Available['dev']['options']['methods']
-
   'middleware.dev.options.publicPath': Middleware.Available['dev']['options']['publicPath']
-
   'middleware.dev.options.writeToDisk': Middleware.Available['dev']['options']['writeToDisk']
 
   /**
    * Enabled middleware
    */
   'middleware.enabled': Array<keyof Middleware.Available>
+
+  /**
+   * See proxy plugin options
+   */
   'middleware.proxy.options': Partial<
     Middleware.Available['proxy']['options']
   >
@@ -81,6 +83,7 @@ export interface Sync {
    * Proxy middleware replacements
    */
   'middleware.proxy.replacements': Array<[string, string]>
+
   /**
    * Error callback
    */

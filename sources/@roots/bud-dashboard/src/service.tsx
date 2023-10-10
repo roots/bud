@@ -1,9 +1,9 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
 import type {
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
-import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
+import type {Dashboard as BudDashboard} from '@roots/bud-framework/dashboard'
 
 import {stderr, stdin, stdout} from 'node:process'
 

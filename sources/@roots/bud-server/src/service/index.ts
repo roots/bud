@@ -4,7 +4,7 @@ import type {
   Connection,
   Middleware,
   Watcher,
-} from '@roots/bud-framework/services/server'
+} from '@roots/bud-framework/server'
 
 import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'

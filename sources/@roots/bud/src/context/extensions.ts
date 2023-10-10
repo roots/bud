@@ -1,7 +1,7 @@
 import type {Modules} from '@roots/bud-framework'
 import type {Context} from '@roots/bud-framework/context'
 
-import args from '@roots/bud-support/utilities/args'
+import args from '@roots/bud-framework/context/args'
 
 const CORE_MODULES = [
   `@roots/bud-api`,

@@ -6,7 +6,7 @@ import type {
 import type {
   Cache as BudCache,
   CacheCallback as Callback,
-} from '@roots/bud-framework/services/cache'
+} from '@roots/bud-framework/cache'
 
 import {join} from 'node:path'
 

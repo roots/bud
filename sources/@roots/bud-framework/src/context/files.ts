@@ -4,17 +4,17 @@ import type {InspectResult} from '@roots/filesystem/filesystem'
 
 import {join, parse} from 'node:path'
 
+import {get as getPaths} from '@roots/bud-framework/context/paths'
 import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/lodash/get'
 import omit from '@roots/bud-support/lodash/omit'
 import _set from '@roots/bud-support/lodash/set'
 import logger from '@roots/bud-support/logger'
-import {get as getPaths} from '@roots/bud-support/utilities/paths'
 
 const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
 const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]
 
-let files: Array<string>
+let files: Array<string> = []
 let fs: Filesystem
 let data: Record<string, any>
 let paths: ReturnType<typeof getPaths>

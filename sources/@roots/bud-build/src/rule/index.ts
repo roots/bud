@@ -5,7 +5,7 @@ import type {
   Options,
   Output,
   Parser,
-} from '@roots/bud-framework/services/build/rule'
+} from '@roots/bud-framework/build/rule'
 
 import Registrable from '@roots/bud-build/helpers/registrable'
 import {bind} from '@roots/bud-support/decorators/bind'

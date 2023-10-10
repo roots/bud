@@ -52,31 +52,42 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./bud": "./lib/bud.js",
+    "./api": "./lib/api/index.js",
+    "./bootstrap": "./lib/bootstrap/index.js",
+    "./bud": "./lib/bud/index.js",
+    "./build": "./lib/build/index.js",
+    "./build/item": "./lib/build/item.js",
+    "./build/loader": "./lib/build/loader.js",
+    "./build/rule": "./lib/build/rule.js",
+    "./cache": "./lib/cache/index.js",
+    "./compiler": "./lib/compiler/index.js",
     "./configuration": "./lib/configuration/index.js",
     "./config": "./lib/config/index.js",
-    "./context": "./lib/context.js",
-    "./env": "./lib/env.js",
+    "./context": "./lib/context/index.js",
+    "./context/args": "./lib/context/args.js",
+    "./context/env": "./lib/context/env.js",
+    "./context/files": "./lib/context/files.js",
+    "./context/paths": "./lib/context/paths.js",
+    "./dashboard": "./lib/dashboard/index.js",
+    "./env": "./lib/env/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension": "./lib/extension/index.js",
-    "./fs": "./lib/fs.js",
+    "./extensions": "./lib/extensions/index.js",
+    "./fs": "./lib/fs/index.js",
+    "./hooks": "./lib/hooks/index.js",
     "./methods/setPath": "./lib/methods/setPath/index.js",
     "./methods/*": "./lib/methods/*.js",
     "./methods": "./lib/methods/index.js",
-    "./module": "./lib/module.js",
+    "./module": "./lib/module/index.js",
     "./options": "./lib/options/index.js",
     "./options/*": "./lib/options/*.js",
-    "./project": "./lib/project.js",
+    "./project": "./lib/project/index.js",
     "./registry": "./lib/registry/index.js",
     "./registry/*": "./lib/registry/*.js",
-    "./service": "./lib/service.js",
-    "./services": "./lib/services/index.js",
-    "./services/api": "./lib/services/api.js",
+    "./server": "./lib/server/index.js",
+    "./service": "./lib/service/index.js",
     "./notifier": "./lib/notifier/index.js",
-    "./services/build/*": "./lib/services/build/*.js",
-    "./services/*": "./lib/services/*/index.js",
-    "./value": "./lib/value.js",
     "./*": "./lib/*/index.js"
   },
   "typesVersions": {
@@ -85,10 +96,28 @@
         "./lib/index.d.ts"
       ],
       "api": [
-        "./lib/services/api.d.ts"
+        "./lib/api/index.d.ts"
+      ],
+      "bootstrap": [
+        "./lib/bootstrap/index.d.ts"
       ],
       "bud": [
         "./lib/bud/index.d.ts"
+      ],
+      "build": [
+        "./lib/build/index.d.ts"
+      ],
+      "build/item": [
+        "./lib/build/item.d.ts"
+      ],
+      "build/loader": [
+        "./lib/build/loader.d.ts"
+      ],
+      "build/rule": [
+        "./lib/build/rule.d.ts"
+      ],
+      "cache": [
+        "./lib/cache/index.d.ts"
       ],
       "config": [
         "./lib/config/index.d.ts"
@@ -97,13 +126,28 @@
         "./lib/configuration/index.d.ts"
       ],
       "context": [
-        "./lib/context.d.ts"
+        "./lib/context/index.d.ts"
+      ],
+      "context/args": [
+        "./lib/context/args.d.ts"
+      ],
+      "context/env": [
+        "./lib/context/env.d.ts"
+      ],
+      "context/files": [
+        "./lib/context/files.d.ts"
+      ],
+      "context/paths": [
+        "./lib/context/paths.d.ts"
       ],
       "env": [
-        "./lib/env.d.ts"
+        "./lib/env/index.d.ts"
+      ],
+      "extensions": [
+        "./lib/extensions.d.ts"
       ],
       "fs": [
-        "./lib/fs.d.ts"
+        "./lib/fs/index.d.ts"
       ],
       "extension": [
         "./lib/extension/index.d.ts"
@@ -114,8 +158,8 @@
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
       ],
-      "project": [
-        "./lib/project.d.ts"
+      "hooks": [
+        "./lib/hooks/index.d.ts"
       ],
       "methods/setPath": [
         "./lib/methods/setPath/index.d.ts"
@@ -127,7 +171,7 @@
         "./lib/methods/index.d.ts"
       ],
       "module": [
-        "./lib/module.d.ts"
+        "./lib/module/index.d.ts"
       ],
       "options": [
         "./lib/options/index.d.ts"
@@ -135,11 +179,8 @@
       "options/*": [
         "./lib/options/*.d.ts"
       ],
-      "parsers": [
-        "./lib/parsers/index.d.ts"
-      ],
-      "parsers/*": [
-        "./lib/parsers/*.d.ts"
+      "project": [
+        "./lib/project/index.d.ts"
       ],
       "registry": [
         "./lib/registry/index.d.ts"
@@ -148,28 +189,7 @@
         "./lib/registry/*.d.ts"
       ],
       "service": [
-        "./lib/service.d.ts"
-      ],
-      "services": [
-        "./lib/services/index.d.ts"
-      ],
-      "services/api": [
-        "./lib/services/api.d.ts"
-      ],
-      "services/console": [
-        "./lib/services/console.d.ts"
-      ],
-      "services/fs": [
-        "./lib/services/fs.d.ts"
-      ],
-      "services/build/*": [
-        "./lib/services/build/*.d.ts"
-      ],
-      "services/*": [
-        "./lib/services/*/index.d.ts"
-      ],
-      "value": [
-        "./lib/value.d.ts"
+        "./lib/service/index.d.ts"
       ]
     }
   },

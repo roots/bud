@@ -1,10 +1,9 @@
 /* eslint-disable n/no-process-env */
 import {join, sep} from 'node:path'
 
+import args from '@roots/bud-framework/context/args'
+import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
 import logger from '@roots/bud-support/logger'
-
-import args from './args.js'
-import {dotenv, dotenvExpand} from '../dotenv/index.js'
 
 let env: Record<string, Record<string, string>> = {}
 
@@ -20,8 +19,8 @@ const get = (basedir: string) => {
     .reduce((basepath, segment) => {
       const path = join(basepath, segment)
 
-      tryRegisteringFromPath(env[basedir], path, `.env`)
-      tryRegisteringFromPath(env[basedir], path, `.env.local`)
+      tryEnv(env[basedir], path, `.env`)
+      tryEnv(env[basedir], path, `.env.local`)
 
       return path
     }, sep)
@@ -49,7 +48,7 @@ const get = (basedir: string) => {
   return env[basedir]
 }
 
-function tryRegisteringFromPath(
+function tryEnv(
   env: Record<string, unknown>,
   dir: string,
   file: string,

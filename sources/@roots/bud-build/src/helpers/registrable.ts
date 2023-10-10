@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {Base as BuildBase} from '@roots/bud-framework/services/build'
+import type {Base as BuildBase} from '@roots/bud-framework/build'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import isFunction from '@roots/bud-support/lodash/isFunction'

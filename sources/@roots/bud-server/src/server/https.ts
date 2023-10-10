@@ -1,4 +1,4 @@
-import type {Connection} from '@roots/bud-framework/services/server'
+import type {Connection} from '@roots/bud-framework/server'
 
 import type {RequestListener} from 'node:http'
 import {createServer, Server as HttpsServer} from 'node:https'

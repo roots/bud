@@ -1,5 +1,5 @@
 import type {Bud, Loaders} from '@roots/bud-framework'
-import type * as Build from '@roots/bud-framework/services/build'
+import type * as Build from '@roots/bud-framework/build'
 
 import {basename} from 'node:path'
 

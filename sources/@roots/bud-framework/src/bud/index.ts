@@ -1,18 +1,17 @@
-import type {
-  Api,
-  Build,
-  Cache,
-  Compiler,
-  Context,
-  Dashboard,
-  Env,
-  Extensions,
-  Hooks,
-  Project,
-  Server,
-  Service,
-} from '@roots/bud-framework'
+import type {Api} from '@roots/bud-framework/api'
+import type {Build} from '@roots/bud-framework/build'
+import type {Cache} from '@roots/bud-framework/cache'
+import type {Compiler} from '@roots/bud-framework/compiler'
+import type {Context} from '@roots/bud-framework/context'
+import type {Dashboard} from '@roots/bud-framework/dashboard'
+import type {Env} from '@roots/bud-framework/env'
+import type {Extensions} from '@roots/bud-framework/extensions'
+import type {Hooks} from '@roots/bud-framework/hooks'
+import type {Project} from '@roots/bud-framework/project'
+import type {Server} from '@roots/bud-framework/server'
+import type {Service} from '@roots/bud-framework/service'
 
+import {bootstrap} from '@roots/bud-framework/bootstrap'
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
@@ -21,12 +20,10 @@ import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 
-import type {FS} from './fs.js'
-import type {Module} from './module.js'
-import type {Notifier} from './notifier.js'
-import type {EventsStore} from './registry/index.js'
-
-import {bootstrap} from './bootstrap.js'
+import type {FS} from '@roots/bud-framework/fs'
+import type {Module} from '@roots/bud-framework/module'
+import type {Notifier} from '@roots/bud-framework/notifier'
+import type {EventsStore} from '@roots/bud-framework/registry'
 
 /**
  * Bud core class

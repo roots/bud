@@ -1,6 +1,6 @@
 import {factory} from '@repo/test-kit'
 import {Bud} from '@roots/bud'
-import Project from '@roots/bud-framework/project'
+import {Project} from '@roots/bud-framework/project'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud/services/project`, () => {

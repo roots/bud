@@ -6,7 +6,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 /**
  * Env service
  */
-export default class Env extends ServiceContainer {
+export class Env extends ServiceContainer {
   /**
    * Bootstrap event callback
    */
@@ -48,3 +48,8 @@ export default class Env extends ServiceContainer {
     return [rawKey.replace(`PUBLIC_`, ``), rawValue]
   }
 }
+
+/**
+ * Default export for bud.js service instantiation
+ */
+export {Env as default}

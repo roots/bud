@@ -2,8 +2,8 @@ import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
 import {BudError} from '@roots/bud-support/errors'
-import args from '@roots/bud-support/utilities/args'
-import * as envBootstrap from '@roots/bud-support/utilities/env'
+import args from '@roots/bud-framework/context/args'
+import * as envBootstrap from '@roots/bud-framework/context/env'
 import envPaths from 'env-paths'
 
 interface paths {
@@ -78,10 +78,7 @@ This is most likely a problem with the internals of bud.js.`,
 
   const specified = args.basedir ?? env.APP_BASE_PATH
   if (specified && !directory.endsWith(specified)) {
-    basedir = join(
-      directory,
-      specified,
-    )
+    basedir = join(directory, specified)
     sha1.update(basedir)
     env = envBootstrap.get(basedir)
   }

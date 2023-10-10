@@ -3,7 +3,7 @@ import type {ApplyPlugin} from '@roots/bud-framework/extension'
 import type {
   Extensions as BudExtensions,
   LifecycleMethods,
-} from '@roots/bud-framework/services/extensions'
+} from '@roots/bud-framework/extensions'
 
 import {randomUUID} from 'node:crypto'
 

@@ -1,4 +1,4 @@
-import type {Rule} from '../services/build/rule.js'
+import type {Rule} from '@roots/bud-framework/build/rule'
 
 interface Rules {
   _?: Rule

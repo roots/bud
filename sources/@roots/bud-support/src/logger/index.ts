@@ -5,7 +5,6 @@ import {stdout} from 'node:process'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import args from '@roots/bud-support/utilities/args'
 import Signale from 'signale'
 
 class Logger {
@@ -28,7 +27,7 @@ class Logger {
    * Class constructor
    */
   public constructor(public options: SignaleOptions = {}) {
-    if (args.log === false || this.options.disabled) this.enabled = false
+    if (process.argv.includes(`--log`) === false || this.options.disabled) this.enabled = false
 
     this.options.secrets =
       options?.secrets ??
@@ -44,16 +43,16 @@ class Logger {
     this.instance = new Signale.Signale(this.options)
     this.instance.config({displayLabel: false})
 
-    if (args.verbose || this.options.logLevel === `info`)
+    if (process.argv.includes(`--verbose`) || this.options.logLevel === `info`)
       this.verbose = true
 
     if (
-      args.log ||
+      process.argv.includes(`--log`) ||
       (this.options.logLevel &&
         [`info`, `log`].includes(this.options.logLevel))
     )
       this.enabled = true
-    if (args.silent) this.enabled = false
+    if (process.argv.includes(`--silent`)) this.enabled = false
   }
 
   @bind
