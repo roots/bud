@@ -1,5 +1,4 @@
 # secret
-.env
 !tests/unit/bud/context/**/.env
 
 **/.swc
@@ -31,3 +30,4 @@ storage/**/*
 **/dist
 **/.budfiles
 **/node_modules
+**/.storage

@@ -2,7 +2,7 @@ import {Bud, factory} from '@repo/test-kit'
 import nodeNotifier from 'node-notifier'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Notifier} from '../src/notifier.js'
+import {Notifier} from '@roots/bud-framework/notifier'
 
 describe(`notifier`, () => {
   let notifier: Notifier

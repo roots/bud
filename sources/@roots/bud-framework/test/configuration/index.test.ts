@@ -1,7 +1,7 @@
 import {type Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import * as configuration from '../../src/configuration/index.js'
+import * as configuration from '@roots/bud-framework/configuration'
 
 describe(`bud.configuration`, function () {
   let bud: Bud

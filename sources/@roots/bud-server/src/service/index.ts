@@ -1,8 +1,8 @@
-import type {Server as BudServer} from '@roots/bud-framework'
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
 import type {
   Connection,
   Middleware,
+  Server as BudServer,
   Watcher,
 } from '@roots/bud-framework/server'
 

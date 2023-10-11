@@ -1,4 +1,5 @@
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type Container from '@roots/container'
 
 import {ServiceContainer} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -6,7 +7,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 /**
  * Env service
  */
-export class Env extends ServiceContainer {
+class Env extends ServiceContainer implements Container {
   /**
    * Bootstrap event callback
    */
@@ -52,4 +53,5 @@ export class Env extends ServiceContainer {
 /**
  * Default export for bud.js service instantiation
  */
-export {Env as default}
+export {Env}
+export default Env

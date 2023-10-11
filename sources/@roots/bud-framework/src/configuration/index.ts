@@ -63,3 +63,5 @@ const makeError =
         error instanceof BudError ? error : BudError.normalize(error),
     })
   }
+
+export {Configuration}

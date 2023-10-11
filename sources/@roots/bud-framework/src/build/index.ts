@@ -1,9 +1,9 @@
 import type {
-  Configuration,
   Items,
   Loaders,
   Rules,
 } from '@roots/bud-framework'
+import type {Configuration} from '@roots/bud-framework/config'
 
 import type {Base} from './base.js'
 import type {Item} from './item.js'

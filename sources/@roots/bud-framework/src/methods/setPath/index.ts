@@ -52,10 +52,13 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
 
   /* Set path from key, value */
   if (stringPair(parameters)) {
+    /**
+     * @todo: remove in bud 7.0.0
+     */
     if (parameters[0] === `@storage`) {
       logger.warn(
         `bud.setPath: @storage must be set by args or env\n\n`,
-        `The @storage path may be set by the \`--storage\` argument or the \`APP_STORAGE_PATH\` environment variable. It cannot be set after bud.js is bootstrapped.`,
+        `The @storage path may be set by the \`--storage\` argument or the \`BUD_STORAGE_PATH\` environment variable. It cannot be set after bud.js is bootstrapped.`,
         `In the future this will throw an error.\n\nFor now, you may encounter problems with caching and other features which read and write to \`@storage\`, as there have
         already been files written to ${this.path(`@storage`)}`,
       )

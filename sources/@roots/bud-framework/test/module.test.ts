@@ -24,10 +24,10 @@ describe(`@roots/bud-framework`, () => {
 
   it(`should resolve a package`, async () => {
     const path = await instance.resolve(
-      `@roots/bud-support/utilities/args`,
+      `@roots/bud-framework/module`,
     )
     expect(path).toEqual(
-      expect.stringContaining(`@roots/bud-support/lib/utilities/args`),
+      expect.stringContaining(`@roots/bud-framework/lib/module/index`),
     )
   })
 

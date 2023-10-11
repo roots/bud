@@ -1,12 +1,11 @@
-import '../../src/index.js'
+import {parse} from 'node:path'
 
 import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from '../../src/configuration/configuration.js'
-import {File} from '../../src/context.js'
+import {File} from '@roots/bud-framework/context'
 import {BudError} from '@roots/bud-support/errors'
-import {parse} from 'node:path'
 
 const testFileDescription: File = {
   name: `test.config.js`,

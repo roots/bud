@@ -1,5 +1,6 @@
 import type {Records} from '@roots/bud-build/config'
-import type {Bud, Build as BudBuild} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework/bud'
+import type {Build as BudBuild} from '@roots/bud-framework/build'
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 

@@ -86,10 +86,10 @@ This is most likely a problem with the internals of bud.js.`,
   hash = sha1.digest(`base64url`)
   let storage: string = join(systemPaths.cache, hash)
 
-  if (args.storage || args[`@storage`] || env.APP_STORAGE_PATH) {
+  if (args.storage || args[`@storage`] || env.BUD_STORAGE_PATH || env.APP_STORAGE_PATH) {
     storage = join(
       basedir,
-      args.storage ?? args[`@storage`] ?? env.APP_STORAGE_PATH,
+      args.storage ?? args[`@storage`] ?? env.BUD_STORAGE_PATH ?? env.APP_STORAGE_PATH,
     )
   }
 

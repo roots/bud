@@ -109,4 +109,5 @@ class Configuration {
   }
 }
 
+export {Configuration}
 export default Configuration

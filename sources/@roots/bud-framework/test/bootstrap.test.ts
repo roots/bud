@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {bootstrap as subject} from '../src/bootstrap.js'
+import {bootstrap as subject} from '@roots/bud-framework/bootstrap'
 
 describe(
   `bootstrap`,

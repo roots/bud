@@ -10,9 +10,13 @@ describe(`@roots/sage`, async () => {
   beforeEach(async () => {
     try {
       bud = await factory({
+        cache: false,
         extensions: [],
+        force: true,
       })
-    } catch (e) {}
+    } catch (e) {
+      throw e
+    }
 
     sage = new Sage(bud)
   })

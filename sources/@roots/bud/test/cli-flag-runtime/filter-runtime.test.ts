@@ -14,6 +14,7 @@ test(`--runtime`, async () => {
     `run`,
     `bud`,
     `build`,
+    `--force`,
   ])
 
   expect(
