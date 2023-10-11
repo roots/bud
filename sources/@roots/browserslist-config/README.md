@@ -88,9 +88,6 @@ However, the amount of effort needed to maintain and develop new features and pr
 <a href="https://wordpress.com/">
 <img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150"/>
 </a>
-<a href="https://pantheon.io/">
-<img src="https://cdn.roots.io/app/uploads/pantheon.svg" alt="Pantheon" width="200" height="150"/>
-</a>
 <a href="https://worksitesafety.ca/careers/">
 <img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
 </a>
