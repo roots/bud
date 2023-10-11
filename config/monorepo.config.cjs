@@ -28,11 +28,6 @@ module.exports = {
       url: `https://wordpress.com/`,
     },
     {
-      image: `https://cdn.roots.io/app/uploads/pantheon.svg`,
-      title: `Pantheon`,
-      url: `https://pantheon.io/`,
-    },
-    {
       image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
       title: `Worksite Safety`,
       url: `https://worksitesafety.ca/careers/`,
