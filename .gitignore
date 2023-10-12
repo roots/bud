@@ -1,33 +1,26 @@
-# secret
-.env
-!tests/unit/bud/context/**/.env
-
+**/*.log
+**/*.tsbuildinfo
+**/.budfiles
+**/.docusaurus
+**/.env
+**/.netlify
+**/.pnp.*
+**/.storage
 **/.swc
+**/.yarn
+**/dist
+**/lib
+**/node_modules
+**/profiles
 
 coverage
+sources/@repo/docs/content/dev/api/**/*
+sources/@repo/docs/build
+sources/@repo/docs/generated/*/*
+sources/@repo/*/compiled
 storage/**/*
 
-# Yarn
-**/*.log
-**/lib
-**/*.tsbuildinfo
-**/profiles
-**/.budfiles
-**/.pnp.*
-**/.yarn
-!/.yarn
-
-# Netlify
-**/.netlify
-
-# Sources
-/sources/@repo/docs/content/dev/api/**/*
-/sources/@repo/docs/build
-/sources/@repo/docs/.docusaurus
-/sources/@repo/docs/generated/*/*
-!/sources/@repo/docs/generated/*/.gitkeep
-/sources/@repo/*/compiled
-
-**/dist
-**/.budfiles
-**/node_modules
+!.env
+!**/.gitkeep
+!.yarn
+!tests/unit/bud/context/**/.env
