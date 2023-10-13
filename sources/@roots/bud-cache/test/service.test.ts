@@ -73,7 +73,7 @@ describe(`@roots/bud-cache`, () => {
     // @ts-ignore
     expect(cache.configuration?.managedPaths).toEqual(
       expect.arrayContaining([
-        bud.context.paths?.[`os-cache`] + `/@tests/project/cache`,
+        bud.path(`.storage/@tests/project/cache`),
         bud.path(`@modules`),
       ]),
     )
