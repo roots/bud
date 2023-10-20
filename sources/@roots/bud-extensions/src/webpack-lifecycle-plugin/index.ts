@@ -12,12 +12,6 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
  */
 @label(`@roots/bud-extensions/webpack-lifecycle-plugin`)
 export default class BudWebpackLifecyclePlugin extends Extension {
-  @bind
-  public afterCompile(compilation: Compilation) {
-    this.logger.log(`compilation completed:`, compilation.hash)
-    this.logger.timeEnd(`compile`)
-  }
-
   /**
    * {@link Extension.apply}
    * {@link WebpackPluginInstance.apply}
@@ -66,9 +60,21 @@ export default class BudWebpackLifecyclePlugin extends Extension {
     )
   }
 
+  /**
+   * Before compile hook
+   */
   @bind
   public beforeCompile(compilation: Compilation) {
     this.logger.time(`compile`)
+  }
+
+  /**
+   * After compile hook
+   */
+  @bind
+  public afterCompile(compilation: Compilation) {
+    this.logger.log(`compilation completed:`, compilation.hash)
+    this.logger.timeEnd(`compile`)
   }
 
   @bind

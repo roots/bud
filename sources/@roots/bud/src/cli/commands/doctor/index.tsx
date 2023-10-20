@@ -1,5 +1,4 @@
 /* eslint-disable react/no-unescaped-entities */
-import type {Bud} from '@roots/bud'
 import type {Extension} from '@roots/bud-framework/extension'
 
 import {platform} from 'node:os'
@@ -13,6 +12,8 @@ import {Box, Text} from '@roots/bud-support/ink'
 import webpack from '@roots/bud-support/webpack'
 
 import {WinError} from './WinError.js'
+import DisplayConfigFiles from '../config/displayConfigFiles.js'
+import DisplayEnv from '../env/displayEnv.js'
 
 /**
  * bud doctor command
@@ -40,8 +41,6 @@ for a lot of edge cases so it might return a false positive.
       [`Check project for common configuration issues`, `$0 doctor`],
     ],
   })
-
-  public configuration: Bud[`build`][`config`]
 
   public disabledExtensions: Array<[string, Extension]> = []
 
@@ -72,7 +71,6 @@ for a lot of edge cases so it might return a false positive.
 
     const buildTimer = this.makeTimer()
     await this.makeBud()
-    await this.bud.run()
 
     this.timings.build = buildTimer()
 
@@ -108,6 +106,13 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     }
+
+    DoctorCommand.renderStatic(
+      <Box flexDirection="column">
+        <Text color="blue">Mode</Text>
+        <Text>{this.bud.mode}</Text>
+      </Box>,
+    )
 
     DoctorCommand.renderStatic(
       <Box flexDirection="column">
@@ -153,19 +158,18 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    DoctorCommand.renderStatic(
-      <Box flexDirection="column">
-        <Text color="blue">Mode</Text>
-        <Text>{this.bud.mode}</Text>
-      </Box>,
-    )
+    try {
+      await this.bud.build.make()
+    } catch (error) {
+      console.error(error)
+    }
 
-    await this.cli.run([`config`])
+    DoctorCommand.renderStatic(<DisplayConfigFiles bud={this.bud} />)
+    DoctorCommand.renderStatic(<DisplayEnv bud={this.bud} />)
 
     try {
-      this.configuration = await this.bud.build.make()
-      this.entrypoints = this.configuration.entry
-        ? Object.entries(this.configuration.entry)
+      this.entrypoints = this.bud.build.config.entry
+        ? Object.entries(this.bud.build.config.entry)
         : []
 
       await Promise.all(
@@ -179,54 +183,47 @@ for a lot of edge cases so it might return a false positive.
         ),
       )
     } catch (error) {
-      DoctorCommand.renderStatic(
-        <Error error={BudError.normalize(error)} />,
-      )
+      console.error(error)
     }
 
-    await this.cli.run([`env`])
+    DoctorCommand.renderStatic(
+      <Box flexDirection="column">
+        <Text color="blue">Enabled extensions{`\n`}</Text>
+        {this.mapExtensions(this.enabledExtensions)}
+      </Box>,
+    )
+    DoctorCommand.renderStatic(
+      <Box flexDirection="column">
+        <Text color="blue">Disabled extensions{`\n`}</Text>
+        {this.mapExtensions(this.disabledExtensions)}
+      </Box>,
+    )
 
-    if (this.enabledExtensions) {
-      try {
+    try {
+      if (
+        !this.bud.hasChildren &&
+        this.entrypoints &&
+        this.entrypoints.length === 1 &&
+        this.entrypoints[0][0] === `main` &&
+        this.entrypoints[0][1].import[0] === `index` &&
+        !(await this.bud.fs.exists(this.bud.path(`@src/index.js`)))
+      ) {
         DoctorCommand.renderStatic(
-          <Box flexDirection="column">
-            <Text color="blue">Enabled extensions{`\n`}</Text>
-            {this.mapExtensions(this.enabledExtensions)}
-          </Box>,
-        )
-        DoctorCommand.renderStatic(
-          <Box flexDirection="column">
-            <Text color="blue">Disabled extensions{`\n`}</Text>
-            {this.mapExtensions(this.disabledExtensions)}
-          </Box>,
-        )
-      } catch (error) {
-        DoctorCommand.renderStatic(
-          <Error error={BudError.normalize(error)} />,
+          <Error
+            error={
+              new InputError(`No entrypoint specified`, {
+                details: `No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
+                  `@src/index.js`,
+                )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
+                  `@src/index.js`,
+                )}\`.`,
+              })
+            }
+          />,
         )
       }
-    }
-
-    if (
-      !this.bud.hasChildren &&
-      this.entrypoints.length === 1 &&
-      this.entrypoints[0][0] === `main` &&
-      this.entrypoints[0][1].import[0] === `index` &&
-      !(await this.bud.fs.exists(this.bud.path(`@src/index.js`)))
-    ) {
-      DoctorCommand.renderStatic(
-        <Error
-          error={
-            new InputError(`No entrypoint specified`, {
-              details: `No entrypoint was specified and there is also no file resolvable at \`${this.bud.relPath(
-                `@src/index.js`,
-              )}\`. Either specify an entrypoint or create a file at \`${this.bud.relPath(
-                `@src/index.js`,
-              )}\`.`,
-            })
-          }
-        />,
-      )
+    } catch (error) {
+      this.catch(error)
     }
 
     if (this.bud.mode === `development`) {
@@ -236,24 +233,30 @@ for a lot of edge cases so it might return a false positive.
           <Box flexDirection="row">
             <Text>URL:</Text>
             <Text>
-              {` `}{this.bud.server.url.href}
+              {` `}
+              {this.bud.server.url.href}
             </Text>
           </Box>
 
-          {this.bud.server?.enabledMiddleware && Object.keys(this.bud.server.enabledMiddleware).includes(`proxy`) && this.bud.server.proxyUrl && (
-            <Box flexDirection="row">
-              <Text>Proxy:</Text>
-              <Text>
-                {` `}{this.bud.server.proxyUrl.href}
-              </Text>
-            </Box>
-          )}
+          {this.bud.server?.enabledMiddleware &&
+            Object.keys(this.bud.server.enabledMiddleware).includes(
+              `proxy`,
+            ) &&
+            this.bud.server.proxyUrl && (
+              <Box flexDirection="row">
+                <Text>Proxy:</Text>
+                <Text>
+                  {` `}
+                  {this.bud.server.proxyUrl.href}
+                </Text>
+              </Box>
+            )}
         </Box>,
       )
     }
 
     try {
-      webpack.validate(this.configuration)
+      webpack.validate(this.bud.build.config)
 
       DoctorCommand.renderStatic(
         <Box>

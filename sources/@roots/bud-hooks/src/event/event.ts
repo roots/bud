@@ -19,18 +19,13 @@ export class EventHooks extends Hooks<EventsStore> {
   ): Promise<Bud> {
     if (!(id in this.store) || !this.store[id].length) return this.app
 
-    this.app.hooks.logger.time(id)
-    this.app.dashboard?.updateStatus(id)
-
     await Promise.all(
       this.store[id].map(async (action: any) => {
         await action(...value).catch((error: Error) => {
           throw error
         })
       }),
-    ).catch(error => {
-      throw error
-    })
+    ).catch(this.catch)
 
     return this.app
   }
@@ -42,12 +37,8 @@ export class EventHooks extends Hooks<EventsStore> {
   ): Bud {
     if (!(id in this.store)) this.store[id] = []
 
-    input.map((value, iteration) => {
-      this.app.hooks.logger.info(
-        `registered ${id} callback`,
-        `(${iteration + 1}/${input.length})`,
-      )
-
+    input.map(value => {
+      this.app.hooks.logger.info(`registered ${id} callback`)
       this.store[id].push(value as any)
     })
 

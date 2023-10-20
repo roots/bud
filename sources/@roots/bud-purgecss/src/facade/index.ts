@@ -1,7 +1,9 @@
 import type {UserDefinedOptions} from '@fullhuman/postcss-purgecss'
 import type {Bud} from '@roots/bud-framework'
 
-type Options = ((options?: UserDefinedOptions) => UserDefinedOptions) | UserDefinedOptions
+type Options =
+  | ((options?: UserDefinedOptions) => UserDefinedOptions)
+  | UserDefinedOptions
 
 export interface purgecss {
   (this: Bud, options: Options): Bud

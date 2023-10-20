@@ -30,9 +30,7 @@ export default class BudReact extends Extension {
    */
   @bind
   public override async boot(bud: Bud) {
-    bud.provide(
-      await this.resolve(`react`, import.meta.url), [`React`]
-    )
+    bud.provide(await this.resolve(`react`, import.meta.url), [`React`])
 
     await bud.extensions.add(`@roots/bud-react/react-refresh`)
 

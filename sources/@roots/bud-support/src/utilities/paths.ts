@@ -2,6 +2,7 @@ import {createHash} from 'node:crypto'
 import {join} from 'node:path'
 
 import {BudError} from '@roots/bud-support/errors'
+import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import * as envBootstrap from '@roots/bud-support/utilities/env'
 import envPaths from 'env-paths'
@@ -55,10 +56,10 @@ const systemPaths = envPaths(`bud`)
  */
 let paths: paths
 
-const get = (directory?: string): paths => {
+const get = (basedir?: string): paths => {
   if (paths) return paths
 
-  if (!directory)
+  if (!basedir)
     throw new BudError(
       `directory is required if paths not already initialized`,
       {
@@ -71,19 +72,20 @@ This is most likely a problem with the internals of bud.js.`,
       },
     )
 
-  let basedir: string = directory
-  let sha1 = createHash(`sha1`).update(directory)
+  let sha1 = createHash(`sha1`).update(basedir)
   let hash: string
-  let env = envBootstrap.get(directory)
+  let env = envBootstrap.get(basedir)
 
   const specified = args.basedir ?? env.APP_BASE_PATH
-  if (specified && !directory.endsWith(specified)) {
-    basedir = join(
-      directory,
-      specified,
-    )
+  if (specified && !basedir.endsWith(specified)) {
+    logger.scope(`paths`).log(`using specified basedir:`, specified)
+
+    basedir = join(basedir, specified)
+
     sha1.update(basedir)
-    env = envBootstrap.get(basedir)
+    env.basedir = basedir
+
+    logger.scope(`paths`).success(`set basedir to`, basedir)
   }
 
   hash = sha1.digest(`base64url`)

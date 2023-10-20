@@ -111,8 +111,6 @@ export class Bud {
 
   public declare server?: Service & Server
 
-  public declare services: Array<string>
-
   public declare setPath: typeof methods.setPath
 
   public declare setPublicPath: typeof methods.setPublicPath
@@ -130,6 +128,67 @@ export class Bud {
    * @readonly
    */
   public declare yml: FS['yml']
+
+  /**
+   * True when child compilers
+   * @readonly
+   */
+  public get hasChildren(): boolean {
+    return this.children && Object.entries(this.children).length > 0
+  }
+
+  /**
+   * True when current instance is a child instance
+   * @readonly
+   */
+  public get isChild(): boolean {
+    return this.root?.context?.label !== this.context?.label
+  }
+
+  /**
+   * True when {@link Bud.mode} is `development`
+   * @readonly
+   */
+  public get isDevelopment(): boolean {
+    return this.mode === `development`
+  }
+
+  /**
+   * True when {@link Bud.mode} is `production`
+   * @readonly
+   */
+  public get isProduction(): boolean {
+    return this.mode === `production`
+  }
+
+  /**
+   * True when current instance is the parent instance
+   * @readonly
+   */
+  public get isRoot(): boolean {
+    return this.root?.context?.label === this.context?.label
+  }
+
+  /**
+   * Label
+   * @readonly
+   */
+  public get label() {
+    return this.context?.label ?? `bud`
+  }
+
+  /**
+   * Compilation mode
+   *
+   * @remarks
+   * Either `production` or `development`.
+   *
+   * @readonly
+   * @defaultValue `production`
+   */
+  public get mode(): `development` | `production` {
+    return this.context?.mode ?? `production`
+  }
 
   /**
    * Boot application services
@@ -183,14 +242,6 @@ export class Bud {
   }
 
   /**
-   * True when child compilers
-   * @readonly
-   */
-  public get hasChildren(): boolean {
-    return this.children && Object.entries(this.children).length > 0
-  }
-
-  /**
    * Log info
    * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
@@ -205,68 +256,16 @@ export class Bud {
    */
   @bind
   public async initialize(context: Context): Promise<Bud> {
-    logger.time(`initialize`)
-    Object.entries(methods).forEach(([key, value]) => {
-      this[key] = value.bind(this)
-    })
-
-    this.set(`services`, [])
+    this.set(`context`, {...context})
       .set(`promised`, Promise.resolve())
-      .set(`context`, {...context})
+      .set(`implementation`, this.constructor as any)
 
-    await bootstrap(this).catch(this.catch)
+    Object.entries(methods).reduce(
+      (_, [k, v]) => this.set(k as any, v.bind(this)),
+      {},
+    )
 
-    return this
-  }
-
-  /**
-   * True when current instance is a child instance
-   * @readonly
-   */
-  public get isChild(): boolean {
-    return this.root?.context?.label !== this.context?.label
-  }
-
-  /**
-   * True when {@link Bud.mode} is `development`
-   * @readonly
-   */
-  public get isDevelopment(): boolean {
-    return this.mode === `development`
-  }
-
-  /**
-   * True when {@link Bud.mode} is `production`
-   * @readonly
-   */
-  public get isProduction(): boolean {
-    return this.mode === `production`
-  }
-
-  /**
-   * True when current instance is the parent instance
-   * @readonly
-   */
-  public get isRoot(): boolean {
-    return this.root?.context?.label === this.context?.label
-  }
-
-  /**
-   * Label
-   * @readonly
-   */
-  public get label() {
-    return this.context?.label ?? `bud`
-  }
-
-  /**
-   * Log message
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
-   */
-  @bind
-  public log(...messages: any[]) {
-    logger.scope(this.label).log(...messages)
-    return this
+    return await bootstrap(this).catch(this.catch)
   }
 
   /**
@@ -337,19 +336,6 @@ export class Bud {
   }
 
   /**
-   * Compilation mode
-   *
-   * @remarks
-   * Either `production` or `development`.
-   *
-   * @readonly
-   * @defaultValue `production`
-   */
-  public get mode(): `development` | `production` {
-    return this.context.mode ?? `production`
-  }
-
-  /**
    * Await all promised tasks
    */
   @bind
@@ -401,12 +387,22 @@ export class Bud {
   }
 
   /**
+   * Log message
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   */
+  @bind
+  public log(...messages: any[]) {
+    logger.scope(this.label).log(...messages)
+    return this
+  }
+
+  /**
    * Log success
    * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
   public success(...messages: any[]) {
-    logger.scope(this.label).success(...messages)
+    logger.scope(this.label).log(...messages)
     return this
   }
 

@@ -35,13 +35,12 @@ export class Server extends Service implements BudServer {
    */
   public declare watcher: Watcher
 
-    /**
+  /**
    * {@link BudServer.appliedMiddleware}
    */
-    public appliedMiddleware: Partial<
+  public appliedMiddleware: Partial<
     Record<keyof Middleware.Available, any>
   > = {}
-
 
   /**
    * {@link BudServer.proxyUrl}
@@ -103,7 +102,9 @@ export class Server extends Service implements BudServer {
             .catch(this.catch)
 
           /** save reference to middleware instance */
-          this.appliedMiddleware[key] = factory(this.app)
+          Object.defineProperty(this.appliedMiddleware, key, {
+            value: factory(this.app),
+          })
 
           if (typeof this.appliedMiddleware[key] !== `function`) {
             this.logger
@@ -122,10 +123,12 @@ export class Server extends Service implements BudServer {
         },
       ),
     ).catch(error => {
-      this.catch(new ServerError(`Error instantiating middleware`, {
-        origin: BudError.normalize(error),
-        thrownBy: `bud.server.applyMiddleware`,
-      }))
+      this.catch(
+        new ServerError(`Error instantiating middleware`, {
+          origin: BudError.normalize(error),
+          thrownBy: `bud.server.applyMiddleware`,
+        }),
+      )
     })
   }
 
@@ -225,16 +228,12 @@ export class Server extends Service implements BudServer {
   public async run() {
     if (this.app.context.dry === true) return
 
-    await this.app.hooks
-      .fire(`server.before`, this.app)
-      .catch(this.catch)
+    await this.app.hooks.fire(`server.before`, this.app).catch(this.catch)
 
     await this.connection.createServer(this.application).catch(this.catch)
 
     await this.connection.listen()
-    await this.app.hooks
-      .fire(`server.after`, this.app)
-      .catch(this.catch)
+    await this.app.hooks.fire(`server.after`, this.app).catch(this.catch)
   }
 
   /**

@@ -87,12 +87,18 @@ const makeCallback =
     const normal = !isAbsolute(value) ? bud.relPath(value) : value
 
     bud.hooks.on(`location.${key}` as keyof SyncRegistry, normal)
-    logger.log(key, `set to`, normal)
+    logger.success(`set path`, `\`${key}\``, `=>`, `\`${normal}\``)
 
-    bud.hooks.async(`build.resolve.alias`, async (paths = {}) => ({
-      ...paths,
-      [key]: isAbsolute(value) ? value : bud.path(value),
-    }))
+    bud.hooks.async(`build.resolve.alias`, async (paths = {}) => {
+      const alias = isAbsolute(value) ? value : bud.path(value)
+      logger.success(
+        `set import alias`,
+        `\`${key}\``,
+        `=>`,
+        `\`${alias}\``,
+      )
+      return {...paths, [key]: alias}
+    })
 
     return bud
   }

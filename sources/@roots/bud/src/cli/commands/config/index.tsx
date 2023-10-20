@@ -1,6 +1,8 @@
 import BudCommand from '@roots/bud/cli/commands'
 import {Command} from '@roots/bud-support/clipanion'
-import {Box, Text} from '@roots/bud-support/ink'
+
+import DisplayConfigFiles from './displayConfigFiles.js'
+import DisplayGeneratedConfig from './displayGeneratedConfig.js'
 
 /**
  * bud env command
@@ -24,33 +26,7 @@ export default class ConfigCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    const configs = Object.values(this.bud.context.files)
-
-    if (!configs.length) {
-      return ConfigCommand.renderStatic(
-        <Box flexDirection="column">
-          <Text color="blue">
-            {`\n`} Configuration files{`\n`}
-          </Text>
-          <Text dimColor>No configuration files found in project</Text>
-        </Box>,
-      )
-    }
-
-    ConfigCommand.renderStatic(
-      <Box flexDirection="column">
-        <Text color="blue">
-          {`\n`}Configuration files{`\n`}
-        </Text>
-        {configs.map(({bud, path}, i) => (
-          <Box key={i}>
-            <Text dimColor>
-              {path.replace(this.bud.context.basedir, `.`)}
-            </Text>
-            {bud && <Text>{` (bud config)`}</Text>}
-          </Box>
-        ))}
-      </Box>,
-    )
+    ConfigCommand.renderStatic(<DisplayConfigFiles bud={this.bud} />)
+    ConfigCommand.renderStatic(<DisplayGeneratedConfig bud={this.bud} />)
   }
 }

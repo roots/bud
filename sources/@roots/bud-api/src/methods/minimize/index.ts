@@ -48,6 +48,9 @@ export const minimize: minimize = function (this: Bud, value = true) {
     return this
   }
 
-  value.map(key => this.minify[key].enable(true))
+  value.map(key => {
+    this.minify[key].enable(true)
+  })
+
   return this
 }

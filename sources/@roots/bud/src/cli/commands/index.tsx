@@ -310,10 +310,15 @@ export default class BudCommand extends Command<BaseContext & Context> {
   @bind
   public async makeBud() {
     const applyCliOptionsCallback = async (bud: Bud) => {
-      await bud.promise(async bud => await Promise.all([
-        this.applyBudManifestOptions(bud),
-        this.applyBudArguments(bud),
-      ]).catch(this.catch)).catch(this.catch)
+      await bud
+        .promise(
+          async bud =>
+            await Promise.all([
+              this.applyBudManifestOptions(bud),
+              this.applyBudArguments(bud),
+            ]).catch(this.catch),
+        )
+        .catch(this.catch)
     }
 
     this.context.dry = this.dry

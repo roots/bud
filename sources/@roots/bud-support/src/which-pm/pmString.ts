@@ -3,7 +3,8 @@ export const parse = (
 ): `yarn` | `yarn-classic` | `npm` | `pnpm` | false => {
   if (!pmString) return false
 
-  if (pmString.includes(`yarn/3`) || pmString.includes(`yarn@3`)) return `yarn`
+  if (pmString.includes(`yarn/3`) || pmString.includes(`yarn@3`))
+    return `yarn`
 
   if (pmString.includes(`yarn`)) return `yarn-classic`
   if (pmString.includes(`npm`)) return `npm`

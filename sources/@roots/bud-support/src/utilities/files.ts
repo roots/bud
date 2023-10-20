@@ -45,8 +45,6 @@ const get = async (basedir: string) => {
     return data
   }
 
-  logger.scope(`fs`).time(`Initializing filesystem`)
-
   files = []
   data = {}
 
@@ -221,8 +219,6 @@ async function esTransform({
   file: File
   outfile: string
 }): Promise<any> {
-  logger.scope(`fs`).time(`compiling ${file.name}`)
-
   if (!transformer) {
     transformer = await import(`@roots/bud-support/esbuild`)
       .then(

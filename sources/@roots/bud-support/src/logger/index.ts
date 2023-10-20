@@ -8,6 +8,9 @@ import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import args from '@roots/bud-support/utilities/args'
 import Signale from 'signale'
 
+/**
+ * Logger
+ */
 class Logger {
   /**
    * Enabled
@@ -28,32 +31,32 @@ class Logger {
    * Class constructor
    */
   public constructor(public options: SignaleOptions = {}) {
-    if (args.log === false || this.options.disabled) this.enabled = false
+    if (!args.silent) {
+      if (args.log) this.enabled = true
+      if (
+        this.options.logLevel &&
+        [`info`, `log`].includes(this.options.logLevel)
+      )
+        this.enabled = true
+    }
 
-    this.options.secrets =
-      options?.secrets ??
-      Object.entries(global.process.env)
-        .filter(
-          (
-            entry: [string, string | undefined],
-          ): entry is [string, string] =>
-            !isUndefined(entry[1]) && entry[0].includes(`SECRET`),
-        )
-        .map(([k, v]): string => v)
+    if (args.verbose) {
+      this.verbose = true
+      this.options.logLevel === `info`
+    }
+
+    const secretEnv = Object.entries(global.process.env)
+      .filter(([k, v]) => !isUndefined(v) && k.includes(`SECRET`))
+      .map(([_, value]) => `${value}`)
+
+    secretEnv.push(process.cwd())
+
+    this.options.secrets = this.options.secrets
+      ? [...this.options.secrets, ...secretEnv]
+      : secretEnv
 
     this.instance = new Signale.Signale(this.options)
-    this.instance.config({displayLabel: false})
-
-    if (args.verbose || this.options.logLevel === `info`)
-      this.verbose = true
-
-    if (
-      args.log ||
-      (this.options.logLevel &&
-        [`info`, `log`].includes(this.options.logLevel))
-    )
-      this.enabled = true
-    if (args.silent) this.enabled = false
+    this.instance.config({displayBadge: true, displayLabel: false})
   }
 
   @bind
@@ -93,11 +96,11 @@ class Logger {
   @bind
   public scope(...scopes: Array<string>) {
     if (scopes.length === 0) return this
-    this.instance = this.instance.scope(
-      ...(scopes.filter(Boolean) ?? [`bud.js`]),
-    )
+    this.instance = this.instance.scope(...scopes)
+
     return this
   }
+
   @bind
   public success(...messages: Array<unknown>) {
     if (!this.enabled) return this
@@ -142,4 +145,4 @@ export const initialize = (options: SignaleOptions) => {
   return instance
 }
 
-export {instance, instance as default, Logger}
+export {instance as default, Logger}

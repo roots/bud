@@ -479,8 +479,8 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public set(value: Extension): this {
     const key = (value.label ?? randomUUID()) as any
-    this.repository[key] = value
-    this.logger.success(`set`, key)
+    Object.assign(this.repository, {[key]: value})
+    this.logger.info(`set`, key, `=>`, value)
 
     return this
   }

@@ -50,7 +50,12 @@ class Sage extends Extension {
         () => bud.hash(),
         () => bud.devtool(),
       )
-      .hooks.on(`build.output.uniqueName`, bud.label !== `sage` ? `@roots/bud/sage/${bud.label}` : `@roots/bud/sage`)
+      .hooks.on(
+        `build.output.uniqueName`,
+        bud.label !== `sage`
+          ? `@roots/bud/sage/${bud.label}`
+          : `@roots/bud/sage`,
+      )
   }
 
   /**

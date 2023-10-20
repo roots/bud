@@ -59,7 +59,7 @@ export class Dashboard extends Service implements BudDashboard {
   public declare status?: false | string
 
   /**
-   * {@link BudDashboard.stdout}
+   * {@link BudDashboard.stderr}
    */
   public stderr = stderr
 
@@ -69,7 +69,7 @@ export class Dashboard extends Service implements BudDashboard {
   public stdin = stdin
 
   /**
-   * {@link BudDashboard.stderr}
+   * {@link BudDashboard.stdout}
    */
   public stdout = stdout
 
@@ -85,7 +85,6 @@ export class Dashboard extends Service implements BudDashboard {
     this.stderr = this.app.context.stderr ?? stderr
 
     this.formatStatsErrors = makeErrorFormatter(this.app)
-    this.updateStatus(`Initializing`)
     this.render()
   }
 
@@ -274,23 +273,6 @@ export class Dashboard extends Service implements BudDashboard {
       return this
     }
 
-    this.render()
-    return this
-  }
-
-  /**
-   * {@link BudDashboard.updateStatus}
-   */
-  @bind
-  public updateStatus(status: string): BudDashboard {
-    /**
-     * Update the status prop
-     */
-    this.status = status
-
-    /**
-     * Render or re-render the application
-     */
     this.render()
     return this
   }

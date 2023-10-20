@@ -12,7 +12,7 @@ import type {purgecss} from '@roots/bud-purgecss/facade'
 
 import BudPurgeCSS from '@roots/bud-purgecss/extension'
 
-import type { BudPurgeCSSPublicInterface } from './extension/model.js'
+import type {BudPurgeCSSPublicInterface} from './extension/model.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

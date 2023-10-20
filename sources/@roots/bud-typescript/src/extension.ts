@@ -67,41 +67,137 @@ interface Options extends TsLoader.Options {
 })
 @dependsOn([`@roots/bud-typescript/typecheck`])
 export default class BudTypeScript extends Extension<Options> {
-  public declare appendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`value`]
-  public declare getAppendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`get`]
-  public declare setAppendTsSuffixTo: Option<BudTypeScript, Options, `appendTsSuffixTo`>[`set`]
+  public declare appendTsSuffixTo: Option<
+    BudTypeScript,
+    Options,
+    `appendTsSuffixTo`
+  >[`value`]
+  public declare getAppendTsSuffixTo: Option<
+    BudTypeScript,
+    Options,
+    `appendTsSuffixTo`
+  >[`get`]
+  public declare setAppendTsSuffixTo: Option<
+    BudTypeScript,
+    Options,
+    `appendTsSuffixTo`
+  >[`set`]
 
-  public declare appendTsxSuffixTo: Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`value`]
-  public declare getAppendTsxSuffixTo: () => Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`get`]
-  public declare setAppendTsxSuffixTo: Option<BudTypeScript, Options, `appendTsxSuffixTo`>[`set`]
+  public declare appendTsxSuffixTo: Option<
+    BudTypeScript,
+    Options,
+    `appendTsxSuffixTo`
+  >[`value`]
+  public declare getAppendTsxSuffixTo: () => Option<
+    BudTypeScript,
+    Options,
+    `appendTsxSuffixTo`
+  >[`get`]
+  public declare setAppendTsxSuffixTo: Option<
+    BudTypeScript,
+    Options,
+    `appendTsxSuffixTo`
+  >[`set`]
 
   public declare babel: Option<BudTypeScript, Options, `babel`>[`value`]
   public declare getBabel: Option<BudTypeScript, Options, `babel`>[`get`]
   public declare setBabel: Option<BudTypeScript, Options, `babel`>[`set`]
 
-  public declare compilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`value`]
-  public declare getCompilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`get`]
-  public declare setCompilerOptions: Option<BudTypeScript, Options, `compilerOptions`>[`set`]
+  public declare compilerOptions: Option<
+    BudTypeScript,
+    Options,
+    `compilerOptions`
+  >[`value`]
+  public declare getCompilerOptions: Option<
+    BudTypeScript,
+    Options,
+    `compilerOptions`
+  >[`get`]
+  public declare setCompilerOptions: Option<
+    BudTypeScript,
+    Options,
+    `compilerOptions`
+  >[`set`]
 
-  public declare configFile: Option<BudTypeScript, Options, `configFile`>[`value`]
-  public declare getConfigFile: Option<BudTypeScript, Options, `configFile`>[`get`]
-  public declare setConfigFile: Option<BudTypeScript, Options, `configFile`>[`set`]
+  public declare configFile: Option<
+    BudTypeScript,
+    Options,
+    `configFile`
+  >[`value`]
+  public declare getConfigFile: Option<
+    BudTypeScript,
+    Options,
+    `configFile`
+  >[`get`]
+  public declare setConfigFile: Option<
+    BudTypeScript,
+    Options,
+    `configFile`
+  >[`set`]
 
-  public declare context: Option<BudTypeScript, Options, `context`>[`value`]
-  public declare getContext: Option<BudTypeScript, Options, `context`>[`get`]
-  public declare setContext: Option<BudTypeScript, Options, `context`>[`set`]
+  public declare context: Option<
+    BudTypeScript,
+    Options,
+    `context`
+  >[`value`]
+  public declare getContext: Option<
+    BudTypeScript,
+    Options,
+    `context`
+  >[`get`]
+  public declare setContext: Option<
+    BudTypeScript,
+    Options,
+    `context`
+  >[`set`]
 
-  public declare getCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`value`]
-  public declare getGetCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`get`]
-  public declare setGetCustomTransformers: Option<BudTypeScript, Options, `getCustomTransformers`>[`set`]
+  public declare getCustomTransformers: Option<
+    BudTypeScript,
+    Options,
+    `getCustomTransformers`
+  >[`value`]
+  public declare getGetCustomTransformers: Option<
+    BudTypeScript,
+    Options,
+    `getCustomTransformers`
+  >[`get`]
+  public declare setGetCustomTransformers: Option<
+    BudTypeScript,
+    Options,
+    `getCustomTransformers`
+  >[`set`]
 
-  public declare instance: Option<BudTypeScript, Options, `instance`>[`value`]
-  public declare getInstance: Option<BudTypeScript, Options, `instance`>[`get`]
-  public declare setInstance: Option<BudTypeScript, Options, `instance`>[`set`]
+  public declare instance: Option<
+    BudTypeScript,
+    Options,
+    `instance`
+  >[`value`]
+  public declare getInstance: Option<
+    BudTypeScript,
+    Options,
+    `instance`
+  >[`get`]
+  public declare setInstance: Option<
+    BudTypeScript,
+    Options,
+    `instance`
+  >[`set`]
 
-  public declare transpileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`value`]
-  public declare getTranspileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`get`]
-  public declare setTranspileOnly: Option<BudTypeScript, Options, `transpileOnly`>[`set`]
+  public declare transpileOnly: Option<
+    BudTypeScript,
+    Options,
+    `transpileOnly`
+  >[`value`]
+  public declare getTranspileOnly: Option<
+    BudTypeScript,
+    Options,
+    `transpileOnly`
+  >[`get`]
+  public declare setTranspileOnly: Option<
+    BudTypeScript,
+    Options,
+    `transpileOnly`
+  >[`set`]
 
   /**
    * {@link Extension.configAfter}
@@ -131,7 +227,10 @@ export default class BudTypeScript extends Extension<Options> {
     const loader = await this.resolve(`ts-loader`, import.meta.url)
     if (!loader) return this.logger.error(`ts-loader not found`)
 
-    const typescriptPath = await this.resolve(`typescript`, import.meta.url)
+    const typescriptPath = await this.resolve(
+      `typescript`,
+      import.meta.url,
+    )
     if (!typescriptPath) {
       return this.logger.error(`typescript not found`)
     }
