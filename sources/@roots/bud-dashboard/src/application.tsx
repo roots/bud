@@ -16,6 +16,9 @@ import {
   useState,
   useStdout,
 } from '@roots/bud-support/ink'
+import escapes from '@roots/bud-support/ansi-escapes'
+import {isFunction} from 'lodash'
+import Help from './components/help.js'
 
 export interface Props {
   basedir?: string
@@ -168,37 +171,58 @@ export const TeletypeApplication = ({
   ...props
 }: PropsWithChildren<Props>) => {
   const app = useApp()
+  const stdout = useStdout()
 
+  const [closed, setClosed] = useState(false)
+  const [compact, setCompact] = useState(props.compact)
+  const [debug, setDisplayDebug] = useState(props.debug)
+  const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
+  const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayServerInfo, setDisplayServerInfo] = useState(
     props.displayServerInfo,
   )
-  const [debug, setDisplayDebug] = useState(props.debug)
-  const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
-  const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
-  const [closed, setClosed] = useState(false)
-  const [compact, setCompact] = useState(props.compact)
+  const [help, setHelp] = useState(false)
   const [isolated, setIsolated] = useState(0)
+  const [refresh, setRefresh] = useState(false)
 
   useInput((key, input) => {
     switch (key) {
       case `a`:
         setDisplayAssets(!displayAssets)
         break
-      case `e`:
-        setDisplayEntrypoints(!displayEntrypoints)
-        break
-      case `d`:
-        setDisplayDebug(!debug)
-        break
-      case `s`:
-        setDisplayServerInfo(!displayServerInfo)
-        break
+
       case `c`:
         setCompact(!compact)
         break
+
+      case `e`:
+        setDisplayEntrypoints(!displayEntrypoints)
+        break
+
+      case `d`:
+        setDisplayDebug(!debug)
+        break
+
+      case `h`:
+        setHelp(!help)
+        break
+
+      case `q`:
+        setClosed(true)
+        break
+
+      case `r`:
+        setRefresh(true)
+        break
+
+      case `s`:
+        setDisplayServerInfo(!displayServerInfo)
+        break
+
       case `0`:
         setIsolated(0)
         break
+
       default:
         break
     }
@@ -212,26 +236,36 @@ export const TeletypeApplication = ({
 
     if (input.escape) {
       setClosed(true)
-      if (close)
-        close((error?) => {
-          if (error) app.exit(error)
-          else app.exit()
-
-          exit(error ? 1 : 0)
-        })
     }
+
+    if (refresh) {
+      setRefresh(false)
+      stdout.write(escapes.clearTerminal)
+    }
+
+    closed &&
+      isFunction(close) &&
+      close((error?) => {
+        if (error) app.exit(error)
+        else app.exit()
+        exit(error ? 1 : 0)
+      })
   })
 
   return (
-    <Application
-      {...props}
-      closed={closed}
-      compact={compact}
-      debug={debug}
-      displayAssets={displayAssets}
-      displayEntrypoints={displayEntrypoints}
-      displayServerInfo={displayServerInfo}
-      isolated={isolated}
-    />
+    <>
+      <Application
+        {...props}
+        closed={closed}
+        compact={compact}
+        debug={debug}
+        displayAssets={displayAssets}
+        displayEntrypoints={displayEntrypoints}
+        displayServerInfo={displayServerInfo}
+        isolated={isolated}
+      />
+
+      {help && <Help />}
+    </>
   )
 }
