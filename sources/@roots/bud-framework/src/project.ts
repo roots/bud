@@ -44,7 +44,7 @@ export default class Project extends Service {
           })
         })
         .finally(() => {
-          this.logger.success(`profile.yml written to disk`)
+          this.logger.log(`profile.yml written to disk`)
         })
 
       await bud.fs
@@ -59,7 +59,7 @@ export default class Project extends Service {
           })
         })
         .finally(() => {
-          this.logger.success(`webpack.output.yml written to disk`)
+          this.logger.log(`webpack.output.yml written to disk`)
         })
     })
   }

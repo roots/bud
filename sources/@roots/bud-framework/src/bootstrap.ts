@@ -75,6 +75,8 @@ export const lifecycle = {
   'server.before': `serverBefore`,
 }
 
+export const services: Array<string> = []
+
 /**
  * Define a filter function to validate services based on the current application context.
  * This function returns true if the service is valid in the current context, false otherwise.
@@ -108,31 +110,23 @@ const instantiateServices =
       throw error instanceof BudError ? BudError.normalize(error) : error
     })
 
-    let service: BudService
-
-    try {
-      service = new Service(() => app)
-    } catch (error) {
-      const normalError =
-        error instanceof BudError ? BudError.normalize(error) : error
-      normalError.message = `Error instantiating service ${signifier}: ${normalError.message}`
-      return normalError
-    }
-
+    const value: BudService = new Service(() => app)
     const label =
-      service.label ?? service.constructor?.name
-        ? camelCase(service.constructor.name)
+      value.label ?? value.constructor?.name
+        ? camelCase(value.constructor.name)
         : signifier
 
-    app[label] = service
+    Object.defineProperties(app, {
+      [label]: {
+        configurable: true,
+        value,
+        writable: true,
+      },
+    })
 
-    logger.log(
-      chalk.blue(`bud.${label}`),
-      figures.arrowLeft,
-      chalk.cyan(!isString(signifier) ? `[object]` : signifier),
-    )
+    logger.log(chalk.blue(label), figures.arrowLeft, chalk.cyan(signifier))
 
-    app.services.push(label)
+    services.push(label)
   }
 
 /**
@@ -209,7 +203,7 @@ export const bootstrap = async function (bud: Bud) {
     )
 
   Object.entries(lifecycle).map(([eventHandle, callbackName]) =>
-    [...bud.services]
+    [...services]
       .map(service => bud[service])
       .filter(Boolean)
       .filter(instance => callbackName in instance)
@@ -242,4 +236,6 @@ export const bootstrap = async function (bud: Bud) {
   )
 
   bud.after(bud.module.after)
+
+  return bud
 }

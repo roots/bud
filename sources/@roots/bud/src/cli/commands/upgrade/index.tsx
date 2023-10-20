@@ -405,11 +405,12 @@ export default class BudUpgradeCommand extends BudCommand {
 
     logger.log(this.bin, this.subcommand, ...signifiers, ...flags)
 
-    await this.$(this.bin, [
-      this.subcommand,
-      ...signifiers,
-      ...flags,
-    ], undefined, () => {}).catch(error => {
+    await this.$(
+      this.bin,
+      [this.subcommand, ...signifiers, ...flags],
+      undefined,
+      () => {},
+    ).catch(error => {
       logger.error(error)
     })
   }

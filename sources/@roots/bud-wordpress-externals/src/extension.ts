@@ -20,7 +20,11 @@ export default class BudWordPressExternals extends Extension<
   /**
    * Excluded packages
    */
-  public declare exclude: Option<BudWordPressExternals, Options, `exclude`>[`value`]
+  public declare exclude: Option<
+    BudWordPressExternals,
+    Options,
+    `exclude`
+  >[`value`]
   /**
    * Get excluded packages
    *
@@ -29,7 +33,11 @@ export default class BudWordPressExternals extends Extension<
    * extension.getExclude()
    * ```
    */
-  public declare getExclude: Option<BudWordPressExternals, Options, `exclude`>[`get`]
+  public declare getExclude: Option<
+    BudWordPressExternals,
+    Options,
+    `exclude`
+  >[`get`]
   /**
    * Set excluded packages
    *
@@ -45,5 +53,9 @@ export default class BudWordPressExternals extends Extension<
    * extension.setExclude((exclude = []) => [...exclude, 'jquery'])
    * ```
    */
-  public declare setExclude: Option<BudWordPressExternals, Options, `exclude`>[`set`]
+  public declare setExclude: Option<
+    BudWordPressExternals,
+    Options,
+    `exclude`
+  >[`set`]
 }

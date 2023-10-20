@@ -1,8 +1,8 @@
-import type { UserDefinedOptions as Options } from '@fullhuman/postcss-purgecss'
+import type {UserDefinedOptions as Options} from '@fullhuman/postcss-purgecss'
 
 import {Extension} from '@roots/bud-framework/extension'
 
-import type { BudPurgeCSSPublicInterface } from './model.js'
+import type {BudPurgeCSSPublicInterface} from './model.js'
 
 export default class BudPurgeCSSPublicAPI extends Extension<Options> {
   public declare blocklist: BudPurgeCSSPublicInterface[`blocklist`]

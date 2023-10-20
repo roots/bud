@@ -24,9 +24,11 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
         .reduce((acc, cmd, id) => {
           return [
             ...acc,
-            cmd.examples?.map(([description, path]) => {
-              return {cmd, description, id, path}
-            }).shift(),
+            cmd.examples
+              ?.map(([description, path]) => {
+                return {cmd, description, id, path}
+              })
+              .shift(),
           ].filter(Boolean)
         }, []),
     )

@@ -157,11 +157,12 @@ export class Extension<
    * - {@link Extension.make}
    */
   public enabled: boolean = true
-  public get = this.getOption
+
   /**
    * The module name
    */
   public label: `${keyof Modules & string}`
+
   /**
    * Extension meta
    */
@@ -172,17 +173,18 @@ export class Extension<
     configAfter: false,
     register: false,
   }
+
   /**
    * Extension options
    *
    * @readonly
    */
   public options: ExtensionOptions
+
   /**
    * Plugin constructor
    */
   public plugin?: ApplyPluginConstructor
-  public set = this.setOption
 
   /**
    * Class constructor
@@ -204,6 +206,7 @@ export class Extension<
   public get app(): Bud {
     return this._app()
   }
+
   /**
    * {@link ApplyPlugin.apply}
    */
@@ -212,10 +215,12 @@ export class Extension<
    * `boot` callback
    */
   public async boot?(app: Bud): Promise<unknown | void>
+
   /**
    * `buildAfter` callback
    */
   public async buildAfter?(app: Bud): Promise<unknown | void>
+
   /**
    * `buildBefore` callback
    */
@@ -243,6 +248,7 @@ export class Extension<
       },
     )
   }
+
   /**
    * `configAfter` callback
    */
@@ -255,6 +261,7 @@ export class Extension<
   public disable() {
     this.enabled = false
   }
+
   /**
    * Return to bud instance from extension
    */
@@ -262,21 +269,34 @@ export class Extension<
   public done(): Bud {
     return this.app
   }
+
   /**
    * Enable extension
    */
   @bind
   public enable(enabled: boolean = true) {
+    this.logger.info(`enabled`, this.label)
     this.enabled = enabled
+
     return this
   }
+
   /**
-   * Get extension option
+   * Get option
    */
   @bind
   public getOption<K extends string>(key: K): ExtensionOptions[K] {
     return get(this.options, key)
   }
+  /**
+   * Get an option value
+   */
+  public get = this.getOption
+
+  /**
+   * Get options
+   */
+  @bind
   public getOptions(): ExtensionOptions {
     return Object.entries(this._options).reduce((acc, [key, value]) => {
       if (isUndefined(value)) return acc
@@ -299,6 +319,7 @@ export class Extension<
       return {...acc, [key]: unwrapped}
     }, {} as ExtensionOptions)
   }
+
   /**
    * Import ESM module
    */
@@ -315,6 +336,7 @@ export class Extension<
       .import(signifier, context, options)
       .catch(this.catch)
   }
+
   /**
    * Is extension enabled?
    */
@@ -322,6 +344,7 @@ export class Extension<
   public isEnabled(): boolean {
     return this.when(this.app, this.options)
   }
+
   /**
    * Logger instance
    */
@@ -332,10 +355,12 @@ export class Extension<
    * `make` callback
    */
   public async make?(app: Bud, options?: ExtensionOptions): Promise<Plugin>
+
   /**
    * {@link Extension.register}
    */
   public async register?(app: Bud): Promise<any>
+
   /**
    * Resolve module using `import.meta.resolve` api
    */
@@ -344,19 +369,20 @@ export class Extension<
     signifier: string,
     context: string,
   ): Promise<string> {
-    try {
-      return await this.app.module.resolve(signifier, context)
-    } catch (error) {
-      this.catch(
-        new ExtensionError(`could not resolve ${signifier}`, {
-          origin: error,
-          thrownBy: this.label,
-        }),
-      )
-    }
+    return await this.app.module
+      .resolve(signifier, context)
+      .catch(error => {
+        this.catch(
+          new ExtensionError(`could not resolve ${signifier}`, {
+            origin: error,
+            thrownBy: this.label,
+          }),
+        )
+      })
   }
+
   /**
-   * Set extension option
+   * Set option
    */
   @bind
   public setOption<K extends string>(
@@ -364,22 +390,33 @@ export class Extension<
     valueOrCallback: OptionCallbackValue<ExtensionOptions, K>,
   ): this {
     if (isFunction(valueOrCallback)) {
-      set(this._options, key, valueOrCallback(this.get(key)))
+      const resolved = valueOrCallback(this.get(key))
+      set(this._options, key, resolved)
+      this.logger.info(`set`, key, `=>`, resolved)
       return this
     }
 
     set(this._options, key, valueOrCallback)
+    this.logger.info(`set`, key, `=>`, valueOrCallback)
     return this
   }
+
   /**
-   * Set extension options
+   * Set option
+   */
+  public set = this.setOption
+
+  /**
+   * Set options
    */
   public setOptions(
     value: Partial<InternalOptionsValues<ExtensionOptions>>,
   ): this {
+    this.logger.info(`set options`, value)
     this._options = value
     return this
   }
+
   /**
    * Function returning a boolean indicating if the {@link Extension} should be utilized.
    *
@@ -389,6 +426,20 @@ export class Extension<
   public when(bud: Bud, options?: ExtensionOptions): boolean {
     return this.enabled
   }
+
+  /**
+   * `register` callback handler
+   */
+  @bind
+  public async _register() {
+    if (isUndefined(this.register)) return
+
+    if (this.meta[`register`] === true) return
+    this.meta[`register`] = true
+
+    await this.register(this.app).catch(this.catch)
+  }
+
   /**
    * `boot` callback handler
    */
@@ -453,7 +504,7 @@ export class Extension<
 
     try {
       if (!isUndefined(this.apply)) {
-        this.logger.info(`apply prop found. return extension instance`)
+        this.logger.info(`apply method found. return extension instance.`)
         return this
       }
 
@@ -471,19 +522,6 @@ export class Extension<
     } catch (error) {
       this.catch(error)
     }
-  }
-
-  /**
-   * `register` callback handler
-   */
-  @bind
-  public async _register() {
-    if (isUndefined(this.register)) return
-
-    if (this.meta[`register`] === true) return
-    this.meta[`register`] = true
-
-    await this.register(this.app).catch(this.catch)
   }
 }
 

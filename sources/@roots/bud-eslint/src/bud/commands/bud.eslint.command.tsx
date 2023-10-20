@@ -19,7 +19,6 @@ export class BudEslintCommand extends BudCommand {
     examples: [[`Run eslint on source files`, `$0 eslint`]],
   })
 
-
   public options = Option.Proxy({name: `eslint passthrough options`})
 
   /**
@@ -29,12 +28,16 @@ export class BudEslintCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    const eslintrc = Object.values(this.bud.context.files).find((file) => file.name.includes(`eslintrc`) || file.name.includes(`eslint.config`))?.path
+    const eslintrc = Object.values(this.bud.context.files).find(
+      file =>
+        file.name.includes(`eslintrc`) ||
+        file.name.includes(`eslint.config`),
+    )?.path
 
     await this.run([`eslint`, `bin`, `eslint.js`], this.options, [
       `--ext`,
       `.js,.jsx,.ts,.tsx`,
-      ...(eslintrc ? [`--config`, eslintrc]: []),
+      ...(eslintrc ? [`--config`, eslintrc] : []),
       this.bud.relPath(`@src`),
     ])
   }

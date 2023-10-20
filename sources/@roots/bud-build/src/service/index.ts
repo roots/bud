@@ -101,7 +101,7 @@ class Build extends Service implements BudBuild {
               if (isUndefined(value)) return
 
               this.config[prop] = value
-              this.logger.success(`built`, prop)
+              this.logger.log(`built`, prop)
             } catch (error) {
               throw error
             }
@@ -109,7 +109,7 @@ class Build extends Service implements BudBuild {
         ),
     )
 
-    this.logger.success(`configuration successfully built`)
+    this.logger.log(`configuration successfully built`)
     this.logger.info(this.config)
     await this.app.hooks.fire(`build.after`, this.app)
 
@@ -157,7 +157,7 @@ class Build extends Service implements BudBuild {
       : this.makeItem(maybeOptionsCallback)
 
     this.items[ident] = item
-    this.logger.info(`set item`, item)
+    this.logger.info(item)
 
     return this
   }
@@ -177,7 +177,7 @@ class Build extends Service implements BudBuild {
       : this.makeLoader(definition)
 
     this.loaders[name] = loader
-    this.logger.info(`set loader`, loader)
+    this.logger.info(loader)
 
     return this
   }
@@ -198,7 +198,7 @@ class Build extends Service implements BudBuild {
         : this.makeRule(definition as any)
 
     this.rules[name] = rule
-    this.logger.info(`set rule`, rule)
+    this.logger.info(rule)
 
     return this
   }

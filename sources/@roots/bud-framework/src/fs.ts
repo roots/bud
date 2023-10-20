@@ -158,9 +158,9 @@ export class FS extends Filesystem implements Contract {
     keep?: false | number
     source?: string
   }): this {
-    if (!this.s3) {
+    if (!this.s3.config.credentials) {
       throw new BudError(
-        `S3 is not configured. See https://budjs.dev/reference/bud.fs/s3`,
+        `S3 is not configured. See https://bud.js.org/reference/bud.fs/s3`,
       )
     }
 
@@ -178,7 +178,7 @@ export class FS extends Filesystem implements Contract {
       destination ? join(destination, path) : path
 
     this.app.after(async () => {
-      this.app.dashboard.updateStatus(`Deploying files to S3`)
+      console.log(`Uploading...`)
 
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
@@ -202,11 +202,11 @@ export class FS extends Filesystem implements Contract {
 
         await Promise.all(
           descriptions.map(async ({contents, file}) => {
-            this.logger.await(`Upload ${file} to ${this.s3.ident}`)
+            this.logger.time(`Upload ${file} to ${this.s3.ident}`)
 
             try {
               await this.s3.write(s3Path(file), contents)
-              this.logger.success(`Upload ${file} to ${this.s3.ident}`)
+              this.logger.timeEnd(`Upload ${file} to ${this.s3.ident}`)
             } catch (error) {
               this.catch(error)
             }
@@ -234,17 +234,17 @@ export class FS extends Filesystem implements Contract {
               const fileExists = await this.s3.exists(key)
               if (!fileExists) return
 
-              this.logger.await(
+              this.logger.time(
                 `Remove ${key} from ${this.s3.ident} (stale)`,
               )
               await this.s3.delete(key)
-              this.logger.success(
+              this.logger.timeEnd(
                 `Remove ${key} from ${this.s3.ident} (stale)`,
               )
             }),
         )
 
-        this.logger.await(`Write upload-manifest.json to ${this.s3.ident}`)
+        this.logger.time(`Write upload-manifest.json to ${this.s3.ident}`)
 
         await this.s3.write({
           Body: Buffer.from(
@@ -256,7 +256,7 @@ export class FS extends Filesystem implements Contract {
           Key: s3Path(`upload-manifest.json`),
         })
 
-        this.logger.success(
+        this.logger.timeEnd(
           `Write upload-manifest.json to ${this.s3.ident}`,
         )
       })

@@ -177,7 +177,6 @@ class Compiler extends Service implements BudCompiler {
     })
 
     this.logger.timeEnd(`initialize`)
-    this.app.dashboard.updateStatus(`compiling`)
 
     try {
       this.instance = this.implementation(this.config)

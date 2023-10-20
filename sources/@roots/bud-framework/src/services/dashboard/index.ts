@@ -76,9 +76,4 @@ export interface Dashboard {
    * Update the stats
    */
   updateStats(stats?: StatsCompilation): Dashboard
-
-  /**
-   * Update the status message
-   */
-  updateStatus(status?: string): Dashboard
 }

@@ -116,7 +116,10 @@ export default class BudReactRefresh extends Extension<
    * {@link Extension.make}
    */
   @bind
-  public override async make(bud: Bud, options: Options): Promise<RefreshPlugin> {
+  public override async make(
+    bud: Bud,
+    options: Options,
+  ): Promise<RefreshPlugin> {
     return new RefreshPlugin(omit(this.options, [`compilerExtension`]))
   }
 

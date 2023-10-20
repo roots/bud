@@ -1,6 +1,7 @@
 import BudCommand from '@roots/bud/cli/commands'
 import {Command} from '@roots/bud-support/clipanion'
-import {Box, Text} from '@roots/bud-support/ink'
+
+import DisplayEnv from './displayEnv.js'
 
 /**
  * bud env command
@@ -25,25 +26,6 @@ export default class EnvCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    EnvCommand.renderStatic(
-      <Box flexDirection="column">
-        <Text color="blue">{`\n`}Environment variables{`\n`}</Text>
-
-        {this.bud.env
-          .getEntries()
-          .sort((a, b) =>
-            a[0].toLowerCase().localeCompare(b[0].toLowerCase()),
-          )
-          .map(([key, value]) => {
-            return (
-              <Box flexDirection="row" key={key}>
-                <Text>
-                  {key}={`${value}`}
-                </Text>
-              </Box>
-            )
-          })}
-      </Box>,
-    )
+    EnvCommand.renderStatic(<DisplayEnv bud={this.bud} />)
   }
 }
