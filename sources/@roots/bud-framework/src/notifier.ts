@@ -166,7 +166,6 @@ export class Notifier {
    */
   public async openBrowser(url: string) {
     if (!this.app.isDevelopment) return
-    if (!this.openBrowserEnabled) return
     if (!isString(url)) return
 
     if (this.browserOpened) return
@@ -177,13 +176,6 @@ export class Notifier {
     }
 
     return await open(url)
-  }
-
-  /**
-   * True if browser opening is enabled
-   */
-  public get openBrowserEnabled(): boolean {
-    return this.app?.context.browser === true
   }
 
   /**

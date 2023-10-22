@@ -5,21 +5,20 @@ import type {
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
 
-import {stderr, stdin, stdout} from 'node:process'
+import {stdin, stdout} from 'node:process'
 
 import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box, type ReactElement, render} from '@roots/bud-support/ink'
+import {Box} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import patchConsole from '@roots/bud-support/patch-console'
 
 import {Application, TeletypeApplication} from './application.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
 /**
- * {@link BudDashboard} implementation
+ * {@link BudDashboard}
  */
 export class Dashboard extends Service implements BudDashboard {
   /**
@@ -30,48 +29,9 @@ export class Dashboard extends Service implements BudDashboard {
   ) => StatsError[] | undefined
 
   /**
-   * {@link BudDashboard.instance}
-   */
-  public declare instance?: BudDashboard[`instance`]
-
-  /**
-   * {@link BudDashboard.messages}
-   */
-  public declare messages: BudDashboard[`messages`]
-
-  /**
-   * Restore console function
-   *
-   * @remarks
-   * Returned from {@link patchConsole} call. Restores
-   * the normal {@link console} behavior.
-   */
-  public declare restore?: () => any
-
-  /**
    * {@link BudDashboard.stats}
    */
   public declare stats?: StatsCompilation
-
-  /**
-   * {@link BudDashboard.status}
-   */
-  public declare status?: false | string
-
-  /**
-   * {@link BudDashboard.stderr}
-   */
-  public stderr = stderr
-
-  /**
-   * {@link BudDashboard.stdin}
-   */
-  public stdin = stdin
-
-  /**
-   * {@link BudDashboard.stdout}
-   */
-  public stdout = stdout
 
   /**
    * Class constructor
@@ -79,61 +39,33 @@ export class Dashboard extends Service implements BudDashboard {
    */
   public constructor(app: () => Bud) {
     super(app)
-
-    this.stdin = this.app.context.stdin ?? stdin
-    this.stdout = this.app.context.stdout ?? stdout
-    this.stderr = this.app.context.stderr ?? stderr
-
     this.formatStatsErrors = makeErrorFormatter(this.app)
-    this.render()
-  }
-
-  /**
-   * {@link BudDashboard.patched}
-   */
-  @bind
-  public patched() {
-    return !isUndefined(this.restore)
   }
 
   /**
    * {@link BudDashboard.render}
    */
   @bind
-  public render(error?: Error) {
+  public render(stats?: StatsCompilation, error?: Error) {
+    if (!stats) return <>No stats</>
+
+    const jsonStats = stats.toJson()
+    const stringStats = stats.toString()
+
     /**
      * Do not render if:
-     * - dashboard is disabled
      * - CI is enabled
      * - silent mode is enabled
      */
-    if (
-      this.app.context.silent === true ||
-      this.app.context.dashboard === false ||
-      this.app.context.ci
-    )
-      return
+    if (this.app.context.silent === true || this.app.context.ci) return
+
     /**
-     * Set the render function
-     *
-     * `rerender` is a method returned by the {@link render} function
-     * that allows us to update the application without
-     * re-mounting it.
-     *
-     * If `rerender` is not available, we can use the {@link render} function
-     * directly (it is hopefully the initial render)
+     * Render string if dashboard is disabled
      */
-    const renderApplication = this.instance?.rerender
-      ? this.instance.rerender
-      : (node: ReactElement) => {
-          this.instance = render(node, {
-            // We handle the console ourselves
-            patchConsole: false,
-            stderr: this.stderr,
-            stdin: this.stdin,
-            stdout: this.stdout,
-          })
-        }
+    if (this.app.context.dashboard === false) {
+      this.renderString(stringStats)
+      return this
+    }
 
     /**
      * Get compilations
@@ -144,9 +76,9 @@ export class Dashboard extends Service implements BudDashboard {
      * case, we want to flatten the children array.
      */
     const getCompilations = (): Compilations => {
-      if (!this.stats) return []
-      if (!this.stats.children?.length) return [this.stats]
-      return this.stats.children.flat()
+      if (!jsonStats) return []
+      if (!jsonStats.children?.length) return [jsonStats]
+      return jsonStats.children.flat()
     }
 
     /**
@@ -198,20 +130,11 @@ export class Dashboard extends Service implements BudDashboard {
      * application.
      */
     const App =
-      this.stdin.isTTY && this.app.isDevelopment
+      stdin.isTTY && this.app.isDevelopment
         ? TeletypeApplication
         : Application
 
-    /**
-     * Render the application
-     *
-     * @remarks
-     * The application is rendered using Ink. The `renderApplication`
-     * function is used to update the application without re-mounting
-     * it. This allows us to update the application without losing
-     * the current state.
-     */
-    renderApplication(
+    return (
       <Box flexDirection="column">
         <App
           close={cb =>
@@ -228,13 +151,13 @@ export class Dashboard extends Service implements BudDashboard {
           error={error}
           isolated={0}
           mode={this.app.mode}
+          notifier={this.app.notifier}
           proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
           proxyUrl={this.app.server?.proxyUrl}
           publicDevUrl={this.app.server?.publicUrl}
           publicProxyUrl={this.app.server?.publicProxyUrl}
-          status={this.status}
         />
-      </Box>,
+      </Box>
     )
   }
 
@@ -242,38 +165,9 @@ export class Dashboard extends Service implements BudDashboard {
    * {@link BudDashboard.renderString}
    */
   @bind
-  public renderString(text: string) {
-    if (this.app.context.silent) return
-    this.stdout.write(`${text}\n`)
-  }
-
-  /**
-   * {@link BudDashboard.updateStats}
-   */
-  @bind
-  public updateStats(stats: StatsCompilation): BudDashboard {
-    if (!this.app.compiler) return this
-    if (stats && `hash` in stats && stats.hash === this.stats?.hash)
-      return this
-
-    if (stats) this.stats = stats
-
-    if (this.app.context.silent === true) return this
-
-    if (
-      (this.app.compiler?.stats && this.app.context.dashboard === false) ||
-      this.app.context.ci
-    ) {
-      this.renderString(
-        this.app.compiler.stats.toString({
-          color: true,
-          preset: `minimal`,
-        }),
-      )
-      return this
-    }
-
-    this.render()
+  public renderString(text: string): Dashboard {
+    if (this.app.context.silent) return this
+    stdout.write(`${text}\n`)
     return this
   }
 }

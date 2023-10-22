@@ -13,6 +13,7 @@ import * as projectPaths from '@roots/bud-support/utilities/paths'
 import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
 import services from './services.js'
+import {render} from '@roots/bud-support/ink'
 
 export type Options = Omit<Partial<Context>, `extensions`> & {
   extensions?: Array<string>
@@ -53,6 +54,7 @@ export default async (options: Options = {}): Promise<Context> => {
     manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
     mode: options?.mode ?? `production`,
     paths: {...paths, ...(options?.paths ?? {})},
+    render: options?.render ?? render,
     services: [...(services ?? []), ...(options?.services ?? [])],
     stderr: options?.stderr ?? stderr,
     stdin: options?.stdin ?? stdin,

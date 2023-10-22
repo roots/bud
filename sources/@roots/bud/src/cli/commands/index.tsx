@@ -28,7 +28,7 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import {Box, render, Static} from '@roots/bud-support/ink'
+import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
@@ -79,17 +79,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
     examples: [[`Interactive menu of available subcommands`, `$0`]],
   })
 
-  /**
-   * Render static
-   */
-  public static renderStatic(...children: Array<React.ReactElement>) {
-    return render(
-      <Static items={children}>
-        {(child, id) => <Box key={id}>{child}</Box>}
-      </Static>,
-    ).unmount()
-  }
-
   public basedir = basedir
 
   public declare bud?: Bud | undefined
@@ -121,6 +110,35 @@ export default class BudCommand extends Command<BaseContext & Context> {
   public use = use
 
   public verbose = verbose
+
+  public ink?: Ink.Instance
+
+  /**
+   * Ink {@link Instance}
+   */
+  public static Ink: typeof Ink = Ink
+
+  /**
+   * Render cli output
+   */
+  public render(El: React.ReactElement) {
+    if (this.ink) {
+      this.ink.rerender(El)
+    } else {
+      this.ink = BudCommand.Ink.render(El)
+    }
+  }
+
+  /**
+   * Render static cli output
+   */
+  public renderStatic(...children: Array<React.ReactElement>) {
+    return this.render(
+      <Ink.Static items={children}>
+        {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
+      </Ink.Static>,
+    )
+  }
 
   /**
    * Execute arbitrary sh command with inherited stdio
@@ -274,24 +292,11 @@ export default class BudCommand extends Command<BaseContext & Context> {
       }
     }
 
-    if (this.bud?.dashboard?.instance) {
-      this.bud.dashboard.render(error)
-
-      if (this.bud.isProduction) {
-        const unmountDashboard = async () =>
-          await this.bud.dashboard.instance.waitUntilExit()
-
-        this.bud.compiler?.instance?.close
-          ? this.bud.compiler.instance.close(unmountDashboard)
-          : await unmountDashboard()
-      }
-    } else {
-      BudCommand.renderStatic(
-        <Box flexDirection="column">
-          <Fallback.Error error={error} />
-        </Box>,
-      )
-    }
+    this.renderStatic(
+      <Ink.Box flexDirection="column">
+        <Fallback.Error error={error} />
+      </Ink.Box>,
+    )
 
     // fallthrough
     if (!this.bud || this.bud?.isProduction) exit(1)
@@ -301,7 +306,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
    * {@link Command.execute}
    */
   public async execute(): Promise<number | void> {
-    render(<Menu cli={this.cli} />)
+    this.render(<Menu cli={this.cli} />)
   }
 
   /**
@@ -324,6 +329,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
     this.context.dry = this.dry
     this.context.mode = this.mode ?? this.context.mode ?? `production`
     this.context.silent = this.silent
+    this.context.render = this.render
 
     this.bud = instance.get()
 
