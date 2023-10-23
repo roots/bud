@@ -1,23 +1,24 @@
 /**
- * Browserslist defaults
- */
+ * Default
+ **/
 module.exports = [
-  `and_chr 117`,
-  `and_ff 117`,
+  `and_chr 118`,
+  `and_ff 118`,
   `and_qq 13.1`,
   `and_uc 15.5`,
-  `android 117`,
+  `android 118`,
+  `chrome 118`,
   `chrome 117`,
   `chrome 116`,
   `chrome 115`,
   `chrome 114`,
   `chrome 109`,
+  `edge 118`,
   `edge 117`,
   `edge 116`,
+  `firefox 118`,
   `firefox 117`,
-  `firefox 116`,
   `firefox 115`,
-  `firefox 102`,
   `ios_saf 17.0`,
   `ios_saf 16.6`,
   `ios_saf 16.3`,
@@ -27,6 +28,7 @@ module.exports = [
   `kaios 2.5`,
   `op_mini all`,
   `op_mob 73`,
+  `opera 103`,
   `opera 102`,
   `opera 101`,
   `safari 17.0`,
