@@ -11,6 +11,7 @@ export type {
   DefinePlugin,
   FileCacheOptions,
   HotModuleReplacementPlugin,
+  LazyCompilationOptions,
   MultiCompiler,
   MultiStats,
   ProvidePlugin,

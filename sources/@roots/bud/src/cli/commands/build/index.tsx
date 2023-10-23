@@ -15,6 +15,7 @@ import hash from '@roots/bud/cli/flags/hash'
 import html from '@roots/bud/cli/flags/html'
 import immutable from '@roots/bud/cli/flags/immutable'
 import input from '@roots/bud/cli/flags/input'
+import lazy from '@roots/bud/cli/flags/lazy'
 import minimize from '@roots/bud/cli/flags/minimize'
 import notify from '@roots/bud/cli/flags/notify'
 import output from '@roots/bud/cli/flags/output'
@@ -80,6 +81,8 @@ export default class BudBuildCommand extends BudCommand {
   public immutable = immutable
 
   public input = input
+
+  public lazy = lazy
 
   public minimize = minimize
 

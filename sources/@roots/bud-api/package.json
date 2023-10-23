@@ -64,6 +64,7 @@
     "./methods/externals": "./lib/methods/externals/index.js",
     "./methods/hash": "./lib/methods/hash/index.js",
     "./methods/html": "./lib/methods/html/index.js",
+    "./methods/lazy": "./lib/methods/lazy/index.js",
     "./methods/minimize": "./lib/methods/minimize/index.js",
     "./methods/persist": "./lib/methods/persist/index.js",
     "./methods/provide": "./lib/methods/provide/index.js",
@@ -128,6 +129,9 @@
       ],
       "methods/html": [
         "./lib/methods/html/index.d.ts"
+      ],
+      "methods/lazy": [
+        "./lib/methods/lazy/index.d.ts"
       ],
       "methods/minimize": [
         "./lib/methods/minimize/index.d.ts"
