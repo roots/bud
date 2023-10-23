@@ -60,7 +60,8 @@
   "devDependencies": {
     "@roots/bud-support": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "browserslist": "4.22.1"
+    "browserslist": "4.22.1",
+    "caniuse-lite": "latest"
   },
   "volta": {
     "extends": "../../../package.json"

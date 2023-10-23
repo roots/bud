@@ -184,6 +184,7 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "caniuse-lite": "latest",
     "tslib": "2.6.2"
   },
   "volta": {
