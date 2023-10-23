@@ -6,5 +6,8 @@ module.exports = {
   env: {
     jquery: true,
   },
-  globals: {wp: true},
+  globals: {
+    wp: true,
+    roots: true,
+  },
 }
