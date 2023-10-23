@@ -1,16 +1,17 @@
 import type {Bud} from '@roots/bud-framework'
 import type {
+  MultiStats,
   StatsCompilation,
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
 
-import {stdin, stdout} from 'node:process'
+import {stdin} from 'node:process'
 
 import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box} from '@roots/bud-support/ink'
+import {Box, Text, type ReactElement} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
@@ -23,19 +24,17 @@ type Compilations = Array<Omit<StatsCompilation, `children`>>
 export class Dashboard extends Service implements BudDashboard {
   /**
    * {@link BudDashboard.formatStatsErrors}
+   *
+   * @param errors - {@link StatsError[]}
    */
   public declare formatStatsErrors: (
-    errors: StatsError[] | undefined,
+    errors?: StatsError[] | undefined,
   ) => StatsError[] | undefined
 
   /**
-   * {@link BudDashboard.stats}
-   */
-  public declare stats?: StatsCompilation
-
-  /**
    * Class constructor
-   * @param app
+   *
+   * @param app - {@link Bud} instance
    */
   public constructor(app: () => Bud) {
     super(app)
@@ -44,28 +43,30 @@ export class Dashboard extends Service implements BudDashboard {
 
   /**
    * {@link BudDashboard.render}
+   *
+   * @param stats - {@link MultiStats}
+   * @param error - {@link Error}
    */
   @bind
-  public render(stats?: StatsCompilation, error?: Error) {
-    if (!stats) return <>No stats</>
-
-    const jsonStats = stats.toJson()
-    const stringStats = stats.toString()
+  public render(stats?: MultiStats, error?: Error): ReactElement | null {
+    if (!stats) return <Text>No stats to display</Text>
 
     /**
-     * Do not render if:
-     * - CI is enabled
-     * - silent mode is enabled
+     * Do not render if silent mode is enabled
      */
-    if (this.app.context.silent === true || this.app.context.ci) return
+    if (this.app.context.silent) return null
 
     /**
-     * Render string if dashboard is disabled
+     * Render basic output if `--dashboard` flag is false
      */
     if (this.app.context.dashboard === false) {
-      this.renderString(stringStats)
-      return this
+      const stringStats = stats.toString({
+        preset: `minimal`,
+      })
+      return <Text>{stringStats}</Text>
     }
+
+    const data = stats.toJson()
 
     /**
      * Get compilations
@@ -76,9 +77,9 @@ export class Dashboard extends Service implements BudDashboard {
      * case, we want to flatten the children array.
      */
     const getCompilations = (): Compilations => {
-      if (!jsonStats) return []
-      if (!jsonStats.children?.length) return [jsonStats]
-      return jsonStats.children.flat()
+      if (!data) return []
+      if (!data.children?.length) return [data]
+      return data.children.flat()
     }
 
     /**
@@ -91,21 +92,21 @@ export class Dashboard extends Service implements BudDashboard {
     }))
 
     /**
-     * Get dashboard.assets option
+     * `--dashboard.assets` flag value
      */
     const assets = !isUndefined(this.app.context.dashboard)
       ? this.app.context.dashboard.assets
       : true
 
     /**
-     * Get dashboard.compact option
+     * `--dashboard.compact` flag value
      */
     const compact = !isUndefined(this.app.context.dashboard)
       ? this.app.context.dashboard.compact
       : compilations.length > 2
 
     /**
-     * Get dashboard.entrypoints option
+     * `--dashboard.entrypoints flag value`
      */
     const entrypoints = !isUndefined(
       this.app.context.dashboard?.entrypoints,
@@ -114,7 +115,7 @@ export class Dashboard extends Service implements BudDashboard {
       : true
 
     /**
-     * Get dashboard.server option
+     * `--dashboard.server` flag value
      */
     const server = !isUndefined(this.app.context.dashboard?.server)
       ? this.app.context.dashboard?.server
@@ -159,15 +160,5 @@ export class Dashboard extends Service implements BudDashboard {
         />
       </Box>
     )
-  }
-
-  /**
-   * {@link BudDashboard.renderString}
-   */
-  @bind
-  public renderString(text: string): Dashboard {
-    if (this.app.context.silent) return this
-    stdout.write(`${text}\n`)
-    return this
   }
 }

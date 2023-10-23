@@ -1,5 +1,5 @@
 import type {
-  StatsCompilation,
+  MultiStats,
   StatsError,
 } from '@roots/bud-framework/config'
 
@@ -7,11 +7,6 @@ import type {
  * Dashboard service container
  */
 export interface Dashboard {
-  /**
-   * Received stats
-   */
-  stats?: StatsCompilation
-
   /**
    * Format stats errors
    */
@@ -22,10 +17,5 @@ export interface Dashboard {
   /**
    * Render function
    */
-  render: (stats?: StatsCompilation, error?: any) => any
-
-  /**
-   * Render string to stdout
-   */
-  renderString(stats: string): any
+  render: (stats?: MultiStats, error?: any) => any
 }

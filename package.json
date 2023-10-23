@@ -31,7 +31,7 @@
     "@vitest/coverage-v8": "0.34.6",
     "@vitest/ui": "0.34.6",
     "browserslist": "4.22.1",
-    "caniuse-lite": "1.0.30001546",
+    "caniuse-lite": "latest",
     "esbuild": "0.19.4",
     "eslint": "8.51.0",
     "eslint-plugin-n": "16.1.0",
