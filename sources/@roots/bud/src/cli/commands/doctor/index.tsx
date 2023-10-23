@@ -75,19 +75,17 @@ for a lot of edge cases so it might return a false positive.
     this.timings.build = buildTimer()
 
     if (platform() === `win32`) {
-      DoctorCommand.renderStatic(<WinError />)
+      this.renderStatic(<WinError />)
     }
 
     const name = this.bud.context.manifest.name
       ? this.bud.context.manifest.name
       : this.bud.path()
 
-    DoctorCommand.renderStatic(
-      <Doctor name={name} timings={this.timings} />,
-    )
+    this.renderStatic(<Doctor name={name} timings={this.timings} />)
 
     if (this.bud.hasChildren) {
-      DoctorCommand.renderStatic(
+      this.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Child compilers{`\n`}</Text>
 
@@ -107,14 +105,14 @@ for a lot of edge cases so it might return a false positive.
       )
     }
 
-    DoctorCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Mode</Text>
         <Text>{this.bud.mode}</Text>
       </Box>,
     )
 
-    DoctorCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Project paths</Text>
         <Text>{` `}</Text>
@@ -142,7 +140,7 @@ for a lot of edge cases so it might return a false positive.
       </Box>,
     )
 
-    DoctorCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Checking versions of core packages</Text>
         <Text>{` `}</Text>
@@ -164,8 +162,8 @@ for a lot of edge cases so it might return a false positive.
       console.error(error)
     }
 
-    DoctorCommand.renderStatic(<DisplayConfigFiles bud={this.bud} />)
-    DoctorCommand.renderStatic(<DisplayEnv bud={this.bud} />)
+    this.renderStatic(<DisplayConfigFiles bud={this.bud} />)
+    this.renderStatic(<DisplayEnv bud={this.bud} />)
 
     try {
       this.entrypoints = this.bud.build.config.entry
@@ -186,13 +184,13 @@ for a lot of edge cases so it might return a false positive.
       console.error(error)
     }
 
-    DoctorCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Enabled extensions{`\n`}</Text>
         {this.mapExtensions(this.enabledExtensions)}
       </Box>,
     )
-    DoctorCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="blue">Disabled extensions{`\n`}</Text>
         {this.mapExtensions(this.disabledExtensions)}
@@ -208,7 +206,7 @@ for a lot of edge cases so it might return a false positive.
         this.entrypoints[0][1].import[0] === `index` &&
         !(await this.bud.fs.exists(this.bud.path(`@src/index.js`)))
       ) {
-        DoctorCommand.renderStatic(
+        this.renderStatic(
           <Error
             error={
               new InputError(`No entrypoint specified`, {
@@ -227,7 +225,7 @@ for a lot of edge cases so it might return a false positive.
     }
 
     if (this.bud.mode === `development`) {
-      DoctorCommand.renderStatic(
+      this.renderStatic(
         <Box flexDirection="column">
           <Text color="blue">Development server</Text>
           <Box flexDirection="row">
@@ -258,7 +256,7 @@ for a lot of edge cases so it might return a false positive.
     try {
       webpack.validate(this.bud.build.config)
 
-      DoctorCommand.renderStatic(
+      this.renderStatic(
         <Box>
           <Text color="green">
             {figures.tick} webpack validated configuration
@@ -266,7 +264,7 @@ for a lot of edge cases so it might return a false positive.
         </Box>,
       )
     } catch (error) {
-      DoctorCommand.renderStatic(
+      this.renderStatic(
         <Box>
           <Text color="red">❌ {error?.message ?? error}</Text>
         </Box>,

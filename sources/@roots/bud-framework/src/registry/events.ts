@@ -1,5 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
-import type {MultiStats, Stats} from '@roots/bud-framework/config'
+import type {StatsCompilation} from '@roots/bud-framework/config'
 
 export interface Events {
   boot: [Bud]
@@ -7,7 +7,7 @@ export interface Events {
   'build.after': [Bud]
   'build.before': [Bud]
   'compiler.before': [Bud]
-  'compiler.done': [Bud, MultiStats & Stats]
+  'compiler.done': [Bud, StatsCompilation]
   'config.after': [Bud]
   register: [Bud]
   'server.after': [Bud]

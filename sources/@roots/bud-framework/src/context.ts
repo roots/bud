@@ -435,6 +435,11 @@ export interface Context {
   reload?: boolean
 
   /**
+   * Ink render function
+   */
+  render: (element: any) => void
+
+  /**
    * Root bud.js instance
    *
    * @remarks

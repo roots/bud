@@ -43,7 +43,7 @@ export default class BudViewCommand extends BudCommand {
 
     if (this.color) value = highlight(value)
 
-    BudViewCommand.renderStatic(
+    this.renderStatic(
       <Box flexDirection="column">
         <Text color="magenta">{this.subject ?? `build.config`}</Text>
         <Text>{` `}</Text>

@@ -16,12 +16,4 @@ describe(`@roots/bud-dashboard`, () => {
   it(`should be a Service`, async () => {
     expect(dashboard).toBeInstanceOf(Service)
   })
-
-  it(`should return early from dashboard.update when there are no stats provided`, async () => {
-    dashboard.updateStats(
-      // @ts-ignore
-      undefined,
-    )
-    expect(dashboard.stats).toBeUndefined()
-  })
 })

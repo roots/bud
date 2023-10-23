@@ -21,7 +21,6 @@ import {Error as DisplayError} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import {render} from '@roots/bud-support/ink'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
@@ -31,11 +30,6 @@ import stripAnsi from '@roots/bud-support/strip-ansi'
  * {@link BudCompiler} implementation
  */
 class Compiler extends Service implements BudCompiler {
-  /**
-   * {@link BudCompiler.compilationStats}
-   */
-  public declare compilationStats: BudCompiler[`compilationStats`]
-
   /**
    * {@link BudCompiler.config}
    */
@@ -73,9 +67,11 @@ class Compiler extends Service implements BudCompiler {
     })
 
     if (`isBudError` in error) {
-      render(<DisplayError error={error} />)
+      this.app.context.render(<DisplayError error={error} />)
     } else {
-      render(<DisplayError error={BudError.normalize(error)} />)
+      this.app.context.render(
+        <DisplayError error={BudError.normalize(error)} />,
+      )
     }
   }
   /**
@@ -88,26 +84,21 @@ class Compiler extends Service implements BudCompiler {
         ? `${this.app.label} (${child.name})`
         : child.name
 
-    this.stats = stats
-
-    this.compilationStats = stats.toJson(statsOptions)
-
-    this.app.dashboard.updateStats(this.compilationStats)
+    this.stats = stats.toJson(statsOptions)
+    this.app.context.render(this.app.dashboard.render(stats))
 
     if (stats.hasErrors()) {
       process.exitCode = 1
 
-      this.compilationStats.children = this.compilationStats.children?.map(
-        child => ({
-          ...child,
-          errors:
-            child.errors && this.sourceErrors
-              ? this.sourceErrors(child.errors)
-              : child.errors ?? [],
-        }),
-      )
+      this.stats.children = this.stats.children?.map(child => ({
+        ...child,
+        errors:
+          child.errors && this.sourceErrors
+            ? this.sourceErrors(child.errors)
+            : child.errors ?? [],
+      }))
 
-      this.compilationStats.children
+      this.stats.children
         ?.filter(
           child => isNumber(child.errorsCount) && child.errorsCount > 0,
         )
@@ -131,7 +122,7 @@ class Compiler extends Service implements BudCompiler {
         })
     }
 
-    this.compilationStats.children
+    this.stats.children
       ?.filter(child => child.errorsCount === 0)
       .forEach(child => {
         try {
@@ -146,6 +137,7 @@ class Compiler extends Service implements BudCompiler {
           })
 
           this.app.server?.publicUrl.href &&
+            this.app.context.browser &&
             this.app.notifier.openBrowser(this.app.server?.publicUrl.href)
         } catch (error) {
           this.logger.error(error)
@@ -224,8 +216,8 @@ class Compiler extends Service implements BudCompiler {
            * In a perfect world webpack plugins would use the
            * `nameForCondition` property to identify the module.
            */
-          if (ident && this.compilationStats?.children) {
-            module = this.compilationStats.children
+          if (ident && this.stats?.children) {
+            module = this.stats.children
               .flatMap(child => child?.modules)
               .find(module => [module?.id, module?.name].includes(ident))
           }

@@ -26,6 +26,6 @@ export default class EnvCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    EnvCommand.renderStatic(<DisplayEnv bud={this.bud} />)
+    this.renderStatic(<DisplayEnv bud={this.bud} />)
   }
 }

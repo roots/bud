@@ -4,6 +4,7 @@ import type {StatsCompilation} from '@roots/bud-framework/config'
 import {exit} from 'node:process'
 
 import {Error} from '@roots/bud-dashboard/components/error'
+import Footer from '@roots/bud-dashboard/components/footer'
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
 import Server from '@roots/bud-dashboard/views/server'
@@ -16,11 +17,11 @@ import {
   useState,
   useStdout,
 } from '@roots/bud-support/ink'
+import escapes from '@roots/bud-support/ansi-escapes'
 
 export interface Props {
   basedir?: string
-  close?: (callback: (error?: Error | null) => any) => void
-  closed?: boolean
+  close?: (callback: (error?: Error | null) => any) => any
   compact?: boolean
   compilations?: Array<Partial<StatsCompilation>>
   debug?: boolean
@@ -32,11 +33,12 @@ export interface Props {
   errors?: StatsCompilation[`errors`]
   isolated?: number
   mode: Bud['mode']
+  notifier?: Bud[`notifier`]
   proxy?: boolean
   proxyUrl?: URL
   publicDevUrl?: URL
   publicProxyUrl?: URL
-  status?: false | string
+  displayHelp?: boolean
   warnings?: StatsCompilation[`warnings`]
 }
 
@@ -56,7 +58,7 @@ export const Application = ({
   proxyUrl,
   publicDevUrl,
   publicProxyUrl,
-  status,
+  displayHelp,
 }: Props) => {
   const {stdout} = useStdout()
 
@@ -96,6 +98,7 @@ export const Application = ({
   return (
     <>
       {error && <Error error={error} />}
+
       {compilations.map((compilation, id) => (
         <RenderCompilation
           basedir={basedir}
@@ -165,18 +168,20 @@ export const RenderCompilation = ({
 export const TeletypeApplication = ({
   children,
   close,
+  notifier,
   ...props
 }: PropsWithChildren<Props>) => {
-  const app = useApp()
+  const onExit = useOnExit()
+  const stdout = useStdout()
 
+  const [compact, setCompact] = useState(props.compact)
+  const [debug, setDisplayDebug] = useState(props.debug)
+  const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
+  const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
   const [displayServerInfo, setDisplayServerInfo] = useState(
     props.displayServerInfo,
   )
-  const [debug, setDisplayDebug] = useState(props.debug)
-  const [displayEntrypoints, setDisplayEntrypoints] = useState(true)
-  const [displayAssets, setDisplayAssets] = useState(props.displayAssets)
-  const [closed, setClosed] = useState(false)
-  const [compact, setCompact] = useState(props.compact)
+  const [help, setHelp] = useState(false)
   const [isolated, setIsolated] = useState(0)
 
   useInput((key, input) => {
@@ -184,54 +189,80 @@ export const TeletypeApplication = ({
       case `a`:
         setDisplayAssets(!displayAssets)
         break
-      case `e`:
-        setDisplayEntrypoints(!displayEntrypoints)
+
+      case `b`:
+        if (notifier?.openBrowser && props.devUrl) {
+          notifier.openBrowser(props.devUrl?.toString())
+          notifier.browserOpened = false
+        }
         break
-      case `d`:
-        setDisplayDebug(!debug)
-        break
-      case `s`:
-        setDisplayServerInfo(!displayServerInfo)
-        break
+
       case `c`:
         setCompact(!compact)
         break
+
+      case `d`:
+        setDisplayDebug(!debug)
+        break
+
+      case `e`:
+        setDisplayEntrypoints(!displayEntrypoints)
+        break
+
+      case `h`:
+        setHelp(!help)
+        break
+
+      case `q`:
+        onExit()
+        break
+
+      case `r`:
+        stdout.write(escapes.clearTerminal)
+        break
+
+      case `s`:
+        setDisplayServerInfo(!displayServerInfo)
+        break
+
       case `0`:
         setIsolated(0)
-        break
-      default:
         break
     }
 
     new Array(9).fill(0).forEach((_, i) => {
       if (!props.compilations) return
+
       key === `${i + 1}` &&
         isolated !== i + 1 &&
         setIsolated(Math.min(i + 1, props.compilations.length))
     })
 
-    if (input.escape) {
-      setClosed(true)
-      if (close)
-        close((error?) => {
-          if (error) app.exit(error)
-          else app.exit()
-
-          exit(error ? 1 : 0)
-        })
-    }
+    if (input.escape) onExit()
   })
 
   return (
-    <Application
-      {...props}
-      closed={closed}
-      compact={compact}
-      debug={debug}
-      displayAssets={displayAssets}
-      displayEntrypoints={displayEntrypoints}
-      displayServerInfo={displayServerInfo}
-      isolated={isolated}
-    />
+    <>
+      <Application
+        {...props}
+        compact={compact}
+        debug={debug}
+        displayAssets={displayAssets}
+        displayEntrypoints={displayEntrypoints}
+        displayServerInfo={displayServerInfo}
+        isolated={isolated}
+      />
+      <Footer display={help} />
+    </>
   )
+}
+
+const useOnExit = () => {
+  const app = useApp()
+
+  return (error?: Error | null): any => {
+    if (error) app.exit(error)
+    else app.exit()
+    exit(error ? 1 : 0)
+  }
 }

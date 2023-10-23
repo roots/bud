@@ -3,7 +3,6 @@ import type {
   Configuration,
   MultiCompiler,
   MultiStats,
-  Stats,
   StatsCompilation,
 } from '@roots/bud-framework/config'
 
@@ -11,11 +10,6 @@ import type {
  * Compiler service
  */
 export interface Compiler {
-  /**
-   * Compilation stats
-   */
-  compilationStats: StatsCompilation
-
   /**
    * Returns a {@link WebpackMultiCompiler} instance
    *
@@ -54,7 +48,7 @@ export interface Compiler {
   /**
    * Raw stats
    */
-  stats: Stats & MultiStats
+  stats: StatsCompilation
 }
 
 export type BudError = {

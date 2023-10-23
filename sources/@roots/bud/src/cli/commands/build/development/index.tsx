@@ -37,13 +37,13 @@ export default class BuildDevelopmentCommand extends BuildCommand {
     ],
   })
 
+  public override mode: typeof mode = `development`
+
   public browser = browser
 
   public hot = hot
 
   public indicator = indicator
-
-  public override mode: typeof mode = `development`
 
   public overlay = overlay
 

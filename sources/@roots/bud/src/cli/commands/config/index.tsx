@@ -26,7 +26,7 @@ export default class ConfigCommand extends BudCommand {
     await this.makeBud()
     await this.bud.run()
 
-    ConfigCommand.renderStatic(<DisplayConfigFiles bud={this.bud} />)
-    ConfigCommand.renderStatic(<DisplayGeneratedConfig bud={this.bud} />)
+    this.renderStatic(<DisplayConfigFiles bud={this.bud} />)
+    this.renderStatic(<DisplayGeneratedConfig bud={this.bud} />)
   }
 }
