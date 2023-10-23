@@ -22,6 +22,7 @@ import type * as Experiments from '@roots/bud-api/methods/experiments'
 import type * as Externals from '@roots/bud-api/methods/externals'
 import type * as Hash from '@roots/bud-api/methods/hash'
 import type * as Html from '@roots/bud-api/methods/html'
+import type * as Lazy from '@roots/bud-api/methods/lazy'
 import type * as Minimize from '@roots/bud-api/methods/minimize'
 import type * as Persist from '@roots/bud-api/methods/persist'
 import type * as Provide from '@roots/bud-api/methods/provide'
@@ -171,6 +172,11 @@ declare module '@roots/bud-framework' {
      * {@link https://bud.js.org/docs/bud.template 📕 Documentation}
      */
     html(...params: Html.Parameters): Bud
+
+    /**
+     * ## bud.lazy
+     */
+    lazy(...params: Lazy.Parameters): Bud
 
     /**
      * @roots/bud-minify

@@ -25,3 +25,5 @@ export type {
   WebpackError,
   WebpackPluginInstance,
 } from 'webpack'
+
+export type {LazyCompilationOptions} from './lazyCompilation.js'

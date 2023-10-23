@@ -238,6 +238,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
       })
     }
 
+    if (isset(args.lazy)) {
+      await override(async bud => {
+        bud.lazy(args.lazy)
+        logger.log(`lazy set from --lazy flag`, `value:`, args.lazy)
+      })
+    }
+
     isset(args.runtime) &&
       (await override(async bud => bud.runtime(args.runtime)))
 
