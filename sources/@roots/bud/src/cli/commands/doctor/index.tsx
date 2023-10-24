@@ -19,8 +19,14 @@ import DisplayEnv from '../env/displayEnv.js'
  * bud doctor command
  */
 export default class DoctorCommand extends BudCommand {
+  /**
+   * {@link BudCommand.paths}
+   */
   public static override paths = [[`doctor`]]
 
+  /**
+   * {@link BudCommand.usage}
+   */
   public static override usage = Command.Usage({
     category: `debug`,
     description: `Check project for common errors`,

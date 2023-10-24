@@ -101,7 +101,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.4"
+    "@types/node": "20.8.8"
   },
   "dependencies": {
     "@roots/blade-loader": "workspace:*",
@@ -115,7 +115,7 @@
     "@roots/bud-preset-wordpress": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "tslib": "2.6.2",
-    "webpack": "5.88.2"
+    "webpack": "5.89.0"
   },
   "volta": {
     "extends": "../../../package.json"

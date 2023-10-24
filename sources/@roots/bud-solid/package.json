@@ -63,18 +63,18 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.23.0",
+    "@babel/core": "7.23.2",
     "@skypack/package-check": "0.2.2",
-    "@types/babel__core": "7.20.2",
-    "@types/node": "18.18.4"
+    "@types/babel__core": "7.20.3",
+    "@types/node": "20.8.8"
   },
   "dependencies": {
     "@babel/plugin-syntax-jsx": "7.22.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-framework": "workspace:*",
-    "babel-preset-solid": "1.7.12",
-    "solid-js": "1.7.12",
+    "babel-preset-solid": "1.8.2",
+    "solid-js": "1.8.3",
     "tslib": "2.6.2"
   },
   "volta": {

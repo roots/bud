@@ -66,8 +66,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.4",
-    "@types/postcss-import": "14.0.1"
+    "@types/node": "20.8.8",
+    "@types/postcss-import": "14.0.2"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:*",
@@ -77,9 +77,9 @@
     "postcss-import": "15.1.0",
     "postcss-loader": "7.3.3",
     "postcss-nested": "6.0.1",
-    "postcss-preset-env": "9.1.4",
+    "postcss-preset-env": "9.2.0",
     "tslib": "2.6.2",
-    "webpack": "5.88.2"
+    "webpack": "5.89.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -65,15 +65,15 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.9",
-    "@types/node": "18.18.4"
+    "@types/lodash-es": "4.17.10",
+    "@types/node": "20.8.8"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",
     "lodash": "4.17.21",
     "tapable": "2.2.1",
     "tslib": "2.6.2",
-    "webpack": "5.88.2"
+    "webpack": "5.89.0"
   },
   "volta": {
     "extends": "../../../package.json"

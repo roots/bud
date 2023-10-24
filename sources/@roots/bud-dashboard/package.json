@@ -82,11 +82,11 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.4",
-    "@types/react": "18.2.25",
+    "@types/node": "20.8.8",
+    "@types/react": "18.2.31",
     "ink-testing-library": "3.0.0",
     "vitest": "0.34.6",
-    "webpack": "5.88.2"
+    "webpack": "5.89.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

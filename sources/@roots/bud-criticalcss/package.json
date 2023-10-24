@@ -67,15 +67,15 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.4",
-    "@types/vinyl": "2.0.8"
+    "@types/node": "20.8.8",
+    "@types/vinyl": "2.0.9"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@roots/critical-css-webpack-plugin": "workspace:*",
-    "critical": "6.0.2",
+    "critical": "6.0.4",
     "tslib": "2.6.2",
     "vinyl": "3.0.0"
   },
