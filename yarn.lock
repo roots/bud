@@ -8378,6 +8378,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
     browserslist: 4.22.1
+    caniuse-lite: latest
   languageName: unknown
   linkType: soft
 
@@ -9124,6 +9125,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": 0.2.2
     "@types/node": 18.18.4
+    caniuse-lite: latest
     tslib: 2.6.2
   bin:
     bud: ./bin/bud.mjs

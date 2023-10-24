@@ -5,17 +5,19 @@ import stripAnsi from 'strip-ansi'
 
 const main = async () => {
   await Promise.all([
-    generateMarkdown([`--help`]),
-    generateMarkdown([`build`, `--help`]),
-    generateMarkdown([`build`, `production`, `--help`]),
-    generateMarkdown([`build`, `development`, `--help`]),
-    generateMarkdown([`clean`, `--help`]),
-    generateMarkdown([`dev`, `--help`]),
-    generateMarkdown([`doctor`, `--help`]),
-    generateMarkdown([`repl`, `--help`]),
-    generateMarkdown([`upgrade`, `--help`]),
-    generateMarkdown([`view`, `--help`]),
-  ])
+    [`--help`],
+    [`build`, `--help`],
+    [`build`, `production`, `--help`],
+    [`build`, `development`, `--help`],
+    [`clean`, `--help`],
+    [`config`, `--help`],
+    [`dev`, `--help`],
+    [`doctor`, `--help`],
+    [`env`, `--help`],
+    [`repl`, `--help`],
+    [`upgrade`, `--help`],
+    [`view`, `--help`],
+  ].map(generateMarkdown))
 }
 
 /**
