@@ -3,8 +3,8 @@ import {join, sep} from 'node:path'
 
 import logger from '@roots/bud-support/logger'
 
-import args from './args.js'
 import {dotenv, dotenvExpand} from '../dotenv/index.js'
+import args from './args.js'
 
 let env: Record<string, Record<string, string>> = {}
 

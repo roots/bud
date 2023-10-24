@@ -1,4 +1,4 @@
-import {CommandClass} from 'clipanion'
+import {CommandClass, Option} from 'clipanion'
 
 import {Command} from './base.command'
 
@@ -13,10 +13,16 @@ export class Lint extends Command {
     description: `Lint project`,
   }
 
+  public fix = Option.Boolean(`--fix`, false)
+
   public async execute() {
     this.promised.push(
       this.cli
-        .run([`@bud`, `eslint`])
+        .run(
+          [`@bud`, `eslint`, this.fix ? `--fix` : undefined].filter(
+            Boolean,
+          ),
+        )
         .then(this.throwIfError)
         .catch(this.catch),
 
@@ -26,7 +32,7 @@ export class Lint extends Command {
         .catch(this.catch),
 
       this.cli
-        .run([`@bud`, `prettier`])
+        .run([`@bud`, `prettier`, this.fix ? `--write` : undefined].filter(Boolean))
         .then(this.throwIfError)
         .catch(this.catch),
 

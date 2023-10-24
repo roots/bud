@@ -115,7 +115,6 @@ module.exports = {
     [`perfectionist/sort-imports`]: [
       ERROR,
       {
-        [`read-tsconfig`]: false,
         'custom-groups': {
           type: {
             [`node`]: [`node:*`],
@@ -144,24 +143,7 @@ module.exports = {
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: OFF,
     [`sort-class-members/sort-class-members`]: [
-      ERROR,
-      {
-        accessorPairPositioning: `getThenSet`,
-        groups: {
-          [`event-handlers`]: [{name: `/on.+/`, type: `method`}],
-        },
-        order: [
-          `[static-properties]`,
-          `[static-methods]`,
-          `[conventional-private-properties]`,
-          `[properties]`,
-          `[accessor-pairs]`,
-          `constructor`,
-          `[event-handlers]`,
-          `[methods]`,
-          `[conventional-private-methods]`,
-        ],
-      },
+      OFF,
     ],
   },
   settings: {

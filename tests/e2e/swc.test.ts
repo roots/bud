@@ -1,6 +1,8 @@
+import {env} from 'node:process'
+
 import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
-import {afterEach, beforeEach, describe, expect, it} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
 import {destinationPath} from './util/copy'
 import {e2eBeforeAll, runDev} from './util/install'
@@ -15,7 +17,7 @@ describe(`html output of examples/swc`, () => {
     runDev(`swc`, port)
 
     browser = await chromium.launch({
-      headless: !!process.env.CI,
+      headless: !!env.CI,
     })
     if (!browser) throw new Error(`Browser could not be launched`)
 

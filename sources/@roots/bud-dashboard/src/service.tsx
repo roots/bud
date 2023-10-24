@@ -11,7 +11,7 @@ import {stdin} from 'node:process'
 import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box, Text, type ReactElement} from '@roots/bud-support/ink'
+import {Box, type ReactElement, Text} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
@@ -48,7 +48,7 @@ export class Dashboard extends Service implements BudDashboard {
    * @param error - {@link Error}
    */
   @bind
-  public render(stats?: MultiStats, error?: Error): ReactElement | null {
+  public render(stats?: MultiStats, error?: Error): null | ReactElement {
     if (!stats) return <Text>No stats to display</Text>
 
     /**
@@ -138,10 +138,10 @@ export class Dashboard extends Service implements BudDashboard {
     return (
       <Box flexDirection="column">
         <App
+          basedir={this.app.context.basedir}
           close={cb =>
             this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
           }
-          basedir={this.app.context.basedir}
           compact={compact}
           compilations={compilations}
           debug={this.app.context.debug}

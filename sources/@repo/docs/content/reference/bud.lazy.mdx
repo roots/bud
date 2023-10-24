@@ -1,0 +1,40 @@
+---
+title: bud.lazy
+description: Configure sourcemaps
+---
+
+Enable or disable lazy compilation.
+
+You may pass your own configuration to the function, although this is optional.
+
+For more information on sourcemap options see [webpack's documentation](https://webpack.ts.org/configuration/experiments/).
+
+## Usage
+
+Enable lazy compilation (default):
+
+```ts title=bud.config.ts
+bud.lazy()
+```
+
+```ts title=bud.config.ts
+bud.lazy(true)
+```
+
+Disable sourcemaps
+
+```ts title=bud.config.ts
+bud.lazy(false)
+```
+
+Override the default configuration
+
+```ts title=bud.config.ts
+bud.lazy('inline-cheap-module-source-map')
+```
+
+Enable sourcemaps only in development (see [bud.when](bud.when) for extra clarity)
+
+```ts title=bud.config.ts
+bud.when(bud.isDevelopment, bud => bud.lazy())
+```

@@ -59,6 +59,8 @@ const Compilation = ({
 
   return (
     <View
+      borderColor={compilationColor}
+      footer={<Footer compilation={current} />}
       head={
         <Head
           basedir={basedir}
@@ -67,8 +69,6 @@ const Compilation = ({
           total={total}
         />
       }
-      borderColor={compilationColor}
-      footer={<Footer compilation={current} />}
       paddingY={compact ? 0 : 1}
     >
       <Box flexDirection="column" gap={compact ? 0 : 1}>

@@ -1,3 +1,5 @@
+import {env} from 'node:process'
+
 import {ExecaReturnValue} from 'execa'
 import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
@@ -27,7 +29,7 @@ describe(`html output of examples/react`, () => {
     dev = runDev(`react`, port)
 
     browser = await chromium.launch({
-      headless: !!process.env.CI,
+      headless: !!env.CI,
     })
     if (!browser) throw new Error(`Browser could not be launched`)
 

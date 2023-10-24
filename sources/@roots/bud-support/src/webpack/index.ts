@@ -1,3 +1,5 @@
+export type {LazyCompilationOptions} from './lazyCompilation.js'
+
 export {default, default as Webpack} from 'webpack'
 
 export type {
@@ -25,5 +27,3 @@ export type {
   WebpackError,
   WebpackPluginInstance,
 } from 'webpack'
-
-export type {LazyCompilationOptions} from './lazyCompilation.js'

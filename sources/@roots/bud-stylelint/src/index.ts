@@ -9,6 +9,7 @@
  */
 
 import type {BudStylelintPublicApi} from './extension/base.js'
+
 import BudStylelint from './extension/index.js'
 
 declare module '@roots/bud-framework' {

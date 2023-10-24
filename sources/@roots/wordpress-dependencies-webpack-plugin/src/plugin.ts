@@ -11,8 +11,8 @@ import Webpack from 'webpack'
 export interface Options {
   emitWordPressJson: boolean
   entrypointsPlugin?: typeof EntrypointsWebpackPlugin
-  outputPath?: string
   exclude?: string[]
+  outputPath?: string
 }
 
 export default class WordPressDependenciesWebpackPlugin {

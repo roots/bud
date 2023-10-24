@@ -4,6 +4,7 @@ import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
 import * as filesystem from '@roots/bud-support/filesystem'
+import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 import * as projectEnv from '@roots/bud-support/utilities/env'
@@ -13,7 +14,6 @@ import * as projectPaths from '@roots/bud-support/utilities/paths'
 import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
 import services from './services.js'
-import {render} from '@roots/bud-support/ink'
 
 export type Options = Omit<Partial<Context>, `extensions`> & {
   extensions?: Array<string>

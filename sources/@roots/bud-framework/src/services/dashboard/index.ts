@@ -1,7 +1,4 @@
-import type {
-  MultiStats,
-  StatsError,
-} from '@roots/bud-framework/config'
+import type {MultiStats, StatsError} from '@roots/bud-framework/config'
 
 /**
  * Dashboard service container

@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {LazyCompilationOptions} from '@roots/bud-framework'
 
-export type Parameters = [LazyCompilationOptions | boolean]
+export type Parameters = [boolean | LazyCompilationOptions]
 
 /**
  * Lazy function interface
@@ -54,8 +54,11 @@ export const lazy: lazy = function (this: Bud, value = true) {
   }
 
   this.hooks.on(`build.experiments`, experiments => {
-    if (typeof experiments?.lazyCompilation === `boolean` || !experiments?.lazyCompilation)
-      return {...experiments ?? {}, lazyCompilation: value}
+    if (
+      typeof experiments?.lazyCompilation === `boolean` ||
+      !experiments?.lazyCompilation
+    )
+      return {...(experiments ?? {}), lazyCompilation: value}
 
     experiments.lazyCompilation = {
       ...experiments.lazyCompilation,

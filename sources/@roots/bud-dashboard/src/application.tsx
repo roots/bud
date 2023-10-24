@@ -8,6 +8,7 @@ import Footer from '@roots/bud-dashboard/components/footer'
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
 import Server from '@roots/bud-dashboard/views/server'
+import escapes from '@roots/bud-support/ansi-escapes'
 import {
   Box,
   type PropsWithChildren,
@@ -17,7 +18,6 @@ import {
   useState,
   useStdout,
 } from '@roots/bud-support/ink'
-import escapes from '@roots/bud-support/ansi-escapes'
 
 export interface Props {
   basedir?: string
@@ -28,6 +28,7 @@ export interface Props {
   devUrl?: URL
   displayAssets?: boolean
   displayEntrypoints?: boolean
+  displayHelp?: boolean
   displayServerInfo?: boolean
   error?: Error
   errors?: StatsCompilation[`errors`]
@@ -38,7 +39,6 @@ export interface Props {
   proxyUrl?: URL
   publicDevUrl?: URL
   publicProxyUrl?: URL
-  displayHelp?: boolean
   warnings?: StatsCompilation[`warnings`]
 }
 
@@ -50,6 +50,7 @@ export const Application = ({
   devUrl,
   displayAssets,
   displayEntrypoints,
+  displayHelp,
   displayServerInfo,
   error,
   isolated = 0,
@@ -58,7 +59,6 @@ export const Application = ({
   proxyUrl,
   publicDevUrl,
   publicProxyUrl,
-  displayHelp,
 }: Props) => {
   const {stdout} = useStdout()
 
