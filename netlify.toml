@@ -1,0 +1,88 @@
+[build]
+  base = "./"
+  publish = "sources/@repo/docs/build/"
+  command = "yarn docusaurus build"
+
+[[redirects]]
+  from = "http://budjs.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://budjs.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/tags/release"
+  to = "/releases"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/releases/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guides/general-use/multi-compiler"
+  to = "/guides/general-use/multi-instance"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guides/general-use/transpiler-sources"
+  to = "/guides/general-use/compiler-sources"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/packages/wordpress-hmr"
+  to = "/extensions/bud-preset-wordpress"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/packages/wordpress-hmr"
+  to = "/extensions/bud-preset-wordpress"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/guides/*"
+  to = "/learn/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/bud.template"
+  to = "/reference/bud.html"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/general-use/alternative-config-syntax"
+  to = "/learn/config/files/bud.config"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/general-use/config-layers"
+  to = "/learn/config/files/bud.config"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/general-use/extensions"
+  to = "/learn/config/extensions"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/docs/*"
+  to = "/reference/:splat"
+  status = 301
+  force = true
