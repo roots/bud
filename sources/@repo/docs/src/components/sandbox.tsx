@@ -10,6 +10,7 @@ export const Sandbox = ({allow, id, sandbox, style = {}, title}) => (
       sandbox ??
       `allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts`
     }
+    src={`https://codesandbox.io/embed/${id}?expanddevtools=1&fontsize=12&hidenavigation=1&theme=dark`}
     style={{
       border: `0`,
       borderRadius: `4px`,
@@ -18,7 +19,6 @@ export const Sandbox = ({allow, id, sandbox, style = {}, title}) => (
       width: `100%`,
       ...style,
     }}
-    src={`https://codesandbox.io/embed/${id}?expanddevtools=1&fontsize=12&hidenavigation=1&theme=dark`}
     title={title ?? id}
   />
 )

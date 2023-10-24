@@ -167,7 +167,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "18.18.4"
+    "@types/node": "20.8.8"
   },
   "dependencies": {
     "@roots/browserslist-config": "workspace:*",
@@ -184,7 +184,7 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "caniuse-lite": "latest",
+    "caniuse-lite": "1.0.30001553",
     "tslib": "2.6.2"
   },
   "volta": {

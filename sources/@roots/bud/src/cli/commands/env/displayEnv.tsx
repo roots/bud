@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud'
+
 import {Box, Text} from '@roots/bud-support/ink'
 
 const DisplayEnv = ({bud}: {bud: Bud}) => {

@@ -10,7 +10,7 @@ const Footer = ({display}: Props) => {
       <Box flexDirection="column">
         <Text>{` `}</Text>
         <Text>
-          <Text dimColor>{` `}Press</Text> h{' '}
+          <Text dimColor>{` `}Press</Text> h{` `}
           <Text dimColor>to show help</Text>
         </Text>
       </Box>
@@ -30,19 +30,19 @@ const Footer = ({display}: Props) => {
       </Text>
       <Text>
         {` `}
-        <Text dimColor>Press</Text> c{' '}
+        <Text dimColor>Press</Text> c{` `}
         <Text dimColor>to toggle compact display</Text>
       </Text>
       <Text>
         {` `}
-        <Text dimColor>Press</Text> d{' '}
+        <Text dimColor>Press</Text> d{` `}
         <Text dimColor>
           to toggle detailed debug information (may be system intensive)
         </Text>
       </Text>
       <Text>
         {` `}
-        <Text dimColor>Press</Text> e{' '}
+        <Text dimColor>Press</Text> e{` `}
         <Text dimColor>to toggle entrypoints display</Text>
       </Text>
       <Text>
@@ -55,12 +55,12 @@ const Footer = ({display}: Props) => {
       </Text>
       <Text>
         {` `}
-        <Text dimColor>Press</Text> r{' '}
+        <Text dimColor>Press</Text> r{` `}
         <Text dimColor>to clear/reload console</Text>
       </Text>
       <Text>
         {` `}
-        <Text dimColor>Press</Text> s{' '}
+        <Text dimColor>Press</Text> s{` `}
         <Text dimColor>to toggle server info display</Text>
       </Text>
     </Box>

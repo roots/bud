@@ -1,4 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
+import type BudWordPressDependencies from '@roots/bud-wordpress-dependencies'
+import type BudWordPressExternals from '@roots/bud-wordpress-externals'
+import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
 
 import {
   Extension,
@@ -14,9 +17,6 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import chalk from '@roots/bud-support/chalk'
 import figures from '@roots/bud-support/figures'
-import type BudWordPressDependencies from '@roots/bud-wordpress-dependencies'
-import type BudWordPressExternals from '@roots/bud-wordpress-externals'
-import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
 
 /**
  * WordPress preset options
@@ -32,65 +32,9 @@ interface Options {
  */
 interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
   /**
-   * Enable `@roots/wordpress-hmr` functionality
-   *
-   * @default true
+   * {@link BudWordPressDependencies}
    */
-  hmr: Option<PublicExtension, Options, `hmr`>[`value`]
-  /**
-   * Get `@roots/wordpress-hmr` functionality
-   *
-   * @returns boolean
-   */
-  getHmr: Option<PublicExtension, Options, `hmr`>[`get`]
-  /**
-   * Set `@roots/wordpress-hmr` functionality
-   *
-   * @param value boolean
-   * @returns this
-   *
-   * @example
-   * ```js
-   * bud.wp.setHmr(false)
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.wp.setHmr(hmr => false)
-   * ```
-   */
-  setHmr: Option<PublicExtension, Options, `hmr`>[`set`]
-
-  /**
-   * WordPress editor toast notifications
-   *
-   * @default true
-   */
-  notify: Option<PublicExtension, Options, `notify`>[`value`]
-  /**
-   * Get WordPress editor toast notifications
-   *
-   * @returns boolean
-   */
-  getNotify: Option<PublicExtension, Options, `notify`>[`get`]
-  /**
-   * Set WordPress editor toast notifications
-   *
-   * @param value boolean
-   * @returns this
-   *
-   * @example
-   * ```js
-   * bud.wp.setNotify(false)
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.wp.setNotify(notify => false)
-   * ```
-   */
-  setNotify: Option<PublicExtension, Options, `notify`>[`set`]
-
+  dependencies: BudWordPressDependencies
   /**
    * Exclude dependencies from externals and the `entrypoints.json` manifest
    *
@@ -98,11 +42,46 @@ interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
    */
   exclude: Option<PublicExtension, Options, `exclude`>[`value`]
   /**
+   * {@link BudWordPressExternals}
+   */
+  externals: BudWordPressExternals
+
+  /**
    * Get excluded dependencies
    *
    * @returns Array<string>
    */
   getExclude: Option<PublicExtension, Options, `exclude`>[`get`]
+  /**
+   * Get `@roots/wordpress-hmr` functionality
+   *
+   * @returns boolean
+   */
+  getHmr: Option<PublicExtension, Options, `hmr`>[`get`]
+  /**
+   * Get WordPress editor toast notifications
+   *
+   * @returns boolean
+   */
+  getNotify: Option<PublicExtension, Options, `notify`>[`get`]
+
+  /**
+   * Enable `@roots/wordpress-hmr` functionality
+   *
+   * @default true
+   */
+  hmr: Option<PublicExtension, Options, `hmr`>[`value`]
+  /**
+   * {@link WordPressThemeJSON}
+   */
+  json: WordPressThemeJSON
+  /**
+   * WordPress editor toast notifications
+   *
+   * @default true
+   */
+  notify: Option<PublicExtension, Options, `notify`>[`value`]
+
   /**
    * Set excluded dependencies
    *
@@ -120,19 +99,40 @@ interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
    * ```
    */
   setExclude: Option<PublicExtension, Options, `exclude`>[`set`]
-
   /**
-   * {@link BudWordPressDependencies}
+   * Set `@roots/wordpress-hmr` functionality
+   *
+   * @param value boolean
+   * @returns this
+   *
+   * @example
+   * ```js
+   * bud.wp.setHmr(false)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.wp.setHmr(hmr => false)
+   * ```
    */
-  dependencies: BudWordPressDependencies
+  setHmr: Option<PublicExtension, Options, `hmr`>[`set`]
   /**
-   * {@link BudWordPressExternals}
+   * Set WordPress editor toast notifications
+   *
+   * @param value boolean
+   * @returns this
+   *
+   * @example
+   * ```js
+   * bud.wp.setNotify(false)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.wp.setNotify(notify => false)
+   * ```
    */
-  externals: BudWordPressExternals
-  /**
-   * {@link WordPressThemeJSON}
-   */
-  json: WordPressThemeJSON
+  setNotify: Option<PublicExtension, Options, `notify`>[`set`]
 }
 
 /**

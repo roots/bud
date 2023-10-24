@@ -1,7 +1,6 @@
-/* eslint-disable n/no-process-env */
 import type {SignaleOptions} from 'signale'
 
-import {stdout} from 'node:process'
+import {cwd, env, stdout} from 'node:process'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -45,11 +44,11 @@ class Logger {
       this.options.logLevel === `info`
     }
 
-    const secretEnv = Object.entries(global.process.env)
+    const secretEnv = Object.entries(env)
       .filter(([k, v]) => !isUndefined(v) && k.includes(`SECRET`))
       .map(([_, value]) => `${value}`)
 
-    secretEnv.push(process.cwd())
+    secretEnv.push(cwd())
 
     this.options.secrets = this.options.secrets
       ? [...this.options.secrets, ...secretEnv]

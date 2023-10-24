@@ -7,7 +7,7 @@ import * as pmString from './pmString.js'
 
 export default async function (
   basedir: string = cwd,
-): Promise<`yarn` | `yarn-classic` | `npm` | `pnpm` | false> {
+): Promise<`npm` | `pnpm` | `yarn-classic` | `yarn` | false> {
   /**
    * If set, it will be something like: `npm/7.20.3 node/v14.17.3 darwin x64`
    */

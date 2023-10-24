@@ -8,8 +8,8 @@
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.9",
-    "@types/node": "18.18.4",
+    "@types/lodash-es": "4.17.10",
+    "@types/node": "20.8.8",
     "@types/prettier": "3.0.0",
     "vitest": "0.34.6"
   },

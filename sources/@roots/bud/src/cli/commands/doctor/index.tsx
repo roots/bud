@@ -9,18 +9,25 @@ import {Command} from '@roots/bud-support/clipanion'
 import {BudError, InputError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
+import logger from '@roots/bud-support/logger'
 import webpack from '@roots/bud-support/webpack'
 
-import {WinError} from './WinError.js'
 import DisplayConfigFiles from '../config/displayConfigFiles.js'
 import DisplayEnv from '../env/displayEnv.js'
+import {WinError} from './WinError.js'
 
 /**
  * bud doctor command
  */
 export default class DoctorCommand extends BudCommand {
+  /**
+   * {@link BudCommand.paths}
+   */
   public static override paths = [[`doctor`]]
 
+  /**
+   * {@link BudCommand.usage}
+   */
   public static override usage = Command.Usage({
     category: `debug`,
     description: `Check project for common errors`,
@@ -159,7 +166,7 @@ for a lot of edge cases so it might return a false positive.
     try {
       await this.bud.build.make()
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
 
     this.renderStatic(<DisplayConfigFiles bud={this.bud} />)
@@ -181,7 +188,7 @@ for a lot of edge cases so it might return a false positive.
         ),
       )
     } catch (error) {
-      console.error(error)
+      logger.error(error)
     }
 
     this.renderStatic(

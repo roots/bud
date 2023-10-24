@@ -1,6 +1,6 @@
 export const parse = (
   pmString?: string,
-): `yarn` | `yarn-classic` | `npm` | `pnpm` | false => {
+): `npm` | `pnpm` | `yarn-classic` | `yarn` | false => {
   if (!pmString) return false
 
   if (pmString.includes(`yarn/3`) || pmString.includes(`yarn@3`))

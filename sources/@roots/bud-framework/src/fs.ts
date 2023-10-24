@@ -178,6 +178,7 @@ export class FS extends Filesystem implements Contract {
       destination ? join(destination, path) : path
 
     this.app.after(async () => {
+      // eslint-disable-next-line
       console.log(`Uploading...`)
 
       await globby(files, {cwd: source}).then(async files => {

@@ -26,11 +26,11 @@ interface Options extends ReactRefreshPluginOptions {
  */
 @label(`@roots/bud-react/react-refresh`)
 @options<Options>({
+  compilerExtension: undefined,
   esModule: DynamicOption.make(
     ({context}) => context.manifest?.type === `module`,
   ),
   overlay: false,
-  compilerExtension: undefined,
 })
 @development
 export default class BudReactRefresh extends Extension<

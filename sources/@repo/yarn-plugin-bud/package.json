@@ -7,17 +7,17 @@
     "node": "18.12.1"
   },
   "devDependencies": {
-    "@types/lodash": "4.14.199",
-    "@types/node": "18.18.4",
-    "@types/semver": "7.5.3",
+    "@types/lodash": "4.14.200",
+    "@types/node": "20.8.8",
+    "@types/semver": "7.5.4",
     "@yarnpkg/builder": "4.0.0-rc.51",
     "typescript": "5.2.2"
   },
   "dependencies": {
     "@repo/constants": "workspace:*",
-    "@yarnpkg/cli": "4.0.0-rc.53",
-    "@yarnpkg/core": "4.0.0-rc.53",
-    "@yarnpkg/shell": "4.0.0-rc.53",
+    "@yarnpkg/cli": "4.0.0",
+    "@yarnpkg/core": "4.0.0",
+    "@yarnpkg/shell": "4.0.0",
     "clipanion": "4.0.0-rc.2",
     "fs-jetpack": "5.1.0",
     "globby": "13.2.2",

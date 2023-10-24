@@ -8,7 +8,8 @@
  * @see https://github.com/roots/bud
  */
 
-import type {Item, Loader, Rule} from '@roots/bud-build'
+import type {Item, Loader, Rule} from '@roots/bud-framework'
+
 import BudEsbuild from '@roots/bud-esbuild/extension'
 
 declare module '@roots/bud-framework' {

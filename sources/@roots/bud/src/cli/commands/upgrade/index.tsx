@@ -94,7 +94,7 @@ export default class BudUpgradeCommand extends BudCommand {
   /**
    * Package manager bin
    */
-  public get bin(): `yarn` | `npm` | `pnpm` {
+  public get bin(): `npm` | `pnpm` | `yarn` {
     if (this.pm === `yarn-classic`) {
       return `yarn`
     }
