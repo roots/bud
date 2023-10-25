@@ -1,3 +1,3 @@
 /**
- * null
+ * No types for this package
  */
