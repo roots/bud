@@ -433,6 +433,11 @@ export default class BudUpgradeCommand extends BudCommand {
    */
   @bind
   public async upgradeBrowserslistDb() {
+    if (this.registry !== `https://registry.npmjs.org`) {
+      logger.warn(`Cannot upgrade browserslist db with custom registry`)
+      return
+    }
+
     logger.log(`Attempting to upgrade browserslist db...`)
 
     switch (this.pm) {
