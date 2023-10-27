@@ -63,6 +63,13 @@ export default class BudUpgradeCommand extends BudCommand {
   public override force = true
 
   /**
+   * Browserslist option
+   */
+  public browserslist = Option.Boolean(`--browserslist`, true, {
+    description: `Upgrade browserslist database`,
+  })
+
+  /**
    * Package manager option
    */
   public pm = Option.String(`--pm`, undefined, {
@@ -153,10 +160,11 @@ export default class BudUpgradeCommand extends BudCommand {
    */
   public override async execute() {
     await this.makeBud().catch(error => {
-      logger.warn(`error making bud`, error)
+      logger.warn(`Error making bud`, error)
     })
+
     const basedir = this.bud?.context?.basedir ?? process.cwd()
-    logger.log(`using basedir:`, basedir)
+    logger.log(`Using basedir:`, basedir)
 
     if (!this.pm) {
       await whichPm(basedir)
@@ -168,7 +176,7 @@ export default class BudUpgradeCommand extends BudCommand {
         })
         .then(pm => {
           if (pm === false) {
-            logger.info(`no package manager could be detected.`)
+            logger.info(`No package manager could be detected.`)
             this.pm = `npm`
             return
           }
@@ -176,11 +184,11 @@ export default class BudUpgradeCommand extends BudCommand {
           this.pm = pm
         })
         .catch(e => {
-          logger.info(`error getting package manager`, `\n`, e)
+          logger.info(`Error getting package manager`, `\n`, e)
           this.pm = `npm`
         })
     }
-    logger.log(`using package manager:`, this.pm)
+    logger.log(`Using package manager:`, this.pm)
 
     if (this.pm === `yarn`) {
       if (this.registry !== `https://registry.npmjs.org`) {
@@ -199,24 +207,24 @@ export default class BudUpgradeCommand extends BudCommand {
             this.registry = yarnrc[`npmRegistryServer`]
 
             logger.log(
-              `registry set to`,
+              `Registry set to`,
               this.registry,
               `(setting sourced from .yarnrc.yml)`,
             )
           }
         })
         .catch(error => {
-          logger.warn(`error reading .yarnrc.yml`, error)
+          logger.warn(`Error reading .yarnrc.yml`, `\n`, error)
         })
     }
-    logger.log(`using registry:`, this.registry)
+    logger.log(`Using registry:`, this.registry)
 
     if (!isString(this.version)) {
-      logger.log(`getting latest version from registry`)
+      logger.log(`Getting latest version from registry`)
       const data = await this.doRegistryRequest(`@roots/bud/latest`)
       this.version = data?.version
     }
-    logger.log(`upgrading to target version:`, this.version)
+    logger.log(`Upgrading to target version:`, this.version)
 
     /**
      * Upgrade dependencies
@@ -228,9 +236,14 @@ export default class BudUpgradeCommand extends BudCommand {
      * Handle pnpm hoisting
      */
     if (this.bin === `pnpm`) {
-      logger.log(`hoisting installed dependencies with pnpm`)
+      logger.log(`Hoisting installed dependencies with pnpm`)
       await this.$(this.bin, [`install`, `--shamefully-hoist`])
     }
+
+    if (this.browserslist)
+      await this.upgradeBrowserslistDb().catch(error => {
+        logger.warn(`Error upgrading browserslist db`, `\n`, error)
+      })
   }
 
   /**
@@ -240,7 +253,7 @@ export default class BudUpgradeCommand extends BudCommand {
   public findCandidates(type: Type): Array<string> {
     const dependencies = this.bud.context.manifest?.[type]
     if (!dependencies) {
-      logger.log(`no candidates found in manifest`)
+      logger.log(`No candidates found in manifest`)
       return []
     }
 
@@ -413,5 +426,27 @@ export default class BudUpgradeCommand extends BudCommand {
     ).catch(error => {
       logger.error(error)
     })
+  }
+
+  /**
+   * Try to upgrade browserslist
+   */
+  @bind
+  public async upgradeBrowserslistDb() {
+    if (this.registry !== `https://registry.npmjs.org`) {
+      logger.warn(`Cannot upgrade browserslist db with custom registry`)
+      return
+    }
+
+    logger.log(`Attempting to upgrade browserslist db...`)
+
+    switch (this.pm) {
+      case `pnpm`:
+        await this.$(`pnpx`, [`update-browserslist-db`])
+        break
+      default:
+        await this.$(`npx`, [`update-browserslist-db`])
+        break
+    }
   }
 }

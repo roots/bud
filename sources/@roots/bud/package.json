@@ -184,6 +184,7 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "browserslist": "4.22.1",
     "caniuse-lite": "1.0.30001553",
     "tslib": "2.6.2"
   },
