@@ -37,7 +37,7 @@ export default async function browserslistUpdateCheck(bud: Bud) {
   if (!isSilent(bud)) {
     process.stdout.write(`\nChecking for browserslist updates...\n`)
     process.stdout.write(
-      `(you can disable this behavior with the --no-browserslist-update flag.)\n\n`,
+      `(you can disable this behavior with the --no-update-browserslist flag.)\n\n`,
     )
   }
 

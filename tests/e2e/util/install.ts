@@ -31,7 +31,15 @@ export const runDev = async (
 
   return execa(
     `npx`,
-    [`bud`, `dev`, `--no-cache`, `--html`, `--port`, `${port}`],
+    [
+      `bud`,
+      `dev`,
+      `--no-cache`,
+      `--html`,
+      `--port`,
+      `${port}`,
+      `--no-update-browserslist`,
+    ],
     {cwd: fs.destinationPath(dirname)},
   ).catch(error => {
     throw error
