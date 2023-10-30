@@ -1,35 +1,4 @@
 /**
  * Last 2 versions
  */
-module.exports = [
-  `and_chr 118`,
-  `and_ff 118`,
-  `and_qq 13.1`,
-  `and_uc 15.5`,
-  `android 118`,
-  `baidu 13.18`,
-  `bb 10`,
-  `bb 7`,
-  `chrome 118`,
-  `chrome 117`,
-  `edge 118`,
-  `edge 117`,
-  `firefox 118`,
-  `firefox 117`,
-  `ie 11`,
-  `ie 10`,
-  `ie_mob 11`,
-  `ie_mob 10`,
-  `ios_saf 17.1`,
-  `ios_saf 17.0`,
-  `kaios 3.0-3.1`,
-  `kaios 2.5`,
-  `op_mini all`,
-  `op_mob 73`,
-  `opera 103`,
-  `opera 102`,
-  `safari 17.1`,
-  `safari 17.0`,
-  `samsung 22`,
-  `samsung 21`,
-]
+module.exports = [`last 2 versions`]
