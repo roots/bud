@@ -155,6 +155,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
       cwd: this.bud.path(),
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
+      extendEnv: true,
       stdio: `inherit`,
       ...options,
     })

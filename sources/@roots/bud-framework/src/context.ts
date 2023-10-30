@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {PackageManager} from '@roots/bud-support/which-pm'
 
 import type {parse} from 'node:path'
 
@@ -401,6 +402,14 @@ export interface Context {
      */
     storage: string
   }
+
+  /**
+   * Package manager option
+   *
+   * @remarks
+   * Set with the `--pm` CLI flag.
+   */
+  pm?: PackageManager
 
   /**
    * Port option

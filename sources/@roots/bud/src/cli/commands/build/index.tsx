@@ -24,7 +24,10 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
+import updateCheck from '@roots/bud/cli/flags/updateCheck'
+import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import logger from '@roots/bud-support/logger'
 
 /**
  * `bud build` command
@@ -94,6 +97,8 @@ export default class BudBuildCommand extends BudCommand {
 
   public runtime = runtime
 
+  public updateCheck = updateCheck
+
   public override silent = silent(false)
 
   public splitChunks = splitChunks
@@ -108,6 +113,12 @@ export default class BudBuildCommand extends BudCommand {
 
     if (isBoolean(this[`entrypoints.html`])) {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
+    }
+
+    try {
+      if (this.updateCheck) await browserslistUpdateCheck(this.bud)
+    } catch (error) {
+      logger.error(error)
     }
 
     await this.bud.run()

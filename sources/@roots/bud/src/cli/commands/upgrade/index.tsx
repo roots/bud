@@ -7,7 +7,6 @@ import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 import semver from '@roots/bud-support/semver'
 import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
-import whichPm from '@roots/bud-support/which-pm'
 
 type Type = `dependencies` | `devDependencies`
 
@@ -68,6 +67,7 @@ export default class BudUpgradeCommand extends BudCommand {
   public pm = Option.String(`--pm`, undefined, {
     description: `Package manager to use. One of: \`npm\`, \`yarn-classic\`, \`pnpm\` (experimental), or \`yarn\` (experimental)`,
     validator: isOneOf([
+      isLiteral(`bun`),
       isLiteral(`npm`),
       isLiteral(`pnpm`),
       isLiteral(`yarn`),
@@ -94,19 +94,19 @@ export default class BudUpgradeCommand extends BudCommand {
   /**
    * Package manager bin
    */
-  public get bin(): `npm` | `pnpm` | `yarn` {
-    if (this.pm === `yarn-classic`) {
+  public get bin(): `bun` | `npm` | `pnpm` | `yarn` {
+    if (this.bud.context.pm === `yarn-classic`) {
       return `yarn`
     }
 
-    return this.pm
+    return this.bud.context.pm
   }
 
   /**
    * Package manager subcommand
    */
   public get subcommand(): `add` | `install` {
-    return this.pm === `npm` ? `install` : `add`
+    return this.bud.context.pm === `npm` ? `install` : `add`
   }
 
   /**
@@ -158,31 +158,9 @@ export default class BudUpgradeCommand extends BudCommand {
     const basedir = this.bud?.context?.basedir ?? process.cwd()
     logger.log(`using basedir:`, basedir)
 
-    if (!this.pm) {
-      await whichPm(basedir)
-        .catch(thrownError => {
-          const error = BudError.normalize(thrownError)
-          error.details = error.message
-          error.thrownBy = `@roots/bud-support/which-pm`
-          throw error
-        })
-        .then(pm => {
-          if (pm === false) {
-            logger.info(`no package manager could be detected.`)
-            this.pm = `npm`
-            return
-          }
+    logger.log(`using package manager:`, this.bud.context.pm)
 
-          this.pm = pm
-        })
-        .catch(e => {
-          logger.info(`error getting package manager`, `\n`, e)
-          this.pm = `npm`
-        })
-    }
-    logger.log(`using package manager:`, this.pm)
-
-    if (this.pm === `yarn`) {
+    if (this.bud.context.pm === `yarn`) {
       if (this.registry !== `https://registry.npmjs.org`) {
         logger.warn(
           `Yarn berry does not support custom registries set by CLI. Ignoring --registry flag; set your custom registry in \`.yarnrc.yml\``,
@@ -190,24 +168,26 @@ export default class BudUpgradeCommand extends BudCommand {
         this.registry = `https://registry.npmjs.org`
       }
 
-      await this.bud.fs.yml
-        .read(this.bud.path(`.yarnrc.yml`))
-        .then(yarnrc => {
-          if (!yarnrc) return
+      if (await this.bud.fs.exists(this.bud.path(`.yarnrc.yml`))) {
+        await this.bud.fs.yml
+          .read(this.bud.path(`.yarnrc.yml`))
+          .then(yarnrc => {
+            if (!yarnrc) return
 
-          if (yarnrc[`npmRegistryServer`]) {
-            this.registry = yarnrc[`npmRegistryServer`]
+            if (yarnrc[`npmRegistryServer`]) {
+              this.registry = yarnrc[`npmRegistryServer`]
 
-            logger.log(
-              `registry set to`,
-              this.registry,
-              `(setting sourced from .yarnrc.yml)`,
-            )
-          }
-        })
-        .catch(error => {
-          logger.warn(`error reading .yarnrc.yml`, error)
-        })
+              logger.log(
+                `registry set to`,
+                this.registry,
+                `(setting sourced from .yarnrc.yml)`,
+              )
+            }
+          })
+          .catch(error => {
+            logger.warn(`error reading .yarnrc.yml`, error)
+          })
+      }
     }
     logger.log(`using registry:`, this.registry)
 
@@ -247,20 +227,23 @@ export default class BudUpgradeCommand extends BudCommand {
     const results = Object.entries(dependencies)
       .filter(([signifier, version]: [string, string]) => {
         if (!version || !signifier) return false
-        if (version.includes(`workspace:`)) return false
+        if (version.includes(`workspace:`)) {
+          logger.log(`ignoring workspace:* dependency`, signifier)
+          return false
+        }
 
         if (
           signifier.includes(`bud-`) ||
           signifier.includes(`/bud`) ||
           signifier.includes(`@roots/sage`)
-        )
+        ) {
+          logger.log(`found candidate`, `${signifier}@${version}`)
           return true
+        }
 
         return false
       })
       .map(([signifier]) => signifier)
-
-    logger.log(`candidates:`, `\n`, results)
 
     return results
   }
@@ -304,7 +287,6 @@ export default class BudUpgradeCommand extends BudCommand {
     const communityDependencies = this.findCandidates(type).filter(
       signifier => !signifier.startsWith(`@roots/`),
     )
-    logger.log(`found community dependencies`, communityDependencies)
     await Promise.all(
       communityDependencies.map(async signifier => {
         const {versions} = await this.doRegistryRequest(signifier)
@@ -350,12 +332,15 @@ export default class BudUpgradeCommand extends BudCommand {
       logger.warn(`error getting upgradeable`, type, `\n`, error)
     })
 
-    logger.log(
-      `discovered upgradeable`,
-      type,
-      `:\n`,
-      this.upgradeable[type],
-    )
+    if (this.upgradeable[type] && this.upgradeable[type].length) {
+      logger.log(
+        `discovered upgradeable`,
+        type,
+        `:\n`,
+        this.upgradeable[type],
+      )
+    }
+
     return this.upgradeable[type]
   }
 
@@ -368,7 +353,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (type === `devDependencies`)
-      switch (this.pm) {
+      switch (this.bud.context.pm) {
         case `npm`:
           flags.push(`--save-dev`)
           break
@@ -383,7 +368,7 @@ export default class BudUpgradeCommand extends BudCommand {
       }
 
     if (type === `dependencies`)
-      switch (this.pm) {
+      switch (this.bud.context.pm) {
         case `npm`:
           flags.push(`--save`)
           break
@@ -397,7 +382,7 @@ export default class BudUpgradeCommand extends BudCommand {
       }
 
     if (
-      this.pm !== `yarn` &&
+      this.bud.context.pm !== `yarn` &&
       this.registry !== `https://registry.npmjs.org`
     ) {
       flags.push(`--registry`, this.registry)
