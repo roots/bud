@@ -102,18 +102,18 @@ export default class BudUpgradeCommand extends BudCommand {
    * Package manager bin
    */
   public get bin(): `bun` | `npm` | `pnpm` | `yarn` {
-    if (this.bud.context.pm === `yarn-classic`) {
+    if (this.pm === `yarn-classic`) {
       return `yarn`
     }
 
-    return this.bud.context.pm
+    return this.pm
   }
 
   /**
    * Package manager subcommand
    */
   public get subcommand(): `add` | `install` {
-    return this.bud.context.pm === `npm` ? `install` : `add`
+    return this.pm === `npm` ? `install` : `add`
   }
 
   /**
@@ -166,9 +166,10 @@ export default class BudUpgradeCommand extends BudCommand {
     const basedir = this.bud?.context?.basedir ?? process.cwd()
     logger.log(`Using basedir:`, basedir)
 
-    logger.log(`using package manager:`, this.bud.context.pm)
+    this.pm = this.pm ?? this.bud.context.pm
+    logger.log(`using package manager:`, this.pm)
 
-    if (this.bud.context.pm === `yarn`) {
+    if (this.pm === `yarn`) {
       if (this.registry !== `https://registry.npmjs.org`) {
         logger.warn(
           `Yarn berry does not support custom registries set by CLI. Ignoring --registry flag; set your custom registry in \`.yarnrc.yml\``,
@@ -366,7 +367,7 @@ export default class BudUpgradeCommand extends BudCommand {
     }
 
     if (type === `devDependencies`)
-      switch (this.bud.context.pm) {
+      switch (this.pm) {
         case `npm`:
           flags.push(`--save-dev`)
           break
@@ -381,7 +382,7 @@ export default class BudUpgradeCommand extends BudCommand {
       }
 
     if (type === `dependencies`)
-      switch (this.bud.context.pm) {
+      switch (this.pm) {
         case `npm`:
           flags.push(`--save`)
           break
@@ -395,7 +396,7 @@ export default class BudUpgradeCommand extends BudCommand {
       }
 
     if (
-      this.bud.context.pm !== `yarn` &&
+      this.pm !== `yarn` &&
       this.registry !== `https://registry.npmjs.org`
     ) {
       flags.push(`--registry`, this.registry)
@@ -427,10 +428,35 @@ export default class BudUpgradeCommand extends BudCommand {
 
     switch (this.pm) {
       case `pnpm`:
-        await this.$(`pnpx`, [`update-browserslist-db`])
+        await this.$(`pnpx`, [`update-browserslist-db`]).catch(error => {
+          logger.warn(
+            `error upgrading browserslist db.`,
+            `\n`,
+            `try running manually with pnpx update-browserslist-db`,
+          )
+        })
         break
+
+      case `yarn`:
+        await this.$(`yarn`, [`dlx`, `update-browserslist-db`]).catch(
+          error => {
+            logger.warn(
+              `error upgrading browserslist db.`,
+              `\n`,
+              `try running manually with yarn dlx update-browserslist-db`,
+            )
+          },
+        )
+        break
+
       default:
-        await this.$(`npx`, [`update-browserslist-db`])
+        await this.$(`npx`, [`update-browserslist-db`]).catch(error => {
+          logger.warn(
+            `error upgrading browserslist db.`,
+            `\n`,
+            `try running manually with npx update-browserslist-db`,
+          )
+        })
         break
     }
   }

@@ -4,7 +4,7 @@ import execa from '@roots/bud-support/execa'
 import logger from '@roots/bud-support/logger'
 
 export default async function browserslistUpdateCheck(bud: Bud) {
-  if (await hasBrowserslistConfig(bud)) {
+  if ((!await hasBrowserslistConfig(bud))) {
     return logger.log(
       `No browserslist configuration found. Skipping browserslist upgrade check.`,
     )
@@ -37,7 +37,7 @@ export default async function browserslistUpdateCheck(bud: Bud) {
   if (!isSilent(bud)) {
     process.stdout.write(`\nChecking for browserslist updates...\n`)
     process.stdout.write(
-      `(you can disable this behavior with the --no-update-check flag.)\n\n`,
+      `(you can disable this behavior with the --no-browserslist-update flag.)\n\n`,
     )
   }
 

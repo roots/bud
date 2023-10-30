@@ -1,12 +1,13 @@
-export default {
-  content: ['src/**/*.{js,css,html}'],
+import colors from './colors.js'
+
+const config = {
+  content: ['./src/**/*.js'],
   theme: {
     extend: {
-      colors: {},
+      colors, // Extend Tailwind's default colors
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }
+
+export default config
