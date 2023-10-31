@@ -1,6 +1,6 @@
+import stripAnsi from '@roots/bud-support/strip-ansi'
 import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
-import stripAnsi from '@roots/bud-support/strip-ansi'
 
 describe(`bud build with extensionless stylelintrc`, () => {
   it(`should build with expected stdout`, async () => {
@@ -10,9 +10,11 @@ describe(`bud build with extensionless stylelintrc`, () => {
       `run`,
       `bud`,
       `build`,
+      `--no-browserslist-update`,
     ])
 
-    const [_s, title, _s2, entry, runtime, css, js, _s3, timings] = stripAnsi(result.stdout).split(`\n`)
+    const [_s, title, _s2, entry, runtime, css, js, _s3, timings] =
+      stripAnsi(result.stdout).split(`\n`)
 
     expect(title).toMatch(/╭ stylelintrc-no-extension \[.*\].*\.\/dist/)
     expect(entry).toMatch(/│ app/)
