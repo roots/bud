@@ -151,6 +151,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
     bail: () => any = () => setTimeout(exit, 100),
   ): Promise<ExecaReturnValue<string>> {
     const {execa} = await import(`@roots/bud-support/execa`)
+
     const process = execa(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
       encoding: `utf8`,
