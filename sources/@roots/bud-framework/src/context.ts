@@ -516,6 +516,14 @@ export interface Context {
   target?: Array<string>
 
   /**
+   * Update browserslist option
+   *
+   * @remarks
+   * Set with the `--update-browserslist-check` CLI flag.
+   */
+  updateBrowserslistCheck?: boolean
+
+  /**
    * Use option
    *
    * @remarks

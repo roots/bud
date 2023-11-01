@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud'
 import execa from '@roots/bud-support/execa'
 import logger from '@roots/bud-support/logger'
 
-export default async function browserslistUpdateCheck(bud: Bud) {
+async function browserslistUpdateCheck(bud: Bud) {
   if ((!await hasBrowserslistConfig(bud))) {
     return logger.log(
       `No browserslist configuration found. Skipping browserslist upgrade check.`,
@@ -14,6 +14,10 @@ export default async function browserslistUpdateCheck(bud: Bud) {
     return logger.log(
       `CI environment detected. Skipping browserslist upgrade check.`,
     )
+  }
+
+  if (isDisabled(bud)) {
+    return logger.log(`Browserslist update check disabled. Skipping.`)
   }
 
   const nowTime = Date.now()
@@ -48,6 +52,26 @@ export default async function browserslistUpdateCheck(bud: Bud) {
     changeTime: nowTime,
   })
 
+  await updateBrowserslist(bud)
+}
+
+const hasBrowserslistConfig = async (bud: Bud): Promise<boolean> => {
+  const hasBrowserslistListConfig = await bud.fs.exists(`.browserslistrc`)
+  const hasBrowserslistPackageConfig = bud.context?.manifest?.browserslist
+  return hasBrowserslistListConfig || hasBrowserslistPackageConfig
+}
+
+const hasBrowserslistCheckFile = async (bud: Bud): Promise<boolean> => {
+  return !!(await bud.fs.exists(
+    bud.path(`@storage`, `browserslist-db-check.yml`),
+  ))
+}
+
+const isCI = (bud: Bud): boolean => bud.context?.ci
+const isDisabled = (bud: Bud): boolean => bud.context?.updateBrowserslistCheck !== false && !bud.env.is(`BUD_UPDATE_BROWSERSLIST`, false)
+const isSilent = (bud: Bud): boolean => bud.context?.silent
+
+const updateBrowserslist = async (bud: Bud) => {
   /**
    * Run the update command
    */
@@ -79,17 +103,4 @@ export default async function browserslistUpdateCheck(bud: Bud) {
   }
 }
 
-const hasBrowserslistConfig = async (bud: Bud): Promise<boolean> => {
-  const hasBrowserslistListConfig = await bud.fs.exists(`.browserslistrc`)
-  const hasBrowserslistPackageConfig = bud.context?.manifest?.browserslist
-  return hasBrowserslistListConfig || hasBrowserslistPackageConfig
-}
-
-const hasBrowserslistCheckFile = async (bud: Bud): Promise<boolean> => {
-  return !!(await bud.fs.exists(
-    bud.path(`@storage`, `browserslist-db-check.yml`),
-  ))
-}
-
-const isCI = (bud: Bud): boolean => bud.context?.ci
-const isSilent = (bud: Bud): boolean => bud.context?.silent
+export {browserslistUpdateCheck as default, updateBrowserslist}

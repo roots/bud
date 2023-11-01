@@ -31,10 +31,10 @@ import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
 
 import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
+import argumentOverride from '../helpers/argumentOverride.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -182,7 +182,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
      * - when children: all children but not the parent
      * - when no children: the parent;
      */
-    const override = async (fn: (bud: Bud) => Promise<any>) => {
+    const overrideChildren = async (fn: (bud: Bud) => Promise<any>) => {
       bud.hasChildren
         ? await Promise.all(
             [bud, ...Object.values(bud.children)].map(
@@ -192,69 +192,133 @@ export default class BudCommand extends Command<BaseContext & Context> {
         : await fn(bud)
     }
 
-    isset(args.input) && bud.setPath(`@src`, args.input)
-    isset(args.output) && bud.setPath(`@dist`, args.output)
-    isset(args.publicPath) && bud.setPublicPath(args.publicPath)
-    isset(args.modules) && bud.setPath(`@modules`, args.modules)
+    await argumentOverride(
+      bud,
+      `input`,
+      `BUD_PATH_INPUT`,
+      value => async bud => bud.setPath(`@src`, value),
+    )
 
-    isset(args.hot) &&
+    await argumentOverride(
+      bud,
+      `output`,
+      `BUD_PATH_OUTPUT`,
+      value => async bud => bud.setPath(`@dist`, value),
+    )
+
+    await argumentOverride(
+      bud,
+      `publicPath`,
+      `BUD_PUBLIC_PATH`,
+      value => async bud => bud.hooks.on(`build.output.publicPath`, value),
+    )
+
+    await argumentOverride(
+      bud,
+      `modules`,
+      `BUD_PATH_MODULES`,
+      value => async bud => bud.setPath(`@modules`, value),
+    )
+
+    await argumentOverride(bud, `hot`, `BUD_HOT`, value => async bud => {
       bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
         middleware.filter(key =>
-          args.hot === false ? key !== `hot` : args.hot,
+          value === false ? key !== `hot` : value,
         ),
       )
+    })
 
-    isset(args.proxy) &&
-      bud.hooks.on(
-        `dev.middleware.proxy.options.target`,
-        new URL(args.proxy),
-      )
+    await argumentOverride(
+      bud,
+      `proxy`,
+      `BUD_PROXY_URL`,
+      value => async bud => {
+        bud.hooks.on(`dev.middleware.proxy.options.target`, new URL(value))
+      },
+    )
 
-    isset(args.cache) &&
-      (await override(async bud => bud.persist(args.cache)))
+    await argumentOverride(
+      bud,
+      `cache`,
+      `BUD_CACHE`,
+      value => async () => await overrideChildren(async bud => bud.persist(value)),
+    )
 
-    isset(args.minimize) &&
-      (await override(async bud => bud.minimize(args.minimize)))
+    await argumentOverride(
+      bud,
+      `minimize`,
+      `BUD_MINIMIZE`,
+      value => async () => await overrideChildren(async bud => bud.minimize(value)),
+    )
 
-    isset(args.devtool) &&
-      (await override(async bud => bud.devtool(args.devtool)))
+    await argumentOverride(
+      bud,
+      `devtool`,
+      `BUD_DEVTOOL`,
+      value => async () => await overrideChildren(async bud => bud.devtool(value)),
+    )
 
-    isset(args.esm) &&
-      (await override(async bud => bud.esm.enable(args.esm)))
+    await argumentOverride(
+      bud,
+      `esm`,
+      `BUD_ESM`,
+      value => async () => await overrideChildren(async bud => bud.esm.enable(value)),
+    )
 
-    isset(args.html) &&
-      (await override(async bud => {
-        typeof args.html === `string`
-          ? bud.html({template: args.html})
-          : bud.html(args.html)
-      }))
+    await argumentOverride(
+      bud,
+      `hash`,
+      `BUD_HASH`,
+      value => async () => await overrideChildren(async bud => bud.hash(value)),
+    )
 
-    isset(args.immutable) &&
-      (await override(async bud => bud.cdn.freeze(args.immutable)))
-
-    if (isset(args.hash)) {
-      await override(async bud => {
-        bud.context.hash = args.hash
-        logger.log(`hash set from --hash flag`, `value:`, args.hash)
+    await argumentOverride(
+      bud,
+      `html`,
+      `BUD_HTML`,
+      value => async () => await overrideChildren(async bud => {
+        typeof value === `string`
+          ? bud.html({template: value})
+          : bud.html(value)
       })
-    }
+    )
 
-    if (isset(args.lazy)) {
-      await override(async bud => {
-        bud.lazy(args.lazy)
-        logger.log(`lazy set from --lazy flag`, `value:`, args.lazy)
-      })
-    }
+    await argumentOverride(
+      bud,
+      `immutable`,
+      `BUD_IMMUTABLE`,
+      value => async () => await overrideChildren(async bud => bud.cdn.freeze(value)),
+    )
 
-    isset(args.runtime) &&
-      (await override(async bud => bud.runtime(args.runtime)))
+    await argumentOverride(
+      bud,
+      `lazy`,
+      `BUD_LAZY`,
+      value => async () => await overrideChildren(async bud => bud.lazy(value)),
+    )
 
-    isset(args.splitChunks) &&
-      (await override(async bud => bud.splitChunks(args.splitChunks)))
+    await argumentOverride(
+      bud,
+      `runtime`,
+      `BUD_RUNTIME`,
+      value => async () => await overrideChildren(async bud => bud.runtime(value)),
+    )
 
-    isset(args.use) && (await bud.extensions.add(args.use as any))
+    await argumentOverride(
+      bud,
+      `splitChunks`,
+      `BUD_SPLIT_CHUNKS`,
+      value => async () => await overrideChildren(async bud => bud.splitChunks(value)),
+    )
 
-    await override(async bud => await bud.promise())
+    await argumentOverride(
+      bud,
+      `use`,
+      `BUD_USE`,
+      value => async () => await overrideChildren(async bud => await bud.extensions.add(value)),
+    )
+
+    await overrideChildren(async bud => await bud.promise())
   }
 
   /**

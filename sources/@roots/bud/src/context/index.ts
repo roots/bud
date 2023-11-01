@@ -44,7 +44,7 @@ export default async (options: Options = {}): Promise<Context> => {
 
   if (!options.pm) {
     const pm = await whichPm(basedir)
-    if (pm) options.pm = pm
+    options.pm = pm !== false ? pm : `npm`
   }
 
   const context: Context = {

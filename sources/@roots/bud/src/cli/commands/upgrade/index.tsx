@@ -1,4 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
+import {updateBrowserslist} from '@roots/bud/cli/helpers/browserslistUpdate'
 import axios from '@roots/bud-support/axios'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -221,8 +222,8 @@ export default class BudUpgradeCommand extends BudCommand {
       await this.$(this.bin, [`install`, `--shamefully-hoist`])
     }
 
-    if (this.browserslist)
-      await this.upgradeBrowserslistDb().catch(error => {
+    if (this.browserslist && !this.bud.env.isFalse(`BUD_BROWSERSLIST_UPDATE`))
+      await updateBrowserslist(this.bud).catch(error => {
         logger.warn(`Error upgrading browserslist db`, `\n`, error)
       })
   }
@@ -412,52 +413,5 @@ export default class BudUpgradeCommand extends BudCommand {
     ).catch(error => {
       logger.error(error)
     })
-  }
-
-  /**
-   * Try to upgrade browserslist
-   */
-  @bind
-  public async upgradeBrowserslistDb() {
-    if (this.registry !== `https://registry.npmjs.org`) {
-      logger.warn(`Cannot upgrade browserslist db with custom registry`)
-      return
-    }
-
-    logger.log(`Attempting to upgrade browserslist db...`)
-
-    switch (this.pm) {
-      case `pnpm`:
-        await this.$(`pnpx`, [`update-browserslist-db`]).catch(error => {
-          logger.warn(
-            `error upgrading browserslist db.`,
-            `\n`,
-            `try running manually with pnpx update-browserslist-db`,
-          )
-        })
-        break
-
-      case `yarn`:
-        await this.$(`yarn`, [`dlx`, `update-browserslist-db`]).catch(
-          error => {
-            logger.warn(
-              `error upgrading browserslist db.`,
-              `\n`,
-              `try running manually with yarn dlx update-browserslist-db`,
-            )
-          },
-        )
-        break
-
-      default:
-        await this.$(`npx`, [`update-browserslist-db`]).catch(error => {
-          logger.warn(
-            `error upgrading browserslist db.`,
-            `\n`,
-            `try running manually with npx update-browserslist-db`,
-          )
-        })
-        break
-    }
   }
 }
