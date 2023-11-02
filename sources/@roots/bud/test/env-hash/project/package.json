@@ -1,0 +1,8 @@
+{
+  "name": "@tests/env-hash",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*"
+  }
+}

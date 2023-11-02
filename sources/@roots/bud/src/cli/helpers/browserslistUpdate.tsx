@@ -68,7 +68,11 @@ const hasBrowserslistCheckFile = async (bud: Bud): Promise<boolean> => {
 }
 
 const isCI = (bud: Bud): boolean => bud.context?.ci
-const isDisabled = (bud: Bud): boolean => bud.context?.updateBrowserslistCheck !== false && !bud.env.is(`BUD_UPDATE_BROWSERSLIST`, false)
+const isDisabled = (bud: Bud): boolean => {
+  if (bud.context?.updateBrowserslistCheck === false) return true
+  if (bud.env.has(`BUD_UPDATE_BROWSERSLIST`) && bud.env.get(`BUD_UPDATE_BROWSERSLIST`) === false) return true
+  return false
+}
 const isSilent = (bud: Bud): boolean => bud.context?.silent
 
 const updateBrowserslist = async (bud: Bud) => {

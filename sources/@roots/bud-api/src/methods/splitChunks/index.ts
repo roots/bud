@@ -54,9 +54,9 @@ export const splitChunks: splitChunks = async function (this: Bud, value) {
 
       return {
         automaticNameDelimiter: sep,
-        ...options,
+        ...(options ?? {}),
         cacheGroups: {
-          ...(options.cacheGroups ?? {}),
+          ...(options?.cacheGroups ?? {}),
           default: false,
           vendor: {
             chunks: `all`,

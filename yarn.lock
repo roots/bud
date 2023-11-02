@@ -11132,6 +11132,39 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/env-hash@workspace:sources/@roots/bud/test/env-hash/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/env-hash@workspace:sources/@roots/bud/test/env-hash/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@tests/env-runtime@workspace:sources/@roots/bud/test/env-runtime/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/env-runtime@workspace:sources/@roots/bud/test/env-runtime/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@tests/env-split-chunks@workspace:sources/@roots/bud/test/env-splitChunks/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/env-split-chunks@workspace:sources/@roots/bud/test/env-splitChunks/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    lodash: 4.17.21
+  languageName: unknown
+  linkType: soft
+
+"@tests/html-flag@workspace:sources/@roots/bud/test/cli-flag-html/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/html-flag@workspace:sources/@roots/bud/test/cli-flag-html/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/issue-1798@workspace:tests/reproductions/issue-1798":
   version: 0.0.0-use.local
   resolution: "@tests/issue-1798@workspace:tests/reproductions/issue-1798"
