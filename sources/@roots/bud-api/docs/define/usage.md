@@ -24,3 +24,9 @@ Replacements will also be made when compiling [html templates](/reference/bud.ht
   <!-- ... -->
 </html>
 ```
+
+## Caveats
+
+This replacement is static and happens at build time. It is not the same as a runtime variable.
+
+Doing things like attempting to reassign its value in your application code will not work.

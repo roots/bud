@@ -120,7 +120,7 @@ export class S3 {
    *
    * @remarks
    * By default the {@link ListObjectsCommandOutput} will be mapped so that the returned value is an array of file keys.
-   * This can be disabled by setting `raw` to `true`.
+   * This can be disabled by setting `raw` to true.
    *
    * @param props - {@link Omit<ListObjectsCommandInput, `Bucket`> command input props}
    * @returns Array of file keys
@@ -149,7 +149,7 @@ export class S3 {
    *
    * @remarks
    * By default the raw response will be transformed to `utf8` before being returned.
-   * This can be disabled by setting `raw` to `true`.
+   * This can be disabled by setting `raw` to true.
    *
    * @param key - The file key
    * @param raw - Whether to return raw response
