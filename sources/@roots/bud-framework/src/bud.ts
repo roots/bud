@@ -374,15 +374,18 @@ export class Bud {
   @bind
   public set<K extends `${keyof Bud & string}`>(
     key: K,
-    value: Bud[K],
+    unknownValue: Bud[K],
     bind: boolean = true,
   ): Bud {
-    if (bind && isFunction(value) && `bind` in value) {
-      Object.assign(this, {[key]: value.bind(this)})
-      return this
-    }
+    const bindable = bind && isFunction(unknownValue) && `bind` in unknownValue
+    const value = bindable ? unknownValue.bind(this) : unknownValue
 
-    Object.assign(this, {[key]: value})
+    Object.defineProperty(this, key, {
+      configurable: true,
+      enumerable: true,
+      value,
+      writable: true,
+    })
     return this
   }
 

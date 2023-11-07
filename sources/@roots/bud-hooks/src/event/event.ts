@@ -21,7 +21,12 @@ export class EventHooks extends Hooks<EventsStore> {
 
     await Promise.all(
       this.store[id].map(async (action: any) => {
+        if (typeof action === `undefined`) return
+
+        this.logger.info(`running ${id} callback:`, action)
+
         await action(...value).catch((error: Error) => {
+          this.logger.error(`problem running ${id} callback`)
           throw error
         })
       }),
@@ -38,7 +43,7 @@ export class EventHooks extends Hooks<EventsStore> {
     if (!(id in this.store)) this.store[id] = []
 
     input.map(value => {
-      this.app.hooks.logger.info(`registered ${id} callback`)
+      this.logger.info(`registered ${id} callback`)
       this.store[id].push(value as any)
     })
 

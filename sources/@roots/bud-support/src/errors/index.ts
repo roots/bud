@@ -1,4 +1,18 @@
+import {join} from 'node:path'
+
+import args from '@roots/bud-support/utilities/args'
 import cleanStack from 'clean-stack'
+
+const cwd =
+  global.process.env.PROJECT_CWD ??
+  global.process.env.INIT_CWD ??
+  global.process.cwd()
+
+const basePath = args?.basedir
+  ? join(cwd, args.basedir)
+  : global.process.env.BUD_BASEDIR
+  ? join(cwd, global.process.env.BUD_BASEDIR)
+  : cwd
 
 /**
  * Props for Bud errors
@@ -24,6 +38,9 @@ interface BudErrorProps extends Error {
  * Error base class
  */
 class BudError extends Error {
+  /**
+   * Normalize error
+   */
   public static normalize(error: unknown) {
     if (error instanceof BudError) return error
 
@@ -97,30 +114,47 @@ class BudError extends Error {
     super(message)
 
     Object.assign(this, options)
+    Object.assign(this, message)
 
     if (!this.instance) this.instance = `default`
 
+    if (this.message) {
+      this.message = this.message
+        .replaceAll(/file:\/\//g, ``)
+        .replaceAll(new RegExp(basePath, `g`), ``)
+    }
+
     if (this.stack) {
       this.stack = cleanStack(this.stack, {
+        basePath,
         pathFilter: path =>
           !path.includes(`react-reconciler`) &&
           !path.includes(`bud-support/lib/errors`),
-      })
+        pretty: true,
+      }).replaceAll(/file:\/\//g, ``)
     }
 
     if (this.message) {
       this.message = cleanStack(this.message, {
+        basePath,
         pathFilter: path =>
           !path.includes(`react-reconciler`) &&
           !path.includes(`bud-support/lib/errors`),
-      })
+        pretty: true,
+      }).replaceAll(/file:\/\//g, ``)
     }
 
     if (this.thrownBy) {
-      this.thrownBy = this.thrownBy.replace(process.cwd(), ``)
+      this.thrownBy = this.thrownBy
+        .replace(new RegExp(basePath, `g`), ``)
+        .replaceAll(/file:\/\//g, ``)
     }
 
-    this.isBudError = true
+    if (this.file) {
+      this.file.path = this.file.path
+        .replaceAll(new RegExp(basePath, `g`), ``)
+        .replaceAll(/file:\/\//g, ``)
+    }
   }
 }
 

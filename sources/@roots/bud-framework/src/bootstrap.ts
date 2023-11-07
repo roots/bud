@@ -1,11 +1,8 @@
 import type {Bud, BudService, Registry} from '@roots/bud-framework'
 
-import chalk from '@roots/bud-support/chalk'
 import {BudError} from '@roots/bud-support/errors'
-import figures from '@roots/bud-support/figures'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isString from '@roots/bud-support/lodash/isString'
-import logger from '@roots/bud-support/logger'
 
 import {FS} from './fs.js'
 import {Module} from './module.js'
@@ -119,12 +116,11 @@ const instantiateServices =
     Object.defineProperties(app, {
       [label]: {
         configurable: true,
+        enumerable: true,
         value,
         writable: true,
       },
     })
-
-    logger.log(chalk.blue(label), figures.arrowLeft, chalk.cyan(signifier))
 
     services.push(label)
   }
@@ -215,7 +211,7 @@ export const bootstrap = async function (bud: Bud) {
       }),
   )
 
-  bud.hooks.action(`compiler.before`, bud.module.compilerBefore)
+  bud.after(bud.module.after)
 
   const initializeEvents: Array<`${keyof Registry.EventsStore}`> = [
     `bootstrap`,
@@ -234,8 +230,6 @@ export const bootstrap = async function (bud: Bud) {
     },
     Promise.resolve({}),
   )
-
-  bud.after(bud.module.after)
 
   return bud
 }

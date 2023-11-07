@@ -3,70 +3,78 @@ import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
 
-const basePath =
-  global.process.env.PROJECT_CWD ??
-  global.process.env.INIT_CWD ??
-  global.process.cwd()
+type RawError = BudError | Error | string | undefined
 
-export const Error = ({error}: {error: unknown}): ReactNode => {
-  let normalError: BudError
-
+const cleanErrorObject = (error: RawError): BudError => {
   if (!error) {
-    error = BudError.normalize(`Unknown error`)
+    error = new BudError(`Unknown error`)
   }
-  normalError =
-    error instanceof BudError ? error : BudError.normalize(error)
+
+  if (typeof error === `string`) {
+    error = new BudError(error)
+  }
+
+  return error instanceof BudError ? error : BudError.normalize(error)
+}
+
+export const Error = ({error: input}: {error: RawError}): ReactNode => {
+  const error = cleanErrorObject(input)
 
   return (
     <Static items={[0]}>
       {(_, key) => (
         <Box flexDirection="column" key={key} paddingTop={1}>
-          <Text backgroundColor="red" color="white">
-            {` ${normalError.name} `}
-          </Text>
+          {error.name && (
+            <Box flexDirection="row" gap={1}>
+              <Text color="red">{figures.cross}</Text>
+              <Text backgroundColor="red" color="white">
+                {error.name}
+              </Text>
+            </Box>
+          )}
 
-          <Box flexDirection="row" gap={1} marginTop={1}>
-            <Text color="red">{figures.cross}</Text>
-            <Text>{normalError.message}</Text>
-          </Box>
+          {error.message && (
+            <Box flexDirection="row" gap={1} marginTop={1}>
+              <Text>{error.message}</Text>
+            </Box>
+          )}
 
-          {normalError.details &&
-            !normalError.details.startsWith(`resolve`) && (
-              <Box marginTop={1}>
-                <Text>
-                  <Text color="blue">
-                    {figures.ellipsis}
-                    {` `}Details{` `}
-                  </Text>
-
-                  <Text>{normalError.details.replace(basePath, `.`)}</Text>
+          {error.details && !error.details.startsWith(`resolve`) && (
+            <Box marginTop={1}>
+              <Text>
+                <Text color="blue">
+                  {figures.ellipsis}
+                  {` `}Details{` `}
                 </Text>
-              </Box>
-            )}
 
-          {normalError.thrownBy && (
+                <Text>{error.details}</Text>
+              </Text>
+            </Box>
+          )}
+
+          {error.thrownBy && (
             <Box flexDirection="row" gap={1} marginTop={1}>
               <Text color="blue">
                 {figures.ellipsis}
                 {` `}Thrown by{` `}
               </Text>
-              <Text>{normalError.thrownBy}</Text>
+              <Text>{error.thrownBy}</Text>
             </Box>
           )}
 
-          {normalError.docs && (
+          {error.docs && (
             <Box marginTop={1}>
               <Text>
                 <Text color="blue">
                   {figures.arrowRight}
                   {` `}Documentation{` `}
                 </Text>
-                <Text>{normalError.docs.href}</Text>
+                <Text>{error.docs.href}</Text>
               </Text>
             </Box>
           )}
 
-          {normalError.issues && (
+          {error.issues && (
             <Box marginTop={1}>
               <Text>
                 <Text color="blue">
@@ -75,24 +83,24 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
                   Issues
                 </Text>
                 {` `}
-                <Text>{normalError.issues.href}</Text>
+                <Text>{error.issues.href}</Text>
               </Text>
             </Box>
           )}
 
-          {normalError.file && (
+          {error.file && (
             <Box marginTop={1}>
               <Text color="blue">
                 {figures.info}
                 {` `}See file{` `}
               </Text>
-              <Text>{normalError.file.path}</Text>
+              <Text>{error.file.path}</Text>
             </Box>
           )}
 
-          {normalError.origin &&
-            !(normalError.origin instanceof BudError) &&
-            normalError.stack && (
+          {error.origin &&
+            !(error.origin instanceof BudError) &&
+            error.stack && (
               <Box flexDirection="column" marginTop={1}>
                 <Text color="blue">
                   {figures.home}
@@ -108,14 +116,14 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
                   borderTop={false}
                   paddingLeft={1}
                 >
-                  <Text>{normalError.stack}</Text>
+                  <Text>{error.stack}</Text>
                 </Box>
               </Box>
             )}
 
-          {normalError.origin &&
-            normalError.origin instanceof BudError &&
-            normalError.stack && (
+          {error.origin &&
+            error.origin instanceof BudError &&
+            error.stack && (
               <Box flexDirection="column" marginTop={1}>
                 <Text color="blue">
                   {figures.home}
@@ -133,11 +141,11 @@ export const Error = ({error}: {error: unknown}): ReactNode => {
                   paddingLeft={1}
                 >
                   <Text>
-                    {normalError.origin.message}
+                    {error.origin.message}
                     {`\n`}
                   </Text>
-                  {normalError.origin.stack && (
-                    <Text>{normalError.origin.stack}</Text>
+                  {error.origin.stack && (
+                    <Text dimColor>{error.origin.stack}</Text>
                   )}
                 </Box>
               </Box>

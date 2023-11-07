@@ -1,4 +1,3 @@
-import type {Records} from '@roots/bud-build/config'
 import type {Bud, Build as BudBuild} from '@roots/bud-framework'
 import type {Items, Loaders, Rules} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
@@ -92,28 +91,41 @@ class Build extends Service implements BudBuild {
     this.logger.log(`bud.build.make called`)
     await this.app.hooks.fire(`build.before`, this.app)
 
-    await import(`@roots/bud-build/config`).then(
-      async (records: Records) =>
-        await Promise.all(
-          Object.entries(records).map(async ([prop, factory]) => {
-            try {
-              const value = await factory(this.app)
-              if (isUndefined(value)) return
+    await import(`@roots/bud-build/config`)
+      .then(
+        async records =>
+          await Promise.all(
+            Object.entries(records).map(async ([prop, factory]) => {
+              const value = await factory(this.app).catch(this.catch)
+              if (isUndefined(value)) {
+                this.logger.success(`omitting:`, prop, `(undefined)`)
+                return
+              }
 
-              this.config[prop] = value
-              this.logger.log(`built`, prop)
-            } catch (error) {
-              throw error
-            }
-          }),
-        ),
-    )
+              Object.defineProperty(this.config, prop, {
+                configurable: true,
+                enumerable: true,
+                value,
+                writable: true,
+              })
 
-    this.logger.log(`configuration successfully built`)
+              this.logger
+                .success(`defined:`, prop, `(${typeof this.config[prop]})`)
+                .info(prop, `info:`, this.config[prop])
+            }),
+          ),
+      )
+      .catch(this.catch)
+
+    this.logger.success(`configuration built`)
     this.logger.info(this.config)
-    await this.app.hooks.fire(`build.after`, this.app)
 
-    return this.config
+    await this.app.hooks.fire(`build.after`, this.app).catch(this.catch)
+
+    return Object.entries(this.config).reduce((a, [k, v]) => {
+      if (isUndefined(v)) return a
+      return {...a, [k]: v}
+    }, {})
   }
 
   /**
