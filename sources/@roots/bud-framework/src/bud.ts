@@ -339,12 +339,10 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public async promise(promise?: (bud: Bud) => Promise<any>) {
-    if (promise)
-      await this.promised
-        .then(async () => await promise(this))
-        .catch(this.catch)
-    else await this.promised.catch(this.catch)
+  public async promise(promise?: (bud: Bud) => Promise<unknown>) {
+    await this.promised
+      .then(async () => promise && (await promise(this)))
+      .catch(this.catch)
 
     return this
   }
@@ -377,7 +375,8 @@ export class Bud {
     unknownValue: Bud[K],
     bind: boolean = true,
   ): Bud {
-    const bindable = bind && isFunction(unknownValue) && `bind` in unknownValue
+    const bindable =
+      bind && isFunction(unknownValue) && `bind` in unknownValue
     const value = bindable ? unknownValue.bind(this) : unknownValue
 
     Object.defineProperty(this, key, {
@@ -398,7 +397,6 @@ export class Bud {
     logger.scope(this.label).log(...messages)
     return this
   }
-
   /**
    * Log success
    * @deprecated Import logger instance from `@roots/bud-support/logger`
@@ -408,7 +406,6 @@ export class Bud {
     logger.scope(this.label).log(...messages)
     return this
   }
-
   /**
    * Log warning
    * @deprecated Import logger instance from `@roots/bud-support/logger`
