@@ -1,5 +1,7 @@
 import type {Entrypoints} from '@roots/entrypoints-webpack-plugin'
 
+import {Buffer} from 'node:buffer'
+
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
 

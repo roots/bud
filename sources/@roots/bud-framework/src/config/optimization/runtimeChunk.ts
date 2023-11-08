@@ -1,5 +1,5 @@
 export type RuntimeChunk =
   | 'multiple'
   | 'single'
-  | {name?: Function | string}
+  | {name?: ((...args: Array<unknown>) => unknown) | string}
   | boolean

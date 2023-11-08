@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
+import type {Buffer} from 'node:buffer'
 import type {IncomingMessage, ServerResponse} from 'node:http'
 
 import {responseInterceptor} from '@roots/bud-support/http-proxy-middleware'
@@ -52,6 +53,7 @@ const transformResponseBuffer = (
   bud: Bud,
   url: Record<string, URL>,
   proxy: IncomingMessage,
+  // eslint-disable-next-line @typescript-eslint/ban-types
   buffer: Buffer,
 ) => {
   if (!isTransformable(proxy)) return buffer
@@ -61,7 +63,7 @@ const transformResponseBuffer = (
     .filter(`dev.middleware.proxy.replacements`, [
       [url.publicProxy.origin, url.dev.origin],
     ])
-    .reduce(transformBody, buffer.toString(`utf8`))
+    .reduce(transformBody, buffer.toString())
 }
 
 const isTransformable = (message?: IncomingMessage) => {

@@ -44,7 +44,7 @@ module.exports = {
   ],
   parser: `@typescript-eslint/parser`,
   parserOptions: {
-    ecmaFeatures: {jsx: true},
+    ecmaFeatures: { jsx: true },
     ecmaVersion: 2021,
     sourceType: `module`,
   },
@@ -58,11 +58,22 @@ module.exports = {
     `sort-class-members`,
   ],
   rules: {
+    [`@typescript-eslint/ban-types`]: [
+      ERROR,
+      {
+        types: {
+          Buffer: {
+            message: `Use Uint8Array instead.`,
+            suggest: [`Uint8Array`],
+          },
+        },
+      },
+    ],
     [`@typescript-eslint/explicit-member-accessibility`]: ERROR,
     [`@typescript-eslint/quotes`]: [
       ERROR,
       `backtick`,
-      {avoidEscape: true},
+      { avoidEscape: true },
     ],
     [`arrow-body-style`]: OFF,
     [`comma-dangle`]: [
@@ -106,11 +117,18 @@ module.exports = {
     ],
     [`n/no-unsupported-features/es-syntax`]: [
       ERROR,
-      {ignores: [`modules`], version: `>=16.0.0`},
+      { ignores: [`modules`], version: `>=16.0.0` },
     ],
     [`n/shebang`]: OFF,
     [`no-console`]: ERROR,
     [`no-extra-semi`]: OFF,
+    [`no-restricted-globals`]: [
+      ERROR,
+      {
+        message: `Use Uint8Array instead.`,
+        name: `Buffer`,
+      },
+    ],
     [`perfectionist/sort-classes`]: OFF,
     [`perfectionist/sort-imports`]: [
       ERROR,
@@ -162,6 +180,6 @@ module.exports = {
         `.mjs`,
       ],
     },
-    react: {version: `detect`},
+    react: { version: `detect` },
   },
 }

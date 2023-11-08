@@ -231,7 +231,6 @@ export class BudStylelintPublicApi extends Extension<Options, Plugin> {
    * {@link Options.threads}
    */
   public declare setThreads: Api[`setThreads`]
-
   /**
    * Stylelint plugins
    *
@@ -246,6 +245,7 @@ export class BudStylelintPublicApi extends Extension<Options, Plugin> {
   public set plugins(plugins: Api[`config`][`plugins`]) {
     this.setConfig((config = {}) => ({...config, plugins}))
   }
+
   /**
    * Get stylelint plugins
    *

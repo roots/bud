@@ -13,7 +13,7 @@ import {
 @label(`@roots/bud-extensions/webpack-hot-module-replacement-plugin`)
 @plugin(Webpack.HotModuleReplacementPlugin)
 export default class BudHMR extends Extension<
-  {},
+  NonNullable<unknown>,
   HotModuleReplacementPlugin
 > {
   /**

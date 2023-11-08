@@ -10,6 +10,6 @@ const inlineSvg: Factory = async ({filter, makeRule, path}) =>
     .setGenerator({dataUrl})
     .setType(`asset/inline`)
 
-const dataUrl = (data: Buffer) => dataUri(data.toString())
+const dataUrl = (data: Uint8Array) => dataUri(data.toString())
 
 export {dataUrl, inlineSvg as default}

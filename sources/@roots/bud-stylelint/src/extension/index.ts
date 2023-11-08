@@ -7,10 +7,10 @@ import {
   label,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
+import {BudStylelintPublicApi} from '@roots/bud-stylelint/extension/base'
 import {deprecated} from '@roots/bud-support/decorators/deprecated'
+import noop from '@roots/bud-support/lodash/noop'
 import Plugin from 'stylelint-webpack-plugin'
-
-import {BudStylelintPublicApi} from './base.js'
 
 export type Options = Plugin.Options & {
   config?: Plugin.Options & {
@@ -65,7 +65,15 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
    * {@link Extension.register}
    */
   @bind
-  public override async register({context}: Bud) {
+  public override async register({context, module}: Bud) {
+    const stylelintPath = await module
+      .resolve(`stylelint`, import.meta.url)
+      .catch(noop)
+    if (stylelintPath) {
+      this.logger.log(`setting stylelint path:`, stylelintPath)
+      this.setStylelintPath(stylelintPath)
+    }
+
     const configFile = Object.values(context.files).find(({name}) =>
       name.includes(`stylelint`),
     )

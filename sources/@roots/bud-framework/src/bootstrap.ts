@@ -83,7 +83,7 @@ export const services: Array<string> = []
  */
 const filterServices =
   (app: Bud) =>
-  (signifier: string): Boolean => {
+  (signifier: string): boolean => {
     if (!isString(signifier)) return true
 
     return (

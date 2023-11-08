@@ -629,7 +629,7 @@ export interface SettingsBlocksPropertiesComplete {
   /**
    * Archive block. Display a monthly archive of your posts. This block has no block-level settings
    */
-  'core/archives'?: {}
+  'core/archives'?: NonNullable<unknown>
   'core/audio'?: SettingsPropertiesComplete
   'core/avatar'?: SettingsPropertiesComplete
   'core/block'?: SettingsPropertiesComplete
