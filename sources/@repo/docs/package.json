@@ -34,7 +34,7 @@
   "dependencies": {
     "@docusaurus/theme-classic": "2.4.3",
     "@docusaurus/theme-common": "2.4.3",
-    "axios": "1.5.1",
+    "axios": "1.6.0",
     "clsx": "2.0.0",
     "docusaurus-lunr-search": "3.2.0",
     "react": "18.2.0",
