@@ -3,15 +3,16 @@ import {join} from 'node:path'
 import args from '@roots/bud-support/utilities/args'
 import cleanStack from 'clean-stack'
 
-const cwd =
+const cwd = `${
   global.process.env.PROJECT_CWD ??
   global.process.env.INIT_CWD ??
   global.process.cwd()
+}`
 
 const basePath = args?.basedir
   ? join(cwd, args.basedir)
   : global.process.env.BUD_BASEDIR
-  ? join(cwd, global.process.env.BUD_BASEDIR)
+  ? join(cwd, `${global.process.env.BUD_BASEDIR}`)
   : cwd
 
 /**
