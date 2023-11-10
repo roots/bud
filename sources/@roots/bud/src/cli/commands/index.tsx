@@ -13,6 +13,7 @@ import debug from '@roots/bud/cli/flags/debug'
 import dry from '@roots/bud/cli/flags/dry'
 import filter from '@roots/bud/cli/flags/filter'
 import force from '@roots/bud/cli/flags/force'
+import ignoreErrors from '@roots/bud/cli/flags/ignoreErrors'
 import log from '@roots/bud/cli/flags/log'
 import mode from '@roots/bud/cli/flags/mode'
 import notify from '@roots/bud/cli/flags/notify'
@@ -22,18 +23,18 @@ import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
+import * as Dash from '@roots/bud-dashboard/components/error'
 import {Bud} from '@roots/bud-framework'
-import chalk from '@roots/bud-support/chalk'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
+import noop from '@roots/bud-support/lodash/noop'
 import logger from '@roots/bud-support/logger'
 import args from '@roots/bud-support/utilities/args'
 
-import * as Fallback from '../components/Error.js'
 import {Menu} from '../components/Menu.js'
 
 export type {BaseContext, Context}
@@ -97,6 +98,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public force = force
 
+  public ignoreErrors = ignoreErrors
+
   public log = log
 
   public mode = mode
@@ -132,12 +135,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
   /**
    * Render static cli output
    */
-  public renderStatic(...children: Array<React.ReactElement>) {
-    return this.render(
-      <Ink.Static items={children}>
-        {(child, id) => <Ink.Box key={id}>{child}</Ink.Box>}
-      </Ink.Static>,
-    )
+  public renderStatic(el: React.ReactElement) {
+    return this.render(<Ink.Box>{el}</Ink.Box>)
   }
 
   /**
@@ -151,7 +150,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
     bail: () => any = () => setTimeout(exit, 100),
   ): Promise<ExecaReturnValue<string>> {
     const {execa} = await import(`@roots/bud-support/execa`)
-    const process = execa(bin, args.filter(Boolean), {
+
+    return execa(bin, args.filter(Boolean), {
       cwd: this.bud.path(),
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
@@ -166,8 +166,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
       .on(`exit`, bail)
       .on(`disconnect`, bail)
       .on(`close`, bail)
-
-    return await process
   }
 
   /**
@@ -299,14 +297,10 @@ export default class BudCommand extends Command<BaseContext & Context> {
       }
     }
 
-    this.renderStatic(
-      <Ink.Box flexDirection="column">
-        <Fallback.Error error={error} />
-      </Ink.Box>,
-    )
+    this.renderStatic(<Dash.Error error={error} />)
 
-    // fallthrough
-    if (!this.bud || this.bud?.isProduction) exit(1)
+    if (!this.bud || this.bud?.isProduction || this.ignoreErrors === true)
+      exit(1)
   }
 
   /**
@@ -392,9 +386,14 @@ export default class BudCommand extends Command<BaseContext & Context> {
       if (!pathParts) {
         process.exitCode = 2
         throw new Error(
-          `Could not find ${signifier} binary\n\nChecked:\n - ${binary}\n - ${checkedPaths
-            .map(path => join(binaryPath, path))
-            .join(`\n - `)}`,
+          [
+            `Could not find ${signifier} binary\n`,
+            `Checked:`,
+            `- ${binary}`,
+            ...checkedPaths
+              .map(path => join(binaryPath, path))
+              .map(path => `- ${path}`),
+          ].join(`\n`),
         )
       }
 
@@ -404,26 +403,22 @@ export default class BudCommand extends Command<BaseContext & Context> {
     const binaryArguments = userArgs?.length ? userArgs : defaultArgs
 
     this.context.stdout.write(
-      chalk.dim(
-        `${figures.pointerSmall} ${signifier} ${binaryArguments.join(
-          ` `,
-        )}\n`
-          .replace(this.bud.path(`@src`), `@src`)
-          .replace(this.bud.path(), ``),
-      ),
+      `${figures.pointerSmall} ${signifier} ${binaryArguments.join(` `)}\n`
+        .replace(this.bud.path(`@src`), `@src`)
+        .replace(this.bud.path(), ``),
     )
 
-    const result = await this.$(binary, binaryArguments).catch(() => {})
-    const code = result && isNumber(result?.exitCode) ? result.exitCode : 1
+    const result = await this.$(binary, binaryArguments).catch(noop)
 
-    if (code) {
-      this.context.stderr.write(
-        chalk.red(`${figures.cross} exiting with code ${code}\n`),
-      )
-      return code
+    const exitCode =
+      result && isNumber(result?.exitCode) ? result.exitCode : 1
+
+    if (exitCode) {
+      this.context.stderr.write(`${figures.cross} exit code ${exitCode}\n`)
+      return exitCode
     }
 
-    this.context.stdout.write(chalk.green(`${figures.tick} success\n`))
-    return code
+    this.context.stdout.write(`${figures.tick} success\n`)
+    return exitCode
   }
 }

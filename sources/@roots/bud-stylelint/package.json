@@ -50,6 +50,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./extension/base": "./lib/extension/base/index.js",
     "./config": "./config/index.cjs",
     "./extension": "./lib/extension/index.js",
     "./bud/commands": "./lib/bud/commands/index.js"
@@ -61,6 +62,9 @@
       ],
       "extension": [
         "./lib/extension/index.d.ts"
+      ],
+      "extension/base": [
+        "./lib/extension/base/index.d.ts"
       ]
     }
   },

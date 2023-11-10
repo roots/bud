@@ -16,7 +16,10 @@ export default class Project extends Service {
    */
   @bind
   public override async buildAfter(bud: Bud) {
-    if (!bud.context.debug) return
+    if (!bud.context.debug) {
+      this.logger.log(`debug mode disabled. skipping write.`)
+      return bud
+    }
 
     await bud.promise(async bud => {
       await bud.fs
@@ -24,7 +27,7 @@ export default class Project extends Service {
           ...omit(bud.context, [`env`, `stdout`, `stderr`, `stdin`]),
           bootstrap: {
             args: args.raw,
-            resolutions: bud.module.resolved,
+            resolutions: bud.module.resolutions ?? {},
           },
           children: bud.children ? Object.keys(bud.children) : [],
           env: bud.env.getKeys(),
@@ -62,6 +65,8 @@ export default class Project extends Service {
           this.logger.log(`webpack.output.yml written to disk`)
         })
     })
+
+    return bud
   }
 
   /**
@@ -69,10 +74,13 @@ export default class Project extends Service {
    */
   @bind
   public override async compilerDone(bud: Bud, stats: Stats) {
-    this.logger.log(`compiler done`)
+    if (!bud.context.debug) {
+      return bud
+    }
 
-    if (!bud.context.debug) return
-    if (!stats) return
+    if (!stats) {
+      return bud
+    }
 
     await bud.fs.write(
       bud.path(`@storage`, bud.label, `debug`, `stats.yml`),
@@ -81,5 +89,7 @@ export default class Project extends Service {
         message: stats.toString(),
       },
     )
+
+    return bud
   }
 }

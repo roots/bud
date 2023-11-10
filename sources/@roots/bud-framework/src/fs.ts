@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Contract} from '@roots/bud-framework/service'
 
+import {Buffer} from 'node:buffer'
 import {join} from 'node:path'
 
 import {bind} from '@roots/bud-support/decorators/bind'

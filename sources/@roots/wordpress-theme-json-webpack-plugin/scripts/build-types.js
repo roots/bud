@@ -54,6 +54,7 @@ try {
  */
 
 // @ts-nocheck
+// eslint-disable
 `,
   })
 } catch (err) {

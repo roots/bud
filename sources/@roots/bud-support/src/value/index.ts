@@ -8,14 +8,17 @@ class Value<T> {
   /**
    * Get {@link Value.identity}
    */
-  public static call<T, A extends any[]>(
-    value: (T & CallableFunction) | Value<T>,
+  public static async call<T, A extends any[]>(
+    value: ((...args: A) => Promise<T>) | Value<T>,
     ...args: A
-  ): T {
-    return Value.isCallable(value)
-      ? Value.get(value)(...args)
-      : Value.get(value)
+  ): Promise<T> {
+    if (typeof value === `function`) {
+      const fn = Value.get(value)
+      return await fn(...args)
+    }
+    return Value.get(value)
   }
+
   /**
    * Get {@link Value.identity}
    */

@@ -8,9 +8,9 @@
  * @see https://github.com/roots/bud/tree/main/sources/@roots/bud-styelint
  */
 
-import type {BudStylelintPublicApi} from './extension/base.js'
+import type {BudStylelintPublicApi} from '@roots/bud-stylelint/extension/base'
 
-import BudStylelint from './extension/index.js'
+import BudStylelint from '@roots/bud-stylelint/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {

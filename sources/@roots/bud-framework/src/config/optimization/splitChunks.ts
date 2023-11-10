@@ -1,5 +1,7 @@
 import type {AssetInfo, Chunk, PathData} from '@roots/bud-support/webpack'
 
+type Fn = (...args: Array<unknown>) => unknown
+
 export interface SplitChunks {
   /**
    * Sets the name delimiter for created chunks.
@@ -10,12 +12,7 @@ export interface SplitChunks {
    * Assign modules to a cache group (modules from different cache groups are tried to keep in separate chunks, default categories: 'default', 'defaultVendors').
    */
   cacheGroups?: {
-    [index: string]:
-      | false
-      | Function
-      | RegExp
-      | SplitChunksCacheGroup
-      | string
+    [index: string]: false | Fn | RegExp | SplitChunksCacheGroup | string
   }
 
   /**
@@ -127,7 +124,7 @@ export interface SplitChunks {
   /**
    * Give chunks created a name (chunks with equal name are merged).
    */
-  name?: false | Function | string
+  name?: false | Fn | string
 
   /**
    * Compare used exports when checking common modules. Modules will only be put in the same chunk when exports are equal.
@@ -171,7 +168,7 @@ export interface SplitChunksCacheGroup {
   /**
    * Assign modules to a cache group by module layer.
    */
-  layer?: Function | RegExp | string
+  layer?: Fn | RegExp | string
 
   /**
    * Maximum number of requests which are accepted for on-demand loading.
@@ -221,7 +218,7 @@ export interface SplitChunksCacheGroup {
   /**
    * Give chunks for this cache group a name (chunks with equal name are merged).
    */
-  name?: false | Function | string
+  name?: false | Fn | string
 
   /**
    * Priority of this cache group.
@@ -236,12 +233,12 @@ export interface SplitChunksCacheGroup {
   /**
    * Assign modules to a cache group by module name.
    */
-  test?: Function | RegExp | string
+  test?: Fn | RegExp | string
 
   /**
    * Assign modules to a cache group by module type.
    */
-  type?: Function | RegExp | string
+  type?: Fn | RegExp | string
 
   /**
    * Compare used exports when checking common modules. Modules will only be put in the same chunk when exports are equal.
