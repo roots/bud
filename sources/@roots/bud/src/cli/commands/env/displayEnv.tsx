@@ -6,7 +6,7 @@ const DisplayEnv = ({bud}: {bud: Bud}) => {
   return (
     <Box flexDirection="column">
       <Text color="blue">
-        {`\n`}Environment variables{`\n`}
+        Environment variables{`\n`}
       </Text>
 
       {bud.env

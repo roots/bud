@@ -136,7 +136,11 @@ export default class BudCommand extends Command<BaseContext & Context> {
    * Render static cli output
    */
   public renderStatic(el: React.ReactElement) {
-    return this.render(<Ink.Box>{el}</Ink.Box>)
+    return this.render(
+      <Ink.Static items={[0]}>
+        {(e, i) => <Ink.Fragment key={i}>{el}</Ink.Fragment>}
+      </Ink.Static>,
+    )
   }
 
   /**
