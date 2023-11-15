@@ -1,4 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
+import browserslistUpdate from '@roots/bud/cli/flags/browserslist-update'
 import ci from '@roots/bud/cli/flags/ci'
 import dashboard from '@roots/bud/cli/flags/dashboard'
 import dashboardAssets from '@roots/bud/cli/flags/dashboard.assets'
@@ -24,7 +25,6 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
-import updateCheck from '@roots/bud/cli/flags/updateCheck'
 import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import logger from '@roots/bud-support/logger'
@@ -52,6 +52,8 @@ export default class BudBuildCommand extends BudCommand {
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
   })
+
+  public browserslistUpdate = browserslistUpdate
 
   public [`dashboard.assets`] = dashboardAssets
 
@@ -97,8 +99,6 @@ export default class BudBuildCommand extends BudCommand {
 
   public runtime = runtime
 
-  public updateCheck = updateCheck
-
   public override silent = silent(false)
 
   public splitChunks = splitChunks
@@ -115,11 +115,15 @@ export default class BudBuildCommand extends BudCommand {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 
-    try {
-      if (this.updateCheck) await browserslistUpdateCheck(this.bud)
-    } catch (error) {
-      logger.error(error)
+    if (this.bud.env.has(`BUD_BROWSERSLIST_UPDATE`)) {
+      this.bud.context.browserslistUpdate = this.browserslistUpdate
     }
+    if (typeof this.browserslistUpdate !== `undefined`) {
+      this.bud.context.browserslistUpdate = this.browserslistUpdate
+    }
+    await browserslistUpdateCheck(this.bud).catch(error => {
+      logger.error(error)
+    })
 
     await this.bud.run()
   }

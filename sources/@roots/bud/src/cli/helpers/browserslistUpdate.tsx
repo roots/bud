@@ -4,44 +4,48 @@ import execa from '@roots/bud-support/execa'
 import logger from '@roots/bud-support/logger'
 
 async function browserslistUpdateCheck(bud: Bud) {
-  if ((!await hasBrowserslistConfig(bud))) {
-    return logger.log(
+  if (!(await hasBrowserslistConfig(bud))) {
+    return log(
       `No browserslist configuration found. Skipping browserslist upgrade check.`,
     )
   }
 
   if (isCI(bud)) {
-    return logger.log(
+    return log(
       `CI environment detected. Skipping browserslist upgrade check.`,
     )
   }
 
-  if (isDisabled(bud)) {
-    return logger.log(`Browserslist update check disabled. Skipping.`)
+  if (!isEnabled(bud)) {
+    return log(`Browserslist update check disabled. Skipping.`)
   }
 
   const nowTime = Date.now()
   const pastWeekTime = nowTime - 1000 * 60 * 60 * 24 * 7
 
   if (await hasBrowserslistCheckFile(bud)) {
-    let changeTime: number
-    let response = await bud.fs.read(
+    const response = await bud.fs.read(
       bud.path(`@storage`, `browserslist-db-check.yml`),
     )
-    if (response?.changeTime) changeTime = response.changeTime
+    if (response?.changeTime) {
+      const outdated =
+        response.changeTime && response.changeTime > pastWeekTime
 
-    if (changeTime && changeTime > pastWeekTime) {
-      logger.log(
-        `Browserslist database updated within the past week. Skipping.`,
-      )
-      return
+      if (outdated && bud.context?.browserslistUpdate !== true) {
+        return log(
+          `Browserslist database updated within the past week. Skipping.`,
+        )
+      }
     }
   }
 
   if (!isSilent(bud)) {
     process.stdout.write(`\nChecking for browserslist updates...\n`)
     process.stdout.write(
-      `(you can disable this behavior with the --no-update-browserslist flag.)\n\n`,
+      `  --> This check runs once per week when a browserslist is specified in package.json\n`,
+    )
+    process.stdout.write(
+      `  --> You can disable this behavior with the --no-browserslist-update flag\n`,
     )
   }
 
@@ -68,43 +72,79 @@ const hasBrowserslistCheckFile = async (bud: Bud): Promise<boolean> => {
 }
 
 const isCI = (bud: Bud): boolean => bud.context?.ci
-const isDisabled = (bud: Bud): boolean => {
-  if (bud.context?.updateBrowserslistCheck === false) return true
-  if (bud.env.has(`BUD_UPDATE_BROWSERSLIST`) && bud.env.get(`BUD_UPDATE_BROWSERSLIST`) === false) return true
-  return false
+const isEnabled = (bud: Bud): boolean => {
+  if (typeof bud.context?.browserslistUpdate !== `undefined`) {
+    log(`check enabled:`, bud.context.browserslistUpdate)
+    return bud.context.browserslistUpdate
+  }
+
+  log(`check enabled: true (default)`)
+
+  return true
 }
+
 const isSilent = (bud: Bud): boolean => bud.context?.silent
 
+const log = (...messages: any[]) =>
+  logger.scope(`browserslist`).log(...messages)
+
 const updateBrowserslist = async (bud: Bud) => {
+  let bin: string
+  const subcommand: Array<string> = []
+
   /**
-   * Run the update command
+   * Shared child proc options
    */
-  if (bud.context.pm === `npm` || bud.context.pm === `yarn-classic`) {
-    return await execa(`npx`, [`update-browserslist-db`], {
-      cwd: bud.context.basedir,
-      encoding: `utf8`,
-      env: {NODE_ENV: `development`},
-      extendEnv: true,
-    })
+  const options = {
+    cwd: bud.context.basedir,
+    env: {NODE_ENV: `development`},
+    extendEnv: true,
+    reject: false,
   }
 
-  if (bud.context.pm === `pnpm`) {
-    return await execa(`pnpx`, [`update-browserslist-db`], {
-      cwd: bud.context.basedir,
-      encoding: `utf8`,
-      env: {NODE_ENV: `development`},
-      extendEnv: true,
-    })
+  switch (bud.context.pm) {
+    case `pnpm`:
+      bin = `pnpx`
+      subcommand.push(`update-browserslist-db`)
+      break
+
+    case `yarn`:
+      bin = `yarn`
+      subcommand.push(`dlx`, `update-browserslist-db`)
+      break
+
+    default:
+      bin = `npx`
+      subcommand.push(`update-browserslist-db`)
+      break
   }
 
-  if (bud.context.pm === `yarn`) {
-    return await execa(`yarn`, [`dlx`, `update-browserslist-db`], {
-      cwd: bud.context.basedir,
-      encoding: `utf8`,
-      env: {NODE_ENV: `development`},
-      extendEnv: true,
-    })
-  }
+  const child = execa(bin, subcommand, options)
+
+  child.stdout.on(`data`, message => {
+    const text = message.toString().trim()
+
+    if (!isSilent(bud) && text.includes(`update-browserslist-db:`)) {
+      process.stdout.write(
+        [`  -->`, text.replace(`update-browserslist-db: `, ``), `\n`].join(
+          ` `,
+        ),
+      )
+    }
+  })
+  child.stderr.on(`data`, message => {
+    const text = message.toString().trim()
+
+    if (!isSilent(bud) && text.includes(`update-browserslist-db:`)) {
+      process.stdout.write(
+        [`  -->`, text.replace(`update-browserslist-db: `, ``), `\n`].join(
+          ` `,
+        ),
+      )
+    }
+  })
+
+  return await child
 }
 
 export {browserslistUpdateCheck as default, updateBrowserslist}

@@ -196,6 +196,15 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
     await argumentOverride(
       bud,
+      `browserslistUpdate`,
+      `BUD_BROWSERSLIST_UPDATE`,
+      value => async bud => {
+        bud.context.browserslistUpdate = value
+      }
+    )
+
+    await argumentOverride(
+      bud,
       `input`,
       `BUD_PATH_INPUT`,
       value => async bud => bud.setPath(`@src`, value),
@@ -404,11 +413,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
     this.bud = instance.get()
 
     await this.bud.initialize(this.context).catch(this.catch)
+
     await applyCliOptionsCallback(this.bud).catch(this.catch)
 
     await this.bud.processConfigs().catch(this.catch)
 
     await applyCliOptionsCallback(this.bud).catch(this.catch)
+
     this.bud.hooks.action(`build.before`, applyCliOptionsCallback)
 
     return this.bud

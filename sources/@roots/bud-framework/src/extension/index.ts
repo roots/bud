@@ -349,8 +349,14 @@ export class Extension<
    * Logger instance
    */
   public get logger(): any {
-    return logger.scope(...[this.app.label, this.label].filter(Boolean))
+    const scopes = []
+
+    this.app.isChild && scopes.push(this.app.label)
+    this.label && scopes.push(this.label)
+
+    return logger.scope(...scopes)
   }
+
   /**
    * `make` callback
    */

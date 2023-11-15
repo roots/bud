@@ -169,7 +169,12 @@ abstract class Base implements Contract {
    * {@link Contract.logger}
    */
   public get logger(): typeof logger {
-    return logger.scope(this.app.label, camelCase(this.constructor.name))
+    const scopes = []
+
+    this.app.isChild && scopes.push(this.app.label)
+    scopes.push(camelCase(this.constructor.name))
+
+    return logger.scope(...scopes)
   }
 
   /**
@@ -275,7 +280,12 @@ abstract class BaseContainer extends Container implements Contract {
    * {@link Contract.logger}
    */
   public get logger(): typeof logger {
-    return logger.scope(this.app.label, camelCase(this.constructor.name))
+    const scopes = []
+
+    this.app.isChild && scopes.push(this.app.label)
+    scopes.push(camelCase(this.constructor.name))
+
+    return logger.scope(...scopes)
   }
 
   /**

@@ -76,7 +76,7 @@
     "react-dom": "18.2.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "2.3.0",
+    "@mdx-js/loader": "3.0.0",
     "@roots/bud": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",

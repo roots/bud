@@ -9,16 +9,16 @@ export const infrastructureLogging: Factory<
     console: bud.hooks.filter(`build.infrastructureLogging.console`, {
       ...console,
       error: (...args: any[]) => {
-        logger.scope(bud.label).error(...args)
+        logger.unscope().error(...args)
       },
       info: (...args: any[]) => {
-        logger.scope(bud.label).info(...args)
+        logger.unscope().info(...args)
       },
       log: (...args: any[]) => {
-        logger.scope(bud.label).log(...args)
+        logger.unscope().log(...args)
       },
       warn: (...args: any[]) => {
-        logger.scope(bud.label).info(...args)
+        logger.unscope().info(...args)
       },
     }),
     level: bud.hooks.filter(`build.infrastructureLogging.level`, `log`),
