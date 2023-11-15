@@ -1,4 +1,3 @@
-import chalk from '@roots/bud-support/chalk'
 import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/lodash/isArray'
 import isFunction from '@roots/bud-support/lodash/isFunction'
@@ -64,11 +63,6 @@ export function when(
     throw new InputError(
       `bud.when: all supplied conditionals must be functions`,
       {
-        details: `\n  This is incorrect: bud.when(() => true, ${chalk.red(
-          `bud.vendor()`,
-        )}).\n  This is what you wanted: bud.when(() => true, ${chalk.green(
-          `() => bud.vendor()`,
-        )})`,
         docs: new URL(`https://bud.js.org/docs/bud.when`),
       },
     )

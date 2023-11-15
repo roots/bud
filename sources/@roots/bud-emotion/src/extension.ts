@@ -12,7 +12,7 @@ import {
  */
 @label(`@roots/bud-emotion`)
 @dependsOnOptional([`@roots/bud-babel`, `@roots/bud-swc`])
-export class BudEmotion extends Extension<{}, null> {
+export class BudEmotion extends Extension<NonNullable<unknown>, null> {
   /**
    * {@link Extension.boot}
    */

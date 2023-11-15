@@ -2,34 +2,37 @@ import type {Bud} from '@roots/bud'
 
 import {Box, Text} from '@roots/bud-support/ink'
 
+import {LabelBox} from '../../components/LabelBox.js'
+
 const DisplayConfigFiles = ({bud}: {bud: Bud}) => {
-  const configs = Object.values(bud.context.files)
+  const configs = Object.values(bud.context.files).map(file => ({
+    ...file,
+    path: file.path.replace(bud.path(), `.`),
+  }))
 
   if (!configs?.length) {
     return (
-      <Box flexDirection="column">
-        <Text color="blue">
-          {`\n`} Configuration files{`\n`}
-        </Text>
-        <Text dimColor>No configuration files found in project</Text>
-      </Box>
+      <LabelBox
+        label="Configuration files"
+        value="No configuration files found in project"
+      />
     )
   }
 
   return (
-    <Box flexDirection="column">
-      <Text color="blue">
-        {`\n`}Configuration files{`\n`}
-      </Text>
-
-      {configs.map(({bud: isBudConfig, path}, i) => (
-        <Box key={i}>
-          <Text dimColor>{path.replace(bud.path(), `.`)}</Text>
-          {isBudConfig && <Text>{` (bud config)`}</Text>}
-        </Box>
+    <LabelBox label="Configuration files">
+      {configs.map((file, i) => (
+        <Item key={i} {...file} />
       ))}
-    </Box>
+    </LabelBox>
   )
 }
+
+const Item = ({bud: isBudConfig, path}) => (
+  <Box flexDirection="row" gap={1}>
+    <Text dimColor>{path}</Text>
+    {isBudConfig && <Text>{`(bud config)`}</Text>}
+  </Box>
+)
 
 export {DisplayConfigFiles as default}

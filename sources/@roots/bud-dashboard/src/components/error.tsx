@@ -3,147 +3,159 @@ import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
 
-const basePath =
-  global.process.env.PROJECT_CWD ??
-  global.process.env.INIT_CWD ??
-  global.process.cwd()
+type RawError = BudError | Error | string | undefined
 
-export const Error = ({error}: {error: unknown}): ReactNode => {
-  let normalError: BudError
-
+const cleanErrorObject = (error: RawError): BudError => {
   if (!error) {
-    error = BudError.normalize(`Unknown error`)
+    error = new BudError(`Unknown error`)
   }
-  normalError =
-    error instanceof BudError ? error : BudError.normalize(error)
 
+  if (typeof error === `string`) {
+    error = new BudError(error)
+  }
+
+  return error instanceof BudError ? error : BudError.normalize(error)
+}
+
+export const Error = ({error: input}: {error: RawError}): ReactNode => {
   return (
     <Static items={[0]}>
       {(_, key) => (
-        <Box flexDirection="column" key={key} paddingTop={1}>
-          <Text backgroundColor="red" color="white">
-            {` ${normalError.name} `}
-          </Text>
-
-          <Box flexDirection="row" gap={1} marginTop={1}>
-            <Text color="red">{figures.cross}</Text>
-            <Text>{normalError.message}</Text>
-          </Box>
-
-          {normalError.details &&
-            !normalError.details.startsWith(`resolve`) && (
-              <Box marginTop={1}>
-                <Text>
-                  <Text color="blue">
-                    {figures.ellipsis}
-                    {` `}Details{` `}
-                  </Text>
-
-                  <Text>{normalError.details.replace(basePath, `.`)}</Text>
-                </Text>
-              </Box>
-            )}
-
-          {normalError.thrownBy && (
-            <Box flexDirection="row" gap={1} marginTop={1}>
-              <Text color="blue">
-                {figures.ellipsis}
-                {` `}Thrown by{` `}
-              </Text>
-              <Text>{normalError.thrownBy}</Text>
-            </Box>
-          )}
-
-          {normalError.docs && (
-            <Box marginTop={1}>
-              <Text>
-                <Text color="blue">
-                  {figures.arrowRight}
-                  {` `}Documentation{` `}
-                </Text>
-                <Text>{normalError.docs.href}</Text>
-              </Text>
-            </Box>
-          )}
-
-          {normalError.issues && (
-            <Box marginTop={1}>
-              <Text>
-                <Text color="blue">
-                  {figures.arrowRight}
-                  {` `}
-                  Issues
-                </Text>
-                {` `}
-                <Text>{normalError.issues.href}</Text>
-              </Text>
-            </Box>
-          )}
-
-          {normalError.file && (
-            <Box marginTop={1}>
-              <Text color="blue">
-                {figures.info}
-                {` `}See file{` `}
-              </Text>
-              <Text>{normalError.file.path}</Text>
-            </Box>
-          )}
-
-          {normalError.origin &&
-            !(normalError.origin instanceof BudError) &&
-            normalError.stack && (
-              <Box flexDirection="column" marginTop={1}>
-                <Text color="blue">
-                  {figures.home}
-                  {` `}Stack trace{` `}
-                </Text>
-
-                <Box
-                  borderBottom={false}
-                  borderColor="red"
-                  borderLeft
-                  borderRight={false}
-                  borderStyle="single"
-                  borderTop={false}
-                  paddingLeft={1}
-                >
-                  <Text>{normalError.stack}</Text>
-                </Box>
-              </Box>
-            )}
-
-          {normalError.origin &&
-            normalError.origin instanceof BudError &&
-            normalError.stack && (
-              <Box flexDirection="column" marginTop={1}>
-                <Text color="blue">
-                  {figures.home}
-                  {` `}Originating error{` `}
-                </Text>
-
-                <Box
-                  borderBottom={false}
-                  borderColor="red"
-                  borderLeft
-                  borderRight={false}
-                  borderStyle="single"
-                  borderTop={false}
-                  flexDirection="column"
-                  paddingLeft={1}
-                >
-                  <Text>
-                    {normalError.origin.message}
-                    {`\n`}
-                  </Text>
-                  {normalError.origin.stack && (
-                    <Text>{normalError.origin.stack}</Text>
-                  )}
-                </Box>
-              </Box>
-            )}
-        </Box>
+        <Display error={input} />
       )}
     </Static>
+  )
+}
+
+export const Display = ({error: input}: {error: RawError}) => {
+  const error = cleanErrorObject(input)
+
+  return (
+    <Box flexDirection="column" paddingTop={1}>
+      {error.name && (
+        <Box flexDirection="row" gap={1}>
+          <Text color="red">{figures.cross}</Text>
+          <Text backgroundColor="red" color="white">
+            {error.name}
+          </Text>
+        </Box>
+      )}
+
+      {error.message && (
+        <Box flexDirection="row" gap={1} marginTop={1}>
+          <Text>{error.message}</Text>
+        </Box>
+      )}
+
+      {error.details && !error.details.startsWith(`resolve`) && (
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
+              {figures.ellipsis}
+              {` `}Details{` `}
+            </Text>
+
+            <Text>{error.details}</Text>
+          </Text>
+        </Box>
+      )}
+
+      {error.thrownBy && (
+        <Box flexDirection="row" gap={1} marginTop={1}>
+          <Text color="blue">
+            {figures.ellipsis}
+            {` `}Thrown by{` `}
+          </Text>
+          <Text>{error.thrownBy}</Text>
+        </Box>
+      )}
+
+      {error.docs && (
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
+              {figures.arrowRight}
+              {` `}Documentation{` `}
+            </Text>
+            <Text>{error.docs.href}</Text>
+          </Text>
+        </Box>
+      )}
+
+      {error.issues && (
+        <Box marginTop={1}>
+          <Text>
+            <Text color="blue">
+              {figures.arrowRight}
+              {` `}
+              Issues
+            </Text>
+            {` `}
+            <Text>{error.issues.href}</Text>
+          </Text>
+        </Box>
+      )}
+
+      {error.file && (
+        <Box marginTop={1}>
+          <Text color="blue">
+            {figures.info}
+            {` `}See file{` `}
+          </Text>
+          <Text>{error.file.path}</Text>
+        </Box>
+      )}
+
+      {error.origin &&
+        !(error.origin instanceof BudError) &&
+        error.stack && (
+          <Box flexDirection="column" marginTop={1}>
+            <Text color="blue">
+              {figures.home}
+              {` `}Stack trace{` `}
+            </Text>
+
+            <Box
+              borderBottom={false}
+              borderColor="red"
+              borderLeft
+              borderRight={false}
+              borderStyle="single"
+              borderTop={false}
+              paddingLeft={1}
+            >
+              <Text>{error.stack}</Text>
+            </Box>
+          </Box>
+        )}
+
+      {error.origin && error.origin instanceof BudError && error.stack && (
+        <Box flexDirection="column" marginTop={1}>
+          <Text color="blue">
+            {figures.home}
+            {` `}Originating error{` `}
+          </Text>
+
+          <Box
+            borderBottom={false}
+            borderColor="red"
+            borderLeft
+            borderRight={false}
+            borderStyle="single"
+            borderTop={false}
+            flexDirection="column"
+            paddingLeft={1}
+          >
+            <Text>
+              {error.origin.message}
+              {`\n`}
+            </Text>
+            {error.origin.stack && (
+              <Text dimColor>{error.origin.stack}</Text>
+            )}
+          </Box>
+        </Box>
+      )}
+    </Box>
   )
 }

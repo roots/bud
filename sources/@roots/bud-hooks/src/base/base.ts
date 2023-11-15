@@ -3,6 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import logger from '@roots/bud-support/logger'
 
 /**
  * Synchronous hooks registry
@@ -28,6 +29,13 @@ export abstract class Hooks<Store> {
    */
   public get app(): Bud {
     return this._app()
+  }
+
+  /**
+   * Get logger
+   */
+  public get logger() {
+    return logger.scope(`hooks`)
   }
 
   @bind
