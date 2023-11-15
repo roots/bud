@@ -1,0 +1,9 @@
+{
+  "name": "@tests/env-split-chunks",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "lodash": "4.17.21"
+  }
+}

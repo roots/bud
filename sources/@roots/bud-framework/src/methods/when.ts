@@ -17,12 +17,12 @@ export interface when {
 }
 
 /**
- * Executes a function if a given test is `true`.
+ * Executes a function if a given test is true
  *
  * @remarks
  * - The first parameter is the conditional check.
- * - The second parameter is the function to run if `true`.
- * - The third parameter is optional; executed if the conditional is not `true`.
+ * - The second parameter is the function to run if true.
+ * - The third parameter is optional; executed if the conditional is not true.
  *
  * @example
  * Only produce a vendor bundle when running in `production`:

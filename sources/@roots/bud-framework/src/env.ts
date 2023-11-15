@@ -12,7 +12,19 @@ export default class Env extends ServiceContainer {
    */
   @bind
   public override async bootstrap(bud: Bud) {
-    this.setStore(bud.context.env)
+    const records = bud.context?.env ?? {}
+    const coerce = (a: Record<string, any>, [k, v]) => {
+      switch (v) {
+        case `true`:
+          return {...a, [k]: true}
+        case `false`:
+          return {...a, [k]: false}
+        default:
+          return {...a, [k]: v}
+      }
+    }
+
+    this.setStore(Object.entries(records).reduce(coerce, {}))
   }
 
   /**

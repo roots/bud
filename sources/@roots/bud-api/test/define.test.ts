@@ -23,18 +23,21 @@ describe(`bud.define`, function () {
   it(`adds definitions`, () => {
     define({DEFINED_KEY: `DEFINED_VALUE`})
 
-    expect(
-      bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
-        .options.DEFINED_KEY,
-    ).toEqual(`DEFINED_VALUE`)
+    const {options} = bud.extensions.get(
+      `@roots/bud-extensions/webpack-define-plugin`,
+    )
+
+    expect(options.DEFINED_KEY).toEqual(`DEFINED_VALUE`)
   })
 
   it(`adds PUBLIC_APP_TITLE from env`, async () => {
     await bud.run()
-    expect(
-      bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
-        .options.APP_TITLE,
-    ).toBeDefined()
+
+    const {options} = bud.extensions.get(
+      `@roots/bud-extensions/webpack-define-plugin`,
+    )
+
+    expect(options.APP_TITLE).toBeDefined()
   })
 
   it(`matches snapshot`, () => {

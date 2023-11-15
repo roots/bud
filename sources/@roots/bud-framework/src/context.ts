@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {PackageManager} from '@roots/bud-support/which-pm'
 
 import type {parse} from 'node:path'
 
@@ -403,6 +404,14 @@ export interface Context {
   }
 
   /**
+   * Package manager option
+   *
+   * @remarks
+   * Set with the `--pm` CLI flag.
+   */
+  pm?: PackageManager
+
+  /**
    * Port option
    *
    * @remarks
@@ -505,6 +514,14 @@ export interface Context {
    * @todo Is this used anywhere?
    */
   target?: Array<string>
+
+  /**
+   * Update browserslist option
+   *
+   * @remarks
+   * Set with the `--update-browserslist-check` CLI flag.
+   */
+  updateBrowserslistCheck?: boolean
 
   /**
    * Use option

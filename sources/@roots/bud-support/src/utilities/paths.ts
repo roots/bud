@@ -76,7 +76,8 @@ This is most likely a problem with the internals of bud.js.`,
   let hash: string
   let env = envBootstrap.get(basedir)
 
-  const specified = args.basedir ?? env.APP_BASE_PATH
+  const specified = args.basedir ?? env.BUD_PATH_BASE ?? env.APP_BASE_PATH
+
   if (specified && !basedir.endsWith(specified)) {
     logger.scope(`paths`).log(`using specified basedir:`, specified)
 
@@ -89,14 +90,14 @@ This is most likely a problem with the internals of bud.js.`,
   }
 
   hash = sha1.digest(`base64url`)
-  let storage: string = join(systemPaths.cache, hash)
+  let storage: string =
+    args.storage ??
+    args[`@storage`] ??
+    env.BUD_PATH_STORAGE ??
+    env.APP_STORAGE_PATH ??
+    join(systemPaths.cache, hash)
 
-  if (args.storage || args[`@storage`] || env.APP_STORAGE_PATH) {
-    storage = join(
-      basedir,
-      args.storage ?? args[`@storage`] ?? env.APP_STORAGE_PATH,
-    )
-  }
+  storage = join(basedir, storage)
 
   paths = {
     ...Object.entries(systemPaths).reduce(

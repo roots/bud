@@ -24,6 +24,10 @@ test(`--runtime`, async () => {
     ),
   ).toBe(`file`)
 
+  await fs.removeAsync(
+    path(`sources/@roots/bud/test/cli-flag-runtime/project/dist`),
+  )
+
   await execa(`yarn`, [
     `workspace`,
     `@tests/bud-runtime-flag`,

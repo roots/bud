@@ -45,7 +45,7 @@ export interface splitChunks {
  */
 export const splitChunks: splitChunks = async function (this: Bud, value) {
   /**
-   * For `true` and `undefined` options the default
+   * For true and undefined options the default
    * cache groups are added to the build
    */
   if (isUndefined(value) || value === true) {
@@ -54,9 +54,9 @@ export const splitChunks: splitChunks = async function (this: Bud, value) {
 
       return {
         automaticNameDelimiter: sep,
-        ...options,
+        ...(options ?? {}),
         cacheGroups: {
-          ...(options.cacheGroups ?? {}),
+          ...(options?.cacheGroups ?? {}),
           default: false,
           vendor: {
             chunks: `all`,

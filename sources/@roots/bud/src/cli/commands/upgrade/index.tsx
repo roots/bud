@@ -1,4 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
+import {updateBrowserslist} from '@roots/bud/cli/helpers/browserslistUpdate'
 import axios from '@roots/bud-support/axios'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
@@ -7,7 +8,6 @@ import isString from '@roots/bud-support/lodash/isString'
 import logger from '@roots/bud-support/logger'
 import semver from '@roots/bud-support/semver'
 import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
-import whichPm from '@roots/bud-support/which-pm'
 
 type Type = `dependencies` | `devDependencies`
 
@@ -75,6 +75,7 @@ export default class BudUpgradeCommand extends BudCommand {
   public pm = Option.String(`--pm`, undefined, {
     description: `Package manager to use. One of: \`npm\`, \`yarn-classic\`, \`pnpm\` (experimental), or \`yarn\` (experimental)`,
     validator: isOneOf([
+      isLiteral(`bun`),
       isLiteral(`npm`),
       isLiteral(`pnpm`),
       isLiteral(`yarn`),
@@ -101,7 +102,7 @@ export default class BudUpgradeCommand extends BudCommand {
   /**
    * Package manager bin
    */
-  public get bin(): `npm` | `pnpm` | `yarn` {
+  public get bin(): `bun` | `npm` | `pnpm` | `yarn` {
     if (this.pm === `yarn-classic`) {
       return `yarn`
     }
@@ -166,29 +167,8 @@ export default class BudUpgradeCommand extends BudCommand {
     const basedir = this.bud?.context?.basedir ?? process.cwd()
     logger.log(`Using basedir:`, basedir)
 
-    if (!this.pm) {
-      await whichPm(basedir)
-        .catch(thrownError => {
-          const error = BudError.normalize(thrownError)
-          error.details = error.message
-          error.thrownBy = `@roots/bud-support/which-pm`
-          throw error
-        })
-        .then(pm => {
-          if (pm === false) {
-            logger.info(`No package manager could be detected.`)
-            this.pm = `npm`
-            return
-          }
-
-          this.pm = pm
-        })
-        .catch(e => {
-          logger.info(`Error getting package manager`, `\n`, e)
-          this.pm = `npm`
-        })
-    }
-    logger.log(`Using package manager:`, this.pm)
+    this.pm = this.pm ?? this.bud.context.pm
+    logger.log(`using package manager:`, this.pm)
 
     if (this.pm === `yarn`) {
       if (this.registry !== `https://registry.npmjs.org`) {
@@ -198,24 +178,26 @@ export default class BudUpgradeCommand extends BudCommand {
         this.registry = `https://registry.npmjs.org`
       }
 
-      await this.bud.fs.yml
-        .read(this.bud.path(`.yarnrc.yml`))
-        .then(yarnrc => {
-          if (!yarnrc) return
+      if (await this.bud.fs.exists(this.bud.path(`.yarnrc.yml`))) {
+        await this.bud.fs.yml
+          .read(this.bud.path(`.yarnrc.yml`))
+          .then(yarnrc => {
+            if (!yarnrc) return
 
-          if (yarnrc[`npmRegistryServer`]) {
-            this.registry = yarnrc[`npmRegistryServer`]
+            if (yarnrc[`npmRegistryServer`]) {
+              this.registry = yarnrc[`npmRegistryServer`]
 
-            logger.log(
-              `Registry set to`,
-              this.registry,
-              `(setting sourced from .yarnrc.yml)`,
-            )
-          }
-        })
-        .catch(error => {
-          logger.warn(`Error reading .yarnrc.yml`, `\n`, error)
-        })
+              logger.log(
+                `registry set to`,
+                this.registry,
+                `(setting sourced from .yarnrc.yml)`,
+              )
+            }
+          })
+          .catch(error => {
+            logger.warn(`error reading .yarnrc.yml`, error)
+          })
+      }
     }
     logger.log(`Using registry:`, this.registry)
 
@@ -240,8 +222,8 @@ export default class BudUpgradeCommand extends BudCommand {
       await this.$(this.bin, [`install`, `--shamefully-hoist`])
     }
 
-    if (this.browserslist)
-      await this.upgradeBrowserslistDb().catch(error => {
+    if (this.browserslist && !this.bud.env.isFalse(`BUD_BROWSERSLIST_UPDATE`))
+      await updateBrowserslist(this.bud).catch(error => {
         logger.warn(`Error upgrading browserslist db`, `\n`, error)
       })
   }
@@ -260,20 +242,23 @@ export default class BudUpgradeCommand extends BudCommand {
     const results = Object.entries(dependencies)
       .filter(([signifier, version]: [string, string]) => {
         if (!version || !signifier) return false
-        if (version.includes(`workspace:`)) return false
+        if (version.includes(`workspace:`)) {
+          logger.log(`ignoring workspace:* dependency`, signifier)
+          return false
+        }
 
         if (
           signifier.includes(`bud-`) ||
           signifier.includes(`/bud`) ||
           signifier.includes(`@roots/sage`)
-        )
+        ) {
+          logger.log(`found candidate`, `${signifier}@${version}`)
           return true
+        }
 
         return false
       })
       .map(([signifier]) => signifier)
-
-    logger.log(`candidates:`, `\n`, results)
 
     return results
   }
@@ -317,7 +302,6 @@ export default class BudUpgradeCommand extends BudCommand {
     const communityDependencies = this.findCandidates(type).filter(
       signifier => !signifier.startsWith(`@roots/`),
     )
-    logger.log(`found community dependencies`, communityDependencies)
     await Promise.all(
       communityDependencies.map(async signifier => {
         const {versions} = await this.doRegistryRequest(signifier)
@@ -363,12 +347,15 @@ export default class BudUpgradeCommand extends BudCommand {
       logger.warn(`error getting upgradeable`, type, `\n`, error)
     })
 
-    logger.log(
-      `discovered upgradeable`,
-      type,
-      `:\n`,
-      this.upgradeable[type],
-    )
+    if (this.upgradeable[type] && this.upgradeable[type].length) {
+      logger.log(
+        `discovered upgradeable`,
+        type,
+        `:\n`,
+        this.upgradeable[type],
+      )
+    }
+
     return this.upgradeable[type]
   }
 
@@ -426,27 +413,5 @@ export default class BudUpgradeCommand extends BudCommand {
     ).catch(error => {
       logger.error(error)
     })
-  }
-
-  /**
-   * Try to upgrade browserslist
-   */
-  @bind
-  public async upgradeBrowserslistDb() {
-    if (this.registry !== `https://registry.npmjs.org`) {
-      logger.warn(`Cannot upgrade browserslist db with custom registry`)
-      return
-    }
-
-    logger.log(`Attempting to upgrade browserslist db...`)
-
-    switch (this.pm) {
-      case `pnpm`:
-        await this.$(`pnpx`, [`update-browserslist-db`])
-        break
-      default:
-        await this.$(`npx`, [`update-browserslist-db`])
-        break
-    }
   }
 }

@@ -10,6 +10,7 @@ import args from '@roots/bud-support/utilities/args'
 import * as projectEnv from '@roots/bud-support/utilities/env'
 import * as projectFiles from '@roots/bud-support/utilities/files'
 import * as projectPaths from '@roots/bud-support/utilities/paths'
+import whichPm from '@roots/bud-support/which-pm'
 
 import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
@@ -41,6 +42,11 @@ export default async (options: Options = {}): Promise<Context> => {
     options?.extensions,
   )
 
+  if (!options.pm) {
+    const pm = await whichPm(basedir)
+    options.pm = pm !== false ? pm : `npm`
+  }
+
   const context: Context = {
     ...(args ?? {}),
     ...options,
@@ -54,6 +60,7 @@ export default async (options: Options = {}): Promise<Context> => {
     manifest: {...(manifest ?? {}), ...(options?.manifest ?? {})},
     mode: options?.mode ?? `production`,
     paths: {...paths, ...(options?.paths ?? {})},
+    pm: args?.pm ?? options?.pm ?? `npm`,
     render: options?.render ?? render,
     services: [...(services ?? []), ...(options?.services ?? [])],
     stderr: options?.stderr ?? stderr,
@@ -69,6 +76,7 @@ export default async (options: Options = {}): Promise<Context> => {
     .log(`🏗️`, `building`, context.label)
     .log(`📂`, `basedir`, context.basedir)
     .log(`😎`, `version`, context.bud.version)
+    .log(`📦`, `package manager`, context.pm)
     .scope(context.label)
 
   return context
