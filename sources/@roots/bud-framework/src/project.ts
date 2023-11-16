@@ -74,22 +74,6 @@ export default class Project extends Service {
    */
   @bind
   public override async compilerDone(bud: Bud, stats: Stats) {
-    if (!bud.context.debug) {
-      return bud
-    }
-
-    if (!stats) {
-      return bud
-    }
-
-    await bud.fs.write(
-      bud.path(`@storage`, bud.label, `debug`, `stats.yml`),
-      {
-        compilation: bud.compiler?.stats.toJson(`verbose`),
-        message: stats.toString(),
-      },
-    )
-
     return bud
   }
 }
