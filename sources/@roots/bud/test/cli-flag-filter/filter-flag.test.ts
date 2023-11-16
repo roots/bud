@@ -1,58 +1,52 @@
 import {join} from 'node:path'
-import {beforeAll, describe, expect, it} from 'vitest'
-import fs from 'fs-jetpack'
+
+import {path} from '@repo/constants'
 import {execa} from 'execa'
-import {paths} from '@repo/constants'
+import fs from 'fs-jetpack'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`--filter`, () => {
   beforeAll(async () => {
     await fs.removeAsync(
-      join(
-        paths.root,
-        'sources/@roots/bud/test/cli-flag-filter/project/project-a/dist',
+      path(
+        `sources/@roots/bud/test/cli-flag-filter/project/project-a/dist`,
       ),
     )
     await fs.removeAsync(
-      join(
-        paths.root,
-        'sources/@roots/bud/test/cli-flag-filter/project/.budfiles',
-      ),
+      path(`sources/@roots/bud/test/cli-flag-filter/project/.budfiles`),
     )
     await fs.removeAsync(
-      join(
-        paths.root,
-        'sources/@roots/bud/test/cli-flag-filter/project/project-b/dist',
+      path(
+        `sources/@roots/bud/test/cli-flag-filter/project/project-b/dist`,
       ),
     )
 
-    await execa('yarn', [
-      'workspace',
-      '@tests/bud-filter-flag',
-      'run',
-      'bud',
-      'build',
-      '--filter',
-      'project-b',
+    await execa(`yarn`, [
+      `workspace`,
+      `@tests/bud-filter-flag`,
+      `run`,
+      `bud`,
+      `build`,
+      `--filter`,
+      `project-b`,
     ])
   })
 
-  it('includes project-b', async () => {
+  it(`includes project-b`, async () => {
     expect(
       await fs.existsAsync(
-        join(
-          paths.root,
-          'sources/@roots/bud/test/cli-flag-filter/project/project-b/dist',
+        path(
+          `sources/@roots/bud/test/cli-flag-filter/project/project-b/dist`,
         ),
       ),
     ).toBeTruthy()
   })
 
-  it('excludes project-a', async () => {
+  it(`excludes project-a`, async () => {
     expect(
       await fs.existsAsync(
-        join(
-          paths.root,
-          'sources/@roots/bud/test/cli-flag-filter/project/project-a/dist',
+        path(
+          `sources/@roots/bud/test/cli-flag-filter/project/project-a/dist`,
         ),
       ),
     ).toBeFalsy()

@@ -42,6 +42,14 @@ export interface Context {
   browser?: boolean | string
 
   /**
+   * Update browserslist option
+   *
+   * @remarks
+   * Set with the `--update-browserslist-check` CLI flag.
+   */
+  browserslistUpdate?: boolean
+
+  /**
    * Information on the installed version of bud.js
    */
   bud: {
@@ -67,7 +75,6 @@ export interface Context {
    * Set with `--cache` CLI flag.
    */
   cache?: `filesystem` | `memory` | false | true
-
   /**
    * CI option
    *
@@ -75,6 +82,7 @@ export interface Context {
    * Set with `--ci` CLI flag.
    */
   ci?: boolean
+
   /**
    * Clean option
    *
@@ -107,7 +115,6 @@ export interface Context {
    * Set with `--debug` CLI flag.
    */
   debug?: boolean
-
   /**
    * Bud.js instance dependencies
    *
@@ -149,6 +156,7 @@ export interface Context {
     | `nosources-cheap-source-map`
     | `source-map`
     | false
+
   /**
    * Discover option
    *
@@ -164,7 +172,6 @@ export interface Context {
    * Set with `--dry` CLI flag.
    */
   dry?: boolean
-
   /**
    * Open editor on error
    *
@@ -209,6 +216,7 @@ export interface Context {
    * Files are sourced from the {@link Context.basedir} and `./config` directories.
    */
   files: Record<string, File>
+
   /**
    * Filter option
    *
@@ -514,14 +522,6 @@ export interface Context {
    * @todo Is this used anywhere?
    */
   target?: Array<string>
-
-  /**
-   * Update browserslist option
-   *
-   * @remarks
-   * Set with the `--update-browserslist-check` CLI flag.
-   */
-  updateBrowserslistCheck?: boolean
 
   /**
    * Use option

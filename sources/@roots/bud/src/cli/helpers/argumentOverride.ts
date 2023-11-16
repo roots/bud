@@ -10,7 +10,9 @@ export default async function argumentOverride(
 ) {
   if (isset(bud.context[arg])) {
     return await callback(bud.context[arg])(bud)
-  } else if (bud.env.has(env)) {
+  }
+
+  if (bud.env.has(env)) {
     return await callback(bud.env.get(env))(bud)
   }
 }

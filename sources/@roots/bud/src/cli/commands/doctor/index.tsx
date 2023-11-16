@@ -66,11 +66,11 @@ The \`bud doctor\` command will:
     const disabledExtensions = []
 
     const timer = this.makeTimer()
-    const bud = await this.makeBud()
+    await this.makeBud()
 
-    await bud.build.make().catch(this.catch)
+    await this.bud?.build.make().catch(this.catch)
 
-    Object.entries(bud.extensions.repository).map(([name, extension]) =>
+    Object.entries(this.bud?.extensions.repository).map(([name, extension]) =>
       (extension.isEnabled()
         ? enabledExtensions
         : disabledExtensions
@@ -78,14 +78,14 @@ The \`bud doctor\` command will:
     )
 
     const packages = await Promise.all(
-      criticalPackages.map(getPackageResults.bind(bud)),
+      criticalPackages.map(getPackageResults.bind(this.bud)),
     )
 
     this.renderStatic(
       <Box flexDirection="column" gap={1} marginY={1}>
         <BuildInfo
           error={this.error}
-          name={bud?.label ?? `bud.js`}
+          name={this.bud?.label ?? `bud.js`}
           time={timer()}
         />
 
@@ -93,17 +93,17 @@ The \`bud doctor\` command will:
 
         <Platform />
 
-        <LabelBox flexDirection="row" label="Mode" value={bud.mode} />
+        <LabelBox flexDirection="row" label="Mode" value={this.bud?.mode} />
 
         <Versions packages={packages} />
 
-        <Paths path={bud.path} />
+        <Paths path={this.bud?.path} />
 
-        <Children compilers={bud.children} />
+        <Children compilers={this.bud?.children} />
 
-        <DisplayConfigFiles bud={bud} />
+        <DisplayConfigFiles bud={this.bud} />
 
-        <DisplayEnv bud={bud} />
+        <DisplayEnv bud={this.bud} />
 
         <Extensions
           extensions={enabledExtensions}
@@ -115,9 +115,9 @@ The \`bud doctor\` command will:
           label="Disabled extensions"
         />
 
-        <Server bud={bud} />
+        <Server bud={this.bud} />
 
-        <Validate config={bud.build.config} />
+        <Validate config={this.bud?.build.config} />
       </Box>,
     )
   }

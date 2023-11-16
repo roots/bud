@@ -4,6 +4,7 @@ import BudCommand from '@roots/bud/cli/commands'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, Text} from '@roots/bud-support/ink'
+import logger from '@roots/bud-support/logger'
 
 /**
  * `bud clean`
@@ -27,6 +28,12 @@ export default class BudCleanCommand extends BudCommand {
     ],
   })
 
+  public cleaned = []
+
+  public override cache = false
+
+  public override force = true
+
   public cachePositional = Option.Boolean(`@cache,cache`, false, {
     description: `empty @cache`,
   })
@@ -40,7 +47,9 @@ export default class BudCleanCommand extends BudCommand {
   })
 
   @bind
-  public override async catch(error: Error) {}
+  public override async catch(error: Error) {
+    logger.warn(error)
+  }
 
   @bind
   public async cleanCache() {
@@ -49,37 +58,18 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await this.bud.fs.remove(child.cache.cacheDirectory)
-            this.renderStatic(
-              <Box>
-                <Text color="green">
-                  ✔ emptied {child.cache.cacheDirectory}
-                </Text>
-              </Box>,
-            )
+            if (await this.bud.fs.exists(child.cache.cacheDirectory)) {
+              await this.bud.fs.remove(child.cache.cacheDirectory)
+              this.cleaned.push(child.cache.cacheDirectory)
+            }
           }),
       )
     }
 
-    await this.bud.fs.remove(this.bud.path(`@os-cache`))
-
-    this.renderStatic(
-      <Box>
-        <Text color="green">
-          ✔ emptied {this.bud.cache.cacheDirectory}
-        </Text>
-      </Box>,
-    )
-
-    await this.bud.fs.remove(this.bud.path(`@storage`, `conf`))
-
-    this.renderStatic(
-      <Box>
-        <Text color="green">
-          ✔ emptied {this.bud.path(`@storage`, `conf`)}
-        </Text>
-      </Box>,
-    )
+    if (await this.bud.fs.exists(this.bud.cache.cacheDirectory)) {
+      await this.bud.fs.remove(this.bud.cache.cacheDirectory)
+      this.cleaned.push(this.bud.cache.cacheDirectory)
+    }
   }
 
   @bind
@@ -89,22 +79,18 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await this.bud.fs.remove(child.path(`@dist`))
-            this.renderStatic(
-              <Box>
-                <Text color="green">✔ emptied {child.path(`@dist`)}</Text>
-              </Box>,
-            )
+            if (await this.bud.fs.exists(child.path(`@dist`))) {
+              await this.bud.fs.remove(child.path(`@dist`))
+              this.cleaned.push(child.path(`@dist`))
+            }
           }),
       )
     }
 
-    await this.bud.fs.remove(this.bud.path(`@dist`))
-    this.renderStatic(
-      <Box>
-        <Text color="green">✔ emptied {this.bud.path(`@dist`)}</Text>
-      </Box>,
-    )
+    if (await this.bud.fs.exists(this.bud.path(`@dist`))) {
+      await this.bud.fs.remove(this.bud.path(`@dist`))
+      this.cleaned.push(this.bud.path(`@dist`))
+    }
   }
 
   @bind
@@ -114,33 +100,25 @@ export default class BudCleanCommand extends BudCommand {
         Object.values(this.bud.children)
           .filter(this.filterCompiler)
           .map(async child => {
-            await this.bud.fs.remove(child.path(`@storage`))
-            this.renderStatic(
-              <Box>
-                <Text color="green">
-                  ✔ emptied {child.path(`@storage`)}
-                </Text>
-              </Box>,
-            )
+            if (await this.bud.fs.exists(child.path(`@storage`))) {
+              await this.bud.fs.remove(child.path(`@storage`))
+              this.cleaned.push(child.path(`@storage`))
+            }
           }),
       )
     }
 
-    await this.bud.fs.remove(this.bud.path(`@storage`))
-    await this.bud.fs.remove(this.bud.path(`@os-cache`))
-
-    this.renderStatic(
-      <Box>
-        <Text color="green">✔ emptied {this.bud.path(`@storage`)}</Text>
-      </Box>,
-    )
+    if (await this.bud.fs.exists(this.bud.path(`@storage`))) {
+      await this.bud.fs.remove(this.bud.path(`@storage`))
+      this.cleaned.push(this.bud.path(`@storage`))
+    }
   }
 
   /**
    * {@link Command.execute}
    */
   public override async execute() {
-    await this.makeBud()
+    await this.makeBud().catch(this.catch)
 
     const cleanAll =
       !this.outputPositional &&
@@ -158,6 +136,16 @@ export default class BudCleanCommand extends BudCommand {
     if (this.cachePositional || cleanAll) {
       await this.cleanCache()
     }
+
+    this.renderStatic(
+      <Box flexDirection="column">
+        {this.cleaned.map((path, id) => (
+          <Box key={id}>
+            <Text color="green">✔ emptied {path}</Text>
+          </Box>
+        ))}
+      </Box>,
+    )
   }
 
   @bind

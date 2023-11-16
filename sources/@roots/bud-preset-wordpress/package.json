@@ -71,7 +71,7 @@
     "@roots/bud-build": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.8.8"
+    "@types/node": "20.9.0"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
@@ -85,7 +85,7 @@
     "@roots/bud-wordpress-theme-json": "workspace:*",
     "@roots/wordpress-hmr": "workspace:*",
     "chalk": "5.3.0",
-    "figures": "5.0.0",
+    "figures": "6.0.1",
     "tslib": "2.6.2"
   },
   "volta": {

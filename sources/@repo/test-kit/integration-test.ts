@@ -81,7 +81,6 @@ class Project {
         `--basedir`,
         this.options.label.replace(`@examples/`, `examples/`),
         `build`,
-        `--no-update-browserslist`,
       ])
     }
 

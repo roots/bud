@@ -6,9 +6,11 @@ export const Extensions = ({
   extensions,
   label,
 }: {
-  extensions: Array<[string, Extension]>
+  extensions?: Array<[string, Extension]>
   label: string
 }) => {
+  if (!extensions?.length) return null
+
   return (
     <Box flexDirection="column" gap={1}>
       <Text color="blue">{label}</Text>

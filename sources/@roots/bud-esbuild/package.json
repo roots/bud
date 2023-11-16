@@ -68,7 +68,7 @@
   "devDependencies": {
     "@roots/bud-build": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.8.8"
+    "@types/node": "20.9.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

@@ -69,14 +69,14 @@
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.8.8",
-    "@types/react": "18.2.31",
-    "@types/react-dom": "18.2.14",
+    "@types/node": "20.9.0",
+    "@types/react": "18.2.37",
+    "@types/react-dom": "18.2.15",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "dependencies": {
-    "@mdx-js/loader": "2.3.0",
+    "@mdx-js/loader": "3.0.0",
     "@roots/bud": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",

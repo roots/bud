@@ -1,4 +1,5 @@
 import BudCommand from '@roots/bud/cli/commands'
+import browserslistUpdate from '@roots/bud/cli/flags/browserslist-update'
 import {updateBrowserslist} from '@roots/bud/cli/helpers/browserslistUpdate'
 import axios from '@roots/bud-support/axios'
 import {Command, Option} from '@roots/bud-support/clipanion'
@@ -65,9 +66,7 @@ export default class BudUpgradeCommand extends BudCommand {
   /**
    * Browserslist option
    */
-  public browserslist = Option.Boolean(`--browserslist`, true, {
-    description: `Upgrade browserslist database`,
-  })
+  public browserslistUpdate = browserslistUpdate
 
   /**
    * Package manager option
@@ -222,7 +221,11 @@ export default class BudUpgradeCommand extends BudCommand {
       await this.$(this.bin, [`install`, `--shamefully-hoist`])
     }
 
-    if (this.browserslist && !this.bud.env.isFalse(`BUD_BROWSERSLIST_UPDATE`))
+    if (
+      this.browserslistUpdate ||
+      (this.bud.env.has(`BUD_BROWSERSLIST_UPDATE`) &&
+        this.bud.env.isTrue(`BUD_BROWSERSLIST_UPDATE`))
+    )
       await updateBrowserslist(this.bud).catch(error => {
         logger.warn(`Error upgrading browserslist db`, `\n`, error)
       })
@@ -234,6 +237,7 @@ export default class BudUpgradeCommand extends BudCommand {
   @bind
   public findCandidates(type: Type): Array<string> {
     const dependencies = this.bud.context.manifest?.[type]
+
     if (!dependencies) {
       logger.log(`No candidates found in manifest`)
       return []

@@ -5,6 +5,8 @@ import {Box, Text} from '@roots/bud-support/ink'
 import {LabelBox} from '../../components/LabelBox.js'
 
 export const Server = ({bud}: {bud: Bud}) => {
+  if (!bud) return null
+
   if (!bud.isDevelopment) return (
     <LabelBox label="Development server">
       <Box flexDirection="column">

@@ -5,8 +5,10 @@ import {Webpack} from '@roots/bud-support/webpack'
 export const Validate = ({
   config,
 }: {
-  config: Partial<Webpack.Configuration>
+  config?: Partial<Webpack.Configuration>
 }) => {
+  if (!config) return null
+
   try {
     Webpack.validate(config)
 
