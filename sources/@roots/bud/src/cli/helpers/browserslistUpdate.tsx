@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud'
-import chalk from '@roots/bud-support/chalk'
 
+import chalk from '@roots/bud-support/chalk'
 import execa from '@roots/bud-support/execa'
 import figures from '@roots/bud-support/figures'
 import logger from '@roots/bud-support/logger'
