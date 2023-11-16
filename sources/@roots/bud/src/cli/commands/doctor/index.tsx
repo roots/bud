@@ -68,9 +68,9 @@ The \`bud doctor\` command will:
     const timer = this.makeTimer()
     await this.makeBud()
 
-    await this.bud.build.make().catch(this.catch)
+    await this.bud?.build.make().catch(this.catch)
 
-    Object.entries(this.bud.extensions.repository).map(([name, extension]) =>
+    Object.entries(this.bud?.extensions.repository).map(([name, extension]) =>
       (extension.isEnabled()
         ? enabledExtensions
         : disabledExtensions
@@ -93,13 +93,13 @@ The \`bud doctor\` command will:
 
         <Platform />
 
-        <LabelBox flexDirection="row" label="Mode" value={this.bud.mode} />
+        <LabelBox flexDirection="row" label="Mode" value={this.bud?.mode} />
 
         <Versions packages={packages} />
 
-        <Paths path={this.bud.path} />
+        <Paths path={this.bud?.path} />
 
-        <Children compilers={this.bud.children} />
+        <Children compilers={this.bud?.children} />
 
         <DisplayConfigFiles bud={this.bud} />
 
@@ -117,7 +117,7 @@ The \`bud doctor\` command will:
 
         <Server bud={this.bud} />
 
-        <Validate config={this.bud.build.config} />
+        <Validate config={this.bud?.build.config} />
       </Box>,
     )
   }

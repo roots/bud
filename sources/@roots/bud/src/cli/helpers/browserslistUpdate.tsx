@@ -1,6 +1,8 @@
 import type {Bud} from '@roots/bud'
+import chalk from '@roots/bud-support/chalk'
 
 import execa from '@roots/bud-support/execa'
+import figures from '@roots/bud-support/figures'
 import logger from '@roots/bud-support/logger'
 
 async function browserslistUpdateCheck(bud: Bud) {
@@ -45,7 +47,11 @@ async function browserslistUpdateCheck(bud: Bud) {
       `  --> This check runs once per week when a browserslist is specified in package.json\n`,
     )
     process.stdout.write(
-      `  --> You can disable this behavior with the --no-browserslist-update flag\n`,
+      `  --> You can disable this behavior with the ${chalk.blue(
+        `--no-browserslist-update`,
+      )} flag or by setting ${chalk.blue(
+        `BUD_BROWSERSLIST_UPDATE=false`,
+      )} in your project .env file.\n`,
     )
   }
 
@@ -119,7 +125,31 @@ const updateBrowserslist = async (bud: Bud) => {
       break
   }
 
-  const child = execa(bin, subcommand, options)
+  const child = execa(bin, subcommand, options).on(`exit`, code => {
+    if (isSilent(bud)) return
+
+    if (code === 0) {
+      return process.stdout.write(
+        chalk.green(
+          `  --> ${figures.tick} browserslist successfully updated\n`,
+        ),
+      )
+    }
+
+    return process.stdout.write(
+      chalk.yellow(
+        `  --> ${
+          figures.warning
+        } Browserslist update failed. Try running ${chalk.blue(`${bin} ${subcommand.join(
+          ` `,
+        )}`)} manually.\n  --> ${
+          figures.warning
+        } This check will not be performed again for another week. The ${chalk.blue(
+          `--browserslist-update`,
+        )} flag may be used to force a retry.\n`,
+      ),
+    )
+  })
 
   child.stdout.on(`data`, message => {
     const text = message.toString().trim()
@@ -137,8 +167,13 @@ const updateBrowserslist = async (bud: Bud) => {
 
     if (!isSilent(bud) && text.includes(`update-browserslist-db:`)) {
       process.stdout.write(
-        [`  -->`, text.replace(`update-browserslist-db: `, ``), `\n`].join(
-          ` `,
+        chalk.yellow(
+          [
+            `  -->`,
+            figures.warning,
+            text.replace(`update-browserslist-db: `, ``),
+            `\n`,
+          ].join(` `),
         ),
       )
     }

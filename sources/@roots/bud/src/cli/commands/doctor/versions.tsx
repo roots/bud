@@ -14,7 +14,13 @@ interface PackageResult {
   signifier: string
 }
 
-export const Versions = ({packages}: {packages: Array<PackageResult>}) => {
+export const Versions = ({
+  packages,
+}: {
+  packages?: Array<PackageResult>
+}) => {
+  if (!packages) return null
+
   return (
     <LabelBox label="Version compatibility">
       {packages.map((result, i) => {

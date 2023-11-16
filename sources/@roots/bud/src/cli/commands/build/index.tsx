@@ -116,11 +116,12 @@ export default class BudBuildCommand extends BudCommand {
     }
 
     if (this.bud.env.has(`BUD_BROWSERSLIST_UPDATE`)) {
+      this.bud.context.browserslistUpdate = this.bud.env.get(`BUD_BROWSERSLIST_UPDATE`)
+    }
+    if (this.browserslistUpdate !== undefined) {
       this.bud.context.browserslistUpdate = this.browserslistUpdate
     }
-    if (typeof this.browserslistUpdate !== `undefined`) {
-      this.bud.context.browserslistUpdate = this.browserslistUpdate
-    }
+
     await browserslistUpdateCheck(this.bud).catch(error => {
       logger.error(error)
     })

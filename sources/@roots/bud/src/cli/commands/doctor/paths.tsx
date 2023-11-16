@@ -4,13 +4,22 @@ import {Box, Text} from '@roots/bud-support/ink'
 
 import {LabelBox} from '../../components/LabelBox.js'
 
-export const Paths = ({path}: {path: Bud[`path`]}) => {
+interface Props {
+  path?: Bud[`path`]
+}
+
+export const Paths = ({path}: Props) => {
+  if (!path) return null
+
   const paths = [
     [`project`, path()],
     [`input`, path(`@src`)],
     [`output`, path(`@dist`)],
     [`storage`, path(`@storage`)],
-  ].map(([label, dir]) => [label, dir !== path() ? dir.replace(path(), `@project`) : dir])
+  ].map(([label, dir]) => [
+    label,
+    dir !== path() ? dir.replace(path(), `@project`) : dir,
+  ])
 
   return (
     <LabelBox label="Project paths">

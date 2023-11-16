@@ -10,7 +10,6 @@ describe(`bud build with extensionless stylelintrc`, () => {
       `run`,
       `bud`,
       `build`,
-      `--no-update-browserslist`,
     ])
 
     const [_s, title, _s2, entry, runtime, css, js, _s3, timings] =

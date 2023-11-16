@@ -38,7 +38,6 @@ export const runDev = async (
       `--html`,
       `--port`,
       `${port}`,
-      `--no-update-browserslist`,
     ],
     {cwd: fs.destinationPath(dirname)},
   ).catch(error => {

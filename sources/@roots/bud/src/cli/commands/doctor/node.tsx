@@ -15,21 +15,15 @@ const figure = {
 }
 
 const getColor = (state: `fail` | `success` | `warn`) => color[state]
+
 const getFigure = (state: `fail` | `success` | `warn`) => figure[state]
 
 export const Node = () => {
-  let nodeState: `fail` | `success` | `warn`
+  let nodeState: `fail` | `success` | `warn` = `success`
 
   const major = Number(process.version.match(/^v(\d\d)/)?.[1] ?? 0)
-  if (major < 18) {
-    nodeState = `fail`
-  }
-  else if (major < 20) {
-    nodeState = `warn`
-  }
-  else {
-    nodeState = `success`
-  }
+  if (major < 18) nodeState = `fail`
+  if (major < 20) nodeState = `warn`
 
   return (
     <LabelBox flexDirection="row" label="Node">
