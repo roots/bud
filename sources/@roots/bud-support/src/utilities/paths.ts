@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto'
-import {join} from 'node:path'
+import {isAbsolute, join} from 'node:path'
 
 import {BudError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
@@ -97,7 +97,7 @@ This is most likely a problem with the internals of bud.js.`,
     env.APP_STORAGE_PATH ??
     join(systemPaths.cache, hash)
 
-  storage = join(basedir, storage)
+  storage = isAbsolute(storage) ? storage : join(basedir, storage)
 
   paths = {
     ...Object.entries(systemPaths).reduce(
