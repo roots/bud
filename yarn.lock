@@ -11515,6 +11515,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/project@workspace:tests/util/project":
   version: 0.0.0-use.local
   resolution: "@tests/project@workspace:tests/util/project"
