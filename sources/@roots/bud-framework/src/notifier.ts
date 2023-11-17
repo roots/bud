@@ -11,6 +11,7 @@ import {fileURLToPath} from 'node:url'
 import isEmpty from '@roots/bud-support/lodash/isEmpty'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import logger from '@roots/bud-support/logger'
 import {open, openEditor} from '@roots/bud-support/open'
 
 /**
@@ -139,7 +140,20 @@ export class Notifier {
    * True if notifications are enabled
    */
   public get notificationsEnabled(): boolean {
-    return this.app?.context.notify === true
+    if (this.app?.context.notify === true) {
+      logger.scope(`notifier`).log(`Notifications enabled`)
+      return true
+    }
+
+    if (
+      this.app?.context.notify === undefined &&
+      platform() === `darwin`
+    ) {
+      logger.scope(`notifier`).log(`Notifications enabled (macos default)`)
+      return true
+    }
+
+    return false
   }
 
   /**

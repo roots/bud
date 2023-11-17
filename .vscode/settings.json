@@ -33,7 +33,7 @@
     "verdaccio": true,
     "**/pnp.*": true,
     "**/node_modules": true,
-    "**/.budfiles/**/*": true
+    "**/.storage": true
   },
   "prettier.configPath": "config/prettier.config.js",
   "prettier.ignorePath": "config/.prettierignore",
