@@ -27,7 +27,10 @@ import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import storage from '@roots/bud/cli/flags/storage'
 import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
-import logger from '@roots/bud-support/logger'
+import isString from '@roots/bud-support/lodash/isString'
+import noop from '@roots/bud-support/lodash/noop'
+
+import type {Override} from '../../helpers/override.js'
 
 /**
  * `bud build` command
@@ -52,6 +55,10 @@ export default class BudBuildCommand extends BudCommand {
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
   })
+
+  public declare hot?: boolean
+
+  public declare proxy?: string
 
   public browserslistUpdate = browserslistUpdate
 
@@ -115,16 +122,103 @@ export default class BudBuildCommand extends BudCommand {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 
-    if (this.bud.env.has(`BUD_BROWSERSLIST_UPDATE`)) {
-      this.bud.context.browserslistUpdate = this.bud.env.get(`BUD_BROWSERSLIST_UPDATE`)
-    }
-    if (this.browserslistUpdate !== undefined) {
-      this.bud.context.browserslistUpdate = this.browserslistUpdate
-    }
+    await Promise.all(
+      [
+        [
+          this.browserslistUpdate,
+          `BUD_BROWSERSLIST_UPDATE`,
+          b => async v => (b.root.context.browserslistUpdate = v),
+        ] satisfies Override<boolean>,
+        [
+          this.devtool,
+          `BUD_DEVTOOL`,
+          b => async v => b.devtool(v),
+        ] satisfies Override<any>,
+        [
+          this.esm,
+          `BUD_ESM`,
+          b => async v => b.esm.enable(v),
+        ] satisfies Override<boolean>,
+        [
+          this.hash,
+          `BUD_HASH`,
+          b => async value => b.hash(value),
+        ] satisfies Override<boolean>,
+        [
+          this.hot,
+          `BUD_HOT`,
+          b => async v =>
+            b.root.hooks.on(
+              `dev.middleware.enabled`,
+              ware =>
+                ware?.filter(key => (v === false ? key !== `hot` : v)) ??
+                [],
+            ),
+        ] satisfies Override<boolean>,
+        [
+          this.html,
+          `BUD_HTML`,
+          b => async v =>
+            isString(v) ? b.html({template: v}) : b.html(v),
+        ] satisfies Override<boolean | string>,
+        [
+          this.immutable,
+          `BUD_IMMUTABLE`,
+          b => async v => b.cdn.freeze(v),
+        ] satisfies Override<boolean>,
+        [
+          this.input,
+          `BUD_PATH_INPUT`,
+          b => async v => b.setPath(`@src`, v),
+        ] satisfies Override<string>,
+        [
+          this.lazy,
+          `BUD_LAZY`,
+          b => async v => b.lazy(v),
+        ] satisfies Override<boolean>,
+        [
+          this.minimize,
+          `BUD_MINIMIZE`,
+          b => async v => b.minimize(v),
+        ] satisfies Override<boolean>,
+        [
+          this.output,
+          `BUD_PATH_OUTPUT`,
+          b => async v => b.setPath(`@dist`, v),
+        ] satisfies Override<string>,
+        [
+          this.publicPath,
+          `BUD_PATH_PUBLIC`,
+          b => async v => b.setPublicPath(v),
+        ] satisfies Override<string>,
+        [
+          this.proxy,
+          `BUD_PROXY_URL`,
+          b => async v =>
+            b.root.hooks.on(
+              `dev.middleware.proxy.options.target`,
+              new URL(v),
+            ),
+        ] satisfies Override<string>,
+        [
+          this.runtime,
+          `BUD_RUNTIME`,
+          b => async v => b.runtime(v),
+        ] satisfies Override<`multiple` | `single` | boolean>,
+        [
+          this.storage,
+          `BUD_STORAGE`,
+          b => async v => b.setPath(`@storage`, v),
+        ] satisfies Override<string>,
+        [
+          this.splitChunks,
+          `BUD_SPLIT_CHUNKS`,
+          b => async v => b.splitChunks(v),
+        ] satisfies Override<boolean>,
+      ].map(this.override),
+    ).catch(noop)
 
-    await browserslistUpdateCheck(this.bud).catch(error => {
-      logger.error(error)
-    })
+    await browserslistUpdateCheck(this.bud)
 
     await this.bud.run()
   }

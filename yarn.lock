@@ -11449,6 +11449,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/project":
+  version: 0.0.0-use.local
+  resolution: "@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/project"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/html-flag@workspace:sources/@roots/bud/test/cli-flag-html/project":
   version: 0.0.0-use.local
   resolution: "@tests/html-flag@workspace:sources/@roots/bud/test/cli-flag-html/project"

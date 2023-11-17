@@ -38,7 +38,7 @@ const maybeCall: maybeCall = function <
   if (!params.length) params.push(this)
 
   return isFunction(value)
-    ? value.bind
+    ? typeof value.bind !== `undefined`
       ? value.bind(this)(...params)
       : value(...params)
     : value

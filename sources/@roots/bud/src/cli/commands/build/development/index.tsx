@@ -41,15 +41,15 @@ export default class BuildDevelopmentCommand extends BuildCommand {
 
   public browser = browser
 
-  public hot = hot
+  public override hot = hot
+
+  public override proxy = proxy
 
   public indicator = indicator
 
   public overlay = overlay
 
   public port = port
-
-  public proxy = proxy
 
   public reload = reload
 }
