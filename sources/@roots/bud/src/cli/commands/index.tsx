@@ -32,10 +32,9 @@ import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import noop from '@roots/bud-support/lodash/noop'
-import logger from '@roots/bud-support/logger'
 
 import {Menu} from '../components/Menu.js'
-import argumentOverride from '../helpers/argumentOverride.js'
+import override from '../helpers/override.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -155,8 +154,10 @@ export default class BudCommand extends Command<BaseContext & Context> {
   ): Promise<ExecaReturnValue<string>> {
     const {execa} = await import(`@roots/bud-support/execa`)
 
+    const cwd = this.bud?.path() ?? process.cwd()
+
     return execa(bin, args.filter(Boolean), {
-      cwd: this.bud.path(),
+      cwd,
       encoding: `utf8`,
       env: {NODE_ENV: `development`},
       extendEnv: true,
@@ -173,163 +174,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
       .on(`close`, bail)
   }
 
-  /**
-   * Apply context from argv to bud.js instance
-   */
   @bind
-  public async applyBudArguments(bud: BudCommand[`bud`]) {
-    /**
-     * Override settings:
-     *
-     * - when children: all children but not the parent
-     * - when no children: the parent;
-     */
-    const overrideChildren = async (fn: (bud: Bud) => Promise<any>) => {
-      bud.hasChildren
-        ? await Promise.all(
-            [bud, ...Object.values(bud.children)].map(
-              async bud => await fn(bud),
-            ),
-          )
-        : await fn(bud)
-    }
-
-    await argumentOverride(
-      bud,
-      `browserslistUpdate`,
-      `BUD_BROWSERSLIST_UPDATE`,
-      value => async bud => {
-        bud.context.browserslistUpdate = value
-      }
-    )
-
-    await argumentOverride(
-      bud,
-      `input`,
-      `BUD_PATH_INPUT`,
-      value => async bud => bud.setPath(`@src`, value),
-    )
-
-    await argumentOverride(
-      bud,
-      `output`,
-      `BUD_PATH_OUTPUT`,
-      value => async bud => bud.setPath(`@dist`, value),
-    )
-
-    await argumentOverride(
-      bud,
-      `publicPath`,
-      `BUD_PUBLIC_PATH`,
-      value => async bud => bud.hooks.on(`build.output.publicPath`, value),
-    )
-
-    await argumentOverride(
-      bud,
-      `modules`,
-      `BUD_PATH_MODULES`,
-      value => async bud => bud.setPath(`@modules`, value),
-    )
-
-    await argumentOverride(bud, `hot`, `BUD_HOT`, value => async bud => {
-      bud.hooks.on(`dev.middleware.enabled`, (middleware = []) =>
-        middleware.filter(key =>
-          value === false ? key !== `hot` : value,
-        ),
-      )
-    })
-
-    await argumentOverride(
-      bud,
-      `proxy`,
-      `BUD_PROXY_URL`,
-      value => async bud => {
-        bud.hooks.on(`dev.middleware.proxy.options.target`, new URL(value))
-      },
-    )
-
-    await argumentOverride(
-      bud,
-      `cache`,
-      `BUD_CACHE`,
-      value => async () => await overrideChildren(async bud => bud.persist(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `minimize`,
-      `BUD_MINIMIZE`,
-      value => async () => await overrideChildren(async bud => bud.minimize(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `devtool`,
-      `BUD_DEVTOOL`,
-      value => async () => await overrideChildren(async bud => bud.devtool(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `esm`,
-      `BUD_ESM`,
-      value => async () => await overrideChildren(async bud => bud.esm.enable(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `hash`,
-      `BUD_HASH`,
-      value => async () => await overrideChildren(async bud => bud.hash(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `html`,
-      `BUD_HTML`,
-      value => async () => await overrideChildren(async bud => {
-        typeof value === `string`
-          ? bud.html({template: value})
-          : bud.html(value)
-      })
-    )
-
-    await argumentOverride(
-      bud,
-      `immutable`,
-      `BUD_IMMUTABLE`,
-      value => async () => await overrideChildren(async bud => bud.cdn.freeze(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `lazy`,
-      `BUD_LAZY`,
-      value => async () => await overrideChildren(async bud => bud.lazy(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `runtime`,
-      `BUD_RUNTIME`,
-      value => async () => await overrideChildren(async bud => bud.runtime(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `splitChunks`,
-      `BUD_SPLIT_CHUNKS`,
-      value => async () => await overrideChildren(async bud => bud.splitChunks(value)),
-    )
-
-    await argumentOverride(
-      bud,
-      `use`,
-      `BUD_USE`,
-      value => async () => await overrideChildren(async bud => await bud.extensions.add(value)),
-    )
-
-    await overrideChildren(async bud => await bud.promise())
+  public async override([value, envKey, callback]: [
+    value: any,
+    envKey: string,
+    callback: (bud: Bud) => (value: any) => Promise<any>,
+  ]) {
+    await override(this.bud, value, envKey, callback)
   }
 
   /**
@@ -337,21 +188,20 @@ export default class BudCommand extends Command<BaseContext & Context> {
    */
   @bind
   public async applyBudManifestOptions(bud: Bud) {
-    const {bud: manifest} = bud.context.manifest
-    if (!manifest) return
+    const manifest = bud.context.manifest?.bud
 
     bud
-      .when(isset(manifest.publicPath), bud =>
-        bud.hooks.on(`build.output.publicPath`, manifest.bud.publicPath),
+      .when(isset(manifest?.publicPath), bud =>
+        bud.setPublicPath(manifest.bud.publicPath),
       )
-      .when(isset(manifest.paths?.input), bud =>
-        bud.hooks.on(`location.@src`, manifest.bud.paths.input),
+      .when(isset(manifest?.paths?.input), bud =>
+        bud.setPath(`@src`, manifest.bud.paths.input),
       )
-      .when(isset(manifest.paths?.output), bud =>
-        bud.hooks.on(`location.@dist`, manifest.bud.paths.output),
+      .when(isset(manifest?.paths?.output), bud =>
+        bud.setPath(`@dist`, manifest.bud.paths.output),
       )
-      .when(isset(manifest.paths?.storage), bud =>
-        bud.hooks.on(`location.@storage`, manifest.bud.paths.storage),
+      .when(isset(manifest?.paths?.storage), bud =>
+        bud.setPath(`@storage`, manifest.bud.paths.storage),
       )
   }
 
@@ -363,16 +213,12 @@ export default class BudCommand extends Command<BaseContext & Context> {
     if (!error.isBudError) error = BudError.normalize(error)
 
     if (this.bud?.notifier?.notify) {
-      try {
-        this.bud.notifier.notify({
-          group: this.bud.label,
-          message: error?.message,
-          subtitle: error?.name ?? `Error`,
-          title: this.bud.label ?? `bud.js`,
-        })
-      } catch (error) {
-        logger.warn(error.message ?? error)
-      }
+      this.bud.notifier.notify({
+        group: this.bud.label,
+        message: error?.message,
+        subtitle: error?.name ?? `Error`,
+        title: this.bud.label ?? `bud.js`,
+      })
     }
 
     this.renderStatic(<Dash.Error error={error} />)
@@ -394,15 +240,22 @@ export default class BudCommand extends Command<BaseContext & Context> {
   @bind
   public async makeBud() {
     const applyCliOptionsCallback = async (bud: Bud) => {
-      await bud
-        .promise(
-          async bud =>
-            await Promise.all([
-              this.applyBudManifestOptions(bud),
-              this.applyBudArguments(bud),
-            ]).catch(this.catch),
-        )
-        .catch(this.catch)
+      await Promise.all(
+        [
+          [
+            this.cache,
+            `BUD_CACHE`,
+            bud => async value => bud.persist(value),
+          ],
+          [
+            this.use,
+            `BUD_USE`,
+            bud => async value => await bud.extensions.add(value),
+          ],
+        ].map(this.override),
+      )
+
+      await this.applyBudManifestOptions(bud).catch(this.catch)
     }
 
     this.context.dry = this.dry

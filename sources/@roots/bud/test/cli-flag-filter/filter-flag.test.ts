@@ -1,5 +1,3 @@
-import {join} from 'node:path'
-
 import {path} from '@repo/constants'
 import {execa} from 'execa'
 import fs from 'fs-jetpack'
@@ -13,7 +11,7 @@ describe(`--filter`, () => {
       ),
     )
     await fs.removeAsync(
-      path(`sources/@roots/bud/test/cli-flag-filter/project/.budfiles`),
+      path(`sources/@roots/bud/test/cli-flag-filter/project/.storage`),
     )
     await fs.removeAsync(
       path(

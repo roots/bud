@@ -10,6 +10,7 @@ export interface hash {
 
 export const hash: hash = function (this: Bud, value = true) {
   this.context.hash = this.maybeCall(value, this.context.hash)
+  this.api.logger.success(`bud.hash: hash set to ${this.context.hash}`)
 
   return this
 }
