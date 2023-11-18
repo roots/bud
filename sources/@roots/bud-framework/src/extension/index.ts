@@ -286,7 +286,7 @@ export class Extension<
    */
   @bind
   public getOption<K extends string>(key: K): ExtensionOptions[K] {
-    return get(this.options, key)
+    return get(this.getOptions(), key)
   }
   /**
    * Get an option value
@@ -311,9 +311,14 @@ export class Extension<
         )
       }
 
-      const unwrapped = isDynamicOption(value)
-        ? value.get()(this.app)
-        : value
+      const isDynamic = isDynamicOption(value)
+      const unwrapped = isDynamic ? value.get()(this.app) : value
+
+      this.logger.info(
+        key,
+        `has value:`,
+        isDynamic ? `${typeof unwrapped} (dynamic)` : typeof unwrapped,
+      )
 
       if (isUndefined(unwrapped)) return acc
       return {...acc, [key]: unwrapped}
@@ -342,7 +347,7 @@ export class Extension<
    */
   @bind
   public isEnabled(): boolean {
-    return this.when(this.app, this.options)
+    return this.when(this.app, this.getOptions())
   }
 
   /**
@@ -515,13 +520,13 @@ export class Extension<
       }
 
       if (!isUndefined(this.plugin)) {
-        const plugin = new this.plugin({...this.options})
+        const plugin = new this.plugin({...this.getOptions()})
         this.logger.success(`produced webpack plugin`)
         return plugin
       }
 
       if (!isUndefined(this.make)) {
-        const plugin = await this.make(this.app, {...this.options})
+        const plugin = await this.make(this.app, {...this.getOptions()})
         this.logger.success(`produced webpack plugin`)
         return plugin
       }

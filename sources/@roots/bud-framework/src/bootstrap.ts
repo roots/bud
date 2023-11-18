@@ -204,10 +204,7 @@ export const bootstrap = async function (bud: Bud) {
       .filter(Boolean)
       .filter(instance => callbackName in instance)
       .map(instance => {
-        bud.hooks.action(
-          eventHandle as any,
-          instance[callbackName].bind(instance),
-        )
+        bud.hooks.action(eventHandle as any, instance[callbackName])
       }),
   )
 

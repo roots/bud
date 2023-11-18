@@ -1,8 +1,6 @@
-import {sep} from 'node:path'
+import type {Bud} from '@roots/bud-framework'
 
 import isString from '@roots/bud-support/lodash/isString'
-
-import type {Bud} from '../index.js'
 
 export interface setPublicPath {
   (
@@ -44,7 +42,7 @@ export const setPublicPath: setPublicPath = function (publicPath) {
     if (value === `` || value === `auto`) return value
     if (!isString(value)) return value
 
-    return !value.endsWith(sep) ? `${value}${sep}` : value
+    return !value.endsWith(`/`) ? value.concat(`/`) : value
   })
 
   return this

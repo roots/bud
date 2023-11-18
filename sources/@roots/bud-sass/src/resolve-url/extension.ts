@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
 import {Extension} from '@roots/bud-framework/extension'
-import {label} from '@roots/bud-framework/extension/decorators'
+import {bind, label} from '@roots/bud-framework/extension/decorators'
 
 /**
  * resolve-url-loader configuration
@@ -11,6 +11,7 @@ export class BudResolveUrl extends Extension {
   /**
    * {@link Extension.register}
    */
+  @bind
   public override async register({build, hooks}: Bud) {
     /** Source loader */
     const loader = await this.resolve(

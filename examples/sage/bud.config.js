@@ -18,4 +18,6 @@ export default async (app) => {
     .useTailwindColors(true)
     .useTailwindFontFamily()
     .useTailwindFontSize()
+
+  app.sage.acornEntrypoints(false).processBladeViews(false)
 }

@@ -30,7 +30,11 @@ export const output: Factory<`output`> = async ({
      * @see {@link https://medium.com/@kenneth_chau/speeding-up-webpack-typescript-incremental-builds-by-7x-3912ba4c1d15}
      */
     pathinfo: filter(`build.output.pathinfo`, false),
-    publicPath: filter(`build.output.publicPath`, `auto`),
+    publicPath: (() => {
+      const value = filter(`build.output.publicPath`, `auto`)
+      if ([``, `auto`].includes(value)) return value
+      return value.endsWith(`/`) ? value : `${value}/`
+    })(),
     scriptType: filter(`build.output.scriptType`, undefined),
     uniqueName: filter(`build.output.uniqueName`, `@roots/bud`),
   })

@@ -143,6 +143,14 @@ export default class BudTsConfigValues
    */
   public declare setInclude: Api['setInclude']
 
+
+  private get derivedBaseDir(): string | undefined {
+    return (
+      this.getCompilerOptions()?.rootDir ??
+      this.getCompilerOptions()?.baseUrl
+    )
+  }
+
   /**
    * The `configAfter` method adjusts the bud.js application
    * configuration by setting up paths and determining file inclusion and exclusion
@@ -150,6 +158,7 @@ export default class BudTsConfigValues
    *
    * {@link Extension.configAfter}
    */
+  @bind
   public override async configAfter(bud: Bud) {
     if (!this.isEnabled()) return
 
@@ -216,14 +225,6 @@ export default class BudTsConfigValues
         bud.compilePaths(directories.map(dir => bud.path(dir)))
     }
   }
-
-  public get derivedBaseDir(): string | undefined {
-    return (
-      this.getCompilerOptions()?.rootDir ??
-      this.getCompilerOptions()?.baseUrl
-    )
-  }
-
   /**
    * Make absolute path
    *
@@ -231,7 +232,7 @@ export default class BudTsConfigValues
    * @returns string
    */
   @bind
-  public makeAbsolute(path: string): string {
+  private makeAbsolute(path: string): string {
     return isAbsolute(path) ? path : this.app.path(path)
   }
 
@@ -245,7 +246,7 @@ export default class BudTsConfigValues
    * @returns
    */
   @bind
-  public normalizePaths(
+  private normalizePaths(
     paths: Record<string, Array<string>>,
   ): Record<string, string> | undefined {
     if (!paths) return
@@ -272,6 +273,7 @@ export default class BudTsConfigValues
   /**
    * {@link Extension.register}
    */
+  @bind
   public override async register(bud: Bud) {
     const fetchConfigModule =
       bud.context.files[`tsconfig`]?.module ??

@@ -3,6 +3,9 @@ import type {
   Entrypoints,
   Options,
 } from '@roots/entrypoints-webpack-plugin'
+import type { WebpackPluginInstance } from 'webpack'
+
+import {join} from 'node:path'
 
 import {SyncHook, SyncWaterfallHook} from 'tapable'
 import Webpack from 'webpack'
@@ -18,6 +21,8 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  * Produces `entrypoints.json` artifact with compiled assets broken down
  * by entrypoint and then filetype.
  *
+ * {@link WebpackPluginInstance}
+ *
  * @example
  * ```js
  * import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
@@ -27,9 +32,9 @@ const hookMap = new WeakMap<Webpack.Compilation, CompilationHooks>()
  * }
  * ```
  */
-export class EntrypointsWebpackPlugin {
+export class EntrypointsWebpackPlugin implements WebpackPluginInstance {
   /**
-   * Compilation hooks
+   * Get compilation hooks
    *
    * @param compilation
    * @returns
@@ -81,7 +86,7 @@ export class EntrypointsWebpackPlugin {
     this.entrypoints = new Map()
 
     this.addToManifest = this.addToManifest.bind(this)
-    this.getChunkedFiles = this.getChunkedFiles.bind(this)
+    this.getFilesFromChunks = this.getFilesFromChunks.bind(this)
     this.apply = this.apply.bind(this)
   }
 
@@ -104,7 +109,7 @@ export class EntrypointsWebpackPlugin {
   }
 
   /**
-   * Webpack plugin API's `apply` hook
+   * {@link WebpackPluginInstance.apply}
    */
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.thisCompilation.tap(
@@ -123,14 +128,13 @@ export class EntrypointsWebpackPlugin {
             this.entrypoints = new Map()
 
             for (const entry of compilation.entrypoints.values()) {
-              this.getChunkedFiles(entry.chunks).map(({file}) => {
-                const ident = entry.name as string
-                const path = (this.options.publicPath as string).concat(
-                  file,
-                )
+              this.getFilesFromChunks(entry.chunks).map(({file}) => {
+                if (!entry.name) return
+
+                const path = join(this.options.publicPath ?? ``, file)
                 const type = path.split(`.`).pop() ?? `default`
 
-                this.addToManifest({ident, path, type})
+                this.addToManifest({ident: entry.name, path, type})
               })
             }
 
@@ -171,7 +175,7 @@ export class EntrypointsWebpackPlugin {
   /**
    * Get assets from an entrypoint
    */
-  public getChunkedFiles(
+  public getFilesFromChunks(
     chunks: Webpack.Chunk[],
   ): Array<{file: string; ident: string}> {
     const files: Array<{file: string; ident: string}> = []

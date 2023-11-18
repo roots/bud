@@ -1,10 +1,13 @@
 import type {Bud} from '@roots/bud-framework'
+import type {SagePublicAPI} from '@roots/sage'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   dependsOn,
   expose,
   label,
+  options,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
 
@@ -17,11 +20,11 @@ import type Acorn from '../acorn/index.js'
  * @see {@link https://bud.js.org/extensions/sage}
  */
 @label(`@roots/sage`)
-@dependsOn([
-  `@roots/bud-preset-wordpress`,
-  `@roots/sage/acorn`,
-  `@roots/sage/blade-loader`,
-])
+@dependsOn([`@roots/bud-preset-wordpress`])
+@options({
+  acorn: true,
+  blade: true,
+})
 @expose(`sage`)
 class Sage extends Extension {
   /**
@@ -34,6 +37,7 @@ class Sage extends Extension {
   /**
    * {@link Extension.register}
    */
+  @bind
   public override async register(bud: Bud) {
     bud
       .setPath({
@@ -56,6 +60,38 @@ class Sage extends Extension {
           ? `@roots/bud/sage/${bud.label}`
           : `@roots/bud/sage`,
       )
+  }
+
+  /**
+   * {@link Extension.buildBefore}
+   */
+  @bind
+  public override async buildBefore(bud: Bud) {
+    this.get(`acorn`) && (await bud.extensions.add(`@roots/sage/acorn`))
+    this.get(`blade`) &&
+      (await bud.extensions.add(`@roots/sage/blade-loader`))
+  }
+
+  /**
+   * Enable or disable acorn entrypoints compatibility
+   *
+   * @default true - enabled
+   */
+  @bind
+  public acornEntrypoints(useAcorn: boolean): SagePublicAPI {
+    this.set(`acorn`, useAcorn)
+    return this
+  }
+
+  /**
+   * Enable or disable processing of blade views
+   *
+   * @default true - enabled
+   */
+  @bind
+  public processBladeViews(useBladeLoader: boolean): SagePublicAPI {
+    this.set(`blade`, useBladeLoader)
+    return this
   }
 
   /**

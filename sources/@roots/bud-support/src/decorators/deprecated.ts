@@ -17,6 +17,8 @@ export const deprecated =
   (target: any, key: string, descriptor: any) => {
     const originalMethod = descriptor.value
     descriptor.value = function (...args: any) {
+      const warn = this.logger && typeof this.logger.warn === `function` ? this.logger.warn : logger.warn
+
       const warning = [
         chalk.yellow(`${method}.${key}`),
         `has been deprecated and will be removed in a future release.`,
@@ -41,7 +43,7 @@ export const deprecated =
           ]),
         )
 
-      logger.warn(...warning)
+      warn(...warning)
       return originalMethod.apply(this, args)
     }
 

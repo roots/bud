@@ -34,7 +34,7 @@ import isNumber from '@roots/bud-support/lodash/isNumber'
 import noop from '@roots/bud-support/lodash/noop'
 
 import {Menu} from '../components/Menu.js'
-import override from '../helpers/override.js'
+import override, {type Override} from '../helpers/override.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -109,7 +109,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public storage = storage
 
-  public use = use
+  public use: Array<string> = use
 
   public verbose = verbose
 
@@ -245,13 +245,9 @@ export default class BudCommand extends Command<BaseContext & Context> {
           [
             this.cache,
             `BUD_CACHE`,
-            bud => async value => bud.persist(value),
-          ],
-          [
-            this.use,
-            `BUD_USE`,
-            bud => async value => await bud.extensions.add(value),
-          ],
+            b => async v => b.persist(v),
+          ] satisfies Override<`filesystem` | `memory` | boolean>,
+          [this.use, `BUD_USE`, b => async v => await b.extensions.add(v as any)] satisfies Override<Array<string>>,
         ].map(this.override),
       )
 

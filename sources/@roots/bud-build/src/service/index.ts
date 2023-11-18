@@ -43,6 +43,7 @@ class Build extends Service implements BudBuild {
   /**
    * {@link Service.register}
    */
+  @bind
   public override async bootstrap?(app: Bud) {
     this.items = {} as Items
     this.loaders = {} as Loaders

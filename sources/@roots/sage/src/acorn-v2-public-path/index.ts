@@ -10,7 +10,7 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 @label(`@roots/sage/acorn-v2-public-path`)
 export default class AcornV2PublicPath extends Extension {
   /**
-   * `register` callback
+   * {@link Extension.register}
    * @deprecated
    */
   @bind

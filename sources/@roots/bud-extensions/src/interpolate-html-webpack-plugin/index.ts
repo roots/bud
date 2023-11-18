@@ -30,7 +30,7 @@ class BudInterpolateHtmlExtension extends Extension<
    * {@link Extension.make}
    */
   @bind
-  public override async make(bud: Bud) {
+  public override async make(bud: Bud, options: Options) {
     const InterpolateHtmlWebpackPlugin = await bud.module.import(
       `@roots/bud-extensions/interpolate-html-webpack-plugin/plugin`,
       import.meta.url,
@@ -42,7 +42,7 @@ class BudInterpolateHtmlExtension extends Extension<
     )
 
     return new InterpolateHtmlWebpackPlugin(getHooks, {
-      ...(this.options ?? {}),
+      ...(options ?? {}),
       ...(bud.extensions.get(`@roots/bud-extensions/webpack-define-plugin`)
         ?.options ?? {}),
       ...(bud.env.getPublicEnv() ?? {}),

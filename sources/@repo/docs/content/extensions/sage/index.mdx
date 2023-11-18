@@ -28,3 +28,17 @@ The [Sage docs](https://docs.roots.io/sage/10.x/compiling-assets) cover everythi
 ## Included extensions
 
 <IncludedExtensions />
+
+## Acorn compatibility
+
+[roots/sage](https://github.com/roots/sage) is built with the [roots/acorn](https://github.com/roots/acorn) framework. This preset guarantees compatibility with Acorn's API for enqueuing JS and CSS.
+
+If you do not wish to use Acorn to enqueue assets you can disable the Acorn extension:
+
+```ts
+export default async (bud: Bud) => {
+  bud.sage.acornEntrypoints(false)
+}
+```
+
+This will restore the default behavior of including the public path (e.g. `/app/themes/sage/public`) in entrypoints manifest values.

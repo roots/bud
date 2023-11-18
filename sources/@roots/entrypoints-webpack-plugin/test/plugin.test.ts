@@ -10,7 +10,7 @@ describe(`entrypoints.json`, () => {
     const chonk = new Webpack.Chunk()
     chonk.files = new Set([`foo.js`, `bar.js`])
     const files = entrypoints
-      .getChunkedFiles([chonk])
+      .getFilesFromChunks([chonk])
       // @ts-ignore
       .map(file => file.file)
 

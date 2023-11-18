@@ -19,6 +19,8 @@ import Sage from '@roots/sage/sage'
 
 interface SagePublicAPI extends PublicExtensionApi<Sage> {
   acorn: PublicExtensionApi<Acorn>
+  acornEntrypoints: Sage[`acornEntrypoints`]
+  processBladeViews: Sage[`processBladeViews`]
   setAcornVersion: Sage[`setAcornVersion`]
 }
 
@@ -59,3 +61,4 @@ declare module '@roots/bud-framework' {
 }
 
 export {Sage as default}
+export type {SagePublicAPI}

@@ -186,6 +186,7 @@ export class Server extends Service implements BudServer {
   /**
    * {@link BudServer.register}
    */
+  @bind
   public override async register?(bud: Bud) {
     if (!bud.isDevelopment) return
 

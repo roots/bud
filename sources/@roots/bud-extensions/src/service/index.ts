@@ -102,6 +102,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.boot}
    */
+  @bind
   public override async boot?(bud: Bud) {
     await this.runAll(`boot`)
   }
@@ -109,6 +110,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.bootstrap}
    */
+  @bind
   public override async bootstrap?(bud: Bud) {
     handleManifestSchemaWarning.bind(this)(bud)
 
@@ -188,6 +190,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.buildBefore}
    */
+  @bind
   public override async buildAfter?(bud: Bud) {
     await this.runAll(`buildAfter`)
   }
@@ -195,6 +198,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.buildBefore}
    */
+  @bind
   public override async buildBefore?(bud: Bud) {
     await this.runAll(`buildBefore`)
   }
@@ -202,6 +206,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.compilerDone}
    */
+  @bind
   public override async compilerDone?(bud, stats) {
     await this.runAll(`compilerDone`)
   }
@@ -209,6 +214,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.configAfter}
    */
+  @bind
   public override async configAfter?(bud: Bud) {
     await this.runAll(`configAfter`)
   }
@@ -369,6 +375,7 @@ class Extensions extends Service implements BudExtensions {
   /**
    * {@link BudExtensions.register}
    */
+  @bind
   public override async register?(bud: Bud) {
     await this.runAll(`register`)
   }

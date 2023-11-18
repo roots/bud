@@ -10,6 +10,7 @@ import {
   Extension,
 } from '@roots/bud-framework/extension'
 import {
+  bind,
   disabled,
   label,
   options,
@@ -30,6 +31,7 @@ class BudHtmlWebpackPlugin extends Extension<Options, ApplyPlugin> {
   /**
    * {@link Extension.configAfter}
    */
+  @bind
   public override async configAfter(bud: Bud) {
     if (bud.context.html) {
       this.enabled = true

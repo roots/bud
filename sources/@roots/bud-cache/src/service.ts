@@ -130,6 +130,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link Service.boot}
    */
+  @bind
   public override async boot?(bud: Bud) {
     if (bud.context.force === true) {
       await this.flush()
@@ -197,6 +198,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link BudCache.register}
    */
+  @bind
   public override async register?(bud: Bud) {
     this.enabled = bud.context.cache !== false
     this.version = bud.context.bud.version
