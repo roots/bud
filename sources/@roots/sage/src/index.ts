@@ -19,8 +19,7 @@ import Sage from '@roots/sage/sage'
 
 interface SagePublicAPI extends PublicExtensionApi<Sage> {
   acorn: PublicExtensionApi<Acorn>
-  acornEntrypoints: Sage[`acornEntrypoints`]
-  processBladeViews: Sage[`processBladeViews`]
+  blade: PublicExtensionApi<BladeLoader>
   setAcornVersion: Sage[`setAcornVersion`]
 }
 

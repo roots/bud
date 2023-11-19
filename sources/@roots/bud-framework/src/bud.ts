@@ -209,12 +209,13 @@ export class Bud {
   @bind
   public catch(error: Error): never {
     if (error instanceof BudError) {
-      error.instance = this.label
+      if (!error.instance && this?.isChild) error.instance = this.label
       throw error
     }
 
     const normalizedError = BudError.normalize(error)
-    normalizedError.instance = this.label
+    if (!normalizedError.instance && this?.isChild)
+      normalizedError.instance = this.label
     throw normalizedError
   }
 

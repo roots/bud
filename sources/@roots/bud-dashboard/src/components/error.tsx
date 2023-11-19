@@ -19,11 +19,7 @@ const cleanErrorObject = (error: RawError): BudError => {
 
 export const Error = ({error: input}: {error: RawError}): ReactNode => {
   return (
-    <Static items={[0]}>
-      {(_, key) => (
-        <Display error={input} />
-      )}
-    </Static>
+    <Static items={[0]}>{(_, key) => <Display error={input} />}</Static>
   )
 }
 
@@ -31,7 +27,7 @@ export const Display = ({error: input}: {error: RawError}) => {
   const error = cleanErrorObject(input)
 
   return (
-    <Box flexDirection="column" paddingTop={1}>
+    <Box flexDirection="column" gap={1} paddingTop={1}>
       {error.name && (
         <Box flexDirection="row" gap={1}>
           <Text color="red">{figures.cross}</Text>
@@ -42,13 +38,13 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.message && (
-        <Box flexDirection="row" gap={1} marginTop={1}>
+        <Box flexDirection="row" gap={1}>
           <Text>{error.message}</Text>
         </Box>
       )}
 
       {error.details && !error.details.startsWith(`resolve`) && (
-        <Box marginTop={1}>
+        <Box>
           <Text>
             <Text color="blue">
               {figures.ellipsis}
@@ -61,7 +57,7 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.thrownBy && (
-        <Box flexDirection="row" gap={1} marginTop={1}>
+        <Box flexDirection="row" gap={1}>
           <Text color="blue">
             {figures.ellipsis}
             {` `}Thrown by{` `}
@@ -71,7 +67,7 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.docs && (
-        <Box marginTop={1}>
+        <Box>
           <Text>
             <Text color="blue">
               {figures.arrowRight}
@@ -83,38 +79,28 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.issues && (
-        <Box marginTop={1}>
+        <Box gap={1}>
           <Text>
-            <Text color="blue">
-              {figures.arrowRight}
-              {` `}
-              Issues
-            </Text>
-            {` `}
+            <Text color="blue">{figures.arrowRight}</Text>
+            <Text color="blue">Issues</Text>
             <Text>{error.issues.href}</Text>
           </Text>
         </Box>
       )}
 
       {error.file && (
-        <Box marginTop={1}>
-          <Text color="blue">
-            {figures.info}
-            {` `}See file{` `}
-          </Text>
+        <Box gap={1}>
+          <Text color="blue">{figures.info}</Text>
+          <Text color="blue">See file</Text>
           <Text>{error.file.path}</Text>
         </Box>
       )}
 
-      {error.origin &&
-        !(error.origin instanceof BudError) &&
+      {(!error.origin || !(error.origin instanceof BudError)) &&
         error.stack && (
-          <Box flexDirection="column" marginTop={1}>
-            <Text color="blue">
-              {figures.home}
-              {` `}Stack trace{` `}
-            </Text>
-
+          <Box flexDirection="column" gap={1}>
+            <Text color="blue">{figures.home}</Text>
+            <Text color="blue">Stack trace</Text>
             <Box
               borderBottom={false}
               borderColor="red"
@@ -125,16 +111,17 @@ export const Display = ({error: input}: {error: RawError}) => {
               paddingLeft={1}
             >
               <Text>{error.stack}</Text>
+              tT
             </Box>
           </Box>
         )}
 
       {error.origin && error.origin instanceof BudError && error.stack && (
-        <Box flexDirection="column" marginTop={1}>
-          <Text color="blue">
-            {figures.home}
-            {` `}Originating error{` `}
-          </Text>
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Details</Text>
+          </Box>
 
           <Box
             borderBottom={false}
@@ -144,12 +131,10 @@ export const Display = ({error: input}: {error: RawError}) => {
             borderStyle="single"
             borderTop={false}
             flexDirection="column"
+            gap={1}
             paddingLeft={1}
           >
-            <Text>
-              {error.origin.message}
-              {`\n`}
-            </Text>
+            <Text>{error.origin.message}</Text>
             {error.origin.stack && (
               <Text dimColor>{error.origin.stack}</Text>
             )}

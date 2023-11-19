@@ -9,7 +9,7 @@ export interface processConfigs {
   (): Promise<Bud>
 }
 
-export const processConfigs: processConfigs = async function () {
-  await configuration.process(this)
+export const processConfigs: processConfigs = async function (this: Bud) {
+  await configuration.process(this).catch(this.catch)
   return this
 }

@@ -25,11 +25,9 @@ class Configuration {
   public async dynamicConfig(
     config: (bud: Bud) => Promise<any>,
   ): Promise<void> {
-    try {
-      return await config(this.bud)
-    } catch (cause) {
-      throw cause
-    }
+      return await config(this.bud).catch(cause => {
+        throw cause
+      })
   }
 
   @bind
