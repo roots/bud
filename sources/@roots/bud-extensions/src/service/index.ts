@@ -85,14 +85,20 @@ class Extensions extends Service implements BudExtensions {
     await arrayed.reduce(async (promised, item) => {
       await promised
 
-      const moduleObject =
+      const source =
         typeof item === `string`
-          ? await import(item).then(pkg => pkg.default ?? pkg)
+          ? await this.app.module
+              .import(
+                item.startsWith(`./`) ? this.app.path(item) : item,
+                import.meta.url,
+              )
+              .then(pkg => pkg.default ?? pkg)
           : item
 
-      const extension = await this.instantiate(moduleObject)
+      const extension = await this.instantiate(source)
 
       this.set(extension)
+      this.logger.log(`added`, extension.label)
 
       await this.run(extension, `register`)
       await this.run(extension, `boot`)
@@ -248,7 +254,7 @@ class Extensions extends Service implements BudExtensions {
 
     if (signifier.startsWith(`.`)) {
       signifier = this.app.path(signifier)
-      this.logger.info(`path resolved to`, signifier)
+      this.logger.info(`local path interpretation:`, signifier)
     }
 
     if (this.has(signifier)) {
@@ -315,11 +321,21 @@ class Extensions extends Service implements BudExtensions {
     if (source instanceof Extension) return source
 
     if (isConstructor(source)) {
-      return new source(this.app)
+      const instance = new source(this.app)
+      if (!instance.label)
+        instance.label =
+          instance.constructor.name ??
+          (randomUUID() as keyof Modules & string)
+      return instance
     }
 
     if (typeof source === `function`) {
-      return source(this.app)
+      const instance = source(this.app)
+      if (!instance.label)
+        instance.label =
+          instance.constructor.name ??
+          (randomUUID() as keyof Modules & string)
+      return instance
     }
 
     if (typeof source.apply === `function`) {
@@ -335,12 +351,13 @@ class Extensions extends Service implements BudExtensions {
         }
         instance[k] = v
       })
+      if (!instance.label)
+        instance.label = randomUUID() as keyof Modules & string
       return instance
     }
 
-    return new source()
+    return new source(this.app)
   }
-
   /**
    * {@link BudExtensions.isAllowed}
    */
@@ -363,9 +380,11 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public async make(): Promise<ApplyPlugin[]> {
     return await Promise.all(
-      Object.values(this.repository).map(async extension =>
-        extension.apply ? extension : await extension._make(),
-      ),
+      Object.values(this.repository)
+        .filter(extension => `apply` in extension || `_make` in extension)
+        .map(async extension =>
+          extension.apply ? extension : await extension._make(),
+        ),
     ).then(
       (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
         result.filter(Boolean),
@@ -393,10 +412,10 @@ class Extensions extends Service implements BudExtensions {
    * Run an extension lifecycle method
    *
    * @remarks
-   * - `_register`
-   * - `_boot`
-   * - `_buildBefore`
-   * - `_make`
+   * - `register`
+   * - `boot`
+   * - `buildBefore`
+   * - `make`
    */
   @bind
   public async run(
@@ -405,9 +424,11 @@ class Extensions extends Service implements BudExtensions {
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
-      const method = extension[`_${methodName}`]
-      if (isFunction(method)) await method()
-      await this.app.promise()
+      const method = extension[`_${methodName}`] ?? extension[methodName]
+      if (isFunction(method))
+      await this.app.promise(async () => {
+        await method(this.app)
+      })
 
       return this
     } catch (error) {

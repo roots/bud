@@ -111,7 +111,6 @@ export const Display = ({error: input}: {error: RawError}) => {
               paddingLeft={1}
             >
               <Text>{error.stack}</Text>
-              tT
             </Box>
           </Box>
         )}
