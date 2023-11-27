@@ -140,11 +140,12 @@ export default class Cache extends Service implements BudCache {
    */
   public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
-    if (this.type === `memory`) return {
-      cacheUnaffected: true,
-      maxGenerations: Infinity,
-      type: `memory`,
-    }
+    if (this.type === `memory`)
+      return {
+        cacheUnaffected: true,
+        maxGenerations: Infinity,
+        type: `memory`,
+      }
 
     return {
       allowCollectingMemory: this.allowCollectingMemory,

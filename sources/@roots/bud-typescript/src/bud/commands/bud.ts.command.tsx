@@ -1,6 +1,6 @@
 import BudCommand from '@roots/bud/cli/commands'
 import {Command, Option} from '@roots/bud-support/clipanion'
-import { bind } from '@roots/bud-support/decorators/bind'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * Bud tsc command

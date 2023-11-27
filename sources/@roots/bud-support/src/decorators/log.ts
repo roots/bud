@@ -1,9 +1,5 @@
 export function log(...message: Array<string>) {
-  return function (
-    target: any,
-    propertyKey: string,
-    descriptor: any,
-  ) {
+  return function (target: any, propertyKey: string, descriptor: any) {
     const originalMethod = descriptor.value
 
     descriptor.value = function (...args: any[]) {

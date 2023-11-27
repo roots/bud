@@ -49,15 +49,9 @@ export class Controller {
    * Update activity indicator
    */
   public update(payload: Payload) {
-    this.node.toggleAttribute(
-      `has-errors`,
-      payload.errors?.length > 0,
-    )
+    this.node.toggleAttribute(`has-errors`, payload.errors?.length > 0)
 
-    this.node.toggleAttribute(
-      `has-warnings`,
-      payload.warnings?.length > 0,
-    )
+    this.node.toggleAttribute(`has-warnings`, payload.warnings?.length > 0)
 
     this.node.setAttribute(`action`, payload.action)
 

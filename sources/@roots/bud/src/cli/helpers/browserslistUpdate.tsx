@@ -140,9 +140,9 @@ const updateBrowserslist = async (bud: Bud) => {
       chalk.yellow(
         `  --> ${
           figures.warning
-        } Browserslist update failed. Try running ${chalk.blue(`${bin} ${subcommand.join(
-          ` `,
-        )}`)} manually.\n  --> ${
+        } Browserslist update failed. Try running ${chalk.blue(
+          `${bin} ${subcommand.join(` `)}`,
+        )} manually.\n  --> ${
           figures.warning
         } This check will not be performed again for another week. The ${chalk.blue(
           `--browserslist-update`,

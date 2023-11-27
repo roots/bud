@@ -50,17 +50,18 @@ class Configuration {
     }
 
     if (typeof config === `function`) {
-      return await new DynamicConfiguration(this.bud).execute(config).catch(error => {
-        throw error
-      })
+      return await new DynamicConfiguration(this.bud)
+        .execute(config)
+        .catch(error => {
+          throw error
+        })
     }
 
-    await new StaticConfiguration(
-      this.bud,
-      `${source.name}${source.ext}`,
-    ).execute(config).catch(error => {
-      throw error
-    })
+    await new StaticConfiguration(this.bud, `${source.name}${source.ext}`)
+      .execute(config)
+      .catch(error => {
+        throw error
+      })
   }
 }
 

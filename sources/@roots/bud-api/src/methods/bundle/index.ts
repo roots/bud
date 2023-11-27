@@ -72,8 +72,8 @@ const normalize = (matcher: Array<string> | RegExp | string): RegExp => {
   return isRegExp(matcher)
     ? matcher
     : isString(matcher)
-    ? getTestRegExp([matcher])
-    : getTestRegExp(matcher)
+      ? getTestRegExp([matcher])
+      : getTestRegExp(matcher)
 }
 
 const getTestRegExp = (matcher: Array<string>): RegExp =>

@@ -12,10 +12,7 @@ export interface addConfig {
   (path: string): Bud
 }
 
-export const addConfig: addConfig = function (
-  this: Bud,
-  path: string,
-) {
+export const addConfig: addConfig = function (this: Bud, path: string) {
   const file = {
     ext: extname(path),
     module: [`.json`, `.yaml`, `.yml`].includes(extname(path))

@@ -92,10 +92,10 @@ export default class BudReactRefresh extends Extension<
       const signifier = bud.swc
         ? `@roots/bud-react/swc-refresh`
         : bud.typescript && bud.typescript.babel === false
-        ? `@roots/bud-react/typescript-refresh`
-        : bud.babel || bud.typescript?.babel === true
-        ? `@roots/bud-react/babel-refresh`
-        : false
+          ? `@roots/bud-react/typescript-refresh`
+          : bud.babel || bud.typescript?.babel === true
+            ? `@roots/bud-react/babel-refresh`
+            : false
 
       if (signifier === false) {
         return

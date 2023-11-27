@@ -21,9 +21,7 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
   BudTailwindOptionsApi,
   Options
 > & {
-  extend(
-    theme: Partial<ThemeConfig>,
-  ): BudTailwindOptionsPublicInterface
+  extend(theme: Partial<ThemeConfig>): BudTailwindOptionsPublicInterface
   extendTheme(
     theme: Partial<ThemeConfig>,
   ): BudTailwindOptionsPublicInterface

@@ -1,7 +1,7 @@
 import type {Options} from '@roots/bud-extensions/html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
 
-import { isAbsolute } from 'node:path'
+import {isAbsolute} from 'node:path'
 
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'

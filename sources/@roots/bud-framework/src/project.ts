@@ -49,20 +49,20 @@ export default class Project extends Service {
         this.logger.log(`profile.yml written to disk`)
       })
 
-      await bud.fs
-        .write(
-          bud.path(`@storage`, bud.label, `debug`, `build.config.yml`),
-          bud.build.config,
-        )
-        .catch(origin => {
-          throw BudError.normalize(`Could not write webpack.output.yml`, {
-            details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
-            origin,
-          })
+    await bud.fs
+      .write(
+        bud.path(`@storage`, bud.label, `debug`, `build.config.yml`),
+        bud.build.config,
+      )
+      .catch(origin => {
+        throw BudError.normalize(`Could not write webpack.output.yml`, {
+          details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
+          origin,
         })
-        .finally(() => {
-          this.logger.log(`webpack.output.yml written to disk`)
-        })
+      })
+      .finally(() => {
+        this.logger.log(`webpack.output.yml written to disk`)
+      })
 
     return bud
   }

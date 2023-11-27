@@ -95,8 +95,7 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
   if (!force) {
     logger.scope(`cli`).log(`Loading commands from cache...`)
     await finder.init()
-  }
-  else {
+  } else {
     logger.scope(`cli`).log(`Searching for commands...`)
     await finder.getModules()
     if (finder.paths.length > 0) {
@@ -161,9 +160,12 @@ await registerFoundCommands().catch(async error => {
 /**
  * Run application and exit when process is complete
  */
-await application.runExit(args.raw, context).catch(onError).finally(() => {
-  logger.scope(`cli`).log(`Exiting command line interface...`)
-})
+await application
+  .runExit(args.raw, context)
+  .catch(onError)
+  .finally(() => {
+    logger.scope(`cli`).log(`Exiting command line interface...`)
+  })
 
 export {application, Builtins, Cli}
 export type {CommandClass}

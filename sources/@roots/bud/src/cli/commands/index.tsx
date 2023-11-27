@@ -247,7 +247,11 @@ export default class BudCommand extends Command<BaseContext & Context> {
             `BUD_CACHE`,
             b => async v => b.persist(v),
           ] satisfies Override<`filesystem` | `memory` | boolean>,
-          [this.use, `BUD_USE`, b => async v => await b.extensions.add(v as any)] satisfies Override<Array<string>>,
+          [
+            this.use,
+            `BUD_USE`,
+            b => async v => await b.extensions.add(v as any),
+          ] satisfies Override<Array<string>>,
         ].map(this.override),
       )
 

@@ -1,7 +1,9 @@
 import {Bud} from '@roots/bud-framework'
 import {ConfigError} from '@roots/bud-support/errors'
 
-export type Parameters = [(`css` | `js` | Array<`css` | `js`> | boolean | Bud)?]
+export type Parameters = [
+  (`css` | `js` | Array<`css` | `js`> | boolean | Bud)?,
+]
 
 /**
  * Minimize function interface

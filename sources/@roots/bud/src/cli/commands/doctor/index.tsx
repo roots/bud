@@ -70,11 +70,12 @@ The \`bud doctor\` command will:
 
     await this.bud?.build.make().catch(this.catch)
 
-    Object.entries(this.bud?.extensions.repository).map(([name, extension]) =>
-      (extension.isEnabled()
-        ? enabledExtensions
-        : disabledExtensions
-      ).push([name, extension]),
+    Object.entries(this.bud?.extensions.repository).map(
+      ([name, extension]) =>
+        (extension.isEnabled()
+          ? enabledExtensions
+          : disabledExtensions
+        ).push([name, extension]),
     )
 
     const packages = await Promise.all(
@@ -93,7 +94,11 @@ The \`bud doctor\` command will:
 
         <Platform />
 
-        <LabelBox flexDirection="row" label="Mode" value={this.bud?.mode} />
+        <LabelBox
+          flexDirection="row"
+          label="Mode"
+          value={this.bud?.mode}
+        />
 
         <Versions packages={packages} />
 

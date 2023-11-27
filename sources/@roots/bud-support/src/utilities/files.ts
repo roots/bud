@@ -250,8 +250,10 @@ function getFileType(
 }
 
 function getFileTarget(file: {name?: string}) {
-  if (file.name?.includes(`production`) || file.name?.includes(`prod`)) return `production`
-  if (file.name?.includes(`development`) || file.name?.includes(`dev`)) return `development`
+  if (file.name?.includes(`production`) || file.name?.includes(`prod`))
+    return `production`
+  if (file.name?.includes(`development`) || file.name?.includes(`dev`))
+    return `development`
   return `base`
 }
 

@@ -208,7 +208,10 @@ export const bootstrap = async function (bud: Bud) {
       .filter(Boolean)
       .filter(instance => callbackName in instance)
       .map(instance => {
-        logger.log(`register service callback:`, `${instance.constructor.name}.${callbackName}`)
+        logger.log(
+          `register service callback:`,
+          `${instance.constructor.name}.${callbackName}`,
+        )
         bud.hooks.action(eventHandle as any, instance[callbackName])
       }),
   )

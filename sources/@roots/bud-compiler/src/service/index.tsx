@@ -176,7 +176,9 @@ class Compiler extends Service implements BudCompiler {
 
     this.instance.hooks.done.tap(bud.label, (stats: any) => {
       this.onStats(stats)
-      bud.hooks.fire(`compiler.done`, bud, this.stats).catch(this.app.catch)
+      bud.hooks
+        .fire(`compiler.done`, bud, this.stats)
+        .catch(this.app.catch)
     })
 
     return this.instance

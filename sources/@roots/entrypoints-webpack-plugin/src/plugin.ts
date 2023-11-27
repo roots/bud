@@ -3,7 +3,7 @@ import type {
   Entrypoints,
   Options,
 } from '@roots/entrypoints-webpack-plugin'
-import type { WebpackPluginInstance } from 'webpack'
+import type {WebpackPluginInstance} from 'webpack'
 
 import {join} from 'node:path'
 

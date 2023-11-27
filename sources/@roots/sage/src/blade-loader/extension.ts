@@ -2,7 +2,11 @@ import type {Bud} from '@roots/bud-framework'
 
 import BladeLoaderPlugin from '@roots/blade-loader'
 import {Extension} from '@roots/bud-framework/extension'
-import {bind, label, plugin} from '@roots/bud-framework/extension/decorators'
+import {
+  bind,
+  label,
+  plugin,
+} from '@roots/bud-framework/extension/decorators'
 
 /**
  * Blade loader extension

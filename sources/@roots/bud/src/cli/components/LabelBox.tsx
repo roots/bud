@@ -8,7 +8,13 @@ interface Props {
   value?: string
 }
 
-export const LabelBox = ({children, color, flexDirection, label, value}: Props) => {
+export const LabelBox = ({
+  children,
+  color,
+  flexDirection,
+  label,
+  value,
+}: Props) => {
   if (!label && !children && !value) return null
 
   return (
@@ -17,7 +23,9 @@ export const LabelBox = ({children, color, flexDirection, label, value}: Props) 
 
       {children ? (
         <Box flexDirection="column">{children}</Box>
-      ) : value ? <Text>{value}</Text> :  (
+      ) : value ? (
+        <Text>{value}</Text>
+      ) : (
         <Box>
           <Text>No results to display</Text>
         </Box>

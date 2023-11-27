@@ -188,8 +188,8 @@ class Build extends Service implements BudBuild {
     const loader = isUndefined(definition)
       ? this.makeLoader(name)
       : definition instanceof Loader
-      ? definition
-      : this.makeLoader(definition)
+        ? definition
+        : this.makeLoader(definition)
 
     this.loaders[name] = loader
     this.logger.info(loader)
@@ -210,8 +210,8 @@ class Build extends Service implements BudBuild {
       definition instanceof Rule
         ? definition
         : isFunction(definition)
-        ? definition(this.makeRule())
-        : this.makeRule(definition as any)
+          ? definition(this.makeRule())
+          : this.makeRule(definition as any)
 
     this.rules[name] = rule
     this.logger.info(rule)
