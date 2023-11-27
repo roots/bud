@@ -92,7 +92,13 @@ describe(`@roots/sage`, async () => {
 
     expect(hooksSpy).toHaveBeenCalledWith(
       `build.output.uniqueName`,
-      `@roots/bud/sage/${bud.label}`,
+      // @ts-ignore
+      bud.sage.getUniqueName,
+    )
+
+    expect(bud.hooks.filter(`build.output.uniqueName`)).toEqual(
+      // @ts-ignore
+      bud.sage.getUniqueName()
     )
   })
 

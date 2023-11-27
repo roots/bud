@@ -102,7 +102,7 @@ class BudError extends Error {
     this.isBudError = true
 
     this.name = this.constructor.name
-    this.message = (clean(message) ?? message)?.replace(/(.*)Error:/g, ``)
+    this.message = (clean(message) ?? message)?.replace(/.*Error:/g, ``)
 
     if (options.details) {
       this.details = clean(options.details)
