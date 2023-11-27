@@ -15,7 +15,7 @@ export const Server = ({bud}: {bud: Bud}) => {
             Not available in <Text color="cyan">`production`</Text> mode.
           </Text>
           <Text>
-            Run this command with{' '}
+            Run this command with{` `}
             <Text color="cyan">--mode=development</Text> for server
             information.
           </Text>
