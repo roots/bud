@@ -32,18 +32,14 @@ export const html: html = async function (this: Bud, options = true) {
   const html = this.extensions.get(
     `@roots/bud-extensions/html-webpack-plugin`,
   )
+  const interpolate = this.extensions.get(
+    `@roots/bud-extensions/interpolate-html-webpack-plugin`,
+  )
+
   html.enable(isEnabled)
+  interpolate.enable(isEnabled)
 
   if (isBoolean(options)) return this
-
-  if (isObject(options) && !isFunction(options)) {
-    if (!isUndefined(options.template) && !isAbsolute(options.template))
-      options.template = this.path(options.template)
-
-    Object.entries(omit(options, `replace`)).forEach(([k, v]) =>
-      html.set(k, v),
-    )
-  }
 
   if (isFunction(options)) {
     html.setOptions(options(html.options ?? {}))
@@ -52,17 +48,22 @@ export const html: html = async function (this: Bud, options = true) {
 
   if (isString(options)) {
     html.set(`template`, this.path(options))
+    return this
   }
 
-  const interpolate = this.extensions.get(
-    `@roots/bud-extensions/interpolate-html-webpack-plugin`,
-  )
-  interpolate.enable(isEnabled)
+  if (isObject(options)) {
+    if (!isUndefined(options.template) && !isAbsolute(options.template))
+      options.template = this.path(options.template)
 
-  if (isObject(options) && isObject(options.replace)) {
-    Object.entries(options.replace).forEach(
-      (v: [string, RegExp | string]) => interpolate.set(...v),
+    Object.entries(omit(options, `replace`)).forEach(([k, v]) =>
+      html.set(k, v),
     )
+
+    if (isObject(options.replace)) {
+      Object.entries(options.replace).forEach(
+        (v) => interpolate.set(...v),
+      )
+    }
   }
 
   return this
