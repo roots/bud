@@ -13,7 +13,6 @@ import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ExtensionError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 
@@ -106,18 +105,10 @@ class Extensions extends Service implements BudExtensions {
   }
 
   /**
-   * {@link BudExtensions.boot}
-   */
-  @bind
-  public override async boot?(bud: Bud) {
-    await this.runAll(`boot`)
-  }
-
-  /**
    * {@link BudExtensions.bootstrap}
    */
   @bind
-  public override async bootstrap?(bud: Bud) {
+  public async configBefore?(bud: Bud) {
     handleManifestSchemaWarning.bind(this)(bud)
 
     const {extensions, manifest} = bud.context
@@ -191,6 +182,9 @@ class Extensions extends Service implements BudExtensions {
               await this.import(signifier, true),
           ),
       )
+
+    await this.runAll(`register`)
+    await this.runAll(`boot`)
   }
 
   /**
@@ -379,24 +373,23 @@ class Extensions extends Service implements BudExtensions {
    */
   @bind
   public async make(): Promise<ApplyPlugin[]> {
-    return await Promise.all(
-      Object.values(this.repository)
-        .filter(extension => `apply` in extension || `_make` in extension)
-        .map(async extension =>
-          extension.apply ? extension : await extension._make(),
-        ),
+    const results = await Promise.all(
+      Object.entries(this.repository).map(async ([label, extension]) => {
+        return [label, await extension.execute(`make`)]
+      }),
     ).then(
-      (result: Array<ApplyPlugin>): Array<ApplyPlugin> =>
-        result.filter(Boolean),
+      (results): Array<ApplyPlugin> =>
+        results
+          .filter(([_label, result]) => result)
+          .map(([label, result]) => {
+            this.logger.log(`defined compiler plugin:`, label).info(result)
+            return result
+          }),
     )
-  }
 
-  /**
-   * {@link BudExtensions.register}
-   */
-  @bind
-  public override async register?(bud: Bud) {
-    await this.runAll(`register`)
+    this.logger.log(`using`, results.length, `compiler plugins`)
+
+    return results
   }
 
   /**
@@ -424,11 +417,7 @@ class Extensions extends Service implements BudExtensions {
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
-      const method = extension[`_${methodName}`] ?? extension[methodName]
-      if (isFunction(method))
-      await this.app.promise(async () => {
-        await method(this.app)
-      })
+      if (extension.execute) await extension.execute(methodName)
 
       return this
     } catch (error) {
@@ -473,11 +462,7 @@ class Extensions extends Service implements BudExtensions {
           await promised
           if (!this.has(signifier)) await this.import(signifier, true)
 
-          if (
-            this.get(signifier) &&
-            !this.get(signifier).meta?.[methodName]
-          )
-            await this.run(this.get(signifier), methodName)
+          await this.run(this.get(signifier), methodName)
         }, Promise.resolve())
     }
 
@@ -493,11 +478,7 @@ class Extensions extends Service implements BudExtensions {
             return
           }
 
-          if (
-            this.get(signifier) &&
-            !this.get(signifier).meta?.[methodName]
-          )
-            await this.run(this.get(signifier), methodName)
+          await this.run(this.get(signifier), methodName)
         }, Promise.resolve())
   }
 

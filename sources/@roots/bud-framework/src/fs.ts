@@ -160,7 +160,7 @@ export class FS extends Filesystem implements Contract {
     source?: string
   }): this {
     if (!this.s3.config.credentials) {
-      throw new BudError(
+      throw BudError.normalize(
         `S3 is not configured. See https://bud.js.org/reference/bud.fs/s3`,
       )
     }

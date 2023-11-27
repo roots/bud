@@ -2,9 +2,9 @@
 title: Usage
 ---
 
-**bud.html** can be called without passing any options.
+**bud.html** can be called to generate an HTML skeleton for your web application.
 
-```typescript title='bud.config.mjs'
+```ts title=bud.config.ts
 export default async bud => {
   bud.html()
 }
@@ -12,7 +12,7 @@ export default async bud => {
 
 The default template will source a couple variables from `.env`; you'll want to make sure they are set.
 
-```env title='.env'
+```env title=.env
 PUBLIC_APP_TITLE='My App'
 PUBLIC_APP_DESCRIPTION='My App Description'
 ```
@@ -21,7 +21,7 @@ PUBLIC_APP_DESCRIPTION='My App Description'
 
 You can customize the generated HTML using an options object. It [accepts everything `HTMLWebpackPlugin` does](https://github.com/jantimon/html-webpack-plugin#options).
 
-```typescript title='bud.config.mjs'
+```ts title=bud.config.ts
 export default async bud => {
   bud.html({
     title: 'My App',
@@ -37,9 +37,17 @@ export default async bud => {
 
 ### Using a custom template
 
-The path to this file will be resolved relative to the project root:
+You can use a custom HTML template by passing the path to **bud.html**. If the given path is relative it will be resolved against the project base directory.
 
-```typescript title='bud.config.mjs'
+```ts title=bud.config.ts
+export default async bud => {
+  bud.html(`index.html`)
+}
+```
+
+Alternatively, you can use the `template` option as part of an options object:
+
+```ts title=bud.config.ts
 export default async bud => {
   bud.html({
     template: 'index.html',
@@ -47,12 +55,12 @@ export default async bud => {
 }
 ```
 
-Define your template as an absolute path if this doesn't work for you:
+Define your template as an absolute path if it exists outside the project:
 
-```typescript title='bud.config.mjs'
+```ts title=bud.config.ts
 export default async bud => {
   bud.html({
-    template: bud.path(`public/index.html`),
+    template: `/code/shared/template.html`,
   })
 }
 ```
@@ -61,18 +69,20 @@ export default async bud => {
 
 Add template variables using `replace`.
 
-```typescript {2-6} title='bud.config.js'
+```ts {2-6} title=bud.config.ts
 export default async bud => {
   bud.html({
     template: bud.path(`public/index.html`),
-    replace: {VARIABLE: `value`},
+    replace: {
+      VARIABLE: `value`
+    },
   })
 }
 ```
 
 You may use any of these variables in the template by surrounding the variable name with `%` characters.
 
-```html title='public/index.html'
+```html title=public/index.html
 <html>
   <title>%VARIABLE%</title>
 </html>

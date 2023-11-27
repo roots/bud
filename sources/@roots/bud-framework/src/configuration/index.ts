@@ -1,65 +1,67 @@
+import type {Bud} from '@roots/bud-framework'
 import type {File} from '@roots/bud-framework/context'
 
+import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ConfigError} from '@roots/bud-support/errors'
-import sortBy from '@roots/bud-support/lodash/sortBy'
-import logger from '@roots/bud-support/logger'
 
-import type {Bud} from '../index.js'
+import DynamicConfiguration from './dynamic/index.js'
+import StaticConfiguration from './static/index.js'
 
-import Configuration from './configuration.js'
-
-/**
- * Process configurations
- */
-export const process = async (app: Bud) => {
-  const configuration = new Configuration(app)
-
-  const configs: Array<File> = Object.values(app.context.files).filter(
-    ({bud}) => bud,
-  )
-
-  const find = (isTarget: string, isLocal: boolean) =>
-    sortBy(
-      configs
-        .filter(({target}) => target === isTarget)
-        .filter(({local}) => local === isLocal),
-      `name`,
-    )
-
-  const processConfig = async (file: File) => {
-    logger.log(`processing`, file.name)
-    await configuration.run(file).catch(makeError(file))
-    await app.promise().catch(makeError(file))
-  }
-
-  await Promise.all(find(`base`, false).map(processConfig))
-  await Promise.all(find(`base`, true).map(processConfig))
-  await Promise.all(find(app.mode, false).map(processConfig))
-  await Promise.all(find(app.mode, true).map(processConfig))
-
-  await app.executeServiceCallbacks(`config.after`).catch(error => {
-    throw error
-  })
-
-  if (!app.hasChildren) return
-
-  await Promise.all(
-    Object.values(app.children).map(async child => {
-      await child.promise().catch(error => {
-        throw error
-      })
-      await child.executeServiceCallbacks(`config.after`).catch(error => {
-        throw error
-      })
-    }),
-  )
+interface Config {
+  ext: File[`ext`]
+  module: File[`module`]
+  name: File[`name`]
 }
 
-const makeError =
-  (file: File) => (error: Error & {isBudError?: boolean}) => {
-    throw new ConfigError(`Error in ${file.name}`, {
-      file,
-      origin:
-        error instanceof BudError ? error : BudError.normalize(error),
+/**
+ * User config parser
+ */
+class Configuration {
+  /**
+   * Class constructor
+   */
+  public constructor(public bud: Bud) {}
+
+  /**
+   * Process configuration
+   */
+  @bind
+  public async run(source: Config): Promise<void> {
+    if (!source?.module) {
+      throw BudError.normalize(`No module found`, {
+        details: `There should be a module here. This is likely an internal error in bud.js.`,
+        file: source,
+      })
+    }
+
+    const config = await source.module().catch(origin => {
+      throw ConfigError.normalize(`Error parsing ${source.name}`, {
+        file: source,
+        origin,
+      })
+    })
+
+    this.bud.log(`config`, config)
+
+    if (!config) {
+      throw ConfigError.normalize(`No configuration found`, {
+        file: source,
+      })
+    }
+
+    if (typeof config === `function`) {
+      return await new DynamicConfiguration(this.bud).execute(config).catch(error => {
+        throw error
+      })
+    }
+
+    await new StaticConfiguration(
+      this.bud,
+      `${source.name}${source.ext}`,
+    ).execute(config).catch(error => {
+      throw error
     })
   }
+}
+
+export default Configuration

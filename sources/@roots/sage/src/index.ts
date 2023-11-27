@@ -18,13 +18,35 @@ import type BladeLoader from '@roots/sage/blade-loader'
 import Sage from '@roots/sage/sage'
 
 interface SagePublicAPI extends PublicExtensionApi<Sage> {
+  /**
+   * ## Configure Acorn concerns
+   *
+   * @see {@link https://bud.js.org/extensions/sage#acorn-compatibility}
+   */
   acorn: PublicExtensionApi<Acorn>
+  /**
+   * ## Configure handling of Blade template modules
+   *
+   * @see {@link https://bud.js.org/extensions/sage/blade-assets}
+   */
   blade: PublicExtensionApi<BladeLoader>
+  /**
+   * This function should be removed from your configuration file.
+   * It doesn't do anything and will be removed in a future release.
+   *
+   * @deprecated
+   */
   setAcornVersion: Sage[`setAcornVersion`]
 }
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    /**
+     * ## Sage configuration
+     *
+     * @see {@link https://bud.js.org/extensions/sage}
+     * @see {@link https://docs.roots.io/sage/10.x/compiling-assets}
+     */
     sage: SagePublicAPI
   }
 

@@ -51,12 +51,12 @@ export class Controller {
   public update(payload: Payload) {
     this.node.toggleAttribute(
       `has-errors`,
-      payload.errors?.length ? true : false,
+      payload.errors?.length > 0,
     )
 
     this.node.toggleAttribute(
       `has-warnings`,
-      payload.warnings?.length ? true : false,
+      payload.warnings?.length > 0,
     )
 
     this.node.setAttribute(`action`, payload.action)

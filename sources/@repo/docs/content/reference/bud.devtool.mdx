@@ -1,36 +1,41 @@
 ---
 title: bud.devtool
 description: Configure sourcemaps
+tags:
+  - configuration
+  - facade
 ---
 
-Enable or disable sourcemaps.
-
-You may pass your own configuration to the function, although this is optional.
-
-For more information on sourcemap options see [webpack's documentation](https://webpack.js.org/configuration/devtool/).
+Configure sourcemaps.
 
 ## Usage
 
-Enable sourcemaps
+Enable sourcemaps with defaults:
+  - `eval` in [development](/reference/bud.mode/bud.isDevelopment)
+  - `source-map` in [production](/reference/bud.mode/bud.isProduction)
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.devtool()
 ```
 
 Disable sourcemaps
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.devtool(false)
 ```
 
 Override the default configuration
 
-```js title=bud.config.js
-bud.devtool('inline-cheap-module-source-map')
+```ts title=bud.config.ts
+bud.devtool(`eval-source-map`)
 ```
 
-Enable sourcemaps only in development (see [bud.when](bud.when) for extra clarity)
+**bud.devtool** can be used as a bud.js callback. When used this way it is the same as enabling sourcemaps with the default configuration.
 
-```js title=bud.config.js
-bud.when(bud.isDevelopment, bud => bud.devtool())
+```ts title=bud.config.ts
+bud.when(bud.isDevelopment, bud.devtool)
+```
+
+```ts title=bud.config.ts
+bud.tap(bud.devtool)
 ```

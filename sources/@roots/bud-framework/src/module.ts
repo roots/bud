@@ -195,7 +195,7 @@ export class Module extends Service {
     )
 
     if (!code) {
-      throw new BudError(`Could not import ${signifier}`)
+      throw BudError.normalize(`Could not import ${signifier}`)
     }
 
     this.setModule(signifier, code)

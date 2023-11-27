@@ -88,7 +88,7 @@ export interface Cache {
   /**
    * Set cache type
    */
-  setType(value: CacheCallback<FileCacheOptions[`type`]>): this
+  setType(value: CacheCallback<`filesystem` | `memory`>): this
 
   /**
    * Cache type

@@ -9,6 +9,7 @@ export interface Events {
   'compiler.before': [Bud]
   'compiler.done': [Bud, StatsCompilation]
   'config.after': [Bud]
+  'config.before': [Bud]
   register: [Bud]
   'server.after': [Bud]
   'server.before': [Bud]

@@ -141,7 +141,7 @@ export class Finder {
       if ((await fs.exists(path)) && this.cacheable) {
         this.paths = await fs.read(path)
         if (Array.isArray(this.paths)) return this
-        else throw new Error()
+        else throw new Error(`Invalid cache`)
       }
     } catch (error) {}
 

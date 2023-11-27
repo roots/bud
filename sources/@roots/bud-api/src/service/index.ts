@@ -15,9 +15,9 @@ class Api extends ServiceContainer implements BudApi {
    */
   @bind
   public override async bootstrap?(bud: Bud) {
-    Object.entries(methods).map(([k, v]: [any, any]) =>
-      bud.bindFacade(k, v, bud),
-    )
+    Object.entries(methods).map(([k, v]: Array<any>) => {
+      bud.bindFacade(k, v)
+    })
   }
 }
 

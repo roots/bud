@@ -111,6 +111,7 @@ describe(`@roots/sage`, async () => {
     const devtoolSpy = vi.spyOn(bud, `devtool`)
     const hashSpy = vi.spyOn(bud, `hash`)
     await sage.register(bud)
+
     expect(whenSpy).toHaveBeenCalledWith(
       true,
       expect.any(Function),
@@ -123,10 +124,12 @@ describe(`@roots/sage`, async () => {
   it(`should call bud.devtool in development`, async () => {
     const bud = await factory({mode: `development`})
     expect(bud.isProduction).toBe(false)
+
     const whenSpy = vi.spyOn(bud, `when`)
     const devtoolSpy = vi.spyOn(bud, `devtool`)
     const hashSpy = vi.spyOn(bud, `hash`)
     await sage.register(bud)
+
     expect(whenSpy).toHaveBeenCalledWith(
       false,
       expect.any(Function),

@@ -1,8 +1,8 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Optimization} from '@roots/bud-framework/config'
 
 import {join, sep} from 'node:path'
 
+import {Bud} from '@roots/bud-framework'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 export type Parameters = [
@@ -11,6 +11,7 @@ export type Parameters = [
         splitChunks: false | Optimization.SplitChunks | undefined,
       ) => false | Optimization.SplitChunks)
     | boolean
+    | Bud
     | Optimization.SplitChunks
   )?,
 ]
@@ -48,7 +49,7 @@ export const splitChunks: splitChunks = async function (this: Bud, value) {
    * For true and undefined options the default
    * cache groups are added to the build
    */
-  if (isUndefined(value) || value === true) {
+  if (isUndefined(value) || value === true || value instanceof Bud) {
     this.hooks.on(`build.optimization.splitChunks`, (options = {}) => {
       if (options === false) options = {}
 

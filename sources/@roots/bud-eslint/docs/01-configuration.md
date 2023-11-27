@@ -24,9 +24,9 @@ export default {
 
 ### Configuring eslint with `bud.eslint`
 
-You can configure eslint directly in `bud.config.js` using the `bud.eslint` API.
+You can configure eslint directly in your bud.js config using the `bud.eslint` API.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint
   .extends([`@roots/eslint-config`])
   .setRules({'no-console': `error`})
@@ -39,7 +39,7 @@ bud.eslint
 
 You can extend a eslint config by passing an array of eslint config files to `bud.eslint.extends`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint.extends([`@roots/bud-eslint/config`])
 ```
 
@@ -47,7 +47,7 @@ bud.eslint.extends([`@roots/bud-eslint/config`])
 
 You can set eslint rules by passing an object to `bud.eslint.setRules`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint.setRules({'no-descending-specificity': null})
 ```
 
@@ -56,7 +56,7 @@ bud.eslint.setRules({'no-descending-specificity': null})
 By default, eslint will fail on error in production mode. You can change this behavior by setting
 `bud.eslint.failOnError` to `false`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint.setFailOnError(false)
 ```
 
@@ -65,7 +65,7 @@ bud.eslint.setFailOnError(false)
 By default, eslint will not fail on warning. You can change this behavior by setting
 `bud.eslint.failOnWarning` to `true`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint.setFailOnWarning(true)
 ```
 
@@ -74,7 +74,7 @@ bud.eslint.setFailOnWarning(true)
 By default, eslint will not fix errors. You can change this behavior by setting
 `bud.eslint.fix` to `true`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.eslint.setFix(true)
 ```
 

@@ -1,16 +1,40 @@
 ---
 title: bud.splitChunks
 description: Separate vendor code from application code
+tags:
+  - configuration
+  - facade
+  - optimization
 ---
 
 Separate vendor code from application code.
 
 ## Usage
 
+Enable code splitting:
+
 ```js title=bud.config.js
 bud.splitChunks()
 ```
 
-## Options
+Explicitly enable code splitting:
 
-[bud.splitChunks](/reference/bud.splitChunks) takes any parameter Webpack does.
+```js title=bud.config.js
+bud.splitChunks(true)
+```
+
+Disable code splitting:
+
+```js title=bud.config.js
+bud.splitChunks(false)
+```
+
+Use as a bud.js callback. This is the same as enabling code splitting with the default configuration.
+
+```ts title=bud.config.ts
+bud.when(bud.isProduction, bud.splitChunks)
+```
+
+```ts title=bud.config.ts
+bud.tap(bud.splitChunks)
+```

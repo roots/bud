@@ -16,12 +16,11 @@ export const after: after = function (
   errorHandler?: (error: Error) => unknown,
 ): Bud {
   this.hooks.action(`compiler.done`, async bud => {
-    try {
-      await bud.promise(fn)
-    } catch (error) {
-      if (!errorHandler) throw error
-      errorHandler(error)
-    }
+    await fn(bud)
+      .catch(error => {
+        if (errorHandler) return errorHandler(error)
+        bud.catch(error)
+      })
   })
 
   return this

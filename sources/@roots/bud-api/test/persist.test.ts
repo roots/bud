@@ -39,19 +39,19 @@ describe(`bud.persist`, () => {
   it(`should call bud.success to log param`, () => {
     const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject()
-    expect(successSpy).toHaveBeenCalledWith(`cache enabled`)
+    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
     const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject(true)
-    expect(successSpy).toHaveBeenCalledWith(`cache enabled`)
+    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
   })
 
   it(`should call bud.success to log param`, () => {
     const successSpy = vi.spyOn(bud.api.logger, `success`)
     subject(false)
-    expect(successSpy).toHaveBeenCalledWith(`cache disabled`)
+    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `disabled`)
   })
 
   it(`should return bud`, () => {

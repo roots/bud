@@ -1,10 +1,10 @@
 // @ts-check
 
 /**
- * @param {import('@roots/bud').Bud} app
+ * @param {import('@roots/bud').Bud} bud
  */
-export default async (app) => {
-  app
+export default async (bud) => {
+  bud
     .entry({
       app: ['@scripts/app', '@styles/app'],
       editor: ['@scripts/editor', '@styles/editor'],
@@ -14,7 +14,7 @@ export default async (app) => {
     .serve(3000)
     .proxy('http://example.test')
 
-  app.wpjson
+  bud.wpjson
     .useTailwindColors(true)
     .useTailwindFontFamily()
     .useTailwindFontSize()

@@ -3,13 +3,13 @@ title: bud.fs
 description: Work with the filesystem
 sidebar_label: bud.fs
 tags:
-  - config
+  - configuration
   - filesystem
 ---
 
-`bud.fs` is a collection of utilities to help with common filesystem based tasks.
+**bud.fs** is a collection of utilities to help with common filesystem based tasks.
 
-All `bud.fs` functions take paths relative to the project's root directory. You can also create new instances with
+All **bud.fs** functions take paths relative to the project's root directory. You can also create new instances with
 a different context using `bud.fs.make`. This is useful for code readability if you need to do several tasks on files in a shared, non-root directory:
 
 ```typescript
@@ -28,13 +28,7 @@ Utilities for reading and writing yml. See [bud.fs.yml documentation](/reference
 
 ## bud.fs.s3
 
-`bud.fs` includes built-in support for working with remote files stored in S3. It is compatible with Digital Ocean Spaces.
-
-In order to use this feature you must first install the `@aws-sdk/client-s3` package:
-
-```npm2yarn
-yarn add @aws-sdk/client-s3
-```
+**bud.fs** includes built-in support for working with remote files stored in S3.
 
 Once installed, you can set your credentials and bucket name in your bud configuration and do uploads:
 

@@ -16,7 +16,7 @@ declare interface Events {
 declare interface Payload {
   name: string
   type: `middleware` | __WebpackModuleApi.HotNotifierInfo[`type`]
-  action: 'reload' | 'sync' | 'building' | 'built'
+  action?: 'reload' | 'sync' | 'building' | 'built'
   hash?: string
   time?: number
   errors?: Array<Record<string, any>>

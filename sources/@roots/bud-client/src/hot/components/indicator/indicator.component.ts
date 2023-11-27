@@ -50,6 +50,8 @@ export class Component extends HTMLElement {
       .querySelector(this.selector)
       .classList.remove(`warning`, `success`, `pending`)
     this.shadowRoot.querySelector(this.selector).classList.add(`error`)
+
+    this.hide()
   }
   /**
    * Status is pending
@@ -90,23 +92,20 @@ export class Component extends HTMLElement {
       .classList.remove(`error`, `success`, `pending`)
 
     this.shadowRoot.querySelector(this.selector).classList.add(`warning`)
+
+    this.hide()
   }
   public attributeChangedCallback() {
     if (this.hasAttribute(`has-errors`)) return this.onError()
     if (this.hasAttribute(`has-warnings`)) return this.onWarning()
 
     if (
-      !this.hasAttribute(`has-errors`) &&
-      !this.hasAttribute(`has-warnings`) &&
-      this.getAttribute(`action`) === `built`
-    )
-      return this.onSuccess()
-
-    if (
       this.getAttribute(`action`) == `building` ||
       this.getAttribute(`action`) == `sync`
     )
-      return this.onPending()
+      return this.onSuccess()
+
+    this.onPending()
   }
 
   /**

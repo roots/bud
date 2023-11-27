@@ -9,7 +9,7 @@
  */
 
 import type BudCDN from '@roots/bud-extensions/cdn'
-import type CleanWebpackPlugin from '@roots/bud-extensions/clean-webpack-plugin'
+import type BudClean from '@roots/bud-extensions/clean-webpack-plugin'
 import type CopyWebpackPlugin from '@roots/bud-extensions/copy-webpack-plugin'
 import type BudESM from '@roots/bud-extensions/esm'
 import type BudFixStyleOnlyEntrypoints from '@roots/bud-extensions/fix-style-only-entrypoints'
@@ -29,6 +29,7 @@ import {default as Service} from '@roots/bud-extensions/service'
 declare module '@roots/bud-framework' {
   interface Bud {
     cdn: BudCDN
+    clean: BudClean
     esm: BudESM
     manifest: WebpackManifestPlugin
     tsconfig: BudTsConfigValues
@@ -36,7 +37,7 @@ declare module '@roots/bud-framework' {
 
   interface Modules {
     '@roots/bud-extensions/cdn': BudCDN
-    '@roots/bud-extensions/clean-webpack-plugin': CleanWebpackPlugin
+    '@roots/bud-extensions/clean-webpack-plugin': BudClean
     '@roots/bud-extensions/copy-webpack-plugin': CopyWebpackPlugin
     '@roots/bud-extensions/esm': BudESM
     '@roots/bud-extensions/fix-style-only-entrypoints': BudFixStyleOnlyEntrypoints

@@ -10,7 +10,6 @@ import {
   Extension,
 } from '@roots/bud-framework/extension'
 import {
-  bind,
   disabled,
   label,
   options,
@@ -24,46 +23,20 @@ import {
   filename: `index.html`,
   inject: true,
   publicPath: DynamicOption.make(app => app.publicPath()),
-  template: undefined,
+  template: resolve(
+    dirname(fileURLToPath(import.meta.url)),
+    `..`,
+    `..`,
+    `vendor`,
+    `template.html`,
+  ),
 })
 @disabled
 class BudHtmlWebpackPlugin extends Extension<Options, ApplyPlugin> {
-  /**
-   * {@link Extension.configAfter}
-   */
-  @bind
-  public override async configAfter(bud: Bud) {
-    if (bud.context.html) {
-      this.enabled = true
-      bud.extensions
-        .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-        .enable()
-    }
-
-    if (bud.context.html === false) {
-      this.enabled = false
-      bud.extensions
-        .get(`@roots/bud-extensions/interpolate-html-webpack-plugin`)
-        .enable(false)
-      return bud
-    }
-
-    if (typeof bud.context.html === `string`) {
-      this.set(`template`, bud.path(bud.context.html))
-    }
-
-    if (!this.options.template) {
-      this.set(
-        `template`,
-        resolve(
-          dirname(fileURLToPath(import.meta.url)),
-          `..`,
-          `..`,
-          `vendor`,
-          `template.html`,
-        ),
-      )
-    }
+  public get interpolatePlugin() {
+    return this.app.extensions.get(
+      `@roots/bud-extensions/interpolate-html-webpack-plugin`,
+    )
   }
 
   /**

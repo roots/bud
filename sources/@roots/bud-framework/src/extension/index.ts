@@ -63,6 +63,7 @@ export interface Meta {
   boot: boolean
   buildAfter: boolean
   buildBefore: boolean
+  compilerDone: boolean
   configAfter: boolean
   register: boolean
 }
@@ -170,6 +171,7 @@ export class Extension<
     boot: false,
     buildAfter: false,
     buildBefore: false,
+    compilerDone: false,
     configAfter: false,
     register: false,
   }
@@ -184,7 +186,7 @@ export class Extension<
   /**
    * Plugin constructor
    */
-  public plugin?: ApplyPluginConstructor
+  public declare plugin?: ApplyPluginConstructor
 
   /**
    * Class constructor
@@ -225,28 +227,26 @@ export class Extension<
    * `buildBefore` callback
    */
   public async buildBefore?(app: Bud): Promise<unknown | void>
+
+  /**
+   * Error handler
+   */
   @bind
   public catch(error: Error | string): never {
-    const thrownBy =
+    const label =
       this.label ?? this.constructor?.name ?? `unknown_extension`
 
-    if (error instanceof ExtensionError) {
-      error.instance = this.app.label
-      error.thrownBy = error.thrownBy ?? thrownBy
+    if (error instanceof BudError) {
       throw error
     }
 
-    throw new ExtensionError(
-      typeof error === `string` ? error : error.message,
-      {
-        docs: new URL(`https://bud.js.org/docs/extensions`),
-        issue: new URL(
-          `https://github.com/roots/bud/search?q=is:issue+${thrownBy} in:title`,
-        ),
-        origin: BudError.normalize(error),
-        thrownBy,
-      },
-    )
+    throw ExtensionError.normalize(error, {
+      docs: new URL(`https://bud.js.org/docs/extensions`),
+      issue: new URL(
+        `https://github.com/roots/bud/search?q=is:issue+${label} in:title`,
+      ),
+      thrownBy: import.meta.url,
+    })
   }
 
   /**
@@ -383,12 +383,7 @@ export class Extension<
     return await this.app.module
       .resolve(signifier, context)
       .catch(error => {
-        this.catch(
-          new ExtensionError(`could not resolve ${signifier}`, {
-            origin: error,
-            thrownBy: this.label,
-          }),
-        )
+        throw error
       })
   }
 
@@ -420,6 +415,7 @@ export class Extension<
   /**
    * Set options
    */
+  @bind
   public setOptions(
     value: Partial<InternalOptionsValues<ExtensionOptions>>,
   ): this {
@@ -434,105 +430,53 @@ export class Extension<
    * @remarks
    * By default returns {@link Extension.enabled}
    */
+  @bind
   public when(bud: Bud, options?: ExtensionOptions): boolean {
     return this.enabled
   }
 
-  /**
-   * `register` callback handler
-   */
   @bind
-  public async _register() {
-    if (isUndefined(this.register)) return
+  public async execute(key: `${keyof Meta & string}` | `make`) {
+    await this.app.resolvePromises()
 
-    if (this.meta[`register`] === true) return
-    this.meta[`register`] = true
+    if (key === `make`) {
+      if (!this.isEnabled()) return false
 
-    await this.register(this.app).catch(this.catch)
-  }
-
-  /**
-   * `boot` callback handler
-   */
-  @bind
-  public async _boot() {
-    if (isUndefined(this.boot)) return
-
-    if (this.meta[`boot`] === true) return
-    this.meta[`boot`] = true
-
-    await this.boot(this.app).catch(this.catch)
-  }
-
-  /**
-   * `buildAfter` callback handler
-   */
-  @bind
-  public async _buildAfter() {
-    if (isUndefined(this.buildAfter)) return
-    if (!this.isEnabled()) return
-
-    if (this.meta[`buildAfter`] === true) return
-    this.meta[`buildAfter`] = true
-
-    await this.buildAfter(this.app).catch(this.catch)
-  }
-
-  /**
-   * `buildBefore` callback handler
-   */
-  @bind
-  public async _buildBefore() {
-    if (isUndefined(this.buildBefore)) return
-    if (!this.isEnabled()) return
-
-    if (this.meta[`buildBefore`] === true) return
-    this.meta[`buildBefore`] = true
-
-    await this.buildBefore(this.app).catch(this.catch)
-  }
-
-  /**
-   * `configAfter` callback handler
-   */
-  @bind
-  public async _configAfter() {
-    if (isUndefined(this.configAfter)) return
-
-    if (this.meta[`configAfter`] === true) return
-    this.meta[`configAfter`] = true
-
-    await this.configAfter(this.app).catch(this.catch)
-  }
-
-  /**
-   * `make` callback handler
-   */
-  @bind
-  public async _make() {
-    if (isUndefined(this.make) && isUndefined(this.plugin)) return false
-    if (this.isEnabled() === false) return false
-
-    try {
       if (!isUndefined(this.apply)) {
-        this.logger.info(`apply method found. return extension instance.`)
+        this.logger.success(`produced hybrid compiler/bud plugin`)
+        this.logger.info(this)
         return this
       }
 
       if (!isUndefined(this.plugin)) {
         const plugin = new this.plugin({...this.getOptions()})
-        this.logger.success(`produced webpack plugin`)
+        this.logger.success(`produced compiler plugin`)
+        this.logger.info(plugin)
         return plugin
       }
 
       if (!isUndefined(this.make)) {
         const plugin = await this.make(this.app, {...this.getOptions()})
-        this.logger.success(`produced webpack plugin`)
+        this.logger.success(`produced make plugin`)
+        this.logger.info(plugin)
         return plugin
       }
-    } catch (error) {
-      this.catch(error)
+
+      return false
     }
+
+    if (isUndefined(this[key])) return
+
+    if (this.meta[key] === true) return
+    this.meta[key] = true
+
+    if ([`buildAfter`, `buildBefore`].includes(key) && !this.isEnabled())
+      return
+
+    this.logger.log(`executing`, key)
+
+    await this[key](this.app)
+    await this.app.resolvePromises()
   }
 }
 

@@ -8,7 +8,7 @@ All paths are relative to `@src`. This can be changed with [the `context` parame
 
 Copy `@src/images/image.jpeg` to `@dist/images/image.jpeg`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile(`images/image.jpeg`)
 ```
 
@@ -16,7 +16,7 @@ bud.copyFile(`images/image.jpeg`)
 
 Copy `@src/images/image.jpeg` to `@dist/example/image.jpeg`.
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile([`images/image.jpeg`, `example/image.jpeg`])
 ```
 
@@ -24,7 +24,7 @@ bud.copyFile([`images/image.jpeg`, `example/image.jpeg`])
 
 The standard way would be to replace the filename with `@file`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile([`images/image.jpeg`, `images/@file`])
 ```
 
@@ -34,19 +34,19 @@ You can pass a second parameter to specify base directory of the task (the `cont
 
 Copy `vendor/images/image.jpeg` to `@dist/images/image.jpeg`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile(`images/image.jpeg`, `vendor`)
 ```
 
 Copy `vendor/images/image.jpeg` to `@dist/example/image.jpeg`
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile([`images/image.jpeg`, `example/image.jpeg`], `vendor`)
 ```
 
 Copying from `node_modules/@roots/bud/README.md` to `@dist/README.md`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile(
   `README.md`
   await bud.module.getDirectory(`@roots/bud`)
@@ -59,7 +59,7 @@ Any of the underlying options can be dialed in with an optional third parameter.
 
 Copy from `@src/fonts` to `@dist/vendor/fonts` and include dotfiles:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyFile(`fonts/killa.otf`, `@src`, {
   globOptions: {dot: true},
 })

@@ -26,7 +26,7 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
   const [page, setPage] = useState<number>(0)
   const [action, setAction] = useState(``)
 
-  const pageSize = 10
+  const pageSize = Math.max(process.stdout.rows - 7, 10)
 
   useInput((input, key) => {
     if (key.escape) {
@@ -105,9 +105,8 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
         }),
       )
       setResult(result)
-    } catch (e) {
-      const error = BudError.normalize(e)
-      setResult(error.message)
+    } catch (error) {
+      setResult(BudError.normalize(error).message)
     }
   }
 
@@ -116,8 +115,15 @@ export const Repl = ({app, depth, indent}: ReplProps) => {
       try {
         const fn = makeFn(value)
         const results = await fn(app)
+
+        await app.build.make()
+        if (app.hasChildren)
+          await Promise.all(
+            Object.entries(app.children).map(
+              async ([_, child]) => await child.build.make(),
+            ),
+          )
         processResults(results)
-        await app.promise()
       } catch (error) {
         setResult(BudError.normalize(error).message)
       }

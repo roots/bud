@@ -9,7 +9,9 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-eslint": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "@roots/bud-preset-wordpress": "workspace:*",
-    "@roots/bud-swc": "workspace:*"
+    "@roots/bud-swc": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*"
   }
 }

@@ -4,7 +4,7 @@ title: Usage
 
 Using a string:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 export default async bud => {
   bud.setPublicProxyUrl(`http://example.test`)
 }
@@ -12,7 +12,7 @@ export default async bud => {
 
 Using a [URL](https://developer.mozilla.org/en-US/docs/Web/API/URL):
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 export default async bud => {
   bud.setPublicProxyUrl(new URL(`http://example.test`))
 }

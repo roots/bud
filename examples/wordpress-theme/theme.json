@@ -5,7 +5,34 @@
   "settings": {
     "color": {
       "custom": false,
-      "customGradient": false
+      "customGradient": false,
+      "palette": [
+        {
+          "color": "#ebf8ff",
+          "name": "Blue 100",
+          "slug": "blue-100"
+        },
+        {
+          "color": "#bee3f8",
+          "name": "Blue 200",
+          "slug": "blue-200"
+        },
+        {
+          "color": "#90cdf4",
+          "name": "Blue 300",
+          "slug": "blue-300"
+        },
+        {
+          "color": "#63b3ed",
+          "name": "Blue 400",
+          "slug": "blue-400"
+        },
+        {
+          "color": "#4299e1",
+          "name": "Blue 500",
+          "slug": "blue-500"
+        }
+      ]
     },
     "custom": {
       "spacing": {},
@@ -16,7 +43,14 @@
     },
     "spacing": {
       "padding": true,
-      "units": ["px", "%", "em", "rem", "vw", "vh"]
+      "units": [
+        "px",
+        "%",
+        "em",
+        "rem",
+        "vw",
+        "vh"
+      ]
     },
     "typography": {
       "customFontSize": false,

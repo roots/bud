@@ -12,7 +12,7 @@ export interface sequence<T = Bud> {
  * Run a value through an array of asyncronous, non-mutational functions.
  *
  * @remarks
- * Unlike {@link pipe} the value returned from each function is ignored.
+ * Unlike {@link Bud.pipe} the value returned from each function is ignored.
  */
 export const sequence = async function (
   fns: Array<Callback>,

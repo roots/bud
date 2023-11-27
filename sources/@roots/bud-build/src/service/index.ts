@@ -161,6 +161,7 @@ class Build extends Service implements BudBuild {
     ident: K,
     definition?: ((item: Items[K]) => Items[K]) | Items[K],
   ): this {
+    this.logger.log(`build.setItem`, ident)
     const maybeOptionsCallback = isUndefined(definition)
       ? {ident, loader: ident}
       : definition
@@ -183,6 +184,7 @@ class Build extends Service implements BudBuild {
     name: K,
     definition?: any,
   ): this {
+    this.logger.log(`build.setLoader`, name)
     const loader = isUndefined(definition)
       ? this.makeLoader(name)
       : definition instanceof Loader
@@ -203,6 +205,7 @@ class Build extends Service implements BudBuild {
     name: K,
     definition?: Rule | RuleOptions,
   ): this {
+    this.logger.log(`build.setRule`, name)
     const rule =
       definition instanceof Rule
         ? definition

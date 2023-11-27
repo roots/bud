@@ -83,15 +83,18 @@ export const client = async (
     options.reload && window.location.reload()
   }
 
+  const onAccepted = (info: __WebpackModuleApi.HotNotifierInfo) => {
+    window.bud.controllers.map(
+      controller => controller?.update({action: `sync`, errors: []}),
+    )
+  }
+
   /**
    * Webpack HMR error handler
    */
   const onErrored = (error: any) => {
     window.bud.controllers.map(
-      controller =>
-        controller?.update({
-          errors: [error],
-        }),
+      controller => controller?.update({errors: [error]}),
     )
   }
 
@@ -104,6 +107,7 @@ export const client = async (
         ignoreDeclined: true,
         ignoreErrored: true,
         ignoreUnaccepted: true,
+        onAccepted,
         onDeclined: onUnacceptedOrDeclined,
         onErrored,
         onUnaccepted: onUnacceptedOrDeclined,

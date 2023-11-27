@@ -1,6 +1,5 @@
+import {Bud} from '@roots/bud-framework/bud'
 import {describe, expect, it} from 'vitest'
-
-import {Bud} from '../src/bud.js'
 
 describe(`Bud`, function () {
   it(`is a class`, () => {

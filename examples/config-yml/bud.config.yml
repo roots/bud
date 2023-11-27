@@ -36,9 +36,9 @@ hash: >
 webpackConfig: >
   => config => ({...config, parallelism: 1})
 
-# or dynamic values
+# logs: `[@examples/config-yml] › 2 + 2 equals 4`
 log:
-  - => 2 + 2
+  - 2 + 2
   - => `equals ${2 + 2}`
 
 # For anything that can't be accomplished
@@ -56,7 +56,7 @@ tapAsync: >
     bud.log('hi!', '...eventually')
   }
 
-# Bringin' it all together
+# logs: `[@examples/config-yml] › cache enabled`
 when:
   - _bud.cache.enabled
   - => bud => bud.log('cache enabled')

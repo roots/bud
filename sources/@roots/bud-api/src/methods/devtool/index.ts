@@ -1,7 +1,9 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Configuration} from '@roots/bud-framework/config'
 
-export type Parameters = [Configuration['devtool']?]
+import {Bud} from '@roots/bud-framework'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
+
+export type Parameters = [(Bud | Configuration['devtool'])?]
 
 export interface devtool {
   (...devtool: Parameters): Promise<Bud>
@@ -13,9 +15,28 @@ export interface facade {
 
 export const devtool: devtool = async function (
   this: Bud,
-  input = `cheap-module-source-map`,
+  input?: Parameters[0],
 ) {
-  this.hooks.on(`build.devtool`, input)
-  this.api.logger.success(`bud.devtool: devtool set to`, input)
+  const FALLBACK_SOURCEMAP = this.isDevelopment ? `eval` : `source-map`
+
+  if (input instanceof Bud) {
+    this.hooks.on(`build.devtool`, FALLBACK_SOURCEMAP)
+
+    this.api.logger.success(`bud.devtool`, `devtool set to`, input)
+
+    return this
+  }
+
+  this.hooks.on(
+    `build.devtool`,
+    !isUndefined(input) ? input : FALLBACK_SOURCEMAP,
+  )
+
+  this.api.logger.success(
+    `bud.devtool`,
+    `devtool set to`,
+    input ?? FALLBACK_SOURCEMAP,
+  )
+
   return this
 }

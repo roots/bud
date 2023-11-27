@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
+import {BudError} from '@roots/bud-support/errors'
 
 import {Hooks} from '../base/base.js'
 
@@ -19,18 +20,16 @@ export class EventHooks extends Hooks<EventsStore> {
   ): Promise<Bud> {
     if (!(id in this.store) || !this.store[id].length) return this.app
 
-    await Promise.all(
-      this.store[id].map(async (action: any) => {
-        if (typeof action === `undefined`) return
-
-        this.logger.info(`running ${id} callback:`, action)
-
-        await action(...value).catch((error: Error) => {
-          this.logger.error(`problem running ${id} callback`)
-          throw error
-        })
-      }),
-    ).catch(this.catch)
+    for await (const action of this.store[id] as any) {
+      this.logger.info(`running ${id}`)
+      try {
+        await action(...value)
+        await this.app.resolvePromises()
+      } catch (error) {
+        this.logger.error(`problem running ${id} callback`)
+        throw BudError.normalize(error)
+      }
+    }
 
     return this.app
   }

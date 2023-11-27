@@ -1,16 +1,43 @@
 ---
 title: bud.minimize
-description: Enables or disable minification optimizations.
-custom_edit_url: 'https://github.com/roots/bud/tree/main/sources/@roots/bud-api/docs/minimize'
+description: Enables or disable minimization optimizations.
 tags:
-  - config
+  - configuration
+  - optimization
 ---
 
-import Overview from '@site/../../@roots/bud-api/docs/minimize/overview.md'
-import Usage from '@site/../../@roots/bud-api/docs/minimize/usage.md'
-
-<Overview />
+Configure code optimization options.
 
 ## Usage
 
-<Usage />
+Enable optimization:
+
+```js
+bud.minimize()
+```
+
+Disable optimization:
+
+```js
+bud.minimize(false)
+```
+
+Use a string or array of strings to enable or disable particular handlers. Possible values: `css`, `js`.
+
+```js
+bud.minimize(`css`)
+```
+
+```js
+bud.minimize([`css`, `js`])
+```
+
+Use as a bud.js callback. This is the same as enabling minimization with the default configuration.
+
+```ts title=bud.config.ts
+bud.when(bud.isProduction, bud.minimize)
+```
+
+```ts title=bud.config.ts
+bud.tap(bud.minimize)
+```

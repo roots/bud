@@ -39,11 +39,18 @@ export abstract class Hooks<Store> {
   }
 
   @bind
-  public catch(e: Error, id?: string, iteration?: number): void {
+  public catch(e: Error, id?: string, iteration?: number): never {
     if (!id) {
-      throw new BudError(e.message ?? `${e}`)
+      throw BudError.normalize(e, {
+        details: `An error occured while running a hook`,
+        thrownBy: import.meta.url,
+      })
     }
-    throw new BudError(`problem running hook ${id}`, {origin: e})
+
+    throw BudError.normalize(e, {
+      details: `An error occured while running hook id: ${id}`,
+      thrownBy: import.meta.url,
+    })
   }
 
   /**
@@ -51,6 +58,6 @@ export abstract class Hooks<Store> {
    */
   @bind
   public has<T extends keyof Store & string>(path: T): boolean {
-    return isUndefined(this.store[path]) === false
+    return !isUndefined(this.store?.[path])
   }
 }

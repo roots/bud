@@ -23,12 +23,21 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
   if (`bind` in fn) fn = fn.bind(binding ?? this)
 
   this.set(key, (...args: Array<any>) => {
-    this.promised
-      .then(async () => await fn(...args))
-      .catch(this.catch)
-      .finally(() => {
-        logger.success(`finished promised call:`, `bud.${key}`)
-      })
+    logger
+      .scope(`bud.${key}`)
+      .log(
+        `called with args:`,
+        ...args.map(arg => this.fs.json.stringify(arg)),
+      )
+
+    this.promise(async () => {
+      try {
+        await this.resolvePromises().then(async () => await fn(...args))
+      } catch (error) {
+        throw error
+      }
+    })
+
     return this
   })
 

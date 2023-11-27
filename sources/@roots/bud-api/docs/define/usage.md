@@ -4,7 +4,7 @@ title: Usage
 
 Call **bud.define** and pass your definitions.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.define({
   APP_NAME: 'My Application',
 })

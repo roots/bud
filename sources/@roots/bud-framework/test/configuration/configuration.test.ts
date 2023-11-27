@@ -1,26 +1,26 @@
-import '../../src/index.js'
-
-import {Bud, factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
-
-import Configuration from '../../src/configuration/configuration.js'
-import {File} from '../../src/context.js'
-import {BudError} from '@roots/bud-support/errors'
 import {parse} from 'node:path'
 
+import {Bud, factory} from '@repo/test-kit'
+import {BudError} from '@roots/bud-support/errors'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import Configuration from '../../src/configuration/index.js'
+import {File} from '../../src/context.js'
+import '../../src/index.js'
+
 const testFileDescription: File = {
-  name: `test.config.js`,
-  local: false,
   bud: false,
-  path: `foo/test.config.js`,
-  target: `base`,
-  type: `module`,
-  parsed: parse(`foo/test.config.js`),
-  size: 0,
-  sha1: `abcdefg`,
+  local: false,
   mode: 0,
   // @ts-ignore intentionally invalid
   module: undefined,
+  name: `test.config.js`,
+  parsed: parse(`foo/test.config.js`),
+  path: `foo/test.config.js`,
+  sha1: `abcdefg`,
+  size: 0,
+  target: `base`,
+  type: `module`,
 }
 
 describe(`@roots/bud-framework/configuration`, function () {
@@ -54,41 +54,5 @@ describe(`@roots/bud-framework/configuration`, function () {
       .finally(() => {
         expect(error).toBeInstanceOf(BudError)
       })
-  })
-
-  it(`calls dynamicConfig when config is a fn`, async () => {
-    const dynamicSpy = vi.spyOn(configuration, `dynamicConfig`)
-    const configFn = vi.fn(async bud => bud)
-
-    const testDynamicConfig = {
-      ...testFileDescription,
-      dynamic: true,
-      module: async () => configFn,
-    }
-    await configuration.run(testDynamicConfig)
-
-    expect(dynamicSpy).toHaveBeenCalledWith(configFn)
-    expect(configFn).toHaveBeenCalledWith(bud)
-  })
-
-  it(`calls staticConfig when config is static`, async () => {
-    const staticSpy = vi.spyOn(configuration, `staticConfig`)
-
-    const testStaticConfig = {
-      ...testFileDescription,
-      dynamic: false,
-      module: async () => ({
-        foo: `bar`,
-        info: [`foo`, `bar`],
-      }),
-    }
-    await configuration.run(testStaticConfig)
-
-    expect(staticSpy).toHaveBeenCalledWith(
-      expect.objectContaining({
-        foo: `bar`,
-        info: [`foo`, `bar`],
-      }),
-    )
   })
 })

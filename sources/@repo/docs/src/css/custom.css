@@ -10,9 +10,6 @@
   --ifm-color-primary-lighter: rgba(82, 93, 220, 0.5);
   --ifm-color-primary-lightest: rgba(82, 93, 220, 0.1);
 
-  --ifm-h1-font-size: 2rem;
-  --ifm-h2-font-size: 1.5rem;
-
   --ifm-font-family-base: 'Public Sans', system-ui, sans-serif;
   --ifm-font-family-monospace: 'dm', monospace;
 }
@@ -23,10 +20,6 @@
 
 article[itemprop='blogPost'] header > h1[itemprop='headline'] {
   font-size: 2.5em !important;
-}
-
-.markdown > h2 {
-  --ifm-h2-font-size: 1.8rem;
 }
 
 .theme-doc-sidebar-container {
@@ -63,9 +56,6 @@ article[itemprop='blogPost'] header > h1[itemprop='headline'] {
   :root {
     --ifm-font-size-base: 16px;
   }
-  article header h1 {
-    font-size: 1.5rem !important;
-  }
 
   .hero .hero__title {
     font-size: 2.5rem;
@@ -75,9 +65,6 @@ article[itemprop='blogPost'] header > h1[itemprop='headline'] {
 @media screen and (min-width: 997px) {
   :root {
     --ifm-font-size-base: 16px;
-  }
-  article header h1 {
-    font-size: 2.2rem !important;
   }
 }
 

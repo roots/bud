@@ -36,7 +36,11 @@ async function register(bud: Bud) {
     ? bud.build.items.minicss
     : bud.build.items.style
 
-  Object.entries(rules).map(makeRegister(bud, bud.build.setRule))
+  await Promise.all(
+    Object.entries(rules).map(makeRegister(bud, bud.build.setRule)),
+  ).catch(e => {
+    throw e
+  })
 }
 
 /**

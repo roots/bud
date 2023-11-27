@@ -10,7 +10,7 @@ import {
 import {deprecated} from '@roots/bud-support/decorators'
 
 import type Acorn from '../acorn/index.js'
-import type { BladeLoaderExtension } from '../blade-loader/extension.js'
+import type {BladeLoaderExtension} from '../blade-loader/extension.js'
 
 /**
  * roots/sage
@@ -19,7 +19,11 @@ import type { BladeLoaderExtension } from '../blade-loader/extension.js'
  * @see {@link https://bud.js.org/extensions/sage}
  */
 @label(`@roots/sage`)
-@dependsOn([`@roots/bud-preset-wordpress`, `@roots/sage/acorn`, `@roots/sage/blade-loader`])
+@dependsOn([
+  `@roots/bud-preset-wordpress`,
+  `@roots/sage/acorn`,
+  `@roots/sage/blade-loader`,
+])
 @expose(`sage`)
 class Sage extends Extension {
   /**
@@ -29,8 +33,21 @@ class Sage extends Extension {
     return this.app.extensions.get(`@roots/sage/acorn`)
   }
 
+  /**
+   * {@link BladeLoaderExtension}
+   */
   public get blade(): BladeLoaderExtension {
     return this.app.extensions.get(`@roots/sage/blade-loader`)
+  }
+
+  /**
+   * Get unique name for project
+   */
+  @bind
+  public getUniqueName(): string {
+    return this.app.label !== `sage`
+      ? `@roots/bud/sage/${this.app.label}`
+      : `@roots/bud/sage`
   }
 
   /**
@@ -48,17 +65,9 @@ class Sage extends Extension {
         '@styles': `@src/styles`,
         '@views': `@src/views`,
       })
-      .when(
-        bud.isProduction,
-        () => bud.hash(),
-        () => bud.devtool(),
-      )
-      .hooks.on(
-        `build.output.uniqueName`,
-        bud.label !== `sage`
-          ? `@roots/bud/sage/${bud.label}`
-          : `@roots/bud/sage`,
-      )
+      .when(bud.isProduction, bud.hash, bud.devtool)
+
+    bud.hooks.on(`build.output.uniqueName`, this.getUniqueName)
   }
 
   /**

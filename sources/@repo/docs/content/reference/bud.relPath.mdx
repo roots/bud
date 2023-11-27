@@ -1,0 +1,18 @@
+---
+title: bud.relPath
+description: Returns an absolute path to a directory or file.
+tags:
+  - helpers
+  - filesystem
+---
+
+You can use **bud.relPath** to get a path relative to the project's base directory.
+
+## Usage
+
+Given an absolute path to a directory or file, **bud.relPath** returns a path relative to the project's base directory.
+
+```ts title=bud.config.ts
+bud.relPath(`/code/my-project/src`)
+// => `src`
+```

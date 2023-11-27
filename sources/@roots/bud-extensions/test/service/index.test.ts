@@ -124,12 +124,9 @@ describe(`@roots/bud-extensions`, () => {
     const extensions = new Extensions(() => bud)
     if (!extensions) throw new Error(`Extensions not found`)
 
-    if (!extensions.register)
-      throw new Error(`Extensions.register not found`)
-    await extensions.register(bud)
-
-    if (!extensions.boot) throw new Error(`Extensions.boot not found`)
-    await extensions.boot(bud)
+    if (!extensions.configBefore)
+      throw new Error(`Extensions.configBefore not found`)
+    await extensions.configBefore(bud)
 
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
   })
