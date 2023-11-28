@@ -160,12 +160,7 @@ await registerFoundCommands().catch(async error => {
 /**
  * Run application and exit when process is complete
  */
-await application
-  .runExit(args.raw, context)
-  .catch(onError)
-  .finally(() => {
-    logger.scope(`cli`).log(`Exiting command line interface...`)
-  })
+await application.runExit(args.raw, context)
 
 export {application, Builtins, Cli}
 export type {CommandClass}

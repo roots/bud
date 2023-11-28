@@ -1,8 +1,8 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Modules} from '@roots/bud-framework'
 import type {Compiler} from '@roots/bud-framework/config'
 import type {ApplyPluginConstructor} from '@roots/bud-framework/extension/decorators/plugin'
 
+import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, ExtensionError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/lodash/get'
@@ -94,33 +94,338 @@ export type WithOptions<Context, Options> = {
   [K in keyof Options as `${K & string}`]: Options[K]
 }
 
-export type StrictPublicExtensionApi<Context, Opts extends Options> = {
-  app: Bud
-  enable: (boolean?: boolean) => Context
-  enabled: boolean
-  get: <K extends `${keyof Opts & string}`>(key: K) => Opts[K]
-  getOptions: () => Opts
-  logger: typeof logger
-  options: Opts
-  set: <K extends `${keyof Opts & string}`>(
-    key: K,
-    value: ((value: Opts[K]) => Opts[K]) | Opts[K],
-  ) => Context
-  setOptions: (O: Partial<InternalOptionsValues<Opts>>) => Context
-} & WithOptions<Context, Opts>
+/**
+ * Public extension interface
+ */
+export type PublicExtensionApi<
+  ExtensionImplementation extends Extension = Extension,
+> = {
+  /**
+   * ## Extension.app
+   *
+   * {@link Bud} instance
+   */
+  app: ExtensionImplementation[`app`]
 
-export type PublicExtensionApi<E extends Extension = Extension> = {
-  app: E[`app`]
-  enable: E['enable']
-  enabled: E['enabled']
-  get: E[`getOption`]
-  getOption: E[`getOption`]
-  getOptions: E[`getOptions`]
-  options: E['options']
-  set: E[`set`]
-  setOption: E[`setOption`]
-  setOptions: E[`setOptions`]
+  /**
+   * ## Extension.done
+   *
+   * {@link ExtensionImplementation.done}
+   *
+   * @remarks
+   * Returns the {@link Bud} instance from the extension. This is useful
+   * for chaining method calls.
+   *
+   * @example
+   * ```js
+   * app
+   *  .extensions
+   *    .get('@roots/bud-postcss')
+   *    .set('plugins', [])
+   *    .done()
+   *
+   *  .entry('app', 'src/index.js')
+   * ```
+   */
+  done: ExtensionImplementation[`done`]
+
+  /**
+   * ## Extension.enable
+   *
+   * Enable or disable extension
+   *
+   * @remarks
+   * The following methods are skipped if `enabled` is false:
+   * - {@link Extension.buildBefore}
+   * - {@link Extension.buildAfter}
+   * - {@link Extension.make}
+   *
+   * @example
+   * Enable extension:
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enable()
+   * ```
+   *
+   * @example
+   * Disable extension:
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enable(false)
+   * ```
+   *
+   * @example
+   * Functional callback:
+   * ```js
+   * app.when(app.isProduction, app.extensions.get('@roots/bud-postcss').enable)
+   * ```
+   */
+  enable: ExtensionImplementation['enable']
+
+  /**
+   * ## Extension.enabled
+   *
+   * Property indicating if the extension is enabled
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enabled
+   * ```
+   */
+  enabled: ExtensionImplementation['enabled']
+
+  /**
+   * ## Extension.get
+   *
+   * Get the value of an option record by key
+   *
+   * @remarks
+   * Alias for {@link Extension.getOption}
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').get('plugins')
+   * ```
+   */
+  get: ExtensionImplementation[`getOption`]
+
+  /**
+   * ## Extension.getOption
+   *
+   * Get the value of an option record by key
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').getOption('plugins')
+   * ```
+   */
+  getOption: ExtensionImplementation[`getOption`]
+
+  /**
+   * ## Extension.getOptions
+   *
+   * Get all options records
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').getOptions()
+   * ```
+   */
+  getOptions: ExtensionImplementation[`getOptions`]
+
+  /**
+   * ## Extension.logger
+   *
+   * @remarks
+   * This logger is scoped to the extension
+   */
+  logger: ExtensionImplementation[`logger`]
+
+  /**
+   * ## Extension.options
+   *
+   * Options accessor
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').options
+   * ```
+   */
+  options: ExtensionImplementation['options']
+
+  /**
+   * ## Extension.set
+   *
+   * Set an option value
+   *
+   * @remarks
+   * Alias for {@link Extension.setOption}
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').set('plugins', [])
+   * ```
+   */
+  set: ExtensionImplementation[`set`]
+
+  /**
+   * ## Extension.setOption
+   *
+   * Set an option value
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').setOption('plugins', [])
+   * ```
+   */
+  setOption: ExtensionImplementation[`setOption`]
+
+  /**
+   * ## Extension.setOptions
+   *
+   * Overwrite existing options
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').setOptions({plugins: []})
+   * ```
+   */
+  setOptions: ExtensionImplementation[`setOptions`]
 }
+
+export type StrictPublicExtensionApi<
+  Context,
+  OptionsRecords extends Options,
+> = {
+  /**
+   * ## Extension.app
+   *
+   * {@link Bud} instance
+   */
+  app: PublicExtensionApi[`app`]
+
+  /**
+   * ## Extension.done
+   *
+   * Returns the {@link Bud} instance from the extension.
+   *
+   * @remarks
+   * This is useful for chaining method calls.
+   *
+   * @example
+   * ```js
+   * app
+   *  .extensions
+   *    .get('@roots/bud-postcss')
+   *    .set('plugins', [])
+   *    .done()
+   *
+   *  .entry('app', 'src/index.js')
+   * ```
+   */
+  done: PublicExtensionApi[`done`]
+
+  /**
+   * ## Extension.enable
+   *
+   * Enable or disable extension
+   *
+   * @remarks
+   * The following methods are skipped if `enabled` is false:
+   * - {@link Extension.buildBefore}
+   * - {@link Extension.buildAfter}
+   * - {@link Extension.make}
+   *
+   * @example
+   * Enable extension:
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enable()
+   * ```
+   *
+   * @example
+   * Disable extension:
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enable(false)
+   * ```
+   *
+   * @example
+   * Functional callback:
+   * ```js
+   * app.when(app.isProduction, app.extensions.get('@roots/bud-postcss').enable)
+   * ```
+   */
+  enable: PublicExtensionApi[`enable`]
+
+  /**
+   * ## Extension.enabled
+   *
+   * Property indicating if the extension is enabled
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').enabled
+   * ```
+   */
+  enabled: PublicExtensionApi[`enabled`]
+
+  /**
+   * ## Extension.get
+   *
+   * Get the value of an option record by key
+   *
+   * @remarks
+   * Alias for {@link Extension.getOption}
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').get('plugins')
+   * ```
+   */
+  get: <K extends `${keyof OptionsRecords & string}`>(
+    key: K,
+  ) => OptionsRecords[K]
+
+  /**
+   * ## Extension.getOptions
+   *
+   * Get all options records
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').getOptions()
+   * ```
+   */
+  getOptions: () => OptionsRecords
+
+  /**
+   * ## Extension.logger
+   *
+   * @remarks
+   * This logger is scoped to the extension
+   */
+  logger: typeof logger
+
+  /**
+   * ## Extension.options
+   *
+   * Options records accessor
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').options
+   * ```
+   */
+  options: OptionsRecords
+
+  /**
+   * ## Extension.set
+   *
+   * Set an option value
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').set('plugins', [])
+   * ```
+   */
+  set: <K extends `${keyof OptionsRecords & string}`>(
+    key: K,
+    value:
+      | ((value: OptionsRecords[K]) => OptionsRecords[K])
+      | OptionsRecords[K],
+  ) => Context
+
+  /**
+   * ## Extension.setOptions
+   *
+   * Overwrite existing options
+   *
+   * @example
+   * ```js
+   * app.extensions.get('@roots/bud-postcss').setOptions({plugins: []})
+   * ```
+   */
+  setOptions: (
+    O: Partial<InternalOptionsValues<OptionsRecords>>,
+  ) => Context
+} & WithOptions<Context, OptionsRecords>
 
 export type ExtensionLiteral = Partial<Extension>
 
@@ -134,47 +439,28 @@ export class Extension<
   Plugin extends ApplyPlugin = ApplyPlugin,
 > {
   /**
-   * Application
+   * {@link Bud} instance get fn
    */
-  public _app: () => Bud
+  private _app: () => Bud
+
   /**
    * Extension options
    */
-  public _options: Partial<InternalOptionsValues<ExtensionOptions>>
+  public declare _options: Partial<InternalOptionsValues<ExtensionOptions>>
+
   /**
    * Depends on
    */
-  public dependsOn?: Set<keyof Modules & string>
+  public declare dependsOn?: Set<keyof Modules & string>
   /**
    * Depends on (optional)
    */
-  public dependsOnOptional?: Set<`${keyof Modules & string}`>
-  /**
-   * Is extension enabled
-   *
-   * @remarks
-   * The following methods are skipped if `enabled` is false:
-   * - {@link Extension.buildBefore}
-   * - {@link Extension.make}
-   */
-  public enabled: boolean = true
+  public declare dependsOnOptional?: Set<`${keyof Modules & string}`>
 
   /**
    * The module name
    */
-  public label: `${keyof Modules & string}`
-
-  /**
-   * Extension meta
-   */
-  public meta: Meta = {
-    boot: false,
-    buildAfter: false,
-    buildBefore: false,
-    compilerDone: false,
-    configAfter: false,
-    register: false,
-  }
+  public declare label?: `${keyof Modules & string}`
 
   /**
    * Extension options
@@ -184,9 +470,64 @@ export class Extension<
   public options: ExtensionOptions
 
   /**
+   * {@link ApplyPlugin.apply} callback
+   */
+  public apply?(compiler: Compiler): unknown | void
+
+  /**
+   * `boot` callback
+   */
+  public boot?(app: Bud): Promise<unknown | void>
+
+  /**
+   * `buildAfter` callback
+   */
+  public buildAfter?(app: Bud): Promise<unknown | void>
+
+  /**
+   * `buildBefore` callback
+   */
+  public buildBefore?(app: Bud): Promise<unknown | void>
+
+  /**
+   * `configAfter` callback
+   */
+  public configAfter?(app: Bud): Promise<unknown | void>
+
+  /**
    * Plugin constructor
    */
   public declare plugin?: ApplyPluginConstructor
+
+  /**
+   * Function returning a boolean indicating if the {@link Extension} should be utilized.
+   *
+   * @remarks
+   * If set this takes precedence over {@link Extension.enabled}.
+   */
+  public when?(bud: Bud, options?: ExtensionOptions): boolean
+
+  public get app(): Bud {
+    return this._app()
+  }
+
+  public enabled: boolean = true
+
+  /**
+   * ## Extension.meta
+   *
+   * @remarks
+   * Tracks which extension methods have been executed to prevent
+   * duplicate execution in race conditions, etc.
+   */
+  public meta: Meta = {
+    boot: false,
+    buildAfter: false,
+    buildBefore: false,
+    compilerDone: false,
+    configAfter: false,
+    register: false,
+  }
 
   /**
    * Class constructor
@@ -201,32 +542,6 @@ export class Extension<
       get: this.getOptions.bind(this),
     })
   }
-
-  /**
-   * Application accessor
-   */
-  public get app(): Bud {
-    return this._app()
-  }
-
-  /**
-   * {@link ApplyPlugin.apply}
-   */
-  public apply?(compiler: Compiler): unknown | void
-  /**
-   * `boot` callback
-   */
-  public async boot?(app: Bud): Promise<unknown | void>
-
-  /**
-   * `buildAfter` callback
-   */
-  public async buildAfter?(app: Bud): Promise<unknown | void>
-
-  /**
-   * `buildBefore` callback
-   */
-  public async buildBefore?(app: Bud): Promise<unknown | void>
 
   /**
    * Error handler
@@ -250,10 +565,6 @@ export class Extension<
   }
 
   /**
-   * `configAfter` callback
-   */
-  public async configAfter?(app: Bud): Promise<unknown | void>
-  /**
    * Disable extension
    * @deprecated pass `false` to {@link Extension.enable}
    */
@@ -274,10 +585,15 @@ export class Extension<
    * Enable extension
    */
   @bind
-  public enable(enabled: boolean = true) {
-    this.logger.info(`enabled`, this.label)
-    this.enabled = enabled
+  public enable(enabled: boolean | Bud = true) {
+    this.logger.log(enabled ? `enabled` : `disabled`)
 
+    if (enabled instanceof Bud) {
+      this.enabled = true
+      return this
+    }
+
+    this.enabled = enabled
     return this
   }
 
@@ -347,7 +663,9 @@ export class Extension<
    */
   @bind
   public isEnabled(): boolean {
-    return this.when(this.app, this.getOptions())
+    return `when` in this
+      ? this.when(this.app, this.getOptions())
+      : this.enabled
   }
 
   /**
@@ -380,11 +698,7 @@ export class Extension<
     signifier: string,
     context: string,
   ): Promise<string> {
-    return await this.app.module
-      .resolve(signifier, context)
-      .catch(error => {
-        throw error
-      })
+    return await this.app.module.resolve(signifier, context)
   }
 
   /**
@@ -422,17 +736,6 @@ export class Extension<
     this.logger.info(`set options`, value)
     this._options = value
     return this
-  }
-
-  /**
-   * Function returning a boolean indicating if the {@link Extension} should be utilized.
-   *
-   * @remarks
-   * By default returns {@link Extension.enabled}
-   */
-  @bind
-  public when(bud: Bud, options?: ExtensionOptions): boolean {
-    return this.enabled
   }
 
   @bind

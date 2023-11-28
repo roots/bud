@@ -128,11 +128,7 @@ export class Finder {
   }
 
   /**
-   * Get commands
-   *
-   * @remarks
-   * Returns cached commands if they exist, otherwise
-   * resolves and caches commands from project dependencies.
+   * Initialize
    */
   @bind
   public async init() {
@@ -147,6 +143,7 @@ export class Finder {
 
     await this.getModules()
     await this.cacheWrite()
+
     return this
   }
 

@@ -75,6 +75,16 @@ export const Display = ({error: input}: {error: RawError}) => {
         </Box>
       )}
 
+      {error.instance && (
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Instance</Text>
+            <Text>{error.instance}</Text>
+          </Box>
+        </Box>
+      )}
+
       {error.thrownBy && (
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="row" gap={1}>

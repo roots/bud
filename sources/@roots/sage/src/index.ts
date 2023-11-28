@@ -21,15 +21,44 @@ interface SagePublicAPI extends PublicExtensionApi<Sage> {
   /**
    * ## Configure Acorn concerns
    *
+   * @see {@link Acorn}
    * @see {@link https://bud.js.org/extensions/sage#acorn-compatibility}
    */
   acorn: PublicExtensionApi<Acorn>
+
   /**
    * ## Configure handling of Blade template modules
    *
+   * @see {@link BladeLoader}
    * @see {@link https://bud.js.org/extensions/sage/blade-assets}
    */
   blade: PublicExtensionApi<BladeLoader>
+
+  /**
+   * ## Enable or disable Blade template processing
+   *
+   * @remarks
+   * This method is a convenience wrapper for the {@link BladeLoader.enable} method.
+   *
+   * @example
+   * ```js
+   * bud.sage.processBladeTemplates()
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.sage.processBladeTemplates(false)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.when(bud.isProduction, bud.sage.processBladeTemplates)
+   * ```
+   *
+   * @see {@link https://bud.js.org/extensions/sage/blade-assets}
+   */
+  processBladeTemplates: Sage[`processBladeTemplates`]
+
   /**
    * This function should be removed from your configuration file.
    * It doesn't do anything and will be removed in a future release.

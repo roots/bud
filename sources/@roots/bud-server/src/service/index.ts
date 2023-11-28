@@ -9,7 +9,7 @@ import type {
 import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ServerError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 
 /**
  * {@link BudServer}
@@ -130,9 +130,7 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public override catch(error: BudError | string): never {
-    throw ServerError.normalize(error, {
-      thrownBy: import.meta.url,
-    })
+    throw error
   }
 
   /**
@@ -260,6 +258,7 @@ export class Server extends Service implements BudServer {
         import.meta.url,
       )
       .then(({Server}) => new Server(this.app))
+      .catch(this.catch)
 
     return this.connection
   }

@@ -44,13 +44,13 @@ This is not recommended if you want to use other extensions which manipulate swc
 
 You can configure `jsc` with the `bud.swc.setJsc` method:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setJsc({
   baseUrl: `/base/url/`,
 });
 ```
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setJsc((jsc = {}) => ({
   ...jsc,
   baseUrl: `/base/url/`,
@@ -63,7 +63,7 @@ Many `jsc` options have associated helper methods which don't require using `bud
 
 Use the `bud.swc.setBaseUrl` method to configure `jsc.baseUrl`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setBaseUrl(`/base/url/`);
 ```
 
@@ -71,7 +71,7 @@ bud.swc.setBaseUrl(`/base/url/`);
 
 Use the `bud.swc.setExternalHelpers` method to configure `jsc.externalHelpers`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setExternalHelpers(true);
 ```
 
@@ -79,7 +79,7 @@ bud.swc.setExternalHelpers(true);
 
 Use the `bud.swc.setExperimental` method to configure `jsc.experimental`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setExperimental({ plugins: [] });
 ```
 
@@ -89,7 +89,7 @@ If you want to set `jsc.experimental.plugins` you may wish to use the [`bud.swc.
 
 Use the `bud.swc.setLoose` method to configure `jsc.loose`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setLoose(true);
 ```
 
@@ -97,7 +97,7 @@ bud.swc.setLoose(true);
 
 Use the `bud.swc.setMinify` method to configure `jsc.minify`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setMinify(true);
 ```
 
@@ -107,7 +107,7 @@ To configure the parser you can use [bud.swc.setParser].
 
 Example:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setParser({ decorators: false });
 ```
 
@@ -117,7 +117,7 @@ Note that `jsx.parser.syntax`, `jsc.parser.jsx` and `jsc.parser.tsx` will be ove
 
 Use the `bud.swc.preserveAllComments` method to oconfigure `jsc.preserveAllComments`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.preserveAllComments(false);
 ```
 
@@ -125,7 +125,7 @@ bud.swc.preserveAllComments(false);
 
 Use the `bud.swc.setTarget` method to configure `jsc.target`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setTarget(`es5`);
 ```
 
@@ -133,7 +133,7 @@ bud.swc.setTarget(`es5`);
 
 Use the `bud.swc.setTransform` method to configure `jsc.transform`
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setTransform({});
 ```
 
@@ -141,7 +141,7 @@ bud.swc.setTransform({});
 
 SWC supports both `ecmascript` and `TypeScript`. If you want to make changes to the `jsc` config which are only applied to a specific syntax, you can make overrides using `bud.swc.ecmascript` and `bud.swc.typescript`, respectively.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.ecmascript.setKeepClassNames(true);
 bud.swc.typescript.setKeepClassNames(false);
 ```
@@ -152,11 +152,11 @@ All of the above `jsc.*` options work the same way as detailed above.
 
 Use the `bud.swc.setPlugins` method to configure `experimental.plugins`:
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setPlugins([["some-swc-plugin", {}]]);
 ```
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setPlugins((plugins = []) => [...plugins, ["some-swc-plugin", {}]]);
 ```
 
@@ -164,7 +164,7 @@ bud.swc.setPlugins((plugins = []) => [...plugins, ["some-swc-plugin", {}]]);
 
 Use the `bud.swc.setEnv` method to configure swc `env` options:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setEnv({
   targets: `Chrome >= 48`,
 });
@@ -174,7 +174,7 @@ bud.swc.setEnv({
 
 Use the `bud.swc.setSourceMaps` method to configure the swc `sourceMaps` option:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.swc.setSourceMaps(`inline`);
 ```
 

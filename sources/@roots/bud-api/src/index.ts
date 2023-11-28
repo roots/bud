@@ -2,7 +2,7 @@
 // Licensed under the MIT license.
 
 /**
- * Extends bud.js with high-level facades to simplify common configuration tasks
+ * @roots/bud-api
  *
  * @see https://bud.js.org
  * @see https://github.com/roots/bud
@@ -179,16 +179,50 @@ declare module '@roots/bud-framework' {
     lazy(...params: Lazy.Parameters): Bud
 
     /**
-     * @roots/bud-minify
-     */
-    minify: import('@roots/bud-minify').default
-
-    /**
      * ## bud.minimize
      *
+     * Minimize compiled code.
+     *
+     * Enabled by default when {@link Bud.mode} is `production`
+     *
      * {@link https://bud.js.org/docs/bud.minimize 📕 Documentation}
+     *
+     * @example
+     * Enable:
+     * ```js
+     * bud.minimize()
+     * ```
+     *
+     * @example
+     * Disable:
+     * ```js
+     * bud.minimize(false)
+     * ```
+     *
+     * @example
+     * Enable only for js:
+     * ```js
+     * bud.minimize('js')
+     * ```
+     *
+     * @example
+     * Enable multiple minimizers:
+     * ```js
+     * bud.minimize(['js', 'css'])
+     * ```
+     *
+     * @example
+     * Enable with a bud callback:
+     * ```js
+     * bud.when(bud.isProduction, bud.minimize)
+     * ```
      */
-    minimize(...params: Minimize.Parameters): Bud
+    minimize: Minimize.minimize
+
+    /**
+     * ## bud.minimizers
+     */
+    minimizers: import('@roots/bud-minify').default
 
     /**
      * ## bud.override
@@ -300,16 +334,14 @@ declare module '@roots/bud-framework' {
     watch(...params: Watch.Parameters): Bud
 
     /**
-     * ## bud.config
+     * ## bud.webpackConfig
      *
      * Alias for {@link Config.config bud.config}
      *
      * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
      */
-    webpackConfig(...params: Config.Parameters): Bud
+        webpackConfig(...params: Config.Parameters): Bud
   }
-
-  type Api = Service
 
   interface Services {
     api: Service

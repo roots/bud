@@ -47,6 +47,15 @@ type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
   dropComments: (enable?: boolean) => BudMinimizeJSPublicApi
   dropConsole: (enable?: boolean) => BudMinimizeJSPublicApi
   dropDebugger: (enable?: boolean) => BudMinimizeJSPublicApi
+  /**
+   * Mangle output
+   * @deprecated Use {@link BudTerser.set} instead
+   *
+   * @example
+   * ```js
+   * bud.minimize.js.set(`terserOptions.mangle`, {})
+   * ```
+   */
   mangle: (
     mangle: OptionCallback<
       BudMinimizeJSPublicApi['terserOptions'],
@@ -212,14 +221,18 @@ class BudMinimizeJSPublicApi
   /**
    * @deprecated Use {@link BudTerser.dropComments} instead
    */
-  @deprecated(`bud.minify.js`, `Use bud.minify.js.dropComments instead`, [
-    [`Drop comments`, `bud.minify.js.dropComments()`],
-    [`Preserve comments`, `bud.minify.js.dropComments(false)`],
+  @deprecated(
+    `bud.minimize.js`,
+    `Use bud.minimize.js.dropComments instead`,
     [
-      `Alternative (using bud.minify.js.set)`,
-      `bud.minify.js.set('terserOptions.format.comments', true)`,
+      [`Drop comments`, `bud.minimize.js.dropComments()`],
+      [`Preserve comments`, `bud.minimize.js.dropComments(false)`],
+      [
+        `Alternative (using bud.minimize.js.set)`,
+        `bud.minimize.js.set('terserOptions.format.comments', true)`,
+      ],
     ],
-  ])
+  )
   public comments(comments: boolean = true): this {
     this.set(`terserOptions.format.comments`, comments)
     return this
@@ -228,14 +241,21 @@ class BudMinimizeJSPublicApi
   /**
    * @deprecated Use {@link BudTerser.dropDebugger} instead
    */
-  @deprecated(`bud.minify.js`, `Use bud.minify.js.dropDebugger instead`, [
-    [`Drop debugger statements`, `bud.minify.js.dropDebugger()`],
-    [`Preserve debugger statements`, `bud.minify.js.dropDebugger(false)`],
+  @deprecated(
+    `bud.minimize.js`,
+    `Use bud.minimize.js.dropDebugger instead`,
     [
-      `Alternative (using bud.minify.js.set)`,
-      `bud.minify.js.set('terserOptions.compress.drop_debugger', true)`,
+      [`Drop debugger statements`, `bud.minimize.js.dropDebugger()`],
+      [
+        `Preserve debugger statements`,
+        `bud.minimize.js.dropDebugger(false)`,
+      ],
+      [
+        `Alternative (using bud.minimize.js.set)`,
+        `bud.minimize.js.set('terserOptions.compress.drop_debugger', true)`,
+      ],
     ],
-  ])
+  )
   public debugger(enable: boolean = true): this {
     this.set(`terserOptions.compress.drop_debugger`, enable)
     return this
@@ -274,7 +294,7 @@ class BudMinimizeJSPublicApi
    *
    * @example
    * ```js
-   * bud.minify.js.set(`terserOptions.mangle`, {})
+   * bud.minimize.js.set(`terserOptions.mangle`, {})
    * ```
    */
   @bind
@@ -291,13 +311,13 @@ class BudMinimizeJSPublicApi
    *
    * @example
    * ```js
-   * bud.minify.js.set(`terserOptions.minify`, () => {})
+   * bud.minimize.js.set(`terserOptions.minify`, () => {})
    * ```
    */
-  @deprecated(`bud.minify.js`, `Use bud.minify.js.setMinify instead`, [
+  @deprecated(`bud.minimize.js`, `Use bud.minimize.js.setMinify instead`, [
     [
       `Set the minifier`,
-      `bud.minify.js.set('terserOptions.minify', () => minifier)`,
+      `bud.minimize.js.set('terserOptions.minify', () => minifier)`,
     ],
   ])
   public setMinifier(minify: any): this {

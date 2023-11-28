@@ -51,6 +51,15 @@ class Sage extends Extension {
   }
 
   /**
+   * {@link BladeLoaderExtension.enable}
+   */
+  @bind
+  public processBladeTemplates(value: boolean | Bud = true) {
+    this.blade.enable(value)
+    return this
+  }
+
+  /**
    * {@link Extension.register}
    */
   @bind

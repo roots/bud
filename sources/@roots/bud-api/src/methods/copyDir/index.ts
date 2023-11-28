@@ -37,7 +37,9 @@ export const copyDir: copyDir = async function copyDir(
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
     .setPatterns((patterns = []) => [...patterns, result])
 
-  this.api.logger.success(`bud.copyDir: asset pattern added`)
+  this.api.logger
+    .success(`bud.copyDir`, `asset pattern added`)
+    .info(result)
 
   return this
 }
@@ -51,6 +53,7 @@ export const fromStringFactory =
     context,
     from: app.relPath(from),
     globOptions: {dot: false},
+    noErrorOnMissing: true,
     to: app.relPath(from, `@file`),
     ...overrides,
   })
@@ -68,6 +71,7 @@ export const fromTupleFactory =
     context,
     from: app.relPath(from),
     globOptions: {dot: false},
+    noErrorOnMissing: true,
     to: app.relPath(to, `@file`),
     ...overrides,
   })

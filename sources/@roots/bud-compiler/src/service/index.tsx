@@ -163,8 +163,10 @@ class Compiler extends Service implements BudCompiler {
 
     this.config = config?.filter(Boolean)
 
-    this.config.parallelism = Math.max(cpus().length - 1, 1)
-    this.logger.info(`parallel compilations: ${this.config.parallelism}`)
+    if (this.config.length > 1) {
+      this.config.parallelism = Math.max(cpus().length - 1, 1)
+      this.logger.info(`parallel compilations: ${this.config.parallelism}`)
+    }
 
     await bud.hooks.fire(`compiler.before`, bud).catch(error => {
       throw error
