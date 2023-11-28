@@ -3,6 +3,9 @@ import type {Bud} from '../index.js'
 export interface Callback {
   (value?: Bud): Promise<unknown>
 }
+export interface Callback {
+  (value?: Bud): unknown
+}
 
 export interface sequence<T = Bud> {
   (fns: Array<Callback>): Promise<Bud>

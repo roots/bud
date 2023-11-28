@@ -162,7 +162,39 @@ declare module '@roots/bud-framework' {
     /**
      * ## bud.hash
      *
+     * Hash output filenames
+     *
      * {@link https://bud.js.org/docs/bud.hash 📕 Documentation}
+     *
+     * @example
+     * Enable:
+     * ```js
+     * bud.hash()
+     * ```
+     *
+     * @example
+     * Disable:
+     * ```js
+     * bud.hash(false)
+     * ```
+     *
+     * @example
+     * Enable with custom format:
+     * ```js
+     * bud.hash('contenthash:8')
+     * ```
+     *
+     * @example
+     * Enable with a bud.js callback:
+     * ```js
+     * bud.when(bud.isProduction, bud.hash)
+     * ```
+     *
+     * @example
+     * Transform the existing value:
+     * ```js
+     * bud.hash((value) => !value)
+     * ```
      */
     hash(...params: Hash.Parameters): Bud
 

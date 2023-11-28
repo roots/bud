@@ -5,8 +5,8 @@ export type Parameters = [
   | ((
       runtime: Optimization.RuntimeChunk | undefined,
     ) => Optimization.RuntimeChunk)
+  | Bud
   | Optimization.RuntimeChunk
-  | undefined,
 ]
 
 export interface runtime {
@@ -17,8 +17,14 @@ export const runtime: runtime = async function (
   this: Bud,
   runtime = `single`,
 ) {
-  return this.hooks.on(
+  const value = runtime instanceof this.constructor ? `single` : runtime
+
+  this.hooks.on(
     `build.optimization.runtimeChunk`,
-    runtime === true ? `single` : runtime,
+    value,
   )
+
+  this.api.logger.success(`bud.runtime:`, `set to`, value)
+
+  return this
 }

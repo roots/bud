@@ -41,8 +41,6 @@ class Configuration {
       })
     })
 
-    this.bud.log(`config`, config)
-
     if (!config) {
       throw ConfigError.normalize(`No configuration found`, {
         file: source,
