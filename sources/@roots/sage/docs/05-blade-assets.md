@@ -67,3 +67,13 @@ body {
 Current supported extensions: `js`, `ts`, `css`, `scss`, `vue`.
 
 Note that in order to use `ts`, `scss` or `vue` you will need to have installed a bud extension that supports that language or framework.
+
+## Disable processing of blade templates
+
+If you are not using this feature and wish to disable it, you can do so:
+
+```ts
+export default async (bud: Bud) => {
+  bud.sage.processBladeTemplates(false)
+}
+```

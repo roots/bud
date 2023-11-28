@@ -7,14 +7,21 @@ import {LabelBox} from '../../components/LabelBox.js'
 export const Server = ({bud}: {bud: Bud}) => {
   if (!bud) return null
 
-  if (!bud.isDevelopment) return (
-    <LabelBox label="Development server">
-      <Box flexDirection="column">
-      <Text>Not available in <Text color="cyan">`production`</Text> mode.</Text>
-      <Text>Run this command with <Text color="cyan">--mode=development</Text> for server information.</Text>
-      </Box>
-    </LabelBox>
-  )
+  if (!bud.isDevelopment)
+    return (
+      <LabelBox label="Development server">
+        <Box flexDirection="column">
+          <Text>
+            Not available in <Text color="cyan">`production`</Text> mode.
+          </Text>
+          <Text>
+            Run this command with{` `}
+            <Text color="cyan">--mode=development</Text> for server
+            information.
+          </Text>
+        </Box>
+      </LabelBox>
+    )
 
   const showProxy =
     bud.server?.enabledMiddleware &&

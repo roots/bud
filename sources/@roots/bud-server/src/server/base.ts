@@ -12,7 +12,6 @@ import type {
 import type {Server as HttpsServer} from 'node:https'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ServerError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
 
 /**
@@ -39,15 +38,15 @@ export abstract class BaseServer implements Connection {
    */
   @bind
   public onError(error: Error) {
-    const cause = BudError.normalize(error)
-    throw new ServerError(cause.message, {cause})
+    this.logger.error(error)
   }
+
   /**
    * Server listen event
    */
   @bind
   public onListening(...param: any[]) {
-    this.logger.info(`listening`, ...param)
+    this.logger.info(...param)
   }
   /**
    * Server request event
@@ -96,7 +95,7 @@ export abstract class BaseServer implements Connection {
    * Logger
    */
   public get logger(): any {
-    return logger.scope(`server`, this.constructor.name.toLowerCase())
+    return logger.scope(`server`)
   }
 
   /**

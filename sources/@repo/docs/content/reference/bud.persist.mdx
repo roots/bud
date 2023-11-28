@@ -1,0 +1,45 @@
+---
+title: bud.persist
+description: Configure compiler caching
+tags:
+  - cache
+  - configuration
+---
+
+Configure compiler caching.
+
+By default bud.js uses a filesystem cache.
+
+## Usage
+
+Enable filesystem caching:
+
+```ts title=bud.config.ts
+bud.persist()
+```
+
+```ts title=bud.config.ts
+bud.persist(`filesystem`)
+```
+
+Enable memory caching:
+
+```ts title=bud.config.ts
+bud.persist(`memory`)
+```
+
+Disable caching:
+
+```ts title=bud.config.ts
+bud.persist(false)
+```
+
+Use as a bud.js callback. This is the same as enabling caching with the default configuration (`filesystem`).
+
+```ts title=bud.config.ts
+bud.when(bud.isDevelopment, bud.persist)
+```
+
+```ts title=bud.config.ts
+bud.tap(bud.persist)
+```

@@ -1,5 +1,6 @@
 import BudCommand from '@roots/bud/cli/commands'
 import {Option} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * {@link BudCommand}
@@ -24,6 +25,7 @@ export class BudEslintCommand extends BudCommand {
   /**
    * {@link BudCommand.execute}
    */
+  @bind
   public override async execute() {
     await this.makeBud()
     await this.bud.run()

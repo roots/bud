@@ -60,7 +60,7 @@ const get = (basedir?: string): paths => {
   if (paths) return paths
 
   if (!basedir)
-    throw new BudError(
+    throw BudError.normalize(
       `directory is required if paths not already initialized`,
       {
         details: `\

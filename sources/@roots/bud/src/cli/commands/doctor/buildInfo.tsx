@@ -24,7 +24,8 @@ export const BuildInfo = ({
   return (
     <LabelBox label={name}>
       <Text italic>
-        Completed a dry run of your project's build (executed in {time}{` `}
+        Completed a dry run of your project's build (executed in {time}
+        {` `}
         seconds).
       </Text>
     </LabelBox>

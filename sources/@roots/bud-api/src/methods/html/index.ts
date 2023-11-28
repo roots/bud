@@ -2,13 +2,22 @@ import type * as HTMLExtension from '@roots/bud-extensions/html-webpack-plugin'
 import type * as InterpolateHTMLExtension from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 import type {Bud} from '@roots/bud-framework'
 
+import {isAbsolute} from 'node:path'
+
+import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import isObject from '@roots/bud-support/lodash/isObject'
+import isString from '@roots/bud-support/lodash/isString'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import omit from '@roots/bud-support/lodash/omit'
 
 type Options = HTMLExtension.Options & {
   replace?: InterpolateHTMLExtension.Options
 }
 
-export type Parameters = [(boolean | Options)?]
+export type Parameters = [
+  (((options?: Options) => Options) | boolean | Options | string)?,
+]
 
 export interface html {
   (...options: Parameters): Promise<Bud>
@@ -17,31 +26,44 @@ export interface html {
 /**
  * Set HTML template
  */
-export const html: html = async function (this: Bud, options) {
-  const {getHtmlPluginOptions} = await import(`./helpers.js`)
+export const html: html = async function (this: Bud, options = true) {
+  const isEnabled = options !== false
 
-  const enabled = options !== false
-
-  const htmlExtension = this.extensions.get(
+  const html = this.extensions.get(
     `@roots/bud-extensions/html-webpack-plugin`,
   )
-  htmlExtension.enable(enabled)
-
-  const htmlOptions = getHtmlPluginOptions(this, options)
-  if (isObject(htmlOptions)) {
-    Object.entries(htmlOptions).forEach(v => htmlExtension.set(...v))
-  }
-
-  const interpolateVariablesExtension = this.extensions.get(
+  const interpolate = this.extensions.get(
     `@roots/bud-extensions/interpolate-html-webpack-plugin`,
   )
-  interpolateVariablesExtension.enable(enabled)
 
-  if (isObject(options) && isObject(options.replace)) {
-    Object.entries(options.replace).forEach(
-      (v: [string, RegExp | string]) =>
-        interpolateVariablesExtension.set(...v),
+  html.enable(isEnabled)
+  interpolate.enable(isEnabled)
+
+  if (isBoolean(options)) return this
+
+  if (isFunction(options)) {
+    html.setOptions(options(html.options ?? {}))
+    return this
+  }
+
+  if (isString(options)) {
+    html.set(`template`, this.path(options))
+    return this
+  }
+
+  if (isObject(options)) {
+    if (!isUndefined(options.template) && !isAbsolute(options.template))
+      options.template = this.path(options.template)
+
+    Object.entries(omit(options, `replace`)).forEach(([k, v]) =>
+      html.set(k, v),
     )
+
+    if (isObject(options.replace)) {
+      Object.entries(options.replace).forEach(
+        (v) => interpolate.set(...v),
+      )
+    }
   }
 
   return this

@@ -8,7 +8,7 @@ bud.js allows for you to write your tailwind config in CommonJS, ESM, TypeScript
 
 You can configure tailwind directly in your bud configuration file using `bud.tailwind.setConfig`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.tailwind.setConfig({
   content: [bud.path(`@src/**/*.{ts,php}`)],
   theme: {},
@@ -22,7 +22,7 @@ bud.tailwind.setConfig({
 
 You can set the tailwindcss `content` option with `bud.tailwind.setContent`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.tailwind.setContent([bud.path(`@src/**/*.{ts,php}`)])
 ```
 
@@ -30,7 +30,7 @@ bud.tailwind.setContent([bud.path(`@src/**/*.{ts,php}`)])
 
 You can set the tailwindcss `theme` option with `bud.tailwind.setTheme`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.tailwind.setTheme({
   colors: {primary: `#000000`},
 })
@@ -40,7 +40,7 @@ bud.tailwind.setTheme({
 
 You can extend the tailwindcss `theme` option with `bud.tailwind.extendTheme`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.tailwind.extendTheme({
   colors: {primary: `#000000`},
 })
@@ -52,7 +52,7 @@ This is usually preferred over `bud.tailwind.setTheme` as it will merge your the
 
 You can set the tailwindcss `plugins` option with `bud.tailwind.setPlugins`.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 import forms from '@tailwindcss/forms'
 
 export default async bud => {
@@ -64,7 +64,7 @@ export default async bud => {
 
 You can use resolved tailwind values in your bud config files by referencing `bud.tailwind.theme`:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 export default async bud => {
   console.log(`colors`, bud.tailwind.theme.colors)
 }
@@ -72,7 +72,7 @@ export default async bud => {
 
 You can also use `bud.tailwind.getTheme`, which allows you to pass a key to get a specific value:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 export default async bud => {
   console.log(`colors`, bud.tailwind.getTheme(`colors`))
 }

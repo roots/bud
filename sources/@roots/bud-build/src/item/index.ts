@@ -7,6 +7,7 @@ import Registrable from '@roots/bud-build/helpers/registrable'
 import Loader from '@roots/bud-build/loader'
 import {bind} from '@roots/bud-support/decorators/bind'
 import isString from '@roots/bud-support/lodash/isString'
+import logger from '@roots/bud-support/logger'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions
 
@@ -139,7 +140,7 @@ class Item extends Registrable implements Build.Item {
     }
 
     if (!output.loader) {
-      this.app.error(`error in ${this.ident}`, `no loader registered`)
+      logger.error(`error in ${this.ident}`, `no loader registered`)
     }
 
     return Object.entries(output).reduce(

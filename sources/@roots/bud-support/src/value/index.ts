@@ -56,6 +56,7 @@ class Value<T> {
   public static typeOf<T>(value: T | Value<T>): string {
     return Value.isValue(value) ? typeof value.identity : typeof value
   }
+
   /**
    * For type checking
    *

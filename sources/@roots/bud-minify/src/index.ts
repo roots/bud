@@ -21,14 +21,34 @@ import BudMinimize from '@roots/bud-minify/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
+    /**
+     * ## bud.minify
+     *
+     * @deprecated Use {@link bud.minimizers} instead.
+     */
     minify: BudMinimize
 
     /**
-     * @deprecated Use {@link bud.minify} instead.
+     * ## bud.minimizeCss
+     *
+     * @deprecated Use {@link bud.minimizers.css} instead.
      */
     minimizeCss: BudMinimizeCSSPublicInterface
+
     /**
-     * @deprecated Use {@link bud.minify} instead.
+     * ## bud.minimizers
+     *
+     * Configure minimizer options for CSS and JS modules
+     *
+     * @see {@link Bud.minimizers.js}
+     * @see {@link Bud.minimizers.css}
+     */
+    minimizers: BudMinimize
+
+    /**
+     * ## bud.terser
+     *
+     * @deprecated Use {@link bud.minimizers.js} instead.
      */
     terser: BudMinimizeJSPublicInterface
   }

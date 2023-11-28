@@ -14,10 +14,7 @@ export const run: run = async function (this: Bud) {
       .catch(this.catch)
 
     compilation?.run((error?: Error | null | undefined) => {
-      if (!hasCompiler(this)) return
-      if (error) this.compiler.onError(error)
-
-      compilation.close((error?: Error | null | undefined) => {
+      compilation?.close((error?: Error | null | undefined) => {
         if (!hasCompiler(this)) return
         if (error) this.compiler.onError(error)
       })

@@ -19,10 +19,11 @@ Pairs well with [bud.when](/reference/bud.when):
 
 ```js {2} title=bud.config.js
 export default async bud =>
-  bud.when(bud.isDevelopment, bud => bud.devtool())
+  bud.when(bud.isDevelopment, bud.devtool)
 ```
 
 ## See also
 
 - [bud.mode](/reference/bud.mode/)
 - [bud.isProduction](/reference/bud.mode/bud.isProduction)
+- [bud.when](/reference/bud.when)

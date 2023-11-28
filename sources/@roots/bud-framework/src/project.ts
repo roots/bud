@@ -21,50 +21,48 @@ export default class Project extends Service {
       return bud
     }
 
-    await bud.promise(async bud => {
-      await bud.fs
-        .write(bud.path(`@storage`, bud.label, `debug`, `profile.yml`), {
-          ...omit(bud.context, [`env`, `stdout`, `stderr`, `stdin`]),
-          bootstrap: {
-            args: args.raw,
-            resolutions: bud.module.resolutions ?? {},
-          },
-          children: bud.children ? Object.keys(bud.children) : [],
-          env: bud.env.getKeys(),
-          loaded: Object.entries(bud.extensions?.repository).map(
-            ([key, extension]) => ({
-              key,
-              label: extension.label,
-              meta: extension.meta,
-              options: extension.options,
-            }),
-          ),
+    await bud.fs
+      .write(bud.path(`@storage`, bud.label, `debug`, `profile.yml`), {
+        ...omit(bud.context, [`env`, `stdout`, `stderr`, `stdin`]),
+        bootstrap: {
+          args: args.raw,
+          resolutions: bud.module.resolutions ?? {},
+        },
+        children: bud.children ? Object.keys(bud.children) : [],
+        env: bud.env.getKeys(),
+        loaded: Object.entries(bud.extensions?.repository).map(
+          ([key, extension]) => ({
+            key,
+            label: extension.label,
+            meta: extension.meta,
+            options: extension.options,
+          }),
+        ),
+      })
+      .catch(origin => {
+        throw BudError.normalize(`Could not write profile.yml`, {
+          details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
+          origin,
         })
-        .catch(error => {
-          throw new BudError(`Could not write profile.yml`, {
-            details: `An error occurred while writing \`profile.yml\` to the filesystem.`,
-            origin: BudError.normalize(error),
-          })
-        })
-        .finally(() => {
-          this.logger.log(`profile.yml written to disk`)
-        })
+      })
+      .finally(() => {
+        this.logger.log(`profile.yml written to disk`)
+      })
 
-      await bud.fs
-        .write(
-          bud.path(`@storage`, bud.label, `debug`, `build.config.yml`),
-          bud.build.config,
-        )
-        .catch(error => {
-          throw new BudError(`Could not write webpack.output.yml`, {
-            details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
-            origin: BudError.normalize(error),
-          })
+    await bud.fs
+      .write(
+        bud.path(`@storage`, bud.label, `debug`, `build.config.yml`),
+        bud.build.config,
+      )
+      .catch(origin => {
+        throw BudError.normalize(`Could not write webpack.output.yml`, {
+          details: `An error occurred while writing \`webpack.output.yml\` to the filesystem.`,
+          origin,
         })
-        .finally(() => {
-          this.logger.log(`webpack.output.yml written to disk`)
-        })
-    })
+      })
+      .finally(() => {
+        this.logger.log(`webpack.output.yml written to disk`)
+      })
 
     return bud
   }

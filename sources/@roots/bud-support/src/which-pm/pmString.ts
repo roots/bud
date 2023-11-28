@@ -1,8 +1,6 @@
-import type { Responses } from "./index.js"
+import type {Responses} from './index.js'
 
-export const parse = (
-  pmString?: string,
-): Responses => {
+export const parse = (pmString?: string): Responses => {
   if (!pmString) return false
 
   if (pmString.match(/yarn(\/|@)(3|4).*/)) return `yarn`

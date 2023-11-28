@@ -4,7 +4,7 @@ title: Options
 
 **bud.serve** also supports an options object for more specific configurations:
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 bud.serve({
   host: `dev.example.test`,
 })
@@ -12,7 +12,7 @@ bud.serve({
 
 You can also pass `options` as a second parameter to `bud.serve`. This can be convenient when you want to specify _some_ options but want to keep the simple configuration syntax for the rest:
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 bud.serve(`https://dev.example.test`, {
   cert: bud.path('example.test.crt'),
   key: bud.path('example.test.key'),
@@ -35,7 +35,7 @@ bud.serve(`https://dev.example.test`, {
 
 You can use `host` and `port` to set the server origin:
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 bud.serve({
   host: 'dev.example.test',
   port: 3000,
@@ -44,7 +44,7 @@ bud.serve({
 
 Alternatively, you can set the origin with a using the `url` property:
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 bud.serve({
   url: new URL('http://dev.example.test:3000'),
 })
@@ -54,7 +54,7 @@ bud.serve({
 
 Use the `ssl` option to indicate that the server should be `https` enabled. This requires that `cert` and `key` options to be set as well.
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 bud.serve({
   ssl: true,
   host: 'dev.example.test',
@@ -71,7 +71,7 @@ You don't need to include `ssl` if you are using the `url` property. It will be 
 
 If you want to use [the node API](https://nodejs.org/api/https.html) more directly you can use the `options` property:
 
-```ts title='bud.config.js'
+```ts title=bud.config.ts
 const cert = await bud.fs.read('example.test.crt')
 const key = await bud.fs.read('example.test.key')
 

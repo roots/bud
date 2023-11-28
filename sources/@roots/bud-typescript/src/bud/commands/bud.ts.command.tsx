@@ -1,5 +1,6 @@
 import BudCommand from '@roots/bud/cli/commands'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import {bind} from '@roots/bud-support/decorators/bind'
 
 /**
  * Bud tsc command
@@ -27,6 +28,7 @@ export class BudTSCCommand extends BudCommand {
   /**
    * {@link BudCommand.execute}
    */
+  @bind
   public override async execute() {
     await this.makeBud()
     await this.bud.run()

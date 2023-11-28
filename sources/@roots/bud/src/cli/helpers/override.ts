@@ -3,7 +3,11 @@ import type {Bud} from '@roots/bud'
 import {isset} from '@roots/bud/cli/helpers/isset'
 import noop from '@roots/bud-support/lodash/noop'
 
-export type Override<T extends unknown> = [T, string, (bud: Bud) => (value: T) => Promise<unknown>]
+export type Override<T extends unknown> = [
+  T,
+  string,
+  (bud: Bud) => (value: T) => Promise<unknown>,
+]
 
 export default async function override(
   bud: Bud,
@@ -26,7 +30,11 @@ export default async function override(
  * - when children: all children but not the parent
  * - when no children: the parent;
  */
-export const withChildren = async (bud: Bud, value: any, makeFn: (bud: Bud) => (value: any) => Promise<any>) => {
+export const withChildren = async (
+  bud: Bud,
+  value: any,
+  makeFn: (bud: Bud) => (value: any) => Promise<any>,
+) => {
   await makeFn(bud)(value).catch(noop)
 
   bud.hasChildren &&

@@ -9,7 +9,6 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import {InputError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
@@ -37,9 +36,7 @@ class BudPostCss extends BudPostCssOptionsApi {
   public getPlugin(name: string): PluginReference {
     name = this.normalizePluginName(name)
     if (!(name in this.plugins)) {
-      throw new InputError(`Plugin ${name} does not exist`, {
-        thrownBy: `bud.postcss.getPlugin`,
-      })
+      throw new Error(`Plugin ${name} does not exist`)
     }
 
     return this.plugins[name]
@@ -225,7 +222,7 @@ class BudPostCss extends BudPostCssOptionsApi {
     const plugin = this.getPlugin(this.normalizePluginName(name))
 
     if (!plugin) {
-      throw new InputError(`${name} does not exist`)
+      throw new Error(`${name} does not exist`)
     }
 
     this.setPlugin(name, [

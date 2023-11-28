@@ -60,7 +60,7 @@ export function when(
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
-    throw new InputError(
+    throw InputError.normalize(
       `bud.when: all supplied conditionals must be functions`,
       {
         docs: new URL(`https://bud.js.org/docs/bud.when`),

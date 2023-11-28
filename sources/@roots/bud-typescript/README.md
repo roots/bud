@@ -36,7 +36,7 @@ General ts configuration is handled using a standard **tsconfig.json** in your p
 
 There is a base tsconfig available for you to extend:
 
-```json title="tsconfig.json"
+```json title=tsconfig.json
 {
   "extends": "@roots/bud-typescript/tsconfig/tsconfig.json"
 }
@@ -49,14 +49,14 @@ If you are authoring your config file in TypeScript you must use the `ts-bud` co
 By default TypeScript files will only be compiled to JS during builds.
 If you also want typechecking, you can enable it in your bud configuration:
 
-```js title="bud.config.mjs"
+```ts title=bud.config.ts
 bud.typescript.typecheck.enable();
 ```
 
 You may wish to configure typechecking only in production so that your development
 experience stays snappy:
 
-```js title="bud.config.mjs"
+```ts title=bud.config.ts
 bud.isProduction && bud.typescript.typecheck.enable();
 ```
 
@@ -66,7 +66,7 @@ By default, `@roots/bud-typescript` will pass code to `@roots/bud-babel` for fur
 
 To disable babel and only use tsc:
 
-```ts
+```ts title=bud.config.ts
 bud.typescript.useBabel(false);
 ```
 

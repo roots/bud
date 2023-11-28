@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {addConfig} from '@roots/bud-framework/methods/addConfig'
 import {after} from '@roots/bud-framework/methods/after'
 import {bindFacade} from '@roots/bud-framework/methods/bindFacade'
 import {close} from '@roots/bud-framework/methods/close'
@@ -20,7 +21,8 @@ import {
 import {setPath} from '@roots/bud-framework/methods/setPath'
 import {setPublicPath} from '@roots/bud-framework/methods/setPublicPath'
 import {sh} from '@roots/bud-framework/methods/sh'
-import {tap, tapAsync} from '@roots/bud-framework/methods/tap'
+import {tap} from '@roots/bud-framework/methods/tap'
+import {tapAsync} from '@roots/bud-framework/methods/tapAsync'
 import {when} from '@roots/bud-framework/methods/when'
 
 type methods = Partial<{
@@ -28,6 +30,7 @@ type methods = Partial<{
 }>
 
 const methods = {
+  addConfig,
   after,
   bindFacade,
   close,

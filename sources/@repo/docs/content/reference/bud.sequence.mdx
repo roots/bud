@@ -1,0 +1,41 @@
+---
+title: bud.sequence
+description: Pipe a value through an array of functions
+tags:
+  - helpers
+---
+
+Pipe a value through an array of functions.
+
+Unlike [bud.pipe](/reference/bud.pipe), the output of each function is discarded. This is useful when you want to execute a sequence of functions in order,
+but don't need or want the output of each function to be passed to the next.
+
+## Usage
+
+Pass an array of functions to be executed in sequence. Execution order is guaranteed even if the functions are async.
+
+The output of each function is discarded. Each function will receive the bud.js instance as input.
+
+```ts title=bud.config.ts
+await bud.sequence([
+  async bud => console.log(`function 1`),
+  async bud => console.log(`function 2`),
+])
+```
+
+You can pass a second parameter which will be used as the input value (instead of the bud.js instance).
+
+```ts title=bud.config.ts
+await bud.sequence(
+  [
+    async v => console.log(`function 1: ${v}`),
+    async v => console.log(`function 2: ${v}`),
+    async v => console.log(`function 3: ${v}`),
+  ],
+  `this is the initial value`,
+)
+```
+
+## Related
+
+- [bud.pipe](/reference/bud.pipe)

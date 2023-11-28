@@ -118,7 +118,7 @@ export default class BudBuildCommand extends BudCommand {
   public override async execute() {
     await this.makeBud()
 
-    if (isBoolean(this[`entrypoints.html`])) {
+    if (isBoolean(this[`entrypoints.html`]) && `entrypoints` in this.bud) {
       this.bud.entrypoints.set(`emitHtml`, this[`entrypoints.html`])
     }
 

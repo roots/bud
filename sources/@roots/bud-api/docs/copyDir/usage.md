@@ -8,7 +8,7 @@ All paths are relative to `@src`. This can be changed with [the `context` parame
 
 Copy `@src/images` to `@dist/images`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyDir(`images`)
 ```
 
@@ -16,7 +16,7 @@ bud.copyDir(`images`)
 
 Copy `@src/images` to `@dist/example`.
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyDir([`images`, `example`])
 ```
 
@@ -28,7 +28,7 @@ You can pass a second parameter to change the context.
 
 Copy `vendor/images` to `@dist/images`:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyDir(`images`, `vendor`)
 ```
 
@@ -38,7 +38,7 @@ Any of the underlying options can be dialed in with an optional third parameter.
 
 Copy from `@src/fonts` to `@dist/vendor/fonts` and include dotfiles:
 
-```typescript title=bud.config.js
+```ts title=bud.config.ts
 bud.copyDir(`fonts`, `vendor/fonts`, {
   globOptions: {dot: true},
 })

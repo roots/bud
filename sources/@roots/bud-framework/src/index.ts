@@ -8,7 +8,8 @@
  * @see https://github.com/roots/bud
  */
 
-export * from './bud.js'
+export * from '@roots/bud-framework/bud'
+
 export {
   type Contract as BudService,
   default as Service,

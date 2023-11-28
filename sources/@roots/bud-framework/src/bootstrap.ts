@@ -3,6 +3,7 @@ import type {Bud, BudService, Registry} from '@roots/bud-framework'
 import {BudError} from '@roots/bud-support/errors'
 import camelCase from '@roots/bud-support/lodash/camelCase'
 import isString from '@roots/bud-support/lodash/isString'
+import logger from '@roots/bud-support/logger'
 
 import {FS} from './fs.js'
 import {Module} from './module.js'
@@ -17,6 +18,7 @@ export const lifecycleHookHandles: Partial<
   `bootstrap`,
   `register`,
   `boot`,
+  `config.before`,
   `config.after`,
   `compiler.before`,
   `build.before`,
@@ -33,6 +35,7 @@ export const lifecycleMethods: Array<`${keyof BudService}`> = [
   `bootstrap`,
   `register`,
   `boot`,
+  `configBefore`,
   `configAfter`,
   `compilerBefore`,
   `buildBefore`,
@@ -67,6 +70,7 @@ export const lifecycle = {
   'compiler.before': `compilerBefore`,
   'compiler.done': `compilerDone`,
   'config.after': `configAfter`,
+  'config.before': `configBefore`,
   register: `register`,
   'server.after': `serverAfter`,
   'server.before': `serverBefore`,
@@ -186,7 +190,7 @@ export const bootstrap = async function (bud: Bud) {
       'pattern.sassModule': /\.module\.(scss|sass)$/,
       'pattern.svg': /\.svg$/,
       'pattern.toml': /\.toml$/,
-      'pattern.ts': /\.(tsx?)$/,
+      'pattern.ts': /\.(m?tsx?)$/,
       'pattern.vue': /\.vue$/,
       'pattern.webp': /\.webp$/,
       'pattern.xml': /\.xml$/,
@@ -204,32 +208,15 @@ export const bootstrap = async function (bud: Bud) {
       .filter(Boolean)
       .filter(instance => callbackName in instance)
       .map(instance => {
-        bud.hooks.action(
-          eventHandle as any,
-          instance[callbackName].bind(instance),
+        logger.log(
+          `register service callback:`,
+          `${instance.constructor.name}.${callbackName}`,
         )
+        bud.hooks.action(eventHandle as any, instance[callbackName])
       }),
   )
 
   bud.after(bud.module.after)
-
-  const initializeEvents: Array<`${keyof Registry.EventsStore}`> = [
-    `bootstrap`,
-    `register`,
-    `boot`,
-  ]
-
-  await initializeEvents.reduce(
-    async (promised: Promise<any>, event: any) => {
-      try {
-        await promised
-        await bud.executeServiceCallbacks(event).catch(bud.catch)
-      } catch (error) {
-        throw error
-      }
-    },
-    Promise.resolve({}),
-  )
 
   return bud
 }

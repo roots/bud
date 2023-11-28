@@ -22,8 +22,7 @@ export const path: path = function (...values) {
 
   values = values.flatMap(value => value.split(sep))
 
-  const hash =
-    this.hooks.filter(`value.hashFormat`, `[contenthash:6]`)
+  const hash = this.hooks.filter(`value.hashFormat`, `[contenthash:6]`)
   const name = this.hooks.filter(`value.fileFormat`, `[name]`)
 
   const transformMagicString = makeParseMagicString(

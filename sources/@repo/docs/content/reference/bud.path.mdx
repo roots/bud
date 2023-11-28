@@ -1,6 +1,9 @@
 ---
 title: bud.path
 description: Returns an absolute path to a directory or file.
+tags:
+  - helpers
+  - filesystem
 ---
 
 You can use **bud.path** to reference a file or directory's absolute path.
@@ -31,7 +34,7 @@ The following is a table containing `string` values which fulfill a special role
 :::note
 
 The `@storage` path is used to store cache and artifact files. It should not be set with `bud.setPath`. There is a lot of logic
-that depends on this path being set, and much of it executes before any user configuration files are loaded.
+that depends on this path being set and much of it executes before any user configuration files are loaded.
 
 If you want to customize the storage path, you should use the **--storage** flag instead.
 

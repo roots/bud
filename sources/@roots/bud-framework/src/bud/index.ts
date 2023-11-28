@@ -21,17 +21,24 @@ import isString from '@roots/bud-support/lodash/isString'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import logger from '@roots/bud-support/logger'
 
-import type {FS} from './fs.js'
-import type {Module} from './module.js'
-import type {Notifier} from './notifier.js'
-import type {EventsStore} from './registry/index.js'
+import type {FS} from '../fs.js'
+import type {Module} from '../module.js'
+import type {Notifier} from '../notifier.js'
+import type {EventsStore} from '../registry/index.js'
 
-import {bootstrap} from './bootstrap.js'
+import {bootstrap} from '../bootstrap.js'
 
 /**
  * Bud core class
  */
 export class Bud {
+  /**
+   * Promised tasks
+   */
+  public promised: Array<(bud: Bud) => Promise<any>> = []
+
+  public declare addConfig: typeof methods.addConfig
+
   public declare after: typeof methods.after
 
   public declare api: Service & Api
@@ -96,8 +103,6 @@ export class Bud {
   public declare processConfigs: typeof methods.processConfigs
 
   public declare project: Project
-
-  public promised: Promise<any> = Promise.resolve()
 
   public declare publicPath: typeof methods.publicPath
 
@@ -191,11 +196,24 @@ export class Bud {
   }
 
   /**
+   * Constructor
+   */
+  public constructor(context?: Context) {
+    if (context) this.context = {...context}
+
+    this.set(`implementation`, this.constructor as any)
+
+    Object.entries(methods).map(([k, v]) =>
+      this.set(k as any, v.bind(this)),
+    )
+  }
+
+  /**
    * Boot application services
    */
   @bind
   public async boot() {
-    await this.executeServiceCallbacks(`boot`)
+    await this.executeServiceCallbacks(`boot`).catch(this.catch)
   }
 
   /**
@@ -203,29 +221,18 @@ export class Bud {
    */
   @bind
   public async bootstrap() {
-    await this.executeServiceCallbacks(`bootstrap`)
-  }
-
-  @bind
-  public catch(error: Error): never {
-    if (error instanceof BudError) {
-      error.instance = this.label
-      throw error
-    }
-
-    const normalizedError = BudError.normalize(error)
-    normalizedError.instance = this.label
-    throw normalizedError
+    await this.executeServiceCallbacks(`bootstrap`).catch(this.catch)
   }
 
   /**
-   * Log error
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * Error handler
    */
   @bind
-  public error(...messages: Array<any>): Bud {
-    logger.scope(this.label).error(...messages)
-    return this
+  public catch(error: Error): never {
+    const normalizedError = BudError.normalize(error)
+    if (!normalizedError.instance && this?.isChild)
+      normalizedError.instance = this.label
+    throw normalizedError
   }
 
   /**
@@ -235,37 +242,26 @@ export class Bud {
   @bind
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
-  ): Promise<Bud> {
-    return await this.promise(async () =>
-      this.hooks.fire(stage, this),
-    ).catch(this.catch)
-  }
-
-  /**
-   * Log info
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
-   */
-  @bind
-  public info(...messages: any[]) {
-    logger.scope(this.label).info(...messages)
-    return this
+  ): Promise<void> {
+    await this.resolvePromises().catch(this.catch)
+    await this.hooks.fire(stage, this)
   }
 
   /**
    * Bud initialize
    */
   @bind
-  public async initialize(context: Context): Promise<Bud> {
-    this.set(`context`, {...context})
-      .set(`promised`, Promise.resolve())
-      .set(`implementation`, this.constructor as any)
+  public async initialize(context?: Context): Promise<Bud> {
+    if (context) this.context = {...(this.context ?? {}), ...context}
 
-    Object.entries(methods).reduce(
-      (_, [k, v]) => this.set(k as any, v.bind(this)),
-      {},
-    )
+    await bootstrap(this).catch(this.catch)
 
-    return await bootstrap(this).catch(this.catch)
+    await this.bootstrap().catch(this.catch)
+    await this.register().catch(this.catch)
+    await this.boot().catch(this.catch)
+    await this.executeServiceCallbacks(`config.before`).catch(this.catch)
+
+    return this
   }
 
   /**
@@ -278,7 +274,9 @@ export class Bud {
   ) {
     if (!this.isRoot) {
       return this.catch(
-        new InputError(`bud.make: must be called from the root context`),
+        InputError.normalize(
+          `bud.make: must be called from the root context`,
+        ),
       )
     }
 
@@ -288,7 +286,7 @@ export class Bud {
 
     if (isUndefined(context.label)) {
       return this.catch(
-        new InputError(`bud.make: context.label must be a string`),
+        InputError.normalize(`bud.make: context.label must be a string`),
       )
     }
 
@@ -296,10 +294,13 @@ export class Bud {
       !isUndefined(this.context.filter) &&
       !this.context.filter.includes(context.label)
     ) {
-      logger.log(
-        `skipping child instance based on --filter flag:`,
-        context.label,
-      )
+      logger
+        .scope(`make`)
+        .log(
+          `skipping child instance based on --filter flag:`,
+          context.label,
+        )
+
       return this
     }
 
@@ -307,13 +308,13 @@ export class Bud {
 
     if (this.children[context.label]) {
       return this.catch(
-        new InputError(
+        InputError.normalize(
           `bud.make: child instance ${context.label} already exists`,
         ),
       )
     }
 
-    logger.log(`instantiating ${context.label}`)
+    logger.scope(`make`).log(`instantiating ${context.label}`)
 
     this.children[context.label] =
       await new this.implementation().initialize({
@@ -321,16 +322,14 @@ export class Bud {
       })
     if (setupFn) await setupFn(this.children[context.label])
 
-    await this.children[context.label].promise()
+    await this.children[context.label].resolvePromises().catch(this.catch)
 
-    this.get(context.label)?.hooks.on(
-      `build.dependencies`,
-      typeof request !== `string` && request.dependsOn
-        ? request.dependsOn
-        : Object.values(this.children)
-            .map(({label}) => label)
-            .filter(label => label !== context.label),
-    )
+    if (typeof request !== `string` && request.dependsOn) {
+      this.get(context.label)?.hooks.on(
+        `build.dependencies`,
+        request.dependsOn,
+      )
+    }
 
     return this
   }
@@ -339,12 +338,22 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public async promise(promise?: (bud: Bud) => Promise<unknown>) {
-    await this.promised
-      .then(async () => promise && (await promise(this)))
-      .catch(this.catch)
+  public promise(promise: (bud: Bud) => Promise<unknown>) {
+    this.promised.push(promise)
+  }
 
-    return this
+  @bind
+  public async resolvePromises() {
+    if (this.promised.length === 0) return
+
+    const promises = this.promised
+
+    this.promised = []
+
+    await promises.reduce(async (promised, promise) => {
+      await promised
+      await promise(this)
+    }, Promise.resolve())
   }
 
   /**
@@ -352,7 +361,7 @@ export class Bud {
    */
   @bind
   public async register() {
-    await this.executeServiceCallbacks(`register`)
+    await this.executeServiceCallbacks(`register`).catch(this.catch)
   }
 
   /**
@@ -372,12 +381,12 @@ export class Bud {
   @bind
   public set<K extends `${keyof Bud & string}`>(
     key: K,
-    unknownValue: Bud[K],
+    input: Bud[K],
     bind: boolean = true,
   ): Bud {
-    const bindable =
-      bind && isFunction(unknownValue) && `bind` in unknownValue
-    const value = bindable ? unknownValue.bind(this) : unknownValue
+    const toBind = bind && isFunction(input) && `bind` in input
+
+    const value = toBind ? input.bind(this) : input
 
     Object.defineProperty(this, key, {
       configurable: true,
@@ -385,6 +394,7 @@ export class Bud {
       value,
       writable: true,
     })
+
     return this
   }
 
@@ -393,16 +403,17 @@ export class Bud {
    * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
-  public log(...messages: any[]) {
+  public log(...messages: Array<any>) {
     logger.scope(this.label).log(...messages)
     return this
   }
+
   /**
    * Log success
    * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
-  public success(...messages: any[]) {
+  public success(...messages: Array<any>) {
     logger.scope(this.label).log(...messages)
     return this
   }
@@ -411,8 +422,28 @@ export class Bud {
    * @deprecated Import logger instance from `@roots/bud-support/logger`
    */
   @bind
-  public warn(...messages: any[]) {
+  public warn(...messages: Array<any>) {
     logger.scope(this.label).warn(...messages)
+    return this
+  }
+
+  /**
+   * Log info
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   */
+  @bind
+  public info(...messages: Array<any>) {
+    logger.scope(this.label).info(...messages)
+    return this
+  }
+
+  /**
+   * Log error
+   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   */
+  @bind
+  public error(...messages: Array<any>) {
+    logger.scope(this.label).error(...messages)
     return this
   }
 }

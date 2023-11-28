@@ -3,16 +3,19 @@ import type {Options} from '@roots/bud-support/clean-webpack-plugin'
 
 import {Extension} from '@roots/bud-framework/extension'
 import {
+  expose,
   label,
   options,
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
+import isUndefined from '@roots/bud-support/lodash/isUndefined'
 
 /**
  * Clean webpack plugin configuration
  */
 @label(`@roots/bud-extensions/clean-webpack-plugin`)
+@expose(`clean`)
 @plugin(Plugin)
 @options<Options>({
   /**
@@ -36,8 +39,7 @@ export default class BudClean extends Extension<Options, Plugin> {
    */
   public override when(bud: Bud) {
     if (this.enabled === false) return false
-    if (bud.context.clean === true) return true
-    if (bud.context.clean === false) return false
+    if (!isUndefined(bud.context.clean)) return bud.context.clean
     return bud.isProduction
   }
 }

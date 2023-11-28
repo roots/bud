@@ -1,6 +1,7 @@
+/**
+ * @param {import('@roots/bud').Bud} bud
+ */
 export default async bud => {
-  bud.entry('app', ['app.js', 'app.css'])
-
   bud.babel
     .setPresets({
       '@babel/preset-env': '@babel/preset-env',
@@ -11,4 +12,7 @@ export default async bud => {
         {helpers: false},
       ],
     })
+    .done()
+
+    .entry('app', ['app.js'])
 }

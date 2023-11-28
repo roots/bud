@@ -15,8 +15,8 @@ export interface Sync {
   'cache.buildDependencies': FileCacheOptions[`buildDependencies`]
   'cache.cacheDirectory': FileCacheOptions[`cacheDirectory`]
   'cache.managedPaths': FileCacheOptions[`managedPaths`]
-  'cache.name': FileCacheOptions[`name`]
-  'cache.type': FileCacheOptions[`type`]
+  'cache.name': string
+  'cache.type': `filesystem` | `memory`
   'cache.version': string
   context: Configuration[`context`]
   dependencies: Configuration[`dependencies`]

@@ -1,19 +1,21 @@
 ---
 title: bud.get
-description: Multi-compiler management utility. Allows you to reference a named compiler.
+description: Reference a named bud.js instance.
+tags:
+  - multi-instance
 ---
 
-A utility for multi-compiler builds. **bud.get** allows you to reference a named compiler.
+A utility for multi-instance builds. **bud.get** allows you to reference a named bud.js instance.
 
 ## Usage
 
-Get a compiler:
+Get an instance:
 
 ```js title=bud.config.js
 export default async bud => bud.get('compiler-name')
 ```
 
-Once you have a compiler instance you can continue chaining off it.
+Once you have an instance you can continue chaining off it.
 
 ```js title=bud.config.js
 export default async bud =>
@@ -22,26 +24,26 @@ export default async bud =>
   })
 ```
 
-The parent compiler is accessible using `global` or `parent`.
+The parent instance is accessible using `bud.root`.
 
 ```js title=bud.config.js
-export default async bud =>
+export default async bud => {
+  /**
+   * Parent instance
+   */
   bud
     /**
-     * Configuring child compiler
+     * Uses bud.get to move to child instance
      */
-    .get('child-compiler')
+    .get('child-instance')
     .entry({
       child: ['index.js'],
     })
-
     /**
-     * Configuring parent compiler
+     * Uses bud.root to move back to parent instance
      */
-    .get('global')
-    .entry({
-      'parent-main': ['parent.js'],
-    })
+    .root.setUrl(`http://localhost:3030`)
+}
 ```
 
 ## Related

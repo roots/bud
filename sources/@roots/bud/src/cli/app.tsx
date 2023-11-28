@@ -22,6 +22,7 @@ import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import logger from '@roots/bud-support/logger'
 import * as args from '@roots/bud-support/utilities/args'
 
 /**
@@ -55,6 +56,11 @@ const application = new Cli<BaseContext & Context>({
 })
 
 /**
+ * Command finder
+ */
+const finder = new Finder(context, application)
+
+/**
  * Register built-ins
  */
 ;[
@@ -86,67 +92,75 @@ const forceFlag = !isUndefined(context.force) ? context.force : false
  * @param force - force rebuilding of extension cache
  */
 const registerFoundCommands = async (force: boolean = forceFlag) => {
-  try {
-    const finder = new Finder(context, application)
-    if (!force) await finder.init()
-    else {
-      await finder.getModules()
+  if (!force) {
+    logger.scope(`cli`).log(`Loading commands from cache...`)
+    await finder.init()
+  } else {
+    logger.scope(`cli`).log(`Searching for commands...`)
+    await finder.getModules()
+    if (finder.paths.length > 0) {
+      logger.scope(`cli`).log(`Found ${finder.paths.length} commands.`)
+      logger.scope(`cli`).log(`Updating command cache...`)
       await finder.cacheWrite()
     }
+  }
 
-    const extensions = await finder.importCommands()
+  if (!finder.paths.length) {
+    logger.scope(`cli`).log(`No commands found.`)
+    return
+  }
 
-    return await Promise.all(
-      extensions.map(
-        async ([path, registerCommand]: [
-          string,
-          (application: Cli) => Promise<any>,
-        ]) => {
-          if (!isFunction(registerCommand))
-            throw `${path} does not export a module exporting a registration function.`
+  const extensions = await finder.importCommands()
 
-          await registerCommand(application).catch(error => {
-            throw new BudError(error, {thrownBy: path})
+  return await Promise.all(
+    extensions.map(
+      async ([path, registerCommand]: [
+        string,
+        (application: Cli) => Promise<any>,
+      ]) => {
+        logger.scope(`cli`).log(`Registering ${path}...`)
+
+        if (!isFunction(registerCommand)) {
+          logger.scope(`cli`).error(`Error registering ${path}`)
+
+          throw BudError.normalize(
+            `${path} does not export a module exporting a registration function.`,
+            {
+              details: `Error registering ${path}`,
+              thrownBy: import.meta.url,
+            },
+          )
+        }
+
+        await registerCommand(application).catch(error => {
+          logger.scope(`cli`).error(`Error registering ${path}`, error)
+          throw BudError.normalize(error, {
+            details: `Error registering ${path}`,
+            thrownBy: import.meta.url,
           })
-        },
-      ),
-    )
-  } catch (error) {
+        })
+      },
+    ),
+  ).catch(error => {
     throw error
-  }
+  })
 }
 
-try {
-  // first round will attempt to register extensions from cache
-  // if cache does not exist, it will be created
-  await registerFoundCommands()
-} catch (error) {
-  try {
-    // first round failed to load extensions for some reason
-    // maybe a cached extension no longer exists
-    // or maybe a cached extension has been updated and the old path is resolvable but no longer valid
-    // so we'll try searching again
-    await registerFoundCommands(true)
-  } catch (innerError) {
-    // at this point we know that the error is not related to a suspect cache
-    // so we'll present it to the user
-    // and bail on the application
-    const initializeExtensionsError =
-      innerError instanceof BudError
-        ? innerError
-        : BudError.normalize(innerError)
-
-    initializeExtensionsError.origin =
-      error instanceof BudError ? error : BudError.normalize(error)
-
-    onError(initializeExtensionsError)
-  }
-}
+// first round will attempt to register extensions from cache
+// if cache does not exist, it will be created
+await registerFoundCommands().catch(async error => {
+  // first round failed to load extensions for some reason
+  // maybe a cached extension no longer exists
+  // or maybe a cached extension has been updated and the old path is resolvable but no longer valid
+  // so we'll try searching again and force a rebuild of the cache
+  // if it still fails we'll throw and exit the process
+  await registerFoundCommands(true).catch(onError)
+})
 
 /**
  * Run application and exit when process is complete
  */
-application.runExit(args.raw, context).catch(onError)
+await application.runExit(args.raw, context)
 
 export {application, Builtins, Cli}
 export type {CommandClass}

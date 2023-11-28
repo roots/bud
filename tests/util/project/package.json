@@ -3,19 +3,19 @@
   "private": true,
   "$schema": "https://bud.js.org/bud.package.json",
   "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*"
   },
-  "volta": {
-    "node": "18.12.1"
-  },
-  "browserslist": [
-    "extends @roots/browserslist-config"
-  ],
   "dependencies": {
     "@tailwindcss/forms": "0.5.7"
+  },
+  "volta": {
+    "node": "18.12.1"
   }
 }

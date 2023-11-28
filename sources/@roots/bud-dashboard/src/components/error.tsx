@@ -20,9 +20,7 @@ const cleanErrorObject = (error: RawError): BudError => {
 export const Error = ({error: input}: {error: RawError}): ReactNode => {
   return (
     <Static items={[0]}>
-      {(_, key) => (
-        <Display error={input} />
-      )}
+      {(_, key) => <Display error={input} key={key} />}
     </Static>
   )
 }
@@ -31,10 +29,9 @@ export const Display = ({error: input}: {error: RawError}) => {
   const error = cleanErrorObject(input)
 
   return (
-    <Box flexDirection="column" paddingTop={1}>
+    <Box flexDirection="column" gap={1} paddingTop={1}>
       {error.name && (
         <Box flexDirection="row" gap={1}>
-          <Text color="red">{figures.cross}</Text>
           <Text backgroundColor="red" color="white">
             {error.name}
           </Text>
@@ -42,100 +39,26 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.message && (
-        <Box flexDirection="row" gap={1} marginTop={1}>
-          <Text>{error.message}</Text>
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="red">{figures.cross}</Text>
+            <Text>{error.message}</Text>
+          </Box>
         </Box>
       )}
 
       {error.details && !error.details.startsWith(`resolve`) && (
-        <Box marginTop={1}>
-          <Text>
-            <Text color="blue">
-              {figures.ellipsis}
-              {` `}Details{` `}
-            </Text>
-
-            <Text>{error.details}</Text>
-          </Text>
-        </Box>
-      )}
-
-      {error.thrownBy && (
-        <Box flexDirection="row" gap={1} marginTop={1}>
-          <Text color="blue">
-            {figures.ellipsis}
-            {` `}Thrown by{` `}
-          </Text>
-          <Text>{error.thrownBy}</Text>
-        </Box>
-      )}
-
-      {error.docs && (
-        <Box marginTop={1}>
-          <Text>
-            <Text color="blue">
-              {figures.arrowRight}
-              {` `}Documentation{` `}
-            </Text>
-            <Text>{error.docs.href}</Text>
-          </Text>
-        </Box>
-      )}
-
-      {error.issues && (
-        <Box marginTop={1}>
-          <Text>
-            <Text color="blue">
-              {figures.arrowRight}
-              {` `}
-              Issues
-            </Text>
-            {` `}
-            <Text>{error.issues.href}</Text>
-          </Text>
-        </Box>
-      )}
-
-      {error.file && (
-        <Box marginTop={1}>
-          <Text color="blue">
-            {figures.info}
-            {` `}See file{` `}
-          </Text>
-          <Text>{error.file.path}</Text>
-        </Box>
-      )}
-
-      {error.origin &&
-        !(error.origin instanceof BudError) &&
-        error.stack && (
-          <Box flexDirection="column" marginTop={1}>
-            <Text color="blue">
-              {figures.home}
-              {` `}Stack trace{` `}
-            </Text>
-
-            <Box
-              borderBottom={false}
-              borderColor="red"
-              borderLeft
-              borderRight={false}
-              borderStyle="single"
-              borderTop={false}
-              paddingLeft={1}
-            >
-              <Text>{error.stack}</Text>
-            </Box>
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Details</Text>
           </Box>
-        )}
+          <Text>{error.details}</Text>
+        </Box>
+      )}
 
-      {error.origin && error.origin instanceof BudError && error.stack && (
-        <Box flexDirection="column" marginTop={1}>
-          <Text color="blue">
-            {figures.home}
-            {` `}Originating error{` `}
-          </Text>
-
+      {error.origin && (
+        <Box flexDirection="column" gap={1}>
           <Box
             borderBottom={false}
             borderColor="red"
@@ -144,15 +67,78 @@ export const Display = ({error: input}: {error: RawError}) => {
             borderStyle="single"
             borderTop={false}
             flexDirection="column"
+            gap={1}
             paddingLeft={1}
           >
-            <Text>
-              {error.origin.message}
-              {`\n`}
-            </Text>
-            {error.origin.stack && (
-              <Text dimColor>{error.origin.stack}</Text>
-            )}
+            {error.origin.message && <Text>{error.origin.message}</Text>}
+          </Box>
+        </Box>
+      )}
+
+      {error.instance && (
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Instance</Text>
+            <Text>{error.instance}</Text>
+          </Box>
+        </Box>
+      )}
+
+      {error.thrownBy && (
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Thrown by</Text>
+            <Text>{error.thrownBy.toString()}</Text>
+          </Box>
+        </Box>
+      )}
+
+      {error.docs && (
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Documentation</Text>
+            <Text>{error.docs.href}</Text>
+          </Box>
+        </Box>
+      )}
+
+      {error.issue?.href && (
+        <Box gap={1}>
+          <Text>
+            <Text color="blue">{figures.ellipsis}</Text>
+            <Text color="blue">Issue</Text>
+            <Text>{error.issue.href}</Text>
+          </Text>
+        </Box>
+      )}
+
+      {error.file?.path && (
+        <Box gap={1}>
+          <Text color="blue">{figures.info}</Text>
+          <Text color="blue">See file</Text>
+          <Text>{error.file.path}</Text>
+        </Box>
+      )}
+
+      {error.stack && (
+        <Box flexDirection="column" gap={1}>
+          <Box flexDirection="row" gap={1}>
+            <Text color="blue">{figures.info}</Text>
+            <Text color="blue">Stack trace</Text>
+          </Box>
+          <Box
+            borderBottom={false}
+            borderColor="red"
+            borderLeft
+            borderRight={false}
+            borderStyle="single"
+            borderTop={false}
+            paddingLeft={1}
+          >
+            <Text dimColor>{error.stack}</Text>
           </Box>
         </Box>
       )}

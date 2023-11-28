@@ -1,9 +1,13 @@
 {
-  "entry": ["app", ["app.js"]],
-  "babel": {
-    "setPluginOptions": [
+  entry: ["app", ["app.js"]],
+
+  /**
+   * Comments are okay
+   */
+  babel: {
+    setPluginOptions: [
       "@babel/plugin-transform-runtime",
-      {"helpers": false, "regenerator": false}
+      {helpers: false, regenerator: false}
     ]
   }
 }

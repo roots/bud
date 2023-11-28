@@ -1,15 +1,18 @@
 ---
 title: bud.lazy
-description: Configure sourcemaps
+description: Enable or disable lazy compilation.
+tags:
+  - configuration
+  - facade
 ---
 
-Configure lazy compilation. By default, bud.js only compiles imports (not entrypoints) lazily, and only in development.
+Configure lazy compilation settings.
 
-For more information on the `lazyCompilation` option see [webpack's documentation](https://webpack.js.org/configuration/experiments/#experimentslazycompilation).
+In development bud.js compiles imports (not entrypoints) lazily.
 
 ## Usage
 
-Enable lazy compilation (default):
+Enable lazy compilation.
 
 ```ts title=bud.config.ts
 bud.lazy()
@@ -19,7 +22,7 @@ bud.lazy()
 bud.lazy(true)
 ```
 
-Disable lazy compilation:
+Disable lazy compilation.
 
 ```ts title=bud.config.ts
 bud.lazy(false)
@@ -27,7 +30,7 @@ bud.lazy(false)
 
 ## Custom configuration
 
-
+For more information see [webpack's documentation on `experiments.lazyCompilation`](https://webpack.js.org/configuration/experiments/#experimentslazycompilation).
 
 ```ts title=bud.config.ts
 bud.lazy({
@@ -38,6 +41,6 @@ bud.lazy({
   entries: false,
 
   // do not lazily compile moduleB
-  test: (module) => !/moduleB/.test(module.nameForCondition()),
+  test: module => !/moduleB/.test(module.nameForCondition()),
 })
 ```

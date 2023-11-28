@@ -112,8 +112,8 @@ export default class Cdn extends Extension<Options> implements Api {
         ...(!rule.include
           ? [bud.path()]
           : Array.isArray(rule.include)
-          ? rule.include
-          : []),
+            ? rule.include
+            : []),
         ...Array.from(this.allowedUris ?? []),
       ])
     })

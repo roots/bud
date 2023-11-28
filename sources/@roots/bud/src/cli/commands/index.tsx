@@ -34,7 +34,7 @@ import isNumber from '@roots/bud-support/lodash/isNumber'
 import noop from '@roots/bud-support/lodash/noop'
 
 import {Menu} from '../components/Menu.js'
-import override from '../helpers/override.js'
+import override, {type Override} from '../helpers/override.js'
 
 export type {BaseContext, Context}
 export {Option}
@@ -109,7 +109,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public storage = storage
 
-  public use = use
+  public use: Array<string> = use
 
   public verbose = verbose
 
@@ -221,9 +221,9 @@ export default class BudCommand extends Command<BaseContext & Context> {
       })
     }
 
-    this.renderStatic(<Dash.Error error={error} />)
+    this.render(<Dash.Error error={error} />)
 
-    if (!this.bud || this.bud?.isProduction || this.ignoreErrors === true)
+    if ((!this.bud || this.bud.isProduction) && this.ignoreErrors !== true)
       exit(1)
   }
 
@@ -245,13 +245,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
           [
             this.cache,
             `BUD_CACHE`,
-            bud => async value => bud.persist(value),
-          ],
+            b => async v => b.persist(v),
+          ] satisfies Override<`filesystem` | `memory` | boolean>,
           [
             this.use,
             `BUD_USE`,
-            bud => async value => await bud.extensions.add(value),
-          ],
+            b => async v => await b.extensions.add(v as any),
+          ] satisfies Override<Array<string>>,
         ].map(this.override),
       )
 
@@ -265,13 +265,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
     this.bud = instance.get()
 
-    await this.bud.initialize(this.context).catch(this.catch)
+    await this.bud.initialize(this.context)
 
-    await applyCliOptionsCallback(this.bud).catch(this.catch)
+    await applyCliOptionsCallback(this.bud)
 
-    await this.bud.processConfigs().catch(this.catch)
+    await this.bud.processConfigs()
 
-    await applyCliOptionsCallback(this.bud).catch(this.catch)
+    await applyCliOptionsCallback(this.bud)
 
     this.bud.hooks.action(`build.before`, applyCliOptionsCallback)
 
@@ -320,7 +320,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
         process.exitCode = 2
         throw new Error(
           [
-            `Could not find ${signifier} binary\n`,
+            `Could not find ${signifier} binary`,
+            ``,
             `Checked:`,
             `- ${binary}`,
             ...checkedPaths

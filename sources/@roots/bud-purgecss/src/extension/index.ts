@@ -3,6 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 
 import {DynamicOption, Extension} from '@roots/bud-framework/extension'
 import {
+  bind,
   dependsOn,
   expose,
   label,
@@ -48,6 +49,7 @@ export default class BudPurgeCSS extends BudPurgeCSSPublicAPI {
   /**
    * {@link Extension.register}
    */
+  @bind
   public override async register(bud: Bud) {
     bud.bindFacade(`purgecss`, purgecss)
   }
@@ -55,6 +57,7 @@ export default class BudPurgeCSS extends BudPurgeCSSPublicAPI {
   /**
    * {@link Extension.buildBefore}
    */
+  @bind
   public override async buildBefore(bud: Bud) {
     /**
      * Return early if purgecss is already setup

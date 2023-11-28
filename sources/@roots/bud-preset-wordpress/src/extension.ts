@@ -181,6 +181,7 @@ export default class BudPresetWordPress
   /**
    * {@link Extension.boot}
    */
+  @bind
   public override async boot(bud: Bud) {
     await this.compilerCheck(bud)
 
@@ -191,6 +192,7 @@ export default class BudPresetWordPress
   /**
    * {@link Extension.buildBefore}
    */
+  @bind
   public override async buildBefore(bud: Bud) {
     this.handleExclusions(bud)
     await this.handleHmr(bud)

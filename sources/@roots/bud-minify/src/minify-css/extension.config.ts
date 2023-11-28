@@ -25,7 +25,6 @@ interface BudMinimizeCSSPublicInterface
     BudMinimizeCSSPublicApi,
     BudMinimizeCSSOptions
   > {}
-
 @options<BudMinimizeCSSOptions>({
   exclude: undefined,
   include: undefined,

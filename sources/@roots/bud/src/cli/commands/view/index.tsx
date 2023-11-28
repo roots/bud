@@ -4,7 +4,6 @@ import {Command, Option} from '@roots/bud-support/clipanion'
 import {highlight} from '@roots/bud-support/highlight'
 import {Box, Text} from '@roots/bud-support/ink'
 import get from '@roots/bud-support/lodash/get'
-import format from '@roots/bud-support/pretty-format'
 
 /**
  * `bud view` command
@@ -22,6 +21,8 @@ export default class BudViewCommand extends BudCommand {
   public subject = Option.String({name: `subject`, required: false})
 
   public override async execute() {
+    const format = await import(`@roots/bud-support/pretty-format`).then((module) => module.default)
+
     await this.makeBud()
     await this.bud.run()
 

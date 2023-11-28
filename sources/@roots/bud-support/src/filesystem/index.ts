@@ -14,8 +14,9 @@ export const get = (basedir?: string) => {
   if (filesystem) return filesystem
 
   if (typeof basedir !== `string`)
-    throw new BudError(
+    throw BudError.normalize(
       `filesystem not initialized. basedir arg required for initialization.`,
+      {thrownBy: import.meta.url},
     )
 
   filesystem = new Filesystem(basedir)

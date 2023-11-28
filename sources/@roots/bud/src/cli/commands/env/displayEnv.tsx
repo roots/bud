@@ -5,9 +5,7 @@ import {Box, Text} from '@roots/bud-support/ink'
 const DisplayEnv = ({bud}: {bud: Bud}) => {
   return (
     <Box flexDirection="column">
-      <Text color="blue">
-        Environment variables{`\n`}
-      </Text>
+      <Text color="blue">Environment variables{`\n`}</Text>
 
       {bud.env
         .getEntries()

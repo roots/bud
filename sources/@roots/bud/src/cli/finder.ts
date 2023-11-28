@@ -128,11 +128,7 @@ export class Finder {
   }
 
   /**
-   * Get commands
-   *
-   * @remarks
-   * Returns cached commands if they exist, otherwise
-   * resolves and caches commands from project dependencies.
+   * Initialize
    */
   @bind
   public async init() {
@@ -141,12 +137,13 @@ export class Finder {
       if ((await fs.exists(path)) && this.cacheable) {
         this.paths = await fs.read(path)
         if (Array.isArray(this.paths)) return this
-        else throw new Error()
+        else throw new Error(`Invalid cache`)
       }
     } catch (error) {}
 
     await this.getModules()
     await this.cacheWrite()
+
     return this
   }
 

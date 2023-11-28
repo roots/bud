@@ -18,7 +18,9 @@ import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
   type: `object`,
 })
 @plugin(EntrypointsWebpackPlugin)
-export class BudEntrypoints extends Extension<
+class BudEntrypoints extends Extension<
   Options,
   EntrypointsWebpackPlugin
 > {}
+
+export default BudEntrypoints

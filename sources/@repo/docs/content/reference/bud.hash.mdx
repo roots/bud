@@ -1,32 +1,44 @@
 ---
 title: bud.hash
-description: Enable or disable filename hashing of built assets.
+description: Configure filename hashing
+tags:
+  - configuration
+  - facade
+  - optimization
 ---
 
-Enable or disable filename hashing of built assets.
+Configure filename hashing.
 
 ## Usage
 
-Enable hashing:
+Enable hashing
 
-```js
+```ts title=bud.config.ts
 bud.hash()
 ```
 
-You may also explicitly pass a boolean **true**:
-
-```js
+```ts title=bud.config.ts
 bud.hash(true)
 ```
 
-Disable hashing:
+Disable hashing
 
-```js
+```ts title=bud.config.ts
 bud.hash(false)
 ```
 
-## Customizing the hash format
+Enable hashing with a custom format:
 
-```js
-bud.store.set('hashFormat', '[name].[contenthash:6]')
+```ts title=bud.config.ts
+bud.hash(`contenthash:12`)
+```
+
+Use as a bud.js callback. This is the same as enabling hashing with the default configuration.
+
+```ts title=bud.config.ts
+bud.when(bud.isProduction, bud.hash)
+```
+
+```ts title=bud.config.ts
+bud.tap(bud.hash)
 ```

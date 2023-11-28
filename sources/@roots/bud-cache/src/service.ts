@@ -13,7 +13,6 @@ import {join} from 'node:path'
 import {isBuildDependency} from '@roots/bud-cache/helpers'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import isString from '@roots/bud-support/lodash/isString'
 
 /**
  * {@link Bud.cache}
@@ -53,9 +52,7 @@ export default class Cache extends Service implements BudCache {
           .map(({path}) => path),
       ].filter(Boolean),
     )
-    const records = {
-      bud: [...dependencies],
-    }
+    const records = {bud: [...dependencies]}
 
     return (
       this.app.hooks.filter(`build.cache.buildDependencies`, records) ??
@@ -106,14 +103,13 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link BudCache.type}
    */
-  public get type(): 'filesystem' | 'memory' {
-    const fallback = isString(this.app.context.cache)
-      ? this.app.context.cache
-      : `filesystem`
-
-    return this.app.hooks.filter(`build.cache.type`) ?? fallback
+  public get type(): `filesystem` | `memory` {
+    return (
+      this.app.hooks.filter(`build.cache.type`, `filesystem`) ??
+      `filesystem`
+    )
   }
-  public set type(type: Callback<FileCacheOptions[`type`]>) {
+  public set type(type: Callback<`filesystem` | `memory`>) {
     this.app.hooks.on(`build.cache.type`, type)
   }
 
@@ -130,6 +126,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link Service.boot}
    */
+  @bind
   public override async boot?(bud: Bud) {
     if (bud.context.force === true) {
       await this.flush()
@@ -143,7 +140,12 @@ export default class Cache extends Service implements BudCache {
    */
   public get configuration(): Configuration[`cache`] {
     if (this.enabled !== true) return false
-    if (this.type === `memory`) return true
+    if (this.type === `memory`)
+      return {
+        cacheUnaffected: true,
+        maxGenerations: Infinity,
+        type: `memory`,
+      }
 
     return {
       allowCollectingMemory: this.allowCollectingMemory,
@@ -154,6 +156,7 @@ export default class Cache extends Service implements BudCache {
       idleTimeout: 100,
       idleTimeoutForInitialStore: 0,
       managedPaths: [this.cacheDirectory, this.app.path(`@modules`)],
+      maxMemoryGenerations: Infinity,
       name: this.name,
       profile: this.app.context.debug === true,
       store: `pack`,
@@ -197,6 +200,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * {@link BudCache.register}
    */
+  @bind
   public override async register?(bud: Bud) {
     this.enabled = bud.context.cache !== false
     this.version = bud.context.bud.version
@@ -238,7 +242,7 @@ export default class Cache extends Service implements BudCache {
   /**
    * Set {@link BudCache.type}
    */
-  public setType(type: Callback<FileCacheOptions[`type`]>) {
+  public setType(type: `filesystem` | `memory`) {
     this.type = type
     return this
   }

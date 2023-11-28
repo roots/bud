@@ -34,6 +34,7 @@ export default class Acorn
 
     if (this.app.root?.server?.publicUrl)
       data.dev = urlToHttpOptions(this.app.root.server.publicUrl)
+
     if (this.app.root?.server?.publicProxyUrl)
       data.proxy = urlToHttpOptions(this.app.root.server.publicProxyUrl)
 

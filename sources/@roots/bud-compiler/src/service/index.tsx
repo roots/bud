@@ -17,10 +17,10 @@ import {cpus} from 'node:os'
 import process from 'node:process'
 import {pathToFileURL} from 'node:url'
 
-import {Error as DisplayError} from '@roots/bud-dashboard/components/error'
+import {Display as DisplayError} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
+import {BudError, CompilerError} from '@roots/bud-support/errors'
 import isNull from '@roots/bud-support/lodash/isNull'
 import isNumber from '@roots/bud-support/lodash/isNumber'
 import isString from '@roots/bud-support/lodash/isString'
@@ -54,26 +54,27 @@ class Compiler extends Service implements BudCompiler {
    * {@link BudCompiler.onError}
    */
   @bind
-  public onError(error: Error) {
+  public onError(error: Error | undefined) {
     process.exitCode = 1
     if (!error) return
 
     this.app.server?.appliedMiddleware?.hot?.publish({error})
 
-    this.app.notifier?.notify({
-      group: this.app.label,
-      message: error.message,
-      subtitle: error.name,
+    const normalized = CompilerError.normalize(error, {
+      thrownBy: import.meta.url,
     })
 
-    if (`isBudError` in error) {
-      this.app.context.render(<DisplayError error={error} />)
-    } else {
-      this.app.context.render(
-        <DisplayError error={BudError.normalize(error)} />,
-      )
-    }
+    normalized.details = undefined
+
+    this.app.notifier?.notify({
+      group: this.app.label,
+      message: normalized.message,
+      subtitle: normalized.name,
+    })
+
+    this.app.context.render(<DisplayError error={error} />)
   }
+
   /**
    * {@link BudCompiler.onStats}
    */
@@ -152,17 +153,20 @@ class Compiler extends Service implements BudCompiler {
     const config = !bud.hasChildren
       ? [await bud.build.make()]
       : await Promise.all(
-          Object.values(bud.children).map(async (child: Bud) =>
-            child.build.make().catch(error => {
-              throw error
-            }),
+          Object.values(bud.children).map(
+            async (child: Bud) =>
+              await child.build.make().catch(error => {
+                throw error
+              }),
           ),
         )
 
     this.config = config?.filter(Boolean)
 
-    this.config.parallelism = Math.max(cpus().length - 1, 1)
-    this.logger.info(`parallel compilations: ${this.config.parallelism}`)
+    if (this.config.length > 1) {
+      this.config.parallelism = Math.max(cpus().length - 1, 1)
+      this.logger.info(`parallel compilations: ${this.config.parallelism}`)
+    }
 
     await bud.hooks.fire(`compiler.before`, bud).catch(error => {
       throw error
@@ -170,17 +174,13 @@ class Compiler extends Service implements BudCompiler {
 
     this.logger.timeEnd(`initialize`)
 
-    try {
-      this.instance = this.implementation(this.config)
-    } catch (error: unknown) {
-      const normalError =
-        error instanceof Error ? error : BudError.normalize(error)
-      this.onError(normalError)
-    }
+    this.instance = this.implementation(this.config)
 
     this.instance.hooks.done.tap(bud.label, (stats: any) => {
       this.onStats(stats)
-      bud.hooks.fire(`compiler.done`, bud, this.stats).catch(this.onError)
+      bud.hooks
+        .fire(`compiler.done`, bud, this.stats)
+        .catch(this.app.catch)
     })
 
     return this.instance

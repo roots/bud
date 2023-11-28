@@ -21,6 +21,7 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
   BudTailwindOptionsApi,
   Options
 > & {
+  extend(theme: Partial<ThemeConfig>): BudTailwindOptionsPublicInterface
   extendTheme(
     theme: Partial<ThemeConfig>,
   ): BudTailwindOptionsPublicInterface
@@ -112,9 +113,13 @@ class BudTailwindOptionsApi
         extend: {...(config?.theme?.extend ?? {}), [key]: value},
       },
     }))
+
     this.resolveConfig()
+
     return this
   }
+
+  public extend = this.extendTheme
 
   /**
    * Generate import mapping

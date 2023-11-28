@@ -54,6 +54,11 @@ interface Contract {
   configAfter?(app: Bud): Promise<any>
 
   /**
+   * Before config callback
+   */
+  configBefore?(app: Bud): Promise<any>
+
+  /**
    * Return the bud instance
    */
   done(): Bud
@@ -247,11 +252,10 @@ abstract class BaseContainer extends Container implements Contract {
    */
   @bind
   public catch(error: BudError | string): never {
-    if (typeof error === `string`) {
-      throw BudError.normalize(error)
-    }
+    if (!error)
+      throw BudError.normalize(`An error occured in ${this.label}`)
 
-    throw error
+    throw BudError.normalize(error)
   }
 
   /**

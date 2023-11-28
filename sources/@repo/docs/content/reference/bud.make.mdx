@@ -3,10 +3,8 @@ title: bud.make
 description: Create a new, configurable instance of bud.js.
 tags:
   - configuration
+  - multi-instance
 ---
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 Create a new, configurable instance of bud.js.
 
@@ -21,15 +19,15 @@ For more context on how this might be useful check out [the guide on multi-insta
 
 Example specified with a **label**:
 
-```js
+```ts title=bud.config.ts
 export default async bud => {
-  await bud.make('compiler-a', async child => child.entry('app', 'app.js'))
+  await bud.make(`compiler-a`, async child => child.entry('app', 'app.js'))
 }
 ```
 
 Example specified with **context** overrides:
 
-```ts
+```ts title=bud.config.ts
 export default async bud => {
   await bud.make(
     {
@@ -45,43 +43,33 @@ export default async bud => {
 
 ## Preventing runtime conflicts
 
-When loading output from multiple instances on a single page you need to be aware of the potential for runtime conflicts.
+When loading entrypoints from multiple instances within a single request you need to be aware of the potential for runtime conflicts.
 
 If you are using the [bud.runtime](/reference/bud.runtime) function, you likely want to use the value `single` (the default value).
 
-Beyond that, it may be helpful to know that each instance of bud.js declares all previous instances as _dependencies_. So, in the above examples,
-`compiler-a` would be a dependency of `compiler-b`. If you added another instance, `compiler-c`, it would be dependent on both `compiler-a` and `compiler-b`.
+If you are using a different value than `single` you may need to declare cross-instance dependencies.
 
-You can modify this behavior by declaring your own dependencies using the `dependsOn` context prop.
+For example, let's say we have an instance, `compiler-a`, that adds a value to the `window` object.
 
-```ts
-export default async bud => {
-  await bud.make({
-    label: 'compiler-a',
-    basedir: bud.path('./compiler-a'),
-  })
-
-  await bud.make({
-    label: 'compiler-b',
-    basedir: bud.path('./compiler-b'),
-  })
-
-  /**
-   * By default `compiler-c` would depend on `compiler-a` and `compiler-b`.
-   * By specifying a value `dependsOn` we can override this behavior.
-   */
-  await bud.make({
-    label: 'compiler-c',
-    basedir: bud.path('./compiler-c'),
-    dependsOn: ['compiler-a'],
-  })
-}
+```ts title=bud.config.ts
+await bud.make({
+  label: `compiler-a`,
+  basedir: bud.path(`./compiler-a`),
+})
 ```
 
-You can also modify this behavior with the `build.dependencies` hook:
+And now we have a second instance, `compiler-b`, which depends on the value added by `compiler-a`.
 
-```ts
-bud.get('compiler-c').hooks.on('build.dependencies', ['compiler-a'])
+To avoid type errors and variable collisions will want to mark `compiler-b` as depending on `compiler-a`.
+
+You can do that by including the `dependsOn` property in the instance context:
+
+```ts title=bud.config.ts
+await bud.make({
+  label: `compiler-b`,
+  basedir: bud.path(`./compiler-b`),
+  dependsOn: [`compiler-a`],
+})
 ```
 
 Related:

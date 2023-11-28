@@ -7,15 +7,14 @@ import Webpack from 'webpack'
 
 /**
  * Emits inline html for each entrypoint
- *
- * @param compilation - Webpack compilation instance
- * @param publicPath - public path for entrypoints
  */
 export class HtmlEmitter {
   /**
    * Class constructor
    *
    * @param compilation - webpack compilation
+   * @param assets - webpack compilation assets
+   * @param entrypoints - {@link Entrypoints}
    * @param publicPath - asset publicPath
    */
   public constructor(
@@ -27,6 +26,9 @@ export class HtmlEmitter {
 
   /**
    * Reduce entrypoint entrypoints to markup
+   *
+   * @returns void
+   * @decorator bind - {@link bind}
    */
   @bind
   public emit(): void {
@@ -34,36 +36,29 @@ export class HtmlEmitter {
       this.compilation.emitAsset(
         `${name}.html`,
         new Webpack.sources.RawSource(
-          [...entrypoint.entries()].reduce(this.entrypointsReducer, ``),
+          [...entrypoint.entries()].reduce((html, [extension, files]) => {
+            if ([`js`, `mjs`].includes(extension))
+              return [...files].reduce(this.scriptReducer, html)
+
+            if (extension === `css`)
+              return [...files].reduce(this.styleReducer, html)
+
+            return html
+          }, ``),
         ),
       )
     })
   }
 
   /**
-   * Reduce an entrypoint entry to markup
-   */
-  @bind
-  public entrypointsReducer(
-    acc: string,
-    [type, files]: [string, Set<string>],
-  ): string {
-    if ([`js`, `mjs`].includes(type))
-      return [...files].reduce(this.scriptReducer, acc)
-    if (type === `css`) return [...files].reduce(this.styleReducer, acc)
-
-    return acc
-  }
-
-  /**
    * Get compiled asset file contents
    *
-   * @param file - asset file
+   * @param ident - asset module name
    * @returns - asset file contents
    */
   @bind
-  public getCompiledAsset(file: string) {
-    const raw = this.assets[file.replace(this.publicPath, ``)]?.source()
+  public getCompiledAsset(ident: string) {
+    const raw = this.assets[ident.replace(this.publicPath, ``)]?.source()
     return raw instanceof Buffer ? raw.toString() : raw
   }
 
@@ -72,22 +67,24 @@ export class HtmlEmitter {
    */
   @bind
   public makeScript(
-    attributes: Record<string, boolean | string>,
+    attributeRecords: Record<string, boolean | string | undefined>,
     inner: null | string = ``,
   ): string | undefined {
-    if (typeof inner !== `string`) return
     inner = inner ? `\n\t${inner}\n` : ``
 
-    const stringyAttributes = attributes
-      ? Object.entries(attributes)
-          .filter(([, v]) => typeof v !== `undefined` && v !== false)
-          .map(([k, v]) => (v === true ? k : `${k}=${v}`))
-          .reduce((acc: Array<string>, v: string) => [...acc, v], [])
+    const attributes = attributeRecords
+      ? Object.entries(attributeRecords)
+          .filter(([_, v]) => v !== undefined)
+          .map(([k, v]) => {
+            // html5 specification allows for omitting value for boolean attributes
+            if (v === true) return k
+            return `${k}=${v}`
+          })
           .filter(Boolean)
           .join(` `)
       : ``
 
-    return `<script ${stringyAttributes}>${inner}</script>`
+    return `<script ${attributes}>${inner}</script>`
   }
 
   /**
@@ -95,18 +92,18 @@ export class HtmlEmitter {
    */
   @bind
   public scriptReducer(acc: string, src: string): string {
-    const attributes: Record<string, boolean | string> = {
+    const attributes: Record<string, boolean | string | undefined> = {
       async: true,
       defer: true,
-      src: !src.includes(`runtime`) ? src : false,
-      type: src.endsWith(`.mjs`) ? `module` : false,
+      src: !src.includes(`runtime`) ? src : undefined,
+      type: src.endsWith(`.mjs`) ? `module` : undefined,
     }
 
     return [
       acc,
       this.makeScript(
         attributes,
-        src.includes(`runtime`) ? this.getCompiledAsset(src) : null,
+        src.includes(`runtime`) ? this.getCompiledAsset(src) : undefined,
       ),
     ].join(`\n`)
   }
@@ -115,7 +112,7 @@ export class HtmlEmitter {
    * Reduce a stylesheet from entry item to markup
    */
   @bind
-  public styleReducer(acc: string, file: string): string {
-    return [acc, `<link rel=stylesheet href=${file} />`].join(`\n`)
+  public styleReducer(acc: string, href: string): string {
+    return [acc, `<link rel=stylesheet href=${href} />`].join(`\n`)
   }
 }

@@ -1,38 +1,27 @@
-import {join} from 'node:path'
+import isObject from '@roots/bud-support/lodash/isObject'
 
-import args from '@roots/bud-support/utilities/args'
-import cleanStack from 'clean-stack'
+const cwd = `${global.process.cwd()}`
 
-const cwd = `${
-  global.process.env.PROJECT_CWD ??
-  global.process.env.INIT_CWD ??
-  global.process.cwd()
-}`
+const clean = (message?: string) => {
+  return message
+    ?.replace(new RegExp(cwd, `g`), `.`)
+    .replace(/\s+/g, ` `)
+    .replace(/file:\/\//g, ``)
+}
 
-const basePath = args?.basedir
-  ? join(cwd, args.basedir)
-  : global.process.env.BUD_BASEDIR
-  ? join(cwd, `${global.process.env.BUD_BASEDIR}`)
-  : cwd
-
-/**
- * Props for Bud errors
- */
-interface BudErrorProps extends Error {
-  details: string
-  docs: URL
-  file: {
-    module: any
-    name: string
-    path: string
-    sha1: string
+interface BudErrorProps {
+  details?: string
+  docs?: URL
+  file?: {
+    module?: any
+    name?: string
+    path?: string
+    sha1?: string
   }
-  instance: string
-  isBudError: true
-  issue: URL
-  message: string
-  origin: BudError | Error | string
-  thrownBy: string
+  instance?: string
+  issue?: URL
+  origin?: BudError | Error
+  thrownBy?: string | URL
 }
 
 /**
@@ -40,166 +29,140 @@ interface BudErrorProps extends Error {
  */
 class BudError extends Error {
   /**
-   * Normalize error
-   */
-  public static normalize(error: unknown) {
-    if (error instanceof BudError) return error
-
-    if (error instanceof Error) {
-      const {message, ...rest} = error
-      return new BudError(message, rest)
-    }
-
-    if (typeof error === `string`) {
-      return new BudError(error)
-    }
-
-    return new BudError(`unknown error`)
-  }
-  /**
    * Details
    */
-  public declare details: false | string
+  public declare details?: BudErrorProps[`details`]
 
   /**
    * Documentation URL
    */
-  public declare docs: false | URL
+  public declare docs?: BudErrorProps[`docs`]
+
   /**
    * Information about file related to error
    */
-  public declare file: {
-    module: any
-    name: string
-    path: string
-    sha1: string
-  }
+  public declare file?: BudErrorProps[`file`]
 
   /**
    * Instance name containing error
    */
-  public declare instance: `default` | string
-
-  /**
-   * Used to identify Bud errors
-   */
-  public isBudError = true
+  public declare instance?: BudErrorProps[`instance`]
 
   /**
    * Issue tracker URL
    */
-  public declare issues: false | URL
-
-  /**
-   * Error display name
-   */
-  public override name = `BudError`
+  public declare issue?: BudErrorProps[`issue`]
 
   /**
    * Original error
    */
-  public declare origin: BudError | Error | string
+  public declare origin?: BudErrorProps[`origin`]
 
   /**
    * Name of method that threw error
    */
-  public declare thrownBy: false | string
+  public declare thrownBy?: BudErrorProps[`thrownBy`]
+
+  /**
+   * Is BudError
+   */
+  public isBudError = true
+
+  /**
+   * Normalize error
+   */
+  public static normalize(
+    source: unknown,
+    options: BudErrorProps = {},
+  ): BudError {
+    if (source instanceof BudError) {
+      Object.entries(options).map(([key, value]) => {
+        source[key as keyof BudErrorProps] = value
+      })
+      return source
+    }
+
+    if (source instanceof Error) {
+      return new BudError(source.message, options)
+    }
+
+    if (typeof source === `string`) {
+      return new BudError(source, options)
+    }
+
+    return new BudError(`An unknown error occured`, options)
+  }
 
   /**
    * Class constructor
    */
-  public constructor(
-    message: string,
-    options: Partial<BudErrorProps> = {},
-  ) {
+  public constructor(message: string, options: BudErrorProps = {}) {
     super(message)
 
-    Object.assign(this, options)
-    Object.assign(this, message)
+    this.isBudError = true
 
-    if (!this.instance) this.instance = `default`
+    this.name = this.constructor.name
+    this.message = (clean(message) ?? message)?.replace(/.*Error:/g, ``)
 
-    if (this.message) {
-      this.message = this.message
-        .replaceAll(/file:\/\//g, ``)
-        .replaceAll(new RegExp(basePath, `g`), ``)
+    if (options.details) {
+      this.details = clean(options.details)
+    }
+
+    if (options.docs) {
+      this.docs = options.docs
+    }
+
+    if (options.file) {
+      this.file = {
+        ...options.file,
+        path: clean(options.file.path),
+      }
+    }
+
+    if (options.instance) {
+      this.instance = options.instance
+    }
+
+    if (options.issue) {
+      this.issue = options.issue
+    }
+
+    if (options.origin) {
+      this.origin =
+        isObject(options.origin) && `isBudError` in options.origin
+          ? options.origin
+          : BudError.normalize(options.origin)
+    }
+
+    if (options.thrownBy) {
+      this.thrownBy =
+        options.thrownBy instanceof URL
+          ? options.thrownBy.toString()
+          : options.thrownBy
     }
 
     if (this.stack) {
-      this.stack = cleanStack(this.stack, {
-        basePath,
-        pathFilter: path =>
-          !path.includes(`react-reconciler`) &&
-          !path.includes(`bud-support/lib/errors`),
-        pretty: true,
-      }).replaceAll(/file:\/\//g, ``)
-    }
-
-    if (this.message) {
-      this.message = cleanStack(this.message, {
-        basePath,
-        pathFilter: path =>
-          !path.includes(`react-reconciler`) &&
-          !path.includes(`bud-support/lib/errors`),
-        pretty: true,
-      }).replaceAll(/file:\/\//g, ``)
-    }
-
-    if (this.thrownBy) {
-      this.thrownBy = this.thrownBy
-        .replace(new RegExp(basePath, `g`), ``)
-        .replaceAll(/file:\/\//g, ``)
-    }
-
-    if (this.file) {
-      this.file.path = this.file.path
-        .replaceAll(new RegExp(basePath, `g`), ``)
-        .replaceAll(/file:\/\//g, ``)
+      this.stack = this.stack
+        .split(`\n`)
+        .filter((line, i) => i > 0 && !line.includes(`bud-support`))
+        .map(clean)
+        .filter(Boolean)
+        .join(`\n`)
     }
   }
 }
 
-/**
- * ModuleError
- */
-class ModuleError extends BudError {
-  public override name = `ModuleError`
-}
+class ModuleError extends BudError {}
 
-/**
- * ConfigError
- */
-class ConfigError extends BudError {
-  public override name = `ConfigurationError`
-}
+class ConfigError extends BudError {}
 
-/**
- * InputError
- */
-class InputError extends BudError {
-  public override name = `InputError`
-}
+class InputError extends BudError {}
 
-/**
- * CompilerError
- */
-class CompilerError extends BudError {
-  public override name = `CompilerError`
-}
+class CompilerError extends BudError {}
 
-/**
- * ServerError
- */
-class ServerError extends BudError {
-  public override name = `ServerError`
-}
+class ServerError extends BudError {}
 
-/**
- * ExtensionError
- */
-class ExtensionError extends BudError {
-  public override name = `ExtensionError`
-}
+class ExtensionError extends BudError {}
 
 export {
   BudError,

@@ -16,7 +16,7 @@ Callbacks and raw values are registered with `bud.hooks.on`
 
 ### Example defined with a raw value
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.hooks.on('build.externals', {
   $: 'jquery',
 })
@@ -26,7 +26,7 @@ bud.hooks.on('build.externals', {
 
 You should always assume the value passed to the callback may be **undefined** and handle it appropriately.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.hooks.on('build.externals', (externals = {}) => ({
   ...externals,
   $: 'jquery',
@@ -37,7 +37,7 @@ bud.hooks.on('build.externals', (externals = {}) => ({
 
 Filters are registered with `bud.hooks.filter`.
 
-```js
+```ts title=bud.config.ts
 const initialValue = `foo`
 const result = bud.hooks.filter('my.filter.key', initialValue)
 ```
@@ -51,7 +51,7 @@ const result = bud.hooks.filter('my.filter.key', initialValue)
 
 Some hooks are asynchronous. An example of this are values for `build.resolve.modules`:
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.hooks.async('build.resolve.modules', async (paths = []) => [
   ...paths,
   bud.path(`modules`),
@@ -65,7 +65,7 @@ Callbacks for asynchronous hooks should be registered as asynchronous functions.
 Actions are registered with `bud.hooks.action`. Every action is passed the **bud** object and it will never be **undefined**.
 You don't need to return anything.
 
-```js
+```ts title=bud.config.ts
 bud.hooks.action('my.action.key', async bud => {
   bud.log('action log') // do something
 })
@@ -73,7 +73,7 @@ bud.hooks.action('my.action.key', async bud => {
 
 Multiple actions can be defined for the same key in one call:
 
-```js
+```ts title=bud.config.ts
 bud.hooks.action(
   `my.action.key`,
   async bud => bud.log(`action log 1`),
@@ -89,13 +89,13 @@ specifying a single action or multiple actions.
 
 Actions are fired with `bud.hooks.fire`.
 
-```js
+```ts title=bud.config.ts
 await bud.hooks.fire('my.action.key')
 ```
 
 ## Putting it together
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.hooks.filter(`my.hook`, 1)
 // => 1
 
@@ -120,7 +120,7 @@ await bud.hooks.fire(`my.action`)
 Consider this example, where we want to get a function that has been registered to a hook. We only want to run the
 last registered function and we only want to call it one time:
 
-```js
+```ts title=bud.config.ts
 const doThing = () => {
   console.log(`thing`)
 }
@@ -143,7 +143,7 @@ the filter runs, and the functions we defined don't return anything. So the end 
 
 The way around it is to wrap our functions in a callback:
 
-```js
+```ts title=bud.config.ts
 const doThing = () => {
   console.log(`thing`)
 }

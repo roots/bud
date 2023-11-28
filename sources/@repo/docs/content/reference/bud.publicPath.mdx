@@ -1,16 +1,22 @@
 ---
 title: bud.publicPath
-description: Get the application public path.
+description: Get the application public path
+tags:
+  - filesystem
 ---
 
 Get the application public path.
 
-To set the path itself you may use [bud.setPublicPath](/reference/bud.setPublicPath).
+To set the path use [bud.setPublicPath](/reference/bud.setPublicPath).
 
 ## Usage
 
 Get the public path:
 
-```js
+```ts title=bud.config.ts
 bud.publicPath()
 ```
+
+## Related
+
+- [bud.setPublicPath](/reference/bud.setPublicPath)

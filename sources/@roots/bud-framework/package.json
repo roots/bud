@@ -52,7 +52,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./bud": "./lib/bud.js",
+    "./bud": "./lib/bud/index.js",
     "./configuration": "./lib/configuration/index.js",
     "./config": "./lib/config/index.js",
     "./context": "./lib/context.js",

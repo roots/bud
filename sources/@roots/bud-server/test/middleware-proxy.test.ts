@@ -41,7 +41,7 @@ describe(`proxy middleware`, () => {
   it(`should reflect changes made in bud.proxy`, async () => {
     bud = await factory({mode: `development`})
     bud.proxy({changeOrigin: false})
-    await bud.promise()
+    await bud.resolvePromises()
 
     expect(makeOptions(bud).changeOrigin).toBe(false)
   })
@@ -49,7 +49,7 @@ describe(`proxy middleware`, () => {
   it(`should reflect changes to URL made in bud.proxy`, async () => {
     bud = await factory({mode: `development`})
     bud.proxy(`http://example.com`)
-    await bud.promise()
+    await bud.resolvePromises()
 
     const options = makeOptions(bud)
     const href = options.target && typeof options.target !== `string` && `href` in options.target ? options.target.href : undefined
@@ -61,11 +61,11 @@ describe(`proxy middleware`, () => {
   it(`should reflect changes to URL made in bud.proxy`, async () => {
     bud = await factory({mode: `development`})
     bud.proxy(`https://example.com`)
-    await bud.promise()
+    await bud.resolvePromises()
     expect(makeOptions(bud).protocolRewrite).toBe(`https`)
 
     bud.proxy(`http://example.com`)
-    await bud.promise()
+    await bud.resolvePromises()
     expect(makeOptions(bud).protocolRewrite).toBe(undefined)
   })
 })

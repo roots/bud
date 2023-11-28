@@ -17,15 +17,13 @@ describe(`@roots/sage/acorn`, async () => {
 
     let result = await acorn.buildBefore(bud)
     expect(result).toBe(undefined)
-
     expect(bud.entrypoints.get(`publicPath`)).toBe(``)
     expect(bud.manifest.get(`publicPath`)).toBe(``)
   })
 
   it(`should execute webpack apply in development`, async () => {
     const bud = await factory({mode: `development`})
-    const mockCompiler = {hooks: {thisCompilation: {tap: vi.fn((...args) => {})}}}
-    // @ts-ignore
+    const mockCompiler = {hooks: {thisCompilation: {tap: vi.fn((...args) => {})}}} as any
     const result = new Acorn(bud).apply(mockCompiler)
 
     expect(mockCompiler.hooks.thisCompilation.tap).toHaveBeenCalled()

@@ -13,9 +13,9 @@ describe(`bud.minimize`, () => {
 
   it(`should enable minimizers when called with truthy value`, () => {
     const spies = [
-      vi.spyOn(bud.minify.css, `enable`),
-      vi.spyOn(bud.minify.js, `enable`),
-      vi.spyOn(bud.minify, `enable`),
+      vi.spyOn(bud.minimizers.css, `enable`),
+      vi.spyOn(bud.minimizers.js, `enable`),
+      vi.spyOn(bud.minimizers, `enable`),
     ]
     const value = true
 
@@ -26,9 +26,9 @@ describe(`bud.minimize`, () => {
 
   it(`should disable minimizers when called with falsy value`, () => {
     const spies = [
-      vi.spyOn(bud.minify.css, `enable`),
-      vi.spyOn(bud.minify.js, `enable`),
-      vi.spyOn(bud.minify, `enable`),
+      vi.spyOn(bud.minimizers.css, `enable`),
+      vi.spyOn(bud.minimizers.js, `enable`),
+      vi.spyOn(bud.minimizers, `enable`),
     ]
     const value = false
 
@@ -39,9 +39,9 @@ describe(`bud.minimize`, () => {
 
   it(`should enable a specific minimizer when called with a key`, () => {
     const spies = [
-      vi.spyOn(bud.minify.css, `enable`),
-      vi.spyOn(bud.minify.js, `enable`),
-      vi.spyOn(bud.minify, `enable`),
+      vi.spyOn(bud.minimizers.css, `enable`),
+      vi.spyOn(bud.minimizers.js, `enable`),
+      vi.spyOn(bud.minimizers, `enable`),
     ]
     const value = `css`
 
@@ -54,9 +54,9 @@ describe(`bud.minimize`, () => {
 
   it(`should enable a specific minimizer when called with an array of keys`, () => {
     const spies = [
-      vi.spyOn(bud.minify.css, `enable`),
-      vi.spyOn(bud.minify.js, `enable`),
-      vi.spyOn(bud.minify, `enable`),
+      vi.spyOn(bud.minimizers.css, `enable`),
+      vi.spyOn(bud.minimizers.js, `enable`),
+      vi.spyOn(bud.minimizers, `enable`),
     ]
     const value: [`js`] = [`js`]
 

@@ -9,10 +9,10 @@ import type {
 import {Service} from '@roots/bud-framework/service'
 import {inject} from '@roots/bud-server/inject'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ServerError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 
 /**
- * Server service class
+ * {@link BudServer}
  */
 export class Server extends Service implements BudServer {
   /**
@@ -122,14 +122,7 @@ export class Server extends Service implements BudServer {
           this.application.use(this.appliedMiddleware[key])
         },
       ),
-    ).catch(error => {
-      this.catch(
-        new ServerError(`Error instantiating middleware`, {
-          origin: BudError.normalize(error),
-          thrownBy: `bud.server.applyMiddleware`,
-        }),
-      )
-    })
+    ).catch(this.catch)
   }
 
   /**
@@ -137,10 +130,6 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public override catch(error: BudError | string): never {
-    if (typeof error === `string`) {
-      throw ServerError.normalize(error)
-    }
-
     throw error
   }
 
@@ -186,6 +175,7 @@ export class Server extends Service implements BudServer {
   /**
    * {@link BudServer.register}
    */
+  @bind
   public override async register?(bud: Bud) {
     if (!bud.isDevelopment) return
 
@@ -268,6 +258,7 @@ export class Server extends Service implements BudServer {
         import.meta.url,
       )
       .then(({Server}) => new Server(this.app))
+      .catch(this.catch)
 
     return this.connection
   }
