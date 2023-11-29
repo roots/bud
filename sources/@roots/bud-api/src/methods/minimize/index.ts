@@ -13,6 +13,9 @@ export interface minimize {
 }
 
 export const minimize: minimize = function (this: Bud, value = true) {
+  /**
+   * Handle {@link Bud} instances (when used as a callback for something like bud.tap, bud.promise, etc)
+   */
   if (value instanceof Bud) {
     ;[this.minimizers, this.minimizers.js, this.minimizers.css].map(
       minimizer => minimizer.enable(true),
@@ -20,6 +23,9 @@ export const minimize: minimize = function (this: Bud, value = true) {
     return this
   }
 
+  /**
+   * Handle true, false
+   */
   if (typeof value == `boolean`) {
     ;[this.minimizers, this.minimizers.js, this.minimizers.css].map(
       minimizer => minimizer.enable(value),
@@ -27,22 +33,31 @@ export const minimize: minimize = function (this: Bud, value = true) {
     return this
   }
 
+  /**
+   * For everything else, enable minimization and reset any state by disabling all minimizers
+   */
   this.minimizers.enable(true)
   this.minimizers.js.enable(false)
   this.minimizers.css.enable(false)
 
+  /**
+   * Handle string (`css`, `js`)
+   */
   if (typeof value == `string`) {
     if (!(value in this.minimizers)) {
-      throw throwUndefinedMinimizer()
+      throwUndefinedMinimizer()
     }
 
     this.minimizers[value].enable(true)
     return this
   }
 
+  /**
+   * Handle array of strings ([`css`, `js`])
+   */
   if (Array.isArray(value)) {
     if (value.some(prop => !(prop in this.minimizers))) {
-      throw throwUndefinedMinimizer()
+      throwUndefinedMinimizer()
     }
     value.map(prop => {
       this.minimizers[prop].enable(true)

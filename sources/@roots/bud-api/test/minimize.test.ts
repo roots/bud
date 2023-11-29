@@ -48,7 +48,7 @@ describe(`bud.minimize`, () => {
     minimize(value)
 
     expect(spies.pop()).toHaveBeenCalledWith(true)
-    expect(spies.pop()).not.toHaveBeenCalled()
+    expect(spies.pop()).toHaveBeenCalledWith(false)
     expect(spies.pop()).toHaveBeenCalledWith(true)
   })
 
@@ -64,7 +64,7 @@ describe(`bud.minimize`, () => {
 
     expect(spies.pop()).toHaveBeenCalledWith(true)
     expect(spies.pop()).toHaveBeenCalledWith(true)
-    expect(spies.pop()).not.toHaveBeenCalled()
+    expect(spies.pop()).toHaveBeenCalledWith(false)
   })
 
   it(`should return bud`, () => {

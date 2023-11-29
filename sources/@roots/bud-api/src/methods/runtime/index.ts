@@ -1,5 +1,6 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Optimization} from '@roots/bud-framework/config'
+
+import {Bud} from '@roots/bud-framework'
 
 export type Parameters = [
   | ((
@@ -17,7 +18,7 @@ export const runtime: runtime = async function (
   this: Bud,
   runtime = `single`,
 ) {
-  const value = runtime instanceof this.constructor ? `single` : runtime
+  const value = runtime instanceof Bud || runtime === true  ? `single` : runtime
 
   this.hooks.on(
     `build.optimization.runtimeChunk`,
