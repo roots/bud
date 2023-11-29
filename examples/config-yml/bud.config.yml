@@ -14,11 +14,16 @@ runtime: true
 assets:
   - ['src/**/*.html']
 
-# Inner properties of bud are fair game
+# You can access inner properties
 babel:
   setPluginOptions:
     - '@babel/plugin-transform-runtime'
     - {helpers: true}
+
+# You can use dot notation
+babel.setPluginOptions:
+  - '@babel/plugin-transform-runtime'
+  - {helpers: true}
 
 # prefix bud properties with _
 # to reference the value
