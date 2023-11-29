@@ -6,6 +6,7 @@ import isFunction from '@roots/bud-support/lodash/isFunction'
 
 export type Parameters = [
   | ((config: Partial<Configuration>) => Partial<Configuration>)
+  | ((config: Partial<Configuration>) => Promise<Partial<Configuration>>)
   | Partial<Configuration>,
 ]
 
@@ -27,7 +28,7 @@ export const config: config = function (this: Bud, input): Bud {
     if (!app) return
 
     app.build.config = isFunction(input)
-      ? input(app.build.config)
+      ? await input(app.build.config)
       : {...app.build.config, ...input}
   })
 

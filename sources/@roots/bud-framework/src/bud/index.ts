@@ -338,8 +338,9 @@ export class Bud {
    * Await all promised tasks
    */
   @bind
-  public promise(promise: (bud: Bud) => Promise<unknown>) {
+  public promise(promise: (bud: Bud) => Promise<unknown>): Bud {
     this.promised.push(promise)
+    return this
   }
 
   @bind

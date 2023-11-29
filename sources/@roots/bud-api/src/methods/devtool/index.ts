@@ -22,7 +22,7 @@ export const devtool: devtool = async function (
   if (input instanceof Bud) {
     this.hooks.on(`build.devtool`, FALLBACK_SOURCEMAP)
 
-    this.api.logger.success(`bud.devtool`, `devtool set to`, input)
+    this.api.logger.success(`bud.devtool:`, `devtool set to`, input)
 
     return this
   }

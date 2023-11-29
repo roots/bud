@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * @param {import('@roots/bud').Bud} bud
  */

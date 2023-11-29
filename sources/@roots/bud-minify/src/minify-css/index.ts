@@ -21,13 +21,17 @@ class BudMinimizeCSS extends BudMinimizeCSSPublicApi {
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore({extensions, hooks}: Bud) {
+  public override async buildBefore({extensions, hooks, module}: Bud) {
     const {
       default: Minimizer,
       esbuildMinify,
       lightningCssMinify,
       swcMinify,
-    } = await import(`css-minimizer-webpack-plugin`)
+    } = await module.import(
+      `css-minimizer-webpack-plugin`,
+      import.meta.url,
+      {raw: true},
+    )
 
     if (!this.minify && extensions.has(`@roots/bud-swc`))
       this.setMinify(() => swcMinify)

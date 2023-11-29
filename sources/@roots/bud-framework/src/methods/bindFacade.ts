@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud-framework'
-
+import {Bud} from '@roots/bud-framework'
 import {BudError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/lodash/isFunction'
 import logger from '@roots/bud-support/logger'
@@ -23,16 +22,15 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
   if (`bind` in fn) fn = fn.bind(binding ?? this)
 
   this.set(key, (...args: Array<any>) => {
-    logger
-      .scope(`bud.${key}`)
-      .log(
-        `called with args:`,
-        ...args.map(arg => this.fs.json.stringify(arg)),
-      )
+    logger.enabled &&
+      logger
+        .scope(`bud.${key}`)
+        .log(`called with args:`, args.map(parseArgs(this)).join(`, `))
 
     this.promise(async () => {
       try {
-        await this.resolvePromises().then(async () => await fn(...args))
+        await this.resolvePromises()
+        await fn(...args)
       } catch (error) {
         throw error
       }
@@ -43,3 +41,10 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
 
   return this
 }
+
+const parseArgs = (bud: Bud) => (arg: any) =>
+  arg instanceof Bud
+    ? `(bud)`
+    : typeof arg === `function`
+      ? `(function)`
+      : bud.fs.json.stringify(arg)

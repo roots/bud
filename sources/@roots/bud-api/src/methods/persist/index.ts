@@ -8,12 +8,6 @@ export interface persist {
 }
 
 export const persist: persist = function (this: Bud, type = `filesystem`) {
-  if (type instanceof Bud) {
-    this.cache.enabled = true
-    this.api.logger.success(`bud.cache:`, `set to`, type.cache.type)
-    return this
-  }
-
   if (type === false) {
     this.cache.enabled = false
     this.api.logger.success(`bud.cache:`, `disabled`)

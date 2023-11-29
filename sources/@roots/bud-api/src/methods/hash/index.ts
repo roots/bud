@@ -1,7 +1,9 @@
-import {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-framework'
+
+import {InputError} from '@roots/bud-support/errors'
 
 export type Value =
-  | ((hash: boolean | undefined) => boolean)
+  | ((hash?: boolean) => boolean | string)
   | boolean
   | Bud
   | string
@@ -12,34 +14,70 @@ export interface hash {
   (value: Value): Bud
 }
 
-export const hash: hash = function (this: Bud, value) {
-  if (value instanceof Bud || value === undefined) {
-    this.context.hash = true
+export const hash: hash = function (this: Bud, value = true) {
+  if (typeof value === `boolean`) {
+    return setHash(this, value)
+  }
 
-    this.api.logger.success(`bud.hash: hash set to`, this.context.hash)
+  if (value instanceof this.constructor) {
+    return setHash(this, true)
+  }
 
-    return this
+  if (typeof value === `function`) {
+    value = value(this.context.hash)
+
+    if (typeof value !== `boolean` && typeof value !== `string`)
+      throw new InputError(`bud.hash: invalid input`, {
+        details: `callbacks supplied to bud.hash should return a boolean or a string value`,
+        docs: new URL(`https://bud.js.org/reference/bud.hash`),
+        thrownBy: `@roots/bud-api/methods/hash`,
+      })
+
+    if (typeof value === `string`) {
+      setHash(this, true)
+      setFormat(this, value)
+      return this
+    }
+
+    return setHash(this, value)
   }
 
   if (typeof value === `string`) {
-    if (!value.startsWith(`[`)) value = `[${value}]`
-
-    this.context.hash = true
-    this.hooks.on(`value.hashFormat`, value)
-
-    this.api.logger
-      .success(`bud.hash: hash set to`, this.context.hash)
-      .success(
-        `bud.hash: hash format set to`,
-        this.hooks.filter(`value.hashFormat`),
-      )
-
-    return this
+    setHash(this, true)
+    return setFormat(this, value)
   }
 
-  this.context.hash = this.maybeCall(value, this.context.hash)
+  throw new InputError(`bud.hash: invalid input`, {
+    details: `bud.hash accepts a boolean, string, or callback function as input.`,
+    docs: new URL(`https://bud.js.org/reference/bud.hash`),
+    thrownBy: `@roots/bud-api/methods/hash`,
+  })
+}
 
-  this.api.logger.success(`bud.hash: hash set to`, this.context.hash)
+const formatHashString = (value: string): string => {
+  if (!value.startsWith(`[`)) value = `[${value}`
+  if (!value.endsWith(`]`)) value = `${value}]`
+  return value
+}
 
-  return this
+const setFormat = (bud: Bud, value: string): Bud => {
+  value = formatHashString(value)
+
+  bud.hooks
+    .on(`value.hashFormat`, value)
+    .api.logger.success(`bud.hash: hash format set to`, value)
+
+  return bud
+}
+
+const setHash = (bud: Bud, value: boolean): Bud => {
+  bud.context.hash = value
+
+  bud.api.logger.success(
+    `bud.hash:`,
+    `hash`,
+    value ? `enabled` : `disabled`,
+  )
+
+  return bud
 }

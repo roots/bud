@@ -1,5 +1,6 @@
 import {Option} from '@roots/bud-support/clipanion'
 
-export default Option.Boolean(`--hash`, undefined, {
+export default Option.String(`--hash`, undefined, {
   description: `Hash compiled filenames`,
+  tolerateBoolean: true,
 })

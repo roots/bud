@@ -1,12 +1,13 @@
-import type {Bud} from '@roots/bud-framework'
 import type {Optimization} from '@roots/bud-framework/config'
+
+import {Bud} from '@roots/bud-framework'
 
 export type Parameters = [
   | ((
       runtime: Optimization.RuntimeChunk | undefined,
     ) => Optimization.RuntimeChunk)
+  | Bud
   | Optimization.RuntimeChunk
-  | undefined,
 ]
 
 export interface runtime {
@@ -17,8 +18,14 @@ export const runtime: runtime = async function (
   this: Bud,
   runtime = `single`,
 ) {
-  return this.hooks.on(
+  const value = runtime instanceof Bud || runtime === true  ? `single` : runtime
+
+  this.hooks.on(
     `build.optimization.runtimeChunk`,
-    runtime === true ? `single` : runtime,
+    value,
   )
+
+  this.api.logger.success(`bud.runtime:`, `set to`, value)
+
+  return this
 }

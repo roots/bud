@@ -143,7 +143,7 @@ export default class BudBuildCommand extends BudCommand {
           this.hash,
           `BUD_HASH`,
           b => async value => b.hash(value),
-        ] satisfies Override<boolean>,
+        ] satisfies Override<boolean | string>,
         [
           this.hot,
           `BUD_HOT`,
@@ -180,7 +180,7 @@ export default class BudBuildCommand extends BudCommand {
           this.minimize,
           `BUD_MINIMIZE`,
           b => async v => b.minimize(v),
-        ] satisfies Override<boolean>,
+        ] satisfies Override<`css` | `js` | boolean>,
         [
           this.output,
           `BUD_PATH_OUTPUT`,

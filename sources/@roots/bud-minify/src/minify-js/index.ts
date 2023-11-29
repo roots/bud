@@ -20,13 +20,15 @@ class BudMinimizeJS extends BudMinimizeJSPublicApi {
    * {@link Extension.buildBefore}
    */
   @bind
-  public override async buildBefore({extensions, hooks}: Bud) {
+  public override async buildBefore({extensions, hooks, module}: Bud) {
     const {
       default: Minimizer,
       esbuildMinify,
       swcMinify,
       terserMinify,
-    } = await import(`terser-webpack-plugin`)
+    } = await module.import(`terser-webpack-plugin`, import.meta.url, {
+      raw: true,
+    })
 
     if (!this.minify && extensions.has(`@roots/bud-swc`))
       this.setMinify(() => swcMinify)
