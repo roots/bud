@@ -12,7 +12,7 @@ Split specified modules into a separate chunk
 
 The simplest usage is the name of the directory to create the chunk from:
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.bundle('alpine')
 ```
 
@@ -20,6 +20,6 @@ This produces a chunk named `js/bundle/alpine.js`
 
 You can specify a set of modules to include in the chunk:
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.bundle('vendor', ['react', 'react-dom'])
 ```

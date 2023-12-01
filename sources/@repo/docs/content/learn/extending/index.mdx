@@ -10,7 +10,7 @@ You can add additional functionality to **bud.js** by writing a bud.js extension
 
 Extensions can be provided as either a plain JS object or a class.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 const MyExtension = {
   register: async(bud) {}
 }
@@ -18,7 +18,7 @@ const MyExtension = {
 
 Extensions writen using JS classes should extend the `Extension` base class (exported from `@roots/bud-framework/extension`).
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
 
 class MyExtension extends Extension {
@@ -36,7 +36,7 @@ The extension `label` serves as a handle for other extensions or the user config
 
 For instance if your extension is published to npm as `bud-extension-name` then the `label` should match:
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
@@ -51,7 +51,7 @@ depends on the presence of `@roots/bud-postcss`. To ensure dependencies are avai
 
 The `dependsOn` property is expressed as a `Set`:
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
@@ -65,7 +65,7 @@ export default class MyExtension extends Extension {
 
 Extensions may depend on other extensions on an optional basis. **bud.js** will attempt to register the extension if it is available. Otherwise, it will silently proceed.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
@@ -79,7 +79,7 @@ export default class MyExtension extends Extension {
 
 Any extension options can be set in the `options` property.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
 
 export default class MyExtension extends Extension {
@@ -97,7 +97,7 @@ Each option value can be expressed as either the literal value itself or a funct
 
 This is useful when you can't know the value up front (as is the case with user paths):
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -115,7 +115,7 @@ Now, if the user makes a change to the `@src` path, the reference will be update
 The only "gotcha" here is that if you have an extension option which is itself a function. Since **bud.js** will try to call the function to resolve the option value you
 may need to wrap it in another function:
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -141,13 +141,13 @@ There are some additional methods available for working with extension options:
 
 #### setOption
 
-```ts title="extension.ts"
+```ts title=extension.ts
 extension.setOption('foo', value)
 ```
 
 #### setOptions
 
-```ts title="extension.ts"
+```ts title=extension.ts
 extension.setOptions({
   foo: `literal`,
   bar: (bud: Bud) => () => `callback`.
@@ -158,7 +158,7 @@ extension.setOptions({
 
 Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -175,7 +175,7 @@ export default class MyExtension extends Extension {
 
 Async callback. Try to do things in this method, when possible.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -193,7 +193,7 @@ export default class MyExtension extends Extension {
 Async callback. Called after `register`. Good for business which requires another
 extension to have already had `register` called on it.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -210,7 +210,7 @@ export default class MyExtension extends Extension {
 
 Async callback. Called after user configuration has been processed.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -227,7 +227,7 @@ export default class MyExtension extends Extension {
 
 Async callback. Called directly before configuration is constructed and passed to the compiler).
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -242,7 +242,7 @@ export default class MyExtension extends Extension {
 
 ### make
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {bind} from '@roots/bud-framework/extension/decorators'
@@ -297,7 +297,7 @@ export interface ApplyPluginConstructor {
 
 And here is how you might use it:
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import Plugin from 'some-webpack-plugin'
@@ -317,7 +317,7 @@ export default class MyExtension extends Extension {
 
 An `apply` method indicates to **bud.js** that the extension is doing double duty as a compiler plugin and a **bud.js** extension.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import Plugin from 'some-webpack-plugin'
@@ -340,7 +340,7 @@ will not be called if this function returns `false`.
 
 This function is passed the **bud.js** instance.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -353,7 +353,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-If `Extension.when` returns `false` the following methods will be discarded:
+If `Extension.when` returns `false` the following methods will not be called:
 
 - [buildBefore](#buildBefore)
 - [buildAfter](#buildafter)
@@ -362,7 +362,7 @@ If `Extension.when` returns `false` the following methods will be discarded:
 
 `Extension.enabled` (a simple `boolean`) will always take precedence over `Extension.when` if it is set.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 

@@ -60,6 +60,7 @@ module.exports = {
         id: `extensions`,
         include: [`**/*.md`, `**/*.mdx`],
         path: docsPath(`content/extensions`),
+        remarkPlugins,
         routeBasePath: `extensions`,
         sidebarPath: docsPath(`sidebars/sidebar.cjs`),
       },

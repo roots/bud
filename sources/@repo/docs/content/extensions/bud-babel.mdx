@@ -4,13 +4,11 @@ description: Transpile JavaScript with Babel
 sidebar_label: '@roots/bud-babel'
 ---
 
-import CodeBlock from '@theme/CodeBlock'
-
 [Babel](https://babeljs.io) can be added by installing the [@roots/bud-babel](/extensions/bud-babel) extension.
 
 ## Installation
 
-```npm2yarn
+```sh npm2yarn
 npm install @roots/bud-babel --save-dev
 ```
 
@@ -25,7 +23,7 @@ npm install @roots/bud-babel --save-dev
 
 Presets are registered to `bud.babel.presets`.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 console.dir(bud.babel.presets)
 ```
 
@@ -33,7 +31,7 @@ console.dir(bud.babel.presets)
 
 It will be appended to whatever presets are already registered.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.setPreset('@babel/preset-env')
 ```
 
@@ -41,7 +39,7 @@ bud.babel.setPreset('@babel/preset-env')
 
 Use `bud.babel.unsetPreset` to remove a preset, if present.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.unsetPreset('@babel/preset-env')
 ```
 
@@ -49,13 +47,13 @@ bud.babel.unsetPreset('@babel/preset-env')
 
 Pass an array of presets to `bud.babel.setPresets` to fully replace the existing presents configuration.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.setPresets(['@babel/preset-env'])
 ```
 
 ### Set options on a preset
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.setPresetOptions('@babel/preset-env', {
   useBuiltIns: 'entry',
 })
@@ -67,7 +65,7 @@ Managing plugins uses nearly the exact same API.
 
 ### Add a plugin
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.setPlugin('@babel/plugin-transform-runtime')
 ```
 
@@ -85,7 +83,7 @@ bud.babel.unsetPlugin('@babel/plugin-transform-runtime')
 
 ### Override any plugin options
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.babel.setPluginOptions('@babel/plugin-transform-runtime', {
   helpers: false,
 })

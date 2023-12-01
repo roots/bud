@@ -3,46 +3,120 @@ title: Optimization
 sidebar_label: Optimization
 ---
 
+import ConfigExample from '@site/src/components/example'
+
 ## File hashing
 
 Use the [bud.hash](/reference/bud.hash) function to generate a hash for each file in the bundle. This hash will be added to outputted files.
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.hash()
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.hash()
+bud.hash()
+```
+
+```yml title=bud.config.yml
+hash: true
+```
+
+```json title=bud.config.json
+{
+  "hash": true
 }
 ```
+
+</ConfigExample>
+
 
 ## Minimizing code
 
 Use the [bud.minimize](/reference/bud.minimize) function to run your application code through a minifier.
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.minimize()
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.minimize()
+bud.minimize()
+```
+
+```yml title=bud.config.yml
+minimize: true
+```
+
+```json title=bud.config.json
+{
+  "minimize": true
 }
 ```
+
+</ConfigExample>
 
 ## Creating a runtime
 
 You may create an application runtime using [bud.runtime](/reference/bud.runtime). Using the `single` option is probably
-the simplest and best solution for most applications:
+the simplest and best solution for most applications (and is also the default):
+
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.runtime()
+```
 
 ```js title=bud.config.js
-export default async bud => {
-  bud.runtime('single')
+bud.runtime()
+```
+
+```yml title=bud.config.yml
+runtime: true
+```
+
+```json title=bud.config.json
+{
+  "runtime": true
 }
 ```
+
+</ConfigExample>
 
 ## Creating a vendor chunk
 
+:::tip Use dynamic imports
+
+You should use dynamic imports to split your code into chunks that can be loaded on demand. This gives you more control
+over how your code is loaded and can improve performance.
+
+:::
+
 You can perform general code splitting with [bud.splitChunks](/reference/bud.splitChunks).
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.splitChunks()
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.splitChunks()
+bud.splitChunks()
+```
+
+```yml title=bud.config.yml
+splitChunks: true
+```
+
+```json title=bud.config.json
+{
+  "splitChunks": true
 }
 ```
+
+</ConfigExample>
 
 ## Optimizing images
 

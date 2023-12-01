@@ -2,10 +2,10 @@
 title: '@roots/bud-imagemin'
 description: Image minification for bud.js projects
 sidebar_label: '@roots/bud-imagemin'
+tags:
+  - assets
+  - optimization
 ---
-
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
 
 import Usage from '@site/../../@roots/bud-imagemin/docs/00-usage.md'
 import ConvertingToWebp from '@site/../../@roots/bud-imagemin/docs/01-request-query-parameters.md'
@@ -14,11 +14,11 @@ import SettingEncoderOptions from '@site/../../@roots/bud-imagemin/docs/02-setti
 [@roots/bud-imagemin](/extensions/bud-imagemin) optimizes image filesizes. It works with no configuration beyond installing it
 but also has a robust customization API.
 
-The extension uses [googlechromelabs/squoosh](https://github.com/googlechromelabs/squoosh).
+The extension uses [sharp](https://sharp.pixelplumbing.com).
 
 ## Installation
 
-```npm2yarn
+```sh npm2yarn
 npm install @roots/bud-imagemin --save-dev
 ```
 

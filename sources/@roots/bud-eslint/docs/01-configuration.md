@@ -82,8 +82,8 @@ bud.eslint.setFix(true)
 
 There is a recommended eslint configuration available for you to use as a starting point.
 
-```npm2yarn
-npm install @roots/eslint-config --dev-only
+```bash npm2yarn
+npm install @roots/eslint-config --save-dev
 ```
 
 Once installed you can add it to the `extends` array in your eslint config:

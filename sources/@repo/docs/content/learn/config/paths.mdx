@@ -3,18 +3,41 @@ title: Paths
 sidebar_label: Paths
 ---
 
+import ConfigExample from '@site/src/components/example'
+
 ## Setting application paths
 
 [bud.setPath](/reference/bud.setPath) is used to set project source and output paths.
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+/* Set the source path.*/
+bud.setPath('@src', 'source')
+/* Set the output path.*/
+bud.setPath('@dist', 'build')
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  /* Set the source path.*/
-  bud.setPath('@src', 'source')
-  /* Set the output path.*/
-  bud.setPath('@dist', 'build')
+/* Set the source path.*/
+bud.setPath('@src', 'source')
+/* Set the output path.*/
+bud.setPath('@dist', 'build')
+```
+
+```yml title=bud.config.yml
+setPath:
+  - '@src'
+  - 'source'
+```
+
+```json title=bud.config.json
+{
+  "setPath": ["@src", "source"]
 }
 ```
+
+</ConfigExample>
 
 The `@src` and `@dist` handles are special handles associated with the input and output base directories.
 
@@ -22,12 +45,19 @@ The `@src` and `@dist` handles are special handles associated with the input and
 
 Once set, paths can be referenced using [bud.path](/reference/bud.path).
 
-```js title=bud.config.js
-export default async bud => {
-  bud.path('@src') // absolute path to source directory
-  bud.path('@dist') // absolute path to output directory
-}
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.path('@src') // absolute path to source directory
+bud.path('@dist') // absolute path to output directory
 ```
+
+```js title=bud.config.js
+bud.path('@src') // absolute path to source directory
+bud.path('@dist') // absolute path to output directory
+```
+
+</ConfigExample>
 
 ## Globbing
 
@@ -35,16 +65,28 @@ export default async bud => {
 
 This function is asychronous.
 
-```js title=bud.config.js
-export default async bud => {
-  await bud.glob('@src', '**/*.js') // returns an array of absolute paths
-}
+<ConfigExample>
+
+```ts title=bud.config.ts
+await bud.glob('@src', '**/*.js') // returns an array of absolute paths
 ```
+
+```js title=bud.config.js
+await bud.glob('@src', '**/*.js') // returns an array of absolute paths
+```
+
+</ConfigExample>
 
 There is a synchronous version available as well: [bud.globSync](/reference/bud.globSync).
 
-```js title=bud.config.js
-export default async bud => {
-  bud.globSync('@src', '**/*.js') // returns an array of absolute paths
-}
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.globSync('@src', '**/*.js') // returns an array of absolute paths
 ```
+
+```js title=bud.config.js
+bud.globSync('@src', '**/*.js') // returns an array of absolute paths
+```
+
+</ConfigExample>
