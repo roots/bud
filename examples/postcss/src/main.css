@@ -1,19 +1,7 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
+h1 {
+  color: black;
 }
 
-#root {
-  align-items: center;
-  background: rgb(88, 19, 213);
-  color: white;
-  display: flex;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  letter-spacing: 0.2em;
-  text-align: center;
-  text-transform: uppercase;
-  width: 100vw;
+h2 {
+  color: red;
 }
