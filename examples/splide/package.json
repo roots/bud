@@ -1,0 +1,18 @@
+{
+  "name": "@examples/splide",
+  "private": true,
+  "type": "module",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "dependencies": {
+    "@splidejs/splide": "4.1.4"
+  },
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-emotion": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-swc": "workspace:*"
+  }
+}

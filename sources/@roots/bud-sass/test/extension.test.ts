@@ -1,15 +1,13 @@
-import '@roots/bud-postcss'
-import '@roots/bud-sass'
-import '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {factory} from '@repo/test-kit'
 import BudPostCSS from '@roots/bud-postcss'
-
-import BudSass from '../src/index.js'
+import BudSass from '@roots/bud-sass'
+import isObject from '@roots/bud-support/lodash/isObject'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-sass/extension`, () => {
-  let bud
+  let bud: Bud
   let postcss: BudPostCSS
   let sass: BudSass
 
@@ -17,10 +15,12 @@ describe(`@roots/bud-sass/extension`, () => {
     vi.clearAllMocks()
 
     bud = await factory()
-    postcss = new BudPostCSS(bud)
-    sass = new BudSass(bud)
-    bud.sass = sass
-    bud.postcss = postcss
+
+    postcss = new BudPostCSS(bud) as any
+    bud.postcss = postcss as any
+
+    sass = new BudSass(bud) as any
+    bud.sass = sass as any
   })
 
   it(`should be instantiable`, () => {
@@ -120,5 +120,22 @@ describe(`@roots/bud-sass/extension`, () => {
     sass.additionalData
 
     expect(sass.options.additionalData?.split(`\n`)).toStrictEqual(code)
+  })
+
+  it(`should register issuer rules`, async () => {
+    await sass.register(bud)
+
+    const config = await bud.build.make()
+    const mainRuleSet = config.module?.rules?.[1]
+
+    if (!isObject(mainRuleSet)) throw new Error(`mainRuleSet is not an object`)
+    if (!Array.isArray(mainRuleSet.oneOf)) throw new Error(`mainRuleSet.oneOf is not an array`)
+    if (!isObject(mainRuleSet.oneOf[0]) ) throw new Error(`mainRuleSet[0].oneOf is not an object`)
+    if (!isObject(mainRuleSet.oneOf[1]) ) throw new Error(`mainRuleSet[1].oneOf is not an object`)
+
+    expect(mainRuleSet.oneOf[0].issuer).toStrictEqual({not: bud.hooks.filter(`pattern.sassModule`)})
+    expect(mainRuleSet.oneOf[0].test).toStrictEqual(bud.hooks.filter(`pattern.sassModule`))
+    expect(mainRuleSet.oneOf[1].issuer).toStrictEqual({not: bud.hooks.filter(`pattern.sass`)})
+    expect(mainRuleSet.oneOf[1].test).toStrictEqual(bud.hooks.filter(`pattern.sass`))
   })
 })

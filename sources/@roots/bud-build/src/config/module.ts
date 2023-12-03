@@ -18,24 +18,61 @@ export const module: Factory<`module`> = async ({
     unsafeCache: getUnsafeCache(filter),
   })
 
-const getRules = ({filter, path, rules}: Props) => [
-  ...filter(`build.module.rules.before`, [
-    {
+/**
+ * Get all module.rules
+ */
+const getRules = ({filter, path, rules}: Props) => {
+  return [
+    ...filter(`build.module.rules.before`, [{
       include: [path(`@src`)],
       parser: {requireEnsure: false},
       test: filter(`pattern.js`),
+    }]),
+    {
+      oneOf: [
+        ...filter(`build.module.rules.oneOf`, [
+          ...makeIssuerRuleSet({filter, path, rules}),
+          ...getDefinedRules({rules}),
+        ]),
+      ],
     },
-  ]),
-  {
-    oneOf: filter(
-      `build.module.rules.oneOf`,
-      Object.values(rules)
-        .filter(Boolean)
-        .map(rule => (`toWebpack` in rule ? rule.toWebpack() : rule)),
-    ),
-  },
-  ...filter(`build.module.rules.after`, []),
-]
+    ...filter(`build.module.rules.after`, []),
+  ]
+}
+
+/**
+ * Get the standard rules defined in the bud config, extensions, etc.
+ */
+const getDefinedRules = ({rules}: Partial<Props>) => {
+  return Object.values(rules)
+    .filter(Boolean)
+    .map(rule => (`toWebpack` in rule ? rule.toWebpack() : rule))
+}
+
+/**
+ * Get rules for css and css-module imports issued by non-css files.
+ */
+const makeIssuerRuleSet = ({filter, path, rules}: Props) => {
+  const results = []
+
+  rules[`css-module`]?.toWebpack?.().use &&
+    results.push({
+      exclude: [path(`@src`)],
+      issuer: {not: filter(`pattern.cssModule`)},
+      test: filter(`pattern.cssModule`),
+      use: rules[`css-module`].toWebpack?.().use,
+    })
+
+  rules[`css`]?.toWebpack?.().use &&
+    results.push({
+      exclude: [path(`@src`)],
+      issuer: {not: filter(`pattern.css`)},
+      test: filter(`pattern.css`),
+      use: rules[`css`].toWebpack?.().use,
+    })
+
+  return results
+}
 
 const getNoParse = (filter: Props[`filter`]) =>
   filter(`build.module.noParse`, undefined)
