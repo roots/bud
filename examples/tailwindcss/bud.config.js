@@ -3,7 +3,7 @@
  * could delete this entire file and lines 3-5 of `src/index.js` and it would
  * build.
  *
- * This call enables direct use of color values in your application scripts.
+ * This call enables direct use of color values in your application JavaScript modules.
  *
  * @example
  * ```js

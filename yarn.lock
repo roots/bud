@@ -5987,6 +5987,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/splide@workspace:examples/splide":
+  version: 0.0.0-use.local
+  resolution: "@examples/splide@workspace:examples/splide"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-emotion": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-swc": "workspace:*"
+    "@splidejs/splide": 4.1.4
+  languageName: unknown
+  linkType: soft
+
 "@examples/stylelint@workspace:examples/stylelint":
   version: 0.0.0-use.local
   resolution: "@examples/stylelint@workspace:examples/stylelint"
@@ -10813,6 +10825,13 @@ __metadata:
     "@smithy/types": ^2.5.0
     tslib: ^2.5.0
   checksum: 1325887f9002b9f08c5cfcabcf35ce4488b4c2d009333955a166b27aa40b149a19f8359fdd8b265995409f64686bfb3aa02eb7bc18aea15aaa8d309d640107a5
+  languageName: node
+  linkType: hard
+
+"@splidejs/splide@npm:4.1.4":
+  version: 4.1.4
+  resolution: "@splidejs/splide@npm:4.1.4"
+  checksum: 919f6e1e5da1ebdfe6df77592fab25d0dd52b1809ac61723157cf1c8dd1804bf7739a28e2bb7a22257c5f7628eacba0439ff1268e9bab8577f638f5376fd4b5e
   languageName: node
   linkType: hard
 

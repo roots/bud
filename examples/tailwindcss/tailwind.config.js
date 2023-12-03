@@ -1,10 +1,10 @@
 import colors from './colors.js'
 
 const config = {
-  content: ['./src/**/*.js'],
+  content: ['src/**/*.js'],
   theme: {
     extend: {
-      colors, // Extend Tailwind's default colors
+      colors,
     },
   },
   plugins: [],

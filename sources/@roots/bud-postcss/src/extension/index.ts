@@ -35,7 +35,8 @@ class BudPostCss extends BudPostCssOptionsApi {
   @bind
   public getPlugin(name: string): PluginReference {
     name = this.normalizePluginName(name)
-    if (!(name in this.plugins)) {
+
+    if (!this.plugins || !(name in this.plugins)) {
       throw new Error(`Plugin ${name} does not exist`)
     }
 
@@ -49,8 +50,7 @@ class BudPostCss extends BudPostCssOptionsApi {
   public getPluginOptions(name: string): Record<string, any> {
     const plugin = this.getPlugin(this.normalizePluginName(name))
     if (!plugin) throw new Error(`Plugin ${name} does not exist`)
-
-    return plugin[1]
+    return plugin[1] ?? {}
   }
 
   /**
@@ -65,6 +65,7 @@ class BudPostCss extends BudPostCssOptionsApi {
 
   @bind
   public hasPlugin(name: string): boolean {
+    if (!this.plugins) return false
     return this.normalizePluginName(name) in this.plugins
   }
 
@@ -107,18 +108,13 @@ class BudPostCss extends BudPostCssOptionsApi {
       [`postcss-loader`]: loader,
     }))
 
-    build
-      .setLoader(
-        `postcss`,
-        await this.resolve(`postcss-loader`, import.meta.url),
-      )
-      .setItem(`postcss`, {
-        loader: `postcss`,
-        options: () => ({
-          postcssOptions: this.result,
-          sourceMap: this.get(`sourceMap`),
-        }),
-      })
+    build.setLoader(`postcss`, loader).setItem(`postcss`, {
+      loader: `postcss`,
+      options: () => ({
+        postcssOptions: this.result,
+        sourceMap: this.getSourceMap(),
+      }),
+    })
 
     build.rules.css.setUse((items = []) => [...items, `postcss`])
     build.rules[`css-module`]?.setUse((items = []) => [
@@ -165,7 +161,7 @@ class BudPostCss extends BudPostCssOptionsApi {
         },
         stage: 1,
       })
-      .use([`import`, `nesting`, `env`])
+      .setOrder([`import`, `nesting`, `env`])
   }
 
   /**
@@ -183,10 +179,10 @@ class BudPostCss extends BudPostCssOptionsApi {
     }
 
     const options = Object.entries({
-      ...omit(this.options, [`plugins`, `order`, `postcssOptions`]),
-      plugins: this.get(`order`).map(this.getPlugin).filter(Boolean),
+      ...omit(this.getOptions(), [`plugins`, `order`, `postcssOptions`]),
+      plugins: this.getOrder()?.map(this.getPlugin).filter(Boolean) ?? [],
     })
-      .filter(([k, v]) => !isUndefined(v))
+      .filter(Boolean)
       .reduce((a, [k, v]) => ({...a, [k]: v}), {})
 
     this.logger.info(`postcss options`, options)
@@ -227,7 +223,7 @@ class BudPostCss extends BudPostCssOptionsApi {
 
     this.setPlugin(name, [
       plugin[0],
-      isFunction(options) ? options(plugin[1]) : options,
+      isFunction(options) ? options(plugin[1] ?? {}) : options,
     ])
 
     return this
@@ -258,10 +254,7 @@ class BudPostCss extends BudPostCssOptionsApi {
   }
 
   /**
-   * Use plugins
-   *
-   * @remarks
-   * Sets the plugin order
+   * {@link BudPostCssPublicInterface.setOrder}
    */
   @bind
   public use(
