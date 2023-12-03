@@ -9,8 +9,8 @@ describe(`examples/postcss`, () => {
     await test.install()
     await test.build()
 
-    expect(test.assets[`app.css`].length).toBeGreaterThan(10)
-    expect(test.assets[`app.css`].includes(`@import`)).toBeFalsy()
-    expect(test.assets[`app.css`].includes(`h2`)).toBeTruthy()
+    expect(test.assets[`main.css`].length).toBeGreaterThan(10)
+    expect(test.assets[`main.css`].includes(`@import`)).toBeFalsy()
+    expect(test.assets[`main.css`].includes(`#root`)).toBeTruthy()
   })
 })

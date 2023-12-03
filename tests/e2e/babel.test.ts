@@ -61,7 +61,7 @@ describe(`html output of examples/babel`, () => {
       `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
 
-    await update()
+    await updateCss()
     await page.waitForTimeout(12000)
 
     expect(
@@ -71,10 +71,18 @@ describe(`html output of examples/babel`, () => {
     ).toMatchSnapshot(
       `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
+
+
+    await updateJs()
+    await page.waitForTimeout(12000)
+
+    expect(
+      await page.$(`.updated`)
+    ).toBeTruthy()
   })
 })
 
-const update = async () =>
+const updateCss = async () =>
   await fs.writeAsync(
     destinationPath(`babel`, `src`, `app.css`),
     `\
@@ -99,3 +107,15 @@ body {
 }
 `,
   )
+
+const updateJs = async () =>
+  await fs.writeAsync(
+    destinationPath(`babel`, `src`, `app.js`),
+    `\
+import '@src/app.css'
+
+document.querySelector('.init')?.classList.add('updated')
+
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
+`,
+)

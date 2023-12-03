@@ -33,6 +33,11 @@ class Rule extends Registrable implements Interface {
   public include?: Options[`include`]
 
   /**
+   * RuleSetRule issuer
+   */
+  public issuer?: Options[`issuer`]
+
+  /**
    * RuleSetRule parser
    */
   public parser?: Options[`parser`]
@@ -103,6 +108,14 @@ class Rule extends Registrable implements Interface {
   @bind
   public getInclude(): Array<RegExp | string> {
     return this.include?.map(this.unwrap)
+  }
+
+  /**
+   * Get `issuer` value
+   */
+  @bind
+  public getIssuer(): Output['issuer'] {
+    return this.issuer
   }
 
   /**
@@ -186,6 +199,15 @@ class Rule extends Registrable implements Interface {
   }
 
   /**
+   * Set `issuer` value
+   */
+  @bind
+  public setIssuer(issuer: Options['issuer']): this {
+    this.issuer = issuer
+    return this
+  }
+
+  /**
    * Set `parser` value
    */
   @bind
@@ -253,6 +275,7 @@ class Rule extends Registrable implements Interface {
       exclude: this.getExclude(),
       generator: this.getGenerator(),
       include: this.getInclude(),
+      issuer: this.getIssuer(),
       parser: this.getParser(),
       resolve: this.getResolve(),
       resourceQuery: this.getResourceQuery(),

@@ -40,7 +40,7 @@ export class BudSass extends BudSassOptions {
    * {@link Extension.register}
    */
   @bind
-  public override async register({build, hooks}: Bud) {
+  public override async register({build, hooks, path}: Bud) {
     /** Source loader */
     const loader = await this.resolve(`sass-loader`, import.meta.url)
     if (!loader) return this.logger.error(`sass-loader not found`)
@@ -110,6 +110,23 @@ export class BudSass extends BudSassOptions {
         test: ({hooks}) => hooks.filter(`pattern.sassModule`),
         use: [`precss`, `sass-module`, `postcss`, `resolve-url`, `sass`],
       })
+
+    /** issuer rules */
+    hooks.on(`build.module.rules.oneOf`, (rules = []) => [
+      {
+        exclude: [path(`@src`)],
+        issuer: {not: hooks.filter(`pattern.sassModule`)},
+        test: hooks.filter(`pattern.sassModule`),
+        use: build.rules[`sass-module`]?.toWebpack?.().use,
+      },
+      {
+        exclude: [path(`@src`)],
+        issuer: {not: hooks.filter(`pattern.sass`)},
+        test: hooks.filter(`pattern.sass`),
+        use: build.rules.sass.toWebpack?.().use,
+      },
+      ...rules,
+    ])
   }
 }
 

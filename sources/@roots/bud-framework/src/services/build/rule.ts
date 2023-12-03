@@ -16,6 +16,7 @@ export interface Options {
   exclude?: Array<((app: Bud) => RegExp | string) | RegExp | string>
   generator?: ((app: Bud) => Output[`generator`]) | Output[`generator`]
   include?: Array<((app: Bud) => RegExp | string) | RegExp | string>
+  issuer?: Output[`issuer`]
   parser?: ((app: Bud) => Output[`parser`]) | Output[`parser`]
   resolve?: ((app: Bud) => Output[`resolve`]) | Output[`resolve`]
   resourceQuery?: Output[`resourceQuery`]
@@ -62,6 +63,11 @@ export interface Rule extends Base {
    * Get the value of `include`
    */
   getInclude(): Output[`include`]
+
+  /**
+   * Get the value of `issuer`
+   */
+  getIssuer(): Output[`issuer`]
 
   /**
    * Get the value of `parser`
@@ -131,6 +137,11 @@ export interface Rule extends Base {
    * Set the value of `include`
    */
   setInclude(value: Options[`include`]): this
+
+  /**
+   * Set the value of `issuer`
+   */
+  setIssuer(issuer: Options[`issuer`]): this
 
   /**
    * Set the value of `parser`
