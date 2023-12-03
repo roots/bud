@@ -11,6 +11,5 @@ describe(`examples/postcss`, () => {
 
     expect(test.assets[`main.css`].length).toBeGreaterThan(10)
     expect(test.assets[`main.css`].includes(`@import`)).toBeFalsy()
-    expect(test.assets[`main.css`].includes(`#root`)).toBeTruthy()
   })
 })

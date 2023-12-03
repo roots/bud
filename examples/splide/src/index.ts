@@ -14,6 +14,8 @@ document.body.innerHTML = `
 `
 
 const {default: Splide} = await import(`@splidejs/splide`)
-new Splide('.splide').mount()
+const splide = new Splide('.splide').mount()
 
-export default {}
+if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
+
+export default splide
