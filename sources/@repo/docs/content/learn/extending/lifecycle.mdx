@@ -8,7 +8,7 @@ sidebar_label: Lifecycle
 
 Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -25,7 +25,7 @@ export default class MyExtension extends Extension {
 
 Async callback. Try to do things in this method, when possible.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -43,7 +43,7 @@ export default class MyExtension extends Extension {
 Async callback. Called after `register`. Good for business which requires another
 extension to have already had `register` called on it.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -62,7 +62,7 @@ Async callback. Called after user configuration has been processed.
 
 This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -81,7 +81,7 @@ Async callback. Called directly before configuration is constructed and passed t
 
 This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 
@@ -100,7 +100,7 @@ Async callback. Called directly after configuration is produced.
 
 This function is not called if either the value of `Extension.enabled` is `false` or `Extension.when` returns `false`.
 
-```ts title="extension.ts"
+```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 

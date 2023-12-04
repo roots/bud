@@ -8,8 +8,8 @@ This extension adds [PostCSS](https://postcss.org) support.
 
 ## Installation
 
-```npm2yarn
-yarn add @roots/bud-postcss --dev
+```sh npm2yarn
+npm install @roots/bud-postcss --save-dev
 ```
 
 ## Usage
@@ -35,7 +35,7 @@ You can set the PostCSS options directly using `bud.postcss.setPostCssOptions`.
 
 It's best to use this method only if you are comfortable with PostCSS and know what you are doing.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPostCssOptions({
   parser: `sugarss`,
   plugins: [`postcss-import`, `postcss-nested`, `postcss-preset-env`],
@@ -54,7 +54,7 @@ Adding a plugin with the API is a two step process:
 
 Let's look at how this is done using `tailwindcss` as an example.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss
   /** Register the tailwindcss/nesting plugin */
   .setPlugin(`tailwindcss/nesting`)
@@ -66,13 +66,13 @@ bud.postcss
 
 ### Step 1. Registration
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPlugin(`example-postcss-plugin`)
 ```
 
 If you want to be specific about how to resolve a plugin, you can pass a second parameter.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPlugin(
   `example-postcss-plugin`,
   bud.path(`@modules/example-postcss-plugin/lib/index.js`),
@@ -81,7 +81,7 @@ bud.postcss.setPlugin(
 
 If you want to pass along options with the plugin, you can do so by passing an array.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPlugin(`example-postcss-plugin`, [
   `example-postcss-plugin`,
   {stage: 1},
@@ -90,7 +90,7 @@ bud.postcss.setPlugin(`example-postcss-plugin`, [
 
 ### Step 2. Add the plugin
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.use([
   `postcss-import`,
   `postcss-nesting`,
@@ -101,7 +101,7 @@ bud.postcss.use([
 
 You can also use a callback:
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.use(plugins => [...plugins, 'example-postcss-plugin'])
 ```
 
@@ -111,7 +111,7 @@ You can modify options for a plugin using **bud.postcss.setPluginOptions**.
 
 The first parameter is the plugin key and the second is the options object.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPluginOptions('example-postcss-plugin', {optimize: false})
 ```
 
@@ -121,7 +121,7 @@ You can modify the path for a PostCSS plugin using **bud.postcss.setPluginPath**
 
 The first parameter is the plugin key and the second is the new path to assign.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.setPluginPath(
   'example-postcss-plugin',
   bud.path('./lib/my-plugin.js'),
@@ -132,7 +132,7 @@ bud.postcss.setPluginPath(
 
 You may remove a plugin by calling **bud.postcss.unsetPlugin** with the plugin key.
 
-```ts title=bud.config.js
+```ts title=bud.config.ts
 bud.postcss.unsetPlugin(`import`)
 ```
 

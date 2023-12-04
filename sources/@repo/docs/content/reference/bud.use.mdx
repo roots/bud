@@ -12,7 +12,7 @@ Register an extension or set of extensions.
 
 Add extensions:
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 import swc from '@roots/bud-swc'
 
 export default async bud => {
@@ -22,7 +22,7 @@ export default async bud => {
 
 You can register multiple extensions at once by passing an array of extensions.
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 import swc from '@roots/bud-swc'
 import react from '@roots/bud-react'
 
@@ -33,7 +33,7 @@ export default async bud => {
 
 Add an extension inline (also works with an array of extensions):
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.use({
   name: 'my-webpack-plugin',
   make: () => new MyWebpackPlugin(),
@@ -42,13 +42,13 @@ bud.use({
 
 Add a webpack plugin inline (also work with an array of plugins):
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.use(new MyWebpackPlugin())
 ```
 
 Add an extension or plugin from its signifier (must be the default export):
 
-```js title=bud.config.js
+```ts title=bud.config.ts
 bud.use(`my-webpack-plugin`)
 ```
 

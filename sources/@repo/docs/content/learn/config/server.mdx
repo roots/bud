@@ -5,25 +5,59 @@ slug: dev-server
 sidebar_label: Development server
 ---
 
+import ConfigExample from '@site/src/components/example'
+
 ## Setting the dev URL
 
 Use [bud.setUrl](/reference/bud.setUrl) to set the development server URL.
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.setUrl(3030) // Deltron zero hero not no small feat
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.setUrl(3030) // Deltron zero hero not no small feat
+bud.setUrl(3030) // Deltron zero hero not no small feat
+```
+
+```yml title=bud.config.yml
+setUrl: 3030 # Deltron zero hero not no small feat
+```
+
+```json title=bud.config.json
+{
+  "setUrl": 3030
 }
 ```
+
+</ConfigExample>
 
 ## Setting the proxy URL
 
 Use [bud.setProxyUrl](/reference/bud.setProxyUrl) to set the development server proxy URL.
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.setProxyUrl(`http://example.test`)
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.setProxyUrl(`http://example.test`)
+bud.setProxyUrl(`http://example.test`)
+```
+
+```yml title=bud.config.yml
+setProxyUrl: http://example.test
+```
+
+```json title=bud.config.json
+{
+  "setProxyUrl": "http://example.test"
 }
 ```
+
+</ConfigExample>
 
 ## Setting public URLs
 
@@ -33,6 +67,16 @@ This is useful in containerized development environments like Docker where the i
 
 Here is an example of what this might look like, but it is going to depend heavily on your setup:
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud
+  .setUrl(3000)
+  .setPublicUrl(`http://example.test:3000`)
+  .setProxyUrl(8080)
+  .setPublicProxyUrl(`http://example.test`)
+```
+
 ```js title=bud.config.js
 bud
   .setUrl(3000)
@@ -41,18 +85,94 @@ bud
   .setPublicProxyUrl(`http://example.test`)
 ```
 
+```yml title=bud.config.yml
+setUrl: 3000
+setPublicUrl: http://example.test:3000
+setProxyUrl: 8080
+setPublicProxyUrl: http://example.test
+```
+
+```json title=bud.config.json
+{
+  "setUrl": 3000,
+  "setPublicUrl": "http://example.test:3000",
+  "setProxyUrl": 8080,
+  "setPublicProxyUrl": "http://example.test"
+}
+```
+
+</ConfigExample>
+
 ## Advanced configuration
 
 The development server can be configured with [bud.serve](/reference/bud.serve). This is primarily used to handle
-configuring bud.js to use an [SSL certificate](/reference/bud.serve#ssl), but it exposes all node options so the possibilities
-are really only limited by the runtime.
+configuring bud.js to use an [SSL certificate](/reference/bud.serve#ssl). It exposes all node options so the possibilities
+are really open, for better and worse.
+
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.serve({
+  url: new URL(`https://example.test`),
+  cert: `/path/to/example.test.crt`,
+  key: `/path/to/example.test.key`,
+})
+```
 
 ```js title=bud.config.js
-export default async bud => {
-  bud.serve({
-    url: new URL(`https://example.test`)
-    cert: `/path/to/example.test.crt`,
-    key: `/path/to/example.test.key`,
-  })
+bud.serve({
+  url: new URL(`https://example.test`),
+  cert: `/path/to/example.test.crt`,
+  key: `/path/to/example.test.key`,
+})
+```
+
+```yml title=bud.config.yml
+serve:
+  url: https://example.test
+  cert: /path/to/example.test.crt
+  key: /path/to/example.test.key
+```
+
+```json title=bud.config.json
+{
+  "serve": {
+    "url": "https://example.test",
+    "cert": "/path/to/example.test.crt",
+    "key": "/path/to/example.test.key"
+  }
 }
 ```
+
+</ConfigExample>
+
+## Consider a separate config
+
+Consider better organizing your configuration by [using a separate config file for development](/learn/config/files/bud.config#using-multiple-configuration-files).
+
+Just add `.development` to your `bud.config.*` file name to scope it to development only.
+
+Or, load a separate file entirely using [bud.addConfig](/reference/bud.addConfig).
+
+<ConfigExample>
+
+```ts title=bud.config.development.ts
+bud.setUrl(3030)
+```
+
+```js title=bud.config.development.js
+bud.setUrl(3030)
+```
+
+```yml title=bud.config.development.yml
+setUrl: 3030
+```
+
+```json title=bud.config.development.json
+{
+  "setUrl": 3030
+}
+```
+
+</ConfigExample>
+

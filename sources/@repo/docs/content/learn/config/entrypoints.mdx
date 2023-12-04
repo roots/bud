@@ -3,6 +3,8 @@ title: Entrypoints
 sidebar_label: Entrypoints
 ---
 
+import ConfigExample from '@site/src/components/example';
+
 bud.js uses the concept of "entrypoints" to group application scripts and styles. Entrypoints are defined using [bud.entry](/reference/bud.entry).
 
 You can think of an entrypoint as a "page" in your application. Each entrypoint will have its own output file.
@@ -16,32 +18,89 @@ detect this and create an entrypoint for you.
 
 If you only have a single entrypoint then it is enough to just pass the filename:
 
+<ConfigExample>
+
+```ts title=bud.config.ts
+bud.entry('app') // src/app.js
+```
+
 ```js title=bud.config.js
-export default async bud => {
-  bud.entry('app') // src/app.js
+bud.entry('app') // src/app.js
+```
+
+```yml title=bud.config.yml
+entry: app # src/app.js
+```
+
+```json title=bud.config.json
+{
+  "entry": "app" // src/app.js
 }
 ```
+
+</ConfigExample>
 
 If you have more than one file to include in the bundle, you can use an array:
 
-```js title=bud.config.js
-export default async bud => {
+<ConfigExample>
+
+  ```ts title=bud.config.ts
   bud.entry(['app.js', 'global.css'])
-}
-```
+  ```
+
+  ```js title=bud.config.js
+  bud.entry(['app.js', 'global.css'])
+  ```
+
+  ```yml title=bud.config.yml
+  entry:
+    - ['app.js', 'global.css']
+  ```
+
+  ```json title=bud.config.json
+  {
+    "entry": [["app.js", "global.css"]]
+  }
+  ```
+
+</ConfigExample>
 
 If you have additional entrypoints you may call [bud.entry](/reference/bud.entry) multiple times.
 
 But, it might be preferable to use an object:
 
-```js title=bud.config.js
-export default async bud => {
+<ConfigExample>
+
+  ```ts title=bud.config.ts
   bud.entry({
     app: ['app.js', 'global.css'],
     landing: ['landing.js', 'landing.css'],
   })
-}
-```
+  ```
+
+  ```js title=bud.config.js
+  bud.entry({
+    app: ['app.js', 'global.css'],
+    landing: ['landing.js', 'landing.css'],
+  })
+  ```
+
+  ```yml title=bud.config.yml
+  entry:
+    app: ['app.js', 'global.css']
+    landing: ['landing.js', 'landing.css']
+  ```
+
+  ```json title=bud.config.json
+  {
+    "entry": {
+      "app": ["app.js", "global.css"],
+      "landing": ["landing.js", "landing.css"]
+    }
+  }
+  ```
+
+</ConfigExample>
 
 There is still more that this function can do, but for our overview this is more than enough. You can learn more about this and
 other details in the [bud.entry documentation](/reference/bud.entry).

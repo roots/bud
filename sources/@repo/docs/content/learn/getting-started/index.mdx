@@ -22,7 +22,7 @@ sidebar_label: Installation
 
 The easiest way to get started with bud.js is to use the [create-bud-app command](/learn/getting-started/create-bud-app).
 
-```bash
+```sh
 npx create-bud-app my-app
 ```
 
@@ -30,7 +30,7 @@ npx create-bud-app my-app
 
 Add **@roots/bud** as a development dependency using your choice of package manager.
 
-```bash npm2yarn
+```sh npm2yarn
 npm install @roots/bud --save-dev
 ```
 
@@ -44,7 +44,7 @@ If you are using pnpm add `--public-hoist-pattern=*` to the installation command
 
 If your project's entrypoint is located at `./src/index.js` you can now compile it using the [bud build](/cli/build/index.mdx) command.
 
-```bash npm2yarn
+```sh npm2yarn
 npm run bud build
 ```
 
@@ -58,6 +58,6 @@ In general, all dependencies with the `@roots/*` namespace should share the same
 
 To make it easy to keep versions in sync you can use the [bud upgrade](/cli/upgrade.mdx) command.
 
-```bash npm2yarn
+```sh npm2yarn
 npm run bud upgrade
 ```

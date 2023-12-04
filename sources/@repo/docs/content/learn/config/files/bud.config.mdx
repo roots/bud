@@ -1,11 +1,11 @@
 ---
 title: bud.config
-sidebar_label: bud.config.ts
+sidebar_label: bud.config
 description: Used to configure bud.js
 ---
 
-import Tabs from '@theme/Tabs'
-import TabItem from '@theme/TabItem'
+import ConfigExample from '@site/src/components/example'
+import MultiLanguage from '@site/src/components/multi-language'
 
 bud.js config files are the most straight forward way of interfacing with bud.js.
 
@@ -26,39 +26,21 @@ The esbuild team advises that using esbuild is faster than esbuild-wasm, but the
 
 ## Example configurations
 
-<Tabs>
-<TabItem value="bud.config.ts">
+<ConfigExample>
 
-```js title=bud.config.ts
-import type {Bud} from '@roots/bud'
-
-export default async (bud: Bud) => {
-  bud.entry(`app`, [`app.js`, `app.css`])
-}
+```ts title=bud.config.ts
+bud.entry(`app`, [`app.js`, `app.css`])
 ```
-
-</TabItem>
-
-<TabItem value="bud.config.js">
 
 ```js title=bud.config.js
-/** @param {import('@roots/bud').Bud} bud */
-export default async bud => {
-  bud.entry(`app`, [`app.js`, `app.css`])
-}
+bud.entry(`app`, [`app.js`, `app.css`])
 ```
-
-</TabItem>
-
-<TabItem value="bud.config.yml">
 
 ```yml title=bud.config.yml
-entry: ['app', ['app.js', 'app.css']]
+entry:
+  - app
+  - ['app.js', 'app.css']
 ```
-
-</TabItem>
-
-<TabItem value="bud.config.json">
 
 ```json title=bud.config.json
 {
@@ -66,18 +48,27 @@ entry: ['app', ['app.js', 'app.css']]
 }
 ```
 
-</TabItem>
-</Tabs>
+</ConfigExample>
 
 ## Importing bud.js directly
 
-As mentioned above, you can also elect to import bud.js directly and use it in your configuration.
+You can import bud.js directly and use it in your configuration.
+
+<MultiLanguage>
 
 ```ts title=bud.config.ts
 import {bud} from '@roots/bud'
 
 bud.entry(`app`, [`app.js`, `app.css`])
 ```
+
+```js title=bud.config.js
+import {bud} from '@roots/bud'
+
+bud.entry(`app`, [`app.js`, `app.css`])
+```
+
+</MultiLanguage>
 
 ## Using multiple configuration files
 
@@ -93,68 +84,125 @@ When more than one configuration file is present they are execuetd in the follow
 You may want to add `bud.local.*` to your `.gitignore` file. This way contributors to your project can make specific overrides using `bud.local.*` files
 without affecting the base configuration kept in source control.
 
-## Configuring bud.js with YML
+## Configuring bud.js with JSON and YML
 
-Each key is a reference to a `Bud` call. The supplied values are the arguments to that call.
+Each key is a reference to a bud.js call. The supplied values are the arguments to that call, expressed as an array.
 
-For instance, the equivalent of the following call to [bud.entry](/reference/bud.entry):
+### Calling functions
 
-```js
-bud.entry('app', 'app.js')
+For example, the following bud.js configuration:
+
+<MultiLanguage>
+
+```yml title=bud.config.yml
+entry:
+  - app
+  - app.js
 ```
 
-Would be:
+```json title=bud.config.json
+{
+  "entry": ["app", "app.js"]
+}
+```
 
-```yml
-entry: ['app', 'app.js']
+</MultiLanguage>
+
+is equivalent to:
+
+```ts title=bud.config.ts
+bud.entry('app', 'app.js')
 ```
 
 There is some flexibility here if you are passing a single value and it is NOT an array. So, this is okay:
 
-```yml
+```yml title=bud.config.yml
 entry:
   app: app.js
 ```
 
-But, this would cause an error. it will be parsed as if it were a multi-parameter call:
+Since it can easily be interpreted by bud.js as:
 
-```yml
+```yml title=bud.config.yml
+entry:
+  - app: app.js
+```
+
+Which is equivalent to a single item in array of arguments, containing an object.
+
+```ts title=bud.config.ts
+bud.entry({app: 'app.js'})
+```
+
+Conversely, since [bud.assets](/reference/bud.assets) expects an array, the following yml would cause an error:
+
+```yml title=bud.config.yml
 # This is incorrect
 assets: ['src/**/*.html', 'app/**/*.html']
 ```
 
-You can access nested properties no problem.
+How is bud.js to know whether you intended to pass multiple parameters or a single array? It can't, and so this is the result:
 
-```yml
+```js title=bud.config.js
+bud.assets('src/**/*.html', 'app/**/*.html') // wrong
+// what we wanted: bud.assets(['src/**/*.html', 'app/**/*.html'])
+```
+
+To fix it, we must remember that we are passing _an array of the function parameters_, and wrap our argument in an array:
+
+```yml title=bud.config.yml
+assets:
+  - ['src/**/*.html', 'app/**/*.html']
+```
+
+### Accessing nested values
+
+You can access nested properties with standard yml indentation:
+
+```yml title=bud.config.yml
 babel:
   setPluginOptions:
     - '@babel/plugin-transform-runtime'
     - {helpers: true}
 ```
 
-### Referencing bud.js values
+You can also use dot notation:
+
+```yml title=bud.config.yml
+babel.setPluginOptions:
+  - '@babel/plugin-transform-runtime'
+  - {helpers: true}
+```
+
+### Accessing bud values
 
 You can make reference to the `bud` object with `_bud`.
 
-```yml
+```yml title=bud.config.yml
 splitChunks: _bud.isProduction
 ```
 
 You can tap `bud` with an arrow fn if needed. These functions will be called
 as they are encountered and supplied with the bud.js instance.
 
-```yml
+```yml title=bud.config.yml
 minimize: bud => bud.isProduction
+```
+
+This is the equivalent of:
+
+```ts title=bud.config.ts
+bud.tap('minimize', bud.isProduction)
 ```
 
 ### Treating a value as a function
 
-You can prefix a string with `=>` to indicate that it should be treated as a function. These functions will be called
+If you need to execute some code but don't need the bud object, you can prefix a string with `=>` to indicate that it should be treated as a function. These functions will be called
 as they are encountered.
 
 This will log `4`:
 
-```yml
+```yml title=bud.config.yml
 log: => 2 + 2
 ```
 
@@ -163,14 +211,14 @@ log: => 2 + 2
 Some functions accept functions as a value. In cases like these wrap the function in an additional `=>` so that the
 config parser does not call the function itself.
 
-```yml
+```yml title=bud.config.yml
 webpackConfig: >
   => config => ({...config, parallelism: 1})
 ```
 
 [bud.tap](/reference/bud.tap) and [bud.tapAsync](/reference/bud.tapAsync) can be helpful for dynamic configuration and work like this:
 
-```yml
+```yml title=bud.config.yml
 tap: >
   => bud => {
     // this is a very flexible
@@ -189,17 +237,18 @@ If you're doing a lot of this remember that you can create JS configurations in 
 
 ## Configuring bud.js with JSON
 
-JSON uses the same rules as yml. You can use JSON5 syntax (comments, non-quoted keys) similar to what is supported in `tsconfig.json`.
+You can use [JSON5 syntax](https://json5.org), similar to what is supported in `tsconfig.json`.
 
-```json
+```json title=bud.config.json
 {
-  "entry": ["app", ["app.js"]],
-  "runtime": [true],
-  "assets": [["src/**/*.html"]],
-  "babel": {
-    "setPluginOptions": [
+  /** Comments are fine */
+  entry: ["app", ["app.js"]],
+  runtime: true,
+  copyDir: "assets",
+  babel: {
+    setPluginOptions: [
       "@babel/plugin-transform-runtime",
-      {"helpers": false, "regenerator": false}
+      {helpers: false, regenerator: false}
     ]
   }
 }

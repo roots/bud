@@ -4,7 +4,7 @@ title: Example usage
 
 Here's an example of how you can use the `bud.stylelint` API in your Bud configuration:
 
-```ts
+```ts title=bud.config.ts
 import {type Bud} from '@roots/bud'
 
 export default async (bud: Bud) => {

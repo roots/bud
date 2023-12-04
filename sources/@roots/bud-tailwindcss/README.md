@@ -116,7 +116,7 @@ bud.js can be configured to allow for you to import tailwind theme values using 
 
 An example:
 
-```typescript
+```ts title=bud.config.ts
 import { black } from "@tailwind/colors";
 import { sans } from "@tailwind/fontFamily";
 
@@ -128,13 +128,13 @@ export const main = () => {
 
 Generating the imports can be memory intensive and increase build times, so it is opt-in.
 
-```ts
+```ts title=bud.config.ts
 bud.tailwind.generateImports();
 ```
 
 Better to generate imports only for specific keys:
 
-```ts
+```ts title=bud.config.ts
 bud.tailwind.generateImports([`colors`, `fontFamily`]);
 ```
 

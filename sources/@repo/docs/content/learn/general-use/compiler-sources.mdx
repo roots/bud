@@ -6,6 +6,8 @@ sidebar_label: Adding compiler sources
 sidebar_position: 5
 ---
 
+import ConfigExample from '@site/src/components/example';
+
 By default, **bud.js** only resolves source code from [the `@src` directory](/reference/bud.path).
 
 Nearly all of the modules you install will have been compiled before they are published. It's almost always a waste to run this code through Babel or whatever other compiler you may be using.
@@ -21,41 +23,37 @@ Common examples:
 
 ## Adding sources
 
-:::info bud.compilePaths
+Use [bud.compilePaths](/reference/bud.compilePaths) to add additional directories to the list of sources that will be compiled.
 
-There is a function to simplify this available in bud@6.9.0: [bud.compilePaths](/reference/bud.compilePaths).
+As a quick example, let's say we have a project that needs to source modules from the swiper package.:
 
-:::
+<ConfigExample>
 
-You should make modifications to compiler sources within a `build.before` action.
-Some extensions may not register build rules until after the config file is processed;
-using this hook will guarantee that your customization takes precedence.
-
-```ts
-bud.hooks.action(`build.before`, async bud => {
-  bud.build.rules.js.setInclude([
-    bud.path('@src'),
-    bud.path('@modules/some-untranspiled-pkg'),
-  ])
-})
+```ts title=bud.config.ts
+bud.compilePaths([
+  bud.path(`@src`),
+  bud.path(`@modules/swiper`)
+])
 ```
 
-Or, you can be broad:
-
-```ts
-bud.hooks.action(`build.before`, async bud => {
-  bud.build.rules.js.setInclude([bud.path('@src'), bud.path('@modules')])
-})
+```js title=bud.config.js
+bud.compilePaths([
+  bud.path(`@src`),
+  bud.path(`@modules/swiper`)
+])
 ```
 
-Apply the above change to all registered rules:
-
-```ts
-bud.hooks.action(`build.before`, async bud => {
-  Object.values(bud.build.rules).map(rule =>
-    rule.setInclude([bud.path('@src'), bud.path('@modules')]),
-  )
-})
+```yml title=bud.config.yml
+compilePaths:
+  - ['src', 'node_modules/swiper']
 ```
 
-In general, we would advise being as restrictive as possible when it comes to whitelisting transpiler sources.
+```json title=bud.config.json
+{
+  "compilePaths": [
+    ["src", "node_modules/swiper"]
+  ]
+}
+```
+
+</ConfigExample>
