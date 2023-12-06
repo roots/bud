@@ -20,7 +20,13 @@ export type Options = Omit<Partial<Context>, `extensions`> & {
   extensions?: Array<string>
 }
 
-export default async (options: Options = {}): Promise<Context> => {
+let context: Context
+
+export default async function make(
+  options: Options = {},
+): Promise<Context> {
+  logger.scope(`bootstrap`).log(`🏗️`, `creating context`)
+
   const basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
 
@@ -31,8 +37,29 @@ export default async (options: Options = {}): Promise<Context> => {
   let manifest: Context[`manifest`]
   try {
     manifest = await fs.read(join(paths.basedir, `package.json`))
+    if (manifest?.bud?.paths?.basedir) {
+      const targetPath = join(basedir, manifest.bud.paths.basedir)
+      logger
+        .scope(`bootstrap`)
+        .log(
+          `🏗️`,
+          `rebuilding context`,
+          `based on bud.paths.basedir sourced from`,
+          join(targetPath, `package.json`),
+        )
+
+      return await make({
+        basedir: targetPath,
+        ...(options ?? {}),
+      })
+    }
   } catch (e) {
-    logger.scope(`bootstrap`).warn(`📦`, `no package.json found`)
+    logger
+      .scope(`bootstrap`)
+      .warn(
+        `📦`,
+        `no package.json found at ${join(paths.basedir, `package.json`)}`,
+      )
   }
 
   const files: Context[`files`] = await projectFiles.get(paths.basedir)
@@ -47,7 +74,7 @@ export default async (options: Options = {}): Promise<Context> => {
     options.pm = pm !== false ? pm : `npm`
   }
 
-  const context: Context = {
+  context = {
     ...(args ?? {}),
     ...options,
     basedir: paths.basedir,
@@ -67,8 +94,6 @@ export default async (options: Options = {}): Promise<Context> => {
     stdin: options?.stdin ?? stdin,
     stdout: options?.stdout ?? stdout,
   }
-
-  global.process.env.mode = context.mode
 
   logger
     .unscope()

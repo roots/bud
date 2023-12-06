@@ -3,7 +3,6 @@
   "compilerOptions": {
     "types": ["@roots/bud", "@roots/bud-vue"]
   },
-  "files": ["bud.config.js"],
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
 }

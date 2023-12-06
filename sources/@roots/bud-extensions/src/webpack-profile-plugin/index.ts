@@ -13,7 +13,7 @@ import {
 @label(`@roots/bud-extensions/webpack-profile-plugin`)
 @options({
   outputPath: DynamicOption.make((bud: Bud) =>
-    bud.path(`@storage`, `compiler.profile.json`),
+    bud.path(`@storage`, bud.label, `compiler.profile.json`),
   ),
 })
 export default class BudProfile extends Extension<

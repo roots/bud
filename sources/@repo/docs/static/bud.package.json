@@ -37,6 +37,55 @@
       "description": "bud.js options",
       "type": "object",
       "properties": {
+        "browserslistUpdate": {
+          "title": "browserslistUpdate",
+          "description": "Auto update browserslist db",
+          "type": "boolean",
+          "default": true
+        },
+        "cache": {
+          "title": "cache",
+          "description": "Enable or disable caching of bud.js",
+          "type": ["boolean", "string"],
+          "default": true
+        },
+        "devtool": {
+          "title": "devtool",
+          "description": "Enable or disable devtool",
+          "type": ["boolean", "string"],
+          "default": true
+        },
+        "paths": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "basedir": {
+              "title": "basedir",
+              "description": "Base directory",
+              "type": "string"
+            },
+            "input": {
+              "title": "input",
+              "description": "Input directory",
+              "type": "string"
+            },
+            "output": {
+              "title": "output",
+              "description": "Output directory",
+              "type": "string"
+            },
+            "public": {
+              "title": "public",
+              "description": "Public directory",
+              "type": "string"
+            },
+            "storage": {
+              "title": "storage",
+              "description": "Storage directory",
+              "type": "string"
+            }
+          }
+        },
         "extensions": {
           "$ref": "#/definitions/extensions"
         }

@@ -54,11 +54,10 @@ const systemPaths = envPaths(`bud`)
 /**
  * Cache paths
  */
+let currentDir: string
 let paths: paths
 
-const get = (basedir?: string): paths => {
-  if (paths) return paths
-
+const get = (basedir: string): paths => {
   if (!basedir)
     throw BudError.normalize(
       `directory is required if paths not already initialized`,
@@ -71,6 +70,9 @@ This is most likely a problem with the internals of bud.js.`,
         ),
       },
     )
+
+  if (paths && currentDir === basedir) return paths
+  currentDir = basedir
 
   let sha1 = createHash(`sha1`).update(basedir)
   let hash: string
