@@ -161,10 +161,12 @@ export class Server extends Service implements BudServer {
    */
   @bind
   public async injectScripts() {
+    if (!this.app.isDevelopment) return
+
     const injectOn = async (instance: Bud) =>
       inject(
         instance,
-        Array.from(this.app.hooks.filter(`dev.client.scripts`)),
+        Array.from(this.app.hooks.filter(`dev.client.scripts`) ?? []),
       )
 
     this.app.hasChildren

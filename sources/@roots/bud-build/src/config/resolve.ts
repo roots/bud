@@ -5,14 +5,14 @@ import isString from '@roots/bud-support/lodash/isString'
 export const resolve: Factory<`resolve`> = async bud => {
   return await bud.hooks.filterAsync(`build.resolve`, {
     alias: {
-      [`@src`]: bud.path(`@src`),
+      '@src': bud.path(`@src`),
       ...(await bud.hooks.filterAsync(`build.resolve.alias`, {})),
     },
 
     extensionAlias: await bud.hooks.filterAsync(
       `build.resolve.extensionAlias`,
       {
-        [`.js`]: [`.ts`, `.tsx`, `.js`],
+        [`.js`]: [`.ts`, `.tsx`, `.js`, `.jsx`],
         [`.mjs`]: [`.mts`, `.mtx`, `.mjs`],
       },
     ),
@@ -31,6 +31,8 @@ export const resolve: Factory<`resolve`> = async bud => {
         bud.hooks.filter(`location.@modules`),
       ].filter(v => isString(v) && v.length > 0),
     ),
+
+    symlinks: bud.hooks.filter(`build.resolve.symlinks`, undefined),
 
     /**
      * Leave `undefined` to use webpack default (true in dev, false in production)

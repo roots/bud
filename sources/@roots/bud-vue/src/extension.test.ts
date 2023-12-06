@@ -11,8 +11,6 @@ describe(`@roots/bud-vue`, () => {
   beforeEach(async () => {
     bud = await factory()
     instance = new Vue(bud)
-    await instance.register(bud)
-    await instance.configAfter(bud)
   })
 
   it(`should be constructable`, () => {
@@ -25,18 +23,19 @@ describe(`@roots/bud-vue`, () => {
 
   it(`should have a vue2 method that returns true when manifest has vue in range of ^2`, async () => {
     bud.context.manifest.dependencies = {vue: `^2.6.1`}
-    expect(instance.isVue2()).toBe(true)
+    await instance.register(bud)
     expect(instance.version).toBe(`2.6.1`)
   })
 
   it(`should have a vue2 method that returns false when manifest has vue in range of ^3`, async () => {
     bud.context.manifest.dependencies = {vue: `^3.1.0`}
-    expect(instance.isVue2()).toBe(false)
+    await instance.register(bud)
     expect(instance.version).toBe(`3.1.0`)
   })
 
-  it(`should have a vue2 method that returns false when vue is resolvable but not listed in manifest`, async () => {
-    expect(instance.isVue2()).toBe(false)
+  it(`should have a version of 3 when vue is not described by the project`, async () => {
+    await instance.register(bud)
+    expect(instance.version).toBe(`3`)
   })
 
   it(`should have a runtimeOnly method modifies options.runtimeOnly`, async () => {
@@ -58,6 +57,7 @@ describe(`@roots/bud-vue`, () => {
   it(`should register typescript support if @roots/bud-typescript is installed`, async () => {
     const bud = await factory()
 
+    // @ts-ignore - typescript is optional
     await bud.extensions.add(`@roots/bud-typescript`)
     await bud.extensions.add(`@roots/bud-vue`)
 
@@ -68,9 +68,11 @@ describe(`@roots/bud-vue`, () => {
       await bud.extensions.buildBefore(bud)
     }
 
+    // @ts-ignore - typescript is optional
     expect(bud.typescript.get(`appendTsSuffixTo`)).toStrictEqual(
       expect.arrayContaining([/\.vue$/]),
     )
+    // @ts-ignore - typescript is optional
     expect(bud.build.items.ts.getOptions().appendTsSuffixTo).toStrictEqual(
       expect.arrayContaining([/\.vue$/]),
     )

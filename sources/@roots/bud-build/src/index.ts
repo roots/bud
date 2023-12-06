@@ -59,8 +59,11 @@ declare module '@roots/bud-framework' {
     inlineSvg: Rule
     js: Rule
     json: Rule
+    sass: Rule
     svg: Rule
     toml: Rule
+    ts: Rule
+    webp: Rule
     yml: Rule
   }
 }
