@@ -17,8 +17,5 @@ export const resolveLoader: Factory<`resolveLoader`> = async ({
         `@roots/bud-support/style-loader`,
       ),
     }),
-    modules: hooks.filter(`build.resolveLoader.modules`, [
-      ...(await module.getDirectory(`@roots/bud-support`)),
-      `node_modules`,
-    ]),
+    modules: hooks.filter(`build.resolveLoader.modules`, undefined),
   })
