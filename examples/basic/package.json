@@ -1,6 +1,6 @@
 {
   "name": "@examples/basic",
-  "$schema": "../../sources/@repo/docs/static/bud.package.json",
+  "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",
   "browserslist": [
