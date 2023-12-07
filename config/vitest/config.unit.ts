@@ -3,11 +3,8 @@ import {env} from 'process'
 import {defineConfig} from 'vitest/config'
 import GithubActionsReporter from 'vitest-github-actions-reporter'
 
-import alias from './alias.js'
-
 export default defineConfig({
   test: {
-    alias,
     coverage: {
       include: [`sources/@roots/*/src/**/*.{ts,tsx}`],
       provider: `v8`,

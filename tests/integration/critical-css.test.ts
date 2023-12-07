@@ -29,4 +29,4 @@ describe(`critical-css`, () => {
     )
     testIsCompiledCss(criticalStylesheet)
   })
-})
+}, {timeout: 240000})

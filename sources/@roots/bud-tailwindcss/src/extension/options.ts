@@ -144,7 +144,7 @@ class BudTailwindOptionsApi
   ) {
     this.resolveConfig()
 
-    const makeStaticModule = (key: keyof ThemeConfig) => {
+    const makeStaticModule = (key: `${keyof ThemeConfig & string}`) => {
       const value = get(this.resolvedConfig.theme, key)
       this.logger.log(`@tailwind/${key}: generating module`)
       return `export default ${JSON.stringify(value)};`
@@ -159,7 +159,7 @@ class BudTailwindOptionsApi
         (acc, key) => ({
           ...acc,
           [bud.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
-            makeStaticModule(key),
+            makeStaticModule(key as `${keyof ThemeConfig & string}`),
         }),
         {},
       )
@@ -173,6 +173,7 @@ class BudTailwindOptionsApi
           label: `@roots/bud-tailwindcss/virtual-module`,
           make: async () => new WebpackVirtualModules.default(modules),
         })
+
         bud.hooks.async(`build.resolve.alias`, async (aliases = {}) => ({
           ...aliases,
           [`@tailwind`]: `${bud.path(`@src`, `__bud`, `@tailwind`)}`,
