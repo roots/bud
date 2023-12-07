@@ -1,7 +1,7 @@
 {
   "extends": "@roots/bud/config/tsconfig.json",
   "compilerOptions": {
-    "types": ["@roots/bud", "@roots/bud-vue"]
+    "types": ["@roots/bud", "@roots/bud-sass", "@roots/bud-vue"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]
