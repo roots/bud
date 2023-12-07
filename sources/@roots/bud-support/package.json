@@ -326,7 +326,7 @@
     "esbuild-wasm": "0.19.5",
     "execa": "8.0.1",
     "express": "4.18.2",
-    "figures": "6.0.1",
+    "figures": "5.0.0",
     "file-loader": "6.2.0",
     "get-port": "7.0.0",
     "globby": "14.0.0",

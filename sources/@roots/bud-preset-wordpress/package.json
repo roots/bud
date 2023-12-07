@@ -84,8 +84,6 @@
     "@roots/bud-wordpress-externals": "workspace:*",
     "@roots/bud-wordpress-theme-json": "workspace:*",
     "@roots/wordpress-hmr": "workspace:*",
-    "chalk": "5.3.0",
-    "figures": "6.0.1",
     "tslib": "2.6.2"
   },
   "volta": {
