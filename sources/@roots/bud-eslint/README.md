@@ -164,9 +164,6 @@ However, the amount of effort needed to maintain and develop new features and pr
 <a href="https://worksitesafety.ca/careers/">
 <img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
 </a>
-<a href="https://www.copiadigital.com/">
-<img src="https://cdn.roots.io/app/uploads/copia-digital.svg" alt="Copia Digital" width="200" height="150"/>
-</a>
 <a href="https://www.freave.com/">
 <img src="https://cdn.roots.io/app/uploads/freave.svg" alt="Freave" width="200" height="150"/>
 </a>
