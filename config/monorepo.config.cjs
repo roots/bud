@@ -33,11 +33,6 @@ module.exports = {
       url: `https://worksitesafety.ca/careers/`,
     },
     {
-      image: `https://cdn.roots.io/app/uploads/copia-digital.svg`,
-      title: `Copia Digital`,
-      url: `https://www.copiadigital.com/`,
-    },
-    {
       image: `https://cdn.roots.io/app/uploads/freave.svg`,
       title: `Freave`,
       url: `https://www.freave.com/`,
