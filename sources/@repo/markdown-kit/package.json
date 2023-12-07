@@ -8,14 +8,14 @@
     "./cli-examples": "./compiled/cli-examples/index.js"
   },
   "devDependencies": {
-    "@types/lodash-es": "4.17.11",
-    "@types/node": "20.9.0",
+    "@types/lodash-es": "4.17.12",
+    "@types/node": "20.10.4",
     "@types/prettier": "3.0.0",
-    "vitest": "0.34.6"
+    "vitest": "1.0.1"
   },
   "dependencies": {
-    "@octokit/core": "5.0.1",
-    "@octokit/plugin-paginate-rest": "9.1.4",
+    "@octokit/core": "5.0.2",
+    "@octokit/plugin-paginate-rest": "9.1.5",
     "@repo/constants": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
@@ -28,11 +28,11 @@
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
-    "octokit": "3.1.1",
+    "octokit": "3.1.2",
     "prettier": "3.1.0",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.2",
-    "typescript": "5.2.2"
+    "typescript": "5.3.3"
   },
   "scripts": {
     "build": "yarn tsc -b"

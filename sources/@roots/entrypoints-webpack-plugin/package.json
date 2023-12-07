@@ -65,8 +65,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/lodash-es": "4.17.11",
-    "@types/node": "20.9.0"
+    "@types/lodash-es": "4.17.12",
+    "@types/node": "20.10.4"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

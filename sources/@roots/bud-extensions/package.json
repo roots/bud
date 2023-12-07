@@ -135,6 +135,9 @@
       "webpack-manifest-plugin": [
         "./lib/webpack-manifest-plugin/index.d.ts"
       ],
+      "webpack-profile-plugin": [
+        "./lib/webpack-profile-plugin/index.d.ts"
+      ],
       "webpack-provide-plugin": [
         "./lib/webpack-provide-plugin/index.d.ts"
       ]
@@ -144,7 +147,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.9.0",
+    "@types/node": "20.10.4",
     "palette-webpack-plugin": "1.0.5"
   },
   "dependencies": {

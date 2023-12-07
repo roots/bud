@@ -4,8 +4,8 @@
   "packageManager": "yarn@3.2.4",
   "main": "./sources/index.ts",
   "dependencies": {
-    "@types/lodash-es": "4.17.11",
-    "@types/node": "20.9.0",
+    "@types/lodash-es": "4.17.12",
+    "@types/node": "20.10.4",
     "@yarnpkg/builder": "4.0.0-rc.51",
     "@yarnpkg/cli": "4.0.2",
     "@yarnpkg/core": "4.0.2",
@@ -15,8 +15,8 @@
     "helpful-decorators": "2.1.0",
     "lodash-es": "4.17.21",
     "tslib": "2.6.2",
-    "typescript": "5.2.2",
-    "vitest": "0.34.6"
+    "typescript": "5.3.3",
+    "vitest": "1.0.1"
   },
   "scripts": {
     "build": "builder build plugin"

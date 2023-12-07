@@ -9,8 +9,8 @@ describe(`notifier`, () => {
   let bud: Bud
 
   beforeEach(async () => {
-    vi.mock('open', () => ({default: vi.fn()}))
-    vi.mock('open-editor', () => ({default: vi.fn()}))
+    vi.mock(`open`, () => ({default: vi.fn()}))
+    vi.mock(`open-editor`, () => ({default: vi.fn()}))
 
     bud = await factory({notify: true})
     notifier = new Notifier(() => bud)
