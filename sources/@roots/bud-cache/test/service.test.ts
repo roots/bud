@@ -47,7 +47,7 @@ describe(`@roots/bud-cache`, () => {
     // @ts-ignore
     expect(cache.configuration?.allowCollectingMemory).toEqual(true)
     // @ts-ignore
-    expect(cache.configuration?.buildDependencies?.bud).toEqual(
+    expect(cache.configuration?.buildDependencies?.project).toEqual(
       expect.arrayContaining([
         bud.path(`package.json`),
         bud.path(`config/bud.config.js`),

@@ -8,17 +8,18 @@ import Filesystem from '@roots/filesystem/filesystem'
 import * as json from '@roots/filesystem/json'
 import * as yml from '@roots/filesystem/yml'
 
+let currentDirectory: string
 let filesystem: Filesystem
 
-export const get = (basedir?: string) => {
-  if (filesystem) return filesystem
-
+export const get = (basedir: string) => {
   if (typeof basedir !== `string`)
     throw BudError.normalize(
       `filesystem not initialized. basedir arg required for initialization.`,
       {thrownBy: import.meta.url},
     )
 
+  if (filesystem && currentDirectory === basedir) return filesystem
+  currentDirectory = basedir
   filesystem = new Filesystem(basedir)
 
   /**

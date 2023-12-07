@@ -14,14 +14,16 @@ import dry from '@roots/bud/cli/flags/dry'
 import filter from '@roots/bud/cli/flags/filter'
 import force from '@roots/bud/cli/flags/force'
 import ignoreErrors from '@roots/bud/cli/flags/ignoreErrors'
+import input from '@roots/bud/cli/flags/input'
 import log from '@roots/bud/cli/flags/log'
 import mode from '@roots/bud/cli/flags/mode'
 import notify from '@roots/bud/cli/flags/notify'
+import output from '@roots/bud/cli/flags/output'
+import publicPath from '@roots/bud/cli/flags/publicPath'
 import silent from '@roots/bud/cli/flags/silent'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
-import {isset} from '@roots/bud/cli/helpers/isset'
 import * as instance from '@roots/bud/instance'
 import * as Dash from '@roots/bud-dashboard/components/error'
 import {Bud} from '@roots/bud-framework'
@@ -99,11 +101,17 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public ignoreErrors = ignoreErrors
 
+  public input = input
+
   public log = log
 
   public mode = mode
 
+  public output = output
+
   public declare notify: typeof notify
+
+  public publicPath = publicPath
 
   public silent = silent(true)
 
@@ -175,34 +183,60 @@ export default class BudCommand extends Command<BaseContext & Context> {
   }
 
   @bind
-  public async override([value, envKey, callback]: [
-    value: any,
+  public async override([argValue, envKey, manifestPath, callback]: [
+    argValue: any,
     envKey: string,
+    manifestPath: string,
     callback: (bud: Bud) => (value: any) => Promise<any>,
   ]) {
-    await override(this.bud, value, envKey, callback)
+    await override(this.bud, argValue, envKey, manifestPath, callback)
   }
 
   /**
    * Apply context from manifest to bud.js instance
    */
   @bind
-  public async applyBudManifestOptions(bud: Bud) {
-    const manifest = bud.context.manifest?.bud
-
-    bud
-      .when(isset(manifest?.publicPath), bud =>
-        bud.setPublicPath(manifest.bud.publicPath),
-      )
-      .when(isset(manifest?.paths?.input), bud =>
-        bud.setPath(`@src`, manifest.bud.paths.input),
-      )
-      .when(isset(manifest?.paths?.output), bud =>
-        bud.setPath(`@dist`, manifest.bud.paths.output),
-      )
-      .when(isset(manifest?.paths?.storage), bud =>
-        bud.setPath(`@storage`, manifest.bud.paths.storage),
-      )
+  public async applyUserOptions(bud: Bud) {
+    await Promise.all(
+      [
+        [
+          this.cache,
+          `BUD_CACHE`,
+          `cache`,
+          b => async v => b.persist(v),
+        ] satisfies Override<`filesystem` | `memory` | boolean>,
+        [
+          this.input,
+          `BUD_PATH_INPUT`,
+          `paths.input`,
+          b => async v => b.setPath(`@src`, v),
+        ] satisfies Override<string>,
+        [
+          this.output,
+          `BUD_PATH_OUTPUT`,
+          `paths.output`,
+          b => async v => b.setPath(`@dist`, v),
+        ] satisfies Override<string>,
+        [
+          this.publicPath,
+          `BUD_PATH_PUBLIC`,
+          `paths.public`,
+          b => async v => b.setPublicPath(v),
+        ] satisfies Override<string>,
+        [
+          this.storage,
+          `BUD_PATH_STORAGE`,
+          `paths.storage`,
+          b => async v => b.hooks.on(`location.@storage`, b.relPath(v)),
+        ] satisfies Override<string>,
+        [
+          this.use,
+          `BUD_USE`,
+          undefined,
+          b => async v => await b.extensions.add(v as any),
+        ] satisfies Override<Array<string>>,
+      ].map(this.override),
+    )
   }
 
   /**
@@ -239,43 +273,21 @@ export default class BudCommand extends Command<BaseContext & Context> {
    */
   @bind
   public async makeBud() {
-    const applyCliOptionsCallback = async (bud: Bud) => {
-      await Promise.all(
-        [
-          [
-            this.cache,
-            `BUD_CACHE`,
-            b => async v => b.persist(v),
-          ] satisfies Override<`filesystem` | `memory` | boolean>,
-          [
-            this.use,
-            `BUD_USE`,
-            b => async v => await b.extensions.add(v as any),
-          ] satisfies Override<Array<string>>,
-        ].map(this.override),
-      )
+    Object.assign(this.context, {
+      ...this.context,
+      dry: this.dry,
+      mode: this.mode ?? this.context.mode ?? `production`,
+      render: this.render,
+      silent: this.silent,
+    })
 
-      await this.applyBudManifestOptions(bud).catch(this.catch)
-    }
+    this.bud = await instance.get().initialize(this.context)
 
-    this.context.dry = this.dry
-    this.context.mode = this.mode ?? this.context.mode ?? `production`
-    this.context.silent = this.silent
-    this.context.render = this.render
+    await this.applyUserOptions(this.bud)
 
-    this.bud = instance.get()
+    this.bud.hooks.action(`config.after`, this.applyUserOptions)
 
-    await this.bud.initialize(this.context)
-
-    await applyCliOptionsCallback(this.bud)
-
-    await this.bud.processConfigs()
-
-    await applyCliOptionsCallback(this.bud)
-
-    this.bud.hooks.action(`build.before`, applyCliOptionsCallback)
-
-    return this.bud
+    return await this.bud.processConfigs()
   }
 
   /**

@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`@roots/bud-extensions > bud.extensions.repository options should match snapshot in development 1`] = `
+exports[`@roots/bud-extensions > should match snapshot in development 1`] = `
 [
   "@roots/bud-entrypoints",
   "@roots/bud-extensions/cdn",
@@ -17,6 +17,7 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
   "@roots/bud-extensions/webpack-lifecycle-plugin",
   "@roots/bud-extensions/webpack-manifest-plugin",
+  "@roots/bud-extensions/webpack-profile-plugin",
   "@roots/bud-extensions/webpack-provide-plugin",
   "@roots/bud-minify",
   "@roots/bud-minify/minify-css",
@@ -25,5 +26,95 @@ exports[`@roots/bud-extensions > bud.extensions.repository options should match 
   "@roots/bud-react",
   "@roots/bud-swc",
   "@roots/bud-tailwindcss",
+]
+`;
+
+exports[`@roots/bud-extensions > should match snapshot in development 2`] = `
+[
+  "@roots/bud-entrypoints",
+  "@roots/bud-extensions/fix-style-only-entrypoints",
+  "@roots/bud-extensions/import-map",
+  "@roots/bud-extensions/tsconfig-values",
+  "@roots/bud-extensions/webpack-define-plugin",
+  "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
+  "@roots/bud-extensions/webpack-lifecycle-plugin",
+  "@roots/bud-extensions/webpack-manifest-plugin",
+  "@roots/bud-postcss",
+  "@roots/bud-react",
+  "@roots/bud-swc",
+  "@roots/bud-tailwindcss",
+]
+`;
+
+exports[`@roots/bud-extensions > should match snapshot in development 3`] = `
+[
+  "",
+  "DefinePlugin",
+  "EntrypointsWebpackPlugin",
+  "FixStyleOnlyEntrypoints",
+  "HotModuleReplacementPlugin",
+  "WebpackManifestPlugin",
+]
+`;
+
+exports[`@roots/bud-extensions > should match snapshot in production 1`] = `
+[
+  "@roots/bud-entrypoints",
+  "@roots/bud-extensions/cdn",
+  "@roots/bud-extensions/clean-webpack-plugin",
+  "@roots/bud-extensions/copy-webpack-plugin",
+  "@roots/bud-extensions/esm",
+  "@roots/bud-extensions/fix-style-only-entrypoints",
+  "@roots/bud-extensions/html-webpack-plugin",
+  "@roots/bud-extensions/import-map",
+  "@roots/bud-extensions/interpolate-html-webpack-plugin",
+  "@roots/bud-extensions/mini-css-extract-plugin",
+  "@roots/bud-extensions/tsconfig-values",
+  "@roots/bud-extensions/webpack-define-plugin",
+  "@roots/bud-extensions/webpack-hot-module-replacement-plugin",
+  "@roots/bud-extensions/webpack-lifecycle-plugin",
+  "@roots/bud-extensions/webpack-manifest-plugin",
+  "@roots/bud-extensions/webpack-profile-plugin",
+  "@roots/bud-extensions/webpack-provide-plugin",
+  "@roots/bud-minify",
+  "@roots/bud-minify/minify-css",
+  "@roots/bud-minify/minify-js",
+  "@roots/bud-postcss",
+  "@roots/bud-react",
+  "@roots/bud-swc",
+  "@roots/bud-tailwindcss",
+]
+`;
+
+exports[`@roots/bud-extensions > should match snapshot in production 2`] = `
+[
+  "@roots/bud-entrypoints",
+  "@roots/bud-extensions/clean-webpack-plugin",
+  "@roots/bud-extensions/fix-style-only-entrypoints",
+  "@roots/bud-extensions/import-map",
+  "@roots/bud-extensions/mini-css-extract-plugin",
+  "@roots/bud-extensions/tsconfig-values",
+  "@roots/bud-extensions/webpack-define-plugin",
+  "@roots/bud-extensions/webpack-lifecycle-plugin",
+  "@roots/bud-extensions/webpack-manifest-plugin",
+  "@roots/bud-minify",
+  "@roots/bud-minify/minify-css",
+  "@roots/bud-minify/minify-js",
+  "@roots/bud-postcss",
+  "@roots/bud-react",
+  "@roots/bud-swc",
+  "@roots/bud-tailwindcss",
+]
+`;
+
+exports[`@roots/bud-extensions > should match snapshot in production 3`] = `
+[
+  "",
+  "CleanWebpackPlugin",
+  "DefinePlugin",
+  "EntrypointsWebpackPlugin",
+  "FixStyleOnlyEntrypoints",
+  "MiniCssExtractPlugin",
+  "WebpackManifestPlugin",
 ]
 `;

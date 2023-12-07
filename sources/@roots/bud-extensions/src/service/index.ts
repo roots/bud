@@ -21,11 +21,6 @@ import Container from '@roots/container'
  */
 class Extensions extends Service implements BudExtensions {
   /**
-   * {@link Service.label}
-   */
-  public override label = `extensions`
-
-  /**
    * Resolved options
    */
   public options: Container<{

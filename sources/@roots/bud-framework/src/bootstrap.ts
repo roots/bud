@@ -113,7 +113,7 @@ const instantiateServices =
 
     const value: BudService = new Service(() => app)
     const label =
-      value.label ?? value.constructor?.name
+      value.constructor?.name
         ? camelCase(value.constructor.name)
         : signifier
 

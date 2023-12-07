@@ -30,7 +30,6 @@ describe(`bud.devtool`, function () {
     expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
-
   it (`should set source-map in production`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()

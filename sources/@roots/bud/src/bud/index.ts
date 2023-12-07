@@ -19,6 +19,7 @@ import type WebpackDefinePlugin from '@roots/bud-extensions/webpack-define-plugi
 import type WebpackHotModuleReplacementPlugin from '@roots/bud-extensions/webpack-hot-module-replacement-plugin'
 import type BudWebpackLifecyclePlugin from '@roots/bud-extensions/webpack-lifecycle-plugin'
 import type WebpackManifestPlugin from '@roots/bud-extensions/webpack-manifest-plugin'
+import type WebpackProfilePlugin from '@roots/bud-extensions/webpack-profile-plugin'
 import type WebpackProvidePlugin from '@roots/bud-extensions/webpack-provide-plugin'
 import type Hooks from '@roots/bud-hooks'
 import type Minify from '@roots/bud-minify'
@@ -50,6 +51,7 @@ declare module '@roots/bud-framework' {
     '@roots/bud-extensions/webpack-hot-module-replacement-plugin': WebpackHotModuleReplacementPlugin
     '@roots/bud-extensions/webpack-lifecycle-plugin': BudWebpackLifecyclePlugin
     '@roots/bud-extensions/webpack-manifest-plugin': WebpackManifestPlugin
+    '@roots/bud-extensions/webpack-profile-plugin': WebpackProfilePlugin
     '@roots/bud-extensions/webpack-provide-plugin': WebpackProvidePlugin
     '@roots/bud-minify': Minify
   }

@@ -80,8 +80,10 @@ export interface Sync {
   recordsPath: Configuration[`recordsPath`]
   'resolve.extensionAlias': Configuration[`resolve`][`extensionAlias`]
   'resolve.extensions': Set<string>
+  'resolve.symlinks': Configuration[`resolve`][`symlinks`]
   resolveLoader: Configuration[`resolveLoader`]
   'resolveLoader.alias': Configuration[`resolveLoader`][`alias`]
+  'resolveLoader.modules': Configuration[`resolveLoader`][`modules`]
   snapshot: Configuration[`snapshot`]
   'snapshot.buildDependencies': Configuration[`snapshot`][`buildDependencies`]
   'snapshot.immutablePaths': Configuration[`snapshot`][`immutablePaths`]

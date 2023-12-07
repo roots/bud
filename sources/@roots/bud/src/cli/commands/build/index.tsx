@@ -15,16 +15,12 @@ import esm from '@roots/bud/cli/flags/esm'
 import hash from '@roots/bud/cli/flags/hash'
 import html from '@roots/bud/cli/flags/html'
 import immutable from '@roots/bud/cli/flags/immutable'
-import input from '@roots/bud/cli/flags/input'
 import lazy from '@roots/bud/cli/flags/lazy'
 import minimize from '@roots/bud/cli/flags/minimize'
 import notify from '@roots/bud/cli/flags/notify'
-import output from '@roots/bud/cli/flags/output'
-import publicPath from '@roots/bud/cli/flags/publicPath'
 import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
-import storage from '@roots/bud/cli/flags/storage'
 import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
 import isBoolean from '@roots/bud-support/lodash/isBoolean'
 import isString from '@roots/bud-support/lodash/isString'
@@ -92,25 +88,17 @@ export default class BudBuildCommand extends BudCommand {
 
   public immutable = immutable
 
-  public input = input
-
   public lazy = lazy
 
   public minimize = minimize
 
   public override notify = notify
 
-  public output = output
-
-  public publicPath = publicPath
-
   public runtime = runtime
 
   public override silent = silent(false)
 
   public splitChunks = splitChunks
-
-  public override storage = storage
 
   /**
    * {@link BudCommand.execute}
@@ -127,26 +115,31 @@ export default class BudBuildCommand extends BudCommand {
         [
           this.browserslistUpdate,
           `BUD_BROWSERSLIST_UPDATE`,
+          `browserslistUpdate`,
           b => async v => (b.root.context.browserslistUpdate = v),
         ] satisfies Override<boolean>,
         [
           this.devtool,
           `BUD_DEVTOOL`,
+          `devtool`,
           b => async v => b.devtool(v),
         ] satisfies Override<any>,
         [
           this.esm,
           `BUD_ESM`,
+          `esm`,
           b => async v => b.esm.enable(v),
         ] satisfies Override<boolean>,
         [
           this.hash,
           `BUD_HASH`,
+          `hash`,
           b => async value => b.hash(value),
         ] satisfies Override<boolean | string>,
         [
           this.hot,
           `BUD_HOT`,
+          `hot`,
           b => async v =>
             b.root.hooks.on(
               `dev.middleware.enabled`,
@@ -158,42 +151,32 @@ export default class BudBuildCommand extends BudCommand {
         [
           this.html,
           `BUD_HTML`,
+          `html`,
           b => async v =>
             isString(v) ? b.html({template: v}) : b.html(v),
         ] satisfies Override<boolean | string>,
         [
           this.immutable,
           `BUD_IMMUTABLE`,
+          `immutable`,
           b => async v => b.cdn.freeze(v),
         ] satisfies Override<boolean>,
         [
-          this.input,
-          `BUD_PATH_INPUT`,
-          b => async v => b.setPath(`@src`, v),
-        ] satisfies Override<string>,
-        [
           this.lazy,
           `BUD_LAZY`,
+          `lazy`,
           b => async v => b.lazy(v),
         ] satisfies Override<boolean>,
         [
           this.minimize,
           `BUD_MINIMIZE`,
+          `minimize`,
           b => async v => b.minimize(v),
         ] satisfies Override<`css` | `js` | boolean>,
         [
-          this.output,
-          `BUD_PATH_OUTPUT`,
-          b => async v => b.setPath(`@dist`, v),
-        ] satisfies Override<string>,
-        [
-          this.publicPath,
-          `BUD_PATH_PUBLIC`,
-          b => async v => b.setPublicPath(v),
-        ] satisfies Override<string>,
-        [
           this.proxy,
           `BUD_PROXY_URL`,
+          `proxy.url`,
           b => async v =>
             b.root.hooks.on(
               `dev.middleware.proxy.options.target`,
@@ -203,16 +186,13 @@ export default class BudBuildCommand extends BudCommand {
         [
           this.runtime,
           `BUD_RUNTIME`,
+          `runtime`,
           b => async v => b.runtime(v),
         ] satisfies Override<`multiple` | `single` | boolean>,
         [
-          this.storage,
-          `BUD_STORAGE`,
-          b => async v => b.setPath(`@storage`, v),
-        ] satisfies Override<string>,
-        [
           this.splitChunks,
           `BUD_SPLIT_CHUNKS`,
+          `splitChunks`,
           b => async v => b.splitChunks(v),
         ] satisfies Override<boolean>,
       ].map(this.override),

@@ -118,7 +118,20 @@ describe(`@roots/bud-extensions`, () => {
     )
   })
 
-  it(`bud.extensions.repository options should match snapshot in development`, async () => {
+  it(`should match snapshot in production`, async () => {
+    const extensions = new Extensions(() => bud)
+    if (!extensions) throw new Error(`Extensions not found`)
+
+    if (!extensions.configBefore)
+      throw new Error(`Extensions.configBefore not found`)
+    await extensions.configBefore(bud)
+
+    expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
+    expect(Object.values(extensions.repository).filter(i => i.isEnabled()).map(i => i.label).sort()).toMatchSnapshot()
+    expect((await extensions.make()).map(i => i.constructor.name).sort()).toMatchSnapshot()
+  })
+
+  it(`should match snapshot in development`, async () => {
     bud = await factory({mode: `development`})
 
     const extensions = new Extensions(() => bud)
@@ -129,5 +142,7 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.configBefore(bud)
 
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
+    expect(Object.values(extensions.repository).filter(i => i.isEnabled()).map(i => i.label).sort()).toMatchSnapshot()
+    expect((await extensions.make()).map(i => i.constructor.name).sort()).toMatchSnapshot()
   })
 })

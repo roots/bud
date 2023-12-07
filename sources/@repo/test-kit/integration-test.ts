@@ -65,7 +65,7 @@ class Project {
       )
       results = await execa(
         `node`,
-        [this.getPath(`node_modules`, `.bin`, `bud`), `build`],
+        [this.getPath(`node_modules`, `.bin`, `bud`), `build`, `--no-cache`],
         {cwd: this.directory},
       )
     } else {
@@ -81,6 +81,7 @@ class Project {
         `--basedir`,
         this.options.label.replace(`@examples/`, `examples/`),
         `build`,
+        `--no-cache`,
       ])
     }
 

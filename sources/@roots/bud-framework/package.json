@@ -56,7 +56,7 @@
     "./configuration": "./lib/configuration/index.js",
     "./config": "./lib/config/index.js",
     "./context": "./lib/context.js",
-    "./env": "./lib/env.js",
+    "./env": "./lib/env/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
     "./extension/decorators": "./lib/extension/decorators/index.js",
     "./extension": "./lib/extension/index.js",
@@ -100,7 +100,7 @@
         "./lib/context.d.ts"
       ],
       "env": [
-        "./lib/env.d.ts"
+        "./lib/env/index.d.ts"
       ],
       "fs": [
         "./lib/fs.d.ts"

@@ -39,7 +39,7 @@ describe(`bud.build.config`, function () {
   })
 
   it(`should have expected entry default`, async () => {
-    expect(build.config.entry).toEqual({main: {import: [`index`]}})
+    expect(build.config.entry).toEqual({main: {import: [`./index`]}})
   })
 
   it(`should have expected mode default`, async () => {

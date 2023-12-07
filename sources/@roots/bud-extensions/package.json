@@ -70,6 +70,7 @@
     "./webpack-hot-module-replacement-plugin": "./lib/webpack-hot-module-replacement-plugin/index.js",
     "./webpack-lifecycle-plugin": "./lib/webpack-lifecycle-plugin/index.js",
     "./webpack-manifest-plugin": "./lib/webpack-manifest-plugin/index.js",
+    "./webpack-profile-plugin": "./lib/webpack-profile-plugin/index.js",
     "./webpack-provide-plugin": "./lib/webpack-provide-plugin/index.js"
   },
   "typesVersions": {

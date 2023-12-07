@@ -64,11 +64,6 @@ interface Contract {
   done(): Bud
 
   /**
-   * Service label
-   */
-  label: string
-
-  /**
    * Scoped logger
    */
   logger: typeof logger
@@ -98,11 +93,6 @@ interface Contract {
  * A Service interfaces with the Framework through a series of callbacks at different points in the build.
  */
 abstract class Base implements Contract {
-  /**
-   * {@link Contract.label}
-   */
-  public declare label: Contract[`label`]
-
   /**
    * Class constructor
    */
@@ -208,11 +198,6 @@ abstract class Base implements Contract {
  */
 abstract class BaseContainer extends Container implements Contract {
   /**
-   * {@link Contract.label}
-   */
-  public declare label: Contract[`label`]
-
-  /**
    * Class constructor
    */
   public constructor(public _app: () => Bud) {
@@ -253,7 +238,7 @@ abstract class BaseContainer extends Container implements Contract {
   @bind
   public catch(error: BudError | string): never {
     if (!error)
-      throw BudError.normalize(`An error occured in ${this.label}`)
+      throw BudError.normalize(`An error occured in ${this.constructor.name}`)
 
     throw BudError.normalize(error)
   }

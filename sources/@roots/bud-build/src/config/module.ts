@@ -23,31 +23,61 @@ export const module: Factory<`module`> = async ({
  */
 const getRules = ({filter, path, rules}: Props) => {
   return [
-    ...filter(`build.module.rules.before`, [{
-      include: [path(`@src`)],
-      parser: {requireEnsure: false},
-      test: filter(`pattern.js`),
-    }]),
+    ...filter(`build.module.rules.before`, [
+      {
+        include: [path(`@src`)],
+        parser: {requireEnsure: false},
+        test: filter(`pattern.js`),
+      },
+    ]),
     {
       oneOf: [
         ...filter(`build.module.rules.oneOf`, [
           ...makeIssuerRuleSet({filter, path, rules}),
           ...getDefinedRules({rules}),
         ]),
-      ],
+      ].filter(Boolean),
     },
     ...filter(`build.module.rules.after`, []),
-  ]
+  ].filter(Boolean)
 }
 
 /**
  * Get the standard rules defined in the bud config, extensions, etc.
  */
 const getDefinedRules = ({rules}: Partial<Props>) => {
-  return Object.values(rules)
+  return [
+    ...Object.entries(rules)
+      .filter(([key, _]) => {
+        return !PRIORITY.includes(key)
+      })
+      .map(([_, value]) => value),
+    ...PRIORITY.map(key => rules[key]),
+  ]
     .filter(Boolean)
     .map(rule => (`toWebpack` in rule ? rule.toWebpack() : rule))
 }
+
+const PRIORITY = [
+  `csv`,
+  `toml`,
+  `yml`,
+  `json`,
+  `html`,
+  `font`,
+  `inlineFont`,
+  `image`,
+  `inlineImage`,
+  `webp`,
+  `svg`,
+  `inlineSvg`,
+  `scss-module`,
+  `scss`,
+  `css-module`,
+  `css`,
+  `js`,
+  `ts`,
+]
 
 /**
  * Get rules for css and css-module imports issued by non-css files.
