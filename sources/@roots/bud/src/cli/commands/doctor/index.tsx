@@ -1,6 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import BudCommand from '@roots/bud/cli/commands'
-import {Extension } from '@roots/bud-framework/extension'
+import {Extension} from '@roots/bud-framework/extension'
+import chalk from '@roots/bud-support/chalk'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box} from '@roots/bud-support/ink'
@@ -74,11 +75,19 @@ The \`bud doctor\` command will:
     Object.entries(this.bud?.extensions.repository).map(
       ([name, extension]) => {
         if (`isEnabled` in extension && extension.isEnabled()) {
-          enabledExtensions.push([name, extension])
+          return enabledExtensions.push([name, extension])
         }
+
         if (extension instanceof Extension) {
-          disabledExtensions.push([name, extension])
+          return disabledExtensions.push([name, extension])
         }
+
+        if (!(`label` in extension)) {
+          name = `${name} ${chalk.yellow(
+            `* consider giving this extension a \`label\` to make it easier to identify`,
+          )}`
+        }
+        enabledExtensions.push([name, extension])
       },
     )
 
