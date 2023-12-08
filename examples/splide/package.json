@@ -11,8 +11,6 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-emotion": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
     "@roots/bud-swc": "workspace:*"
   }
 }

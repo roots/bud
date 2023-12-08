@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 
 import {Error} from '@roots/bud-dashboard/components/error'
 import {BudError} from '@roots/bud-support/errors'

@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import BudCommand from '@roots/bud/cli/commands'
+import {Extension } from '@roots/bud-framework/extension'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box} from '@roots/bud-support/ink'
@@ -71,11 +72,14 @@ The \`bud doctor\` command will:
     await this.bud?.build.make().catch(this.catch)
 
     Object.entries(this.bud?.extensions.repository).map(
-      ([name, extension]) =>
-        (extension.isEnabled()
-          ? enabledExtensions
-          : disabledExtensions
-        ).push([name, extension]),
+      ([name, extension]) => {
+        if (`isEnabled` in extension && extension.isEnabled()) {
+          enabledExtensions.push([name, extension])
+        }
+        if (extension instanceof Extension) {
+          disabledExtensions.push([name, extension])
+        }
+      },
     )
 
     const packages = await Promise.all(

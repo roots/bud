@@ -50,6 +50,7 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`runtime.js`)).toBe(true)
 
     const js = sage.getAsset(`runtime.js`)
+    if (typeof js !== `string`) throw new Error(`expected string`)
     testIsCompiledJs(js)
     testIsMinimized(js)
   })
@@ -58,6 +59,7 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`app.js`)).toBe(true)
 
     const js = sage.getAsset(`app.js`)
+    if (typeof js !== `string`) throw new Error(`expected string`)
     testIsCompiledJs(js)
     testIsMinimized(js)
   })
@@ -66,6 +68,8 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`editor.js`)).toBe(true)
 
     const js = sage.getAsset(`editor.js`)
+    if (typeof js !== `string`) throw new Error(`expected string`)
+
     testIsCompiledJs(js)
     testIsMinimized(js)
   })
@@ -74,6 +78,8 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`app.css`)).toBe(true)
 
     const css = sage.getAsset(`app.css`)
+    if (typeof css !== `string`) throw new Error(`Expected string`)
+
     testIsCompiledCss(css)
     testIsMinimized(css)
     expect(css.includes(`.text-xl{font-size:1.25rem`)).toBeTruthy()
@@ -84,6 +90,8 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`editor.css`)).toBe(true)
 
     const css = sage.getAsset(`editor.css`)
+    if (typeof css !== `string`) throw new Error(`expected string`)
+
     testIsCompiledCss(css)
     testIsMinimized(css)
   })
@@ -92,13 +100,13 @@ describe(`examples/sage`, () => {
     expect(sage.hasAsset(`../theme.json`)).toBe(true)
 
     const json = sage.getAsset(`../theme.json`)
-    testThemeJson(JSON.parse(json))
+    if (typeof json === `string`) throw new Error(`expected object`)
+    testThemeJson(json)
 
     expect(json).toMatchInlineSnapshot(`
-      "{
-        "__generated__": "⚠️ This file is generated. Do not edit.",
+      {
         "$schema": "https://schemas.wp.org/trunk/theme.json",
-        "version": 2,
+        "__generated__": "⚠️ This file is generated. Do not edit.",
         "settings": {
           "color": {
             "custom": false,
@@ -107,16 +115,16 @@ describe(`examples/sage`, () => {
               {
                 "color": "#f7fafc",
                 "name": "Brand Gray",
-                "slug": "brand-gray"
-              }
-            ]
+                "slug": "brand-gray",
+              },
+            ],
           },
           "custom": {
             "spacing": {},
             "typography": {
               "font-size": {},
-              "line-height": {}
-            }
+              "line-height": {},
+            },
           },
           "spacing": {
             "padding": true,
@@ -126,8 +134,8 @@ describe(`examples/sage`, () => {
               "em",
               "rem",
               "vw",
-              "vh"
-            ]
+              "vh",
+            ],
           },
           "typography": {
             "customFontSize": false,
@@ -136,94 +144,95 @@ describe(`examples/sage`, () => {
               {
                 "fontFamily": "Inter,sans-serif",
                 "name": "Inter",
-                "slug": "sans"
+                "slug": "sans",
               },
               {
-                "fontFamily": "ui-serif,Georgia,Cambria,\\"Times New Roman\\",Times,serif",
+                "fontFamily": "ui-serif,Georgia,Cambria,"Times New Roman",Times,serif",
                 "name": "Ui-serif",
-                "slug": "serif"
+                "slug": "serif",
               },
               {
-                "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\\"Liberation Mono\\",\\"Courier New\\",monospace",
+                "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace",
                 "name": "Ui-monospace",
-                "slug": "mono"
-              }
+                "slug": "mono",
+              },
             ],
             "fontSizes": [
               {
                 "name": "xs",
                 "size": "0.75rem",
-                "slug": "xs"
+                "slug": "xs",
               },
               {
                 "name": "sm",
                 "size": "0.875rem",
-                "slug": "sm"
+                "slug": "sm",
               },
               {
                 "name": "base",
                 "size": "1rem",
-                "slug": "base"
+                "slug": "base",
               },
               {
                 "name": "lg",
                 "size": "1.125rem",
-                "slug": "lg"
+                "slug": "lg",
               },
               {
                 "name": "xl",
                 "size": "1.25rem",
-                "slug": "xl"
+                "slug": "xl",
               },
               {
                 "name": "2xl",
                 "size": "1.5rem",
-                "slug": "2xl"
+                "slug": "2xl",
               },
               {
                 "name": "3xl",
                 "size": "1.875rem",
-                "slug": "3xl"
+                "slug": "3xl",
               },
               {
                 "name": "4xl",
                 "size": "2.25rem",
-                "slug": "4xl"
+                "slug": "4xl",
               },
               {
                 "name": "5xl",
                 "size": "3rem",
-                "slug": "5xl"
+                "slug": "5xl",
               },
               {
                 "name": "6xl",
                 "size": "3.75rem",
-                "slug": "6xl"
+                "slug": "6xl",
               },
               {
                 "name": "7xl",
                 "size": "4.5rem",
-                "slug": "7xl"
+                "slug": "7xl",
               },
               {
                 "name": "8xl",
                 "size": "6rem",
-                "slug": "8xl"
+                "slug": "8xl",
               },
               {
                 "name": "9xl",
                 "size": "8rem",
-                "slug": "9xl"
+                "slug": "9xl",
               },
               {
                 "name": "custom",
                 "size": ".625rem",
-                "slug": "custom"
-              }
-            ]
-          }
-        }
-      }"
+                "slug": "custom",
+              },
+            ],
+          },
+        },
+        "version": 2,
+      }
     `)
   })
 

@@ -9,7 +9,7 @@ import * as json from '@roots/filesystem/json'
 import * as yml from '@roots/filesystem/yml'
 
 let currentDirectory: string
-let filesystem: Filesystem
+let filesystem: Filesystem = new Filesystem(process.cwd())
 
 export const get = (basedir: string) => {
   if (typeof basedir !== `string`)
@@ -35,5 +35,6 @@ export const get = (basedir: string) => {
   return filesystem
 }
 
-export {filesystem, Filesystem, json, yml}
+export default filesystem
+export {filesystem, filesystem as fs, Filesystem, json, yml}
 export type {FS}

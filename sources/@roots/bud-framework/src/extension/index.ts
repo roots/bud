@@ -75,7 +75,7 @@ export interface ApplyPlugin {
   /**
    * @see {@link https://webpack.js.org/contribute/writing-a-plugin/#basic-plugin-architecture}
    */
-  apply?(...args: any[]): unknown
+  apply(...args: any[]): unknown
 }
 
 export interface Constructor {
@@ -436,7 +436,7 @@ export type * as Logger from '@roots/bud-support/logger'
  */
 export class Extension<
   ExtensionOptions extends Options = Options,
-  Plugin extends ApplyPlugin = ApplyPlugin,
+  Plugin extends {apply: (...args: any[]) => unknown} = ApplyPlugin,
 > {
   /**
    * {@link Bud} instance get fn

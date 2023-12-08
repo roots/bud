@@ -13,6 +13,7 @@ import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ExtensionError} from '@roots/bud-support/errors'
+import isFunction from '@roots/bud-support/lodash/isFunction'
 import isUndefined from '@roots/bud-support/lodash/isUndefined'
 import Container from '@roots/container'
 
@@ -226,7 +227,7 @@ class Extensions extends Service implements BudExtensions {
    * Has extension
    */
   @bind
-  public has(key: string): key is keyof Modules {
+  public has(key: string): key is `${keyof Modules & string}` {
     return this.repository[key] ? true : false
   }
 
@@ -369,12 +370,23 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public async make(): Promise<ApplyPlugin[]> {
     const results = await Promise.all(
-      Object.entries(this.repository).map(async ([label, extension]) => {
-        return [label, await extension.execute(`make`)]
+      Object.entries(this.repository ?? {}).map(async ([label, extension]) => {
+        if (!extension) return null
+
+        if (extension instanceof Extension)
+          return [label, await extension.execute(`make`)]
+
+        if (`make` in extension)
+          return [label, await extension.make(this.app, extension.options)]
+
+        if (`apply` in extension) {
+          return [label, extension]
+        }
       }),
     ).then(
-      (results): Array<ApplyPlugin> =>
+      (results: Array<[string, ApplyPlugin]>): Array<ApplyPlugin> =>
         results
+          .filter(Boolean)
           .filter(([_label, result]) => result)
           .map(([label, result]) => {
             this.logger.log(`defined compiler plugin:`, label).info(result)
@@ -407,12 +419,13 @@ class Extensions extends Service implements BudExtensions {
    */
   @bind
   public async run(
-    extension: Extension,
+    extension: ApplyPlugin | Partial<Extension>,
     methodName: LifecycleMethods,
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
-      if (extension.execute) await extension.execute(methodName)
+      if (`execute` in extension && isFunction(extension.execute))
+        await extension.execute(methodName)
 
       return this
     } catch (error) {
@@ -443,13 +456,18 @@ class Extensions extends Service implements BudExtensions {
    */
   @bind
   public async runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Extension | K,
+    extension: K | Modules[K],
     methodName: LifecycleMethods,
   ): Promise<void> {
-    const instance: Extension =
-      typeof extension === `string` ? this.get(extension) : extension
+    let instance: Modules[K] & Partial<Extension>
 
-    if (instance.dependsOn) {
+    if (typeof extension === `string` && this.has(extension)) {
+      instance = this.get(extension)
+    } else {
+      instance = extension
+    }
+
+    if (`dependsOn` in instance) {
       await Array.from(instance.dependsOn)
         .filter(this.isAllowed)
         .filter((signifier: string) => !this.unresolvable.has(signifier))
@@ -461,20 +479,22 @@ class Extensions extends Service implements BudExtensions {
         }, Promise.resolve())
     }
 
-    if (this.options.is(`discover`, true) && instance.dependsOnOptional)
-      await Array.from(instance.dependsOnOptional)
-        .filter(this.isAllowed)
-        .filter((signifier: string) => !this.unresolvable.has(signifier))
-        .reduce(async (promised, signifier: any) => {
-          await promised
-          if (!this.has(signifier)) await this.import(signifier, false)
-          if (!this.has(signifier)) {
-            this.unresolvable.add(signifier)
-            return
-          }
+    if (!this.options.isTrue(`discover`)) return
+    if (!(`dependsOnOptional` in instance)) return
 
-          await this.run(this.get(signifier), methodName)
-        }, Promise.resolve())
+    await Array.from(instance.dependsOnOptional)
+      .filter(this.isAllowed)
+      .filter((signifier: string) => !this.unresolvable.has(signifier))
+      .reduce(async (promised, signifier: any) => {
+        await promised
+        if (!this.has(signifier)) await this.import(signifier, false)
+        if (!this.has(signifier)) {
+          this.unresolvable.add(signifier)
+          return
+        }
+
+        await this.run(this.get(signifier), methodName)
+      }, Promise.resolve())
   }
 
   /**

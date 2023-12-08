@@ -3,8 +3,8 @@ import type {Factory} from '@roots/bud-build/config'
 export const resolveLoader: Factory<`resolveLoader`> = async ({
   hooks,
   module,
-}) =>
-  hooks.filter(`build.resolveLoader`, {
+}) => {
+  const result = hooks.filter(`build.resolveLoader`, {
     alias: hooks.filter(`build.resolveLoader.alias`, {
       'css-loader': await module.resolve(`@roots/bud-support/css-loader`),
       'file-loader': await module.resolve(
@@ -17,5 +17,12 @@ export const resolveLoader: Factory<`resolveLoader`> = async ({
         `@roots/bud-support/style-loader`,
       ),
     }),
-    modules: hooks.filter(`build.resolveLoader.modules`, undefined),
   })
+
+const modules = hooks.filter(`build.resolveLoader.modules`, undefined)
+if (modules)
+  result.modules = modules
+
+return result
+
+}

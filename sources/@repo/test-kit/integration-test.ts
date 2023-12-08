@@ -2,8 +2,8 @@ import {join} from 'path'
 
 import {path} from '@repo/constants'
 import {bind} from '@roots/bud-support/decorators'
+import fs from '@roots/bud-support/filesystem'
 import {execa, type ExecaReturnValue} from 'execa'
-import fs from 'fs-jetpack'
 import stripAnsi from 'strip-ansi'
 
 interface Options {
@@ -25,7 +25,7 @@ class Project {
   /**
    * Compiled modules keyed by asset name
    */
-  public assets: Record<string, string> = {}
+  public assets: Record<string, Record<string, unknown> | string> = {}
 
   /**
    * entrypoints.json contents
@@ -47,9 +47,9 @@ class Project {
    */
   @bind
   public async build() {
-    await fs.removeAsync(this.getPath(this.getBaseUrl()))
-    await fs.removeAsync(this.getPath(`build.stdout.log`))
-    await fs.removeAsync(this.getPath(`build.stderr.log`))
+    await fs.remove(this.getPath(this.getBaseUrl()))
+    await fs.remove(this.getPath(`build.stdout.log`))
+    await fs.remove(this.getPath(`build.stderr.log`))
 
     let results: ExecaReturnValue
 
@@ -65,7 +65,11 @@ class Project {
       )
       results = await execa(
         `node`,
-        [this.getPath(`node_modules`, `.bin`, `bud`), `build`, `--no-cache`],
+        [
+          this.getPath(`node_modules`, `.bin`, `bud`),
+          `build`,
+          `--no-cache`,
+        ],
         {cwd: this.directory},
       )
     } else {
@@ -86,33 +90,30 @@ class Project {
     }
 
     results.stdout &&
-      (await fs.writeAsync(
+      (await fs.write(
         this.getPath(`build.stdout.log`),
         stripAnsi(results.stdout),
       ))
 
     results.stderr &&
-      (await fs.writeAsync(
+      (await fs.write(
         this.getPath(`build.stderr.log`),
         stripAnsi(results.stderr),
       ))
 
-    this.entrypoints = await fs.readAsync(
+    this.entrypoints = await fs.read(
       this.getPath(this.getBaseUrl(), `entrypoints.json`),
-      `json`,
     )
 
-    this.manifest = await fs.readAsync(
+    this.manifest = await fs.read(
       this.getPath(this.getBaseUrl(), `manifest.json`),
-      `json`,
     )
 
     await Promise.all(
       Object.entries(this.manifest).map(
         async ([name, path]: [string, string]) => {
-          this.assets[name] = await fs.readAsync(
+          this.assets[name] = await fs.read(
             this.getPath(this.getBaseUrl(), path),
-            `utf8`,
           )
         },
       ),
@@ -196,14 +197,19 @@ class Project {
    */
   @bind
   public async install(): Promise<this> {
-    if (globalThis.__INTEGRATION__ !== true) return this
+    if (globalThis.__INTEGRATION__ !== true) {
+      const storageExists = fs.exists(this.getPath(`.storage`))
+      if (storageExists) await fs.remove(this.getPath(`.storage`))
 
-    await fs.removeAsync(this.directory).catch(error => {
+      return this
+    }
+
+    await fs.remove(this.directory).catch(error => {
       throw error
     })
 
     await fs
-      .copyAsync(
+      .copy(
         path(`examples`, this.options.label.replace(`@examples/`, ``)),
         this.directory,
         {overwrite: true},
@@ -213,18 +219,12 @@ class Project {
       })
 
     await fs
-      .writeAsync(
-        this.getPath(`.npmrc`),
-        `registry=http://localhost:4873/`,
-      )
+      .write(this.getPath(`.npmrc`), `registry=http://localhost:4873/`)
       .catch(error => {
         throw error
       })
 
-    const packageJson = await fs.readAsync(
-      this.getPath(`package.json`),
-      `json`,
-    )
+    const packageJson = await fs.read(this.getPath(`package.json`))
 
     packageJson.devDependencies = Object.entries(
       packageJson?.devDependencies ?? {},
@@ -236,7 +236,7 @@ class Project {
       {},
     )
 
-    await fs.writeAsync(this.getPath(`package.json`), packageJson)
+    await fs.write(this.getPath(`package.json`), packageJson)
 
     await execa(`npm`, [`install`, `--registry=http://localhost:4873/`], {
       cwd: this.directory,
@@ -244,23 +244,14 @@ class Project {
     })
       .then(async result => {
         if (result?.stdout)
-          await fs.writeAsync(
-            this.getPath(`install.stdout.log`),
-            result.stdout,
-          )
+          await fs.write(this.getPath(`install.stdout.log`), result.stdout)
         if (result?.stderr)
-          await fs.writeAsync(
-            this.getPath(`install.stderr.log`),
-            result.stderr,
-          )
+          await fs.write(this.getPath(`install.stderr.log`), result.stderr)
 
         if (result?.exitCode !== 0) throw new Error(`npm install failed`)
       })
       .catch(async error => {
-        await fs.writeAsync(
-          this.getPath(`install.error.log`),
-          error.stderr,
-        )
+        await fs.write(this.getPath(`install.error.log`), error.stderr)
         throw error
       })
 

@@ -5884,8 +5884,6 @@ __metadata:
   resolution: "@examples/splide@workspace:examples/splide"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-emotion": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-swc": "workspace:*"
     "@splidejs/splide": 4.1.4
   languageName: unknown

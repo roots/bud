@@ -33,9 +33,9 @@ export default class Project extends Service {
         loaded: Object.entries(bud.extensions?.repository).map(
           ([key, extension]) => ({
             key,
-            label: extension.label,
-            meta: extension.meta,
-            options: extension.options,
+            ...(`label` in extension ? {label: extension.label} : {}),
+            ...(`meta` in extension ? {meta: extension.meta} : {}),
+            ...(`options` in extension ? {options: extension.options} : {}),
           }),
         ),
       })

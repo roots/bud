@@ -29,7 +29,10 @@ export default class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
    */
-  public plugin = {
+  public plugin: {
+    name: string,
+    stage: number,
+  } = {
     name: `CriticalCssWebpackPlugin`,
     stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_DERIVED,
   }
@@ -37,7 +40,7 @@ export default class CriticalCssWebpackPlugin {
   /**
    * Class constructor
    *
-   * @param options - {@link Options}
+   * @param options - The options for the plugin.
    */
   public constructor(options?: Options) {
     options && Object.assign(this.options, options)
@@ -47,26 +50,28 @@ export default class CriticalCssWebpackPlugin {
    * Webpack apply hook
    *
    * @remarks
-   * Webpack compiler callback
+   * This method is called when the plugin is applied to a {@link Webpack.Compiler | Compiler}.
    *
-   * @param compiler - Webpack compiler
+   * @param compiler - The {@link Webpack.Compiler | Compiler}.
    */
   @bind
   public async apply(compiler: Webpack.Compiler): Promise<void> {
     compiler.hooks.thisCompilation.tap(this.plugin, compilation => {
       compilation.hooks.processAssets.tapPromise(
         this.plugin,
-        this.makeProcessAssetsHook(compiler, compilation),
+        this.makeProcessAssetsHook(compilation),
       )
     })
   }
 
   /**
    * Process assets
+   *
+   * @param compilation - The {@link Webpack.Compilation | Compilation}.
+   * @returns A function that processes the assets.
    */
   @bind
   public makeProcessAssetsHook(
-    compiler: Webpack.Compiler,
     compilation: Webpack.Compilation,
   ) {
     return async (assets: Webpack.Compilation['assets']) => {
