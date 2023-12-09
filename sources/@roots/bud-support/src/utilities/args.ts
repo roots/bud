@@ -28,5 +28,7 @@ if (args.use && isString(args.use)) {
   args.use = [args.use]
 }
 
+export const includes = (key: string) => args._.includes(key)
+
 export default args
 export {raw}

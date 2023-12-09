@@ -5,6 +5,7 @@ import {
   testIsMinimized,
   testThemeJson,
 } from '@repo/test-kit/tests'
+import {fs} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/sage`, () => {
@@ -14,6 +15,12 @@ describe(`examples/sage`, () => {
     sage = setup({dist: `public`, label: `@examples/sage`})
     await sage.install()
     await sage.build()
+  })
+
+  it(`should update browserslist`, async () => {
+    expect(await fs.read(sage.getPath(`build.stdout.log`))).toMatch(
+      /\n  --> ✔ browserslist successfully updated/,
+    )
   })
 
   it(`should index 'app' entrypoint as expected`, () => {

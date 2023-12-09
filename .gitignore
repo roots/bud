@@ -18,9 +18,13 @@ sources/@repo/docs/content/dev/api/**/*
 sources/@repo/docs/build
 sources/@repo/docs/generated/*/*
 sources/@repo/*/compiled
-storage/**/*
+storage/fixtures/**/*
+storage/packages
+storage/yarn
+storage/.verdaccio-db.json
 
 !.env
 !**/.gitkeep
 !.yarn
+!storage/fixtures/.env
 !tests/unit/bud/context/**/.env
