@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 44
+  contributions: 50
   email: developers@tinypixel.dev
 - name: Ben Word
   login: retlehs
@@ -21,3 +21,9 @@
   url: https://github.com/Log1x
   contributions: 1
   email: brandon@tendency.me
+- name: Joshua Fredrickson
+  login: joshuafredrickson
+  avatar: https://avatars.githubusercontent.com/u/3533660?v=4
+  url: https://github.com/joshuafredrickson
+  contributions: 1
+  email: joshua@orangepineapple.com
