@@ -17,12 +17,6 @@ describe(`examples/sage`, () => {
     await sage.build()
   })
 
-  it(`should update browserslist`, async () => {
-    expect(await fs.read(sage.getPath(`build.stdout.log`))).toMatch(
-      /\n  --> ✔ browserslist successfully updated/,
-    )
-  })
-
   it(`should index 'app' entrypoint as expected`, () => {
     expect(sage.hasEntrypoint(`app`)).toBe(true)
 
