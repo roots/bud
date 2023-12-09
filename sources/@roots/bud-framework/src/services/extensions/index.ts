@@ -44,7 +44,7 @@ export interface Extensions {
 
   get<K extends keyof Modules & string>(key: K): Modules[K]
 
-  has(key: string): key is keyof Modules
+  has(key: string): key is `${keyof Modules & string}`
 
   import<K extends `${keyof Modules}`>(
     signifier: K,
@@ -75,8 +75,8 @@ export interface Extensions {
 
   repository: Modules
 
-  run<K extends `${keyof Modules & string}`>(
-    extension: Extension | K,
+  run(
+    extension: ApplyPlugin | Partial<Extension>,
     methodName: LifecycleMethods,
   ): Promise<this>
 
@@ -87,7 +87,7 @@ export interface Extensions {
    * extension signifier.
    */
   runDependencies<K extends `${keyof Modules & string}`>(
-    extension: Extension | K,
+    extension: K | Modules[K],
     methodName: LifecycleMethods,
   ): Promise<void>
 

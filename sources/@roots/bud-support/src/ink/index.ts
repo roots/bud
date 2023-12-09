@@ -5,6 +5,7 @@ export {default as Text} from './text.js'
 
 export {
   Box,
+  type BoxProps,
   type Instance,
   Newline,
   render,

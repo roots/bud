@@ -1,8 +1,12 @@
-import {Compiler} from 'webpack'
-
+/**
+ * Just a normal Webpack plugin
+ */
 export class WebpackPlugin {
-  public constructor(public log?: any) {}
-  public apply(compiler: Compiler) {
+  constructor(log) {
+    this.log = log
+  }
+
+  apply(compiler) {
     if (!this.log) return
 
     this.log({

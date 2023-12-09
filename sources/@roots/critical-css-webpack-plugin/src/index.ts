@@ -40,10 +40,7 @@ export interface Options {
   /**
    * Node server request options
    *
-   * @remarks
-   * Uses sindresorhus/got for request parsing
-   *
-   * @see https://github.com/sindresorhus/got/blob/main/documentation/2-options.md
+   * Uses {@link https://github.com/sindresorhus/got | sindresorhus/got} for request parsing.
    */
   request?: any
 

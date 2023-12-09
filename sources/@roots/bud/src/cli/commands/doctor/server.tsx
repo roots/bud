@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Bud} from '@roots/bud-framework'
 
 import {Box, Text} from '@roots/bud-support/ink'
 
