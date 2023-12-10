@@ -12,8 +12,7 @@ import {
   it,
 } from 'vitest'
 
-import {destinationPath} from './util/copy'
-import * as install from './util/install'
+import * as fixture from './helpers'
 
 describe(`html output of examples/babel`, () => {
   let browser: Browser
@@ -22,11 +21,11 @@ describe(`html output of examples/babel`, () => {
   let port: number
 
   beforeAll(async () => {
-    port = await install.e2eBeforeAll(`babel`)
+    port = await fixture.install(`babel`)
   })
 
   beforeEach(async () => {
-    dev = install.runDev(`babel`, port)
+    dev = fixture.run(`babel`, port)
 
     browser = await chromium.launch({
       headless: !!env.CI,
@@ -44,8 +43,8 @@ describe(`html output of examples/babel`, () => {
     await browser?.close()
   })
 
-  it(`rebuilds on change`, async () => {
-    await page?.goto(`http://0.0.0.0:${port}/`)
+  it(`should rebuild on change`, async () => {
+    await page?.goto(fixture.url(port))
 
     const title = await page.title()
     expect(title).toBe(`@examples/babel`)
@@ -72,19 +71,16 @@ describe(`html output of examples/babel`, () => {
       `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
     )
 
-
     await updateJs()
     await page.waitForTimeout(12000)
 
-    expect(
-      await page.$(`.updated`)
-    ).toBeTruthy()
+    expect(await page.$(`.updated`)).toBeTruthy()
   })
 })
 
 const updateCss = async () =>
   await fs.writeAsync(
-    destinationPath(`babel`, `src`, `app.css`),
+    fixture.toPath(`babel`, `src`, `app.css`),
     `\
 html,
 body {
@@ -110,7 +106,7 @@ body {
 
 const updateJs = async () =>
   await fs.writeAsync(
-    destinationPath(`babel`, `src`, `app.js`),
+    fixture.toPath(`babel`, `src`, `app.js`),
     `\
 import '@src/app.css'
 
@@ -118,4 +114,4 @@ document.querySelector('.init')?.classList.add('updated')
 
 if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
 `,
-)
+  )

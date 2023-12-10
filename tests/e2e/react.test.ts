@@ -12,8 +12,7 @@ import {
   it,
 } from 'vitest'
 
-import {destinationPath} from './util/copy'
-import {e2eBeforeAll, runDev} from './util/install'
+import * as fixture from './helpers'
 
 describe(`html output of examples/react`, () => {
   let browser: Browser
@@ -22,11 +21,11 @@ describe(`html output of examples/react`, () => {
   let port: number
 
   beforeAll(async () => {
-    port = await e2eBeforeAll(`react`)
+    port = await fixture.install(`react`)
   })
 
   beforeEach(async () => {
-    dev = runDev(`react`, port)
+    dev = fixture.run(`react`, port)
 
     browser = await chromium.launch({
       headless: !!env.CI,
@@ -44,13 +43,13 @@ describe(`html output of examples/react`, () => {
     await browser?.close()
   })
 
-  it(`rebuilds on change`, async () => {
-    await page?.goto(`http://0.0.0.0:${port}/`)
+  it(`should rebuild on change`, async () => {
+    await page?.goto(fixture.url(port))
 
     expect(await page.$(`#root`)).toBeTruthy()
 
     await fs.writeAsync(
-      destinationPath(`react`, `src`, `components`, `App.js`),
+      fixture.toPath(`react`, `src`, `components`, `App.js`),
       `\
 import logo from './logo.svg'
 

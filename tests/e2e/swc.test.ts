@@ -4,8 +4,7 @@ import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {destinationPath} from './util/copy'
-import {e2eBeforeAll, runDev} from './util/install'
+import * as fixture from './helpers'
 
 describe(`html output of examples/swc`, () => {
   let browser: Browser
@@ -13,8 +12,8 @@ describe(`html output of examples/swc`, () => {
   let port: number
 
   beforeEach(async () => {
-    port = await e2eBeforeAll(`swc`)
-    runDev(`swc`, port)
+    port = await fixture.install(`swc`)
+    fixture.run(`swc`, port)
 
     browser = await chromium.launch({
       headless: !!env.CI,
@@ -27,11 +26,11 @@ describe(`html output of examples/swc`, () => {
     await page.waitForTimeout(5000)
   })
 
-  it(`rebuilds on change`, async () => {
-    await page.goto(`http://0.0.0.0:${port}/`)
+  it(`should rebuild on change`, async () => {
+    await page.goto(fixture.url(port))
 
     await fs.writeAsync(
-      destinationPath(`swc`, `src`, `index.js`),
+      fixture.toPath(`swc`, `src`, `index.js`),
       `\
 import './styles.css'
 

@@ -1,13 +1,15 @@
 {
-  "name": "bud",
+  "customizations": {
+    "extensions": [
+      "arcanis.vscode-zipfs",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "ms-vscode-remote.remote-containers",
+      "ZixuanChen.vitest-explorer"
+    ]
+  },
   "dockerComposeFile": ["../.docker/docker-compose.yml"],
-  "extensions": [
-    "arcanis.vscode-zipfs",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "ms-vscode-remote.remote-containers",
-    "ZixuanChen.vitest-explorer"
-  ],
+  "name": "bud",
   "postCreateCommand": ["yarn"],
   "remoteUser": "root",
   "service": "bud",

@@ -4,15 +4,7 @@ import fs from 'fs-jetpack'
 import {Browser, chromium, Page} from 'playwright'
 import {beforeEach, describe, expect, it} from 'vitest'
 
-import {destinationPath} from './util/copy'
-import {e2eBeforeAll, runDev} from './util/install'
-
-declare global {
-  interface Window {
-    bud: any
-    reloadCalled: boolean
-  }
-}
+import * as fixture from './helpers'
 
 describe(`bud.watch functionality`, () => {
   let browser: Browser
@@ -20,8 +12,8 @@ describe(`bud.watch functionality`, () => {
   let port: number
 
   beforeEach(async () => {
-    port = await e2eBeforeAll(`watch`)
-    runDev(`watch`, port)
+    port = await fixture.install(`watch`)
+    fixture.run(`watch`, port)
 
     browser = await chromium.launch({
       headless: !!env.CI,
@@ -34,8 +26,8 @@ describe(`bud.watch functionality`, () => {
     await page.waitForTimeout(5000)
   })
 
-  it(`reloads on change`, async () => {
-    await page.goto(`http://0.0.0.0:${port}/`)
+  it(`should rebuild on change`, async () => {
+    await page.goto(fixture.url(port))
 
     await page.evaluate(() => {
       window.reloadCalled = false
@@ -45,7 +37,7 @@ describe(`bud.watch functionality`, () => {
     })
 
     await fs.writeAsync(
-      destinationPath(`watch`, `watched`, `foo.html`),
+      fixture.toPath(`watch`, `watched`, `foo.html`),
       `foo`,
     )
 

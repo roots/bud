@@ -12,8 +12,7 @@ import {
   it,
 } from 'vitest'
 
-import {destinationPath} from './util/copy'
-import {e2eBeforeAll, runDev} from './util/install'
+import * as fixture from './helpers'
 
 describe(`html output of examples/basic`, () => {
   let browser: Browser
@@ -22,11 +21,11 @@ describe(`html output of examples/basic`, () => {
   let port: number
 
   beforeAll(async () => {
-    port = await e2eBeforeAll(`basic`)
+    port = await fixture.install(`basic`)
   })
 
   beforeEach(async () => {
-    dev = runDev(`basic`, port)
+    dev = fixture.run(`basic`, port)
     browser = await chromium.launch({
       headless: !!env.CI,
     })
@@ -43,8 +42,8 @@ describe(`html output of examples/basic`, () => {
     await browser?.close()
   })
 
-  it(`rebuilds on change`, async () => {
-    await page?.goto(`http://0.0.0.0:${port}/`)
+  it(`should rebuild on change`, async () => {
+    await page?.goto(fixture.url(port))
     await update()
     await page.waitForTimeout(12000)
 
@@ -55,7 +54,7 @@ describe(`html output of examples/basic`, () => {
 
 const update = async () =>
   await fs.writeAsync(
-    destinationPath(`basic`, `src`, `index.js`),
+    fixture.toPath(`basic`, `src`, `index.js`),
     `\
 import './styles.css'
 

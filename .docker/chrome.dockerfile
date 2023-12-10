@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:lts
 
 LABEL name 'bud'
 LABEL version 1
