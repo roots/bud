@@ -12,7 +12,7 @@ import * as instance from '@roots/bud/instance'
  * ```
  *
  * @example
- * Running in a particular mode
+ * Running in a particular mode:
  *
  * ```ts
  * const bud = await factory({mode: 'development'})

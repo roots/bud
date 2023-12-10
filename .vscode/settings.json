@@ -37,5 +37,6 @@
   },
   "prettier.configPath": "config/prettier.config.js",
   "prettier.ignorePath": "config/.prettierignore",
-  "typescript.enablePromptUseWorkspaceTsdk": true
+  "typescript.enablePromptUseWorkspaceTsdk": true,
+  "typescript.preferences.preferTypeOnlyAutoImports": true
 }

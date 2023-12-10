@@ -8,16 +8,16 @@
  * @see https://github.com/roots/bud
  */
 
-/// <reference types="@roots/bud-api" />
-/// <reference types="@roots/bud-build" />
-/// <reference types="@roots/bud-compiler" />
-/// <reference types="@roots/bud-cache" />
-/// <reference types="@roots/bud-dashboard" />
-/// <reference types="@roots/bud-extensions" />
-/// <reference types="@roots/bud-framework" />
-/// <reference types="@roots/bud-hooks" />
-/// <reference types="@roots/bud-minify" />
-/// <reference types="@roots/bud-server" />
+/// <reference resolution-mode="import" types="@roots/bud-api" />
+/// <reference resolution-mode="import" types="@roots/bud-build" />
+/// <reference resolution-mode="import" types="@roots/bud-compiler" />
+/// <reference resolution-mode="import" types="@roots/bud-cache" />
+/// <reference resolution-mode="import" types="@roots/bud-dashboard" />
+/// <reference resolution-mode="import" types="@roots/bud-extensions" />
+/// <reference resolution-mode="import" types="@roots/bud-framework" />
+/// <reference resolution-mode="import" types="@roots/bud-hooks" />
+/// <reference resolution-mode="import" types="@roots/bud-minify" />
+/// <reference resolution-mode="import" types="@roots/bud-server" />
 
 import {Bud} from '@roots/bud/bud'
 

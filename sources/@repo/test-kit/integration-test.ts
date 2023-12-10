@@ -122,6 +122,10 @@ class Project {
     return this
   }
 
+  public assetString(name: string): string {
+    return this.assets[name].toString()
+  }
+
   /**
    * Get the project directory
    */

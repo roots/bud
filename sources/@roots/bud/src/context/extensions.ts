@@ -1,8 +1,6 @@
 import type {Modules} from '@roots/bud-framework'
 import type {Context} from '@roots/bud-framework/context'
 
-import args from '@roots/bud-support/utilities/args'
-
 const CORE_MODULES = [
   `@roots/bud-api`,
   `@roots/bud-build`,
@@ -47,13 +45,11 @@ const extensions: Extensions = {
 
 export default (
   manifest?: Context[`manifest`],
-  flagged: Array<string> = [],
-  options: Array<string> = [],
+  ...sets: Array<Array<string>>
 ) => {
-  if (!manifest || args.discovery === false)
-    return withOptions(extensions, options)
+  sets.forEach(set => set && extensions.discovered.push(...set))
 
-  Object.keys({
+  manifest && Object.keys({
     ...(manifest?.devDependencies ?? {}),
     ...(manifest?.dependencies ?? {}),
   })
@@ -80,19 +76,7 @@ export default (
     .map((signifier: keyof Modules & string) =>
       extensions.discovered.push(signifier),
     )
-  ;(flagged ?? []).forEach(signifier =>
-    extensions.discovered.push(signifier),
-  )
 
-  return withOptions(extensions, options)
+  return extensions
 }
 
-const withOptions = (
-  extensions: Context[`extensions`],
-  options: Array<string>,
-) => {
-  return {
-    ...extensions,
-    discovered: [...extensions.discovered, ...options],
-  }
-}
