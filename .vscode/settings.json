@@ -6,37 +6,43 @@
       "**/$KNOWN_TOOLS$/**"
     ]
   },
+  "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.options": {
     "overrideConfigFile": "config/eslint.config.cjs"
   },
-  "eslint.nodePath": ".yarn/sdks/eslint",
-  "eslint.validate": ["javascript", "typescript"],
+  "eslint.validate": [
+    "javascript",
+    "typescript"
+  ],
   "files.associations": {
+    "*.mdx": "mdx",
     "*.ts": "typescript",
     "*.tsx": "typescriptreact",
-    "*.mdx": "mdx",
-    "bud.config.json": "json5"
+    "bud.config.json": "json5",
+    "bud.json": "json5"
   },
   "files.exclude": {
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
     "**/.DS_Store": true,
+    "**/.git": true,
+    "**/.hg": true,
+    "**/.svn": true,
+    "**/CVS": true,
     "**/Thumbs.db": true,
     "**/node_modules": false
   },
-  "search.exclude": {
-    ".yarn": true,
-    ".git": true,
-    "storage": true,
-    "verdaccio": true,
-    "**/pnp.*": true,
-    "**/node_modules": true,
-    "**/.storage": true
-  },
   "prettier.configPath": "config/prettier.config.js",
   "prettier.ignorePath": "config/.prettierignore",
+  "search.exclude": {
+    "**/.storage": true,
+    "**/node_modules": true,
+    "**/pnp.*": true,
+    ".git": true,
+    ".yarn": true,
+    "storage": true,
+    "verdaccio": true
+  },
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.preferTypeOnlyAutoImports": true
+  "typescript.format.semicolons": "remove",
+  "typescript.preferences.preferTypeOnlyAutoImports": true,
+  "typescript.preferences.quoteStyle": "single"
 }

@@ -117,7 +117,7 @@ const setupTest = async (dirname: string) => {
     page = await browser?.newPage()
     if (!page) throw new Error(`Page could not be created`)
 
-    await page?.waitForTimeout(5000)
+    await page?.waitForTimeout(10000)
 
     await page?.goto(url(port))
   } catch (error) {
