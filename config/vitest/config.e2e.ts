@@ -6,11 +6,12 @@ export default defineConfig({
   test: {
     ...shared,
     include: [`tests/e2e/*.test.ts`],
-    pool: `forks`,
+    pool: `threads`,
     poolOptions: {
-      forks: {
-        maxForks: 1,
-        minForks: 1,
+      threads: {
+        isolate: false,
+        maxThreads: 1,
+        minThreads: 1,
       },
     },
     watch: false,

@@ -18,8 +18,6 @@ export default class BuildDevelopmentCommand extends BuildCommand {
    */
   public static override paths = [
     [`dev`],
-    [`development`],
-    [`build`, `dev`],
     [`build`, `development`],
   ]
 

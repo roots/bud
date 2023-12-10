@@ -1,7 +1,10 @@
+import {env} from 'node:process'
+
 import {path} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
 import {fs} from '@roots/bud-support/filesystem'
 import {getPort} from '@roots/bud-support/get-port'
+import {type Browser, chromium, type Page} from 'playwright'
 
 declare global {
   interface Window {
@@ -9,6 +12,11 @@ declare global {
     reloadCalled: boolean
   }
 }
+
+let browser: Browser
+let dev: Promise<ExecaReturnValue>
+let page: Page
+let port: number
 
 /**
  * Get source path
@@ -73,17 +81,50 @@ const run = async (
   dirname: string,
   port: number,
 ): Promise<ExecaReturnValue> => {
-  await fs.copy(fromPath(dirname, `src`), toPath(dirname, `src`), {
-    overwrite: true,
-  })
-
   return execa(
     `npx`,
-    [`bud`, `build`, `development`, `--no-cache`, `--html`, `--port=${port}`],
+    [`bud`, `build`, `development`, `--no-cache`, `--html`, `--port`, `${port}`],
     {cwd: toPath(dirname)},
-  ).catch(error => {
-    throw error
-  })
+  )
 }
 
-export {fromPath, install, run, toPath, url}
+const close = async () => {
+  try {
+    await page?.close()
+    await browser?.close()
+  } catch (error) {
+    throw error
+  }
+}
+
+
+const setupTest = async (dirname: string) => {
+  try {
+    port = await install(`babel`)
+    if (!port) throw new Error(`Problem installing fixture`)
+  } catch (error) {
+    throw error
+  }
+
+  try {
+    dev = run(dirname, port)
+
+    browser = await chromium.launch({
+      headless: !!env.CI,
+    })
+    if (!browser) throw new Error(`Browser could not be launched`)
+
+    page = await browser?.newPage()
+    if (!page) throw new Error(`Page could not be created`)
+
+    await page?.waitForTimeout(5000)
+
+    await page?.goto(url(port))
+  } catch (error) {
+    throw error
+  }
+
+  return {browser, dev, page, port}
+}
+
+export {close, fromPath, install, run, setupTest, toPath, url}
