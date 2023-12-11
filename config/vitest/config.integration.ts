@@ -1,17 +1,19 @@
-import {env} from 'node:process'
-
 import {defineConfig} from 'vitest/config'
-import GithubActionsReporter from 'vitest-github-actions-reporter'
+
+import shared from './config.shared'
 
 export default defineConfig({
   test: {
-    hookTimeout: 240000,
+    ...shared,
     include: [`tests/integration/**/*.test.ts`],
-    reporters: [
-      `basic`,
-      env.GITHUB_ACTIONS ? new GithubActionsReporter() : ``,
-    ],
+    pool: `forks`,
+    poolOptions: {
+      forks: {
+        maxForks: 1,
+        minForks: 1,
+      },
+    },
     setupFiles: [`./config/vitest/setup.integration.ts`],
-    testTimeout: 240000,
+    watch: false,
   },
 })

@@ -1,90 +1,58 @@
-import {env} from 'node:process'
-
-import {ExecaReturnValue} from 'execa'
 import fs from 'fs-jetpack'
-import {Browser, chromium, Page} from 'playwright'
 import {
-  afterEach,
-  beforeAll,
-  beforeEach,
   describe,
   expect,
   it,
 } from 'vitest'
 
-import {destinationPath} from './util/copy'
-import * as install from './util/install'
+import * as fixture from './helpers'
 
 describe(`html output of examples/babel`, () => {
-  let browser: Browser
-  let page: Page
-  let dev: Promise<ExecaReturnValue>
-  let port: number
+  it(`should rebuild on change`, async () => {
+    try {
+      const {page} = await fixture.setupTest(`babel`)
 
-  beforeAll(async () => {
-    port = await install.e2eBeforeAll(`babel`)
-  })
+      const title = await page.title()
+      expect(title).toBe(`@examples/babel`)
 
-  beforeEach(async () => {
-    dev = install.runDev(`babel`, port)
+      const root = await page.$(`#root`)
+      expect(root).toBeTruthy()
 
-    browser = await chromium.launch({
-      headless: !!env.CI,
-    })
-    if (!browser) throw new Error(`Browser could not be launched`)
+      expect(
+        await root?.evaluate(el =>
+          window.getComputedStyle(el).getPropertyValue(`background`),
+        ),
+      ).toMatchSnapshot(
+        `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
+      )
 
-    page = await browser?.newPage()
-    if (!page) throw new Error(`Page could not be created`)
+      await updateCss()
+      await page.waitForTimeout(12000)
 
-    await page?.waitForTimeout(5000)
-  })
+      expect(
+        await root?.evaluate(el =>
+          window.getComputedStyle(el).getPropertyValue(`background`),
+        ),
+      ).toMatchSnapshot(
+        `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
+      )
 
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
-  })
+      await updateJs()
+      await page.waitForTimeout(12000)
 
-  it(`rebuilds on change`, async () => {
-    await page?.goto(`http://0.0.0.0:${port}/`)
+      expect(await page.$(`.updated`)).toBeTruthy()
+    } catch (error) {
+      await fixture.close()
+      throw error
+    }
 
-    const title = await page.title()
-    expect(title).toBe(`@examples/babel`)
-
-    const root = await page.$(`#root`)
-    expect(root).toBeTruthy()
-
-    expect(
-      await root?.evaluate(el =>
-        window.getComputedStyle(el).getPropertyValue(`background`),
-      ),
-    ).toMatchSnapshot(
-      `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
-    )
-
-    await updateCss()
-    await page.waitForTimeout(12000)
-
-    expect(
-      await root?.evaluate(el =>
-        window.getComputedStyle(el).getPropertyValue(`background`),
-      ),
-    ).toMatchSnapshot(
-      `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
-    )
-
-
-    await updateJs()
-    await page.waitForTimeout(12000)
-
-    expect(
-      await page.$(`.updated`)
-    ).toBeTruthy()
+    await fixture.close()
   })
 })
 
 const updateCss = async () =>
   await fs.writeAsync(
-    destinationPath(`babel`, `src`, `app.css`),
+    fixture.toPath(`babel`, `src`, `app.css`),
     `\
 html,
 body {
@@ -110,7 +78,7 @@ body {
 
 const updateJs = async () =>
   await fs.writeAsync(
-    destinationPath(`babel`, `src`, `app.js`),
+    fixture.toPath(`babel`, `src`, `app.js`),
     `\
 import '@src/app.css'
 
@@ -118,4 +86,4 @@ document.querySelector('.init')?.classList.add('updated')
 
 if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
 `,
-)
+  )

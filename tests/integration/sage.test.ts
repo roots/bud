@@ -5,6 +5,7 @@ import {
   testIsMinimized,
   testThemeJson,
 } from '@repo/test-kit/tests'
+import {fs} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/sage`, () => {

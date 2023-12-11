@@ -1,21 +1,19 @@
-import {env} from 'node:process'
-
 import {defineConfig} from 'vitest/config'
-import GithubActionsReporter from 'vitest-github-actions-reporter'
+
+import shared from './config.shared'
 
 export default defineConfig({
   test: {
-    hookTimeout: 240000,
+    ...shared,
     include: [`tests/e2e/*.test.ts`],
+    pool: `threads`,
     poolOptions: {
       threads: {
-        singleThread: true,
+        isolate: false,
+        maxThreads: 1,
+        minThreads: 1,
       },
     },
-    reporters: [
-      `basic`,
-      env.GITHUB_ACTIONS ? new GithubActionsReporter() : ``,
-    ],
-    testTimeout: 240000,
+    watch: false,
   },
 })
