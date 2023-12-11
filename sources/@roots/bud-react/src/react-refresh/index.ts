@@ -13,9 +13,9 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import omit from '@roots/bud-support/lodash/omit'
+import isBoolean from '@roots/bud-support/isBoolean'
+import isUndefined from '@roots/bud-support/isUndefined'
+import omit from '@roots/bud-support/omit'
 
 interface Options extends ReactRefreshPluginOptions {
   compilerExtension: Extension

@@ -6,7 +6,7 @@ import {basename} from 'node:path'
 import Registrable from '@roots/bud-build/helpers/registrable'
 import Loader from '@roots/bud-build/loader'
 import {bind} from '@roots/bud-support/decorators/bind'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 export type ConstructorOptions = Build.Item.ConstructorOptions

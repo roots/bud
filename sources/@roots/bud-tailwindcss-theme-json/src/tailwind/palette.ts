@@ -1,6 +1,6 @@
 import type {Theme} from '@roots/bud-wordpress-theme-json'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 export type WordPressColors =
   Theme.SettingsAndStyles['settings']['color']['palette']

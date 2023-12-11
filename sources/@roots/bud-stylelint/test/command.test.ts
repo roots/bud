@@ -3,6 +3,8 @@ import {describe, expect, it} from 'vitest'
 
 describe(`bud stylelint command`, () => {
   it(`should return 0`, async () => {
+    await execa(`yarn`, [`workspace`, `@tests/stylelint-command-with-errors`, `run`, `bud`, `clean`])
+
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelint-command`,

@@ -21,9 +21,9 @@ import {Display as DisplayError} from '@roots/bud-dashboard/components/error'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, CompilerError} from '@roots/bud-support/errors'
-import isNull from '@roots/bud-support/lodash/isNull'
-import isNumber from '@roots/bud-support/lodash/isNumber'
-import isString from '@roots/bud-support/lodash/isString'
+import isNull from '@roots/bud-support/isNull'
+import isNumber from '@roots/bud-support/isNumber'
+import isString from '@roots/bud-support/isString'
 import stripAnsi from '@roots/bud-support/strip-ansi'
 
 /**

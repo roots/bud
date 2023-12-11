@@ -1,6 +1,6 @@
 import type {Context} from '@roots/bud-framework'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 export const checkDependencies = async (context: Context) => {

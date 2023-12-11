@@ -1,7 +1,7 @@
 import {InputError} from '@roots/bud-support/errors'
-import isArray from '@roots/bud-support/lodash/isArray'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import noop from '@roots/bud-support/lodash/noop'
+import isArray from '@roots/bud-support/isArray'
+import isFunction from '@roots/bud-support/isFunction'
+import noop from '@roots/bud-support/noop'
 
 import type {Bud} from '../index.js'
 

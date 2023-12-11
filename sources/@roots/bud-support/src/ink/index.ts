@@ -21,9 +21,6 @@ export {
   useStdout,
 } from 'ink'
 
-export {default as BigText} from 'ink-big-text'
-export {default as Gradient} from 'ink-gradient'
-export {default as Spinner} from 'ink-spinner'
 export {default as TextInput} from 'ink-text-input'
 
 export {

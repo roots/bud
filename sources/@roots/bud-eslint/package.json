@@ -50,16 +50,24 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
+    "./api": "./lib/api/index.js",
     "./cache-fix": "./lib/cache-fix/index.js",
-    "./commands": "./lib/bud/commands.js"
+    "./commands": "./lib/bud/commands.js",
+    "./extension": "./lib/extension/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
+      "api": [
+        "./lib/api/index.d.ts"
+      ],
       "cache-fix": [
         "./lib/cache-fix/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
       ],
       "commands": [
         "./lib/bud/commands.d.ts"

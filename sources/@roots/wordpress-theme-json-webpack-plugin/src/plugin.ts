@@ -6,7 +6,7 @@ import type {Compiler, WebpackPluginInstance} from 'webpack'
 
 import {relative} from 'node:path'
 
-import omit from 'lodash/omit.js'
+import omit from 'lodash-es/omit.js'
 import {AsyncSeriesWaterfallHook, SyncWaterfallHook} from 'tapable'
 import Webpack from 'webpack'
 

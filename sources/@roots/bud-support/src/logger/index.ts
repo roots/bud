@@ -3,7 +3,7 @@ import type {SignaleOptions} from 'signale'
 import {cwd, env, stdout} from 'node:process'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 import args from '@roots/bud-support/utilities/args'
 import Signale from 'signale'
 

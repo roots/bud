@@ -3,8 +3,8 @@ import type {Parameters} from '@roots/bud-framework/methods/setPath'
 import {isAbsolute} from 'node:path'
 
 import {InputError} from '@roots/bud-support/errors'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 export const all = (parameters: Parameters): Parameters => {
   if (isUndefined(parameters[0])) {

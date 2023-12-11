@@ -4,11 +4,11 @@ import {
   portOrPortsToNumbers,
   requestPorts,
 } from '@roots/bud-support/get-port'
-import isArray from '@roots/bud-support/lodash/isArray'
-import isEqual from '@roots/bud-support/lodash/isEqual'
-import isNumber from '@roots/bud-support/lodash/isNumber'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isArray from '@roots/bud-support/isArray'
+import isEqual from '@roots/bud-support/isEqual'
+import isNumber from '@roots/bud-support/isNumber'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 import type {Options, Parameters, ServerOptions} from './serve.types.js'
 

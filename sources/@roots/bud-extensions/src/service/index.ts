@@ -13,8 +13,8 @@ import {Extension} from '@roots/bud-framework/extension'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {ExtensionError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isFunction from '@roots/bud-support/isFunction'
+import isUndefined from '@roots/bud-support/isUndefined'
 import Container from '@roots/container'
 
 /**

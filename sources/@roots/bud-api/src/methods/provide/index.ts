@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud-framework'
 
 import {InputError} from '@roots/bud-support/errors'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 export type Parameters<
   K extends Array<string> | string = Array<string> | string,

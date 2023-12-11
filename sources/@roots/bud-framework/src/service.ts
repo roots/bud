@@ -3,7 +3,7 @@ import type {MultiStats, Stats} from '@roots/bud-framework/config'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import camelCase from '@roots/bud-support/lodash/camelCase'
+import camelCase from '@roots/bud-support/camelCase'
 import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
 

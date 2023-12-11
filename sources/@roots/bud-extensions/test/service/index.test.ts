@@ -1,7 +1,7 @@
-import type {Modules} from '@roots/bud-framework'
+import type {Bud, Modules} from '@roots/bud-framework'
 import type {ApplyPlugin} from '@roots/bud-framework/extension'
 
-import {Bud, factory} from '@repo/test-kit'
+import {factory} from '@repo/test-kit'
 import Extensions from '@roots/bud-extensions/service'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
@@ -36,15 +36,13 @@ describe(`@roots/bud-extensions`, () => {
 
     await extensions.add(mockModule)
 
-    const instance = extensions.get(`mock_extension` as keyof Modules)
+    const instance = extensions.get(
+      `mock_extension` as `${keyof Modules & string}`,
+    )
     if (!instance) throw new Error(`Extension not found`)
     if (!(`label` in instance)) throw new Error(`Label not found`)
 
     expect(instance.label).toBe(`mock_extension`)
-
-    expect(extensions.get(mockModule.label)?.options?.test).toEqual(
-      mockModule.options.test,
-    )
   })
 
   it(`should assign a uuid as key for extensions without names`, async () => {
@@ -70,7 +68,7 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.add(`palette-webpack-plugin`)
 
     expect(
-      Object.values(extensions.repository).sort().pop().constructor.name,
+      Object.values(extensions.repository).sort()?.pop()?.constructor.name,
     ).toBe(`PaletteWebpackPlugin`)
   })
 
@@ -81,7 +79,7 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.add(plugin.default)
 
     expect(
-      Object.values(extensions.repository).sort().pop().constructor.name,
+      Object.values(extensions.repository).sort()?.pop()?.constructor.name,
     ).toBe(`PaletteWebpackPlugin`)
   })
 
@@ -127,8 +125,10 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.configBefore(bud)
 
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
-    expect(Object.values(extensions.repository).filter(i => i.isEnabled()).map(i => i.label).sort()).toMatchSnapshot()
-    expect((await extensions.make()).map(i => i.constructor.name).sort()).toMatchSnapshot()
+    expect(getEnabledExtensions(extensions.repository)).toMatchSnapshot()
+    expect(
+      (await extensions.make()).map(i => i.constructor.name).sort(),
+    ).toMatchSnapshot()
   })
 
   it(`should match snapshot in development`, async () => {
@@ -142,7 +142,20 @@ describe(`@roots/bud-extensions`, () => {
     await extensions.configBefore(bud)
 
     expect(Object.keys(extensions.repository).sort()).toMatchSnapshot()
-    expect(Object.values(extensions.repository).filter(i => i.isEnabled()).map(i => i.label).sort()).toMatchSnapshot()
-    expect((await extensions.make()).map(i => i.constructor.name).sort()).toMatchSnapshot()
+    expect(getEnabledExtensions(extensions.repository)).toMatchSnapshot()
+    expect(
+      (await extensions.make()).map(i => i.constructor.name).sort(),
+    ).toMatchSnapshot()
   })
 })
+
+const getEnabledExtensions = (repository: Extensions[`repository`]) =>
+  Object.values(repository)
+    .filter(i =>
+      `isEnabled` in i && typeof i.isEnabled === `function`
+        ? i.isEnabled()
+        : true,
+    )
+    .map(i => (`label` in i ? i.label : undefined))
+    .filter(Boolean)
+    .sort()

@@ -1,10 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 
-import isArray from '@roots/bud-support/lodash/isArray'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isNumber from '@roots/bud-support/lodash/isNumber'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isArray from '@roots/bud-support/isArray'
+import isFunction from '@roots/bud-support/isFunction'
+import isNumber from '@roots/bud-support/isNumber'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 import type {Parameters} from './proxy.types.js'
 

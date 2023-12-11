@@ -1,4 +1,4 @@
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import isFunction from '@roots/bud-support/isFunction'
 
 import type {Callback} from './types.js'
 

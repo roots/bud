@@ -5,9 +5,9 @@ import type {InspectResult} from '@roots/filesystem/filesystem'
 import {join, parse} from 'node:path'
 
 import * as filesystem from '@roots/bud-support/filesystem'
-import _get from '@roots/bud-support/lodash/get'
-import omit from '@roots/bud-support/lodash/omit'
-import _set from '@roots/bud-support/lodash/set'
+import _get from '@roots/bud-support/get'
+import omit from '@roots/bud-support/omit'
+import _set from '@roots/bud-support/set'
 import logger from '@roots/bud-support/logger'
 import {get as getPaths} from '@roots/bud-support/utilities/paths'
 

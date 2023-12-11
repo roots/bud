@@ -1,5 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
+import chunk from '@roots/bud-support/chunk'
 import {BudError} from '@roots/bud-support/errors'
 import {highlight} from '@roots/bud-support/highlight'
 import {
@@ -10,7 +11,6 @@ import {
   useInput,
   useState,
 } from '@roots/bud-support/ink'
-import chunk from '@roots/bud-support/lodash/chunk'
 import format from '@roots/bud-support/pretty-format'
 
 interface ReplProps {

@@ -6,7 +6,7 @@ import {fileURLToPath} from 'node:url'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {filesystem as fs} from '@roots/bud-support/filesystem'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 import type {Cli} from './app.js'
 

@@ -5,7 +5,7 @@ import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColo
 import {longestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongestNamedObjectLength'
 import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
-import isNumber from '@roots/bud-support/lodash/isNumber'
+import isNumber from '@roots/bud-support/isNumber'
 
 interface Props {
   compact?: boolean

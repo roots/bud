@@ -86,9 +86,10 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.ts",
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.451.0",
+    "@aws-sdk/client-s3": "3.470.0",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.9",
+    "@types/lodash-es": "4.17.12",
     "@types/mime-types": "2.1.4",
     "@types/node": "20.10.4",
     "@types/safe-json-stringify": "1.1.5"
@@ -99,7 +100,7 @@
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",
-    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
     "mime-types": "2.1.35",
     "safe-json-stringify": "1.2.0",
     "tslib": "2.6.2"

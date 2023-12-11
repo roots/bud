@@ -1,8 +1,8 @@
 import type {Bud} from '@roots/bud'
 
 import {isset} from '@roots/bud/cli/helpers/isset'
-import get from '@roots/bud-support/lodash/get'
-import noop from '@roots/bud-support/lodash/noop'
+import get from '@roots/bud-support/get'
+import noop from '@roots/bud-support/noop'
 
 export type Override<T extends unknown> = [
   T,

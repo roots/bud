@@ -9,8 +9,8 @@ import type {
 
 import Registrable from '@roots/bud-build/helpers/registrable'
 import {bind} from '@roots/bud-support/decorators/bind'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isString from '@roots/bud-support/lodash/isString'
+import isFunction from '@roots/bud-support/isFunction'
+import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 /**

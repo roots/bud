@@ -96,7 +96,6 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default BabelExtension
 export type {
   BabelPublicApi,
   LoaderOptions,
@@ -106,3 +105,4 @@ export type {
   Registrable,
   Registry,
 }
+export default BabelExtension

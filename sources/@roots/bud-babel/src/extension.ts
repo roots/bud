@@ -8,8 +8,8 @@ import {
   label,
 } from '@roots/bud-framework/extension/decorators'
 import {InputError} from '@roots/bud-support/errors'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 /**
  * Babel configuration

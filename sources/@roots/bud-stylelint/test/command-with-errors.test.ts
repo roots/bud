@@ -1,10 +1,11 @@
-import {describe, expect, it} from 'vitest'
-import noop from '@roots/bud-support/lodash/noop'
 import {execa} from '@roots/bud-support/execa'
 import stripAnsi from '@roots/bud-support/strip-ansi'
+import {describe, expect, it} from 'vitest'
 
 describe(`bud stylelint command (with errors)`, () => {
   it(`should return 1`, async () => {
+    await execa(`yarn`, [`workspace`, `@tests/stylelint-command-with-errors`, `run`, `bud`, `clean`])
+
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelint-command-with-errors`,

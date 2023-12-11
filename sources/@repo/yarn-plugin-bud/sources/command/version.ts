@@ -18,6 +18,7 @@ export class Version extends Command {
       .run([
         `workspaces`,
         `foreach`,
+        `--all`,
         `--no-private`,
         `package`,
         `set`,

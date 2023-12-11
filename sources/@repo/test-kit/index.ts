@@ -1,7 +1,7 @@
-import type {Context} from '@roots/bud-framework/context'
+import type {Bud, Context} from '@roots/bud-framework'
 
 import {path} from '@repo/constants'
-import {type Bud, factory} from '@roots/bud'
+import {factory} from '@roots/bud'
 
 export type Options = Omit<Partial<Context>, `extensions`> & {
   extensions?: Array<string>

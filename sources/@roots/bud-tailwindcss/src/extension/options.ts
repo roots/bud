@@ -6,8 +6,8 @@ import {
   type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
-import get from '@roots/bud-support/lodash/get'
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import get from '@roots/bud-support/get'
+import isFunction from '@roots/bud-support/isFunction'
 import pluginUtils from 'tailwindcss/lib/util/pluginUtils.js'
 import resolveConfig from 'tailwindcss/resolveConfig.js'
 

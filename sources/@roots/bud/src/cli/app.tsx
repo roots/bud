@@ -20,8 +20,8 @@ import {Error} from '@roots/bud-dashboard/components/error'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
 import {render} from '@roots/bud-support/ink'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isFunction from '@roots/bud-support/isFunction'
+import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 import * as args from '@roots/bud-support/utilities/args'
 
@@ -51,7 +51,6 @@ const application = new Cli<BaseContext & Context>({
   binaryLabel: `bud`,
   binaryName: `bud`,
   binaryVersion: context.bud.version,
-  enableCapture: true,
   enableColors: context.env?.color !== `false`,
 })
 

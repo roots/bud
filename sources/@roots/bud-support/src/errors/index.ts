@@ -1,4 +1,4 @@
-import isObject from '@roots/bud-support/lodash/isObject'
+import isObject from '@roots/bud-support/isObject'
 
 const cwd = `${global.process.cwd()}`
 

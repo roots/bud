@@ -7,7 +7,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import merge from '@roots/bud-support/lodash/merge'
+import merge from '@roots/bud-support/merge'
 
 import {BudJSCApi, type BudJSCPublicInterface} from './jsc.js'
 import {BudSWCApi, type BudSWCPublicInterface} from './options.js'

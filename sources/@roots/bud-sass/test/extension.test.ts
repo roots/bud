@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 import {factory} from '@repo/test-kit'
 import BudPostCSS from '@roots/bud-postcss'
 import BudSass from '@roots/bud-sass'
-import isObject from '@roots/bud-support/lodash/isObject'
+import isObject from '@roots/bud-support/isObject'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-sass/extension`, () => {

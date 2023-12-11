@@ -14,8 +14,8 @@ import {
   options,
 } from '@roots/bud-framework/extension/decorators'
 import {deprecated} from '@roots/bud-support/decorators'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import omit from '@roots/bud-support/lodash/omit'
+import isUndefined from '@roots/bud-support/isUndefined'
+import omit from '@roots/bud-support/omit'
 
 /**
  * Typescript configuration options

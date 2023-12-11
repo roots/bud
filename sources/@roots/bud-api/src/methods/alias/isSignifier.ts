@@ -1,4 +1,4 @@
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 import type {Callback, Records, Signifier} from './types.js'
 

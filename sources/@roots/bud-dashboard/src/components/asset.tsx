@@ -3,7 +3,7 @@ import type {StatsAsset} from '@roots/bud-framework/config'
 import figures from '@roots/bud-support/figures'
 import {size as formatSize} from '@roots/bud-support/human-readable'
 import {Box, Text} from '@roots/bud-support/ink'
-import isNumber from '@roots/bud-support/lodash/isNumber'
+import isNumber from '@roots/bud-support/isNumber'
 
 interface Props extends Partial<StatsAsset> {
   name?: string

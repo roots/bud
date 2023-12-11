@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 import type {StatsError} from '@roots/bud-framework/config'
 
 import cleanStack from '@roots/bud-support/clean-stack'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 export const makeErrorFormatter = (bud: Bud) => (errors?: StatsError[]) =>
   errors

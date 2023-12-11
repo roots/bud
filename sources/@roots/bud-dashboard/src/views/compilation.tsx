@@ -10,7 +10,7 @@ import View from '@roots/bud-dashboard/components/view'
 import {useCompilationColor} from '@roots/bud-dashboard/hooks/useCompilationColor'
 import {duration} from '@roots/bud-support/human-readable'
 import {Box, Text, useEffect, useState} from '@roots/bud-support/ink'
-import isNumber from '@roots/bud-support/lodash/isNumber'
+import isNumber from '@roots/bud-support/isNumber'
 
 import Assets from './assets.js'
 import Entrypoints from './entrypoints.js'

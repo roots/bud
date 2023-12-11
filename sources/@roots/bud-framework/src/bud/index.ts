@@ -16,9 +16,9 @@ import type {
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isFunction from '@roots/bud-support/isFunction'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 
 import type {FS} from '../fs.js'

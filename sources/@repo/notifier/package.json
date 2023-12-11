@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "@types/node": "20.10.4",
-    "vitest": "1.0.1"
+    "vitest": "1.0.4"
   },
   "dependencies": {
     "tslib": "2.6.2"

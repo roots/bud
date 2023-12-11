@@ -8,9 +8,9 @@ import {platform} from 'node:os'
 import {dirname, resolve} from 'node:path'
 import {fileURLToPath} from 'node:url'
 
-import isEmpty from '@roots/bud-support/lodash/isEmpty'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isEmpty from '@roots/bud-support/isEmpty'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 import {open, openEditor} from '@roots/bud-support/open'
 

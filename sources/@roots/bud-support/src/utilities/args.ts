@@ -1,4 +1,4 @@
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 import minimist from 'minimist'
 
 const raw = process.argv.slice(2)

@@ -20,7 +20,7 @@ import {join} from 'node:path'
 
 import filesystem from 'fs-jetpack'
 import {bind} from 'helpful-decorators'
-import isNumber from 'lodash/isNumber.js'
+import isNumber from 'lodash-es/isNumber.js'
 
 import * as json from './json.js'
 import * as yml from './yml.js'
