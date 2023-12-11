@@ -100,7 +100,7 @@ const close = async () => {
 
 const setupTest = async (dirname: string) => {
   try {
-    port = await install(`babel`)
+    port = await install(dirname)
     if (!port) throw new Error(`Problem installing fixture`)
   } catch (error) {
     throw error
