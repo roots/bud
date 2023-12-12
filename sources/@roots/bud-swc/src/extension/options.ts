@@ -7,7 +7,7 @@ import {
   type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import isFunction from '@roots/bud-support/isFunction'
 
 import type {BudJSCPublicInterface, JSCOptions} from './jsc.js'
 

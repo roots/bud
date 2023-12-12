@@ -5,7 +5,7 @@ export type Parameters = [
   | `${keyof Modules & string}`
   | ApplyPlugin
   | Array<`${keyof Modules & string}` | ApplyPlugin | Partial<Extension>>
-  | Partial<Extension>
+  | Partial<Extension>,
 ]
 
 export interface use {

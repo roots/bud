@@ -6,7 +6,7 @@ import type {
 } from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import isFunction from '@roots/bud-support/isFunction'
 import Value from '@roots/bud-support/value'
 
 import {Hooks} from '../base/base.js'

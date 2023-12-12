@@ -2,10 +2,10 @@ import type {Bud} from '@roots/bud-framework'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import get from '@roots/bud-support/lodash/get'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isObject from '@roots/bud-support/lodash/isObject'
-import isString from '@roots/bud-support/lodash/isString'
+import get from '@roots/bud-support/get'
+import isFunction from '@roots/bud-support/isFunction'
+import isObject from '@roots/bud-support/isObject'
+import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 /**

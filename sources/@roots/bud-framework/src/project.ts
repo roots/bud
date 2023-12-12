@@ -4,7 +4,7 @@ import type {Stats} from '@roots/bud-framework/config'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import omit from '@roots/bud-support/lodash/omit'
+import omit from '@roots/bud-support/omit'
 import * as args from '@roots/bud-support/utilities/args'
 
 /**
@@ -35,7 +35,9 @@ export default class Project extends Service {
             key,
             ...(`label` in extension ? {label: extension.label} : {}),
             ...(`meta` in extension ? {meta: extension.meta} : {}),
-            ...(`options` in extension ? {options: extension.options} : {}),
+            ...(`options` in extension
+              ? {options: extension.options}
+              : {}),
           }),
         ),
       })

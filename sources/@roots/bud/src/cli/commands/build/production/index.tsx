@@ -10,10 +10,7 @@ export default class BuildProductionCommand extends BuildCommand {
   /**
    * {@link Command.paths}
    */
-  public static override paths = [
-    [`production`],
-    [`build`, `production`],
-  ]
+  public static override paths = [[`production`], [`build`, `production`]]
 
   /**
    * {@link Command.usage}

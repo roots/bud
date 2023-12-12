@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 export interface setPublicPath {
   (

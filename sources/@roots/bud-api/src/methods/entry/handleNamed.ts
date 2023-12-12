@@ -5,8 +5,8 @@ import type {
 } from '@roots/bud-api/methods/entry'
 import type {Bud} from '@roots/bud-framework'
 
-import isArray from '@roots/bud-support/lodash/isArray'
-import isString from '@roots/bud-support/lodash/isString'
+import isArray from '@roots/bud-support/isArray'
+import isString from '@roots/bud-support/isString'
 
 export async function handleNamed(
   bud: Bud,

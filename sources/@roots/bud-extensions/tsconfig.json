@@ -11,7 +11,7 @@
     "types": ["node", "@roots/bud-framework", "@roots/bud-minify"]
   },
   "include": ["./src"],
-  "exclude": ["**/*.test.ts", "./test"],
+  "exclude": ["./test"],
   "references": [
     {"path": "../bud-framework/tsconfig.json"},
     {"path": "../bud-minify/tsconfig.json"},

@@ -3,7 +3,7 @@ import type {Bud} from '@roots/bud-framework'
 import {factory} from '@repo/test-kit'
 import BudPostCSS from '@roots/bud-postcss'
 import BudSass from '@roots/bud-sass'
-import isObject from '@roots/bud-support/lodash/isObject'
+import isObject from '@roots/bud-support/isObject'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-sass/extension`, () => {
@@ -81,7 +81,7 @@ describe(`@roots/bud-sass/extension`, () => {
 
   it(`should set postcss syntax`, async () => {
     vi.clearAllMocks()
-    postcss.setSyntax(``)
+    postcss.setSyntax?.(``)
     await sass.register(bud)
     await sass.boot(bud)
 
@@ -126,16 +126,30 @@ describe(`@roots/bud-sass/extension`, () => {
     await sass.register(bud)
 
     const config = await bud.build.make()
-    const mainRuleSet = config.module?.rules?.[1]
+    const mainRuleSet = config.module?.rules?.[4]
 
-    if (!isObject(mainRuleSet)) throw new Error(`mainRuleSet is not an object`)
+    if (typeof mainRuleSet !== `object` || !mainRuleSet)
+      throw new Error(`mainRuleSet is not an object`)
+    if (!(`oneOf` in mainRuleSet))
+      throw new Error(`mainRuleSet.oneOf is not defined`)
     if (!Array.isArray(mainRuleSet.oneOf)) throw new Error(`mainRuleSet.oneOf is not an array`)
     if (!isObject(mainRuleSet.oneOf[0]) ) throw new Error(`mainRuleSet[0].oneOf is not an object`)
     if (!isObject(mainRuleSet.oneOf[1]) ) throw new Error(`mainRuleSet[1].oneOf is not an object`)
 
-    expect(mainRuleSet.oneOf[0].issuer).toStrictEqual({not: bud.hooks.filter(`pattern.sassModule`)})
-    expect(mainRuleSet.oneOf[0].test).toStrictEqual(bud.hooks.filter(`pattern.sassModule`))
-    expect(mainRuleSet.oneOf[1].issuer).toStrictEqual({not: bud.hooks.filter(`pattern.sass`)})
-    expect(mainRuleSet.oneOf[1].test).toStrictEqual(bud.hooks.filter(`pattern.sass`))
+    const sassModuleRule = mainRuleSet.oneOf[0]
+    if (!sassModuleRule) throw new Error(`sassModuleRule is not defined`)
+    expect(sassModuleRule.issuer).toStrictEqual({
+      not: bud.hooks.filter(`pattern.sassModule`),
+    })
+    expect(sassModuleRule.test).toStrictEqual(
+      bud.hooks.filter(`pattern.sassModule`),
+    )
+
+    const sassRule = mainRuleSet.oneOf[1]
+    if (!sassRule) throw new Error(`sassRule is not defined`)
+    expect(sassRule.issuer).toStrictEqual({
+      not: bud.hooks.filter(`pattern.sass`),
+    })
+    expect(sassRule.test).toStrictEqual(bud.hooks.filter(`pattern.sass`))
   })
 })

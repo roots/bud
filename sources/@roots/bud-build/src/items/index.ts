@@ -1,7 +1,7 @@
 import type {Factory} from '@roots/bud-build/registry'
 import type {Item} from '@roots/bud-framework/services/build'
 
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isBoolean from '@roots/bud-support/isBoolean'
 
 /**
  * CSS loader

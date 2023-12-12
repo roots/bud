@@ -9,7 +9,7 @@ import {
   plugin,
 } from '@roots/bud-framework/extension/decorators'
 import {Plugin} from '@roots/bud-support/clean-webpack-plugin'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 /**
  * Clean webpack plugin configuration

@@ -4,7 +4,7 @@ import type {Bud} from '@roots/bud-framework'
 import * as items from '@roots/bud-build/items'
 import * as loaders from '@roots/bud-build/loaders'
 import * as rules from '@roots/bud-build/rules'
-import kebabCase from '@roots/bud-support/lodash/kebabCase'
+import kebabCase from '@roots/bud-support/kebabCase'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]

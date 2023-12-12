@@ -9,7 +9,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import {BudStylelintPublicApi} from '@roots/bud-stylelint/extension/base'
 import {deprecated} from '@roots/bud-support/decorators/deprecated'
-import noop from '@roots/bud-support/lodash/noop'
+import noop from '@roots/bud-support/noop'
 import Plugin from 'stylelint-webpack-plugin'
 
 export type Options = Plugin.Options & {
@@ -69,9 +69,11 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
     const stylelintPath = await module
       .resolve(`stylelint`, import.meta.url)
       .catch(noop)
+
     if (stylelintPath) {
       this.logger.log(`setting stylelint path:`, stylelintPath)
-      this.setStylelintPath(stylelintPath)
+      // stylelint v16 is an esm module, but stylelint-webpack-plugin doesn't currently support it
+      this.setStylelintPath(stylelintPath.replace(/(.*)\.mjs$/, `$1.cjs`))
     }
 
     const configFile = Object.values(context.files).find(({name}) =>

@@ -1,5 +1,5 @@
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import upperFirst from '@roots/bud-support/lodash/upperFirst'
+import isUndefined from '@roots/bud-support/isUndefined'
+import upperFirst from '@roots/bud-support/upperFirst'
 
 import type {Extension, InternalOptionsValues, Options} from '../index.js'
 

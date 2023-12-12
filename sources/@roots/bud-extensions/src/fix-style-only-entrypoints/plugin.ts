@@ -4,7 +4,7 @@ import type {
 } from '@roots/bud-framework/config'
 import type {ExtensionLiteral} from '@roots/bud-framework/extension'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 /**
  * Remove empty modules from the compilation

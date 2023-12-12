@@ -4,6 +4,8 @@ import {describe, expect, it} from 'vitest'
 
 describe(`bud build with extensionless stylelintrc`, () => {
   it(`should build with expected stdout`, async () => {
+    await execa(`yarn`, [`workspace`, `@tests/stylelint-command-with-errors`, `run`, `bud`, `clean`])
+
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelintrc-no-extension`,

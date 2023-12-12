@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {WatchOptions} from '@roots/bud-support/chokidar'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 export type Parameters =
   | [Array<string> | string, WatchOptions?]

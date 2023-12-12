@@ -2,11 +2,11 @@
 import {join, sep} from 'node:path'
 
 import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
-import isEqual from '@roots/bud-support/lodash/isEqual'
+import isEqual from '@roots/bud-support/isEqual'
 import logger from '@roots/bud-support/logger'
 import args, {includes} from '@roots/bud-support/utilities/args'
 
-let env: Record<string, Record<string, string | undefined>> = {}
+const env: Record<string, Record<string, string | undefined>> = {}
 
 const get = (basedir: string) => {
   if (basedir in env) return env[basedir]
@@ -61,7 +61,7 @@ const get = (basedir: string) => {
 }
 
 function tryRegisteringFromPath(
-  env: Record<string, unknown>,
+  env: Record<string, string | undefined>,
   dir: string,
   file: string,
 ) {
@@ -82,7 +82,9 @@ function tryRegisteringFromPath(
     let expanded = dotenvExpand.expand({parsed: config.parsed})
     if (expanded?.parsed && !expanded?.error) {
       if (!isEqual(expanded.parsed, config.parsed)) {
-        logger.scope(`env`).log(`Setting`, `expanded dotenv values from`, path)
+        logger
+          .scope(`env`)
+          .log(`Setting`, `expanded dotenv values from`, path)
         env = {...env, ...expanded.parsed}
       }
     }

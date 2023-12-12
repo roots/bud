@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import isFunction from '@roots/bud-support/isFunction'
 
 export type Parameters = [
   | ((

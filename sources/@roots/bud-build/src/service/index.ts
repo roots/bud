@@ -8,8 +8,8 @@ import {register} from '@roots/bud-build/registry'
 import Rule, {type Options as RuleOptions} from '@roots/bud-build/rule'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isFunction from '@roots/bud-support/isFunction'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 /**
  * {@link BudBuild}

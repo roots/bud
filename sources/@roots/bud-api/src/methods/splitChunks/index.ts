@@ -3,7 +3,7 @@ import type {Optimization} from '@roots/bud-framework/config'
 import {join, sep} from 'node:path'
 
 import {Bud} from '@roots/bud-framework'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 export type Parameters = [
   (

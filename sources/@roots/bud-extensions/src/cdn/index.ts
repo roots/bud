@@ -11,8 +11,8 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
 import Value from '@roots/bud-support/value'
 
 /**

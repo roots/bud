@@ -16,10 +16,7 @@ export default class BuildDevelopmentCommand extends BuildCommand {
   /**
    * {@link Command.paths}
    */
-  public static override paths = [
-    [`dev`],
-    [`build`, `development`],
-  ]
+  public static override paths = [[`dev`], [`build`, `development`]]
 
   /**
    * {@link Command.usage}

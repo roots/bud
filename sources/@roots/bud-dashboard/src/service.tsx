@@ -12,7 +12,7 @@ import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box, type ReactElement, Text} from '@roots/bud-support/ink'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
 

@@ -1,9 +1,11 @@
+import stripAnsi from '@roots/bud-support/strip-ansi'
 import {execa} from 'execa'
 import {describe, expect, it} from 'vitest'
-import stripAnsi from '@roots/bud-support/strip-ansi'
 
 describe(`bud build with extensionless stylelintrc`, () => {
   it(`should return 1`, async () => {
+    await execa(`yarn`, [`workspace`, `@tests/stylelint-command-with-errors`, `run`, `bud`, `clean`])
+
     const result = await execa(`yarn`, [
       `workspace`,
       `@tests/stylelint-command-with-errors`,

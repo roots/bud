@@ -4,12 +4,12 @@ import type {Bud} from '@roots/bud-framework'
 
 import {isAbsolute} from 'node:path'
 
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isObject from '@roots/bud-support/lodash/isObject'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import omit from '@roots/bud-support/lodash/omit'
+import isBoolean from '@roots/bud-support/isBoolean'
+import isFunction from '@roots/bud-support/isFunction'
+import isObject from '@roots/bud-support/isObject'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
+import omit from '@roots/bud-support/omit'
 
 type Options = HTMLExtension.Options & {
   replace?: InterpolateHTMLExtension.Options
@@ -60,9 +60,7 @@ export const html: html = async function (this: Bud, options = true) {
     )
 
     if (isObject(options.replace)) {
-      Object.entries(options.replace).forEach(
-        (v) => interpolate.set(...v),
-      )
+      Object.entries(options.replace).forEach(v => interpolate.set(...v))
     }
   }
 

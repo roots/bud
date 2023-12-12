@@ -79,6 +79,7 @@ export class Release extends Command {
       .run([
         `workspaces`,
         `foreach`,
+        `--all`,
         `--no-private`,
         `npm`,
         `publish`,

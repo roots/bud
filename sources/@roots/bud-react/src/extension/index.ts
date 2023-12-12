@@ -6,7 +6,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import merge from '@roots/bud-support/lodash/merge'
+import merge from '@roots/bud-support/merge'
 
 import type BudReactRefresh from '../react-refresh/index.js'
 

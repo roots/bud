@@ -1,8 +1,8 @@
 import type {Bud, BudService, Registry} from '@roots/bud-framework'
 
+import camelCase from '@roots/bud-support/camelCase'
 import {BudError} from '@roots/bud-support/errors'
-import camelCase from '@roots/bud-support/lodash/camelCase'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 import {FS} from './fs.js'
@@ -112,10 +112,9 @@ const instantiateServices =
     })
 
     const value: BudService = new Service(() => app)
-    const label =
-      value.constructor?.name
-        ? camelCase(value.constructor.name)
-        : signifier
+    const label = value.constructor?.name
+      ? camelCase(value.constructor.name)
+      : signifier
 
     Object.defineProperties(app, {
       [label]: {

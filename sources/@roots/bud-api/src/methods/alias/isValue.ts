@@ -1,5 +1,5 @@
-import isArray from '@roots/bud-support/lodash/isArray'
-import isString from '@roots/bud-support/lodash/isString'
+import isArray from '@roots/bud-support/isArray'
+import isString from '@roots/bud-support/isString'
 
 import type {Value} from './types.js'
 

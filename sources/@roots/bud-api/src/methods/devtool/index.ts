@@ -1,7 +1,7 @@
 import type {Configuration} from '@roots/bud-framework/config'
 
 import {Bud} from '@roots/bud-framework'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 export type Parameters = [(Bud | Configuration['devtool'])?]
 

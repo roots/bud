@@ -85,14 +85,16 @@
     "./human-readable": "./lib/human-readable/index.js",
     "./ink": "./lib/ink/index.js",
     "./import-meta-resolve": "./lib/import-meta-resolve/index.js",
+    "./isObject": "./lib/isObject/index.js",
     "./json5": "./lib/json5/index.js",
     "./jsx-dev-runtime": "./jsx-dev-runtime/index.cjs",
     "./jsx-runtime": "./jsx-runtime/index.cjs",
-    "./lodash/*": "./lib/lodash/*/index.js",
+    "./lodash/*": "./lib/*/index.js",
     "./logger": "./lib/logger/index.js",
     "./mini-css-extract-plugin": "./lib/mini-css-extract-plugin/index.js",
     "./mini-svg-data-uri": "./lib/mini-svg-data-uri/index.js",
     "./node-notifier": "./lib/node-notifier/index.js",
+    "./noop": "./lib/noop/index.js",
     "./open": "./lib/open/index.js",
     "./os": "./lib/os/index.js",
     "./parse-semver": "./lib/parse-semver/index.js",
@@ -110,7 +112,8 @@
     "./webpack-dev-middleware": "./lib/webpack-dev-middleware/index.js",
     "./webpack-manifest-plugin": "./lib/webpack-manifest-plugin/index.js",
     "./which-pm": "./lib/which-pm/index.js",
-    "./yml-loader": "./lib/yml-loader/index.cjs"
+    "./yml-loader": "./lib/yml-loader/index.cjs",
+    "./*": "./lib/*/index.js"
   },
   "typesVersions": {
     "*": {
@@ -207,6 +210,9 @@
       "ink": [
         "./lib/ink/index.d.ts"
       ],
+      "isObject": [
+        "./lib/isObject/index.d.ts"
+      ],
       "json5": [
         "./lib/json5/index.d.ts"
       ],
@@ -217,7 +223,7 @@
         "./jsx-runtime/index.d.cts"
       ],
       "lodash/*": [
-        "./lib/lodash/*/index.d.ts"
+        "./lib/*/index.d.ts"
       ],
       "logger": [
         "./lib/logger/index.d.ts"
@@ -230,6 +236,9 @@
       ],
       "node-notifier": [
         "./lib/node-notifier/index.d.ts"
+      ],
+      "noop": [
+        "./lib/noop/index.d.ts"
       ],
       "open": [
         "./lib/open/index.d.ts"
@@ -287,6 +296,9 @@
       ],
       "utilities/*": [
         "./lib/utilities/*.d.ts"
+      ],
+      "./*": [
+        "./lib/*/index.d.ts"
       ]
     }
   },
@@ -301,7 +313,7 @@
     "@types/lodash-es": "4.17.12",
     "@types/minimist": "1.2.5",
     "@types/node-notifier": "8.0.5",
-    "@types/react": "18.2.42",
+    "@types/react": "18.2.43",
     "@types/semver": "7.5.6",
     "@types/signale": "1.4.7",
     "@types/webpack-manifest-plugin": "3.0.8"
@@ -323,7 +335,7 @@
     "dotenv": "16.3.1",
     "dotenv-expand": "10.0.0",
     "env-paths": "3.0.0",
-    "esbuild-wasm": "0.19.8",
+    "esbuild-wasm": "0.19.9",
     "execa": "8.0.1",
     "express": "4.18.2",
     "figures": "5.0.0",
@@ -334,13 +346,9 @@
     "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.2",
     "ink": "4.4.1",
-    "ink-ansi": "1.0.0",
-    "ink-big-text": "2.0.0",
-    "ink-gradient": "3.0.0",
-    "ink-spinner": "5.0.0",
     "ink-text-input": "5.0.1",
     "json5": "2.2.3",
-    "lodash": "4.17.21",
+    "lodash-es": "4.17.21",
     "mini-css-extract-plugin": "2.7.6",
     "mini-svg-data-uri": "1.4.4",
     "minimist": "1.2.8",

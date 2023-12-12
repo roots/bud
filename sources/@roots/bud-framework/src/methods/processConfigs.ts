@@ -2,8 +2,8 @@ import type {Bud} from '@roots/bud-framework'
 import type {File} from '@roots/bud-framework/context'
 
 import Configuration from '@roots/bud-framework/configuration'
-import sortBy from '@roots/bud-support/lodash/sortBy'
 import logger from '@roots/bud-support/logger'
+import sortBy from '@roots/bud-support/sortBy'
 
 /**
  * Process user configurations

@@ -1,4 +1,4 @@
-import isNumber from '@roots/bud-support/lodash/isNumber'
+import isNumber from '@roots/bud-support/isNumber'
 
 export const useCompilationColor = (
   compilation?: {

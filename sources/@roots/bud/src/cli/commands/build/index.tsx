@@ -22,9 +22,9 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
-import isString from '@roots/bud-support/lodash/isString'
-import noop from '@roots/bud-support/lodash/noop'
+import isBoolean from '@roots/bud-support/isBoolean'
+import isString from '@roots/bud-support/isString'
+import noop from '@roots/bud-support/noop'
 
 import type {Override} from '../../helpers/override.js'
 

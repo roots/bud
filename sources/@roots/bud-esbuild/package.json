@@ -73,7 +73,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "esbuild": "0.19.8",
+    "esbuild": "0.19.9",
     "esbuild-loader": "4.0.2",
     "tslib": "2.6.2",
     "webpack": "5.89.0"

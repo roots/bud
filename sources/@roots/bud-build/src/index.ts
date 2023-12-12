@@ -49,20 +49,21 @@ declare module '@roots/bud-framework' {
 
   interface Rules {
     [`css-module`]: Rule
+    [`inline-font`]: Rule
+    [`inline-image`]: Rule
+    [`inline-svg`]: Rule
     css: Rule
     csv: Rule
     font: Rule
     html: Rule
     image: Rule
-    inlineFont: Rule
-    inlineImage: Rule
-    inlineSvg: Rule
     js: Rule
     json: Rule
     sass: Rule
     svg: Rule
     toml: Rule
     ts: Rule
+    vue: Rule
     webp: Rule
     yml: Rule
   }

@@ -9,7 +9,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 import {
   BudTailwindOptionsApi,

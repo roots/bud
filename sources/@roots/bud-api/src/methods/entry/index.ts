@@ -14,8 +14,8 @@ export type Parameters =
 
 export type Records = Record<string, EntryObject>
 
-import isArray from '@roots/bud-support/lodash/isArray'
-import isString from '@roots/bud-support/lodash/isString'
+import isArray from '@roots/bud-support/isArray'
+import isString from '@roots/bud-support/isString'
 
 import {isNamed} from './guards.js'
 import {handleNamed} from './handleNamed.js'

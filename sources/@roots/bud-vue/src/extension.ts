@@ -172,33 +172,6 @@ export default class BudVue extends Extension<
       __VUE_OPTIONS_API__: this.getOptionsApi(),
       __VUE_PROD_DEVTOOLS__: this.getProductionDevtools(),
     })
-
-    /**
-     * This flattens the bud module rules array
-     *
-     * This is a hack because vue-loader does not support being a oneOf rule.
-     */
-    bud.override(async config => {
-      config.module.rules = [
-        {
-          include: [bud.path(`@src`)],
-          test: bud.hooks.filter(`pattern.vue`),
-          use: [bud.build.items.vue.toWebpack()],
-        },
-        ...config.module.rules.flatMap(rule =>
-          typeof rule === `object` && `oneOf` in rule ? rule.oneOf : rule,
-        ),
-      ]
-
-      const {VueLoaderPlugin} = await this.import(
-        `vue-loader`,
-        import.meta.url,
-        {raw: true},
-      )
-      config.plugins.push(new VueLoaderPlugin())
-
-      return config
-    })
   }
 
   /**
@@ -229,9 +202,29 @@ export default class BudVue extends Extension<
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setItem(`vue-style`, {ident: `vue-style`, loader: `vue-style`})
 
-    bud.hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
-      extensions.add(`.vue`),
-    )
+    await bud.hooks
+      .on(`build.resolve.extensions`, (extensions = new Set()) =>
+        extensions.add(`.vue`),
+      )
+      .hooks.on(`build.module.rules.before`, (rules = []) => [
+        ...rules,
+        {
+          include: [bud.path(`@src`)],
+          test: bud.hooks.filter(`pattern.vue`),
+          use: [bud.build.items.vue.toWebpack()],
+        },
+      ])
+      .extensions.add({
+        label: `vue-loader`,
+        make: async () => {
+          const {VueLoaderPlugin} = await this.import(
+            `vue-loader`,
+            import.meta.url,
+            {raw: true},
+          )
+          return new VueLoaderPlugin()
+        },
+      })
   }
 
   /**

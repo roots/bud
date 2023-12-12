@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-framework'
 import {BudError} from '@roots/bud-support/errors'
-import isFunction from '@roots/bud-support/lodash/isFunction'
+import isFunction from '@roots/bud-support/isFunction'
 import logger from '@roots/bud-support/logger'
 
 export interface bindFacade {

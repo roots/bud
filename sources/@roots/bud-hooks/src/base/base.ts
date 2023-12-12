@@ -2,7 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 
 /**

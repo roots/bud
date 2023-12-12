@@ -1,6 +1,6 @@
-import isArray from '@roots/bud-support/lodash/isArray'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isObject from '@roots/bud-support/lodash/isObject'
+import isArray from '@roots/bud-support/isArray'
+import isFunction from '@roots/bud-support/isFunction'
+import isObject from '@roots/bud-support/isObject'
 
 import type {Callback, Records, Signifier} from './types.js'
 

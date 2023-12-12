@@ -8,6 +8,16 @@
  * @see https://github.com/roots/bud
  */
 
-import './types.js'
+import * as Extension from '@roots/bud-eslint/extension'
 
-export {BudEslint as default} from './extension.js'
+declare module '@roots/bud-framework' {
+  interface Bud {
+    eslint: Extension.Api & Extension.BudEslint
+  }
+
+  interface Modules {
+    '@roots/bud-eslint': Extension.BudEslint
+  }
+}
+
+export {BudEslint as default} from '@roots/bud-eslint/extension'

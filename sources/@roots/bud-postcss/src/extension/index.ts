@@ -9,10 +9,10 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isString from '@roots/bud-support/lodash/isString'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
-import omit from '@roots/bud-support/lodash/omit'
+import isFunction from '@roots/bud-support/isFunction'
+import isString from '@roots/bud-support/isString'
+import isUndefined from '@roots/bud-support/isUndefined'
+import omit from '@roots/bud-support/omit'
 
 import type {
   BudPostCssPublicInterface,

@@ -9,7 +9,7 @@ import type {Readable} from 'node:stream'
 
 import SDK from '@roots/filesystem/vendor/sdk'
 import {bind} from 'helpful-decorators'
-import isString from 'lodash/isString.js'
+import isString from 'lodash-es/isString.js'
 import * as mimetypes from 'mime-types'
 
 import {Client} from './client.js'

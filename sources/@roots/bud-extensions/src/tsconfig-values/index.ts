@@ -13,7 +13,7 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 type CompilerOptions = {
   baseUrl: string | undefined

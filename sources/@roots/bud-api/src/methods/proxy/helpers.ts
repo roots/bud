@@ -1,10 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 import type * as Server from '@roots/bud-framework/services/server'
 
-import isArray from '@roots/bud-support/lodash/isArray'
-import isFunction from '@roots/bud-support/lodash/isFunction'
-import isObject from '@roots/bud-support/lodash/isObject'
-import isUndefined from '@roots/bud-support/lodash/isUndefined'
+import isArray from '@roots/bud-support/isArray'
+import isFunction from '@roots/bud-support/isFunction'
+import isObject from '@roots/bud-support/isObject'
+import isUndefined from '@roots/bud-support/isUndefined'
 
 import type {Options} from './proxy.types.js'
 

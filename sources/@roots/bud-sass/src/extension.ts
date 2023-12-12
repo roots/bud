@@ -8,7 +8,7 @@ import {
   expose,
   label,
 } from '@roots/bud-framework/extension/decorators'
-import isBoolean from '@roots/bud-support/lodash/isBoolean'
+import isBoolean from '@roots/bud-support/isBoolean'
 
 import {type BudSassApi, BudSassOptions} from './options.js'
 

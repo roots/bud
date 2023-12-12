@@ -3,7 +3,7 @@ import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
 import {isAbsolute} from 'node:path'
 
-import isString from '@roots/bud-support/lodash/isString'
+import isString from '@roots/bud-support/isString'
 
 type FromToTuple = [string, string]
 
