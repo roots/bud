@@ -1,9 +1,9 @@
 import BudCommand from '@roots/bud/cli/commands'
 import indent from '@roots/bud/cli/flags/indent'
 import {Command, Option} from '@roots/bud-support/clipanion'
+import get from '@roots/bud-support/get'
 import {highlight} from '@roots/bud-support/highlight'
 import {Box, Text} from '@roots/bud-support/ink'
-import get from '@roots/bud-support/get'
 
 /**
  * `bud view` command
@@ -21,7 +21,9 @@ export default class BudViewCommand extends BudCommand {
   public subject = Option.String({name: `subject`, required: false})
 
   public override async execute() {
-    const format = await import(`@roots/bud-support/pretty-format`).then((module) => module.default)
+    const format = await import(`@roots/bud-support/pretty-format`).then(
+      module => module.default,
+    )
 
     await this.makeBud()
     await this.bud.run()

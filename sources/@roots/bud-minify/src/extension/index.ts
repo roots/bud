@@ -40,7 +40,7 @@ class BudMinimize extends Extension {
    */
   @bind
   public override async register(bud: Bud) {
-    bud.set(`minify`, this, false);
+    bud.set(`minify`, this, false)
 
     this.js = bud.extensions.get(
       `@roots/bud-minify/minify-js`,

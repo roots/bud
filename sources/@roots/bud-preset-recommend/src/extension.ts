@@ -13,7 +13,7 @@ import {
 @label(`@roots/bud-preset-recommend`)
 @dependsOn([`@roots/bud-postcss`])
 export default class BudPresetRecommend extends Extension {
-  public constructor (bud: Bud) {
+  public constructor(bud: Bud) {
     super(bud)
     this.set(`dependencies`, [
       ...Object.keys(this.app.context?.manifest?.dependencies ?? {}),

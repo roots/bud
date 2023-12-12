@@ -370,19 +370,24 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public async make(): Promise<ApplyPlugin[]> {
     const results = await Promise.all(
-      Object.entries(this.repository ?? {}).map(async ([label, extension]) => {
-        if (!extension) return null
+      Object.entries(this.repository ?? {}).map(
+        async ([label, extension]) => {
+          if (!extension) return null
 
-        if (extension instanceof Extension)
-          return [label, await extension.execute(`make`)]
+          if (extension instanceof Extension)
+            return [label, await extension.execute(`make`)]
 
-        if (`make` in extension)
-          return [label, await extension.make(this.app, extension.options)]
+          if (`make` in extension)
+            return [
+              label,
+              await extension.make(this.app, extension.options),
+            ]
 
-        if (`apply` in extension) {
-          return [label, extension]
-        }
-      }),
+          if (`apply` in extension) {
+            return [label, extension]
+          }
+        },
+      ),
     ).then(
       (results: Array<[string, ApplyPlugin]>): Array<ApplyPlugin> =>
         results

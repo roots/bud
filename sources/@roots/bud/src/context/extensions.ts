@@ -49,34 +49,34 @@ export default (
 ) => {
   sets.forEach(set => set && extensions.discovered.push(...set))
 
-  manifest && Object.keys({
-    ...(manifest?.devDependencies ?? {}),
-    ...(manifest?.dependencies ?? {}),
-  })
-    .filter(
-      signifier =>
-        signifier.startsWith(`@roots/bud-`) ||
-        signifier.startsWith(`@roots/sage`) ||
-        signifier.startsWith(`bud-`),
-    )
-    .filter(
-      signifier =>
-        !CORE_MODULES.some(coreSignifier => signifier === coreSignifier),
-    )
-    .filter(
-      signifier =>
-        !manifest.bud?.denylist ||
-        !manifest.bud.denylist.includes(signifier),
-    )
-    .filter(
-      signifier =>
-        !manifest.bud?.allowlist ||
-        manifest.bud.allowlist.includes(signifier),
-    )
-    .map((signifier: keyof Modules & string) =>
-      extensions.discovered.push(signifier),
-    )
+  manifest &&
+    Object.keys({
+      ...(manifest?.devDependencies ?? {}),
+      ...(manifest?.dependencies ?? {}),
+    })
+      .filter(
+        signifier =>
+          signifier.startsWith(`@roots/bud-`) ||
+          signifier.startsWith(`@roots/sage`) ||
+          signifier.startsWith(`bud-`),
+      )
+      .filter(
+        signifier =>
+          !CORE_MODULES.some(coreSignifier => signifier === coreSignifier),
+      )
+      .filter(
+        signifier =>
+          !manifest.bud?.denylist ||
+          !manifest.bud.denylist.includes(signifier),
+      )
+      .filter(
+        signifier =>
+          !manifest.bud?.allowlist ||
+          manifest.bud.allowlist.includes(signifier),
+      )
+      .map((signifier: keyof Modules & string) =>
+        extensions.discovered.push(signifier),
+      )
 
   return extensions
 }
-

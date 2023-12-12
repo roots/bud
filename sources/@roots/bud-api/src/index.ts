@@ -372,7 +372,7 @@ declare module '@roots/bud-framework' {
      *
      * {@link https://bud.js.org/docs/bud.config 📕 Documentation}
      */
-        webpackConfig(...params: Config.Parameters): Bud
+    webpackConfig(...params: Config.Parameters): Bud
   }
 
   interface Services {

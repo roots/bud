@@ -21,7 +21,6 @@ export default class BudHMR extends Extension<
       import.meta.url,
     )
     return new webpack.HotModuleReplacementPlugin()
-
   }
 
   /**

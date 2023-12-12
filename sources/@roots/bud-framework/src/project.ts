@@ -35,7 +35,9 @@ export default class Project extends Service {
             key,
             ...(`label` in extension ? {label: extension.label} : {}),
             ...(`meta` in extension ? {meta: extension.meta} : {}),
-            ...(`options` in extension ? {options: extension.options} : {}),
+            ...(`options` in extension
+              ? {options: extension.options}
+              : {}),
           }),
         ),
       })

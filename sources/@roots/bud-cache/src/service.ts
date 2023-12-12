@@ -44,14 +44,12 @@ export default class Cache extends Service implements BudCache {
    *{@link BudCache.buildDependencies}
    */
   public get buildDependencies(): FileCacheOptions[`buildDependencies`] {
-    const projectDependencies = new Set(
-      [
-        this.app.context.files[`package`]?.path,
-        ...Object.values(this.app.context.files)
-          .filter(isBuildDependency)
-          .map(({path}) => path),
-      ],
-    )
+    const projectDependencies = new Set([
+      this.app.context.files[`package`]?.path,
+      ...Object.values(this.app.context.files)
+        .filter(isBuildDependency)
+        .map(({path}) => path),
+    ])
     const records = {
       project: [...projectDependencies].filter(Boolean),
     }

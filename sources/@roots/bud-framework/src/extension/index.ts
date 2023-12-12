@@ -9,8 +9,8 @@ import get from '@roots/bud-support/get'
 import isFunction from '@roots/bud-support/isFunction'
 import isObject from '@roots/bud-support/isObject'
 import isUndefined from '@roots/bud-support/isUndefined'
-import set from '@roots/bud-support/set'
 import logger from '@roots/bud-support/logger'
+import set from '@roots/bud-support/set'
 import DynamicOption from '@roots/bud-support/value'
 
 export type Options<T = Record<string, any>> = {

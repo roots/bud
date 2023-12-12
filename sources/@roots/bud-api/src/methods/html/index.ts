@@ -60,9 +60,7 @@ export const html: html = async function (this: Bud, options = true) {
     )
 
     if (isObject(options.replace)) {
-      Object.entries(options.replace).forEach(
-        (v) => interpolate.set(...v),
-      )
+      Object.entries(options.replace).forEach(v => interpolate.set(...v))
     }
   }
 

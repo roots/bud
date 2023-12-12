@@ -1,6 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {type Api, BudEslintPublicApi, type Options} from '@roots/bud-eslint/api'
+import {
+  type Api,
+  BudEslintPublicApi,
+  type Options,
+} from '@roots/bud-eslint/api'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,

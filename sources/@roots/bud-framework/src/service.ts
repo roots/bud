@@ -1,9 +1,9 @@
 import type {Bud} from '@roots/bud-framework'
 import type {MultiStats, Stats} from '@roots/bud-framework/config'
 
+import camelCase from '@roots/bud-support/camelCase'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
-import camelCase from '@roots/bud-support/camelCase'
 import logger from '@roots/bud-support/logger'
 import Container from '@roots/container'
 
@@ -238,7 +238,9 @@ abstract class BaseContainer extends Container implements Contract {
   @bind
   public catch(error: BudError | string): never {
     if (!error)
-      throw BudError.normalize(`An error occured in ${this.constructor.name}`)
+      throw BudError.normalize(
+        `An error occured in ${this.constructor.name}`,
+      )
 
     throw BudError.normalize(error)
   }

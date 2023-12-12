@@ -19,10 +19,8 @@ export const resolveLoader: Factory<`resolveLoader`> = async ({
     }),
   })
 
-const modules = hooks.filter(`build.resolveLoader.modules`, undefined)
-if (modules)
-  result.modules = modules
+  const modules = hooks.filter(`build.resolveLoader.modules`, undefined)
+  if (modules) result.modules = modules
 
-return result
-
+  return result
 }

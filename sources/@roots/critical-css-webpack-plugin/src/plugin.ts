@@ -30,8 +30,8 @@ export default class CriticalCssWebpackPlugin {
    * Plugin ident
    */
   public plugin: {
-    name: string,
-    stage: number,
+    name: string
+    stage: number
   } = {
     name: `CriticalCssWebpackPlugin`,
     stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_DERIVED,
@@ -71,9 +71,7 @@ export default class CriticalCssWebpackPlugin {
    * @returns A function that processes the assets.
    */
   @bind
-  public makeProcessAssetsHook(
-    compilation: Webpack.Compilation,
-  ) {
+  public makeProcessAssetsHook(compilation: Webpack.Compilation) {
     return async (assets: Webpack.Compilation['assets']) => {
       const base = this.options.base ?? compilation.outputOptions.path
 
