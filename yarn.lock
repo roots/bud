@@ -11809,6 +11809,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/issue-2518@workspace:tests/reproductions/issue-2518":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-2518@workspace:tests/reproductions/issue-2518"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-sass": "workspace:*"
+    "@roots/bud-typescript": "workspace:*"
+    "@roots/bud-vue": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project":
   version: 0.0.0-use.local
   resolution: "@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project"

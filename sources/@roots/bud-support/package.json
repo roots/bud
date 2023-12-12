@@ -85,6 +85,7 @@
     "./human-readable": "./lib/human-readable/index.js",
     "./ink": "./lib/ink/index.js",
     "./import-meta-resolve": "./lib/import-meta-resolve/index.js",
+    "./isObject": "./lib/isObject/index.js",
     "./json5": "./lib/json5/index.js",
     "./jsx-dev-runtime": "./jsx-dev-runtime/index.cjs",
     "./jsx-runtime": "./jsx-runtime/index.cjs",
@@ -208,6 +209,9 @@
       ],
       "ink": [
         "./lib/ink/index.d.ts"
+      ],
+      "isObject": [
+        "./lib/isObject/index.d.ts"
       ],
       "json5": [
         "./lib/json5/index.d.ts"

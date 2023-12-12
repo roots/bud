@@ -1,5 +1,5 @@
 import type {Factory} from '@roots/bud-build/config'
-import type {Bud} from '@roots/bud-framework'
+import type {Bud, RuleSetRule} from '@roots/bud-framework'
 
 interface Props {
   filter: Bud[`hooks`][`filter`]
@@ -21,7 +21,7 @@ export const module: Factory<`module`> = async ({
 /**
  * Get all module.rules
  */
-const getRules = ({filter, path, rules}: Props) => {
+const getRules = ({filter, path, rules}: Props): Array<RuleSetRule> => {
   return [
     ...filter(`build.module.rules.before`, [
       {
@@ -29,12 +29,41 @@ const getRules = ({filter, path, rules}: Props) => {
         parser: {requireEnsure: false},
         test: filter(`pattern.js`),
       },
+      rules.image.toWebpack
+        ? {
+            oneOf: [
+              rules[`inline-image`]?.toWebpack?.(),
+              rules.image.toWebpack?.(),
+            ].filter(Boolean),
+            test: filter(`pattern.image`),
+          }
+        : undefined,
+
+      rules.font.toWebpack
+        ? {
+            oneOf: [
+              rules[`inline-font`]?.toWebpack?.(),
+              rules.font.toWebpack(),
+            ].filter(Boolean),
+            test: filter(`pattern.font`),
+          }
+        : undefined,
+
+      rules.svg.toWebpack
+        ? {
+            oneOf: [
+              rules[`inline-svg`]?.toWebpack?.(),
+              rules.svg.toWebpack(),
+            ].filter(Boolean),
+            test: filter(`pattern.svg`),
+          }
+        : undefined,
     ]),
     {
       oneOf: [
         ...filter(`build.module.rules.oneOf`, [
-          ...makeIssuerRuleSet({filter, path, rules}),
           ...getDefinedRules({rules}),
+          ...makeIssuerRuleSet({filter, path, rules}),
         ]),
       ].filter(Boolean),
     },
@@ -49,32 +78,36 @@ const getDefinedRules = ({rules}: Partial<Props>) => {
   return [
     ...Object.entries(rules)
       .filter(([key, _]) => {
-        return !PRIORITY.includes(key)
+        return !DEFINED.includes(key) && !RESOURCES.includes(key)
       })
       .map(([_, value]) => value),
-    ...PRIORITY.map(key => rules[key]),
+    ...DEFINED.map(key => rules[key]),
   ]
     .filter(Boolean)
     .map(rule => (`toWebpack` in rule ? rule.toWebpack() : rule))
 }
 
-const PRIORITY = [
+const RESOURCES = [
+  `image`,
+  `font`,
+  `svg`,
+  `inline-font`,
+  `inline-image`,
+  `inline-svg`,
+]
+
+const DEFINED = [
   `csv`,
   `toml`,
   `yml`,
   `json`,
   `html`,
-  `font`,
-  `inlineFont`,
-  `image`,
-  `inlineImage`,
   `webp`,
-  `svg`,
-  `inlineSvg`,
   `scss-module`,
   `scss`,
   `css-module`,
   `css`,
+  `vue`,
   `js`,
   `ts`,
 ]

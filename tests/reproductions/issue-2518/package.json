@@ -1,0 +1,13 @@
+{
+  "name": "@tests/issue-2518",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-sass": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
+    "@roots/bud-vue": "workspace:*"
+  }
+}
