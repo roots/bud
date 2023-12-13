@@ -65,7 +65,6 @@ const original = await fs
       .join(`\n`)
   )
 
-console.log(original)
 /**
  * Allow for totally empty commit messages
  */
