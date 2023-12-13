@@ -35,7 +35,7 @@ jobs:
       - run: git checkout -b v${{ github.event.inputs.version }}
 
       - run: |
-          git commit -am "chore: Bump @roots/bud to v${{ github.event.inputs.version }}"
+          git commit -am "chore:none Bump @roots/bud to v${{ github.event.inputs.version }}"
           git push -u origin v${{ github.event.inputs.version }}
 
       - run: |
