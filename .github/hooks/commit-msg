@@ -1,0 +1,60 @@
+#!/usr/bin/env node
+
+import fs from 'node:fs/promises'
+
+import chalk from '@roots/bud-support/chalk'
+
+const emoji = {
+  chore: `🧹`,
+  deps: `📦`,
+  feat: `✨`,
+  fix: `🩹`,
+  test: `🧪`,
+}
+
+const validator = /^(chore|feat|fix|test|deps):(none|patch|minor|major)(.*)/
+
+const CODE = {
+  INVALID: 1,
+  WRITE: 2,
+  READ: 3,
+}
+
+const withErrorHandler = type => error => {
+  process.stderr.write(error.message ?? error)
+  process.exit(CODE[type])
+}
+
+const [, , file] = process.argv
+
+const original = await fs
+  .readFile(file, `utf8`)
+  .catch(withErrorHandler(`READ`))
+
+if (!validator.test(original)) {
+  withErrorHandler(`INVALID`)(
+    [
+      chalk.red(`Invalid commit message format\n`),
+      `Message should follow the format: <type>:<severity> <description>\n`,
+      `Where <type> is one of: chore, feat, fix, test, deps\n`,
+      `And <severity> is one of: none, patch, minor, major\n`,
+      `Example: feat:minor add new feature`,
+    ].join(`\n`),
+  )
+}
+
+await fs
+  .writeFile(
+    file,
+    original.replace(
+      validator,
+      (_, type, severity, description) =>
+        `${emoji[type]} ${type}(${severity}):${description}`,
+    ),
+    `utf8`,
+  )
+  .catch(withErrorHandler(`WRITE`))
+
+  // module exports required for esm
+  export default {}
+
