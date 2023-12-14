@@ -7,8 +7,6 @@ import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isEqual from '@roots/bud-support/isEqual'
 import logger from '@roots/bud-support/logger'
 import noop from '@roots/bud-support/noop'
-import args from '@roots/bud-support/utilities/args'
-import {paths} from '@roots/bud-support/utilities/paths'
 
 import {type Bud} from './index.js'
 import {Service} from './service.js'
@@ -32,6 +30,14 @@ interface ModuleCache {
  */
 export class Module extends Service {
   /**
+   * Bootstrapped args
+   */
+  public declare args: {
+    cache?: boolean
+    force?: boolean
+  }
+
+  /**
    * Cached resolutions data
    */
   public cache: ModuleCache = {
@@ -46,6 +52,13 @@ export class Module extends Service {
   public modules: Record<string, any> = {}
 
   /**
+   * Bootstrapped paths
+   */
+  public declare paths: {
+    storage: string
+  }
+
+  /**
    * Resolved module paths
    */
   public resolutions: Resolutions = {}
@@ -54,17 +67,27 @@ export class Module extends Service {
    * Cache enabled
    */
   public get cacheEnabled(): boolean {
-    if (args.force === true) return false
-    if (args.cache === false) return false
-
-    return true
+    return this.args.force !== true
   }
 
   /**
    * Cache location
    */
   public get cachePath(): string {
-    return join(paths.storage, `bud.resolutions.yml`)
+    return join(this.paths.storage, `bud.resolutions.yml`)
+  }
+
+  /**
+   * Constructor
+   */
+  public constructor(options: {
+    app: () => Bud
+    args: Record<string, any>
+    paths: {storage: string}
+  }) {
+    super(options.app)
+    this.args = options.args
+    this.paths = options.paths
   }
 
   /**
@@ -72,33 +95,27 @@ export class Module extends Service {
    */
   @bind
   public override async bootstrap(bud: Bud) {
-    if (args.force) {
-      return await this.resetCache()
-    }
-
     if (!this.cacheEnabled) {
-      return this.logger
-        .scope(`module`)
-        .log(`cache disabled. skipping read.`)
+      this.logger.scope(`module`).log(`--force used. resetting cache.`)
+      return await this.resetCache()
     }
 
     if (await bud.fs.exists(this.cachePath)) {
       this.logger.scope(`module`).log(`cache is enabled and exists`)
       this.cache = await bud.fs.read(this.cachePath).catch(noop)
-
-      if (
-        !this.cache?.resolutions ||
-        this.cache?.sha1 !== bud.context.files[`package.json`]?.sha1
-      ) {
-        this.logger
-          .scope(`module`)
-          .log(`cache is enabled but resolution data is missing`)
-
-        return await this.resetCache()
-      }
-
-      this.resolutions = {...this.cache.resolutions}
     }
+
+    if (
+      !this.cache?.resolutions ||
+      this.cache?.sha1 !== bud.context.files[`package`]?.sha1
+    ) {
+      this.logger
+        .scope(`module`)
+        .log(`cache is enabled but package.json has changed. resetiing cache.`)
+      return await this.resetCache()
+    }
+
+    this.resolutions = {...this.cache.resolutions}
   }
 
   /**
@@ -106,17 +123,12 @@ export class Module extends Service {
    */
   @bind
   public async after(bud: Bud) {
-    if (!this.cacheEnabled) {
-      this.logger.scope(`module`).log(`cache disabled. skipping write.`)
-      return bud
-    }
-
     if (isEqual(this.cache.resolutions, this.resolutions)) {
       this.logger
         .scope(`module`)
         .log(`resolutions unchanged. skipping write.`)
         .info(`resolutions:`, this.resolutions)
-        .info(`cache:`, this.cache.resolutions)
+        .info(`cache:`, this.cache)
       return bud
     }
 
@@ -127,7 +139,7 @@ export class Module extends Service {
 
     await bud.fs.write(this.cachePath, {
       resolutions: this.resolutions,
-      sha1: bud.context.files[`package.json`]?.sha1,
+      sha1: bud.context.files[`package`]?.sha1,
       version: bud.context.bud.version,
     })
 
@@ -214,12 +226,11 @@ export class Module extends Service {
    * Make context URL
    */
   @bind
-  public makeContextURL(context?: string): string {
-    if (context) return context
+  public makeContextURL(context?: string | URL): URL {
+    if (context instanceof URL) return context
+    if (context) return pathToFileURL(context)
 
-    return pathToFileURL(
-      join(this.app.context.basedir, `package.json`),
-    ) as unknown as string
+    return pathToFileURL(join(this.app.context.basedir, `package.json`))
   }
 
   /**
@@ -243,7 +254,7 @@ export class Module extends Service {
 
     this.cache = {
       resolutions: {},
-      sha1: this.app.context.files[`package.json`]?.sha1,
+      sha1: this.app.context.files[`package`]?.sha1,
       version: this.app.context.bud?.version,
     }
     this.resolutions = {...this.cache.resolutions}

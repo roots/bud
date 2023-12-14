@@ -1,16 +1,27 @@
+import type {Bud} from '@roots/bud-framework'
+
+import {pathToFileURL} from 'node:url'
+
 import {factory} from '@repo/test-kit'
-import {pathToFileURL} from 'url'
+import {Module} from '@roots/bud-framework/module'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {Module} from '../src/module.js'
-
 describe(`@roots/bud-framework`, () => {
-  let bud
-  let instance
+  let bud: Bud
+  let instance: Module
 
   beforeEach(async () => {
     bud = await factory()
-    instance = new Module(() => bud)
+    instance = new Module({
+      app: () => bud,
+      args: {
+        cache: false,
+        force: false,
+      },
+      paths: {
+        storage: bud.path(`@storage`),
+      },
+    })
     await instance.bootstrap(bud)
   })
 
@@ -64,8 +75,8 @@ describe(`@roots/bud-framework`, () => {
   })
 
   it.skip(`should have an import fn that throws when pkg is unresolvable`, async () => {
-    const instance = new Module(() => bud)
-    let error
+    let error: Error | null = null
+
     try {
       // @ts-ignore
       await instance.import(`foo`)
@@ -75,14 +86,86 @@ describe(`@roots/bud-framework`, () => {
     expect(error).toBeInstanceOf(Error)
   })
 
-  it(`should have an tryImport fn that throws when pkg is unresolvable`, async () => {
-    try {
-      expect(await instance.tryImport(`foo`)).not.toThrow()
-    } catch (e) {}
-  })
-
   it(`should have a makeContextURL fn that returns a URL when passed a URL`, async () => {
     const url = pathToFileURL(bud.context.basedir)
     expect(instance.makeContextURL(url)).toBe(url)
+  })
+
+  it(`should invalidate cache when package.json sha1 differs from cache`, async () => {
+    bud.context.files[`package`].sha1 = `foo`
+
+    const instance = new Module({
+      app: () => bud,
+      args: {
+        cache: true,
+        force: false,
+      },
+      paths: {
+        storage: bud.path(`@storage`),
+      },
+    })
+
+    instance.cache.sha1 = `bar`
+
+    const resetSpy = vi.spyOn(instance, `resetCache`)
+    await instance.bootstrap(bud)
+
+    expect(resetSpy).toHaveBeenCalled()
+  })
+
+  it(`should not invalidate cache when package.json sha1 matches cache`, async () => {
+    bud.context.files[`package`].sha1 = `foo`
+
+    const instance = new Module({
+      app: () => bud,
+      args: {
+        cache: true,
+        force: false,
+      },
+      paths: {
+        storage: bud.path(`@storage`),
+      },
+    })
+
+    instance.cache.sha1 = `foo`
+
+    const resetSpy = vi.spyOn(instance, `resetCache`)
+    await instance.bootstrap(bud)
+
+    expect(resetSpy).not.toHaveBeenCalled()
+  })
+
+  it(`should invalidate cache when --force is used`, async () => {
+    const instance = new Module({
+      app: () => bud,
+      args: {
+        cache: true,
+        force: true,
+      },
+      paths: {
+        storage: bud.path(`@storage`),
+      },
+    })
+
+    const resetSpy = vi.spyOn(instance, `resetCache`)
+    await instance.bootstrap(bud)
+    expect(resetSpy).toHaveBeenCalled()
+  })
+
+  it(`should invalidate cache when --no-cache is used`, async () => {
+    const instance = new Module({
+      app: () => bud,
+      args: {
+        cache: false,
+        force: false,
+      },
+      paths: {
+        storage: bud.path(`@storage`),
+      },
+    })
+
+    const resetSpy = vi.spyOn(instance, `resetCache`)
+    await instance.bootstrap(bud)
+    expect(resetSpy).toHaveBeenCalled()
   })
 })

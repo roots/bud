@@ -4,6 +4,8 @@ import camelCase from '@roots/bud-support/camelCase'
 import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
+import args from '@roots/bud-support/utilities/args'
+import {paths} from '@roots/bud-support/utilities/paths'
 
 import {FS} from './fs.js'
 import {Module} from './module.js'
@@ -143,7 +145,7 @@ const instantiateServices =
  */
 export const bootstrap = async function (bud: Bud) {
   bud.fs = new FS(() => bud)
-  bud.module = new Module(() => bud)
+  bud.module = new Module({app: () => bud, args, paths})
   await bud.module.bootstrap(bud)
 
   await Promise.all(
