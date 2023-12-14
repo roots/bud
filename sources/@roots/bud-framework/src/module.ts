@@ -23,6 +23,7 @@ type Resolutions = Record<string, string>
  */
 interface ModuleCache {
   resolutions: Resolutions
+  sha1: string
   version: string
 }
 
@@ -35,6 +36,7 @@ export class Module extends Service {
    */
   public cache: ModuleCache = {
     resolutions: {},
+    sha1: null,
     version: null,
   }
 
@@ -84,7 +86,10 @@ export class Module extends Service {
       this.logger.scope(`module`).log(`cache is enabled and exists`)
       this.cache = await bud.fs.read(this.cachePath).catch(noop)
 
-      if (!this.cache?.resolutions) {
+      if (
+        !this.cache?.resolutions ||
+        this.cache?.sha1 !== bud.context.files[`package.json`]?.sha1
+      ) {
         this.logger
           .scope(`module`)
           .log(`cache is enabled but resolution data is missing`)
@@ -101,7 +106,7 @@ export class Module extends Service {
    */
   @bind
   public async after(bud: Bud) {
-    if (args.cache === false) {
+    if (!this.cacheEnabled) {
       this.logger.scope(`module`).log(`cache disabled. skipping write.`)
       return bud
     }
@@ -122,6 +127,7 @@ export class Module extends Service {
 
     await bud.fs.write(this.cachePath, {
       resolutions: this.resolutions,
+      sha1: bud.context.files[`package.json`]?.sha1,
       version: bud.context.bud.version,
     })
 
@@ -237,6 +243,7 @@ export class Module extends Service {
 
     this.cache = {
       resolutions: {},
+      sha1: this.app.context.files[`package.json`]?.sha1,
       version: this.app.context.bud?.version,
     }
     this.resolutions = {...this.cache.resolutions}
