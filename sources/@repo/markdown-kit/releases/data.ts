@@ -60,10 +60,19 @@ const parse = (release: ghRelease): release => {
   const semver = release.tag_name.replace(`v`, ``)
   const [major, minor, patch] = semver.split(`.`)
 
+  const [introLine, ...bodyLines] = release.body.split(`\n`)
+
+  const intro = introLine.trim() ?? ``
+  const body = bodyLines
+    .join(`\n`)
+    .trim()
+    .replaceAll(/\<(details|summary)\>/g, `<$1>\n`)
+    .replaceAll(/\<\/(details|summary)\>/g, `\n</$1>`)
+
   return {
     ...release,
-    body: release.body.split(`\n`).slice(1).join(`\n`).trim(),
-    intro: release.body.split(`\n`).shift()?.trim() ?? ``,
+    body,
+    intro,
     major: parseVersion(major),
     minor: parseVersion(minor),
     patch: parseVersion(patch),
