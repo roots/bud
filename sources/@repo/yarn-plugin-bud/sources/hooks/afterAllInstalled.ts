@@ -8,4 +8,5 @@ export default async () => {
   await execute(`yarn`, [`@bud`, `build`])
   await execute(`yarn`, [`@bud`])
   await execute(`yarn`, [`playwright`, `install`])
+  await execute(`git`, [`config`, `core.hooksPath`, `.github/hooks`])
 }
