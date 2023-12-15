@@ -7,7 +7,7 @@ import args from '@roots/bud-support/utilities/args'
 import * as envBootstrap from '@roots/bud-support/utilities/env'
 import envPaths from 'env-paths'
 
-interface paths {
+interface paths extends Record<string, string> {
   /**
    * OS reported directory for cache files
    */
