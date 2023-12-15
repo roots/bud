@@ -1,39 +1,20 @@
-#!/usr/bin/env ts-node-script
-
-/**
- * This script is used as a commit-msg Git hook to validate and format commit messages.
- * It checks if the commit message follows a specific format and adds an emoji and additional information to the message.
- * The commit message format should be: <type>:<severity> <description>
- * Where <type> is one of: chore, feat, fix, test, deps
- * And <severity> is one of: none, patch, minor, major
- * Example: feat:minor add new feature
- *
- * @remarks
- * The script exports an empty object to satisfy the requirements of the ES module system.
- */
-
-import {CommandClass, Option} from 'clipanion'
+import {CommandClass} from 'clipanion'
 
 import {Command} from './base.command'
 
 export class GitHookCommitMsg extends Command {
-  public static code = {
-    invalid: 1,
-    read: 3,
-    write: 2,
-  }
+  public static paths: CommandClass['paths'] = [
+    [`@bud`, `git-hooks`, `commit-msg`],
+  ]
 
-  public static emoji = {
+  public emoji = {
     chore: `🧹`,
     deps: `📦`,
     feat: `✨`,
     fix: `🩹`,
+    release: `🚀`,
     test: `🧪`,
   }
-
-  public static paths: CommandClass['paths'] = [
-    [`@bud`, `git-hooks`, `commit-msg`],
-  ]
 
   public validator =
     /^(chore|feat|fix|test|deps):(none|patch|minor|major)(.*)/
@@ -67,7 +48,7 @@ export class GitHookCommitMsg extends Command {
       this.exit(
         `Invalid commit message format\n`,
         `Message should follow the format: <type>:<severity> <description>\n`,
-        `Where <type> is one of: chore, feat, fix, test, deps\n`,
+        `Where <type> is one of: chore, deps, feat, fix, release, test\n`,
         `And <severity> is one of: none, patch, minor, major\n`,
         `Example: feat:minor add new feature`,
       )
@@ -78,10 +59,8 @@ export class GitHookCommitMsg extends Command {
         `./.git/COMMIT_EDITMSG`,
         original.replace(
           this.validator,
-          (_, type, severity, description) => {
-            const emoji = GitHookCommitMsg.emoji[type]
-            return `${emoji} ${type}(${severity}):${description}`
-          },
+          (_, type, sev, desc) =>
+            `${this.emoji[type]} ${type}(${sev}):${desc}`,
         ),
         `utf8`,
       )
