@@ -14,7 +14,7 @@ const write = async (release: release) =>
       `docs`,
       `generated`,
       `releases`,
-      `${release.semver}.mdx`,
+      `${release.semver}.md`,
     ),
     body(release),
   )

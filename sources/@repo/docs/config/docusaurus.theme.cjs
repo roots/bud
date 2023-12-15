@@ -1,4 +1,4 @@
-const dracula = require(`prism-react-renderer/themes/dracula`)
+const {themes} = require(`prism-react-renderer`)
 const config = require(`../../../../config/monorepo.config.cjs`)
 const releaseData = require(`../generated/releases/data.json`)
 
@@ -127,8 +127,8 @@ const navbar = {
  */
 const prism = {
   additionalLanguages: [`php`],
-  darkTheme: dracula,
-  theme: dracula,
+  darkTheme: themes.dracula,
+  theme: themes.dracula,
 }
 
 module.exports = {
