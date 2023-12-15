@@ -1,2 +1,6 @@
+echo "building @bud yarn plugin...\n"
+yarn @bud plugin build
+git add sources/@repo/yarn-plugin-bud/bundles
+
 echo "linting...\n"
 yarn @bud lint --fix

@@ -111,7 +111,9 @@ export class Module extends Service {
     ) {
       this.logger
         .scope(`module`)
-        .log(`cache is enabled but package.json has changed. resetiing cache.`)
+        .log(
+          `cache is enabled but package.json has changed. resetiing cache.`,
+        )
       return await this.resetCache()
     }
 
