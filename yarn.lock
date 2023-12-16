@@ -9499,6 +9499,7 @@ __metadata:
     "@docusaurus/remark-plugin-npm2yarn": "npm:3.0.1"
     "@docusaurus/theme-classic": "npm:3.0.1"
     "@docusaurus/theme-common": "npm:3.0.1"
+    "@mdx-js/react": "npm:^3.0.0"
     "@repo/constants": "workspace:*"
     "@svgr/webpack": "npm:8.1.0"
     "@tsconfig/docusaurus": "npm:2.0.2"
