@@ -16,6 +16,7 @@
     "@docusaurus/module-type-aliases": "3.0.1",
     "@docusaurus/preset-classic": "3.0.1",
     "@docusaurus/remark-plugin-npm2yarn": "3.0.1",
+    "@mdx-js/react": "^3.0.0",
     "@repo/constants": "workspace:*",
     "@svgr/webpack": "8.1.0",
     "@tsconfig/docusaurus": "2.0.2",
