@@ -1,0 +1,40 @@
+diff --git a/lib/commands/build/bundle.js b/lib/commands/build/bundle.js
+index a7f4f2bdfcbdb0acf18424deccfadcffe853645c..a912defa5034a3d8a4ea0122dec0efc8afcf3f2c 100644
+--- a/lib/commands/build/bundle.js
++++ b/lib/commands/build/bundle.js
+@@ -106,7 +106,14 @@ class BuildBundleCommand extends clipanion_1.Command {
+                     logLevel: `silent`,
+                     format: `iife`,
+                     platform: `node`,
+-                    plugins: [valLoader],
++                    plugins: [valLoader, {
++                        name: "strip-node-path",
++                        setup(build) {
++                          build.onResolve({ filter: /^node:/ }, (args) => {
++                            return { external: true, path: args.path.slice("node:".length) };
++                          });
++                        },
++                    }],
+                     minify: !this.noMinify,
+                     sourcemap: this.sourceMap ? `inline` : false,
+                     target: `node${semver_1.default.minVersion(package_json_1.default.engines.node).version}`,
+diff --git a/lib/commands/build/plugin.js b/lib/commands/build/plugin.js
+index 03671b6a5bebcbfa468ee725ba8dd8574a0d8ce4..c8174c19b46651c13c4a1401967ff2589f1d4768 100644
+--- a/lib/commands/build/plugin.js
++++ b/lib/commands/build/plugin.js
+@@ -90,7 +90,14 @@ class BuildPluginCommand extends clipanion_1.Command {
+                     logLevel: `silent`,
+                     format: `iife`,
+                     platform: `node`,
+-                    plugins: [dynamicLibResolver],
++                    plugins: [dynamicLibResolver, {
++                        name: "strip-node-path",
++                        setup(build) {
++                          build.onResolve({ filter: /^node:/ }, (args) => {
++                            return { external: true, path: args.path.slice("node:".length) };
++                          });
++                        },
++                    }],
+                     minify: !this.noMinify,
+                     sourcemap: this.sourceMap ? `inline` : false,
+                     target: `node${semver_1.default.minVersion(package_json_1.default.engines.node).version}`,
