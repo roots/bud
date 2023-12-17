@@ -75,8 +75,5 @@
   "volta": {
     "node": "20.3.1",
     "yarn": "1.22.19"
-  },
-  "resolutions": {
-    "@yarnpkg/builder@4.0.0-rc.51": "patch:@yarnpkg/builder@npm%3A4.0.0-rc.51#./.yarn/patches/@yarnpkg-builder-npm-4.0.0-rc.51-a6d8b2b637.patch"
   }
 }
