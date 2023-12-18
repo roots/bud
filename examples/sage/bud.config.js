@@ -15,7 +15,8 @@ export default async bud => {
     .proxy('http://example.test')
 
   bud.wpjson
-    .useTailwindColors(false)
+    .useTailwindColors(true)
     .useTailwindFontFamily()
     .useTailwindFontSize()
+    .useTailwindSpacing()
 }
