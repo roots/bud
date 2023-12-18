@@ -52,7 +52,7 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindColors: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindColors: (value?: boolean) => Api
 
   /**
    * ## bud.wpjson.useTailwindFontFamily
@@ -62,7 +62,7 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontFamily: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindFontFamily: (value?: boolean) => Api
 
   /**
    * ## bud.wpjson.useTailwindFontSize
@@ -72,7 +72,17 @@ type Api = StrictPublicExtensionApi<
    * @note
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    */
-  useTailwindFontSize: (value?: boolean, extendOnly?: boolean) => Api
+  useTailwindFontSize: (value?: boolean) => Api
+
+  /**
+   * ## bud.wpjson.useTailwindSpacing
+   *
+   * Source `theme.json` spacing values from `tailwind.config.js`
+   *
+   * @note
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   */
+  useTailwindSpacing: (value?: boolean) => Api
 
   version: Options['version']
 }

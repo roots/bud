@@ -18,14 +18,15 @@ import * as tailwindAdapter from './tailwind/index.js'
  */
 @label(`@roots/bud-tailwindcss-theme-json`)
 @options({
-  colors: false,
-  colorsExtendOnly: false,
-  fontFamilies: false,
-  fontFamiliesExtendOnly: false,
-  fontSizes: false,
-  fontSizesExtendOnly: false,
+  color: false,
+  fontFamily: false,
+  fontSize: false,
+  spacing: false,
 })
 export class TailwindThemeJSON extends Extension {
+  /**
+   * {@link Extension.apply}
+   */
   @bind
   public override apply(compiler: Compiler) {
     compiler.hooks.thisCompilation.tap(
@@ -44,14 +45,17 @@ export class TailwindThemeJSON extends Extension {
             if (this.app.isDevelopment)
               await this.app.tailwind.sourceConfig()
 
-            if (this.options.colors) {
-              data = this.tapColorsManifestObject(data)
+            if (this.options.color) {
+              data = this.tapTailwindColor(data)
             }
-            if (this.options.fontFamilies) {
-              data = this.tapFontFamiliesManifestObject(data)
+            if (this.options.fontFamily) {
+              data = this.tapTailwindFontFamily(data)
             }
-            if (this.options.fontSizes) {
-              data = this.tapFontSizesManifestObject(data)
+            if (this.options.fontSize) {
+              data = this.tapTailwindFontSize(data)
+            }
+            if (this.options.spacing) {
+              data = this.tapTailwindSpacing(data)
             }
 
             return data
@@ -71,16 +75,15 @@ export class TailwindThemeJSON extends Extension {
     bud.wpjson.useTailwindColors = this.useTailwindColors
     bud.wpjson.useTailwindFontFamily = this.useTailwindFontFamily
     bud.wpjson.useTailwindFontSize = this.useTailwindFontSize
+    bud.wpjson.useTailwindSpacing = this.useTailwindSpacing
   }
 
   @bind
-  public tapColorsManifestObject(
-    options: SettingsAndStyles,
-  ): SettingsAndStyles {
+  public tapTailwindColor(options: SettingsAndStyles): SettingsAndStyles {
     const palette = tailwindAdapter.palette.transform({
       ...this.app.tailwind.resolveThemeValue(
         `colors`,
-        this.options.colorsExtendOnly,
+        this.options.color === `extend`,
       ),
     })
 
@@ -98,13 +101,13 @@ export class TailwindThemeJSON extends Extension {
   }
 
   @bind
-  public tapFontFamiliesManifestObject(
+  public tapTailwindFontFamily(
     json: SettingsAndStyles,
   ): SettingsAndStyles {
     const fontFamilies = tailwindAdapter.fontFamily.transform({
       ...this.app.tailwind.resolveThemeValue(
         `fontFamily`,
-        this.options.fontFamiliesExtendOnly,
+        this.options.fontFamily === `extend`,
       ),
     })
 
@@ -122,13 +125,13 @@ export class TailwindThemeJSON extends Extension {
   }
 
   @bind
-  public tapFontSizesManifestObject(
+  public tapTailwindFontSize(
     options: SettingsAndStyles,
   ): SettingsAndStyles {
     const fontSizes = tailwindAdapter.fontSize.transform({
       ...this.app.tailwind.resolveThemeValue(
         `fontSize`,
-        this.options.fontSizeExtendOnly,
+        this.options.fontSize === `extend`,
       ),
     })
 
@@ -145,38 +148,62 @@ export class TailwindThemeJSON extends Extension {
     }
   }
 
-  /**
-   * Use tailwind colors in theme.json
-   */
   @bind
-  public useTailwindColors(extendOnly: boolean = false): any {
+  public tapTailwindSpacing(
+    options: SettingsAndStyles,
+  ): SettingsAndStyles {
+    const spacingSizes = tailwindAdapter.spacing.transform({
+      ...this.app.tailwind.resolveThemeValue(
+        `spacing`,
+        this.options.spacingSize === `extend`,
+      ),
+    })
+
+    return {
+      ...(options ?? {}),
+      settings: {
+        ...(options?.settings ?? {}),
+        spacing: {
+          ...(options?.settings?.spacing ?? {}),
+          spacingSizes,
+        },
+      },
+      version: 2,
+    }
+  }
+
+  @bind
+  public useTailwindColors(extend?: boolean): any {
     this.app.wpjson.enable()
-    this.set(`colors`, true)
-    this.set(`colorsExtendOnly`, extendOnly)
+
+    this.set(`color`, extend ? `extend` : true)
 
     return this.app.wpjson
   }
 
-  /**
-   * Use tailwind fontFamily in theme.json
-   */
   @bind
-  public useTailwindFontFamily(extendOnly: boolean = false): any {
+  public useTailwindFontFamily(extend?: boolean): any {
     this.app.wpjson.enable()
-    this.set(`fontFamilies`, true)
-    this.set(`fontFamiliesExtendOnly`, extendOnly)
+
+    this.set(`fontFamily`, extend ? `extend` : true)
 
     return this.app.wpjson
   }
 
-  /**
-   * Use tailwind fontSize in theme.json
-   */
   @bind
-  public useTailwindFontSize(extendOnly: boolean = false): any {
+  public useTailwindFontSize(extend?: boolean): any {
     this.app.wpjson.enable()
-    this.set(`fontSizes`, true)
-    this.set(`fontSizesExtendOnly`, extendOnly)
+
+    this.set(`fontSize`, extend ? `extend` : true)
+
+    return this.app.wpjson
+  }
+
+  @bind
+  public useTailwindSpacing(extend?: boolean): any {
+    this.app.wpjson.enable()
+
+    this.set(`spacing`, extend ? `extend` : true)
 
     return this.app.wpjson
   }

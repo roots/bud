@@ -216,13 +216,13 @@ class BudTailwindOptionsApi
     if (extendedOnly) {
       if (!this.config?.theme?.extend)
         throw new Error(
-          `@roots/bud-tailwindcss: cannot resolve extended theme value when no extended theme config is set.`,
+          `@roots/bud-tailwindcss: using \`extendOnly\` with ${key} but \`theme.extend\` is not defined in your tailwind config.`,
         )
 
       const value = this.config.theme.extend[key]
       if (!value) {
         throw new Error(
-          `@roots/bud-tailwindcss: extend.${key} is not a valid tailwind theme key.`,
+          `@roots/bud-tailwindcss: using \`extendOnly\` with ${key} but \`theme.extend.${key}\` is not defined in your tailwind config.`,
         )
       }
 
