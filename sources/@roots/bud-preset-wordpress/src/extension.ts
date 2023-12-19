@@ -198,7 +198,7 @@ export default class BudPresetWordPress
     !bud.env.isTrue(`SCRIPT_DEBUG`) &&
       this.setExclude((exclude = []) => [
         ...exclude,
-        join(`react-refresh/runtime`),
+        join(`react-refresh`, `runtime`),
       ])
   }
 
