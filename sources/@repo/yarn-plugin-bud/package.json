@@ -20,7 +20,7 @@
     "@yarnpkg/shell": "4.0.0",
     "clipanion": "4.0.0-rc.2",
     "fs-jetpack": "5.1.0",
-    "globby": "14.0.0",
+    "globby": "13.2.2",
     "lodash": "4.17.21",
     "semver": "7.5.4",
     "tslib": "2.6.2"
