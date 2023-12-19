@@ -187,6 +187,17 @@ export default class BudPresetWordPress
 
     if (bud.extensions.has(`@roots/bud-tailwindcss`))
       await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
+
+    /**
+     * WordPress will just straight up silently fail
+     * if this environment variable is not set and we
+     * try to include react-refresh (!)
+     */
+    !bud.env.isTrue(`SCRIPT_DEBUG`) &&
+      this.setExclude((exclude = []) => [
+        ...exclude,
+        `react-refresh/runtime`,
+      ])
   }
 
   /**
