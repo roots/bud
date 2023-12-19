@@ -3,6 +3,8 @@ import type BudWordPressDependencies from '@roots/bud-wordpress-dependencies'
 import type BudWordPressExternals from '@roots/bud-wordpress-externals'
 import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
 
+import {join} from 'node:path'
+
 import {
   Extension,
   type Option,
@@ -196,7 +198,7 @@ export default class BudPresetWordPress
     !bud.env.isTrue(`SCRIPT_DEBUG`) &&
       this.setExclude((exclude = []) => [
         ...exclude,
-        `react-refresh/runtime`,
+        join(`react-refresh/runtime`),
       ])
   }
 
