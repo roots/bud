@@ -341,7 +341,7 @@
     "figures": "5.0.0",
     "file-loader": "6.2.0",
     "get-port": "7.0.0",
-    "globby": "14.0.0",
+    "globby": "13.2.2",
     "http-proxy-middleware": "3.0.0-beta.1",
     "human-readable": "0.2.1",
     "import-meta-resolve": "2.2.2",

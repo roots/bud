@@ -96,7 +96,7 @@
   },
   "dependencies": {
     "fs-jetpack": "5.1.0",
-    "globby": "14.0.0",
+    "globby": "13.2.2",
     "helpful-decorators": "2.1.0",
     "js-yaml": "4.1.0",
     "json5": "2.2.3",

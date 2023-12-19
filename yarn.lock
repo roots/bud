@@ -9538,7 +9538,7 @@ __metadata:
     dotenv: "npm:16.3.1"
     execa: "npm:8.0.1"
     fs-jetpack: "npm:5.1.0"
-    globby: "npm:14.0.0"
+    globby: "npm:13.2.2"
     gray-matter: "npm:4.0.3"
     handlebars: "npm:4.7.8"
     helpful-decorators: "npm:2.1.0"
@@ -9576,7 +9576,7 @@ __metadata:
     chalk: "npm:5.3.0"
     execa: "npm:8.0.1"
     fs-jetpack: "npm:5.1.0"
-    globby: "npm:14.0.0"
+    globby: "npm:13.2.2"
     helpful-decorators: "npm:2.1.0"
     json5: "npm:2.2.3"
     strip-ansi: "npm:7.1.0"
@@ -9599,7 +9599,7 @@ __metadata:
     "@yarnpkg/shell": "npm:4.0.0"
     clipanion: "npm:4.0.0-rc.2"
     fs-jetpack: "npm:5.1.0"
-    globby: "npm:14.0.0"
+    globby: "npm:13.2.2"
     lodash: "npm:4.17.21"
     semver: "npm:7.5.4"
     tslib: "npm:2.6.2"
@@ -10281,7 +10281,7 @@ __metadata:
     figures: "npm:5.0.0"
     file-loader: "npm:6.2.0"
     get-port: "npm:7.0.0"
-    globby: "npm:14.0.0"
+    globby: "npm:13.2.2"
     http-proxy-middleware: "npm:3.0.0-beta.1"
     human-readable: "npm:0.2.1"
     import-meta-resolve: "npm:2.2.2"
@@ -10584,7 +10584,7 @@ __metadata:
     "@types/node": "npm:20.10.4"
     "@types/safe-json-stringify": "npm:1.1.5"
     fs-jetpack: "npm:5.1.0"
-    globby: "npm:14.0.0"
+    globby: "npm:13.2.2"
     helpful-decorators: "npm:2.1.0"
     js-yaml: "npm:4.1.0"
     json5: "npm:2.2.3"
@@ -10762,13 +10762,6 @@ __metadata:
   version: 5.3.0
   resolution: "@sindresorhus/is@npm:5.3.0"
   checksum: 79f4cdba0af1d30d2562f7df88052fd2074713cac54775da3b8042c190d1e95aba6198cd4d05d8c1163f12a8f6031da0f5ff750559ac2ac5f39659cce5864568
-  languageName: node
-  linkType: hard
-
-"@sindresorhus/merge-streams@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@sindresorhus/merge-streams@npm:1.0.0"
-  checksum: 453c2a28164113a5ec4fd23ba636e291a4112f6ee9e91cd5476b9a96e0fc9ee5ff40d405fe81bbf284c9773b7ed718a3a0f31df7895a0efd413b1f9775d154fe
   languageName: node
   linkType: hard
 
@@ -24182,17 +24175,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:14.0.0":
-  version: 14.0.0
-  resolution: "globby@npm:14.0.0"
+"globby@npm:13.2.2, globby@npm:^13.2.2":
+  version: 13.2.2
+  resolution: "globby@npm:13.2.2"
   dependencies:
-    "@sindresorhus/merge-streams": "npm:^1.0.0"
-    fast-glob: "npm:^3.3.2"
+    dir-glob: "npm:^3.0.1"
+    fast-glob: "npm:^3.3.0"
     ignore: "npm:^5.2.4"
-    path-type: "npm:^5.0.0"
-    slash: "npm:^5.1.0"
-    unicorn-magic: "npm:^0.1.0"
-  checksum: 6e7d84bbc69d8d21a07507af090998c6546c385702a350ff14f6fb08207f90ed40bd41c7b19c11a23851c3b86666e79503373e0f8b400a91a29b13952b1e960c
+    merge2: "npm:^1.4.1"
+    slash: "npm:^4.0.0"
+  checksum: 4494a9d2162a7e4d327988b26be66d8eab87d7f59a83219e74b065e2c3ced23698f68fb10482bf9337133819281803fb886d6ae06afbb2affa743623eb0b1949
   languageName: node
   linkType: hard
 
@@ -24206,19 +24198,6 @@ __metadata:
     merge2: "npm:^1.4.1"
     slash: "npm:^4.0.0"
   checksum: 13a8311f010858516605d35f2f3a5793318f910f22ceac768d0a9eb01387d13e99fa55ba98b8424ee377185cb407c345853c8c522fcd46ee9f56b147279fd155
-  languageName: node
-  linkType: hard
-
-"globby@npm:^13.2.2":
-  version: 13.2.2
-  resolution: "globby@npm:13.2.2"
-  dependencies:
-    dir-glob: "npm:^3.0.1"
-    fast-glob: "npm:^3.3.0"
-    ignore: "npm:^5.2.4"
-    merge2: "npm:^1.4.1"
-    slash: "npm:^4.0.0"
-  checksum: 4494a9d2162a7e4d327988b26be66d8eab87d7f59a83219e74b065e2c3ced23698f68fb10482bf9337133819281803fb886d6ae06afbb2affa743623eb0b1949
   languageName: node
   linkType: hard
 
@@ -39098,13 +39077,6 @@ __metadata:
   version: 0.4.1
   resolution: "unicoderegexp@npm:0.4.1"
   checksum: 1bee01a9479c1bd9094d25e544a9d453c7e1b4faf8750ccb33963e9daf052ff222d7ea38bd78c00e89afbc1a7b6f7ff24c7f70281e351f9bc5aa0aef1d46a32d
-  languageName: node
-  linkType: hard
-
-"unicorn-magic@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "unicorn-magic@npm:0.1.0"
-  checksum: 9b4d0e9809807823dc91d0920a4a4c0cff2de3ebc54ee87ac1ee9bc75eafd609b09d1f14495e0173aef26e01118706196b6ab06a75fe0841028b3983a8af313f
   languageName: node
   linkType: hard
 
