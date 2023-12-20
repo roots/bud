@@ -8,8 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import BudPresetWordPress, {
-} from '@roots/bud-preset-wordpress/extension'
+import BudPresetWordPress from '@roots/bud-preset-wordpress/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {

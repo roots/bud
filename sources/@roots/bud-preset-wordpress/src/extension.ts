@@ -46,17 +46,12 @@ interface Options {
   exclude: [],
   hmr: true,
   notify: true,
-  scriptDebug: DynamicOption.make(({env}) =>
-    env.isTrue(`SCRIPT_DEBUG`),
-  ),
+  scriptDebug: DynamicOption.make(({env}) => env.isTrue(`SCRIPT_DEBUG`)),
 })
 @expose(`wp`)
 export default class BudPresetWordPress extends Extension<Options> {
   public declare scriptDebug: Options[`scriptDebug`]
-  public declare getScriptDebug: OptionGetter<
-    Options,
-    `scriptDebug`
-  >
+  public declare getScriptDebug: OptionGetter<Options, `scriptDebug`>
   public declare setScriptDebug: OptionSetter<
     BudPresetWordPress,
     Options,
@@ -214,7 +209,8 @@ export default class BudPresetWordPress extends Extension<Options> {
      * Unless user has manually overridden this. Common example: if they have set SCRIPT_DEBUG
      * directly in their WordPress config file (which bud.js does not have access to it).
      */
-    !this.getScriptDebug() && this.setExclude((exclude = []) => [
+    !this.getScriptDebug() &&
+      this.setExclude((exclude = []) => [
         ...exclude,
         join(`react-refresh`, `runtime`),
       ])
