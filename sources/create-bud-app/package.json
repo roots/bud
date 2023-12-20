@@ -52,7 +52,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@types/node": "20.10.4",
+    "@types/node": "20.10.5",
     "@types/prettier": "3.0.0"
   },
   "dependencies": {
@@ -65,7 +65,7 @@
     "handlebars": "4.7.8",
     "lodash": "4.17.21",
     "ora": "7.0.1",
-    "prettier": "3.1.0",
+    "prettier": "3.1.1",
     "tslib": "2.6.2",
     "typanion": "3.14.0"
   },
