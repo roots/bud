@@ -1,14 +1,15 @@
 import type {Bud} from '@roots/bud-framework'
 import type BudWordPressDependencies from '@roots/bud-wordpress-dependencies'
 import type BudWordPressExternals from '@roots/bud-wordpress-externals'
-import type WordPressThemeJSON from '@roots/bud-wordpress-theme-json'
+import type WordPressThemeJson from '@roots/bud-wordpress-theme-json'
 
 import {join} from 'node:path'
 
 import {
+  DynamicOption,
   Extension,
-  type Option,
-  type PublicExtensionApi,
+  type OptionGetter,
+  type OptionSetter,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -27,114 +28,7 @@ interface Options {
   exclude: Array<string>
   hmr: boolean
   notify: boolean
-}
-
-/**
- * WordPress Preset API
- */
-interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
-  /**
-   * {@link BudWordPressDependencies}
-   */
-  dependencies: BudWordPressDependencies
-  /**
-   * Exclude dependencies from externals and the `entrypoints.json` manifest
-   *
-   * @default []
-   */
-  exclude: Option<PublicExtension, Options, `exclude`>[`value`]
-  /**
-   * {@link BudWordPressExternals}
-   */
-  externals: BudWordPressExternals
-
-  /**
-   * Get excluded dependencies
-   *
-   * @returns Array<string>
-   */
-  getExclude: Option<PublicExtension, Options, `exclude`>[`get`]
-  /**
-   * Get `@roots/wordpress-hmr` functionality
-   *
-   * @returns boolean
-   */
-  getHmr: Option<PublicExtension, Options, `hmr`>[`get`]
-  /**
-   * Get WordPress editor toast notifications
-   *
-   * @returns boolean
-   */
-  getNotify: Option<PublicExtension, Options, `notify`>[`get`]
-
-  /**
-   * Enable `@roots/wordpress-hmr` functionality
-   *
-   * @default true
-   */
-  hmr: Option<PublicExtension, Options, `hmr`>[`value`]
-  /**
-   * {@link WordPressThemeJSON}
-   */
-  json: WordPressThemeJSON
-  /**
-   * WordPress editor toast notifications
-   *
-   * @default true
-   */
-  notify: Option<PublicExtension, Options, `notify`>[`value`]
-
-  /**
-   * Set excluded dependencies
-   *
-   * @param value Array<string>
-   * @returns this
-   *
-   * @example
-   * ```js
-   * bud.wp.setExclude(['react'])
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.wp.setExclude(exclude => [...exclude, 'react'])
-   * ```
-   */
-  setExclude: Option<PublicExtension, Options, `exclude`>[`set`]
-  /**
-   * Set `@roots/wordpress-hmr` functionality
-   *
-   * @param value boolean
-   * @returns this
-   *
-   * @example
-   * ```js
-   * bud.wp.setHmr(false)
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.wp.setHmr(hmr => false)
-   * ```
-   */
-  setHmr: Option<PublicExtension, Options, `hmr`>[`set`]
-  /**
-   * Set WordPress editor toast notifications
-   *
-   * @param value boolean
-   * @returns this
-   *
-   * @example
-   * ```js
-   * bud.wp.setNotify(false)
-   * ```
-   *
-   * @example
-   * ```js
-   * bud.wp.setNotify(notify => false)
-   * ```
-   */
-  setNotify: Option<PublicExtension, Options, `notify`>[`set`]
+  scriptDebug: boolean
 }
 
 /**
@@ -152,32 +46,127 @@ interface PublicExtension extends PublicExtensionApi<BudPresetWordPress> {
   exclude: [],
   hmr: true,
   notify: true,
+  scriptDebug: DynamicOption.make(({env}) =>
+    env.isTrue(`SCRIPT_DEBUG`),
+  ),
 })
 @expose(`wp`)
-export default class BudPresetWordPress
-  extends Extension<Options>
-  implements PublicExtension
-{
-  public declare exclude: PublicExtension[`exclude`]
-  public declare getExclude: PublicExtension[`getExclude`]
-  public declare setExclude: PublicExtension[`setExclude`]
+export default class BudPresetWordPress extends Extension<Options> {
+  public declare scriptDebug: Options[`scriptDebug`]
+  public declare getScriptDebug: OptionGetter<
+    Options,
+    `scriptDebug`
+  >
+  public declare setScriptDebug: OptionSetter<
+    BudPresetWordPress,
+    Options,
+    `scriptDebug`
+  >
 
-  public declare hmr: PublicExtension[`hmr`]
-  public declare getHmr: PublicExtension[`getHmr`]
-  public declare setHmr: PublicExtension[`setHmr`]
+  /**
+   * Exclude dependencies from externals and the `entrypoints.json` manifest
+   *
+   * @default []
+   */
+  public declare readonly exclude: Options[`exclude`]
+  /**
+   * Get excluded dependencies
+   *
+   * @returns Array<string>
+   */
+  public declare getExclude: OptionGetter<Options, `exclude`>
+  /**
+   * Set excluded dependencies
+   */
+  public declare setExclude: OptionSetter<
+    BudPresetWordPress,
+    Options,
+    `exclude`
+  >
 
-  public declare notify: PublicExtension[`notify`]
-  public declare getNotify: PublicExtension[`getNotify`]
-  public declare setNotify: PublicExtension[`setNotify`]
+  /**
+   * Enable `@roots/wordpress-hmr` functionality
+   *
+   * @default true
+   */
+  public declare readonly hmr: Options[`hmr`]
+  /**
+   * Get `@roots/wordpress-hmr` functionality
+   *
+   * @returns boolean
+   */
+  public declare getHmr: OptionGetter<Options, `hmr`>
+  /**
+   * Set `@roots/wordpress-hmr` functionality
+   *
+   * @param value boolean
+   * @returns this
+   *
+   * @example
+   * ```js
+   * bud.wp.setHmr(false)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.wp.setHmr(hmr => false)
+   * ```
+   */
+  public declare setHmr: OptionSetter<BudPresetWordPress, Options, `hmr`>
 
+  /**
+   * WordPress editor toast notifications value
+   *
+   * @returns boolean
+   */
+  public declare notify: Options[`notify`]
+  /**
+   * Get WordPress editor toast notifications
+   *
+   * @returns boolean
+   */
+  public declare getNotify: OptionGetter<Options, `notify`>
+  /**
+   * Toggle WordPress editor toast notifications
+   *
+   * @param value boolean
+   * @returns this
+   *
+   * @example
+   * ```js
+   * bud.wp.setNotify(false)
+   * ```
+   *
+   * @example
+   * ```js
+   * bud.wp.setNotify(notify => false)
+   * ```
+   */
+  public declare setNotify: OptionSetter<
+    BudPresetWordPress,
+    Options,
+    `notify`
+  >
+
+  /**
+   * {@link BudWordPressDependencies}
+   */
   public get dependencies(): BudWordPressDependencies {
     return this.app.extensions.get(`@roots/bud-wordpress-dependencies`)
   }
+  /**
+   * {@link BudWordPressExternals}
+   */
   public get externals(): BudWordPressExternals {
     return this.app.extensions.get(`@roots/bud-wordpress-externals`)
   }
-  public get json(): WordPressThemeJSON {
-    return this.app.extensions.get(`@roots/bud-wordpress-theme-json`)
+  /**
+   * {@link WordPressThemeJson}
+   */
+  public get json(): WordPressThemeJson {
+    return this.app.extensions.get(
+      `@roots/bud-wordpress-theme-json`,
+    ) as unknown as WordPressThemeJson
   }
 
   /**
@@ -188,18 +177,12 @@ export default class BudPresetWordPress
     await this.compilerCheck(bud)
 
     if (bud.extensions.has(`@roots/bud-tailwindcss`))
-      await bud.extensions.add(`@roots/bud-tailwindcss-theme-json`)
-
-    /**
-     * WordPress will just straight up silently fail
-     * if this environment variable is not set and we
-     * try to include react-refresh (!)
-     */
-    !bud.env.isTrue(`SCRIPT_DEBUG`) &&
-      this.setExclude((exclude = []) => [
-        ...exclude,
-        join(`react-refresh`, `runtime`),
-      ])
+      await bud.extensions.add(
+        await this.resolve(
+          `@roots/bud-tailwindcss-theme-json`,
+          import.meta.url,
+        ),
+      )
   }
 
   /**
@@ -225,6 +208,18 @@ export default class BudPresetWordPress
     }
 
     /**
+     * If `SCRIPT_DEBUG` env value is not set, exclude `react-refresh/runtime` from externals
+     * and inclusion in entrypoints.json dependencies array(s).
+     *
+     * Unless user has manually overridden this. Common example: if they have set SCRIPT_DEBUG
+     * directly in their WordPress config file (which bud.js does not have access to it).
+     */
+    !this.getScriptDebug() && this.setExclude((exclude = []) => [
+        ...exclude,
+        join(`react-refresh`, `runtime`),
+      ])
+
+    /**
      * Exclude anything specified in {@link Options.exclude}
      */
     if (this.exclude.length) {
@@ -237,7 +232,7 @@ export default class BudPresetWordPress
   @bind
   private async handleHmr({build, hooks}: Bud) {
     /** Bail if hmr option is false */
-    if (!this.hmr) return
+    if (!this.getHmr()) return
 
     /** Source loader */
     const loader = await this.resolve(
@@ -262,7 +257,7 @@ export default class BudPresetWordPress
       .setItem(`@roots/wordpress-hmr/loader`, {
         loader: `@roots/wordpress-hmr/loader`,
         options: {
-          notify: this.get(`notify`),
+          notify: this.getNotify(),
         },
       })
 
@@ -353,5 +348,3 @@ export default class BudPresetWordPress
     }
   }
 }
-
-export type {PublicExtension}

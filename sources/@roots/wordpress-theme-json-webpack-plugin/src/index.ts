@@ -14,7 +14,7 @@ export interface Options extends SettingsAndStyles {
   /**
    * Warning comment about the file being generated.
    */
-  __generated__?: string
+  __generated__?: false | string
   path: string
   version: 2
 }

@@ -38,6 +38,10 @@ export default class BudReact extends Extension {
       bud.swc.setJsc(
         merge(bud.swc.jsc, {transform: {react: {runtime: `automatic`}}}),
       )
+      bud.swc.setTransform((transform = {}) => ({
+        react: {runtime: `automatic`, ...(transform.react ?? {})},
+        ...transform,
+      }))
     }
 
     if (bud.babel) {
