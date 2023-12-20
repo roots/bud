@@ -58,6 +58,10 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
    */
   public apply(compiler: Compiler) {
     if (!this.options.path) this.options.path = `../theme.json`
+    if (this.options.__generated__ === false) {
+      delete this.options.__generated__
+      delete this.data.__generated__
+    }
 
     compiler.hooks.thisCompilation.tap(
       this.constructor.name,
