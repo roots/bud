@@ -10,14 +10,17 @@ export class GitHookCommitMsg extends Command {
   public emoji = {
     chore: `🧹`,
     deps: `📦`,
+    docs: `📕`,
     feat: `✨`,
     fix: `🩹`,
+    improve: `🔨`,
+    merge: `🔀`,
     release: `🚀`,
     test: `🧪`,
   }
 
   public validator =
-    /^(chore|feat|fix|test|deps):(none|patch|minor|major)(.*)/
+    /^(chore|deps|docs|feat|fix|improve|merge|release|test):(none|patch|minor|major)(.*)/
 
   public exit = (...messages: Array<string>): never => {
     messages.map(message => this.context.stderr.write(`${message}\n`))
@@ -48,7 +51,7 @@ export class GitHookCommitMsg extends Command {
       this.exit(
         `Invalid commit message format\n`,
         `Message should follow the format: <type>:<severity> <description>\n`,
-        `Where <type> is one of: chore, deps, feat, fix, release, test\n`,
+        `Where <type> is one of: chore, deps, docs, feat, fix, improve, merge, release, test\n`,
         `And <severity> is one of: none, patch, minor, major\n`,
         `Example: feat:minor add new feature`,
       )
