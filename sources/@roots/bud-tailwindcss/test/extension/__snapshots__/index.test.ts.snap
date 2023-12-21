@@ -305,4 +305,4 @@ exports[`@roots/bud-tailwindcss extension > should resolve tailwind config value
 
 exports[`@roots/bud-tailwindcss extension > should throw when key does not exist 1`] = `[Error: @roots/bud-tailwindcss: foo is not a valid tailwind theme key.]`;
 
-exports[`@roots/bud-tailwindcss extension > should throw when key does not exist in extended config (filter extends) 1`] = `[Error: @roots/bud-tailwindcss: extend.lineHeight is not a valid tailwind theme key.]`;
+exports[`@roots/bud-tailwindcss extension > should throw when key does not exist in extended config (filter extends) 1`] = `[Error: @roots/bud-tailwindcss: using \`extendOnly\` with lineHeight but \`theme.extend.lineHeight\` is not defined in your tailwind config.]`;
