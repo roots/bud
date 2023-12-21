@@ -154,22 +154,22 @@ class WordPressThemeJson extends Extension<
    *
    * @example
    * ```ts
-   * bud.wpjson.useTailwindColors()
-   * bud.wpjson.useTailwindColors(true)
+   * bud.wp.json.useTailwindColors()
+   * bud.wp.json.useTailwindColors(true)
    * ```
    *
    * @example
    * Limit to `theme.extend.colors` values
    *
    * ```ts
-   * bud.wpjson.useTailwindColors(`extend`)
+   * bud.wp.json.useTailwindColors(`extend`)
    * ```
    *
    * @example
    * Do not source values from tailwind config
    *
    * ```ts
-   * bud.wpjson.useTailwindColors(false)
+   * bud.wp.json.useTailwindColors(false)
    * ```
    */
   public declare useTailwindColors?: (
@@ -185,22 +185,22 @@ class WordPressThemeJson extends Extension<
    *
    * @example
    * ```ts
-   * bud.wpjson.useTailwindFontFamily()
-   * bud.wpjson.useTailwindFontFamily(true)
+   * bud.wp.json.useTailwindFontFamily()
+   * bud.wp.json.useTailwindFontFamily(true)
    * ```
    *
    * @example
    * Limit to `theme.extend.fontFamily` values
    *
    * ```ts
-   * bud.wpjson.useTailwindFontFamily(`extend`)
+   * bud.wp.json.useTailwindFontFamily(`extend`)
    * ```
    *
    * @example
-   * Do not source values from tailwind config
+   * Disable
    *
    * ```ts
-   * bud.wpjson.useTailwindFontFamily(false)
+   * bud.wp.json.useTailwindFontFamily(false)
    * ```
    */
   public declare useTailwindFontFamily?: (
@@ -216,22 +216,22 @@ class WordPressThemeJson extends Extension<
    *
    * @example
    * ```ts
-   * bud.wpjson.useTailwindFontSize()
-   * bud.wpjson.useTailwindFontSize(true)
+   * bud.wp.json.useTailwindFontSize()
+   * bud.wp.json.useTailwindFontSize(true)
    * ```
    *
    * @example
    * Limit to `theme.extend.fontSize` values
    *
    * ```ts
-   * bud.wpjson.useTailwindFontSize(`extend`)
+   * bud.wp.json.useTailwindFontSize(`extend`)
    * ```
    *
    * @example
-   * Do not source values from tailwind config
+   * Disable
    *
    * ```ts
-   * bud.wpjson.useTailwindFontSize(false)
+   * bud.wp.json.useTailwindFontSize(false)
    * ```
    */
 
@@ -244,32 +244,62 @@ class WordPressThemeJson extends Extension<
    *
    * Source `theme.json` spacing values from `tailwind.config.js`
    *
-   *
    * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
    *
    * @example
    * ```ts
-   * bud.wpjson.useTailwindFontFamily()
+   * bud.wp.json.useTailwindSpacing()
    * ```
    *
    * @example
-   * Source theme.fontFamily values but limit to `extend` values
+   * Source theme.spacing values but limit to `extend` values
    *
    * ```ts
-   * bud.wpjson.useTailwindFontFamily(`extend`)
+   * bud.wp.json.useTailwindSpacing(`extend`)
    * ```
    *
    * @example
-   * Do not source theme.fontFamily values from tailwind.config.js
+   * Disable
    *
    * ```ts
-   * bud.wpjson.useTailwindFontFamily(false)
+   * bud.wp.json.useTailwindSpacing(false)
    * ```
    */
   public declare useTailwindSpacing?: (
     value?: `extend` | boolean,
   ) => WordPressThemeJson
 
+  /**
+   * ## bud.wp.json.settings
+   *
+   * Edit the `settings` key of theme.json
+   *
+   * @example
+   * ```ts
+   * bud.wp.json.settings({
+   *  color: {
+   *    custom: false,
+   *    customGradient: false,
+   *    palette: [
+   *      {
+   *        color: '#f7fafc',
+   *        name: 'Gray',
+   *        slug: 'gray'
+   *      }
+   *    ]
+   * })
+   * ```
+   *
+   * @example
+   * Edit existing values with a callback:
+   *
+   * ```ts
+   * bud.wp.json.settings((settings = {}) => ({
+   *   ...settings,
+   *   color: {},
+   * }))
+   * ```
+   */
   @bind
   public settings(
     input:
