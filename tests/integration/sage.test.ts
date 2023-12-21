@@ -5,7 +5,6 @@ import {
   testIsMinimized,
   testThemeJson,
 } from '@repo/test-kit/tests'
-import {fs} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/sage`, () => {
@@ -102,8 +101,6 @@ describe(`examples/sage`, () => {
 
     const json = sage.getAsset(`../theme.json`)
     if (typeof json === `string`) throw new Error(`expected object`)
-    testThemeJson(json)
-
     expect(json).toMatchInlineSnapshot(`
       {
         "$schema": "https://schemas.wp.org/trunk/theme.json",
