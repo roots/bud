@@ -13,11 +13,18 @@ import WordPressJSONPlugin, {
 
 import * as tailwindAdapter from './tailwind/index.js'
 
+interface Options {
+  color?: `extend` | boolean
+  fontFamily?: `extend` | boolean
+  fontSize?: `extend` | boolean
+  spacing?: `extend` | boolean
+}
+
 /**
  * Support Tailwind values in {@link Bud.wpjson}
  */
 @label(`@roots/bud-tailwindcss-theme-json`)
-@options({
+@options<Options>({
   color: false,
   fontFamily: false,
   fontSize: false,
@@ -175,36 +182,44 @@ export class TailwindThemeJSON extends Extension {
   @bind
   public useTailwindColors(extend?: boolean): any {
     this.app.wpjson.enable()
-
-    this.set(`color`, extend ? `extend` : true)
-
+    this.handleOption(`color`, extend)
     return this.app.wpjson
   }
 
   @bind
   public useTailwindFontFamily(extend?: boolean): any {
     this.app.wpjson.enable()
-
-    this.set(`fontFamily`, extend ? `extend` : true)
-
+    this.handleOption(`fontFamily`, extend)
     return this.app.wpjson
   }
 
   @bind
-  public useTailwindFontSize(extend?: boolean): any {
+  public useTailwindFontSize(extend?: `extend` | boolean): any {
     this.app.wpjson.enable()
-
-    this.set(`fontSize`, extend ? `extend` : true)
-
+    this.handleOption(`fontSize`, extend)
     return this.app.wpjson
   }
 
   @bind
   public useTailwindSpacing(extend?: boolean): any {
     this.app.wpjson.enable()
-
-    this.set(`spacing`, extend ? `extend` : true)
-
+    this.handleOption(`spacing`, extend)
     return this.app.wpjson
+  }
+
+  private handleOption(option: string, value: `extend` | boolean) {
+    switch (value) {
+      case `extend`:
+        this.set(option, `extend`)
+        break
+      case true:
+        this.set(option, `extend`)
+        break
+      case false:
+        this.set(option, false)
+        break
+      default:
+        this.set(option, true)
+    }
   }
 }

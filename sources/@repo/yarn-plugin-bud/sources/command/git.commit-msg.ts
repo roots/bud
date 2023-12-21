@@ -12,12 +12,14 @@ export class GitHookCommitMsg extends Command {
     deps: `📦`,
     feat: `✨`,
     fix: `🩹`,
+    improve: `🔨`,
+    merge: `🔀`,
     release: `🚀`,
     test: `🧪`,
   }
 
   public validator =
-    /^(chore|feat|fix|test|deps):(none|patch|minor|major)(.*)/
+    /^(chore|deps|feat|fix|improve|merge|release|test):(none|patch|minor|major)(.*)/
 
   public exit = (...messages: Array<string>): never => {
     messages.map(message => this.context.stderr.write(`${message}\n`))

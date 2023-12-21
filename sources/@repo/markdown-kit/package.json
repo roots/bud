@@ -9,9 +9,9 @@
   },
   "devDependencies": {
     "@types/lodash-es": "4.17.12",
-    "@types/node": "20.10.4",
+    "@types/node": "20.10.5",
     "@types/prettier": "3.0.0",
-    "vitest": "1.0.4"
+    "vitest": "1.1.0"
   },
   "dependencies": {
     "@octokit/core": "5.0.2",
@@ -22,14 +22,14 @@
     "dotenv": "16.3.1",
     "execa": "8.0.1",
     "fs-jetpack": "5.1.0",
-    "globby": "14.0.0",
+    "globby": "13.2.2",
     "gray-matter": "4.0.3",
     "handlebars": "4.7.8",
     "helpful-decorators": "2.1.0",
     "json5": "2.2.3",
     "lodash-es": "4.17.21",
     "octokit": "3.1.2",
-    "prettier": "3.1.0",
+    "prettier": "3.1.1",
     "strip-ansi": "7.1.0",
     "tslib": "2.6.2",
     "typescript": "5.3.3"

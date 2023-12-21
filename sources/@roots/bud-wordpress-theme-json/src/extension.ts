@@ -3,7 +3,8 @@ import type {Options} from '@roots/wordpress-theme-json-webpack-plugin'
 import {
   DynamicOption,
   Extension,
-  type StrictPublicExtensionApi,
+  type OptionGetter,
+  type OptionSetter,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -28,65 +29,6 @@ interface Mutator {
   (json: Partial<Options['settings']>): Partial<Options['settings']>
 }
 
-type Api = StrictPublicExtensionApi<
-  WordPressThemeJSON,
-  Options & Record<string, unknown>
-> & {
-  customTemplates: Options['customTemplates']
-  generated: Options['__generated__']
-  path: Options['path']
-  patterns: Options['patterns']
-  /**
-   * ## bud.wpjson.settings
-   *
-   * Define `theme.json` settings using an options object or callback
-   */
-  settings: WordPressThemeJSON[`settings`]
-  styles: Options['styles']
-  templateParts: Options['templateParts']
-  /**
-   * ## bud.wpjson.useTailwindColors
-   *
-   * Source `theme.json` color values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindColors: (value?: boolean) => Api
-
-  /**
-   * ## bud.wpjson.useTailwindFontFamily
-   *
-   * Source `theme.json` fontFamily values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindFontFamily: (value?: boolean) => Api
-
-  /**
-   * ## bud.wpjson.useTailwindFontSize
-   *
-   * Source `theme.json` fontSize values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindFontSize: (value?: boolean) => Api
-
-  /**
-   * ## bud.wpjson.useTailwindSpacing
-   *
-   * Source `theme.json` spacing values from `tailwind.config.js`
-   *
-   * @note
-   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
-   */
-  useTailwindSpacing: (value?: boolean) => Api
-
-  version: Options['version']
-}
-
 /**
  * WordPress theme.json configuration
  *
@@ -99,7 +41,7 @@ type Api = StrictPublicExtensionApi<
  */
 @label(`@roots/bud-wordpress-theme-json`)
 @options<Options>({
-  __generated__: undefined,
+  __generated__: `⚠️ This file is generated. Do not edit.`,
   customTemplates: undefined,
   path: DynamicOption.make(({path}) => path(`./theme.json`)),
   patterns: undefined,
@@ -123,38 +65,212 @@ type Api = StrictPublicExtensionApi<
   },
   styles: undefined,
   templateParts: undefined,
+  title: undefined,
   version: undefined,
 })
 @plugin(ThemeJsonWebpackPlugin)
 @expose(`wpjson`)
 @disabled
-class WordPressThemeJSON
-  extends Extension<Options, ThemeJsonWebpackPlugin>
-  implements Api
-{
-  public declare readonly customTemplates: Api['customTemplates']
-  public declare getCustomTemplates: Api['getCustomTemplates']
-  public declare getPath: Api['getPath']
-  public declare getPatterns: Api['getPatterns']
-  public declare getSettings: Api['getSettings']
-  public declare getStyles: Api['getStyles']
-  public declare getTemplateParts: Api['getTemplateParts']
-  public declare getVersion: Api['getVersion']
-  public declare readonly path: Api['path']
-  public declare readonly patterns: Api['patterns']
-  public declare setCustomTemplates: Api['setCustomTemplates']
-  public declare setPath: Api['setPath']
-  public declare setPatterns: Api['setPatterns']
-  public declare setSettings: Api['setSettings']
-  public declare setStyles: Api['setStyles']
-  public declare setTemplateParts: Api['setTemplateParts']
-  public declare setVersion: Api['setVersion']
-  public declare readonly styles: Api['styles']
-  public declare readonly templateParts: Api['templateParts']
-  public declare readonly version: Api['version']
+class WordPressThemeJson extends Extension<
+  Options,
+  ThemeJsonWebpackPlugin
+> {
+  public declare customTemplates: Options['customTemplates']
+  public declare getCustomTemplates: OptionGetter<
+    Options,
+    `customTemplates`
+  >
+  public declare setCustomTemplates: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `customTemplates`
+  >
+
+  public declare readonly __generated__: Options[`__generated__`]
+  public declare get__generated__: OptionGetter<Options, `__generated__`>
+  public declare set__generated__: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `__generated__`
+  >
+
+  public declare readonly path: Options['path']
+  public declare getPath: OptionGetter<Options, `path`>
+  public declare setPath: OptionSetter<WordPressThemeJson, Options, `path`>
+
+  public declare readonly patterns: Options['patterns']
+  public declare getPatterns: OptionGetter<Options, `patterns`>
+  public declare setPatterns: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `patterns`
+  >
+
+  public declare getSettings: OptionGetter<Options, `settings`>
+  public declare setSettings: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `settings`
+  >
+
+  public declare readonly styles: Options['styles']
+  public declare getStyles: OptionGetter<Options, `styles`>
+  public declare setStyles: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `styles`
+  >
+
+  public declare readonly title: Options['title']
+  public declare getTitle: OptionGetter<Options, `title`>
+  public declare setTitle: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `title`
+  >
+
+  public declare readonly version: Options['version']
+  public declare getVersion: OptionGetter<Options, `version`>
+  public declare setVersion: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `version`
+  >
+
+  public declare readonly templateParts: Options['templateParts']
+  public declare getTemplateParts: OptionGetter<Options, `templateParts`>
+  public declare setTemplateParts: OptionSetter<
+    WordPressThemeJson,
+    Options,
+    `templateParts`
+  >
+
+  /**
+   * ## bud.wp.json.useTailwindColors
+   *
+   * Source settings.color.palette values from tailwind config
+   *
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   *
+   * @example
+   * ```ts
+   * bud.wpjson.useTailwindColors()
+   * bud.wpjson.useTailwindColors(true)
+   * ```
+   *
+   * @example
+   * Limit to `theme.extend.colors` values
+   *
+   * ```ts
+   * bud.wpjson.useTailwindColors(`extend`)
+   * ```
+   *
+   * @example
+   * Do not source values from tailwind config
+   *
+   * ```ts
+   * bud.wpjson.useTailwindColors(false)
+   * ```
+   */
+  public declare useTailwindColors?: (
+    value?: `extend` | boolean,
+  ) => WordPressThemeJson
+
+  /**
+   * ## bud.wp.json.useTailwindFontFamily
+   *
+   * Source settings.typography.fontFamilies values from tailwind config
+   *
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   *
+   * @example
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily()
+   * bud.wpjson.useTailwindFontFamily(true)
+   * ```
+   *
+   * @example
+   * Limit to `theme.extend.fontFamily` values
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily(`extend`)
+   * ```
+   *
+   * @example
+   * Do not source values from tailwind config
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily(false)
+   * ```
+   */
+  public declare useTailwindFontFamily?: (
+    value?: `extend` | boolean,
+  ) => WordPressThemeJson
+
+  /**
+   * ## bud.wp.json.useTailwindFontSize
+   *
+   * Source settings.typography.fontSizes values from tailwind config
+   *
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   *
+   * @example
+   * ```ts
+   * bud.wpjson.useTailwindFontSize()
+   * bud.wpjson.useTailwindFontSize(true)
+   * ```
+   *
+   * @example
+   * Limit to `theme.extend.fontSize` values
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontSize(`extend`)
+   * ```
+   *
+   * @example
+   * Do not source values from tailwind config
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontSize(false)
+   * ```
+   */
+
+  public declare useTailwindFontSize?: (
+    value?: `extend` | boolean,
+  ) => WordPressThemeJson
+
+  /**
+   * ## bud.wp.json.useTailwindSpacing
+   *
+   * Source `theme.json` spacing values from `tailwind.config.js`
+   *
+   *
+   * Requires {@link https://bud.js.org/extensions/bud-tailwindcss/ @roots/bud-tailwindcss} to be installed.
+   *
+   * @example
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily()
+   * ```
+   *
+   * @example
+   * Source theme.fontFamily values but limit to `extend` values
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily(`extend`)
+   * ```
+   *
+   * @example
+   * Do not source theme.fontFamily values from tailwind.config.js
+   *
+   * ```ts
+   * bud.wpjson.useTailwindFontFamily(false)
+   * ```
+   */
+  public declare useTailwindSpacing?: (
+    value?: `extend` | boolean,
+  ) => WordPressThemeJson
 
   @bind
-  // @ts-ignore
   public settings(
     input:
       | boolean
@@ -194,4 +310,4 @@ class WordPressThemeJSON
   }
 }
 
-export {type Api, WordPressThemeJSON}
+export {WordPressThemeJson}

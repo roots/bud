@@ -4,6 +4,8 @@ import type {
 } from '@roots/entrypoints-webpack-plugin'
 import type {Compilation} from 'webpack'
 
+import {join} from 'node:path'
+
 import {handle, wordpress} from '@roots/wordpress-transforms'
 import {bind} from 'helpful-decorators'
 import Webpack from 'webpack'
@@ -144,6 +146,25 @@ export default class WordPressDependenciesWebpackPlugin {
 
     for (const request of requested) {
       if (this.options.exclude?.includes(request)) continue
+      /**
+       * It's harder to exclude react-refresh-runtime
+       * because it is often transitively included.
+       *
+       * So we check if the request includes the string
+       * and if it does, we check if it is in the exclude
+       * array.
+       *
+       * It is a bit of a hack, but it works.
+       */
+      if (
+        this.options?.exclude?.includes(
+          join(`react-refresh`, `runtime`),
+        ) &&
+        request.includes(join(`react-refresh`, `runtime`))
+      ) {
+        continue
+      }
+
       if (!wordpress.isProvided(request)) continue
 
       const wordPressHandle = handle.transform(request)
