@@ -1,89 +1,84 @@
-import fs from 'fs-jetpack'
-import {
-  describe,
-  expect,
-  it,
-} from 'vitest'
+import { ElementHandle } from 'playwright'
+import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
-import * as fixture from './helpers'
+import {close, page, path, read, setup, update} from './runner/index.js'
 
 describe(`html output of examples/babel`, () => {
-  it(`should rebuild on change`, async () => {
-    try {
-      const {page} = await fixture.setupTest(`babel`)
+  let title: string | undefined
+  let original: string | undefined
+  let root: ElementHandle<any> | null
 
-      const title = await page.title()
-      expect(title).toBe(`@examples/babel`)
+  beforeAll(async () => {
+    await setup(`babel`)
+    original = await read(path(`src`, `index.js`))
+    title = await page.title()
+    root = await page.$(`#root`)
+  })
 
-      const root = await page.$(`#root`)
-      expect(root).toBeTruthy()
+  afterAll(close)
 
-      expect(
-        await root?.evaluate(el =>
-          window.getComputedStyle(el).getPropertyValue(`background`),
-        ),
-      ).toMatchSnapshot(
-        `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
-      )
+  it(`should have expected default state`, async () => {
+    expect(original).toMatchSnapshot()
+    expect(title).toBe(`@examples/babel`)
 
-      await updateCss()
-      await page.waitForTimeout(12000)
+    expect(
+      await root?.evaluate(el =>
+        window.getComputedStyle(el).getPropertyValue(`background`),
+      ),
+    ).toMatchSnapshot(
+      `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
+    )
 
-      expect(
-        await root?.evaluate(el =>
-          window.getComputedStyle(el).getPropertyValue(`background`),
-        ),
-      ).toMatchSnapshot(
-        `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
-      )
+    expect(await page.$(`.updated`)).toBeFalsy()
+  })
 
-      await updateJs()
-      await page.waitForTimeout(12000)
+  it(`should update js modules`, async () => {
+    await update(
+      path(`src`, `app.js`),
+      `\
+  import '@src/app.css'
 
-      expect(await page.$(`.updated`)).toBeTruthy()
-    } catch (error) {
-      await fixture.close()
-      throw error
-    }
+  document.querySelector('.init')?.classList.add('updated')
 
-    await fixture.close()
+  if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
+  `,
+    )
+
+    expect(await page.$(`.updated`)).toBeTruthy()
+  })
+
+  it(`should update css modules`, async () => {
+    await update(
+      path(`src`, `app.css`),
+      `\
+  html,
+  body {
+    padding: 0;
+    margin: 0;
+  }
+
+  #root{
+    align-items: center;
+    background: rgb(0,0,0);
+    color: white;
+    display: flex;
+    font-family: sans-serif;
+    height: 100vh;
+    justify-content: center;
+    letter-spacing: 0.2em;
+    text-align: center;
+    text-transform: uppercase;
+    width: 100vw;
+  }
+  `,
+    )
+
+    expect(
+      await root?.evaluate(el =>
+        window.getComputedStyle(el).getPropertyValue(`background`),
+      ),
+    ).toMatchSnapshot(
+      `rgb(0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box`,
+    )
   })
 })
-
-const updateCss = async () =>
-  await fs.writeAsync(
-    fixture.toPath(`babel`, `src`, `app.css`),
-    `\
-html,
-body {
-  padding: 0;
-  margin: 0;
-}
-
-#root{
-  align-items: center;
-  background: rgb(0,0,0);
-  color: white;
-  display: flex;
-  font-family: sans-serif;
-  height: 100vh;
-  justify-content: center;
-  letter-spacing: 0.2em;
-  text-align: center;
-  text-transform: uppercase;
-  width: 100vw;
-}
-`,
-  )
-
-const updateJs = async () =>
-  await fs.writeAsync(
-    fixture.toPath(`babel`, `src`, `app.js`),
-    `\
-import '@src/app.css'
-
-document.querySelector('.init')?.classList.add('updated')
-
-if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
-`,
-  )

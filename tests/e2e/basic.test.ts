@@ -1,38 +1,34 @@
-import fs from 'fs-jetpack'
-import {
-  describe,
-  expect,
-  it,
-} from 'vitest'
+import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
-import * as fixture from './helpers'
+import {close, page, path, read, setup, update} from './runner/index.js'
 
 describe(`html output of examples/basic`, () => {
+  let original: string | undefined
+
+  beforeAll(async () => {
+    await setup(`basic`)
+    original = await read(`src`, `index.js`)
+  })
+
+  afterAll(close)
+
+  it(`should have expected default state`, async () => {
+    expect(original).toMatchSnapshot()
+  })
+
   it(`should rebuild on change`, async () => {
-    try {
-      const {page} = await fixture.setupTest(`basic`)
+    await update(
+      path(`src`, `index.js`),
+      `\
+    import './styles.css'
 
-      await update()
-      await page.waitForTimeout(12000)
+    document.querySelector('#root').classList.add('hot')
 
-      expect(await page.$(`.hot`)).toBeTruthy()
-    } catch (error) {
-      await fixture.close()
-      throw error
-    }
+    if (import.meta.webpackHot) {
+      import.meta.webpackHot.accept(console.error)
+    }`,
+    )
 
-    await fixture.close()
+    expect(await page.$(`.hot`)).toBeTruthy()
   })
 })
-
-const update = async () =>
-  await fs.writeAsync(
-    fixture.toPath(`basic`, `src`, `index.js`),
-    `\
-import './styles.css'
-
-document.querySelector('#root').classList.add('hot')
-
-if (import.meta.webpackHot) import.meta.webpackHot.accept(console.error)
-`,
-  )
