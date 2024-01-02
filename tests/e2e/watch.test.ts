@@ -1,34 +1,15 @@
-import {env} from 'node:process'
+import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
-import fs from 'fs-jetpack'
-import {Browser, chromium, Page} from 'playwright'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {close, page, path, setup, update} from './runner'
 
-import * as fixture from './helpers'
-
-describe(`bud.watch functionality`, () => {
-  let browser: Browser
-  let page: Page
-  let port: number
-
-  beforeEach(async () => {
-    port = await fixture.install(`watch`)
-    fixture.run(`watch`, port)
-
-    browser = await chromium.launch({
-      headless: !!env.CI,
-    })
-    if (!browser) throw new Error(`Browser could not be launched`)
-
-    page = await browser.newPage()
-    if (!page) throw new Error(`Page could not be created`)
-
-    await page.waitForTimeout(5000)
+describe(`html output of examples/watch`, () => {
+  beforeAll(async () => {
+    await setup(`watch`)
   })
 
-  it(`should rebuild on change`, async () => {
-    await page.goto(fixture.url(port))
+  afterAll(close)
 
+  it(`should rebuild on change`, async () => {
     await page.evaluate(() => {
       window.reloadCalled = false
       window.bud.reload = () => {
@@ -36,18 +17,8 @@ describe(`bud.watch functionality`, () => {
       }
     })
 
-    await fs.writeAsync(
-      fixture.toPath(`watch`, `watched`, `foo.html`),
-      `foo`,
-    )
+    await update(path(`watched`, `foo.html`), `foo`)
 
-    await page.waitForTimeout(12000)
-
-    expect(
-      await page.evaluate(() => window.reloadCalled),
-    ).toBe(true)
-
-    await page.close()
-    await browser.close()
+    expect(await page.evaluate(() => window.reloadCalled)).toBe(true)
   })
 })

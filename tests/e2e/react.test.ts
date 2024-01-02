@@ -1,71 +1,61 @@
-import {env} from 'node:process'
+import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
-import {ExecaReturnValue} from 'execa'
-import fs from 'fs-jetpack'
-import {Browser, chromium, Page} from 'playwright'
-import {
-  afterEach,
-  beforeAll,
-  beforeEach,
-  describe,
-  expect,
-  it,
-} from 'vitest'
-
-import * as fixture from './helpers'
+import {close, page, path, read, setup, update} from './runner/index.js'
 
 describe(`html output of examples/react`, () => {
-  let browser: Browser
-  let page: Page
-  let dev: Promise<ExecaReturnValue>
-  let port: number
+  let original: string | undefined
 
   beforeAll(async () => {
-    port = await fixture.install(`react`)
+    await setup(`react`).then(({page}) => page)
+    original = await read(`src`, `components`, `App.js`)
   })
 
-  beforeEach(async () => {
-    dev = fixture.run(`react`, port)
+  afterAll(close)
 
-    browser = await chromium.launch({
-      headless: !!env.CI,
-    })
-    if (!browser) throw new Error(`Browser could not be launched`)
+  it(`should have expected default state`, async () => {
+    expect(original).toMatchSnapshot()
 
-    page = await browser?.newPage()
-    if (!page) throw new Error(`Page could not be created`)
+    expect(
+      await page
+        .$(`.header img`)
+        .then(async handle => await handle?.getAttribute(`class`)),
+    ).toBe(`logo`)
 
-    await page?.waitForTimeout(5000)
-  })
-
-  afterEach(async () => {
-    await page?.close()
-    await browser?.close()
+    expect(
+      await page
+        .$(`.header .target`)
+        .then(async handle => await handle?.innerHTML()),
+    ).toBeUndefined()
   })
 
   it(`should rebuild on change`, async () => {
-    await page?.goto(fixture.url(port))
-
-    expect(await page.$(`#root`)).toBeTruthy()
-
-    await fs.writeAsync(
-      fixture.toPath(`react`, `src`, `components`, `App.js`),
+    await update(
+      path(`src`, `components`, `App.js`),
       `\
-import logo from './logo.svg'
+      import logo from './logo.svg'
 
-export const App = () => {
-  return (
-    <div className="App">
-      <div className="header">
-        <img src={logo} className="logo" alt="logo" />
-        <div className="target">Noice.</div>
-      </div>
-    </div>
-  )
-}`,
+      export const App = () => {
+        return (
+          <div className="App">
+            <div className="header">
+              <img src={logo} className="logo" alt="logo" />
+              <div className="target">Noice.</div>
+            </div>
+          </div>
+        )
+      }`,
     )
-    await page.waitForTimeout(12000)
 
-    expect(await page.$(`.target`)).toBeTruthy()
+    expect(
+      await page
+        .$(`.header img`)
+        .then(async handle => await handle?.getAttribute(`class`)),
+    ).toBe(`logo`)
+
+    expect(
+      await page
+        .$(`.header .target`)
+        .then(async handle => await handle?.innerHTML()),
+    ).toBe(`Noice.`)
   })
 })

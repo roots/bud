@@ -1,0 +1,12 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`html output of examples/swc > should have expected default state 1`] = `
+"import './styles.css'
+
+document.querySelector('#root')?.classList.add('init')
+
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept(console.error)
+}
+"
+`;
