@@ -28,14 +28,9 @@ export default async function writeTsConfig(command: CreateCommand) {
     command.support.includes(`eslint`) && types.push(`@roots/bud-eslint`)
     command.support.includes(`stylelint`) && types.push(`@roots/stylelint`)
     command.support.includes(`wordpress`) &&
-      types.push(
-        `@roots/bud-preset-wordpress`,
-        `@roots/bud-wordpress-dependencies`,
-        `@roots/bud-wordpress-externals`,
-        `@roots/bud-wordpress-manifests`,
-      )
+      types.push(`@roots/bud-preset-wordpress`)
 
-    types.push(`webpack/module`)
+    types.push(`@types/node`, `webpack/module`)
 
     const source = `{
       "extends": ["@roots/bud/config/tsconfig.json"],
