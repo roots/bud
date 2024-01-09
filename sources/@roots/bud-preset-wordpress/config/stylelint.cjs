@@ -3,6 +3,11 @@
  */
 module.exports = {
   rules: {
-    'custom-property-pattern': null,
+    'custom-property-pattern': [
+      `^([a-z][a-z0-9]*)(-{1,2}[a-z0-9]+)*$`,
+      {
+        message: name => `Expected custom property name "${name}" to be kebab-case`,
+      },
+    ],
   },
 }
