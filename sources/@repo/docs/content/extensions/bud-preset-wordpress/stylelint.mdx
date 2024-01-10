@@ -1,0 +1,26 @@
+---
+title: Stylelint
+description: 'Setting up stylelint rules'
+sidebar_label: Stylelint
+---
+
+If you are using [stylelint](https://stylelint.io/) you may wish to extend our base configuration:
+
+```js
+module.exports = {
+  extends: [
+    '@roots/bud-wordpress-preset/stylelint'],
+};
+```
+
+This is especially true if you are using the [@roots/bud-sass/stylelint](/extensions/bud-sass) configuration, which conflicts with the WordPress standard naming scheme for css variables.
+
+```js
+module.exports = {
+  extends: [
+    '@roots/bud-stylelint/config',
+    '@roots/bud-sass/stylelint',
+    '@roots/bud-wordpress-preset/stylelint'
+  ]
+}
+```
