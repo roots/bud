@@ -2,7 +2,7 @@ import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ModuleError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isEqual from '@roots/bud-support/isEqual'
 import logger from '@roots/bud-support/logger'
@@ -10,6 +10,14 @@ import noop from '@roots/bud-support/noop'
 
 import {type Bud} from './index.js'
 import {Service} from './service.js'
+
+/**
+ * Import method options
+ */
+interface ImportOptions {
+  bustCache?: boolean
+  raw?: boolean
+}
 
 /**
  * Map of module signifiers to absolute paths
@@ -47,11 +55,6 @@ export class Module extends Service {
   }
 
   /**
-   * Imported modules
-   */
-  public modules: Record<string, any> = {}
-
-  /**
    * Bootstrapped paths
    */
   public declare paths: {
@@ -86,6 +89,7 @@ export class Module extends Service {
     paths: {storage: string}
   }) {
     super(options.app)
+
     this.args = options.args
     this.paths = options.paths
   }
@@ -96,28 +100,28 @@ export class Module extends Service {
   @bind
   public override async bootstrap(bud: Bud) {
     if (!this.cacheEnabled) {
-      this.logger.scope(`module`).log(`--force used. resetting cache.`)
-      return await this.resetCache()
+      logger.scope(`module`).log(`--force used. resetting cache.`)
+      return await this.removeCachedResolutions()
     }
 
     if (await bud.fs.exists(this.cachePath)) {
-      this.logger.scope(`module`).log(`cache is enabled and exists`)
-      this.cache = await bud.fs.read(this.cachePath).catch(noop)
+      logger.scope(`module`).log(`cache is enabled and exists`)
+      const cache = await bud.fs.read(this.cachePath).catch(noop)
+      if (cache) this.cache = cache
+      this.resolutions = {...this.cache.resolutions}
     }
 
     if (
       !this.cache?.resolutions ||
       this.cache?.sha1 !== bud.context.files[`package`]?.sha1
     ) {
-      this.logger
+      logger
         .scope(`module`)
         .log(
           `cache is enabled but package.json has changed. resetiing cache.`,
         )
-      return await this.resetCache()
+      return await this.removeCachedResolutions()
     }
-
-    this.resolutions = {...this.cache.resolutions}
   }
 
   /**
@@ -126,26 +130,31 @@ export class Module extends Service {
   @bind
   public async after(bud: Bud) {
     if (isEqual(this.cache.resolutions, this.resolutions)) {
-      this.logger
+      logger
         .scope(`module`)
         .log(`resolutions unchanged. skipping write.`)
         .info(`resolutions:`, this.resolutions)
         .info(`cache:`, this.cache)
+
       return bud
     }
 
-    logger
-      .scope(`module`)
-      .log(`writing resolutions`)
-      .info(this.resolutions)
-
-    await bud.fs.write(this.cachePath, {
-      resolutions: this.resolutions,
-      sha1: bud.context.files[`package`]?.sha1,
-      version: bud.context.bud.version,
-    })
+    await this.writeResolutions()
 
     return bud
+  }
+
+  /**
+   * Handle error
+   *
+   * @param messages - error messages for logging
+   * @returns
+   */
+  public async handleError(...messages: string[]): Promise<void> {
+    messages.length && logger.scope(`module`).log(...messages)
+
+    await this.removeCachedResolutions(messages.join(` `))
+    throw BudError.normalize(messages.join(` `))
   }
 
   /**
@@ -153,7 +162,7 @@ export class Module extends Service {
    */
   @bind
   public async getDirectory(signifier: string, context?: string) {
-    this.logger.scope(`module`).info(`getDirectory`, signifier, context)
+    logger.scope(`module`).info(`getDirectory`, signifier, context)
 
     return await this.resolve(signifier, context)
       .then(path => relative(this.app.context.basedir, path))
@@ -167,7 +176,7 @@ export class Module extends Service {
    */
   @bind
   public async getManifestPath(signifier: string) {
-    this.logger.scope(`module`).info(`getManifestPath`, signifier)
+    logger.scope(`module`).info(`getManifestPath`, signifier)
     return await this.getDirectory(signifier)
       .then(dir => this.app.path(dir, `package.json`))
       .catch(this.catch)
@@ -180,7 +189,7 @@ export class Module extends Service {
   public async import(
     signifier: string,
     context?: string,
-    options: {bustCache?: boolean; raw?: boolean} = {
+    options: ImportOptions = {
       bustCache: false,
       raw: false,
     },
@@ -189,36 +198,18 @@ export class Module extends Service {
       signifier = `${signifier}?v=${Date.now()}`
     }
 
-    if (this.hasModule(signifier)) {
-      const code = this.getModule(signifier)
-      logger.scope(`module`).log(`[cache hit]`, `module:`, signifier)
-      return options.raw ? code : code?.default ?? code
-    }
-
     if (!this.hasResolution(signifier)) {
       await this.resolve(signifier, context).catch(this.catch)
     }
 
     const code = await import(this.getResolution(signifier)).catch(
-      error => {
-        logger
-          .scope(`module`)
-          .log(
-            `Could not import module:`,
-            signifier,
-            `Removing from cached module registry.`,
-            error,
-          )
-
-        this.removeResolution(signifier)
+      async error => {
+        return await this.handleError(error.message ?? error)
       },
     )
-
     if (!code) {
-      throw BudError.normalize(`Could not import ${signifier}`)
+      return await this.handleError(`Could not import ${signifier}`)
     }
-
-    this.setModule(signifier, code)
 
     logger.scope(`module`).log(`imported module:`, signifier)
     return options.raw ? code : code?.default ?? code
@@ -248,26 +239,32 @@ export class Module extends Service {
   }
 
   /**
-   * Reset cache
+   * Reset cached resolutions
    */
   @bind
-  public async resetCache() {
-    this.logger.scope(`module`).log(`clearing runtime module cache`)
+  public async removeCachedResolutions(error?: string) {
+    if (await this.app.fs.exists(this.cachePath)) {
+      logger.scope(`module`).log(`removing cache file`, this.cachePath)
+      await this.app.fs.remove(this.cachePath)
+    }
+
+    if (error) {
+      await this.writeResolutions(
+        this.cachePath.replace(
+          `bud.resolutions.yml`,
+          `bud.error.resolutions.yml`,
+        ),
+        {date: Date.now(), error},
+      )
+    }
 
     this.cache = {
       resolutions: {},
       sha1: this.app.context.files[`package`]?.sha1,
       version: this.app.context.bud?.version,
     }
-    this.resolutions = {...this.cache.resolutions}
 
-    if (await this.app.fs.exists(this.cachePath)) {
-      this.logger
-        .scope(`module`)
-        .log(`removing cache file`, this.cachePath)
-
-      await this.app.fs.remove(this.cachePath)
-    }
+    this.resolutions = {}
   }
 
   /**
@@ -279,17 +276,7 @@ export class Module extends Service {
     context?: string,
   ): Promise<string> {
     if (this.hasResolution(signifier)) {
-      logger
-        .scope(`module`)
-        .info(
-          `[cache hit]`,
-          `path:`,
-          signifier,
-          `=>`,
-          this.getResolution(signifier),
-        )
-
-      return this.resolutions[signifier]
+      return this.getResolution(signifier)
     }
 
     await resolve(signifier, this.makeContextURL())
@@ -307,6 +294,7 @@ export class Module extends Service {
           )
       })
       .catch(noop)
+
     if (this.hasResolution(signifier)) return this.getResolution(signifier)
 
     await resolve(signifier, this.makeContextURL(context))
@@ -324,48 +312,40 @@ export class Module extends Service {
           )
       })
       .catch(noop)
-    if (this.hasResolution(signifier)) return this.getResolution(signifier)
 
-    throw new ModuleError(`Could not resolve ${signifier}`)
+    if (this.hasResolution(signifier)) {
+      return this.getResolution(signifier)
+    }
+
+    await this.handleError(`Could not resolve`, signifier)
   }
 
   /**
-   * Get a previously imported module
+   * Write resolutions to cache
    */
-  @bind
-  public getModule(signifier: string) {
-    return this.modules[signifier]
+  public async writeResolutions(path?: string, data?: any) {
+    logger
+      .scope(`module`)
+      .log(`writing resolutions`)
+      .info(this.resolutions)
+
+    await this.app.fs.write(path ?? this.cachePath, {
+      resolutions: this.resolutions,
+      sha1: this.app.context.files[`package`]?.sha1,
+      version: this.app.context.bud.version,
+      ...(data ?? {}),
+    })
   }
 
   /**
-   * Check if a module has been imported
-   */
-  @bind
-  public hasModule(signifier: string) {
-    return signifier in this.modules
-  }
-
-  /**
-   * Remove a module
-   */
-  @bind
-  public removeModule(signifier: string) {
-    return delete this.modules[signifier]
-  }
-
-  /**
-   * Set a module
-   */
-  @bind
-  public setModule(signifier: string, module: any) {
-    this.modules[signifier] = module
-  }
-
-  /**
-   * Get a module resolution
+   * Get a module resolution path
    */
   @bind
   public getResolution(signifier: string) {
+    logger
+      .scope(`module`)
+      .info(`resolved:`, signifier, `=>`, this.resolutions[signifier])
+
     return this.resolutions[signifier]
   }
 
@@ -373,17 +353,23 @@ export class Module extends Service {
    * Check if a module has been resolved
    */
   @bind
-  public hasResolution(signifier: string) {
+  public hasResolution(signifier: string): signifier is keyof Resolutions {
     return signifier in this.resolutions
   }
 
+  /**
+   * Remove a module resolution path
+   *
+   * @param signifier
+   * @returns
+   */
   @bind
   public removeResolution(signifier: string) {
     return delete this.resolutions[signifier]
   }
 
   /**
-   * Resolve a module from a particular URL
+   * Set a module resolution path
    */
   @bind
   public setResolution(signifier: string, url: string) {
