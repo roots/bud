@@ -107,7 +107,7 @@ describe(`@roots/bud-framework`, () => {
 
     instance.cache.sha1 = `bar`
 
-    const resetSpy = vi.spyOn(instance, `resetCache`)
+    const resetSpy = vi.spyOn(instance, `removeCachedResolutions`)
     await instance.bootstrap(bud)
 
     expect(resetSpy).toHaveBeenCalled()
@@ -129,7 +129,7 @@ describe(`@roots/bud-framework`, () => {
 
     instance.cache.sha1 = `foo`
 
-    const resetSpy = vi.spyOn(instance, `resetCache`)
+    const resetSpy = vi.spyOn(instance, `removeCachedResolutions`)
     await instance.bootstrap(bud)
 
     expect(resetSpy).not.toHaveBeenCalled()
@@ -147,7 +147,7 @@ describe(`@roots/bud-framework`, () => {
       },
     })
 
-    const resetSpy = vi.spyOn(instance, `resetCache`)
+    const resetSpy = vi.spyOn(instance, `removeCachedResolutions`)
     await instance.bootstrap(bud)
     expect(resetSpy).toHaveBeenCalled()
   })
@@ -164,7 +164,7 @@ describe(`@roots/bud-framework`, () => {
       },
     })
 
-    const resetSpy = vi.spyOn(instance, `resetCache`)
+    const resetSpy = vi.spyOn(instance, `removeCachedResolutions`)
     await instance.bootstrap(bud)
     expect(resetSpy).toHaveBeenCalled()
   })
