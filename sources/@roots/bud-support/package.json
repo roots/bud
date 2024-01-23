@@ -55,6 +55,7 @@
     "./axios": "./lib/axios/index.js",
     "./chalk": "./lib/chalk/index.js",
     "./chokidar": "./lib/chokidar/index.js",
+    "./cjs-shim": "./lib/cjs-shim/index.js",
     "./clean-stack": "./lib/clean-stack/index.js",
     "./clean-webpack-plugin": "./lib/clean-webpack-plugin/index.js",
     "./clipanion": "./lib/clipanion/index.js",
@@ -131,6 +132,9 @@
       ],
       "chokidar": [
         "./lib/chokidar/index.d.ts"
+      ],
+      "cjs-shim": [
+        "./lib/cjs-shim/index.d.ts"
       ],
       "clean-stack": [
         "./lib/clean-stack/index.d.ts"
