@@ -24,6 +24,10 @@
       "email": "brandon@tendency.me",
       "name": "Brandon",
       "url": "https://github.com/Log1x"
+    },
+    {
+      "name": "Alex Kozack",
+      "url": "https://github.com/cawa-93"
     }
   ],
   "license": "MIT",
