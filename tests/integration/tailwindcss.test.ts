@@ -6,12 +6,16 @@ describe(`examples/tailwindcss`, () => {
     const test = setup({
       label: `@examples/tailwindcss`,
     })
+
     await test.install()
     await test.build()
 
-    expect(test.getAsset(`main.css`).includes(`@import`)).toBe(false)
-    expect(test.getAsset(`main.css`).includes(`@apply`)).toBe(false)
-    expect(test.getAsset(`main.css`).match(/    /)).toBe(null)
-    expect(test.getAsset(`main.css`).match(/\\n/)).toBe(null)
+    expect(test.getAsset(`main.css`)).not.toContain(`@import`)
+    expect(test.getAsset(`main.css`)).not.toContain(`@apply`)
+    expect(test.getAsset(`main.css`)).not.toMatch(/    /)
+    expect(test.getAsset(`main.css`)).not.toMatch(/\\n/)
+    expect(test.getAsset(`main.css`)).toMatch(/^\*,:after,:before{border:0 solid #e5e7eb;box-sizing:border-box}/)
+
+    expect(test.getAsset(`main.js`)).toContain(`#4f46e5`)
   })
 })
