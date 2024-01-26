@@ -44,7 +44,6 @@ class BudTailwindCss extends BudTailwindOptionsApi {
       )
       .setPlugin(`tailwindcss`, [
         await this.resolve(`tailwindcss`, import.meta.url),
-        this.configPath ?? this.config,
       ])
       .setPluginOptions(`env`, {
         features: {
@@ -70,18 +69,19 @@ class BudTailwindCss extends BudTailwindOptionsApi {
     })
   }
 
+  /**
+   * {@link Extension.configAfter}
+   */
   @bind
   public override async configAfter(bud: Bud) {
-    this.setResolvedConfig(this.resolveConfig())
-    const options = this.configPath ?? (this.config as any)
-    bud.postcss.setPluginOptions(`tailwindcss`, options)
+    bud.postcss.setPluginOptions(`tailwindcss`, this.resolveConfig())
   }
 
   /**
    * {@link Extension.register}
    */
   @bind
-  public override async register(_bud: Bud) {
+  public override async register() {
     await this.sourceConfig()
   }
 }

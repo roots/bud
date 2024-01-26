@@ -94,6 +94,7 @@ class BudTailwindOptionsApi
   >(...params: [K, VK] | [V]) {
     if (params.length === 1) {
       const [value] = params
+
       this.setConfig((config = {content: []}) => ({
         ...config,
         theme: {
@@ -101,7 +102,7 @@ class BudTailwindOptionsApi
           extend: {...(config?.theme?.extend ?? {}), ...value},
         },
       }))
-      this.resolveConfig()
+
       return this
     }
 
@@ -113,8 +114,6 @@ class BudTailwindOptionsApi
         extend: {...(config?.theme?.extend ?? {}), [key]: value},
       },
     }))
-
-    this.resolveConfig()
 
     return this
   }
@@ -140,17 +139,23 @@ class BudTailwindOptionsApi
    */
   @bind
   public generateImports(
-    imports: Array<`${keyof ThemeConfig & string}`> | boolean = true,
+    imports:
+      | Array<
+          | `${keyof ThemeConfig & string}.${string}`
+          | `${keyof ThemeConfig & string}`
+        >
+      | boolean = true,
   ) {
-    this.resolveConfig()
-
     const makeStaticModule = (key: `${keyof ThemeConfig & string}`) => {
+      this.logger.log(`@tailwind/${key}`, `generating module`)
+
       const value = get(this.resolvedConfig.theme, key)
-      this.logger.log(`@tailwind/${key}: generating module`)
       return `export default ${JSON.stringify(value)};`
     }
 
     this.app.hooks.action(`config.after`, async bud => {
+      this.resolveConfig()
+
       const importableKeys = Array.isArray(imports)
         ? imports
         : Object.keys(this.resolvedConfig.theme)
@@ -209,10 +214,11 @@ class BudTailwindOptionsApi
    * Resolve a tailwind config value
    */
   @bind
-  public resolveThemeValue<K extends `${keyof ThemeConfig & string}`>(
-    key: K,
-    extendedOnly?: boolean,
-  ): Config[K] {
+  public resolveThemeValue<
+    K extends
+      | `${keyof ThemeConfig & string}.${string}`
+      | `${keyof ThemeConfig & string}`
+  >(key: K, extendedOnly?: boolean): Config[K] {
     if (extendedOnly) {
       if (!this.config?.theme?.extend)
         throw new Error(
@@ -229,7 +235,8 @@ class BudTailwindOptionsApi
       return isFunction(value) ? value(pluginUtils) : value
     }
 
-    const value = this.resolvedConfig?.theme?.[key]
+    const value = get(this.resolveConfig()?.theme, key)
+
     if (!value) {
       throw new Error(
         `@roots/bud-tailwindcss: ${key} is not a valid tailwind theme key.`,
@@ -251,7 +258,6 @@ class BudTailwindOptionsApi
       ...config,
       plugins,
     }))
-    this.resolveConfig()
     return this
   }
 
@@ -271,7 +277,6 @@ class BudTailwindOptionsApi
         ...config,
         theme: {...(config.theme ?? {}), ...value},
       }))
-      this.resolveConfig()
       return this
     }
 
@@ -280,7 +285,6 @@ class BudTailwindOptionsApi
       ...config,
       theme: {...(config.theme ?? {}), [key]: value},
     }))
-    this.resolveConfig()
     return this
   }
 
