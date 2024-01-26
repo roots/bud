@@ -217,7 +217,7 @@ class BudTailwindOptionsApi
   public resolveThemeValue<
     K extends
       | `${keyof ThemeConfig & string}.${string}`
-      | `${keyof ThemeConfig & string}`
+      | `${keyof ThemeConfig & string}`,
   >(key: K, extendedOnly?: boolean): Config[K] {
     if (extendedOnly) {
       if (!this.config?.theme?.extend)
