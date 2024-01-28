@@ -1,6 +1,6 @@
 import {bud} from '@roots/bud'
 
-import {WebpackPlugin} from './WebpackPlugin.js'
+const {WebpackPlugin} = require('./WebpackPlugin.js')
 
 /**
  * This is an example of how to use a Webpack plugin
@@ -20,7 +20,7 @@ bud
   .use({
     label: `inline-plugin`,
     apply: async () => {
-      console.log({message: 'inline-plugin', suffix: 'applied!'})
+      console.log('inline-plugin applied!')
       await bud.fs.write(
         bud.path(`@storage`, `inline-plugin-output`),
         `inline-plugin-test-success`,
@@ -35,13 +35,13 @@ bud
     {
       label: `array-plugin-1`,
       apply() {
-        console.log({message: 'array-plugin-1', suffix: 'applied!'})
+        console.log('array-plugin-1 applied!')
       },
     },
     new (class {
       public label = `array-plugin-2`
       public apply() {
-        console.log({message: 'array-plugin-2', suffix: 'applied!'})
+        console.log('array-plugin-2 applied!')
       }
     })(),
   ])

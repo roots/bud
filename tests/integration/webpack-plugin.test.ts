@@ -40,9 +40,10 @@ describe(`examples/webpack-plugin`, () => {
     ).toEqual(`inline-plugin-test-success`)
 
     expect(await fs.read(test.getPath(`build.stdout.log`)))
-      .toMatch(`{ message: 'WebpackPlugin', suffix: 'applied!' }
-{ message: 'inline-plugin', suffix: 'applied!' }
-{ message: 'array-plugin-1', suffix: 'applied!' }
-{ message: 'array-plugin-2', suffix: 'applied!' }`)
+      .toMatch(`\
+WebpackPlugin applied!
+inline-plugin applied!
+array-plugin-1 applied!
+array-plugin-2 applied!`)
   })
 })

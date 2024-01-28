@@ -2,6 +2,7 @@ import type * as esbuild from '@roots/bud-support/esbuild'
 import type {Filesystem} from '@roots/bud-support/filesystem'
 import type {InspectResult} from '@roots/filesystem/filesystem'
 
+import {builtinModules} from 'node:module'
 import {join, parse} from 'node:path'
 
 import * as filesystem from '@roots/bud-support/filesystem'
@@ -163,17 +164,16 @@ async function getFileInfo(filename: string) {
         paths.storage,
         `configs`,
         file.base,
-        `${current.sha1}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
+        `${current.sha1}${file.ext.replace(/(.*)ts$/, `$1mjs`)}`,
       )
 
       const modified = current.sha1 !== file.sha1
       const uncompiled = !(await fs.exists(outfile))
 
       if (modified || uncompiled) {
-        if (uncompiled)
-          logger.log(`${file.name} has not been compiled yet`)
-        else if (modified)
-          logger.log(`${file.name} has been modified since last compiled`)
+        uncompiled && logger.log(file.name, `has not been compiled yet`)
+        modified &&
+          logger.log(file.name, `has been modified since last compiled`)
 
         // Update the hash to the current state
         file.sha1 = current.sha1
@@ -186,7 +186,7 @@ async function getFileInfo(filename: string) {
       const tmpfile = join(
         paths.basedir,
         file.dir,
-        `.${file.name}${file.ext.replace(/(.*)ts$/, `$1js`)}`,
+        `.${file.name}${file.ext.replace(/(.*)ts$/, `$1mjs`)}`,
       )
 
       logger.scope(`fs`).info(`copying ${outfile} to tmpfile:`, tmpfile)
@@ -232,7 +232,11 @@ async function esTransform({
   await transformer.build({
     absWorkingDir: paths.basedir,
     allowOverwrite: true,
+    bundle: true,
     entryPoints: [file.path],
+    external: [`@roots/bud`, `node:*`, ...builtinModules],
+    format: `esm`,
+    inject: [`@roots/bud-support/cjs-shim`],
     outfile,
     platform: `node`,
   })
@@ -252,8 +256,10 @@ function getFileType(
 function getFileTarget(file: {name?: string}) {
   if (file.name?.includes(`production`) || file.name?.includes(`prod`))
     return `production`
+
   if (file.name?.includes(`development`) || file.name?.includes(`dev`))
     return `development`
+
   return `base`
 }
 
