@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 970
+  contributions: 986
   email: developers@tinypixel.dev
 - name: QWp6t
   login: QWp6t
@@ -108,3 +108,8 @@
   url: https://github.com/Hansanghyeon
   contributions: 1
   email: 999@hyeon.pro
+- name: Alex Kozack
+  login: cawa-93
+  avatar: https://avatars.githubusercontent.com/u/1662812?v=4
+  url: https://github.com/cawa-93
+  contributions: 1

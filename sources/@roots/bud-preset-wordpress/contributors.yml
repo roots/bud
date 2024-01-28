@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 93
+  contributions: 95
   email: developers@tinypixel.dev
 - name: Ben Word
   login: retlehs
@@ -21,3 +21,8 @@
   url: https://github.com/Log1x
   contributions: 1
   email: brandon@tendency.me
+- name: Alex Kozack
+  login: cawa-93
+  avatar: https://avatars.githubusercontent.com/u/1662812?v=4
+  url: https://github.com/cawa-93
+  contributions: 1
