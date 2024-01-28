@@ -22,11 +22,12 @@ export default async function writeTsConfig(command: CreateCommand) {
     command.support.includes(`sass`) && types.push(`@roots/bud-sass`)
     command.support.includes(`tailwindcss`) &&
       types.push(`@roots/bud-tailwindcss`)
+
     command.support.includes(`postcss`) && types.push(`@roots/bud-postcss`)
     command.support.includes(`vue`) && types.push(`@roots/bud-vue`)
     command.support.includes(`react`) && types.push(`@roots/bud-react`)
     command.support.includes(`eslint`) && types.push(`@roots/bud-eslint`)
-    command.support.includes(`stylelint`) && types.push(`@roots/stylelint`)
+    command.support.includes(`stylelint`) && types.push(`@roots/bud-stylelint`)
     command.support.includes(`wordpress`) &&
       types.push(`@roots/bud-preset-wordpress`)
 
