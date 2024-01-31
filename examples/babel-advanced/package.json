@@ -1,5 +1,5 @@
 {
-  "name": "@examples/markdown",
+  "name": "@examples/babel-advanced",
   "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",
@@ -8,6 +8,6 @@
   ],
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-mdx": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
   }
 }

@@ -1,10 +1,10 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/babel > should compile js as expected 1`] = `
+exports[`examples/babel-advanced > should compile js as expected 1`] = `
 {
+  "app.css": "css/app.css",
+  "app.js": "js/app.js",
   "entrypoints.json": "entrypoints.json",
-  "main.css": "css/main.css",
-  "main.js": "js/main.js",
   "runtime.js": "js/runtime.js",
 }
 `;

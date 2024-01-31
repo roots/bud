@@ -5990,6 +5990,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@examples/babel-advanced@workspace:examples/babel-advanced":
+  version: 0.0.0-use.local
+  resolution: "@examples/babel-advanced@workspace:examples/babel-advanced"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/babel@workspace:examples/babel":
   version: 0.0.0-use.local
   resolution: "@examples/babel@workspace:examples/babel"
@@ -6002,6 +6011,14 @@ __metadata:
 "@examples/basic@workspace:examples/basic":
   version: 0.0.0-use.local
   resolution: "@examples/basic@workspace:examples/basic"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@examples/config-flat@workspace:examples/config-flat":
+  version: 0.0.0-use.local
+  resolution: "@examples/config-flat@workspace:examples/config-flat"
   dependencies:
     "@roots/bud": "workspace:*"
   languageName: unknown
@@ -6043,6 +6060,17 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@examples/daisyui@workspace:examples/daisyui":
+  version: 0.0.0-use.local
+  resolution: "@examples/daisyui@workspace:examples/daisyui"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
+    daisyui: "npm:4.6.0"
   languageName: unknown
   linkType: soft
 
@@ -19469,6 +19497,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"css-selector-tokenizer@npm:^0.8":
+  version: 0.8.0
+  resolution: "css-selector-tokenizer@npm:0.8.0"
+  dependencies:
+    cssesc: "npm:^3.0.0"
+    fastparse: "npm:^1.1.2"
+  checksum: 1eb7ca7d2c21ede700a0fab7df4547198431c30ba62663d81a566a8abe6ab7524f627ce6c0bde63f34917e199b73be4081e449bd8faf107d155766204082aa0a
+  languageName: node
+  linkType: hard
+
 "css-tree@npm:1.0.0-alpha.28":
   version: 1.0.0-alpha.28
   resolution: "css-tree@npm:1.0.0-alpha.28"
@@ -19793,6 +19831,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"culori@npm:^3":
+  version: 3.3.0
+  resolution: "culori@npm:3.3.0"
+  checksum: e11fc8e2cd86a2a6cfe4eb676c26ce94d6bb404b8b142f24d2841125f91f9453efcb25ae9c335d0679340d7b51b09299b17dd74aaef066e751352702d47eba62
+  languageName: node
+  linkType: hard
+
 "culvert@npm:^0.1.2":
   version: 0.1.2
   resolution: "culvert@npm:0.1.2"
@@ -19837,6 +19882,18 @@ __metadata:
     es5-ext: "npm:^0.10.50"
     type: "npm:^1.0.1"
   checksum: 1296e3f92e646895681c1cb564abd0eb23c29db7d62c5120a279e84e98915499a477808e9580760f09e3744c0ed7ac8f7cff98d096ba9770754f6ef0f1c97983
+  languageName: node
+  linkType: hard
+
+"daisyui@npm:4.6.0":
+  version: 4.6.0
+  resolution: "daisyui@npm:4.6.0"
+  dependencies:
+    css-selector-tokenizer: "npm:^0.8"
+    culori: "npm:^3"
+    picocolors: "npm:^1"
+    postcss-js: "npm:^4"
+  checksum: 5d4bfb5b88b04dee1cf4d554a0cf3a8da6c0f5a9d416122444c2afd4a12dcf0fe91d38e786644cdfc47d7995b36039aab346e94db6ef174267f3df750b55aea2
   languageName: node
   linkType: hard
 
@@ -22758,6 +22815,13 @@ __metadata:
     semver: "npm:^7.3.7"
     tiny-lru: "npm:^11.0.1"
   checksum: ae967b2c6fef1bb9b1d2a5bda3d6749ade9eb658c23221c9c895225573985dec9a62ddf9707b7be8359b59a6e87d06652ffa910e6117ce7978cf8f9474f94678
+  languageName: node
+  linkType: hard
+
+"fastparse@npm:^1.1.2":
+  version: 1.1.2
+  resolution: "fastparse@npm:1.1.2"
+  checksum: c4d199809dc4e8acafeb786be49481cc9144de296e2d54df4540ccfd868d0df73afc649aba70a748925eb32bbc4208b723d6288adf92382275031a8c7e10c0aa
   languageName: node
   linkType: hard
 
@@ -31616,7 +31680,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1.0.0":
+"picocolors@npm:^1, picocolors@npm:^1.0.0":
   version: 1.0.0
   resolution: "picocolors@npm:1.0.0"
   checksum: a2e8092dd86c8396bdba9f2b5481032848525b3dc295ce9b57896f931e63fc16f79805144321f72976383fc249584672a75cc18d6777c6b757603f372f745981
@@ -32369,7 +32433,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-js@npm:^4.0.1":
+"postcss-js@npm:^4, postcss-js@npm:^4.0.1":
   version: 4.0.1
   resolution: "postcss-js@npm:4.0.1"
   dependencies:
