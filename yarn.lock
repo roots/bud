@@ -6127,6 +6127,10 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-mdx": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+    "@roots/bud-react": "workspace:*"
+    react: "npm:18.2.0"
+    react-dom: "npm:18.2.0"
   languageName: unknown
   linkType: soft
 
