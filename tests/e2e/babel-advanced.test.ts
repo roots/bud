@@ -3,7 +3,7 @@ import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
 import {close, page, path, read, setup, update} from './runner/index.js'
 
-describe(`html output of examples/babel`, () => {
+describe(`@examples/babel-advanced`, () => {
   let title: string | undefined
   let original: string | undefined
   let root: ElementHandle<any> | null
@@ -19,7 +19,7 @@ describe(`html output of examples/babel`, () => {
 
   it(`should have expected default state`, async () => {
     expect(original).toMatchSnapshot()
-    expect(title).toBe(`@examples/babel`)
+    expect(title).toBe(`@examples/babel-advanced`)
 
     expect(
       await root?.evaluate(el =>

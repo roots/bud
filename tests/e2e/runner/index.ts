@@ -16,10 +16,9 @@ declare global {
 let dev: Promise<ExecaReturnValue>
 
 let browser: Browser
+let dirname: string
 let page: Page
 let port: number
-
-let dirname: string
 
 /**
  * Source path
@@ -40,7 +39,7 @@ const url = (port?: number) => port ? `http://0.0.0.0:${port}/` : `http://0.0.0.
 /**
  * Setup test
  */
-const setup = async (name: string) => {
+const setup = async (name: string): Promise<void> => {
   dirname = name
 
   try {
@@ -67,8 +66,6 @@ const setup = async (name: string) => {
   } catch (error) {
     throw error
   }
-
-  return {browser, dev, page, port}
 }
 
 /**

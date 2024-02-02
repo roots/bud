@@ -1,5 +1,7 @@
+// @ts-check
+
 /**
- * @type {(app: import('@roots/bud').Bud) => Promise<unknown>}
+ * @type {(app: import('@roots/bud').Bud) => Promise<any>}
  */
 export default async app => {
   app.entry(`app`, `app.js`)

@@ -3,7 +3,6 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOnOptional,
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
@@ -17,12 +16,6 @@ interface Options {
  * MDX configuration
  */
 @label(`@roots/bud-mdx`)
-@dependsOnOptional([
-  `@roots/bud-babel`,
-  `@roots/bud-esbuild`,
-  `@roots/bud-swc`,
-  `@roots/bud-typescript`,
-])
 @options<Options>({
   rehypePlugins: {},
   remarkPlugins: {},
@@ -59,17 +52,19 @@ class BudMDX extends Extension<Options> {
   public declare setRemarkPlugins: (
     plugins: Options[`remarkPlugins`],
   ) => this
+
   /**
    * {@link Extension.boot}
    */
   @bind
-  public override async boot(bud: Bud) {
-    bud.build.setRule(`mdx`, {
+  public override async boot({build}: Bud) {
+    build.setRule(`mdx`, {
       include: [({path}) => path(`@src`)],
       test: /\.mdx?$/,
-      use: [...(bud.build.rules.js.use ?? []), `mdx`],
+      use: [...(build.rules.js.use ?? []), `mdx`],
     })
   }
+
   /**
    * {@link Extension.register}
    */
