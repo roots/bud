@@ -72,7 +72,7 @@ bud.wpjson.useTailwindFontFamily()
 Emits values from `theme.spacing` as the `spacing` property of `theme.json`.
 
 ```ts title=bud.config.ts
-bud.wpjson.useTailwindFontFamily()
+bud.wpjson.useTailwindSpacing()
 ```
 
 #### Limiting values to those defined in `theme.extend`
