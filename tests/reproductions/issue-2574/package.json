@@ -1,0 +1,11 @@
+{
+  "name": "@tests/issue-2574",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@roots/bud": "workspace:*"
+  },
+  "bud": {
+    "extensions": {}
+  }
+}
