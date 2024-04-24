@@ -89,12 +89,12 @@ export class S3 {
    */
   public get ident() {
     const [bucket, endpoint, region] = [
-      this.config.get(`endpoint`),
       this.config.get(`bucket`),
+      this.config.get(`endpoint`),
       this.config.get(`region`),
     ]
 
-    if (!endpoint) return `${bucket} (${region})`
+    if (!(typeof endpoint === `string`)) return `${bucket} (${region})`
 
     if (endpoint.includes(`digitaloceanspaces`)) {
       const hostname = new URL(endpoint).hostname
