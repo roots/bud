@@ -9,7 +9,6 @@ import type {Readable} from 'node:stream'
 
 import SDK from '@roots/filesystem/vendor/sdk'
 import {bind} from 'helpful-decorators'
-import isString from 'lodash-es/isString.js'
 import * as mimetypes from 'mime-types'
 
 import {Client} from './client.js'
@@ -22,28 +21,19 @@ export class S3 {
   /**
    * Client instance
    */
-  public client: Client
+  public client: Client = new Client()
 
   /**
    * S3 configuration
    */
-  public config: Config
-
-  /**
-   * constructor
-   */
-  public constructor() {
-    this.config = new Config()
-    this.client = new Client()
-  }
+  public config: Config = new Config()
 
   /**
    * Delete a file from s3
    *
    * @param key - The file key
    * @returns S3 instance {@link S3}
-   * @throws Error - If the file does not exist
-   * @throws Error - If the file could not be deleted
+   * @throws Error - If the file does not exist or could not be deleted
    */
   @bind
   public async delete(key: string) {
@@ -53,9 +43,7 @@ export class S3 {
         Bucket: this.config.bucket,
         Key: key,
       })
-      // @ts-ignore
       await client.send(DeleteObjectOutput)
-
       return this
     } catch (error) {
       throw error
@@ -69,10 +57,10 @@ export class S3 {
    * @returns boolean
    */
   @bind
-  public async exists(key: string) {
+  public async exists(key: string): Promise<boolean> {
     try {
-      const files = (await this.list()) as Array<string>
-      return files.some(item => item === key)
+      const files = await this.list()
+      return files.some(item => item === key) ?? false
     } catch (error) {
       return false
     }
@@ -100,20 +88,21 @@ export class S3 {
    * Identifier (for loggers, etc)
    */
   public get ident() {
-    const maybeEndpoint = this.config.get(`endpoint`)
+    const [bucket, endpoint, region] = [
+      this.config.get(`endpoint`),
+      this.config.get(`bucket`),
+      this.config.get(`region`),
+    ]
 
-    if (!maybeEndpoint)
-      return `${this.config.get(`bucket`)} (${this.config.get(`region`)})`
+    if (!endpoint) return `${bucket} (${region})`
 
-    if (
-      isString(maybeEndpoint) &&
-      maybeEndpoint.includes(`digitaloceanspaces`)
-    )
-      return `https://${this.config.get(`bucket`)}.${
-        new URL(maybeEndpoint).hostname
-      }`
+    if (endpoint.includes(`digitaloceanspaces`)) {
+      const hostname = new URL(endpoint).hostname
 
-    return `https://${maybeEndpoint.toString()}`
+      return `https://${bucket}.${hostname}`
+    }
+
+    return `https://${endpoint}`
   }
 
   /**
@@ -138,8 +127,9 @@ export class S3 {
           ...(props ?? {}),
         }),
       )
+
       // @ts-ignore
-      return results?.Contents.map(({Key}) => Key)
+      return results?.Contents?.map(({Key}) => Key) ?? []
     } catch (error) {
       throw error
     }
@@ -159,7 +149,7 @@ export class S3 {
    */
   @bind
   public async read(key: string, raw = false): Promise<any> {
-    const streamToString = ({Body: stream}: {Body: Readable}) =>
+    const streamToString = async ({Body: stream}: {Body: Readable}) =>
       new Promise((resolve, reject) => {
         const chunks: Array<any> = []
 
@@ -171,14 +161,17 @@ export class S3 {
 
     const client = this.getClient()
 
-    const GetObjectCommandOutput = new SDK.GetObjectCommand({
+    const GetObject = new SDK.GetObjectCommand({
       Bucket: this.config.bucket,
       Key: key,
     })
 
     try {
-      const request: any = await client.send(GetObjectCommandOutput)
-      if (!request) return raw ? request : streamToString(request)
+      const request: any = await client.send(GetObject)
+      if (!request) return undefined
+      if (raw) return request
+
+      return await streamToString(request)
     } catch (error) {
       throw error
     }
@@ -197,7 +190,6 @@ export class S3 {
       | [string, Blob | Readable | ReadableStream | string]
   ) {
     const putProps = {
-      ACL: this.config.public ? `public-read` : `private`,
       Bucket: this.config.bucket,
       ContentType: null,
       Key: null,

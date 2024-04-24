@@ -1,0 +1,9 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-image: url(~@src/logo.svg?inline);
+}

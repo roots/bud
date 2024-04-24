@@ -11,9 +11,9 @@ const mockConfigImplementation = {
     accessKeyId: `foo`,
     secretAccessKey: `bar`,
   },
-  region: `us-east-1`,
   endpoint: `https://s3.amazonaws.com`,
   get: vi.fn(),
+  region: `us-east-1`,
   set: vi.fn(),
 }
 mockConfigImplementation.get = vi.fn(
