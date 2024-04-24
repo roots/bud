@@ -12012,6 +12012,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@tests/issue-2574@workspace:tests/reproductions/issue-2574":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-2574@workspace:tests/reproductions/issue-2574"
+  dependencies:
+    "@roots/bud": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project":
   version: 0.0.0-use.local
   resolution: "@tests/minimize-flag@workspace:sources/@roots/bud/test/cli-flag-minimize/project"
