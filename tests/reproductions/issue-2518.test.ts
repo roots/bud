@@ -1,5 +1,3 @@
-import {join} from 'node:path'
-
 import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'

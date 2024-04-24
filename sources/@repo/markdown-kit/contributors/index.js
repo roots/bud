@@ -3,7 +3,7 @@ import {join} from 'path'
 
 import {Octokit} from '@octokit/core'
 import {paginateRest} from '@octokit/plugin-paginate-rest'
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import {json, yml} from '@roots/bud-support/filesystem'
 import isUndefined from '@roots/bud-support/isUndefined'
 import sortBy from '@roots/bud-support/sortBy'
@@ -11,25 +11,23 @@ import fs from 'fs-jetpack'
 
 import ignoredCommits from './ignored_sha.js'
 
-let {root, sources} = paths
-
 const octokit = new (Octokit.plugin(paginateRest))({
   auth: process.env.GITHUB_TOKEN,
 })
 
 await yml.write(
-  join(root, `contributors.yml`),
+  path(`contributors.yml`),
   await getContributorsFromCommits(),
 )
 
-await fs.listAsync(join(sources, `@roots`)).then(
+await fs.listAsync(path(`sources`, `@roots`)).then(
   async signifiers =>
     await signifiers
       .map(signifier => join(`@roots`, signifier))
       .reduce(async (promised, signifier) => {
         await promised
 
-        const pkgPath = join(sources, signifier)
+        const pkgPath = path(`sources`, signifier)
         const jsonPath = join(pkgPath, `package.json`)
         const ymlPath = join(pkgPath, `contributors.yml`)
 
