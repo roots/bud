@@ -36,3 +36,6 @@ jobs:
 
       - name: yarn @bud test unit
         run: yarn @bud test unit
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_SECRET_ACCESS_KEY}}
