@@ -6191,6 +6191,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/s3@workspace:examples/s3":
+  version: 0.0.0-use.local
+  resolution: "@examples/s3@workspace:examples/s3"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+    "@roots/bud-react": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/sage@workspace:examples/sage":
   version: 0.0.0-use.local
   resolution: "@examples/sage@workspace:examples/sage"
@@ -12009,6 +12019,14 @@ __metadata:
     "@roots/bud-sass": "workspace:*"
     "@roots/bud-typescript": "workspace:*"
     "@roots/bud-vue": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@tests/issue-2574@workspace:tests/reproductions/issue-2574":
+  version: 0.0.0-use.local
+  resolution: "@tests/issue-2574@workspace:tests/reproductions/issue-2574"
+  dependencies:
+    "@roots/bud": "workspace:*"
   languageName: unknown
   linkType: soft
 

@@ -1,0 +1,14 @@
+{
+  "name": "@examples/s3",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*",
+    "@roots/bud-react": "workspace:*"
+  }
+}
