@@ -1,0 +1,12 @@
+{
+  "extends": "@roots/bud/config/tsconfig.json",
+  "compilerOptions": {
+    "paths": {
+      "@src/*": ["./src/*"]
+    },
+    "types": ["@roots/bud", "@roots/bud-preset-recommend", "@roots/bud-react"]
+  },
+  "files": ["./bud.config.ts"],
+  "include": ["./src"],
+  "exclude": ["./dist"]
+}
