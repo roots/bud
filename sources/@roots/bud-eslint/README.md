@@ -41,7 +41,7 @@ You can configure Stylelint in two ways:
 
 ### Using an eslint config file
 
-You can configure eslint [using a eslint config file](https://eslint.io/user-guide/configure).
+You can configure eslint [using a eslint config file](https://eslint.org/docs/latest/use/configure/configuration-files).
 
 bud.js allows for you to write your eslint config in CommonJS, ESM, TypeScript, JSON or YML. This file should be placed in the root of your project or the project `./config` directory.
 

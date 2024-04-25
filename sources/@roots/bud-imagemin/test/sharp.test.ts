@@ -1,10 +1,7 @@
-import '@roots/bud-imagemin/types'
-
-import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Bud, factory} from '@repo/test-kit'
-import Plugin from 'image-minimizer-webpack-plugin'
-
 import BudImageminSharp from '@roots/bud-imagemin/sharp'
+import Plugin from 'image-minimizer-webpack-plugin'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 describe(`@roots/bud-imagemin/sharp`, () => {
   let bud: Bud
@@ -30,12 +27,12 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     expect(sharp.generators.get(`webp`)).toStrictEqual({
       filename: `[path]generated.[name]@[width]x[height][ext]`,
       implementation: Plugin.sharpGenerate,
-      preset: `webp`,
       options: {
         encodeOptions: {
           webp: {},
         },
       },
+      preset: `webp`,
     })
   })
 
@@ -51,10 +48,10 @@ describe(`@roots/bud-imagemin/sharp`, () => {
     }
     const result = sharp.setGenerator(`foo`, definition)
     expect(sharp.generators.get(`foo`)).toStrictEqual({
-      preset: `foo`,
-      implementation: expect.any(Function),
       filename: `[path]generated.[name]@[width]x[height][ext]`,
+      implementation: expect.any(Function),
       options: definition.options,
+      preset: `foo`,
     })
     expect(result).toBe(sharp)
   })
