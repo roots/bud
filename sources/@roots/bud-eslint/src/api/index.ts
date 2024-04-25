@@ -8,22 +8,22 @@ import {bind} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'eslint-webpack-plugin'
 
 export type Options = {
-    cache: EslintPluginOptions['cache']
-    cacheLocation: EslintPluginOptions['cacheLocation']
-    context: EslintPluginOptions['context']
-    eslintPath: EslintPluginOptions['eslintPath']
-    extensions: EslintPluginOptions['extensions']
-    failOnError: EslintPluginOptions['failOnError']
-    failOnWarning: EslintPluginOptions['failOnWarning']
-    fix: EslintPluginOptions['fix']
-    formatter: EslintPluginOptions['formatter']
-    lintDirtyModulesOnly: EslintPluginOptions['lintDirtyModulesOnly']
-    overrideConfig: EslintPluginOptions['overrideConfig']
-    resolvePluginsRelativeTo: EslintPluginOptions['resolvePluginsRelativeTo']
-    threads: EslintPluginOptions['threads']
-    useEslintrc: EslintPluginOptions['useEslintrc']
-  } &
-  EslintPluginOptions & Record<string, unknown>
+  cache: EslintPluginOptions['cache']
+  cacheLocation: EslintPluginOptions['cacheLocation']
+  context: EslintPluginOptions['context']
+  eslintPath: EslintPluginOptions['eslintPath']
+  extensions: EslintPluginOptions['extensions']
+  failOnError: EslintPluginOptions['failOnError']
+  failOnWarning: EslintPluginOptions['failOnWarning']
+  fix: EslintPluginOptions['fix']
+  formatter: EslintPluginOptions['formatter']
+  lintDirtyModulesOnly: EslintPluginOptions['lintDirtyModulesOnly']
+  overrideConfig: EslintPluginOptions['overrideConfig']
+  resolvePluginsRelativeTo: EslintPluginOptions['resolvePluginsRelativeTo']
+  threads: EslintPluginOptions['threads']
+  useEslintrc: EslintPluginOptions['useEslintrc']
+} & EslintPluginOptions &
+  Record<string, unknown>
 
 export type Api = {
   config: Options[`overrideConfig`]

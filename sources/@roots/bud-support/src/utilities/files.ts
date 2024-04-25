@@ -263,9 +263,7 @@ function getFileTarget(file: {name?: string}) {
   return `base`
 }
 
-function isNormalInspectResult(
-  file?: InspectResult,
-): file is {
+function isNormalInspectResult(file?: InspectResult): file is {
   absolutePath: string
   name: string
   sha1: string

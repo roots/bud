@@ -645,7 +645,8 @@ export interface SettingsBlocksPropertiesComplete {
        */
       radius?: boolean
     }
-  } & SettingsPropertiesAppearanceTools & SettingsPropertiesColor &
+  } & SettingsPropertiesAppearanceTools &
+    SettingsPropertiesColor &
     SettingsPropertiesCustom &
     SettingsPropertiesLayout &
     SettingsPropertiesSpacing &

@@ -107,10 +107,7 @@ type BudSWCPublicInterface = {
   target: BudSWCOptions[`jsc`][`target`]
   transform: BudSWCOptions[`jsc`][`transform`]
   typescript: BudJSCPublicInterface
-} & StrictPublicExtensionApi<
-  BudSWCApi,
-  BudSWCOptions
->
+} & StrictPublicExtensionApi<BudSWCApi, BudSWCOptions>
 
 @options<BudSWCOptions>({
   env: undefined,

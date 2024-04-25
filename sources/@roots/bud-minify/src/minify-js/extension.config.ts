@@ -59,10 +59,7 @@ type BudMinimizeJSPublicInterface = {
       `mangle`
     >,
   ) => BudMinimizeJSPublicApi
-} & StrictPublicExtensionApi<
-  BudMinimizeJSPublicApi,
-  BudMinimizeJSOptions
->
+} & StrictPublicExtensionApi<BudMinimizeJSPublicApi, BudMinimizeJSOptions>
 
 /**
  * Terser configuration

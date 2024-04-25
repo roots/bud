@@ -42,10 +42,7 @@ type BudTailwindOptionsPublicInterface = {
     key: K,
     theme: ThemeConfig[K],
   ): BudTailwindOptionsPublicInterface
-} & StrictPublicExtensionApi<
-  BudTailwindOptionsApi,
-  Options
->
+} & StrictPublicExtensionApi<BudTailwindOptionsApi, Options>
 
 /**
  * TailwindCSS configuration

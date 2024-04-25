@@ -23,7 +23,8 @@ type Options = {
    * {@link Options.warnRuleAsWarning}
    */
   warnRuleAsWarning: SassLoaderOptions[`warnRuleAsWarning`] | undefined
-} & Record<string, unknown> & SassLoaderOptions
+} & Record<string, unknown> &
+  SassLoaderOptions
 
 export type BudSassApi = {
   /**
@@ -65,10 +66,7 @@ export type BudSassApi = {
    * @see {@link Options.additionalData}
    */
   registerGlobal: (additionalData: Array<string> | string) => BudSassApi
-} & StrictPublicExtensionApi<
-  BudSassOptions,
-  Options
->
+} & StrictPublicExtensionApi<BudSassOptions, Options>
 
 @options<Options>({
   additionalData: undefined,

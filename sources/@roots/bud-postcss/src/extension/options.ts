@@ -48,10 +48,7 @@ type BudPostCssPublicInterface = {
   use(
     plugins: OptionCallbackValue<Options, `order`>,
   ): BudPostCssPublicInterface
-} & StrictPublicExtensionApi<
-  BudPostCssOptionsApi,
-  Options
->
+} & StrictPublicExtensionApi<BudPostCssOptionsApi, Options>
 
 @options<Options>({
   config: false,
