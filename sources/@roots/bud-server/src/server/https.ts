@@ -20,7 +20,7 @@ export class Server extends BaseServer implements Connection {
    */
   @bind
   public async createServer(
-    express: RequestListener & Express.Application,
+    express: Express.Application & RequestListener,
   ): Promise<HttpsServer> {
     this.instance = createServer(this.options, express)
     return this.instance

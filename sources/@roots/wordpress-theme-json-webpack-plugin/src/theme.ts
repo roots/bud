@@ -11,18 +11,18 @@
 export type SettingsProperties = SettingsPropertiesAppearanceTools &
   SettingsPropertiesBorder &
   SettingsPropertiesColor &
+  SettingsPropertiesCustom &
   SettingsPropertiesDimensions &
-  SettingsPropertiesShadow &
   SettingsPropertiesLayout &
   SettingsPropertiesPosition &
+  SettingsPropertiesShadow &
   SettingsPropertiesSpacing &
-  SettingsPropertiesTypography &
-  SettingsPropertiesCustom
+  SettingsPropertiesTypography
 /**
  * This interface was referenced by `SettingsBlocksPropertiesComplete`'s JSON-Schema definition
  * via the `patternProperty` "^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$".
  */
-export type SettingsPropertiesComplete = SettingsProperties & {
+export type SettingsPropertiesComplete = {
   appearanceTools?: unknown
   border?: unknown
   color?: unknown
@@ -33,12 +33,12 @@ export type SettingsPropertiesComplete = SettingsProperties & {
   shadow?: unknown
   spacing?: unknown
   typography?: unknown
-}
+} & SettingsProperties
 /**
  * This interface was referenced by `StylesVariationPropertiesComplete`'s JSON-Schema definition
  * via the `patternProperty` "^[a-z][a-z0-9-]*$".
  */
-export type StylesPropertiesComplete = StylesProperties & {
+export type StylesPropertiesComplete = {
   border?: unknown
   color?: unknown
   css?: unknown
@@ -48,12 +48,12 @@ export type StylesPropertiesComplete = StylesProperties & {
   shadow?: unknown
   spacing?: unknown
   typography?: unknown
-}
+} & StylesProperties
 /**
  * This interface was referenced by `StylesBlocksPropertiesComplete`'s JSON-Schema definition
  * via the `patternProperty` "^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$".
  */
-export type StylesPropertiesAndElementsComplete = StylesProperties & {
+export type StylesPropertiesAndElementsComplete = {
   border?: unknown
   color?: unknown
   css?: unknown
@@ -65,7 +65,7 @@ export type StylesPropertiesAndElementsComplete = StylesProperties & {
   spacing?: unknown
   typography?: unknown
   variations?: StylesVariationPropertiesComplete
-}
+} & StylesProperties
 
 export interface SettingsAndStyles {
   /**
@@ -100,7 +100,7 @@ export interface SettingsAndStyles {
    * - CSS custom properties and class names used in styles.
    * - And the default layout of the editor (widths and available alignments).
    */
-  settings?: SettingsProperties & {
+  settings?: {
     appearanceTools?: unknown
     blocks?: SettingsBlocksPropertiesComplete
     border?: unknown
@@ -120,11 +120,11 @@ export interface SettingsAndStyles {
      * Please note that when using this setting, `styles.spacing.padding` should always be set as an object with `top`, `right`, `bottom`, `left` values declared separately.
      */
     useRootPaddingAwareAlignments?: boolean
-  }
+  } & SettingsProperties
   /**
    * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
    */
-  styles?: StylesProperties & {
+  styles?: {
     blocks?: StylesBlocksPropertiesComplete
     border?: unknown
     color?: unknown
@@ -135,7 +135,7 @@ export interface SettingsAndStyles {
     shadow?: unknown
     spacing?: unknown
     typography?: unknown
-  }
+  } & StylesProperties
   /**
    * Additional metadata for template parts defined in the parts folder.
    */
@@ -633,7 +633,7 @@ export interface SettingsBlocksPropertiesComplete {
   'core/audio'?: SettingsPropertiesComplete
   'core/avatar'?: SettingsPropertiesComplete
   'core/block'?: SettingsPropertiesComplete
-  'core/button'?: SettingsPropertiesAppearanceTools & {
+  'core/button'?: {
     [k: string]: unknown
     /**
      * Settings related to borders.
@@ -645,11 +645,11 @@ export interface SettingsBlocksPropertiesComplete {
        */
       radius?: boolean
     }
-  } & SettingsPropertiesColor &
+  } & SettingsPropertiesAppearanceTools & SettingsPropertiesColor &
+    SettingsPropertiesCustom &
     SettingsPropertiesLayout &
     SettingsPropertiesSpacing &
-    SettingsPropertiesTypography &
-    SettingsPropertiesCustom
+    SettingsPropertiesTypography
   'core/buttons'?: SettingsPropertiesComplete
   'core/calendar'?: SettingsPropertiesComplete
   'core/categories'?: SettingsPropertiesComplete
@@ -998,7 +998,7 @@ export interface RefComplete {
  * Styles defined on a per-element basis using the element's selector.
  */
 export interface StylesElementsPropertiesComplete {
-  button?: StylesProperties & {
+  button?: {
     ':active'?: StylesPropertiesComplete
     ':any-link'?: StylesPropertiesComplete
     ':focus'?: StylesPropertiesComplete
@@ -1013,7 +1013,7 @@ export interface StylesElementsPropertiesComplete {
     shadow?: unknown
     spacing?: unknown
     typography?: unknown
-  }
+  } & StylesProperties
   caption?: StylesPropertiesComplete
   cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
@@ -1023,7 +1023,7 @@ export interface StylesElementsPropertiesComplete {
   h5?: StylesPropertiesComplete
   h6?: StylesPropertiesComplete
   heading?: StylesPropertiesComplete
-  link?: StylesProperties & {
+  link?: {
     ':active'?: StylesPropertiesComplete
     ':any-link'?: StylesPropertiesComplete
     ':focus'?: StylesPropertiesComplete
@@ -1034,7 +1034,7 @@ export interface StylesElementsPropertiesComplete {
     color?: unknown
     spacing?: unknown
     typography?: unknown
-  }
+  } & StylesProperties
 }
 /**
  * Styles defined on a per-block basis using the block's selector.
@@ -1126,7 +1126,7 @@ export interface StylesBlocksPropertiesComplete {
   'core/widget-group'?: StylesPropertiesAndElementsComplete
 }
 export interface StylesElementsPropertiesComplete1 {
-  button?: StylesProperties & {
+  button?: {
     ':active'?: StylesPropertiesComplete
     ':any-link'?: StylesPropertiesComplete
     ':focus'?: StylesPropertiesComplete
@@ -1141,7 +1141,7 @@ export interface StylesElementsPropertiesComplete1 {
     shadow?: unknown
     spacing?: unknown
     typography?: unknown
-  }
+  } & StylesProperties
   caption?: StylesPropertiesComplete
   cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
@@ -1151,7 +1151,7 @@ export interface StylesElementsPropertiesComplete1 {
   h5?: StylesPropertiesComplete
   h6?: StylesPropertiesComplete
   heading?: StylesPropertiesComplete
-  link?: StylesProperties & {
+  link?: {
     ':active'?: StylesPropertiesComplete
     ':any-link'?: StylesPropertiesComplete
     ':focus'?: StylesPropertiesComplete
@@ -1162,7 +1162,7 @@ export interface StylesElementsPropertiesComplete1 {
     color?: unknown
     spacing?: unknown
     typography?: unknown
-  }
+  } & StylesProperties
 }
 export interface StylesVariationPropertiesComplete {
   [k: string]: StylesPropertiesComplete

@@ -29,7 +29,7 @@ export interface Sync {
   'infrastructureLogging.console': Configuration[`infrastructureLogging`][`console`]
   'infrastructureLogging.level': Configuration[`infrastructureLogging`][`level`]
   loader: Configuration[`loader`]
-  mode: Configuration[`mode`] & ('development' | 'production')
+  mode: ('development' | 'production') & Configuration[`mode`]
   module: Configuration[`module`]
   'module.noParse': Configuration[`module`][`noParse`]
   'module.rules': Configuration[`module`][`rules`]
@@ -61,7 +61,7 @@ export interface Sync {
   'output.chunkFilename': Configuration[`output`][`chunkFilename`]
   'output.chunkFormat': Configuration[`output`][`chunkFormat`]
   'output.chunkLoading': Configuration[`output`][`chunkLoading`]
-  'output.clean': Configuration[`output`][`clean`] & boolean
+  'output.clean': boolean & Configuration[`output`][`clean`]
   'output.environment': Configuration[`output`][`environment`]
   'output.filename': Configuration[`output`][`filename`]
   'output.hashFunction': Configuration[`output`][`hashFunction`]
@@ -115,4 +115,4 @@ export type AsyncRegistry = {
   [P in keyof Async as `build.${P & string}`]: Async[P]
 }
 
-export type Registry = SyncRegistry & AsyncRegistry
+export type Registry = AsyncRegistry & SyncRegistry

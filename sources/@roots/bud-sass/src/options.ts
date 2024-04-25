@@ -6,7 +6,7 @@ import {
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 
-type Options = SassLoaderOptions & {
+type Options = {
   /**
    * {@link Options.additionalData}
    */
@@ -23,12 +23,9 @@ type Options = SassLoaderOptions & {
    * {@link Options.warnRuleAsWarning}
    */
   warnRuleAsWarning: SassLoaderOptions[`warnRuleAsWarning`] | undefined
-} & Record<string, unknown>
+} & Record<string, unknown> & SassLoaderOptions
 
-export type BudSassApi = StrictPublicExtensionApi<
-  BudSassOptions,
-  Options
-> & {
+export type BudSassApi = {
   /**
    * Import a partial globally
    *
@@ -68,7 +65,10 @@ export type BudSassApi = StrictPublicExtensionApi<
    * @see {@link Options.additionalData}
    */
   registerGlobal: (additionalData: Array<string> | string) => BudSassApi
-}
+} & StrictPublicExtensionApi<
+  BudSassOptions,
+  Options
+>
 
 @options<Options>({
   additionalData: undefined,

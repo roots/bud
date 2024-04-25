@@ -63,7 +63,7 @@ type EventsStore = {
   [K in keyof Events as `${K & string}`]: Array<EventsCallback<K>>
 }
 
-type Store = SyncStore & AsyncStore & EventsStore
+type Store = AsyncStore & EventsStore & SyncStore
 
 export type {
   Async,

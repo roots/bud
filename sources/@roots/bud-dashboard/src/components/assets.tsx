@@ -5,7 +5,7 @@ import {useLongestNamedObjectLength} from '@roots/bud-dashboard/hooks/useLongest
 import {Box} from '@roots/bud-support/ink'
 
 interface Props {
-  assets?: Array<Partial<StatsAsset> & {name?: string; size?: number}>
+  assets?: Array<{name?: string; size?: number} & Partial<StatsAsset>>
   minWidth?: number
 }
 

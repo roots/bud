@@ -27,7 +27,7 @@ class Value<T> {
   }
   public static isCallable<T>(
     value: T | Value<T>,
-  ): value is T & CallableFunction {
+  ): value is CallableFunction & T {
     return Value.typeOf(value) === `function`
   }
   /**

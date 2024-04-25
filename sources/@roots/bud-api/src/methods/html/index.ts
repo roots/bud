@@ -11,9 +11,9 @@ import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
 import omit from '@roots/bud-support/omit'
 
-type Options = HTMLExtension.Options & {
+type Options = {
   replace?: InterpolateHTMLExtension.Options
-}
+} & HTMLExtension.Options
 
 export type Parameters = [
   (((options?: Options) => Options) | boolean | Options | string)?,

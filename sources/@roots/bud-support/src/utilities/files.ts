@@ -265,12 +265,12 @@ function getFileTarget(file: {name?: string}) {
 
 function isNormalInspectResult(
   file?: InspectResult,
-): file is InspectResult & {
+): file is {
   absolutePath: string
   name: string
   sha1: string
   type: `file` | `symlink`
-} {
+} & InspectResult {
   if (file === undefined) return false
   if (file.sha1 === undefined) return false
   if (file.name === undefined) return false

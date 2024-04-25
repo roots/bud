@@ -17,10 +17,7 @@ type Options = {
   resolvedConfig?: ReturnType<typeof resolveConfig<Config>>
 }
 
-type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
-  BudTailwindOptionsApi,
-  Options
-> & {
+type BudTailwindOptionsPublicInterface = {
   extend(theme: Partial<ThemeConfig>): BudTailwindOptionsPublicInterface
   extendTheme(
     theme: Partial<ThemeConfig>,
@@ -45,7 +42,10 @@ type BudTailwindOptionsPublicInterface = StrictPublicExtensionApi<
     key: K,
     theme: ThemeConfig[K],
   ): BudTailwindOptionsPublicInterface
-}
+} & StrictPublicExtensionApi<
+  BudTailwindOptionsApi,
+  Options
+>
 
 /**
  * TailwindCSS configuration
