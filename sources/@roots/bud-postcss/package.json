@@ -66,20 +66,20 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5",
+    "@types/node": "20.12.7",
     "@types/postcss-import": "14.0.3"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "postcss": "8.4.32",
+    "postcss": "8.4.38",
     "postcss-import": "15.1.0",
-    "postcss-loader": "7.3.3",
+    "postcss-loader": "7.3.4",
     "postcss-nested": "6.0.1",
-    "postcss-preset-env": "9.3.0",
+    "postcss-preset-env": "9.5.9",
     "tslib": "2.6.2",
-    "webpack": "5.89.0"
+    "webpack": "5.91.0"
   },
   "volta": {
     "extends": "../../../package.json"
