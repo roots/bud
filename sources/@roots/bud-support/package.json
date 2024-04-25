@@ -341,7 +341,7 @@
     "env-paths": "3.0.0",
     "esbuild-wasm": "0.19.10",
     "execa": "8.0.1",
-    "express": "4.18.2",
+    "express": "4.19.2",
     "figures": "5.0.0",
     "file-loader": "6.2.0",
     "get-port": "7.0.0",
