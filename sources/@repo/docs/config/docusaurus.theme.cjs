@@ -1,4 +1,4 @@
-const {themes} = require(`prism-react-renderer`)
+const { themes } = require(`prism-react-renderer`)
 const config = require(`../../../../config/monorepo.config.cjs`)
 const releaseData = require(`../generated/releases/data.json`)
 
@@ -14,9 +14,8 @@ const colorMode = {
  * Footer config
  */
 const footer = {
-  copyright: `Copyright © ${new Date().getFullYear()} ${
-    config.organization.name
-  }.`,
+  copyright: `Copyright © ${new Date().getFullYear()} ${config.organization.name
+    }.`,
 }
 
 /**
@@ -26,25 +25,25 @@ const metadata = [
   /**
    * Presentational
    */
-  {content: `#525ddc`, name: `theme-color`},
+  { content: `#525ddc`, name: `theme-color` },
 
   /**
    * Open graph
    */
-  {content: `1022828784420871`, name: `fb:app_id`},
-  {content: `https://bud.js.org/img/bud.js.png`, name: `og:image`},
-  {content: `en_US`, name: `og:locale`},
-  {content: `website`, name: `og:type`},
-  {content: `https://bud.js.org`, name: `og:url`},
+  { content: `1022828784420871`, name: `fb:app_id` },
+  { content: `https://bud.js.org/img/bud.js.png`, name: `og:image` },
+  { content: `en_US`, name: `og:locale` },
+  { content: `website`, name: `og:type` },
+  { content: `https://bud.js.org`, name: `og:url` },
 
   /**
    * Twitter
    */
-  {content: `summary_large_image`, name: `twitter:card`},
-  {content: config.organization.twitter, name: `twitter:creator`},
-  {content: `/img/bud.js.png`, name: `twitter:image`},
-  {content: config.organization.twitter, name: `twitter:site`},
-  {content: config.url.docs, name: `twitter:url`},
+  { content: `summary_large_image`, name: `twitter:card` },
+  { content: config.organization.twitter, name: `twitter:creator` },
+  { content: `/img/bud.js.png`, name: `twitter:image` },
+  { content: config.organization.twitter, name: `twitter:site` },
+  { content: config.url.docs, name: `twitter:url` },
 
   /**
    * Google
@@ -79,14 +78,21 @@ const navbar = {
       type: `doc`,
     },
     {
-      items: releaseData.reduce((items, release, i) => {
-        if (i === 0) {
+      items: releaseData.reduce((items, release) => {
+        if (!items.length) {
           return [
             ...items,
-            {label: `Latest`, to: `/releases/${release.semver}`},
+            { label: `Latest`, to: `/releases/${release.semver}` },
           ]
         }
-        if (release.patch === 0) {
+
+        if (release.patch !== 0) return items
+
+        if (
+          releaseData.some(({ major, minor, patch }) =>
+            major == release.major && minor == release.minor && patch !== 0
+          )
+        ) {
           return [
             ...items,
             {
@@ -95,7 +101,14 @@ const navbar = {
             },
           ]
         }
-        return items
+
+        return [
+          ...items,
+          {
+            label: release.semver,
+            to: `/releases/${release.major}.${release.minor}.${release.patch}`,
+          },
+        ]
       }, []),
       label: `Releases`,
       position: `left`,
