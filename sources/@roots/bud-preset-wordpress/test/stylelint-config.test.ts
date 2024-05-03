@@ -1,4 +1,4 @@
-import * as stylelint from 'stylelint'
+import stylelint from 'stylelint'
 import {describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-preset-wordpress/stylelint`, () => {

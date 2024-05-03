@@ -81,7 +81,7 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
-    "@babel/core": "7.24.4",
+    "@babel/core": "7.24.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
@@ -89,18 +89,18 @@
     "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "@types/babel__core": "7.20.5",
-    "@types/node": "20.12.7",
-    "@types/react": "18.2.79",
-    "@types/react-dom": "18.2.25"
+    "@types/node": "20.12.8",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.0"
   },
   "dependencies": {
     "@babel/preset-react": "7.24.1",
-    "@pmmmwh/react-refresh-webpack-plugin": "0.5.11",
+    "@pmmmwh/react-refresh-webpack-plugin": "0.5.13",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-refresh": "0.14.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-refresh": "0.14.2",
     "tslib": "2.6.2",
     "webpack": "5.91.0"
   },

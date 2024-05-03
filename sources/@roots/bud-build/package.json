@@ -172,7 +172,7 @@
     "@roots/bud-api": "workspace:*",
     "@roots/bud-hooks": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.12.7"
+    "@types/node": "20.12.8"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

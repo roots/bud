@@ -83,7 +83,7 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/eslint": "8.56.10",
-    "@types/node": "20.12.7"
+    "@types/node": "20.12.8"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
