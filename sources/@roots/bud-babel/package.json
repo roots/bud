@@ -68,13 +68,13 @@
     "@types/babel__core": "7.20.5",
     "@types/babel__plugin-transform-runtime": "7.9.5",
     "@types/babel__preset-env": "7.9.6",
-    "@types/node": "20.12.7"
+    "@types/node": "20.12.8"
   },
   "dependencies": {
-    "@babel/core": "7.24.4",
+    "@babel/core": "7.24.5",
     "@babel/plugin-transform-runtime": "7.24.3",
-    "@babel/preset-env": "7.24.4",
-    "@babel/runtime": "7.24.4",
+    "@babel/preset-env": "7.24.5",
+    "@babel/runtime": "7.24.5",
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",

@@ -12,6 +12,7 @@ describe(`bud build with extensionless stylelintrc`, () => {
       `run`,
       `bud`,
       `build`,
+      `--force`,
     ])
 
     const [_s, title, _s2, entry, runtime, css, js, _s3, timings] =

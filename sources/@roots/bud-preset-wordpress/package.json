@@ -75,7 +75,7 @@
     "@roots/bud-build": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.12.7"
+    "@types/node": "20.12.8"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
