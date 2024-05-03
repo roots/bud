@@ -103,10 +103,10 @@ const DEFINED = [
   `json`,
   `html`,
   `webp`,
-  `scss-module`,
-  `scss`,
   `css-module`,
   `css`,
+  `sass-module`,
+  `sass`,
   `vue`,
   `js`,
   `ts`,
@@ -132,6 +132,22 @@ const makeIssuerRuleSet = ({filter, path, rules}: Props) => {
       issuer: {not: filter(`pattern.css`)},
       test: filter(`pattern.css`),
       use: rules[`css`].toWebpack?.().use,
+    })
+
+  rules[`sass-module`]?.toWebpack?.().use &&
+    results.push({
+      exclude: [path(`@src`)],
+      issuer: {not: filter(`pattern.sassModule`)},
+      test: filter(`pattern.sassModule`),
+      use: rules[`sass-module`].toWebpack?.().use,
+    })
+
+  rules[`sass`]?.toWebpack?.().use &&
+    results.push({
+      exclude: [path(`@src`)],
+      issuer: {not: filter(`pattern.sass`)},
+      test: filter(`pattern.sass`),
+      use: rules[`sass`].toWebpack?.().use,
     })
 
   return results
