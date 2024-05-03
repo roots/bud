@@ -61,7 +61,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "css-minimizer-webpack-plugin": "5.0.1",
+    "css-minimizer-webpack-plugin": "6.0.0",
     "lightningcss": "1.24.1",
     "terser": "5.31.0",
     "terser-webpack-plugin": "5.3.10",
