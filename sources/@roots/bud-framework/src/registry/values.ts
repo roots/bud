@@ -28,4 +28,4 @@ export type AsyncRegistry = {
   [K in keyof Async as `value.${K & string}`]?: Async[K]
 }
 
-export type Registry = SyncRegistry & AsyncRegistry
+export type Registry = AsyncRegistry & SyncRegistry

@@ -10,7 +10,7 @@ import {
 } from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
-type BudMinimizeCSSOptions = BasePluginOptions & {
+type BudMinimizeCSSOptions = {
   exclude: BasePluginOptions[`exclude`]
   include: BasePluginOptions[`include`]
   minify: MinimizerImplementation<any>
@@ -18,7 +18,7 @@ type BudMinimizeCSSOptions = BasePluginOptions & {
   parallel: BasePluginOptions[`parallel`]
   test: BasePluginOptions[`test`]
   warningsFilter: BasePluginOptions[`warningsFilter`]
-}
+} & BasePluginOptions
 
 interface BudMinimizeCSSPublicInterface
   extends StrictPublicExtensionApi<

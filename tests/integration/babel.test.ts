@@ -9,8 +9,9 @@ describe(`examples/babel`, () => {
     await test.install()
     await test.build()
 
-    expect(test.getAsset(`app.js`).length).toBeGreaterThan(10)
-    expect(test.getAsset(`app.js`).includes(`import `)).toBeFalsy()
+    const js = test.getAsset(`app.js`)
+    expect(js.length).toBeGreaterThan(10)
+    expect(typeof js === `string` && js.includes(`import `)).toBeFalsy()
     expect(test.manifest).toMatchSnapshot()
   })
 })

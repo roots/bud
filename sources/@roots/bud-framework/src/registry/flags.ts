@@ -46,4 +46,4 @@ export type AsyncRegistry = {
   [P in keyof Async as `feature.${P & string}`]: Async[P]
 }
 
-export type Registry = SyncRegistry & AsyncRegistry
+export type Registry = AsyncRegistry & SyncRegistry

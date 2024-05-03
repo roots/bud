@@ -61,7 +61,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5"
+    "@types/node": "20.12.7"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",

@@ -18,7 +18,7 @@ export class Server extends Service implements BudServer {
   /**
    * {@link BudServer.application}
    */
-  public declare application: Express.Application & {set: any; use: any}
+  public declare application: {set: any; use: any} & Express.Application
 
   /**
    * {@link BudServer.availableMiddleware}

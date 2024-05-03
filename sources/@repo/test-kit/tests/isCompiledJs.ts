@@ -1,6 +1,9 @@
 import {expect} from 'vitest'
 
-export default (js: string) => {
+export default (js: unknown) => {
+  if (typeof js !== `string`) {
+    throw new Error(`Expected js to be a string`)
+  }
   expect(js.length).toBeGreaterThan(1)
   expect(() => new Function(js)).not.toThrow()
   expect(js.match(/\simport\s/)).toBeFalsy()

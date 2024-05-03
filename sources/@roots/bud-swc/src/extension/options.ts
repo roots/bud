@@ -44,10 +44,7 @@ type BudSWCOptions = {
   test?: Options[`test`]
 }
 
-type BudSWCPublicInterface = StrictPublicExtensionApi<
-  BudSWCApi,
-  BudSWCOptions
-> & {
+type BudSWCPublicInterface = {
   baseUrl: BudSWCOptions[`jsc`][`baseUrl`]
   ecmascript: BudJSCPublicInterface
   experimental: BudSWCOptions[`jsc`][`experimental`]
@@ -110,7 +107,7 @@ type BudSWCPublicInterface = StrictPublicExtensionApi<
   target: BudSWCOptions[`jsc`][`target`]
   transform: BudSWCOptions[`jsc`][`transform`]
   typescript: BudJSCPublicInterface
-}
+} & StrictPublicExtensionApi<BudSWCApi, BudSWCOptions>
 
 @options<BudSWCOptions>({
   env: undefined,

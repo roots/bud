@@ -4,9 +4,9 @@ interface Rules {
   _?: Rule
 }
 
-type Registry = Rules & {
+type Registry = {
   [K in keyof Rules as `${K & string}`]: Rules[K]
-}
+} & Rules
 
 type Constructors = {
   [K in keyof Registry as `${K & string}`]?: new (

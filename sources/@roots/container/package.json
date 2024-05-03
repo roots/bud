@@ -74,8 +74,8 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.12",
-    "@types/node": "20.10.5",
-    "type-fest": "4.8.3"
+    "@types/node": "20.12.7",
+    "type-fest": "4.17.0"
   },
   "dependencies": {
     "helpful-decorators": "2.1.0",

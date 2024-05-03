@@ -22,7 +22,7 @@ interface BudMinimizeJSOptions extends Plugin.BasePluginOptions {
   include: Plugin.BasePluginOptions[`include`]
   minify: Plugin.MinimizerImplementation<TerserOptions>
   parallel: Plugin.BasePluginOptions[`parallel`]
-  terserOptions: TerserOptions & {
+  terserOptions: {
     compress: Terser.CompressOptions
     ecma: Terser.ECMA
     enclose: boolean | string
@@ -37,13 +37,10 @@ interface BudMinimizeJSOptions extends Plugin.BasePluginOptions {
     safari10: boolean
     sourceMap: boolean | Terser.SourceMapOptions
     toplevel: boolean
-  }
+  } & TerserOptions
 }
 
-type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
-  BudMinimizeJSPublicApi,
-  BudMinimizeJSOptions
-> & {
+type BudMinimizeJSPublicInterface = {
   dropComments: (enable?: boolean) => BudMinimizeJSPublicApi
   dropConsole: (enable?: boolean) => BudMinimizeJSPublicApi
   dropDebugger: (enable?: boolean) => BudMinimizeJSPublicApi
@@ -62,7 +59,7 @@ type BudMinimizeJSPublicInterface = StrictPublicExtensionApi<
       `mangle`
     >,
   ) => BudMinimizeJSPublicApi
-}
+} & StrictPublicExtensionApi<BudMinimizeJSPublicApi, BudMinimizeJSOptions>
 
 /**
  * Terser configuration

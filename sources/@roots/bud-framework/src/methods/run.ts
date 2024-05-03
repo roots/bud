@@ -25,6 +25,6 @@ export const run: run = async function (this: Bud) {
     await this.server.run().catch(this.server.catch)
 }
 
-function hasCompiler(bud: Bud): bud is Bud & {compiler: Compiler} {
+function hasCompiler(bud: Bud): bud is {compiler: Compiler} & Bud {
   return bud.compiler !== undefined
 }
