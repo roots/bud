@@ -10,8 +10,8 @@
     }
   },
   "devDependencies": {
-    "@types/node": "20.10.5",
-    "vitest": "1.1.0"
+    "@types/node": "20.12.8",
+    "vitest": "1.5.3"
   },
   "dependencies": {
     "tslib": "2.6.2"

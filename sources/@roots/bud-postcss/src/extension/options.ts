@@ -31,10 +31,7 @@ type Options = {
   syntax?: string
 }
 
-type BudPostCssPublicInterface = StrictPublicExtensionApi<
-  BudPostCssOptionsApi,
-  Options
-> & {
+type BudPostCssPublicInterface = {
   getConfig(): boolean
   getPlugin(name: string): PluginReference
   getPluginOptions(name: string): Record<string, any>
@@ -51,7 +48,7 @@ type BudPostCssPublicInterface = StrictPublicExtensionApi<
   use(
     plugins: OptionCallbackValue<Options, `order`>,
   ): BudPostCssPublicInterface
-}
+} & StrictPublicExtensionApi<BudPostCssOptionsApi, Options>
 
 @options<Options>({
   config: false,

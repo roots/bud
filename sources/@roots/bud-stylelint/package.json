@@ -72,16 +72,16 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5",
-    "webpack": "5.89.0"
+    "@types/node": "20.12.8",
+    "webpack": "5.91.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "stylelint": "15.11.0",
-    "stylelint-config-standard": "34.0.0",
-    "stylelint-webpack-plugin": "4.1.1",
+    "stylelint": "16.5.0",
+    "stylelint-config-standard": "36.0.0",
+    "stylelint-webpack-plugin": "5.0.0",
     "tslib": "2.6.2"
   },
   "volta": {

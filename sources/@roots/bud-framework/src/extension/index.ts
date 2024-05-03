@@ -83,6 +83,8 @@ export interface Constructor {
 }
 
 export type WithOptions<Context, Options> = {
+  [K in keyof Options as `${K & string}`]: Options[K]
+} & {
   [Prop in keyof Options as `get${Capitalize<
     Prop & string
   >}`]: () => Options[Prop]
@@ -90,8 +92,6 @@ export type WithOptions<Context, Options> = {
   [Prop in keyof Options as `set${Capitalize<Prop & string>}`]: (
     value: OptionCallbackValue<Options, `${Prop & string}`>,
   ) => Context
-} & {
-  [K in keyof Options as `${K & string}`]: Options[K]
 }
 
 /**

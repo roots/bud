@@ -33,7 +33,7 @@ export type PathedEncodeOptions = {
 export type OptionsObject = {
   [`encodeOptions`]: EncodeOptions
 }
-export type Options = PathedEncodeOptions & OptionsObject
+export type Options = OptionsObject & PathedEncodeOptions
 
 /**
  * `@roots/bud-imagemin/svgo`

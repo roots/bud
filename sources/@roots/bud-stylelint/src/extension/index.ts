@@ -12,11 +12,11 @@ import {deprecated} from '@roots/bud-support/decorators/deprecated'
 import noop from '@roots/bud-support/noop'
 import Plugin from 'stylelint-webpack-plugin'
 
-export type Options = Plugin.Options & {
-  config?: Plugin.Options & {
-    plugins?: Plugin.Options[`config`][`plugins`] & Array<unknown>
-  }
-}
+export type Options = {
+  config?: {
+    plugins?: Array<unknown> & Plugin.Options[`config`][`plugins`]
+  } & Plugin.Options
+} & Plugin.Options
 
 /**
  * Bud stylelint extension

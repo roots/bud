@@ -68,8 +68,8 @@
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.12",
-    "@types/node": "20.10.5",
-    "json-schema-to-typescript": "13.1.1"
+    "@types/node": "20.12.8",
+    "json-schema-to-typescript": "13.1.2"
   },
   "dependencies": {
     "fs-jetpack": "5.1.0",
@@ -77,7 +77,7 @@
     "lodash-es": "4.17.21",
     "tapable": "2.2.1",
     "tslib": "2.6.2",
-    "webpack": "5.89.0"
+    "webpack": "5.91.0"
   },
   "volta": {
     "extends": "../../../package.json"

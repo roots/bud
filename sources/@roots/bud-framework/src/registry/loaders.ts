@@ -4,9 +4,9 @@ interface Loaders {
   _?: Loader
 }
 
-type Registry = Loaders & {
+type Registry = {
   [K in keyof Loaders as `${K & string}`]: Loaders[K]
-}
+} & Loaders
 
 type Constructors = {
   [K in keyof Registry as `${K & string}`]?: new (

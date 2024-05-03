@@ -41,13 +41,13 @@ export class Bud {
 
   public declare after: typeof methods.after
 
-  public declare api: Service & Api
+  public declare api: Api & Service
 
   public declare bindFacade: typeof methods.bindFacade
 
-  public declare build: Service & Build
+  public declare build: Build & Service
 
-  public declare cache: Service & Cache
+  public declare cache: Cache & Service
 
   /**
    * {@link Bud} instances
@@ -56,17 +56,17 @@ export class Bud {
 
   public declare close: typeof methods.close
 
-  public declare compiler?: Service & Compiler
+  public declare compiler?: Compiler & Service
 
   public declare container: typeof methods.container
 
   public declare context: Context
 
-  public declare dashboard: Service & Dashboard
+  public declare dashboard: Dashboard & Service
 
-  public declare env: Service & Env
+  public declare env: Env & Service
 
-  public declare extensions: Service & Extensions
+  public declare extensions: Extensions & Service
 
   public declare fs: FS
 
@@ -76,7 +76,7 @@ export class Bud {
 
   public declare globSync: typeof methods.globSync
 
-  public declare hooks: Service & Hooks
+  public declare hooks: Hooks & Service
 
   /**
    * {@link Bud} Implementation
@@ -114,7 +114,7 @@ export class Bud {
 
   public declare sequenceSync: typeof methods.sequenceSync
 
-  public declare server?: Service & Server
+  public declare server?: Server & Service
 
   public declare setPath: typeof methods.setPath
 

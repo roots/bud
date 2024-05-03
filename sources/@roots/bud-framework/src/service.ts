@@ -46,7 +46,7 @@ interface Contract {
   /**
    * Compiler done callback
    */
-  compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
+  compilerDone?(bud: Bud, stats: MultiStats & Stats): Promise<any>
 
   /**
    * After config callback
@@ -146,7 +146,7 @@ abstract class Base implements Contract {
   /**
    * {@link Contract.compilerDone}
    */
-  public compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
+  public compilerDone?(bud: Bud, stats: MultiStats & Stats): Promise<any>
 
   /**
    * {@link Contract.configAfter}
@@ -253,7 +253,7 @@ abstract class BaseContainer extends Container implements Contract {
   /**
    * {@link Contract.compilerDone}
    */
-  public compilerDone?(bud: Bud, stats: Stats & MultiStats): Promise<any>
+  public compilerDone?(bud: Bud, stats: MultiStats & Stats): Promise<any>
 
   /**
    * {@link Contract.configAfter}

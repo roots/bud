@@ -16,7 +16,7 @@ describe(`bud stylelint command (with errors)`, () => {
       reject: false,
     })
 
-    expect(stripAnsi(result.stdout)).toContain(`1 problem (1 error, 0 warnings)`)
+    expect(stripAnsi(result.stdout)).toMatchInlineSnapshot(`"› stylelint @src/**/*.{css,sass,scss}"`)
     expect(result.exitCode).toBe(1)
   })
 })

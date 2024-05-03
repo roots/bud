@@ -36,9 +36,7 @@ export class Config {
    * @returns value - {@link S3ClientConfig} value
    */
   public get<
-    K extends `${
-      | (keyof Config & string)
-      | (keyof S3ClientConfig & keyof Config & string)}`,
+    K extends `bucket` | `credentials` | `endpoint` | `public` | `region`,
   >(key: K): this[K] {
     return this[key]
   }
@@ -51,9 +49,7 @@ export class Config {
    * @returns void
    */
   public set<
-    K extends `${
-      | (keyof Config & string)
-      | (keyof S3ClientConfig & keyof Config & string)}`,
+    K extends `bucket` | `credentials` | `endpoint` | `public` | `region`,
   >(key: K, value: this[K]): void {
     this[key] = value
   }

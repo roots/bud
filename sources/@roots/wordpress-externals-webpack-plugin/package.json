@@ -65,12 +65,12 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5"
+    "@types/node": "20.12.8"
   },
   "dependencies": {
     "@roots/wordpress-transforms": "workspace:*",
     "tslib": "2.6.2",
-    "webpack": "5.89.0"
+    "webpack": "5.91.0"
   },
   "volta": {
     "extends": "../../../package.json"

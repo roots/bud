@@ -1,9 +1,8 @@
-import {join} from 'node:path'
-
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
+
 describe(`issue-2126`, () => {
   let fs: Filesystem
   beforeAll(() => {
@@ -11,16 +10,16 @@ describe(`issue-2126`, () => {
   })
   it(`should generate expected output`, async () => {
     await execa(`yarn`, [`bud`, `clean`, `dist`, `storage`], {
-      cwd: join(paths.tests, `reproductions`, `issue-2126`),
+      cwd: path(`tests`, `reproductions`, `issue-2126`),
     })
 
     await execa(`yarn`, [`bud`, `build`], {
-      cwd: join(paths.tests, `reproductions`, `issue-2126`),
+      cwd: path(`tests`, `reproductions`, `issue-2126`),
     })
 
     const js = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-2126`,
         `public`,
@@ -31,8 +30,8 @@ describe(`issue-2126`, () => {
     )
     expect(js.length).toBeLessThan(75000)
     const css = await fs.read(
-      join(
-        paths.tests,
+      path(
+        `tests`,
         `reproductions`,
         `issue-2126`,
         `public`,

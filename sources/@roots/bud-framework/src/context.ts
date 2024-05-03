@@ -496,17 +496,17 @@ export interface Context {
   /**
    * Stderr stream
    */
-  stderr: NodeJS.WriteStream & {fd: 2}
+  stderr: {fd: 2} & NodeJS.WriteStream
 
   /**
    * Stdin stream
    */
-  stdin: NodeJS.ReadStream & {fd: 0}
+  stdin: {fd: 0} & NodeJS.ReadStream
 
   /**
    * Stdout stream
    */
-  stdout: NodeJS.WriteStream & {fd: 1}
+  stdout: {fd: 1} & NodeJS.WriteStream
 
   /**
    * Storage option

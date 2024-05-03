@@ -90,10 +90,7 @@ export class FS extends Filesystem implements Contract {
    */
   @bind
   public setBucket(bucket: string) {
-    this.app.after(async () => {
-      this.s3.config.set(`bucket`, bucket)
-    })
-
+    this.s3.config.set(`bucket`, bucket)
     return this
   }
 
@@ -106,10 +103,7 @@ export class FS extends Filesystem implements Contract {
    */
   @bind
   public setCredentials(credentials: S3[`config`][`credentials`]) {
-    this.app.after(async () => {
-      this.s3.config.set(`credentials`, credentials)
-    })
-
+    this.s3.config.set(`credentials`, credentials)
     return this
   }
 
@@ -122,10 +116,7 @@ export class FS extends Filesystem implements Contract {
    */
   @bind
   public setEndpoint(endpoint: S3[`config`][`endpoint`]) {
-    this.app.after(async () => {
-      this.s3.config.set(`endpoint`, endpoint)
-    })
-
+    this.s3.config.set(`endpoint`, endpoint)
     return this
   }
 
@@ -138,10 +129,7 @@ export class FS extends Filesystem implements Contract {
    */
   @bind
   public setRegion(region: S3[`config`][`region`]) {
-    this.app.after(async () => {
-      this.s3.config.set(`region`, region)
-    })
-
+    this.s3.config.set(`region`, region)
     return this
   }
 
@@ -159,33 +147,38 @@ export class FS extends Filesystem implements Contract {
     keep?: false | number
     source?: string
   }): this {
-    if (!this.s3.config.credentials) {
-      throw BudError.normalize(
-        `S3 is not configured. See https://bud.js.org/reference/bud.fs/s3`,
-      )
-    }
-
-    const {destination, files, keep, source} = {
-      destination: options?.destination,
-      files: options?.files ?? `**/*`,
-      keep:
-        isNumber(options?.keep) || isBoolean(options?.keep)
-          ? options?.keep
-          : 5,
-      source: options?.source ?? this.app.path(`@dist`),
-    }
-
-    const s3Path = (path: string) =>
-      destination ? join(destination, path) : path
-
     this.app.after(async () => {
-      // eslint-disable-next-line
-      console.log(`Uploading...`)
+      if (!this.s3.config.credentials) {
+        throw BudError.normalize(
+          `S3 is not configured. See https://bud.js.org/reference/bud.fs/s3`,
+        )
+      }
+
+      const s3Path = (path: string) =>
+        destination ? join(destination, path) : path
+
+      const {destination, files, keep, source} = {
+        destination: options?.destination,
+        files: options?.files ?? `**/*`,
+        keep:
+          isNumber(options?.keep) || isBoolean(options?.keep)
+            ? options?.keep
+            : 5,
+        source: options?.source ?? this.app.path(`@dist`),
+      }
+
+      // eslint-disable-next-line no-console
+      console.log(`\nUploading files to ${this.s3.ident}`)
 
       await globby(files, {cwd: source}).then(async files => {
         const descriptions = await Promise.all(
           files.map(async file => {
+            this.logger.info(
+              `Attempting to read ${file}:`,
+              join(source, file),
+            )
             const contents = await this.read(join(source, file), `buffer`)
+            this.logger.info(`Read ${file}:`, contents)
             return {contents, file}
           }),
         )
@@ -261,6 +254,9 @@ export class FS extends Filesystem implements Contract {
         this.logger.timeEnd(
           `Write upload-manifest.json to ${this.s3.ident}`,
         )
+
+        // eslint-disable-next-line no-console
+        console.log(`\nUpload complete`)
       })
     })
 

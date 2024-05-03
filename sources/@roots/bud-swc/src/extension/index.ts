@@ -117,5 +117,5 @@ class BudSWC extends BudSWCApi {
 }
 
 export {BudSWC, BudSWCApi, type BudSWCPublicInterface}
-export type * from './options.js'
 export type * from './jsc.js'
+export type * from './options.js'

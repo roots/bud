@@ -5,9 +5,9 @@ interface Modules
   _?: any
 }
 
-type Registry = Modules & {
+type Registry = {
   [K in keyof Modules as `${K & string}`]: Modules[K]
-}
+} & Modules
 
 type Constructors = {
   [K in keyof Registry as `${K & string}`]?: new (

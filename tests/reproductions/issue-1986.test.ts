@@ -1,6 +1,4 @@
-import {join} from 'node:path'
-
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import execa, {ExecaReturnValue} from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
 import {beforeAll, describe, expect, it} from 'vitest'
@@ -14,13 +12,13 @@ describe(`issue-1986`, () => {
 
     try {
       await execa(`yarn`, [`bud`, `clean`], {
-        cwd: join(paths.tests, `reproductions`, `issue-1986`),
+        cwd: path(`tests`, `reproductions`, `issue-1986`),
       })
     } catch (error) {}
 
     try {
       child = await execa(`yarn`, [`bud`, `build`], {
-        cwd: join(paths.tests, `reproductions`, `issue-1986`),
+        cwd: path(`tests`, `reproductions`, `issue-1986`),
         reject: false,
       })
     } catch (error) {}
@@ -33,8 +31,8 @@ describe(`issue-1986`, () => {
   it(`should not generate app.css`, async () => {
     expect(
       await fs.exists(
-        join(
-          paths.tests,
+        path(
+          `tests`,
           `reproductions`,
           `issue-1986`,
           `dist`,

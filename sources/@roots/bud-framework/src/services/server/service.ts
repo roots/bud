@@ -28,7 +28,7 @@ export interface Server {
   /**
    * Server application
    */
-  application: Application & {set: any; use: any}
+  application: {set: any; use: any} & Application
 
   /**
    * Instantiated middleware

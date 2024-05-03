@@ -33,7 +33,7 @@ type Options = {
   include: Array<string> | undefined
 }
 
-type Api = PublicExtensionApi<BudTsConfigValues, Options> & {
+type Api = {
   getBud: () => Api['bud']
   getCompilerOptions: () => Api['compilerOptions']
   getExclude: () => Api['exclude']
@@ -43,7 +43,7 @@ type Api = PublicExtensionApi<BudTsConfigValues, Options> & {
   setCompilerOptions: (options: CompilerOptions) => Api
   setExclude: (exclude: Array<string>) => Api
   setInclude: (include: Array<string>) => Api
-}
+} & PublicExtensionApi<BudTsConfigValues, Options>
 
 /**
  * The BudTsConfigValues class configures the bud.js application using settings

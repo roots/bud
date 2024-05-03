@@ -31,4 +31,4 @@ export type AsyncRegistry = {
   [P in keyof Async as `pattern.${P & string}`]: Async[P]
 }
 
-export type Registry = SyncRegistry & AsyncRegistry
+export type Registry = AsyncRegistry & SyncRegistry
