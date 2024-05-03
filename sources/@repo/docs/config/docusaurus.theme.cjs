@@ -79,23 +79,32 @@ const navbar = {
       type: `doc`,
     },
     {
-      items: releaseData.reduce((items, release, i) => {
-        if (i === 0) {
+      items: releaseData.reduce((items, release) => {
+        if (!items.length) {
           return [
             ...items,
             {label: `Latest`, to: `/releases/${release.semver}`},
           ]
         }
-        if (release.patch === 0) {
-          return [
-            ...items,
-            {
-              label: release.semver,
-              to: `/releases/tags/${release.major}-${release.minor}`,
-            },
-          ]
-        }
-        return items
+
+        if (release.patch !== 0) return items
+
+        const useTag = releaseData.some(
+          ({major, minor, patch}) =>
+            major == release.major &&
+            minor == release.minor &&
+            patch !== 0,
+        )
+
+        return [
+          ...items,
+          {
+            label: release.semver,
+            to: useTag
+              ? `/releases/tags/${release.major}-${release.minor}`
+              : `/releases/${release.major}.${release.minor}.${release.patch}`,
+          },
+        ]
       }, []),
       label: `Releases`,
       position: `left`,
