@@ -1,6 +1,10 @@
 import {expect} from 'vitest'
 
-export default (css: string) => {
+export default (css: unknown) => {
+  if (typeof css !== `string`) {
+    throw new Error(`Expected js to be a string`)
+  }
+
   expect(css).toEqual(expect.any(String))
   expect(css.length).toBeGreaterThan(1)
 
