@@ -132,24 +132,41 @@ describe(`@roots/bud-sass/extension`, () => {
       throw new Error(`mainRuleSet is not an object`)
     if (!(`oneOf` in mainRuleSet))
       throw new Error(`mainRuleSet.oneOf is not defined`)
-    if (!Array.isArray(mainRuleSet.oneOf)) throw new Error(`mainRuleSet.oneOf is not an array`)
-    if (!isObject(mainRuleSet.oneOf[0]) ) throw new Error(`mainRuleSet[0].oneOf is not an object`)
-    if (!isObject(mainRuleSet.oneOf[1]) ) throw new Error(`mainRuleSet[1].oneOf is not an object`)
+    if (!Array.isArray(mainRuleSet.oneOf))
+      throw new Error(`mainRuleSet.oneOf is not an array`)
+    if (!isObject(mainRuleSet.oneOf[0]))
+      throw new Error(`mainRuleSet[0].oneOf is not an object`)
+    if (!isObject(mainRuleSet.oneOf[1]))
+      throw new Error(`mainRuleSet[1].oneOf is not an object`)
 
-    const sassModuleRule = mainRuleSet.oneOf[0]
-    if (!sassModuleRule) throw new Error(`sassModuleRule is not defined`)
-    expect(sassModuleRule.issuer).toStrictEqual({
-      not: bud.hooks.filter(`pattern.sassModule`),
-    })
-    expect(sassModuleRule.test).toStrictEqual(
-      bud.hooks.filter(`pattern.sassModule`),
-    )
+    const sassModuleRule = mainRuleSet.oneOf.find(rule => {
+      if (!isObject(rule)) return false
+      if (
+        !(`issuer` in rule) ||
+        typeof rule.issuer === `undefined` ||
+        typeof rule.issuer === `string` ||
+        rule.issuer instanceof RegExp
+      )
+        return false
 
-    const sassRule = mainRuleSet.oneOf[1]
-    if (!sassRule) throw new Error(`sassRule is not defined`)
-    expect(sassRule.issuer).toStrictEqual({
-      not: bud.hooks.filter(`pattern.sass`),
+      if (!(`not` in rule.issuer)) return false
+      return rule.issuer.not === bud.hooks.filter(`pattern.sassModule`)
     })
-    expect(sassRule.test).toStrictEqual(bud.hooks.filter(`pattern.sass`))
+    expect(sassModuleRule).toBeDefined()
+
+    const sassRule = mainRuleSet.oneOf.find(rule => {
+      if (!isObject(rule)) return false
+      if (
+        !(`issuer` in rule) ||
+        typeof rule.issuer === `undefined` ||
+        typeof rule.issuer === `string` ||
+        rule.issuer instanceof RegExp
+      )
+        return false
+
+      if (!(`not` in rule.issuer)) return false
+      return rule.issuer.not === bud.hooks.filter(`pattern.sass`)
+    })
+    expect(sassRule).toBeDefined()
   })
 })

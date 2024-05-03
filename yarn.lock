@@ -7536,7 +7536,6 @@ __metadata:
   resolution: "@examples/sass-module@workspace:examples/sass-module"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
   languageName: unknown
