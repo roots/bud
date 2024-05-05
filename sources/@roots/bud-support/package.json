@@ -324,7 +324,7 @@
   },
   "dependencies": {
     "@roots/filesystem": "workspace:*",
-    "ansi-escapes": "6.2.1",
+    "ansi-escapes": "7.0.0",
     "ansi-regex": "6.0.1",
     "axios": "1.6.8",
     "chalk": "5.3.0",
