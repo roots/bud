@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 import {Config} from '../../src/s3/config.js'
 
 describe(`s3 config`, () => {
-  let config
+  let config: Config
 
   beforeEach(async () => {
     vi.clearAllMocks()
@@ -16,6 +16,7 @@ describe(`s3 config`, () => {
       accessKeyId: `foo`,
       secretAccessKey: `bar`,
     })
+
     expect(config.credentials).toEqual(
       expect.objectContaining({
         accessKeyId: `foo`,

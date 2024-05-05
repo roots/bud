@@ -18,7 +18,7 @@ import {options} from '@roots/bud-framework/extension/decorators'
  * This is useful for using different options for
  * different file types but still using the same general config.
  */
-type JSCOptions = Options[`jsc`] & {
+type JSCOptions = {
   baseUrl: Options[`jsc`][`baseUrl`]
   experimental: Options[`jsc`][`experimental`]
   /**
@@ -39,7 +39,7 @@ type JSCOptions = Options[`jsc`] & {
    */
   target: Options[`jsc`][`target`]
   transform: Options[`jsc`][`transform`]
-}
+} & Options[`jsc`]
 
 type BudJSCPublicInterface = StrictPublicExtensionApi<
   BudJSCApi,

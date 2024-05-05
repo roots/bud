@@ -1,0 +1,9 @@
+{
+  "name": "@tests/issue-2574",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@roots/bud": "workspace:*"
+  }
+}

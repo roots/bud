@@ -6,25 +6,25 @@ import {
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'stylelint-webpack-plugin'
 
-export type Options = Plugin.Options &
-  Record<string, unknown> & {
-    cache: Plugin.Options[`cache`]
-    cacheLocation: Plugin.Options[`cacheLocation`]
-    config: Plugin.Options[`config`]
-    configFile: Plugin.Options[`configFile`]
-    context: Plugin.Options[`context`]
-    extensions: Plugin.Options[`extensions`]
-    failOnError: Plugin.Options[`failOnError`]
-    failOnWarning: Plugin.Options[`failOnWarning`]
-    files: Plugin.Options[`files`]
-    fix: Plugin.Options[`fix`]
-    formatter: Plugin.Options[`formatter`]
-    lintDirtyModulesOnly: Plugin.Options[`lintDirtyModulesOnly`]
-    stylelintPath: Plugin.Options[`stylelintPath`]
-    threads: Plugin.Options[`threads`]
-  }
+export type Options = {
+  cache: Plugin.Options[`cache`]
+  cacheLocation: Plugin.Options[`cacheLocation`]
+  config: Plugin.Options[`config`]
+  configFile: Plugin.Options[`configFile`]
+  context: Plugin.Options[`context`]
+  extensions: Plugin.Options[`extensions`]
+  failOnError: Plugin.Options[`failOnError`]
+  failOnWarning: Plugin.Options[`failOnWarning`]
+  files: Plugin.Options[`files`]
+  fix: Plugin.Options[`fix`]
+  formatter: Plugin.Options[`formatter`]
+  lintDirtyModulesOnly: Plugin.Options[`lintDirtyModulesOnly`]
+  stylelintPath: Plugin.Options[`stylelintPath`]
+  threads: Plugin.Options[`threads`]
+} & Plugin.Options &
+  Record<string, unknown>
 
-export type Api = PublicExtensionApi<BudStylelintPublicApi, Options> & {
+export type Api = {
   extends(
     config:
       | ((configs: Api[`config`][`extends`]) => Api[`config`][`extends`])
@@ -46,7 +46,7 @@ export type Api = PublicExtensionApi<BudStylelintPublicApi, Options> & {
       | ((rules: Options[`config`][`rules`]) => Options[`config`][`rules`])
       | Options[`config`][`rules`],
   ): Api
-}
+} & PublicExtensionApi<BudStylelintPublicApi, Options>
 
 @options<Options>({
   cache: DynamicOption.make(

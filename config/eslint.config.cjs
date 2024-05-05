@@ -1,6 +1,4 @@
-const OFF = 0
-const WARN = 1
-const ERROR = 2
+const [OFF, WARN, ERROR] = [0, 1, 2]
 
 module.exports = {
   extends: [
@@ -13,7 +11,8 @@ module.exports = {
     `**/*.d.ts`,
     `**/*.html`,
     `**/*.json`,
-    `**/.budfiles`,
+    `**/.storage`,
+    `**/compiled`,
     `**/dist`,
     `**/lib`,
     `**/node_modules`,
@@ -44,7 +43,7 @@ module.exports = {
   ],
   parser: `@typescript-eslint/parser`,
   parserOptions: {
-    ecmaFeatures: { jsx: true },
+    ecmaFeatures: {jsx: true},
     ecmaVersion: 2021,
     sourceType: `module`,
   },
@@ -73,7 +72,7 @@ module.exports = {
     [`@typescript-eslint/quotes`]: [
       ERROR,
       `backtick`,
-      { avoidEscape: true },
+      {avoidEscape: true},
     ],
     [`arrow-body-style`]: OFF,
     [`comma-dangle`]: [
@@ -117,7 +116,7 @@ module.exports = {
     ],
     [`n/no-unsupported-features/es-syntax`]: [
       ERROR,
-      { ignores: [`modules`], version: `>=16.0.0` },
+      {ignores: [`modules`], version: `>=16.0.0`},
     ],
     [`n/shebang`]: OFF,
     [`no-console`]: ERROR,
@@ -160,9 +159,7 @@ module.exports = {
     [`react-hooks/rules-of-hooks`]: ERROR,
     [`react/prop-types`]: OFF,
     [`react/react-in-jsx-scope`]: OFF,
-    [`sort-class-members/sort-class-members`]: [
-      OFF,
-    ],
+    [`sort-class-members/sort-class-members`]: [OFF],
   },
   settings: {
     n: {
@@ -180,6 +177,6 @@ module.exports = {
         `.mjs`,
       ],
     },
-    react: { version: `detect` },
+    react: {version: `detect`},
   },
 }

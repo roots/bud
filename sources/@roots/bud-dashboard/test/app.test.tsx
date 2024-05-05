@@ -1,7 +1,6 @@
 import React from '@roots/bud-support/ink'
 import stripAnsi from '@roots/bud-support/strip-ansi'
-// @ts-ignore
-import * as ink from 'ink-testing-library'
+import {render} from 'ink-testing-library'
 import {describe, expect, it} from 'vitest'
 import {StatsCompilation} from 'webpack'
 
@@ -21,9 +20,6 @@ const enum Char {
 
 const startsWith = (line: string, char: Char) =>
   new RegExp(`^${char}`).test(line)
-
-const isFormattedAsset = (line: string) =>
-  startsWith(line, Char.Vertical) && /›\s*/.test(line)
 
 const mockCompilations: Array<Partial<StatsCompilation>> = [
   {
@@ -92,16 +88,17 @@ const mockCompilationsWithErrors: Array<Partial<StatsCompilation>> = [
 
 describe(`@roots/bud-dashboard app component`, () => {
   it(`should not render without a hash`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       // @ts-ignore
       <Application compilations={[]} />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`""`)
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`""`)
   })
 
   it(`should render basedir when basedir prop and compilation.outputPath are set`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
+        basedir={`/path/mock/from`}
         compilations={[
           {
             assets: [
@@ -140,12 +137,11 @@ describe(`@roots/bud-dashboard app component`, () => {
             warningsCount: 0,
           },
         ]}
-        basedir={`/path/mock/from`}
         mode="production"
       />,
     )
 
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [mock-hash]                                                                         ./../to
       │
@@ -156,14 +152,14 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render entrypoints`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={mockCompilations}
         displayEntrypoints={true}
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [mock-hash]
       │
@@ -176,14 +172,14 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should not render entrypoints when entrypoints is empty`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={[{...mockCompilations[0], entrypoints: {}}]}
         displayEntrypoints={true}
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [mock-hash]
       │
@@ -194,7 +190,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should not render entrypoints when entrypoints are undefined`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         // @ts-ignore
         compilations={[{entrypoints: false, hash: `foo`}]}
@@ -202,7 +198,7 @@ describe(`@roots/bud-dashboard app component`, () => {
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ compilation [foo]
       │
@@ -213,8 +209,9 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should not render entrypoints when entrypoint assets are undefined`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
+        basedir={`/foo/bar`}
         compilations={[
           {
             entrypoints: {
@@ -223,12 +220,11 @@ describe(`@roots/bud-dashboard app component`, () => {
             hash: `foo`,
           },
         ]}
-        basedir={`/foo/bar`}
         displayEntrypoints={true}
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ compilation [foo]
       │
@@ -237,8 +233,9 @@ describe(`@roots/bud-dashboard app component`, () => {
       "
     `)
 
-    const {frames: frames2} = ink.render(
+    const {frames: frames2} = render(
       <Application
+        basedir={`/foo/bar`}
         compilations={[
           {
             entrypoints: {
@@ -247,13 +244,12 @@ describe(`@roots/bud-dashboard app component`, () => {
             hash: `foo`,
           },
         ]}
-        basedir={`/foo/bar`}
         displayEntrypoints={true}
         mode="production"
       />,
     )
 
-    expect(stripAnsi(frames2.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames2.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ compilation [foo]
       │
@@ -264,7 +260,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render compilation count for multi-compiler`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={[mockCompilations[0], mockCompilations[0]]}
         displayEntrypoints={true}
@@ -272,8 +268,7 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [1/2] [mock-hash]
       │
@@ -293,14 +288,14 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render assets`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={mockCompilations}
         displayAssets={true}
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [mock-hash]
       │
@@ -314,13 +309,13 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render error`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={mockCompilationsWithErrors}
         mode="production"
       />,
     )
-    expect(stripAnsi(frames.pop())).toMatchInlineSnapshot(`
+    expect(stripAnsi(frames.pop() as string)).toMatchInlineSnapshot(`
       "
       ╭ mock [mock-hash]
       │
@@ -332,7 +327,7 @@ describe(`@roots/bud-dashboard app component`, () => {
   })
 
   it(`should render server info`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         compilations={mockCompilations}
         devUrl={new URL(`http://localhost:3000`)}
@@ -347,14 +342,14 @@ describe(`@roots/bud-dashboard app component`, () => {
       />,
     )
 
-    const output = stripAnsi(frames.pop())
+    const output = stripAnsi(frames.pop() as string)
     expect(output).toContain(`Network`)
     expect(output).toContain(`› Proxy`)
     expect(output).toContain(`› Dev`)
   })
 
   it(`should not render proxy info when proxy not set`, () => {
-    const {frames} = ink.render(
+    const {frames} = render(
       <Application
         basedir={`/foo/bar`}
         compilations={mockCompilations}
@@ -369,32 +364,32 @@ describe(`@roots/bud-dashboard app component`, () => {
         publicProxyUrl={new URL(`http://example.test/`)}
       />,
     )
-    expect(stripAnsi(frames.pop())).not.toMatch(/.*Proxy.*/)
+    expect(stripAnsi(frames.pop() as string)).not.toMatch(/.*Proxy.*/)
   })
 
   it(`should not throw when crazy input happens`, () => {
-    const {lastFrame: basedirNumber} = ink.render(
+    const {lastFrame: basedirNumber} = render(
       // @ts-ignore
       <Application basedir={6} />,
     )
     expect(basedirNumber()).toBe(Char.Empty)
 
-    const {lastFrame: compilationTypeStringArray} = ink.render(
+    const {lastFrame: compilationTypeStringArray} = render(
       // @ts-ignore
       <Application compilations={[`foo`]} />,
     )
-    expect(stripAnsi(compilationTypeStringArray())).toBe(Char.Empty)
+    expect(stripAnsi(compilationTypeStringArray() as string)).toBe(Char.Empty)
 
-    const {lastFrame: compilationTypeNumberArray} = ink.render(
+    const {lastFrame: compilationTypeNumberArray} = render(
       // @ts-ignore
       <Application compilations={[1]} />,
     )
-    expect(stripAnsi(compilationTypeNumberArray())).toBe(Char.Empty)
+    expect(stripAnsi(compilationTypeNumberArray() as string)).toBe(Char.Empty)
 
-    const {lastFrame: compilationTypeString} = ink.render(
+    const {lastFrame: compilationTypeString} = render(
       // @ts-ignore
       <Application compilations={`foo`} />,
     )
-    expect(stripAnsi(compilationTypeString())).toBe(Char.Empty)
+    expect(stripAnsi(compilationTypeString() as string)).toBe(Char.Empty)
   })
 })

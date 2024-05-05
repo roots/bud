@@ -12,8 +12,8 @@ export const css: Factory<Item> = async ({makeItem}) =>
     loader: `css`,
     options: {modules: false},
   }).setOptions(({hooks: {filter}}) => ({
-    sourceMap: isBoolean(filter(`build.devtool`, false))
-      ? filter(`build.devtool`, false)
+    sourceMap: isBoolean(filter(`build.devtool`))
+      ? filter(`build.devtool`)
       : true,
   }))
 
@@ -24,11 +24,11 @@ export const cssModule: Factory<Item> = async ({makeItem}) =>
   makeItem({
     ident: `css-module`,
     loader: `css`,
-    options: {modules: true},
-  }).setOptions(({build, hooks}) => ({
-    importLoaders: build.rules[`css-module`].getUse().length - 2,
-    sourceMap: isBoolean(hooks.filter(`build.devtool`, false))
-      ? hooks.filter(`build.devtool`, false)
+  }).setOptions(({build, hooks: {filter}}) => ({
+    importLoaders: build.getRule(`css-module`).getUse().length - 2,
+    modules: {namedExport: false},
+    sourceMap: isBoolean(filter(`build.devtool`))
+      ? filter(`build.devtool`)
       : true,
   }))
 

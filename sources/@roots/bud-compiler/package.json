@@ -67,14 +67,14 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5",
-    "@types/react": "18.2.45"
+    "@types/node": "20.12.8",
+    "@types/react": "18.3.1"
   },
   "dependencies": {
     "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "react": "18.2.0",
+    "react": "18.3.1",
     "tslib": "2.6.2"
   },
   "volta": {

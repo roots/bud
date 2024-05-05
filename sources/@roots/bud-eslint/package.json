@@ -29,6 +29,10 @@
       "email": "christian.widlund@gmail.com",
       "name": "Christian Widlund",
       "url": "https://github.com/chrillep"
+    },
+    {
+      "name": "Daniel Sturm",
+      "url": "https://github.com/dsturm"
     }
   ],
   "license": "MIT",
@@ -78,17 +82,17 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/eslint": "8.56.0",
-    "@types/node": "20.10.5"
+    "@types/eslint": "8.56.10",
+    "@types/node": "20.12.8"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "eslint": "8.56.0",
-    "eslint-webpack-plugin": "4.0.1",
+    "eslint": "8.57.0",
+    "eslint-webpack-plugin": "4.1.0",
     "tslib": "2.6.2",
-    "webpack": "5.89.0"
+    "webpack": "5.91.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -16,7 +16,7 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
      *
      */
     public static make(
-      options: Partial<Options> & {name: string; path: string},
+      options: {name: string; path: string} & Partial<Options>,
     ): Events {
       if (typeof window.bud.hmr[options.name] === `undefined`)
         Object.assign(window.bud.hmr, {
@@ -63,7 +63,7 @@ export const injectEvents = (eventSource: EventSourceFactory) => {
      *
      */
     private constructor(
-      public options: Partial<Options> & {name: string; path: string},
+      public options: {name: string; path: string} & Partial<Options>,
     ) {
       super(options.path)
 

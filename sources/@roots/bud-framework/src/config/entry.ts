@@ -1,4 +1,7 @@
-export type EntryObject = Partial<{
+export type EntryObject = {
+  dependOn?: string | string[]
+  import: Array<string>
+} & Partial<{
   /**
    * Enable/disable creating async chunks that are loaded on demand.
    */
@@ -53,7 +56,4 @@ export type EntryObject = Partial<{
    * The method of loading WebAssembly Modules (methods included by default are 'fetch' (web/WebWorker), 'async-node' (node.js), but others might be added by plugins).
    */
   wasmLoading?: false | string
-}> & {
-  dependOn?: string | string[]
-  import: Array<string>
-}
+}>

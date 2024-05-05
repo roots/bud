@@ -13,9 +13,8 @@ declare global {
   }
 }
 
-let dev: Promise<ExecaReturnValue>
-
 let browser: Browser
+let dev: Promise<ExecaReturnValue>
 let dirname: string
 let page: Page
 let port: number
@@ -23,18 +22,20 @@ let port: number
 /**
  * Source path
  */
-const sourcePath = (...args: string[]) => repoPath(`examples`, dirname, ...args)
+const sourcePath = (...args: string[]) =>
+  repoPath(`examples`, dirname, ...args)
 
 /**
  * Target path
  */
-const path = (...args: string[]) => repoPath(`storage`, `fixtures`, dirname, ...args)
-
+const path = (...args: string[]) =>
+  repoPath(`storage`, `fixtures`, dirname, ...args)
 
 /**
  * Get dev url
  */
-const url = (port?: number) => port ? `http://0.0.0.0:${port}/` : `http://0.0.0.0/`
+const url = (port?: number) =>
+  port ? `http://0.0.0.0:${port}/` : `http://0.0.0.0/`
 
 /**
  * Setup test
@@ -146,15 +147,4 @@ const update = async (path: string, code: string) => {
   await page.waitForTimeout(12000)
 }
 
-export {
-  close,
-  install,
-  page,
-  path,
-  port,
-  read,
-  run,
-  setup,
-  update,
-  url,
-}
+export {close, dev, install, page, path, port, read, run, setup, update, url}

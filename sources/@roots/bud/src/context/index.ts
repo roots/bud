@@ -16,9 +16,9 @@ import * as budManifest from './bud.js'
 import getExtensions from './extensions.js'
 import services from './services.js'
 
-export type Options = Omit<Partial<Context>, `extensions`> & {
+export type Options = {
   extensions?: Array<string>
-}
+} & Omit<Partial<Context>, `extensions`>
 
 let context: Context
 

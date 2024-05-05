@@ -79,7 +79,7 @@ class Compiler extends Service implements BudCompiler {
    * {@link BudCompiler.onStats}
    */
   @bind
-  public onStats(stats: Stats & MultiStats) {
+  public onStats(stats: MultiStats & Stats) {
     const makeNoticeTitle = (child: StatsCompilation) =>
       this.app.label !== child.name
         ? `${this.app.label} (${child.name})`

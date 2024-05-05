@@ -4,6 +4,5 @@
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
     "ms-vscode-remote.remote-containers",
-    "ZixuanChen.vitest-explorer"
   ]
 }

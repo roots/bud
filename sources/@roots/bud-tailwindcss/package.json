@@ -92,19 +92,19 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.10.5",
+    "@types/node": "20.12.8",
     "@types/tailwindcss": "3.1.0",
     "@types/webpack-virtual-modules": "0.4.2",
-    "webpack": "5.89.0"
+    "webpack": "5.91.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "postcss": "8.4.32",
-    "sucrase": "3.34.0",
-    "tailwindcss": "3.4.0",
+    "postcss": "8.4.38",
+    "sucrase": "3.35.0",
+    "tailwindcss": "3.4.3",
     "tslib": "2.6.2",
     "webpack-virtual-modules": "0.6.1"
   },

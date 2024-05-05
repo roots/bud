@@ -3,7 +3,7 @@ import type {Supports} from './types.js'
 /**
  * Stack components mapped to package signifiers
  */
-const supportedExtensions: Record<`${Supports & string}`, string> = {
+const supportedExtensions: Record<`${string & Supports}`, string> = {
   babel: `@roots/bud-babel`,
   emotion: `@roots/bud-emotion`,
   eslint: `@roots/bud-eslint`,

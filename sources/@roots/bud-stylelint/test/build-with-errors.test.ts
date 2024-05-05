@@ -12,9 +12,10 @@ describe(`bud build with extensionless stylelintrc`, () => {
       `run`,
       `bud`,
       `build`,
+      `--force`,
     ], {reject: false})
 
-    expect(stripAnsi(result.stdout)).toContain(`│ │ 1 problem (1 error, 0 warnings)`)
+    expect(stripAnsi(result.stdout)).toContain(`╰ 1 error`)
     expect(result.exitCode).toBe(1)
   })
 })

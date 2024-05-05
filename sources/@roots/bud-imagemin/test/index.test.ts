@@ -1,11 +1,11 @@
 import {join} from 'node:path'
 
-import {paths} from '@repo/constants'
+import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import * as fs from 'fs-jetpack'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-const testDirectory = join(paths.sources, `@roots`, `bud-imagemin`, `test`)
+const testDirectory = path(`sources`, `@roots`, `bud-imagemin`, `test`)
 
 describe(`@roots/bud-imagemin test projects`, () => {
   beforeAll(async () => {
@@ -36,8 +36,8 @@ describe(`@roots/bud-imagemin test projects`, () => {
     )
 
     expect(source?.length).toMatchInlineSnapshot(`4995`)
-    expect(quality50?.length).toMatchInlineSnapshot('undefined')
-    expect(qualityDefault?.length).toMatchInlineSnapshot('undefined')
+    expect(quality50?.length).toMatchInlineSnapshot(`undefined`)
+    expect(qualityDefault?.length).toMatchInlineSnapshot(`undefined`)
   })
 
   it(`should generate webp with expected sizes`, async () => {
@@ -61,7 +61,7 @@ describe(`@roots/bud-imagemin test projects`, () => {
       ),
       `utf8`,
     )
-    expect(quality50?.length).toMatchInlineSnapshot('undefined')
-    expect(qualityDefault?.length).toMatchInlineSnapshot('undefined')
+    expect(quality50?.length).toMatchInlineSnapshot(`undefined`)
+    expect(qualityDefault?.length).toMatchInlineSnapshot(`undefined`)
   })
 })

@@ -1,6 +1,8 @@
 import type {GrayMatterFile} from 'gray-matter'
 
-import {path, projectConfig} from '@repo/constants'
+import {sep} from 'path'
+
+import {path} from '@repo/constants'
 import {Filesystem, json as Json} from '@roots/bud-support/filesystem'
 import globby from '@roots/bud-support/globby'
 import {Logger} from '@roots/bud-support/logger'
@@ -9,20 +11,19 @@ import {format} from 'prettier'
 
 import {templates} from './renderer/index.js'
 
-const fs = new Filesystem()
-const logger = new Logger({
-  logLevel: `info`,
-})
-
 type Chunks = Array<string> | Promise<Array<string>>
 type File = GrayMatterFile<string>
 type ChunkReducer<T> = (chunks: Chunks, obj: T) => Promise<Chunks>
 type ForPackage<T> = (signifier: string) => T
 
+const fs = new Filesystem()
+const logger = new Logger({logLevel: `info`})
+
 /**
  * Returns props for a template
  */
 const getProps = async (signifier: string) => {
+  const {default: projectConfig} = await import(path(`config`, `monorepo.config.cjs`))
   const json = await Json.read(path(`sources`, signifier, `package.json`))
   return {...json, projectConfig}
 }
@@ -83,7 +84,7 @@ const partials: ForPackage<ChunkReducer<string>> =
     const chunks = await promised
 
     const file = matter(
-      await fs.read(path(`sources/${signifier}/docs/${docsPath}`), `utf8`),
+      await fs.read(path(`sources`, signifier, `docs`, docsPath), `utf8`),
     )
 
     return [
@@ -103,11 +104,13 @@ const partials: ForPackage<ChunkReducer<string>> =
  * - An `extension` package is an optional Bud interface
  * - A `library` package is not Bud specific but is used by Bud interfaces
  */
-await globby(path(`sources/@roots/*`), {
+await globby(path(`sources`, `@roots`, `*`), {
   onlyDirectories: true,
 }).then(async packages => {
   await Promise.all(
-    packages.map(path => path.split(`sources/`).pop()).map(generateReadme),
+    packages
+      .map(path => path.split(`sources${sep}`).pop())
+      .map(generateReadme),
   )
 })
 
