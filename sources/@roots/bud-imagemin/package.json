@@ -76,7 +76,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "image-minimizer-webpack-plugin": "3.8.3",
+    "image-minimizer-webpack-plugin": "4.0.0",
     "sharp": "0.33.3",
     "svgo": "3.2.0",
     "tslib": "2.6.2",
