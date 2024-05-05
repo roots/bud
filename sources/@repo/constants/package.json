@@ -11,7 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "20.12.8",
-    "vitest": "1.5.3"
+    "vitest": "1.6.0"
   },
   "dependencies": {
     "tslib": "2.6.2"
