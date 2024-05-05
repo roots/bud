@@ -10372,7 +10372,7 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": "npm:0.2.2"
     "@types/node": "npm:20.12.8"
-    image-minimizer-webpack-plugin: "npm:3.8.3"
+    image-minimizer-webpack-plugin: "npm:4.0.0"
     sharp: "npm:0.33.3"
     svgo: "npm:3.2.0"
     tslib: "npm:2.6.2"
@@ -26593,12 +26593,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"image-minimizer-webpack-plugin@npm:3.8.3":
-  version: 3.8.3
-  resolution: "image-minimizer-webpack-plugin@npm:3.8.3"
+"image-minimizer-webpack-plugin@npm:4.0.0":
+  version: 4.0.0
+  resolution: "image-minimizer-webpack-plugin@npm:4.0.0"
   dependencies:
     schema-utils: "npm:^4.2.0"
-    serialize-javascript: "npm:^6.0.1"
+    serialize-javascript: "npm:^6.0.2"
   peerDependencies:
     webpack: ^5.1.0
   peerDependenciesMeta:
@@ -26610,7 +26610,7 @@ __metadata:
       optional: true
     svgo:
       optional: true
-  checksum: 5117ab29feff3ca123be1421239321240dbb09e4d85d744b728ba240e57c41cde639fda57c13e1719b988b890de2441e8edad0d7e48ab143bb29b87340506aa3
+  checksum: 4ee0960ced64adf262a1e35ad9e7029ac48732952bfdeff8e52f90e701f23439974946e5dfa775bfcd37ebf9a23c21e1db33427018b2589099854893e03ef280
   languageName: node
   linkType: hard
 
