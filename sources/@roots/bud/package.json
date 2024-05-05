@@ -185,7 +185,7 @@
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "browserslist": "4.23.0",
-    "caniuse-lite": "1.0.30001615",
+    "caniuse-lite": "1.0.30001616",
     "tslib": "2.6.2"
   },
   "volta": {

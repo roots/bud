@@ -69,7 +69,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/lodash-es": "4.17.12",
     "@types/node": "20.12.8",
-    "json-schema-to-typescript": "13.1.2"
+    "json-schema-to-typescript": "14.0.4"
   },
   "dependencies": {
     "fs-jetpack": "5.1.0",

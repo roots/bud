@@ -61,7 +61,7 @@
     "@roots/bud-support": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "browserslist": "4.23.0",
-    "caniuse-lite": "1.0.30001615"
+    "caniuse-lite": "1.0.30001616"
   },
   "volta": {
     "extends": "../../../package.json"
