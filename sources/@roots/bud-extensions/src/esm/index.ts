@@ -35,5 +35,13 @@ export default class Esm extends Extension {
             ...(bud.context.manifest.imports as any),
           })),
       )
+      .when(
+        bud.extensions.get(`@roots/bud-extensions/html-webpack-plugin`)
+          .isEnabled,
+        ({extensions}) =>
+          extensions
+            .get(`@roots/bud-extensions/html-webpack-plugin`)
+            .set(`scriptLoading`, `module`),
+      )
   }
 }

@@ -55,6 +55,7 @@ module.exports = {
     },
     {
       dependencies: [`**`],
+      isIgnored: true,
       label: `Example code`,
       packages: [`@examples/*`],
     },

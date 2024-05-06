@@ -3,15 +3,18 @@ import {describe, expect, it} from 'vitest'
 
 describe(`examples/babel`, () => {
   it(`should compile js as expected`, async () => {
-    const test = setup({
-      label: `@examples/babel`,
-    })
+    const test = setup({label: `@examples/babel`})
     await test.install()
     await test.build()
 
-    const js = test.getAsset(`app.js`)
-    expect(js.length).toBeGreaterThan(10)
-    expect(typeof js === `string` && js.includes(`import `)).toBeFalsy()
-    expect(test.manifest).toMatchSnapshot()
+    expect(test.getAsset(`main.js`)).toMatchInlineSnapshot(`""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":()=>{var s;null===(s=document.querySelector("#root"))||void 0===s||s.classList.add("init")}},s=>{var e;e="./index.js",s(s.s=e)}]);"`)
+    expect(test.manifest).toMatchInlineSnapshot(`
+      {
+        "entrypoints.json": "entrypoints.json",
+        "main.css": "css/main.css",
+        "main.js": "js/main.js",
+        "runtime.js": "js/runtime.js",
+      }
+    `)
   })
 })

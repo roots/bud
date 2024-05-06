@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/vue-typescript > should compile js and css as expected 1`] = `
+exports[`examples/vue-typescript > should compile assets as expected 1`] = `
 {
   "entrypoints.json": "entrypoints.json",
   "main.css": "css/main.css",

@@ -1,0 +1,11 @@
+diff --git a/build/index.js b/build/index.js
+index bbdc07b3c1f1b8e447cd8b593c6e60fbcbd8db1f..3716c960a51e4cb8761a33023a8c8898c477df83 100644
+--- a/build/index.js
++++ b/build/index.js
+@@ -1,5 +1,5 @@
+ import { EventEmitter } from 'node:events';
+-import { render as inkRender } from 'ink';
++import { render as inkRender } from '@roots/bud-support/ink';
+ class Stdout extends EventEmitter {
+     constructor() {
+         super(...arguments);

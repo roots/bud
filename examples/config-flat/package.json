@@ -1,0 +1,12 @@
+{
+  "name": "@examples/config-flat",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*"
+  }
+}

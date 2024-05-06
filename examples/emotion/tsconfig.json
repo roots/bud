@@ -1,0 +1,6 @@
+{
+  "extends": ["@roots/bud/config/tsconfig.json"],
+  "compilerOptions": {
+    "types": ["@roots/bud", "@roots/bud-emotion", "@roots/bud-react", "@roots/bud-swc"]
+  },
+}

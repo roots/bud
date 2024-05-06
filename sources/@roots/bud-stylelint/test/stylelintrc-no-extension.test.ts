@@ -18,15 +18,15 @@ describe(`bud build with extensionless stylelintrc`, () => {
     const [_s, title, _s2, entry, runtime, css, js, _s3, timings] =
       stripAnsi(result.stdout).split(`\n`)
 
-    expect(title).toMatch(/╭ stylelintrc-no-extension \[.*\].*\.\/dist/)
-    expect(entry).toMatch(/│ app/)
-    expect(runtime).toMatch(/│  ◉ js\/runtime\.js\s/)
-    expect(css).toMatch(/│  ◉ css\/app\.css\s/)
-    expect(js).toMatch(/│  ◉ js\/app\.js./)
-    expect(timings).toMatch(/╰ .*ms \d* modules \[.\/\d* modules cached\]/)
-    expect(_s).toEqual(``)
-    expect(_s2).toMatch(/│/)
-    expect(_s3).toMatch(/│/)
+    expect(stripAnsi(result.stdout).split(/\n/).slice(0, 7).join(`\n`)).toMatchInlineSnapshot(`
+      "
+      ╭ stylelintrc-no-extension [87e8ac84aafa65f4]                               ./dist
+      │
+      │ app
+      │  ◉ js/runtime.js                                                     ✔ 904 bytes
+      │  ◉ css/app.css                                                        ✔ 23 bytes
+      │  ◉ js/app.js                                                         ✔ 264 bytes"
+    `)
 
     expect(result.exitCode).toBe(0)
   })

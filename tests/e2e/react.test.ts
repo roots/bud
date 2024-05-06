@@ -3,16 +3,11 @@ import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 import {close, page, path, read, setup, update} from './runner/index.js'
 
 describe(`html output of examples/react`, () => {
-  let original: string | undefined
-
-  beforeAll(async () => {
-    await setup(`react`).then(({page}) => page)
-    original = await read(`src`, `components`, `App.js`)
-  })
-
+  beforeAll(async () => await setup(`react`))
   afterAll(close)
 
   it(`should have expected default state`, async () => {
+    const original = await read(`src`, `components`, `App.js`)
     expect(original).toMatchSnapshot()
 
     expect(

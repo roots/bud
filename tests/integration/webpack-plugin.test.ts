@@ -3,7 +3,7 @@ import {filesystem as fs} from '@roots/bud-support/filesystem'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/webpack-plugin`, () => {
-  it(`should compile js and css as expected`, async () => {
+  it(`should compile assets as expected`, async () => {
     const test = setup({
       buildCommand: [`npx`, [`bud`, `build`, `--debug`, `--force`]],
       label: `@examples/webpack-plugin`,

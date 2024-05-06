@@ -2,7 +2,7 @@
   login: kellymears
   avatar: https://avatars.githubusercontent.com/u/397606?v=4
   url: https://github.com/kellymears
-  contributions: 109
+  contributions: 111
   email: developers@tinypixel.dev
 - name: Ben Word
   login: retlehs
@@ -38,3 +38,9 @@
   url: https://github.com/Log1x
   contributions: 1
   email: brandon@tendency.me
+- name: Lee Hanbury
+  login: codepuncher
+  avatar: https://avatars.githubusercontent.com/u/8135396?v=4
+  url: https://github.com/codepuncher
+  contributions: 1
+  email: lee.hanbury@gmail.com

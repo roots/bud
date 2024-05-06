@@ -5,6 +5,8 @@ exports[`html output of examples/basic > should have expected default state 1`] 
 
 document.querySelector('#root')?.classList.add('init')
 
-if (import.meta.webpackHot) import.meta.webpackHot.accept()
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept()
+}
 "
 `;

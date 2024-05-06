@@ -8,7 +8,6 @@
   ],
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*"
   }
 }

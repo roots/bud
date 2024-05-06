@@ -3,26 +3,25 @@ import {testIsCompiledCss, testIsMinimized} from '@repo/test-kit/tests'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/purgecss`, () => {
-  it(`should compile js and css as expected`, async () => {
+  it(`should compile assets as expected`, async () => {
     const test = setup({label: `@examples/purgecss`})
+
     await test.install()
     await test.build()
 
-    const css = test.assets[`main.css`]
-
-    testIsCompiledCss(css)
-    testIsMinimized(css)
+    testIsCompiledCss(test.getAsset(`main.css`))
+    testIsMinimized(test.getAsset(`main.css`))
 
     // matched in src/index.html
-    expect(test.assets[`main.css`]).toMatch(/h1{.*}/)
-    expect(test.assets[`main.css`]).toMatch(/h2{.*}/)
+    expect(test.getAsset(`main.css`)).toMatch(/h1{.*}/)
+    expect(test.getAsset(`main.css`)).toMatch(/h2{.*}/)
 
     // matched in src/index.js
-    expect(test.assets[`main.css`]).toMatch(/\.include{.*}/)
-    expect(test.assets[`main.css`]).toMatch(/\.comment-test{.*}/)
+    expect(test.getAsset(`main.css`)).toMatch(/\.include{.*}/)
+    expect(test.getAsset(`main.css`)).toMatch(/\.comment-test{.*}/)
 
     // not matched in source
-    expect(test.assets[`main.css`]).not.toMatch(/h3{.*}/)
-    expect(test.assets[`main.css`]).not.toMatch(/div \.bar{.*}/)
+    expect(test.getAsset(`main.css`)).not.toMatch(/h3{.*}/)
+    expect(test.getAsset(`main.css`)).not.toMatch(/div \.bar{.*}/)
   })
 })

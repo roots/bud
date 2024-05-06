@@ -1,0 +1,23 @@
+{
+  "name": "@examples/chakra-ui",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-emotion": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "@roots/bud-swc": "workspace:*"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "2.8.2",
+    "@emotion/react": "11.11.1",
+    "@emotion/styled": "11.11.0",
+    "framer-motion": "11.0.3",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  }
+}

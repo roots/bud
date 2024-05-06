@@ -1,33 +1,21 @@
-import { ElementHandle } from 'playwright'
 import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
 import {close, page, path, read, setup, update} from './runner/index.js'
 
-describe(`html output of examples/babel`, () => {
-  let title: string | undefined
-  let original: string | undefined
-  let root: ElementHandle<any> | null
-
-  beforeAll(async () => {
-    await setup(`babel`)
-    original = await read(path(`src`, `index.js`))
-    title = await page.title()
-    root = await page.$(`#root`)
-  })
-
+describe(`@examples/babel-advanced`, () => {
+  beforeAll(async () => await setup(`babel-advanced`))
   afterAll(close)
 
   it(`should have expected default state`, async () => {
-    expect(original).toMatchSnapshot()
-    expect(title).toBe(`@examples/babel`)
+    expect(await read(path(`src`, `app.js`))).toMatchSnapshot()
+    expect(await page.title()).toBe(`@examples/babel-advanced`)
 
+    const root = await page.$(`#root`)
     expect(
-      await root?.evaluate(el =>
-        window.getComputedStyle(el).getPropertyValue(`background`),
+      await root?.evaluate(element =>
+        window.getComputedStyle(element).getPropertyValue(`background`),
       ),
-    ).toMatchSnapshot(
-      `rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box`,
-    )
+    ).toMatchInlineSnapshot(`"rgb(88, 19, 213) none repeat scroll 0% 0% / auto padding-box border-box"`)
 
     expect(await page.$(`.updated`)).toBeFalsy()
   })
@@ -73,6 +61,7 @@ describe(`html output of examples/babel`, () => {
   `,
     )
 
+    const root = await page.$(`#root`)
     expect(
       await root?.evaluate(el =>
         window.getComputedStyle(el).getPropertyValue(`background`),
