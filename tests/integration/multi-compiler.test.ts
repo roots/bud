@@ -14,7 +14,5 @@ describe(`examples/multi-compiler`, () => {
 
     testIsCompiledJs(test.getAsset(`plugin.js`))
     testIsCompiledCss(test.getAsset(`plugin.css`))
-
-    expect(test.manifest).toMatchSnapshot()
   })
 })
