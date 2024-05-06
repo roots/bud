@@ -4,7 +4,7 @@ import fs from 'fs-jetpack'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/imagemin`, () => {
-  it(`should compile js and css as expected`, async () => {
+  it(`should compile assets as expected`, async () => {
     const test = setup({
       label: `@examples/imagemin`,
     })

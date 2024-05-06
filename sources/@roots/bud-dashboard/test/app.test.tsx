@@ -18,9 +18,6 @@ const enum Char {
   Vertical = `│`,
 }
 
-const startsWith = (line: string, char: Char) =>
-  new RegExp(`^${char}`).test(line)
-
 const mockCompilations: Array<Partial<StatsCompilation>> = [
   {
     assets: [

@@ -1,10 +1,9 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/babel > should compile js as expected 1`] = `
+exports[`examples/solid > should compile assets as expected 1`] = `
 {
+  "app.js": "js/app.js",
   "entrypoints.json": "entrypoints.json",
-  "main.css": "css/main.css",
-  "main.js": "js/main.js",
   "runtime.js": "js/runtime.js",
 }
 `;

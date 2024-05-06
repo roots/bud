@@ -84,7 +84,7 @@
     "@skypack/package-check": "0.2.2",
     "@types/node": "20.12.8",
     "@types/react": "18.3.1",
-    "ink-testing-library": "3.0.0",
+    "ink-testing-library": "patch:ink-testing-library@npm%3A3.0.0#~/.yarn/patches/ink-testing-library-npm-3.0.0-c20aad0bd9.patch",
     "vitest": "1.6.0",
     "webpack": "5.91.0"
   },

@@ -1,5 +1,5 @@
 {
-  "name": "@examples/tailwindcss",
+  "name": "@examples/tailwindcss-advanced",
   "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",

@@ -1,21 +1,21 @@
 import setup from '@repo/test-kit/setup'
+import {testIsCompiledJs} from '@repo/test-kit/tests'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/splide`, () => {
-  it(`should compile js and css as expected`, async () => {
+  it(`should compile assets as expected`, async () => {
     const test = setup({
       label: `@examples/splide`,
     })
     await test.install()
     await test.build()
 
-    expect(test.assets[`main.js`].length).toBeGreaterThan(10)
-    expect(test.assets[`main.js`].includes(`@import`)).toBeFalsy()
+    testIsCompiledJs(test.getAsset(`main.js`))
+    testIsCompiledJs(test.getAsset(`runtime.js`))
 
-    expect(test.assets[`runtime.js`].length).toBeGreaterThan(10)
-    expect(test.assets[`runtime.js`].includes(`@import`)).toBeFalsy()
-
-    const entries = Object.keys(test.assets).filter((key) => key.match(/css\/.*/))
+    const entries = Object.keys(test.assets).filter(key =>
+      key.match(/css\/.*/),
+    )
     expect(entries.length).toEqual(1)
 
     const cssKey = entries.pop()
@@ -23,6 +23,6 @@ describe(`examples/splide`, () => {
     // for typescript...
     if (!cssKey) throw new Error(`cssKey is not a string`)
 
-    expect(test.assets[cssKey]).toMatch(/.*\.splide__.*/)
+    expect(test.getAsset(cssKey)).toMatch(/.*\.splide__.*/)
   })
 })

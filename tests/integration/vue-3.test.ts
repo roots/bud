@@ -2,7 +2,7 @@ import setup from '@repo/test-kit/setup'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/vue-3`, () => {
-  it(`should compile js and css as expected`, async () => {
+  it(`should compile assets as expected`, async () => {
     const test = setup({
       label: `@examples/vue-3`,
     })

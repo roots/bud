@@ -1,3 +1,5 @@
+import './index.css'
+
 class CoolClass {
   hello() {
     return 'world'

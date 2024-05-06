@@ -9,4 +9,4 @@ export const root = (
   .split(`sources`)
   .shift()
 
-export const path = (...path) => (path?.length ? join(root, ...path) : root)
+export const path = (...path) => (path.length ? join(root, ...path) : root)

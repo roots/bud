@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/sass-tailwindcss > should compile js and css as expected 1`] = `
+exports[`examples/sass-tailwindcss > should compile assets as expected 1`] = `
 {
   "app.css": "css/app.css",
   "entrypoints.json": "entrypoints.json",

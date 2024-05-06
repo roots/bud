@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/multi-compiler > should compile js and css as expected 1`] = `
+exports[`examples/multi-compiler > should compile assets as expected 1`] = `
 {
   "entrypoints.json": "entrypoints.json",
   "js/259.js": "js/259.js",

@@ -1,4 +1,5 @@
 import setup from '@repo/test-kit/setup'
+import { testIsCompiledJs } from '@repo/test-kit/tests'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/babel-advanced`, () => {
@@ -8,8 +9,7 @@ describe(`examples/babel-advanced`, () => {
     await test.install()
     await test.build()
 
-    expect(test.getAsset(`app.js`).length).toBeGreaterThan(10)
-    expect(test.getAsset(`app.js`)).not.toMatch(/import /)
+    testIsCompiledJs(test.getAsset(`app.js`))
     expect(test.manifest).toMatchSnapshot()
   })
 })

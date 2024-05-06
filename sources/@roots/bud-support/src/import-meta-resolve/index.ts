@@ -1,8 +1,8 @@
 import * as importMeta from 'import-meta-resolve'
 
-export const resolve = async (id: string, from: string | URL) => {
+export const resolve = async (specifier: string, from: string | URL) => {
   return importMeta.resolve(
-    id,
+    specifier,
     from instanceof URL ? from.toString() : from,
   )
 }
