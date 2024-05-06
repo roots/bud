@@ -7,7 +7,7 @@ describe(`examples/babel`, () => {
     await test.install()
     await test.build()
 
-    expect(test.getAsset(`main.js`)).toMatchInlineSnapshot(`""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":function(){document.querySelector("#root")?.classList.add("init")}},function(s){var e;e="./index.js",s(s.s=e)}]);"`)
+    expect(test.getAsset(`main.js`)).toMatchInlineSnapshot(`""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":()=>{var s;null===(s=document.querySelector("#root"))||void 0===s||s.classList.add("init")}},s=>{var e;e="./index.js",s(s.s=e)}]);"`)
     expect(test.manifest).toMatchInlineSnapshot(`
       {
         "entrypoints.json": "entrypoints.json",

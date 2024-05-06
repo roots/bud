@@ -1,5 +1,5 @@
 {
-  "name": "@examples/daisyui",
+  "name": "@examples/esm",
   "$schema": "https://bud.js.org/bud.package.json",
   "private": true,
   "type": "module",
@@ -7,8 +7,6 @@
     "extends @roots/browserslist-config"
   ],
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-tailwindcss": "workspace:*",
-    "daisyui": "4.6.0"
+    "@roots/bud": "workspace:*"
   }
 }

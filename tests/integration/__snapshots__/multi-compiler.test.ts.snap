@@ -3,7 +3,7 @@
 exports[`examples/multi-compiler > should compile assets as expected 1`] = `
 {
   "entrypoints.json": "entrypoints.json",
-  "js/259.js": "js/259.js",
+  "js/642.js": "js/642.js",
   "plugin.css": "css/plugin.css",
   "plugin.js": "js/plugin.js",
   "runtime.js": "js/runtime.js",

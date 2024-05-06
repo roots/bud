@@ -8411,7 +8411,6 @@ __metadata:
   resolution: "@examples/css-module@workspace:examples/css-module"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
   languageName: unknown
   linkType: soft
@@ -8421,7 +8420,6 @@ __metadata:
   resolution: "@examples/daisyui@workspace:examples/daisyui"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     daisyui: "npm:4.6.0"
   languageName: unknown
@@ -8454,6 +8452,14 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-eslint": "workspace:*"
     "@roots/eslint-config": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
+"@examples/esm@workspace:examples/esm":
+  version: 0.0.0-use.local
+  resolution: "@examples/esm@workspace:examples/esm"
+  dependencies:
+    "@roots/bud": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -8492,6 +8498,9 @@ __metadata:
   resolution: "@examples/multi@workspace:examples/multi-compiler"
   dependencies:
     "@roots/bud": "workspace:*"
+    "@roots/bud-preset-recommend": "workspace:*"
+    "@roots/bud-react": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
   languageName: unknown
   linkType: soft
 

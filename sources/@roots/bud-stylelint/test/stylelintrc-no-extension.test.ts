@@ -20,12 +20,12 @@ describe(`bud build with extensionless stylelintrc`, () => {
 
     expect(stripAnsi(result.stdout).split(/\n/).slice(0, 7).join(`\n`)).toMatchInlineSnapshot(`
       "
-      ╭ stylelintrc-no-extension [8c8412b9b0365262]                               ./dist
+      ╭ stylelintrc-no-extension [87e8ac84aafa65f4]                               ./dist
       │
       │ app
-      │  ◉ js/runtime.js                                                       ✔ 1.02 kB
+      │  ◉ js/runtime.js                                                     ✔ 904 bytes
       │  ◉ css/app.css                                                        ✔ 23 bytes
-      │  ◉ js/app.js                                                         ✔ 301 bytes"
+      │  ◉ js/app.js                                                         ✔ 264 bytes"
     `)
 
     expect(result.exitCode).toBe(0)

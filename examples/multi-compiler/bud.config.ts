@@ -1,18 +1,17 @@
 import {bud} from '@roots/bud'
 
-/**
- * Make `theme` workspace in `./theme` and setup entrypoints
- * Files will be output to `./theme/dist`
- */
-await bud.make({label: 'theme', basedir: bud.path('theme')}, async theme =>
-  theme.entry('theme', ['theme.js', 'theme.css']),
+await bud.make(`theme`, async compiler =>
+  compiler
+    .use(['@roots/bud-preset-recommend', '@roots/bud-tailwindcss'])
+    .setPath(`@src`, `theme/src`)
+    .setPath(`@dist`, `theme/dist`)
+    .entry(`theme`, [`theme.js`, `theme.css`]),
 )
 
-/**
- * Make plugin workspace in `./plugin` and setup entrypoints
- * Files will be output to `./plugin/dist`
- */
-await bud.make(
-  {label: 'plugin', basedir: bud.path('plugin'), dependsOn: [`theme`]},
-  async plugin => plugin.entry('plugin', ['plugin.js', 'plugin.css']),
+await bud.make(`plugin`, async plugin =>
+  plugin
+    .use(['@roots/bud-preset-recommend', '@roots/bud-react'])
+    .setPath(`@src`, `plugin/src`)
+    .setPath(`@dist`, `plugin/dist`)
+    .entry(`plugin`, [`plugin.js`, `plugin.css`]),
 )
