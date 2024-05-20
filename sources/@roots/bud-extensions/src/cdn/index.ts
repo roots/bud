@@ -1,9 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {
-  Extension,
-  type StrictPublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -27,7 +24,7 @@ export type Options = {
   upgrade: boolean
 }
 
-type Api = StrictPublicExtensionApi<Cdn, Options>
+type Api = ExtensionApi<Cdn, Options>
 
 /**
  * Http modules configuration

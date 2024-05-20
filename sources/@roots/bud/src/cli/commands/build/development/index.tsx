@@ -35,11 +35,11 @@ export default class BuildDevelopmentCommand extends BuildCommand {
 
   public override mode: typeof mode = `development`
 
-  public browser = browser
-
   public override hot = hot
 
   public override proxy = proxy
+
+  public browser = browser
 
   public indicator = indicator
 

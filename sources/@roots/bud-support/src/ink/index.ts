@@ -1,6 +1,3 @@
-/**
- * Quick patch job
- */
 export {default as Text} from './text.js'
 
 export {

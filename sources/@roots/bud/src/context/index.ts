@@ -3,13 +3,13 @@ import type {Context} from '@roots/bud-framework/context'
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
+import args from '@roots/bud-framework/bootstrap/args'
+import * as projectEnv from '@roots/bud-framework/bootstrap/env'
+import * as projectFiles from '@roots/bud-framework/bootstrap/files'
+import * as projectPaths from '@roots/bud-framework/bootstrap/paths'
 import * as filesystem from '@roots/bud-support/filesystem'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
-import * as projectEnv from '@roots/bud-support/utilities/env'
-import * as projectFiles from '@roots/bud-support/utilities/files'
-import * as projectPaths from '@roots/bud-support/utilities/paths'
 import whichPm from '@roots/bud-support/which-pm'
 
 import * as budManifest from './bud.js'
@@ -97,7 +97,7 @@ export default async function make(
 
   logger
     .unscope()
-    .scope(`bootstrap`)
+    .scope(context.label, `bootstrap`)
     .log(`🏗️`, `building`, context.label)
     .log(`📂`, `basedir`, context.basedir)
     .log(`😎`, `version`, context.bud.version)

@@ -48,8 +48,6 @@ class BudEslint extends BudEslintPublicApi implements Api {
   @deprecated(`bud.eslint`, `Use bud.eslint.setFix instead`, [
     [`Enable fix`, `bud.eslint.setFix(true)`],
     [`Disable fix`, `bud.eslint.setFix(false)`],
-    [`Check if fix is enabled`, `bud.eslint.getFix()`],
-    [`Assign a value`, `bud.eslint.fix = true`],
   ])
   // @ts-ignore
   public fix(fix: boolean = true): this {
@@ -62,20 +60,12 @@ class BudEslint extends BudEslintPublicApi implements Api {
    */
   @bind
   public override async register({context, hooks}: Bud) {
-    /**
-     * Resolve eslint
-     */
-    try {
-      this.setEslintPath(await this.resolve(`eslint`, import.meta.url))
-    } catch (err) {
-      throw err
-    }
+    // resolve eslint
+    const eslint = await this.resolve(`eslint`, import.meta.url)
+    eslint && this.setEslintPath(eslint)
 
-    /**
-     * Add {@link config.path} to cache dependencies if available
-     */
-    const config = Object.values(context.files).find(({name}) =>
-      name.includes(`eslint`),
+    const config = Object.values(context.files).find(
+      ({name}) => name.includes(`eslint`) && !name.includes(`ignore`),
     )
 
     if (config) {
@@ -84,8 +74,6 @@ class BudEslint extends BudEslintPublicApi implements Api {
         eslint: [config.path],
       }))
       this.setOverrideConfig(await config.module())
-    } else {
-      this.setUseEslintrc(true)
     }
   }
 }

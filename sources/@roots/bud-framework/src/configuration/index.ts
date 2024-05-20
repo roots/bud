@@ -29,15 +29,15 @@ class Configuration {
   public async run(source: Config): Promise<void> {
     if (!source?.module) {
       throw BudError.normalize(`No module found`, {
-        details: `There should be a module here. This is likely an internal error in bud.js.`,
+        details: `A module was expected at ${source.name}${source.ext}`,
         file: source,
       })
     }
 
-    const config = await source.module().catch(origin => {
+    const config = await source.module().catch(error => {
       throw ConfigError.normalize(`Error parsing ${source.name}`, {
         file: source,
-        origin,
+        origin: error.message ?? error,
       })
     })
 
@@ -51,14 +51,26 @@ class Configuration {
       return await new DynamicConfiguration(this.bud)
         .execute(config)
         .catch(error => {
-          throw error
+          throw ConfigError.normalize(
+            `Error executing function exported from ${source.name}`,
+            {
+              details: error.message ?? error,
+              file: source,
+            },
+          )
         })
     }
 
     await new StaticConfiguration(this.bud, `${source.name}${source.ext}`)
       .execute(config)
       .catch(error => {
-        throw error
+        throw ConfigError.normalize(
+          `Error parsing static configuration at ${source.name}`,
+          {
+            details: error.message ?? error,
+            file: source,
+          },
+        )
       })
   }
 }

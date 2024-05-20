@@ -73,12 +73,63 @@
     "./cli/commands/upgrade": "./lib/cli/commands/upgrade/index.js",
     "./cli/commands/view": "./lib/cli/commands/view/index.js",
     "./cli/commands/webpack": "./lib/cli/commands/webpack/index.js",
+    "./cli/components/menu": "./lib/cli/components/Menu.js",
     "./cli/finder": "./lib/cli/finder.js",
     "./cli/flags": "./lib/cli/flags/index.js",
-    "./cli/flags/*": "./lib/cli/flags/*.js",
-    "./cli/helpers/*": "./lib/cli/helpers/*.js",
+    "./cli/flags/basedir": "./lib/cli/flags/basedir.js",
+    "./cli/flags/browser": "./lib/cli/flags/browser.js",
+    "./cli/flags/browserslist-update": "./lib/cli/flags/browserslist-update.js",
+    "./cli/flags/cache": "./lib/cli/flags/cache.js",
+    "./cli/flags/ci": "./lib/cli/flags/ci.js",
+    "./cli/flags/clean": "./lib/cli/flags/clean.js",
+    "./cli/flags/color": "./lib/cli/flags/color.js",
+    "./cli/flags/dashboard": "./lib/cli/flags/dashboard.js",
+    "./cli/flags/dashboard.assets": "./lib/cli/flags/dashboard.assets.js",
+    "./cli/flags/dashboard.compact": "./lib/cli/flags/dashboard.compact.js",
+    "./cli/flags/dashboard.entrypoints": "./lib/cli/flags/dashboard.entrypoints.js",
+    "./cli/flags/dashboard.server": "./lib/cli/flags/dashboard.server.js",
+    "./cli/flags/debug": "./lib/cli/flags/debug.js",
+    "./cli/flags/devtool": "./lib/cli/flags/devtool.js",
+    "./cli/flags/discover": "./lib/cli/flags/discover.js",
+    "./cli/flags/dry": "./lib/cli/flags/dry.js",
+    "./cli/flags/editor": "./lib/cli/flags/editor.js",
+    "./cli/flags/entrypoints.html": "./lib/cli/flags/entrypoints.html.js",
+    "./cli/flags/esm": "./lib/cli/flags/esm.js",
+    "./cli/flags/filter": "./lib/cli/flags/filter.js",
+    "./cli/flags/force": "./lib/cli/flags/force.js",
+    "./cli/flags/hash": "./lib/cli/flags/hash.js",
+    "./cli/flags/hot": "./lib/cli/flags/hot.js",
+    "./cli/flags/html": "./lib/cli/flags/html.js",
+    "./cli/flags/ignoreErrors": "./lib/cli/flags/ignoreErrors.js",
+    "./cli/flags/immutable": "./lib/cli/flags/immutable.js",
+    "./cli/flags/indent": "./lib/cli/flags/indent.js",
+    "./cli/flags/indicator": "./lib/cli/flags/indicator.js",
+    "./cli/flags/input": "./lib/cli/flags/input.js",
+    "./cli/flags/lazy": "./lib/cli/flags/lazy.js",
+    "./cli/flags/log": "./lib/cli/flags/log.js",
+    "./cli/flags/minimize": "./lib/cli/flags/minimize.js",
+    "./cli/flags/mode": "./lib/cli/flags/mode.js",
+    "./cli/flags/notify": "./lib/cli/flags/notify.js",
+    "./cli/flags/output": "./lib/cli/flags/output.js",
+    "./cli/flags/overlay": "./lib/cli/flags/overlay.js",
+    "./cli/flags/port": "./lib/cli/flags/port.js",
+    "./cli/flags/proxy": "./lib/cli/flags/proxy.js",
+    "./cli/flags/publicPath": "./lib/cli/flags/publicPath.js",
+    "./cli/flags/reload": "./lib/cli/flags/reload.js",
+    "./cli/flags/runtime": "./lib/cli/flags/runtime.js",
+    "./cli/flags/silent": "./lib/cli/flags/silent.js",
+    "./cli/flags/splitChunks": "./lib/cli/flags/splitChunks.js",
+    "./cli/flags/storage": "./lib/cli/flags/storage.js",
+    "./cli/flags/use": "./lib/cli/flags/use.js",
+    "./cli/flags/verbose": "./lib/cli/flags/verbose.js",
+    "./cli/helpers/browserslistUpdate": "./lib/cli/helpers/browserslistUpdate.js",
+    "./cli/helpers/checkDependencies": "./lib/cli/helpers/checkDependencies.js",
+    "./cli/helpers/isset": "./lib/cli/helpers/isset.js",
+    "./cli/helpers/override": "./lib/cli/helpers/override.js",
     "./context": "./lib/context/index.js",
-    "./context/*": "./lib/context/*.js",
+    "./context/bud": "./lib/context/bud.js",
+    "./context/extensions": "./lib/context/extensions.js",
+    "./context/services": "./lib/context/services.js",
     "./factory": "./lib/factory/index.js",
     "./instance": "./lib/instance/index.js",
     "./config/jsconfig.json": "./config/jsconfig.json",
@@ -137,17 +188,164 @@
       "cli/commands/webpack": [
         "./lib/cli/commands/webpack/index.d.ts"
       ],
+      "cli/components/menu": [
+        "./lib/cli/components/Menu.d.ts"
+      ],
       "cli/finder": [
         "./lib/cli/finder.d.ts"
       ],
       "cli/flags": [
         "./lib/cli/flags/index.d.ts"
       ],
-      "cli/flags/*": [
-        "./lib/cli/flags/*.d.ts"
+      "cli/flags/basedir": [
+        "./lib/cli/flags/basedir.d.ts"
       ],
-      "cli/helpers/*": [
-        "./lib/cli/helpers/*.d.ts"
+      "cli/flags/browser": [
+        "./lib/cli/flags/browser.d.ts"
+      ],
+      "cli/flags/browserslist-update": [
+        "./lib/cli/flags/browserslist-update.d.ts"
+      ],
+      "cli/flags/cache": [
+        "./lib/cli/flags/cache.d.ts"
+      ],
+      "cli/flags/ci": [
+        "./lib/cli/flags/ci.d.ts"
+      ],
+      "cli/flags/clean": [
+        "./lib/cli/flags/clean.d.ts"
+      ],
+      "cli/flags/color": [
+        "./lib/cli/flags/color.d.ts"
+      ],
+      "cli/flags/dashboard": [
+        "./lib/cli/flags/dashboard.d.ts"
+      ],
+      "cli/flags/dashbord.assets": [
+        "./lib/cli/flags/dashboard.assets.d.ts"
+      ],
+      "cli/flags/dashboard.compact": [
+        "./lib/cli/flags/dashboard.compact.d.ts"
+      ],
+      "cli/flags/dashboard.entrypoints": [
+        "./lib/cli/flags/dashboard.entrypoints.d.ts"
+      ],
+      "cli/flags/dashboard.server": [
+        "./lib/cli/flags/dashboard.server.d.ts"
+      ],
+      "cli/flags/debug": [
+        "./lib/cli/flags/debug.d.ts"
+      ],
+      "cli/flags/devtool": [
+        "./lib/cli/flags/devtool.d.ts"
+      ],
+      "cli/flags/discover": [
+        "./lib/cli/flags/discover.d.ts"
+      ],
+      "cli/flags/dry": [
+        "./lib/cli/flags/dry.d.ts"
+      ],
+      "cli/flags/editor": [
+        "./lib/cli/flags/editor.d.ts"
+      ],
+      "cli/flags/entrypoints.html": [
+        "./lib/cli/flags/entrypoints.html.d.ts"
+      ],
+      "cli/flags/esm": [
+        "./lib/cli/flags/esm.d.ts"
+      ],
+      "cli/flags/filter": [
+        "./lib/cli/flags/filter.d.ts"
+      ],
+      "cli/flags/force": [
+        "./lib/cli/flags/force.d.ts"
+      ],
+      "cli/flags/hash": [
+        "./lib/cli/flags/hash.d.ts"
+      ],
+      "cli/flags/hot": [
+        "./lib/cli/flags/hot.d.ts"
+      ],
+      "cli/flags/html": [
+        "./lib/cli/flags/html.d.ts"
+      ],
+      "cli/flags/ignoreErrors": [
+        "./lib/cli/flags/ignoreErrors.d.ts"
+      ],
+      "cli/flags/immutable": [
+        "./lib/cli/flags/immutable.d.ts"
+      ],
+      "cli/flags/indent": [
+        "./lib/cli/flags/indent.d.ts"
+      ],
+      "cli/flags/indicator": [
+        "./lib/cli/flags/indicator.d.ts"
+      ],
+      "cli/flags/input": [
+        "./lib/cli/flags/input.d.ts"
+      ],
+      "cli/flags/lazy": [
+        "./lib/cli/flags/lazy.d.ts"
+      ],
+      "cli/flags/log": [
+        "./lib/cli/flags/log.d.ts"
+      ],
+      "cli/flags/minimize": [
+        "./lib/cli/flags/minimize.d.ts"
+      ],
+      "cli/flags/mode": [
+        "./lib/cli/flags/mode.d.ts"
+      ],
+      "cli/flags/notify": [
+        "./lib/cli/flags/notify.d.ts"
+      ],
+      "cli/flags/output": [
+        "./lib/cli/flags/output.d.ts"
+      ],
+      "cli/flags/overlay": [
+        "./lib/cli/flags/overlay.d.ts"
+      ],
+      "cli/flags/port": [
+        "./lib/cli/flags/port.d.ts"
+      ],
+      "cli/flags/proxy": [
+        "./lib/cli/flags/proxy.d.ts"
+      ],
+      "cli/flags/publicPath": [
+        "./lib/cli/flags/publicPath.d.ts"
+      ],
+      "cli/flags/reload": [
+        "./lib/cli/flags/reload.d.ts"
+      ],
+      "cli/flags/runtime": [
+        "./lib/cli/flags/runtime.d.ts"
+      ],
+      "cli/flags/silent": [
+        "./lib/cli/flags/silent.d.ts"
+      ],
+      "cli/flags/splitChunks": [
+        "./lib/cli/flags/splitChunks.d.ts"
+      ],
+      "cli/flags/storage": [
+        "./lib/cli/flags/storage.d.ts"
+      ],
+      "cli/flags/use": [
+        "./lib/cli/flags/use.d.ts"
+      ],
+      "cli/flags/verbose": [
+        "./lib/cli/flags/verbose.d.ts"
+      ],
+      "cli/helpers/browserslistUpdate": [
+        "./lib/cli/helpers/browserslistUpdate.d.ts"
+      ],
+      "cli/helpers/checkDependencies": [
+        "./lib/cli/helpers/checkDependencies.d.ts"
+      ],
+      "cli/helpers/isset": [
+        "./lib/cli/helpers/isset.d.ts"
+      ],
+      "cli/helpers/override": [
+        "./lib/cli/helpers/override.d.ts"
       ],
       "context": [
         "./lib/context/index.d.ts"

@@ -1,10 +1,10 @@
 /* eslint-disable n/no-process-env */
 import {join, sep} from 'node:path'
 
+import args, {includes} from '@roots/bud-framework/bootstrap/args'
 import {dotenv, dotenvExpand} from '@roots/bud-support/dotenv'
 import isEqual from '@roots/bud-support/isEqual'
 import logger from '@roots/bud-support/logger'
-import args, {includes} from '@roots/bud-support/utilities/args'
 
 const env: Record<string, Record<string, string | undefined>> = {}
 
@@ -13,7 +13,7 @@ const get = (basedir: string) => {
 
   env[basedir] = {}
 
-  logger.scope(`env`).time(`Sourcing .env values for ${basedir}`)
+  logger.scope(`env`).log(`Sourcing .env values for ${basedir}`)
 
   basedir
     .split(sep)
@@ -26,8 +26,6 @@ const get = (basedir: string) => {
 
       return path
     }, sep)
-
-  logger.scope(`env`).timeEnd(`Sourcing .env values for ${basedir}`)
 
   if (env[basedir].BROWSERSLIST_IGNORE_OLD_DATA === undefined) {
     env[basedir].BROWSERSLIST_IGNORE_OLD_DATA = `true`
@@ -72,6 +70,7 @@ function tryRegisteringFromPath(
       override: true,
       path,
     })
+
     if (config?.parsed && !config?.error) {
       if (env !== config.parsed) {
         logger.scope(`env`).log(`Setting`, `dotenv values from`, path)

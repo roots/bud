@@ -11,7 +11,7 @@ export const checkDependencies = async (context: Context) => {
     .filter(([signifier]) => signifier.startsWith(`@roots/`))
     .map(([_discardedSignifier, version]) => version)
     .reduce((result: boolean | string, version: string) => {
-      if (result === true) return true
+      if (result === true) return result
       if (isString(result) && version !== result) return true
       return version
     })

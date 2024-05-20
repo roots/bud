@@ -1,4 +1,4 @@
-import type {ServiceContainer} from '@roots/bud-framework/service'
+import type {Service} from '@roots/bud-framework/service'
 
 /**
  * API service
@@ -7,4 +7,4 @@ import type {ServiceContainer} from '@roots/bud-framework/service'
  * Binds facade methods to the framework and provides a way to list them,
  * call them, and otherwise manipulate them.
  */
-export interface Api extends ServiceContainer {}
+export interface Api extends Service {}

@@ -1,11 +1,11 @@
 import {createHash} from 'node:crypto'
 import {isAbsolute, join} from 'node:path'
 
+import args from '@roots/bud-framework/bootstrap/args'
+import * as envBootstrap from '@roots/bud-framework/bootstrap/env'
+import envPaths from '@roots/bud-support/env-paths'
 import {BudError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
-import * as envBootstrap from '@roots/bud-support/utilities/env'
-import envPaths from 'env-paths'
 
 interface paths extends Record<string, string> {
   /**

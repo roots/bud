@@ -30,7 +30,9 @@ export default class BudReact extends Extension {
    */
   @bind
   public override async boot(bud: Bud) {
-    bud.provide(await this.resolve(`react`, import.meta.url), [`React`])
+    const react = await this.resolve(`react`, import.meta.url)
+
+    if (react) bud.provide(react, [`React`])
 
     await bud.extensions.add(`@roots/bud-react/react-refresh`)
 
@@ -48,9 +50,9 @@ export default class BudReact extends Extension {
       const babelPluginUrl = await this.resolve(
         `@babel/preset-react`,
         import.meta.url,
-      ).catch(bud.catch)
-
-      this.app.babel.setPreset(`@babel/preset-react`, babelPluginUrl)
+      )
+      babelPluginUrl &&
+        this.app.babel.setPreset(`@babel/preset-react`, babelPluginUrl)
     }
   }
 }

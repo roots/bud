@@ -1,25 +1,23 @@
 import path from 'node:path'
-import webpack from 'webpack'
+
+import BladeWebpackPlugin from '@roots/blade-loader/plugin'
 import {createFsFromVolume, Volume} from 'memfs'
-import {beforeEach, expect, describe, it} from 'vitest'
-import BladeWebpackPlugin from '../lib/plugin'
+import {beforeAll, describe, expect, it} from 'vitest'
+import webpack, {type Compiler, type StatsCompilation} from 'webpack'
 
-describe('@roots/blade-loader', () => {
-  let compiler
-  let compilationStats
+describe(`@roots/blade-loader`, () => {
+  let compiler: Compiler
+  let compilationStats: StatsCompilation | undefined
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     compiler = webpack({
       context: __dirname,
       entry: [`./index.js`, `./index.blade.php`],
-      output: {
-        path: path.resolve(__dirname),
-      },
       module: {
         rules: [
           {
             test: /\.jpg$/,
-            type: 'asset/resource',
+            type: `asset/resource`,
           },
           {
             test: /\.js$/,
@@ -27,13 +25,20 @@ describe('@roots/blade-loader', () => {
           },
         ],
       },
+      output: {
+        path: path.resolve(__dirname),
+      },
       plugins: [new BladeWebpackPlugin()],
       resolve: {
         modules: [__dirname],
       },
     })
 
-    compiler.outputFileSystem = createFsFromVolume(new Volume())
+    compiler.outputFileSystem = createFsFromVolume(new Volume()) as any
+
+    if (!compiler.outputFileSystem)
+      throw new Error(`No output file system`)
+
     compiler.outputFileSystem.join = path.join.bind(path)
 
     await new Promise((resolve, reject) => {
@@ -42,19 +47,19 @@ describe('@roots/blade-loader', () => {
 
         compilationStats = stats?.toJson({
           assets: true,
-          modules: true,
           entrypoints: true,
+          modules: true,
         })
         return resolve(null)
       })
     })
   })
 
-  it('does not error', () => {
-    expect(compilationStats.errors).toStrictEqual([])
+  it(`does not error`, () => {
+    expect(compilationStats?.errors).toStrictEqual([])
   })
 
-  it('works good', () => {
+  it(`works good`, () => {
     expect(
       // @ts-ignore
       Object.values(compilationStats.entrypoints).pop(),
@@ -68,6 +73,6 @@ describe('@roots/blade-loader', () => {
         ],
       }),
     )
-    expect(compilationStats.assets).toHaveLength(2)
+    expect(compilationStats?.assets).toHaveLength(2)
   })
 })

@@ -2,8 +2,8 @@ import type {Plugin, Processor} from 'postcss'
 
 import {
   Extension,
+  type ExtensionApi,
   type OptionCallbackValue,
-  type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
@@ -48,7 +48,7 @@ type BudPostCssPublicInterface = {
   use(
     plugins: OptionCallbackValue<Options, `order`>,
   ): BudPostCssPublicInterface
-} & StrictPublicExtensionApi<BudPostCssOptionsApi, Options>
+} & ExtensionApi<BudPostCssOptionsApi, Options>
 
 @options<Options>({
   config: false,

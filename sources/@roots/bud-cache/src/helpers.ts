@@ -9,4 +9,7 @@ export const isBuildDependency = (file: File): boolean =>
     `package`,
     `pnpm-workspace`,
     `tsconfig`,
-  ].includes(file.name) || file.bud
+  ].some(match => file.name.includes(match))
+
+export const isBudConfig = (file: File): boolean =>
+  file.name.includes(`bud`)

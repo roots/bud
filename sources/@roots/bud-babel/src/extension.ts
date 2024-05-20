@@ -2,11 +2,8 @@ import type {LoaderOptions, Registry} from '@roots/bud-babel'
 import type {Bud} from '@roots/bud-framework'
 
 import {Extension} from '@roots/bud-framework/extension'
-import {
-  bind,
-  expose,
-  label,
-} from '@roots/bud-framework/extension/decorators'
+import {expose} from '@roots/bud-framework/extension/decorators/expose'
+import {label} from '@roots/bud-framework/extension/decorators/label'
 import {InputError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
@@ -96,7 +93,6 @@ class BabelExtension extends Extension {
   /**
    * {@link Extension.register}
    */
-  @bind
   public override async register({build, hooks}: Bud) {
     const loader = await this.resolve(`babel-loader`, import.meta.url)
     if (!loader) throw new Error(`babel-loader not found`)
@@ -173,7 +169,6 @@ class BabelExtension extends Extension {
   /**
    * Set a babel plugin
    */
-  @bind
   public setPlugin(
     name: [any, any?] | string,
     plugin?: [any, any?] | string,
@@ -195,7 +190,6 @@ class BabelExtension extends Extension {
   /**
    * Set options on a babel plugin
    */
-  @bind
   public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin].shift(), options]
     return this
@@ -204,7 +198,6 @@ class BabelExtension extends Extension {
   /**
    * Set babel plugins
    */
-  @bind
   public setPlugins(plugins: {[key: string]: [any, any?] | string}): this {
     this.plugins = Object.entries(plugins).reduce(
       (plugins, [name, plugin]) => ({
@@ -220,7 +213,6 @@ class BabelExtension extends Extension {
   /**
    * Set a babel preset
    */
-  @bind
   public setPreset(
     name: [any, any?] | string,
     preset?: [any, any?] | string,
@@ -242,7 +234,6 @@ class BabelExtension extends Extension {
   /**
    * Set options on a babel preset
    */
-  @bind
   public setPresetOptions(preset: string, options: any): this {
     this.presets[preset] = [this.presets[preset].shift(), options]
     return this
@@ -251,7 +242,6 @@ class BabelExtension extends Extension {
   /**
    * Set babel presets
    */
-  @bind
   public setPresets(presets: {
     [key: string]: [string, any] | string
   }): this {
@@ -269,7 +259,6 @@ class BabelExtension extends Extension {
   /**
    * Remove a babel plugin
    */
-  @bind
   public unsetPlugin(plugin: string) {
     if (!isUndefined(this.plugins[plugin])) delete this.plugins[plugin]
 
@@ -279,7 +268,6 @@ class BabelExtension extends Extension {
   /**
    * Remove a babel preset
    */
-  @bind
   public unsetPreset(preset: string) {
     if (!isUndefined(this.presets[preset])) delete this.presets[preset]
 

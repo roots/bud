@@ -12,7 +12,13 @@ import type {
   Server,
   Service,
 } from '@roots/bud-framework'
+import type {FS} from '@roots/bud-framework/fs'
+import type {Module} from '@roots/bud-framework/module'
+import type {Notifier} from '@roots/bud-framework/notifier'
 
+import {exit} from 'node:process'
+
+import {bootstrap} from '@roots/bud-framework/bootstrap'
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError, InputError} from '@roots/bud-support/errors'
@@ -21,12 +27,7 @@ import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 
-import type {FS} from '../fs.js'
-import type {Module} from '../module.js'
-import type {Notifier} from '../notifier.js'
 import type {EventsStore} from '../registry/index.js'
-
-import {bootstrap} from '../bootstrap.js'
 
 /**
  * Bud core class
@@ -49,9 +50,6 @@ export class Bud {
 
   public declare cache: Cache & Service
 
-  /**
-   * {@link Bud} instances
-   */
   public declare children: Record<string, Bud>
 
   public declare close: typeof methods.close
@@ -78,10 +76,6 @@ export class Bud {
 
   public declare hooks: Hooks & Service
 
-  /**
-   * {@link Bud} Implementation
-   * @internal
-   */
   public declare implementation: new () => Bud
 
   /**
@@ -228,11 +222,18 @@ export class Bud {
    * Error handler
    */
   @bind
-  public catch(error: Error): never {
-    const normalizedError = BudError.normalize(error)
-    if (!normalizedError.instance && this?.isChild)
-      normalizedError.instance = this.label
-    throw normalizedError
+  public catch(error: Error) {
+    const normalError = BudError.normalize(error)
+
+    if (!normalError.instance && this?.isChild)
+      normalError.instance = this.label
+
+    if (this.dashboard?.renderError && this.context?.dashboard !== false) {
+      this.dashboard.renderError(normalError)
+      exit(1)
+    } else {
+      throw normalError
+    }
   }
 
   /**
@@ -345,10 +346,7 @@ export class Bud {
 
   @bind
   public async resolvePromises() {
-    if (this.promised.length === 0) return
-
     const promises = this.promised
-
     this.promised = []
 
     await promises.reduce(async (promised, promise) => {
@@ -386,7 +384,6 @@ export class Bud {
     bind: boolean = true,
   ): Bud {
     const toBind = bind && isFunction(input) && `bind` in input
-
     const value = toBind ? input.bind(this) : input
 
     Object.defineProperty(this, key, {
@@ -395,6 +392,8 @@ export class Bud {
       value,
       writable: true,
     })
+
+    logger.scope(this.label).log(`set`, key, `${typeof value}`)
 
     return this
   }

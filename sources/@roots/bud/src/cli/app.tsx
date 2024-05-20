@@ -16,33 +16,30 @@ import BudViewCommand from '@roots/bud/cli/commands/view'
 import BudWebpackCommand from '@roots/bud/cli/commands/webpack'
 import {Finder} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
-import {Error} from '@roots/bud-dashboard/components/error'
+import {render as renderError} from '@roots/bud-dashboard/components/error'
+import * as args from '@roots/bud-framework/bootstrap/args'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
-import {render} from '@roots/bud-support/ink'
 import isFunction from '@roots/bud-support/isFunction'
 import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
-import * as args from '@roots/bud-support/utilities/args'
 
 /**
  * Error handler
  * @param error
  */
 const onError = (error: Error) => {
-  render(<Error error={BudError.normalize(error)} />)
+  renderError(error)
   exit(1)
 }
 
 /**
  * {@link Context}
  */
-const context: Context = {
-  ...(await getContext({stderr, stdin, stdout}).catch(onError)),
-  stderr,
-  stdin,
-  stdout,
-}
+const context = await getContext({stderr, stdin, stdout}).catch(onError)
+context.stderr = stderr
+context.stdin = stdin
+context.stdout = stdout
 
 /**
  * {@link Cli}
@@ -96,7 +93,9 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
     await finder.init()
   } else {
     logger.scope(`cli`).log(`Searching for commands...`)
+
     await finder.getModules()
+
     if (finder.paths.length > 0) {
       logger.scope(`cli`).log(`Found ${finder.paths.length} commands.`)
       logger.scope(`cli`).log(`Updating command cache...`)
@@ -140,9 +139,7 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
         })
       },
     ),
-  ).catch(error => {
-    throw error
-  })
+  ).catch(onError)
 }
 
 // first round will attempt to register extensions from cache

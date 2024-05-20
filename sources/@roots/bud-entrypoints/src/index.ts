@@ -8,13 +8,16 @@
  * @see https://github.com/roots/bud
  */
 
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 
 import BudEntrypoints from './extension.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    entrypoints: PublicExtensionApi<BudEntrypoints>
+    entrypoints: ExtensionApi<
+      {emitHtml: boolean; publicPath: string; type: `array` | `object`},
+      BudEntrypoints
+    >
   }
   interface Modules {
     '@roots/bud-entrypoints': BudEntrypoints

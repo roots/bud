@@ -42,6 +42,7 @@ export interface Sync {
   optimization: Configuration[`optimization`]
   'optimization.emitOnErrors': Configuration[`optimization`][`emitOnErrors`]
   'optimization.innerGraph': Configuration[`optimization`][`innerGraph`]
+  'optimization.mangleExports': Configuration[`optimization`][`mangleExports`]
   'optimization.mergeDuplicateChunks': Configuration[`optimization`][`mergeDuplicateChunks`]
   'optimization.minimize': Configuration[`optimization`][`minimize`]
   'optimization.minimizer': Array<

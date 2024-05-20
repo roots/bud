@@ -197,14 +197,7 @@ export class FS extends Filesystem implements Contract {
 
         await Promise.all(
           descriptions.map(async ({contents, file}) => {
-            this.logger.time(`Upload ${file} to ${this.s3.ident}`)
-
-            try {
-              await this.s3.write(s3Path(file), contents)
-              this.logger.timeEnd(`Upload ${file} to ${this.s3.ident}`)
-            } catch (error) {
-              this.catch(error)
-            }
+            await this.s3.write(s3Path(file), contents).catch(this.catch)
           }),
         )
 
@@ -228,18 +221,9 @@ export class FS extends Filesystem implements Contract {
 
               const fileExists = await this.s3.exists(key)
               if (!fileExists) return
-
-              this.logger.time(
-                `Remove ${key} from ${this.s3.ident} (stale)`,
-              )
               await this.s3.delete(key)
-              this.logger.timeEnd(
-                `Remove ${key} from ${this.s3.ident} (stale)`,
-              )
             }),
         )
-
-        this.logger.time(`Write upload-manifest.json to ${this.s3.ident}`)
 
         await this.s3.write({
           Body: Buffer.from(
@@ -250,10 +234,6 @@ export class FS extends Filesystem implements Contract {
           ),
           Key: s3Path(`upload-manifest.json`),
         })
-
-        this.logger.timeEnd(
-          `Write upload-manifest.json to ${this.s3.ident}`,
-        )
 
         // eslint-disable-next-line no-console
         console.log(`\nUpload complete`)

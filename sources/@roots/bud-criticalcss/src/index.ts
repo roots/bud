@@ -6,21 +6,24 @@
  */
 
 import type {extractCss} from '@roots/bud-criticalcss/bud.extractCss'
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 
 import BudCriticalCssExtension from '@roots/bud-criticalcss/extension'
 
 interface CriticalPublicAPI
-  extends PublicExtensionApi<BudCriticalCssExtension> {
-  base: BudCriticalCssExtension[`base`]
-  extract: BudCriticalCssExtension[`extract`]
-  height: BudCriticalCssExtension[`height`]
-  html: BudCriticalCssExtension[`html`]
-  ignore: BudCriticalCssExtension[`ignore`]
-  request: BudCriticalCssExtension[`request`]
-  src: BudCriticalCssExtension[`src`]
-  width: BudCriticalCssExtension[`width`]
-}
+  extends ExtensionApi<
+    {
+      base: BudCriticalCssExtension[`base`]
+      extract: BudCriticalCssExtension[`extract`]
+      height: BudCriticalCssExtension[`height`]
+      html: BudCriticalCssExtension[`html`]
+      ignore: BudCriticalCssExtension[`ignore`]
+      request: BudCriticalCssExtension[`request`]
+      src: BudCriticalCssExtension[`src`]
+      width: BudCriticalCssExtension[`width`]
+    },
+    BudCriticalCssExtension
+  > {}
 
 declare module '@roots/bud-framework' {
   interface Bud {

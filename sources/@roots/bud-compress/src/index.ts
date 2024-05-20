@@ -11,7 +11,7 @@
 import type BudBrotli from '@roots/bud-compress/brotli'
 import type BudCompress from '@roots/bud-compress/extension'
 import type BudGzip from '@roots/bud-compress/gzip'
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 
 import BudCompressionExtension from './extension.js'
 
@@ -28,12 +28,16 @@ interface Options {
   threshold: number
 }
 
-interface PublicBrotliAPI extends PublicExtensionApi<BudBrotli> {}
-interface PublicGzipAPI extends PublicExtensionApi<BudGzip> {}
-interface PublicCompressAPI extends PublicExtensionApi<BudCompress> {
-  brotli: PublicBrotliAPI
-  gzip: PublicGzipAPI
-}
+interface PublicBrotliAPI extends ExtensionApi<unknown, BudBrotli> {}
+interface PublicGzipAPI extends ExtensionApi<unknown, BudGzip> {}
+interface PublicCompressAPI
+  extends ExtensionApi<
+    {
+      brotli: PublicBrotliAPI
+      gzip: PublicGzipAPI
+    },
+    BudCompress
+  > {}
 
 declare module '@roots/bud-framework' {
   interface Bud {

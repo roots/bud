@@ -7,7 +7,7 @@ export interface Hooks {
   /**
    * Store callback to an action handler
    */
-  action: <T extends keyof Registry.Events & string>(
+  action: <T extends `${keyof Registry.Events & string}`>(
     id: T,
     ...input: Array<Registry.EventsCallback<T>>
   ) => Bud
@@ -22,7 +22,7 @@ export interface Hooks {
    * )
    * ```
    */
-  async: <T extends keyof Registry.AsyncStore>(
+  async: <T extends `${keyof Registry.AsyncStore & string}`>(
     id: T,
     value: Registry.AsyncCallback[T],
   ) => Bud

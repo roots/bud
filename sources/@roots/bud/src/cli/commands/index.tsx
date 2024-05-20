@@ -35,11 +35,7 @@ import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/isNumber'
 import noop from '@roots/bud-support/noop'
 
-import {Menu} from '../components/Menu.js'
 import override, {type Override} from '../helpers/override.js'
-
-export type {BaseContext, Context}
-export {Option}
 
 /**
  * Base {@link Command}
@@ -117,7 +113,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public storage = storage
 
-  public use: Array<string> = use
+  public use = use
 
   public verbose = verbose
 
@@ -233,7 +229,10 @@ export default class BudCommand extends Command<BaseContext & Context> {
           this.use,
           `BUD_USE`,
           undefined,
-          b => async v => await b.extensions.add(v as any),
+          b => async v =>
+            await b.extensions.add(
+              v.reduce((a, v) => [...a, ...v.split(`,`)], []),
+            ),
         ] satisfies Override<Array<string>>,
       ].map(this.override),
     )
@@ -265,6 +264,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
    * {@link Command.execute}
    */
   public async execute(): Promise<number | void> {
+    const {Menu} = await import(`@roots/bud/cli/components/menu`)
     this.render(<Menu cli={this.cli} />)
   }
 
@@ -273,13 +273,13 @@ export default class BudCommand extends Command<BaseContext & Context> {
    */
   @bind
   public async makeBud() {
-    Object.assign(this.context, {
+    this.context = {
       ...this.context,
       dry: this.dry,
       mode: this.mode ?? this.context.mode ?? `production`,
       render: this.render,
       silent: this.silent,
-    })
+    }
 
     this.bud = await instance.get().initialize(this.context)
 
@@ -330,6 +330,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
       if (!pathParts) {
         process.exitCode = 2
+
         throw new Error(
           [
             `Could not find ${signifier} binary`,
@@ -365,6 +366,10 @@ export default class BudCommand extends Command<BaseContext & Context> {
     }
 
     this.context.stdout.write(`${figures.tick} success\n`)
+
     return exitCode
   }
 }
+
+export type {BaseContext, Context}
+export {Option}

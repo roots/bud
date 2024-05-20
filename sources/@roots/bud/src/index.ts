@@ -25,6 +25,9 @@ interface Config {
   (bud: Bud): Promise<any>
 }
 
+export type {Extension} from '@roots/bud-framework'
+
 export {Bud, type Config}
 export {factory} from '@roots/bud/factory'
+
 export {get, instance as bud, set} from '@roots/bud/instance'

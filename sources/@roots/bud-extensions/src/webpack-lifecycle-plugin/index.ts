@@ -14,33 +14,26 @@ import {bind, label} from '@roots/bud-framework/extension/decorators'
 export default class BudWebpackLifecyclePlugin extends Extension {
   /**
    * {@link Extension.apply}
-   * {@link WebpackPluginInstance.apply}
    */
   @bind
   public override apply(compiler: Compiler) {
-    ;[
+    const hooks = [
       `afterCompile`,
       `assetEmitted`,
       `beforeCompile`,
       `failed`,
       `shouldEmit`,
     ]
-      .filter(k => compiler.hooks[k])
-      .filter(k => this[k])
-      .map(k => compiler.hooks[k].tap(this.label, this[k]))
-    ;[`additionalPass`, `afterEmit`, `emit`]
-      .filter(k => compiler.hooks[k])
-      .filter(k => this[k])
-      .map(k =>
-        compiler.hooks[k].tapPromise(
-          this.label,
-          async (...args: any[]) => {
-            await this[k](...args)
-          },
-        ),
-      )
+      .filter(k => k in compiler.hooks)
+      .filter(k => k in this)
+      .map(k => [compiler.hooks[k], this[k]])
+
+    hooks.map(([hook, method]) => hook.tap(this.label, method))
   }
 
+  /**
+   * Asset emitted hook
+   */
   @bind
   public assetEmitted(
     file: string,
@@ -65,7 +58,7 @@ export default class BudWebpackLifecyclePlugin extends Extension {
    */
   @bind
   public beforeCompile(compilation: Compilation) {
-    this.logger.time(`compile`)
+    this.logger.log(`compilation started:`, compilation.hash)
   }
 
   /**
@@ -74,20 +67,20 @@ export default class BudWebpackLifecyclePlugin extends Extension {
   @bind
   public afterCompile(compilation: Compilation) {
     this.logger.log(`compilation completed:`, compilation.hash)
-    this.logger.timeEnd(`compile`)
   }
 
-  @bind
-  public emit(compilation: Compilation) {
-    this.logger.time(`emit`)
-  }
-
+  /**
+   * Failed hook
+   */
   @bind
   public failed(error: {error?: Error} & Error & Partial<WebpackError>) {
-    this.app.compiler?.onError(error)
+    this.app.catch(error)
     return error
   }
 
+  /**
+   * Should emit hook
+   */
   @bind
   public shouldEmit() {
     return this.app.context.dry !== true

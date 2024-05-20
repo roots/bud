@@ -1,29 +1,41 @@
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 
 import type BudImageminExtension from '../extension/index.js'
 import type BudImageminSharpExtension from '../sharp/index.js'
 import type BudImageminSvgo from '../svgo/index.js'
 
-interface BudImagemin extends PublicExtensionApi<BudImageminExtension> {
-  addPreset: BudImageminExtension['addPreset']
-  encode: BudImageminExtension['encode']
-  lossless: BudImageminExtension[`lossless`]
-  sharp: BudSharp
-  svgo: BudSvgo
-}
+interface BudSharp
+  extends ExtensionApi<
+    {
+      encode: BudImageminSharpExtension['encode']
+      generators: BudImageminSharpExtension['generators']
+      get: BudImageminSharpExtension['get']
+      setEncodeOptions: BudImageminSharpExtension['setEncodeOptions']
+      setGenerator: BudImageminSharpExtension['setGenerator']
+    },
+    BudImageminSharpExtension
+  > {}
 
-interface BudSharp extends PublicExtensionApi<BudImageminSharpExtension> {
-  encode: BudImageminSharpExtension['encode']
-  generators: BudImageminSharpExtension['generators']
-  get: BudImageminSharpExtension['get']
-  setEncodeOptions: BudImageminSharpExtension['setEncodeOptions']
-  setGenerator: BudImageminSharpExtension['setGenerator']
-}
+interface BudSvgo
+  extends ExtensionApi<
+    {
+      encode: BudImageminSvgo['encode']
+      setEncodeOptions: BudImageminSvgo['setEncodeOptions']
+    },
+    BudImageminSvgo
+  > {}
 
-interface BudSvgo extends PublicExtensionApi<BudImageminSvgo> {
-  encode: BudImageminSvgo['encode']
-  setEncodeOptions: BudImageminSvgo['setEncodeOptions']
-}
+interface BudImagemin
+  extends ExtensionApi<
+    BudImageminExtension,
+    {
+      addPreset: BudImageminExtension['addPreset']
+      encode: BudImageminExtension['encode']
+      lossless: BudImageminExtension[`lossless`]
+      sharp: BudSharp
+      svgo: BudSvgo
+    }
+  > {}
 
 declare module '@roots/bud-framework' {
   interface Bud {

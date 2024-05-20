@@ -5,7 +5,7 @@
     "outDir": "lib",
     "paths": {
       "@roots/bud-compiler": ["./src/index.ts"],
-      "@roots/bud-compiler/service": ["./src/service/index.tsx"]
+      "@roots/bud-compiler/service": ["./src/service/index.ts"]
     },
     "strict": true,
   },

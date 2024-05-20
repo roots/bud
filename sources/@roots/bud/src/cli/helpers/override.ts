@@ -9,6 +9,7 @@ export type Override<T extends unknown> = [
   string,
   string,
   (bud: Bud) => (value: T) => Promise<unknown>,
+  children?: boolean,
 ]
 
 export default async function override(
@@ -16,41 +17,37 @@ export default async function override(
   arg: unknown,
   env: string,
   manifestPath: string | undefined,
-  callback: (bud: Bud) => (value: any) => Promise<any>,
+  fn: (bud: Bud) => (value: any) => Promise<any>,
+  children: boolean = true,
 ) {
-  if (isset(arg)) {
-    return await withChildren(bud, arg, callback)
+  if (
+    !isset(arg) &&
+    manifestPath &&
+    bud.context.manifest?.bud &&
+    manifestPath in bud.context.manifest?.bud
+  ) {
+    arg = get(bud.context.manifest.bud, manifestPath)
   }
 
-  if (manifestPath && bud.context.manifest.bud) {
-    const value = get(bud.context.manifest.bud, manifestPath)
-    if (value) {
-      return await withChildren(bud, value, callback)
-    }
+  if (!isset(arg) && bud.env.has(env)) {
+    arg = bud.env.get(env)
   }
 
-  if (bud.env.has(env)) {
-    return await withChildren(bud, bud.env.get(env), callback)
-  }
+  if (!isset(arg)) return
+
+  await fn(bud)(arg)
+  children && bud.hasChildren && (await withChildren(bud, arg, fn))
 }
 
-/**
- * Override settings:
- *
- * - when children: all children but not the parent
- * - when no children: the parent;
- */
 export const withChildren = async (
   bud: Bud,
   value: any,
-  makeFn: (bud: Bud) => (value: any) => Promise<any>,
+  fn: (bud: Bud) => (value: any) => Promise<any>,
 ) => {
-  await makeFn(bud)(value).catch(noop)
-
   bud.hasChildren &&
     (await Promise.all(
       [bud, ...Object.values(bud.children)].map(
-        async bud => await makeFn(bud)(value).catch(noop),
+        async bud => await fn(bud)(value).catch(noop),
       ),
     ))
 }

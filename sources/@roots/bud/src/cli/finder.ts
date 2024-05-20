@@ -3,7 +3,6 @@ import type {Context} from '@roots/bud-framework/context'
 import {dirname, join} from 'node:path/posix'
 import {fileURLToPath} from 'node:url'
 
-import {bind} from '@roots/bud-support/decorators/bind'
 import {filesystem as fs} from '@roots/bud-support/filesystem'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
 import isString from '@roots/bud-support/isString'
@@ -25,7 +24,17 @@ export class Finder {
   public constructor(
     public context: Partial<Context>,
     public application: Cli,
-  ) {}
+  ) {
+    /*     this.cacheClear = this.cacheClear.bind(this)
+    this.cacheRead = this.cacheRead.bind(this)
+    this.cacheWrite = this.cacheWrite.bind(this)
+    this.getModules = this.getModules.bind(this)
+    this.getPaths = this.getPaths.bind(this)
+    this.getSignifiers = this.getSignifiers.bind(this)
+    this.importCommands = this.importCommands.bind(this)
+    this.init = this.init.bind(this)
+    this.resolve = this.resolve.bind(this) */
+  }
 
   /**
    * Is cacheable
@@ -41,7 +50,6 @@ export class Finder {
   /**
    * Clear cache
    */
-  @bind
   public async cacheClear() {
     try {
       if (await fs.exists(this.cachePath)) await fs.remove(this.cachePath)
@@ -58,7 +66,6 @@ export class Finder {
   /**
    * Read cache
    */
-  @bind
   public async cacheRead() {
     return await fs.read(this.cachePath)
   }
@@ -66,7 +73,6 @@ export class Finder {
   /**
    * Write cache
    */
-  @bind
   public async cacheWrite() {
     if (this.paths && this.cacheable)
       await fs.write(this.cachePath, this.paths)
@@ -75,7 +81,6 @@ export class Finder {
   /**
    * Get registration module paths
    */
-  @bind
   public async getModules(): Promise<Array<any>> {
     this.paths = await this.resolve(this.getSignifiers())
       .then(this.getPaths)
@@ -87,7 +92,6 @@ export class Finder {
   /**
    * Get paths
    */
-  @bind
   public getPaths(paths: Array<string>) {
     return paths
       .map(dirname)
@@ -97,21 +101,19 @@ export class Finder {
   /**
    * Get array of project dependencies
    */
-  @bind
   public getSignifiers(): Array<string> {
     return [
       ...Object.keys({
         ...(this.context.manifest?.dependencies ?? {}),
         ...(this.context.manifest?.devDependencies ?? {}),
       }),
-      ...(this.context.use ?? []),
+      ...(this.context.use ?? []).flatMap(pkg => pkg.split(`,`)),
     ].filter(signifier => !signifier.startsWith(`@types`))
   }
 
   /**
    * Import commands
    */
-  @bind
   public async importCommands(): Promise<any> {
     return await Promise.all(
       this.paths.map(async path => {
@@ -130,7 +132,6 @@ export class Finder {
   /**
    * Initialize
    */
-  @bind
   public async init() {
     const path = join(this.context.paths.storage, `bud.commands.yml`)
     try {
@@ -150,7 +151,6 @@ export class Finder {
   /**
    * Resolve signifiers against import.meta.url
    */
-  @bind
   public async resolve(paths: Array<string>) {
     return await Promise.all(
       paths.map(async path => {

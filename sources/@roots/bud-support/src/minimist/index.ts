@@ -1,3 +1,1 @@
-import minimist from 'minimist'
-
-export default minimist
+export {default} from 'minimist'

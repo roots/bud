@@ -101,30 +101,19 @@ class BudError extends Error {
 
     this.isBudError = true
 
-    this.name = this.constructor.name
-    this.message = (clean(message) ?? message)?.replace(/.*Error:/g, ``)
-
-    if (options.details) {
-      this.details = clean(options.details)
-    }
-
-    if (options.docs) {
-      this.docs = options.docs
-    }
+    this.name = this.name ?? this.constructor.name
+    this.message =
+      this.message ?? (clean(message) ?? message)?.replace(/.*Error:/g, ``)
+    this.details = this.details ?? clean(options.details)
+    this.docs = this.docs ?? options.docs
+    this.instance = this.instance ?? options.instance
+    this.issue = this.issue ?? options.issue
 
     if (options.file) {
       this.file = {
         ...options.file,
         path: clean(options.file.path),
       }
-    }
-
-    if (options.instance) {
-      this.instance = options.instance
-    }
-
-    if (options.issue) {
-      this.issue = options.issue
     }
 
     if (options.origin) {

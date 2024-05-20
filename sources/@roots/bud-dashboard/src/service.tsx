@@ -5,6 +5,7 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
+import type {BudError} from '@roots/bud-support/errors'
 
 import {stdin} from 'node:process'
 
@@ -15,6 +16,7 @@ import {Box, type ReactElement, Text} from '@roots/bud-support/ink'
 import isUndefined from '@roots/bud-support/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
+import {render} from './components/error.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -160,5 +162,9 @@ export class Dashboard extends Service implements BudDashboard {
         />
       </Box>
     )
+  }
+
+  public renderError(error: BudError) {
+    render(error)
   }
 }

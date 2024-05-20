@@ -1,11 +1,11 @@
 import type {Options} from '@swc/core'
 
 import {
+  type Accessor,
   Extension,
-  type OptionAccessor,
-  type OptionGetter,
-  type OptionSetter,
-  type StrictPublicExtensionApi,
+  type ExtensionApi,
+  type Getter,
+  type Setter,
 } from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
@@ -41,10 +41,7 @@ type JSCOptions = {
   transform: Options[`jsc`][`transform`]
 } & Options[`jsc`]
 
-type BudJSCPublicInterface = StrictPublicExtensionApi<
-  BudJSCApi,
-  JSCOptions
->
+type BudJSCPublicInterface = ExtensionApi<BudJSCApi, JSCOptions>
 
 @options<JSCOptions>({
   baseUrl: undefined,
@@ -60,87 +57,71 @@ type BudJSCPublicInterface = StrictPublicExtensionApi<
   transform: undefined,
 })
 class BudJSCApi extends Extension<JSCOptions> {
-  public declare baseUrl: OptionAccessor<JSCOptions, `baseUrl`>
-  public declare experimental: OptionAccessor<JSCOptions, `experimental`>
-  public declare externalHelpers: OptionAccessor<
-    JSCOptions,
-    `externalHelpers`
-  >
+  public declare baseUrl: Accessor<JSCOptions, `baseUrl`>
+  public declare experimental: Accessor<JSCOptions, `experimental`>
+  public declare externalHelpers: Accessor<JSCOptions, `externalHelpers`>
 
-  public declare getBaseUrl: OptionGetter<JSCOptions, `baseUrl`>
-  public declare getExperimental: OptionGetter<JSCOptions, `experimental`>
-  public declare getExternalHelpers: OptionGetter<
-    JSCOptions,
-    `externalHelpers`
-  >
+  public declare getBaseUrl: Getter<JSCOptions, `baseUrl`>
+  public declare getExperimental: Getter<JSCOptions, `experimental`>
+  public declare getExternalHelpers: Getter<JSCOptions, `externalHelpers`>
 
-  public declare getKeepClassNames: OptionGetter<
-    JSCOptions,
-    `keepClassNames`
-  >
-  public declare getLoose: OptionGetter<JSCOptions, `loose`>
-  public declare getMinify: OptionGetter<JSCOptions, `minify`>
+  public declare getKeepClassNames: Getter<JSCOptions, `keepClassNames`>
+  public declare getLoose: Getter<JSCOptions, `loose`>
+  public declare getMinify: Getter<JSCOptions, `minify`>
 
-  public declare getParser: OptionGetter<JSCOptions, `parser`>
-  public declare getPaths: OptionGetter<JSCOptions, `paths`>
-  public declare getPreserveAllComments: OptionGetter<
+  public declare getParser: Getter<JSCOptions, `parser`>
+  public declare getPaths: Getter<JSCOptions, `paths`>
+  public declare getPreserveAllComments: Getter<
     JSCOptions,
     `preserveAllComments`
   >
 
-  public declare getTarget: OptionGetter<JSCOptions, `target`>
-  public declare getTransform: OptionGetter<JSCOptions, `transform`>
-  public declare keepClassNames: OptionAccessor<
-    JSCOptions,
-    `keepClassNames`
-  >
+  public declare getTarget: Getter<JSCOptions, `target`>
+  public declare getTransform: Getter<JSCOptions, `transform`>
+  public declare keepClassNames: Accessor<JSCOptions, `keepClassNames`>
 
-  public declare loose: OptionAccessor<JSCOptions, `loose`>
-  public declare minify: OptionAccessor<JSCOptions, `minify`>
-  public declare parser: OptionAccessor<JSCOptions, `parser`>
+  public declare loose: Accessor<JSCOptions, `loose`>
+  public declare minify: Accessor<JSCOptions, `minify`>
+  public declare parser: Accessor<JSCOptions, `parser`>
 
-  public declare paths: OptionAccessor<JSCOptions, `paths`>
-  public declare preserveAllComments: OptionAccessor<
+  public declare paths: Accessor<JSCOptions, `paths`>
+  public declare preserveAllComments: Accessor<
     JSCOptions,
     `preserveAllComments`
   >
-  public declare setBaseUrl: OptionSetter<BudJSCApi, JSCOptions, `baseUrl`>
+  public declare setBaseUrl: Setter<BudJSCApi, JSCOptions, `baseUrl`>
 
-  public declare setExperimental: OptionSetter<
+  public declare setExperimental: Setter<
     BudJSCApi,
     JSCOptions,
     `experimental`
   >
-  public declare setExternalHelpers: OptionSetter<
+  public declare setExternalHelpers: Setter<
     BudJSCApi,
     JSCOptions,
     `externalHelpers`
   >
-  public declare setKeepClassNames: OptionSetter<
+  public declare setKeepClassNames: Setter<
     BudJSCApi,
     JSCOptions,
     `keepClassNames`
   >
 
-  public declare setLoose: OptionSetter<BudJSCApi, JSCOptions, `loose`>
-  public declare setMinify: OptionSetter<BudJSCApi, JSCOptions, `minify`>
-  public declare setParser: OptionSetter<BudJSCApi, JSCOptions, `parser`>
+  public declare setLoose: Setter<BudJSCApi, JSCOptions, `loose`>
+  public declare setMinify: Setter<BudJSCApi, JSCOptions, `minify`>
+  public declare setParser: Setter<BudJSCApi, JSCOptions, `parser`>
 
-  public declare setPaths: OptionSetter<BudJSCApi, JSCOptions, `paths`>
-  public declare setPreserveAllComments: OptionSetter<
+  public declare setPaths: Setter<BudJSCApi, JSCOptions, `paths`>
+  public declare setPreserveAllComments: Setter<
     BudJSCApi,
     JSCOptions,
     `preserveAllComments`
   >
-  public declare setTarget: OptionSetter<BudJSCApi, JSCOptions, `target`>
+  public declare setTarget: Setter<BudJSCApi, JSCOptions, `target`>
 
-  public declare setTransform: OptionSetter<
-    BudJSCApi,
-    JSCOptions,
-    `transform`
-  >
-  public declare target: OptionAccessor<JSCOptions, `target`>
-  public declare transform: OptionAccessor<JSCOptions, `transform`>
+  public declare setTransform: Setter<BudJSCApi, JSCOptions, `transform`>
+  public declare target: Accessor<JSCOptions, `target`>
+  public declare transform: Accessor<JSCOptions, `transform`>
 
   public setPlugins(
     plugins:

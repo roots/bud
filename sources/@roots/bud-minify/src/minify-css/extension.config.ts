@@ -4,10 +4,7 @@ import type {
   MinimizerOptions,
 } from 'css-minimizer-webpack-plugin'
 
-import {
-  Extension,
-  type StrictPublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
 import {options} from '@roots/bud-framework/extension/decorators'
 
 type BudMinimizeCSSOptions = {
@@ -21,10 +18,7 @@ type BudMinimizeCSSOptions = {
 } & BasePluginOptions
 
 interface BudMinimizeCSSPublicInterface
-  extends StrictPublicExtensionApi<
-    BudMinimizeCSSPublicApi,
-    BudMinimizeCSSOptions
-  > {}
+  extends ExtensionApi<BudMinimizeCSSPublicApi, BudMinimizeCSSOptions> {}
 @options<BudMinimizeCSSOptions>({
   exclude: undefined,
   include: undefined,

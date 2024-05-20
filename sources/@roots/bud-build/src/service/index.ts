@@ -118,9 +118,7 @@ class Build extends Service implements BudBuild {
       )
       .catch(this.catch)
 
-    this.logger.success(`configuration built`)
-    this.logger.info(this.config)
-
+    this.logger.scope(this.app.label, `build`).info(`built`, this.config)
     await this.app.hooks.fire(`build.after`, this.app).catch(this.catch)
 
     return Object.entries(this.config).reduce((a, [k, v]) => {

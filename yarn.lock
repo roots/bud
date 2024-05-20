@@ -8445,6 +8445,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/eslint-bud-config@workspace:examples/eslint-bud-config":
+  version: 0.0.0-use.local
+  resolution: "@examples/eslint-bud-config@workspace:examples/eslint-bud-config"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-eslint": "workspace:*"
+    "@roots/eslint-config": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/eslint@workspace:examples/eslint":
   version: 0.0.0-use.local
   resolution: "@examples/eslint@workspace:examples/eslint"
@@ -11470,8 +11480,6 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@skypack/package-check": "npm:0.2.2"
     "@types/node": "npm:20.12.8"
-    "@types/react": "npm:18.3.1"
-    react: "npm:18.3.1"
     tslib: "npm:2.6.2"
   languageName: unknown
   linkType: soft

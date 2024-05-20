@@ -1,10 +1,8 @@
+/* eslint-disable no-console -- the logger hasn't booted yet */
 import type {SignaleOptions} from 'signale'
 
-import {cwd, env, stdout} from 'node:process'
+import {argv} from 'node:process'
 
-import {bind} from '@roots/bud-support/decorators/bind'
-import isUndefined from '@roots/bud-support/isUndefined'
-import args from '@roots/bud-support/utilities/args'
 import Signale from 'signale'
 
 /**
@@ -30,8 +28,17 @@ class Logger {
    * Class constructor
    */
   public constructor(public options: SignaleOptions = {}) {
-    if (!args.silent) {
-      if (args.log) this.enabled = true
+    this.log = this.log.bind(this)
+    this.error = this.error.bind(this)
+    this.info = this.info.bind(this)
+    this.success = this.success.bind(this)
+    this.warn = this.warn.bind(this)
+    this.debug = this.debug.bind(this)
+    this.scope = this.scope.bind(this)
+    this.unscope = this.unscope.bind(this)
+
+    if (!argv.includes(`--silent`)) {
+      if (argv.includes(`--log`)) this.enabled = true
       if (
         this.options.logLevel &&
         [`info`, `log`].includes(this.options.logLevel)
@@ -39,60 +46,38 @@ class Logger {
         this.enabled = true
     }
 
-    if (args.verbose) {
+    if (argv.includes(`--verbose`)) {
       this.verbose = true
       this.options.logLevel === `info`
     }
-
-    const secretEnv = Object.entries(env)
-      .filter(([k, v]) => !isUndefined(v) && k.includes(`SECRET`))
-      .map(([_, value]) => `${value}`)
-
-    secretEnv.push(cwd())
-
-    this.options.secrets = this.options.secrets
-      ? [...this.options.secrets, ...secretEnv]
-      : secretEnv
 
     this.instance = new Signale.Signale(this.options)
     this.instance.config({displayBadge: true, displayLabel: false})
   }
 
-  @bind
-  public await(...messages: Array<unknown>) {
-    if (!this.enabled) return this
-    this.instance.await(...messages)
-    return this
-  }
-
-  @bind
   public debug(...messages: Array<unknown>) {
     if (!this.verbose) return this
     this.instance.debug(...messages)
     return this
   }
 
-  @bind
   public error(...messages: Array<unknown>) {
     this.instance.error(...messages)
     return this
   }
 
-  @bind
   public info(...messages: Array<unknown>) {
     if (!this.verbose) return this
     this.instance.info(...messages)
     return this
   }
 
-  @bind
   public log(...messages: Array<unknown>) {
     if (!this.enabled) return this
     this.instance.log(...messages)
     return this
   }
 
-  @bind
   public scope(...scopes: Array<string>) {
     if (scopes.length === 0) return this
     this.instance = this.instance.scope(...scopes)
@@ -100,43 +85,24 @@ class Logger {
     return this
   }
 
-  @bind
   public success(...messages: Array<unknown>) {
     if (!this.enabled) return this
     this.instance.success(...messages)
     return this
   }
 
-  @bind
-  public time(label: string = `default`) {
-    if (!this.verbose) return this
-    this.instance.time(label)
-    return this
-  }
-
-  @bind
-  public timeEnd(label: string = `default`) {
-    if (!this.verbose) return this
-    this.instance.timeEnd(label)
-    return this
-  }
-
-  @bind
   public unscope() {
     this.instance.unscope()
     return this
   }
 
-  @bind
   public warn(...messages: Array<unknown>) {
     this.instance.warn(...messages)
     return this
   }
 }
 
-let instance: Logger = new Logger({
-  stream: [stdout],
-})
+let instance: Logger = new Logger()
 
 export const initialize = (options: SignaleOptions) => {
   instance = new Logger(options)

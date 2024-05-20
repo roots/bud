@@ -63,6 +63,8 @@ export const getPackageResults = async function (
   signifier: string,
 ): Promise<PackageResult> {
   const manifest = await this.module.getManifestPath(signifier)
+  if (!manifest) return null
+
   const result = await this.fs.read(manifest)
   if (!result?.version) return null
 

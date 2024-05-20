@@ -5,12 +5,12 @@ import type {InspectResult} from '@roots/filesystem/filesystem'
 import {builtinModules} from 'node:module'
 import {join, parse} from 'node:path'
 
+import {get as getPaths} from '@roots/bud-framework/bootstrap/paths'
 import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/get'
 import logger from '@roots/bud-support/logger'
 import omit from '@roots/bud-support/omit'
 import _set from '@roots/bud-support/set'
-import {get as getPaths} from '@roots/bud-support/utilities/paths'
 
 const moduleExtensions = [`.js`, `.cjs`, `.mjs`, `.ts`, `.cts`, `.mts`]
 const jsonExtensions = [`.json`, `.json5`, `.yml`, `.yaml`]
@@ -74,8 +74,6 @@ const get = async (basedir: string) => {
       throw error
     })
 
-  logger.scope(`fs`).timeEnd(`Initializing filesystem`)
-
   return data
 }
 
@@ -123,8 +121,6 @@ async function getFileInfo(filename: string) {
    */
   if (file.type === `module`) {
     file.module = async () => {
-      logger.scope(`fs`).time(`loading ${file.name}`)
-
       const current = await fs
         .inspect(file.path, {
           absolutePath: true,
@@ -150,10 +146,7 @@ async function getFileInfo(filename: string) {
           throw error
         })
 
-        logger
-          .scope(`fs`)
-          .info(`loading ${file.name}`, value)
-          .timeEnd(`loading ${file.name}`)
+        logger.scope(`fs`).info(`loading ${file.name}`, value)
 
         return value?.default ?? value // returning early here
       }
@@ -202,12 +195,9 @@ async function getFileInfo(filename: string) {
       logger.scope(`fs`).info(`removing tmpfile:`, tmpfile)
       await fs.remove(tmpfile).catch(makeRemoveError(tmpfile))
 
-      logger.scope(`fs`).timeEnd(`loading ${file.name}`)
       return value?.default ?? value
     }
   }
-
-  logger.scope(`fs`).timeEnd(`loading ${file.name}`)
 
   Object.assign(data, {[file.name]: file})
 }
@@ -240,8 +230,6 @@ async function esTransform({
     outfile,
     platform: `node`,
   })
-
-  logger.scope(`fs`).timeEnd(`compiling ${file.name}`)
 }
 
 function getFileType(

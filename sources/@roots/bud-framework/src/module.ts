@@ -1,6 +1,9 @@
+import type {Bud} from '@roots/bud-framework'
+
 import {join, normalize, relative} from 'node:path'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 
+import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import {resolve} from '@roots/bud-support/import-meta-resolve'
@@ -8,15 +11,13 @@ import isEqual from '@roots/bud-support/isEqual'
 import logger from '@roots/bud-support/logger'
 import noop from '@roots/bud-support/noop'
 
-import {type Bud} from './index.js'
-import {Service} from './service.js'
-
 /**
  * Import method options
  */
 interface ImportOptions {
   bustCache?: boolean
   raw?: boolean
+  reject?: boolean
 }
 
 /**
@@ -103,9 +104,10 @@ export class Module extends Service {
       logger.scope(`module`).log(`--force used. resetting cache.`)
       return await this.removeCachedResolutions()
     }
+    logger.scope(`module`).log(`cache is enabled`)
 
     if (await bud.fs.exists(this.cachePath)) {
-      logger.scope(`module`).log(`cache is enabled and exists`)
+      logger.scope(`module`).log(`cache file exists:`, this.cachePath)
       const cache = await bud.fs.read(this.cachePath).catch(noop)
       if (cache) this.cache = cache
       this.resolutions = {...this.cache.resolutions}
@@ -117,9 +119,8 @@ export class Module extends Service {
     ) {
       logger
         .scope(`module`)
-        .log(
-          `cache is enabled but package.json has changed. resetiing cache.`,
-        )
+        .log(`package.json has changed. resetting cache.`)
+
       return await this.removeCachedResolutions()
     }
   }
@@ -130,12 +131,7 @@ export class Module extends Service {
   @bind
   public async after(bud: Bud) {
     if (isEqual(this.cache.resolutions, this.resolutions)) {
-      logger
-        .scope(`module`)
-        .log(`resolutions unchanged. skipping write.`)
-        .info(`resolutions:`, this.resolutions)
-        .info(`cache:`, this.cache)
-
+      logger.scope(`module`).log(`Resolutions unchanged. Skipping write.`)
       return bud
     }
 
@@ -164,11 +160,14 @@ export class Module extends Service {
   public async getDirectory(signifier: string, context?: string) {
     logger.scope(`module`).info(`getDirectory`, signifier, context)
 
-    return await this.resolve(signifier, context)
-      .then(path => relative(this.app.context.basedir, path))
-      .then(path => path.split(signifier).shift())
-      .then(path => this.app.path(path, signifier))
-      .catch(this.catch)
+    const modulePath = await this.resolve(signifier, context)
+    if (!modulePath) return false
+
+    const relativeDir = relative(this.app.context.basedir, modulePath)
+      .split(signifier)
+      .shift()
+
+    return this.app.path(relativeDir, signifier)
   }
 
   /**
@@ -177,9 +176,11 @@ export class Module extends Service {
   @bind
   public async getManifestPath(signifier: string) {
     logger.scope(`module`).info(`getManifestPath`, signifier)
-    return await this.getDirectory(signifier)
-      .then(dir => this.app.path(dir, `package.json`))
-      .catch(this.catch)
+
+    const directory = await this.getDirectory(signifier)
+    if (!directory) return false
+
+    return this.app.path(directory, `package.json`)
   }
 
   /**
@@ -192,6 +193,7 @@ export class Module extends Service {
     options: ImportOptions = {
       bustCache: false,
       raw: false,
+      reject: true,
     },
   ) {
     if (options.bustCache) {
@@ -204,14 +206,16 @@ export class Module extends Service {
 
     const code = await import(this.getResolution(signifier)).catch(
       async error => {
-        return await this.handleError(error.message ?? error)
+        if (options.reject)
+          return await this.handleError(error.message ?? error)
       },
     )
-    if (!code) {
+    if (!code && options.reject) {
       return await this.handleError(`Could not import ${signifier}`)
     }
 
     logger.scope(`module`).log(`imported module:`, signifier)
+
     return options.raw ? code : code?.default ?? code
   }
 
@@ -231,11 +235,13 @@ export class Module extends Service {
    */
   @bind
   public async readManifest(signifier: string) {
-    return await this.getManifestPath(signifier).then(async path => {
-      const value = await this.app.fs.read(path)
-      logger.scope(`module`).info(signifier, `manifest`, value)
-      return value
-    })
+    const manifestPath = await this.getManifestPath(signifier)
+    if (!manifestPath) return false
+
+    const value = await this.app.fs.read(manifestPath)
+    logger.scope(`module`).info(signifier, `manifest`, value)
+
+    return value
   }
 
   /**
@@ -246,16 +252,6 @@ export class Module extends Service {
     if (await this.app.fs.exists(this.cachePath)) {
       logger.scope(`module`).log(`removing cache file`, this.cachePath)
       await this.app.fs.remove(this.cachePath)
-    }
-
-    if (error) {
-      await this.writeResolutions(
-        this.cachePath.replace(
-          `bud.resolutions.yml`,
-          `bud.error.resolutions.yml`,
-        ),
-        {date: Date.now(), error},
-      )
     }
 
     this.cache = {
@@ -274,50 +270,35 @@ export class Module extends Service {
   public async resolve(
     signifier: string,
     context?: string,
-  ): Promise<string> {
+  ): Promise<false | string> {
     if (this.hasResolution(signifier)) {
+      logger
+        .scope(`module`)
+        .log(`[cache hit]`, signifier, `=>`, this.getResolution(signifier))
+
       return this.getResolution(signifier)
     }
 
-    await resolve(signifier, this.makeContextURL())
-      .then(path => {
-        this.setResolution(signifier, normalize(fileURLToPath(path)))
-
-        logger
-          .scope(`module`)
-          .log(
-            `[cache miss]`,
-            `path:`,
-            signifier,
-            `=>`,
-            this.getResolution(signifier),
-          )
-      })
-      .catch(noop)
-
-    if (this.hasResolution(signifier)) return this.getResolution(signifier)
-
-    await resolve(signifier, this.makeContextURL(context))
-      .then(path => {
-        this.setResolution(signifier, normalize(fileURLToPath(path)))
-
-        logger
-          .scope(`module`)
-          .log(
-            `[cache miss]`,
-            `path:`,
-            signifier,
-            `=>`,
-            this.getResolution(signifier),
-          )
-      })
-      .catch(noop)
-
-    if (this.hasResolution(signifier)) {
-      return this.getResolution(signifier)
+    const attemptResolution = (
+      path: string,
+      context?: string | URL,
+    ): false | string => {
+      const resolvedPath = resolve(path, context)
+      if (!resolvedPath) return false
+      return normalize(fileURLToPath(resolvedPath))
     }
 
-    await this.handleError(`Could not resolve`, signifier)
+    const resolved =
+      attemptResolution(signifier, this.makeContextURL()) ??
+      attemptResolution(signifier, this.makeContextURL(context))
+
+    if (resolved) {
+      logger.scope(`module`).log(`[cache miss]`, signifier, `=>`, resolved)
+
+      this.setResolution(signifier, resolved)
+    }
+
+    return resolved
   }
 
   /**
@@ -342,11 +323,11 @@ export class Module extends Service {
    */
   @bind
   public getResolution(signifier: string) {
-    logger
-      .scope(`module`)
-      .info(`resolved:`, signifier, `=>`, this.resolutions[signifier])
+    const resolved = this.resolutions[signifier]
 
-    return this.resolutions[signifier]
+    logger.scope(`module`).info(`resolved:`, signifier, `=>`, resolved)
+
+    return resolved
   }
 
   /**

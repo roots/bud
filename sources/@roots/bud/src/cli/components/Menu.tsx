@@ -12,41 +12,23 @@ import {
 } from '@roots/bud-support/ink'
 
 export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
-  const [defined] = useState(cli.definitions())
   const [selected, setSelected] = useState(0)
-  const [running, setRunning] = useState(false)
-  const [items, setItems] = useState([])
 
-  useEffect(() => {
-    setItems(
-      defined
-        .filter(cmd => cmd.path !== `bud`)
-        .reduce((acc, cmd, id) => {
-          return [
-            ...acc,
-            cmd.examples
-              ?.map(([description, path]) => {
-                return {cmd, description, id, path}
-              })
-              .shift(),
-          ].filter(Boolean)
-        }, []),
-    )
-  }, [defined])
+  const defined = cli.definitions()
+  const items = defined.filter(cmd => cmd.path !== `bud`)
+  const description = defined[0].description.trim()
 
-  useInput((key, input) => {
-    if (input.escape) {
-      // eslint-disable-next-line n/no-process-exit
-      exit()
-    }
+  const longestCommandLength = items.reduce((a, b) => {
+    return a.path.length > b.path.length ? a : b
+  }).path.length
 
-    if (running) return
+  useInput((_, input) => {
+    input.escape && exit()
 
-    input[`downArrow`] && setSelected(selected + 1)
-    input[`upArrow`] && setSelected(selected - 1)
+    input.downArrow && setSelected(selected + 1)
+    input.upArrow && setSelected(selected - 1)
 
     if (input.return) {
-      setRunning(true)
       cli.run(items[selected].path.split(` `).slice(1))
     }
   })
@@ -56,33 +38,61 @@ export const Menu = ({cli}: {cli: BudCommand[`cli`]}) => {
     if (selected < 0) setSelected(items.length - 1)
   }, [items, selected])
 
-  if (running) return null
-
   return (
     <Box flexDirection="column" gap={1} marginY={1}>
-      <Box flexDirection="row" justifyContent="space-between">
-        <Box flexDirection="row" gap={1}>
-          <Text bold>bud.js</Text>
-        </Box>
-        <Text>v{cli.binaryVersion}</Text>
-      </Box>
-      <Text italic>{defined[0].description.trim()}</Text>
+      <Header />
+
+      <Text italic>{description}</Text>
 
       <Box flexDirection="column" gap={0}>
-        {items.map(({cmd, description, path}, id) => {
-          return (
-            <Text color={selected === id ? `blue` : `white`} key={id}>
-              {selected === id ? figures.radioOn : figures.radioOff}
-              {` `}
-              {path.trim()}
+        {items.map(({description, path}, id) => (
+          <Item
+            description={description}
+            key={id}
+            minWidth={longestCommandLength}
+            path={path}
+            selected={selected === id}
+          />
+        ))}
+      </Box>
+    </Box>
+  )
+}
 
-              <Text color="white" dimColor>
-                {` `}
-                {description.trim()}
-              </Text>
-            </Text>
-          )
-        })}
+const Header = () => (
+  <Box flexDirection="row" justifyContent="space-between">
+    <Box flexDirection="row" gap={1}>
+      <Text bold>bud.js</Text>
+    </Box>
+  </Box>
+)
+
+const Item = ({
+  description,
+  minWidth,
+  path,
+  selected,
+}: {
+  description?: string
+  minWidth: number
+  path: string
+  selected: boolean
+}) => {
+  const color = selected ? `blue` : `white`
+  const figure = selected ? figures.radioOn : figures.radioOff
+
+  return (
+    <Box flexDirection="row" gap={2}>
+      <Box>
+        <Text color={color}>{figure}</Text>
+      </Box>
+      <Box width={minWidth}>
+        <Text color={color}>{path.trim()}</Text>
+      </Box>
+      <Box>
+        <Text color="white" dimColor>
+          {description.trim()}
+        </Text>
       </Box>
     </Box>
   )

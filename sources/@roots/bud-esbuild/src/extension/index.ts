@@ -91,11 +91,10 @@ export default class BudEsbuild extends Extension<Options> {
    */
   @bind
   public override async register({build, hooks}: Bud) {
-    this.moduleLoader = await this.resolve(
-      `esbuild-loader`,
-      import.meta.url,
-    )
-    if (!this.moduleLoader) return this.catch(`Esbuild loader not found`)
+    const loader = await this.resolve(`esbuild-loader`, import.meta.url)
+    if (!loader) this.catch(`Esbuild loader not found`)
+
+    this.moduleLoader = loader
 
     build.setLoader(`esbuild`, `esbuild-loader`)
 

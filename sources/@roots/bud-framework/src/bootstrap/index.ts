@@ -1,51 +1,14 @@
 import type {Bud, BudService, Registry} from '@roots/bud-framework'
 
+import args from '@roots/bud-framework/bootstrap/args'
+import {paths} from '@roots/bud-framework/bootstrap/paths'
 import camelCase from '@roots/bud-support/camelCase'
-import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
-import {paths} from '@roots/bud-support/utilities/paths'
 
-import {FS} from './fs.js'
-import {Module} from './module.js'
-import {Notifier} from './notifier.js'
-
-/**
- * Define the list of lifecycle events that are handled by the system
- */
-export const lifecycleHookHandles: Partial<
-  Array<`${keyof Registry.EventsStore & string}`>
-> = [
-  `bootstrap`,
-  `register`,
-  `boot`,
-  `config.before`,
-  `config.after`,
-  `compiler.before`,
-  `build.before`,
-  `build.after`,
-  `compiler.done`,
-  `server.before`,
-  `server.after`,
-]
-
-/**
- * Define the corresponding methods in the Service class for each lifecycle event
- */
-export const lifecycleMethods: Array<`${keyof BudService}`> = [
-  `bootstrap`,
-  `register`,
-  `boot`,
-  `configBefore`,
-  `configAfter`,
-  `compilerBefore`,
-  `buildBefore`,
-  `buildAfter`,
-  `compilerDone`,
-  `serverBefore`,
-  `serverAfter`,
-]
+import {FS} from '../fs.js'
+import {Module} from '../module.js'
+import {Notifier} from '../notifier.js'
 
 /**
  * Define the list of services that should only be instantiated in the parent compiler context
@@ -64,7 +27,10 @@ export const DEVELOPMENT_SERVICES = [`@roots/bud-server`]
 /**
  * Map the lifecycle events to their corresponding Service class methods
  */
-export const lifecycle = {
+export const lifecycle: Record<
+  `${keyof Registry.Events & string}`,
+  `${keyof BudService & string}`
+> = {
   boot: `boot`,
   bootstrap: `bootstrap`,
   'build.after': `buildAfter`,
@@ -78,7 +44,7 @@ export const lifecycle = {
   'server.before': `serverBefore`,
 }
 
-export const services: Array<string> = []
+export const services: Set<string> = new Set()
 
 /**
  * Define a filter function to validate services based on the current application context.
@@ -107,27 +73,20 @@ const filterServices =
  * @returns function to instantiate a service
  */
 const instantiateServices =
-  (app: Bud) =>
-  async (signifier: string): Promise<void> => {
-    const Service = await app.module.import(signifier).catch(error => {
-      throw error instanceof BudError ? BudError.normalize(error) : error
-    })
+  (bud: Bud) =>
+  async (signifier: `${keyof Bud & string}`): Promise<void> => {
+    const Service = await bud.module.import(signifier).catch(bud.catch)
 
-    const value: BudService = new Service(() => app)
-    const label = value.constructor?.name
-      ? camelCase(value.constructor.name)
-      : signifier
+    const value: BudService = new Service(() => bud)
+    const handle = (
+      value.constructor?.name
+        ? camelCase(value.constructor.name)
+        : signifier
+    ) as `${keyof Bud & string}`
 
-    Object.defineProperties(app, {
-      [label]: {
-        configurable: true,
-        enumerable: true,
-        value,
-        writable: true,
-      },
-    })
+    bud.set(handle, new Service(() => bud), false)
 
-    services.push(label)
+    services.add(handle)
   }
 
 /**
@@ -143,10 +102,17 @@ const instantiateServices =
  * @param bud - Bud instance
  * @returns Promise<void>
  */
-export const bootstrap = async function (bud: Bud) {
-  bud.fs = new FS(() => bud)
-  bud.module = new Module({app: () => bud, args, paths})
-  await bud.module.bootstrap(bud)
+export const bootstrap = async (bud: Bud) => {
+  bud
+    .set(`fs`, new FS(() => bud))
+    .set(
+      `module`,
+      bud.isRoot
+        ? new Module({app: () => bud, args, paths})
+        : bud.root.module,
+    )
+
+  bud.isRoot && (await bud.module.bootstrap(bud))
 
   await Promise.all(
     [...bud.context.services]
@@ -209,15 +175,22 @@ export const bootstrap = async function (bud: Bud) {
       .filter(Boolean)
       .filter(instance => callbackName in instance)
       .map(instance => {
-        logger.log(
-          `register service callback:`,
-          `${instance.constructor.name}.${callbackName}`,
+        logger
+          .scope(bud.label, `bootstrap`)
+          .log(
+            `register service callback:`,
+            `${instance.constructor.name}.${callbackName}`,
+          )
+        bud.hooks.action(
+          eventHandle as `${keyof Registry.Events & string}`,
+          instance[callbackName],
         )
-        bud.hooks.action(eventHandle as any, instance[callbackName])
       }),
   )
 
-  bud.after(bud.module.after)
+  bud.isRoot && bud.after(bud.module.after)
+
+  services.clear()
 
   return bud
 }

@@ -66,15 +66,7 @@ class Extensions extends Service implements BudExtensions {
    * Add a {@link Extension} to the extensions repository
    */
   @bind
-  public async add<K extends `${keyof Modules & string}`>(
-    extension:
-      | Array<
-          K | (new (bud: Bud) => Partial<Extension>) | Partial<Extension>
-        >
-      | K
-      | (new (bud: Bud) => Partial<Extension>)
-      | Partial<Extension>,
-  ): Promise<void> {
+  public async add(extension: any): Promise<void> {
     const arrayed = Array.isArray(extension) ? extension : [extension]
 
     await arrayed.reduce(async (promised, item) => {
@@ -237,8 +229,8 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public async import(
     signifier: string,
-    required: boolean | number = true,
-  ): Promise<Extension> {
+    required: boolean = true,
+  ): Promise<Extension | null> {
     if (required && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
 
@@ -253,19 +245,20 @@ class Extensions extends Service implements BudExtensions {
     }
 
     const extension: Extension = await this.app.module
-      .import(signifier, import.meta.url)
-      .catch(error => {
+      .import(signifier, import.meta.url, {reject: false})
+      .catch(async error => {
         this.unresolvable.add(signifier)
-        if (required) throw error
+        if (required) await this.app.module.removeCachedResolutions()
       })
 
+    if (!extension && required) {
+      throw new ExtensionError(
+        `Extension ${signifier} not found but required`,
+      )
+    }
     if (!extension) {
-      if (required)
-        throw new ExtensionError(
-          `Extension ${signifier} not found but required`,
-        )
-
-      return
+      this.logger.info(`Extension ${signifier} not found`)
+      return null
     }
 
     const instance = await this.instantiate(extension)
@@ -281,19 +274,15 @@ class Extensions extends Service implements BudExtensions {
       await Promise.all(
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
-          .filter(
-            optionalDependency =>
-              !this.unresolvable.has(optionalDependency),
-          )
-          .filter(optionalDependency => !this.has(optionalDependency))
-          .map(async optionalDependency => {
-            await this.import(optionalDependency, false)
-            if (!this.has(optionalDependency))
-              this.unresolvable.add(optionalDependency)
+          .filter(dep => !this.unresolvable.has(dep))
+          .filter(dep => !this.has(dep))
+          .map(async dep => {
+            await this.import(dep, false)
+            if (!this.has(dep)) this.unresolvable.add(dep)
           }),
       )
 
-    this.set(instance)
+    instance && this.set(instance)
 
     return instance
   }
@@ -312,10 +301,12 @@ class Extensions extends Service implements BudExtensions {
 
     if (isConstructor(source)) {
       const instance = new source(this.app)
-      if (!instance.label)
-        instance.label =
-          instance.constructor.name ??
-          (randomUUID() as keyof Modules & string)
+
+      instance.label =
+        instance.label ??
+        instance.constructor.name ??
+        (randomUUID() as keyof Modules & string)
+
       return instance
     }
 
@@ -424,7 +415,7 @@ class Extensions extends Service implements BudExtensions {
    */
   @bind
   public async run(
-    extension: ApplyPlugin | Partial<Extension>,
+    extension: Modules[`${keyof Modules & string}`],
     methodName: LifecycleMethods,
   ): Promise<this> {
     try {
@@ -464,7 +455,7 @@ class Extensions extends Service implements BudExtensions {
     extension: K | Modules[K],
     methodName: LifecycleMethods,
   ): Promise<void> {
-    let instance: Modules[K] & Partial<Extension>
+    let instance: Modules[K]
 
     if (typeof extension === `string` && this.has(extension)) {
       instance = this.get(extension)
@@ -484,8 +475,11 @@ class Extensions extends Service implements BudExtensions {
         }, Promise.resolve())
     }
 
-    if (!this.options.isTrue(`discover`)) return
-    if (!(`dependsOnOptional` in instance)) return
+    if (
+      !this.options.isTrue(`discover`) ||
+      !(`dependsOnOptional` in instance)
+    )
+      return
 
     await Array.from(instance.dependsOnOptional)
       .filter(this.isAllowed)

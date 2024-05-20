@@ -1,3 +1,5 @@
+import type {Override} from '@roots/bud/cli/helpers/override'
+
 import BudCommand from '@roots/bud/cli/commands'
 import browserslistUpdate from '@roots/bud/cli/flags/browserslist-update'
 import ci from '@roots/bud/cli/flags/ci'
@@ -17,7 +19,6 @@ import html from '@roots/bud/cli/flags/html'
 import immutable from '@roots/bud/cli/flags/immutable'
 import lazy from '@roots/bud/cli/flags/lazy'
 import minimize from '@roots/bud/cli/flags/minimize'
-import notify from '@roots/bud/cli/flags/notify'
 import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
@@ -25,8 +26,6 @@ import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
 import isBoolean from '@roots/bud-support/isBoolean'
 import isString from '@roots/bud-support/isString'
 import noop from '@roots/bud-support/noop'
-
-import type {Override} from '../../helpers/override.js'
 
 /**
  * `bud build` command
@@ -51,10 +50,6 @@ export default class BudBuildCommand extends BudCommand {
       If you run this command without a configuration file \`bud\` will look for an entrypoint at \`@src/index.js\`.
     `,
   })
-
-  public declare hot?: boolean
-
-  public declare proxy?: string
 
   public browserslistUpdate = browserslistUpdate
 
@@ -84,6 +79,8 @@ export default class BudBuildCommand extends BudCommand {
 
   public hash = hash
 
+  public hot?: boolean
+
   public html = html
 
   public immutable = immutable
@@ -92,7 +89,7 @@ export default class BudBuildCommand extends BudCommand {
 
   public minimize = minimize
 
-  public override notify = notify
+  public proxy?: string
 
   public runtime = runtime
 
@@ -117,6 +114,7 @@ export default class BudBuildCommand extends BudCommand {
           `BUD_BROWSERSLIST_UPDATE`,
           `browserslistUpdate`,
           b => async v => (b.root.context.browserslistUpdate = v),
+          false,
         ] satisfies Override<boolean>,
         [
           this.devtool,
@@ -182,6 +180,7 @@ export default class BudBuildCommand extends BudCommand {
               `dev.middleware.proxy.options.target`,
               new URL(v),
             ),
+          false,
         ] satisfies Override<string>,
         [
           this.runtime,
@@ -199,7 +198,6 @@ export default class BudBuildCommand extends BudCommand {
     ).catch(noop)
 
     await browserslistUpdateCheck(this.bud)
-
     await this.bud.run()
   }
 }

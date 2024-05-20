@@ -2,20 +2,21 @@ import type {
   Compiler,
   WebpackPluginInstance,
 } from '@roots/bud-framework/config'
-import type {ExtensionLiteral} from '@roots/bud-framework/extension'
 
+import {Extension} from '@roots/bud-framework/extension'
 import isString from '@roots/bud-support/isString'
 
 /**
  * Remove empty modules from the compilation
  */
 export default class FixStyleOnlyEntrypoints
-  implements WebpackPluginInstance, ExtensionLiteral
+  extends Extension
+  implements WebpackPluginInstance
 {
   /**
    * {@link WebpackPluginInstance.apply}
    */
-  public apply({hooks}: Compiler) {
+  public override apply({hooks}: Compiler) {
     hooks.thisCompilation.tap(this.constructor.name, compilation =>
       compilation.hooks.chunkAsset.tap(
         this.constructor.name,

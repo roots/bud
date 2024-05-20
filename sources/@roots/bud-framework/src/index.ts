@@ -28,6 +28,7 @@ export type {Rule} from './services/build/rule.js'
 export * from '@roots/bud-framework/bud'
 export type * from '@roots/bud-framework/config'
 export type {Context} from '@roots/bud-framework/context'
+export type {Extension} from '@roots/bud-framework/extension'
 export type {
   Api,
   Build,

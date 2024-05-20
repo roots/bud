@@ -54,15 +54,20 @@ class Project {
     let results: ExecaReturnValue
 
     if (this.options.buildCommand) {
-      results = await execa(...this.options.buildCommand, {
-        cwd: this.directory,
-      })
-    } else if (globalThis.__INTEGRATION__) {
       await execa(
         `node`,
         [this.getPath(`node_modules`, `.bin`, `bud`), `clean`],
-        {cwd: this.directory},
+        {
+          cwd: this.directory,
+          reject: false,
+        },
       )
+
+      results = await execa(...this.options.buildCommand, {
+        cwd: this.directory,
+        reject: false,
+      })
+    } else if (globalThis.__INTEGRATION__) {
       results = await execa(
         `node`,
         [
@@ -70,23 +75,40 @@ class Project {
           `build`,
           `--no-cache`,
         ],
-        {cwd: this.directory},
+        {
+          cwd: this.directory,
+          reject: false,
+        },
       )
     } else {
-      await execa(`yarn`, [
-        `bud`,
-        `--basedir`,
-        this.options.label.replace(`@examples/`, `examples/`),
-        `clean`,
-      ])
+      await execa(
+        `yarn`,
+        [
+          `bud`,
+          `--basedir`,
+          this.options.label.replace(`@examples/`, `examples/`),
+          `clean`,
+        ],
+        {
+          cwd: this.directory,
+          reject: false,
+        },
+      )
 
-      results = await execa(`yarn`, [
-        `bud`,
-        `--basedir`,
-        this.options.label.replace(`@examples/`, `examples/`),
-        `build`,
-        `--no-cache`,
-      ])
+      results = await execa(
+        `yarn`,
+        [
+          `bud`,
+          `--basedir`,
+          this.options.label.replace(`@examples/`, `examples/`),
+          `build`,
+          `--no-cache`,
+        ],
+        {
+          cwd: this.directory,
+          reject: false,
+        },
+      )
     }
 
     results.stdout &&
@@ -154,6 +176,11 @@ class Project {
   @bind
   public getAssetPath(name: string) {
     return this.getPath(this.manifest[name])
+  }
+
+  @bind
+  public async read(...name: string[]) {
+    return await fs.read(this.getPath(...name))
   }
 
   /**

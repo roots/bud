@@ -4,8 +4,8 @@ import type Plugin from 'terser-webpack-plugin'
 
 import {
   Extension,
+  type ExtensionApi,
   type OptionCallback,
-  type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -59,7 +59,7 @@ type BudMinimizeJSPublicInterface = {
       `mangle`
     >,
   ) => BudMinimizeJSPublicApi
-} & StrictPublicExtensionApi<BudMinimizeJSPublicApi, BudMinimizeJSOptions>
+} & ExtensionApi<BudMinimizeJSPublicApi, BudMinimizeJSOptions>
 
 /**
  * Terser configuration

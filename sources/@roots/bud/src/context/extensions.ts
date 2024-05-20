@@ -74,6 +74,7 @@ export default (
           !manifest.bud?.allowlist ||
           manifest.bud.allowlist.includes(signifier),
       )
+      .flatMap(signifier => signifier.split(`,`))
       .map((signifier: keyof Modules & string) =>
         extensions.discovered.push(signifier),
       )

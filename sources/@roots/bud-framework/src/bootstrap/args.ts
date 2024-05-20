@@ -1,5 +1,5 @@
 import isString from '@roots/bud-support/isString'
-import minimist from 'minimist'
+import minimist from '@roots/bud-support/minimist'
 
 const raw = process.argv.slice(2)
 
@@ -25,7 +25,7 @@ const args = minimist(raw, {
 })
 
 if (args.use && isString(args.use)) {
-  args.use = [args.use]
+  args.use = args.use.split(`,`)
 }
 
 export const includes = (key: string) => args._.includes(key)
