@@ -10,17 +10,24 @@ describe(`examples/babel`, () => {
     await test.build()
   })
 
-  it(`should have expected stdout`, async () => {
+  it(`should emit stdout`, async () => {
     expect(
-      test.stdout.split(`\n`).slice(0, -3).join(`\n`),
+      (await test.read(`build.stdout.log`))
+        .split(`\n`)
+        .slice(2, -3)
+        .join(`\n`),
     ).toMatchSnapshot()
   })
 
-  it(`should have expected manifest.json`, async () => {
+  it(`should not emit stderr`, async () => {
+    expect(await test.read(`build.stderr.log`)).toBeUndefined()
+  })
+
+  it(`should emit manifest.json`, async () => {
     expect(test.manifest).toMatchSnapshot()
   })
 
-  it(`should have expected entrypoints.json`, async () => {
+  it(`should emit entrypoints.json`, async () => {
     expect(test.entrypoints).toMatchSnapshot()
   })
 

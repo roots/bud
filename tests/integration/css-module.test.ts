@@ -1,5 +1,5 @@
 import setup from '@repo/test-kit/setup'
-import { testIsCompiledCss } from '@repo/test-kit/tests'
+import {testIsCompiledCss} from '@repo/test-kit/tests'
 import {describe, expect, it} from 'vitest'
 
 describe(`examples/css-module`, () => {

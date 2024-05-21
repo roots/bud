@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/babel > should have expected entrypoints.json 1`] = `
+exports[`examples/babel > should emit entrypoints.json 1`] = `
 {
   "main": {
     "css": [
@@ -14,7 +14,7 @@ exports[`examples/babel > should have expected entrypoints.json 1`] = `
 }
 `;
 
-exports[`examples/babel > should have expected manifest.json 1`] = `
+exports[`examples/babel > should emit manifest.json 1`] = `
 {
   "entrypoints.json": "entrypoints.json",
   "main.css": "css/main.css",
@@ -23,10 +23,8 @@ exports[`examples/babel > should have expected manifest.json 1`] = `
 }
 `;
 
-exports[`examples/babel > should have expected stdout 1`] = `
-"
-╭ babel [7eb6f4c8b41febd2]                                                  ./dist
-│
+exports[`examples/babel > should emit stdout 1`] = `
+"│
 │ main
 │  ◉ js/runtime.js                                                     ✔ 904 bytes
 │  ◉ css/main.css                                                      ✔ 231 bytes
