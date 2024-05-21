@@ -83,7 +83,7 @@ This is most likely a problem with the internals of bud.js.`,
   if (specified && !basedir.endsWith(specified)) {
     logger.scope(`paths`).log(`using specified basedir:`, specified)
 
-    basedir = join(basedir, specified)
+    basedir = isAbsolute(specified) ? specified : join(basedir, specified)
 
     sha1.update(basedir)
     env.basedir = basedir

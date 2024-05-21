@@ -52,12 +52,12 @@ const application = new Cli<BaseContext & Context>({
 })
 
 /**
- * Command finder
+ * {@link Finder}
  */
 const finder = new Finder(context, application)
 
 /**
- * Register built-ins
+ * Register commands
  */
 ;[
   Builtins.HelpCommand,
