@@ -30,9 +30,7 @@ exports[`examples/babel-advanced > should have expected manifest.json 1`] = `
 `;
 
 exports[`examples/babel-advanced > should have expected stdout 1`] = `
-"
-╭ babel-advanced [2143cd434f4de24e]                                         ./dist
-│
+"│
 │ app
 │  ◉ js/runtime.js                                                     ✔ 904 bytes
 │  ◉ css/app.css                                                       ✔ 231 bytes

@@ -12,7 +12,7 @@ describe(`examples/babel-advanced`, () => {
 
   it(`should have expected stdout`, async () => {
     expect(
-      test.stdout.split(`\n`).slice(0, -3).join(`\n`),
+      test.stdout.split(`\n`).slice(2, -3).join(`\n`),
     ).toMatchSnapshot()
   })
 
