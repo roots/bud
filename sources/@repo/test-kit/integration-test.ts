@@ -28,6 +28,11 @@ class Project {
   public assets: Record<string, Record<string, unknown> | string> = {}
 
   /**
+   * stdout from build command
+   */
+  public stdout: string
+
+  /**
    * entrypoints.json contents
    */
   public entrypoints: Entrypoints = {}
@@ -130,6 +135,8 @@ class Project {
     this.manifest = await fs.read(
       this.getPath(this.getBaseUrl(), `manifest.json`),
     )
+
+    this.stdout = await fs.read(this.getPath(`build.stdout.log`))
 
     await Promise.all(
       Object.entries(this.manifest).map(

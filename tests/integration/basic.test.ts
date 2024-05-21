@@ -1,16 +1,32 @@
 import setup from '@repo/test-kit/setup'
-import { testIsCompiledJs } from '@repo/test-kit/tests'
-import {describe, expect, it} from 'vitest'
+import {testIsCompiledCss, testIsCompiledJs} from '@repo/test-kit/tests'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/basic`, () => {
-  it(`should compile assets as expected`, async () => {
-    const test = setup({
-      label: `@examples/basic`,
-    })
+  const test = setup({label: `@examples/basic`})
+
+  beforeAll(async () => {
     await test.install()
     await test.build()
+  })
 
-    testIsCompiledJs(test.getAsset(`main.js`))
+  it(`should have expected stdout`, async () => {
+    expect(
+      test.stdout.split(`\n`).slice(0, -3).join(`\n`),
+    ).toMatchSnapshot()
+  })
+
+  it(`should have expected manifest.json`, async () => {
     expect(test.manifest).toMatchSnapshot()
+  })
+
+  it(`should have expected entrypoints.json`, async () => {
+    expect(test.entrypoints).toMatchSnapshot()
+  })
+
+  it(`should compile js as expected`, async () => {
+    testIsCompiledJs(test.getAsset(`main.js`))
+    testIsCompiledJs(test.getAsset(`runtime.js`))
+    testIsCompiledCss(test.getAsset(`main.css`))
   })
 })

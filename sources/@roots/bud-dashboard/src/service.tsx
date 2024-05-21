@@ -17,6 +17,7 @@ import isUndefined from '@roots/bud-support/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
 import {render} from './components/error.js'
+import ErrorBoundary from './errorBoundary.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
 
@@ -138,29 +139,31 @@ export class Dashboard extends Service implements BudDashboard {
         : Application
 
     return (
-      <Box flexDirection="column">
-        <App
-          basedir={this.app.context.basedir}
-          close={cb =>
-            this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
-          }
-          compact={compact}
-          compilations={compilations}
-          debug={this.app.context.debug}
-          devUrl={this.app.server?.url}
-          displayAssets={assets}
-          displayEntrypoints={entrypoints}
-          displayServerInfo={this.app.mode === `development` && server}
-          error={error}
-          isolated={0}
-          mode={this.app.mode}
-          notifier={this.app.notifier}
-          proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
-          proxyUrl={this.app.server?.proxyUrl}
-          publicDevUrl={this.app.server?.publicUrl}
-          publicProxyUrl={this.app.server?.publicProxyUrl}
-        />
-      </Box>
+      <ErrorBoundary compilation={stats.toString()}>
+        <Box flexDirection="column">
+          <App
+            basedir={this.app.context.basedir}
+            close={cb =>
+              this.app.compiler?.instance?.compilers?.map(c => c.close(cb))
+            }
+            compact={compact}
+            compilations={compilations}
+            debug={this.app.context.debug}
+            devUrl={this.app.server?.url}
+            displayAssets={assets}
+            displayEntrypoints={entrypoints}
+            displayServerInfo={this.app.mode === `development` && server}
+            error={error}
+            isolated={0}
+            mode={this.app.mode}
+            notifier={this.app.notifier}
+            proxy={this.app.server?.enabledMiddleware?.[`proxy`]}
+            proxyUrl={this.app.server?.proxyUrl}
+            publicDevUrl={this.app.server?.publicUrl}
+            publicProxyUrl={this.app.server?.publicProxyUrl}
+          />
+        </Box>
+      </ErrorBoundary>
     )
   }
 

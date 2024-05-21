@@ -21,6 +21,7 @@ export {
 export {default as TextInput} from 'ink-text-input'
 
 export {
+  Component,
   type Context,
   createContext,
   default,

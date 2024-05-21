@@ -1,10 +1,40 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/babel-advanced > should compile js as expected 1`] = `
+exports[`examples/babel-advanced > should emit app.css 1`] = `"body,html{margin:0;padding:0}#root{align-items:center;background:#5813d5;color:#fff;display:flex;font-family:sans-serif;height:100vh;justify-content:center;letter-spacing:.2em;text-align:center;text-transform:uppercase;width:100vw}"`;
+
+exports[`examples/babel-advanced > should emit app.js 1`] = `""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[524],{"./app.js":()=>{var s;null===(s=document.querySelector("#root"))||void 0===s||s.classList.add("init")}},s=>{var e;e="./app.js",s(s.s=e)}]);"`;
+
+exports[`examples/babel-advanced > should emit runtime.js 1`] = `"(()=>{"use strict";var r,e={},o={};function t(r){var n=o[r];if(void 0!==n)return n.exports;var s=o[r]={exports:{}};return e[r](s,s.exports,t),s.exports}t.m=e,r=[],t.O=(e,o,n,s)=>{if(!o){var a=1/0;for(u=0;u<r.length;u++){for(var[o,n,s]=r[u],i=!0,f=0;f<o.length;f++)(!1&s||a>=s)&&Object.keys(t.O).every((r=>t.O[r](o[f])))?o.splice(f--,1):(i=!1,s<a&&(a=s));if(i){r.splice(u--,1);var l=n();void 0!==l&&(e=l)}}return e}s=s||0;for(var u=r.length;u>0&&r[u-1][2]>s;u--)r[u]=r[u-1];r[u]=[o,n,s]},t.o=(r,e)=>Object.prototype.hasOwnProperty.call(r,e),(()=>{var r={121:0};t.O.j=e=>0===r[e];var e=(e,o)=>{var n,s,[a,i,f]=o,l=0;if(a.some((e=>0!==r[e]))){for(n in i)t.o(i,n)&&(t.m[n]=i[n]);if(f)var u=f(t)}for(e&&e(o);l<a.length;l++)s=a[l],t.o(r,s)&&r[s]&&r[s][0](),r[s]=0;return t.O(u)},o=self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[];o.forEach(e.bind(null,0)),o.push=e.bind(null,o.push.bind(o))})()})();"`;
+
+exports[`examples/babel-advanced > should have expected entrypoints.json 1`] = `
+{
+  "app": {
+    "css": [
+      "css/app.css",
+    ],
+    "js": [
+      "js/runtime.js",
+      "js/app.js",
+    ],
+  },
+}
+`;
+
+exports[`examples/babel-advanced > should have expected manifest.json 1`] = `
 {
   "app.css": "css/app.css",
   "app.js": "js/app.js",
   "entrypoints.json": "entrypoints.json",
   "runtime.js": "js/runtime.js",
 }
+`;
+
+exports[`examples/babel-advanced > should have expected stdout 1`] = `
+"
+╭ babel-advanced [2143cd434f4de24e]                                         ./dist
+│
+│ app
+│  ◉ js/runtime.js                                                     ✔ 904 bytes
+│  ◉ css/app.css                                                       ✔ 231 bytes
+│  ◉ js/app.js                                                         ✔ 227 bytes"
 `;

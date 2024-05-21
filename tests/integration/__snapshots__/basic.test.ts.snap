@@ -1,10 +1,34 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`examples/basic > should compile assets as expected 1`] = `
+exports[`examples/basic > should have expected entrypoints.json 1`] = `
+{
+  "main": {
+    "css": [
+      "css/main.css",
+    ],
+    "js": [
+      "js/runtime.js",
+      "js/main.js",
+    ],
+  },
+}
+`;
+
+exports[`examples/basic > should have expected manifest.json 1`] = `
 {
   "entrypoints.json": "entrypoints.json",
   "main.css": "css/main.css",
   "main.js": "js/main.js",
   "runtime.js": "js/runtime.js",
 }
+`;
+
+exports[`examples/basic > should have expected stdout 1`] = `
+"
+╭ basic [0adb4fc8cef6bae0]                                                  ./dist
+│
+│ main
+│  ◉ js/runtime.js                                                     ✔ 904 bytes
+│  ◉ css/main.css                                                       ✔ 27 bytes
+│  ◉ js/main.js                                                        ✔ 200 bytes"
 `;

@@ -1,0 +1,34 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`examples/babel > should have expected entrypoints.json 1`] = `
+{
+  "main": {
+    "css": [
+      "css/main.css",
+    ],
+    "js": [
+      "js/runtime.js",
+      "js/main.js",
+    ],
+  },
+}
+`;
+
+exports[`examples/babel > should have expected manifest.json 1`] = `
+{
+  "entrypoints.json": "entrypoints.json",
+  "main.css": "css/main.css",
+  "main.js": "js/main.js",
+  "runtime.js": "js/runtime.js",
+}
+`;
+
+exports[`examples/babel > should have expected stdout 1`] = `
+"
+╭ babel [7eb6f4c8b41febd2]                                                  ./dist
+│
+│ main
+│  ◉ js/runtime.js                                                     ✔ 904 bytes
+│  ◉ css/main.css                                                      ✔ 231 bytes
+│  ◉ js/main.js                                                        ✔ 231 bytes"
+`;
