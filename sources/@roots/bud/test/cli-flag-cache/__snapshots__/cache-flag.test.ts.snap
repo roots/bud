@@ -1,0 +1,10 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`--cache > should not generate cache when --no-cache is passed 1`] = `""`;
+
+exports[`--cache > should not generate cache when --no-cache is passed 2`] = `
+"│
+│ main
+│  ◉ js/runtime.js                                                     ✔ 904 bytes
+│  ◉ js/main.js                                                        ✔ 146 bytes"
+`;

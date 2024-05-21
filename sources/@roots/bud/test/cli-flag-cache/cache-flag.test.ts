@@ -2,7 +2,7 @@ import {existsSync as exists, rmSync as remove} from 'node:fs'
 
 import {path} from '@repo/constants'
 import {execaSync as $} from 'execa'
-import {expect, test} from 'vitest'
+import {afterAll, beforeEach, describe, expect, it} from 'vitest'
 
 const projectDir = path(
   `sources`,
@@ -25,19 +25,32 @@ const cacheDir = path(
   `cache`,
 )
 
-const removeCache = () =>
-  exists(cacheDir) && remove(cacheDir, {recursive: true})
+describe(`--cache`, async () => {
+  afterAll(() => {
+    $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
+  })
 
-test(`--cache`, async () => {
-  removeCache()
+  beforeEach(() => {
+    exists(cacheDir) && remove(cacheDir, {recursive: true})
+  })
 
-  $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
+  it(`should generate cache by default`, async () => {
+    $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
 
-  expect(exists(cacheDir)).toBe(true)
+    expect(exists(cacheDir)).toBe(true)
+  })
 
-  removeCache()
+  it(`should not generate cache when --no-cache is passed`, async () => {
+    const {stderr, stdout} = $(`yarn`, [
+      `bud`,
+      `--cwd`,
+      projectDir,
+      `build`,
+      `--no-cache`,
+    ])
 
-  $(`yarn`, [`bud`, `--cwd`, projectDir, `build`, `--no-cache`])
-
-  expect(exists(cacheDir)).toBe(false)
+    expect(stderr).toMatchSnapshot()
+    expect(stdout.split(`\n`).slice(2, -3).join(`\n`)).toMatchSnapshot()
+    expect(exists(cacheDir)).toBe(false)
+  })
 })
