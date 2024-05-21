@@ -1,6 +1,7 @@
+import {existsSync as exists, rmSync as remove} from 'node:fs'
+
 import {path} from '@repo/constants'
-import {execa} from 'execa'
-import fs from 'fs-jetpack'
+import {execaSync as $} from 'execa'
 import {expect, test} from 'vitest'
 
 const projectDir = path(
@@ -24,19 +25,19 @@ const cacheDir = path(
   `cache`,
 )
 
-const removeCache = async () =>
-  (await fs.existsAsync(cacheDir)) && (await fs.removeAsync(cacheDir))
+const removeCache = () =>
+  exists(cacheDir) && remove(cacheDir, {recursive: true})
 
 test(`--cache`, async () => {
-  await removeCache()
+  removeCache()
 
-  await execa(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
+  $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
 
-  expect(await fs.existsAsync(cacheDir)).toBe(`dir`)
+  expect(exists(cacheDir)).toBe(true)
 
-  await removeCache()
+  removeCache()
 
-  await execa(`yarn`, [`bud`, `--cwd`, projectDir, `build`, `--no-cache`])
+  $(`yarn`, [`bud`, `--cwd`, projectDir, `build`, `--no-cache`])
 
-  expect(await fs.existsAsync(cacheDir)).toBe(false)
+  expect(exists(cacheDir)).toBe(false)
 })
