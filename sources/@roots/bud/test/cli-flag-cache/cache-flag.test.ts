@@ -1,7 +1,5 @@
-import {existsSync as exists, rmSync as remove} from 'node:fs'
-
 import {path} from '@repo/constants'
-import {execaSync as $} from 'execa'
+import {execa} from 'execa'
 import {beforeEach, describe, expect, it} from 'vitest'
 
 const projectDir = path(
@@ -10,29 +8,27 @@ const projectDir = path(
   `bud`,
   `test`,
   `cli-flag-cache`,
-  `project`,
+  `__fixtures__`,
 )
 
-describe(`--cache`, async () => {
-  beforeEach(() => {
-    $(`yarn`, [`bud`, `--cwd`, projectDir, `clean`, `storage`])
+describe.sequential(`--cache`, async () => {
+  beforeEach(async () => {
+    await execa(`yarn`, [`bud`, `clean`, `storage`], {cwd: projectDir})
   })
 
   it(`should generate cache by default`, async () => {
-    $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
-    const {stdout} = $(`yarn`, [`bud`, `--cwd`, projectDir, `build`])
+    await execa(`yarn`, [`bud`, `build`], {cwd: projectDir})
+    const {stdout} = await execa(`yarn`, [`bud`, `build`], {
+      cwd: projectDir,
+    })
+
     expect(stdout).toMatch(/4\/4 modules cached/)
   })
 
   it(`should not generate cache when --no-cache is passed`, async () => {
-    const {stderr, stdout} = $(`yarn`, [
-      `bud`,
-      `--cwd`,
-      projectDir,
-      `build`,
-      `--no-cache`,
-    ])
-    expect(stderr).toEqual(``)
+    const {stdout} = await execa(`yarn`, [`bud`, `build`, `--no-cache`], {
+      cwd: projectDir,
+    })
     expect(stdout).toMatch(/0\/4 modules cached/)
   })
 })

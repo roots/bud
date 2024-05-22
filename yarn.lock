@@ -13488,9 +13488,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/project":
+"@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/__fixtures__":
   version: 0.0.0-use.local
-  resolution: "@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/project"
+  resolution: "@tests/flag-cache@workspace:sources/@roots/bud/test/cli-flag-cache/__fixtures__"
   dependencies:
     "@roots/bud": "workspace:*"
   languageName: unknown
