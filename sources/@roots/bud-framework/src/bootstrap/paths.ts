@@ -4,37 +4,11 @@ import {isAbsolute, join} from 'node:path'
 import args from '@roots/bud-framework/bootstrap/args'
 import * as envBootstrap from '@roots/bud-framework/bootstrap/env'
 import envPaths from '@roots/bud-support/env-paths'
-import {BudError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
 
-interface paths extends Record<string, string> {
+interface paths {
   /**
-   * OS reported directory for cache files
-   */
-  [`os-cache`]: string
-
-  /**
-   * OS reported directory for configuration files
-   */
-  [`os-config`]: string
-
-  /**
-   * OS reported directory for cache files
-   */
-  [`os-data`]: string
-
-  /**
-   * OS reported directory for log files
-   */
-  [`os-log`]: string
-
-  /**
-   * OS reported directory for temporary files
-   */
-  [`os-temp`]: string
-
-  /**
-   * Base directory for all paths
+   * Basedir
    */
   basedir: string
 
@@ -42,6 +16,25 @@ interface paths extends Record<string, string> {
    * Basedir hash
    */
   hash: string
+
+  /**
+   * Input directory
+   * @default src
+   */
+  input: string
+
+  /**
+   * Modules directory
+   * @default node_modules
+   */
+  modules: string
+
+  /**
+   * Output directory
+   * @default dist
+   */
+  output: string
+
   /**
    * Directory for temporary files
    * @default os-cache
@@ -54,61 +47,45 @@ const systemPaths = envPaths(`bud`)
 /**
  * Cache paths
  */
-let currentDir: string
-let paths: paths
+const paths: paths = {
+  basedir: process.cwd(),
+  hash: ``,
+  input: `src`,
+  modules: `node_modules`,
+  output: `dist`,
+  storage: ``,
+}
 
 const get = (basedir: string): paths => {
-  if (!basedir)
-    throw BudError.normalize(
-      `directory is required if paths not already initialized`,
-      {
-        details: `\
-This error is thrown when the paths utility is called without a directory argument and the paths have not already been initialized.
-This is most likely a problem with the internals of bud.js.`,
-        issue: new URL(
-          `https://github.com/roots/bud/search?q=paths+error+is:issue`,
-        ),
-      },
-    )
+  paths.basedir = basedir ?? process.cwd()
 
-  if (paths && currentDir === basedir) return paths
-  currentDir = basedir
+  const sha1 = createHash(`sha1`).update(basedir)
+  const env = envBootstrap.get(basedir)
 
-  let sha1 = createHash(`sha1`).update(basedir)
-  let hash: string
-  let env = envBootstrap.get(basedir)
+  const specifiedBasePath =
+    args.basedir ?? env.BUD_PATH_BASE ?? env.APP_BASE_PATH
 
-  const specified = args.basedir ?? env.BUD_PATH_BASE ?? env.APP_BASE_PATH
+  if (specifiedBasePath && !paths.basedir.endsWith(specifiedBasePath)) {
+    paths.basedir = isAbsolute(specifiedBasePath)
+      ? specifiedBasePath
+      : join(basedir, specifiedBasePath)
 
-  if (specified && !basedir.endsWith(specified)) {
-    logger.scope(`paths`).log(`using specified basedir:`, specified)
+    env.basedir = paths.basedir
 
-    basedir = isAbsolute(specified) ? specified : join(basedir, specified)
-
-    sha1.update(basedir)
-    env.basedir = basedir
-
-    logger.scope(`paths`).success(`set basedir to`, basedir)
+    sha1.update(paths.basedir)
+    logger.scope(`paths`).log(`Set basedir to`, paths.basedir)
   }
+  paths.hash = sha1.digest(`base64url`)
 
-  hash = sha1.digest(`base64url`)
-  let storage: string =
-    args.storage ??
-    args[`@storage`] ??
+  const storage: string =
+    args.paths?.storage ??
     env.BUD_PATH_STORAGE ??
     env.APP_STORAGE_PATH ??
-    join(systemPaths.cache, hash)
+    join(systemPaths.cache, paths.hash)
 
-  storage = isAbsolute(storage) ? storage : join(basedir, storage)
-
-  paths = {
-    ...Object.entries(systemPaths).reduce(
-      (acc, [key, value]) => {
-        return {...acc, [`os-${key}`]: join(value, hash)}
-      },
-      {basedir, hash, storage} as paths,
-    ),
-  }
+  paths.storage = isAbsolute(storage)
+    ? storage
+    : join(paths.basedir, storage)
 
   return paths
 }

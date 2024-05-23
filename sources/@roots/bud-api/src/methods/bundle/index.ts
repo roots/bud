@@ -63,7 +63,7 @@ export const bundle: bundle = function (this: Bud, name, matcher) {
     }
   })
 
-  this.api.logger.success(`bud.bundle: chunk settings registered`)
+  this.api.logger.log(`bud.bundle: chunk settings registered`)
 
   return this
 }

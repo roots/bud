@@ -1,4 +1,4 @@
-import {extract} from './index.cjs'
+import {extract} from '@roots/blade-loader/module-loader/handlers'
 
 export const extension = `scss`
 export const pattern =

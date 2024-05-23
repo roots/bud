@@ -48,7 +48,7 @@ export const assets: assets = async function assets(
       ...arrayedRequest.map(valueMapper),
     ])
 
-  app.api.logger.success(
+  app.api.logger.log(
     `bud.copy: ${arrayedRequest.length} asset patterns added`,
   )
 

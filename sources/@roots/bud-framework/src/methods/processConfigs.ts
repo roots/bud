@@ -25,7 +25,7 @@ export const processConfigs: processConfigs = async function (this: Bud) {
     )
 
   const processConfig = async (file: File) => {
-    logger.scope(`config`).log(`processing`, file.name)
+    logger.scope(`config`).log(`Processing:`, file.path)
 
     await this.resolvePromises()
       .then(async () => {

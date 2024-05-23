@@ -36,22 +36,22 @@ describe(`bud.persist`, () => {
     expect(bud.cache.enabled).toBe(false)
   })
 
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud.api.logger, `success`)
+  it(`should call bud.log to log param`, () => {
+    const spy = vi.spyOn(bud.api.logger, `log`)
     subject()
-    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
+    expect(spy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
   })
 
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud.api.logger, `success`)
+  it(`should call bud.log to log param`, () => {
+    const spy = vi.spyOn(bud.api.logger, `log`)
     subject(true)
-    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
+    expect(spy).toHaveBeenCalledWith(`bud.cache:`, `enabled`)
   })
 
-  it(`should call bud.success to log param`, () => {
-    const successSpy = vi.spyOn(bud.api.logger, `success`)
+  it(`should call bud.log to log param`, () => {
+    const spy = vi.spyOn(bud.api.logger, `log`)
     subject(false)
-    expect(successSpy).toHaveBeenCalledWith(`bud.cache:`, `disabled`)
+    expect(spy).toHaveBeenCalledWith(`bud.cache:`, `disabled`)
   })
 
   it(`should return bud`, () => {

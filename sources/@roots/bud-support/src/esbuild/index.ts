@@ -30,7 +30,7 @@ export const getImplementation = async (
       path = await resolve(signifier, context)
       transformer = await import(path)
       if (transformer) {
-        logger.success(`using esbuild:`, path)
+        logger.log(`using esbuild:`, path)
       }
     } catch (err) {}
   }, Promise.resolve())

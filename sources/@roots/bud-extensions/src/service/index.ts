@@ -85,7 +85,7 @@ class Extensions extends Service implements BudExtensions {
       const extension = await this.instantiate(source)
 
       this.set(extension)
-      this.logger.log(`added`, extension.label)
+      this.logger.log(`Added`, extension.label)
 
       await this.run(extension, `register`)
       await this.run(extension, `boot`)
@@ -235,8 +235,14 @@ class Extensions extends Service implements BudExtensions {
       throw new Error(`Extension ${signifier} is not importable`)
 
     if (signifier.startsWith(`.`)) {
+      const originalSignifier = signifier
       signifier = this.app.path(signifier)
-      this.logger.info(`local path interpretation:`, signifier)
+      this.logger.info(
+        `Interpolated project relative path:`,
+        signifier,
+        `=>`,
+        originalSignifier,
+      )
     }
 
     if (this.has(signifier)) {
@@ -365,8 +371,9 @@ class Extensions extends Service implements BudExtensions {
         async ([label, extension]) => {
           if (!extension) return null
 
-          if (extension instanceof Extension)
+          if (extension instanceof Extension) {
             return [label, await extension.execute(`make`)]
+          }
 
           if (`make` in extension)
             return [
@@ -385,12 +392,14 @@ class Extensions extends Service implements BudExtensions {
           .filter(Boolean)
           .filter(([_label, result]) => result)
           .map(([label, result]) => {
-            this.logger.log(`defined compiler plugin:`, label).info(result)
+            this.logger
+              .log(`Defined:`, `compiler plugin:`, label)
+              .info(result)
             return result
           }),
     )
 
-    this.logger.log(`using`, results.length, `compiler plugins`)
+    this.logger.log(`Using`, results.length, `compiler plugins`)
 
     return results
   }
@@ -420,6 +429,7 @@ class Extensions extends Service implements BudExtensions {
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
+
       if (`execute` in extension && isFunction(extension.execute))
         await extension.execute(methodName)
 
@@ -503,7 +513,7 @@ class Extensions extends Service implements BudExtensions {
   public set(value: Extension): this {
     const key = (value.label ?? randomUUID()) as any
     Object.assign(this.repository, {[key]: value})
-    this.logger.info(`set`, key, `=>`, value)
+    this.logger.info(`Set extension:`, key, `=>`, value)
 
     return this
   }

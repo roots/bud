@@ -1,12 +1,12 @@
 import {Option} from '@roots/bud-support/clipanion'
-import {isLiteral, isOneOf} from '@roots/bud-support/typanion'
+import {isBoolean, isLiteral, isOneOf} from '@roots/bud-support/typanion'
 
-export default Option.String(`--devtool`, undefined, {
+export default Option.String(`--devtool,--source-map`, undefined, {
   description: `Set devtool option`,
   env: `APP_DEVTOOL`,
   tolerateBoolean: true,
   validator: isOneOf([
-    isLiteral(false),
+    isBoolean(),
     isLiteral(`eval`),
     isLiteral(`eval-cheap-source-map`),
     isLiteral(`eval-cheap-module-source-map`),

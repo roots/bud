@@ -114,7 +114,7 @@ class BabelExtension extends Extension {
         if (isString(this.configFile)) {
           paths.babel = [this.configFile]
 
-          this.logger.success(
+          this.logger.log(
             `babel config added to webpack build dependencies`,
           )
         }

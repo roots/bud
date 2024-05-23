@@ -30,9 +30,10 @@ describe(`bud.provide`, () => {
     const plugin = bud.extensions.get(
       `@roots/bud-extensions/webpack-provide-plugin`,
     )
-    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    const spy = vi.spyOn(plugin, `setOptions`)
+
     await provide({jquery: [`$`, `jQuery`]})
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({$: `jquery`, jQuery: `jquery`}),
     )
   })
@@ -41,10 +42,11 @@ describe(`bud.provide`, () => {
     const plugin = bud.extensions.get(
       `@roots/bud-extensions/webpack-provide-plugin`,
     )
-    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    const spy = vi.spyOn(plugin, `setOptions`)
+
     await provide({jquery: `$`})
 
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({$: `jquery`}),
     )
   })
@@ -53,10 +55,11 @@ describe(`bud.provide`, () => {
     const plugin = bud.extensions.get(
       `@roots/bud-extensions/webpack-provide-plugin`,
     )
-    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    const spy = vi.spyOn(plugin, `setOptions`)
+
     await provide(`value`, `accessor`)
 
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({[`accessor`]: `value`}),
     )
   })
@@ -65,10 +68,11 @@ describe(`bud.provide`, () => {
     const plugin = bud.extensions.get(
       `@roots/bud-extensions/webpack-provide-plugin`,
     )
-    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    const spy = vi.spyOn(plugin, `setOptions`)
+
     await provide([`lodash`, `isUndefined`], `isUndefined`)
 
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({isUndefined: [`lodash`, `isUndefined`]}),
     )
   })
@@ -77,13 +81,14 @@ describe(`bud.provide`, () => {
     const plugin = bud.extensions.get(
       `@roots/bud-extensions/webpack-provide-plugin`,
     )
-    const setOptionsSpy = vi.spyOn(plugin, `setOptions`)
+    const spy = vi.spyOn(plugin, `setOptions`)
+
     await provide([`lodash`, `chain`], [`chain`, `_chain`])
 
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({chain: [`lodash`, `chain`]}),
     )
-    expect(setOptionsSpy).toHaveBeenCalledWith(
+    expect(spy).toHaveBeenCalledWith(
       expect.objectContaining({_chain: [`lodash`, `chain`]}),
     )
   })

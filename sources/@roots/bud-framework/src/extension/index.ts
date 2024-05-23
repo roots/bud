@@ -12,7 +12,9 @@ import isObject from '@roots/bud-support/isObject'
 import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
 import set from '@roots/bud-support/set'
-import DynamicOption from '@roots/bud-support/value'
+import DynamicOption, {
+  isValue as isDynamicOption,
+} from '@roots/bud-support/value'
 
 export class Extension<
   Options extends Model.OptionsInterface = Model.OptionsInterface,
@@ -125,23 +127,9 @@ export class Extension<
       if (isUndefined(value)) return acc
       if (!isObject(value)) return {...acc, [key]: value}
 
-      const isDynamicOption = (
-        value: any,
-      ): value is DynamicOption<any> => {
-        return (
-          value instanceof DynamicOption ||
-          (`isBudValue` in value && value.isBudValue)
-        )
-      }
-
-      const isDynamic = isDynamicOption(value)
-      const unwrapped = isDynamic ? value.get()(this.app) : value
-
-      this.logger.info(
-        key,
-        `has value:`,
-        isDynamic ? `${typeof unwrapped} (dynamic)` : typeof unwrapped,
-      )
+      const unwrapped = isDynamicOption(value)
+        ? value.get()(this.app)
+        : value
 
       if (isUndefined(unwrapped)) return acc
       return {...acc, [key]: unwrapped}
@@ -224,21 +212,24 @@ export class Extension<
       if (!this.isEnabled()) return false
 
       if (!isUndefined(this.apply)) {
-        this.logger.success(`produced hybrid compiler/bud plugin`)
+        this.logger.log(
+          `Produced hybrid compiler plugin / bud extension:`,
+          this.label,
+        )
         this.logger.info(this)
         return this
       }
 
       if (!isUndefined(this.plugin)) {
         const plugin = new this.plugin({...this.getOptions()})
-        this.logger.success(`produced compiler plugin`)
+        this.logger.log(`Produced compiler plugin:`, this.label)
         this.logger.info(plugin)
         return plugin
       }
 
       if (!isUndefined(this.make)) {
         const plugin = await this.make(this.app, {...this.getOptions()})
-        this.logger.success(`produced make plugin`)
+        this.logger.log(`Produced make plugin:`, this.label)
         this.logger.info(plugin)
         return plugin
       }
@@ -254,7 +245,7 @@ export class Extension<
     if ([`buildAfter`, `buildBefore`].includes(key) && !this.isEnabled())
       return
 
-    this.logger.log(`executing`, key)
+    this.logger.log(`Executing:`, key)
 
     await this[key](this.app)
     await this.app.resolvePromises()

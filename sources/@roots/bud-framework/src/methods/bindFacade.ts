@@ -25,7 +25,7 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
     logger.enabled &&
       logger
         .scope(`bud.${key}`)
-        .log(`called with args:`, args.map(parseArgs(this)).join(`, `))
+        .log(`Called with args:`, args.map(parseArgs(this)).join(`, `))
 
     this.promise(async () => {
       try {

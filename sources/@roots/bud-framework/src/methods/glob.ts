@@ -44,7 +44,7 @@ export const glob: glob = async function (...searches) {
     logger.info(`glob (async)`, ...paths)
 
     const results = await globby(paths)
-    logger.success(`glob (sync)`, ...results)
+    logger.log(`glob (sync)`, ...results)
 
     return results
   } catch (error) {

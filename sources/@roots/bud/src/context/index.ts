@@ -25,7 +25,7 @@ let context: Context
 export default async function make(
   options: Options = {},
 ): Promise<Context> {
-  logger.scope(`bootstrap`).log(`🏗️`, `creating context`)
+  logger.scope(`bootstrap`).log(`🏗️`, `Creating context`)
 
   const basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
@@ -37,14 +37,14 @@ export default async function make(
   let manifest: Context[`manifest`]
   try {
     manifest = await fs.read(join(paths.basedir, `package.json`))
-    if (manifest?.bud?.paths?.basedir) {
-      const targetPath = join(basedir, manifest.bud.paths.basedir)
+    if (manifest?.bud?.basedir) {
+      const targetPath = join(paths.basedir, manifest.bud.basedir)
       logger
         .scope(`bootstrap`)
         .log(
           `🏗️`,
-          `rebuilding context`,
-          `based on bud.paths.basedir sourced from`,
+          `Directory changed`,
+          `rebuilding context from`,
           join(targetPath, `package.json`),
         )
 
@@ -53,13 +53,8 @@ export default async function make(
         ...(options ?? {}),
       })
     }
-  } catch (e) {
-    logger
-      .scope(`bootstrap`)
-      .warn(
-        `📦`,
-        `no package.json found at ${join(paths.basedir, `package.json`)}`,
-      )
+  } catch (error) {
+    logger.scope(`bootstrap`).warn(`📦`, error)
   }
 
   const files: Context[`files`] = await projectFiles.get(paths.basedir)
@@ -70,7 +65,7 @@ export default async function make(
   )
 
   if (!options.pm) {
-    const pm = await whichPm(basedir)
+    const pm = await whichPm(paths.basedir)
     options.pm = pm !== false ? pm : `npm`
   }
 
@@ -98,10 +93,11 @@ export default async function make(
   logger
     .unscope()
     .scope(context.label, `bootstrap`)
-    .log(`🏗️`, `building`, context.label)
-    .log(`📂`, `basedir`, context.basedir)
-    .log(`😎`, `version`, context.bud.version)
-    .log(`📦`, `package manager`, context.pm)
+    .log(`🏗️`, `Building`, context.label)
+    .log(`📂`, `Directory:`, context.basedir)
+    .log(`📁`, `Storage:`, context.paths.storage)
+    .log(`😎`, `Version:`, context.bud.version)
+    .log(`📦`, `Package Manager:`, context.pm)
     .scope(context.label)
 
   return context

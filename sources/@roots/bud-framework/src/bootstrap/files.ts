@@ -32,6 +32,8 @@ interface File extends ReturnType<typeof parse> {
   type: `file` | `json` | `module` | `symlink`
 }
 
+let basedir: string
+
 /**
  * Get configuration files from project
  *
@@ -40,7 +42,9 @@ interface File extends ReturnType<typeof parse> {
  *
  * @param basedir - project root
  */
-const get = async (basedir: string) => {
+const get = async (fromDirectory: string) => {
+  basedir = fromDirectory
+
   if (data && Object.entries(data).length) {
     logger.scope(`fs`).info(`Using existing instance data`)
     return data
@@ -52,19 +56,49 @@ const get = async (basedir: string) => {
   fs = filesystem.get(basedir)
   paths = getPaths(basedir)
 
-  await fs
-    .list(basedir)
-    .then(res => files.push(...(res?.filter(Boolean) ?? [])))
-
-  await fs
-    .list(join(basedir, `config`))
-    .then(res =>
-      files.push(
-        ...((res?.filter(Boolean) ?? []).map(file =>
-          join(`config`, file),
-        ) ?? []),
+  await Promise.all([
+    fs
+      .list(basedir)
+      .then(res => files.push(...(res?.filter(Boolean) ?? []))),
+    fs
+      .list(join(basedir, `config`))
+      .then(res =>
+        files.push(
+          ...((res?.filter(Boolean) ?? []).map(file =>
+            join(`config`, file),
+          ) ?? []),
+        ),
       ),
-    )
+    fs
+      .list(join(basedir, `.config`))
+      .then(res =>
+        files.push(
+          ...((res?.filter(Boolean) ?? []).map(file =>
+            join(`.config`, file),
+          ) ?? []),
+        ),
+      ),
+    fs
+      .list(join(basedir, `bud`))
+      .then(res =>
+        files.push(
+          ...((res?.filter(Boolean) ?? []).map(file =>
+            join(`bud`, file),
+          ) ?? []),
+        ),
+      ),
+    fs
+      .list(join(basedir, `.bud`))
+      .then(res =>
+        files.push(
+          ...((res?.filter(Boolean) ?? []).map(file =>
+            join(`.bud`, file),
+          ) ?? []),
+        ),
+      ),
+  ]).catch(error => {
+    throw error
+  })
 
   await Promise.all(files.map(getFileInfo))
     .then(() => {
@@ -177,7 +211,7 @@ async function getFileInfo(filename: string) {
       }
 
       const tmpfile = join(
-        paths.basedir,
+        basedir,
         file.dir,
         `.${file.name}${file.ext.replace(/(.*)ts$/, `$1mjs`)}`,
       )
@@ -220,7 +254,7 @@ async function esTransform({
   }
 
   await transformer.build({
-    absWorkingDir: paths.basedir,
+    absWorkingDir: basedir,
     allowOverwrite: true,
     bundle: true,
     entryPoints: [file.path],

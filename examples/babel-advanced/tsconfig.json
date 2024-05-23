@@ -6,7 +6,7 @@
     },
     "types": ["@roots/bud", "@roots/bud-babel"]
   },
-  "files": ["bud.config.ts"],
+  "files": ["./bud.config.ts"],
   "include": ["./src"],
   "exclude": ["./dist"]
 }

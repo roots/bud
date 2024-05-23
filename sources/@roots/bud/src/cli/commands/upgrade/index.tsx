@@ -163,7 +163,11 @@ export default class BudUpgradeCommand extends BudCommand {
       logger.warn(`Error making bud`, error)
     })
 
-    const basedir = this.bud?.context?.basedir ?? process.cwd()
+    if (!this.bud) {
+      throw new BudError(`No bud instance found.`)
+    }
+
+    const basedir = this.bud.context.basedir ?? process.cwd()
     logger.log(`Using basedir:`, basedir)
 
     this.pm = this.pm ?? this.bud.context.pm

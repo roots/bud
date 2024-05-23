@@ -26,7 +26,7 @@ export interface Extensions {
    */
   add(extension: any): Promise<void>
 
-  get<K extends keyof Modules & string>(key: K): Modules[K]
+  get<K extends `${keyof Modules & string}`>(key: K): Modules[K]
 
   has(key: string): key is `${keyof Modules & string}`
 
@@ -60,7 +60,7 @@ export interface Extensions {
   repository: Modules
 
   run(
-    extension: ApplyPlugin | Partial<Extension>,
+    extension: Modules[keyof Modules],
     methodName: LifecycleMethods,
   ): Promise<this>
 

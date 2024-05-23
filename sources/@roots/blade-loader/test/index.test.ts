@@ -1,9 +1,16 @@
-import path from 'node:path'
-
-import BladeWebpackPlugin from '@roots/blade-loader/plugin'
+import {path} from '@repo/constants'
+import BladeWebpackPlugin from '@roots/blade-loader'
 import {createFsFromVolume, Volume} from 'memfs'
 import {beforeAll, describe, expect, it} from 'vitest'
 import webpack, {type Compiler, type StatsCompilation} from 'webpack'
+
+const fixturePath = path(
+  `sources`,
+  `@roots`,
+  `blade-loader`,
+  `test`,
+  `__fixtures__`,
+)
 
 describe(`@roots/blade-loader`, () => {
   let compiler: Compiler
@@ -11,8 +18,8 @@ describe(`@roots/blade-loader`, () => {
 
   beforeAll(async () => {
     compiler = webpack({
-      context: __dirname,
-      entry: [`./index.js`, `./index.blade.php`],
+      context: fixturePath,
+      entry: [`./index.blade.php`],
       module: {
         rules: [
           {
@@ -26,11 +33,11 @@ describe(`@roots/blade-loader`, () => {
         ],
       },
       output: {
-        path: path.resolve(__dirname),
+        path: fixturePath,
       },
       plugins: [new BladeWebpackPlugin()],
       resolve: {
-        modules: [__dirname],
+        modules: [path(`node_modules`)],
       },
     })
 
@@ -38,8 +45,6 @@ describe(`@roots/blade-loader`, () => {
 
     if (!compiler.outputFileSystem)
       throw new Error(`No output file system`)
-
-    compiler.outputFileSystem.join = path.join.bind(path)
 
     await new Promise((resolve, reject) => {
       compiler.run((err, stats) => {
@@ -55,15 +60,16 @@ describe(`@roots/blade-loader`, () => {
     })
   })
 
-  it(`does not error`, () => {
+  it(`should not error`, () => {
     expect(compilationStats?.errors).toStrictEqual([])
   })
 
-  it(`works good`, () => {
-    expect(
-      // @ts-ignore
-      Object.values(compilationStats.entrypoints).pop(),
-    ).toEqual(
+  it(`should pull asset into compilation`, () => {
+    if (!compilationStats) throw new Error(`No compilation stats`)
+    if (!compilationStats.entrypoints)
+      throw new Error(`No compilation stats entrypoints`)
+
+    expect(Object.values(compilationStats.entrypoints).pop()).toEqual(
       expect.objectContaining({
         auxiliaryAssets: [
           expect.objectContaining({

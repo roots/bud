@@ -84,7 +84,7 @@ declare module '@roots/bud-framework' {
     /**
      * Babel configuration
      */
-    babel: BabelPublicApi
+    babel: BabelExtension
   }
 
   interface Modules {

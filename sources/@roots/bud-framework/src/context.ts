@@ -1,4 +1,5 @@
 import type {Bud} from '@roots/bud-framework'
+import type {paths} from '@roots/bud-framework/bootstrap/paths'
 import type {PackageManager} from '@roots/bud-support/which-pm'
 
 import type {parse} from 'node:path'
@@ -18,10 +19,8 @@ export interface Context {
   _?: Record<string, any>
 
   /**
-   * The instance base directory
-   *
-   * @remarks
-   * Set with `--basedir` or `--cwd` CLI flags
+   * Base directory
+   * @default process.cwd()
    */
   basedir: string
 
@@ -277,14 +276,6 @@ export interface Context {
   indicator?: boolean
 
   /**
-   * Input option
-   *
-   * @remarks
-   * Set with the `--input` CLI flag.
-   */
-  input?: string
-
-  /**
    * The instance label
    *
    * @remarks
@@ -325,28 +316,12 @@ export interface Context {
   mode: 'development' | 'production'
 
   /**
-   * Modules option
-   *
-   * @remarks
-   * Set with the `--modules` CLI flag.
-   */
-  modules?: string
-
-  /**
    * Notify option
    *
    * @remarks
    * Set with the `--notify` CLI flag.
    */
   notify?: boolean
-
-  /**
-   * Output directory
-   *
-   * @remarks
-   * Set with `--output` CLI flag.
-   */
-  output?: string
 
   /**
    * Overlay option
@@ -367,49 +342,7 @@ export interface Context {
    * necesssarily a complete or accurate representation of the paths that are
    * available to bud.js.
    */
-  paths?: {
-    /**
-     * OS reported directory for cache files
-     */
-    [`os-cache`]: string
-
-    /**
-     * OS reported directory for configuration files
-     */
-    [`os-config`]: string
-
-    /**
-     * OS reported directory for cache files
-     */
-    [`os-data`]: string
-
-    /**
-     * OS reported directory for log files
-     */
-    [`os-log`]: string
-
-    /**
-     * OS reported directory for temporary files
-     */
-    [`os-temp`]: string
-
-    /**
-     * Base directory for all paths
-     */
-    basedir: string
-
-    /**
-     * Hash of paths
-     */
-    hash: string
-
-    /**
-     * Directory for temporary files
-     *
-     * @default os-cache
-     */
-    storage: string
-  }
+  paths: paths
 
   /**
    * Package manager option
@@ -507,14 +440,6 @@ export interface Context {
    * Stdout stream
    */
   stdout: {fd: 1} & NodeJS.WriteStream
-
-  /**
-   * Storage option
-   *
-   * @remarks
-   * Set with the `--storage` CLI flag.
-   */
-  storage?: string
 
   /**
    * Target option

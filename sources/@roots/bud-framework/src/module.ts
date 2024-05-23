@@ -101,13 +101,13 @@ export class Module extends Service {
   @bind
   public override async bootstrap(bud: Bud) {
     if (!this.cacheEnabled) {
-      logger.scope(`module`).log(`--force used. resetting cache.`)
+      logger.scope(`module`).log(`Forcing reset of module cache.`)
       return await this.removeCachedResolutions()
     }
-    logger.scope(`module`).log(`cache is enabled`)
+    logger.scope(`module`).log(`Cache is enabled`)
 
     if (await bud.fs.exists(this.cachePath)) {
-      logger.scope(`module`).log(`cache file exists:`, this.cachePath)
+      logger.scope(`module`).log(`Cache file exists:`, this.cachePath)
       const cache = await bud.fs.read(this.cachePath).catch(noop)
       if (cache) this.cache = cache
       this.resolutions = {...this.cache.resolutions}
@@ -119,7 +119,9 @@ export class Module extends Service {
     ) {
       logger
         .scope(`module`)
-        .log(`package.json has changed. resetting cache.`)
+        .log(
+          `Project manifest has changed. Forcing reset of module cache.`,
+        )
 
       return await this.removeCachedResolutions()
     }
@@ -214,7 +216,7 @@ export class Module extends Service {
       return await this.handleError(`Could not import ${signifier}`)
     }
 
-    logger.scope(`module`).log(`imported module:`, signifier)
+    logger.scope(`module`).log(`Imported module:`, signifier)
 
     return options.raw ? code : code?.default ?? code
   }
@@ -250,7 +252,7 @@ export class Module extends Service {
   @bind
   public async removeCachedResolutions(error?: string) {
     if (await this.app.fs.exists(this.cachePath)) {
-      logger.scope(`module`).log(`removing cache file`, this.cachePath)
+      logger.scope(`module`).log(`Removing cache file:`, this.cachePath)
       await this.app.fs.remove(this.cachePath)
     }
 
@@ -274,7 +276,7 @@ export class Module extends Service {
     if (this.hasResolution(signifier)) {
       logger
         .scope(`module`)
-        .log(`[cache hit]`, signifier, `=>`, this.getResolution(signifier))
+        .log(`Cache hit:`, signifier, `=>`, this.getResolution(signifier))
 
       return this.getResolution(signifier)
     }
@@ -293,7 +295,7 @@ export class Module extends Service {
       attemptResolution(signifier, this.makeContextURL(context))
 
     if (resolved) {
-      logger.scope(`module`).log(`[cache miss]`, signifier, `=>`, resolved)
+      logger.scope(`module`).log(`Cache miss:`, signifier, `=>`, resolved)
 
       this.setResolution(signifier, resolved)
     }
@@ -325,7 +327,9 @@ export class Module extends Service {
   public getResolution(signifier: string) {
     const resolved = this.resolutions[signifier]
 
-    logger.scope(`module`).info(`resolved:`, signifier, `=>`, resolved)
+    logger
+      .scope(`module`)
+      .info(`Resolved module:`, signifier, `=>`, resolved)
 
     return resolved
   }

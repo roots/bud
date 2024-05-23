@@ -35,10 +35,6 @@ describe(`bud.alias`, () => {
     const returned = alias(`test`, `test`)
     expect(
       await returned.hooks.filterAsync(`build.resolve.alias`),
-    ).toEqual(
-      expect.objectContaining({
-        test: `test`,
-      }),
-    )
+    ).toEqual(expect.objectContaining({test: `test`}))
   })
 })

@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
-import {define as defineMethod} from '@roots/bud-api/methods/define'
 import {beforeEach, describe, expect, it} from 'vitest'
+
+import {define as defineMethod} from '../src/methods/define'
 
 describe(`bud.define`, function () {
   let bud: Bud

@@ -125,23 +125,12 @@ export const bootstrap = async (bud: Bud) => {
 
   bud.hooks
     .fromMap({
-      'location.@dist':
-        isString(bud.context.output) && bud.context.output !== ``
-          ? bud.context.output
-          : `dist`,
-      'location.@modules': isString(bud.context.modules)
-        ? bud.context.modules
+      'location.@dist': bud.context.paths.output ?? `dist`,
+      'location.@modules': isString(bud.context.paths.modules)
+        ? bud.context.paths.modules
         : `node_modules`,
-      'location.@os-cache': bud.context.paths?.[`os-cache`],
-      'location.@os-config': bud.context.paths?.[`os-config`],
-      'location.@os-data': bud.context.paths?.[`os-data`],
-      'location.@os-log': bud.context.paths?.[`os-log`],
-      'location.@os-temp': bud.context.paths?.[`os-temp`],
-      'location.@src':
-        isString(bud.context.input) && bud.context.input !== ``
-          ? bud.context.input
-          : `src`,
-      'location.@storage': bud.context.paths?.storage ?? `.bud`,
+      'location.@src': bud.context.paths.input ?? `src`,
+      'location.@storage': bud.context.paths.storage ?? `.bud`,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.csv': /\.(csv|tsv)$/,
@@ -178,7 +167,7 @@ export const bootstrap = async (bud: Bud) => {
         logger
           .scope(bud.label, `bootstrap`)
           .log(
-            `register service callback:`,
+            `Registering callback:`,
             `${instance.constructor.name}.${callbackName}`,
           )
         bud.hooks.action(

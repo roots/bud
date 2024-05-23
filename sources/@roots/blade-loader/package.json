@@ -39,10 +39,12 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/plugin.js",
-    "./plugin": "./lib/plugin.js",
-    "./module-loader": "./lib/module-loader.cjs",
-    "./asset-loader": "./lib/asset-loader.cjs"
+    ".": "./lib/index.js",
+    "./asset-loader": "./lib/asset-loader/index.cjs",
+    "./module-loader": "./lib/module-loader/index.cjs",
+    "./module-loader/handlers": "./lib/module-loader/handlers/index.cjs",
+    "./module-loader/handlers/*": "./lib/module-loader/handlers/*/index.cjs",
+    "./plugin": "./lib/plugin/index.js"
   },
   "types": "./lib/plugin.d.ts",
   "main": "./lib/plugin.js",

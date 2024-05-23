@@ -6,14 +6,13 @@
       "**/$KNOWN_TOOLS$/**"
     ]
   },
+  "editor.tabSize": 2,
   "eslint.nodePath": ".yarn/sdks/eslint",
   "eslint.options": {
     "overrideConfigFile": "config/eslint.config.cjs"
   },
-  "eslint.validate": [
-    "javascript",
-    "typescript"
-  ],
+  "eslint.validate": ["javascript", "typescript"],
+  "explorer.excludeGitIgnore": true,
   "files.associations": {
     "*.mdx": "mdx",
     "*.ts": "typescript",
@@ -27,20 +26,21 @@
     "**/.hg": true,
     "**/.svn": true,
     "**/CVS": true,
-    "**/Thumbs.db": true,
-    "**/node_modules": false
+    "**/node_modules": false,
+    "**/Thumbs.db": true
   },
   "prettier.configPath": "config/prettier.config.js",
   "prettier.ignorePath": "config/.prettierignore",
   "search.exclude": {
+    ".git": true,
+    ".yarn": true,
     "**/.storage": true,
     "**/node_modules": true,
     "**/pnp.*": true,
-    ".git": true,
-    ".yarn": true,
-    "storage": true,
-    "verdaccio": true
+    "coverage": true,
+    "storage": true
   },
+  "search.useParentIgnoreFiles": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.format.semicolons": "remove",
   "typescript.preferences.preferTypeOnlyAutoImports": true,

@@ -1,32 +1,32 @@
+import type {Context} from '@roots/bud-framework'
+
 import isString from '@roots/bud-support/isString'
 import minimist from '@roots/bud-support/minimist'
 
 const raw = process.argv.slice(2)
 
-const args = minimist(raw, {
-  alias: {
-    '@dist': [`dist`],
-    '@src': [`src`],
-    '@storage': [`storage`],
-    [`path.basedir`]: [`basedir`],
-    [`path.dist`]: [`dist`],
-    [`path.src`]: [`src`],
-    [`split-chunks`]: [`splitChunks`],
-    cwd: [`basedir`],
-    discovery: [`discover`],
-    flush: [`force`],
-    i: [`src`],
-    input: [`src`],
-    o: [`dist`],
-    output: [`dist`],
-    s: [`silent`],
-    vendor: [`splitChunks`],
-  },
-})
+const args: Partial<Context> = Object.entries(
+  minimist(raw, {
+    alias: {
+      [`basedir`]: [`cwd`],
+      [`paths.dist`]: [`@dist`, `dist`, `output`, `o`],
+      [`paths.input`]: [`input`, `@src`, `src`],
+      [`paths.storage`]: [`@storage`, `storage`],
+      devtool: [`devtool`, `source-map`],
+      discover: [`discovery`],
+      force: [`flush`],
+      silent: [`s`],
+      splitChunks: [`split-chunks`, `vendor`],
+    },
+  }),
+).reduce((acc, [key, value]) => {
+  if (value === `true`) value = true
+  if (value === `false`) value = false
+  if (key === `use` && isString(value)) value = value.split(`,`)
+  acc[key] = value
 
-if (args.use && isString(args.use)) {
-  args.use = args.use.split(`,`)
-}
+  return acc
+}, {})
 
 export const includes = (key: string) => args._.includes(key)
 

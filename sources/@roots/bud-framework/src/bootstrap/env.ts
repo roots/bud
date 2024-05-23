@@ -35,7 +35,10 @@ const get = (basedir: string) => {
     if (global.process.env.NODE_ENV)
       env[basedir].NODE_ENV = global.process.env.NODE_ENV
 
-    if (args.mode) env[basedir].NODE_ENV = args.mode
+    if (args.mode) {
+      env[basedir].NODE_ENV = args.mode
+    }
+
     if (includes(`production`) || includes(`prod`))
       env[basedir].NODE_ENV = `production`
 
@@ -73,7 +76,7 @@ function tryRegisteringFromPath(
 
     if (config?.parsed && !config?.error) {
       if (env !== config.parsed) {
-        logger.scope(`env`).log(`Setting`, `dotenv values from`, path)
+        logger.scope(`env`).log(`Setting .env values from`, path)
         env = {...env, ...config.parsed}
       }
     }
@@ -81,9 +84,7 @@ function tryRegisteringFromPath(
     let expanded = dotenvExpand.expand({parsed: config.parsed})
     if (expanded?.parsed && !expanded?.error) {
       if (!isEqual(expanded.parsed, config.parsed)) {
-        logger
-          .scope(`env`)
-          .log(`Setting`, `expanded dotenv values from`, path)
+        logger.scope(`env`).log(`Setting expanded .env values from`, path)
         env = {...env, ...expanded.parsed}
       }
     }

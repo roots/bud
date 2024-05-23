@@ -393,7 +393,9 @@ export class Bud {
       writable: true,
     })
 
-    logger.scope(this.label).log(`set`, key, `${typeof value}`)
+    logger
+      .scope(this.label, `set`)
+      .log(`Defined:`, key, `=>`, typeof value)
 
     return this
   }

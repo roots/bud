@@ -57,7 +57,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
       })
       .use([`import`, `nesting`, `tailwindcss`, `env`])
 
-    this.logger.success(`postcss configured for tailwindcss`)
+    this.logger.log(`postcss configured for tailwindcss`)
 
     /**
      * Add tailwind config to webpack cache dependencies
@@ -65,7 +65,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
     bud.hooks.on(`build.cache.buildDependencies`, paths => {
       if (isString(this.configPath)) {
         paths.tailwind = [this.configPath]
-        this.logger.success(
+        this.logger.log(
           `tailwind config added to webpack build dependencies`,
         )
       }

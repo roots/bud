@@ -150,14 +150,20 @@ export default class Cache extends Service implements BudCache {
    * @readonly
    */
   public get configuration(): Configuration[`cache`] {
-    if (this.enabled !== true) return false
-    if (this.type === `memory`)
+    if (this.enabled !== true) {
+      this.logger.log(`Cache: disabled`)
+      return false
+    }
+    if (this.type === `memory`) {
+      this.logger.log(`Cache: memory`)
       return {
         cacheUnaffected: true,
         maxGenerations: Infinity,
         type: `memory`,
       }
+    }
 
+    this.logger.log(`Cache: filesystem`)
     return {
       allowCollectingMemory: this.allowCollectingMemory,
       buildDependencies: this.buildDependencies,

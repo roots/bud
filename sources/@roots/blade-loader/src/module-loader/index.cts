@@ -1,11 +1,11 @@
 import type {LoaderDefinitionFunction} from 'webpack'
 
-import * as loaders from './loaders/index.cjs'
+import * as handlers from '@roots/blade-loader/module-loader/handlers'
 
 const loader: LoaderDefinitionFunction<any> = function (source) {
-  return Object.values(loaders.repository)
+  return Object.values(handlers.repository)
     .filter(({pattern}) => source.match(pattern))
-    .map(loader => loaders.make.call(this, loader))
+    .map(loader => handlers.make.call(this, loader))
     .filter(Boolean)
     .join(`\n`)
 }

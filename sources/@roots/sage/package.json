@@ -106,7 +106,6 @@
   "dependencies": {
     "@roots/blade-loader": "workspace:*",
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-client": "workspace:*",
     "@roots/bud-entrypoints": "workspace:*",
