@@ -24,7 +24,6 @@ describe(`bud.define`, function () {
   it(`adds definitions`, () => {
     define({DEFINED_KEY: `DEFINED_VALUE`})
 
-    // @ts-ignore
     const {options} = bud.extensions.get(
       `@roots/bud-extensions/webpack-define-plugin`,
     )
@@ -33,9 +32,8 @@ describe(`bud.define`, function () {
   })
 
   it(`adds PUBLIC_APP_TITLE from env`, async () => {
-    await bud.run()
+    await bud.extensions.make()
 
-    // @ts-ignore
     const {options} = bud.extensions.get(
       `@roots/bud-extensions/webpack-define-plugin`,
     )
@@ -44,7 +42,6 @@ describe(`bud.define`, function () {
   })
 
   it(`matches snapshot`, () => {
-    // @ts-ignore
     const {options} = bud.extensions.get(
       `@roots/bud-extensions/webpack-define-plugin`,
     )

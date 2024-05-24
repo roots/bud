@@ -8,10 +8,12 @@ import GithubActionsReporter from 'vitest-github-actions-reporter'
 export default {
   dir: path(),
   hookTimeout: 240000,
+  isolate: true,
   pool: `threads`,
   poolOptions: {
     threads: {
-      singleThread: true,
+      isolate: true,
+      useAtomics: true,
     },
   },
   reporters: env.GITHUB_ACTIONS

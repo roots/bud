@@ -100,13 +100,9 @@ const get = async (fromDirectory: string) => {
     throw error
   })
 
-  await Promise.all(files.map(getFileInfo))
-    .then(() => {
-      files = files.filter(Boolean)
-    })
-    .catch(error => {
-      throw error
-    })
+  await Promise.all(files.map(getFileInfo)).catch(error => {
+    throw error
+  })
 
   return data
 }
