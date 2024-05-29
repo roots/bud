@@ -3,7 +3,7 @@ title: Assets
 sidebar_label: Assets
 ---
 
-import ConfigExample from '@site/src/components/example'
+import Example from '@site/src/components/example'
 
 :::info No need to copy imported assets
 
@@ -23,63 +23,63 @@ For example, given this stylesheet, copying `@src/fonts/MyFont.woff2` would be u
 
 The [bud.assets](/reference/bud.assets) function is used to copy files to the output directory.
 
-The simplest way to use it is to pass an array of directories (relative to [your project `@src` directory](#project-paths)) you would like to copy:
+The simplest way to use it is to pass an array of directories (relative to [your project `@src` directory](/learn/config/paths)):
 
-<ConfigExample>
+<Example title="bud.config">
 
-  ```ts title=bud.config.ts
+  ```ts
   bud.assets(['images', 'fonts'])
   ```
 
-  ```js title=bud.config.js
+  ```js
   bud.assets(['images', 'fonts'])
   ```
 
-  ```yml title=bud.config.yml
+  ```yml
   assets: [['images', 'fonts']]
   ```
 
-  ```json title=bud.config.json
+  ```json
   {
     "assets": [["images", "fonts"]]
   }
   ```
 
-</ConfigExample>
+</Example>
 
 If you want more control over the directory being output to, you can use an array of from/to pairs:
 
-<ConfigExample>
+<Example title="bud.config">
 
-  ```ts title=bud.config.ts
+  ```ts
   bud.assets([
     ['images', 'assets/images'], // from `@src/images` to `@dist/assets/images`
     ['fonts', 'assets/fonts'], // from `@src/fonts` to `@dist/assets/fonts`
   ])
   ```
 
-  ```js title=bud.config.js
+  ```js
   bud.assets([
     ['images', 'assets/images'], // from `@src/images` to `@dist/assets/images`
     ['fonts', 'assets/fonts'], // from `@src/fonts` to `@dist/assets/fonts`
   ])
   ```
 
-  ```yml title=bud.config.yml
+  ```yml
   assets: [[['images', 'assets/images'], ['fonts', 'assets/fonts']]]
   ```
 
-  ```json title=bud.config.json
+  ```json
   {
     "assets": [[["images", "assets/images"], ["fonts", "assets/fonts"]]]
   }
   ```
 
-</ConfigExample>
+</Example>
 
 For complete control, you can pass an object:
 
-<ConfigExample>
+<Example>
 
   ```ts title=bud.config.ts
   import type {Bud} from '@roots/bud'
@@ -128,6 +128,6 @@ For complete control, you can pass an object:
   }
   ```
 
-</ConfigExample>
+</Example>
 
 You can learn more about this and other details in the [bud.assets documentation](/reference/bud.assets).

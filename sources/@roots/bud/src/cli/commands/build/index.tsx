@@ -23,6 +23,7 @@ import runtime from '@roots/bud/cli/flags/runtime'
 import silent from '@roots/bud/cli/flags/silent'
 import splitChunks from '@roots/bud/cli/flags/splitChunks'
 import browserslistUpdateCheck from '@roots/bud/cli/helpers/browserslistUpdate'
+import budUpdateCheck from '@roots/bud/cli/helpers/budUpdate'
 import isBoolean from '@roots/bud-support/isBoolean'
 import isString from '@roots/bud-support/isString'
 import noop from '@roots/bud-support/noop'
@@ -198,6 +199,7 @@ export default class BudBuildCommand extends BudCommand {
     ).catch(noop)
 
     await browserslistUpdateCheck(this.bud)
+    await budUpdateCheck(this.bud)
     await this.bud.run()
   }
 }

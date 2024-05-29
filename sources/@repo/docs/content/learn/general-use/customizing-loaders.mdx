@@ -66,7 +66,7 @@ With automatic resolution:
 
 ```js title=bud.config.js
 export default async bud => {
-  bud.build.setLoader(`babel-loader`)
+  bud.build.setLoader('babel-loader')
 }
 ```
 
@@ -75,9 +75,10 @@ With explicit resolution:
 ```js title=bud.config.js
 export default async bud => {
   bud.build.setLoader(
-    `babel-loader`,
-    await bud.module.resolve(`babel-loader`),
+    'babel-loader',
+    await bud.module.resolve('babel-loader'),
   )
+}
 ```
 
 Using the callback API:
@@ -85,9 +86,10 @@ Using the callback API:
 ```js title=bud.config.js
 export default async bud => {
   bud.build.setLoader(
-    `babel-loader`,
-    loader => loader.setSrc(`babel-loader`)
+    'babel-loader',
+    loader => loader.setSrc('babel-loader')
   )
+}
 ```
 
 ## Items
@@ -216,7 +218,7 @@ export default async bud =>
 
 [@roots/bud-typescript](/extensions/bud-typescript) is an excellent example because it:
 
-- registers a new [loader](#loaders), [item](#items), and [rule](#rule)
+- registers a new [loader](#loaders), [item](#items), and [rule](#rules)
 - modifies an existing [rule](#rules).
 
 ```ts

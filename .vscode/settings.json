@@ -12,7 +12,7 @@
     "overrideConfigFile": "config/eslint.config.cjs"
   },
   "eslint.validate": ["javascript", "typescript"],
-  "explorer.excludeGitIgnore": true,
+  "explorer.excludeGitIgnore": false,
   "files.associations": {
     "*.mdx": "mdx",
     "*.ts": "typescript",
@@ -26,7 +26,7 @@
     "**/.hg": true,
     "**/.svn": true,
     "**/CVS": true,
-    "**/node_modules": false,
+    "**/node_modules": true,
     "**/Thumbs.db": true
   },
   "prettier.configPath": "config/prettier.config.js",
@@ -37,10 +37,8 @@
     "**/.storage": true,
     "**/node_modules": true,
     "**/pnp.*": true,
-    "coverage": true,
-    "storage": true
+    "coverage": true
   },
-  "search.useParentIgnoreFiles": true,
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.format.semicolons": "remove",
   "typescript.preferences.preferTypeOnlyAutoImports": true,

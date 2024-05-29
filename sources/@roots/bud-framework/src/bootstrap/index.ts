@@ -125,12 +125,10 @@ export const bootstrap = async (bud: Bud) => {
 
   bud.hooks
     .fromMap({
-      'location.@dist': bud.context.paths.output ?? `dist`,
-      'location.@modules': isString(bud.context.paths.modules)
-        ? bud.context.paths.modules
-        : `node_modules`,
-      'location.@src': bud.context.paths.input ?? `src`,
-      'location.@storage': bud.context.paths.storage ?? `.bud`,
+      'location.@dist': bud.context.paths.output,
+      'location.@modules': bud.context.paths.modules,
+      'location.@src': bud.context.paths.input,
+      'location.@storage': bud.context.paths.storage,
       'pattern.css': /(?!.*\.module)\.css$/,
       'pattern.cssModule': /\.module\.css$/,
       'pattern.csv': /\.(csv|tsv)$/,

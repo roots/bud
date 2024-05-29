@@ -111,7 +111,7 @@ Example:
 bud.swc.setParser({ decorators: false });
 ```
 
-Note that `jsx.parser.syntax`, `jsc.parser.jsx` and `jsc.parser.tsx` will be overwritten by [syntax specific configuration](#syntax-specific-configuration). You should change those options using `bud.swc.ecmascript.setParser` or `bud.swc.typescript.setParser` instead of using the base options.
+Note that `jsx.parser.syntax`, `jsc.parser.jsx` and `jsc.parser.tsx` will be overwritten by [syntax specific configuration](#syntax-specific-jsc-configuration). You should change those options using `bud.swc.ecmascript.setParser` or `bud.swc.typescript.setParser` instead of using the base options.
 
 ### jsc.preserveAllComments
 

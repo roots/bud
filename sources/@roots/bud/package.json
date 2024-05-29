@@ -123,6 +123,7 @@
     "./cli/flags/use": "./lib/cli/flags/use.js",
     "./cli/flags/verbose": "./lib/cli/flags/verbose.js",
     "./cli/helpers/browserslistUpdate": "./lib/cli/helpers/browserslistUpdate.js",
+    "./cli/helpers/budUpdate": "./lib/cli/helpers/budUpdate.js",
     "./cli/helpers/checkDependencies": "./lib/cli/helpers/checkDependencies.js",
     "./cli/helpers/isset": "./lib/cli/helpers/isset.js",
     "./cli/helpers/override": "./lib/cli/helpers/override.js",
@@ -337,6 +338,9 @@
       ],
       "cli/helpers/browserslistUpdate": [
         "./lib/cli/helpers/browserslistUpdate.d.ts"
+      ],
+      "cli/helpers/budUpdate": [
+        "./lib/cli/helpers/budUpdate.d.ts"
       ],
       "cli/helpers/checkDependencies": [
         "./lib/cli/helpers/checkDependencies.d.ts"

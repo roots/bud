@@ -9498,18 +9498,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mdx-js/react@npm:^3.0.1":
-  version: 3.0.1
-  resolution: "@mdx-js/react@npm:3.0.1"
-  dependencies:
-    "@types/mdx": "npm:^2.0.0"
-  peerDependencies:
-    "@types/react": ">=16"
-    react: ">=16"
-  checksum: d210d926ef488d39ad65f04d821936b668eadcdde3b6421e94ec4200ca7ad17f17d24c5cbc543882586af9f08b10e2eea715c728ce6277487945e05c5199f532
-  languageName: node
-  linkType: hard
-
 "@mswjs/interceptors@npm:0.27.2":
   version: 0.27.2
   resolution: "@mswjs/interceptors@npm:0.27.2"
@@ -11158,7 +11146,6 @@ __metadata:
     "@docusaurus/remark-plugin-npm2yarn": "npm:3.3.2"
     "@docusaurus/theme-classic": "npm:3.3.2"
     "@docusaurus/theme-common": "npm:3.3.2"
-    "@mdx-js/react": "npm:^3.0.1"
     "@repo/constants": "workspace:*"
     "@svgr/webpack": "npm:8.1.0"
     "@tsconfig/docusaurus": "npm:2.0.3"
@@ -11168,15 +11155,13 @@ __metadata:
     "@types/react-dom": "npm:18.3.0"
     axios: "npm:1.6.8"
     clsx: "npm:2.1.1"
-    docusaurus-lunr-search: "npm:3.3.2"
+    docusaurus-lunr-search: "npm:3.4.0"
     file-loader: "npm:6.2.0"
     netlify-cli: "npm:17.23.1"
     raw-loader: "npm:4.0.2"
     react: "npm:18.3.1"
     react-dom: "npm:18.3.1"
-    ts-node: "npm:10.9.2"
     tslib: "npm:2.6.2"
-    typescript: "npm:5.4.5"
     url-loader: "npm:4.1.1"
     webpack: "npm:5.91.0"
   languageName: unknown
@@ -13600,6 +13585,15 @@ __metadata:
     "@roots/bud-swc": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@tailwindcss/forms": "npm:0.5.7"
+  languageName: unknown
+  linkType: soft
+
+"@tests/stylelint-build-with-errors@workspace:sources/@roots/bud-stylelint/test/__fixtures__/build-with-errors":
+  version: 0.0.0-use.local
+  resolution: "@tests/stylelint-build-with-errors@workspace:sources/@roots/bud-stylelint/test/__fixtures__/build-with-errors"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -22953,9 +22947,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docusaurus-lunr-search@npm:3.3.2":
-  version: 3.3.2
-  resolution: "docusaurus-lunr-search@npm:3.3.2"
+"docusaurus-lunr-search@npm:3.4.0":
+  version: 3.4.0
+  resolution: "docusaurus-lunr-search@npm:3.4.0"
   dependencies:
     autocomplete.js: "npm:^0.37.0"
     clsx: "npm:^1.2.1"
@@ -22975,7 +22969,7 @@ __metadata:
     "@docusaurus/core": ^2.0.0-alpha.60 || ^2.0.0 || ^3.0.0
     react: ^16.8.4 || ^17 || ^18
     react-dom: ^16.8.4 || ^17 || ^18
-  checksum: 051589fa2e984832407102aa544c1d89b9df9f6988d29c19fabd95101a85efd7ed6b37c548e2f6f9bcdf6fd3ad877f5efaf9f59cf40dbdb18c8f2c2997ac6148
+  checksum: 81aac7d8aa4a8be2f54c83198978d5a2a9a8a88eb798f54c075fe10860fd0b52b35f5943b5b2e18f24bdb96a97fe386349837905b386477a5d635177e4ed7f68
   languageName: node
   linkType: hard
 

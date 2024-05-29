@@ -33,11 +33,6 @@ import type {EventsStore} from '../registry/index.js'
  * Bud core class
  */
 export class Bud {
-  /**
-   * Promised tasks
-   */
-  public promised: Array<(bud: Bud) => Promise<any>> = []
-
   public declare addConfig: typeof methods.addConfig
 
   public declare after: typeof methods.after
@@ -54,7 +49,7 @@ export class Bud {
 
   public declare close: typeof methods.close
 
-  public declare compiler?: Compiler & Service
+  public declare compiler: Compiler & Service
 
   public declare container: typeof methods.container
 
@@ -188,6 +183,11 @@ export class Bud {
   public get mode(): `development` | `production` {
     return this.context?.mode ?? `production`
   }
+
+  /**
+   * Promised tasks
+   */
+  public promised: Array<(bud: Bud) => Promise<any>> = []
 
   /**
    * Constructor
@@ -402,7 +402,7 @@ export class Bud {
 
   /**
    * Log message
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * @deprecated
    */
   @bind
   public log(...messages: Array<any>) {
@@ -412,7 +412,7 @@ export class Bud {
 
   /**
    * Log success
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * @deprecated
    */
   @bind
   public success(...messages: Array<any>) {
@@ -421,7 +421,7 @@ export class Bud {
   }
   /**
    * Log warning
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * @deprecated
    */
   @bind
   public warn(...messages: Array<any>) {
@@ -431,7 +431,7 @@ export class Bud {
 
   /**
    * Log info
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * @deprecated
    */
   @bind
   public info(...messages: Array<any>) {
@@ -441,7 +441,7 @@ export class Bud {
 
   /**
    * Log error
-   * @deprecated Import logger instance from `@roots/bud-support/logger`
+   * @deprecated
    */
   @bind
   public error(...messages: Array<any>) {
