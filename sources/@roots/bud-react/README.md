@@ -118,3 +118,6 @@ However, the amount of effort needed to maintain and develop new features and pr
 <a href="https://worksitesafety.ca/careers/">
 <img src="https://cdn.roots.io/app/uploads/worksite-safety.svg" alt="Worksite Safety" width="200" height="150"/>
 </a>
+<a href="https://www.itineris.co.uk/">
+<img src="https://cdn.roots.io/app/uploads/itineris.svg" alt="Itineris" width="200" height="150"/>
+</a>

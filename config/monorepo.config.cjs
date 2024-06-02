@@ -32,6 +32,11 @@ module.exports = {
       title: `Worksite Safety`,
       url: `https://worksitesafety.ca/careers/`,
     },
+    {
+      image: `https://cdn.roots.io/app/uploads/itineris.svg`,
+      title: `Itineris`,
+      url: `https://www.itineris.co.uk/`,
+    },
   ],
   url: {
     discourse: `https://discourse.roots.io/c/bud/24`,
