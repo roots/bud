@@ -14,4 +14,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export {TailwindThemeJSON as default} from './extension.js'
+export {TailwindThemeJSON as default} from '@roots/bud-tailwindcss-theme-json/extension'

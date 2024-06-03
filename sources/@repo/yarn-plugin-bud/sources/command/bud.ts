@@ -1,8 +1,8 @@
-import * as Commands from './'
-import {Command} from './base.command'
+import {Command} from './base.command.js'
+import * as Commands from './index.js'
 
 export class Bud extends Command {
-  public static paths = [[`@bud`]]
+  public static override paths = [[`@bud`]]
 
   public async execute() {
     process.stdout.write(`

@@ -1,7 +1,8 @@
 import {path} from '@repo/constants'
 import {type Bud, factory} from '@repo/test-kit'
-import {alias as aliasFn} from '@roots/bud-api/methods/alias'
 import {beforeAll, describe, expect, it} from 'vitest'
+
+import {alias as aliasFn} from '../src/methods/alias/index.ts'
 
 describe(`bud.alias`, () => {
   let bud: Bud

@@ -21,14 +21,14 @@ export {
   type Contract as BudService,
   default as Service,
   ServiceContainer,
-} from './service.js'
+} from './service/index.js'
 export type {Item} from './services/build/item.js'
 export type {Loader} from './services/build/loader.js'
 export type {Rule} from './services/build/rule.js'
 export * from '@roots/bud-framework/bud'
 export type * from '@roots/bud-framework/config'
 export type {Context} from '@roots/bud-framework/context'
-export type {Extension} from '@roots/bud-framework/extension'
+export {Extension} from '@roots/bud-framework/extension'
 export type {
   Api,
   Build,

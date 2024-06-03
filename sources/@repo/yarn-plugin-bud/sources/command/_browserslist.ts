@@ -1,11 +1,13 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Browserslist extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `browserslist`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `browserslist`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `run browserslist`,
     examples: [

@@ -1,0 +1,14 @@
+{
+  "name": "@tests/browserslist-config-last-3-versions",
+  "private": true,
+  "type": "module",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "browserslist": [
+    "extends @roots/browserslist-config/last-3-versions"
+  ],
+  "devDependencies": {
+    "@roots/browserslist-config": "workspace:*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*"
+  }
+}

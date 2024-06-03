@@ -1,12 +1,12 @@
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Tsc extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `tsc`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `tsc`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Run the typescript compiler`,
     examples: [[`tsc usage info`, `yarn @bud tsc --help`]],

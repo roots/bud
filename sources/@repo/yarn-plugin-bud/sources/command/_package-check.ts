@@ -2,15 +2,17 @@ import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {globby} from 'globby'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * PackageCheck command class
  */
 export class PackageCheck extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `package-check`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `package-check`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `PackageCheck passthrough`,
     examples: [

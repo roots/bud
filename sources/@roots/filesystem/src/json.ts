@@ -16,8 +16,9 @@ export const read = async (path: string): Promise<any> => {
     })
 
   if (!source) {
-    const error = new Error(`File read returned no value to parse`)
-    error.name = `json read error: ${path}`
+    const error = new Error(
+      `json read of ${path} returned no value to parse`,
+    )
     throw error
   }
 

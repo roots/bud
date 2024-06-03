@@ -52,37 +52,10 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./bootstrap": "./lib/bootstrap/index.js",
-    "./bootstrap/args": "./lib/bootstrap/args.js",
-    "./bootstrap/env": "./lib/bootstrap/env.js",
-    "./bootstrap/files": "./lib/bootstrap/files.js",
-    "./bootstrap/paths": "./lib/bootstrap/paths.js",
-    "./bud": "./lib/bud/index.js",
-    "./configuration": "./lib/configuration/index.js",
-    "./config": "./lib/config/index.js",
-    "./context": "./lib/context.js",
-    "./env": "./lib/env/index.js",
     "./extension/decorators/*": "./lib/extension/decorators/*.js",
-    "./extension/decorators": "./lib/extension/decorators/index.js",
-    "./extension": "./lib/extension/index.js",
-    "./extension/types": "./lib/extension/types/index.js",
-    "./fs": "./lib/fs.js",
-    "./methods/setPath": "./lib/methods/setPath/index.js",
-    "./methods/*": "./lib/methods/*.js",
-    "./methods": "./lib/methods/index.js",
-    "./module": "./lib/module.js",
-    "./notifier": "./lib/notifier.js",
-    "./options": "./lib/options/index.js",
     "./options/*": "./lib/options/*.js",
-    "./project": "./lib/project.js",
-    "./registry": "./lib/registry/index.js",
     "./registry/*": "./lib/registry/*.js",
-    "./service": "./lib/service.js",
-    "./services": "./lib/services/index.js",
-    "./services/api": "./lib/services/api.js",
     "./services/build/*": "./lib/services/build/*.js",
-    "./services/*": "./lib/services/*/index.js",
-    "./value": "./lib/value.js",
     "./*": "./lib/*/index.js"
   },
   "typesVersions": {
@@ -90,113 +63,20 @@
       ".": [
         "./lib/index.d.ts"
       ],
-      "api": [
-        "./lib/services/api.d.ts"
-      ],
-      "bootstrap": [
-        "./lib/bootstrap/index.d.ts"
-      ],
-      "bootstrap/args": [
-        "./lib/bootstrap/args.d.ts"
-      ],
-      "bootstrap/env": [
-        "./lib/bootstrap/env.d.ts"
-      ],
-      "bootstrap/files": [
-        "./lib/bootstrap/files.d.ts"
-      ],
-      "bootstrap/paths": [
-        "./lib/bootstrap/paths.d.ts"
-      ],
-      "bud": [
-        "./lib/bud/index.d.ts"
-      ],
-      "config": [
-        "./lib/config/index.d.ts"
-      ],
-      "configuration": [
-        "./lib/configuration/index.d.ts"
-      ],
-      "context": [
-        "./lib/context.d.ts"
-      ],
-      "env": [
-        "./lib/env/index.d.ts"
-      ],
-      "fs": [
-        "./lib/fs.d.ts"
-      ],
-      "extension": [
-        "./lib/extension/index.d.ts"
-      ],
-      "extension/decorators": [
-        "./lib/extension/decorators/index.d.ts"
-      ],
       "extension/decorators/*": [
         "./lib/extension/decorators/*.d.ts"
-      ],
-      "./extension/types": [
-        "./lib/extension/types/index..d.ts"
-      ],
-      "project": [
-        "./lib/project.d.ts"
-      ],
-      "methods/setPath": [
-        "./lib/methods/setPath/index.d.ts"
-      ],
-      "methods/*": [
-        "./lib/methods/*.d.ts"
-      ],
-      "methods": [
-        "./lib/methods/index.d.ts"
-      ],
-      "module": [
-        "./lib/module.d.ts"
-      ],
-      "notifier": [
-        "./lib/notifier.d.ts"
-      ],
-      "options": [
-        "./lib/options/index.d.ts"
       ],
       "options/*": [
         "./lib/options/*.d.ts"
       ],
-      "parsers": [
-        "./lib/parsers/index.d.ts"
-      ],
-      "parsers/*": [
-        "./lib/parsers/*.d.ts"
-      ],
-      "registry": [
-        "./lib/registry/index.d.ts"
-      ],
       "registry/*": [
         "./lib/registry/*.d.ts"
-      ],
-      "service": [
-        "./lib/service.d.ts"
-      ],
-      "services": [
-        "./lib/services/index.d.ts"
-      ],
-      "services/api": [
-        "./lib/services/api.d.ts"
-      ],
-      "services/console": [
-        "./lib/services/console.d.ts"
-      ],
-      "services/fs": [
-        "./lib/services/fs.d.ts"
       ],
       "services/build/*": [
         "./lib/services/build/*.d.ts"
       ],
-      "services/*": [
-        "./lib/services/*/index.d.ts"
-      ],
-      "value": [
-        "./lib/value.d.ts"
+      "*": [
+        "./lib/*/index.d.ts"
       ]
     }
   },

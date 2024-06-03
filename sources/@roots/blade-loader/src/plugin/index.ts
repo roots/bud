@@ -9,11 +9,14 @@ interface Options {
  */
 export default class BladeWebpackPlugin implements WebpackPluginInstance {
   /**
+   * Blade rules
+   */
+  public bladeRules = []
+
+  /**
    * Plugin constructor
    */
-  public constructor(public options?: Options) {
-    this.apply = this.apply.bind(this)
-  }
+  public constructor(public options?: Options) {}
 
   /**
    * {@link WebpackPluginInstance.apply}

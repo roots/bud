@@ -6,6 +6,14 @@ export default defineConfig({
   test: {
     ...shared,
     include: [`tests/integration/**/*.test.ts`],
+    isolate: true,
+    pool: `threads`,
+    poolOptions: {
+      threads: {
+        isolate: true,
+        useAtomics: true,
+      },
+    },
     setupFiles: [`./config/vitest/setup.integration.ts`],
   },
 })

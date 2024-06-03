@@ -49,15 +49,15 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js"
+    "./*": "./lib/*/index.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
       ],
-      "extension": [
-        "./lib/extension.d.ts"
+      "*": [
+        "./lib/*/index.d.ts"
       ]
     }
   },

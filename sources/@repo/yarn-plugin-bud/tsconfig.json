@@ -1,11 +1,10 @@
 {
-  "extends": ["../../../config/tsconfig.json"],
   "compilerOptions": {
     "experimentalDecorators": true,
     "module": "commonjs",
-    "moduleResolution": "classic",
     "target": "es2021",
     "lib": ["es2021"],
+    "types": ["node"],
   },
   "include": ["sources/**/*.ts"]
 }

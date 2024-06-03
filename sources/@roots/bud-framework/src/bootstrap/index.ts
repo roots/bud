@@ -2,13 +2,12 @@ import type {Bud, BudService, Registry} from '@roots/bud-framework'
 
 import args from '@roots/bud-framework/bootstrap/args'
 import {paths} from '@roots/bud-framework/bootstrap/paths'
+import {FS} from '@roots/bud-framework/fs'
+import {Module} from '@roots/bud-framework/module'
+import {Notifier} from '@roots/bud-framework/notifier'
 import camelCase from '@roots/bud-support/camelCase'
 import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
-
-import {FS} from '../fs.js'
-import {Module} from '../module.js'
-import {Notifier} from '../notifier.js'
 
 /**
  * Define the list of services that should only be instantiated in the parent compiler context

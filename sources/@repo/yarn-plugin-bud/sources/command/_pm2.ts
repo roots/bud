@@ -3,12 +3,12 @@ import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import {noop} from 'lodash'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Pm2 extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `pm2`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `registry access`,
     examples: [[`pm2 usage info`, `yarn @bud pm2 --info`]],

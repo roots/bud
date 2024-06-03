@@ -5,7 +5,10 @@ import shared from './config.shared'
 export default defineConfig({
   test: {
     ...shared,
-    exclude: [`**/node_modules`, `tests/e2e`],
+    coverage: {
+      enabled: false,
+    },
+    exclude: [`tests/e2e`, `**/node_modules`],
     include: [
       `sources/@roots/**/*.test.ts`,
       `sources/@roots/**/*.test.tsx`,

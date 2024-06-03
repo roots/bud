@@ -1,11 +1,10 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Error} from '@roots/bud-dashboard/components/error'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import {LabelBox} from '../../components/LabelBox.js'
 
 interface PackageResult {
   error: boolean

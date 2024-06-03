@@ -34,7 +34,7 @@ module.exports = {
           title: `${config.name} releases`,
         },
         id: `releases`,
-        path: docsPath(`generated/releases`),
+        path: docsPath(`content/releases`),
         remarkPlugins,
         routeBasePath: `releases`,
         showReadingTime: true,

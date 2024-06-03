@@ -38,30 +38,27 @@
     "roots"
   ],
   "files": [
-    "default.cjs",
-    "last-2-versions.cjs",
-    "last-3-versions.cjs",
-    "types.d.ts",
-    "wordpress.cjs"
+    "lib"
   ],
   "exports": {
-    ".": "./default.cjs",
-    "./last-2-versions": "./last-2-versions.cjs",
-    "./last-3-versions": "./last-3-versions.cjs",
-    "./wordpress": "./wordpress.cjs",
-    "./broad": "./last-3-versions.cjs",
-    "./current": "./last-2-versions.cjs",
-    "./default": "./default.cjs",
-    "./next": "./default.cjs"
+    ".": "./lib/default/index.cjs",
+    "./last-2-versions": "./lib/last-2-versions/index.cjs",
+    "./last-3-versions": "./lib/last-3-versions/index.cjs",
+    "./wordpress": "./lib/wordpress/index.cjs",
+    "./broad": "./lib/last-3-versions/index.cjs",
+    "./current": "./lib/last-2-versions/index.cjs",
+    "./default": "./lib/default/index.cjs",
+    "./next": "./lib/default/index.cjs"
   },
   "types": "./types.d.ts",
-  "main": "./index.cjs",
-  "module": "./index.cjs",
+  "main": "./lib/default/index.cjs",
+  "module": "./lib/default/index.cjs",
   "devDependencies": {
     "@roots/bud-support": "workspace:*",
     "@skypack/package-check": "0.2.2",
     "browserslist": "4.23.0",
-    "caniuse-lite": "1.0.30001616"
+    "caniuse-lite": "1.0.30001627",
+    "vitest": "1.6.0"
   },
   "volta": {
     "extends": "../../../package.json"

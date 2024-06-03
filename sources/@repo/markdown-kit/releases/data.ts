@@ -29,18 +29,13 @@ interface request {
 
 type releases = Array<release>
 
-/**
- * Request cache
- */
-let request: request = {}
+// eslint-disable-next-line
+const octokit = new Octokit({auth: process.env.GITHUB_TOKEN})
 
 /**
  * Release cache
  */
 const releases: Array<release> = []
-
-// eslint-disable-next-line
-const octokit = new Octokit({auth: process.env.GITHUB_TOKEN})
 
 /**
  * Filter out older releases with weird titles
@@ -58,10 +53,19 @@ const parseVersion = (version?: string) =>
  */
 const parse = (release: ghRelease): release => {
   const semver = release.tag_name.replace(`v`, ``)
-  const [major, minor, patch] = semver.split(`.`)
+  const [major, minor, patch] = semver.split(`.`).map(parseVersion)
+
+  if (
+    fs.exists(
+      path(
+        `sources/@repo/docs/content/releases`,
+        `${major}.${minor}.${patch}.md`,
+      ),
+    )
+  )
+    return null
 
   const [introLine, ...bodyLines] = release.body.split(`\n`)
-
   const intro = introLine.trim() ?? ``
   const body = bodyLines
     .join(`\n`)
@@ -73,33 +77,31 @@ const parse = (release: ghRelease): release => {
     ...release,
     body,
     intro,
-    major: parseVersion(major),
-    minor: parseVersion(minor),
-    patch: parseVersion(patch),
+    major,
+    minor,
+    patch,
     semver,
     tags: `[release, ${major}, ${major}.${minor}]`,
   }
 }
 
-if (!request?.data) {
-  try {
-    request = await octokit.request(
-      `GET /repos/roots/bud/releases?100,1`,
-      {
-        owner: `roots`,
-        repo: `bud`,
-      },
-    )
-  } catch (error) {
-    throw error
-  }
-}
+/**
+ * Request cache
+ */
+const request: request = await octokit.request(
+  `GET /repos/roots/bud/releases?100,1`,
+  {
+    owner: `roots`,
+    repo: `bud`,
+  },
+)
 
 if (request.data) {
   releases.push(
     ...request.data
       ?.filter(filter)
       .map(parse)
+      .filter(Boolean)
       .sort((a, b) => {
         if (a.major > b.major) return -1
         if (a.major < b.major) return 1
@@ -112,9 +114,17 @@ if (request.data) {
       }),
   )
 
+  const data =
+    (await fs.readAsync(
+      path(`sources/@repo/docs/content/releases/data.json`),
+      `json`,
+    )) ?? []
+
+  releases && data.push(...releases)
+
   await fs.writeAsync(
-    path(`sources/@repo/docs/generated/releases/data.json`),
-    releases,
+    path(`sources/@repo/docs/content/releases/data.json`),
+    data,
     {jsonIndent: 2},
   )
 }

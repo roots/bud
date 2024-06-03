@@ -3,17 +3,17 @@ import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
 import {noop} from 'lodash'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * bud registry start command class
  */
 export class RegistryStart extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `start`],
   ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `start verdaccio registry`,
     examples: [[`start verdaccio server`, `yarn @bud registry start`]],

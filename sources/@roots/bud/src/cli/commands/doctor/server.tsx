@@ -1,8 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import {LabelBox} from '../../components/LabelBox.js'
 
 export const Server = ({bud}: {bud: Bud}) => {
   if (!bud) return null

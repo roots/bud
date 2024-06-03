@@ -1,12 +1,14 @@
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Netlify extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `netlify`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `netlify`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `run netlify`,
     examples: [[`netlify usage info`, `yarn @bud netlify --help`]],

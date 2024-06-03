@@ -1,8 +1,7 @@
 import type {Extension} from '@roots/bud-framework/extension'
 
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import {LabelBox} from '../../components/LabelBox.js'
 
 export const Extensions = ({
   extensions,

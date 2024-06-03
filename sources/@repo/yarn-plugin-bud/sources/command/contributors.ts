@@ -1,11 +1,13 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Contributors extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `contributors`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `contributors`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Aggregate contributor data`,
     examples: [[`update contributors`, `yarn @bud contributors`]],

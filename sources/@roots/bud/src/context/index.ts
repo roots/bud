@@ -3,6 +3,9 @@ import type {Context} from '@roots/bud-framework/context'
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
+import * as budManifest from '@roots/bud/context/bud'
+import getExtensions from '@roots/bud/context/extensions'
+import services from '@roots/bud/context/services'
 import args from '@roots/bud-framework/bootstrap/args'
 import * as projectEnv from '@roots/bud-framework/bootstrap/env'
 import * as projectFiles from '@roots/bud-framework/bootstrap/files'
@@ -11,10 +14,6 @@ import * as filesystem from '@roots/bud-support/filesystem'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import whichPm from '@roots/bud-support/which-pm'
-
-import * as budManifest from './bud.js'
-import getExtensions from './extensions.js'
-import services from './services.js'
 
 export type Options = {
   extensions?: Array<string>

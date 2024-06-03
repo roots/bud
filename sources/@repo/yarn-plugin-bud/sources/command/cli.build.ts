@@ -1,13 +1,13 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class YarnPluginBuild extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `plugin`, `build`],
   ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     examples: [[`build @bud yarn plugin`, `yarn @bud plugin build`]],
   }

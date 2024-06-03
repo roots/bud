@@ -1,17 +1,17 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Docs command class
  */
 export class Docs extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `docs`],
     [`@bud`, `docs`, `build`],
   ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `build docs and other markdown files`,
     examples: [[`build docs and readme`, `yarn @bud docs`]],

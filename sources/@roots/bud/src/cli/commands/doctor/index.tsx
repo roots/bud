@@ -1,12 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
 import BudCommand from '@roots/bud/cli/commands'
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Extension} from '@roots/bud-framework/extension'
 import chalk from '@roots/bud-support/chalk'
 import {Command} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {Box} from '@roots/bud-support/ink'
 
-import {LabelBox} from '../../components/LabelBox.js'
 import DisplayConfigFiles from '../config/displayConfigFiles.js'
 import DisplayEnv from '../env/displayEnv.js'
 import {BuildInfo} from './buildInfo.js'

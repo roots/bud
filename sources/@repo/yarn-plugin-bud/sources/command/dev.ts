@@ -1,14 +1,14 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Dev command
  */
 export class Dev extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `dev`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `dev`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `develop project code`,
     examples: [
@@ -16,16 +16,24 @@ export class Dev extends Command {
     ],
   }
 
-  public async execute() {
-    await this.cli.run([`@bud`, `build`])
-    await this.cli.run([`@bud`, `docs`, `build`])
-
-    this.promised.push(
-      this.cli.run([`@bud`, `tsc`, `--watch`]),
-      this.cli.run([`@bud`, `test`, `unit`]),
-      this.cli.run([`@bud`, `docs`, `dev`]),
+  public override async catch(error: Error) {
+    process.stderr.write(
+      `\n\n----------------\n\nError: ${error.message}\n\n----------------\n\n`,
     )
+  }
 
-    await Promise.all(this.promised)
+  public async execute() {
+    await Promise.all([
+      this.cli.run([`@bud`, `build`]).catch(this.catch),
+      this.cli.run([`@bud`, `docs`, `build`]).catch(this.catch),
+    ])
+
+    await Promise.all([
+      this.cli.run([`@bud`, `tsc`, `--watch`]).catch(this.catch),
+      this.cli
+        .run([`@bud`, `test`, `unit`, `--watch`, `--ui`])
+        .catch(this.catch),
+      this.cli.run([`@bud`, `docs`, `dev`]).catch(this.catch),
+    ])
   }
 }

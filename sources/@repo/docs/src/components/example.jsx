@@ -18,7 +18,7 @@ function Example({children, config = true, title}) {
         ...child,
         code: child.children,
         language: child.className.split(`language-`).pop(),
-        title: title,
+        title: child.title ?? null,
       }
     })
 
@@ -44,6 +44,7 @@ function Example({children, config = true, title}) {
               {config && child.language === `ts`
                 ? `import type {Bud} from '@roots/bud'\n\nexport default async (bud: Bud) => {\n`
                 : ``}
+
               {config && child.language === `js`
                 ? `/** @param {import('@roots/bud').Bud} bud */\nexport default async (bud) => {\n`
                 : ``}

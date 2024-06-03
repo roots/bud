@@ -1,11 +1,13 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Version extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `version`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `version`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `bump version of public packages`,
     examples: [[`Bump packages to x.y.z`, `yarn @bud version x.y.z`]],

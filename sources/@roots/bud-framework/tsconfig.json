@@ -5,9 +5,6 @@
     "outDir": "./lib",
     "paths": {
       "@roots/bud-framework": ["./src"],
-      "@roots/bud-framework/service": ["./src/service"],
-      "@roots/bud-framework/methods/setPath": ["./src/methods/setPath"],
-      "@roots/bud-framework/methods": ["./src/methods"]
     },
     "types": ["express"]
   },

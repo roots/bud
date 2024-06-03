@@ -1,6 +1,7 @@
 import {type Bud, factory} from '@repo/test-kit'
-import {assets} from '@roots/bud-api/methods/assets'
 import {beforeEach, describe, expect, it} from 'vitest'
+
+import {assets} from '../src/methods/assets/index.ts'
 
 describe(`bud.assets`, () => {
   let bud: Bud

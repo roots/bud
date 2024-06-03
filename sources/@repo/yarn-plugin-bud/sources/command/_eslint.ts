@@ -1,15 +1,16 @@
-import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Eslint command class
  */
 export class Eslint extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `eslint`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `eslint`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Eslint passthrough`,
     examples: [[`eslint usage info`, `yarn @bud eslint --help`]],
@@ -18,6 +19,8 @@ export class Eslint extends Command {
   public passthrough = Option.Proxy({name: `pm2 options`})
 
   public async execute() {
+    const {path} = await import(`@repo/constants`)
+
     await this.cli
       .run([
         `node`,

@@ -24,6 +24,7 @@ import silent from '@roots/bud/cli/flags/silent'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
+import override, {type Override} from '@roots/bud/cli/helpers/override'
 import * as instance from '@roots/bud/instance'
 import * as Dash from '@roots/bud-dashboard/components/error'
 import {Bud} from '@roots/bud-framework'
@@ -34,8 +35,6 @@ import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import isNumber from '@roots/bud-support/isNumber'
 import noop from '@roots/bud-support/noop'
-
-import override, {type Override} from '../helpers/override.js'
 
 /**
  * Base {@link Command}
@@ -264,7 +263,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
    * {@link Command.execute}
    */
   public async execute(): Promise<number | void> {
-    const {Menu} = await import(`@roots/bud/cli/components/menu`)
+    const {Menu} = await import(`@roots/bud/cli/components/Menu`)
     this.render(<Menu cli={this.cli} />)
   }
 

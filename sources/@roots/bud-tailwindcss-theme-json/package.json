@@ -48,16 +48,39 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/index.js"
+    ".": "./lib/index.js",
+    "./extension": "./lib/extension/index.js",
+    "./tailwind": "./lib/tailwind/index.js",
+    "./tailwind/fontFamily": "./lib/tailwind/fontFamily.js",
+    "./tailwind/fontSize": "./lib/tailwind/fontSize.js",
+    "./tailwind/palette": "./lib/tailwind/palette.js",
+    "./tailwind/spacing": "./lib/tailwind/spacing.js"
   },
   "typesVersions": {
     "*": {
       ".": [
         "./lib/index.d.ts"
+      ],
+      "extension": [
+        "./lib/extension/index.d.ts"
+      ],
+      "tailwind": [
+        "./lib/tailwind/index.d.ts"
+      ],
+      "tailwind/fontFamily": [
+        "./lib/tailwind/fontFamily.d.ts"
+      ],
+      "tailwind/fontSize": [
+        "./lib/tailwind/fontSize.d.ts"
+      ],
+      "tailwind/palette": [
+        "./lib/tailwind/palette.d.ts"
+      ],
+      "tailwind/spacing": [
+        "./lib/tailwind/spacing.d.ts"
       ]
     }
   },
-  "types": "./lib/index.d.ts",
   "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud-tailwindcss": "workspace:*",

@@ -1,10 +1,9 @@
 import {path} from '@repo/constants'
 import {beforeEach, describe, expect, it} from 'vitest'
-import {Context} from '@roots/bud-framework/context'
 
-import getContext from '../src/context/index.js'
+import getContext, {Context} from '../src/context/index.js'
 
-describe(`context.get`, () => {
+describe(`@roots/bud/context`, () => {
   let context: Context
 
   beforeEach(async () => {
@@ -13,7 +12,7 @@ describe(`context.get`, () => {
     })
   })
 
-  it(`should be accessible`, () => {
+  it(`should be defined`, () => {
     expect(context).toBeDefined()
   })
 

@@ -2,12 +2,12 @@ import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 import * as fs from 'fs-jetpack'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class TestRun extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `test`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `test`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `run test suites`,
     examples: [
@@ -24,13 +24,11 @@ export class TestRun extends Command {
   public async execute() {
     const args = [`@bud`, `vitest`]
 
+    await fs.removeAsync(path(`storage`, `mocks`)).catch(error => {
+      throw error
+    })
+
     if ([`e2e`, `integration`].includes(this.configuration)) {
-      args.push(`--run`)
-
-      await fs.removeAsync(path(`storage`, `mocks`)).catch(error => {
-        throw error
-      })
-
       await this.cli
         .run([
           `@bud`,

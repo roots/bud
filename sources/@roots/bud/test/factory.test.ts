@@ -1,8 +1,9 @@
 import {join} from 'node:path'
 
 import {path} from '@repo/constants'
-import {factory} from '@roots/bud/factory'
 import {describe, expect, test} from 'vitest'
+
+import {factory} from '../src/factory/index.js'
 
 describe(`@roots/bud/factory`, () => {
   test(`should merge overrides`, async () => {

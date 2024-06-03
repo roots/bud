@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`@roots/browserslist-config > @roots/browserslist-config/default > should compile as expected 1`] = `".foo{accent-color:auto;bottom:0;left:0;margin-left:1rem;right:0;text-wrap:balance;top:0;word-break:auto-phrase}"`;
+
+exports[`@roots/browserslist-config > @roots/browserslist-config/last-2-versions > should compile as expected 1`] = `".foo{accent-color:auto;bottom:0;left:0;margin-left:1rem;right:0;text-wrap:balance;top:0;word-break:auto-phrase}"`;
+
+exports[`@roots/browserslist-config > @roots/browserslist-config/last-3-versions > should compile as expected 1`] = `".foo{accent-color:auto;bottom:0;left:0;margin-left:1rem;right:0;text-wrap:balance;top:0;word-break:auto-phrase}"`;
+
+exports[`@roots/browserslist-config > @roots/browserslist-config/wordpress > should compile as expected 1`] = `".foo{accent-color:auto;inset:0;margin-inline-start:1rem;text-wrap:balance;word-break:auto-phrase}"`;

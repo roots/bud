@@ -2,7 +2,7 @@ import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
 import * as fs from 'fs-jetpack'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 interface BundleProps {
   alias?: Record<string, string>
@@ -14,9 +14,9 @@ interface BundleProps {
 }
 
 export class Build extends Command {
-  public static paths = [[`@bud`, `build`]]
+  public static override paths = [[`@bud`, `build`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Build packages`,
     examples: [[`build packages`, `yarn @bud build`]],
