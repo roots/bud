@@ -8,7 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 
 import {default as BabelExtension} from '@roots/bud-babel/extension'
 
@@ -25,18 +25,22 @@ interface LoaderOptions {
   targets?: any
 }
 
-interface BabelPublicApi extends PublicExtensionApi<BabelExtension> {
-  plugins: BabelExtension[`plugins`]
-  presets: BabelExtension[`presets`]
-  setPlugin: BabelExtension[`setPlugin`]
-  setPluginOptions: BabelExtension[`setPluginOptions`]
-  setPlugins: BabelExtension[`setPlugins`]
-  setPreset: BabelExtension[`setPreset`]
-  setPresetOptions: BabelExtension[`setPresetOptions`]
-  setPresets: BabelExtension[`setPresets`]
-  unsetPlugin: BabelExtension[`unsetPlugin`]
-  unsetPreset: BabelExtension[`unsetPreset`]
-}
+interface BabelPublicApi
+  extends ExtensionApi<
+    {
+      plugins: BabelExtension[`plugins`]
+      presets: BabelExtension[`presets`]
+      setPlugin: BabelExtension[`setPlugin`]
+      setPluginOptions: BabelExtension[`setPluginOptions`]
+      setPlugins: BabelExtension[`setPlugins`]
+      setPreset: BabelExtension[`setPreset`]
+      setPresetOptions: BabelExtension[`setPresetOptions`]
+      setPresets: BabelExtension[`setPresets`]
+      unsetPlugin: BabelExtension[`unsetPlugin`]
+      unsetPreset: BabelExtension[`unsetPreset`]
+    },
+    BabelExtension
+  > {}
 
 /**
  * Babel plugin value
@@ -80,7 +84,7 @@ declare module '@roots/bud-framework' {
     /**
      * Babel configuration
      */
-    babel: BabelPublicApi
+    babel: BabelExtension
   }
 
   interface Modules {

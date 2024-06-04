@@ -4,5 +4,4 @@ export default async bud => {
     .watch([bud.path(`@src`, `images`)])
     .serve(3015)
     .html()
-    .alias(`foo`, false)
 }

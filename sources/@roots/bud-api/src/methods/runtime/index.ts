@@ -23,7 +23,7 @@ export const runtime: runtime = async function (
 
   this.hooks.on(`build.optimization.runtimeChunk`, value)
 
-  this.api.logger.success(`bud.runtime:`, `set to`, value)
+  this.api.logger.log(`bud.runtime:`, `set to`, value)
 
   return this
 }

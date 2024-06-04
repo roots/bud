@@ -5,6 +5,7 @@ interface Value<T> {
 
 class Value<T> {
   public static isBudValue: true = true
+
   /**
    * Get {@link Value.identity}
    */
@@ -30,6 +31,7 @@ class Value<T> {
   ): value is CallableFunction & T {
     return Value.typeOf(value) === `function`
   }
+
   /**
    * Check {@link Value.identity} type
    */
@@ -44,6 +46,7 @@ class Value<T> {
       value.isBudValue
     )
   }
+
   /**
    * Make {@link Value} instance
    */
@@ -56,16 +59,6 @@ class Value<T> {
   public static typeOf<T>(value: T | Value<T>): string {
     return Value.isValue(value) ? typeof value.identity : typeof value
   }
-
-  /**
-   * For type checking
-   *
-   * @remarks
-   * Some functions like _.set() will mutate the class instance.
-   * This property is used to check if the instance is a {@link Value}
-   * and should work even after mutation.
-   */
-  public isBudValue: true = true
 
   /**
    * Class constructor
@@ -84,6 +77,23 @@ class Value<T> {
   public get() {
     return this.identity
   }
+
+  /**
+   * For type checking
+   *
+   * @remarks
+   * Some functions like _.set() will mutate the class instance.
+   * This property is used to check if the instance is a {@link Value}
+   * and should work even after mutation.
+   */
+  public isBudValue: true = true
+}
+
+const isValue = (value: any): value is Value<any> => {
+  return (
+    value instanceof Value || (`isBudValue` in value && value.isBudValue)
+  )
 }
 
 export default Value
+export {isValue}

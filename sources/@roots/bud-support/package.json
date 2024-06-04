@@ -68,6 +68,7 @@
     "./decorators/deprecated": "./lib/decorators/deprecated.js",
     "./decorators/*": "./lib/decorators/*.js",
     "./dotenv": "./lib/dotenv/index.js",
+    "./env-paths": "./lib/env-paths/index.js",
     "./errors": "./lib/errors/index.js",
     "./esbuild": "./lib/esbuild/index.js",
     "./esbuild-wasm": "./lib/esbuild-wasm/index.js",
@@ -107,7 +108,6 @@
     "./style-loader": "./lib/style-loader/index.cjs",
     "./toml": "./lib/toml/index.js",
     "./typanion": "./lib/typanion/index.js",
-    "./utilities/*": "./lib/utilities/*.js",
     "./value": "./lib/value/index.js",
     "./webpack": "./lib/webpack/index.js",
     "./webpack-dev-middleware": "./lib/webpack-dev-middleware/index.js",
@@ -159,6 +159,9 @@
       ],
       "dotenv": [
         "./lib/dotenv/index.d.ts"
+      ],
+      "env-paths": [
+        "./lib/env-paths/index.d.ts"
       ],
       "errors": [
         "./lib/errors/index.d.ts"
@@ -297,9 +300,6 @@
       ],
       "decorators/*": [
         "./lib/decorators/*.d.ts"
-      ],
-      "utilities/*": [
-        "./lib/utilities/*.d.ts"
       ],
       "./*": [
         "./lib/*/index.d.ts"

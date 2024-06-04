@@ -1,0 +1,7 @@
+.foo {
+  accent-color: initial;
+  inset: 0;
+  margin-inline-start: 1rem;
+  text-wrap: balance;
+  word-break: auto-phrase;
+}

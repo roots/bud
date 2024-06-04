@@ -1,6 +1,7 @@
 import {factory} from '@repo/test-kit'
-import {copyFile as copyFileFn} from '@roots/bud-api/methods/copyFile'
 import {beforeEach, describe, expect, it} from 'vitest'
+
+import {copyFile as copyFileFn} from '../src/methods/copyFile'
 
 describe(`bud.copyFile`, () => {
   let bud

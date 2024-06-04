@@ -10,7 +10,7 @@ import type {
 
 import {join} from 'node:path'
 
-import {isBuildDependency} from '@roots/bud-cache/helpers'
+import {isBudConfig, isBuildDependency} from '@roots/bud-cache/helpers'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
 
@@ -22,11 +22,12 @@ export default class Cache extends Service implements BudCache {
    * {@link BudCache.enabled}
    */
   public declare enabled: boolean
+
   /**
    * {@link BudCache.allowCollectingMemory}
    */
   public get allowCollectingMemory(): FileCacheOptions[`allowCollectingMemory`] {
-    const fallback = true
+    const fallback = false
 
     const value = this.app.hooks.filter(
       `build.cache.allowCollectingMemory`,
@@ -44,23 +45,13 @@ export default class Cache extends Service implements BudCache {
    *{@link BudCache.buildDependencies}
    */
   public get buildDependencies(): FileCacheOptions[`buildDependencies`] {
-    const projectDependencies = new Set([
-      this.app.context.files[`package`]?.path,
-      ...Object.values(this.app.context.files)
-        .filter(isBuildDependency)
-        .map(({path}) => path),
-    ])
-    const records = {
-      project: [...projectDependencies].filter(Boolean),
-    }
-
-    return (
-      this.app.hooks.filter(`build.cache.buildDependencies`, records) ??
-      records
-    )
+    return this.app.hooks.filter(`build.cache.buildDependencies`)
   }
+
   public set buildDependencies(
-    dependencies: Callback<FileCacheOptions[`buildDependencies`]>,
+    dependencies:
+      | Callback<FileCacheOptions[`buildDependencies`]>
+      | FileCacheOptions[`buildDependencies`],
   ) {
     this.app.hooks.on(`build.cache.buildDependencies`, dependencies)
   }
@@ -132,6 +123,26 @@ export default class Cache extends Service implements BudCache {
       await this.flush()
     }
     this.enabled = bud.context.cache !== false
+
+    this.setBuildDependencies(deps => ({
+      ...(deps ?? {}),
+      config: [
+        ...new Set([
+          ...Object.values(this.app.context.files)
+            .filter(isBudConfig)
+            .map(({path}) => path),
+          ...(deps?.config ?? []),
+        ]),
+      ].filter(Boolean),
+      project: [
+        ...new Set([
+          ...Object.values(this.app.context.files)
+            .filter(isBuildDependency)
+            .map(({path}) => path),
+          ...(deps?.project ?? []),
+        ]),
+      ].filter(Boolean),
+    }))
   }
 
   /**
@@ -139,26 +150,34 @@ export default class Cache extends Service implements BudCache {
    * @readonly
    */
   public get configuration(): Configuration[`cache`] {
-    if (this.enabled !== true) return false
-    if (this.type === `memory`)
+    if (this.enabled !== true) {
+      this.logger.log(`Cache: disabled`)
+      return false
+    }
+    if (this.type === `memory`) {
+      this.logger.log(`Cache: memory`)
       return {
         cacheUnaffected: true,
         maxGenerations: Infinity,
         type: `memory`,
       }
+    }
 
+    this.logger.log(`Cache: filesystem`)
     return {
       allowCollectingMemory: this.allowCollectingMemory,
       buildDependencies: this.buildDependencies,
       cacheDirectory: this.cacheDirectory,
-      compression: this.app.isDevelopment ? false : `brotli`,
+      compression: false,
       hashAlgorithm: `xxhash64`,
-      idleTimeout: 100,
+      idleTimeout: 10000,
       idleTimeoutForInitialStore: 0,
-      managedPaths: [this.cacheDirectory, this.app.path(`@modules`)],
-      maxMemoryGenerations: Infinity,
+      managedPaths: [this.app.path(`@modules`)],
+      maxMemoryGenerations: this.app.isDevelopment ? 10 : Infinity,
+      memoryCacheUnaffected: true,
       name: this.name,
       profile: this.app.context.debug === true,
+      readonly: this.app.env.isTrue(`CI`),
       store: `pack`,
       type: this.type,
     }
@@ -197,14 +216,6 @@ export default class Cache extends Service implements BudCache {
     return this.type
   }
 
-  /**
-   * {@link BudCache.register}
-   */
-  @bind
-  public override async register?(bud: Bud) {
-    this.enabled = bud.context.cache !== false
-    this.version = bud.context.bud.version
-  }
   /**
    * Set {@link BudCache.allowCollectingMemory}
    */

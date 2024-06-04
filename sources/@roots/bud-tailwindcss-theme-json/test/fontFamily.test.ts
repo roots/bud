@@ -13,14 +13,14 @@ describe(`themeJson tailwind adapter`, () => {
 
     expect(fontFamily.transform(mockFontFamily)).toStrictEqual([
       {
+        fontFamily: `mOCK-SANS,SANS-MOCK`,
         name: `MOCK-SANS`,
         slug: `sans`,
-        fontFamily: `mOCK-SANS,SANS-MOCK`,
       },
       {
+        fontFamily: `mock-serif`,
         name: `Mock-serif`,
         slug: `serif`,
-        fontFamily: `mock-serif`,
       },
     ])
 

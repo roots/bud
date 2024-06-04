@@ -24,8 +24,8 @@ export default (json: Record<string, any>) => {
     expect(json.settings.color.gradients).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
-          name: expect.any(String),
           gradient: expect.any(String),
+          name: expect.any(String),
           slug: expect.any(String),
         }),
       ]),

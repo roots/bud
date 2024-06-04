@@ -1,21 +1,40 @@
 import setup from '@repo/test-kit/setup'
-import { testIsCompiledCss } from '@repo/test-kit/tests'
-import {describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/css-module`, () => {
-  it(`should compile assets as expected`, async () => {
-    const test = setup({
-      label: `@examples/css-module`,
-    })
+  const test = setup({label: `@examples/css-module`})
 
+  beforeAll(async () => {
     await test.install()
     await test.build()
+  })
 
-    testIsCompiledCss(test.getAsset(`main.css`))
-    expect(test.assetString(`main.css`)).toMatch(
-      /\.(.*){--tw-bg-opacity:1;background-color:#000;background-color:rgba\(0,0,0,var\(--tw-bg-opacity\)\);border:#fff}\.(.*){color:blue}$/,
-    )
+  it(`should emit stdout`, async () => {
+    expect(
+      (await test.read(`build.stdout.log`))
+        .split(`\n`)
+        .slice(2, -3)
+        .join(`\n`),
+    ).toMatchSnapshot()
+  })
 
+  it(`should not emit stderr`, async () => {
+    expect(await test.read(`build.stderr.log`)).toBeUndefined()
+  })
+
+  it(`should emit manifest.json`, async () => {
     expect(test.manifest).toMatchSnapshot()
+  })
+
+  it(`should emit entrypoints.json`, async () => {
+    expect(test.entrypoints).toMatchSnapshot()
+  })
+
+  it(`should emit runtime.js`, async () => {
+    expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+  })
+
+  it(`should emit css`, async () => {
+    expect(test.getAsset(`main.css`)).toMatchSnapshot()
   })
 })

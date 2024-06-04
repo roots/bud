@@ -65,7 +65,7 @@ const setFormat = (bud: Bud, value: string): Bud => {
 
   bud.hooks
     .on(`value.hashFormat`, value)
-    .api.logger.success(`bud.hash: hash format set to`, value)
+    .api.logger.log(`bud.hash: hash format set to`, value)
 
   return bud
 }
@@ -73,11 +73,7 @@ const setFormat = (bud: Bud, value: string): Bud => {
 const setHash = (bud: Bud, value: boolean): Bud => {
   bud.context.hash = value
 
-  bud.api.logger.success(
-    `bud.hash:`,
-    `hash`,
-    value ? `enabled` : `disabled`,
-  )
+  bud.api.logger.log(`bud.hash:`, `hash`, value ? `enabled` : `disabled`)
 
   return bud
 }

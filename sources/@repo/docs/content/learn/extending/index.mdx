@@ -1,6 +1,6 @@
 ---
 title: Extending
-description: Overview of instantiating bud.js directly from Node
+description: Overview of instantiating bud.js from Node
 sidebar_label: Extending
 ---
 
@@ -77,7 +77,7 @@ export default class MyExtension extends Extension {
 
 ### options
 
-Any extension options can be set in the `options` property.
+Extension options can be set in the `options` property.
 
 ```ts title=extension.ts
 import {Extension} from '@roots/bud-framework/extension'
@@ -91,7 +91,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-The `options` property is treated specially (using `getters` and `setters`).
+The `options` property is treated specially.
 
 Each option value can be expressed as either the literal value itself or a function receives the **bud.js** instance object and returns the value.
 
@@ -225,7 +225,24 @@ export default class MyExtension extends Extension {
 
 ### buildBefore
 
-Async callback. Called directly before configuration is constructed and passed to the compiler).
+Async callback. Called before final configuration is built.
+
+```ts title=extension.ts
+import {Bud} from '@roots/bud-framework'
+import {Extension} from '@roots/bud-framework/extension'
+
+export default class MyExtension extends Extension {
+  public label = 'bud-extension'
+
+  public async buildBefore(bud) {
+    // do something
+  }
+}
+```
+
+### buildAfter
+
+Async callback. Called after final configuration is built.
 
 ```ts title=extension.ts
 import {Bud} from '@roots/bud-framework'
@@ -331,7 +348,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-When present **bud.js** will pass the extension directly to the compiler.
+When present **bud.js** will pass the extension to the compiler.
 
 ### when
 
@@ -355,9 +372,9 @@ export default class MyExtension extends Extension {
 
 If `Extension.when` returns `false` the following methods will not be called:
 
-- [buildBefore](#buildBefore)
+- [buildBefore](#buildbefore)
 - [buildAfter](#buildafter)
-- [configAfter](#configAfter)
+- [configAfter](#configafter)
 - [make](#make)
 
 `Extension.enabled` (a simple `boolean`) will always take precedence over `Extension.when` if it is set.

@@ -1,17 +1,17 @@
 import {CommandClass} from 'clipanion'
 import {noop} from 'lodash'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * bud registry stop command class
  */
 export class RegistryStop extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `stop`],
   ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `stop verdaccio registry`,
     examples: [[`stop verdaccio server`, `yarn @bud registry stop`]],

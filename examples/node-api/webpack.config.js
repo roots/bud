@@ -1,4 +1,4 @@
-import {factory} from '@roots/bud'
+import { factory } from '@roots/bud'
 
 /**
  * Run this example with:

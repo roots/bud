@@ -1,15 +1,17 @@
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Prettier command class
  */
 export class Prettier extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `prettier`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `prettier`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Prettier passthrough`,
     examples: [[`prettier usage info`, `yarn @bud prettier --help`]],

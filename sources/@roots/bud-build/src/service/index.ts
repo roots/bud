@@ -98,8 +98,8 @@ class Build extends Service implements BudBuild {
           await Promise.all(
             Object.entries(records).map(async ([prop, factory]) => {
               const value = await factory(this.app).catch(this.catch)
+
               if (isUndefined(value)) {
-                this.logger.success(`omitting:`, prop, `(undefined)`)
                 return
               }
 
@@ -111,16 +111,14 @@ class Build extends Service implements BudBuild {
               })
 
               this.logger
-                .success(`defined:`, prop, `(${typeof this.config[prop]})`)
+                .log(`Defined:`, prop, `(${typeof this.config[prop]})`)
                 .info(prop, `info:`, this.config[prop])
             }),
           ),
       )
       .catch(this.catch)
 
-    this.logger.success(`configuration built`)
-    this.logger.info(this.config)
-
+    this.logger.scope(this.app.label, `build`).info(`built`, this.config)
     await this.app.hooks.fire(`build.after`, this.app).catch(this.catch)
 
     return Object.entries(this.config).reduce((a, [k, v]) => {
@@ -161,7 +159,8 @@ class Build extends Service implements BudBuild {
     ident: K,
     definition?: ((item: Items[K]) => Items[K]) | Items[K],
   ): this {
-    this.logger.log(`build.setItem`, ident)
+    this.logger.log(`Registered item:`, ident)
+
     const maybeOptionsCallback = isUndefined(definition)
       ? {ident, loader: ident}
       : definition
@@ -184,7 +183,8 @@ class Build extends Service implements BudBuild {
     name: K,
     definition?: any,
   ): this {
-    this.logger.log(`build.setLoader`, name)
+    this.logger.log(`Registered loader:`, name)
+
     const loader = isUndefined(definition)
       ? this.makeLoader(name)
       : definition instanceof Loader
@@ -205,7 +205,7 @@ class Build extends Service implements BudBuild {
     name: K,
     definition?: Rule | RuleOptions,
   ): this {
-    this.logger.log(`build.setRule`, name)
+    this.logger.log(`Registered rule:`, name)
     const rule =
       definition instanceof Rule
         ? definition

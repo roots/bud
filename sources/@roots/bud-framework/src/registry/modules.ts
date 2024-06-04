@@ -1,7 +1,6 @@
-import type {ApplyPlugin, Extension} from '@roots/bud-framework/extension'
+import type {BudExtension} from '@roots/bud-framework/extension/types'
 
-interface Modules
-  extends Record<string, ApplyPlugin | Partial<Extension>> {
+interface Modules extends Record<string, BudExtension> {
   _?: any
 }
 

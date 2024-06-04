@@ -59,29 +59,17 @@ declare module '@roots/bud-framework' {
 
 class Bud extends Framework.Bud {
   public declare api: Api
-
   public declare build: Build
-
   public declare cache: Cache
-
   public declare cdn: BudCDN
-
-  public declare compiler?: Compiler
-
+  public declare compiler: Compiler
   public declare dashboard: Dashboard
-
   public declare esm: BudESM
-
   public declare extensions: Extensions
-
   public declare hooks: Hooks
-
   public override implementation: new () => Framework.Bud = Bud
-
   public declare manifest: WebpackManifestPlugin
-
   public declare server?: Server
-
   public declare tsconfig: BudTsConfigValues
 }
 

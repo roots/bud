@@ -1,8 +1,7 @@
 /* eslint-disable react/no-unescaped-entities */
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Display as Error} from '@roots/bud-dashboard/components/error'
 import {Text} from '@roots/bud-support/ink'
-
-import {LabelBox} from '../../components/LabelBox.js'
 
 export const BuildInfo = ({
   error,

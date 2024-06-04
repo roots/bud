@@ -1,14 +1,14 @@
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Lint command class
  */
 export class Lint extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `lint`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `lint`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Lint project`,
   }
@@ -16,7 +16,7 @@ export class Lint extends Command {
   public fix = Option.Boolean(`--fix`, false)
 
   public async execute() {
-    this.promised.push(
+    await Promise.all([
       this.cli
         .run(
           [`@bud`, `eslint`, this.fix ? `--fix` : undefined].filter(
@@ -32,7 +32,11 @@ export class Lint extends Command {
         .catch(this.catch),
 
       this.cli
-        .run([`@bud`, `prettier`, this.fix ? `--write` : undefined].filter(Boolean))
+        .run(
+          [`@bud`, `prettier`, this.fix ? `--write` : undefined].filter(
+            Boolean,
+          ),
+        )
         .then(this.throwIfError)
         .catch(this.catch),
 
@@ -40,8 +44,6 @@ export class Lint extends Command {
         .run([`@bud`, `package-check`])
         .then(this.throwIfError)
         .catch(this.catch),
-    )
-
-    await Promise.all(this.promised)
+    ])
   }
 }

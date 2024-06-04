@@ -1,6 +1,6 @@
 const {themes} = require(`prism-react-renderer`)
 const config = require(`../../../../config/monorepo.config.cjs`)
-const releaseData = require(`../generated/releases/data.json`)
+const releaseData = require(`../content/releases/data.json`)
 
 /**
  * Color mode

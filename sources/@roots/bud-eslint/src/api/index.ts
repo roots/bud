@@ -2,7 +2,7 @@ import type {Options as EslintPluginOptions} from 'eslint-webpack-plugin'
 
 import {
   Extension,
-  type StrictPublicExtensionApi as PublicExtensionApi,
+  type ExtensionApi as ExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'eslint-webpack-plugin'
@@ -54,7 +54,7 @@ export type Api = {
         ) => Options[`overrideConfig`][`rules`])
       | Options[`overrideConfig`][`rules`],
   ): Api
-} & PublicExtensionApi<BudEslintPublicApi, Options>
+} & ExtensionApi<BudEslintPublicApi, Options>
 
 export class BudEslintPublicApi extends Extension<Options, Plugin> {
   /**

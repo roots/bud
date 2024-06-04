@@ -19,7 +19,7 @@ import Plugin from 'compression-webpack-plugin'
 @plugin(Plugin)
 @options({
   algorithm: `gzip`,
-  compressionOptions: {level: 11},
+  compressionOptions: {level: 9},
   deleteOriginalAssets: false,
   filename: `[path][name].gz[query]`,
   minRatio: 0.8,

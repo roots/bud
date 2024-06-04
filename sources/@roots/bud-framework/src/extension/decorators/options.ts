@@ -1,7 +1,11 @@
+import type {
+  BudExtension as Extension,
+  InternalOptions,
+  OptionsInterface as Options,
+} from '@roots/bud-framework/extension/types'
+
 import isUndefined from '@roots/bud-support/isUndefined'
 import upperFirst from '@roots/bud-support/upperFirst'
-
-import type {Extension, InternalOptionsValues, Options} from '../index.js'
 
 /**
  * `@options` is a decorator that adds getter and setter methods
@@ -20,7 +24,7 @@ import type {Extension, InternalOptionsValues, Options} from '../index.js'
  */
 export const options =
   <Opts extends Options = Record<string, unknown>>(
-    options: Partial<InternalOptionsValues<Opts>>,
+    options: Partial<InternalOptions<Opts>>,
   ) =>
   <Type extends {new (...args: any[]): any}>(constructor: Type) =>
     class extends constructor {

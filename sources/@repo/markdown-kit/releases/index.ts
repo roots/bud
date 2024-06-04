@@ -12,7 +12,7 @@ const write = async (release: release) =>
       `sources`,
       `@repo`,
       `docs`,
-      `generated`,
+      `content`,
       `releases`,
       `${release.semver}.md`,
     ),

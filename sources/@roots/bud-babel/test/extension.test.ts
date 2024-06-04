@@ -1,12 +1,12 @@
 import {Bud, factory} from '@repo/test-kit'
 import BabelExtension from '@roots/bud-babel'
-import {beforeEach, describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`@roots/bud-babel`, () => {
   let bud: Bud
   let BabelInstance: BabelExtension
 
-  beforeEach(async () => {
+  beforeAll(async () => {
     bud = await factory()
     BabelInstance = new BabelExtension(bud)
   })

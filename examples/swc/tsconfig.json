@@ -3,5 +3,4 @@
   "compilerOptions": {
     "types": ["@roots/bud", "@roots/bud-swc"]
   },
-  "files": ["./bud.config.ts"]
 }

@@ -5,39 +5,39 @@ slug: dev-server
 sidebar_label: Development server
 ---
 
-import ConfigExample from '@site/src/components/example'
+import Example from '@site/src/components/example'
 
 ## Setting the dev URL
 
 Use [bud.setUrl](/reference/bud.setUrl) to set the development server URL.
 
-<ConfigExample>
+<Example title="bud.config">
 
-```ts title=bud.config.ts
+```ts
 bud.setUrl(3030) // Deltron zero hero not no small feat
 ```
 
-```js title=bud.config.js
+```js
 bud.setUrl(3030) // Deltron zero hero not no small feat
 ```
 
-```yml title=bud.config.yml
+```yml
 setUrl: 3030 # Deltron zero hero not no small feat
 ```
 
-```json title=bud.config.json
+```json
 {
   "setUrl": 3030
 }
 ```
 
-</ConfigExample>
+</Example>
 
 ## Setting the proxy URL
 
 Use [bud.setProxyUrl](/reference/bud.setProxyUrl) to set the development server proxy URL.
 
-<ConfigExample>
+<Example>
 
 ```ts title=bud.config.ts
 bud.setProxyUrl(`http://example.test`)
@@ -57,7 +57,7 @@ setProxyUrl: http://example.test
 }
 ```
 
-</ConfigExample>
+</Example>
 
 ## Setting public URLs
 
@@ -67,7 +67,7 @@ This is useful in containerized development environments like Docker where the i
 
 Here is an example of what this might look like, but it is going to depend heavily on your setup:
 
-<ConfigExample>
+<Example>
 
 ```ts title=bud.config.ts
 bud
@@ -101,17 +101,16 @@ setPublicProxyUrl: http://example.test
 }
 ```
 
-</ConfigExample>
+</Example>
 
 ## Advanced configuration
 
-The development server can be configured with [bud.serve](/reference/bud.serve). This is primarily used to handle
-configuring bud.js to use an [SSL certificate](/reference/bud.serve#ssl). It exposes all node options so the possibilities
-are really open, for better and worse.
+The development server can be  further configured with [bud.serve](/reference/bud.serve). This is primarily used to handle
+configuring bud.js to use an SSL certificate.
 
-<ConfigExample>
+<Example title="bud.config">
 
-```ts title=bud.config.ts
+```ts
 bud.serve({
   url: new URL(`https://example.test`),
   cert: `/path/to/example.test.crt`,
@@ -119,7 +118,7 @@ bud.serve({
 })
 ```
 
-```js title=bud.config.js
+```js
 bud.serve({
   url: new URL(`https://example.test`),
   cert: `/path/to/example.test.crt`,
@@ -127,14 +126,14 @@ bud.serve({
 })
 ```
 
-```yml title=bud.config.yml
+```yml
 serve:
   url: https://example.test
   cert: /path/to/example.test.crt
   key: /path/to/example.test.key
 ```
 
-```json title=bud.config.json
+```json
 {
   "serve": {
     "url": "https://example.test",
@@ -144,7 +143,7 @@ serve:
 }
 ```
 
-</ConfigExample>
+</Example>
 
 ## Consider a separate config
 
@@ -154,7 +153,7 @@ Just add `.development` to your `bud.config.*` file name to scope it to developm
 
 Or, load a separate file entirely using [bud.addConfig](/reference/bud.addConfig).
 
-<ConfigExample>
+<Example>
 
 ```ts title=bud.config.development.ts
 bud.setUrl(3030)
@@ -174,5 +173,5 @@ setUrl: 3030
 }
 ```
 
-</ConfigExample>
+</Example>
 

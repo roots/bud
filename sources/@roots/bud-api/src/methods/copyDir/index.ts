@@ -37,9 +37,7 @@ export const copyDir: copyDir = async function copyDir(
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
     .setPatterns((patterns = []) => [...patterns, result])
 
-  this.api.logger
-    .success(`bud.copyDir`, `asset pattern added`)
-    .info(result)
+  this.api.logger.log(`bud.copyDir`, `asset pattern added`).info(result)
 
   return this
 }

@@ -1,5 +1,3 @@
-import {env} from 'process'
-
 import {defineConfig} from 'vitest/config'
 
 import shared from './config.shared'
@@ -8,21 +6,14 @@ export default defineConfig({
   test: {
     ...shared,
     coverage: {
-      include: [`sources/@roots/*/src/**/*.{ts,tsx}`],
-      provider: `v8`,
+      enabled: false,
     },
-    exclude: [`sources/@repo/**/*`, `**/node_modules/**/*`],
+    exclude: [`tests/e2e`, `**/node_modules`],
     include: [
-      `sources/@roots/*/src/*.test.{ts,tsx}`,
-      `sources/@roots/*/src/**/*.test.{ts,tsx}`,
-      `sources/@roots/*/test/*.test.{ts,tsx}`,
-      `sources/@roots/*/test/**/*.test.{ts,tsx}`,
-      `sources/@roots/*/tests/*.test.{ts,tsx}`,
-      `sources/@roots/*/tests/**/*.test.{ts,tsx}`,
-      `tests/unit/**/*.test.ts`,
-      `tests/reproductions/**/*.test.ts`,
-      `tests/integration/*.test.ts`,
+      `sources/@roots/**/*.test.ts`,
+      `sources/@roots/**/*.test.tsx`,
+      `tests/**/*.test.ts`,
+      `tests/**/*.test.tsx`,
     ],
-    includeSource: [`sources/@roots/*/src/**/*.{ts,tsx}`],
   },
 })

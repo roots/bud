@@ -1,5 +1,6 @@
-import {Bud} from '@roots/bud'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {Bud} from '../src/index.ts'
 
 describe(`@roots/bud/bud`, function () {
   let bud: Bud

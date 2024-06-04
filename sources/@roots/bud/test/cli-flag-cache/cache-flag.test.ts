@@ -1,35 +1,59 @@
 import {path} from '@repo/constants'
 import {execa} from 'execa'
-import fs from 'fs-jetpack'
-import {expect, test} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-const cachePath = path(
-  `sources/@roots/bud/test/cli-flag-cache/project/.storage/@tests/flag-cache/cache`,
-)
-
-test(`--cache`, async () => {
-  await fs.removeAsync(cachePath)
-
-  await execa(`yarn`, [
-    `workspace`,
-    `@tests/flag-cache`,
-    `run`,
+const opts = {
+  cwd: path(
+    `sources`,
+    `@roots`,
     `bud`,
-    `build`,
-  ])
+    `test`,
+    `cli-flag-cache`,
+    `__fixtures__`,
+  ),
+  env: {CI: `false`},
+  extendEnv: true,
+  reject: false,
+}
 
-  expect(await fs.existsAsync(cachePath)).toBe(`dir`)
+describe(`--cache`, async () => {
+  beforeEach(async () => {
+    await execa(`yarn`, [`bud`, `clean`, `storage`], opts)
+  })
 
-  await fs.removeAsync(cachePath)
+  it(`should generate cache by default`, async () => {
+    await execa(`yarn`, [`bud`, `build`], opts)
+    const {stdout} = await execa(`yarn`, [`bud`, `build`, `--log`], opts)
+    expect(stdout).toMatch(/4\/4 modules cached/)
+    expect(stdout).toMatch(/Cache: filesystem/)
+  })
 
-  await execa(`yarn`, [
-    `workspace`,
-    `@tests/flag-cache`,
-    `run`,
-    `bud`,
-    `build`,
-    `--no-cache`,
-  ])
+  it(`should not generate cache when --no-cache is passed`, async () => {
+    const {stdout} = await execa(
+      `yarn`,
+      [`bud`, `build`, `--no-cache`, `--log`],
+      opts,
+    )
+    expect(stdout).toMatch(/0\/4 modules cached/)
+    expect(stdout).toMatch(/Cache: disabled/)
+  })
 
-  expect(await fs.existsAsync(cachePath)).toBe(false)
+  it(`should not generate cache when --cache=false is passed`, async () => {
+    const {stdout} = await execa(
+      `yarn`,
+      [`bud`, `build`, `--cache=false`, `--log`],
+      opts,
+    )
+    expect(stdout).toMatch(/0\/4 modules cached/)
+    expect(stdout).toMatch(/Cache: disabled/)
+  })
+
+  it(`should use memory cache when --cache=memory is passed`, async () => {
+    const {stdout} = await execa(
+      `yarn`,
+      [`bud`, `build`, `--cache=memory`, `--log`],
+      opts,
+    )
+    expect(stdout).toMatch(/Cache: memory/)
+  })
 })

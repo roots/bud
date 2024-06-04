@@ -1,20 +1,39 @@
 import setup from '@repo/test-kit/setup'
-import {describe, expect, it} from 'vitest'
+import {testIsCompiledCss, testIsCompiledJs} from '@repo/test-kit/tests'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/babel`, () => {
-  it(`should compile js as expected`, async () => {
-    const test = setup({label: `@examples/babel`})
+  const test = setup({label: `@examples/babel`})
+
+  beforeAll(async () => {
     await test.install()
     await test.build()
+  })
 
-    expect(test.getAsset(`main.js`)).toMatchInlineSnapshot(`""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":()=>{var s;null===(s=document.querySelector("#root"))||void 0===s||s.classList.add("init")}},s=>{var e;e="./index.js",s(s.s=e)}]);"`)
-    expect(test.manifest).toMatchInlineSnapshot(`
-      {
-        "entrypoints.json": "entrypoints.json",
-        "main.css": "css/main.css",
-        "main.js": "js/main.js",
-        "runtime.js": "js/runtime.js",
-      }
-    `)
+  it(`should emit stdout`, async () => {
+    expect(
+      (await test.read(`build.stdout.log`))
+        .split(`\n`)
+        .slice(2, -3)
+        .join(`\n`),
+    ).toMatchSnapshot()
+  })
+
+  it(`should not emit stderr`, async () => {
+    expect(await test.read(`build.stderr.log`)).toBeUndefined()
+  })
+
+  it(`should emit manifest.json`, async () => {
+    expect(test.manifest).toMatchSnapshot()
+  })
+
+  it(`should emit entrypoints.json`, async () => {
+    expect(test.entrypoints).toMatchSnapshot()
+  })
+
+  it(`should compile js as expected`, async () => {
+    testIsCompiledJs(test.getAsset(`main.js`))
+    testIsCompiledJs(test.getAsset(`runtime.js`))
+    testIsCompiledCss(test.getAsset(`main.css`))
   })
 })

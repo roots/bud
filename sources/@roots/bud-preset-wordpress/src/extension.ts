@@ -8,8 +8,8 @@ import {join} from 'node:path'
 import {
   DynamicOption,
   Extension,
-  type OptionGetter,
-  type OptionSetter,
+  type Getter,
+  type Setter,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -51,8 +51,8 @@ interface Options {
 @expose(`wp`)
 export default class BudPresetWordPress extends Extension<Options> {
   public declare scriptDebug: Options[`scriptDebug`]
-  public declare getScriptDebug: OptionGetter<Options, `scriptDebug`>
-  public declare setScriptDebug: OptionSetter<
+  public declare getScriptDebug: Getter<Options, `scriptDebug`>
+  public declare setScriptDebug: Setter<
     BudPresetWordPress,
     Options,
     `scriptDebug`
@@ -69,15 +69,11 @@ export default class BudPresetWordPress extends Extension<Options> {
    *
    * @returns Array<string>
    */
-  public declare getExclude: OptionGetter<Options, `exclude`>
+  public declare getExclude: Getter<Options, `exclude`>
   /**
    * Set excluded dependencies
    */
-  public declare setExclude: OptionSetter<
-    BudPresetWordPress,
-    Options,
-    `exclude`
-  >
+  public declare setExclude: Setter<BudPresetWordPress, Options, `exclude`>
 
   /**
    * Enable `@roots/wordpress-hmr` functionality
@@ -90,7 +86,7 @@ export default class BudPresetWordPress extends Extension<Options> {
    *
    * @returns boolean
    */
-  public declare getHmr: OptionGetter<Options, `hmr`>
+  public declare getHmr: Getter<Options, `hmr`>
   /**
    * Set `@roots/wordpress-hmr` functionality
    *
@@ -107,7 +103,7 @@ export default class BudPresetWordPress extends Extension<Options> {
    * bud.wp.setHmr(hmr => false)
    * ```
    */
-  public declare setHmr: OptionSetter<BudPresetWordPress, Options, `hmr`>
+  public declare setHmr: Setter<BudPresetWordPress, Options, `hmr`>
 
   /**
    * WordPress editor toast notifications value
@@ -120,7 +116,7 @@ export default class BudPresetWordPress extends Extension<Options> {
    *
    * @returns boolean
    */
-  public declare getNotify: OptionGetter<Options, `notify`>
+  public declare getNotify: Getter<Options, `notify`>
   /**
    * Toggle WordPress editor toast notifications
    *
@@ -137,11 +133,7 @@ export default class BudPresetWordPress extends Extension<Options> {
    * bud.wp.setNotify(notify => false)
    * ```
    */
-  public declare setNotify: OptionSetter<
-    BudPresetWordPress,
-    Options,
-    `notify`
-  >
+  public declare setNotify: Setter<BudPresetWordPress, Options, `notify`>
 
   /**
    * {@link BudWordPressDependencies}
@@ -171,13 +163,13 @@ export default class BudPresetWordPress extends Extension<Options> {
   public override async boot(bud: Bud) {
     await this.compilerCheck(bud)
 
-    if (bud.extensions.has(`@roots/bud-tailwindcss`))
-      await bud.extensions.add(
-        await this.resolve(
-          `@roots/bud-tailwindcss-theme-json`,
-          import.meta.url,
-        ),
+    if (bud.extensions.has(`@roots/bud-tailwindcss`)) {
+      const tailwindJson = await this.resolve(
+        `@roots/bud-tailwindcss-theme-json`,
+        import.meta.url,
       )
+      tailwindJson && (await bud.extensions.add(tailwindJson))
+    }
   }
 
   /**

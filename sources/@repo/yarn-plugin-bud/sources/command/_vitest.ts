@@ -1,12 +1,14 @@
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Vitest extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `vitest`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `vitest`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Run vitest`,
     examples: [[`vitest usage info`, `yarn @bud vitest --help`]],

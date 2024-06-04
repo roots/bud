@@ -21,11 +21,6 @@ describe(`@roots/bud-cache`, () => {
     expect(cache.boot).toBeInstanceOf(Function)
   })
 
-  it(`should have a register method`, async () => {
-    expect(cache.register).toBeDefined()
-    expect(cache.register).toBeInstanceOf(Function)
-  })
-
   it(`should have a buildDependencies accessor interface`, async () => {
     expect(cache.buildDependencies).toBeDefined()
     expect(cache.buildDependencies).toBeInstanceOf(Object)
@@ -45,12 +40,11 @@ describe(`@roots/bud-cache`, () => {
     expect(cache.configuration).toBeInstanceOf(Object)
 
     // @ts-ignore
-    expect(cache.configuration?.allowCollectingMemory).toEqual(true)
+    expect(cache.configuration?.allowCollectingMemory).toEqual(false)
     // @ts-ignore
     expect(cache.configuration?.buildDependencies?.project).toEqual(
       expect.arrayContaining([
         bud.path(`package.json`),
-        bud.path(`config/bud.config.js`),
         bud.path(`tsconfig.json`),
       ]),
     )
@@ -63,19 +57,16 @@ describe(`@roots/bud-cache`, () => {
       /@tests\/project\/cache$/,
     )
     // @ts-ignore
-    expect(cache.configuration?.compression).toEqual(`brotli`)
+    expect(cache.configuration?.compression).toEqual(false)
     // @ts-ignore
     expect(cache.configuration?.hashAlgorithm).toEqual(`xxhash64`)
     // @ts-ignore
-    expect(cache.configuration?.idleTimeout).toEqual(100)
+    expect(cache.configuration?.idleTimeout).toEqual(10000)
     // @ts-ignore
     expect(cache.configuration?.idleTimeoutForInitialStore).toEqual(0)
     // @ts-ignore
     expect(cache.configuration?.managedPaths).toEqual(
-      expect.arrayContaining([
-        bud.path(`.storage/@tests/project/cache`),
-        bud.path(`@modules`),
-      ]),
+      expect.arrayContaining([bud.path(`@modules`)]),
     )
     // @ts-ignore
     expect(cache.configuration?.name).toEqual(`production`)

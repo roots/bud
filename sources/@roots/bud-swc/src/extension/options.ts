@@ -3,8 +3,8 @@ import type {Options} from '@swc/core'
 import {
   DynamicOption,
   Extension,
+  type ExtensionApi,
   type OptionCallback,
-  type StrictPublicExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 import isFunction from '@roots/bud-support/isFunction'
@@ -107,7 +107,7 @@ type BudSWCPublicInterface = {
   target: BudSWCOptions[`jsc`][`target`]
   transform: BudSWCOptions[`jsc`][`transform`]
   typescript: BudJSCPublicInterface
-} & StrictPublicExtensionApi<BudSWCApi, BudSWCOptions>
+} & ExtensionApi<BudSWCApi, BudSWCOptions>
 
 @options<BudSWCOptions>({
   env: undefined,

@@ -7,24 +7,16 @@ describe(`multi-compiler`, () => {
 
   beforeAll(async () => {
     bud = await factory({
-      basedir: path(`tests`, `unit`),
+      basedir: path(`examples`, `multi-compiler`),
       dry: true,
     })
 
-    /**
-     * Make `theme` workspace in `./theme` and setup entrypoints
-     * Files will be output to `./theme/dist`
-     */
     await bud.make(`theme`, async theme => {
       theme
         .setPath(`@src`, `theme/src`)
         .entry(`theme`, [`theme.js`, `theme.css`])
     })
 
-    /**
-     * Make plugin workspace in `./plugin` and setup entrypoints
-     * Files will be output to `./plugin/dist`
-     */
     await bud.make(`plugin`, async plugin =>
       plugin
         .setPath(`@src`, `plugin/src`)
@@ -64,7 +56,7 @@ describe(`multi-compiler`, () => {
     const theme = bud.get(`theme`)
 
     try {
-    await theme.build.make()
+      await theme.build.make()
     } catch (e) {}
 
     expect(theme.build.config.entry).toEqual(

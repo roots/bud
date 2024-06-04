@@ -9,6 +9,10 @@ export const optimization: Factory<`optimization`> = async ({
   filter(`build.optimization`, {
     emitOnErrors: filter(`build.optimization.emitOnErrors`, isDevelopment),
     innerGraph: filter(`build.optimization.innerGraph`, isProduction),
+    mangleExports: filter(
+      `build.optimization.mangleExports`,
+      isProduction,
+    ),
     mergeDuplicateChunks: filter(
       `build.optimization.mergeDuplicateChunks`,
       isProduction,

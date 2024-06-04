@@ -1,14 +1,14 @@
+import type {UserConfig} from 'vitest'
+
 import {env} from 'node:process'
 
 import GithubActionsReporter from 'vitest-github-actions-reporter'
 
-const reporters: Array<any>  = [`basic`]
-if (env.GITHUB_ACTIONS) reporters.push(new GithubActionsReporter())
-
-const shared = {
+export default {
   hookTimeout: 240000,
-  reporters,
+  reporters: env.GITHUB_ACTIONS
+    ? [`basic`, new GithubActionsReporter()]
+    : [`basic`],
   testTimeout: 240000,
-}
-
-export default shared
+  watch: false,
+} satisfies UserConfig

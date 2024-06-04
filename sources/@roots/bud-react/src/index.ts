@@ -8,10 +8,7 @@
  * @see https://github.com/roots/bud
  */
 
-import type {
-  Extension,
-  PublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import type {Extension} from '@roots/bud-framework/extension'
 import type BudBabelRefresh from '@roots/bud-react/babel-refresh'
 import type BudReactRefresh from '@roots/bud-react/react-refresh'
 import type BudSWCRefresh from '@roots/bud-react/swc-refresh'
@@ -19,12 +16,8 @@ import type BudTypeScriptRefresh from '@roots/bud-react/typescript-refresh'
 
 import BudReact from '@roots/bud-react/extension'
 
-interface PublicBudReactRefresh extends PublicExtensionApi {
-  setTransformExtension(extension: Extension): void
-}
-
-interface PublicBudReact extends PublicExtensionApi {
-  refresh: PublicBudReactRefresh
+interface PublicBudReact extends Extension {
+  refresh: BudBabelRefresh
   useBabel: boolean
   useSWC: boolean
   useTypeScript: boolean

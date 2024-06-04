@@ -1,9 +1,6 @@
 import type {Options as SassLoaderOptions} from 'sass-loader'
 
-import {
-  Extension,
-  type StrictPublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 
 type Options = {
@@ -66,7 +63,7 @@ export type BudSassApi = {
    * @see {@link Options.additionalData}
    */
   registerGlobal: (additionalData: Array<string> | string) => BudSassApi
-} & StrictPublicExtensionApi<BudSassOptions, Options>
+} & ExtensionApi<BudSassOptions, Options>
 
 @options<Options>({
   additionalData: undefined,

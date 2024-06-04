@@ -5,7 +5,7 @@ import {BudError} from '@roots/bud-support/errors'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from '../../src/configuration/index.js'
-import {File} from '../../src/context.js'
+import {File} from '../../src/context/index.js'
 import '../../src/index.js'
 
 const testFileDescription: File = {

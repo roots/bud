@@ -27,7 +27,7 @@ import Plugin from 'compression-webpack-plugin'
     },
   },
   deleteOriginalAssets: false,
-  filename: `[path][name].gz[query]`,
+  filename: `[path][name].br[query]`,
   minRatio: 0.8,
   test: /\.(js|css|html?|svg)$/,
   threshold: 0,

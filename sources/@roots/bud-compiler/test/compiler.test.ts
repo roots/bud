@@ -28,16 +28,8 @@ describe(`@roots/bud-compiler`, function () {
     expect(compiler.onStats).toBeInstanceOf(Function)
   })
 
-  it(`should have error handler`, () => {
-    expect(compiler.onError).toBeInstanceOf(Function)
-  })
-
-  it(`should have close handler`, () => {
-    expect(compiler.onError).toBeInstanceOf(Function)
-  })
-
-  it(`should have sourceError transformer`, () => {
-    expect(compiler.sourceErrors).toBeInstanceOf(Function)
+  it(`should have formatErrors transformer`, () => {
+    expect(compiler.formatErrors).toBeInstanceOf(Function)
   })
 
   it(`should call logger.log`, async () => {

@@ -39,18 +39,22 @@
   ],
   "type": "module",
   "exports": {
-    ".": "./lib/plugin.js",
-    "./plugin": "./lib/plugin.js",
-    "./module-loader": "./lib/module-loader.cjs",
-    "./asset-loader": "./lib/asset-loader.cjs"
+    ".": "./lib/index.js",
+    "./asset-loader": "./lib/asset-loader/index.cjs",
+    "./module-loader": "./lib/module-loader/index.cjs",
+    "./module-loader/handlers": "./lib/module-loader/handlers/index.cjs",
+    "./module-loader/handlers/*": "./lib/module-loader/handlers/*/index.cjs",
+    "./plugin": "./lib/plugin/index.js"
   },
   "types": "./lib/plugin.d.ts",
   "main": "./lib/plugin.js",
   "devDependencies": {
     "@babel/core": "7.24.5",
     "@skypack/package-check": "0.2.2",
+    "@vitest/coverage-v8": "1.6.0",
     "babel-loader": "9.1.3",
-    "memfs": "4.9.2"
+    "memfs": "4.9.2",
+    "vitest": "1.6.0"
   },
   "dependencies": {
     "tslib": "2.6.2",

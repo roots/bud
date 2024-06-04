@@ -30,9 +30,9 @@
   },
   "files": [],
   "references": [
-    {"path": "../sources/@roots/bud-support/tsconfig.json"},
     {"path": "../sources/@repo/markdown-kit/tsconfig.json"},
     {"path": "../sources/@repo/test-kit/tsconfig.json"},
+    {"path": "../sources/@roots/bud-support/tsconfig.json"},
     {"path": "../sources/@roots/bud/tsconfig.json"},
     {"path": "../sources/@roots/blade-loader/tsconfig.json"},
     {"path": "../sources/@roots/bud-api/tsconfig.json"},

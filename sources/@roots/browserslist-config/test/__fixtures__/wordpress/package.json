@@ -1,0 +1,14 @@
+{
+  "name": "@tests/browserslist-config-wordpress",
+  "private": true,
+  "type": "module",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "browserslist": [
+    "extends @roots/browserslist-config/wordpress"
+  ],
+  "devDependencies": {
+    "@roots/browserslist-config": "workspace:*",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-preset-recommend": "workspace:*"
+  }
+}

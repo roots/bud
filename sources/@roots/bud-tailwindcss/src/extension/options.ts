@@ -3,7 +3,7 @@ import type {Config, ThemeConfig} from 'tailwindcss/types/config.js'
 import {
   DynamicOption,
   Extension,
-  type StrictPublicExtensionApi,
+  type ExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 import get from '@roots/bud-support/get'
@@ -42,7 +42,7 @@ type BudTailwindOptionsPublicInterface = {
     key: K,
     theme: ThemeConfig[K],
   ): BudTailwindOptionsPublicInterface
-} & StrictPublicExtensionApi<BudTailwindOptionsApi, Options>
+} & ExtensionApi<BudTailwindOptionsApi, Options>
 
 /**
  * TailwindCSS configuration
@@ -174,7 +174,7 @@ class BudTailwindOptionsApi
         await bud.extensions.add({
           label: `@roots/bud-tailwindcss/virtual-module`,
           make: async () => new WebpackVirtualModules.default(modules),
-        })
+        } as any)
 
         bud.hooks.async(`build.resolve.alias`, async (aliases = {}) => ({
           ...aliases,

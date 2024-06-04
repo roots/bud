@@ -1,8 +1,8 @@
 import {factory} from '@repo/test-kit'
-import '@roots/bud-api'
-import {bundle} from '@roots/bud-api/methods/bundle'
 import {type Bud} from '@roots/bud-framework'
 import {beforeEach, describe, expect, it} from 'vitest'
+
+import {bundle} from '../src/methods/bundle/index.ts'
 
 describe(`bud.bundle`, () => {
   let bud: Bud

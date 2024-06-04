@@ -1,0 +1,21 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`themeJson tailwind adapter > transformsPalette 1`] = `
+[
+  {
+    "color": "#87ceeb",
+    "name": "Blue Group Sky",
+    "slug": "blue-group-sky",
+  },
+  {
+    "color": "#add8e6",
+    "name": "Blue Shade Hue 50",
+    "slug": "blue-shade-hue-50",
+  },
+  {
+    "color": "#ff4500",
+    "name": "Tomato",
+    "slug": "tomato",
+  },
+]
+`;

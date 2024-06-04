@@ -31,7 +31,7 @@
     "@vitest/coverage-v8": "1.6.0",
     "@vitest/ui": "1.6.0",
     "browserslist": "4.23.0",
-    "caniuse-lite": "1.0.30001616",
+    "caniuse-lite": "1.0.30001627",
     "esbuild": "0.20.2",
     "eslint": "8.57.0",
     "eslint-plugin-n": "17.4.0",
@@ -69,14 +69,13 @@
       "sources/@roots/*",
       "sources/@repo/*",
       "sources/@roots/*/test/**/*",
-      "sources/@roots/*/src/__fixtures__/*",
       "sources/create-bud-app",
       "tests/util/project",
       "tests/reproductions/*"
     ]
   },
   "volta": {
-    "node": "20.3.1",
+    "node": "20.12.0",
     "yarn": "1.22.19"
   }
 }

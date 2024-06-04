@@ -3,8 +3,8 @@ import type {Options} from '@roots/wordpress-theme-json-webpack-plugin'
 import {
   DynamicOption,
   Extension,
-  type OptionGetter,
-  type OptionSetter,
+  type Getter,
+  type Setter,
 } from '@roots/bud-framework/extension'
 import {
   bind,
@@ -76,70 +76,55 @@ class WordPressThemeJson extends Extension<
   ThemeJsonWebpackPlugin
 > {
   public declare customTemplates: Options['customTemplates']
-  public declare getCustomTemplates: OptionGetter<
-    Options,
-    `customTemplates`
-  >
-  public declare setCustomTemplates: OptionSetter<
+  public declare getCustomTemplates: Getter<Options, `customTemplates`>
+  public declare setCustomTemplates: Setter<
     WordPressThemeJson,
     Options,
     `customTemplates`
   >
 
   public declare readonly __generated__: Options[`__generated__`]
-  public declare get__generated__: OptionGetter<Options, `__generated__`>
-  public declare set__generated__: OptionSetter<
+  public declare get__generated__: Getter<Options, `__generated__`>
+  public declare set__generated__: Setter<
     WordPressThemeJson,
     Options,
     `__generated__`
   >
 
   public declare readonly path: Options['path']
-  public declare getPath: OptionGetter<Options, `path`>
-  public declare setPath: OptionSetter<WordPressThemeJson, Options, `path`>
+  public declare getPath: Getter<Options, `path`>
+  public declare setPath: Setter<WordPressThemeJson, Options, `path`>
 
   public declare readonly patterns: Options['patterns']
-  public declare getPatterns: OptionGetter<Options, `patterns`>
-  public declare setPatterns: OptionSetter<
+  public declare getPatterns: Getter<Options, `patterns`>
+  public declare setPatterns: Setter<
     WordPressThemeJson,
     Options,
     `patterns`
   >
 
-  public declare getSettings: OptionGetter<Options, `settings`>
-  public declare setSettings: OptionSetter<
+  public declare getSettings: Getter<Options, `settings`>
+  public declare setSettings: Setter<
     WordPressThemeJson,
     Options,
     `settings`
   >
 
   public declare readonly styles: Options['styles']
-  public declare getStyles: OptionGetter<Options, `styles`>
-  public declare setStyles: OptionSetter<
-    WordPressThemeJson,
-    Options,
-    `styles`
-  >
+  public declare getStyles: Getter<Options, `styles`>
+  public declare setStyles: Setter<WordPressThemeJson, Options, `styles`>
 
   public declare readonly title: Options['title']
-  public declare getTitle: OptionGetter<Options, `title`>
-  public declare setTitle: OptionSetter<
-    WordPressThemeJson,
-    Options,
-    `title`
-  >
+  public declare getTitle: Getter<Options, `title`>
+  public declare setTitle: Setter<WordPressThemeJson, Options, `title`>
 
   public declare readonly version: Options['version']
-  public declare getVersion: OptionGetter<Options, `version`>
-  public declare setVersion: OptionSetter<
-    WordPressThemeJson,
-    Options,
-    `version`
-  >
+  public declare getVersion: Getter<Options, `version`>
+  public declare setVersion: Setter<WordPressThemeJson, Options, `version`>
 
   public declare readonly templateParts: Options['templateParts']
-  public declare getTemplateParts: OptionGetter<Options, `templateParts`>
-  public declare setTemplateParts: OptionSetter<
+  public declare getTemplateParts: Getter<Options, `templateParts`>
+  public declare setTemplateParts: Setter<
     WordPressThemeJson,
     Options,
     `templateParts`

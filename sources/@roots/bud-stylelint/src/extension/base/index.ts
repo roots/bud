@@ -1,7 +1,7 @@
 import {
   DynamicOption,
   Extension,
-  type StrictPublicExtensionApi as PublicExtensionApi,
+  type ExtensionApi as ExtensionApi,
 } from '@roots/bud-framework/extension'
 import {bind, options} from '@roots/bud-framework/extension/decorators'
 import Plugin from 'stylelint-webpack-plugin'
@@ -46,7 +46,7 @@ export type Api = {
       | ((rules: Options[`config`][`rules`]) => Options[`config`][`rules`])
       | Options[`config`][`rules`],
   ): Api
-} & PublicExtensionApi<BudStylelintPublicApi, Options>
+} & ExtensionApi<BudStylelintPublicApi, Options>
 
 @options<Options>({
   cache: DynamicOption.make(

@@ -1,7 +1,13 @@
 /* eslint-disable n/no-process-env */
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
+import {
+  Box,
+  render as inkRender,
+  type ReactNode,
+  Static,
+  Text,
+} from '@roots/bud-support/ink'
 
 type RawError = BudError | Error | string | undefined
 
@@ -144,4 +150,8 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
     </Box>
   )
+}
+
+export const render = (error: BudError | Error) => {
+  return inkRender(<Error error={error} />)
 }

@@ -1,9 +1,9 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class GitHookCommitMsg extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `git-hooks`, `commit-msg`],
   ]
 

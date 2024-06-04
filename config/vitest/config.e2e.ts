@@ -5,8 +5,7 @@ import shared from './config.shared'
 export default defineConfig({
   test: {
     ...shared,
-    include: [`tests/e2e/*.test.ts`],
-    pool: `threads`,
+    include: [`tests/e2e/**/*.test.ts`],
     poolOptions: {
       threads: {
         isolate: false,
@@ -14,6 +13,5 @@ export default defineConfig({
         minThreads: 1,
       },
     },
-    watch: false,
   },
 })

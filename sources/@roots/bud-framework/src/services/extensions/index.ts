@@ -1,9 +1,5 @@
 import type {Bud, Modules} from '@roots/bud-framework'
-import type {
-  ApplyPlugin,
-  Extension,
-  ExtensionLiteral,
-} from '@roots/bud-framework/extension'
+import type {ApplyPlugin, Extension} from '@roots/bud-framework/extension'
 import type Container from '@roots/container'
 
 export type LifecycleMethods =
@@ -28,21 +24,9 @@ export interface Extensions {
   /**
    * Add an extension
    */
-  add(
-    extension:
-      | `${keyof Modules & string}`
-      | Array<
-          | `${keyof Modules & string}`
-          | Extension
-          | ExtensionLiteral
-          | (new (bud: Bud) => ExtensionLiteral)
-        >
-      | Extension
-      | ExtensionLiteral
-      | (new (bud: Bud) => ExtensionLiteral),
-  ): Promise<void>
+  add(extension: any): Promise<void>
 
-  get<K extends keyof Modules & string>(key: K): Modules[K]
+  get<K extends `${keyof Modules & string}`>(key: K): Modules[K]
 
   has(key: string): key is `${keyof Modules & string}`
 
@@ -76,7 +60,7 @@ export interface Extensions {
   repository: Modules
 
   run(
-    extension: ApplyPlugin | Partial<Extension>,
+    extension: Modules[keyof Modules],
     methodName: LifecycleMethods,
   ): Promise<this>
 

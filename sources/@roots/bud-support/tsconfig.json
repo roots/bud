@@ -8,6 +8,7 @@
     "strict": true,
     "types": ["express", "node", "react", "webpack"]
   },
+  "files": ["./src/index.d.ts"],
   "include": ["src"],
   "exclude": ["src/highlight/**/*", "./vendor"],
   "references": [

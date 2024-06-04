@@ -9,7 +9,7 @@
  */
 
 import type {Item, Loader, Rule} from '@roots/bud-build'
-import type {PublicExtensionApi} from '@roots/bud-framework/extension'
+import type {ExtensionApi} from '@roots/bud-framework/extension'
 import type BudPresetWordPress from '@roots/bud-preset-wordpress/extension'
 import type Acorn from '@roots/sage/acorn'
 import type AcornV2PublicPath from '@roots/sage/acorn-v2-public-path'
@@ -17,14 +17,23 @@ import type BladeLoader from '@roots/sage/blade-loader'
 
 import Sage from '@roots/sage/sage'
 
-interface SagePublicAPI extends PublicExtensionApi<Sage> {
+interface SagePublicAPI
+  extends ExtensionApi<
+    {
+      acorn: Acorn
+      blade: BladeLoader
+      processBladeTemplates: Sage[`processBladeTemplates`]
+      setAcornVersion: Sage[`setAcornVersion`]
+    },
+    Sage
+  > {
   /**
    * ## Configure Acorn concerns
    *
    * @see {@link Acorn}
    * @see {@link https://bud.js.org/extensions/sage#acorn-compatibility}
    */
-  acorn: PublicExtensionApi<Acorn>
+  acorn: Acorn
 
   /**
    * ## Configure handling of Blade template modules
@@ -32,7 +41,7 @@ interface SagePublicAPI extends PublicExtensionApi<Sage> {
    * @see {@link BladeLoader}
    * @see {@link https://bud.js.org/extensions/sage/blade-assets}
    */
-  blade: PublicExtensionApi<BladeLoader>
+  blade: BladeLoader
 
   /**
    * ## Enable or disable Blade template processing

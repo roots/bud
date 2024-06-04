@@ -10,5 +10,6 @@ const changeBg = () => {
  */
 changeBg()
 
-if (import.meta.webpackHot)
-  import.meta.webpackHot.accept(err => changeBg())
+if (import.meta.webpackHot) {
+  import.meta.webpackHot.accept(changeBg)
+}

@@ -1,11 +1,11 @@
 import {CommandClass} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Clean extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `clean`]]
+  public static override paths: CommandClass['paths'] = [[`@bud`, `clean`]]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `clean project artifacts`,
     examples: [[`clean project artifacts`, `yarn @bud clean`]],

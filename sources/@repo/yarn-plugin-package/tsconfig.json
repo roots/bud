@@ -1,9 +1,12 @@
 {
+  "extends": ["../../../config/tsconfig.json"],
   "compilerOptions": {
-    "experimentalDecorators": true,
-    "module": "commonjs",
-    "target": "es2020",
-    "lib": ["es2020"]
+    "importHelpers": false,
+    "module": "CommonJS",
+    "moduleResolution": "Classic",
+    "target": "es2021",
+    "lib": ["es2021"],
+    "verbatimModuleSyntax": false
   },
-  "include": ["sources/**/*.ts"]
+  "include": ["./sources/**/*.ts"]
 }

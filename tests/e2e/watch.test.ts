@@ -1,24 +1,26 @@
 import {afterAll, beforeAll, describe, expect, it} from 'vitest'
 
-import {close, page, path, setup, update} from './runner'
+import {close, makeSetup, page, path, update} from './runner'
 
-describe(`html output of examples/watch`, () => {
-  beforeAll(async () => {
-    await setup(`watch`)
-  })
+describe(
+  `html output of examples/watch`,
+  () => {
+    beforeAll(makeSetup(`watch`))
 
-  afterAll(close)
+    afterAll(close)
 
-  it(`should rebuild on change`, async () => {
-    await page.evaluate(() => {
-      window.reloadCalled = false
-      window.bud.reload = () => {
-        window.reloadCalled = true
-      }
+    it(`should rebuild on change`, async () => {
+      await page.evaluate(() => {
+        window.reloadCalled = false
+        window.bud.reload = () => {
+          window.reloadCalled = true
+        }
+      })
+
+      await update(path(`watched`, `foo.html`), `foo`)
+
+      expect(await page.evaluate(() => window.reloadCalled)).toBe(true)
     })
-
-    await update(path(`watched`, `foo.html`), `foo`)
-
-    expect(await page.evaluate(() => window.reloadCalled)).toBe(true)
-  })
-})
+  },
+  {timeout: 100000},
+)

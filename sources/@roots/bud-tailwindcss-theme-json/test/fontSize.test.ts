@@ -14,13 +14,13 @@ describe(`themeJson tailwind adapter`, () => {
     expect(fontSize.transform(mockFontSize)).toStrictEqual([
       {
         name: `lg`,
-        slug: `lg`,
         size: `1.25rem`,
+        slug: `lg`,
       },
       {
         name: `xl`,
-        slug: `xl`,
         size: `1.5rem`,
+        slug: `xl`,
       },
     ])
 

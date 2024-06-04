@@ -1,9 +1,6 @@
 import type {Options} from '@roots/bud-support/mini-css-extract-plugin'
 
-import {
-  Extension,
-  type StrictPublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
 import {
   label,
   options,
@@ -13,8 +10,7 @@ import {
 import {Plugin} from '@roots/bud-support/mini-css-extract-plugin'
 import Value from '@roots/bud-support/value'
 
-interface ExtOpts
-  extends StrictPublicExtensionApi<MiniCssExtract, Options> {}
+interface ExtOpts extends ExtensionApi<MiniCssExtract, Options> {}
 
 /**
  * Mini CSS Extract Plugin configuration

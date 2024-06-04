@@ -1,6 +1,7 @@
 import {factory} from '@repo/test-kit'
-import {copyDir as copyDirFn} from '@roots/bud-api/methods/copyDir'
 import {beforeEach, describe, expect, it} from 'vitest'
+
+import {copyDir as copyDirFn} from '../src/methods/copyDir'
 
 describe(`bud.copyDir`, () => {
   let bud

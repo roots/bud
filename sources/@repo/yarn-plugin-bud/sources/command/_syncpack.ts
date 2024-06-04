@@ -1,15 +1,17 @@
 import {path} from '@repo/constants'
 import {CommandClass, Option} from 'clipanion'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 /**
  * Syncpack command class
  */
 export class Syncpack extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `syncpack`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `syncpack`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Syncpack passthrough`,
     examples: [[`syncpack usage info`, `yarn @bud syncpack --help`]],

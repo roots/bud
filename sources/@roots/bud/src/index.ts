@@ -22,9 +22,12 @@
 import {Bud} from '@roots/bud/bud'
 
 interface Config {
-  (bud: Bud): Promise<any>
+  (bud: Bud): Promise<unknown | void>
 }
+
+export {Extension} from '@roots/bud-framework'
 
 export {Bud, type Config}
 export {factory} from '@roots/bud/factory'
+
 export {get, instance as bud, set} from '@roots/bud/instance'

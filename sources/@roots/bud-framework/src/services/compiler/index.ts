@@ -4,6 +4,7 @@ import type {
   MultiCompiler,
   MultiStats,
   StatsCompilation,
+  StatsError,
 } from '@roots/bud-framework/config'
 
 /**
@@ -26,6 +27,13 @@ export interface Compiler {
   config: {parallelism?: number} & Array<Partial<Configuration>>
 
   /**
+   * Format errors
+   */
+  formatErrors(
+    errors: Array<StatsError> | undefined,
+  ): Array<({file: string} & Error) | StatsError>
+
+  /**
    * Compiler implementation
    */
   implementation: any
@@ -34,11 +42,6 @@ export interface Compiler {
    * The compiler instance
    */
   instance: MultiCompiler
-
-  /**
-   * Compiler error handler
-   */
-  onError(error: Error): void
 
   /**
    * Stats handler

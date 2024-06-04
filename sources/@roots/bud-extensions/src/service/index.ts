@@ -66,15 +66,7 @@ class Extensions extends Service implements BudExtensions {
    * Add a {@link Extension} to the extensions repository
    */
   @bind
-  public async add<K extends `${keyof Modules & string}`>(
-    extension:
-      | Array<
-          K | (new (bud: Bud) => Partial<Extension>) | Partial<Extension>
-        >
-      | K
-      | (new (bud: Bud) => Partial<Extension>)
-      | Partial<Extension>,
-  ): Promise<void> {
+  public async add(extension: any): Promise<void> {
     const arrayed = Array.isArray(extension) ? extension : [extension]
 
     await arrayed.reduce(async (promised, item) => {
@@ -93,7 +85,7 @@ class Extensions extends Service implements BudExtensions {
       const extension = await this.instantiate(source)
 
       this.set(extension)
-      this.logger.log(`added`, extension.label)
+      this.logger.log(`Added`, extension.label)
 
       await this.run(extension, `register`)
       await this.run(extension, `boot`)
@@ -237,14 +229,20 @@ class Extensions extends Service implements BudExtensions {
   @bind
   public async import(
     signifier: string,
-    required: boolean | number = true,
-  ): Promise<Extension> {
+    required: boolean = true,
+  ): Promise<Extension | null> {
     if (required && this.unresolvable.has(signifier))
       throw new Error(`Extension ${signifier} is not importable`)
 
     if (signifier.startsWith(`.`)) {
+      const originalSignifier = signifier
       signifier = this.app.path(signifier)
-      this.logger.info(`local path interpretation:`, signifier)
+      this.logger.info(
+        `Interpolated project relative path:`,
+        signifier,
+        `=>`,
+        originalSignifier,
+      )
     }
 
     if (this.has(signifier)) {
@@ -253,19 +251,20 @@ class Extensions extends Service implements BudExtensions {
     }
 
     const extension: Extension = await this.app.module
-      .import(signifier, import.meta.url)
-      .catch(error => {
+      .import(signifier, import.meta.url, {reject: false})
+      .catch(async error => {
         this.unresolvable.add(signifier)
-        if (required) throw error
+        if (required) await this.app.module.removeCachedResolutions()
       })
 
+    if (!extension && required) {
+      throw new ExtensionError(
+        `Extension ${signifier} not found but required`,
+      )
+    }
     if (!extension) {
-      if (required)
-        throw new ExtensionError(
-          `Extension ${signifier} not found but required`,
-        )
-
-      return
+      this.logger.info(`Extension ${signifier} not found`)
+      return null
     }
 
     const instance = await this.instantiate(extension)
@@ -281,19 +280,15 @@ class Extensions extends Service implements BudExtensions {
       await Promise.all(
         Array.from(instance.dependsOnOptional)
           .filter(this.isAllowed)
-          .filter(
-            optionalDependency =>
-              !this.unresolvable.has(optionalDependency),
-          )
-          .filter(optionalDependency => !this.has(optionalDependency))
-          .map(async optionalDependency => {
-            await this.import(optionalDependency, false)
-            if (!this.has(optionalDependency))
-              this.unresolvable.add(optionalDependency)
+          .filter(dep => !this.unresolvable.has(dep))
+          .filter(dep => !this.has(dep))
+          .map(async dep => {
+            await this.import(dep, false)
+            if (!this.has(dep)) this.unresolvable.add(dep)
           }),
       )
 
-    this.set(instance)
+    instance && this.set(instance)
 
     return instance
   }
@@ -312,10 +307,12 @@ class Extensions extends Service implements BudExtensions {
 
     if (isConstructor(source)) {
       const instance = new source(this.app)
-      if (!instance.label)
-        instance.label =
-          instance.constructor.name ??
-          (randomUUID() as keyof Modules & string)
+
+      instance.label =
+        instance.label ??
+        instance.constructor.name ??
+        (randomUUID() as keyof Modules & string)
+
       return instance
     }
 
@@ -374,8 +371,9 @@ class Extensions extends Service implements BudExtensions {
         async ([label, extension]) => {
           if (!extension) return null
 
-          if (extension instanceof Extension)
+          if (extension instanceof Extension) {
             return [label, await extension.execute(`make`)]
+          }
 
           if (`make` in extension)
             return [
@@ -394,12 +392,14 @@ class Extensions extends Service implements BudExtensions {
           .filter(Boolean)
           .filter(([_label, result]) => result)
           .map(([label, result]) => {
-            this.logger.log(`defined compiler plugin:`, label).info(result)
+            this.logger
+              .log(`Defined:`, `compiler plugin:`, label)
+              .info(result)
             return result
           }),
     )
 
-    this.logger.log(`using`, results.length, `compiler plugins`)
+    this.logger.log(`Using`, results.length, `compiler plugins`)
 
     return results
   }
@@ -424,11 +424,12 @@ class Extensions extends Service implements BudExtensions {
    */
   @bind
   public async run(
-    extension: ApplyPlugin | Partial<Extension>,
+    extension: Modules[`${keyof Modules & string}`],
     methodName: LifecycleMethods,
   ): Promise<this> {
     try {
       await this.runDependencies(extension, methodName)
+
       if (`execute` in extension && isFunction(extension.execute))
         await extension.execute(methodName)
 
@@ -464,7 +465,7 @@ class Extensions extends Service implements BudExtensions {
     extension: K | Modules[K],
     methodName: LifecycleMethods,
   ): Promise<void> {
-    let instance: Modules[K] & Partial<Extension>
+    let instance: Modules[K]
 
     if (typeof extension === `string` && this.has(extension)) {
       instance = this.get(extension)
@@ -484,8 +485,11 @@ class Extensions extends Service implements BudExtensions {
         }, Promise.resolve())
     }
 
-    if (!this.options.isTrue(`discover`)) return
-    if (!(`dependsOnOptional` in instance)) return
+    if (
+      !this.options.isTrue(`discover`) ||
+      !(`dependsOnOptional` in instance)
+    )
+      return
 
     await Array.from(instance.dependsOnOptional)
       .filter(this.isAllowed)
@@ -509,7 +513,7 @@ class Extensions extends Service implements BudExtensions {
   public set(value: Extension): this {
     const key = (value.label ?? randomUUID()) as any
     Object.assign(this.repository, {[key]: value})
-    this.logger.info(`set`, key, `=>`, value)
+    this.logger.info(`Set extension:`, key, `=>`, value)
 
     return this
   }

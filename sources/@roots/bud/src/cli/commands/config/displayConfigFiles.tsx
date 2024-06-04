@@ -1,8 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {LabelBox} from '@roots/bud/cli/components/LabelBox'
 import {Box, Text} from '@roots/bud-support/ink'
-
-import {LabelBox} from '../../components/LabelBox.js'
 
 const DisplayConfigFiles = ({bud}: {bud: Bud}) => {
   const configs = Object.values(bud.context.files).map(file => ({

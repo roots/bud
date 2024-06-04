@@ -2,14 +2,14 @@ import {path} from '@repo/constants'
 import {CommandClass} from 'clipanion'
 import * as fs from 'fs-jetpack'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class RegistryClean extends Command {
-  public static paths: CommandClass['paths'] = [
+  public static override paths: CommandClass['paths'] = [
     [`@bud`, `registry`, `clean`],
   ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `clean previously published packages`,
     examples: [

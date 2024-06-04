@@ -3,18 +3,17 @@ import type {Context} from '@roots/bud-framework/context'
 import {join} from 'node:path'
 import {stderr, stdin, stdout} from 'node:process'
 
+import * as budManifest from '@roots/bud/context/bud'
+import getExtensions from '@roots/bud/context/extensions'
+import services from '@roots/bud/context/services'
+import args from '@roots/bud-framework/bootstrap/args'
+import * as projectEnv from '@roots/bud-framework/bootstrap/env'
+import * as projectFiles from '@roots/bud-framework/bootstrap/files'
+import * as projectPaths from '@roots/bud-framework/bootstrap/paths'
 import * as filesystem from '@roots/bud-support/filesystem'
 import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
-import args from '@roots/bud-support/utilities/args'
-import * as projectEnv from '@roots/bud-support/utilities/env'
-import * as projectFiles from '@roots/bud-support/utilities/files'
-import * as projectPaths from '@roots/bud-support/utilities/paths'
 import whichPm from '@roots/bud-support/which-pm'
-
-import * as budManifest from './bud.js'
-import getExtensions from './extensions.js'
-import services from './services.js'
 
 export type Options = {
   extensions?: Array<string>
@@ -25,7 +24,7 @@ let context: Context
 export default async function make(
   options: Options = {},
 ): Promise<Context> {
-  logger.scope(`bootstrap`).log(`🏗️`, `creating context`)
+  logger.scope(`bootstrap`).log(`🏗️`, `Creating context`)
 
   const basedir = options?.basedir ?? process.cwd()
   const paths = projectPaths.get(basedir)
@@ -37,14 +36,14 @@ export default async function make(
   let manifest: Context[`manifest`]
   try {
     manifest = await fs.read(join(paths.basedir, `package.json`))
-    if (manifest?.bud?.paths?.basedir) {
-      const targetPath = join(basedir, manifest.bud.paths.basedir)
+    if (manifest?.bud?.basedir) {
+      const targetPath = join(paths.basedir, manifest.bud.basedir)
       logger
         .scope(`bootstrap`)
         .log(
           `🏗️`,
-          `rebuilding context`,
-          `based on bud.paths.basedir sourced from`,
+          `Directory changed`,
+          `rebuilding context from`,
           join(targetPath, `package.json`),
         )
 
@@ -53,13 +52,8 @@ export default async function make(
         ...(options ?? {}),
       })
     }
-  } catch (e) {
-    logger
-      .scope(`bootstrap`)
-      .warn(
-        `📦`,
-        `no package.json found at ${join(paths.basedir, `package.json`)}`,
-      )
+  } catch (error) {
+    logger.scope(`bootstrap`).warn(`📦`, error)
   }
 
   const files: Context[`files`] = await projectFiles.get(paths.basedir)
@@ -70,7 +64,7 @@ export default async function make(
   )
 
   if (!options.pm) {
-    const pm = await whichPm(basedir)
+    const pm = await whichPm(paths.basedir)
     options.pm = pm !== false ? pm : `npm`
   }
 
@@ -97,11 +91,12 @@ export default async function make(
 
   logger
     .unscope()
-    .scope(`bootstrap`)
-    .log(`🏗️`, `building`, context.label)
-    .log(`📂`, `basedir`, context.basedir)
-    .log(`😎`, `version`, context.bud.version)
-    .log(`📦`, `package manager`, context.pm)
+    .scope(context.label, `bootstrap`)
+    .log(`🏗️`, `Building`, context.label)
+    .log(`📂`, `Directory:`, context.basedir)
+    .log(`📁`, `Storage:`, context.paths.storage)
+    .log(`😎`, `Version:`, context.bud.version)
+    .log(`📦`, `Package Manager:`, context.pm)
     .scope(context.label)
 
   return context

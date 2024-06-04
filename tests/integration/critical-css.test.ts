@@ -1,32 +1,46 @@
-import {join} from 'path'
+import setup from '@repo/test-kit/setup'
+import {beforeAll, describe, expect, it} from 'vitest'
 
-import {type Project, default as setup} from '@repo/test-kit/setup'
-import {testIsCompiledCss} from '@repo/test-kit/tests'
-import * as FS from '@roots/bud-support/filesystem'
-import {beforeAll, describe, it} from 'vitest'
-
-describe(`critical-css`, () => {
-  let test: Project
-  let fs: FS.Filesystem
+describe(`examples/critical-css`, {retry: 2, timeout: 240000}, () => {
+  const test = setup({label: `@examples/critical-css`})
 
   beforeAll(async () => {
-    fs = new FS.Filesystem()
-    test = setup({label: `@examples/critical-css`})
     await test.install()
     await test.build()
   })
 
-  it(`should emit critical dist/critical/css/app.css`, async () => {
-    const criticalStylesheet = await fs.read(
-      join(test.getPath(), `dist/critical/css/app.css`),
-    )
-    testIsCompiledCss(criticalStylesheet)
+  it(`should emit stdout`, async () => {
+    expect(
+      (await test.read(`build.stdout.log`))
+        .split(`\n`)
+        .slice(2, -3)
+        .join(`\n`),
+    ).toMatchSnapshot()
   })
 
-  it(`should emit dist/css/app.css`, async () => {
-    const criticalStylesheet = await fs.read(
-      join(test.getPath(), `dist/css/app.css`),
-    )
-    testIsCompiledCss(criticalStylesheet)
+  it(`should not emit stderr`, async () => {
+    expect(await test.read(`build.stderr.log`)).toBeUndefined()
   })
-}, {retry: 2, timeout: 240000})
+
+  it(`should emit manifest.json`, async () => {
+    expect(test.manifest).toMatchSnapshot()
+  })
+
+  it(`should emit entrypoints.json`, async () => {
+    expect(test.entrypoints).toMatchSnapshot()
+  })
+
+  it(`should emit runtime.js`, async () => {
+    expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+  })
+
+  it(`should emit extracted css`, async () => {
+    expect(test.getAsset(`critical/css/app.css`)).toMatchSnapshot()
+    expect(test.getAsset(`critical/css/app2.css`)).toMatchSnapshot()
+  })
+
+  it(`should emit css`, async () => {
+    expect(test.getAsset(`app.css`)).toMatchSnapshot()
+    expect(test.getAsset(`app2.css`)).toMatchSnapshot()
+  })
+})

@@ -3,7 +3,7 @@ import TabItem from '@theme/TabItem'
 import Tabs from '@theme/Tabs'
 import React from 'react'
 
-export default function ExampleConfig({children}) {
+function Example({children, config = true, title}) {
   if (!children) return null
 
   const values = []
@@ -18,21 +18,16 @@ export default function ExampleConfig({children}) {
         ...child,
         code: child.children,
         language: child.className.split(`language-`).pop(),
-        title: child.metastring.split(`=`).pop(),
+        title: child.title ?? null,
       }
     })
 
-  children.find(child => [`ts`, `tsx`].includes(child.language)) &&
-    values.push({label: `TS`, value: `ts`})
-
-  children.find(child => [`js`, `jsx`].includes(child.language)) &&
-    values.push({label: `JS`, value: `js`})
-
-  children.find(child => [`yml`].includes(child.language)) &&
-    values.push({label: `YML`, value: `yml`})
-
-  children.find(child => [`json`].includes(child.language)) &&
-    values.push({label: `JSON`, value: `json`})
+  children.forEach(child =>
+    values.push({
+      label: child.language.toUpperCase(),
+      value: child.language,
+    }),
+  )
 
   return (
     <Tabs groupId="language" values={values}>
@@ -44,15 +39,17 @@ export default function ExampleConfig({children}) {
               language={child.language}
               metastring={child.metastring}
               showLineNumbers
-              title={child.title}
+              title={child.title ?? `${title}.${child.language}`}
             >
-              {child.language === `ts`
+              {config && child.language === `ts`
                 ? `import type {Bud} from '@roots/bud'\n\nexport default async (bud: Bud) => {\n`
                 : ``}
-              {child.language === `js`
+
+              {config && child.language === `js`
                 ? `/** @param {import('@roots/bud').Bud} bud */\nexport default async (bud) => {\n`
                 : ``}
-              {[`js`, `ts`].includes(child.language)
+
+              {[`js`, `ts`, `tsx`].includes(child.language)
                 ? child.code
                     .split(`\n`)
                     .map((line, id) =>
@@ -62,7 +59,9 @@ export default function ExampleConfig({children}) {
                     )
                     .join(`\n`)
                 : child.code}
-              {[`js`, `ts`].includes(child.language) ? `}` : ``}
+              {config && [`js`, `ts`, `tsx`].includes(child.language)
+                ? `}`
+                : ``}
             </CodeBlock>
           </TabItem>
         )
@@ -70,3 +69,5 @@ export default function ExampleConfig({children}) {
     </Tabs>
   )
 }
+
+export default Example

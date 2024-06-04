@@ -2,10 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 
 import {isAbsolute, join} from 'node:path'
 
-import {
-  Extension,
-  type StrictPublicExtensionApi as PublicExtensionApi,
-} from '@roots/bud-framework/extension'
+import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
 import {
   bind,
   disabled,
@@ -43,7 +40,7 @@ type Api = {
   setCompilerOptions: (options: CompilerOptions) => Api
   setExclude: (exclude: Array<string>) => Api
   setInclude: (include: Array<string>) => Api
-} & PublicExtensionApi<BudTsConfigValues, Options>
+} & ExtensionApi<BudTsConfigValues, Options>
 
 /**
  * The BudTsConfigValues class configures the bud.js application using settings

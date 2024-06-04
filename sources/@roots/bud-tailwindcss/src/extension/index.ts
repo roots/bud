@@ -34,17 +34,22 @@ class BudTailwindCss extends BudTailwindOptionsApi {
       )
     }
 
+    const nesting = await this.resolve(
+      join(`tailwindcss`, `nesting`, `index.js`),
+      import.meta.url,
+    )
+    if (!nesting) {
+      this.catch(`tailwindcss/nesting not found in node_modules`)
+    }
+
+    const tailwindcss = await this.resolve(`tailwindcss`, import.meta.url)
+    if (!tailwindcss) {
+      this.catch(`tailwindcss not found in node_modules`)
+    }
+
     bud.postcss
-      .setPlugin(
-        `nesting`,
-        await this.resolve(
-          join(`tailwindcss`, `nesting`, `index.js`),
-          import.meta.url,
-        ),
-      )
-      .setPlugin(`tailwindcss`, [
-        await this.resolve(`tailwindcss`, import.meta.url),
-      ])
+      .setPlugin(`nesting`, nesting)
+      .setPlugin(`tailwindcss`, [tailwindcss])
       .setPluginOptions(`env`, {
         features: {
           [`nesting-rules`]: false,
@@ -52,7 +57,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
       })
       .use([`import`, `nesting`, `tailwindcss`, `env`])
 
-    this.logger.success(`postcss configured for tailwindcss`)
+    this.logger.log(`postcss configured for tailwindcss`)
 
     /**
      * Add tailwind config to webpack cache dependencies
@@ -60,7 +65,7 @@ class BudTailwindCss extends BudTailwindOptionsApi {
     bud.hooks.on(`build.cache.buildDependencies`, paths => {
       if (isString(this.configPath)) {
         paths.tailwind = [this.configPath]
-        this.logger.success(
+        this.logger.log(
           `tailwind config added to webpack build dependencies`,
         )
       }

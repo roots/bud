@@ -1,12 +1,14 @@
 import {CommandClass, Option} from 'clipanion'
 import {noop} from 'lodash'
 
-import {Command} from './base.command'
+import {Command} from './base.command.js'
 
 export class Release extends Command {
-  public static paths: CommandClass['paths'] = [[`@bud`, `release`]]
+  public static override paths: CommandClass['paths'] = [
+    [`@bud`, `release`],
+  ]
 
-  public static usage: CommandClass['usage'] = {
+  public static override usage: CommandClass['usage'] = {
     category: `@bud`,
     description: `Do a release.`,
     examples: [

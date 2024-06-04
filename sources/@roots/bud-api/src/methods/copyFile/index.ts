@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
-import {dirname, isAbsolute} from 'path'
+import {dirname, isAbsolute} from 'node:path'
 
 type FromToTuple = [string, string]
 
@@ -37,7 +37,7 @@ export const copyFile: copyFile = async function copyFile(
     .get(`@roots/bud-extensions/copy-webpack-plugin`)
     .set(`patterns`, (patterns = []) => [...patterns, result])
 
-  app.api.logger.success(`bud.copyDir: asset pattern added`)
+  app.api.logger.log(`bud.copyDir: asset pattern added`)
 
   return app
 }

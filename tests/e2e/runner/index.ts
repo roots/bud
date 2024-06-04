@@ -69,6 +69,8 @@ const setup = async (name: string): Promise<void> => {
   }
 }
 
+const makeSetup = (name: string) => async () => await setup(name)
+
 /**
  * Install fixture
  */
@@ -147,4 +149,17 @@ const update = async (path: string, code: string) => {
   await page.waitForTimeout(12000)
 }
 
-export {close, dev, install, page, path, port, read, run, setup, update, url}
+export {
+  close,
+  dev,
+  install,
+  makeSetup,
+  page,
+  path,
+  port,
+  read,
+  run,
+  setup,
+  update,
+  url,
+}

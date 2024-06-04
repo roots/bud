@@ -145,27 +145,33 @@ class BudPostCss extends BudPostCssOptionsApi {
       return
     }
 
-    this.setPlugin(
-      `import`,
-      await this.resolve(`postcss-import`, import.meta.url),
+    const postcssImport = await this.resolve(
+      `postcss-import`,
+      import.meta.url,
     )
-      .setPlugin(
+    postcssImport &&
+      this.setPlugin(`import`, postcssImport).use((items = []) => [
+        ...items,
+        `import`,
+      ])
+
+    const nesting = await this.resolve(`postcss-nested`, import.meta.url)
+    nesting &&
+      this.setPlugin(`nesting`, nesting).use((items = []) => [
+        ...items,
         `nesting`,
-        await this.resolve(`postcss-nested`, import.meta.url),
-      )
-      .setPlugin(
-        `env`,
-        await this.resolve(`postcss-preset-env`, import.meta.url).then(
-          path => path.replace(`.mjs`, `.cjs`),
-        ),
-      )
-      .setPluginOptions(`env`, {
-        features: {
-          'focus-within-pseudo-class': false,
-        },
-        stage: 1,
-      })
-      .use([`import`, `nesting`, `env`])
+      ])
+
+    const env = await this.resolve(`postcss-preset-env`, import.meta.url)
+    env &&
+      this.setPlugin(`env`, env.replace(`.mjs`, `.cjs`))
+        .setPluginOptions(`env`, {
+          features: {
+            'focus-within-pseudo-class': false,
+          },
+          stage: 1,
+        })
+        .use((items = []) => [...items, `env`])
   }
 
   /**
