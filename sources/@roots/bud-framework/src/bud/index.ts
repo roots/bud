@@ -244,7 +244,7 @@ export class Bud {
   public async executeServiceCallbacks(
     stage: `${keyof EventsStore & string}`,
   ): Promise<void> {
-    await this.resolvePromises().catch(this.catch)
+    await this.resolvePromises()
     await this.hooks.fire(stage, this)
   }
 
@@ -255,12 +255,7 @@ export class Bud {
   public async initialize(context?: Context): Promise<Bud> {
     if (context) this.context = {...(this.context ?? {}), ...context}
 
-    await bootstrap(this).catch(this.catch)
-
-    await this.bootstrap().catch(this.catch)
-    await this.register().catch(this.catch)
-    await this.boot().catch(this.catch)
-    await this.executeServiceCallbacks(`config.before`).catch(this.catch)
+    await bootstrap(this)
 
     return this
   }
@@ -286,11 +281,10 @@ export class Bud {
       : {...this.context, ...request, root: this}
 
     if (isUndefined(context.label)) {
-      return this.catch(
+      this.catch(
         InputError.normalize(`bud.make: context.label must be a string`),
       )
     }
-
     if (
       !isUndefined(this.context.filter) &&
       !this.context.filter.includes(context.label)
@@ -308,22 +302,23 @@ export class Bud {
     if (!this.children) this.children = {}
 
     if (this.children[context.label]) {
-      return this.catch(
+      this.catch(
         InputError.normalize(
           `bud.make: child instance ${context.label} already exists`,
         ),
       )
     }
 
-    logger.scope(`make`).log(`instantiating ${context.label}`)
+    logger.scope(`make`).log(`Instantiating ${context.label}`)
 
-    this.children[context.label] =
-      await new this.implementation().initialize({
-        ...context,
-      })
-    if (setupFn) await setupFn(this.children[context.label])
+    this.children[context.label] = new this.implementation()
+    await this.children[context.label].initialize({...context})
 
-    await this.children[context.label].resolvePromises().catch(this.catch)
+    if (setupFn) {
+      await setupFn(this.children[context.label])
+
+      await this.children[context.label].resolvePromises()
+    }
 
     if (typeof request !== `string` && request.dependsOn) {
       this.get(context.label)?.hooks.on(
@@ -353,14 +348,6 @@ export class Bud {
       await promised
       await promise(this)
     }, Promise.resolve())
-  }
-
-  /**
-   * Register application services
-   */
-  @bind
-  public async register() {
-    await this.executeServiceCallbacks(`register`).catch(this.catch)
   }
 
   /**

@@ -12,6 +12,21 @@ const fixturePath = path(
 )
 
 describe(`@roots/blade-loader`, () => {
+  it(`should re-export @roots/blade-loader/plugin`, async () => {
+    const {name} = (await import(`../src/index.ts`)).default
+    expect(name).toBe(`BladeWebpackPlugin`)
+  })
+
+  it(`should re-export @roots/blade-loader/asset-loader`, async () => {
+    const {name} = (await import(`../src/index.ts`)).assetLoader
+    expect(name).toBe(`loader`)
+  })
+
+  it(`should re-export @roots/blade-loader/module-loader`, async () => {
+    const {name} = (await import(`../src/index.ts`)).moduleLoader
+    expect(name).toBe(`loader`)
+  })
+
   describe(`@roots/blade-loader/plugin`, async () => {
     let compiler: Compiler
     let compilationStats: StatsCompilation | undefined
@@ -85,34 +100,6 @@ describe(`@roots/blade-loader`, () => {
       expect(compilationStats?.assets).toHaveLength(2)
     })
 
-    it(`should not use module-loader when extractScripts is false`, async () => {
-      const rules = []
-      const Plugin = new BladeWebpackPlugin({extractScripts: false})
-
-      await Plugin.apply({
-        hooks: {
-          afterEnvironment: {
-            tap: vi.fn((name, cb) => cb()),
-          },
-        },
-        options: {
-          module: {
-            rules,
-          },
-        },
-      })
-      expect(rules).toMatchInlineSnapshot(`
-        [
-          {
-            "test": /\\\\\\.php\\$/,
-            "use": [
-              "@roots/blade-loader/asset-loader",
-            ],
-          },
-        ]
-      `)
-    })
-
     it(`should use module-loader when extractScripts is undefined`, async () => {
       const rules = []
       const Plugin = new BladeWebpackPlugin()
@@ -170,20 +157,33 @@ describe(`@roots/blade-loader`, () => {
         ]
       `)
     })
-  })
 
-  describe(`@roots/blade-loader`, async () => {
-    it(`should re-export @roots/blade-loader/plugin`, async () => {
-      const {name} = (await import(`../src/index.ts`)).default
-      expect(name).toBe(`BladeWebpackPlugin`)
-    })
-    it(`should re-export @roots/blade-loader/asset-loader`, async () => {
-      const {name} = (await import(`../src/index.ts`)).assetLoader
-      expect(name).toBe(`loader`)
-    })
-    it(`should re-export @roots/blade-loader/module-loader`, async () => {
-      const {name} = (await import(`../src/index.ts`)).moduleLoader
-      expect(name).toBe(`loader`)
+    it(`should not use module-loader when extractScripts is false`, async () => {
+      const rules = []
+      const Plugin = new BladeWebpackPlugin({extractScripts: false})
+
+      await Plugin.apply({
+        hooks: {
+          afterEnvironment: {
+            tap: vi.fn((name, cb) => cb()),
+          },
+        },
+        options: {
+          module: {
+            rules,
+          },
+        },
+      })
+      expect(rules).toMatchInlineSnapshot(`
+        [
+          {
+            "test": /\\\\\\.php\\$/,
+            "use": [
+              "@roots/blade-loader/asset-loader",
+            ],
+          },
+        ]
+      `)
     })
   })
 })

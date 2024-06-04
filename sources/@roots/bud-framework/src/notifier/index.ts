@@ -22,6 +22,7 @@ import {open, openEditor} from '@roots/bud-support/open'
  */
 const notifierPath = resolve(
   dirname(fileURLToPath(import.meta.url)),
+  `..`, // lib
   `..`, // bud-framework
   `vendor`,
   `mac.no-index`,

@@ -46,49 +46,6 @@ export const lifecycle: Record<
 export const services: Set<string> = new Set()
 
 /**
- * Define a filter function to validate services based on the current application context.
- * This function returns true if the service is valid in the current context, false otherwise.
- *
- * @param app - Bud instance
- * @returns filter function
- */
-const filterServices =
-  (app: Bud) =>
-  (signifier: string): boolean => {
-    if (!isString(signifier)) return true
-
-    return (
-      (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
-      (app.isRoot || !PARENT_SERVICES.includes(signifier))
-    )
-  }
-
-/**
- * Import and instantiate services, then bind them to the application context.
- * If the service signifier is a string, it is imported dynamically; otherwise, it is used directly.
- * Services are assigned a label based on their constructor name and added to the application's list of services.
- *
- * @param app - Bud instance
- * @returns function to instantiate a service
- */
-const instantiateServices =
-  (bud: Bud) =>
-  async (signifier: `${keyof Bud & string}`): Promise<void> => {
-    const Service = await bud.module.import(signifier).catch(bud.catch)
-
-    const value: BudService = new Service(() => bud)
-    const handle = (
-      value.constructor?.name
-        ? camelCase(value.constructor.name)
-        : signifier
-    ) as `${keyof Bud & string}`
-
-    bud.set(handle, new Service(() => bud), false)
-
-    services.add(handle)
-  }
-
-/**
  * Bootstrap the application. This involves the following steps:
  *
  * - Initialize the application context and an empty list of services
@@ -113,14 +70,18 @@ export const bootstrap = async (bud: Bud) => {
 
   bud.isRoot && (await bud.module.bootstrap(bud))
 
+  if (bud.isRoot) {
+    bud.set(`notifier`, new Notifier(() => bud), false)
+    await bud.notifier.make(bud)
+  } else {
+    bud.set(`notifier`, bud.root.notifier, false)
+  }
+
   await Promise.all(
     [...bud.context.services]
       .filter(filterServices(bud))
       .map(instantiateServices(bud)),
   )
-
-  bud.notifier = new Notifier(() => bud)
-  await bud.notifier.make(bud)
 
   bud.hooks
     .fromMap({
@@ -176,7 +137,52 @@ export const bootstrap = async (bud: Bud) => {
 
   bud.isRoot && bud.after(bud.module.after)
 
-  services.clear()
+  await bud.executeServiceCallbacks(`bootstrap`)
+  await bud.executeServiceCallbacks(`register`)
+  await bud.executeServiceCallbacks(`boot`)
+  await bud.executeServiceCallbacks(`config.before`)
 
   return bud
 }
+
+/**
+ * Define a filter function to validate services based on the current application context.
+ * This function returns true if the service is valid in the current context, false otherwise.
+ *
+ * @param app - Bud instance
+ * @returns filter function
+ */
+const filterServices =
+  (app: Bud) =>
+  (signifier: string): boolean => {
+    if (!isString(signifier)) return true
+
+    return (
+      (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
+      (app.isRoot || !PARENT_SERVICES.includes(signifier))
+    )
+  }
+
+/**
+ * Import and instantiate services, then bind them to the application context.
+ * If the service signifier is a string, it is imported dynamically; otherwise, it is used directly.
+ * Services are assigned a label based on their constructor name and added to the application's list of services.
+ *
+ * @param app - Bud instance
+ * @returns function to instantiate a service
+ */
+const instantiateServices =
+  (bud: Bud) =>
+  async (signifier: `${keyof Bud & string}`): Promise<void> => {
+    const Service = await bud.module.import(signifier).catch(bud.catch)
+    const value = new Service(() => bud)
+    const handle = (
+      value.constructor?.name
+        ? camelCase(value.constructor.name)
+        : signifier
+    ) as `${keyof Bud & string}`
+
+    bud.set(handle, value, false)
+
+    services.add(handle)
+  }
