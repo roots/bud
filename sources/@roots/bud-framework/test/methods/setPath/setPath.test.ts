@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
-import {setPath as subject} from '@roots/bud-framework/methods/setPath'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {setPath as subject} from '../../../src/methods/setPath'
 
 describe(`bud.setPath`, () => {
   let bud: Bud

@@ -1,7 +1,8 @@
 import {factory} from '@repo/test-kit'
-import {Bud} from '@roots/bud'
-import Project from '@roots/bud-framework/project'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {Bud} from '../src/index.js'
+import Project from '../src/project/index.js'
 
 describe(`@roots/bud/services/project`, () => {
   let bud: Bud

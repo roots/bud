@@ -5,7 +5,7 @@ import type * as Model from '@roots/bud-framework/extension/types'
 
 import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, ExtensionError} from '@roots/bud-support/errors'
+import {ExtensionError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/get'
 import isFunction from '@roots/bud-support/isFunction'
 import isObject from '@roots/bud-support/isObject'
@@ -77,10 +77,6 @@ export class Extension<
   public catch(error: Error | string): never {
     const label =
       this.label ?? this.constructor?.name ?? `unknown_extension`
-
-    if (error instanceof BudError) {
-      throw error
-    }
 
     throw ExtensionError.normalize(error, {
       docs: new URL(`https://bud.js.org/docs/extensions`),
@@ -186,12 +182,12 @@ export class Extension<
     if (isFunction(valueOrCallback)) {
       const resolved = valueOrCallback(this.get(key))
       set(this._options, key, resolved)
-      this.logger.info(`set`, key, `=>`, resolved)
+      this.logger.info(`Set option:`, key, `=>`, resolved)
       return this
     }
 
     set(this._options, key, valueOrCallback)
-    this.logger.info(`set`, key, `=>`, valueOrCallback)
+    this.logger.info(`Set option:`, key, `=>`, valueOrCallback)
     return this
   }
 
@@ -199,7 +195,7 @@ export class Extension<
 
   @bind
   public setOptions(value: Partial<Model.InternalOptions<Options>>): this {
-    this.logger.info(`set options`, value)
+    this.logger.info(`Set options:`, value)
     this._options = value
     return this
   }
@@ -237,18 +233,20 @@ export class Extension<
       return false
     }
 
-    if (isUndefined(this[key])) return
+    if (isUndefined(this[key])) return false
 
-    if (this.meta[key] === true) return
+    if (this.meta[key] === true) return false
     this.meta[key] = true
 
     if ([`buildAfter`, `buildBefore`].includes(key) && !this.isEnabled())
-      return
+      return false
 
     this.logger.log(`Executing:`, key)
 
     await this[key](this.app)
     await this.app.resolvePromises()
+
+    return true
   }
 }
 
@@ -269,4 +267,4 @@ export type {
   WithOptions,
 } from '@roots/bud-framework/extension/types'
 
-export {DynamicOption}
+export {DynamicOption, isDynamicOption}

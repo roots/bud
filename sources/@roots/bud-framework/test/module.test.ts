@@ -1,10 +1,11 @@
-import type {Bud} from '@roots/bud-framework'
-
 import {pathToFileURL} from 'node:url'
 
 import {factory} from '@repo/test-kit'
-import {Module} from '@roots/bud-framework/module'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import type {Bud} from '../src/index.js'
+
+import {Module} from '../src/module/index.js'
 
 describe(`@roots/bud-framework`, () => {
   let bud: Bud

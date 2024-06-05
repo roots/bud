@@ -193,7 +193,9 @@ export class Bud {
    * Constructor
    */
   public constructor(context?: Context) {
-    if (context) this.context = {...context}
+    if (!context) throw BudError.normalize(`context is required`)
+
+    this.context = {...context}
 
     this.set(`implementation`, this.constructor as any)
 

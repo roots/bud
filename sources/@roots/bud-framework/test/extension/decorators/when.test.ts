@@ -6,7 +6,7 @@ import {when} from '../../../src/extension/decorators/when'
 @when(() => true)
 class TestClass {}
 
-describe(`when`, () => {
+describe(`@roots/bud-framework/extension/decorators/when`, () => {
   it(`should return a decorator`, async () => {
     expect(when(() => true)).toBeInstanceOf(Function)
   })
