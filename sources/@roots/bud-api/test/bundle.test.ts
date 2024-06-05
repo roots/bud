@@ -4,7 +4,7 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {bundle} from '../src/methods/bundle/index.ts'
 
-describe(`bud.bundle`, () => {
+describe(`@roots/bud-api/methods/bundle`, () => {
   let bud: Bud
   let instance: typeof bundle
 

@@ -1,5 +1,6 @@
-import {experiments as subject} from '@roots/bud-api/methods/experiments'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {experiments as subject} from '../src/methods/experiments'
 
 const callback = vi.fn() as any
 const bud = {
@@ -11,7 +12,7 @@ const bud = {
   label: `bud`,
 } as any
 
-describe(`bud.entry`, function () {
+describe(`@roots/bud-api/methods/experiments`, function () {
   let method: subject
 
   beforeEach(async () => {
@@ -24,8 +25,8 @@ describe(`bud.entry`, function () {
   })
 
   it(`should return bud`, async () => {
-    const ret = method({asyncWebAssembly: true})
-    expect(ret).toBe(bud)
+    const value = method({asyncWebAssembly: true})
+    expect(value).toBe(bud)
   })
 
   it(`should call bud.hooks.on one time`, async () => {

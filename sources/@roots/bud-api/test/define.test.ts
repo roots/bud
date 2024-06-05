@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {define as defineMethod} from '../src/methods/define'
 
-describe(`bud.define`, function () {
+describe(`@roots/bud-api/methods/define`, function () {
   let bud: Bud
   let define: defineMethod
 

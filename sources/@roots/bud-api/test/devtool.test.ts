@@ -1,10 +1,11 @@
 import {Bud, factory} from '@repo/test-kit'
-import {devtool} from '@roots/bud-api/methods/devtool'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {devtool} from '../src/methods/devtool'
 
 const callback = vi.fn() as any
 
-describe(`bud.devtool`, function () {
+describe(`@roots/bud-api/methods/devtool`, function () {
   let method: devtool
   let bud: Bud
 
@@ -30,7 +31,7 @@ describe(`bud.devtool`, function () {
     expect(onSpy).toHaveBeenCalledTimes(1)
   })
 
-  it (`should set source-map in production`, async () => {
+  it(`should set source-map in production`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method()
     expect(onSpy).toHaveBeenCalledWith(`build.devtool`, `source-map`)
@@ -46,10 +47,13 @@ describe(`bud.devtool`, function () {
     expect(onSpy).toHaveBeenCalledWith(`build.devtool`, `eval`)
   })
 
-  it (`should accept a string value`, async () => {
+  it(`should accept a string value`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(`cheap-module-source-map`)
-    expect(onSpy).toHaveBeenCalledWith(`build.devtool`, `cheap-module-source-map`)
+    expect(onSpy).toHaveBeenCalledWith(
+      `build.devtool`,
+      `cheap-module-source-map`,
+    )
   })
 
   it(`should accept a callback function`, async () => {
@@ -58,10 +62,9 @@ describe(`bud.devtool`, function () {
     expect(onSpy).toHaveBeenCalledWith(`build.devtool`, callback)
   })
 
-  it (`should accept false`, async () => {
+  it(`should accept false`, async () => {
     const onSpy = vi.spyOn(bud.hooks, `on`)
     await method(false)
     expect(onSpy).toHaveBeenCalledWith(`build.devtool`, false)
   })
-
 })

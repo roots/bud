@@ -45,9 +45,9 @@ Call `bud --help` for usage information.
 Instantiate **bud** is using the `factory` export:
 
 ```js
-import { factory } from "@roots/bud/factory";
+import {factory} from '@roots/bud/factory'
 
-const bud = await factory();
+const bud = await factory()
 ```
 
 ## Contributing

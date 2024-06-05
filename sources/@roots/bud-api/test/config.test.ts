@@ -13,7 +13,7 @@ const mockBud = {
   set: vi.fn(() => null),
 } as unknown as Bud
 
-describe(`bud.config`, function () {
+describe(`@roots/bud-api/methods/config`, function () {
   let config: configFn
 
   beforeEach(async () => {

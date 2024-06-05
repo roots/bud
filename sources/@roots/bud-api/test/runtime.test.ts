@@ -1,8 +1,9 @@
 import {factory} from '@repo/test-kit'
-import {runtime} from '@roots/bud-api/methods/runtime'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-describe(`bud.runtime`, () => {
+import {runtime} from '../src/methods/runtime'
+
+describe(`@roots/bud-api/methods/runtime`, () => {
   let bud
   let subject
 

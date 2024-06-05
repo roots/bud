@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {copyDir as copyDirFn} from '../src/methods/copyDir'
 
-describe(`bud.copyDir`, () => {
+describe(`@roots/bud-api/methods/copyDir`, () => {
   let bud
   let copyDir: typeof copyDirFn
 

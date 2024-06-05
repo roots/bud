@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`bud.bundle > should set the bundle using a string 1`] = `
+exports[`@roots/bud-api/methods/bundle > should set the bundle using a string 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
@@ -18,7 +18,7 @@ exports[`bud.bundle > should set the bundle using a string 1`] = `
 }
 `;
 
-exports[`bud.bundle > should set the bundle using a string name and a string test 1`] = `
+exports[`@roots/bud-api/methods/bundle > should set the bundle using a string name and a string test 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
@@ -36,7 +36,7 @@ exports[`bud.bundle > should set the bundle using a string name and a string tes
 }
 `;
 
-exports[`bud.bundle > should set the bundle using a string name and array of strings test 1`] = `
+exports[`@roots/bud-api/methods/bundle > should set the bundle using a string name and array of strings test 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {
@@ -54,7 +54,7 @@ exports[`bud.bundle > should set the bundle using a string name and array of str
 }
 `;
 
-exports[`bud.bundle > should set the bundle using a string name and regular expression test 1`] = `
+exports[`@roots/bud-api/methods/bundle > should set the bundle using a string name and regular expression test 1`] = `
 {
   "automaticNameDelimiter": "/",
   "cacheGroups": {

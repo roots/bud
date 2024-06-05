@@ -1,9 +1,10 @@
 /* eslint-disable n/no-extraneous-import */
 import {factory} from '@repo/test-kit'
-import {use as subject} from '@roots/bud-api/methods/use'
 import {describe, expect, it, vi} from 'vitest'
 
-describe(`use`, () => {
+import {use as subject} from '../src/methods/use'
+
+describe(`@roots/bud-api/methods/use`, () => {
   it(`is a function`, async () => {
     const bud = await factory()
 

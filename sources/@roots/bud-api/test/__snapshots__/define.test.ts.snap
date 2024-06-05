@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`bud.define > matches snapshot 1`] = `
+exports[`@roots/bud-api/methods/define > matches snapshot 1`] = `
 {
   "APP_DESCRIPTION": ""test app description"",
   "APP_TITLE": ""bud.js test app"",
