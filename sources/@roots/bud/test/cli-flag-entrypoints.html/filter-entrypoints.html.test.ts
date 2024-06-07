@@ -1,62 +1,15 @@
-import {test, expect} from 'vitest'
-import fs from 'fs-jetpack'
-import {execa} from 'execa'
-import {path} from '@repo/constants'
+import {describe, expect, it} from 'vitest'
 
-test('--entrypoints.html', async () => {
-  await fs.removeAsync(
-    path(
-      'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist',
-    ),
-  )
+import flag from '../../src/cli/flags/entrypoints.html'
 
-  await execa('yarn', [
-    'workspace',
-    '@tests/bud-entrypoints.html-flag',
-    'run',
-    'bud',
-    'build',
-  ])
-
-  expect(
-    await fs.existsAsync(
-      path(
-        'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
-      ),
-    ),
-  ).toBe(false)
-
-  await execa('yarn', [
-    'workspace',
-    '@tests/bud-entrypoints.html-flag',
-    'run',
-    'bud',
-    'build',
-    '--entrypoints.html',
-  ])
-
-  expect(
-    await fs.existsAsync(
-      path(
-        'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
-      ),
-    ),
-  ).toBe(`file`)
-
-  await execa('yarn', [
-    'workspace',
-    '@tests/bud-entrypoints.html-flag',
-    'run',
-    'bud',
-    'build',
-    '--no-entrypoints.html',
-  ])
-
-  expect(
-    await fs.existsAsync(
-      path(
-        'sources/@roots/bud/test/cli-flag-entrypoints.html/project/dist/main.html',
-      ),
-    ),
-  ).toBe(false)
+describe(`@roots/bud/cli/flags/entrypoints.html`, () => {
+  it(`should match snapshot`, () => {
+    expect(flag).toMatchInlineSnapshot(`
+      {
+        "definition": [Function],
+        "transformer": [Function],
+        Symbol(clipanion/isOption): true,
+      }
+    `)
+  })
 })

@@ -5,11 +5,9 @@ import shared from './config.shared'
 export default defineConfig({
   test: {
     ...shared,
-    alias: {
-      'sources/@roots/(.*)/lib/(.*)': `sources/@roots/$1/src/$2`,
-    },
     coverage: {
       enabled: false,
+      exclude: [`sources/@roots/bud-support/**/*`],
       include: [
         `sources/@roots/*/src/*.ts`,
         `sources/@roots/*/src/*.tsx`,
