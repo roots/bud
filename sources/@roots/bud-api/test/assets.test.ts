@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {assets} from '../src/methods/assets/index.ts'
 
-describe(`bud.assets`, () => {
+describe(`@roots/bud-api/methods/assets`, () => {
   let bud: Bud
   let assetsFn: typeof assets
 

@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
-import {pipe as subject} from '@roots/bud-framework/methods/pipe'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import {pipe as subject} from '../../../src/methods/pipe'
 
 describe(
   `bud.pipe`,

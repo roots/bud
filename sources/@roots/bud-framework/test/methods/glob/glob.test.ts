@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
-import * as source from '@roots/bud-framework/methods/glob'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
+
+import * as source from '../../../src/methods/glob'
 
 describe(`bud.glob`, function () {
   let bud: Bud

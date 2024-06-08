@@ -3,7 +3,7 @@ import {beforeEach, describe, expect, it} from 'vitest'
 
 import {copyFile as copyFileFn} from '../src/methods/copyFile'
 
-describe(`bud.copyFile`, () => {
+describe(`@roots/bud-api/methods/copyFile`, () => {
   let bud
   let copyFile: typeof copyFileFn
 

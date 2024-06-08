@@ -192,9 +192,7 @@ export class Bud {
   /**
    * Constructor
    */
-  public constructor(context?: Context) {
-    if (context) this.context = {...context}
-
+  public constructor() {
     this.set(`implementation`, this.constructor as any)
 
     Object.entries(methods).map(([k, v]) =>
@@ -253,7 +251,9 @@ export class Bud {
    */
   @bind
   public async initialize(context?: Context): Promise<Bud> {
-    if (context) this.context = {...(this.context ?? {}), ...context}
+    if (!context) throw BudError.normalize(`context is required`)
+
+    this.context = {...(this.context ?? {}), ...context}
 
     await bootstrap(this)
 

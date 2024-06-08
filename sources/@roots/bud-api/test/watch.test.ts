@@ -1,8 +1,9 @@
 import {Bud, factory} from '@repo/test-kit'
-import {watch as subject} from '@roots/bud-api/methods/watch'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-describe(`bud.watch`, () => {
+import {watch as subject} from '../src/methods/watch'
+
+describe(`@roots/bud-api/methods/watch`, () => {
   describe(`in development`, () => {
     let bud: Bud
     let watch: subject

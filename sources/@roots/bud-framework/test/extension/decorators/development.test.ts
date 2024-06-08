@@ -12,7 +12,7 @@ class TestClass {
   }
 }
 
-describe(`development`, () => {
+describe(`@roots/bud-framework/extension/decorators/development`, () => {
   it(`should return a decorator`, () => {
     expect(development).toBeInstanceOf(Function)
   })

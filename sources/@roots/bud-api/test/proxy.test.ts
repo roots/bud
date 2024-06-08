@@ -2,14 +2,15 @@
 import {URL} from 'node:url'
 
 import {factory} from '@repo/test-kit'
+import {beforeEach, describe, expect, it, vi} from 'vitest'
+
 import {
   disableMiddleware,
   enableMiddleware,
   proxy as proxyFn,
-} from '@roots/bud-api/methods/proxy'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+} from '../src/methods/proxy'
 
-describe(`bud.proxy`, () => {
+describe(`@roots/bud-api/methods/proxy`, () => {
   let bud
   let proxy
 

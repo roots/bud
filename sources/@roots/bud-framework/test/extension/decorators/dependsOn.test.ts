@@ -6,7 +6,7 @@ import {dependsOn} from '../../../src/extension/decorators/dependsOn.js'
 @dependsOn([`foo`])
 class TestClass {}
 
-describe(`dependsOn`, () => {
+describe(`@roots/bud-framework/extension/decorators/dependsOn`, () => {
   it(`should return a decorator`, () => {
     // @ts-ignore
     expect(dependsOn([`foo`])).toBeInstanceOf(Function)

@@ -1,13 +1,20 @@
 import {Bud, factory} from '@repo/test-kit'
-import {beforeEach, describe, expect, it, SpyInstance, vi} from 'vitest'
+import {
+  beforeEach,
+  describe,
+  expect,
+  it,
+  type MockInstance,
+  vi,
+} from 'vitest'
 
-import {when as source} from '../../src/methods/when'
+import {when as source} from '../../../src/methods/when'
 
 describe(
   `bud.when`,
   () => {
     let bud: Bud
-    let globSpy: SpyInstance
+    let globSpy: MockInstance
     let when: source
 
     beforeEach(async () => {

@@ -2,19 +2,28 @@ import type HTMLPlugin from '@roots/bud-extensions/html-webpack-plugin'
 import type InterpolatePlugin from '@roots/bud-extensions/interpolate-html-webpack-plugin'
 
 import {factory} from '@repo/test-kit'
-import {Bud} from '@roots/bud'
-import * as source from '@roots/bud-api/methods/html'
-import {beforeAll, describe, expect, it, SpyInstance, vi} from 'vitest'
+import {Bud} from '@roots/bud-framework'
+import {
+  beforeAll,
+  describe,
+  expect,
+  it,
+  type MockInstance,
+  vi,
+} from 'vitest'
 
-describe(`bud.html`, () => {
+import '../src/index.js'
+import * as source from '../src/methods/html'
+
+describe(`@roots/bud-api/methods/html`, () => {
   let bud: Bud
   let html: typeof source.html
   let htmlPlugin: HTMLPlugin
   let interpolatePlugin: InterpolatePlugin
-  let htmlEnableSpy: SpyInstance<[boolean?], HTMLPlugin>
-  let htmlSetSpy: SpyInstance<any[], HTMLPlugin>
-  let interpolateEnableSpy: SpyInstance<[boolean?], InterpolatePlugin>
-  let interpolateSetSpy: SpyInstance<any[], InterpolatePlugin>
+  let htmlEnableSpy: MockInstance<any>
+  let htmlSetSpy: MockInstance<any>
+  let interpolateEnableSpy: MockInstance<any>
+  let interpolateSetSpy: MockInstance<any>
 
   beforeAll(async () => {
     bud = await factory()

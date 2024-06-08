@@ -4,7 +4,7 @@ import {beforeAll, describe, expect, it} from 'vitest'
 
 import {alias as aliasFn} from '../src/methods/alias/index.ts'
 
-describe(`bud.alias`, () => {
+describe(`@roots/bud-api/methods/alias`, () => {
   let bud: Bud
   let alias: typeof aliasFn
 

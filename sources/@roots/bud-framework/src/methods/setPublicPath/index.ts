@@ -35,15 +35,16 @@ export interface setPublicPath {
  * @see {@link https://bud.js.org/docs/bud.setPublicPath}
  */
 export const setPublicPath: setPublicPath = function (publicPath) {
-  this.hooks.on(`build.output.publicPath`, publicPath)
-
-  // Normalize the publicPath in case the user did not end it with a slash.
-  this.hooks.on(`build.output.publicPath`, (value = `auto`) => {
-    if (value === `` || value === `auto`) return value
-    if (!isString(value)) return value
-
-    return !value.endsWith(`/`) ? value.concat(`/`) : value
-  })
+  this.hooks.on(`build.output.publicPath`, normalizePath(publicPath))
 
   return this
+}
+
+const normalizePath = (
+  value: ((publicPath: string) => string) | string = `auto`,
+) => {
+  if (!isString(value)) return value
+  if (value === `` || value === `auto`) return value
+
+  return !value.endsWith(`/`) ? value.concat(`/`) : value
 }

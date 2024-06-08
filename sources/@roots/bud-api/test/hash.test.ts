@@ -1,8 +1,9 @@
 import {type Bud, factory} from '@repo/test-kit'
-import {hash} from '@roots/bud-api/methods/hash'
-import {beforeEach, describe, expect, it, vi} from 'vitest'
+import {beforeEach, describe, expect, it} from 'vitest'
 
-describe(`bud.hash`, () => {
+import {hash} from '../src/methods/hash'
+
+describe(`@roots/bud-api/methods/hash`, () => {
   let bud: Bud
   let subject: typeof hash
 
@@ -13,6 +14,7 @@ describe(`bud.hash`, () => {
 
   it(`should call bud.hooks.on when called`, () => {
     bud.context.hash = false
+    // @ts-ignore
     subject()
     expect(bud.context.hash).toBe(true)
 
@@ -24,6 +26,7 @@ describe(`bud.hash`, () => {
   })
 
   it(`should return bud`, () => {
+    // @ts-ignore
     expect(subject()).toEqual(bud)
   })
 })

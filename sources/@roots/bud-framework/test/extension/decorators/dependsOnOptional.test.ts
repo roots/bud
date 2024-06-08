@@ -6,7 +6,7 @@ import {dependsOnOptional} from '../../../src/extension/decorators/dependsOnOpti
 @dependsOnOptional([`foo`])
 class TestClass {}
 
-describe(`dependsOnOptional`, () => {
+describe(`@roots/bud-framework/extension/decorators/dependsOnOptional`, () => {
   it(`should return a decorator`, () => {
     // @ts-ignore
     expect(dependsOnOptional([`foo`])).toBeInstanceOf(Function)

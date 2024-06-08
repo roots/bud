@@ -1,6 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
-import BabelExtension from '@roots/bud-babel'
 import {beforeAll, describe, expect, it} from 'vitest'
+
+import BabelExtension from '../src/extension/index.js'
 
 describe(`@roots/bud-babel`, () => {
   let bud: Bud

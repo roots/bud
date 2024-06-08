@@ -7,6 +7,13 @@ export default defineConfig({
     ...shared,
     coverage: {
       enabled: false,
+      exclude: [`sources/@roots/bud-support/**/*`],
+      include: [
+        `sources/@roots/*/src/*.ts`,
+        `sources/@roots/*/src/*.tsx`,
+        `sources/@roots/*/src/**/*.ts`,
+        `sources/@roots/*/src/**/*.tsx`,
+      ],
     },
     exclude: [`tests/e2e`, `**/node_modules`],
     include: [

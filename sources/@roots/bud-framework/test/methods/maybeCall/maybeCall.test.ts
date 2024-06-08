@@ -1,7 +1,7 @@
 import {Bud, factory} from '@repo/test-kit'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
 
-import {maybeCall as subject} from '../../src/methods/maybeCall/index.js'
+import {maybeCall as subject} from '../../../src/methods/maybeCall/index.js'
 
 describe(`bud.maybeCall`, {retry: 2}, () => {
   let maybeCall: subject

@@ -1,3 +1,5 @@
+import {describe, expect, it} from 'vitest'
+
 import {
   alias,
   assets,
@@ -23,10 +25,9 @@ import {
   version,
   watch,
   webpackConfig,
-} from '@roots/bud-api/methods'
-import {describe, expect, it} from 'vitest'
+} from '../src/methods'
 
-describe(`methods`, () => {
+describe(`@roots/bud-api/methods`, () => {
   it(`should export alias fn`, async () => {
     expect(alias).toBeInstanceOf(Function)
   })

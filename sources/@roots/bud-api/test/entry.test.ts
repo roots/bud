@@ -1,8 +1,9 @@
 import {Bud, factory} from '@repo/test-kit'
-import {entry as entryFn} from '@roots/bud-api/methods/entry'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-describe(`bud.entry`, function () {
+import {entry as entryFn} from '../src/methods/entry'
+
+describe(`@roots/bud-api/methods/entry`, function () {
   let bud: Bud
   let entry: entryFn
 

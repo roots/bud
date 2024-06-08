@@ -1,8 +1,9 @@
 import {type Bud, factory} from '@repo/test-kit'
-import {provide as provideFn} from '@roots/bud-api/methods/provide'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-describe(`bud.provide`, () => {
+import {provide as provideFn} from '../src/methods/provide'
+
+describe(`@roots/bud-api/methods/provide`, () => {
   let bud: Bud
   let provide: provideFn
 
@@ -11,7 +12,7 @@ describe(`bud.provide`, () => {
     provide = provideFn.bind(bud)
   })
 
-  it(`should thrown when no packages are provided`, async () => {
+  it(`should throw when no packages are provided`, async () => {
     try {
       // @ts-ignore
       expect(await provide()).toThrowError(

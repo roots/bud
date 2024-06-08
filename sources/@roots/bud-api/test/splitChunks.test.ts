@@ -1,9 +1,10 @@
 /* eslint-disable n/callback-return */
 import {factory} from '@repo/test-kit'
-import {splitChunks as splitChunksFn} from '@roots/bud-api/methods/splitChunks'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-describe(`bud.splitChunks`, async () => {
+import {splitChunks as splitChunksFn} from '../src/methods/splitChunks'
+
+describe(`@roots/bud-api/methods/splitChunks`, async () => {
   let bud
   let splitChunks: splitChunksFn
 
