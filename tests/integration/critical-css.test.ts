@@ -10,12 +10,15 @@ describe(`examples/critical-css`, {retry: 2, timeout: 240000}, () => {
   })
 
   it(`should emit stdout`, async () => {
-    expect(
-      (await test.read(`build.stdout.log`))
-        .split(`\n`)
-        .slice(2, -3)
-        .join(`\n`),
-    ).toMatchSnapshot()
+    const stdout = await test.read(`build.stdout.log`)
+
+    expect(stdout).toMatch(/│ app\n│  ◉ js\/runtime\.js\s*✔ 904 bytes/)
+    expect(stdout).toMatch(/│  ◉ css\/app\.css\s*✔ 2.78 kB/)
+
+    expect(stdout).toMatch(/│ app2\n│  ◉ js\/runtime\.js\s*✔ 904 bytes/)
+    expect(stdout).toMatch(/│  ◉ css\/app2\.css\s*✔ 2.75 kB/)
+
+    expect(stdout).toMatch(/│ assets\n│  ◉ index\.html\s*307 bytes/)
   })
 
   it(`should not emit stderr`, async () => {

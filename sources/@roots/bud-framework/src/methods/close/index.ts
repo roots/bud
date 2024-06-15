@@ -1,5 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {exit} from 'node:process'
+
 import isFunction from '@roots/bud-support/isFunction'
 
 /**
@@ -23,7 +25,7 @@ export interface close {
 export function close(onComplete?: () => unknown) {
   try {
     if (this.compiler?.instance?.running) {
-      this.compiler.instance.close(() => {
+      this.compiler.instance.close?.(() => {
         closeDevelopmentServer(this)
       })
     } else {
@@ -34,6 +36,8 @@ export function close(onComplete?: () => unknown) {
   }
 
   if (onComplete) return onComplete()
+
+  return exit()
 }
 
 const closeDevelopmentServer = (bud: Bud) => {
@@ -49,6 +53,7 @@ const closeDevelopmentServer = (bud: Bud) => {
 
     if (
       bud.isDevelopment &&
+      bud.server.connection?.instance?.listening &&
       isFunction(bud.server.connection?.instance?.close)
     ) {
       bud.server.connection.instance.close()

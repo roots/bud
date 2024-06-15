@@ -3,7 +3,6 @@ import type {Compiler as BudCompiler} from '@roots/bud-framework'
 import type {
   MultiCompiler,
   MultiStats,
-  StatsError,
   Webpack,
 } from '@roots/bud-framework/config'
 
@@ -50,16 +49,18 @@ class Compiler extends Service implements BudCompiler {
   @bind
   public onStats(stats: MultiStats) {
     this.stats = stats.toJson(statsOptions)
-    this.app.context.render(this.app.dashboard.render(stats))
+    this.app.dashboard.render(stats)
 
     if (stats.hasErrors()) {
       process.exitCode = 1
 
+      const format = makeErrorFormatter(this.stats)
       this.stats.children = this.stats.children?.map(child => ({
         ...child,
-        errors: child.errors
-          ? this.formatErrors(child.errors)
-          : child.errors ?? [],
+        errors:
+          (child.errors
+            ? child.errors?.map(format).filter(Boolean)
+            : child.errors) ?? [],
       }))
 
       this.stats.children
@@ -146,15 +147,6 @@ class Compiler extends Service implements BudCompiler {
       .catch(error => {
         throw BudError.normalize(error)
       })
-  }
-
-  @bind
-  public formatErrors(
-    errors: Array<StatsError> | undefined,
-  ): Array<({file: string} & Error) | StatsError> {
-    return (
-      errors?.map(makeErrorFormatter(this.stats)).filter(Boolean) ?? []
-    )
   }
 }
 

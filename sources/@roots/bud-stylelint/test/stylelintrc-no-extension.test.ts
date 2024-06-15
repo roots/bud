@@ -4,7 +4,13 @@ import {describe, expect, it} from 'vitest'
 
 describe(`bud build with extensionless stylelintrc`, () => {
   it(`should build with expected stdout`, async () => {
-    await execa(`yarn`, [`workspace`, `@tests/stylelint-command-with-errors`, `run`, `bud`, `clean`])
+    await execa(`yarn`, [
+      `workspace`,
+      `@tests/stylelintrc-no-extension`,
+      `run`,
+      `bud`,
+      `clean`,
+    ])
 
     const result = await execa(`yarn`, [
       `workspace`,
@@ -18,7 +24,8 @@ describe(`bud build with extensionless stylelintrc`, () => {
     const [_s, title, _s2, entry, runtime, css, js, _s3, timings] =
       stripAnsi(result.stdout).split(`\n`)
 
-    expect(stripAnsi(result.stdout).split(/\n/).slice(0, 7).join(`\n`)).toMatchInlineSnapshot(`
+    expect(stripAnsi(result.stdout).split(/\n/).slice(0, 7).join(`\n`))
+      .toMatchInlineSnapshot(`
       "
       ╭ stylelintrc-no-extension [87e8ac84aafa65f4]                               ./dist
       │

@@ -132,6 +132,10 @@ class BudJSCApi extends Extension<JSCOptions> {
   ) {
     this.setExperimental((experimental = {}) => ({
       ...experimental,
+      plugins:
+        typeof plugins === `function`
+          ? plugins(experimental.plugins)
+          : plugins,
     }))
   }
 }

@@ -174,7 +174,7 @@ const filterServices =
 const instantiateServices =
   (bud: Bud) =>
   async (signifier: `${keyof Bud & string}`): Promise<void> => {
-    const Service = await bud.module.import(signifier).catch(bud.catch)
+    const Service = await bud.module.import(signifier)
     const value = new Service(() => bud)
     const handle = (
       value.constructor?.name

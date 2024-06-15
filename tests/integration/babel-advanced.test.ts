@@ -1,5 +1,4 @@
 import setup from '@repo/test-kit/setup'
-import {testIsCompiledCss, testIsCompiledJs} from '@repo/test-kit/tests'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/babel-advanced`, () => {

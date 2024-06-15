@@ -9,6 +9,7 @@ import stripAnsi from 'strip-ansi'
 interface Options {
   buildCommand?: [string, Array<string>?]
   dist?: string
+  integrationBuildCommand?: [string, Array<string>?]
   label: string
   projectDir?: string
 }
@@ -58,7 +59,7 @@ class Project {
 
     let results: ExecaReturnValue
 
-    if (this.options.buildCommand) {
+    if (globalThis.__INTEGRATION__) {
       await execa(
         `node`,
         [this.getPath(`node_modules`, `.bin`, `bud`), `clean`],
@@ -68,23 +69,18 @@ class Project {
         },
       )
 
-      results = await execa(...this.options.buildCommand, {
-        cwd: this.directory,
-        reject: false,
-      })
-    } else if (globalThis.__INTEGRATION__) {
-      results = await execa(
+      const command = this.options.integrationBuildCommand ?? [
         `node`,
         [
           this.getPath(`node_modules`, `.bin`, `bud`),
           `build`,
           `--no-cache`,
         ],
-        {
-          cwd: this.directory,
-          reject: false,
-        },
-      )
+      ]
+      results = await execa(...command, {
+        cwd: this.directory,
+        reject: false,
+      })
     } else {
       await execa(
         `yarn`,
@@ -100,7 +96,7 @@ class Project {
         },
       )
 
-      results = await execa(
+      const command = this.options.buildCommand ?? [
         `yarn`,
         [
           `bud`,
@@ -109,11 +105,11 @@ class Project {
           `build`,
           `--no-cache`,
         ],
-        {
-          cwd: this.directory,
-          reject: false,
-        },
-      )
+      ]
+      results = await execa(...command, {
+        cwd: this.directory,
+        reject: false,
+      })
     }
 
     results.stdout &&

@@ -28,10 +28,6 @@ describe(`@roots/bud-compiler`, function () {
     expect(compiler.onStats).toBeInstanceOf(Function)
   })
 
-  it(`should have formatErrors transformer`, () => {
-    expect(compiler.formatErrors).toBeInstanceOf(Function)
-  })
-
   it(`should call logger.log`, async () => {
     expect(logSpy).toHaveBeenCalled()
   })

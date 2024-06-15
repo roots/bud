@@ -5,7 +5,21 @@ import {describe, expect, it} from 'vitest'
 describe(`examples/webpack-plugin`, () => {
   it(`should compile assets as expected`, async () => {
     const test = setup({
-      buildCommand: [`npx`, [`bud`, `build`, `--debug`, `--force`]],
+      buildCommand: [
+        `yarn`,
+        [
+          `bud`,
+          `--basedir`,
+          `examples/webpack-plugin`,
+          `build`,
+          `--debug`,
+          `--force`,
+        ],
+      ],
+      integrationBuildCommand: [
+        `npx`,
+        [`bud`, `build`, `--debug`, `--force`],
+      ],
       label: `@examples/webpack-plugin`,
     })
 
@@ -39,11 +53,8 @@ describe(`examples/webpack-plugin`, () => {
       await fs.read(test.getPath(`.storage`, `inline-plugin-output`)),
     ).toEqual(`inline-plugin-test-success`)
 
-    expect(await fs.read(test.getPath(`build.stdout.log`)))
-      .toMatch(`\
-WebpackPlugin applied!
-inline-plugin applied!
-array-plugin-1 applied!
-array-plugin-2 applied!`)
+    expect(await fs.read(test.getPath(`build.stdout.log`))).toMatch(
+      /WebpackPlugin applied!\ninline-plugin applied!\narray-plugin-1 applied!\narray-plugin-2 applied!/,
+    )
   })
 })

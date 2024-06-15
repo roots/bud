@@ -260,6 +260,14 @@ export interface Context {
   html?: boolean | string
 
   /**
+   * Ignore errors option
+   *
+   * @remarks
+   * Set witht the `--ignore-errors` CLI flag.
+   */
+  ignoreErrors?: boolean
+
+  /**
    * Immutable option
    *
    * @remarks
@@ -383,11 +391,6 @@ export interface Context {
    * Set with the `--reload` CLI flag.
    */
   reload?: boolean
-
-  /**
-   * Ink render function
-   */
-  render: (element: any) => void
 
   /**
    * Root bud.js instance

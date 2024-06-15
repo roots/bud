@@ -1,13 +1,10 @@
 /* eslint-disable n/no-process-env */
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
-import {
-  Box,
-  render as inkRender,
-  type ReactNode,
-  Static,
-  Text,
-} from '@roots/bud-support/ink'
+import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
+import {render} from '@roots/bud-support/ink/instance'
+import isObject from '@roots/bud-support/isObject'
+import logger from '@roots/bud-support/logger'
 
 type RawError = BudError | Error | string | undefined
 
@@ -152,6 +149,17 @@ export const Display = ({error: input}: {error: RawError}) => {
   )
 }
 
-export const render = (error: BudError | Error) => {
-  return inkRender(<Error error={error} />)
+export const renderError = (error: BudError | Error) => {
+  try {
+    render(<Error error={error} />)
+  } catch (inkError) {
+    logger.error(
+      typeof inkError === `string`
+        ? inkError
+        : isObject(inkError) && `message` in inkError
+          ? inkError.message
+          : `There was an error rendering the error component.`,
+    )
+    logger.error(error.message)
+  }
 }

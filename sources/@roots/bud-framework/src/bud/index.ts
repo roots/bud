@@ -21,7 +21,7 @@ import {exit} from 'node:process'
 import {bootstrap} from '@roots/bud-framework/bootstrap'
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError, InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/isFunction'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
@@ -193,10 +193,11 @@ export class Bud {
    * Constructor
    */
   public constructor() {
-    this.set(`implementation`, this.constructor as any)
+    if (this.implementation)
+      this.set(`implementation`, this.constructor as any)
 
-    Object.entries(methods).map(([k, v]) =>
-      this.set(k as any, v.bind(this)),
+    Object.entries(methods).map(([prop, value]) =>
+      this.set(prop as keyof Bud, value),
     )
   }
 
@@ -205,7 +206,7 @@ export class Bud {
    */
   @bind
   public async boot() {
-    await this.executeServiceCallbacks(`boot`).catch(this.catch)
+    await this.executeServiceCallbacks(`boot`)
   }
 
   /**
@@ -213,25 +214,20 @@ export class Bud {
    */
   @bind
   public async bootstrap() {
-    await this.executeServiceCallbacks(`bootstrap`).catch(this.catch)
+    await this.executeServiceCallbacks(`bootstrap`)
   }
 
   /**
    * Error handler
    */
   @bind
-  public catch(error: Error) {
-    const normalError = BudError.normalize(error)
+  public catch(error: Error | string) {
+    if (!this.context.silent)
+      logger.error(isString(error) ? error : error.message)
 
-    if (!normalError.instance && this?.isChild)
-      normalError.instance = this.label
+    if (this.context.ignoreErrors) return
 
-    if (this.dashboard?.renderError && this.context?.dashboard !== false) {
-      this.dashboard.renderError(normalError)
-      exit(1)
-    } else {
-      throw normalError
-    }
+    exit(1)
   }
 
   /**
@@ -269,11 +265,7 @@ export class Bud {
     setupFn?: (app: Bud) => Promise<unknown>,
   ) {
     if (!this.isRoot) {
-      return this.catch(
-        InputError.normalize(
-          `bud.make: must be called from the root context`,
-        ),
-      )
+      this.catch(`bud.make: must be called from the root context`)
     }
 
     const context: Context = isString(request)
@@ -281,10 +273,9 @@ export class Bud {
       : {...this.context, ...request, root: this}
 
     if (isUndefined(context.label)) {
-      this.catch(
-        InputError.normalize(`bud.make: context.label must be a string`),
-      )
+      this.catch(`bud.make: context.label must be a string`)
     }
+
     if (
       !isUndefined(this.context.filter) &&
       !this.context.filter.includes(context.label)
@@ -303,9 +294,7 @@ export class Bud {
 
     if (this.children[context.label]) {
       this.catch(
-        InputError.normalize(
-          `bud.make: child instance ${context.label} already exists`,
-        ),
+        `bud.make: child instance ${context.label} already exists`,
       )
     }
 

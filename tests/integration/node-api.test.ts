@@ -1,52 +1,64 @@
-import {join} from 'path'
-
-import {path} from '@repo/constants'
-import {execa} from 'execa'
-import fs from 'fs-jetpack'
+import setup from '@repo/test-kit/setup'
 import {beforeAll, describe, expect, it} from 'vitest'
 
-const exampleProjectDir = path(`examples/node-api`)
-const tmpProjectDir = path(`storage/fixtures/node-api`)
+describe(`examples/node-api`, () => {
+  describe(`when using the node api directly`, async () => {
+    let test = setup({
+      buildCommand: [`node`, [`node-script.js`]],
+      dist: `dist/build-a`,
+      integrationBuildCommand: [`node`, [`node-script.js`]],
+      label: `@examples/node-api`,
+    })
 
-describe.skip(`node-api`, () => {
-  beforeAll(async () => {
-    try {
-      await fs.remove(tmpProjectDir)
-      await fs.copy(exampleProjectDir, tmpProjectDir)
-      await execa(
-        `yarn`,
-        [`install`, `--registry=http://localhost:4873`],
-        {
-          cwd: tmpProjectDir,
-        },
-      )
-      await execa(`node`, [`node_modules/.bin/webpack`], {
-        cwd: tmpProjectDir,
-      })
-    } catch (error) {
-      throw error
-    }
+    beforeAll(async () => {
+      await test.install()
+      await test.build()
+    })
+
+    it(`should emit manifest.json`, async () => {
+      expect(test.manifest).toMatchSnapshot()
+    })
+
+    it(`should emit entrypoints.json`, async () => {
+      expect(test.entrypoints).toMatchSnapshot()
+    })
+
+    it(`should emit runtime.js`, async () => {
+      expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+    })
+
+    it(`should emit main.js`, async () => {
+      expect(test.getAsset(`main.js`)).toMatchSnapshot()
+    })
   })
 
-  it(`package.json`, async () => {
-    const artifact = (
-      await fs.readAsync(join(tmpProjectDir, `package.json`))
-    )?.toString()
+  describe(`when using the webpack cli`, async () => {
+    let test = setup({
+      buildCommand: [`yarn`, [`webpack`, `build`]],
+      dist: `dist/build-b`,
+      integrationBuildCommand: [`npx`, [`webpack`, `build`]],
+      label: `@examples/node-api`,
+    })
 
-    expect(artifact).toMatchSnapshot()
-  })
+    beforeAll(async () => {
+      await test.install()
+      await test.build()
+    })
 
-  it(`dist/manifest.json`, async () => {
-    const artifact = await fs.readAsync(
-      join(tmpProjectDir, `dist/manifest.json`),
-    )
-    expect(artifact?.toString()).toMatchSnapshot()
-  })
+    it(`should emit manifest.json`, async () => {
+      expect(test.manifest).toMatchSnapshot()
+    })
 
-  it(`dist/app.js`, async () => {
-    const artifact = await fs.readAsync(
-      join(tmpProjectDir, `dist/js/app.js`),
-    )
-    expect(artifact?.toString()).toMatchSnapshot()
+    it(`should emit entrypoints.json`, async () => {
+      expect(test.entrypoints).toMatchSnapshot()
+    })
+
+    it(`should emit runtime.js`, async () => {
+      expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+    })
+
+    it(`should emit main.js`, async () => {
+      expect(test.getAsset(`main.js`)).toMatchSnapshot()
+    })
   })
-}, 240000)
+})
