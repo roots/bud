@@ -5,18 +5,17 @@ import type {
   StatsError,
 } from '@roots/bud-framework/config'
 import type {Dashboard as BudDashboard} from '@roots/bud-framework/services'
-import type {BudError} from '@roots/bud-support/errors'
 
 import {stdin} from 'node:process'
 
 import {makeErrorFormatter} from '@roots/bud-dashboard/helpers/formatErrors'
 import {Service} from '@roots/bud-framework/service'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {Box, type ReactElement, Text} from '@roots/bud-support/ink'
+import {Box, Text} from '@roots/bud-support/ink'
+import {render} from '@roots/bud-support/ink/instance'
 import isUndefined from '@roots/bud-support/isUndefined'
 
 import {Application, TeletypeApplication} from './application.js'
-import {render} from './components/error.js'
 import ErrorBoundary from './errorBoundary.js'
 
 type Compilations = Array<Omit<StatsCompilation, `children`>>
@@ -51,13 +50,21 @@ export class Dashboard extends Service implements BudDashboard {
    * @param error - {@link Error}
    */
   @bind
-  public render(stats?: MultiStats, error?: Error): null | ReactElement {
-    if (!stats) return <Text>No stats to display</Text>
-
+  public render(
+    stats?: MultiStats | StatsCompilation,
+    error?: Error,
+  ): unknown {
     /**
      * Do not render if silent mode is enabled
      */
     if (this.app.context.silent) return null
+
+    /**
+     * Do not render if no stats received
+     */
+    if (!stats) {
+      return null
+    }
 
     /**
      * Render basic output if `--dashboard` flag is false
@@ -69,7 +76,29 @@ export class Dashboard extends Service implements BudDashboard {
       return <Text>{stringStats}</Text>
     }
 
-    const data = stats.toJson()
+    const data: StatsCompilation =
+      this.app.compiler.stats ??
+      stats.toJson({
+        all: false,
+        children: {
+          all: false,
+          assets: true,
+          cached: true,
+          cachedAssets: true,
+          cachedModules: true,
+          entrypoints: true,
+          errorDetails: false,
+          errors: true,
+          errorsCount: true,
+          hash: true,
+          modules: true,
+          name: true,
+          outputPath: true,
+          timings: true,
+          warnings: true,
+          warningsCount: true,
+        },
+      })
 
     /**
      * Get compilations
@@ -125,9 +154,6 @@ export class Dashboard extends Service implements BudDashboard {
       : true
 
     /**
-     * Get the application to render
-     *
-     * @remarks
      * If the application is running in development mode, and
      * the terminal is a TTY, we want to render the teletype
      * application. Otherwise, we want to render the normal
@@ -138,7 +164,7 @@ export class Dashboard extends Service implements BudDashboard {
         ? TeletypeApplication
         : Application
 
-    return (
+    render(
       <ErrorBoundary compilation={stats.toString()}>
         <Box flexDirection="column">
           <App
@@ -163,11 +189,7 @@ export class Dashboard extends Service implements BudDashboard {
             publicProxyUrl={this.app.server?.publicProxyUrl}
           />
         </Box>
-      </ErrorBoundary>
+      </ErrorBoundary>,
     )
-  }
-
-  public renderError(error: BudError) {
-    render(error)
   }
 }

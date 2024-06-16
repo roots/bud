@@ -33,6 +33,7 @@ import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
+import {render} from '@roots/bud-support/ink/instance'
 import isNumber from '@roots/bud-support/isNumber'
 import noop from '@roots/bud-support/noop'
 
@@ -104,7 +105,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public output = output
 
-  public declare notify: typeof notify
+  public notify = notify
 
   public publicPath = publicPath
 
@@ -116,29 +117,11 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
   public verbose = verbose
 
-  public ink?: Ink.Instance
-
-  /**
-   * Ink {@link Instance}
-   */
-  public static Ink: typeof Ink = Ink
-
-  /**
-   * Render cli output
-   */
-  public render(El: React.ReactElement) {
-    if (this.ink) {
-      this.ink.rerender(El)
-    } else {
-      this.ink = BudCommand.Ink.render(El)
-    }
-  }
-
   /**
    * Render static cli output
    */
   public renderStatic(el: React.ReactElement) {
-    return this.render(
+    return render(
       <Ink.Static items={[0]}>
         {(e, i) => <Ink.Fragment key={i}>{el}</Ink.Fragment>}
       </Ink.Static>,
@@ -253,7 +236,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
       })
     }
 
-    this.render(<Dash.Error error={error} />)
+    render(<Dash.Error error={error} />)
 
     if ((!this.bud || this.bud.isProduction) && this.ignoreErrors !== true)
       exit(1)
@@ -264,7 +247,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
    */
   public async execute(): Promise<number | void> {
     const {Menu} = await import(`@roots/bud/cli/components/Menu`)
-    this.render(<Menu cli={this.cli} />)
+    render(<Menu cli={this.cli} />)
   }
 
   /**
@@ -275,8 +258,8 @@ export default class BudCommand extends Command<BaseContext & Context> {
     this.context = {
       ...this.context,
       dry: this.dry,
+      ignoreErrors: this.ignoreErrors,
       mode: this.mode ?? this.context.mode ?? `production`,
-      render: this.render,
       silent: this.silent,
     }
 

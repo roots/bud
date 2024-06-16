@@ -11,12 +11,11 @@ describe(`examples/basic`, () => {
   })
 
   it(`should emit stdout`, async () => {
-    expect(
-      (await test.read(`build.stdout.log`))
-        .split(`\n`)
-        .slice(2, -3)
-        .join(`\n`),
-    ).toMatchSnapshot()
+    const stdout = await test.read(`build.stdout.log`)
+
+    expect(stdout).toMatch(/│  ◉ js\/runtime\.js\s*✔ 904 bytes/)
+    expect(stdout).toMatch(/│  ◉ css\/main\.css\s*✔ 27 bytes/)
+    expect(stdout).toMatch(/│  ◉ js\/main\.js\s*✔ 200 bytes/)
   })
 
   it(`should not emit stderr`, async () => {
@@ -31,9 +30,15 @@ describe(`examples/basic`, () => {
     expect(test.entrypoints).toMatchSnapshot()
   })
 
-  it(`should compile js as expected`, async () => {
-    testIsCompiledJs(test.getAsset(`main.js`))
-    testIsCompiledJs(test.getAsset(`runtime.js`))
-    testIsCompiledCss(test.getAsset(`main.css`))
+  it(`should emit main.js`, async () => {
+    expect(test.getAsset(`main.js`)).toMatchSnapshot()
+  })
+
+  it(`should emit runtime.js`, async () => {
+    expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+  })
+
+  it(`should emit main.css`, async () => {
+    expect(test.getAsset(`main.css`)).toMatchSnapshot()
   })
 })

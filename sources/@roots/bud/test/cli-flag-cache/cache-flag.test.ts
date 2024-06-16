@@ -24,7 +24,7 @@ describe(`--cache`, async () => {
   it(`should generate cache by default`, async () => {
     await execa(`yarn`, [`bud`, `build`], opts)
     const {stdout} = await execa(`yarn`, [`bud`, `build`, `--log`], opts)
-    expect(stdout).toMatch(/4\/4 modules cached/)
+    expect(stdout).toMatch(/1\/1 modules cached/)
     expect(stdout).toMatch(/Cache: filesystem/)
   })
 
@@ -34,7 +34,7 @@ describe(`--cache`, async () => {
       [`bud`, `build`, `--no-cache`, `--log`],
       opts,
     )
-    expect(stdout).toMatch(/0\/4 modules cached/)
+    expect(stdout).toMatch(/0\/1 modules cached/)
     expect(stdout).toMatch(/Cache: disabled/)
   })
 
@@ -44,7 +44,7 @@ describe(`--cache`, async () => {
       [`bud`, `build`, `--cache=false`, `--log`],
       opts,
     )
-    expect(stdout).toMatch(/0\/4 modules cached/)
+    expect(stdout).toMatch(/0\/1 modules cached/)
     expect(stdout).toMatch(/Cache: disabled/)
   })
 

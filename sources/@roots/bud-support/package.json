@@ -86,6 +86,7 @@
     "./http-proxy-middleware": "./lib/http-proxy-middleware/index.js",
     "./human-readable": "./lib/human-readable/index.js",
     "./ink": "./lib/ink/index.js",
+    "./ink/instance": "./lib/ink/instance/index.js",
     "./import-meta-resolve": "./lib/import-meta-resolve/index.js",
     "./isObject": "./lib/isObject/index.js",
     "./json5": "./lib/json5/index.js",
@@ -216,6 +217,9 @@
       ],
       "ink": [
         "./lib/ink/index.d.ts"
+      ],
+      "ink/instance": [
+        "./lib/ink/instance/index.d.ts"
       ],
       "isObject": [
         "./lib/isObject/index.d.ts"

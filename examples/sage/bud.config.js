@@ -1,4 +1,4 @@
-import { bud } from '@roots/bud'
+import {bud} from '@roots/bud'
 
 bud
   .entry({

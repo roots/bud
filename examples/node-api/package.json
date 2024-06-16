@@ -10,6 +10,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-swc": "workspace:*",
     "webpack": "5.91.0",
-    "webpack-cli": "5.1.4"
+    "webpack-cli": "5.1.4",
+    "webpack-dev-server": "5.0.4"
   }
 }

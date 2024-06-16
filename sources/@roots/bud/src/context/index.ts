@@ -11,7 +11,6 @@ import * as projectEnv from '@roots/bud-framework/bootstrap/env'
 import * as projectFiles from '@roots/bud-framework/bootstrap/files'
 import * as projectPaths from '@roots/bud-framework/bootstrap/paths'
 import * as filesystem from '@roots/bud-support/filesystem'
-import {render} from '@roots/bud-support/ink'
 import logger from '@roots/bud-support/logger'
 import whichPm from '@roots/bud-support/which-pm'
 
@@ -82,7 +81,6 @@ export default async function make(
     mode: options?.mode ?? `production`,
     paths: {...paths, ...(options?.paths ?? {})},
     pm: args?.pm ?? options?.pm ?? `npm`,
-    render: options?.render ?? render,
     services: [...(services ?? []), ...(options?.services ?? [])],
     stderr: options?.stderr ?? stderr,
     stdin: options?.stdin ?? stdin,

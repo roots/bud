@@ -1,101 +1,48 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`node-api snapshots .budfiles/bud.webpack.config.js 1`] = `
-Object {
-  "app": Object {
-    "import": Array [
-      "index.js",
+exports[`examples/node-api > when using the node api directly > should emit entrypoints.json 1`] = `
+{
+  "main": {
+    "js": [
+      "js/runtime.js",
+      "js/main.js",
     ],
   },
 }
 `;
 
-exports[`node-api snapshots .budfiles/bud.webpack.config.js 2`] = `"production"`;
+exports[`examples/node-api > when using the node api directly > should emit main.js 1`] = `""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":()=>{console.log("hello"),console.log("world")}},o=>{var s;s="./index.js",o(o.s=s)}]);"`;
 
-exports[`node-api snapshots .budfiles/bud.webpack.config.js 3`] = `
-Object {
-  "minimize": true,
-  "minimizer": Array [
-    "...",
-    Object {
-      "options": Object {
-        "minify": "<<Function 'cssnanoMinify'>>",
-        "minimizerOptions": Object {
-          "preset": Array [
-            "default",
-            Object {
-              "discardComments": Object {
-                "removeAll": true,
-              },
-            },
-          ],
-        },
-        "parallel": true,
-        "test": /\\\\\\.css\\(\\\\\\?\\.\\*\\)\\?\\$/i,
-        "warningsFilter": "<<Function 'warningsFilter'>>",
-      },
-    },
-  ],
-  "moduleIds": "deterministic",
-  "splitChunks": Object {
-    "cacheGroups": Object {
-      "bud": Object {
-        "chunks": "all",
-        "name": "<<Function 'name'>>",
-        "priority": -10,
-        "reuseExistingChunk": true,
-        "test": /\\(\\[\\\\\\\\/\\]@roots\\|webpack\\|style-loader\\|tslib\\|ansi\\|html-entities\\|css-loader\\)/,
-      },
-      "vendor": Object {
-        "chunks": "all",
-        "name": "<<Function 'name'>>",
-        "priority": -20,
-        "reuseExistingChunk": true,
-        "test": /\\[\\\\\\\\/\\]node_modules\\[\\\\\\\\/\\]/,
-      },
-    },
-    "defaultSizeTypes": Array [
-      "...",
+exports[`examples/node-api > when using the node api directly > should emit manifest.json 1`] = `
+{
+  "entrypoints.json": "entrypoints.json",
+  "main.js": "js/main.js",
+  "runtime.js": "js/runtime.js",
+}
+`;
+
+exports[`examples/node-api > when using the node api directly > should emit runtime.js 1`] = `"(()=>{"use strict";var r,e={},o={};function t(r){var n=o[r];if(void 0!==n)return n.exports;var s=o[r]={exports:{}};return e[r](s,s.exports,t),s.exports}t.m=e,r=[],t.O=(e,o,n,s)=>{if(!o){var a=1/0;for(u=0;u<r.length;u++){for(var[o,n,s]=r[u],i=!0,f=0;f<o.length;f++)(!1&s||a>=s)&&Object.keys(t.O).every((r=>t.O[r](o[f])))?o.splice(f--,1):(i=!1,s<a&&(a=s));if(i){r.splice(u--,1);var l=n();void 0!==l&&(e=l)}}return e}s=s||0;for(var u=r.length;u>0&&r[u-1][2]>s;u--)r[u]=r[u-1];r[u]=[o,n,s]},t.o=(r,e)=>Object.prototype.hasOwnProperty.call(r,e),(()=>{var r={121:0};t.O.j=e=>0===r[e];var e=(e,o)=>{var n,s,[a,i,f]=o,l=0;if(a.some((e=>0!==r[e]))){for(n in i)t.o(i,n)&&(t.m[n]=i[n]);if(f)var u=f(t)}for(e&&e(o);l<a.length;l++)s=a[l],t.o(r,s)&&r[s]&&r[s][0](),r[s]=0;return t.O(u)},o=self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[];o.forEach(e.bind(null,0)),o.push=e.bind(null,o.push.bind(o))})()})();"`;
+
+exports[`examples/node-api > when using the webpack cli > should emit entrypoints.json 1`] = `
+{
+  "main": {
+    "js": [
+      "js/runtime.js",
+      "js/main.js",
     ],
   },
 }
 `;
 
-exports[`node-api snapshots .budfiles/bud.webpack.config.js 4`] = `true`;
+exports[`examples/node-api > when using the webpack cli > should emit main.js 1`] = `""use strict";(self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[]).push([[792],{"./index.js":()=>{console.log("hello"),console.log("world")}},o=>{var s;s="./index.js",o(o.s=s)}]);"`;
 
-exports[`node-api snapshots .budfiles/bud.webpack.config.js 5`] = `
-Object {
-  "type": "memory",
+exports[`examples/node-api > when using the webpack cli > should emit manifest.json 1`] = `
+{
+  "entrypoints.json": "entrypoints.json",
+  "index.html": "index.html",
+  "main.js": "js/main.js",
+  "runtime.js": "js/runtime.js",
 }
 `;
 
-exports[`node-api snapshots dist/app.js 1`] = `"console.log(\\"hello\\"),console.log(\\"world\\");"`;
-
-exports[`node-api snapshots dist/manifest.json 1`] = `
-"{
-  \\"app.js\\": \\"app.js\\"
-}"
-`;
-
-exports[`node-api snapshots package.json 1`] = `
-"{
-  \\"name\\": \\"example-node-api\\",
-  \\"private\\": true,
-  \\"browserslist\\": {
-    \\"production\\": [
-      \\">0.5%\\",
-      \\"not dead\\",
-      \\"not op_mini all\\"
-    ],
-    \\"development\\": [
-      \\"last 1 chrome version\\",
-      \\"last 1 firefox version\\",
-      \\"last 1 safari version\\"
-    ]
-  },
-  \\"devDependencies\\": {
-    \\"@roots/bud\\": \\"workspace:sources/@roots/bud\\"
-  }
-}
-"
-`;
+exports[`examples/node-api > when using the webpack cli > should emit runtime.js 1`] = `"(()=>{"use strict";var r,e={},o={};function t(r){var n=o[r];if(void 0!==n)return n.exports;var s=o[r]={exports:{}};return e[r](s,s.exports,t),s.exports}t.m=e,r=[],t.O=(e,o,n,s)=>{if(!o){var a=1/0;for(u=0;u<r.length;u++){for(var[o,n,s]=r[u],i=!0,f=0;f<o.length;f++)(!1&s||a>=s)&&Object.keys(t.O).every((r=>t.O[r](o[f])))?o.splice(f--,1):(i=!1,s<a&&(a=s));if(i){r.splice(u--,1);var l=n();void 0!==l&&(e=l)}}return e}s=s||0;for(var u=r.length;u>0&&r[u-1][2]>s;u--)r[u]=r[u-1];r[u]=[o,n,s]},t.o=(r,e)=>Object.prototype.hasOwnProperty.call(r,e),(()=>{var r={121:0};t.O.j=e=>0===r[e];var e=(e,o)=>{var n,s,[a,i,f]=o,l=0;if(a.some((e=>0!==r[e]))){for(n in i)t.o(i,n)&&(t.m[n]=i[n]);if(f)var u=f(t)}for(e&&e(o);l<a.length;l++)s=a[l],t.o(r,s)&&r[s]&&r[s][0](),r[s]=0;return t.O(u)},o=self.webpackChunk_roots_bud=self.webpackChunk_roots_bud||[];o.forEach(e.bind(null,0)),o.push=e.bind(null,o.push.bind(o))})()})();"`;
