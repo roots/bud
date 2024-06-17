@@ -2,15 +2,11 @@ import type {Bud} from '@roots/bud-framework'
 import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
 
 import {Hooks} from '../base/base.js'
 
 /**
- * Synchronous hooks registry
- *
- * @remarks
- * Supports sync values
+ * Event hooks
  */
 export class EventHooks extends Hooks<EventsStore> {
   @bind
@@ -22,12 +18,13 @@ export class EventHooks extends Hooks<EventsStore> {
 
     for await (const action of this.store[id] as any) {
       this.logger.info(`running ${id}`)
+
       try {
         await action(...value)
         await this.app.resolvePromises()
       } catch (error) {
-        this.logger.error(`problem running ${id} callback`)
-        throw BudError.normalize(error)
+        this.logger.error(`problem running ${id} callback`, error)
+        throw error
       }
     }
 

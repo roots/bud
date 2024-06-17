@@ -19,11 +19,6 @@ const bud = await factory()
 bud.setPath(`@dist`, `dist/build-a`)
 
 /**
- * Add extensions
- */
-await bud.extensions.add([`@roots/bud-swc`])
-
-/**
  * Run build
  */
 await bud.run()
