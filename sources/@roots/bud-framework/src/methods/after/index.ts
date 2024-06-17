@@ -15,14 +15,12 @@ export const after: after = function (
   fn: ((app: Bud) => any) | ((app: Bud) => Promise<any>),
   onError?: (error: Error) => unknown,
 ): Bud {
-  const handleError = onError ?? this.catch
-
   this.hooks.action(`compiler.done`, async bud => {
     try {
       await bud.resolvePromises()
       await fn(bud)
     } catch (error) {
-      handleError(error)
+      onError ? onError(error) : bud.catch(error)
     }
   })
 

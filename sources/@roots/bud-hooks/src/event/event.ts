@@ -2,7 +2,6 @@ import type {Bud} from '@roots/bud-framework'
 import type {Events, EventsStore} from '@roots/bud-framework/registry'
 
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
 
 import {Hooks} from '../base/base.js'
 
@@ -25,7 +24,7 @@ export class EventHooks extends Hooks<EventsStore> {
         await this.app.resolvePromises()
       } catch (error) {
         this.logger.error(`problem running ${id} callback`, error)
-        this.app.catch(error)
+        throw error
       }
     }
 
