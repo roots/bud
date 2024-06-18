@@ -57,14 +57,12 @@ export class Dashboard extends Service implements BudDashboard {
     /**
      * Do not render if silent mode is enabled
      */
-    if (this.app.context.silent) return null
+    if (this.app.context.silent) return
 
     /**
      * Do not render if no stats received
      */
-    if (!stats) {
-      return null
-    }
+    if (!stats) return
 
     /**
      * Render basic output if `--dashboard` flag is false
@@ -73,7 +71,7 @@ export class Dashboard extends Service implements BudDashboard {
       const stringStats = stats.toString({
         preset: `minimal`,
       })
-      return <Text>{stringStats}</Text>
+      return render(<Text>{stringStats}</Text>)
     }
 
     const data: StatsCompilation =

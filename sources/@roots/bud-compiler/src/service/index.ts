@@ -48,7 +48,27 @@ class Compiler extends Service implements BudCompiler {
    */
   @bind
   public onStats(stats: MultiStats) {
-    this.stats = stats.toJson(statsOptions)
+    this.stats = stats.toJson({
+      all: false,
+      children: {
+        all: false,
+        assets: true,
+        cached: true,
+        cachedAssets: true,
+        cachedModules: true,
+        entrypoints: true,
+        errorDetails: false,
+        errors: true,
+        errorsCount: true,
+        hash: true,
+        modules: true,
+        name: true,
+        outputPath: true,
+        timings: true,
+        warnings: true,
+        warningsCount: true,
+      },
+    })
     this.app.dashboard.render(stats)
 
     if (stats.hasErrors()) {
@@ -124,9 +144,7 @@ class Compiler extends Service implements BudCompiler {
       this.logger.info(`parallel compilations: ${this.config.parallelism}`)
     }
 
-    await bud.hooks.fire(`compiler.before`, bud).catch(error => {
-      throw error
-    })
+    await bud.hooks.fire(`compiler.before`, bud)
 
     this.instance = this.implementation(this.config)
     this.instance.hooks.done.tap(bud.label, this.onStats)
@@ -148,28 +166,6 @@ class Compiler extends Service implements BudCompiler {
         throw BudError.normalize(error)
       })
   }
-}
-
-const statsOptions = {
-  all: false,
-  children: {
-    all: false,
-    assets: true,
-    cached: true,
-    cachedAssets: true,
-    cachedModules: true,
-    entrypoints: true,
-    errorDetails: false,
-    errors: true,
-    errorsCount: true,
-    hash: true,
-    modules: true,
-    name: true,
-    outputPath: true,
-    timings: true,
-    warnings: true,
-    warningsCount: true,
-  },
 }
 
 export {Compiler as default}
