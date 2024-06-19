@@ -9,7 +9,7 @@ import isUndefined from '@roots/bud-support/isUndefined'
  * The output of this function becomes the input to the next
  */
 interface Callback<T = any> {
-  (input: T): Promise<T>
+  (input: T): Promise<T> | T
 }
 
 export interface pipe {
@@ -38,8 +38,12 @@ export interface pipe {
 export const pipe: pipe = async function (functions, maybeInitialValue) {
   return await functions.reduce(
     async (value, fn) => {
-      const nextValue = await value
-      return await fn(nextValue)
+      try {
+        return await fn(await value)
+      } catch (e) {
+        this.catch(e)
+        return await value
+      }
     },
     Promise.resolve(
       !isUndefined(maybeInitialValue) ? maybeInitialValue : this,
