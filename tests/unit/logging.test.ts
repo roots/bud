@@ -1,5 +1,4 @@
 import {Bud, factory} from '@repo/test-kit'
-import logger from '@roots/bud-support/logger'
 import {beforeAll, describe, expect, it, vi} from 'vitest'
 
 describe(`bud`, function () {

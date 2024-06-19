@@ -25,6 +25,7 @@ export const optimization: Factory<`optimization`> = async ({
       `build.optimization.providedExports`,
       isProduction,
     ),
+
     /**
      * Will be new default in webpack 6
      * @see {@link https://webpack.js.org/configuration/optimization/#optimizationremoveavailablemodules}
