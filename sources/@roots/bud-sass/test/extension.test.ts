@@ -1,61 +1,198 @@
-import type {Bud} from '@roots/bud-framework'
-
-import {factory} from '@repo/test-kit'
-import BudPostCSS from '@roots/bud-postcss'
-import BudSass from '@roots/bud-sass'
-import isObject from '@roots/bud-support/isObject'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-describe(`@roots/bud-sass/extension`, () => {
-  let bud: Bud
-  let postcss: BudPostCSS
-  let sass: BudSass
+import {BudSass} from '../src/extension/index'
+
+describe.sequential(`@roots/bud-sass`, () => {
+  let bud: any
+  let extension: BudSass
 
   beforeEach(async () => {
-    vi.clearAllMocks()
+    bud = {
+      build: {
+        rules: {
+          css: {
+            getUse: vi.fn(() => [`precss`, `css`, `postcss`]),
+          },
+          'css-module': {
+            getUse: vi.fn(() => [`precss`, `css-module`, `postcss`]),
+          },
+          sass: {
+            setUse: vi.fn(),
+          },
+          'sass-module': {
+            setUse: vi.fn(),
+          },
+        },
+        setItem: vi.fn(),
+        setLoader: vi.fn(),
+        setRule: vi.fn(),
+      },
+      extensions: {
+        add: vi.fn(),
+      },
+      hooks: {
+        on: vi.fn(),
+      },
+      module: {
+        import: vi.fn(async () => await import(`sass`)),
+        resolve: vi.fn(async () => `sass-loader`),
+      },
+      postcss: {
+        setSyntax: vi.fn(),
+      },
+    }
+    bud.build.setItem = vi.fn(() => bud.build)
+    bud.build.setLoader = vi.fn(() => bud.build)
+    bud.build.setRule = vi.fn(() => bud.build)
+    bud.hooks.on = vi.fn(() => bud)
 
-    bud = await factory()
-
-    postcss = new BudPostCSS(bud) as any
-    bud.postcss = postcss as any
-
-    sass = new BudSass(bud) as any
-    bud.sass = sass as any
+    extension = new BudSass(bud) as any
   })
 
   it(`should be instantiable`, () => {
-    expect(sass).toBeInstanceOf(BudSass)
+    expect(extension).toBeInstanceOf(BudSass)
   })
 
-  it(`should call import when sass.register is called`, async () => {
-    const importSpy = vi.spyOn(sass, `import`)
-    await sass.register(bud)
-    expect(importSpy).toHaveBeenCalled()
+  it(`should log error when sass-loader is unresolvable`, async () => {
+    const spy = vi.spyOn(extension.logger, `error`)
+    bud.module.resolve = vi.fn(async () => false)
+
+    await extension.register(bud)
+
+    expect(spy).toHaveBeenCalledWith(`sass-loader not found`)
   })
 
-  it(`should call set when sass.registerGlobal is called`, () => {
-    const setSpy = vi.spyOn(sass, `set`)
+  it(`should log warning when sass implementation can't be imported`, async () => {
+    const spy = vi.spyOn(extension.logger, `warn`)
+    extension.import = vi.fn(async () => undefined)
 
-    sass.registerGlobal(`$primary-color: #ff0000;`)
-    expect(sass.get(`additionalData`)).toBe(`$primary-color: #ff0000;`)
+    await extension.register(bud)
+
+    expect(spy).toHaveBeenCalledWith(
+      `sass implementation not explicitly resolvable. falling back on default implementation.`,
+    )
+  })
+
+  it(`should register sass.default when sass.info is not present`, async () => {
+    const sass = {default: true} as any
+    extension.import = vi.fn(async () => sass)
+
+    await extension.register(bud)
+
+    expect(extension.getImplementation()).toBe(sass.default)
+  })
+
+  it(`should register * from sass when sass.info is present`, async () => {
+    const sass = {default: true, info: true} as any
+    extension.import = vi.fn(async () => sass)
+
+    await extension.register(bud)
+
+    expect(extension.getImplementation()).toBe(sass)
+  })
+
+  it(`should call import`, async () => {
+    const importSpy = vi.spyOn(extension, `import`)
+    await extension.register(bud)
+
+    expect(importSpy).toHaveBeenCalledWith(
+      `sass`,
+      expect.stringContaining(`@roots/bud-sass`),
+      expect.objectContaining({
+        raw: true,
+      }),
+    )
+  })
+
+  it(`should call set when extension.registerGlobal is called`, () => {
+    extension.registerGlobal(`$primary-color: #ff0000;`)
+    expect(extension.get(`additionalData`)).toBe(
+      `$primary-color: #ff0000;`,
+    )
+  })
+
+  it(`should register alias`, async () => {
+    await extension.register(bud)
+    await extension.boot(bud)
+
+    expect(bud.hooks.on).toHaveBeenCalledWith(
+      `build.resolveLoader.alias`,
+      extension.onBuildResolveLoaderAlias,
+    )
+  })
+
+  describe(`onBuildResolveLoaderAlias`, () => {
+    it(`should return aliases object`, async () => {
+      await extension.register(bud)
+      await extension.boot(bud)
+
+      const aliases = extension.onBuildResolveLoaderAlias({})
+      expect(aliases).toStrictEqual(
+        expect.objectContaining({
+          'sass-loader': extension.loaderPath,
+        }),
+      )
+    })
+
+    it(`should return aliases unchanged if sass-loader is unresolvable`, async () => {
+      await extension.register(bud)
+      await extension.boot(bud)
+
+      const initialAliases = {}
+      extension.loaderPath = false
+
+      const aliases = extension.onBuildResolveLoaderAlias(initialAliases)
+
+      expect(aliases).toStrictEqual(initialAliases)
+    })
+  })
+
+  describe(`onBuildResolveExtensions`, () => {
+    it(`should return extensions array`, async () => {
+      await extension.register(bud)
+      await extension.boot(bud)
+
+      const extensions = extension.onBuildResolveExtensions()
+      expect(extensions).toStrictEqual(new Set([`.sass`, `.scss`]))
+    })
+  })
+
+  describe(`withSassLoader`, () => {
+    it(`should return array plus sass-loader`, async () => {
+      await extension.register(bud)
+      await extension.boot(bud)
+
+      const arr: Array<any> = [`precss`, `css`, `postcss`]
+      const use = extension.withSassLoader(arr)
+      expect(use).toStrictEqual(expect.arrayContaining([...arr, `sass`]))
+    })
+  })
+
+  it(`should register extensions`, async () => {
+    await extension.register(bud)
+    await extension.boot(bud)
+
+    expect(bud.hooks.on).toHaveBeenCalledWith(
+      `build.resolve.extensions`,
+      expect.any(Function),
+    )
   })
 
   it(`should call setLoader`, async () => {
-    const setLoaderSpy = vi.spyOn(bud.build, `setLoader`)
-    await sass.register(bud)
+    await extension.register(bud)
+    await extension.boot(bud)
 
-    expect(setLoaderSpy).toHaveBeenCalledWith(
+    expect(bud.build.setLoader).toHaveBeenCalledWith(
       `sass`,
       expect.stringContaining(`sass-loader`),
     )
   })
 
   it(`should call setItem`, async () => {
-    const setItemSpy = vi.spyOn(bud.build, `setItem`)
+    await extension.register(bud)
+    await extension.boot(bud)
 
-    await sass.register(bud)
-
-    expect(setItemSpy).toHaveBeenCalledWith(
+    expect(bud.build.setItem).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
         loader: `sass`,
@@ -65,32 +202,50 @@ describe(`@roots/bud-sass/extension`, () => {
   })
 
   it(`should call setRule`, async () => {
-    const setRuleSpy = vi.spyOn(bud.build, `setRule`)
+    await extension.register(bud)
+    await extension.boot(bud)
 
-    await sass.register(bud)
-    await sass.boot(bud)
-
-    expect(setRuleSpy).toHaveBeenCalledWith(
+    expect(bud.build.setRule).toHaveBeenCalledWith(
       `sass`,
       expect.objectContaining({
         include: expect.arrayContaining([expect.any(Function)]),
         test: expect.any(Function),
       }),
     )
+    expect(bud.build.setRule).toHaveBeenCalledWith(
+      `sass-module`,
+      expect.objectContaining({
+        include: expect.arrayContaining([expect.any(Function)]),
+        test: expect.any(Function),
+      }),
+    )
+    expect(bud.build.rules.sass.setUse).toHaveBeenCalledWith(
+      extension.withSassLoader,
+    )
+    expect(bud.build.rules[`sass-module`].setUse).toHaveBeenCalledWith(
+      extension.withSassLoader,
+    )
   })
 
   it(`should set postcss syntax`, async () => {
-    vi.clearAllMocks()
-    postcss.setSyntax?.(``)
-    await sass.register(bud)
-    await sass.boot(bud)
+    await extension.register(bud)
+    await extension.boot(bud)
 
-    expect(sass.app.postcss.syntax).toEqual(`postcss-scss`)
+    expect(bud.postcss.setSyntax).toHaveBeenCalledWith(`postcss-scss`)
   })
 
   it(`should register global when importGlobal is called`, () => {
-    const registerGlobalSpy = vi.spyOn(sass, `registerGlobal`)
-    sass.importGlobal(`@src/styles/global.scss`)
+    const registerGlobalSpy = vi.spyOn(extension, `registerGlobal`)
+    extension.importGlobal(`@src/styles/global.scss`)
+
+    expect(registerGlobalSpy).toHaveBeenCalledWith([
+      `@import "@src/styles/global.scss";`,
+    ])
+  })
+
+  it(`should register global when importGlobal is called with an array`, () => {
+    const registerGlobalSpy = vi.spyOn(extension, `registerGlobal`)
+    extension.importGlobal([`@src/styles/global.scss`])
 
     expect(registerGlobalSpy).toHaveBeenCalledWith([
       `@import "@src/styles/global.scss";`,
@@ -98,14 +253,13 @@ describe(`@roots/bud-sass/extension`, () => {
   })
 
   it(`should add global to \`additionalData\``, () => {
-    sass.set(`additionalData`, undefined)
+    extension.setAdditionalData(undefined)
+    extension.registerGlobal(`$foo: rgba(0, 0, 0, 1);`)
 
-    sass.registerGlobal(`$foo: rgba(0, 0, 0, 1);`)
-
-    expect(sass.getOption(`additionalData`)).toBe(
+    expect(extension.getOption(`additionalData`)).toBe(
       `$foo: rgba(0, 0, 0, 1);`,
     )
-    expect(sass.options.additionalData).toBe(`$foo: rgba(0, 0, 0, 1);`)
+    expect(extension.getAdditionalData()).toBe(`$foo: rgba(0, 0, 0, 1);`)
   })
 
   it(`should import partials from an array`, () => {
@@ -114,59 +268,9 @@ describe(`@roots/bud-sass/extension`, () => {
       `$bar: rgba(255, 255, 255, 1);`,
     ]
 
-    sass.set(`additionalData`, undefined)
-    sass.registerGlobal(code)
+    extension.setAdditionalData(undefined)
+    extension.registerGlobal(code)
 
-    sass.additionalData
-
-    expect(sass.options.additionalData?.split(`\n`)).toStrictEqual(code)
-  })
-
-  it(`should register issuer rules`, async () => {
-    await sass.register(bud)
-
-    const config = await bud.build.make()
-    const mainRuleSet = config.module?.rules?.[4]
-
-    if (typeof mainRuleSet !== `object` || !mainRuleSet)
-      throw new Error(`mainRuleSet is not an object`)
-    if (!(`oneOf` in mainRuleSet))
-      throw new Error(`mainRuleSet.oneOf is not defined`)
-    if (!Array.isArray(mainRuleSet.oneOf))
-      throw new Error(`mainRuleSet.oneOf is not an array`)
-    if (!isObject(mainRuleSet.oneOf[0]))
-      throw new Error(`mainRuleSet[0].oneOf is not an object`)
-    if (!isObject(mainRuleSet.oneOf[1]))
-      throw new Error(`mainRuleSet[1].oneOf is not an object`)
-
-    const sassModuleRule = mainRuleSet.oneOf.find(rule => {
-      if (!isObject(rule)) return false
-      if (
-        !(`issuer` in rule) ||
-        typeof rule.issuer === `undefined` ||
-        typeof rule.issuer === `string` ||
-        rule.issuer instanceof RegExp
-      )
-        return false
-
-      if (!(`not` in rule.issuer)) return false
-      return rule.issuer.not === bud.hooks.filter(`pattern.sassModule`)
-    })
-    expect(sassModuleRule).toBeDefined()
-
-    const sassRule = mainRuleSet.oneOf.find(rule => {
-      if (!isObject(rule)) return false
-      if (
-        !(`issuer` in rule) ||
-        typeof rule.issuer === `undefined` ||
-        typeof rule.issuer === `string` ||
-        rule.issuer instanceof RegExp
-      )
-        return false
-
-      if (!(`not` in rule.issuer)) return false
-      return rule.issuer.not === bud.hooks.filter(`pattern.sass`)
-    })
-    expect(sassRule).toBeDefined()
+    expect(extension.getAdditionalData()?.split(`\n`)).toStrictEqual(code)
   })
 })

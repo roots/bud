@@ -50,7 +50,7 @@
   "type": "module",
   "exports": {
     ".": "./lib/index.js",
-    "./extension": "./lib/extension.js",
+    "./extension": "./lib/extension/index.js",
     "./resolve-url": "./lib/resolve-url/index.js",
     "./stylelint-config": "./config/stylelint.cjs",
     "./config/stylelint": "./config/stylelint.cjs",
@@ -62,7 +62,7 @@
         "./lib/index.d.ts"
       ],
       "extension": [
-        "./lib/extension.d.ts"
+        "./lib/extension/index.d.ts"
       ],
       "resolve-url": [
         "./lib/resolve-url/index.d.ts"
@@ -78,6 +78,7 @@
     "@types/node": "20.12.8",
     "postcss": "8.4.38",
     "stylelint": "16.5.0",
+    "vitest": "1.6.0",
     "webpack": "5.91.0"
   },
   "dependencies": {

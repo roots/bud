@@ -1,7 +1,7 @@
 import type {Options as SassLoaderOptions} from 'sass-loader'
 
 import {Extension, type ExtensionApi} from '@roots/bud-framework/extension'
-import {bind, options} from '@roots/bud-framework/extension/decorators'
+import {options} from '@roots/bud-framework/extension/decorators'
 
 type Options = {
   /**
@@ -20,8 +20,7 @@ type Options = {
    * {@link Options.warnRuleAsWarning}
    */
   warnRuleAsWarning: SassLoaderOptions[`warnRuleAsWarning`] | undefined
-} & Record<string, unknown> &
-  SassLoaderOptions
+} & SassLoaderOptions
 
 export type BudSassApi = {
   /**
@@ -92,10 +91,6 @@ export class BudSassOptions extends Extension<Options> {
    */
   public declare getSourceMap: BudSassApi[`getSourceMap`]
   /**
-   * {@link Options.warnRuleAsWarning}
-   */
-  public declare getWarnRuleAsWarning: BudSassApi[`getWarnRuleAsWarning`]
-  /**
    * {@link Options.implementation}
    */
   public declare implementation: BudSassApi[`implementation`] &
@@ -113,11 +108,6 @@ export class BudSassOptions extends Extension<Options> {
    * {@link Options.sourceMap}
    */
   public declare setSourceMap: BudSassApi[`setSourceMap`]
-
-  /**
-   * {@link Options.warnRuleAsWarning}
-   */
-  public declare setWarnRuleAsWarning: BudSassApi[`setWarnRuleAsWarning`]
   /**
    * {@link Options.sourceMap}
    */
@@ -127,66 +117,12 @@ export class BudSassOptions extends Extension<Options> {
    */
   public declare warnRuleAsWarning: BudSassApi[`warnRuleAsWarning`] &
     Options['warnRuleAsWarning']
-
   /**
-   * Import a partial globally
-   *
-   * @remarks
-   * Used to import a partial globally (such as a `variables.scss` file)
-   *
-   * @example
-   * With a single module signifier:
-   * ```ts
-   * bud.sass.importGlobal('styles/variables.scss')
-   * ```
-   *
-   * @example
-   * With an array of module signifiers:
-   * ```ts
-   * bud.sass.importGlobal([
-   *  'styles/variables.scss',
-   *  'styles/mixins.scss',
-   * ])
-   * ```
-   *
-   * @see {@link options.additionalData}
+   * {@link Options.warnRuleAsWarning}
    */
-  @bind
-  public importGlobal(data: Array<string> | string): this {
-    const globals = (Array.isArray(data) ? data : [data])
-      .map(str => str.trim())
-      .filter(Boolean)
-      .map(item => `@import "${item}";`)
-
-    return this.registerGlobal(globals)
-  }
-
+  public declare getWarnRuleAsWarning: BudSassApi[`getWarnRuleAsWarning`]
   /**
-   * Register global stylsheet
-   *
-   * @remarks
-   * Used to register styles which are included globally
-   *
-   * @example
-   * ```ts
-   * bud.sass.registerGlobal(`$primary-color: #ff0000;`)
-   * ```
-   *
-   * @see {@link Options.additionalData}
+   * {@link Options.warnRuleAsWarning}
    */
-  @bind
-  public registerGlobal(additionalData: Array<string> | string): this {
-    this.setAdditionalData((data = ``) => {
-      const processedString = (
-        Array.isArray(additionalData) ? additionalData : [additionalData]
-      )
-        .map(str => str.trim())
-        .filter(Boolean)
-        .join(`\n`)
-
-      return [data, processedString].join(``)
-    })
-
-    return this
-  }
+  public declare setWarnRuleAsWarning: BudSassApi[`setWarnRuleAsWarning`]
 }

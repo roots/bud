@@ -8,11 +8,11 @@
 import type {Item, Loader, Rule} from '@roots/bud-framework'
 import type BudResolveUrl from '@roots/bud-sass/resolve-url'
 
-import {BudSass, type BudSassApi} from '@roots/bud-sass/extension'
+import {BudSass} from '@roots/bud-sass/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    sass: BudSassApi
+    sass: BudSass
   }
 
   interface Modules {
@@ -37,4 +37,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default BudSass
+export {BudSass as default} from '@roots/bud-sass/extension'
