@@ -113,7 +113,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
   it(`should register alias`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.hooks.on).toHaveBeenCalledWith(
       `build.resolveLoader.alias`,
@@ -124,7 +123,6 @@ describe.sequential(`@roots/bud-sass`, () => {
   describe(`onBuildResolveLoaderAlias`, () => {
     it(`should return aliases object`, async () => {
       await extension.register(bud)
-      await extension.boot(bud)
 
       const aliases = extension.onBuildResolveLoaderAlias({})
       expect(aliases).toStrictEqual(
@@ -136,7 +134,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
     it(`should return aliases unchanged if sass-loader is unresolvable`, async () => {
       await extension.register(bud)
-      await extension.boot(bud)
 
       const initialAliases = {}
       extension.loaderPath = false
@@ -150,7 +147,6 @@ describe.sequential(`@roots/bud-sass`, () => {
   describe(`onBuildResolveExtensions`, () => {
     it(`should return extensions array`, async () => {
       await extension.register(bud)
-      await extension.boot(bud)
 
       const extensions = extension.onBuildResolveExtensions()
       expect(extensions).toStrictEqual(new Set([`.sass`, `.scss`]))
@@ -160,7 +156,6 @@ describe.sequential(`@roots/bud-sass`, () => {
   describe(`withSassLoader`, () => {
     it(`should return array plus sass-loader`, async () => {
       await extension.register(bud)
-      await extension.boot(bud)
 
       const arr: Array<any> = [`precss`, `css`, `postcss`]
       const use = extension.withSassLoader(arr)
@@ -170,7 +165,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
   it(`should register extensions`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.hooks.on).toHaveBeenCalledWith(
       `build.resolve.extensions`,
@@ -180,7 +174,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
   it(`should call setLoader`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.build.setLoader).toHaveBeenCalledWith(
       `sass`,
@@ -190,7 +183,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
   it(`should call setItem`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.build.setItem).toHaveBeenCalledWith(
       `sass`,
@@ -203,7 +195,6 @@ describe.sequential(`@roots/bud-sass`, () => {
 
   it(`should call setRule`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.build.setRule).toHaveBeenCalledWith(
       `sass`,
@@ -219,17 +210,10 @@ describe.sequential(`@roots/bud-sass`, () => {
         test: expect.any(Function),
       }),
     )
-    expect(bud.build.rules.sass.setUse).toHaveBeenCalledWith(
-      extension.withSassLoader,
-    )
-    expect(bud.build.rules[`sass-module`].setUse).toHaveBeenCalledWith(
-      extension.withSassLoader,
-    )
   })
 
   it(`should set postcss syntax`, async () => {
     await extension.register(bud)
-    await extension.boot(bud)
 
     expect(bud.postcss.setSyntax).toHaveBeenCalledWith(`postcss-scss`)
   })

@@ -159,10 +159,7 @@ describe(`@roots/bud-sass/resolve-url`, () => {
       `resolve-url`,
       expect.objectContaining({
         loader: `resolve-url`,
-        options: {
-          root: `/test/src/dir`,
-          sourceMap: true,
-        },
+        options: expect.any(Function),
       }),
     )
   })

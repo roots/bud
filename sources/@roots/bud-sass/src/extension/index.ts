@@ -24,7 +24,12 @@ export class BudSass extends BudSassOptions {
    * {@link Extension.register}
    */
   @bind
-  public override async register({hooks}: Bud) {
+  public override async register({
+    build,
+    extensions,
+    hooks,
+    postcss,
+  }: Bud) {
     /* Source loader */
     this.loaderPath = await this.resolve(`sass-loader`, import.meta.url)
     if (!this.loaderPath) return this.logger.error(`sass-loader not found`)
@@ -48,13 +53,7 @@ export class BudSass extends BudSassOptions {
     this.setImplementation(
       `info` in implementation ? implementation : implementation.default,
     )
-  }
 
-  /**
-   * {@link Extension.boot}
-   */
-  @bind
-  public override async boot({build, extensions, postcss}: Bud) {
     build
       .setLoader(`sass`, `sass-loader`)
       .setItem(`sass`, {
@@ -64,14 +63,13 @@ export class BudSass extends BudSassOptions {
       .setRule(`sass`, {
         include: [({path}) => path(`@src`)],
         test: ({hooks}) => hooks.filter(`pattern.sass`),
+        use: this.withSassLoader(build.rules.css.getUse()),
       })
       .setRule(`sass-module`, {
         include: [({path}) => path(`@src`)],
         test: ({hooks}) => hooks.filter(`pattern.sassModule`),
+        use: this.withSassLoader(build.rules[`css-module`].getUse()),
       })
-
-    build.rules.sass.setUse(this.withSassLoader)
-    build.rules[`sass-module`].setUse(this.withSassLoader)
 
     if (postcss?.setSyntax) {
       postcss.setSyntax(`postcss-scss`)
@@ -166,8 +164,8 @@ export class BudSass extends BudSassOptions {
 
   @bind
   public withSassLoader(
-    use: Array<Item | keyof Items> = [],
-  ): Array<Item | keyof Items> {
+    use: Array<Item | keyof Items | undefined> = [],
+  ): Array<Item | keyof Items | undefined> {
     use.push(`sass`)
     return use
   }

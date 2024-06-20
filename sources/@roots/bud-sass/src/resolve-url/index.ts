@@ -13,7 +13,7 @@ import {
  */
 @label(`@roots/bud-sass/resolve-url`)
 @options({
-  root: DynamicOption.make((bud: Bud) => bud.path(`@src`)),
+  root: DynamicOption.make(({path}: Bud) => path(`@src`)),
   sourceMap: true,
 })
 export default class BudResolveUrl extends Extension {
@@ -23,7 +23,7 @@ export default class BudResolveUrl extends Extension {
    * {@link Extension.register}
    */
   @bind
-  public override async register({build, hooks}: Bud) {
+  public override async register({build, hooks, path}: Bud) {
     /** Source loader */
     this.loaderPath = await this.resolve(
       `resolve-url-loader`,
@@ -40,7 +40,7 @@ export default class BudResolveUrl extends Extension {
       .setLoader(`resolve-url`, this.loaderPath)
       .setItem(`resolve-url`, {
         loader: `resolve-url`,
-        options: this.getOptions(),
+        options: this.getOptions,
       })
   }
 

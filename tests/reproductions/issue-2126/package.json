@@ -8,8 +8,5 @@
     "@roots/bud-sass": "workspace:*",
     "@roots/bud-vue": "workspace:*",
     "@roots/sage": "workspace:*"
-  },
-  "bud": {
-    "extensions": {}
   }
 }
