@@ -8619,6 +8619,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@examples/sage-with-stylelint@workspace:examples/sage-with-stylelint":
+  version: 0.0.0-use.local
+  resolution: "@examples/sage-with-stylelint@workspace:examples/sage-with-stylelint"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-stylelint": "workspace:*"
+    "@roots/bud-tailwindcss": "workspace:*"
+    "@roots/sage": "workspace:*"
+  languageName: unknown
+  linkType: soft
+
 "@examples/sage@workspace:examples/sage":
   version: 0.0.0-use.local
   resolution: "@examples/sage@workspace:examples/sage"
