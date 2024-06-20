@@ -2,6 +2,7 @@ import type {Bud} from '@roots/bud-framework'
 
 import {addConfig} from '@roots/bud-framework/methods/addConfig'
 import {after} from '@roots/bud-framework/methods/after'
+import {before} from '@roots/bud-framework/methods/before'
 import {bindFacade} from '@roots/bud-framework/methods/bindFacade'
 import {close} from '@roots/bud-framework/methods/close'
 import {container} from '@roots/bud-framework/methods/container'
@@ -32,6 +33,7 @@ type methods = Partial<{
 const methods = {
   addConfig,
   after,
+  before,
   bindFacade,
   close,
   container,
