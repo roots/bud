@@ -1,0 +1,15 @@
+{
+  "name": "@examples/sage-with-stylelint",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-stylelint": "workspace:*",
+    "@roots/bud-tailwindcss": "workspace:*",
+    "@roots/sage": "workspace:*"
+  }
+}

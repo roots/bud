@@ -1,0 +1,10 @@
+@import 'tailwindcss/base';
+
+@import 'common/global';
+
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+body {
+  background: url('@src/images/logo.svg?inline') no-repeat;
+}
