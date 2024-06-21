@@ -11583,6 +11583,7 @@ __metadata:
     "@skypack/package-check": "npm:0.2.2"
     "@types/node": "npm:20.12.8"
     tslib: "npm:2.6.2"
+    vitest: "npm:1.6.0"
   languageName: unknown
   linkType: soft
 
