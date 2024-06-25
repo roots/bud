@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/isArray'
 import isFunction from '@roots/bud-support/isFunction'
 import noop from '@roots/bud-support/noop'
@@ -60,7 +60,7 @@ export function when(
 
   /* validate */
   if (![...whenTrue, ...whenFalse].every(isFunction)) {
-    throw InputError.normalize(
+    throw BudError.normalize(
       `bud.when: all supplied conditionals must be functions`,
       {
         docs: new URL(`https://bud.js.org/docs/bud.when`),

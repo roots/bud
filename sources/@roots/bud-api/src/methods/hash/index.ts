@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 
 export type Value =
   | ((hash?: boolean) => boolean | string)
@@ -27,7 +27,7 @@ export const hash: hash = function (this: Bud, value = true) {
     value = value(this.context.hash)
 
     if (typeof value !== `boolean` && typeof value !== `string`)
-      throw new InputError(`bud.hash: invalid input`, {
+      throw new BudError(`bud.hash: invalid input`, {
         details: `callbacks supplied to bud.hash should return a boolean or a string value`,
         docs: new URL(`https://bud.js.org/reference/bud.hash`),
         thrownBy: `@roots/bud-api/methods/hash`,
@@ -47,7 +47,7 @@ export const hash: hash = function (this: Bud, value = true) {
     return setFormat(this, value)
   }
 
-  throw new InputError(`bud.hash: invalid input`, {
+  throw new BudError(`bud.hash: invalid input`, {
     details: `bud.hash accepts a boolean, string, or callback function as input.`,
     docs: new URL(`https://bud.js.org/reference/bud.hash`),
     thrownBy: `@roots/bud-api/methods/hash`,

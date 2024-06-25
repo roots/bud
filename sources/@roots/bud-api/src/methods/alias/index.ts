@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 
 import type {Parameters} from './types.js'
 
@@ -30,11 +30,11 @@ export const alias: alias = function (this: Bud, ...input) {
   }
 
   if (!isSignifier(input[0]))
-    throw new InputError(
+    throw new BudError(
       `bud.alias received invalid input. param[0] must be a string.`,
     )
   if (!isValue(input[1])) {
-    throw new InputError(
+    throw new BudError(
       `bud.alias received invalid input. param[1] must be a string.`,
     )
   }

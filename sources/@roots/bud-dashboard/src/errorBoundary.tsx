@@ -18,10 +18,7 @@ class ErrorBoundary extends Component {
 
   public override componentDidCatch(error: Error) {
     logger.error(
-      `There was an error rendering the dashboard.`,
-      `This may be an error in bud.js.`,
-      `\nError:`,
-      (error?.message ?? error).trim(),
+      `There was an error rendering the dashboard. This may be an error in bud.js.\nError: ${(error?.message ?? error).trim()}`,
     )
 
     if (this.props.compilation) {

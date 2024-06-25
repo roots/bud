@@ -4,7 +4,7 @@ import type {Bud} from '@roots/bud-framework'
 import {Extension} from '@roots/bud-framework/extension'
 import {expose} from '@roots/bud-framework/extension/decorators/expose'
 import {label} from '@roots/bud-framework/extension/decorators/label'
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
 
@@ -179,7 +179,7 @@ class BabelExtension extends Extension {
     }
 
     if (Array.isArray(name)) {
-      throw new InputError(`Invalid plugin name`)
+      throw new BudError(`Invalid plugin name`)
     }
 
     this.plugins[name] = Array.isArray(plugin) ? plugin : [plugin]
@@ -223,7 +223,7 @@ class BabelExtension extends Extension {
     }
 
     if (Array.isArray(name)) {
-      throw new InputError(`Invalid preset name`)
+      throw new BudError(`Invalid preset name`)
     }
 
     this.presets[name] = Array.isArray(preset) ? preset : [preset]

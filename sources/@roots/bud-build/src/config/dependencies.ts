@@ -1,6 +1,6 @@
 import type {Factory} from '@roots/bud-build/config'
 
-import {ConfigError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isUndefined from '@roots/bud-support/isUndefined'
 
 export const dependencies: Factory<`dependencies`> = async ({
@@ -14,7 +14,7 @@ export const dependencies: Factory<`dependencies`> = async ({
       const defined = !isUndefined(root.children?.[dependency])
 
       if (!defined) {
-        throw ConfigError.normalize(
+        throw BudError.normalize(
           `${dependency} is not a registered instance of bud.js.`,
           {
             details: root.children

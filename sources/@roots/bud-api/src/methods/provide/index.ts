@@ -1,6 +1,6 @@
 import type {Bud} from '@roots/bud-framework'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
 
@@ -28,7 +28,7 @@ export const provide: provide = async function (this: Bud, ...params) {
     const accessors = !Array.isArray(params[1]) ? [params[1]] : params[1]
 
     if (!valid(value) || !valid(accessors)) {
-      throw new InputError(
+      throw new BudError(
         `bud.provide: when specifying a key and value using multiple parameters, the key should be a string and the value should be a string or array of strings`,
         {
           docs: new URL(`https://bud.js.org/reference/bud.provide`),

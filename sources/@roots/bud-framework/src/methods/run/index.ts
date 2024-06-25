@@ -1,5 +1,7 @@
 import type {Bud, Compiler} from '@roots/bud-framework'
 
+import {BudError} from '@roots/bud-support/errors'
+
 /**
  * Run the build
  */
@@ -18,7 +20,7 @@ export const run: run = async function (this: Bud) {
     compilation.run((error?: Error | null | undefined) => {
       compilation.close((error?: Error | null | undefined) => {
         if (!hasCompiler(this)) return
-        if (error) this.catch(error)
+        if (error) this.catch(BudError.normalize(error))
       })
     })
   }

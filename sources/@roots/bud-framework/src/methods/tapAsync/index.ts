@@ -1,5 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
+import {BudError} from '@roots/bud-support/errors'
+
 export interface tapAsync<T = Bud> {
   (fn: (app: Bud) => Promise<unknown>): Promise<Bud>
 }
@@ -32,10 +34,11 @@ export const tapAsync: tapAsync = async function (
   fn: (app: Bud) => Promise<unknown>,
 ): Promise<Bud> {
   await this.resolvePromises()
-    .then(async () => {
-      await fn.call(this, this).catch(this.catch)
+  await fn.call(this, this).catch(error => {
+    throw BudError.normalize(`failed on tapAsync`, {
+      origin: error,
     })
-    .catch(this.catch)
+  })
 
   return this
 }

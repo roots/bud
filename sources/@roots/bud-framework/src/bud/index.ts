@@ -21,7 +21,7 @@ import {exit} from 'node:process'
 import {bootstrap} from '@roots/bud-framework/bootstrap'
 import methods from '@roots/bud-framework/methods'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {BudError} from '@roots/bud-support/errors'
+import {BudError, render as renderError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/isFunction'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
@@ -221,13 +221,12 @@ export class Bud {
    * Error handler
    */
   @bind
-  public catch(error: Error | string) {
-    if (!this.context.silent)
-      logger.error(isString(error) ? error : error.message)
+  public catch(error: BudError | Error | null | string | undefined) {
+    renderError(error)
 
-    if (this.context.ignoreErrors) return
-
-    exit(1)
+    if (!this.context.ignoreErrors) {
+      exit(1)
+    }
   }
 
   /**
@@ -247,7 +246,7 @@ export class Bud {
    */
   @bind
   public async initialize(context?: Context): Promise<Bud> {
-    if (!context) throw BudError.normalize(`context is required`)
+    if (!context) this.catch(`context is required`)
 
     this.context = {...(this.context ?? {}), ...context}
 
@@ -335,7 +334,12 @@ export class Bud {
 
     await promises.reduce(async (promised, promise) => {
       await promised
-      await promise(this)
+
+      try {
+        await promise(this)
+      } catch (error) {
+        throw error
+      }
     }, Promise.resolve())
   }
 
@@ -420,8 +424,8 @@ export class Bud {
    * @deprecated
    */
   @bind
-  public error(...messages: Array<any>) {
-    logger.scope(this.label).error(...messages)
+  public error(error: Error | string) {
+    logger.scope(this.label).error(error)
     return this
   }
 }

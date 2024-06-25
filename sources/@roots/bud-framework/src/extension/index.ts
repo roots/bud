@@ -5,7 +5,7 @@ import type * as Model from '@roots/bud-framework/extension/types'
 
 import {Bud} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support/decorators/bind'
-import {ExtensionError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import get from '@roots/bud-support/get'
 import isFunction from '@roots/bud-support/isFunction'
 import isObject from '@roots/bud-support/isObject'
@@ -78,11 +78,12 @@ export class Extension<
     const label =
       this.label ?? this.constructor?.name ?? `unknown_extension`
 
-    throw ExtensionError.normalize(error, {
+    throw BudError.normalize(error, {
       docs: new URL(`https://bud.js.org/docs/extensions`),
       issue: new URL(
         `https://github.com/roots/bud/search?q=is:issue+${label} in:title`,
       ),
+      name: label,
       thrownBy: import.meta.url,
     })
   }

@@ -23,7 +23,9 @@ export class EventHooks extends Hooks<EventsStore> {
         await action(...value)
         await this.app.resolvePromises()
       } catch (error) {
-        this.logger.error(`problem running ${id} callback`, error)
+        this.logger.error(
+          `problem running ${id} callback: ${error.message ?? error}`,
+        )
         throw error
       }
     }

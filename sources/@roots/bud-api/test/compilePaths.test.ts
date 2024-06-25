@@ -1,4 +1,4 @@
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import {compilePaths as compilePathsFn} from '../src/methods/compilePaths'
@@ -8,7 +8,7 @@ describe(`@roots/bud-api/methods/compilePaths`, function () {
   let compilePaths: compilePathsFn
   let ruleGetTest = vi.fn(rule => `mock_getTest`)
   let ruleSetInclude = vi.fn(() => `mock_setInclude`)
-  let error: InputError
+  let error: BudError
 
   beforeEach(() => {
     class MockBud {
@@ -31,9 +31,10 @@ describe(`@roots/bud-api/methods/compilePaths`, function () {
           js: {},
         },
       }
+      public catch = vi.fn()
       public hooks = {
         action: vi.fn(async (event, cb) => {
-          return await cb(this).catch((errorInstance: InputError) => {
+          return await cb(this).catch((errorInstance: BudError) => {
             error = errorInstance
           })
         }),
@@ -54,23 +55,35 @@ describe(`@roots/bud-api/methods/compilePaths`, function () {
   })
 
   it(`should throw when input is undefined`, () => {
-    // @ts-ignore
-    expect(() => compilePaths()).toThrow()
+    /// @ts-ignore
+    compilePaths(1)
+    expect(mockBud.catch).toHaveBeenCalledWith(
+      `bud.compilePaths: source must be a string or a regular expression.`,
+    )
   })
 
   it(`should throw when provided a null value`, () => {
     // @ts-ignore
-    expect(() => compilePaths()).toThrow()
+    compilePaths(1)
+    expect(mockBud.catch).toHaveBeenCalledWith(
+      `bud.compilePaths: source must be a string or a regular expression.`,
+    )
   })
 
   it(`should throw when provided a number`, () => {
     // @ts-ignore
-    expect(() => compilePaths(1)).toThrow()
+    compilePaths(1)
+    expect(mockBud.catch).toHaveBeenCalledWith(
+      `bud.compilePaths: source must be a string or a regular expression.`,
+    )
   })
 
   it(`should throw when provided a non array object`, () => {
     // @ts-ignore
-    expect(() => compilePaths({})).toThrow()
+    compilePaths({})
+    expect(mockBud.catch).toHaveBeenCalledWith(
+      `bud.compilePaths: source must be a string or a regular expression.`,
+    )
   })
 
   describe(`when a string is provided`, async () => {
@@ -257,8 +270,10 @@ describe(`@roots/bud-api/methods/compilePaths`, function () {
       compilePaths([`/foo`], [`baz`])
     })
 
-    it(`should throw`, async () => {
-      expect(error).toBeInstanceOf(InputError)
+    it(`should error`, async () => {
+      expect(mockBud.catch).toHaveBeenCalledWith(
+        `bud.compilePaths: \`baz\` is not a valid rule name.`,
+      )
     })
   })
 })

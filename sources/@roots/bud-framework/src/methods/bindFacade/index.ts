@@ -30,9 +30,22 @@ export const bindFacade: bindFacade = function (key, fn, binding?) {
     this.promise(async () => {
       try {
         await this.resolvePromises()
+      } catch (error) {
+        throw BudError.normalize(
+          `Error resolving promises before executing \`bud.${key}\``,
+          {
+            details: `This is most likely not an error in \`bud.${key}\` itself. The error occurred while resolving promises before executing the method.`,
+            origin: error,
+          },
+        )
+      }
+
+      try {
         await fn(...args)
       } catch (error) {
-        throw error
+        throw BudError.normalize(`Error calling \`bud.${key}\``, {
+          origin: error,
+        })
       }
     })
 

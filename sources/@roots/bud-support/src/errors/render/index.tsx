@@ -2,13 +2,11 @@
 import {BudError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, type ReactNode, Static, Text} from '@roots/bud-support/ink'
-import {render} from '@roots/bud-support/ink/instance'
-import isObject from '@roots/bud-support/isObject'
-import logger from '@roots/bud-support/logger'
+import * as ink from '@roots/bud-support/ink/instance'
 
 type RawError = BudError | Error | string | undefined
 
-const cleanErrorObject = (error: RawError): BudError => {
+const cleanErrorObject = (error: RawError): Partial<BudError> => {
   if (!error) {
     error = new BudError(`Unknown error`)
   }
@@ -20,16 +18,27 @@ const cleanErrorObject = (error: RawError): BudError => {
   return error instanceof BudError ? error : BudError.normalize(error)
 }
 
-export const Error = ({error: input}: {error: RawError}): ReactNode => {
+export const Error = ({error}: {error: RawError}): ReactNode => {
   return (
     <Static items={[0]}>
-      {(_, key) => <Display error={input} key={key} />}
+      {(_, key) => <Display error={cleanErrorObject(error)} key={key} />}
     </Static>
   )
 }
 
-export const Display = ({error: input}: {error: RawError}) => {
-  const error = cleanErrorObject(input)
+export const Display = ({
+  error,
+  level,
+}: {
+  error: Partial<BudError>
+  level?: number
+}) => {
+  if (!error.name && !error.message) return null
+
+  error.name =
+    level && level > 0
+      ? ` → Originating in ${error.name} `
+      : ` ${error.name} `
 
   return (
     <Box flexDirection="column" gap={1} paddingTop={1}>
@@ -42,11 +51,9 @@ export const Display = ({error: input}: {error: RawError}) => {
       )}
 
       {error.message && (
-        <Box flexDirection="column" gap={1}>
-          <Box flexDirection="row" gap={1}>
-            <Text color="red">{figures.cross}</Text>
-            <Text>{error.message}</Text>
-          </Box>
+        <Box flexDirection="row" gap={1}>
+          <Text color="red">{figures.cross}</Text>
+          <Text>{error.message}</Text>
         </Box>
       )}
 
@@ -57,24 +64,6 @@ export const Display = ({error: input}: {error: RawError}) => {
             <Text color="blue">Details</Text>
           </Box>
           <Text>{error.details}</Text>
-        </Box>
-      )}
-
-      {error.origin && (
-        <Box flexDirection="column" gap={1}>
-          <Box
-            borderBottom={false}
-            borderColor="red"
-            borderLeft
-            borderRight={false}
-            borderStyle="single"
-            borderTop={false}
-            flexDirection="column"
-            gap={1}
-            paddingLeft={1}
-          >
-            {error.origin.message && <Text>{error.origin.message}</Text>}
-          </Box>
         </Box>
       )}
 
@@ -118,20 +107,26 @@ export const Display = ({error: input}: {error: RawError}) => {
         </Box>
       )}
 
-      {error.file?.path && (
+      {error.file && (
         <Box gap={1}>
           <Text color="blue">{figures.info}</Text>
           <Text color="blue">See file</Text>
-          <Text>{error.file.path}</Text>
+          <Text>{error.file}</Text>
         </Box>
       )}
 
-      {error.stack && (
+      {!error.origin && error.stack && (
         <Box flexDirection="column" gap={1}>
           <Box flexDirection="row" gap={1}>
             <Text color="blue">{figures.info}</Text>
             <Text color="blue">Stack trace</Text>
           </Box>
+          <Text dimColor>{error.stack}</Text>
+        </Box>
+      )}
+
+      {error.origin && (
+        <Box flexDirection="column" gap={1}>
           <Box
             borderBottom={false}
             borderColor="red"
@@ -141,7 +136,7 @@ export const Display = ({error: input}: {error: RawError}) => {
             borderTop={false}
             paddingLeft={1}
           >
-            <Text dimColor>{error.stack}</Text>
+            <Display error={error.origin} level={level ? level++ : 1} />
           </Box>
         </Box>
       )}
@@ -149,17 +144,6 @@ export const Display = ({error: input}: {error: RawError}) => {
   )
 }
 
-export const renderError = (error: BudError | Error) => {
-  try {
-    render(<Error error={error} />)
-  } catch (inkError) {
-    logger.error(
-      typeof inkError === `string`
-        ? inkError
-        : isObject(inkError) && `message` in inkError
-          ? inkError.message
-          : `There was an error rendering the error component.`,
-    )
-    logger.error(error.message)
-  }
+export const render = (error: BudError | Error | string) => {
+  ink.render(<Error error={error} />)
 }
