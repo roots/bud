@@ -1,0 +1,80 @@
+---
+title: bud.before
+description: Do something before compilation has started
+tags:
+  - facade
+  - lifecycle
+---
+
+import ConfigExample from '@site/src/components/example';
+
+**bud.before** allows you to execute arbitrary code directly prior to the start of the compilation process.
+
+## Usage
+
+Using an asyncronous function:
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.before(async bud => {
+  // Do something before the compilation has completed
+})
+```
+
+```js
+bud.before(async bud => {
+  // Do something before the compilation has completed
+})
+```
+
+```yml
+before: >
+  => async bud => {
+    // do someting before the compilation has started
+  }
+```
+
+```json
+{
+  "before": "=> async bud => {
+    // do something before the compilation has started
+  }"
+}
+```
+
+</ConfigExample>
+
+Using a synchronous function:
+
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.before(bud => {
+  // Do something before the compilation has completed
+})
+```
+
+```js
+bud.before(bud => {
+  // Do something before the compilation has completed
+})
+```
+
+```yml
+before: >
+  => bud => {
+    // do someting before the compilation has started
+  }
+```
+
+```json
+{
+  "before": "=> bud => {
+    // do something before the compilation has started
+  }"
+}
+```
+
+</ConfigExample>
