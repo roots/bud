@@ -1,23 +1,40 @@
 import setup from '@repo/test-kit/setup'
-import { testIsCompiledCss } from '@repo/test-kit/tests'
-import {describe, expect, it} from 'vitest'
+import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`examples/sass`, () => {
-  it(`should compile assets as expected`, async () => {
-    const test = setup({
-      label: `@examples/sass`,
-    })
+  const test = setup({label: `@examples/sass`})
+
+  beforeAll(async () => {
     await test.install()
     await test.build()
+  })
 
-    testIsCompiledCss(test.getAsset(`main.css`))
-    expect(test.assets[`main.css`]).toMatch(/body,html{margin:0;padding:0}body{background:blue;background-image:url\("data:image\/svg\+xml;charset=utf-8,\%3Csvg xmlns='http:\/\/www\.w3\.org\/2000\/svg' viewBox='0 0 81 77'\%3E\%3Cg fill='none' stroke='\%23fff'\%3E\%3Cpath d='.*'\/%3E%3C\/g%3E%3C\/svg%3E"\)}body div{border:#fff}/)
-    expect(test.manifest).toMatchInlineSnapshot(`
-      {
-        "entrypoints.json": "entrypoints.json",
-        "main.css": "css/main.css",
-        "runtime.js": "js/runtime.js",
-      }
-    `)
+  it(`should emit stdout`, async () => {
+    const stdout = await test.read(`build.stdout.log`)
+
+    expect(stdout).toMatch(/╭ sass \[.*\]\s*\.\/dist/)
+    expect(stdout).toMatch(/│  ◉ js\/runtime\.js\s*✔ 904 bytes/)
+    expect(stdout).toMatch(/│  ◉ css\/main\.css\s*✔ 731 bytes/)
+    expect(stdout).toMatch(/2 modules \[0\/2 modules cached\]/)
+  })
+
+  it(`should not emit stderr`, async () => {
+    expect(await test.read(`build.stderr.log`)).toBeUndefined()
+  })
+
+  it(`should emit manifest.json`, async () => {
+    expect(test.manifest).toMatchSnapshot()
+  })
+
+  it(`should emit entrypoints.json`, async () => {
+    expect(test.entrypoints).toMatchSnapshot()
+  })
+
+  it(`should emit runtime.js`, async () => {
+    expect(test.getAsset(`runtime.js`)).toMatchSnapshot()
+  })
+
+  it(`should emit main.css`, async () => {
+    expect(test.getAsset(`main.css`)).toMatchSnapshot()
   })
 }, 100000)

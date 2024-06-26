@@ -1,5 +1,3 @@
-import type {Bud} from '@roots/bud-framework'
-
 import {describe, expect, it, vi} from 'vitest'
 
 import defaultExport from '../src'

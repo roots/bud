@@ -1,0 +1,12 @@
+{
+  "app.css": "css/app.a2c3be.css",
+  "app.js": "js/app.8db3d4.js",
+  "editor.css": "css/editor.8cd6ea.css",
+  "editor.js": "js/editor.798de8.js",
+  "runtime.js": "js/runtime.e02786.js",
+  "images/image.jpeg": "images/image.7d0080dbfbeb5f56.jpeg",
+  "images/nested/image.jpeg": "images/nested/image.7d0080.jpeg",
+  "../theme.json": "../theme.json",
+  "images/logo.svg": "images/logo.f89599.svg",
+  "entrypoints.json": "entrypoints.json"
+}
