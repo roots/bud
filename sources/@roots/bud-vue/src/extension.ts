@@ -6,6 +6,7 @@ import {join} from 'node:path'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
+  dependsOnOptional,
   expose,
   label,
   options,
@@ -31,6 +32,7 @@ interface Options {
   version: `^3`,
 })
 @expose(`vue`)
+@dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
 export default class BudVue extends Extension<
   Options,
   WebpackPluginInstance

@@ -1,0 +1,306 @@
+{
+  "__generated__": "⚠️ This file is generated. Do not edit.",
+  "$schema": "https://schemas.wp.org/trunk/theme.json",
+  "version": 2,
+  "settings": {
+    "color": {
+      "custom": false,
+      "customGradient": false,
+      "palette": [
+        {
+          "color": "#f7fafc",
+          "name": "Brand Gray",
+          "slug": "brand-gray"
+        }
+      ]
+    },
+    "custom": {
+      "spacing": {},
+      "typography": {
+        "font-size": {},
+        "line-height": {}
+      }
+    },
+    "spacing": {
+      "padding": true,
+      "units": [
+        "px",
+        "%",
+        "em",
+        "rem",
+        "vw",
+        "vh"
+      ],
+      "spacingSizes": [
+        {
+          "name": "0",
+          "size": "0px",
+          "slug": "0"
+        },
+        {
+          "name": "1",
+          "size": "0.25rem",
+          "slug": "1"
+        },
+        {
+          "name": "2",
+          "size": "0.5rem",
+          "slug": "2"
+        },
+        {
+          "name": "3",
+          "size": "0.75rem",
+          "slug": "3"
+        },
+        {
+          "name": "4",
+          "size": "1rem",
+          "slug": "4"
+        },
+        {
+          "name": "5",
+          "size": "1.25rem",
+          "slug": "5"
+        },
+        {
+          "name": "6",
+          "size": "1.5rem",
+          "slug": "6"
+        },
+        {
+          "name": "7",
+          "size": "1.75rem",
+          "slug": "7"
+        },
+        {
+          "name": "8",
+          "size": "2rem",
+          "slug": "8"
+        },
+        {
+          "name": "9",
+          "size": "2.25rem",
+          "slug": "9"
+        },
+        {
+          "name": "10",
+          "size": "2.5rem",
+          "slug": "10"
+        },
+        {
+          "name": "11",
+          "size": "2.75rem",
+          "slug": "11"
+        },
+        {
+          "name": "12",
+          "size": "3rem",
+          "slug": "12"
+        },
+        {
+          "name": "14",
+          "size": "3.5rem",
+          "slug": "14"
+        },
+        {
+          "name": "16",
+          "size": "4rem",
+          "slug": "16"
+        },
+        {
+          "name": "20",
+          "size": "5rem",
+          "slug": "20"
+        },
+        {
+          "name": "24",
+          "size": "6rem",
+          "slug": "24"
+        },
+        {
+          "name": "28",
+          "size": "7rem",
+          "slug": "28"
+        },
+        {
+          "name": "32",
+          "size": "8rem",
+          "slug": "32"
+        },
+        {
+          "name": "36",
+          "size": "9rem",
+          "slug": "36"
+        },
+        {
+          "name": "40",
+          "size": "10rem",
+          "slug": "40"
+        },
+        {
+          "name": "44",
+          "size": "11rem",
+          "slug": "44"
+        },
+        {
+          "name": "48",
+          "size": "12rem",
+          "slug": "48"
+        },
+        {
+          "name": "52",
+          "size": "13rem",
+          "slug": "52"
+        },
+        {
+          "name": "56",
+          "size": "14rem",
+          "slug": "56"
+        },
+        {
+          "name": "60",
+          "size": "15rem",
+          "slug": "60"
+        },
+        {
+          "name": "64",
+          "size": "16rem",
+          "slug": "64"
+        },
+        {
+          "name": "72",
+          "size": "18rem",
+          "slug": "72"
+        },
+        {
+          "name": "80",
+          "size": "20rem",
+          "slug": "80"
+        },
+        {
+          "name": "96",
+          "size": "24rem",
+          "slug": "96"
+        },
+        {
+          "name": "px",
+          "size": "1px",
+          "slug": "px"
+        },
+        {
+          "name": "0.5",
+          "size": "0.125rem",
+          "slug": "0.5"
+        },
+        {
+          "name": "1.5",
+          "size": "0.375rem",
+          "slug": "1.5"
+        },
+        {
+          "name": "2.5",
+          "size": "0.625rem",
+          "slug": "2.5"
+        },
+        {
+          "name": "3.5",
+          "size": "0.875rem",
+          "slug": "3.5"
+        }
+      ]
+    },
+    "typography": {
+      "customFontSize": false,
+      "dropCap": false,
+      "fontFamilies": [
+        {
+          "fontFamily": "Inter,sans-serif",
+          "name": "Inter",
+          "slug": "sans"
+        },
+        {
+          "fontFamily": "ui-serif,Georgia,Cambria,\"Times New Roman\",Times,serif",
+          "name": "Ui-serif",
+          "slug": "serif"
+        },
+        {
+          "fontFamily": "ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,\"Liberation Mono\",\"Courier New\",monospace",
+          "name": "Ui-monospace",
+          "slug": "mono"
+        }
+      ],
+      "fontSizes": [
+        {
+          "name": "xs",
+          "size": "0.75rem",
+          "slug": "xs"
+        },
+        {
+          "name": "sm",
+          "size": "0.875rem",
+          "slug": "sm"
+        },
+        {
+          "name": "base",
+          "size": "1rem",
+          "slug": "base"
+        },
+        {
+          "name": "lg",
+          "size": "1.125rem",
+          "slug": "lg"
+        },
+        {
+          "name": "xl",
+          "size": "1.25rem",
+          "slug": "xl"
+        },
+        {
+          "name": "2xl",
+          "size": "1.5rem",
+          "slug": "2xl"
+        },
+        {
+          "name": "3xl",
+          "size": "1.875rem",
+          "slug": "3xl"
+        },
+        {
+          "name": "4xl",
+          "size": "2.25rem",
+          "slug": "4xl"
+        },
+        {
+          "name": "5xl",
+          "size": "3rem",
+          "slug": "5xl"
+        },
+        {
+          "name": "6xl",
+          "size": "3.75rem",
+          "slug": "6xl"
+        },
+        {
+          "name": "7xl",
+          "size": "4.5rem",
+          "slug": "7xl"
+        },
+        {
+          "name": "8xl",
+          "size": "6rem",
+          "slug": "8xl"
+        },
+        {
+          "name": "9xl",
+          "size": "8rem",
+          "slug": "9xl"
+        },
+        {
+          "name": "custom",
+          "size": ".625rem",
+          "slug": "custom"
+        }
+      ]
+    }
+  }
+}

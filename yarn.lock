@@ -8676,7 +8676,6 @@ __metadata:
   resolution: "@examples/sass@workspace:examples/sass"
   dependencies:
     "@roots/bud": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
   languageName: unknown
   linkType: soft
@@ -11847,7 +11846,6 @@ __metadata:
     "@skypack/package-check": "npm:0.2.2"
     "@types/node": "npm:20.12.8"
     "@types/sass-loader": "npm:8.0.8"
-    postcss: "npm:8.4.38"
     postcss-scss: "npm:4.0.9"
     resolve-url-loader: "npm:5.0.0"
     sass: "npm:1.76.0"
@@ -11856,6 +11854,7 @@ __metadata:
     stylelint-config-recommended-scss: "npm:14.0.0"
     stylelint-scss: "npm:6.3.0"
     tslib: "npm:2.6.2"
+    vitest: "npm:1.6.0"
     webpack: "npm:5.91.0"
   languageName: unknown
   linkType: soft
