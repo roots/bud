@@ -3,7 +3,6 @@ import {
   testIsCompiledCss,
   testIsCompiledJs,
   testIsMinimized,
-  testThemeJson,
 } from '@repo/test-kit/tests'
 import {beforeAll, describe, expect, it} from 'vitest'
 
