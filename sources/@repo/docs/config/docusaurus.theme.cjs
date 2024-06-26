@@ -79,33 +79,42 @@ const navbar = {
       type: `doc`,
     },
     {
-      items: releaseData.reduce((items, release) => {
-        if (!items.length) {
-          return [
-            ...items,
-            {label: `Latest`, to: `/releases/${release.semver}`},
-          ]
-        }
+      items: releaseData
+        .sort((a, b) => {
+          if (a.major > b.major) return -1
+          if (a.major < b.major) return 1
+          if (a.minor > b.minor) return -1
+          if (a.minor < b.minor) return 1
+          if (a.patch > b.patch) return -1
+          if (a.patch < b.patch) return 1
+          return 0
+        })
+        .reduce((items = [], release) => {
+          if (!items?.length) {
+            items.push({
+              label: `Latest`,
+              to: `/releases/${release.semver}`,
+            })
+          }
 
-        if (release.patch !== 0) return items
+          if (release.patch !== 0) {
+            return items
+          }
 
-        const useTag = releaseData.some(
-          ({major, minor, patch}) =>
-            major == release.major &&
-            minor == release.minor &&
-            patch !== 0,
-        )
-
-        return [
-          ...items,
-          {
+          items.push({
             label: release.semver,
-            to: useTag
+            to: releaseData.some(
+              ({major, minor, patch}) =>
+                major == release.major &&
+                minor == release.minor &&
+                patch !== 0,
+            )
               ? `/releases/tags/${release.major}-${release.minor}`
               : `/releases/${release.major}.${release.minor}.${release.patch}`,
-          },
-        ]
-      }, []),
+          })
+
+          return items
+        }, []),
       label: `Releases`,
       position: `left`,
       to: `/releases`,
