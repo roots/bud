@@ -10,7 +10,7 @@ import get from '@roots/bud-support/get'
 import isFunction from '@roots/bud-support/isFunction'
 import isObject from '@roots/bud-support/isObject'
 import isUndefined from '@roots/bud-support/isUndefined'
-import logger from '@roots/bud-support/logger'
+import logger, {type Logger} from '@roots/bud-support/logger'
 import set from '@roots/bud-support/set'
 import DynamicOption, {
   isValue as isDynamicOption,
@@ -154,7 +154,7 @@ export class Extension<
       : this.enabled
   }
 
-  public get logger(): any {
+  public get logger(): Logger {
     const scopes = []
 
     this.app.isChild && scopes.push(this.app.label)
