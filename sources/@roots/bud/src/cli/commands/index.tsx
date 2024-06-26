@@ -26,11 +26,11 @@ import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
 import override, {type Override} from '@roots/bud/cli/helpers/override'
 import * as instance from '@roots/bud/instance'
-import * as Dash from '@roots/bud-dashboard/components/error'
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
 import {bind} from '@roots/bud-support/decorators/bind'
 import {BudError} from '@roots/bud-support/errors'
+import {render as renderError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import * as Ink from '@roots/bud-support/ink'
 import {render} from '@roots/bud-support/ink/instance'
@@ -236,7 +236,7 @@ export default class BudCommand extends Command<BaseContext & Context> {
       })
     }
 
-    render(<Dash.Error error={error} />)
+    renderError(error)
 
     if ((!this.bud || this.bud.isProduction) && this.ignoreErrors !== true)
       exit(1)

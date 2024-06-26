@@ -1,16 +1,21 @@
-import {Bud, factory} from '@repo/test-kit'
+import type {Bud} from '@roots/bud-framework'
+
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import {setPublicPath as subject} from '../../../src/methods/setPublicPath'
+import * as module from '../../../src/methods/setPublicPath'
 
 describe(`@roots/bud-framework/methods/setPublicPath`, () => {
-  let bud: Bud
-  let setPublicPath: subject
+  let bud: any
+  let setPublicPath: module.setPublicPath
 
   beforeEach(async () => {
-    vi.clearAllMocks()
-    bud = await factory()
-    setPublicPath = subject.bind(bud)
+    bud = {
+      hooks: {
+        on: vi.fn(),
+      },
+    } as unknown as Bud
+
+    setPublicPath = module.setPublicPath.bind(bud)
   })
 
   it(`should be a function`, () => {
@@ -18,27 +23,56 @@ describe(`@roots/bud-framework/methods/setPublicPath`, () => {
   })
 
   it(`should return Bud`, () => {
-    expect(setPublicPath(``)).toBe(bud)
+    expect(setPublicPath()).toBe(bud)
   })
 
   it(`should set publicPath with a string`, () => {
-    const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
-    const publicPath = `/foo`
-    setPublicPath(publicPath)
-    expect(hooksOnSpy).toHaveBeenCalledWith(
+    setPublicPath(`/foo/`)
+    expect(bud.hooks.on).toHaveBeenCalledWith(
+      `build.output.publicPath`,
+      `/foo/`,
+    )
+  })
+
+  it(`should append trailing slash to strings`, () => {
+    setPublicPath(`/foo`)
+    expect(bud.hooks.on).toHaveBeenCalledWith(
       `build.output.publicPath`,
       `/foo/`,
     )
   })
 
   it(`should set publicPath with a function`, () => {
-    const hooksOnSpy = vi.spyOn(bud.hooks, `on`)
     const publicPathSetter = vi.fn(() => `/bar`)
 
     setPublicPath(publicPathSetter)
-    expect(hooksOnSpy).toHaveBeenCalledWith(
+
+    expect(bud.hooks.on).toHaveBeenCalledWith(
       `build.output.publicPath`,
       publicPathSetter,
     )
+  })
+
+  it(`should set publicPath with undefined`, () => {
+    setPublicPath(undefined)
+    expect(bud.hooks.on).toHaveBeenCalledWith(
+      `build.output.publicPath`,
+      undefined,
+    )
+  })
+
+  it(`should throw if publicPath is not a string or function`, () => {
+    // @ts-ignore
+    expect(() => setPublicPath(null)).toThrow()
+    // @ts-ignore
+    expect(() => setPublicPath(1)).toThrow()
+    // @ts-ignore
+    expect(() => setPublicPath({})).toThrow()
+    // @ts-ignore
+    expect(() => setPublicPath([])).toThrow()
+    // @ts-ignore
+    expect(() => setPublicPath(true)).toThrow()
+    // @ts-ignore
+    expect(() => setPublicPath(Symbol())).toThrow()
   })
 })

@@ -16,10 +16,10 @@ import BudViewCommand from '@roots/bud/cli/commands/view'
 import BudWebpackCommand from '@roots/bud/cli/commands/webpack'
 import {Finder} from '@roots/bud/cli/finder'
 import getContext, {type Context} from '@roots/bud/context'
-import {renderError} from '@roots/bud-dashboard/components/error'
 import * as args from '@roots/bud-framework/bootstrap/args'
 import {Builtins, Cli} from '@roots/bud-support/clipanion'
 import {BudError} from '@roots/bud-support/errors'
+import {render as renderError} from '@roots/bud-support/errors'
 import isFunction from '@roots/bud-support/isFunction'
 import isUndefined from '@roots/bud-support/isUndefined'
 import logger from '@roots/bud-support/logger'
@@ -131,9 +131,13 @@ const registerFoundCommands = async (force: boolean = forceFlag) => {
         }
 
         await registerCommand(application).catch(error => {
-          logger.scope(`cli`).error(`Error registering ${path}`, error)
-          throw BudError.normalize(error, {
+          logger
+            .scope(`cli`)
+            .error(`Error registering ${path}: ${error.message ?? error}`)
+
+          throw BudError.normalize(`Error registering ${path}`, {
             details: `Error registering ${path}`,
+            origin: error,
             thrownBy: import.meta.url,
           })
         })

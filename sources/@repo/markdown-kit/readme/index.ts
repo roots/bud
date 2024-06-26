@@ -23,7 +23,9 @@ const logger = new Logger({logLevel: `info`})
  * Returns props for a template
  */
 const getProps = async (signifier: string) => {
-  const {default: projectConfig} = await import(path(`config`, `monorepo.config.cjs`))
+  const {default: projectConfig} = await import(
+    path(`config`, `monorepo.config.cjs`)
+  )
   const json = await Json.read(path(`sources`, signifier, `package.json`))
   return {...json, projectConfig}
 }
@@ -124,11 +126,17 @@ const data = {
 }
 const body = templates.root(data)
 logger.log(`repo readme.md is ${body.length} characters`)
+
 const formatted = await format(templates.root(data), {
   parser: `markdown`,
-}).catch(error => logger.error(`repo readme.md`, error.message))
+}).catch(error => logger.error(`repo readme.md: ${error.message}`))
 logger.log(formatted)
+
+if (!formatted) {
+  throw new Error(`Could not format readme`)
+}
+
 await fs
   .write(outputPath, formatted)
-  .catch(error => logger.error(`repo readme.md`, error.message))
+  .catch(error => logger.error(`repo readme.md: ${error.message}`))
   .finally(() => logger.log(`Wrote repo readme.md`))

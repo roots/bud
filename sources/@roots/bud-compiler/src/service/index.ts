@@ -88,22 +88,18 @@ class Compiler extends Service implements BudCompiler {
           child => isNumber(child.errorsCount) && child.errorsCount > 0,
         )
         .forEach(child => {
-          try {
-            const error = child.errors?.shift()
-            if (!error) return
+          const error = child.errors?.shift()
+          if (!error) return
 
-            this.app.notifier.notify({
-              group: `${this.app.label}-${child.name}`,
-              message: stripAnsi(error.message),
-              open: error.file ? pathToFileURL(error.file) : ``,
-              subtitle: error.file ? `Error in ${error.name}` : error.name,
-              title: makeNoticeTitle(this.app, child),
-            })
+          this.app.notifier.notify({
+            group: `${this.app.label}-${child.name}`,
+            message: stripAnsi(error.message),
+            open: error.file ? pathToFileURL(error.file) : ``,
+            subtitle: error.file ? `Error in ${error.name}` : error.name,
+            title: makeNoticeTitle(this.app, child),
+          })
 
-            error.file && this.app.notifier.openEditor(error.file)
-          } catch (error) {
-            this.logger.error(error)
-          }
+          error.file && this.app.notifier.openEditor(error.file)
         })
     }
 

@@ -1,6 +1,4 @@
-import isObject from '@roots/bud-support/isObject'
-
-const cwd = `${global.process.cwd()}`
+const cwd = global.process.cwd()
 
 const clean = (message?: string) => {
   return message
@@ -13,13 +11,11 @@ interface BudErrorProps {
   details?: string
   docs?: URL
   file?: {
-    module?: any
-    name?: string
-    path?: string
-    sha1?: string
+    path: string
   }
   instance?: string
   issue?: URL
+  name: string
   origin?: BudError | Error
   thrownBy?: string | URL
 }
@@ -41,7 +37,7 @@ class BudError extends Error {
   /**
    * Information about file related to error
    */
-  public declare file?: BudErrorProps[`file`]
+  public declare file?: string
 
   /**
    * Instance name containing error
@@ -59,6 +55,11 @@ class BudError extends Error {
   public declare origin?: BudErrorProps[`origin`]
 
   /**
+   * Name of error
+   */
+  public declare name: BudErrorProps[`name`]
+
+  /**
    * Name of method that threw error
    */
   public declare thrownBy?: BudErrorProps[`thrownBy`]
@@ -72,13 +73,14 @@ class BudError extends Error {
    * Normalize error
    */
   public static normalize(
-    source: unknown,
-    options: BudErrorProps = {},
+    source: BudError | Error | string,
+    options: Partial<BudErrorProps> = {},
   ): BudError {
+    if (typeof source === `string`) {
+      return new BudError(source, options)
+    }
+
     if (source instanceof BudError) {
-      Object.entries(options).map(([key, value]) => {
-        source[key as keyof BudErrorProps] = value
-      })
       return source
     }
 
@@ -86,41 +88,42 @@ class BudError extends Error {
       return new BudError(source.message, options)
     }
 
-    if (typeof source === `string`) {
-      return new BudError(source, options)
-    }
-
-    return new BudError(`An unknown error occured`, options)
+    return new BudError(`An unknown error has occured`, options)
   }
 
   /**
    * Class constructor
    */
-  public constructor(message: string, options: BudErrorProps = {}) {
+  public constructor(
+    message: string,
+    options: Partial<BudErrorProps> = {},
+  ) {
     super(message)
 
     this.isBudError = true
 
-    this.name = this.name ?? this.constructor.name
+    this.name = options.name ?? this.constructor.name
     this.message =
       this.message ?? (clean(message) ?? message)?.replace(/.*Error:/g, ``)
+
     this.details = this.details ?? clean(options.details)
     this.docs = this.docs ?? options.docs
     this.instance = this.instance ?? options.instance
     this.issue = this.issue ?? options.issue
 
     if (options.file) {
-      this.file = {
-        ...options.file,
-        path: clean(options.file.path),
-      }
+      this.file = clean(options.file.path)
     }
 
     if (options.origin) {
-      this.origin =
-        isObject(options.origin) && `isBudError` in options.origin
-          ? options.origin
-          : BudError.normalize(options.origin)
+      const innerMessage =
+        options.origin?.message ?? options.origin ?? null
+
+      if (innerMessage)
+        this.origin =
+          options.origin instanceof BudError
+            ? options.origin
+            : new BudError(innerMessage)
     }
 
     if (options.thrownBy) {
@@ -141,24 +144,5 @@ class BudError extends Error {
   }
 }
 
-class ModuleError extends BudError {}
-
-class ConfigError extends BudError {}
-
-class InputError extends BudError {}
-
-class CompilerError extends BudError {}
-
-class ServerError extends BudError {}
-
-class ExtensionError extends BudError {}
-
-export {
-  BudError,
-  CompilerError,
-  ConfigError,
-  ExtensionError,
-  InputError,
-  ModuleError,
-  ServerError,
-}
+export {BudError}
+export {render} from './render/index.js'

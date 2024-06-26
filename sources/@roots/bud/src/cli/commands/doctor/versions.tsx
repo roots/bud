@@ -1,8 +1,7 @@
 import type {Bud} from '@roots/bud-framework'
 
 import {LabelBox} from '@roots/bud/cli/components/LabelBox'
-import {Error} from '@roots/bud-dashboard/components/error'
-import {BudError} from '@roots/bud-support/errors'
+import {BudError, render as renderError} from '@roots/bud-support/errors'
 import figures from '@roots/bud-support/figures'
 import {Box, Text} from '@roots/bud-support/ink'
 
@@ -31,13 +30,17 @@ export const Versions = ({
           )
         }
 
+        if (result.error) {
+          renderError(
+            BudError.normalize(`${result.signifier} is not installed at the same version as @roots/bud (required: ${result.requiredVersion}, installed: ${result.packageVersion}).
+              Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`),
+          )
+          return null
+        }
+
         return (
           <Box key={i}>
-            {result.error ? (
-              <VersionError {...result} />
-            ) : (
-              <Package {...result} />
-            )}
+            <Package {...result} />
           </Box>
         )
       })}
@@ -85,14 +88,5 @@ const Package = (result: PackageResult) => {
       (required:{` `}
       {result.requiredVersion}, installed: {result.packageVersion})
     </Text>
-  )
-}
-
-const VersionError = (result: PackageResult) => {
-  return (
-    <Error
-      error={BudError.normalize(`${result.signifier} is not installed at the same version as @roots/bud (required: ${result.requiredVersion}, installed: ${result.packageVersion}).
-          Your installation may be corrupted or your package manager may have cached an outdated module; consider reinstalling with the \`--force\` flag.`)}
-    />
   )
 }

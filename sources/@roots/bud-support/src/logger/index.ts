@@ -5,6 +5,8 @@ import {argv} from 'node:process'
 
 import Signale from 'signale'
 
+import {render} from '../errors/index.js'
+
 /**
  * Logger
  */
@@ -61,8 +63,9 @@ class Logger {
     return this
   }
 
-  public error(...messages: Array<unknown>) {
-    this.instance.error(...messages)
+  public error(error: Error | string) {
+    render(error)
+
     return this
   }
 

@@ -10,7 +10,7 @@
 
 import type {ExtensionApi} from '@roots/bud-framework/extension'
 
-import BudEntrypoints from './extension.js'
+import BudEntrypoints from './extension/index.js'
 
 declare module '@roots/bud-framework' {
   interface Bud {

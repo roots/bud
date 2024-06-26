@@ -6,6 +6,7 @@ import type {
 
 import {Extension} from '@roots/bud-framework/extension'
 import {bind, label} from '@roots/bud-framework/extension/decorators'
+import {BudError} from '@roots/bud-support/errors'
 
 /**
  * Webpack lifecycle plugin
@@ -74,8 +75,11 @@ export default class BudWebpackLifecyclePlugin extends Extension {
    */
   @bind
   public failed(error: {error?: Error} & Error & Partial<WebpackError>) {
-    this.app.catch(error)
-    return error
+    this.app.catch(
+      BudError.normalize(error.message, {
+        details: `This error was thrown by the webpack compiler. It is likely a misconfiguration.`,
+      }),
+    )
   }
 
   /**

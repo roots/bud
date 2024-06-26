@@ -6,15 +6,15 @@ import {beforeEach, describe, expect, it, vi} from 'vitest'
 
 import Configuration from '../../src/configuration/index.js'
 import {File} from '../../src/context/index.js'
-import '../../src/index.js'
 
 const testFileDescription: File = {
   bud: false,
+  ext: `.js`,
   local: false,
   mode: 0,
   // @ts-ignore intentionally invalid
   module: undefined,
-  name: `test.config.js`,
+  name: `test.config`,
   parsed: parse(`foo/test.config.js`),
   path: `foo/test.config.js`,
   sha1: `abcdefg`,
@@ -40,19 +40,16 @@ describe(`@roots/bud-framework/configuration`, function () {
     expect(configuration.run).toBeInstanceOf(Function)
   })
 
-  it(`has a run method`, async () => {
-    expect(configuration.bud).toBe(bud)
-  })
-
   it(`throws when there is no module`, async () => {
-    let error
-    await configuration
-      .run(testFileDescription)
-      .catch(e => {
-        error = e
-      })
-      .finally(() => {
-        expect(error).toBeInstanceOf(BudError)
-      })
+    let error: BudError | undefined
+
+    await configuration.run(testFileDescription).catch(thrown => {
+      error = thrown
+    })
+
+    expect(error).toBeInstanceOf(BudError)
+    expect(error).toMatchInlineSnapshot(
+      `[BudError: No module found: test.config.js]`,
+    )
   })
 })

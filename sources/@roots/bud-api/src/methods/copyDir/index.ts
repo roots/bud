@@ -3,6 +3,7 @@ import type {Plugin as CopyPlugin} from '@roots/bud-support/copy-webpack-plugin'
 
 import {isAbsolute} from 'node:path'
 
+import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 
 type FromToTuple = [string, string]
@@ -25,6 +26,17 @@ export const copyDir: copyDir = async function copyDir(
 ) {
   const makePatternObjectFromString = fromStringFactory(this, overrides)
   const makePatternObjectFromTuple = fromTupleFactory(this, overrides)
+
+  if (context && !isString(context)) {
+    throw BudError.normalize(
+      `bud.copyDir: Parameter 2 must be a string.`,
+      {
+        details: `The second parameter, context, must be a string. Received ${typeof context}.`,
+        docs: new URL(`https://bud.js.org/reference/bud.copyDir`),
+        thrownBy: import.meta.url,
+      },
+    )
+  }
 
   if (!context) context = this.path(`@src`)
   if (!isAbsolute(context)) context = this.path(context)

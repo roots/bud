@@ -3,12 +3,12 @@ import type {StatsCompilation} from '@roots/bud-framework/config'
 
 import {exit} from 'node:process'
 
-import {Error} from '@roots/bud-dashboard/components/error'
 import Footer from '@roots/bud-dashboard/components/footer'
 import Compilation from '@roots/bud-dashboard/views/compilation'
 import Debug from '@roots/bud-dashboard/views/debug'
 import Server from '@roots/bud-dashboard/views/server'
 import escapes from '@roots/bud-support/ansi-escapes'
+import {render as renderError} from '@roots/bud-support/errors'
 import {
   Box,
   type PropsWithChildren,
@@ -66,11 +66,14 @@ export const Application = ({
     ? compilations?.filter(compilation => compilation.hash) ?? []
     : []
 
+  if (error) {
+    renderError(error)
+    return null
+  }
+
   if (mode === `production`) {
     return (
       <Box flexDirection="column" gap={1}>
-        {error && <Error error={error} />}
-
         <Static items={compilations}>
           {(compilation, id) => {
             if (isolated > 0 && id + 1 !== isolated) return null
@@ -97,8 +100,6 @@ export const Application = ({
 
   return (
     <>
-      {error && <Error error={error} />}
-
       {compilations.map((compilation, id) => (
         <RenderCompilation
           basedir={basedir}

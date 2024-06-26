@@ -140,7 +140,7 @@ class Item extends Registrable implements Build.Item {
     }
 
     if (!output.loader) {
-      logger.error(`error in ${this.ident}`, `no loader registered`)
+      logger.error(`error in ${this.ident}: no loader registered`)
     }
 
     return Object.entries(output).reduce(

@@ -1,6 +1,5 @@
 import type {Bud, Rules} from '@roots/bud-framework'
 
-import {InputError} from '@roots/bud-support/errors'
 import isArray from '@roots/bud-support/isArray'
 import isString from '@roots/bud-support/isString'
 
@@ -17,7 +16,7 @@ export const compilePaths: compilePaths = function (sources, rules) {
 
   sourcesArray.forEach(source => {
     if (!isString(source) && !(source instanceof RegExp)) {
-      throw new InputError(
+      this.catch(
         `bud.compilePaths: source must be a string or a regular expression.`,
       )
     }
@@ -31,7 +30,7 @@ export const compilePaths: compilePaths = function (sources, rules) {
       const match = bud.build.getRule(key)
 
       if (!match) {
-        throw new InputError(
+        this.catch(
           `bud.compilePaths: \`${key}\` is not a valid rule name.`,
         )
       }
@@ -40,6 +39,7 @@ export const compilePaths: compilePaths = function (sources, rules) {
     })
 
     matches.map(rule => {
+      if (!rule) return
       bud.api.logger.log(`setting compile paths for ${rule.getTest()}`)
       rule.setInclude(sourcesArray)
     })

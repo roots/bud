@@ -1,6 +1,6 @@
 import {bud} from '@roots/bud'
 
-const {WebpackPlugin} = require('./WebpackPlugin.js')
+import WebpackPlugin from './WebpackPlugin'
 
 /**
  * This is an example of how to use a Webpack plugin

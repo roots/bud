@@ -6,6 +6,7 @@ import {builtinModules} from 'node:module'
 import {join, parse} from 'node:path'
 
 import {get as getPaths} from '@roots/bud-framework/bootstrap/paths'
+import {BudError} from '@roots/bud-support/errors'
 import * as filesystem from '@roots/bud-support/filesystem'
 import _get from '@roots/bud-support/get'
 import logger from '@roots/bud-support/logger'
@@ -96,12 +97,12 @@ const get = async (fromDirectory: string) => {
           ) ?? []),
         ),
       ),
-  ]).catch(error => {
-    throw error
+  ]).catch(origin => {
+    throw BudError.normalize(`Error listing files`, {origin})
   })
 
-  await Promise.all(files.map(getFileInfo)).catch(error => {
-    throw error
+  await Promise.all(files.map(getFileInfo)).catch(origin => {
+    throw BudError.normalize(`Error getting files`, {origin})
   })
 
   return data
@@ -172,8 +173,8 @@ async function getFileInfo(filename: string) {
          * bust the cache with the {@link current} sha1
          */
         const path = `${file.path}?v=${current.sha1}`
-        const value = await import(path).catch(error => {
-          throw error
+        const value = await import(path).catch(origin => {
+          throw origin
         })
 
         logger.scope(`fs`).info(`loading ${file.name}`, value)
@@ -201,8 +202,10 @@ async function getFileInfo(filename: string) {
         // Update the hash to the current state
         file.sha1 = current.sha1
 
-        await esTransform({file, outfile}).catch(error => {
-          throw error
+        await esTransform({file, outfile}).catch(origin => {
+          throw BudError.normalize(`Error transforming ${file.path}`, {
+            origin,
+          })
         })
       }
 
@@ -301,11 +304,15 @@ const makeTmpFileImportError = (file: string) => async (error: Error) => {
   throw error
 }
 const makeRemoveError = (file: string) => (error: Error) => {
-  logger.scope(`fs`).error(`error removing file`, file, error)
+  logger
+    .scope(`fs`)
+    .error(`error removing file: ${file}\n\n${error.message ?? error}`)
   throw error
 }
 const makeCopyError = (file: string) => async (error: Error) => {
-  logger.scope(`fs`).error(`error copying to file:`, file, error)
+  logger
+    .scope(`fs`)
+    .error(`error copying to file: ${file}: ${error.message ?? error}`)
   await fs.remove(file).catch(makeRemoveError(file))
   throw error
 }

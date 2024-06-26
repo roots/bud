@@ -2,13 +2,13 @@ import type {Parameters} from '@roots/bud-framework/methods/setPath'
 
 import {isAbsolute} from 'node:path'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import isString from '@roots/bud-support/isString'
 import isUndefined from '@roots/bud-support/isUndefined'
 
 export const all = (parameters: Parameters): Parameters => {
   if (isUndefined(parameters[0])) {
-    throw new InputError(`bud.setPath: no parameters provided`, {
+    throw BudError.normalize(`bud.setPath: no parameters provided`, {
       details: `At least one parameter must be provided.`,
       docs: new URL(`https://bud.js.org/docs/bud.setPath`),
       thrownBy: `bud.setPath`,
@@ -20,7 +20,7 @@ export const all = (parameters: Parameters): Parameters => {
 
 export const baseDir = ([basedir]: [string]): string => {
   if (!isAbsolute(basedir)) {
-    throw new InputError(
+    throw BudError.normalize(
       `bud.setPath: when only one parameter is provided, it must be an absolute path.`,
       {
         details: `The provided path is not absolute. Received \`${basedir}\`. This will be used as the base directory for all other paths.`,
@@ -35,7 +35,7 @@ export const baseDir = ([basedir]: [string]): string => {
 
 export const stringPair = ([key, value]: [string, string]) => {
   if (!isString(value)) {
-    throw new InputError(
+    throw BudError.normalize(
       `bud.setPath: tried to set path with a non-string value`,
       {
         details: `Path value must be a string. Received \`${typeof value}\``,
@@ -46,7 +46,7 @@ export const stringPair = ([key, value]: [string, string]) => {
   }
 
   if (!isString(key)) {
-    throw new InputError(
+    throw BudError.normalize(
       `bud.setPath: Tried to set path with a non-string key`,
       {
         details: `Path label must be a string. Received \`${typeof key}\``,

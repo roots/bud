@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import {ConfigError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 
 export type Parameters = [
   (`css` | `js` | Array<`css` | `js`> | boolean | Bud)?,
@@ -65,7 +65,7 @@ export const minimize: minimize = function (this: Bud, value = true) {
     return this
   }
 
-  throw ConfigError.normalize(`Error in bud.minimize`, {
+  throw BudError.normalize(`Error in bud.minimize`, {
     details: `Invalid argument passed to bud.minimize. Value must be a boolean, string, or array of strings.`,
     docs: new URL(`https://bud.js.org/reference/bud.minimize`),
     thrownBy: `@roots/bud-api/methods/minimize`,
@@ -73,7 +73,7 @@ export const minimize: minimize = function (this: Bud, value = true) {
 }
 
 const throwUndefinedMinimizer = (): never => {
-  throw ConfigError.normalize(`Error in bud.minimize`, {
+  throw BudError.normalize(`Error in bud.minimize`, {
     details: `Invalid argument passed to bud.minimize. Minimizer does not exist.`,
     docs: new URL(`https://bud.js.org/reference/bud.minimize`),
     thrownBy: `@roots/bud-api/methods/minimize`,

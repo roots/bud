@@ -3,7 +3,7 @@ import type {SyncRegistry} from '@roots/bud-framework/registry'
 
 import {isAbsolute} from 'node:path'
 
-import {InputError} from '@roots/bud-support/errors'
+import {BudError} from '@roots/bud-support/errors'
 import logger from '@roots/bud-support/logger'
 
 import * as validate from './validate.js'
@@ -71,7 +71,7 @@ export const setPath: setPath = function (this: Bud, ...parameters) {
     return this
   }
 
-  throw new InputError(`Invalid parameters passed to bud.setPath`, {
+  throw BudError.normalize(`Invalid parameters passed to bud.setPath`, {
     docs: new URL(`https://bud.js.org/docs/bud.setPath`),
     thrownBy: `bud.setPath`,
   })
