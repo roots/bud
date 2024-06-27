@@ -82,7 +82,7 @@ export default class BudStylelintWebpackPlugin extends BudStylelintPublicApi {
     if (!configFile?.ext) return
 
     const config = await configFile.module().catch(e => {
-      this.logger.warning(`error importing ${configFile.path}`, e)
+      this.logger.warn(`error importing ${configFile.path}`, e)
     })
 
     if (!config) return
