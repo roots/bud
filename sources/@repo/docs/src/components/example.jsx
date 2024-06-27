@@ -6,7 +6,7 @@ import React from 'react'
 function Example({children, config = true, title}) {
   if (!children) return null
 
-  const values = []
+  const tabs = []
 
   children = Array.isArray(children) ? children : [children]
 
@@ -18,19 +18,24 @@ function Example({children, config = true, title}) {
         ...child,
         code: child.children,
         language: child.className.split(`language-`).pop(),
-        title: child.title ?? null,
       }
     })
+    .map(child => ({
+      ...child,
+      title:
+        child.metastring?.match(/title=(.*)/)?.[1] ??
+        `${title}.${child.language}`,
+    }))
 
   children.forEach(child =>
-    values.push({
+    tabs.push({
       label: child.language.toUpperCase(),
       value: child.language,
     }),
   )
 
   return (
-    <Tabs groupId="language" values={values}>
+    <Tabs groupId="language" values={tabs}>
       {children.map((child, id) => {
         return (
           <TabItem key={id} value={child.language}>
@@ -39,7 +44,7 @@ function Example({children, config = true, title}) {
               language={child.language}
               metastring={child.metastring}
               showLineNumbers
-              title={child.title ?? `${title}.${child.language}`}
+              title={child.title}
             >
               {config && child.language === `ts`
                 ? `import type {Bud} from '@roots/bud'\n\nexport default async (bud: Bud) => {\n`
