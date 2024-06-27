@@ -239,7 +239,10 @@ export class Extension<
     if (this.meta[key] === true) return false
     this.meta[key] = true
 
-    if ([`buildAfter`, `buildBefore`].includes(key) && !this.isEnabled())
+    if (
+      [`buildAfter`, `buildBefore`, `configAfter`].includes(key) &&
+      !this.isEnabled()
+    )
       return false
 
     this.logger.log(`Executing:`, key)
