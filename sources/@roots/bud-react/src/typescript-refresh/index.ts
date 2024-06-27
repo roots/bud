@@ -14,10 +14,10 @@ import {
 @development
 export default class BudTypeScriptRefresh extends Extension {
   /**
-   * {@link Extension.buildBefore}
+   * {@link Extension.register}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async register(bud: Bud) {
     this.registerTransform(bud)
   }
 
@@ -27,12 +27,6 @@ export default class BudTypeScriptRefresh extends Extension {
   @bind
   public async registerTransform(bud: Bud) {
     this.logger.log(`Registering react-refresh-typescript transformer`)
-    if (!bud.typescript) {
-      this.logger.warn(
-        `Typescript not found. Skipping registration of ${this.constructor.name}.`,
-      )
-      return this
-    }
 
     const transform = await this.import(
       `react-refresh-typescript`,

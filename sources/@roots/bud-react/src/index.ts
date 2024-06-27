@@ -37,4 +37,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default BudReact
+export {default} from '@roots/bud-react/extension'
