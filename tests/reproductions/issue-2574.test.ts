@@ -4,6 +4,7 @@ import {sep} from 'node:path'
 import {path} from '@repo/constants'
 import execa from '@roots/bud-support/execa'
 import {Filesystem} from '@roots/bud-support/filesystem'
+import axios from 'axios'
 import {beforeAll, describe, expect, it} from 'vitest'
 
 describe(`issue-2574`, () => {
@@ -29,10 +30,10 @@ describe(`issue-2574`, () => {
   }, 30000)
 
   it(`should upload to s3`, async () => {
-    const result = await fetch(
+    const result = await axios.get(
       `https://bud-js-tests.s3.us-west-2.amazonaws.com/${head}/js/main.js`,
     )
-    expect(await result.text()).toBe(
+    expect(result.data).toBe(
       await fs.read(
         path(
           `tests`,

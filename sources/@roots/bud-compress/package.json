@@ -75,15 +75,15 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.12.8"
+    "@types/node": "20.14.9"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "compression-webpack-plugin": "10.0.0",
-    "tslib": "2.6.2",
-    "webpack": "5.91.0"
+    "tslib": "2.6.3",
+    "webpack": "5.92.1"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -9,6 +9,6 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
-    "daisyui": "4.6.0"
+    "daisyui": "4.12.10"
   }
 }

@@ -8,10 +8,4 @@
  * @see https://github.com/roots/bud
  */
 
-import {Dashboard as Service} from './service.js'
-
-declare module '@roots/bud-framework' {
-  type Dashboard = Service
-}
-
-export {Service as default}
+export {Dashboard as default} from './service.js'

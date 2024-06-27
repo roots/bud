@@ -23,17 +23,7 @@ export class Finder {
   public constructor(
     public context: Partial<Context>,
     public application: Cli,
-  ) {
-    /*     this.cacheClear = this.cacheClear.bind(this)
-    this.cacheRead = this.cacheRead.bind(this)
-    this.cacheWrite = this.cacheWrite.bind(this)
-    this.getModules = this.getModules.bind(this)
-    this.getPaths = this.getPaths.bind(this)
-    this.getSignifiers = this.getSignifiers.bind(this)
-    this.importCommands = this.importCommands.bind(this)
-    this.init = this.init.bind(this)
-    this.resolve = this.resolve.bind(this) */
-  }
+  ) {}
 
   /**
    * Is cacheable
@@ -154,11 +144,13 @@ export class Finder {
     return await Promise.all(
       paths.map(async path => {
         try {
-          return await resolve(path, import.meta.url)
+          return resolve(path, import.meta.url)
         } catch (error) {}
       }),
     )
-      .then(paths => paths.filter(isString).map(fileURLToPath))
+      .then(paths =>
+        paths.filter(isString).map(path => fileURLToPath(path)),
+      )
       .then(
         async paths =>
           await Promise.all(
