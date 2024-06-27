@@ -42,12 +42,12 @@ Call `bud --help` for usage information.
 
 ## Node
 
-Instantiate **bud** is using the `factory` export:
+Instantiate **bud.js** using the `factory` export:
 
 ```js
-import {factory} from '@roots/bud/factory'
+import { factory } from "@roots/bud/factory";
 
-const bud = await factory()
+const bud = await factory();
 ```
 
 ## Contributing
@@ -73,7 +73,7 @@ Keep track of development and community news.
 
 ## Sponsors
 
-**Bud** is an open source project and completely free to use.
+**bud.js** is an open source project and completely free to use.
 
 However, the amount of effort needed to maintain and develop new features and projects within the Roots ecosystem is not sustainable without proper financial backing. If you have the capability, please consider [sponsoring Roots](https://github.com/sponsors/roots).
 

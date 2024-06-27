@@ -18,23 +18,23 @@ detect this and create an entrypoint for you.
 
 If you only have a single entrypoint then it is enough to just pass the filename:
 
-<ConfigExample>
+<ConfigExample title="bud.config">
 
-```ts title=bud.config.ts
-bud.entry('app') // src/app.js
+```ts
+bud.entry('app')
 ```
 
-```js title=bud.config.js
-bud.entry('app') // src/app.js
+```js
+bud.entry('app')
 ```
 
-```yml title=bud.config.yml
-entry: app # src/app.js
+```yml
+entry: app
 ```
 
 ```json title=bud.config.json
 {
-  "entry": "app" // src/app.js
+  "entry": "app"
 }
 ```
 
@@ -42,22 +42,22 @@ entry: app # src/app.js
 
 If you have more than one file to include in the bundle, you can use an array:
 
-<ConfigExample>
+<ConfigExample title="bud.config">
 
-  ```ts title=bud.config.ts
+  ```ts
   bud.entry(['app.js', 'global.css'])
   ```
 
-  ```js title=bud.config.js
+  ```js
   bud.entry(['app.js', 'global.css'])
   ```
 
-  ```yml title=bud.config.yml
+  ```yml
   entry:
     - ['app.js', 'global.css']
   ```
 
-  ```json title=bud.config.json
+  ```json
   {
     "entry": [["app.js", "global.css"]]
   }
@@ -69,29 +69,29 @@ If you have additional entrypoints you may call [bud.entry](/reference/bud.entry
 
 But, it might be preferable to use an object:
 
-<ConfigExample>
+<ConfigExample title="bud.config">
 
-  ```ts title=bud.config.ts
+  ```ts
   bud.entry({
     app: ['app.js', 'global.css'],
     landing: ['landing.js', 'landing.css'],
   })
   ```
 
-  ```js title=bud.config.js
+  ```js
   bud.entry({
     app: ['app.js', 'global.css'],
     landing: ['landing.js', 'landing.css'],
   })
   ```
 
-  ```yml title=bud.config.yml
+  ```yml
   entry:
     app: ['app.js', 'global.css']
     landing: ['landing.js', 'landing.css']
   ```
 
-  ```json title=bud.config.json
+  ```json
   {
     "entry": {
       "app": ["app.js", "global.css"],
