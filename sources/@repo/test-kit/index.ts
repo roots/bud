@@ -9,7 +9,7 @@ export type Options = {
 
 const makeTestBud = async (options: Options = {}): Promise<Bud> =>
   await factory({
-    basedir: options.basedir ?? path(`tests`, `util`, `project`),
+    basedir: path(`tests`, `util`, `project`),
     cache: false,
     dry: true,
     force: true,

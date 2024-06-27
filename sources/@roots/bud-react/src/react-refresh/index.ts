@@ -13,8 +13,6 @@ import {
   label,
   options,
 } from '@roots/bud-framework/extension/decorators'
-import isBoolean from '@roots/bud-support/isBoolean'
-import isUndefined from '@roots/bud-support/isUndefined'
 import omit from '@roots/bud-support/omit'
 
 interface Options extends ReactRefreshPluginOptions {
@@ -84,16 +82,15 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async configAfter(bud: Bud) {
-    if (!this.isEnabled()) return
-    if (bud.context.mode !== `development`) return
-    if (bud.context.hot === false) return
+    if (!bud.isDevelopment) return
+    if (!(`hot` in bud.server.enabledMiddleware)) return
 
     if (!this.compilerExtension) {
-      const signifier = bud.swc
+      const signifier = bud.swc?.enabled
         ? `@roots/bud-react/swc-refresh`
-        : bud.typescript && bud.typescript.babel === false
+        : bud.typescript?.enabled && bud.typescript.babel === false
           ? `@roots/bud-react/typescript-refresh`
-          : bud.babel || bud.typescript?.babel === true
+          : bud.babel?.enabled || bud.typescript?.babel === true
             ? `@roots/bud-react/babel-refresh`
             : false
 
@@ -117,10 +114,10 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public override async make(
-    bud: Bud,
+    _bud: Bud,
     options: Options,
   ): Promise<RefreshPlugin> {
-    return new RefreshPlugin(omit(this.options, [`compilerExtension`]))
+    return new RefreshPlugin(omit(options, [`compilerExtension`]))
   }
 
   /**
@@ -154,30 +151,17 @@ export default class BudReactRefresh extends Extension<
    */
   @bind
   public configure(userOptions?: false | Options): this {
-    this.app.hooks.action(
-      `config.after`,
-      this.makeReactRefreshCallback(userOptions),
-    )
+    if (userOptions === false || !this.app.isDevelopment) {
+      this.enable(false)
+      return
+    }
+
+    this.enable(true)
+
+    this.app.hooks.action(`config.after`, async () => {
+      this.setOptions(userOptions)
+    })
 
     return this
-  }
-
-  /**
-   * Callback handling {@link RefreshPlugin} configuration
-   */
-  @bind
-  protected makeReactRefreshCallback(
-    userOptions?: false | Options,
-  ): (bud: Bud) => Promise<unknown> {
-    return async () => {
-      if (!this.app.isDevelopment) return this
-
-      if (!isUndefined(userOptions) && !isBoolean(userOptions))
-        this.setOptions(userOptions)
-
-      userOptions === false ? this.enable(false) : this.enable()
-
-      return this
-    }
   }
 }

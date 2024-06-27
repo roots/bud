@@ -14,10 +14,10 @@ import {
 @development
 export default class BudSWCRefresh extends Extension {
   /**
-   * {@link Extension.buildBefore}
+   * {@link Extension.register}
    */
   @bind
-  public override async buildBefore(bud: Bud) {
+  public override async register(bud: Bud) {
     await this.registerTransform(bud)
   }
 
@@ -26,12 +26,6 @@ export default class BudSWCRefresh extends Extension {
    */
   public async registerTransform({isDevelopment, swc}: Bud) {
     this.logger.log(`Registering swc react-refresh transformer`)
-    if (!swc) {
-      this.logger.warn(
-        `SWC not found. Skipping registration of ${this.constructor.name}.`,
-      )
-      return this
-    }
 
     swc.setTransform((transform = {}) => ({
       ...(transform ?? {}),
