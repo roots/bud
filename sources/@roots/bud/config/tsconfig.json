@@ -15,7 +15,7 @@
     "noFallthroughCasesInSwitch": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "target": "ES6",
+    "target": "esnext",
     "types": [
       "node",
       "@roots/bud-api",
