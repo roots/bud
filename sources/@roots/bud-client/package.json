@@ -47,8 +47,7 @@
   "exports": {
     ".": "./lib/index.js",
     "./dom-ready": "./lib/dom-ready.js",
-    "./lazy": "./lib/lazy.js",
-    "./lib/*": "./lib/*"
+    "./lazy": "./lib/lazy.js"
   },
   "typesVersions": {
     "*": {
@@ -64,7 +63,7 @@
     }
   },
   "types": "./lib/index.d.ts",
-  "module": "./lib/index.mjs",
+  "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",
