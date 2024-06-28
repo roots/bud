@@ -80,7 +80,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@vue/compiler-sfc": "3.4.30",
+    "@vue/compiler-sfc": "3.4.31",
     "tslib": "2.6.3",
     "vue": "3.4.30",
     "vue-loader": "17.4.2",

@@ -32,7 +32,7 @@
     "@vitest/ui": "1.6.0",
     "browserslist": "4.23.1",
     "caniuse-lite": "1.0.30001638",
-    "esbuild": "0.20.2",
+    "esbuild": "0.21.5",
     "eslint": "8.57.0",
     "eslint-plugin-n": "17.9.0",
     "eslint-plugin-perfectionist": "2.11.0",

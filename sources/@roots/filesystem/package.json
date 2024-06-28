@@ -87,8 +87,8 @@
   "module": "./lib/index.ts",
   "devDependencies": {
     "@aws-sdk/client-s3": "3.600.0",
-    "@aws-sdk/client-sso-oidc": "3.600.0",
-    "@aws-sdk/client-sts": "3.600.0",
+    "@aws-sdk/client-sso-oidc": "3.606.0",
+    "@aws-sdk/client-sts": "3.606.0",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.9",
     "@types/lodash-es": "4.17.12",
