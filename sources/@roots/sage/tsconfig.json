@@ -6,14 +6,16 @@
     "strict": true,
     "types": [
       "node",
-      "@roots/bud-framework",
-      "@roots/bud-build",
       "@roots/bud-api",
-      "@roots/bud-client",
-      "@roots/bud-extensions",
-      "@roots/bud-minify",
+      "@roots/bud-build",
+      "@roots/bud-cache",
+      "@roots/bud-dashboard",
       "@roots/bud-entrypoints",
-      "@roots/bud-preset-wordpress",
+      "@roots/bud-extensions",
+      "@roots/bud-framework",
+      "@roots/bud-hooks",
+      "@roots/bud-minify",
+      "@roots/bud-server",
       "@roots/bud-support"
     ]
   },
