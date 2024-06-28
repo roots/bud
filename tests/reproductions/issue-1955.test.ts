@@ -13,7 +13,7 @@ describe(`issue-1995`, () => {
       cwd: path(`tests`, `reproductions`, `issue-1955`),
     })
 
-    await execa(`yarn`, [`bud`, `build`], {
+    await execa(`yarn`, [`bud`, `build`, `--force`, `--no-cache`], {
       cwd: path(`tests`, `reproductions`, `issue-1955`),
     })
   }, 30000)

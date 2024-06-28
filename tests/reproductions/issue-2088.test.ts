@@ -14,9 +14,13 @@ describe(`issue-2088`, () => {
       cwd: path(`tests`, `reproductions`, `issue-2088`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--minimize`], {
-      cwd: path(`tests`, `reproductions`, `issue-2088`),
-    })
+    await execa(
+      `yarn`,
+      [`bud`, `build`, `--force`, `--no-cache`, `--minimize`],
+      {
+        cwd: path(`tests`, `reproductions`, `issue-2088`),
+      },
+    )
 
     const file = await fs.read(
       path(

@@ -17,10 +17,14 @@ describe(`issue-1986`, () => {
     } catch (error) {}
 
     try {
-      child = await execa(`yarn`, [`bud`, `build`], {
-        cwd: path(`tests`, `reproductions`, `issue-1986`),
-        reject: false,
-      })
+      child = await execa(
+        `yarn`,
+        [`bud`, `build`, `--force`, `--no-cache`],
+        {
+          cwd: path(`tests`, `reproductions`, `issue-1986`),
+          reject: false,
+        },
+      )
     } catch (error) {}
   }, 30000)
 
