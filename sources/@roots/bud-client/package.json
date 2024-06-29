@@ -44,6 +44,8 @@
     "src"
   ],
   "type": "module",
+  "module": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "exports": {
     ".": "./lib/index.js",
     "./dom-ready": "./lib/dom-ready.js",
@@ -62,8 +64,6 @@
       ]
     }
   },
-  "types": "./lib/index.d.ts",
-  "module": "./lib/index.js",
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",

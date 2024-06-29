@@ -1,7 +1,7 @@
 import {type Bud, factory} from '@repo/test-kit'
 import {beforeEach, describe, expect, it, vi} from 'vitest'
 
-import BudSWCExtension from '@roots/bud-swc'
+import BudSWCExtension from '../src'
 
 describe(`@roots/bud-swc`, () => {
   let bud: Bud

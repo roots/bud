@@ -15,7 +15,7 @@ export class Controller {
   /**
    * Timer handler
    */
-  public timer: NodeJS.Timeout
+  public timer?: NodeJS.Timeout
 
   /**
    * Initialization
@@ -49,11 +49,21 @@ export class Controller {
    * Update activity indicator
    */
   public update(payload: Payload) {
-    this.node.toggleAttribute(`has-errors`, payload.errors?.length > 0)
-
-    this.node.toggleAttribute(`has-warnings`, payload.warnings?.length > 0)
+    if (!payload.action) return
 
     this.node.setAttribute(`action`, payload.action)
+
+    this.node.toggleAttribute(
+      `has-errors`,
+      payload?.errors?.length && payload.errors.length > 0 ? true : false,
+    )
+
+    this.node.toggleAttribute(
+      `has-warnings`,
+      payload?.warnings?.length && payload.warnings?.length > 0
+        ? true
+        : false,
+    )
 
     this.addNode()
   }

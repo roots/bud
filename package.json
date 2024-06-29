@@ -4,11 +4,11 @@
   "description": "Configurable, extensible build tools for modern single and multi-page web applications",
   "engines": {
     "node": "20.3.1",
-    "yarn": "1.22.22",
+    "yarn": "4.3.1",
     "npm": "8.19.2"
   },
   "license": "MIT",
-  "packageManager": "yarn@4.0.2",
+  "packageManager": "yarn@4.3.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git"
@@ -53,7 +53,7 @@
     "syncpack": "12.3.3",
     "ts-node": "10.9.2",
     "tslib": "2.6.3",
-    "typescript": "5.5.2",
+    "typescript": "5.4.5",
     "update-browserslist-db": "1.0.16",
     "verdaccio": "5.31.1",
     "vitest": "1.6.0",
@@ -76,6 +76,6 @@
   },
   "volta": {
     "node": "20.3.1",
-    "yarn": "1.22.22"
+    "yarn": "4.3.1"
   }
 }
