@@ -90,7 +90,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "eslint": "8.57.0",
-    "eslint-webpack-plugin": "4.1.0",
+    "eslint-webpack-plugin": "4.2.0",
     "tslib": "2.6.2",
     "webpack": "5.91.0"
   },
