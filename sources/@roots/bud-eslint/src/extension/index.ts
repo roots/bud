@@ -16,6 +16,7 @@ import {
 } from '@roots/bud-framework/extension/decorators'
 import Value from '@roots/bud-support/value'
 import Plugin from 'eslint-webpack-plugin'
+import filterUndefined from '@roots/bud-support/filter-undefined'
 
 /**
  * Eslint configuration
@@ -75,6 +76,11 @@ class BudEslint extends BudEslintPublicApi implements Api {
       }))
       this.setOverrideConfig(await config.module())
     }
+  }
+
+  @bind
+  public override async configAfter() {
+    this.setOptions(filterUndefined(this.options))
   }
 }
 
