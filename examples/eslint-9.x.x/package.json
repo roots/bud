@@ -1,0 +1,15 @@
+{
+  "name": "@examples/eslint-9.x.x",
+  "$schema": "https://bud.js.org/bud.package.json",
+  "private": true,
+  "type": "module",
+  "browserslist": [
+    "extends @roots/browserslist-config"
+  ],
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-eslint": "workspace:*",
+    "@roots/eslint-config": "workspace:*",
+    "eslint": "9.6.0"
+  }
+}
