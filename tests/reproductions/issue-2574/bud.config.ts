@@ -1,14 +1,10 @@
-import { sep } from 'node:path'
+import {sep} from 'node:path'
 
 import {bud} from '@roots/bud'
 
 const path = bud.path(`..`, `..`, `..`, `.git`, `HEAD`)
 
-const head = (await bud.fs.read(path))
-  ?.toString()
-  .split(sep)
-  .pop()
-  .trim()
+const head = (await bud.fs.read(path))?.toString().split(sep).pop().trim()
 
 bud.fs
   .setCredentials({

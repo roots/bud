@@ -11,7 +11,7 @@ describe(`issue-1886`, () => {
     await execa(`yarn`, [`bud`, `clean`], {
       cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
-    await execa(`yarn`, [`bud`, `build`], {
+    await execa(`yarn`, [`bud`, `build`, `--force`, `--no-cache`], {
       cwd: path(`tests`, `reproductions`, `issue-1886`),
     })
   })

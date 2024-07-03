@@ -137,7 +137,7 @@ export const client = async (
       if (payload.name !== options.name) return
       window.bud.controllers.map(controller => controller?.update(payload))
 
-      if (payload.errors?.length > 0) return
+      if (payload.errors?.length) return
 
       if (payload.action === `built` || payload.action === `sync`) {
         if (isStale(payload.hash)) return

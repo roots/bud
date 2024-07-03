@@ -15,4 +15,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export default BudWordPressDependencies
+export {default} from './extension.js'

@@ -67,13 +67,13 @@
   "devDependencies": {
     "@roots/bud-api": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.12.8"
+    "@types/node": "20.14.9"
   },
   "dependencies": {
     "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "tslib": "2.6.2"
+    "tslib": "2.6.3"
   },
   "volta": {
     "extends": "../../../package.json"

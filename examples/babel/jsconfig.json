@@ -1,5 +1,11 @@
 {
+  "extends": ["@roots/bud/config/jsconfig.json"],
   "compilerOptions": {
+    "paths": {
+      "@src": ["./src"]
+    },
     "types": ["@roots/bud", "@roots/bud-babel"]
-  }
+  },
+  "include": ["./src"],
+  "exclude": ["./node_modules", "./dist"]
 }

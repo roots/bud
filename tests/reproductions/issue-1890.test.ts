@@ -14,9 +14,13 @@ describe(`issue-1890`, () => {
       cwd: path(`tests`, `reproductions`, `issue-1890`),
     })
 
-    await execa(`yarn`, [`bud`, `build`, `--silent`], {
-      cwd: path(`tests`, `reproductions`, `issue-1890`),
-    })
+    await execa(
+      `yarn`,
+      [`bud`, `build`, `--silent`, `--force`, `--no-cache`],
+      {
+        cwd: path(`tests`, `reproductions`, `issue-1890`),
+      },
+    )
 
     const normalJs = await fs.read(
       path(

@@ -86,14 +86,14 @@
   "types": "./lib/index.d.ts",
   "module": "./lib/index.ts",
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.569.0",
-    "@aws-sdk/client-sso-oidc": "3.569.0",
-    "@aws-sdk/client-sts": "3.569.0",
+    "@aws-sdk/client-s3": "3.600.0",
+    "@aws-sdk/client-sso-oidc": "3.606.0",
+    "@aws-sdk/client-sts": "3.606.0",
     "@skypack/package-check": "0.2.2",
     "@types/js-yaml": "4.0.9",
     "@types/lodash-es": "4.17.12",
     "@types/mime-types": "2.1.4",
-    "@types/node": "20.12.8",
+    "@types/node": "20.14.9",
     "@types/safe-json-stringify": "1.1.5"
   },
   "dependencies": {
@@ -105,7 +105,7 @@
     "lodash-es": "4.17.21",
     "mime-types": "2.1.35",
     "safe-json-stringify": "1.2.0",
-    "tslib": "2.6.2"
+    "tslib": "2.6.3"
   },
   "volta": {
     "extends": "../../../package.json"

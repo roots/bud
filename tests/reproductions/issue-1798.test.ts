@@ -13,8 +13,8 @@ describe(`@roots/bud-sass`, () => {
           `run`,
           `bud`,
           `dev`,
+          `--force`,
           `--no-cache`,
-          `--ci`,
         ],
         {
           reject: false,
@@ -35,8 +35,8 @@ describe(`@roots/bud-sass`, () => {
           `bud`,
           `build`,
           `production`,
+          `--force`,
           `--no-cache`,
-          `--ci`,
         ],
         {
           timeout: 10000,
