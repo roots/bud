@@ -42,5 +42,6 @@
   "typescript.enablePromptUseWorkspaceTsdk": true,
   "typescript.format.semicolons": "remove",
   "typescript.preferences.preferTypeOnlyAutoImports": true,
-  "typescript.preferences.quoteStyle": "single"
+  "typescript.preferences.quoteStyle": "single",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }
