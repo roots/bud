@@ -70,7 +70,7 @@
   "dependencies": {
     "@roots/wordpress-transforms": "workspace:*",
     "tslib": "2.6.3",
-    "webpack": "5.92.1"
+    "webpack": "5.89.0"
   },
   "volta": {
     "extends": "../../../package.json"

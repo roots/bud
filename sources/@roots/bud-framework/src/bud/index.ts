@@ -105,6 +105,8 @@ export class Bud {
 
   public declare server?: Server & Service
 
+  public declare services: Partial<Record<keyof Bud & string, string>>
+
   public declare setPath: typeof methods.setPath
 
   public declare setPublicPath: typeof methods.setPublicPath

@@ -58,7 +58,7 @@
     "verdaccio": "5.31.1",
     "vitest": "1.6.0",
     "vitest-github-actions-reporter": "0.11.1",
-    "webpack": "5.92.1"
+    "webpack": "5.89.0"
   },
   "overrides": {
     "ink": "file:./node_modules/@roots/bud-support/lib/ink/index.js"

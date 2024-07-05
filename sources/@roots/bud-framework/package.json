@@ -94,7 +94,7 @@
     "chalk": "5.3.0",
     "execa": "8.0.1",
     "tslib": "2.6.3",
-    "webpack": "5.92.1"
+    "webpack": "5.89.0"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs"

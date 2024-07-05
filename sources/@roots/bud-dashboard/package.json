@@ -86,7 +86,7 @@
     "@types/react": "18.3.3",
     "ink-testing-library": "patch:ink-testing-library@npm%3A3.0.0#~/.yarn/patches/ink-testing-library-npm-3.0.0-c20aad0bd9.patch",
     "vitest": "1.6.0",
-    "webpack": "5.92.1"
+    "webpack": "5.89.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

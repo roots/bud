@@ -27,7 +27,7 @@
     "netlify-cli": "17.30.0",
     "raw-loader": "4.0.2",
     "url-loader": "4.1.1",
-    "webpack": "5.92.1"
+    "webpack": "5.89.0"
   },
   "dependencies": {
     "@docusaurus/theme-classic": "3.4.0",

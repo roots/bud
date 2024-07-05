@@ -1,10 +1,4 @@
-import type Api from '@roots/bud-api'
-import type Build from '@roots/bud-build'
-import type Cache from '@roots/bud-cache'
-import type Compiler from '@roots/bud-compiler'
-import type Dashboard from '@roots/bud-dashboard'
 import type Entrypoints from '@roots/bud-entrypoints'
-import type Extensions from '@roots/bud-extensions'
 import type BudCDN from '@roots/bud-extensions/cdn'
 import type CleanWebpackPlugin from '@roots/bud-extensions/clean-webpack-plugin'
 import type CopyWebpackPlugin from '@roots/bud-extensions/copy-webpack-plugin'
@@ -21,9 +15,7 @@ import type BudWebpackLifecyclePlugin from '@roots/bud-extensions/webpack-lifecy
 import type WebpackManifestPlugin from '@roots/bud-extensions/webpack-manifest-plugin'
 import type WebpackProfilePlugin from '@roots/bud-extensions/webpack-profile-plugin'
 import type WebpackProvidePlugin from '@roots/bud-extensions/webpack-provide-plugin'
-import type Hooks from '@roots/bud-hooks'
 import type Minify from '@roots/bud-minify'
-import type Server from '@roots/bud-server'
 
 import * as Framework from '@roots/bud-framework'
 
@@ -58,19 +50,17 @@ declare module '@roots/bud-framework' {
 }
 
 class Bud extends Framework.Bud {
-  public declare api: Api
-  public declare build: Build
-  public declare cache: Cache
-  public declare cdn: BudCDN
-  public declare compiler: Compiler
-  public declare dashboard: Dashboard
-  public declare esm: BudESM
-  public declare extensions: Extensions
-  public declare hooks: Hooks
   public override implementation: new () => Framework.Bud = Bud
-  public declare manifest: WebpackManifestPlugin
-  public declare server?: Server
-  public declare tsconfig: BudTsConfigValues
+  public override services: Partial<Record<keyof Bud & string, string>> = {
+    api: `@roots/bud-api`,
+    build: `@roots/bud-build`,
+    cache: `@roots/bud-cache`,
+    compiler: `@roots/bud-compiler`,
+    dashboard: `@roots/bud-dashboard`,
+    env: `@roots/bud-framework/env`,
+    extensions: `@roots/bud-extensions`,
+    hooks: `@roots/bud-hooks`,
+  }
 }
 
 export {Bud}

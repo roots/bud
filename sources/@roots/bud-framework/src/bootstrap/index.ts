@@ -6,22 +6,17 @@ import {FS} from '@roots/bud-framework/fs'
 import {Module} from '@roots/bud-framework/module'
 import {Notifier} from '@roots/bud-framework/notifier'
 import camelCase from '@roots/bud-support/camelCase'
-import isString from '@roots/bud-support/isString'
 import logger from '@roots/bud-support/logger'
 
 /**
  * Define the list of services that should only be instantiated in the parent compiler context
  */
-export const PARENT_SERVICES = [
-  `@roots/bud-compiler`,
-  `@roots/bud-dashboard`,
-  `@roots/bud-server`,
-]
+export const PARENT_SERVICES = [`compiler`, `dashboard`, `server`]
 
 /**
  * Define the list of services that should only be instantiated during development
  */
-export const DEVELOPMENT_SERVICES = [`@roots/bud-server`]
+export const DEVELOPMENT_SERVICES = [`server`]
 
 /**
  * Map the lifecycle events to their corresponding Service class methods
@@ -78,9 +73,9 @@ export const bootstrap = async (bud: Bud) => {
   }
 
   await Promise.all(
-    [...bud.context.services]
-      .filter(filterServices(bud))
-      .map(instantiateServices(bud)),
+    Object.entries(bud.services)
+      .filter(filterService(bud))
+      .map(instantiateService(bud)),
   )
 
   bud.hooks
@@ -152,14 +147,12 @@ export const bootstrap = async (bud: Bud) => {
  * @param app - Bud instance
  * @returns filter function
  */
-const filterServices =
+const filterService =
   (app: Bud) =>
-  (signifier: string): boolean => {
-    if (!isString(signifier)) return true
-
+  ([label]: [string, string]): boolean => {
     return (
-      (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(signifier)) &&
-      (app.isRoot || !PARENT_SERVICES.includes(signifier))
+      (app.isDevelopment || !DEVELOPMENT_SERVICES.includes(label)) &&
+      (app.isRoot || !PARENT_SERVICES.includes(label))
     )
   }
 
@@ -171,9 +164,12 @@ const filterServices =
  * @param app - Bud instance
  * @returns function to instantiate a service
  */
-const instantiateServices =
+const instantiateService =
   (bud: Bud) =>
-  async (signifier: `${keyof Bud & string}`): Promise<void> => {
+  async ([label, signifier]: [
+    `${keyof Bud & string}`,
+    string,
+  ]): Promise<void> => {
     const Service = await bud.module.import(signifier)
     const value = new Service(() => bud)
     const handle = (

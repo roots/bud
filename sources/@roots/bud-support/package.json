@@ -378,7 +378,7 @@
     "tslib": "2.6.3",
     "typanion": "3.14.0",
     "unicoderegexp": "0.4.1",
-    "webpack": "5.92.1",
+    "webpack": "5.89.0",
     "webpack-dev-middleware": "7.2.1",
     "webpack-manifest-plugin": "5.0.0",
     "yml-loader": "2.1.0"
