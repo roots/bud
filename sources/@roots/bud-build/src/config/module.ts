@@ -13,9 +13,9 @@ export const module: Factory<`module`> = async ({
   path,
 }) =>
   filter(`build.module`, {
-    noParse: getNoParse(filter),
+    noParse: filter(`build.module.noParse`, undefined),
     rules: getRules({filter, path, rules}),
-    unsafeCache: getUnsafeCache(filter),
+    unsafeCache: filter(`build.module.unsafeCache`, undefined),
   })
 
 /**
@@ -33,7 +33,7 @@ const getRules = ({filter, path, rules}: Props): Array<RuleSetRule> => {
         ? {
             oneOf: [
               rules[`inline-image`]?.toWebpack?.(),
-              rules.image.toWebpack?.(),
+              rules.image?.toWebpack?.(),
             ].filter(Boolean),
             test: filter(`pattern.image`),
           }
@@ -43,7 +43,7 @@ const getRules = ({filter, path, rules}: Props): Array<RuleSetRule> => {
         ? {
             oneOf: [
               rules[`inline-font`]?.toWebpack?.(),
-              rules.font.toWebpack(),
+              rules.font?.toWebpack?.(),
             ].filter(Boolean),
             test: filter(`pattern.font`),
           }
@@ -53,64 +53,44 @@ const getRules = ({filter, path, rules}: Props): Array<RuleSetRule> => {
         ? {
             oneOf: [
               rules[`inline-svg`]?.toWebpack?.(),
-              rules.svg.toWebpack(),
+              rules.svg?.toWebpack?.(),
             ].filter(Boolean),
             test: filter(`pattern.svg`),
           }
         : undefined,
     ]),
-    {
-      oneOf: [
-        ...filter(`build.module.rules.oneOf`, [
-          ...getDefinedRules({rules}),
-          ...makeIssuerRuleSet({filter, path, rules}),
-        ]),
-      ].filter(Boolean),
-    },
+
+    ...filter(`build.module.rules.oneOf`, [
+      ...makeDefinedRuleSet({rules}),
+      ...makeIssuerRuleSet({filter, path, rules}),
+    ]).filter(Boolean),
+
     ...filter(`build.module.rules.after`, []),
   ].filter(Boolean)
 }
 
 /**
- * Get the standard rules defined in the bud config, extensions, etc.
+ * Make defined rule set
  */
-const getDefinedRules = ({rules}: Partial<Props>) => {
-  return [
-    ...Object.entries(rules)
-      .filter(([key, _]) => {
-        return !DEFINED.includes(key) && !RESOURCES.includes(key)
-      })
-      .map(([_, value]) => value),
-    ...DEFINED.map(key => rules[key]),
-  ]
+const makeDefinedRuleSet = ({rules}: {rules: Props['rules']}) => {
+  return Object.entries(rules)
+    .filter(
+      ([key]) =>
+        ![
+          `font`,
+          `image`,
+          `inline-font`,
+          `inline-image`,
+          `inline-svg`,
+          `svg`,
+        ].includes(key),
+    )
+    .map(([, rule]) => rule)
     .filter(Boolean)
-    .map(rule => (`toWebpack` in rule ? rule.toWebpack() : rule))
+    .map(rule => {
+      return `toWebpack` in rule ? rule.toWebpack() : rule
+    })
 }
-
-const RESOURCES = [
-  `image`,
-  `font`,
-  `svg`,
-  `inline-font`,
-  `inline-image`,
-  `inline-svg`,
-]
-
-const DEFINED = [
-  `csv`,
-  `toml`,
-  `yml`,
-  `json`,
-  `html`,
-  `webp`,
-  `css-module`,
-  `css`,
-  `sass-module`,
-  `sass`,
-  `vue`,
-  `js`,
-  `ts`,
-]
 
 /**
  * Get rules for css and css-module imports issued by non-css files.
@@ -152,13 +132,3 @@ const makeIssuerRuleSet = ({filter, path, rules}: Props) => {
 
   return results
 }
-
-const getNoParse = (filter: Props[`filter`]) =>
-  filter(`build.module.noParse`, undefined)
-
-/**
- * By leaving undefined, webpack will strongly cache parsed modules from node_modules
- * but leave the rest. This is the default behavior.
- */
-const getUnsafeCache = (filter: Props[`filter`]) =>
-  filter(`build.module.unsafeCache`, undefined)

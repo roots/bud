@@ -10,8 +10,8 @@ export const css: Factory<Item> = async ({makeItem}) =>
   makeItem({
     ident: `css`,
     loader: `css`,
-    options: {modules: false},
   }).setOptions(({hooks: {filter}}) => ({
+    modules: false,
     sourceMap: isBoolean(filter(`build.devtool`))
       ? filter(`build.devtool`)
       : true,
