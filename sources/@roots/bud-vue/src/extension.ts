@@ -6,7 +6,6 @@ import {join} from 'node:path'
 import {Extension} from '@roots/bud-framework/extension'
 import {
   bind,
-  dependsOnOptional,
   expose,
   label,
   options,
@@ -32,7 +31,6 @@ interface Options {
   version: `^3`,
 })
 @expose(`vue`)
-@dependsOnOptional([`@roots/bud-postcss`, `@roots/bud-sass`])
 export default class BudVue extends Extension<
   Options,
   WebpackPluginInstance
@@ -192,11 +190,15 @@ export default class BudVue extends Extension<
     const style = await this.resolve(`vue-style-loader`, import.meta.url)
     if (!style) return this.logger.error(`vue-style-loader not found`)
 
-    bud.hooks.on(`build.resolveLoader.alias`, (aliases = {}) => ({
-      ...aliases,
-      [`vue-loader`]: loader,
-      [`vue-style-loader`]: style,
-    }))
+    bud.hooks
+      .on(`build.resolveLoader.alias`, (aliases = {}) => ({
+        ...aliases,
+        [`vue-loader`]: loader,
+        [`vue-style-loader`]: style,
+      }))
+      .hooks.on(`build.resolve.extensions`, (extensions = new Set()) =>
+        extensions.add(`.vue`),
+      )
 
     bud.build
       .setLoader(`vue`, loader)
@@ -204,29 +206,26 @@ export default class BudVue extends Extension<
       .setItem(`vue`, {ident: `vue`, loader: `vue`})
       .setItem(`vue-style`, {ident: `vue-style`, loader: `vue-style`})
 
-    await bud.hooks
-      .on(`build.resolve.extensions`, (extensions = new Set()) =>
-        extensions.add(`.vue`),
-      )
-      .hooks.on(`build.module.rules.before`, (rules = []) => [
-        ...rules,
-        {
-          include: [bud.path(`@src`)],
-          test: bud.hooks.filter(`pattern.vue`),
-          use: [bud.build.items.vue.toWebpack()],
-        },
-      ])
-      .extensions.add({
-        label: `vue-loader`,
-        make: async () => {
-          const {VueLoaderPlugin} = await this.import(
-            `vue-loader`,
-            import.meta.url,
-            {raw: true},
-          )
-          return new VueLoaderPlugin()
-        },
-      })
+    bud.hooks.on(`build.module.rules.before`, (rules = []) => [
+      ...rules,
+      {
+        include: [bud.path(`@src`)],
+        test: bud.hooks.filter(`pattern.vue`),
+        use: [bud.build.items.vue.toWebpack()],
+      },
+    ])
+
+    await bud.extensions.add({
+      label: `vue-loader`,
+      make: async () => {
+        const {VueLoaderPlugin} = await this.import(
+          `vue-loader`,
+          import.meta.url,
+          {raw: true},
+        )
+        return new VueLoaderPlugin()
+      },
+    })
   }
 
   /**

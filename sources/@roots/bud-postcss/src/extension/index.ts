@@ -120,16 +120,16 @@ class BudPostCss extends BudPostCssOptionsApi {
         }),
       })
 
-    build.rules.css.setUse((items = []) => [...items, `postcss`])
-    build.rules[`css-module`]?.setUse((items = []) => [
-      ...items,
-      `postcss`,
-    ])
+    build.rules.css.setUse((items = []) =>
+      items.includes(`postcss`) ? items : [...items, `postcss`],
+    )
+    build.rules[`css-module`]?.setUse((items = []) =>
+      items.includes(`postcss`) ? items : [...items, `postcss`],
+    )
 
     const config = Object.values(context.files).find(
       file => file?.name?.includes(`postcss`) && file?.module,
     )
-
     if (config) {
       this.logger.log(
         `PostCSS configuration is being overridden by project configuration file.`,
@@ -192,7 +192,7 @@ class BudPostCss extends BudPostCssOptionsApi {
       ...omit(this.options, [`plugins`, `order`, `postcssOptions`]),
       plugins: this.get(`order`).map(this.getPlugin).filter(Boolean),
     })
-      .filter(([k, v]) => !isUndefined(v))
+      .filter(([, v]) => !isUndefined(v))
       .reduce((a, [k, v]) => ({...a, [k]: v}), {})
 
     this.logger.info(`postcss options`, options)
