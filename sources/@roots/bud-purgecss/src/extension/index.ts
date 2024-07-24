@@ -25,8 +25,8 @@ import BudPurgeCSSPublicAPI from './base.js'
 @options<Options>({
   blocklist: undefined,
   content: DynamicOption.make((bud: Bud) => [
-    bud.path(`@src/*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
-    bud.path(`@src/**/*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
+    bud.path(`@src`, `*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
+    bud.path(`@src`, `**`, `*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
   ]),
   contentFunction: undefined,
   defaultExtractor: undefined,
