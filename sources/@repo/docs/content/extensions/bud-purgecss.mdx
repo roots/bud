@@ -2,9 +2,13 @@
 sidebar_label: '@roots/bud-purgecss'
 ---
 
+import ConfigExample from '@site/src/components/example'
+
 # @roots/bud-purgecss
 
 [PurgeCSS](https://purgecss.com/) support can be added by installing the [@roots/bud-purgecss](/extensions/bud-purgecss) extension.
+
+Styles are only purged when running in production mode.
 
 ## Installation
 
@@ -12,19 +16,184 @@ sidebar_label: '@roots/bud-purgecss'
 npm install @roots/bud-purgecss --save-dev
 ```
 
-[purgecss-with-wordpress](https://purgecss.com/guides/wordpress.html) is optional but recommended when working with WordPress.
-
-```sh npm2yarn
-npm install @roots/bud-purgecss purgecss-with-wordpress --save-dev
-```
-
 ## Configuration
 
-```ts title="bud.config.js"
-import purgeCssWordPress from `purgecss-with-wordpress`
+You can configure PurgeCSS using the API provided by `bud.purge`.
 
-bud.purgecss({
-  content: [bud.path(`resources/views/**`)],
-  safelist: [...purgeCssWordPress.safelist],
-})
+See the [PurgeCSS documentation](https://purgecss.com/configuration.html) to learn how to configure PurgeCSS.
+
+For every option detailed in the PurgeCSS docs there is a corresponding method in `bud.purge`.
+
+| PurgeCSS option | Configuration method |
+| --------------- | ---------------- |
+| `blocklist` | `bud.purge.setBlocklist` |
+| `content`       | `bud.purge.setContent`     |
+| `css`           | `bud.purge.setCss`         |
+| `defaultExtractor` | `bud.purge.setDefaultExtractor` |
+| `dynamicAttributes` | `bud.purge.setDynamicAttributes` |
+| `extractors`    | `bud.purge.setExtractors`  |
+| `fontFace`      | `bud.purge.setFontFace`    |
+| `keyframes`     | `bud.purge.setKeyframes`   |
+| `output` | `bud.purge.setOutput` |
+| `rejected` | `bud.purge.setRejected` |
+| `rejectedCss` | `bud.purge.setRejectedCss` |
+| `sourceMap` | `bud.purge.setSourceMap` |
+| `variables` | `bud.purge.setVariables` |
+| `safelist` | `bud.purge.setSafelist` |
+| `skippedContentGlobs` | `bud.purge.setSkippedContentGlobs` |
+| `stdin` | `bud.purge.setStdin` |
+| `stdout` | `bud.purge.setStdout` |
+| `variables` | `bud.purge.setVariables` |
+
+Some of the most common options are demonstrated below.
+
+### Set blocklist
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.purge.setBlocklist(['random', 'yep'])
+```
+
+```js
+bud.purge.setBlocklist(['random', 'yep'])
+```
+
+```yml
+purge:
+  setBlocklist:
+    - 'random'
+    - 'yep'
+```
+
+```json
+{
+  "purge": {
+    "setBlocklist": ["random", ".example-2"]
+  }
+}
+```
+
+</ConfigExample>
+
+### Set safelist
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.purge.setSafelist(['.example', '.example-2'])
+```
+
+```js
+bud.purge.setSafelist(['.example', '.example-2'])
+```
+
+```yml
+purge:
+  setSafelist:
+    - '.example'
+    - '.example-2'
+```
+
+```json
+{
+  "purge": {
+    "setSafelist": ["random", "yep"]
+  }
+}
+```
+
+</ConfigExample>
+
+### Set content
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.purge.setContent(['index.html', '**/*.js', '**/*.html', '**/*.vue'])
+```
+
+```js
+bud.purge.setContent(['index.html', '**/*.js', '**/*.html', '**/*.vue'])
+```
+
+```yml
+purge:
+  setContent:
+    - 'index.html'
+    - '**/*.js'
+    - '**/*.html'
+    - '**/*.vue'
+```
+
+```json
+{
+  "purge": {
+    "setContent": ["index.html", "**/*.js", "**/*.html", "**/*.vue"]
+  }
+}
+```
+
+</ConfigExample>
+
+### Set CSS
+
+<ConfigExample title="bud.config">
+
+```ts
+bud.purge.setCss(['**/*.css'])
+```
+
+```js
+bud.purge.setCss(['**/*.css'])
+```
+
+```yml
+purge:
+  setCss:
+    - '**/*.css'
+```
+
+```json
+{
+  "purge": {
+    "setCss": ["**/*.css"]
+  }
+}
+```
+
+</ConfigExample>
+
+## WordPress configuration
+
+Install the `purgecss-with-wordpress` package to use the PurgeCSS managed safelist.
+
+```sh npm2yarn
+npm install purgecss-with-wordpress --save-dev
+```
+
+See the [PurgeCSS guide](https://purgecss.com/guides/wordpress.html) for more informationon how to configure PurgeCSS for use in WordPress themes and plugins.
+
+An example implementation is provided below:
+
+### Example
+
+```ts
+import purgecssWordPress from 'purgecss with wordpress'
+
+bud.purge
+  .setContent([`views/**/*.php`])
+  .setCss([`assets/styles/**/*.css`])
+  .setSafelist(purgecssWordPress.safelist)
+```
+
+## Defaults
+
+By default, this extension uses the following configuration:
+
+```ts
+bud.purge.setContent([
+  bud.path(`@src`, `*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
+  bud.path(`@src`, `**`, `*.{html,js,jsx,php,pug,rb,ts,tsx,vue}`),
+])
 ```
