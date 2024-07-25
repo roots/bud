@@ -16,6 +16,7 @@ interface Options {
   color?: `extend` | boolean
   fontFamily?: `extend` | boolean
   fontSize?: `extend` | boolean
+  removeDefaultSuffix: boolean
   spacing?: `extend` | boolean
 }
 
@@ -27,6 +28,7 @@ interface Options {
   color: false,
   fontFamily: false,
   fontSize: false,
+  removeDefaultSuffix: false,
   spacing: false,
 })
 export class TailwindThemeJSON extends Extension {
@@ -82,16 +84,31 @@ export class TailwindThemeJSON extends Extension {
     bud.wpjson.useTailwindFontFamily = this.useTailwindFontFamily
     bud.wpjson.useTailwindFontSize = this.useTailwindFontSize
     bud.wpjson.useTailwindSpacing = this.useTailwindSpacing
+    bud.wpjson.removeDefaultSuffix = this.removeDefaultSuffix
+  }
+
+  @bind
+  public removeDefaultSuffix(value: boolean = true) {
+    this.set(`removeDefaultSuffix`, value)
+    return this.app.wpjson
   }
 
   @bind
   public tapTailwindColor(options: SettingsAndStyles): SettingsAndStyles {
-    const palette = tailwindAdapter.palette.transform({
+    const values = tailwindAdapter.palette.transform({
       ...this.app.tailwind.resolveThemeValue(
         `colors`,
         this.options.color === `extend`,
       ),
     })
+
+    const palette = this.get(`removeDefaultSuffix`)
+      ? values.map(({color, name, slug}) => ({
+          color,
+          name: name.replace(/ default$/i, ``),
+          slug: slug.replace(/-default$/i, ``),
+        }))
+      : values
 
     return {
       ...(options ?? {}),
