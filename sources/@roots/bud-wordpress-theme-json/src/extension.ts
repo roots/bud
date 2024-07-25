@@ -131,6 +131,21 @@ class WordPressThemeJson extends Extension<
   >
 
   /**
+   * ## bud.wp.json.removeDefaultSuffix
+   *
+   * Remove the `-default` suffix from color slugs and ` Default` from color names
+   *
+   * @example
+   * ```ts
+   * bud.wp.json.removeDefaultSuffix()
+   * bud.wp.json.removeDefaultSuffix(true)
+   * ```
+   */
+  public declare removeDefaultSuffix?: (
+    value?: boolean,
+  ) => WordPressThemeJson
+
+  /**
    * ## bud.wp.json.useTailwindColors
    *
    * Source settings.color.palette values from tailwind config
