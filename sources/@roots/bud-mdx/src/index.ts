@@ -15,12 +15,7 @@ import {default as BudMDX} from '@roots/bud-mdx/extension'
 
 declare module '@roots/bud-framework' {
   interface Bud {
-    mdx: {
-      get: BudMDX[`get`]
-      getOptions: BudMDX[`getOptions`]
-      set: BudMDX[`set`]
-      setOptions: BudMDX[`setOptions`]
-    }
+    mdx: BudMDX
   }
 
   interface Loaders {
@@ -35,8 +30,10 @@ declare module '@roots/bud-framework' {
     mdx: Rule
   }
 
-  interface Patterns {
-    mdx: RegExp
+  namespace Registry {
+    interface SyncRegistry {
+      'pattern.mdx': RegExp
+    }
   }
 
   interface Modules {
