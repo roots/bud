@@ -20,14 +20,14 @@
     "@svgr/webpack": "8.1.0",
     "@tsconfig/docusaurus": "2.0.3",
     "@types/file-loader": "5.0.4",
-    "@types/node": "20.14.9",
+    "@types/node": "20.14.12",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "file-loader": "6.2.0",
-    "netlify-cli": "17.30.0",
+    "netlify-cli": "17.33.4",
     "raw-loader": "4.0.2",
     "url-loader": "4.1.1",
-    "webpack": "5.92.1"
+    "webpack": "5.93.0"
   },
   "dependencies": {
     "@docusaurus/theme-classic": "3.4.0",

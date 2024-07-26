@@ -65,13 +65,13 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.9"
+    "@types/node": "20.14.12"
   },
   "dependencies": {
     "@roots/wordpress-transforms": "workspace:*",
     "helpful-decorators": "2.1.0",
     "tslib": "2.6.3",
-    "webpack": "5.92.1"
+    "webpack": "5.93.0"
   },
   "peerDependencies": {
     "@roots/entrypoints-webpack-plugin": "workspace:*"

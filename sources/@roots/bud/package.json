@@ -75,7 +75,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.9",
+    "@types/node": "20.14.12",
     "@vitest/coverage-v8": "1.6.0",
     "vitest": "1.6.0"
   },
@@ -94,8 +94,8 @@
     "@roots/bud-minify": "workspace:*",
     "@roots/bud-server": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "browserslist": "4.23.1",
-    "caniuse-lite": "1.0.30001638",
+    "browserslist": "4.23.2",
+    "caniuse-lite": "1.0.30001643",
     "tslib": "2.6.3"
   },
   "volta": {

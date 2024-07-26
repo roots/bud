@@ -71,7 +71,7 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.9",
+    "@types/node": "20.14.12",
     "@types/webpack-env": "1.18.5"
   },
   "dependencies": {

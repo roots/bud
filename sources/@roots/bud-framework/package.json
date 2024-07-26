@@ -84,7 +84,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.9",
+    "@types/node": "20.14.12",
     "vitest": "1.6.0"
   },
   "dependencies": {
@@ -94,7 +94,7 @@
     "chalk": "5.3.0",
     "execa": "8.0.1",
     "tslib": "2.6.3",
-    "webpack": "5.92.1"
+    "webpack": "5.93.0"
   },
   "scripts": {
     "postinstall": "node scripts/postinstall.mjs"
