@@ -28,7 +28,6 @@ export interface Props {
   devUrl?: URL
   displayAssets?: boolean
   displayEntrypoints?: boolean
-  displayHelp?: boolean
   displayServerInfo?: boolean
   error?: Error
   errors?: StatsCompilation[`errors`]
@@ -50,7 +49,6 @@ export const Application = ({
   devUrl,
   displayAssets,
   displayEntrypoints,
-  displayHelp,
   displayServerInfo,
   error,
   isolated = 0,
@@ -63,7 +61,7 @@ export const Application = ({
   const {stdout} = useStdout()
 
   compilations = Array.isArray(compilations)
-    ? compilations?.filter(compilation => compilation.hash) ?? []
+    ? (compilations?.filter(compilation => compilation.hash) ?? [])
     : []
 
   if (error) {

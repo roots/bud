@@ -217,8 +217,7 @@ export class Module extends Service {
     }
 
     logger.scope(`module`).log(`Imported module:`, signifier)
-
-    return options.raw ? code : code?.default ?? code
+    return !options.raw && `default` in code ? code.default : code
   }
 
   /**
@@ -296,7 +295,6 @@ export class Module extends Service {
 
     if (resolved) {
       logger.scope(`module`).log(`Cache miss:`, signifier, `=>`, resolved)
-
       this.setResolution(signifier, resolved)
     }
 

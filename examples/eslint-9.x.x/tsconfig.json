@@ -1,13 +1,9 @@
 {
   "extends": "@roots/bud/config/tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "paths": {
       "@src/*": ["./src/*"]
     },
-    "types": ["@roots/bud", "@roots/bud-eslint"]
   },
-  "files": ["./bud.config.ts"],
-  "include": ["./src"],
-  "exclude": ["./dist"]
+  "include": ["./src"]
 }
