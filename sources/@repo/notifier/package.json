@@ -2,7 +2,7 @@
   "name": "@repo/notifier",
   "private": true,
   "devDependencies": {
-    "@types/node": "20.14.9",
+    "@types/node": "20.14.12",
     "vitest": "1.6.0"
   },
   "dependencies": {

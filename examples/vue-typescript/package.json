@@ -7,8 +7,8 @@
     "extends @roots/browserslist-config"
   ],
   "dependencies": {
-    "typescript": "5.5.3",
-    "vue": "3.4.33"
+    "typescript": "5.5.4",
+    "vue": "3.4.34"
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",

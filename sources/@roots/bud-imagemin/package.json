@@ -70,7 +70,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.9"
+    "@types/node": "20.14.12"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -80,7 +80,7 @@
     "sharp": "0.33.4",
     "svgo": "3.3.2",
     "tslib": "2.6.3",
-    "webpack": "5.92.1"
+    "webpack": "5.93.0"
   },
   "volta": {
     "extends": "../../../package.json"

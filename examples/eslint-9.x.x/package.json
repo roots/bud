@@ -10,6 +10,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-eslint": "workspace:*",
     "@roots/eslint-config": "workspace:*",
-    "eslint": "9.6.0"
+    "eslint": "9.7.0"
   }
 }
