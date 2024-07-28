@@ -12,6 +12,46 @@ updates:
       prefix: '📦 deps'
     labels:
       - dependencies
+    groups:
+      dev-dependencies:
+        dependency-type: 'development'
+      aws:
+        patterns:
+          - '@aws*'
+      babel:
+        patterns:
+          - '@babel*'
+          - 'babel-*'
+      eslint:
+        patterns:
+          - 'eslint*'
+          - '@eslint*'
+      lodash:
+        patterns:
+          - 'lodash*'
+      postcss:
+        patterns:
+          - 'postcss*'
+      stylelint:
+        patterns:
+          - 'stylelint*'
+      swc:
+        patterns:
+          - '@swc*'
+      vitest:
+        patterns:
+          - '@vitest*'
+      vue:
+        patterns:
+          - '@vue*'
+          - 'vue*'
+      webpack:
+        patterns:
+          - 'webpack*'
+          - '@webpack*'
+      wordpress:
+        patterns:
+          - '@wordpress*'
 
   - package-ecosystem: github-actions
     assignees:
