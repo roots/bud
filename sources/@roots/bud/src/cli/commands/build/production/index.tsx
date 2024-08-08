@@ -10,7 +10,7 @@ export default class BuildProductionCommand extends BuildCommand {
   /**
    * {@link Command.paths}
    */
-  public static override paths = [[`production`], [`build`, `production`]]
+  public static override paths = [[`build`, `production`], [`production`]]
 
   /**
    * {@link Command.usage}
@@ -18,17 +18,8 @@ export default class BuildProductionCommand extends BuildCommand {
   public static override usage = Command.Usage({
     category: `build`,
     description: `Compiles source assets in \`production\` mode.`,
-    details: `\
-      \`bud build production\` compiles source assets in \`production\` mode.
-
-      If you run this command without a bud configuration file \`bud\` will
-      look for an entrypoint at \`@src/index.js\`.
-    `,
     examples: [
-      [
-        `Compile source assets in \`production\` mode`,
-        `$0 build production`,
-      ],
+      [`Compile source assets in \`production\` mode`, `$0 build`],
     ],
   })
 
