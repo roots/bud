@@ -19,10 +19,13 @@ import {
  * HTML Webpack plugin configuration
  */
 @label(`@roots/bud-extensions/html-webpack-plugin`)
-@options({
+@options<Options>({
+  cache: DynamicOption.make(app => app.cache.enabled),
+  favicon: false,
   filename: `index.html`,
   inject: true,
   publicPath: DynamicOption.make(app => app.publicPath()),
+  scriptLoading: `module`,
   template: resolve(
     dirname(fileURLToPath(import.meta.url)),
     `..`,

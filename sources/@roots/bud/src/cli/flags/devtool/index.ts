@@ -3,7 +3,6 @@ import {isBoolean, isLiteral, isOneOf} from '@roots/bud-support/typanion'
 
 export default Option.String(`--devtool,--source-map`, undefined, {
   description: `Set devtool option`,
-  env: `APP_DEVTOOL`,
   tolerateBoolean: true,
   validator: isOneOf([
     isBoolean(),

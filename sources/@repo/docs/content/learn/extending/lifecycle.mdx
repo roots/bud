@@ -4,24 +4,7 @@ description: The life of a bud.js Extension
 sidebar_label: Lifecycle
 ---
 
-### init
-
-Async callback. Called first. Useful to avoid needing to deal with `super` and the constructor.
-
-```ts title=extension.ts
-import {Bud} from '@roots/bud-framework'
-import {Extension} from '@roots/bud-framework/extension'
-
-export default class MyExtension extends Extension {
-  public label = 'bud-extension'
-
-  public async init(app, options) {
-    // do something
-  }
-}
-```
-
-### register
+## register
 
 Async callback. Try to do things in this method, when possible.
 
@@ -38,7 +21,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-### boot
+## boot
 
 Async callback. Called after `register`. Good for business which requires another
 extension to have already had `register` called on it.
@@ -56,7 +39,7 @@ export default class MyExtension extends Extension {
 }
 ```
 
-### configAfter
+## configAfter
 
 Async callback. Called after user configuration has been processed.
 

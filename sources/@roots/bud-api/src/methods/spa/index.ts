@@ -7,16 +7,14 @@ export interface spa {
 }
 
 export const spa: spa = function (this: Bud, devUrl) {
-  if (!this.isDevelopment) {
-    return this
-  }
+  if (!this.isDevelopment) return this
 
-  let serverUrl = devUrl ?? this.server?.url.toString() ?? 3000
+  const url = devUrl ?? 3000
 
-  this.api.logger.log(`bud.spa:`, `configured with`, devUrl)
+  this.api.logger.log(`bud.spa`, `url:`, url)
 
-  this.setUrl(serverUrl)
-  this.setProxyUrl(serverUrl)
+  this.setUrl(url)
+  this.setProxyUrl(url)
   this.hooks.on(`dev.middleware.proxy.options.ignorePath`, true)
 
   return this
