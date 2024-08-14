@@ -35,7 +35,7 @@ import Plugin from 'eslint-webpack-plugin'
   failOnWarning: false,
   fix: false,
   formatter: `stylish`,
-  lintDirtyModulesOnly: Value.make(({isDevelopment}) => isDevelopment),
+  lintDirtyModulesOnly: false,
   overrideConfig: undefined,
   resolvePluginsRelativeTo: Value.make(({path}) => path()),
   threads: false,
