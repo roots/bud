@@ -55,7 +55,6 @@ type BudTailwindOptionsPublicInterface = {
     ],
   })),
   configPath: undefined,
-  resolvedConfig: undefined,
 })
 class BudTailwindOptionsApi
   extends Extension<Options>
@@ -65,23 +64,20 @@ class BudTailwindOptionsApi
    * Tailwind config
    */
   public declare config: BudTailwindOptionsPublicInterface[`config`]
+  public declare getConfig: BudTailwindOptionsPublicInterface[`getConfig`]
+  public declare setConfig: BudTailwindOptionsPublicInterface[`setConfig`]
 
   /**
    * Tailwind config path
    */
   public declare configPath: BudTailwindOptionsPublicInterface[`configPath`]
-  public declare getConfig: BudTailwindOptionsPublicInterface[`getConfig`]
-
   public declare getConfigPath: BudTailwindOptionsPublicInterface[`getConfigPath`]
-  public declare getResolvedConfig: BudTailwindOptionsPublicInterface[`getResolvedConfig`]
-  /**
-   * Tailwind config (resolved)
-   */
-  public declare resolvedConfig: BudTailwindOptionsPublicInterface[`resolvedConfig`]
-
-  public declare setConfig: BudTailwindOptionsPublicInterface[`setConfig`]
   public declare setConfigPath: BudTailwindOptionsPublicInterface[`setConfigPath`]
-  public declare setResolvedConfig: BudTailwindOptionsPublicInterface[`setResolvedConfig`]
+
+  /**
+   * Flag if config has been edited
+   */
+  public editedConfig: boolean = false
 
   @bind
   public extendTheme<
@@ -89,6 +85,8 @@ class BudTailwindOptionsApi
     V extends Partial<ThemeConfig>,
     VK extends Partial<ThemeConfig>[K],
   >(...params: [K, VK] | [V]) {
+    this.editedConfig = true
+
     if (params.length === 1) {
       const [value] = params
 
@@ -143,25 +141,31 @@ class BudTailwindOptionsApi
         >
       | boolean = true,
   ) {
-    const makeStaticModule = (key: `${keyof ThemeConfig & string}`) => {
+    const makeStaticModule = (
+      resolvedConfig: Options[`resolvedConfig`],
+      key: `${keyof Options[`resolvedConfig`][`theme`]}`,
+    ) => {
       this.logger.log(`@tailwind/${key}`, `generating module`)
 
-      const value = get(this.resolvedConfig.theme, key)
+      const value = get(resolvedConfig.theme, key)
       return `export default ${JSON.stringify(value)};`
     }
 
     this.app.hooks.action(`config.after`, async bud => {
-      this.resolveConfig()
+      const config = this.resolveConfig()
 
       const importableKeys = Array.isArray(imports)
         ? imports
-        : Object.keys(this.resolvedConfig.theme)
+        : Object.keys(config.theme)
 
       const modules = importableKeys.reduce(
         (acc, key) => ({
           ...acc,
           [bud.path(`@src`, `__bud`, `@tailwind`, `${key}.mjs`)]:
-            makeStaticModule(key as `${keyof ThemeConfig & string}`),
+            makeStaticModule(
+              config,
+              key as `${keyof Options[`resolvedConfig`][`theme`]}`,
+            ),
         }),
         {},
       )
@@ -203,8 +207,7 @@ class BudTailwindOptionsApi
 
   @bind
   public resolveConfig() {
-    this.setResolvedConfig({...resolveConfig({...this.config})})
-    return this.resolvedConfig
+    return {...resolveConfig({...this.config})}
   }
 
   /**
@@ -245,12 +248,16 @@ class BudTailwindOptionsApi
 
   @bind
   public setContent(content: Config[`content`]) {
+    this.editedConfig = true
+
     this.setConfig((config = {content: []}) => ({...config, content}))
     return this
   }
 
   @bind
   public setPlugins(plugins: Config[`plugins`]) {
+    this.editedConfig = true
+
     this.setConfig((config = {content: []}) => ({
       ...config,
       plugins,
@@ -268,6 +275,8 @@ class BudTailwindOptionsApi
       | ((theme: Partial<ThemeConfig>[K]) => Partial<ThemeConfig>[K])
       | Partial<ThemeConfig>[K],
   >(...params: [K, VK] | [V]) {
+    this.editedConfig = true
+
     if (params.length === 1) {
       const [value] = params
       this.setConfig((config = {content: []}) => ({
@@ -296,7 +305,6 @@ class BudTailwindOptionsApi
 
       config.path && this.setConfigPath(config.path)
       config.module && this.setConfig({...(await config.module())})
-      this.resolveConfig()
     } catch (error) {
       this.logger.error(error)
     }
