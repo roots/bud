@@ -7,13 +7,13 @@ title: Configuration
 Specify the source with a URL:
 
 ```typescript title="bud.config.mjs"
-bud.critical.src(`http://example.test`)
+bud.critical.set(`src`, `http://example.test`)
 ```
 
 Specify the source with a local filepath:
 
 ```typescript title="bud.config.mjs"
-bud.critical.src(bud.path(`@src`, `template.html`))
+bud.critical(`src`, bud.path(`@src`, `template.html`))
 ```
 
 ### bud.critical.html
