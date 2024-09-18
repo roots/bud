@@ -4,6 +4,6 @@ title: Example
 
 ```typescript title="bud.config.mjs"
 export default async bud => {
-  bud.critical.src(`http://example.test`).enable(bud.isProduction)
+  bud.critical.set(`src`, `http://example.test`).enable(bud.isProduction)
 }
 ```
