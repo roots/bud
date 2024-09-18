@@ -10,11 +10,11 @@ title: Usage
 You may use [bud.critical.src](#budcriticalsrc) to specify a URL or a path on disk to the markup that will be used to generate critical styles.
 
 ```typescript title="bud.config.mjs"
-bud.critical.src(`http://example.test`)
+bud.critical.set(`src`, `http://example.test`)
 ```
 
 ```typescript title="bud.config.mjs"
-bud.critical.src(bud.path('path/to/index.html'))
+bud.critical.set(`src`, bud.path('path/to/index.html'))
 ```
 
 Or, you may use [bud.critical.html](#budcriticalhtml) to provide the markup directly.
