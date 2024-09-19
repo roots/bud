@@ -16,7 +16,7 @@ export interface Options extends SettingsAndStyles {
    */
   __generated__?: false | string
   path: string
-  version: 2
+  version: 3
 }
 
 export {ThemeJsonWebpackPlugin as default} from './plugin.js'
