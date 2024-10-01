@@ -67,7 +67,7 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
+    "@types/node": "20.16.10",
     "@types/vinyl": "2.0.12"
   },
   "dependencies": {
@@ -76,7 +76,7 @@
     "@roots/bud-support": "workspace:*",
     "@roots/critical-css-webpack-plugin": "workspace:*",
     "critical": "6.0.5",
-    "tslib": "2.6.3",
+    "tslib": "2.7.0",
     "vinyl": "3.0.0"
   },
   "volta": {

@@ -61,14 +61,14 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
+    "@types/node": "20.16.10",
     "vitest": "1.6.0"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/entrypoints-webpack-plugin": "workspace:*",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

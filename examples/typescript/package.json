@@ -10,7 +10,7 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
-    "@types/node": "20.14.12",
+    "@types/node": "20.16.10",
     "ts-node": "10.9.2"
   },
   "dependencies": {

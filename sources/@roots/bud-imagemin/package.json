@@ -70,17 +70,17 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12"
+    "@types/node": "20.16.10"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "image-minimizer-webpack-plugin": "3.8.3",
-    "sharp": "0.33.4",
+    "sharp": "0.33.5",
     "svgo": "3.3.2",
-    "tslib": "2.6.3",
-    "webpack": "5.93.0"
+    "tslib": "2.7.0",
+    "webpack": "5.95.0"
   },
   "volta": {
     "extends": "../../../package.json"

@@ -72,13 +72,13 @@
   "devDependencies": {
     "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12"
+    "@types/node": "20.16.10"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "5.0.0",
     "@roots/bud-framework": "workspace:*",
-    "postcss": "8.4.40",
-    "tslib": "2.6.3"
+    "postcss": "8.4.47",
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

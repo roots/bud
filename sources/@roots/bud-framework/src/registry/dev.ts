@@ -57,6 +57,7 @@ export interface Sync {
   'middleware.proxy.options.ignorePath': Middleware.Available['proxy']['options']['ignorePath']
   'middleware.proxy.options.localAddress': Middleware.Available['proxy']['options']['localAddress']
   'middleware.proxy.options.logger': Middleware.Available['proxy']['options']['logger']
+  'middleware.proxy.options.method': Middleware.Available['proxy']['options']['method']
   'middleware.proxy.options.on': Middleware.Available['proxy']['options']['on']
   'middleware.proxy.options.onProxyReq': Middleware.Available['proxy']['options']['on']['proxyReq']
   'middleware.proxy.options.onProxyRes': Middleware.Available['proxy']['options']['on']['proxyRes']

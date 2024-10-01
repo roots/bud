@@ -126,8 +126,8 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
-    "@types/react": "18.3.3",
+    "@types/node": "20.16.10",
+    "@types/react": "18.3.10",
     "@types/wordpress__blocks": "12.5.14",
     "@types/wordpress__plugins": "6.0.0",
     "@types/wordpress__rich-text": "6.10.0",
@@ -139,7 +139,7 @@
   },
   "dependencies": {
     "react": "18.3.1",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

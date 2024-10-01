@@ -82,16 +82,16 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
-    "@types/react": "18.3.3",
+    "@types/node": "20.16.10",
+    "@types/react": "18.3.10",
     "ink-testing-library": "patch:ink-testing-library@npm%3A3.0.0#~/.yarn/patches/ink-testing-library-npm-3.0.0-c20aad0bd9.patch",
     "vitest": "1.6.0",
-    "webpack": "5.93.0"
+    "webpack": "5.95.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

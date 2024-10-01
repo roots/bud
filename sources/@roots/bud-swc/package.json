@@ -60,17 +60,17 @@
   "module": "./lib/index.js",
   "devDependencies": {
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12"
+    "@types/node": "20.16.10"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@swc/core": "1.7.2",
-    "@swc/helpers": "0.5.12",
+    "@swc/core": "1.7.28",
+    "@swc/helpers": "0.5.13",
     "swc-loader": "0.2.6",
-    "tslib": "2.6.3",
-    "webpack": "5.93.0"
+    "tslib": "2.7.0",
+    "webpack": "5.95.0"
   },
   "volta": {
     "extends": "../../../package.json"

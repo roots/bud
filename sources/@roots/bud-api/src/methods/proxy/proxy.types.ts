@@ -31,6 +31,7 @@ export interface Options extends HttpProxy.Options {
   ignorePath?: boolean
   localAddress?: string
   logger: Pick<Console, `error` | `info` | `warn`>
+  method?: string
   on: ProxyOptions[`on`]
   onProxyReq?: any
   onProxyRes?: any

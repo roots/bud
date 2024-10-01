@@ -50,6 +50,7 @@ class Compiler extends Service implements BudCompiler {
   public onStats(stats: MultiStats) {
     this.stats = stats.toJson({
       all: false,
+      // @ts-ignore
       children: {
         all: false,
         assets: true,
