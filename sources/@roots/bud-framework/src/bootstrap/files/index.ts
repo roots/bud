@@ -4,6 +4,7 @@ import type {InspectResult} from '@roots/filesystem/filesystem'
 
 import {builtinModules} from 'node:module'
 import {join, parse} from 'node:path'
+import {normalize} from 'path/posix'
 
 import {get as getPaths} from '@roots/bud-framework/bootstrap/paths'
 import {BudError} from '@roots/bud-support/errors'
@@ -134,7 +135,7 @@ async function getFileInfo(filename: string) {
     ...omit(inspect, `absolutePath`, `type`, `filename`),
     bud: inspect.name.includes(`bud`),
     local: inspect.name.includes(`local`),
-    path: inspect.absolutePath,
+    path: normalize(inspect.absolutePath),
     target: getFileTarget(inspect),
     type: getFileType(inspect, parsed),
     ...parsed,
