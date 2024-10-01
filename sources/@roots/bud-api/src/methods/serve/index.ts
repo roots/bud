@@ -37,14 +37,21 @@ export const serve: serve = async function (this: Bud, input, options) {
   if (isString(input)) normalizedUrl = new URL(input)
 
   /**
-   * If input is a number or array of numbers,
+   * If input is an array
    * try to resolve the requested port(s) and
    * assign to the {@link URL}
    */
-  if (isArray(input) || isNumber(input)) {
+  if (isArray(input)) {
     normalizedUrl.port = await requestPorts(
       portOrPortsToNumbers(bud.context.port ?? input),
     )
+  }
+
+  /**
+   * If the input is a number, assign it to the {@link URL}
+   */
+  if (isNumber(input)) {
+    normalizedUrl.port = `${input}`
   }
 
   /**
@@ -83,8 +90,12 @@ const makeURLFromObject = async function (
   }
 
   if (options.host) url.hostname = options.host
-  if (options.port)
-    url.port = await requestPorts(portOrPortsToNumbers(options.port))
+  if (options.port) {
+    if (isArray(options.port))
+      url.port = isArray(options.port)
+        ? await requestPorts(portOrPortsToNumbers(options.port))
+        : `${options.port}`
+  }
 
   if (
     url.protocol !== `https:` &&

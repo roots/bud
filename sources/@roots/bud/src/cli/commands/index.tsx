@@ -24,7 +24,7 @@ import silent from '@roots/bud/cli/flags/silent'
 import storage from '@roots/bud/cli/flags/storage'
 import use from '@roots/bud/cli/flags/use'
 import verbose from '@roots/bud/cli/flags/verbose'
-import override, {type Override} from '@roots/bud/cli/helpers/override'
+import doOverrides from '@roots/bud/cli/helpers/override'
 import * as instance from '@roots/bud/instance'
 import {Bud} from '@roots/bud-framework'
 import {Command, Option} from '@roots/bud-support/clipanion'
@@ -160,66 +160,6 @@ export default class BudCommand extends Command<BaseContext & Context> {
       .on(`close`, bail)
   }
 
-  @bind
-  public async override([argValue, envKey, manifestPath, callback]: [
-    argValue: any,
-    envKey: string,
-    manifestPath: string,
-    callback: (bud: Bud) => (value: any) => Promise<any>,
-  ]) {
-    await override(this.bud, argValue, envKey, manifestPath, callback)
-  }
-
-  /**
-   * Apply context from manifest to bud.js instance
-   */
-  @bind
-  public async applyUserOptions(bud: Bud) {
-    await Promise.all(
-      [
-        [
-          this.cache,
-          `BUD_CACHE`,
-          `cache`,
-          b => async v => b.persist(v),
-        ] satisfies Override<`filesystem` | `memory` | boolean>,
-        [
-          this.input,
-          `BUD_PATH_INPUT`,
-          `paths.input`,
-          b => async v => b.setPath(`@src`, v),
-        ] satisfies Override<string>,
-        [
-          this.output,
-          `BUD_PATH_OUTPUT`,
-          `paths.output`,
-          b => async v => b.setPath(`@dist`, v),
-        ] satisfies Override<string>,
-        [
-          this.publicPath,
-          `BUD_PATH_PUBLIC`,
-          `paths.public`,
-          b => async v => b.setPublicPath(v),
-        ] satisfies Override<string>,
-        [
-          this.storage,
-          `BUD_PATH_STORAGE`,
-          `paths.storage`,
-          b => async v => b.hooks.on(`location.@storage`, b.relPath(v)),
-        ] satisfies Override<string>,
-        [
-          this.use,
-          `BUD_USE`,
-          undefined,
-          b => async v =>
-            await b.extensions.add(
-              v.reduce((a, v) => [...a, ...v.split(`,`)], []),
-            ),
-        ] satisfies Override<Array<string>>,
-      ].map(this.override),
-    )
-  }
-
   /**
    * Handle errors
    */
@@ -265,9 +205,9 @@ export default class BudCommand extends Command<BaseContext & Context> {
 
     this.bud = await instance.get().initialize(this.context)
 
-    await this.applyUserOptions(this.bud)
+    await doOverrides(this)
 
-    this.bud.hooks.action(`config.after`, this.applyUserOptions)
+    this.bud.hooks.action(`build.before`, async () => doOverrides(this))
 
     return await this.bud.processConfigs()
   }

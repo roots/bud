@@ -33,6 +33,7 @@ import type * as SetProxyUrl from '@roots/bud-api/methods/setProxyUrl'
 import type * as SetPublicProxyUrl from '@roots/bud-api/methods/setPublicProxyUrl'
 import type * as SetPublicUrl from '@roots/bud-api/methods/setPublicUrl'
 import type * as SetUrl from '@roots/bud-api/methods/setUrl'
+import type * as Spa from '@roots/bud-api/methods/spa'
 import type * as SplitChunks from '@roots/bud-api/methods/splitChunks'
 import type * as Use from '@roots/bud-api/methods/use'
 import type * as Watch from '@roots/bud-api/methods/watch'
@@ -327,6 +328,13 @@ declare module '@roots/bud-framework' {
      * {@link https://bud.js.org/docs/bud.setUrl 📕 Documentation}
      */
     setUrl(...params: SetUrl.Parameters): Bud
+
+    /**
+     * ## bud.spa
+     *
+     * {@link https://bud.js.org/docs/bud.spa 📕 Documentation}
+     */
+    spa(...params: Spa.Parameters): Bud
 
     /**
      * ## bud.splitChunks
