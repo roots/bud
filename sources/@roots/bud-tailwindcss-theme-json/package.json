@@ -85,7 +85,7 @@
   "devDependencies": {
     "@roots/bud-tailwindcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12"
+    "@types/node": "20.16.10"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -93,7 +93,7 @@
     "@roots/bud-support": "workspace:*",
     "@roots/bud-wordpress-theme-json": "workspace:*",
     "@roots/wordpress-theme-json-webpack-plugin": "workspace:*",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

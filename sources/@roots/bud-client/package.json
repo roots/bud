@@ -71,11 +71,11 @@
   "devDependencies": {
     "@roots/bud": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
+    "@types/node": "20.16.10",
     "@types/webpack-env": "1.18.5"
   },
   "dependencies": {
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

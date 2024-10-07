@@ -75,22 +75,22 @@
     "@roots/bud-build": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@skypack/package-check": "0.2.2",
-    "@types/node": "20.14.12",
-    "stylelint": "16.7.0",
+    "@types/node": "20.16.10",
+    "stylelint": "16.9.0",
     "vitest": "1.6.0",
-    "webpack": "5.93.0"
+    "webpack": "5.95.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@types/sass-loader": "8.0.8",
+    "@types/sass-loader": "8.0.9",
     "postcss-scss": "4.0.9",
     "resolve-url-loader": "5.0.0",
-    "sass": "1.77.8",
+    "sass": "1.79.4",
     "sass-loader": "14.2.1",
     "stylelint-config-recommended-scss": "14.1.0",
-    "stylelint-scss": "6.4.1",
-    "tslib": "2.6.3"
+    "stylelint-scss": "6.7.0",
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

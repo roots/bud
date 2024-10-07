@@ -12,32 +12,32 @@
     "directory": "/sources/docs"
   },
   "devDependencies": {
-    "@docusaurus/core": "3.4.0",
-    "@docusaurus/module-type-aliases": "3.4.0",
-    "@docusaurus/preset-classic": "3.4.0",
-    "@docusaurus/remark-plugin-npm2yarn": "3.4.0",
+    "@docusaurus/core": "3.5.2",
+    "@docusaurus/module-type-aliases": "3.5.2",
+    "@docusaurus/preset-classic": "3.5.2",
+    "@docusaurus/remark-plugin-npm2yarn": "3.5.2",
     "@repo/constants": "workspace:*",
     "@svgr/webpack": "8.1.0",
     "@tsconfig/docusaurus": "2.0.3",
     "@types/file-loader": "5.0.4",
-    "@types/node": "20.14.12",
-    "@types/react": "18.3.3",
+    "@types/node": "20.16.10",
+    "@types/react": "18.3.10",
     "@types/react-dom": "18.3.0",
     "file-loader": "6.2.0",
-    "netlify-cli": "17.33.4",
+    "netlify-cli": "17.36.3",
     "raw-loader": "4.0.2",
     "url-loader": "4.1.1",
-    "webpack": "5.93.0"
+    "webpack": "5.95.0"
   },
   "dependencies": {
-    "@docusaurus/theme-classic": "3.4.0",
-    "@docusaurus/theme-common": "3.4.0",
-    "axios": "1.7.2",
+    "@docusaurus/theme-classic": "3.5.2",
+    "@docusaurus/theme-common": "3.5.2",
+    "axios": "1.7.7",
     "clsx": "2.1.1",
-    "docusaurus-lunr-search": "3.4.0",
+    "docusaurus-lunr-search": "3.5.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

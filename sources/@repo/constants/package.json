@@ -10,11 +10,11 @@
     }
   },
   "devDependencies": {
-    "@types/node": "20.14.12",
+    "@types/node": "20.16.10",
     "vitest": "1.6.0"
   },
   "dependencies": {
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   },
   "volta": {
     "extends": "../../../package.json"

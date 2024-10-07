@@ -17,7 +17,7 @@ describe(`examples/sage-with-stylelint`, () => {
 
     expect(stdout).toMatch(/╭ sage-with-stylelint \[.*\]\s*\.\/public/)
     expect(stdout).toMatch(/◉ js\/runtime\.e02786\.js\s*✔ 972 bytes/)
-    expect(stdout).toMatch(/◉ css\/app\.a2c3be\.css\s*✔ 6\.89 kB/)
+    expect(stdout).toMatch(/◉ css\/app\.f87b43\.css\s*✔ 6\.89 kB/)
     expect(stdout).toMatch(/◉ js\/app\.8db3d4\.js\s*✔ 548 bytes/)
     expect(stdout).toMatch(/◉ css\/editor\.8cd6ea\.css\s*✔ 178 bytes/)
     expect(stdout).toMatch(/◉ js\/editor\.798de8\.js\s*✔ 488 bytes/)

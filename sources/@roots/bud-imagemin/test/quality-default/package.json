@@ -5,6 +5,6 @@
   "dependencies": {
     "@roots/bud": "workspace:*",
     "@roots/bud-imagemin": "workspace:*",
-    "tslib": "2.6.3"
+    "tslib": "2.7.0"
   }
 }
