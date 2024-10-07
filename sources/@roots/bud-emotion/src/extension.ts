@@ -34,10 +34,15 @@ export class BudEmotion extends Extension<NonNullable<unknown>, null> {
         import.meta.url,
       )
       if (isString(emotionPlugin))
-        bud.swc.setPlugins((plugins = []) => [
-          ...plugins,
-          [emotionPlugin, {}],
-        ])
+        bud.swc
+          .setPlugins((plugins = []) => [...plugins, [emotionPlugin, {}]])
+          .setTransform((options = {}) => ({
+            ...options,
+            react: {
+              ...(options.react ?? {}),
+              importSource: `@emotion/react`,
+            },
+          }))
     }
   }
 }
