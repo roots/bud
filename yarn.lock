@@ -12250,7 +12250,7 @@ __metadata:
     "@types/semver": "npm:7.5.8"
     "@types/signale": "npm:1.4.7"
     "@types/webpack-manifest-plugin": "npm:3.0.8"
-    ansi-escapes: "npm:6.2.1"
+    ansi-escapes: "npm:7.0.0"
     ansi-regex: "npm:6.0.1"
     axios: "npm:1.7.2"
     chalk: "npm:5.3.0"
@@ -19162,6 +19162,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ansi-escapes@npm:7.0.0":
+  version: 7.0.0
+  resolution: "ansi-escapes@npm:7.0.0"
+  dependencies:
+    environment: "npm:^1.0.0"
+  checksum: 2d0e2345087bd7ae6bf122b9cc05ee35560d40dcc061146edcdc02bc2d7c7c50143cd12a22e69a0b5c0f62b948b7bc9a4539ee888b80f5bd33cdfd82d01a70ab
+  languageName: node
+  linkType: hard
+
 "ansi-escapes@npm:^3.2.0":
   version: 3.2.0
   resolution: "ansi-escapes@npm:3.2.0"
@@ -24289,6 +24298,13 @@ __metadata:
   version: 1.1.0
   resolution: "environment@npm:1.1.0"
   checksum: 10c0/fb26434b0b581ab397039e51ff3c92b34924a98b2039dcb47e41b7bca577b9dbf134a8eadb364415c74464b682e2d3afe1a4c0eb9873dc44ea814c5d3103331d
+  languageName: node
+  linkType: hard
+
+"environment@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "environment@npm:1.0.0"
+  checksum: 1e1ed785405d1eff7df09502dfc7c4d7253ba8e24db34efa28a4bf80ca9b8e6334aab61f63d5a379d02fdb423a00ffdfe2bca30605776a04944dc97fd313e56e
   languageName: node
   linkType: hard
 
