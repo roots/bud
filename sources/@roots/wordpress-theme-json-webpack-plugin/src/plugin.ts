@@ -43,7 +43,7 @@ export class ThemeJsonWebpackPlugin implements WebpackPluginInstance {
   public data: Record<string, any> = {
     __generated__: `⚠️ This file is generated. Do not edit.`,
     $schema: `https://schemas.wp.org/trunk/theme.json`,
-    version: 2,
+    version: 3,
   }
 
   /**

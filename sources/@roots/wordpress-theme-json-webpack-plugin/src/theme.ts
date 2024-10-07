@@ -7,64 +7,72 @@
  */
 
 // @ts-nocheck
+// eslint-disable
 
-export type SettingsProperties = SettingsPropertiesAppearanceTools &
-  SettingsPropertiesBorder &
-  SettingsPropertiesColor &
-  SettingsPropertiesCustom &
-  SettingsPropertiesDimensions &
-  SettingsPropertiesLayout &
-  SettingsPropertiesPosition &
-  SettingsPropertiesShadow &
-  SettingsPropertiesSpacing &
-  SettingsPropertiesTypography
+export type SettingsProperties = SettingsAppearanceToolsProperties &
+  SettingsBackgroundProperties &
+  SettingsBorderProperties &
+  SettingsColorProperties &
+  SettingsCustomProperties &
+  SettingsDimensionsProperties &
+  SettingsLayoutProperties &
+  SettingsLightboxProperties &
+  SettingsPositionProperties &
+  SettingsShadowProperties &
+  SettingsSpacingProperties &
+  SettingsTypographyProperties
 /**
  * This interface was referenced by `SettingsBlocksPropertiesComplete`'s JSON-Schema definition
  * via the `patternProperty` "^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$".
  */
 export type SettingsPropertiesComplete = {
-  appearanceTools?: unknown
-  border?: unknown
-  color?: unknown
-  custom?: unknown
-  dimensions?: unknown
-  layout?: unknown
-  position?: unknown
-  shadow?: unknown
-  spacing?: unknown
-  typography?: unknown
+  [k: string]: unknown
 } & SettingsProperties
-/**
- * This interface was referenced by `StylesVariationPropertiesComplete`'s JSON-Schema definition
- * via the `patternProperty` "^[a-z][a-z0-9-]*$".
- */
 export type StylesPropertiesComplete = {
-  border?: unknown
-  color?: unknown
-  css?: unknown
-  dimensions?: unknown
-  filter?: unknown
-  outline?: unknown
-  shadow?: unknown
-  spacing?: unknown
-  typography?: unknown
+  [k: string]: unknown
 } & StylesProperties
 /**
  * This interface was referenced by `StylesBlocksPropertiesComplete`'s JSON-Schema definition
  * via the `patternProperty` "^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$".
  */
 export type StylesPropertiesAndElementsComplete = {
-  border?: unknown
-  color?: unknown
-  css?: unknown
-  dimensions?: unknown
-  elements?: StylesElementsPropertiesComplete1
-  filter?: unknown
-  outline?: unknown
-  shadow?: unknown
-  spacing?: unknown
-  typography?: unknown
-  variations?: StylesVariationPropertiesComplete
+  [k: string]: unknown
+  elements?: StylesElementsPropertiesComplete
+  variations?: StylesVariationsPropertiesComplete
+} & {
+  [k: string]: unknown
+} & StylesProperties
+/**
+ * This interface was referenced by `StylesVariationsPropertiesComplete`'s JSON-Schema definition
+ * via the `patternProperty` "^[a-z][a-z0-9-]*$".
+ */
+export type StylesVariationPropertiesComplete = {
+  [k: string]: unknown
+  blocks?: StylesVariationBlocksPropertiesComplete
+  elements?: StylesElementsPropertiesComplete
+} & {
+  [k: string]: unknown
+} & StylesProperties
+/**
+ * This interface was referenced by `StylesVariationBlocksPropertiesComplete`'s JSON-Schema definition
+ * via the `patternProperty` "^[a-z][a-z0-9-]*\/[a-z][a-z0-9-]*$".
+ */
+export type StylesVariationBlockPropertiesComplete = {
+  [k: string]: unknown
+  elements?: StylesElementsPropertiesComplete
+} & {
+  [k: string]: unknown
+} & StylesProperties
+/**
+ * This interface was referenced by `StylesVariationsProperties`'s JSON-Schema definition
+ * via the `patternProperty` "^[a-z][a-z0-9-]*$".
+ */
+export type StylesVariationProperties = {
+  [k: string]: unknown
+  blocks?: StylesVariationBlocksPropertiesComplete
+  elements?: StylesElementsPropertiesComplete
+} & {
+  [k: string]: unknown
 } & StylesProperties
 
 export interface SettingsAndStyles {
@@ -72,6 +80,10 @@ export interface SettingsAndStyles {
    * JSON schema URI for theme.json.
    */
   $schema?: string
+  /**
+   * List of block types that can use the block style variation this theme.json file represents.
+   */
+  blockTypes?: string[]
   /**
    * Additional metadata for custom templates defined in the templates folder.
    */
@@ -90,6 +102,10 @@ export interface SettingsAndStyles {
     title: string
   }[]
   /**
+   * Description of the global styles variation.
+   */
+  description?: string
+  /**
    * An array of pattern slugs to be registered from the Pattern Directory.
    */
   patterns?: string[]
@@ -101,40 +117,31 @@ export interface SettingsAndStyles {
    * - And the default layout of the editor (widths and available alignments).
    */
   settings?: {
-    appearanceTools?: unknown
+    [k: string]: unknown
     blocks?: SettingsBlocksPropertiesComplete
-    border?: unknown
-    color?: unknown
-    custom?: unknown
-    dimensions?: unknown
-    layout?: unknown
-    position?: unknown
-    shadow?: unknown
-    spacing?: unknown
-    typography?: unknown
     /**
-     * _**Note:** Since WordPress 6.1._
-     *
      * Enables root padding (the values from `styles.spacing.padding`) to be applied to the contents of full-width blocks instead of the root block.
      *
      * Please note that when using this setting, `styles.spacing.padding` should always be set as an object with `top`, `right`, `bottom`, `left` values declared separately.
      */
     useRootPaddingAwareAlignments?: boolean
+  } & {
+    [k: string]: unknown
   } & SettingsProperties
+  /**
+   * Slug of the global styles variation. If not defined, the kebab-case title will be used.
+   */
+  slug?: string
   /**
    * Organized way to set CSS properties. Styles in the top-level will be added in the `body` selector.
    */
   styles?: {
+    [k: string]: unknown
     blocks?: StylesBlocksPropertiesComplete
-    border?: unknown
-    color?: unknown
-    css?: unknown
     elements?: StylesElementsPropertiesComplete
-    filter?: unknown
-    outline?: unknown
-    shadow?: unknown
-    spacing?: unknown
-    typography?: unknown
+    variations?: StylesVariationsProperties
+  } & {
+    [k: string]: unknown
   } & StylesProperties
   /**
    * Additional metadata for template parts defined in the parts folder.
@@ -160,23 +167,40 @@ export interface SettingsAndStyles {
   /**
    * Version of theme.json to use.
    */
-  version: 2
+  version: 3
 }
-export interface SettingsPropertiesAppearanceTools {
+export interface SettingsAppearanceToolsProperties {
   [k: string]: unknown
   /**
    * Setting that enables the following UI tools:
    *
+   * - background: backgroundImage, backgroundSize
    * - border: color, radius, style, width
-   * - color: link
-   * - dimensions: minHeight
+   * - color: link, heading, button, caption
+   * - dimensions: aspectRatio, minHeight
    * - position: sticky
    * - spacing: blockGap, margin, padding
    * - typography: lineHeight
    */
   appearanceTools?: boolean
 }
-export interface SettingsPropertiesBorder {
+export interface SettingsBackgroundProperties {
+  [k: string]: unknown
+  /**
+   * Settings related to background.
+   */
+  background?: {
+    /**
+     * Allow users to set a background image.
+     */
+    backgroundImage?: boolean
+    /**
+     * Allow users to set values related to the size of a background image, including size, position, and repeat controls.
+     */
+    backgroundSize?: boolean
+  }
+}
+export interface SettingsBorderProperties {
   [k: string]: unknown
   /**
    * Settings related to borders.
@@ -200,7 +224,7 @@ export interface SettingsPropertiesBorder {
     width?: boolean
   }
 }
-export interface SettingsPropertiesColor {
+export interface SettingsColorProperties {
   [k: string]: unknown
   /**
    * Settings related to colors.
@@ -210,6 +234,14 @@ export interface SettingsPropertiesColor {
      * Allow users to set background colors.
      */
     background?: boolean
+    /**
+     * Allow users to set button colors in a block.
+     */
+    button?: boolean
+    /**
+     * Allow users to set caption colors in a block.
+     */
+    caption?: boolean
     /**
      * Allow users to select custom colors.
      */
@@ -271,7 +303,11 @@ export interface SettingsPropertiesColor {
       slug: string
     }[]
     /**
-     * Allow users to set link colors.
+     * Allow users to set heading colors in a block.
+     */
+    heading?: boolean
+    /**
+     * Allow users to set link colors in a block.
      */
     link?: boolean
     /**
@@ -293,24 +329,102 @@ export interface SettingsPropertiesColor {
       slug: string
     }[]
     /**
-     * Allow users to set text colors.
+     * Allow users to set text colors in a block.
      */
     text?: boolean
   }
 }
-export interface SettingsPropertiesDimensions {
+export interface SettingsDimensionsProperties {
   [k: string]: unknown
   /**
    * Settings related to dimensions.
    */
   dimensions?: {
     /**
+     * Allow users to set an aspect ratio.
+     */
+    aspectRatio?: boolean
+    /**
+     * Allow users to define aspect ratios for some blocks.
+     */
+    aspectRatios?: {
+      [k: string]: unknown
+      /**
+       * Name of the aspect ratio preset.
+       */
+      name?: string
+      /**
+       * Aspect ratio expressed as a division or decimal.
+       */
+      ratio?: string
+      /**
+       * Kebab-case unique identifier for the aspect ratio preset.
+       */
+      slug?: string
+    }[]
+    /**
+     * Allow users to choose aspect ratios from the default set of aspect ratios.
+     */
+    defaultAspectRatios?: boolean
+    /**
      * Allow users to set custom minimum height.
      */
     minHeight?: boolean
   }
 }
-export interface SettingsPropertiesShadow {
+export interface SettingsLayoutProperties {
+  [k: string]: unknown
+  /**
+   * Settings related to layout.
+   */
+  layout?: {
+    /**
+     * Enable or disable the custom content and wide size controls.
+     */
+    allowCustomContentAndWideSize?: boolean
+    /**
+     * Disable the layout UI controls.
+     */
+    allowEditing?: boolean
+    /**
+     * Sets the max-width of the content.
+     */
+    contentSize?: string
+    /**
+     * Sets the max-width of wide (`.alignwide`) content. Also used as the maximum viewport when calculating fluid font sizes
+     */
+    wideSize?: string
+  }
+}
+export interface SettingsLightboxProperties {
+  [k: string]: unknown
+  /**
+   * Settings related to the lightbox.
+   */
+  lightbox?: {
+    /**
+     * Defines whether to show the Lightbox UI in the block editor. If set to `false`, the user won't be able to change the lightbox settings in the block editor.
+     */
+    allowEditing?: boolean
+    /**
+     * Defines whether the lightbox is enabled or not.
+     */
+    enabled?: boolean
+  }
+}
+export interface SettingsPositionProperties {
+  [k: string]: unknown
+  /**
+   * Settings related to position.
+   */
+  position?: {
+    /**
+     * Allow users to set sticky position.
+     */
+    sticky?: boolean
+  }
+}
+export interface SettingsShadowProperties {
   [k: string]: unknown
   /**
    * Settings related to shadows.
@@ -340,35 +454,7 @@ export interface SettingsPropertiesShadow {
     }[]
   }
 }
-export interface SettingsPropertiesLayout {
-  [k: string]: unknown
-  /**
-   * Settings related to layout.
-   */
-  layout?: {
-    /**
-     * Sets the max-width of the content.
-     */
-    contentSize?: string
-    /**
-     * Sets the max-width of wide (`.alignwide`) content. Also used as the maximum viewport when calculating fluid font sizes
-     */
-    wideSize?: string
-  }
-}
-export interface SettingsPropertiesPosition {
-  [k: string]: unknown
-  /**
-   * Settings related to position.
-   */
-  position?: {
-    /**
-     * Allow users to set sticky position.
-     */
-    sticky?: boolean
-  }
-}
-export interface SettingsPropertiesSpacing {
+export interface SettingsSpacingProperties {
   [k: string]: unknown
   /**
    * Settings related to spacing.
@@ -383,6 +469,10 @@ export interface SettingsPropertiesSpacing {
      * Allow users to set custom space sizes.
      */
     customSpacingSize?: boolean
+    /**
+     * Allow users to choose space sizes from the default space size presets.
+     */
+    defaultSpacingSizes?: boolean
     /**
      * Allow users to set a custom margin.
      */
@@ -415,7 +505,35 @@ export interface SettingsPropertiesSpacing {
       /**
        * Unit that the scale uses, eg. rem, em, px.
        */
-      unit?: '%' | 'em' | 'px' | 'rem' | 'vh' | 'vw'
+      unit?:
+        | '%'
+        | 'dvb'
+        | 'dvh'
+        | 'dvi'
+        | 'dvmax'
+        | 'dvmin'
+        | 'dvw'
+        | 'em'
+        | 'lvb'
+        | 'lvh'
+        | 'lvi'
+        | 'lvmax'
+        | 'lvmin'
+        | 'lvw'
+        | 'px'
+        | 'rem'
+        | 'svb'
+        | 'svh'
+        | 'svi'
+        | 'svmax'
+        | 'svmin'
+        | 'svw'
+        | 'vb'
+        | 'vh'
+        | 'vi'
+        | 'vmax'
+        | 'vmin'
+        | 'vw'
     }
     /**
      * Space size presets for the space size selector.
@@ -431,17 +549,19 @@ export interface SettingsPropertiesSpacing {
        */
       size?: string
       /**
-       * Unique identifier for the space size preset. For best cross theme compatibility these should be in the form '10','20','30','40','50','60', etc. with '50' representing the 'Medium' size step.
+       * Unique identifier for the space size preset. For best cross theme compatibility these should be in the form '10','20','30','40','50','60', etc. with '50' representing the 'Medium' size step. If all slugs begin with a number they will be merged with default and user slugs and sorted numerically.
        */
       slug?: string
     }[]
     /**
      * List of units the user can use for spacing values.
+     *
+     * @minItems 1
      */
-    units?: string[]
+    units?: [string, ...string[]]
   }
 }
-export interface SettingsPropertiesTypography {
+export interface SettingsTypographyProperties {
   [k: string]: unknown
   /**
    * Settings related to typography.
@@ -452,6 +572,10 @@ export interface SettingsPropertiesTypography {
      */
     customFontSize?: boolean
     /**
+     * Allow users to choose font sizes from the default font size presets.
+     */
+    defaultFontSizes?: boolean
+    /**
      * Enable drop cap.
      */
     dropCap?: boolean
@@ -461,9 +585,17 @@ export interface SettingsPropertiesTypography {
     fluid?:
       | {
           /**
-           * Allow users to set a global minimum font size boundary in px, rem or em. Custom font sizes below this value will not be clamped, and all calculated minimum font sizes will be, a at minimum, this value.
+           * Allow users to set custom a max viewport width in px, rem or em, used to set the maximum size boundary of a fluid font size.
+           */
+          maxViewportWidth?: string
+          /**
+           * Allow users to set a global minimum font size boundary in px, rem or em. Custom font sizes below this value will not be clamped, and all calculated minimum font sizes will be, at a minimum, this value.
            */
           minFontSize?: string
+          /**
+           * Allow users to set a custom min viewport width in px, rem or em, used to set the minimum size boundary of a fluid font size.
+           */
+          minViewportWidth?: string
         }
       | boolean
     /**
@@ -595,6 +727,10 @@ export interface SettingsPropertiesTypography {
      */
     lineHeight?: boolean
     /**
+     * Allow users to set the text align.
+     */
+    textAlign?: boolean
+    /**
      * Allow users to set the number of text columns.
      */
     textColumns?: boolean
@@ -606,9 +742,13 @@ export interface SettingsPropertiesTypography {
      * Allow users to set custom text transforms.
      */
     textTransform?: boolean
+    /**
+     * Allow users to set the writing mode.
+     */
+    writingMode?: boolean
   }
 }
-export interface SettingsPropertiesCustom {
+export interface SettingsCustomProperties {
   [k: string]: unknown
   custom?: SettingsCustomAdditionalProperties
 }
@@ -616,47 +756,25 @@ export interface SettingsPropertiesCustom {
  * Generate custom CSS custom properties of the form `--wp--custom--{key}--{nested-key}: {value};`. `camelCased` keys are transformed to `kebab-case` as to follow the CSS property naming schema. Keys at different depth levels are separated by `--`, so keys should not include `--` in the name.
  */
 export interface SettingsCustomAdditionalProperties {
-  [k: string]: number | SettingsCustomAdditionalProperties1 | string
-}
-export interface SettingsCustomAdditionalProperties1 {
-  [k: string]: number | SettingsCustomAdditionalProperties1 | string
+  [k: string]: number | SettingsCustomAdditionalProperties | string
 }
 /**
  * Settings defined on a per-block basis.
  */
 export interface SettingsBlocksPropertiesComplete {
   [k: string]: SettingsPropertiesComplete
-  /**
-   * Archive block. Display a monthly archive of your posts. This block has no block-level settings
-   */
-  'core/archives'?: NonNullable<unknown>
+  'core/archives'?: SettingsPropertiesComplete
   'core/audio'?: SettingsPropertiesComplete
   'core/avatar'?: SettingsPropertiesComplete
   'core/block'?: SettingsPropertiesComplete
-  'core/button'?: {
-    [k: string]: unknown
-    /**
-     * Settings related to borders.
-     */
-    border?: {
-      [k: string]: unknown
-      /**
-       * Allow users to set custom border radius.
-       */
-      radius?: boolean
-    }
-  } & SettingsPropertiesAppearanceTools &
-    SettingsPropertiesColor &
-    SettingsPropertiesCustom &
-    SettingsPropertiesLayout &
-    SettingsPropertiesSpacing &
-    SettingsPropertiesTypography
+  'core/button'?: SettingsPropertiesComplete
   'core/buttons'?: SettingsPropertiesComplete
   'core/calendar'?: SettingsPropertiesComplete
   'core/categories'?: SettingsPropertiesComplete
   'core/code'?: SettingsPropertiesComplete
   'core/column'?: SettingsPropertiesComplete
   'core/columns'?: SettingsPropertiesComplete
+  'core/comment-author-avatar'?: SettingsPropertiesComplete
   'core/comment-author-name'?: SettingsPropertiesComplete
   'core/comment-content'?: SettingsPropertiesComplete
   'core/comment-date'?: SettingsPropertiesComplete
@@ -664,7 +782,13 @@ export interface SettingsBlocksPropertiesComplete {
   'core/comment-reply-link'?: SettingsPropertiesComplete
   'core/comment-template'?: SettingsPropertiesComplete
   'core/comments'?: SettingsPropertiesComplete
+  'core/comments-pagination'?: SettingsPropertiesComplete
+  'core/comments-pagination-next'?: SettingsPropertiesComplete
+  'core/comments-pagination-numbers'?: SettingsPropertiesComplete
+  'core/comments-pagination-previous'?: SettingsPropertiesComplete
+  'core/comments-title'?: SettingsPropertiesComplete
   'core/cover'?: SettingsPropertiesComplete
+  'core/details'?: SettingsPropertiesComplete
   'core/embed'?: SettingsPropertiesComplete
   'core/file'?: SettingsPropertiesComplete
   'core/freeform'?: SettingsPropertiesComplete
@@ -678,17 +802,22 @@ export interface SettingsBlocksPropertiesComplete {
   'core/latest-posts'?: SettingsPropertiesComplete
   'core/legacy-widget'?: SettingsPropertiesComplete
   'core/list'?: SettingsPropertiesComplete
+  'core/list-item'?: SettingsPropertiesComplete
   'core/loginout'?: SettingsPropertiesComplete
   'core/media-text'?: SettingsPropertiesComplete
   'core/missing'?: SettingsPropertiesComplete
   'core/more'?: SettingsPropertiesComplete
   'core/navigation'?: SettingsPropertiesComplete
   'core/navigation-link'?: SettingsPropertiesComplete
+  'core/navigation-submenu'?: SettingsPropertiesComplete
   'core/nextpage'?: SettingsPropertiesComplete
   'core/page-list'?: SettingsPropertiesComplete
+  'core/page-list-item'?: SettingsPropertiesComplete
   'core/paragraph'?: SettingsPropertiesComplete
   'core/post-author'?: SettingsPropertiesComplete
-  'core/post-comments'?: SettingsPropertiesComplete
+  'core/post-author-biography'?: SettingsPropertiesComplete
+  'core/post-author-name'?: SettingsPropertiesComplete
+  'core/post-comment'?: SettingsPropertiesComplete
   'core/post-comments-count'?: SettingsPropertiesComplete
   'core/post-comments-form'?: SettingsPropertiesComplete
   'core/post-comments-link'?: SettingsPropertiesComplete
@@ -699,16 +828,19 @@ export interface SettingsBlocksPropertiesComplete {
   'core/post-navigation-link'?: SettingsPropertiesComplete
   'core/post-template'?: SettingsPropertiesComplete
   'core/post-terms'?: SettingsPropertiesComplete
+  'core/post-time-to-read'?: SettingsPropertiesComplete
   'core/post-title'?: SettingsPropertiesComplete
   'core/preformatted'?: SettingsPropertiesComplete
   'core/pullquote'?: SettingsPropertiesComplete
   'core/query'?: SettingsPropertiesComplete
+  'core/query-no-results'?: SettingsPropertiesComplete
   'core/query-pagination'?: SettingsPropertiesComplete
   'core/query-pagination-next'?: SettingsPropertiesComplete
   'core/query-pagination-numbers'?: SettingsPropertiesComplete
   'core/query-pagination-previous'?: SettingsPropertiesComplete
   'core/query-title'?: SettingsPropertiesComplete
   'core/quote'?: SettingsPropertiesComplete
+  'core/read-more'?: SettingsPropertiesComplete
   'core/rss'?: SettingsPropertiesComplete
   'core/search'?: SettingsPropertiesComplete
   'core/separator'?: SettingsPropertiesComplete
@@ -732,6 +864,39 @@ export interface SettingsBlocksPropertiesComplete {
 }
 export interface StylesProperties {
   [k: string]: unknown
+  /**
+   * Background styles.
+   */
+  background?: {
+    /**
+     * Sets the `background-attachment` CSS property.
+     */
+    backgroundAttachment?: RefComplete | string
+    /**
+     * Sets the `background-image` CSS property.
+     */
+    backgroundImage?:
+      | {
+          /**
+           * A URL to an image file, or a path to a file relative to the theme root directory, and prefixed with `file:`, e.g., 'file:./path/to/file.png'.
+           */
+          url?: string
+        }
+      | RefComplete
+      | string
+    /**
+     * Sets the `background-position` CSS property.
+     */
+    backgroundPosition?: RefComplete | string
+    /**
+     * Sets the `background-repeat` CSS property.
+     */
+    backgroundRepeat?: RefComplete | string
+    /**
+     * Sets the `background-size` CSS property.
+     */
+    backgroundSize?: RefComplete | string
+  }
   /**
    * Border styles.
    */
@@ -852,10 +1017,14 @@ export interface StylesProperties {
    */
   css?: string
   /**
-   * Dimensions styles
+   * Dimensions styles.
    */
   dimensions?: {
     [k: string]: unknown
+    /**
+     * Sets the `aspect-ratio` CSS property.
+     */
+    aspectRatio?: RefComplete | string
     /**
      * Sets the `min-height` CSS property.
      */
@@ -975,9 +1144,13 @@ export interface StylesProperties {
      */
     lineHeight?: RefComplete | string
     /**
+     * Sets the `text-align` CSS property.
+     */
+    textAlign?: RefComplete | string
+    /**
      * Sets the `column-count` CSS property.
      */
-    textColumns?: string
+    textColumns?: RefComplete | string
     /**
      * Sets the `text-decoration` CSS property.
      */
@@ -986,10 +1159,13 @@ export interface StylesProperties {
      * Sets the `text-transform` CSS property.
      */
     textTransform?: RefComplete | string
+    /**
+     * Sets the `writing-mode` CSS property.
+     */
+    writingMode?: RefComplete | string
   }
 }
 export interface RefComplete {
-  [k: string]: unknown
   /**
    * A reference to another property value. e.g. `styles.color.text`
    */
@@ -1000,21 +1176,9 @@ export interface RefComplete {
  */
 export interface StylesElementsPropertiesComplete {
   button?: {
-    ':active'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':hover'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    border?: unknown
-    color?: unknown
-    css?: unknown
-    filter?: unknown
-    outline?: unknown
-    shadow?: unknown
-    spacing?: unknown
-    typography?: unknown
-  } & StylesProperties
+      [k: string]: unknown
+    } &
+    StylesElementsPseudoSelectorsProperties & StylesProperties
   caption?: StylesPropertiesComplete
   cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
@@ -1025,17 +1189,18 @@ export interface StylesElementsPropertiesComplete {
   h6?: StylesPropertiesComplete
   heading?: StylesPropertiesComplete
   link?: {
-    ':active'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':hover'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    border?: unknown
-    color?: unknown
-    spacing?: unknown
-    typography?: unknown
-  } & StylesProperties
+      [k: string]: unknown
+    } &
+    StylesElementsPseudoSelectorsProperties & StylesProperties
+}
+export interface StylesElementsPseudoSelectorsProperties {
+  ':active'?: StylesPropertiesComplete
+  ':any-link'?: StylesPropertiesComplete
+  ':focus'?: StylesPropertiesComplete
+  ':hover'?: StylesPropertiesComplete
+  ':link'?: StylesPropertiesComplete
+  ':visited'?: StylesPropertiesComplete
+  [k: string]: unknown
 }
 /**
  * Styles defined on a per-block basis using the block's selector.
@@ -1053,6 +1218,7 @@ export interface StylesBlocksPropertiesComplete {
   'core/code'?: StylesPropertiesAndElementsComplete
   'core/column'?: StylesPropertiesAndElementsComplete
   'core/columns'?: StylesPropertiesAndElementsComplete
+  'core/comment-author-avatar'?: StylesPropertiesAndElementsComplete
   'core/comment-author-name'?: StylesPropertiesAndElementsComplete
   'core/comment-content'?: StylesPropertiesAndElementsComplete
   'core/comment-date'?: StylesPropertiesAndElementsComplete
@@ -1060,7 +1226,13 @@ export interface StylesBlocksPropertiesComplete {
   'core/comment-reply-link'?: StylesPropertiesAndElementsComplete
   'core/comment-template'?: StylesPropertiesAndElementsComplete
   'core/comments'?: StylesPropertiesAndElementsComplete
+  'core/comments-pagination'?: StylesPropertiesAndElementsComplete
+  'core/comments-pagination-next'?: StylesPropertiesAndElementsComplete
+  'core/comments-pagination-numbers'?: StylesPropertiesAndElementsComplete
+  'core/comments-pagination-previous'?: StylesPropertiesAndElementsComplete
+  'core/comments-title'?: StylesPropertiesAndElementsComplete
   'core/cover'?: StylesPropertiesAndElementsComplete
+  'core/details'?: StylesPropertiesAndElementsComplete
   'core/embed'?: StylesPropertiesAndElementsComplete
   'core/file'?: StylesPropertiesAndElementsComplete
   'core/freeform'?: StylesPropertiesAndElementsComplete
@@ -1074,17 +1246,22 @@ export interface StylesBlocksPropertiesComplete {
   'core/latest-posts'?: StylesPropertiesAndElementsComplete
   'core/legacy-widget'?: StylesPropertiesAndElementsComplete
   'core/list'?: StylesPropertiesAndElementsComplete
+  'core/list-item'?: StylesPropertiesAndElementsComplete
   'core/loginout'?: StylesPropertiesAndElementsComplete
   'core/media-text'?: StylesPropertiesAndElementsComplete
   'core/missing'?: StylesPropertiesAndElementsComplete
   'core/more'?: StylesPropertiesAndElementsComplete
   'core/navigation'?: StylesPropertiesAndElementsComplete
   'core/navigation-link'?: StylesPropertiesAndElementsComplete
+  'core/navigation-submenu'?: StylesPropertiesAndElementsComplete
   'core/nextpage'?: StylesPropertiesAndElementsComplete
   'core/page-list'?: StylesPropertiesAndElementsComplete
+  'core/page-list-item'?: StylesPropertiesAndElementsComplete
   'core/paragraph'?: StylesPropertiesAndElementsComplete
   'core/post-author'?: StylesPropertiesAndElementsComplete
-  'core/post-comments'?: StylesPropertiesAndElementsComplete
+  'core/post-author-biography'?: StylesPropertiesAndElementsComplete
+  'core/post-author-name'?: StylesPropertiesAndElementsComplete
+  'core/post-comment'?: StylesPropertiesAndElementsComplete
   'core/post-comments-count'?: StylesPropertiesAndElementsComplete
   'core/post-comments-form'?: StylesPropertiesAndElementsComplete
   'core/post-comments-link'?: StylesPropertiesAndElementsComplete
@@ -1095,16 +1272,19 @@ export interface StylesBlocksPropertiesComplete {
   'core/post-navigation-link'?: StylesPropertiesAndElementsComplete
   'core/post-template'?: StylesPropertiesAndElementsComplete
   'core/post-terms'?: StylesPropertiesAndElementsComplete
+  'core/post-time-to-read'?: StylesPropertiesAndElementsComplete
   'core/post-title'?: StylesPropertiesAndElementsComplete
   'core/preformatted'?: StylesPropertiesAndElementsComplete
   'core/pullquote'?: StylesPropertiesAndElementsComplete
   'core/query'?: StylesPropertiesAndElementsComplete
+  'core/query-no-results'?: StylesPropertiesAndElementsComplete
   'core/query-pagination'?: StylesPropertiesAndElementsComplete
   'core/query-pagination-next'?: StylesPropertiesAndElementsComplete
   'core/query-pagination-numbers'?: StylesPropertiesAndElementsComplete
   'core/query-pagination-previous'?: StylesPropertiesAndElementsComplete
   'core/query-title'?: StylesPropertiesAndElementsComplete
   'core/quote'?: StylesPropertiesAndElementsComplete
+  'core/read-more'?: StylesPropertiesAndElementsComplete
   'core/rss'?: StylesPropertiesAndElementsComplete
   'core/search'?: StylesPropertiesAndElementsComplete
   'core/separator'?: StylesPropertiesAndElementsComplete
@@ -1126,45 +1306,110 @@ export interface StylesBlocksPropertiesComplete {
   'core/widget-area'?: StylesPropertiesAndElementsComplete
   'core/widget-group'?: StylesPropertiesAndElementsComplete
 }
-export interface StylesElementsPropertiesComplete1 {
-  button?: {
-    ':active'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':hover'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    border?: unknown
-    color?: unknown
-    css?: unknown
-    filter?: unknown
-    outline?: unknown
-    shadow?: unknown
-    spacing?: unknown
-    typography?: unknown
-  } & StylesProperties
-  caption?: StylesPropertiesComplete
-  cite?: StylesPropertiesComplete
-  h1?: StylesPropertiesComplete
-  h2?: StylesPropertiesComplete
-  h3?: StylesPropertiesComplete
-  h4?: StylesPropertiesComplete
-  h5?: StylesPropertiesComplete
-  h6?: StylesPropertiesComplete
-  heading?: StylesPropertiesComplete
-  link?: {
-    ':active'?: StylesPropertiesComplete
-    ':any-link'?: StylesPropertiesComplete
-    ':focus'?: StylesPropertiesComplete
-    ':hover'?: StylesPropertiesComplete
-    ':link'?: StylesPropertiesComplete
-    ':visited'?: StylesPropertiesComplete
-    border?: unknown
-    color?: unknown
-    spacing?: unknown
-    typography?: unknown
-  } & StylesProperties
+export interface StylesVariationsPropertiesComplete {
+  [k: string]: StylesVariationPropertiesComplete
 }
-export interface StylesVariationPropertiesComplete {
-  [k: string]: StylesPropertiesComplete
+export interface StylesVariationBlocksPropertiesComplete {
+  [k: string]: StylesVariationBlockPropertiesComplete
+  'core/archives'?: StylesVariationBlockPropertiesComplete
+  'core/audio'?: StylesVariationBlockPropertiesComplete
+  'core/avatar'?: StylesVariationBlockPropertiesComplete
+  'core/block'?: StylesVariationBlockPropertiesComplete
+  'core/button'?: StylesVariationBlockPropertiesComplete
+  'core/buttons'?: StylesVariationBlockPropertiesComplete
+  'core/calendar'?: StylesVariationBlockPropertiesComplete
+  'core/categories'?: StylesVariationBlockPropertiesComplete
+  'core/code'?: StylesVariationBlockPropertiesComplete
+  'core/column'?: StylesVariationBlockPropertiesComplete
+  'core/columns'?: StylesVariationBlockPropertiesComplete
+  'core/comment-author-avatar'?: StylesVariationBlockPropertiesComplete
+  'core/comment-author-name'?: StylesVariationBlockPropertiesComplete
+  'core/comment-content'?: StylesVariationBlockPropertiesComplete
+  'core/comment-date'?: StylesVariationBlockPropertiesComplete
+  'core/comment-edit-link'?: StylesVariationBlockPropertiesComplete
+  'core/comment-reply-link'?: StylesVariationBlockPropertiesComplete
+  'core/comment-template'?: StylesVariationBlockPropertiesComplete
+  'core/comments'?: StylesVariationBlockPropertiesComplete
+  'core/comments-pagination'?: StylesVariationBlockPropertiesComplete
+  'core/comments-pagination-next'?: StylesVariationBlockPropertiesComplete
+  'core/comments-pagination-numbers'?: StylesVariationBlockPropertiesComplete
+  'core/comments-pagination-previous'?: StylesVariationBlockPropertiesComplete
+  'core/comments-title'?: StylesVariationBlockPropertiesComplete
+  'core/cover'?: StylesVariationBlockPropertiesComplete
+  'core/details'?: StylesVariationBlockPropertiesComplete
+  'core/embed'?: StylesVariationBlockPropertiesComplete
+  'core/file'?: StylesVariationBlockPropertiesComplete
+  'core/freeform'?: StylesVariationBlockPropertiesComplete
+  'core/gallery'?: StylesVariationBlockPropertiesComplete
+  'core/group'?: StylesVariationBlockPropertiesComplete
+  'core/heading'?: StylesVariationBlockPropertiesComplete
+  'core/home-link'?: StylesVariationBlockPropertiesComplete
+  'core/html'?: StylesVariationBlockPropertiesComplete
+  'core/image'?: StylesVariationBlockPropertiesComplete
+  'core/latest-comments'?: StylesVariationBlockPropertiesComplete
+  'core/latest-posts'?: StylesVariationBlockPropertiesComplete
+  'core/legacy-widget'?: StylesVariationBlockPropertiesComplete
+  'core/list'?: StylesVariationBlockPropertiesComplete
+  'core/list-item'?: StylesVariationBlockPropertiesComplete
+  'core/loginout'?: StylesVariationBlockPropertiesComplete
+  'core/media-text'?: StylesVariationBlockPropertiesComplete
+  'core/missing'?: StylesVariationBlockPropertiesComplete
+  'core/more'?: StylesVariationBlockPropertiesComplete
+  'core/navigation'?: StylesVariationBlockPropertiesComplete
+  'core/navigation-link'?: StylesVariationBlockPropertiesComplete
+  'core/navigation-submenu'?: StylesVariationBlockPropertiesComplete
+  'core/nextpage'?: StylesVariationBlockPropertiesComplete
+  'core/page-list'?: StylesVariationBlockPropertiesComplete
+  'core/page-list-item'?: StylesVariationBlockPropertiesComplete
+  'core/paragraph'?: StylesVariationBlockPropertiesComplete
+  'core/post-author'?: StylesVariationBlockPropertiesComplete
+  'core/post-author-biography'?: StylesVariationBlockPropertiesComplete
+  'core/post-author-name'?: StylesVariationBlockPropertiesComplete
+  'core/post-comment'?: StylesVariationBlockPropertiesComplete
+  'core/post-comments-count'?: StylesVariationBlockPropertiesComplete
+  'core/post-comments-form'?: StylesVariationBlockPropertiesComplete
+  'core/post-comments-link'?: StylesVariationBlockPropertiesComplete
+  'core/post-content'?: StylesVariationBlockPropertiesComplete
+  'core/post-date'?: StylesVariationBlockPropertiesComplete
+  'core/post-excerpt'?: StylesVariationBlockPropertiesComplete
+  'core/post-featured-image'?: StylesVariationBlockPropertiesComplete
+  'core/post-navigation-link'?: StylesVariationBlockPropertiesComplete
+  'core/post-template'?: StylesVariationBlockPropertiesComplete
+  'core/post-terms'?: StylesVariationBlockPropertiesComplete
+  'core/post-time-to-read'?: StylesVariationBlockPropertiesComplete
+  'core/post-title'?: StylesVariationBlockPropertiesComplete
+  'core/preformatted'?: StylesVariationBlockPropertiesComplete
+  'core/pullquote'?: StylesVariationBlockPropertiesComplete
+  'core/query'?: StylesVariationBlockPropertiesComplete
+  'core/query-no-results'?: StylesVariationBlockPropertiesComplete
+  'core/query-pagination'?: StylesVariationBlockPropertiesComplete
+  'core/query-pagination-next'?: StylesVariationBlockPropertiesComplete
+  'core/query-pagination-numbers'?: StylesVariationBlockPropertiesComplete
+  'core/query-pagination-previous'?: StylesVariationBlockPropertiesComplete
+  'core/query-title'?: StylesVariationBlockPropertiesComplete
+  'core/quote'?: StylesVariationBlockPropertiesComplete
+  'core/read-more'?: StylesVariationBlockPropertiesComplete
+  'core/rss'?: StylesVariationBlockPropertiesComplete
+  'core/search'?: StylesVariationBlockPropertiesComplete
+  'core/separator'?: StylesVariationBlockPropertiesComplete
+  'core/shortcode'?: StylesVariationBlockPropertiesComplete
+  'core/site-logo'?: StylesVariationBlockPropertiesComplete
+  'core/site-tagline'?: StylesVariationBlockPropertiesComplete
+  'core/site-title'?: StylesVariationBlockPropertiesComplete
+  'core/social-link'?: StylesVariationBlockPropertiesComplete
+  'core/social-links'?: StylesVariationBlockPropertiesComplete
+  'core/spacer'?: StylesVariationBlockPropertiesComplete
+  'core/table'?: StylesVariationBlockPropertiesComplete
+  'core/table-of-contents'?: StylesVariationBlockPropertiesComplete
+  'core/tag-cloud'?: StylesVariationBlockPropertiesComplete
+  'core/template-part'?: StylesVariationBlockPropertiesComplete
+  'core/term-description'?: StylesVariationBlockPropertiesComplete
+  'core/text-columns'?: StylesVariationBlockPropertiesComplete
+  'core/verse'?: StylesVariationBlockPropertiesComplete
+  'core/video'?: StylesVariationBlockPropertiesComplete
+  'core/widget-area'?: StylesVariationBlockPropertiesComplete
+  'core/widget-group'?: StylesVariationBlockPropertiesComplete
+}
+export interface StylesVariationsProperties {
+  [k: string]: StylesVariationProperties
 }
