@@ -11,7 +11,7 @@
     "@roots/bud-vue": "workspace:*"
   },
   "dependencies": {
-    "vue": "2.7.16",
+    "vue": "3.0.0",
     "vue-loader": "15.11.1",
     "vue-template-compiler": "2.7.16"
   }
