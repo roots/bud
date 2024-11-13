@@ -350,7 +350,7 @@
     "file-loader": "6.2.0",
     "get-port": "7.1.0",
     "globby": "13.2.2",
-    "http-proxy-middleware": "3.0.2",
+    "http-proxy-middleware": "3.0.3",
     "human-readable": "0.2.1",
     "import-meta-resolve": "4.1.0",
     "ink": "4.4.1",
