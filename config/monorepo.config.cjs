@@ -7,16 +7,11 @@ module.exports = {
   name: `bud.js`,
   organization: {
     favicon: `https://roots.io/favicon.ico`,
-    name: `Roots Software Foundation LLC`,
+    name: `Roots Software LLC`,
     site: `https://roots.io`,
     twitter: `https://twitter.com/rootswp`,
   },
   sponsors: [
-    {
-      image: `https://cdn.roots.io/app/uploads/km-digital.svg`,
-      title: `KM Digital`,
-      url: `https://k-m.com/`,
-    },
     {
       image: `https://cdn.roots.io/app/uploads/carrot.svg`,
       title: `Carrot`,
