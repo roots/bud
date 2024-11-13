@@ -39,7 +39,7 @@ export default async bud => {
 
 The entire [EntryObject API](https://webpack.js.org/concepts/entry-points/#object-syntax) is available to you.
 
-As an example, you might use [`publicPath`](https://webpack.js.org/configuration/output/#outputpublicpath) to specify a CDN for your a particular entry.
+As an example, you might use [`publicPath`](https://webpack.js.org/configuration/output/#outputpublicpath) to specify a CDN for a particular entry.
 
 ```ts title=bud.config.ts
 export default async bud => {
