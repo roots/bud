@@ -1,4 +1,4 @@
-// Copyright © Roots Software Foundation LLC
+// Copyright © Roots Software LLC
 // Licensed under the MIT license.
 
 import type {Compiler, Stats} from 'webpack'
