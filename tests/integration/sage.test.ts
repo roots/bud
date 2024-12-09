@@ -405,7 +405,7 @@ describe(`examples/sage`, () => {
             ],
           },
         },
-        "version": 2,
+        "version": 3,
       }
     `)
   })

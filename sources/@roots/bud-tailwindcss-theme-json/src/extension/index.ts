@@ -119,7 +119,7 @@ export class TailwindThemeJSON extends Extension {
           palette,
         },
       },
-      version: 2,
+      version: 3,
     }
   }
 
@@ -143,7 +143,7 @@ export class TailwindThemeJSON extends Extension {
           fontFamilies,
         },
       },
-      version: 2,
+      version: 3,
     }
   }
 
@@ -167,7 +167,7 @@ export class TailwindThemeJSON extends Extension {
           fontSizes,
         },
       },
-      version: 2,
+      version: 3,
     }
   }
 
@@ -191,7 +191,7 @@ export class TailwindThemeJSON extends Extension {
           spacingSizes,
         },
       },
-      version: 2,
+      version: 3,
     }
   }
 
