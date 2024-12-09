@@ -1176,9 +1176,9 @@ export interface RefComplete {
  */
 export interface StylesElementsPropertiesComplete {
   button?: {
-      [k: string]: unknown
-    } &
-    StylesElementsPseudoSelectorsProperties & StylesProperties
+    [k: string]: unknown
+  } & StylesElementsPseudoSelectorsProperties &
+    StylesProperties
   caption?: StylesPropertiesComplete
   cite?: StylesPropertiesComplete
   h1?: StylesPropertiesComplete
@@ -1189,9 +1189,9 @@ export interface StylesElementsPropertiesComplete {
   h6?: StylesPropertiesComplete
   heading?: StylesPropertiesComplete
   link?: {
-      [k: string]: unknown
-    } &
-    StylesElementsPseudoSelectorsProperties & StylesProperties
+    [k: string]: unknown
+  } & StylesElementsPseudoSelectorsProperties &
+    StylesProperties
 }
 export interface StylesElementsPseudoSelectorsProperties {
   ':active'?: StylesPropertiesComplete

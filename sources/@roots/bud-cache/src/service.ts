@@ -77,6 +77,7 @@ export default class Cache extends Service implements BudCache {
    */
   public get name(): string {
     const fallback = join(
+      this.app.label,
       this.app.mode,
       ...Object.values(this.app.context._ ?? {}),
     )
