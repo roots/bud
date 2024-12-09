@@ -67,10 +67,12 @@ class Sage extends Extension {
     bud
       .setPath({
         '@dist': `public`,
+        '@src': `resources`,
+      })
+      .setPath({
         '@fonts': `@src/fonts`,
         '@images': `@src/images`,
         '@scripts': `@src/scripts`,
-        '@src': `resources`,
         '@styles': `@src/styles`,
         '@views': `@src/views`,
       })
