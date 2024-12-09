@@ -60,9 +60,10 @@ describe(`@roots/sage`, async () => {
     await bud.extensions.add(`@roots/sage`)
 
     expect(bud.extensions.has(`@roots/sage/blade-loader`)).toBeTruthy()
-    expect(bud.extensions.get(`@roots/sage/blade-loader`).enabled).toBeTruthy()
+    expect(
+      bud.extensions.get(`@roots/sage/blade-loader`).enabled,
+    ).toBeTruthy()
   })
-
 
   it(`sage.blade.enable`, async () => {
     expect(bud.extensions.has(`@roots/sage/blade-loader`)).toBeFalsy()
@@ -71,7 +72,9 @@ describe(`@roots/sage`, async () => {
 
     bud.sage.blade.enable(false).done()
 
-    expect(bud.extensions.get(`@roots/sage/blade-loader`).enabled).toBeFalsy()
+    expect(
+      bud.extensions.get(`@roots/sage/blade-loader`).enabled,
+    ).toBeFalsy()
   })
 
   it(`should register errything`, async () => {
@@ -82,10 +85,12 @@ describe(`@roots/sage`, async () => {
 
     expect(setPathSpy).toHaveBeenCalledWith({
       '@dist': `public`,
+      '@src': `resources`,
+    })
+    expect(setPathSpy).toHaveBeenCalledWith({
       '@fonts': `@src/fonts`,
       '@images': `@src/images`,
       '@scripts': `@src/scripts`,
-      '@src': `resources`,
       '@styles': `@src/styles`,
       '@views': `@src/views`,
     })
@@ -98,7 +103,7 @@ describe(`@roots/sage`, async () => {
 
     expect(bud.hooks.filter(`build.output.uniqueName`)).toEqual(
       // @ts-ignore
-      bud.sage.getUniqueName()
+      bud.sage.getUniqueName(),
     )
   })
 
