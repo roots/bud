@@ -69,7 +69,7 @@ describe(`@roots/bud-cache`, () => {
       expect.arrayContaining([bud.path(`@modules`)]),
     )
     // @ts-ignore
-    expect(cache.configuration?.name).toEqual(`production`)
+    expect(cache.configuration?.name).toEqual(`@tests/project/production`)
     // @ts-ignore
     expect(cache.configuration?.profile).toEqual(false)
     // @ts-ignore
