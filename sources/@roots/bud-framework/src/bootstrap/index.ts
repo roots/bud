@@ -85,30 +85,30 @@ export const bootstrap = async (bud: Bud) => {
 
   bud.hooks
     .fromMap({
-      'location.@dist': bud.context.paths.output,
-      'location.@modules': bud.context.paths.modules,
-      'location.@src': bud.context.paths.input,
-      'location.@storage': bud.context.paths.storage,
-      'pattern.css': /^(?!.*\.module\.css$).*\.css$/,
-      'pattern.cssModule': /\.module\.css$/,
-      'pattern.csv': /\.(csv|tsv)$/,
-      'pattern.font': /\.(ttf|otf|eot|woff2?|ico)$/,
-      'pattern.html': /\.(html?)$/,
-      'pattern.image': /\.(png|jpe?g|gif|webp)$/,
-      'pattern.js': /\.(mjs|jsx?)$/,
-      'pattern.json': /\.json$/,
-      'pattern.json5': /\.json5$/,
-      'pattern.md': /\.md$/,
-      'pattern.modules': /(node_modules|bower_components|vendor)/,
-      'pattern.sass': /^(?!.*\.module\.s[ac]ss$).*\.s[ac]ss$/,
-      'pattern.sassModule': /\.module\.s[ac]ss$/,
-      'pattern.svg': /\.svg$/,
-      'pattern.toml': /\.toml$/,
-      'pattern.ts': /\.(m?tsx?)$/,
-      'pattern.vue': /\.vue$/,
-      'pattern.webp': /\.webp$/,
-      'pattern.xml': /\.xml$/,
-      'pattern.yml': /\.ya?ml$/,
+      [`location.@dist`]: bud.context.paths.output,
+      [`location.@modules`]: bud.context.paths.modules,
+      [`location.@src`]: bud.context.paths.input,
+      [`location.@storage`]: bud.context.paths.storage,
+      [`pattern.css`]: /^(?!.*\.module\.css$).*\.css$/,
+      [`pattern.cssModule`]: /\.module\.css$/,
+      [`pattern.csv`]: /\.(csv|tsv)$/,
+      [`pattern.font`]: /\.(ttf|otf|eot|woff2?|ico)$/,
+      [`pattern.html`]: /\.(html?)$/,
+      [`pattern.image`]: /\.(png|jpe?g|gif|webp)$/,
+      [`pattern.js`]: /\.(mjs|jsx?)$/,
+      [`pattern.json`]: /\.json$/,
+      [`pattern.json5`]: /\.json5$/,
+      [`pattern.md`]: /\.md$/,
+      [`pattern.modules`]: /(node_modules|bower_components|vendor)/,
+      [`pattern.sass`]: /^(?!.*\.module\.s[ac]ss$).*\.s[ac]ss$/,
+      [`pattern.sassModule`]: /\.module\.s[ac]ss$/,
+      [`pattern.svg`]: /\.svg$/,
+      [`pattern.toml`]: /\.toml$/,
+      [`pattern.ts`]: /\.(m?tsx?)$/,
+      [`pattern.vue`]: /\.vue$/,
+      [`pattern.webp`]: /\.webp$/,
+      [`pattern.xml`]: /\.xml$/,
+      [`pattern.yml`]: /\.ya?ml$/,
     })
     .when(bud.isDevelopment, ({hooks}) =>
       hooks.fromMap({
@@ -135,7 +135,21 @@ export const bootstrap = async (bud: Bud) => {
       }),
   )
 
-  bud.isRoot && bud.after(bud.module.after)
+  /**
+   * Certain services are only available via the root instance of {@link Bud}.
+   * Ensure that they always refer to the parent instance.
+   */
+  if (!bud.isRoot) {
+    bud.set(`compiler`, bud.root.compiler)
+    bud.set(`dashboard`, bud.root.dashboard)
+    if (bud.isDevelopment) {
+      bud.set(`server`, bud.root.server)
+    }
+  }
+
+  if (bud.isRoot) {
+    bud.after(bud.module.after)
+  }
 
   await bud.executeServiceCallbacks(`bootstrap`)
   await bud.executeServiceCallbacks(`register`)
