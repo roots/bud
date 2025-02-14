@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@octokit/core": "6.1.2",
-    "@octokit/plugin-paginate-rest": "11.3.5",
+    "@octokit/plugin-paginate-rest": "11.4.1",
     "@repo/constants": "workspace:*",
     "@roots/bud": "workspace:*",
     "@roots/bud-support": "workspace:*",
