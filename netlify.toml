@@ -3,17 +3,17 @@
   publish = "sources/@repo/docs/build/"
   command = "yarn @bud docs"
 
-# [[redirects]]
-#   from = "http://budjs.netlify.app/*"
-#   to = "https://bud.js.org/:splat"
-#   status = 301
-#   force = true
+[[redirects]]
+  from = "http://roots-bud.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true
 
-# [[redirects]]
-#   from = "https://budjs.netlify.app/*"
-#   to = "https://bud.js.org/:splat"
-#   status = 301
-#   force = true
+[[redirects]]
+  from = "https://roots-bud.netlify.app/*"
+  to = "https://bud.js.org/:splat"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/blog/tags/release"
