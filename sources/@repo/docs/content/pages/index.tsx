@@ -1,6 +1,5 @@
 import Link from '@docusaurus/Link'
 import styles from '@site/src/components/mast/index.module.css'
-import {Sponsors} from '@site/src/components/sponsors'
 import Layout from '@theme/Layout'
 import clsx from 'clsx'
 import React from 'react'
@@ -33,7 +32,6 @@ const Home = () => {
         </div>
       </header>
 
-      <Sponsors />
     </Layout>
   )
 }

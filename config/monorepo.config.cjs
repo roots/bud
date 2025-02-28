@@ -2,7 +2,7 @@
  * Monorepo configuration
  */
 module.exports = {
-  description: `Configurable, extensible build tools for modern single and multi-page web applications`,
+  description: `Build tool that wraps webpack complexity behind an elegant, minimal API`,
   logo: `https://cdn.roots.io/app/uploads/logo-bud.svg`,
   name: `bud.js`,
   organization: {
@@ -11,28 +11,6 @@ module.exports = {
     site: `https://roots.io`,
     twitter: `https://twitter.com/rootswp`,
   },
-  sponsors: [
-    {
-      image: `https://cdn.roots.io/app/uploads/carrot.svg`,
-      title: `Carrot`,
-      url: `https://carrot.com/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/wordpress.svg`,
-      title: `WordPress.com`,
-      url: `https://wordpress.com/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/worksite-safety.svg`,
-      title: `Worksite Safety`,
-      url: `https://worksitesafety.ca/careers/`,
-    },
-    {
-      image: `https://cdn.roots.io/app/uploads/itineris.svg`,
-      title: `Itineris`,
-      url: `https://www.itineris.co.uk/`,
-    },
-  ],
   url: {
     discourse: `https://discourse.roots.io/c/bud/24`,
     docs: `https://bud.js.org`,

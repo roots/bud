@@ -144,18 +144,6 @@ For more information on authoring your own extension [consult the documentation]
 | [**@roots/wordpress-theme-json-webpack-plugin**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin) | [📚 README]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-theme-json-webpack-plugin/README.md) | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin/latest.svg?color=%23525ddc&style=flat-square&logo=npm) | ![npm](https://img.shields.io/npm/v/@roots/wordpress-theme-json-webpack-plugin/nightly.svg?color=%23525ddc&style=flat-square&logo=npm) |
 | [**@roots/wordpress-transforms**]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-transforms) | [📚 README]({{projectConfig.url.web}}/tree/main/sources/@roots/wordpress-transforms/README.md) | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms/latest.svg?color=%23525ddc&style=flat-square&logo=npm) | ![npm](https://img.shields.io/npm/v/@roots/wordpress-transforms/nightly.svg?color=%23525ddc&style=flat-square&logo=npm) |
 
-## Contributing
-
-{{>contributing}}
-
 ## License
 
 {{>license}}
-
-## Community
-
-{{>community}}
-
-## Sponsors
-
-{{>sponsors}}

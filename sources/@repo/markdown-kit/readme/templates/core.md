@@ -20,18 +20,6 @@ npm install {{name}} --save-dev
 {{{this}}}
 {{/each}}
 
-## Contributing
-
-{{>contributing}}
-
 ## License
 
 {{>license}}
-
-## Community
-
-{{>community}}
-
-## Sponsors
-
-{{>sponsors}}
