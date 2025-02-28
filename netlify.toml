@@ -1,19 +1,19 @@
 [build]
   base = "./"
   publish = "sources/@repo/docs/build/"
-  command = "yarn docusaurus build"
+  command = "yarn @bud docs"
 
-[[redirects]]
-  from = "http://budjs.netlify.app/*"
-  to = "https://bud.js.org/:splat"
-  status = 301
-  force = true
+# [[redirects]]
+#   from = "http://budjs.netlify.app/*"
+#   to = "https://bud.js.org/:splat"
+#   status = 301
+#   force = true
 
-[[redirects]]
-  from = "https://budjs.netlify.app/*"
-  to = "https://bud.js.org/:splat"
-  status = 301
-  force = true
+# [[redirects]]
+#   from = "https://budjs.netlify.app/*"
+#   to = "https://bud.js.org/:splat"
+#   status = 301
+#   force = true
 
 [[redirects]]
   from = "/blog/tags/release"
