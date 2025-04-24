@@ -93,7 +93,7 @@ export class Server extends Service implements BudServer {
             this.logger
               .scope(this.app.label, `server`, `middleware`, key)
               .log(`disabled`, `bud.context.hot is false`)
-            return
+            return null;
           }
 
           /** import middleware */
@@ -110,7 +110,7 @@ export class Server extends Service implements BudServer {
             this.logger
               .scope(this.app.label, `server`, `middleware`, key)
               .log(`unused`)
-            return
+            return null;
           }
 
           this.logger
@@ -118,11 +118,17 @@ export class Server extends Service implements BudServer {
             .log(`applied`)
             .info(this.appliedMiddleware[key])
 
-          /** apply middleware */
-          this.application.use(this.appliedMiddleware[key])
+          return this.appliedMiddleware[key];
         },
       ),
-    ).catch(this.catch)
+    ).then((middleware) => {
+      middleware.forEach((m) => {
+        if (m) {
+          /** apply middleware */
+          this.application.use(m);
+        }
+      });
+    }).catch(this.catch);
   }
 
   /**
